@@ -18,16 +18,16 @@ class CarregarJogoService {
 		
 		String nomeJogoGit = "quiforca" //Passar por paramêtro
 		String nomeJogo = "QuiForca"	//Passar por paramêtro
-		
-		
-		String script = "/home/loa/Denis/ProjetoREMAR/scripts/ScriptCarregarJogo.sh"
+
+		String script = "scripts/ScriptCarregarJogo.sh"
 		String pathExternoJogo = "https://github.com/LOA-SEAD/" + nomeJogoGit + ".git"
-		String pathLocal = "/home/loa/Denis/ProjetosLOA/" + nomeJogo + "/"
-		
+		String pathLocal = nomeJogo + "/"
+
 		String comando = script + " " + pathExternoJogo + " " + pathLocal
-		
-    	def process =   comando.execute()
-		
+
+    	comando.execute()
+
+
 		println "Download do Jogo Efetuado com Sucesso"
     }
 }
