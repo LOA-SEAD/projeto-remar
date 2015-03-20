@@ -15,5 +15,7 @@ ProjetoREMAR/web-app/plugins
 ProjetoREMAR/web-app/WEB-INF/classes
 ProjetoREMAR/.link_to_grails_plugins/
 ProjetoREMAR/target-eclipse/
+ProjetoREMAR/*.iml
+ProjetoREMAR/.idea
 .DS_Store
 
