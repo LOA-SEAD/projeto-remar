@@ -19,6 +19,7 @@
         <g:javascript library="jquery-ui"/>
         <r:layoutResources />
 		<g:layoutHead/>
+
 	</head>
 	<body>
 		<div id="grailsLogo" role="banner"><a href="http://grails.org"><asset:image src="grails_logo.png" alt="Grails"/></a></div>

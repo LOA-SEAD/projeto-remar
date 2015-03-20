@@ -5,10 +5,10 @@ window.onload = function() {
     $('#table').editableTableWidget();
 
     $('table tr').on('change', function (evt, newValue) {
-        var url = '/msg/user/update/' + $(this).attr('id');
-        var data = { name: evt.currentTarget.cells[0].innerText,
-                     screenName:evt.currentTarget.cells[1].innerText,
-                     email:evt.currentTarget.cells[2].innerText,
+        var url = '/ProjetoREMAR/palavras/update/' + $(this).attr('id');
+        var data = { dica: evt.currentTarget.cells[0].innerText,
+                     resposta:evt.currentTarget.cells[1].innerText,
+                     contribuicao:evt.currentTarget.cells[2].innerText,
                      _method: 'PUT' };
 
         console.log(data);

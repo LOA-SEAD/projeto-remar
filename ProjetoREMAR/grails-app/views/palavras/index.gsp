@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
+        <g:javascript src="scriptTable.js"/>
+        <g:javascript src="editableTable.js"/>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'palavras.label', default: 'Palavras')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
@@ -20,7 +22,7 @@
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<table>
+			<table id="table">
 			<thead>
 					<tr>
 					
@@ -34,7 +36,7 @@
 				</thead>
 				<tbody>
 				<g:each in="${palavrasInstanceList}" status="i" var="palavrasInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+					<tr id="${fieldValue(bean: palavrasInstance, field: "id")}" data-version="${fieldValue(bean: palavrasInstance, field: "version")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
 						<td><g:link action="show" id="${palavrasInstance.id}">${fieldValue(bean: palavrasInstance, field: "resposta")}</g:link></td>
 					

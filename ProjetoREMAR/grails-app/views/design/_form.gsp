@@ -9,7 +9,7 @@
     <asset:stylesheet href="uploadr.manifest.css"/>
     <asset:stylesheet href="uploadr.demo.manifest.css"/>
     <g:javascript library='jquery' plugin="jquery" />
-    <script type="text/javascript" src="../../assets/javascripts/imagePreview.js"></script>
+    <g:javascript src="imagePreview.js"/>
 
 </head>
 

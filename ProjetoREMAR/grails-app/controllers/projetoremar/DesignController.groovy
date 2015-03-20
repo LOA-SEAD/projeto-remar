@@ -43,9 +43,9 @@ class DesignController {
         def openingUploaded = request.getFile('opening')
         def backgroundUploaded = request.getFile('background')
 
-        iconUploaded.transferTo(new File('/home/loa/Denis/ProjetoREMAR/grails-app/assets/images/icon.png'))
-        openingUploaded.transferTo(new File("/home/loa/Denis/ProjetoREMAR/grails-app/assets/images/open.png"))
-        backgroundUploaded.transferTo(new File("/home/loa/Denis/ProjetoREMAR/grails-app/assets/images/background.png"))
+        iconUploaded.transferTo(new File('/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/icon.png'))
+        openingUploaded.transferTo(new File("/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/open.png"))
+        backgroundUploaded.transferTo(new File("//home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/background.png"))
 
         println "IMAGES MANAGER"
 
