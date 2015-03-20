@@ -19,7 +19,7 @@ class PalavrasController {
 
     def show(Palavras palavrasInstance) {
         respond palavrasInstance
-        // teste
+        // teste do Denis
     }
 
 
