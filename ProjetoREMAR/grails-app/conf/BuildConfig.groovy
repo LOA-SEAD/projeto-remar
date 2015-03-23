@@ -53,7 +53,11 @@ grails.project.dependency.resolution = {
         // runtime 'org.postgresql:postgresql:9.3-1101-jdbc41'
         test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
 
+        // TODO: remove unnecessary HttpClient dependencies
         build 'org.apache.httpcomponents:httpclient:4.4'
+        runtime 'org.apache.httpcomponents:httpclient:4.4'
+        compile 'org.apache.httpcomponents:httpclient:4.4'
+
     }
 
     plugins {
