@@ -273,14 +273,14 @@ input[type=checkbox], input[type=radio] {
 	padding: 0;
 }
 
-input:focus, select:focus, textarea:focus {
-	background-color: #ffffff;
-	border: 1px solid #eeeeee;
-	outline: 0;
-	   -moz-box-shadow: 0 0 0.5em #ffffff;
-	-webkit-box-shadow: 0 0 0.5em #ffffff;
-	        box-shadow: 0 0 0.5em #ffffff;
-}
+/*input:focus, select:focus, textarea:focus {*/
+	/*background-color: #ffffff;*/
+	/*border: 1px solid #eeeeee;*/
+	/*outline: 0;*/
+	   /*-moz-box-shadow: 0 0 0.5em #ffffff;*/
+	/*-webkit-box-shadow: 0 0 0.5em #ffffff;*/
+	        /*box-shadow: 0 0 0.5em #ffffff;*/
+/*}*/
 
 .required-indicator {
 	color: #48802C;
@@ -475,9 +475,9 @@ th.desc a {
 	background: #ffffff;
 }
 
-th:hover, tr:hover {
-	background: #E1F2B6;
-}
+/*th:hover, tr:hover {*/
+	/*background: #E1F2B6;*/
+/*}*/
 
 /* PAGINATION */
 
