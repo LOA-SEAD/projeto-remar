@@ -1,14 +1,14 @@
 package projetoremar
 
 import grails.transaction.Transactional
-import org.apache.http.HttpHeaders
-import org.apache.http.HttpResponse
-import org.apache.http.client.HttpClient
-import org.apache.http.client.methods.HttpGet
-import org.apache.http.client.methods.HttpUriRequest
-import org.apache.http.client.methods.RequestBuilder
-import org.apache.http.impl.client.DefaultHttpClient
-import org.apache.http.impl.client.HttpClients
+//import org.apache.http.HttpHeaders
+//import org.apache.http.HttpResponse
+//import org.apache.http.client.HttpClient
+//import org.apache.http.client.methods.HttpGet
+//import org.apache.http.client.methods.HttpUriRequest
+//import org.apache.http.client.methods.RequestBuilder
+//import org.apache.http.impl.client.DefaultHttpClient
+//import org.apache.http.impl.client.HttpClients
 
 import java.util.logging.Logger
 
@@ -24,14 +24,14 @@ class CarregarJogoService {
 
     def serviceMethod(Execution execution) {
 
-        HttpClient client = HttpClients.custom().build();
-        HttpUriRequest request = RequestBuilder.get().setUri("https://api.parse.com/1/classes/Games")
-                .setHeader("X-Parse-Application-Id", "BLZ9HshacKh7i50AEhUl7ONucq9nlZxstCtTPtd1")
-                .setHeader("X-Parse-REST-API-Key", "ZPESbYPx0q0SY8FOEVnkfZZeDLkiorgHfXz9Bfx6").build();
-        println request.getAllHeaders().toString()
-        HttpResponse response = client.execute(request);
-
-        println new Scanner(response.getEntity().getContent(), "UTF-8").useDelimiter("\\A").next()
+//        HttpClient client = HttpClients.custom().build();
+//        HttpUriRequest request = RequestBuilder.get().setUri("https://api.parse.com/1/classes/Games")
+//                .setHeader("X-Parse-Application-Id", "BLZ9HshacKh7i50AEhUl7ONucq9nlZxstCtTPtd1")
+//                .setHeader("X-Parse-REST-API-Key", "ZPESbYPx0q0SY8FOEVnkfZZeDLkiorgHfXz9Bfx6").build();
+//        println request.getAllHeaders().toString()
+//        HttpResponse response = client.execute(request);
+//
+//        println new Scanner(response.getEntity().getContent(), "UTF-8").useDelimiter("\\A").next()
 
 
 //		String nomeJogoGit = "quiforca" //Passar por paramêtro
