@@ -1,30 +1,28 @@
-/**
- * Created by matheus on 3/18/15.
- */
-window.onload = function() {
-    $('#table').editableTableWidget();
+var tr = document.createElement('tr');
+tr.setAttribute('id', '2');
+tr.setAttribute('data-version', '0');
+tr.setAttribute('class', 'odd');
 
-    $('table tr').on('change', function (evt, newValue) {
-        var url = '/msg/user/update/' + $(this).attr('id');
-        var data = { name: evt.currentTarget.cells[0].innerText,
-                     screenName:evt.currentTarget.cells[1].innerText,
-                     email:evt.currentTarget.cells[2].innerText,
-                     _method: 'PUT' };
+var td1 = document.createElement('td');
+td1.setAttribute('tabindex', '1');
+td1.innerText = 'teste';
 
-        console.log(data);
-        console.log(url);
+var td2 = document.createElement('td');
+td2.setAttribute('tabindex', '1');
+td2.innerText = 'teste';
 
-        $.ajax({
-            type:'POST',
-            data: data,
-            url: url,
-            success:function(data,textStatus){console.log("ok put")},
-            error:function(XMLHttpRequest,textStatus,errorThrown){}});
-    });
+var td3 = document.createElement('td');
+td3.setAttribute('tabindex', '1');
+td3.innerText = 'teste';
 
-    $('table td ').on('validate', function (evt, newValue) {
-        var pattern = /[a-zA-Z0-9_]\w/;
-        console.log(newValue);
-        console.log(pattern.test(newValue));
-    });
-};
+tr.appendChild(td1);
+tr.appendChild(td2);
+tr.appendChild(td3);
+
+var table = document.getElementById('table');
+
+var tbody = table.getElementsByTagName('tbody')[0];
+
+tbody.appendChild(tr);
+
+$('#table').editableTableWidget();
