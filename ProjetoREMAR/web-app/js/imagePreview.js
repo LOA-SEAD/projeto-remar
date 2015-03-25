@@ -6,6 +6,18 @@ window.onload = function() {
 
     document.getElementById("icone").onchange = function() {
         Preview(this, document.getElementById("iconePreview"));
+        var file;
+
+        if ((file = this.files[0])) {
+            var image  = new Image();
+            image.src = window.URL.createObjectURL(file);
+            image.onload = function () {
+
+                console.log("The image width is " + image.width + " and image height is " + image.height);
+
+            };
+
+        }
     }
 
     document.getElementById("opening").onchange = function() {
@@ -24,6 +36,7 @@ window.onload = function() {
         oFReader.onload = function (oFREvent) {
             preview.src = oFREvent.target.result;
         }; }
+
 
 }
 

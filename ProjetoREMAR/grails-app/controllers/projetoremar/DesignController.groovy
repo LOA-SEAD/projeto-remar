@@ -1,7 +1,11 @@
 package projetoremar
 
 import org.h2.engine.User
+import org.imgscalr.Scalr
 import org.springframework.security.access.annotation.Secured
+
+import javax.imageio.ImageIO
+import java.awt.image.BufferedImage
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -43,9 +47,43 @@ class DesignController {
         def openingUploaded = request.getFile('opening')
         def backgroundUploaded = request.getFile('background')
 
-        iconUploaded.transferTo(new File('/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/icon.png'))
+       //iconUploaded.transferTo(new File('/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/icon.png'))
         openingUploaded.transferTo(new File("/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/open.png"))
         backgroundUploaded.transferTo(new File("//home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/background.png"))
+
+        def originalIconUploaded = new File('/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/icon.png')
+
+
+        iconUploaded.transferTo(originalIconUploaded)
+
+        def imageIn = ImageIO.read(originalIconUploaded)
+
+        def height = imageIn.getHeight()
+        def width = imageIn.getWidth()
+
+        if((height > 600)||(width > 800)){
+            println "Imagem muito grande, será redimensionada"
+            BufferedImage largeImg = Scalr.resize(imageIn,Scalr.Method.ULTRA_QUALITY,600, 800,Scalr.OP_ANTIALIAS)
+            def largImgUploaded = new File('/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/iconResized.png')
+            ImageIO.write(largeImg,'png',largImgUploaded)
+
+        }
+        else if ((height < 600)||(width < 800)){
+                println "nao sei oq fazer aqui :("          //TODO
+        }
+            else{
+            println "Imagem nos conformes"
+            iconUploaded.transferTo(new File('/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/icon.png'))
+            openingUploaded.transferTo(new File("/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/open.png"))
+            backgroundUploaded.transferTo(new File("//home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/background.png"))
+
+            }
+
+
+
+
+
+
 
         println "IMAGES MANAGER"
 

@@ -44,8 +44,10 @@
 
         </div>
 
+        <div>
         <img id="backgroundPreview" style="width: 100px; height: 100px;" />
-        <input type="file" name="background" id="background"/>
+        </div>
+        <input  type="file" name="background" id="background"/>
         <div style="font-size:0.8em; margin: 1.0em;">
            <p> Escolha uma imagem de fundo.
            </p>

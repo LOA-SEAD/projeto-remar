@@ -27,6 +27,7 @@
 			<table id="table">
 			<thead>
 					<tr>
+
 					
 						<g:sortableColumn property="resposta" title="${message(code: 'palavras.resposta.label', default: 'Resposta')}" />
 					
@@ -39,7 +40,8 @@
 				<tbody>
 				<g:each in="${palavrasInstanceList}" status="i" var="palavrasInstance">
 					<tr id="${fieldValue(bean: palavrasInstance, field: "id")}" data-version="${fieldValue(bean: palavrasInstance, field: "version")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
+					  <!--  <td> <input  type="checkbox"   />  </td> --!>
+
 						<td>${fieldValue(bean: palavrasInstance, field: "resposta")} </td>
 					
 						<td>${fieldValue(bean: palavrasInstance, field: "dica")}</td>
