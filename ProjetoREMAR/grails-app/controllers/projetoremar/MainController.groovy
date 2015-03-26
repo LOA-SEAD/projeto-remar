@@ -13,7 +13,7 @@ class MainController {
     def index() { }
 
     def servico1(){
-    	
+
 		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("PersonalizarJogoProcess")
 		
 		session.ProcessId = processInstance.getId()

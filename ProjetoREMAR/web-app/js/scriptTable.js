@@ -4,7 +4,6 @@
 
 window.onload = function(){
     $('#table').editableTableWidget();
-    console.log("aha");
 /*
     $('table tr').on('change', function (evt, newValue) {
         var url = '/ProjetoREMAR/palavras/update/' + $(this).attr('id');
