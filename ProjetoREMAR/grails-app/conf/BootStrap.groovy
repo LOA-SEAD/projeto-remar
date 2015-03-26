@@ -7,57 +7,51 @@ class BootStrap {
 
     def init = { servletContext ->
 
-	def adminPapel = Papel.findByAuthority("ROLE_ADMIN") ?: new Papel(authority: "ROLE_ADMIN").save()
+	def adminPapel = new Papel(authority: "ROLE_ADMIN").save flush: true
 
 	def admin = new Usuario(
 		username: "admin",
 		password: "admin",
-		nome: "Administrador",
-		enabled: true)
-
-	admin.save()
+		name: "Administrador",
+		enabled: true).save flush: true
 
 	if(admin.hasErrors()){
 		println admin.errors
 	}
 
-	UsuarioPapel.create(admin, adminPapel)
+	UsuarioPapel.create(admin, adminPapel, true)
 
 	print 'populando usuário admin - ok'
 
-	def profPapel = Papel.findByAuthority("ROLE_PROF") ?: new Papel(authority: "ROLE_PROF").save()
+	def profPapel = new Papel(authority: "ROLE_PROF").save flush: true
 
 	def professor = new Professor(
-		nome: "delano",
+		name: "Cleyton",
 		username: "prof",
 		password: "prof",
-		enabled: true)
-
-	professor.save()
+		enabled: true).save flush: true
 
 	if(professor.hasErrors()){
 		println professor.errors
 	}
 
-	UsuarioPapel.create(professor, profPapel)
+	UsuarioPapel.create(professor, profPapel, true)
 
 	print 'populando professor - ok'
 
-	def alunoPapel = Papel.findByAuthority("ROLE_ALUNO") ?: new Papel(authority: "ROLE_ALUNO").save()
+	def alunoPapel = new Papel(authority: "ROLE_ALUNO").save flush: true
 
 	def aluno = new Usuario(
 		username: "aluno",
 		password: "aluno",
-		nome: "Aluno",
-		enabled: true)
-
-	aluno.save()
+		name: "Aluno",
+		enabled: true).save flush: true
 
 	if(aluno.hasErrors()){
 		println aluno.errors
 	}
 
-	UsuarioPapel.create(aluno, alunoPapel)
+	UsuarioPapel.create(aluno, alunoPapel, true)
 
 	print 'populando aluno - ok'
 
