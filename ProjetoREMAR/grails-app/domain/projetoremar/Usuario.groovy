@@ -1,11 +1,12 @@
 package projetoremar
 
-class Usuario {
+class Usuario{
 
 	transient springSecurityService
 
 	String username
 	String password
+    String name
 	boolean enabled = true
 	boolean accountExpired
 	boolean accountLocked
@@ -16,6 +17,7 @@ class Usuario {
 	static constraints = {
 		username blank: false, unique: true
 		password blank: false
+        name blank: false
 	}
 
 	static mapping = {
@@ -24,11 +26,11 @@ class Usuario {
 		tablePerHierarchy false
 	}
 
-	Set<Papel> getAuthorities() {
+    Set<Papel> getAuthorities() {
 		UsuarioPapel.findAllByUsuario(this).collect { it.papel }
 	}
 
-	def beforeInsert() {
+    def beforeInsert() {
 		encodePassword()
 	}
 
@@ -43,6 +45,7 @@ class Usuario {
 	}
 
 	String toString() {
-		return username + " - " + password
+		return username + "uehauea"
 	}
+
 }
