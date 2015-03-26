@@ -14,108 +14,66 @@ class PublicarJogoAlteradoService {
 	def tela_inicial
 	def tela_jogo
 	def icone	
+	def manifest
 	
-	def pathRootIn = "/home/loa/Denis/ProjetosLOA/"
-	def pathRootOut = "/home/loa/Denis/ProjetosLOA/Publish"
+	def pathRootIn = ""
+	def pathRootOut = ""
 	
 	RuntimeService runtimeService
 
     def serviceMethod(Execution execution) {
 		
-		getVariables(execution)
+		setVariables(execution)
 		
-		createDirectories()
+		copyFiles()
 		
-		moveFiles()
-		
-	//	publishApk()
+		publishApk()
     }
 	
-	def getVariables(Execution execution){
+	def setVariables(Execution execution){
 		nome = execution.getVariable("nome")
 		categoria = execution.getVariable("categoria")
 		palavra = execution.getVariable("palavra")
 		tela_inicial = execution.getVariable("tela_inicial")
 		tela_jogo = execution.getVariable("tela_jogo")
 		icone = execution.getVariable("icone")
+		manifest = execution.getVariable("manifest")
+		
+		HashMap<String, Object> pathServer = (HashMap) runtimeService.getVariablesLocal(execution.getProcessInstanceId())
+		pathRootIn = pathServer.get("PathServer")+ "ProjetosGitLoa/"
+		pathRootOut = pathServer.get("PathServer")+ "Publish/"
 	}
 	
-	def createDirectories(){
-		
-		def dirRootOut = new File(pathRootOut)
-		
-		if(!dirRootOut.exists()){
-			println "CREATING DIRECTORY ROOT ${dirRootOut}"
-			if(dirRootOut.mkdirs()){
-				println "SUCESS"
-			} 
-			else{
-				println "FAILED"
-			}
-		}
-	}
-	
-	def moveFiles(){
+	def copyFiles(){
 		
 		println "COPYING FILES"
 		
-		println "COPYING DIRECTORY"
-		def command = "cp -r ${pathRootIn}${categoria} ${pathRootOut}${nome}"
+		commandCopyFiles(pathRootIn, categoria, pathRootOut, nome)
+		
+		commandCopyFiles(palavra, "", pathRootOut, nome + "/json/palavras.json")
+		
+		commandCopyFiles(manifest, "", pathRootOut, nome)
+		
+		commandCopyFiles(icone, "", pathRootOut, nome + "/icon.png")
+		
+		commandCopyFiles(tela_inicial, "", pathRootOut, nome + "/imgs/inicio.png")
+		
+		commandCopyFiles(tela_jogo, "", pathRootOut, nome + "/imgs/papel.png")			
+				
+	}
+	
+	def commandCopyFiles(String param1, String param2, String param3, String param4){
+	
+		def command = "cp -r ${param1}${param2} ${param3}${param4}"
+		
 		println "Copy base files: ${command}"
 		def proc = command.execute()
 		proc.waitFor()
 		println "return code: ${proc.exitValue()}"
 		println "stderr: ${proc.err.text}"
 		println "stdout: ${proc.in.text}"
-		
-		println "COPYING WORDS"
-		command = "cp ${palavra} ${pathRootOut}${nome}/json/palavras.json"
-		println "Copy palavras: ${command}"
-		proc = command.execute()
-		proc.waitFor()
-		println "return code: ${proc.exitValue()}"
-		println "stderr: ${proc.err.text}"
-		println "stdout: ${proc.in.text}"
-		
-		println "COPYING MANIFEST"
-		command = "cp /home/loa/testeguido/manifest.json ${pathRootOut}${nome}"
-		println "Copy manifest: ${command}"
-		proc = command.execute()
-		proc.waitFor()
-		println "return code: ${proc.exitValue()}"
-		println "stderr: ${proc.err.text}"
-		println "stdout: ${proc.in.text}"
-		
-		println "COPYING ICON"
-		command = "cp ${icone} ${pathRootOut}${nome}/icon.png"
-		println "Copy icone: ${command}"
-		proc = command.execute()
-		proc.waitFor()
-		println "return code: ${proc.exitValue()}"
-		println "stderr: ${proc.err.text}"
-		println "stdout: ${proc.in.text}"
-		
-		println "COPYING HOME SCREEN"
-		command = "cp ${tela_inicial} ${pathRootOut}${nome}/imgs/inicio.png"
-		println "Copy home_screen: ${command}"
-		proc = command.execute()
-		proc.waitFor()
-		println "return code: ${proc.exitValue()}"
-		println "stderr: ${proc.err.text}"
-		println "stdout: ${proc.in.text}"
-		
-		println "COPYING GAME SCREEN"
-		command = "cp ${tela_jogo} ${pathRootOut}${nome}/imgs/papel.png"
-		println "Copy game_screen: ${command}"
-		proc = command.execute()
-		proc.waitFor()
-		println "return code: ${proc.exitValue()}"
-		println "stderr: ${proc.err.text}"
-		println "stdout: ${proc.in.text}"
-			
-				
 	}
-	/*
+	
 	def publishApk(){
 		
 		println "PUBLISHING APK"
@@ -130,5 +88,4 @@ class PublicarJogoAlteradoService {
 		println "stderr: ${proc.err.text}"
 		println "stdout: ${proc.in.text}"
 	}
-	*/
 }
