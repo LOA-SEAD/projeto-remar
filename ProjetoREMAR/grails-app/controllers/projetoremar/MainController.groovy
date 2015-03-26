@@ -1,6 +1,7 @@
 package projetoremar
 
 import org.camunda.bpm.engine.*
+import org.camunda.bpm.engine.runtime.Execution
 import org.camunda.bpm.engine.runtime.ProcessInstance
 import org.springframework.security.access.annotation.Secured
 
@@ -10,14 +11,18 @@ class MainController {
 
 	RuntimeService runtimeService
     
-    def index() { }
+    def index() {
+	}
 
     def servico1(){
-
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("PersonalizarJogoProcess")
 		
-		session.ProcessId = processInstance.getId()
+		Map<String, Object> pathServer = new HashMap<String, Object>()
+		pathServer.put("PathServer", servletContext.getRealPath("/"))
 		
-		//redirect(controller: "Jogo", action: "index")
+		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("PersonalizarJogoProcess", pathServer)
+		
+		session.ProcessId = processInstance.getId()	
+		
+		redirect(controller: "Palavras", action: "index")
     }
 }
