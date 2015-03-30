@@ -13,3 +13,7 @@ td._error, input._error {
     /*outline-offset: 0px;*/
     /*border: none;*/
 /*}*/
+
+._checkbox {
+    cursor: default;
+}
