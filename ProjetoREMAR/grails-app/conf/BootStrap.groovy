@@ -3,57 +3,63 @@ import projetoremar.Papel
 import projetoremar.UsuarioPapel
 import projetoremar.Professor
 
+import javax.servlet.http.HttpServletRequest
+
 class BootStrap {
 
     def init = { servletContext ->
 
-	def adminPapel = new Papel(authority: "ROLE_ADMIN").save flush: true
+        HttpServletRequest.metaClass.isXhr = {->
+            'XMLHttpRequest' == delegate.getHeader('X-Requested-With')
+        }
 
-	def admin = new Usuario(
-		username: "admin",
-		password: "admin",
-		name: "Administrador",
-		enabled: true).save flush: true
+        def adminPapel = new Papel(authority: "ROLE_ADMIN").save flush: true
 
-	if(admin.hasErrors()){
-		println admin.errors
-	}
+        def admin = new Usuario(
+            username: "admin",
+            password: "admin",
+            name: "Administrador",
+            enabled: true).save flush: true
 
-	UsuarioPapel.create(admin, adminPapel, true)
+        if(admin.hasErrors()){
+            println admin.errors
+        }
 
-	print 'populando usuário admin - ok'
+        UsuarioPapel.create(admin, adminPapel, true)
 
-	def profPapel = new Papel(authority: "ROLE_PROF").save flush: true
+        print 'populando usuário admin - ok'
 
-	def professor = new Professor(
-		name: "Cleyton",
-		username: "prof",
-		password: "prof",
-		enabled: true).save flush: true
+        def profPapel = new Papel(authority: "ROLE_PROF").save flush: true
 
-	if(professor.hasErrors()){
-		println professor.errors
-	}
+        def professor = new Professor(
+            name: "Cleyton",
+            username: "prof",
+            password: "prof",
+            enabled: true).save flush: true
 
-	UsuarioPapel.create(professor, profPapel, true)
+        if(professor.hasErrors()){
+            println professor.errors
+        }
 
-	print 'populando professor - ok'
+        UsuarioPapel.create(professor, profPapel, true)
 
-	def alunoPapel = new Papel(authority: "ROLE_ALUNO").save flush: true
+        print 'populando professor - ok'
 
-	def aluno = new Usuario(
-		username: "aluno",
-		password: "aluno",
-		name: "Aluno",
-		enabled: true).save flush: true
+        def alunoPapel = new Papel(authority: "ROLE_ALUNO").save flush: true
 
-	if(aluno.hasErrors()){
-		println aluno.errors
-	}
+        def aluno = new Usuario(
+            username: "aluno",
+            password: "aluno",
+            name: "Aluno",
+            enabled: true).save flush: true
 
-	UsuarioPapel.create(aluno, alunoPapel, true)
+        if(aluno.hasErrors()){
+            println aluno.errors
+        }
 
-	print 'populando aluno - ok'
+        UsuarioPapel.create(aluno, alunoPapel, true)
+
+        print 'populando aluno - ok'
 
     }
     def destroy = {
