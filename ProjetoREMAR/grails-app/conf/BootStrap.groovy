@@ -1,3 +1,4 @@
+import projetoremar.Palavras
 import projetoremar.Usuario
 import projetoremar.Papel
 import projetoremar.UsuarioPapel
@@ -60,6 +61,10 @@ class BootStrap {
         UsuarioPapel.create(aluno, alunoPapel, true)
 
         print 'populando aluno - ok'
+
+        new Palavras(dica: "dica1", resposta: "resposta1", contribuicao: "Cleyton").save flush: true
+        new Palavras(dica: "dica2", resposta: "resposta2", contribuicao: "Cleyton").save flush: true
+        new Palavras(dica: "dica3", resposta: "resposta3", contribuicao: "Cleyton").save flush: true
 
     }
     def destroy = {
