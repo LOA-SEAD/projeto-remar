@@ -22,7 +22,6 @@ class MainController {
 		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("PersonalizarJogoProcess", pathServer)
 		
 		session.ProcessId = processInstance.getId()	
-		
-		redirect(controller: "Palavras", action: "index")
+
     }
 }
