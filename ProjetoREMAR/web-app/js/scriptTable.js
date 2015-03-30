@@ -4,58 +4,40 @@
 
 window.onload = function(){
     $('#table').editableTableWidget();
-/*
-    $('table tr').on('change', function (evt, newValue) {
-        var url = '/ProjetoREMAR/palavras/update/' + $(this).attr('id');
-        var data = { dica: evt.currentTarget.cells[0].innerText,
-            resposta: evt.currentTarget.cells[1].innerText,
-            contribuicao: evt.currentTarget.cells[2].innerText,
-            _method: 'PUT' };
-
-        console.log(evt.currentTarget.cells[1].innerText);
-
-        console.log(data);
-        console.log(url);
-
-        $.ajax({
-            type:'POST',
-            data: data,
-            url: url,
-            success:function(data,textStatus){console.log("ok put")},
-            error:function(XMLHttpRequest,textStatus,errorThrown){}});
-
-    });
-*/
 
     addListeners();
 
 
 
     $('.save').click(function(){
-       console.log("no click");
-
         var tr = document.createElement('tr');
-        tr.setAttribute('data-version', '0');
-        //tr.setAttribute('class', 'odd');
+        tr.setAttribute('data-new', '1');
+        //tr.setAttribute('class', 'odd'); TODO
 
         var td1 = document.createElement('td');
-        td1.setAttribute('tabindex', '1');
-        td1.setAttribute('class', '_error');
-        td1.innerHTML = "&nbsp;";
+        td1.setAttribute('class', '_checkbox');
+        var cb = document.createElement('input');
+        cb.setAttribute("type", "checkbox");
+        td1.appendChild(cb);
+
 
         var td2 = document.createElement('td');
         td2.setAttribute('tabindex', '1');
         td2.setAttribute('class', '_error');
-        td2.innerHTML = "&nbsp;";
 
         var td3 = document.createElement('td');
         td3.setAttribute('tabindex', '1');
         td3.setAttribute('class', '_error');
-        td3.innerHTML = "&nbsp;";
+        td3.setAttribute('data-save', '1');
+
+        var td4 = document.createElement('td');
+        td4.setAttribute('tabindex', '1');
+        td4.textContent = getUserName();
 
         tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(td3);
+        tr.appendChild(td4);
 
         var table = document.getElementById('table');
 
@@ -75,6 +57,10 @@ function addListeners() {
     var input = $('input');
 
     $(tds).on('click', function(e) {
+        if($(this).hasClass('_checkbox')) {
+            $(this).find('input').prop('checked', !$(this).find('input').prop('checked'));
+            return;
+        }
         $(this).addClass('_selected');
         if($(this).hasClass('_error')) { // cell is empty
             $(this).removeClass('_error').addClass('_had-error'); // remove error class to prevent shadow overlap
@@ -90,7 +76,9 @@ function addListeners() {
     });
 
     $(input).on('focusout', function(e) {
-
+        if($(this).hasClass('_checkbox')) {
+            return;
+        }
         var el = document.getElementsByClassName('_selected')[0];
         $(el).removeClass('_selected');
         $(el).removeClass('_had-error');
@@ -98,8 +86,65 @@ function addListeners() {
 
         if($(this)[0].value == "") {
             $(el).addClass('_error');
+        } else {
+            if($(el).parent().attr('data-new')) {
+                if($(el).attr('data-save')) {
+                    $(el).parent().removeAttr('data-new');
+                    $(el).removeAttr('data-save');
+                    $(el).textContent = 'test';
+                    setTimeout(function() {
+                        save($(el).parent());
+                    }, 500);
+                }
+            } else {
+                setTimeout(function() {
+                    update($(el).parent());
+                }, 500);
+            }
         }
     });
+}
 
+function getUserName() {
+    return $("meta[property='user_name']").attr('content');
+}
 
+function save(tr) {
+    var tds = $(tr).find("td");
+
+    var url = '/ProjetoREMAR/palavras/save/';
+    var data = { dica: $(tds)[1].textContent,
+                 resposta: $(tds)[2].textContent,
+                 contribuicao: $(tds)[3].textContent};
+
+    $.ajax({
+        type:'POST',
+        data: data,
+        url: url,
+        success:function(data,textStatus){
+            $(tr).attr('data-id', data.id);
+            console.log(data);
+        },
+        error:function(XMLHttpRequest,textStatus,errorThrown){}});
+}
+
+function update(tr) {
+    var tds = $(tr).find("td");
+
+    var url = '/ProjetoREMAR/palavras/update/' + $(tr).attr('data-id');
+    var data = { dica: $(tds)[1].textContent,
+                 resposta: $(tds)[2].textContent,
+                 contribuicao: $(tds)[3].textContent,
+                 _method: 'PUT' };
+
+    $.ajax({
+        type:'POST',
+        data: data,
+        url: url,
+        success:function(data,textStatus){
+            $(tr).attr('')
+            console.log(data);
+
+        },
+        error:function(XMLHttpRequest,textStatus,errorThrown){}});
 }
