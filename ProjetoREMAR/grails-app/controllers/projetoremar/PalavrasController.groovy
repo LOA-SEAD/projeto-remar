@@ -1,7 +1,6 @@
 package projetoremar
 
 import org.springframework.security.access.annotation.Secured
-
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 @Secured(['ROLE_PROF'])
@@ -10,19 +9,19 @@ class PalavrasController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond Palavras.list(params), model:[palavrasInstanceCount: Palavras.count()]
+    def springSecurityService
 
+    def index(Integer max) {
+
+        def user = springSecurityService.getCurrentUser()
+        params.max = Math.min(max ?: 10, 100)
+        respond Palavras.list(params), model:[palavrasInstanceCount: Palavras.count(), user_name: user.getName()]
 
     }
 
     def show(Palavras palavrasInstance) {
         respond palavrasInstance
-        // teste do Denis
     }
-
-
 
     def create() {
         respond new Palavras(params)
@@ -42,13 +41,18 @@ class PalavrasController {
 
         palavrasInstance.save flush:true
 
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'palavras.label', default: 'Palavras'), palavrasInstance.id])
-                redirect palavrasInstance
+        if (request.isXhr()) {
+            render(contentType: "application/json") {
+                palavrasInstance
             }
-            '*' { respond palavrasInstance, [status: CREATED] }
+        } else {
+            request.withFormat {
+                form multipartForm {
+                    flash.message = message(code: 'default.created.message', args: [message(code: 'palavras.label', default: 'Palavras'), palavrasInstance.id])
+                    redirect palavrasInstance
+                }
+                '*' { respond palavrasInstance, [status: CREATED] }
+            }
         }
     }
 
@@ -58,7 +62,6 @@ class PalavrasController {
 
     @Transactional
     def update(Palavras palavrasInstance) {
-        println "UPDATE"
         if (palavrasInstance == null) {
             notFound()
             return
@@ -71,12 +74,20 @@ class PalavrasController {
 
         palavrasInstance.save flush:true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'Palavras.label', default: 'Palavras'), palavrasInstance.id])
-                redirect palavrasInstance
+
+        if (request.isXhr()) {
+            render(contentType: "application/json") {
+                palavrasInstance
             }
-            '*'{ respond palavrasInstance, [status: OK] }
+        } else {
+
+            request.withFormat {
+                form multipartForm {
+                    flash.message = message(code: 'default.updated.message', args: [message(code: 'Palavras.label', default: 'Palavras'), palavrasInstance.id])
+                    redirect palavrasInstance
+                }
+                '*' { respond palavrasInstance, [status: OK] }
+            }
         }
     }
 
