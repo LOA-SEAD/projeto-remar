@@ -5,6 +5,7 @@
 	<head>
         <g:javascript src="editableTable.js"/>
         <g:javascript src="scriptTable.js"/>
+        <meta property="user_name" content="${user_name}"/>
 
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'palavras.label', default: 'Palavras')}" />
@@ -27,25 +28,24 @@
 			<table id="table">
 			<thead>
 					<tr>
-
-					
-						<g:sortableColumn property="resposta" title="${message(code: 'palavras.resposta.label', default: 'Resposta')}" />
-					
+                        <th>Selecionar</th>
 						<g:sortableColumn property="dica" title="${message(code: 'palavras.dica.label', default: 'Dica')}" />
-					
+
+						<g:sortableColumn property="resposta" title="${message(code: 'palavras.resposta.label', default: 'Resposta')}" />
+
 						<g:sortableColumn property="contribuicao" title="${message(code: 'palavras.contribuicao.label', default: 'Contribuicao')}" />
 					
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${palavrasInstanceList}" status="i" var="palavrasInstance">
-					<tr id="${fieldValue(bean: palavrasInstance, field: "id")}" data-version="${fieldValue(bean: palavrasInstance, field: "version")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					  <!--  <td> <input  type="checkbox"   />  </td> --!>
+					<tr data-id="${fieldValue(bean: palavrasInstance, field: "id")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
+					    <td class="_checkbox"> <input  type="checkbox"/>  </td>
+
+						<td>${fieldValue(bean: palavrasInstance, field: "dica")}</td>
 
 						<td>${fieldValue(bean: palavrasInstance, field: "resposta")} </td>
-					
-						<td>${fieldValue(bean: palavrasInstance, field: "dica")}</td>
-					
+
 						<td >${fieldValue(bean: palavrasInstance, field: "contribuicao")}</td>
 					
 					</tr>
