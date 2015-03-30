@@ -58,36 +58,39 @@ class DesignController {
 
         def imageIn = ImageIO.read(originalIconUploaded)
 
-        def height = imageIn.getHeight()
-        def width = imageIn.getWidth()
+        if(!(iconUploaded)||!(openingUploaded)||!(backgroundUploaded)) {
+            def height = imageIn.getHeight()
+            def width = imageIn.getWidth()
 
-        if((height > 600)||(width > 800)){
-            println "Imagem muito grande, será redimensionada"
-            BufferedImage largeImg = Scalr.resize(imageIn,Scalr.Method.ULTRA_QUALITY,600, 800,Scalr.OP_ANTIALIAS)
-            def largImgUploaded = new File('/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/iconResized.png')
-            ImageIO.write(largeImg,'png',largImgUploaded)
+            if ((height > 600) || (width > 800)) {
+                println "Imagem muito grande, será redimensionada"
+                BufferedImage largeImg = Scalr.resize(imageIn, Scalr.Method.ULTRA_QUALITY, 600, 800, Scalr.OP_ANTIALIAS)
+                def largImgUploaded = new File('/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/iconResized.png')
+                ImageIO.write(largeImg, 'png', largImgUploaded)
 
-        }
-        else if ((height < 600)||(width < 800)){
-                println "nao sei oq fazer aqui :("          //TODO
-        }
-            else{
-            println "Imagem nos conformes"
-            iconUploaded.transferTo(new File('/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/icon.png'))
-            openingUploaded.transferTo(new File("/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/open.png"))
-            backgroundUploaded.transferTo(new File("//home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/background.png"))
+            } else if ((height < 600) || (width < 800)) {
+                println "Imagem mt pequena ( oque fazer) ? :("          //TODO
+            } else {
+                println "Imagem nos conformes"
+                iconUploaded.transferTo(new File('/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/icon.png'))
+                openingUploaded.transferTo(new File("/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/open.png"))
+                backgroundUploaded.transferTo(new File("//home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/background.png"))
 
             }
+        }
+        else{
+            redirect(controller: "design", action:"index")
+        }
 
 
 
-
+        //redirect(controller: "design", action:"index")
 
 
 
         println "IMAGES MANAGER"
 
-        redirect(controller: "design", action:"index")
+
 
     }
 
