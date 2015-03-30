@@ -57,10 +57,6 @@ function addListeners() {
     var input = $('input');
 
     $(tds).on('click', function(e) {
-        if($(this).hasClass('_checkbox')) {
-            $(this).find('input').prop('checked', !$(this).find('input').prop('checked'));
-            return;
-        }
         $(this).addClass('_selected');
         if($(this).hasClass('_error')) { // cell is empty
             $(this).removeClass('_error').addClass('_had-error'); // remove error class to prevent shadow overlap
@@ -142,7 +138,6 @@ function update(tr) {
         data: data,
         url: url,
         success:function(data,textStatus){
-            $(tr).attr('')
             console.log(data);
 
         },
