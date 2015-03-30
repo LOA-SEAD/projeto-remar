@@ -27,8 +27,8 @@ class CarregarJogoService {
 		
 		String script = pathServer.get("PathServer") + "Scripts/ScriptCarregarJogo.sh"
 		String pathExternoJogo = "https://github.com/LOA-SEAD/" + nomeJogoGit + ".git"
-		pathLocal = pathServer.get("PathServer")+ "ProjetosGitLoa/" + nomeJogo + "/" 
-		
+		pathLocal = pathServer.get("PathServer")+ "ProjetosGitLoa/" + nomeJogo + "/"
+
 		String comando = script + " " + pathExternoJogo + " " + pathLocal
 		
     	def process =   comando.execute()
