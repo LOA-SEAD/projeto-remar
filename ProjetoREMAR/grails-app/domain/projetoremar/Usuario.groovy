@@ -48,4 +48,8 @@ class Usuario{
 		return username + "uehauea"
 	}
 
+    String getName() {
+        return name;
+    }
+
 }
