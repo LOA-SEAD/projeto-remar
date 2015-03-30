@@ -56,14 +56,14 @@ function addListeners() {
     var tds = $('td');
     var input = $('input');
 
-    $(tds).on('click', function(e) {
+    $(tds).on('click', function() {
         $(this).addClass('_selected');
         if($(this).hasClass('_error')) { // cell is empty
             $(this).removeClass('_error').addClass('_had-error'); // remove error class to prevent shadow overlap
         }
     });
 
-    $(input).on('input', function(e) {
+    $(input).on('input', function() {
         if($(this)[0].value == "") { // input is empty
             $(this).addClass('_error'); // red shadow
         } else {
@@ -71,7 +71,7 @@ function addListeners() {
         }
     });
 
-    $(input).on('focusout', function(e) {
+    $(input).on('focusout', function() {
         if($(this).hasClass('_checkbox')) {
             return;
         }
@@ -117,7 +117,7 @@ function save(tr) {
         type:'POST',
         data: data,
         url: url,
-        success:function(data,textStatus){
+        success:function(data){
             $(tr).attr('data-id', data.id);
             console.log(data);
         },
@@ -137,7 +137,7 @@ function update(tr) {
         type:'POST',
         data: data,
         url: url,
-        success:function(data,textStatus){
+        success:function(data){
             console.log(data);
 
         },
