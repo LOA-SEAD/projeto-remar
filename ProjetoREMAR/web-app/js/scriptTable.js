@@ -9,15 +9,17 @@ window.onload = function(){
 
 
 
-    $('.save').click(function(){
+    $('.create').click(function() {
         var tr = document.createElement('tr');
         tr.setAttribute('data-new', '1');
+        tr.setAttribute('data-checked', 'false');
         //tr.setAttribute('class', 'odd'); TODO
 
         var td1 = document.createElement('td');
-        td1.setAttribute('class', '_checkbox');
+        td1.setAttribute('class', '_not_editable');
         var cb = document.createElement('input');
         cb.setAttribute("type", "checkbox");
+        cb.setAttribute("class", "checkbox");
         td1.appendChild(cb);
 
 
@@ -50,6 +52,16 @@ window.onload = function(){
 
 
     });
+
+    $('.delete').click(function() {
+        var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
+        for(var i = 0; i < trs.length; i++) {
+            if($(trs[i]).attr('data-checked') == "true") {
+                $(trs[i]).addClass('disabled');
+                _delete(trs[i]);
+            }
+        }
+    });
 };
 
 function addListeners() {
@@ -57,6 +69,10 @@ function addListeners() {
     var input = $('input');
 
     $(tds).on('click', function() {
+        if ($(this).hasClass('_not_editable')) {
+            return;
+        }
+
         $(this).addClass('_selected');
         if($(this).hasClass('_error')) { // cell is empty
             $(this).removeClass('_error').addClass('_had-error'); // remove error class to prevent shadow overlap
@@ -72,7 +88,7 @@ function addListeners() {
     });
 
     $(input).on('focusout', function() {
-        if($(this).hasClass('_checkbox')) {
+        if($(this).hasClass('_not_editable')) {
             return;
         }
         var el = document.getElementsByClassName('_selected')[0];
@@ -98,6 +114,10 @@ function addListeners() {
                 }, 500);
             }
         }
+    });
+
+    $('.checkbox').on('change', function() {
+        $(this).parent().parent().attr('data-checked', $(this).prop('checked'));
     });
 }
 
@@ -140,6 +160,21 @@ function update(tr) {
         success:function(data){
             console.log(data);
 
+        },
+        error:function(XMLHttpRequest,textStatus,errorThrown){}});
+}
+
+function _delete(tr) {
+    var url = '/ProjetoREMAR/palavras/delete/' + $(tr).attr('data-id');
+    var data = { _method: 'DELETE' };
+
+    $.ajax({
+        type:'POST',
+        data: data,
+        url: url,
+        success:function(data){
+            console.log(data);
+            $(tr).remove();
         },
         error:function(XMLHttpRequest,textStatus,errorThrown){}});
 }

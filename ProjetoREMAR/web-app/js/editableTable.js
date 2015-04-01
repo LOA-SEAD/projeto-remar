@@ -17,7 +17,7 @@ $.fn.editableTableWidget = function (options) {
             active,
             showEditor = function (select) {
                 active = element.find('td:focus');
-                if(active.hasClass('_checkbox')) {
+                if(active.hasClass('_not_editable')) {
                     return;
                 }
                 if (active.length) {
