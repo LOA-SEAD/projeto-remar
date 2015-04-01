@@ -17,7 +17,6 @@
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
 		<div id="list-palavras" class="content scaffold-list" role="main">
@@ -39,8 +38,8 @@
 				</thead>
 				<tbody>
 				<g:each in="${palavrasInstanceList}" status="i" var="palavrasInstance">
-					<tr data-id="${fieldValue(bean: palavrasInstance, field: "id")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					    <td class="_checkbox"> <input  type="checkbox"/>  </td>
+					<tr data-id="${fieldValue(bean: palavrasInstance, field: "id")}" data-checked="false" class="${(i % 2) == 0 ? 'even' : 'odd'}">
+					    <td class="_not_editable"> <input class="checkbox" type="checkbox"/>  </td>
 
 						<td>${fieldValue(bean: palavrasInstance, field: "dica")}</td>
 
@@ -53,7 +52,9 @@
 				</tbody>
 			</table>
             <fieldset class="buttons">
-                <g:submitButton  name="create" class="save" id="new-question" value="Criar Nova Questão" />
+                <g:submitButton  name="create" class="create" value="Criar nova questão" />
+                <g:submitButton  name="delete" class="delete" value="Remover questões selecionadas"/>
+
             </fieldset>
 			<div class="pagination">
 				<g:paginate total="${palavrasInstanceCount ?: 0}" />
