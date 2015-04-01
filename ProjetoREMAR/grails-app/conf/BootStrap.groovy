@@ -1,3 +1,4 @@
+import org.springframework.web.context.support.WebApplicationContextUtils
 import projetoremar.Palavras
 import projetoremar.Usuario
 import projetoremar.Papel
@@ -65,6 +66,10 @@ class BootStrap {
         new Palavras(dica: "dica1", resposta: "resposta1", contribuicao: "Cleyton").save flush: true
         new Palavras(dica: "dica2", resposta: "resposta2", contribuicao: "Cleyton").save flush: true
         new Palavras(dica: "dica3", resposta: "resposta3", contribuicao: "Cleyton").save flush: true
+
+        def springContext = WebApplicationContextUtils.getWebApplicationContext(servletContext)
+        springContext.getBean('marshallers').register();
+
 
     }
     def destroy = {
