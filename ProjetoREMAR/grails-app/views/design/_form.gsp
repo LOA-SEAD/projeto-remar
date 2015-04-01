@@ -15,7 +15,7 @@
 
 
 
-<fieldset data-image="true" id="form">
+<fieldset id="form">
     <legend>Upload de Imagens</legend>
     <div>
     <g:uploadForm   controller="design" action="ImagesManager">
@@ -23,7 +23,7 @@
             <img id="iconePreview" style="width: 100px; height: 100px;" />
         </div>
 
-        <input  type="file" name="icone" id="icone" />
+        <input data-image="true"  type="file" name="icone" id="icone" />
 
         <div style="font-size:0.8em; margin: 1.0em;">
             <p>Escolha um icone para seu jogo.
@@ -37,7 +37,7 @@
         </div>
 
 
-        <input  type="file" name="opening" id="opening" />
+        <input data-image="true"  type="file" name="opening" id="opening" />
         <div style="font-size:0.8em; margin: 1.0em;">
             <p>Escolha uma imagem de abertura.
             </p>
@@ -47,7 +47,7 @@
         <div>
         <img  id="backgroundPreview" style="width: 100px; height: 100px;" />
         </div>
-        <input  type="file" name="background" id="background"/>
+        <input data-image="true" type="file" name="background" id="background"/>
         <div style="font-size:0.8em; margin: 1.0em;">
            <p> Escolha uma imagem de fundo.
            </p>

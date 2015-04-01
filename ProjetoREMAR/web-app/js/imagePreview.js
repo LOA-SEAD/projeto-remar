@@ -28,6 +28,7 @@ window.onload = function() {
 
     function verifyDimensions(input) {
         var file;
+        var inputs = document.getElementsByTagName('input');
         if ((file = input.files[0])) {
             console.log(input.files[0]);
             image = new Image();
@@ -36,35 +37,31 @@ window.onload = function() {
             image.onload = function () {
                 console.log("The image width is " + image.width + " and image height is " + image.height);
                 if ((image.width < 800) || (image.height < 600)) {
-
                         alert("Alguma das imagens contém tamanho invalido. Resolução mínima: 800x600");
-
-                        console.log("LOG INVALIDO - The image width is " + image.width + " and image height is " + image.height);
-                        //document.getElementById('form').setAttribute('data-image', 'false');
-                        $('#form').attr('data-image','false');
+                       input.setAttribute('data-image','false');
                         image.pop;
-                        // $('#upload').prop('disabled', true);
-
                 }
                 else{
-                    if(document.getElementById('form').getAttribute('data-image') == 'false'){
-                        console.log("data-image ja esta falso");
-                        document.getElementById('form').setAttribute('data-image', 'true');
+                    if(input.getAttribute('data-image') == 'false'){
+                        input.setAttribute('data-image','true');
                         image.pop;
                     }
                     else {
-                        console.log("else do TRUE");
-                        document.getElementById('form').setAttribute('data-image', 'true');
+                        input.setAttribute('data-image','true');
                         image.pop;
-                        // $('#upload').prop('disabled', false);
-
                     }
                 }
-                console.log("VALOR DA TAG DA IMAGE: " + document.getElementById('form').getAttribute('data-image'));
-                if(document.getElementById('form').getAttribute('data-image') == 'false')
-                    $('#upload').prop('disabled', true);
-                else if (document.getElementById('form').getAttribute('data-image') == 'true')
+
+                for(var i=0; i<inputs.length; i++) {
+                    var data = inputs[i].getAttribute('data-image');
+                    console.log("Data: "+data);
+                    if (data == 'false') {
+                        $('#upload').prop('disabled', true);
+                        break;
+                    }
+                    else
                         $('#upload').prop('disabled', false);
+                }
             }
 
         }

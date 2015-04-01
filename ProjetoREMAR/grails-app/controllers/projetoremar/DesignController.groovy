@@ -83,14 +83,7 @@ class DesignController {
         }
 
 
-
-
-
-
-
         println "IMAGES MANAGER"
-
-
 
     }
 
@@ -107,19 +100,6 @@ class DesignController {
             return
         }
 
-        /*
-        def imageUploaded = request.getFile('icone')
-
-        if (!imageUploaded.empty) {
-            println "Nome: ${imageUploaded.name}"
-            println "OriginalFileName: ${imageUploaded.originalFilename}"
-            println "Tamanho: ${imageUploaded.size}"
-            println "Tipo: ${imageUploaded.contentType}"
-            designInstance.icone = imageUploaded.originalFilename
-
-        }
-
-*/
 
         designInstance.save flush: true
 
