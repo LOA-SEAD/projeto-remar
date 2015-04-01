@@ -1,5 +1,6 @@
 package projetoremar
 
+import grails.converters.JSON
 import org.springframework.security.access.annotation.Secured
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -43,7 +44,7 @@ class PalavrasController {
 
         if (request.isXhr()) {
             render(contentType: "application/json") {
-                palavrasInstance
+                JSON.parse("{\"id\":" + palavrasInstance.id + "}")
             }
         } else {
             request.withFormat {
@@ -77,7 +78,7 @@ class PalavrasController {
 
         if (request.isXhr()) {
             render(contentType: "application/json") {
-                palavrasInstance
+                JSON.parse("{\"id\":" + palavrasInstance.id + "}")
             }
         } else {
 
@@ -91,36 +92,25 @@ class PalavrasController {
         }
     }
 
-    def newJson() {
+    def toJson() {
+        def converter = Palavras.list() as JSON;
 
-
+        def json = "{\"palavras\":" + converter.toString() + "}";
 
         def webRoot = servletContext.getRealPath("/")
         def directory = new File(webRoot, "/Questoes")
-        directory.mkdirs();
+        println directory
+        println directory.mkdirs();
 
-        def list = Palavras.list()
-        println list.getClass()
-        def fileName = 'palavras.json'
+        def fileName = "palavras.json"
 
-        //def jsonBuilder = new JsonBuilder()
-        //  jsonBuilder(palavras: Palavras)
-        // println (jsonBuilder.toPrettyString())
-        // jsonBuilder.writeTo("/home/loa/Denis/ProjetoREMAR/web-app/Questoes/palavras.json")
-        //def jsonFile = new File("/home/loa/Denis/ProjetoREMAR/web-app/Questoes/palavras.json")
-        // jsonFile.createNewFile()
+        File file = new File("$directory/$fileName");
+        PrintWriter pw = new PrintWriter(file);
+        pw.write(json);
+        pw.close();
 
 
-        FileUtils.writeToFile(directory, fileName, list)
 
-
-        response.contentType = "application/text"
-        response.setHeader("Content-Disposition", "attachment;filename=\"${fileName}\"")
-        response.setHeader("Content-Length", "${file.size()}")
-        response.setHeader("Cache-Control", "must-revalidate")
-        response.outputStream << file.newInputStream()
-
-        println "download metodo"
     }
 
     @Transactional
@@ -135,7 +125,7 @@ class PalavrasController {
 
         if (request.isXhr()) {
             render(contentType: "application/json") {
-                palavrasInstance
+                JSON.parse("{\"id\":" + palavrasInstance.id + "}")
             }
         } else {
 
