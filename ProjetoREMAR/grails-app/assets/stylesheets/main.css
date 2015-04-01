@@ -567,7 +567,7 @@ th.desc a {
 	text-decoration: underline;
 }
 
-.buttons .delete, .buttons .edit, .buttons .save {
+.buttons .delete, .buttons .edit, .buttons .save, .buttons .create {
 	background-position: 0.7em center;
 	background-repeat: no-repeat;
 	text-indent: 25px;
@@ -580,6 +580,7 @@ th.desc a {
 
 .buttons .delete {
 	background-image: url(../images/skin/database_delete.png);
+    float: right;
 }
 
 .buttons .edit {
@@ -590,7 +591,15 @@ th.desc a {
 	background-image: url(../images/skin/database_save.png);
 }
 
+.buttons .create {
+    background-image: url(../images/skin/database_add.png);
+}
+
 a.skip {
 	position: absolute;
 	left: -9999px;
+}
+
+tr.disabled {
+    background: #808080;
 }
