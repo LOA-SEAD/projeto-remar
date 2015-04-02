@@ -580,7 +580,6 @@ th.desc a {
 
 .buttons .delete {
 	background-image: url(../images/skin/database_delete.png);
-    float: right;
 }
 
 .buttons .edit {
