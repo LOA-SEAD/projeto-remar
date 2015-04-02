@@ -12,9 +12,7 @@
     <g:javascript src="imagePreview.js"/>
 
 </head>
-
-
-
+<body>
 <fieldset id="form">
     <legend>Upload de Imagens</legend>
     <div>
@@ -28,7 +26,6 @@
         <div style="font-size:0.8em; margin: 1.0em;">
             <p>Escolha um icone para seu jogo.
                 </p>
-
         </div>
 
         </div>
@@ -36,14 +33,11 @@
             <img id="openingPreview" style="width: 100px; height: 100px;" />
         </div>
 
-
         <input data-image="true"  type="file" name="opening" id="opening" />
         <div style="font-size:0.8em; margin: 1.0em;">
             <p>Escolha uma imagem de abertura.
             </p>
-
         </div>
-
         <div>
         <img  id="backgroundPreview" style="width: 100px; height: 100px;" />
         </div>
@@ -60,4 +54,5 @@
     <input id="upload" type="submit" name="upload" value="Upload!"/>
 
 </fieldset>
+</body>
 

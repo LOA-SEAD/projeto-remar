@@ -35,13 +35,13 @@
 				</thead>
 				<tbody>
 
-                        <td><asset:image  src="icon.png" width="100" height="100"/></td>
+                        <td><img src="/ProjetoREMAR/images/icon.png"  width="200" height="200"  /></td>
 
 
-                        <td><asset:image  src="open.png" width="100" height="100"/></td>
+                        <td><img src="/ProjetoREMAR/images/opening.png"  width="200" height="200"  /></td>
 
 
-                         <td><asset:image  src="background.png" width="100" height="100"/></td>
+                         <td><img src="/ProjetoREMAR/images/background.png"  width="200" height="200"  /></td>
 
 				</tbody>
 			</table>

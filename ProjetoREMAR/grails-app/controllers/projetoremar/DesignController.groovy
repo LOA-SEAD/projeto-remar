@@ -1,5 +1,6 @@
 package projetoremar
 
+import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.h2.engine.User
 import org.imgscalr.Scalr
 import org.springframework.security.access.annotation.Secured
@@ -39,48 +40,86 @@ class DesignController {
 
     }
 
+    def VerifyAndUpload(originalUpload,storagePath){
+
+        def imageIn = ImageIO.read(originalUpload)
+        def name = originalUpload.getName()
+        println "NAME: "+ name
+
+        if((imageIn.getWidth() > 800)||imageIn.getHeight() > 600){
+            println "Imagem muito grande, será redimensionada"
+            BufferedImage newImg = Scalr.resize(imageIn, Scalr.Method.ULTRA_QUALITY, 600, 800, Scalr.OP_ANTIALIAS)
+            def newImgUploaded = new File(storagePath+"/"+name)
+            println newImgUploaded
+            ImageIO.write(newImg, 'png', newImgUploaded)
+            return false
+        }
+        else{
+            println "Imagem nos conformes"
+            return true
+        }
+
+    }
+
+
+
     @Transactional
     def ImagesManager() {
      //   def designInstance = new Design(params)
+
+       // def webRoot = servletContext.getRealPath("/")
+       // println webRoot
+
+        def servletContext = ServletContextHolder.servletContext
+        def storagePath = servletContext.getRealPath("/")+"images"
+        println storagePath
+
 
         def iconUploaded = request.getFile('icone')
         def openingUploaded = request.getFile('opening')
         def backgroundUploaded = request.getFile('background')
 
-       //iconUploaded.transferTo(new File('/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/icon.png'))
-        openingUploaded.transferTo(new File("/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/open.png"))
-        backgroundUploaded.transferTo(new File("//home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/background.png"))
+        if((!iconUploaded.isEmpty())||(!openingUploaded.isEmpty())||(!backgroundUploaded.isEmpty())) {
 
-        def originalIconUploaded = new File('/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/icon.png')
+            def originalIconUploaded = new File(storagePath + '/icon.png')
+            def originalOpeningUploaded = new File(storagePath + '/opening.png')
+            def originalBackgroundUploaded = new File(storagePath + '/background.png')
+
+            iconUploaded.transferTo(originalIconUploaded)
+            openingUploaded.transferTo(originalOpeningUploaded)
+            backgroundUploaded.transferTo(originalBackgroundUploaded)
 
 
-        iconUploaded.transferTo(originalIconUploaded)
-
-        def imageIn = ImageIO.read(originalIconUploaded)
-
-        if(!(iconUploaded)||!(openingUploaded)||!(backgroundUploaded)) {
-            def height = imageIn.getHeight()
-            def width = imageIn.getWidth()
-
-            if ((height > 600) || (width > 800)) {
-                println "Imagem muito grande, será redimensionada"
-                BufferedImage largeImg = Scalr.resize(imageIn, Scalr.Method.ULTRA_QUALITY, 600, 800, Scalr.OP_ANTIALIAS)
-                def largImgUploaded = new File('/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/iconResized.png')
-                ImageIO.write(largeImg, 'png', largImgUploaded)
-
-            } else if ((height < 600) || (width < 800)) {
-                println "Imagem mt pequena ( oque fazer) ? :("          //TODO
-            } else {
+            if (VerifyAndUpload(originalIconUploaded,storagePath)) {
                 println "Imagem nos conformes"
-                iconUploaded.transferTo(new File('/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/icon.png'))
-                openingUploaded.transferTo(new File("/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/open.png"))
-                backgroundUploaded.transferTo(new File("//home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/background.png"))
-
+                //iconUploaded.transferTo(new File('/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/icon'))
+            } else {
+                println "Imagem redimensionada"
+               // def deletedImage = originalIconUploaded.delete()
+               // println deletedImage
             }
+
+            if (VerifyAndUpload(originalOpeningUploaded,storagePath)) {
+                println "Imagem nos conformes"
+                //iconUploaded.transferTo(new File('/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/opening'))
+            } else {
+                println "Imagem redimensionada"
+            }
+
+
+            if (VerifyAndUpload(originalBackgroundUploaded,storagePath)) {
+                println "Imagem nos conformes"
+               // iconUploaded.transferTo(new File('/home/loa/Denis/REMAR/ProjetoREMAR/grails-app/assets/images/background'))
+            } else {
+                println "Imagem redimensionada"
+            }
+
         }
-        else{
+
+
+
             redirect(controller: "design", action:"index")
-        }
+
 
 
         println "IMAGES MANAGER"
