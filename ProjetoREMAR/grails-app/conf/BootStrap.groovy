@@ -66,6 +66,12 @@ class BootStrap {
         new Palavras(dica: "dica1", resposta: "resposta1", contribuicao: "Cleyton").save flush: true
         new Palavras(dica: "dica2", resposta: "resposta2", contribuicao: "Cleyton").save flush: true
         new Palavras(dica: "dica3", resposta: "resposta3", contribuicao: "Cleyton").save flush: true
+        new Palavras(dica: "dica4", resposta: "resposta4", contribuicao: "Cleyton").save flush: true
+        new Palavras(dica: "dica5", resposta: "resposta5", contribuicao: "Cleyton").save flush: true
+        new Palavras(dica: "dica6", resposta: "resposta6", contribuicao: "Cleyton").save flush: true
+        new Palavras(dica: "dica7", resposta: "resposta7", contribuicao: "Cleyton").save flush: true
+        new Palavras(dica: "dica8", resposta: "resposta8", contribuicao: "Cleyton").save flush: true
+        new Palavras(dica: "dica9", resposta: "resposta9", contribuicao: "Cleyton").save flush: true
 
         def springContext = WebApplicationContextUtils.getWebApplicationContext(servletContext)
         springContext.getBean('marshallers').register();
