@@ -9,5 +9,6 @@ class UrlMappings {
 
         "/"(controller: "main")
         "500"(view:'/error')
+        "/mathjong"(controller: "Palavras", action: "test")
 	}
 }
