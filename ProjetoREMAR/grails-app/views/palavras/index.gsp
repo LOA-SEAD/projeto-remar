@@ -53,6 +53,7 @@
 			</table>
             <fieldset class="buttons">
                 <g:submitButton  name="create" class="create" value="Criar nova questão" />
+                <g:submitButton  name="save" class="save" value="Gerar JSON"/>
                 <g:submitButton  name="delete" class="delete" value="Remover questões selecionadas"/>
 
             </fieldset>

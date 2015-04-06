@@ -93,14 +93,14 @@ class PalavrasController {
     }
 
     def toJson() {
-        def converter = Palavras.list() as JSON;
+
+        def converter = Palavras.getAll(params.id? params.id.split(',').toList() : null) as JSON;
+
 
         def json = "{\"palavras\":" + converter.toString() + "}";
 
         def webRoot = servletContext.getRealPath("/")
         def directory = new File(webRoot, "/Questoes")
-        println directory
-        println directory.mkdirs();
 
         def fileName = "palavras.json"
 
@@ -109,9 +109,14 @@ class PalavrasController {
         pw.write(json);
         pw.close();
 
-
+        render json;
 
     }
+
+    def test() {
+
+    }
+
 
     @Transactional
     def delete(Palavras palavrasInstance) {

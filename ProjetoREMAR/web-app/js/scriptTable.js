@@ -9,7 +9,7 @@ window.onload = function(){
 
 
 
-    $('.create').click(function() {
+    $('#create').click(function() {
         var tr = document.createElement('tr');
         tr.setAttribute('data-new', '1');
         tr.setAttribute('data-checked', 'false');
@@ -53,7 +53,7 @@ window.onload = function(){
 
     });
 
-    $('.delete').click(function() {
+    $('#delete').click(function() {
         var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
         for(var i = 0; i < trs.length; i++) {
             if($(trs[i]).attr('data-checked') == "true") {
@@ -62,6 +62,21 @@ window.onload = function(){
             }
         }
     });
+
+    $('#save').click(function () {
+        var params = "";
+        var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
+        for (var i = 0; i < trs.length; i++) {
+            if ($(trs[i]).attr('data-checked') == "true") {
+                params += $(trs[i]).attr('data-id') + ',';
+            }
+        }
+        if(params.length) {
+            params = params.substr(0, params.length -1);
+            window.location.href = "toJson/" + params;
+        }
+    });
+
 };
 
 function addListeners() {
