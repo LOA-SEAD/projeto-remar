@@ -62,7 +62,6 @@ class DesignController {
     }
 
 
-
     @Transactional
     def ImagesManager() {
      //   def designInstance = new Design(params)

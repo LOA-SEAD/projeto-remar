@@ -52,7 +52,6 @@
     </g:uploadForm>
 
     <input id="upload" type="submit" name="upload" value="Upload!"/>
-
 </fieldset>
 </body>
 
