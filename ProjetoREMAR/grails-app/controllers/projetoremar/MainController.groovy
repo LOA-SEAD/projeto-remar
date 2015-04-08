@@ -24,4 +24,10 @@ class MainController {
 		session.ProcessId = processInstance.getId()	
 
     }
+
+    def EscolaMagica(){
+
+
+
+    }
 }
