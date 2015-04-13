@@ -37,7 +37,7 @@ class PerguntasController {
         def storagePath = servletContext.getRealPath("/")
 
 
-        def fw = new FileWriter("/home/loa/Denis/teste.xml")
+        def fw = new FileWriter(storagePath+"perguntas.xml")
         //def xml = new MarkupBuilder(xmlObj)
         def xml = new groovy.xml.MarkupBuilder(fw)
         xml.mkp.xmlDeclaration(version: "1.0",encoding: "utf-8")
