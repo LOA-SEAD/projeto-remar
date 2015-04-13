@@ -10,7 +10,7 @@
         </div>
         <div>
             <br>
-            <g:link controller="questoes" action="create">Escola Magica</g:link>
+            <g:link controller="perguntas" action="create">Escola Magica</g:link>
 
         </div>
     </body>

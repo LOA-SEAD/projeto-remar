@@ -12,6 +12,9 @@
 </head>
 
 <body>
+<g:link controller="questoes" action="create">Banco de Questoes</g:link>
+
+<g:link controller="questoes" action="create">Personagens</g:link>
 
 </body>
 </html>
