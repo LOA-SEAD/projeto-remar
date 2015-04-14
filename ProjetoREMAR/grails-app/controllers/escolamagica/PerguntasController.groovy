@@ -76,9 +76,9 @@ class PerguntasController {
         respond new Perguntas(params)
     }
 
-    def verifyCheckbox(perguntasInstance){
+    def verifyRadio(perguntasInstance){
         for(int i=0; i<4; i++) {
-            String alternativa = request.getParameter("alt"+i)
+            String alternativa = request.getParameter("respCorreta")
             if (alternativa.equals("on")) {
                 perguntasInstance.setRespCorreta(i)
             }
@@ -101,7 +101,7 @@ class PerguntasController {
             return
         }
 
-        verifyCheckbox(perguntasInstance)
+        verifyRadio(perguntasInstance)
 
         perguntasInstance.save flush:true
 

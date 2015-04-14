@@ -1,7 +1,7 @@
 <%@ page import="escolamagica.Perguntas" %>
 
 
-
+<fieldset id="alternativas">
 <div class="fieldcontain ${hasErrors(bean: perguntasInstance, field: 'titulo', 'error')} required">
     <label for="titulo">
         <g:message code="perguntas.titulo.label" default="Titulo" />
@@ -14,7 +14,7 @@
         <g:message code="perguntas.resp.label" default="Alternativa 1" />
         <span class="required-indicator">*</span>
     </label>
-    <g:textField name="resp[0]" required="" /> <g:checkBox name="alt0" value="${false}" />
+    <g:textField name="resp[0]" required="" /> <input type="radio" name="respCorreta" value="0" />
 
 </div>
 
@@ -23,7 +23,7 @@
         <g:message code="perguntas.resp.label" default="Alternativa 2" />
         <span class="required-indicator">*</span>
     </label>
-    <g:textField name="resp[1]" required="" /> <g:checkBox name="alt1" value="${false}" />
+    <g:textField name="resp[1]" required="" /> <input type="radio" name="respCorreta" value="1" />
 
 </div>
 
@@ -32,7 +32,7 @@
         <g:message code="perguntas.resp.label" default="Alternativa 3" />
         <span class="required-indicator">*</span>
     </label>
-    <g:textField name="resp[2]" required="" /> <g:checkBox name="alt2" value="${false}" />
+    <g:textField name="resp[2]" required="" /> <input type="radio" name="respCorreta" value="2"  />
 
 </div>
 
@@ -41,7 +41,7 @@
         <g:message code="perguntas.resp.label" default="Alternativa 4" />
         <span class="required-indicator">*</span>
     </label>
-    <g:textField name="resp[3]" required="" /> <g:checkBox name="alt3" value="${false}" />
+    <g:textField name="resp[3]" required="" /> <input type="radio" name="respCorreta" value="3" />
 
 </div>
 
@@ -56,4 +56,4 @@
 
 
 </div>
-
+</fieldset>
