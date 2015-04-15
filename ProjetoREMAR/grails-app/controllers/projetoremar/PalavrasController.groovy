@@ -114,11 +114,6 @@ class PalavrasController {
 
     }
 
-    def test() {
-
-    }
-
-
     @Transactional
     def delete(Palavras palavrasInstance) {
 
