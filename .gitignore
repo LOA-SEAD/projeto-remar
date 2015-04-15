@@ -19,3 +19,22 @@ ProjetoREMAR/*.iml
 ProjetoREMAR/.idea
 .DS_Store
 
+MathJong/*.iws
+MathJong/*Db.properties
+MathJong/*Db.script
+MathJong/.settings
+MathJong/stacktrace.log
+MathJong/*.zip
+MathJong/plugin.xml
+MathJong/*.log
+MathJong/*DB.*
+MathJong/cobertura.ser
+MathJong/.DS_Store
+MathJong/target/
+MathJong/out/
+MathJong/web-app/plugins
+MathJong/web-app/WEB-INF/classes
+MathJong/.link_to_grails_plugins/
+MathJong/target-eclipse/
+MathJong/*.iml
+MathJong/.idea
