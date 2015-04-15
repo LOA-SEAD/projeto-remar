@@ -101,6 +101,7 @@ class PalavrasController {
 
         def webRoot = servletContext.getRealPath("/")
         def directory = new File(webRoot, "/Questoes")
+        directory.mkdirs()
 
         def fileName = "palavras.json"
 
