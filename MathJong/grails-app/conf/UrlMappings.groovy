@@ -1,5 +1,3 @@
-import mathjong.TestController
-
 class UrlMappings {
 
 	static mappings = {
@@ -11,6 +9,6 @@ class UrlMappings {
 
         "/"(view:"/index")
         "500"(view:'/error')
-        "/test"(controller: "Test", action: "index")
+        "/test"(view:"/test")
 	}
 }

@@ -1,0 +1,35 @@
+#ac {
+    float: right;
+    font-size: 2em;
+    cursor: pointer;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+}
+
+.frame {
+    width: 100%;
+    text-align: center;
+}
+
+.center {
+    display: inline-block;
+    height: 100%;
+}
+
+#mq {
+    width: 50%;
+    height: 100%;
+}
+
+.mjax > span {
+    margin: 0.25em;
+    cursor: pointer;
+}
+
+.preview-frame {
+    display: inline-block;
+}
+
+#preview {
+    display: block;
+}
