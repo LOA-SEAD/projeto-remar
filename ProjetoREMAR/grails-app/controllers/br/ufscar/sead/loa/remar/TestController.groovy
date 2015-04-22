@@ -23,7 +23,7 @@ class TestController {
     }
 
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
-    def anon() {
-        render "Anonymous"
+    def anon() { // TODO: check if  logged in
+        render springSecurityService.getCurrentUser().toString().replace("\n", "<br>")
     }
 }
