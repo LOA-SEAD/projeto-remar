@@ -1,0 +1,11 @@
+package br.ufscar.sead.loa.remar
+
+class Administrator extends User {
+
+    static constraints = {
+    }
+
+    String toString() {
+        return super.toString()
+    }
+}
