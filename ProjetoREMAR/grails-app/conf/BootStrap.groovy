@@ -1,8 +1,6 @@
-import br.ufscar.sead.loa.remar.Administrator
-import br.ufscar.sead.loa.remar.Professor
 import br.ufscar.sead.loa.remar.Role
-import br.ufscar.sead.loa.remar.Student
 import br.ufscar.sead.loa.remar.UserRole
+import br.ufscar.sead.loa.remar.User
 
 import javax.servlet.http.HttpServletRequest
 
@@ -14,21 +12,21 @@ class BootStrap {
             'XMLHttpRequest' == delegate.getHeader('X-Requested-With')
         }
 
-        def admin = new Administrator(
+        def admin = new User(
                 username: "admin",
                 password: "admin",
                 firstName: "Cleyton",
                 lastName: "Junior",
                 enabled: true).save flush: true
 
-        def professor = new Professor(
+        def professor = new User(
                 firstName: "Cleyson",
                 lastName: "Silva",
                 username: "prof",
                 password: "prof",
                 enabled: true).save flush: true
 
-        def student = new Student(
+        def student = new User(
                 username: "stud",
                 password: "stud",
                 firstName: "Cleiton",
