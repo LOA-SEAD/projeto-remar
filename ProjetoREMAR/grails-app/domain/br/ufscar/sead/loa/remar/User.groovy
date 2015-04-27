@@ -11,22 +11,22 @@ class User {
 	boolean accountLocked
 	boolean passwordExpired
 
-    String firstName
-    String lastName
+	String firstName
+	String lastName
 
 	static transients = ['springSecurityService']
 
 	static constraints = {
 		username blank: false, unique: true
 		password blank: false
-        firstName blank: false
-        lastName blank: false
+		firstName blank: false
+		lastName blank: false
 	}
 
 	static mapping = {
 		password column: '`password`'
 
-        tablePerHierarchy false
+		tablePerHierarchy false
 	}
 
 	Set<Role> getAuthorities() {
@@ -47,18 +47,18 @@ class User {
 		password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
 	}
 
-    String getName() {
-        return firstName + " " + lastName
-    }
+	String getName() {
+		return firstName + " " + lastName
+	}
 
-    String toString() {
-        String s = "Name: " + getName() + "\n";
-        s += "Username: " + getUsername() + "\n"
-        s += "Roles: "
+	String toString() {
+		String s = "Name: " + getName() + "\n";
+		s += "Username: " + getUsername() + "\n"
+		/*s += "Roles: "
 
-        getAuthorities().each {
-           s += it.authority + " "
-        }
-        s += "\n"
-    }
+		getAuthorities().each {
+			s += it.authority + " "
+		}
+		s += "\n"*/
+	}
 }

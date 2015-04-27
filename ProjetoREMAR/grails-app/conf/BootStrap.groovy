@@ -12,7 +12,8 @@ class BootStrap {
             'XMLHttpRequest' == delegate.getHeader('X-Requested-With')
         }
 
-        def admin = new User(
+        /*def admin = new User(
+         
                 username: "admin",
                 password: "admin",
                 firstName: "Cleyton",
@@ -59,7 +60,7 @@ class BootStrap {
 //        springContext.getBean('marshallers').register();
 
         println "Bootstrap: done"
-
+*/
 
     }
     def destroy = {
