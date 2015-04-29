@@ -158,14 +158,14 @@ class QuestionController {
 
         def dataPath = servletContext.getRealPath("/data")
         def userPath = new File(dataPath, "/" + springSecurityService.getCurrentUser().getId())
+        userPath.mkdirs()
 
 
-//
-//        def fileName = "palavras.json"
-//
-//        File file = new File("$directory/$fileName");
-//        PrintWriter pw = new PrintWriter(file);
-//        pw.write(json);
-//        pw.close();
+        def fileName = "palavras.json"
+
+        File file = new File("$userPath/$fileName");
+        PrintWriter pw = new PrintWriter(file);
+        pw.write(builder.toString());
+        pw.close();
     }
 }
