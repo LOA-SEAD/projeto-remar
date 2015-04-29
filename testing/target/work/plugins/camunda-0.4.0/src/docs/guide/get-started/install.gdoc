@@ -1,0 +1,14 @@
+In your BuildConfig.groovy configure the following plugin dependency:
+
+{code:xml}
+plugins {
+    compile \":camunda:0.4.0"
+}
+{code}
+
+You may want to refresh your dependencies now in order to make sure that Grails properly
+installs the plugin. Type on your command line
+
+{code:bash}
+grails refresh-dependencies
+{code}
