@@ -1,5 +1,6 @@
 package br.ufscar.sead.loa.escolamagica.remar
 
+import org.camunda.bpm.engine.RuntimeService
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 
 import static org.springframework.http.HttpStatus.*
@@ -8,11 +9,19 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class QuestionController {
 
+    RuntimeService runtimeService
+
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Question.list(params), model:[questionInstanceCount: Question.count()]
+    }
+
+    def confirming(){
+        println params.id
+        redirect(controller: "process",action: "completeTask", id: "confirming")
+
     }
 
     def show(Question questionInstance) {
@@ -59,6 +68,9 @@ class QuestionController {
 
         }
 
+        redirect(controller: "process",action: "completeTask", id: "createQuestions")
+
+
     }
 
     @Transactional
@@ -75,13 +87,17 @@ class QuestionController {
 
         questionInstance.save flush:true
 
+
+
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'question.label', default: 'Question'), questionInstance.id])
-                redirect questionInstance
+                redirect(action: "index")
             }
             '*' { respond questionInstance, [status: CREATED] }
         }
+
     }
 
     def edit(Question questionInstance) {

@@ -23,6 +23,26 @@
         <naming-strategy-map />
       </configuration>
     </facet>
+    <facet type="web" name="Web">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/target/work/resources/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/target/work/resources" relative="/WEB-INF" />
+        </webroots>
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/src/java" />
+          <root url="file://$MODULE_DIR$/grails-app/utils" />
+          <root url="file://$MODULE_DIR$/src/groovy" />
+          <root url="file://$MODULE_DIR$/grails-app/i18n" />
+          <root url="file://$MODULE_DIR$/grails-app/controllers" />
+          <root url="file://$MODULE_DIR$/grails-app/domain" />
+          <root url="file://$MODULE_DIR$/grails-app/services" />
+          <root url="file://$MODULE_DIR$/grails-app/taglib" />
+        </sourceRoots>
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
@@ -43,6 +63,7 @@
       <excludeFolder url="file://$MODULE_DIR$/target/work/plugin-provided-classes" />
       <excludeFolder url="file://$MODULE_DIR$/target/work/resources" />
       <excludeFolder url="file://$MODULE_DIR$/target/work/scriptCache" />
+      <excludeFolder url="file://$MODULE_DIR$/target/work/tomcat" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -80,6 +101,18 @@
           <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-el/7.0.55/tomcat-embed-el-7.0.55.jar!/" />
           <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-jasper/7.0.55/tomcat-embed-jasper-7.0.55.jar!/" />
           <root url="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/tomcat-catalina-ant/7.0.55/tomcat-catalina-ant-7.0.55.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/joda-time/joda-time/2.1/joda-time-2.1.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/mybatis/mybatis/3.2.8/mybatis-3.2.8.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/javax/activation/activation/1.1/activation-1.1.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/javax/mail/mail/1.4.1/mail-1.4.1.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-email/1.2/commons-email-1.2.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/camunda/bpm/model/camunda-cmmn-model/7.2.0/camunda-cmmn-model-7.2.0.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/camunda/bpm/model/camunda-xml-model/7.2.0/camunda-xml-model-7.2.0.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/camunda/bpm/model/camunda-bpmn-model/7.2.0/camunda-bpmn-model-7.2.0.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/camunda/bpm/camunda-engine/7.2.0/camunda-engine-7.2.0.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/commons-pool/commons-pool/1.5.4/commons-pool-1.5.4.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/commons-dbcp/commons-dbcp/1.4/commons-dbcp-1.4.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/camunda/bpm/camunda-engine-spring/7.2.0/camunda-engine-spring-7.2.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -87,5 +120,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="EscolaMagica-grailsPlugins" />
+    <orderEntry type="library" name="grails-2.4.4" level="application" />
   </component>
 </module>

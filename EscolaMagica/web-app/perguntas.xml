@@ -1,11 +1,2 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Perguntas>
-  <Classe ClaAno='1'>
-    <Pergunta PergNum='0' respCorreta='0' titulo='50 + 50 = ?'>
-      <Resp num='0'>100</Resp>
-      <Resp num='1'>dwq</Resp>
-      <Resp num='2'>123</Resp>
-      <Resp num='3'>12</Resp>
-    </Pergunta>
-  </Classe>
-</Perguntas>
+<Perguntas />
