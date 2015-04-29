@@ -24,7 +24,7 @@ class UserController {
     }
 
     def create() {
-        respond new User(params), model:[allRoles: Role.findAll()]
+        respond new User(params), model:[admin: false, prof: false, stud: false, source: "create"]
     }
 
     @Transactional
@@ -71,7 +71,7 @@ class UserController {
     }
 
     def edit(User userInstance) {
-        respond userInstance
+        respond userInstance, model:[admin: userInstance.isAdmin(), prof: userInstance.isProf(), stud: userInstance.isStud(), source: "create"]
     }
 
     @Transactional
@@ -86,7 +86,35 @@ class UserController {
             return
         }
 
+        //Remove user from camunda to insert it again
+        identityService.deleteUser(userInstance.camunda_id)
+
+        //Remove user roles to insert it again
+        UserRole.removeAll(userInstance, true)
+
+        //reinsert the user in the camunda BD
+        org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
+        camundaUser.setEmail(userInstance.email)
+        camundaUser.setFirstName(userInstance.name)
+        camundaUser.setPassword(userInstance.password)
+        identityService.saveUser(camundaUser)
+
+        userInstance.camunda_id = camundaUser.getId()
+
         userInstance.save flush:true
+
+        //Reinsert all the user roles
+        if(params.ROLE_ADMIN) {
+            UserRole.create(userInstance, Role.findByAuthority("ROLE_ADMIN"), true)
+        }
+
+        if(params.ROLE_PROF) {
+            UserRole.create(userInstance, Role.findByAuthority("ROLE_PROF"), true)
+        }
+
+        if(params.ROLE_STUD) {
+            UserRole.create(userInstance, Role.findByAuthority("ROLE_STUD"), true)
+        }
 
         request.withFormat {
             form multipartForm {
@@ -104,6 +132,8 @@ class UserController {
             notFound()
             return
         }
+
+        UserRole.removeAll(userInstance, true)
 
         identityService.deleteUser(userInstance.camunda_id)
 

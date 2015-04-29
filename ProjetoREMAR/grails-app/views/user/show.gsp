@@ -86,6 +86,10 @@
 				</li>
 				</g:if>
 			
+				<li class="fieldcontain">
+					<span id="roles-label" class="property-label">Roles</span>
+						<span class="property-value" aria-labelledby="roles-label">${userInstance.getRoles()}</span>
+				</li>
 			</ol>
 			<g:form url="[resource:userInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">

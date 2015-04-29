@@ -65,4 +65,34 @@ class User {
 
 		s
 	}
+
+	boolean isAdmin() {
+		def found = false
+		getAuthorities().each {
+			if (it.authority == "ROLE_ADMIN") {
+				found = true;
+			}
+		}
+		found
+	}
+
+	boolean isProf() {
+		def found = false
+		getAuthorities().each {
+			if (it.authority == "ROLE_PROF") {
+				found = true
+			}
+		}
+		found
+	}
+
+	boolean isStud() {
+		def found = false
+		getAuthorities().each {
+			if (it.authority == "ROLE_STUD") {
+				found = true
+			}
+		}
+		found
+	}
 }

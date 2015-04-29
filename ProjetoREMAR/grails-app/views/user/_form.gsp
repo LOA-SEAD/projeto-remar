@@ -7,8 +7,12 @@
 		<g:message code="user.username.label" default="Username" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="username" required="" value="${userInstance?.username}"/>
-
+	<g:if test="${source == 'create'}">
+		<g:textField name="username" required="" value="${userInstance?.username}" />
+	</g:if>
+	<g:if test="${source == 'update'}">
+		<span name="username">${userInstance?.username}</span>
+	</g:if>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required">
@@ -16,7 +20,7 @@
 		<g:message code="user.password.label" default="Password" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:passwordField name="password" required="" value="${userInstance?.password}"/>
+	<g:passwordField name="password" required=""/>
 
 </div>
 
@@ -41,10 +45,15 @@
 <div class="fieldcontain">
 	<fieldset class="fielset_border">
 		<legend>Role</legend>
-		<g:each in="${allRoles}" status="i" var="role">
-			<label class="fieldset_label" for="${role.authority}">${role.toString()}</label>
-			<g:checkBox name="${role.authority}" />
-		</g:each>
+		
+		<label class="fieldset_label" for="ROLE_ADMIN">Admin</label>
+		<g:checkBox name="ROLE_ADMIN" value="${admin}" />
+
+		<label class="fieldset_label" for="ROLE_PROF">Professor</label>
+		<g:checkBox name="ROLE_PROF" value="${prof}" />
+
+		<label class="fieldset_label" for="ROLE_STUD">Student</label>
+		<g:checkBox name="ROLE_STUD" value="${stud}" />
 	</fieldset>
 </div>
 
