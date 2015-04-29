@@ -32,9 +32,7 @@
 
 						<g:sortableColumn property="camunda_id" title="${message(code: 'user.camunda_id.label', default: 'Camunda Id')}" />
 					
-						<g:sortableColumn property="accountExpired" title="${message(code: 'user.accountExpired.label', default: 'Account Expired')}" />
-					
-						<g:sortableColumn property="accountLocked" title="${message(code: 'user.accountLocked.label', default: 'Account Locked')}" />
+						<th>Roles</th>
 					
 					</tr>
 				</thead>
@@ -50,9 +48,9 @@
 
 						<td>${fieldValue(bean: userInstance, field: "camunda_id")}</td>
 					
-						<td><g:formatBoolean boolean="${userInstance.accountExpired}" /></td>
+						<td>${userInstance.getRoles()}</td>
 					
-						<td><g:formatBoolean boolean="${userInstance.accountLocked}" /></td>
+						<!--<td><g:formatBoolean boolean="${userInstance.accountLocked}" /></td>-->
 					
 					</tr>
 				</g:each>

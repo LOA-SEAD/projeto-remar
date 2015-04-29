@@ -52,14 +52,17 @@ class User {
 		return name
 	}
 
-	String toString() {
-		String s = "Name: " + getName() + "\n"
-		s += "Username: " + getUsername() + "\n"
-		/*s += "Roles: "
-
+	String getRoles() {
+		String s = "-"
 		getAuthorities().each {
-			s += it.authority + " "
+			if (s == "-") {
+				s = it.toString()
+			}
+			else {
+				s += ", " + it.toString()
+			}
 		}
-		s += "\n"*/
+
+		s
 	}
 }
