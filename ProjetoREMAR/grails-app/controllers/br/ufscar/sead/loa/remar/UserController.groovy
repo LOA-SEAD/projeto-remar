@@ -1,7 +1,6 @@
 package br.ufscar.sead.loa.remar
 
-
-
+import org.camunda.bpm.engine.IdentityService
 import static org.springframework.http.HttpStatus.*
 import grails.plugin.springsecurity.annotation.Secured;
 import grails.transaction.Transactional
@@ -10,6 +9,7 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class UserController {
 
+    IdentityService identityService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
@@ -38,6 +38,14 @@ class UserController {
         }
 
         userInstance.save flush:true
+
+        org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
+        camundaUser.setEmail(userInstance.email)
+        camundaUser.setFirstName(userInstance.name)
+        camundaUser.setPassword(userInstance.password)
+        identityService.saveUser(camundaUser)
+
+        userInstance.camunda_id = camundaUser.getId()
 
         request.withFormat {
             form multipartForm {

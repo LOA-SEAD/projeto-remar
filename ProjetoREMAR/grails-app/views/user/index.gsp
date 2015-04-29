@@ -26,9 +26,11 @@
 					
 						<g:sortableColumn property="username" title="${message(code: 'user.username.label', default: 'Username')}" />
 					
-						<g:sortableColumn property="firstName" title="${message(code: 'user.firstName.label', default: 'First Name')}" />
+						<g:sortableColumn property="name" title="${message(code: 'user.name.label', default: 'Name')}" />
 					
-						<g:sortableColumn property="lastName" title="${message(code: 'user.lastName.label', default: 'Last Name')}" />
+						<g:sortableColumn property="email" title="${message(code: 'user.email.label', default: 'Email')}" />
+
+						<g:sortableColumn property="camunda_id" title="${message(code: 'user.camunda_id.label', default: 'Camunda Id')}" />
 					
 						<g:sortableColumn property="accountExpired" title="${message(code: 'user.accountExpired.label', default: 'Account Expired')}" />
 					
@@ -42,9 +44,11 @@
 					
 						<td><g:link action="show" id="${userInstance.id}">${fieldValue(bean: userInstance, field: "username")}</g:link></td>
 					
-						<td>${fieldValue(bean: userInstance, field: "firstName")}</td>
+						<td>${fieldValue(bean: userInstance, field: "name")}</td>
 					
-						<td>${fieldValue(bean: userInstance, field: "lastName")}</td>
+						<td>${fieldValue(bean: userInstance, field: "email")}</td>
+
+						<td>${fieldValue(bean: userInstance, field: "camunda_id")}</td>
 					
 						<td><g:formatBoolean boolean="${userInstance.accountExpired}" /></td>
 					

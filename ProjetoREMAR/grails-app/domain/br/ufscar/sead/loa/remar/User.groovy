@@ -10,17 +10,18 @@ class User {
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
-
-	String firstName
-	String lastName
+	String email
+	String camunda_id
+	String name
 
 	static transients = ['springSecurityService']
 
 	static constraints = {
 		username blank: false, unique: true
 		password blank: false
-		firstName blank: false
-		lastName blank: false
+		name blank: false
+		email blank: false, email: true
+		camunda_id nullable: true
 	}
 
 	static mapping = {
@@ -48,11 +49,11 @@ class User {
 	}
 
 	String getName() {
-		return firstName + " " + lastName
+		return name
 	}
 
 	String toString() {
-		String s = "Name: " + getName() + "\n";
+		String s = "Name: " + getName() + "\n"
 		s += "Username: " + getUsername() + "\n"
 		/*s += "Roles: "
 
