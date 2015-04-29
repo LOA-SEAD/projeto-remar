@@ -12,6 +12,25 @@ class BootStrap {
             'XMLHttpRequest' == delegate.getHeader('X-Requested-With')
         }
 
+        def allRoles = Role.findAll()
+        def found = allRoles.findAll {it.authority == "ROLE_ADMIN"}
+        if (found == []) {
+            def adminRole = new Role(authority: "ROLE_ADMIN").save flush: true
+            println "ROLE_ADMIN inserted"
+        }
+
+        found = allRoles.findAll {it.authority == "ROLE_PROF"}
+        if (found == []) {
+            def profRole = new Role(authority: "ROLE_PROF").save flush: true
+            println "ROLE_PROF inserted"
+        }
+
+        found = allRoles.findAll {it.authority == "ROLE_STUD"}
+        if (found == []) {
+            def studentRole = new Role(authority: "ROLE_STUD").save flush: true
+            println "ROLE_STUD inserted"
+        }
+
         /*def admin = new User(
          
                 username: "admin",
