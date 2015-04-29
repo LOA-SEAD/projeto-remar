@@ -38,6 +38,16 @@
 
 </div>
 
+<div class="fieldcontain">
+	<fieldset class="fielset_border">
+		<legend>Role</legend>
+		<g:each in="${allRoles}" status="i" var="role">
+			<label class="fieldset_label" for="${role.authority}">${role.toString()}</label>
+			<g:checkBox name="${role.authority}" />
+		</g:each>
+	</fieldset>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'accountExpired', 'error')} ">
 	<label for="accountExpired">
 		<g:message code="user.accountExpired.label" default="Account Expired" />
@@ -73,4 +83,3 @@
 	<g:checkBox name="passwordExpired" value="${userInstance?.passwordExpired}" />
 
 </div>
-

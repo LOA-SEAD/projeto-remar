@@ -14,15 +14,17 @@ class UserController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
+
         respond User.list(params), model:[userInstanceCount: User.count()]
     }
 
     def show(User userInstance) {
-        respond userInstance
+        //respond userInstance
+        respond userInstance, model:[roles: UserRole.findAllByUser(userInstance).collect {it.role}]
     }
 
     def create() {
-        respond new User(params)
+        respond new User(params), model:[allRoles: Role.findAll()]
     }
 
     @Transactional
@@ -37,8 +39,6 @@ class UserController {
             return
         }
 
-        userInstance.save flush:true
-
         org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
         camundaUser.setEmail(userInstance.email)
         camundaUser.setFirstName(userInstance.name)
@@ -46,6 +46,20 @@ class UserController {
         identityService.saveUser(camundaUser)
 
         userInstance.camunda_id = camundaUser.getId()
+
+        userInstance.save flush:true
+
+        if(params.ROLE_ADMIN) {
+            UserRole.create(userInstance, Role.findByAuthority("ROLE_ADMIN"), true)
+        }
+
+        if(params.ROLE_PROF) {
+            UserRole.create(userInstance, Role.findByAuthority("ROLE_PROF"), true)
+        }
+
+        if(params.ROLE_STUD) {
+            UserRole.create(userInstance, Role.findByAuthority("ROLE_STUD"), true)
+        }
 
         request.withFormat {
             form multipartForm {
@@ -90,6 +104,8 @@ class UserController {
             notFound()
             return
         }
+
+        identityService.deleteUser(userInstance.camunda_id)
 
         userInstance.delete flush:true
 
