@@ -147,7 +147,7 @@ class QuestionController {
         def builder = new JsonBuilder()
 
         def json = builder {
-            name: "Forca"
+            nome "Forca"
             palavras list.collect {p ->
                 ["palavra": p.getAnswer(),
                  "dica": p.getStatement(),

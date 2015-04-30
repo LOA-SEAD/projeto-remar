@@ -1,4 +1,5 @@
 import br.ufscar.sead.loa.quiforca.remar.Question
+import br.ufscar.sead.loa.quiforca.remar.Theme
 import br.ufscar.sead.loa.remar.Administrator
 import br.ufscar.sead.loa.remar.Professor
 import br.ufscar.sead.loa.remar.Role
@@ -68,15 +69,13 @@ class BootStrap {
 
         // *************************
 
-        new Question(statement: "Q1", answer: "A1", category: "C1", ownerId: professor.getId(), author: professor.getFirstName()).save flush: true
-        new Question(statement: "Q2", answer: "A2", category: "C1", ownerId: professor.getId(), author: professor.getFirstName()).save flush: true
-        new Question(statement: "Q3", answer: "A3", category: "C2", ownerId: admin.getId(), author: admin.getFirstName()).save flush: true
-        new Question(statement: "Q4", answer: "A4", category: "C3", ownerId: professor.getId(), author: professor.getFirstName()).save flush: true
-        new Question(statement: "Q5", answer: "A5", category: "C4", ownerId: admin.getId(), author: admin.getFirstName()).save flush: true
-        new Question(statement: "Q6", answer: "A6", category: "C3", ownerId: professor.getId(), author: professor.getFirstName()).save flush: true
-        new Question(statement: "Q7", answer: "A7", category: "C4", ownerId: admin.getId(), author: admin.getFirstName()).save flush: true
+        new Question(statement: "Qual o melhor laboratório da UFSCar?", answer: "LOA", category: "UFSCar", ownerId: admin.getId(), author: admin.getFirstName()).save flush: true
 
-//        new Reque
+        new Question(statement: "Qual o melhor laboratório da UFSCar?", answer: "LOA", category: "UFSCar", ownerId: professor.getId(), author: professor.getFirstName()).save flush: true
+
+        new Theme(ownerId: admin.getId()).save flush: true
+
+        new Theme(ownerId: professor.getId()).save flush: true
 
         println "Bootstrap: done"
 
