@@ -4,6 +4,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
+    <g:javascript src="scriptTheme.js"/>
     <g:set var="entityName" value="${message(code: 'Theme.label', default: 'Theme')}" />
     <title><g:message code="default.list.label" args="[entityName]" /></title>
 </head>
@@ -20,10 +21,10 @@
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
-    <table>
+    <table id="table">
         <thead>
         <tr>
-
+            <th>Selecionar</th>
 
             <g:sortableColumn property="icone" title="${message(code: 'Theme.icone.label', default: 'Icone')}" />
 
@@ -34,20 +35,25 @@
         </tr>
         </thead>
         <tbody>
+        <g:each in="${themeInstanceList}" status="i" var="themeInstance">
+            <tr data-id="${fieldValue(bean: themeInstance, field: "id")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
+                <td> <input class="checkbox" type="checkbox"/> </td>
 
-        <td><img src="/QuiForca/images/icon.png"  width="200" height="200"  /></td>
+                <td><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/icon.png" width="200" height="200"/></td>
+                <td><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/opening.png" width="200" height="200"/></td>
+                <td><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/background.png" width="200" height="200"/></td>
 
 
-        <td><img src="/QuiForca/images/opening.png"  width="200" height="200"  /></td>
 
-
-        <td><img src="/QuiForca/images/background.png"  width="200" height="200"  /></td>
-
+            </tr>
+        </g:each>
         </tbody>
     </table>
-    <div class="pagination">
-        <g:paginate total="${ThemeInstanceCount ?: 0}" />
-    </div>
+    <fieldset class="buttons">
+        <g:submitButton  name="save" class="save" value="Enviar"/>
+        <div class="pagination">
+            <g:paginate total="${questionInstanceCount ?: 0}" />
+        </div>
 </div>
 </body>
 </html>

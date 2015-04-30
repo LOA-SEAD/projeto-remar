@@ -61,7 +61,7 @@
             </table>
             <fieldset class="buttons">
                 <g:submitButton  name="create" class="create" value="Nova questão" />
-                <g:submitButton  name="save" class="save" value="Gerar JSON"/>
+                <g:submitButton  name="save" class="save" value="Enviar"/>
                 <g:submitButton  name="delete" class="delete" value="Remover questões selecionadas"/>
 			<div class="pagination">
 				<g:paginate total="${questionInstanceCount ?: 0}" />

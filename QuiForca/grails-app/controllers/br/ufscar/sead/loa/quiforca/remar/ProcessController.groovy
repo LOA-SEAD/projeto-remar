@@ -12,17 +12,36 @@ class ProcessController implements ExecutionListener {
     RuntimeService runtimeService
     ProcessInstance processInstance
     TaskService taskService
+    def springSecurityService
 
-   def startProcess(){
 
-    session.processId = runtimeService.startProcessInstanceByKey("ForcaProcess").getId()
+    def start(){
+        session.processId = runtimeService.startProcessInstanceByKey("ForcaProcess").getId()
+        session.userId = springSecurityService.getCurrentUser().getId()
+        println "process started"
+    }
 
-   }
+    def complete() {
+        def task = taskService.createTaskQuery().processInstanceId(session.processId).taskDefinitionKey(params.id).singleResult()
+
+        if (task != null) {
+            taskService.complete(task.id)
+            println params.id + " completed "
+        }
+    }
 
     @Override
     void notify(DelegateExecution delegateExecution) throws Exception {
-        //delegateExecution.eventName == EVENTNAME_START &&
-       // println delegateExecution.getBpmnModelInstance()
-        println "Ola"
+        if(delegateExecution.currentActivityId == "Gateway_1") {
+            redirect controller: "theme"
+        } else if(delegateExecution.currentActivityId == "ChooseTheme") {
+            redirect controller: "question"
+        } else if(delegateExecution.currentActivityId == "ChooseQuestions") {
+            if(taskService.createTaskQuery().processInstanceId(session.processId).taskDefinitionKey("ChooseTheme").singleResult() != null) {
+                redirect controller: "theme"
+            }
+        } else if(delegateExecution.currentActivityId == "RefactorService") {
+            redirect uri: "/data/$session.userId/game"
+        }
     }
 }

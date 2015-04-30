@@ -147,6 +147,7 @@ class QuestionController {
         def builder = new JsonBuilder()
 
         def json = builder {
+            name: "Forca"
             palavras list.collect {p ->
                 ["palavra": p.getAnswer(),
                  "dica": p.getStatement(),
@@ -154,18 +155,20 @@ class QuestionController {
             }
         }
 
-        render builder.toString()
+//        render builder.toString()
 
         def dataPath = servletContext.getRealPath("/data")
         def userPath = new File(dataPath, "/" + springSecurityService.getCurrentUser().getId())
         userPath.mkdirs()
 
 
-        def fileName = "palavras.json"
+        def fileName = "configuracao.json"
 
         File file = new File("$userPath/$fileName");
         PrintWriter pw = new PrintWriter(file);
         pw.write(builder.toString());
         pw.close();
+
+        redirect controller: "process", action: "complete", id: "ChooseQuestions"
     }
 }
