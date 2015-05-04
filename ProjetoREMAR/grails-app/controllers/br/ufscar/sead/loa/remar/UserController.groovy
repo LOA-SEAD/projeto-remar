@@ -10,7 +10,7 @@ import grails.transaction.Transactional
 class UserController {
 
     IdentityService identityService
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", filteredList: "POST"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -158,6 +158,7 @@ class UserController {
         }
     }
 
+    @Transactional
     def filteredList(String filter) {
         def query = "from User where camunda_id LIKE '%" + filter + "%' OR email LIKE '%" + filter + "%' OR username LIKE '%" + filter + "%' OR name LIKE '%" + filter + "%'"
         def list = User.executeQuery(query)
@@ -166,19 +167,6 @@ class UserController {
             println(item.username)
         }
 
-        //respond list, model:[userInstanceCount: User.count(), filter: filter]
         render(template: "grid", model:[userInstanceList: list])
     }
-
-    /*def index(String filter) {
-        def query = "from User where camunda_id LIKE '%" + filter + "%'"
-        def list = User.executeQuery(query)
-
-        list.each { item ->
-            println(item.username)
-        }
-
-        //respond list, model:[userInstanceCount: User.count(), filter: filter]
-        render(template: "grid", model:[userInstanceList: list, userInstanceCount: 6, filter: filter])
-    }*/
 }
