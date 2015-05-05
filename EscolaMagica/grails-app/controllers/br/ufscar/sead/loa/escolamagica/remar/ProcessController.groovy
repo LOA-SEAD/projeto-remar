@@ -1,4 +1,6 @@
 package br.ufscar.sead.loa.escolamagica.remar
+
+import grails.plugin.springsecurity.annotation.Secured
 import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.TaskService
 import org.camunda.bpm.engine.delegate.DelegateExecution
@@ -6,16 +8,17 @@ import org.camunda.bpm.engine.delegate.ExecutionListener
 import org.camunda.bpm.engine.runtime.ProcessInstance
 import org.camunda.bpm.engine.task.Task
 
+@Secured(["ROLE_PROF"])
 class ProcessController implements ExecutionListener{
 
     RuntimeService runtimeService
     ProcessInstance processInstance
     TaskService taskService
-
+    int i=0;
     def index() { }
 
     def startProcess(){
-     session.processId = runtimeService.startProcessInstanceByKey("EscolaMagicaProcess").getId()
+        session.processId = runtimeService.startProcessInstanceByKey("EscolaMagicaProcess").getId()
 
     }
 
@@ -48,8 +51,13 @@ class ProcessController implements ExecutionListener{
 
     def completeTask(){
 
+
         def task = taskService.createTaskQuery().processInstanceId(session.processId).taskDefinitionKey(params.id).singleResult()
         taskService.complete(task.id)
+        println session.processId
+        if(params.id == "publishService"){
+            redirect(controller: "")
+        }
 
     }
 
@@ -58,11 +66,13 @@ class ProcessController implements ExecutionListener{
     void notify(DelegateExecution delegateExecution) throws Exception {
         if(delegateExecution.eventName == EVENTNAME_START && delegateExecution.currentActivityId != "EndEvent") {
             println "Notify!"
-            if(delegateExecution.currentActivityId=="createQuestions")
+            if (delegateExecution.currentActivityId == "createQuestions") {
                 redirect action: "questionTask", id: delegateExecution.currentActivityId
-            else if(delegateExecution.currentActivityId=="confirming")
-                    redirect action: "confirmingTask", id: delegateExecution.currentActivityId
-        } else if(delegateExecution.currentActivityId == "EndEvent") {
+            } else if (delegateExecution.currentActivityId == "confirming") {
+                redirect action: "confirmingTask", id: delegateExecution.currentActivityId
+            }
+        }
+        else if(delegateExecution.currentActivityId == "EndEvent") {
             render "Acabou o processo"
         }
     }

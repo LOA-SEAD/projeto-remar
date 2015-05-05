@@ -1,11 +1,14 @@
 package br.ufscar.sead.loa.escolamagica.remar
 
+import grails.plugin.springsecurity.annotation.Secured
 import org.camunda.bpm.engine.RuntimeService
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
+import org.springframework.web.context.request.RequestContextHolder
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+@Secured(["ROLE_PROF"])
 @Transactional(readOnly = true)
 class QuestionController {
 
@@ -34,11 +37,19 @@ class QuestionController {
 
     def createXML(){
 
-        def servletContext = ServletContextHolder.servletContext
-        def storagePath = servletContext.getRealPath("/")
+     //   def servletContext = ServletContextHolder.servletContext
+      //  def storagePath = servletContext.getRealPath("/")
+     //   println storagePath
 
+        def session = RequestContextHolder.currentRequestAttributes().getSession()
 
-        def fw = new FileWriter(storagePath+"perguntas.xml")
+        def dataPath = servletContext.getRealPath("/data")
+        def userPath = new File(dataPath, "/" + session.processId)
+        userPath.mkdirs()
+        println userPath
+
+        def fw = new FileWriter("$userPath/perguntas.xml")
+        //def fw = new FileWriter(storagePath+"perguntas.xml")
         //def xml = new MarkupBuilder(xmlObj)
         def xml = new groovy.xml.MarkupBuilder(fw)
         xml.mkp.xmlDeclaration(version: "1.0",encoding: "utf-8")
@@ -67,6 +78,8 @@ class QuestionController {
             }
 
         }
+
+
 
         redirect(controller: "process",action: "completeTask", id: "createQuestions")
 
