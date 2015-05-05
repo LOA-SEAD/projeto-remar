@@ -1,4 +1,6 @@
 package br.ufscar.sead.loa.escolamagica.remar
+
+import grails.plugin.springsecurity.annotation.Secured
 import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.TaskService
 import org.camunda.bpm.engine.delegate.DelegateExecution
@@ -6,6 +8,7 @@ import org.camunda.bpm.engine.delegate.ExecutionListener
 import org.camunda.bpm.engine.runtime.ProcessInstance
 import org.camunda.bpm.engine.task.Task
 
+@Secured(["ROLE_PROF"])
 class ProcessController implements ExecutionListener{
 
     RuntimeService runtimeService

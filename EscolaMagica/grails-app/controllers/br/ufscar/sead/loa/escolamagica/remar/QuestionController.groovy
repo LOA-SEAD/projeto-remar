@@ -1,5 +1,6 @@
 package br.ufscar.sead.loa.escolamagica.remar
 
+import grails.plugin.springsecurity.annotation.Secured
 import org.camunda.bpm.engine.RuntimeService
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.springframework.web.context.request.RequestContextHolder
@@ -7,6 +8,7 @@ import org.springframework.web.context.request.RequestContextHolder
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+@Secured(["ROLE_PROF"])
 @Transactional(readOnly = true)
 class QuestionController {
 
