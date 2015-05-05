@@ -25,7 +25,7 @@ class RefactorService {
 
         "cp $userFolder/themes/$themeId/background.png $userFolder/game/imgs/papel.png".execute().waitFor()
 
-        "$rootPath/scripts/publish_android.sh br.ufscar.sead.loa.forca $userFolder/game/manifest.json $userFolder".execute().waitFor()
+        "$rootPath/scripts/publish_android.sh br.ufscar.sead.loa.forca $userFolder/game/manifest.json $userFolder".execute()
     }
 }
 
