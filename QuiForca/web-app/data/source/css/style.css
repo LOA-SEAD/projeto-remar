@@ -1,0 +1,239 @@
+/*Parte das camadas*/
+body
+{
+	background-image: url("../imgs/madeira.png");
+	background-repeat:repeat;
+}
+
+#palco
+{
+	position:absolute;
+	left:50%;		
+	top:50%;
+	margin-left: -400px;
+	margin-top: -300px;
+	width: 800px;
+	height: 600px;
+	background-image: url("../imgs/papel.png");	
+}
+
+#camadaVitoria
+{
+	width: 800px;
+	height: 600px;
+}
+
+#camadaMenu
+{
+	position:absolute;
+	left:50%;		
+	top:50%;
+	margin-left: -400px;
+	margin-top: -300px;
+	width: 800px;
+	height: 600px;
+	background-image: url("../imgs/inicio.png");	
+}
+
+#camadaJogo
+{
+	width: 800px;
+	height: 600px;
+}
+
+#camadaCreditos
+{
+	position: relative;
+	width: 500px;
+	height: 500px;
+	left: 50%;
+	top: 50%;
+	margin-left: -250px;
+	margin-top: -250px;
+	text-align: center;
+}
+
+/*Parte das coisas escritas na tela*/
+#palavraNaTela
+{
+	position: absolute;
+	left: 40%;
+	top: 45%;
+	width: 350px;
+	text-align: center;
+}
+
+#dicaNaTela
+{
+	position: absolute;
+	left: 35%;
+	top: 25%;
+	width: 450px;
+	text-align: center;
+}
+
+#contribuicaoNaTela
+{
+	position: absolute;
+	left:70%;
+	top: 90%;	
+	font-size: 12px;
+}
+
+#pontosNaTela
+{
+	position: absolute;
+	left: 70%;
+	top: 8%;
+}
+
+/*Parte dos botoes no jogo*/
+#botoes
+{
+	position: relative;
+	top: 65%;
+	left: 40%;
+	width: 400px;
+	text-align: right;
+}
+
+.botaoJogo
+{
+	display: inline;
+	width: 40px;
+	height: 43px;
+	float: left;
+	background-image: url(../imgs/botaoJogo.png);
+	cursor: pointer;	
+}
+
+.linha
+{
+	text-align: center;
+	position: relative;
+	height: 58px;
+}
+
+#linha2
+{
+	margin-left: 20px;
+	margin-top: -20px;
+}
+
+#linha3
+{
+	margin-left: 35px;
+	margin-top: -20px;
+}
+
+.letraTeclado
+{
+	margin-top: 10px;
+	font-size: 20px;
+}
+
+/*Parte das fontes*/
+@font-face
+ {
+    font-family: "Fonte";
+    src: url(../fonte/Teclado.ttf) format("truetype");
+}
+
+p
+{ 
+    font-family:"Fonte","Tahoma";
+	font-size: 26px;
+}
+
+/*Parte dos botoes fora do jogo*/
+.botao
+{
+	display: inline;
+	position: relative;
+	margin: 50px;
+	float: left;
+	cursor: pointer;
+}
+
+#caixaBotoes
+{
+	position: relative;
+	width: 500px;
+	height: 120px;
+	left: 30%;
+	top: 65%;
+}
+
+#btnJogar
+{
+	width: 117px;
+	height: 65px;
+	background-image: url("../imgs/btnJogar.png")
+}
+
+#btnCreditos
+{
+	width: 119px;
+	height: 69px;
+	background-image: url("../imgs/btnCreditos.png")
+}
+
+#btnRanking
+{
+	width: 117px;
+	height: 65px;
+	background-image: url("../imgs/btnRanking.png")
+}
+
+#btnVoltar
+{
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	top: 87.5%;
+	left: 88%;
+	background-image:url("../imgs/btnVoltar.png")
+}
+/*Parte do personagem do jogo*/
+.personagem
+{
+	position: absolute;
+	top: 37%;
+	width: 317px;
+	height: 382px;
+	background: url(../imgs/personagem.png);
+	background-position: 0px 0px;
+}
+
+#personagem
+{
+	
+	z-index: 11;
+}
+
+#personagemAnt
+{
+	z-index: 10;
+}
+
+#palavraCerta
+{
+	position: absolute;
+	top: 55%;
+	left: 60%;
+	width: 50px;
+	height: 50px;
+	background: url(../imgs/palavraCerta.png);
+}
+
+.hidden-for-sighted-users
+{
+    position: absolute !important;
+clip: rect(1px 1px 1px 1px);
+clip: rect(1px, 1px, 1px, 1px);
+padding: 0 !important;
+border: 0 !important;
+height: 1px !important;
+width: 1px !important;
+overflow: hidden;
+}
