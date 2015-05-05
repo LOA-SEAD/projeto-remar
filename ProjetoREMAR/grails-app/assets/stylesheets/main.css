@@ -39,8 +39,8 @@ html * {
 body {
 	background: #ffffff;
 	color: #333333;
-	margin: 0 auto;
-	max-width: 960px;
+	margin: auto !important;
+	max-width: 90%;
 	overflow-x: hidden; /* prevents box-shadow causing a horizontal scrollbar in firefox when viewport < 960px wide */
 	   -moz-box-shadow: 0 0 0.3em #255b17;
 	-webkit-box-shadow: 0 0 0.3em #255b17;
@@ -48,7 +48,12 @@ body {
 }
 
 #grailsLogo {
-	background-color: #abbf78;
+	/*background-color: #abbf78;*/
+	background-color: #FFFFFF;
+}
+
+#login #remember_me_holder {
+	padding-left: 105px !important;
 }
 
 /* replace with .no-boxshadow body if you have modernizr available */
@@ -108,7 +113,7 @@ img {
 }
 
 .footer {
-	background: #abbf78;
+	background: #000000;
 	color: #000;
 	clear: both;
 	font-size: 0.8em;
@@ -603,4 +608,41 @@ a.skip {
 
 .fieldset_label {
 	
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+
+.nav {
+	background-color: #000000 !important;
+}
+
+.container-fluid {
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+  background-color: #000000 !important;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+  color: #555;
+  background-color: #000000 !important;
+}
+
+#navbar ul li a {
+	color: #FFF;
+}
+
+#navbar ul li a:hover {
+	color: #ccc;
+}
+
+.dropdown .dropdown-menu li a{
+	color: #000 !important;
+}
+
+.dropdown .dropdown-menu li a:hover{
+	background-color: #FFF !important;
 }

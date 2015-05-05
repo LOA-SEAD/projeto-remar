@@ -3,9 +3,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Admin</title>
+		<meta name="layout" content="main">
+		<g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
+		<title>Admin page</title>
 	</head>
 	<body>
-		ADMIN
+		Admin
 	</body>
 </html>
