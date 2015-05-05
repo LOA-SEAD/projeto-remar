@@ -152,7 +152,7 @@ function getUserId() {
 function save(tr) {
     var tds = $(tr).find("td");
 
-    var url = '/QuiForca/question/save/';
+    var url = location.origin + '/forca/question/save/';
     var data = { statement: $(tds)[1].textContent,
                  answer: $(tds)[2].textContent,
                  category: $(tds)[3].textContent,
@@ -175,7 +175,7 @@ function save(tr) {
 function update(tr) {
     var tds = $(tr).find("td");
 
-    var url = '/QuiForca/question/update/' + $(tr).attr('data-id');
+    var url = location.origin + '/forca/question/update/' + $(tr).attr('data-id');
     var data = { statement: $(tds)[1].textContent,
                  answer: $(tds)[2].textContent,
                  category: $(tds)[3].textContent,
@@ -195,7 +195,7 @@ function update(tr) {
 }
 
 function _delete(tr) {
-    var url = '/QuiForca/question/delete/' + $(tr).attr('data-id');
+    var url = location.origin + '/forca/question/delete/' + $(tr).attr('data-id');
     var data = { _method: 'DELETE' };
 
     $.ajax({
