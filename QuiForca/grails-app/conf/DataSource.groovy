@@ -4,7 +4,7 @@ dataSource {
     driverClassName = "com.mysql.jdbc.Driver"
     dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
     username = "root"
-    password = "password"
+    password = "root"
 }
 hibernate {
     cache.use_second_level_cache = true
@@ -20,7 +20,7 @@ environments {
     development {
 
         dataSource {
-            dbCreate = "create" // one of 'create', 'create-drop', 'update', 'validate', ''
+            dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:mysql://localhost/remar"
 
         }
@@ -36,7 +36,7 @@ environments {
         dataSource {
             dbCreate = "update"
             url = "jdbc:mysql://localhost/remar"
-            jndiName = "java:comp/env/jdbc/remar"
+            jndiName = "java:comp/env/remar"
             properties {
                 // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                 jmxEnabled = true

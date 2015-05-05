@@ -24,7 +24,7 @@ class QuestionController {
         def user = springSecurityService.getCurrentUser()
 //        params.max = Math.min(max ?: 10, 100)
         params.max = 100 // TODO
-        respond Question.findAllByOwnerId(user.getId(), params), model:[questionInstanceCount: Question.count(), userName: user.getFirstName(), userId: user.getId()]
+        respond Question.findAllByOwnerId(user.getId(), params), model:[questionInstanceCount: Question.count(), userName: user.getName(), userId: user.getId()]
     }
 
     /*def show(Question questionInstance) {
@@ -127,7 +127,6 @@ class QuestionController {
             }
             '*'{ render status: NO_CONTENT }
         }*/
-        camudna.notif8
     }
 
     protected void notFound() {

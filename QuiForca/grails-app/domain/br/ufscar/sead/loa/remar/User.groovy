@@ -10,23 +10,24 @@ class User {
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
-
-    String firstName
-    String lastName
+	String email
+	String camunda_id
+	String name
 
 	static transients = ['springSecurityService']
 
 	static constraints = {
 		username blank: false, unique: true
 		password blank: false
-        firstName blank: false
-        lastName blank: false
+		name blank: false
+		email blank: false, email: true
+		camunda_id nullable: true
 	}
 
 	static mapping = {
 		password column: '`password`'
 
-        tablePerHierarchy false
+		tablePerHierarchy false
 	}
 
 	Set<Role> getAuthorities() {
@@ -47,18 +48,51 @@ class User {
 		password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
 	}
 
-    String getName() {
-        return firstName + " " + lastName
-    }
+	String getName() {
+		return name
+	}
 
-    String toString() {
-        String s = "Name: " + getName() + "\n";
-        s += "Username: " + getUsername() + "\n"
-        s += "Roles: "
+	String getRoles() {
+		String s = "-"
+		getAuthorities().each {
+			if (s == "-") {
+				s = it.toString()
+			}
+			else {
+				s += ", " + it.toString()
+			}
+		}
 
-        getAuthorities().each {
-           s += it.authority + " "
-        }
-        s += "\n"
-    }
+		s
+	}
+
+	boolean isAdmin() {
+		def found = false
+		getAuthorities().each {
+			if (it.authority == "ROLE_ADMIN") {
+				found = true;
+			}
+		}
+		found
+	}
+
+	boolean isProf() {
+		def found = false
+		getAuthorities().each {
+			if (it.authority == "ROLE_PROF") {
+				found = true
+			}
+		}
+		found
+	}
+
+	boolean isStud() {
+		def found = false
+		getAuthorities().each {
+			if (it.authority == "ROLE_STUD") {
+				found = true
+			}
+		}
+		found
+	}
 }
