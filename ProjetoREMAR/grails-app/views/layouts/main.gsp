@@ -37,7 +37,7 @@
 			           </ul>
 			           <ul class="nav navbar-nav navbar-right">
 			           	 <li class="dropdown">
-			               	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Vincius Nordi Esperança <span class="caret"></span></a>
+			               	<a id="user_name" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><sec:loggedInUserInfo field="username"/><span class="caret"></span></a>
 			               	<ul class="dropdown-menu" role="menu">
 			                 	<li><a href="#">Meus dados</a></li>
 			                 	<li><a href="/logout">Sair</a></li>
