@@ -3,9 +3,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Student</title>
+		<meta name="layout" content="main">
+		<g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
+		<title>Stud page</title>
 	</head>
 	<body>
-		STUDENT
+		Stud
 	</body>
 </html>

@@ -35,15 +35,17 @@
 			           <ul class="nav navbar-nav">
 			             <li><a href="#">Home</a></li>
 			           </ul>
-			           <ul class="nav navbar-nav navbar-right">
-			           	 <li class="dropdown">
-			               	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Vincius Nordi Esperança <span class="caret"></span></a>
-			               	<ul class="dropdown-menu" role="menu">
-			                 	<li><a href="#">Meus dados</a></li>
-			                 	<li><a href="/logout">Sair</a></li>
-			               	</ul>
-			             </li>
-			           </ul>
+			           <sec:ifLoggedIn>
+				           <ul class="nav navbar-nav navbar-right">
+				           	 <li class="dropdown">
+				           	 	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><sec:username/><span class="caret"></span></a>
+				               	<ul class="dropdown-menu" role="menu">
+				                 	<li><a href="#">Meus dados</a></li>
+				                 	<li><a href="/logout">Sair</a></li>
+				               	</ul>
+				             </li>
+				           </ul>
+				        </sec:ifLoggedIn>
 			         </div><!--/.nav-collapse -->
 			       </div><!--/.container-fluid -->
 			     </nav>
