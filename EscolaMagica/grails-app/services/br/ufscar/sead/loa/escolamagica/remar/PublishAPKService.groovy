@@ -45,11 +45,15 @@ class PublishAPKService{
 
         "cp $scriptPath/manifest.json $sourceFolder/Deploy/manifest.json".execute().waitFor()
 
+        "cp $scriptPath/manifest.json $sourceFolder/Deploy/manifest.json".execute().waitFor()
+
+        "cp $rootPath/images/icon.png $sourceFolder/Deploy/images/icon.png".execute().waitFor()
+
         //def userId = WebUtils.retrieveGrailsWebRequest().session.userId  QUANDO ESTIVER INTEGRADO COM O SPRING SECURITY DO REMAR
 
-        def command = "$scriptPath/ScriptCrosswalk.sh br.ufscar.sead.loa.escolamagica.android $sourceFolder/Deploy/manifest.json $dataPath/$session.processId EscolaMagica"
-        println command
-        println "Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+ command.execute().text
+        def command = "$scriptPath/publish_android.sh br.ufscar.sead.loa.escolamagica.android $sourceFolder/Deploy/manifest.json $dataPath/$session.processId"
+        //command.execute()
+        println "------>>"+ command.execute().text
 
         println session.processId
 
