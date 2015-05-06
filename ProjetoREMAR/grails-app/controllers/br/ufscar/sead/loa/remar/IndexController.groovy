@@ -23,7 +23,7 @@ class IndexController {
             		redirect controller: "student"
             	}
             	else{
-            		if (userAuthorities.any { it.authority == "ROLE_EDTIRO" }) {
+            		if (userAuthorities.any { it.authority == "ROLE_EDITOR" }) {
             			redirect controller: "editor"
             		}
             	}
