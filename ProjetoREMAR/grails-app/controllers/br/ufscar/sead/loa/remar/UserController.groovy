@@ -5,7 +5,7 @@ import static org.springframework.http.HttpStatus.*
 import grails.plugin.springsecurity.annotation.Secured;
 import grails.transaction.Transactional
 
-@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
+@Secured(["ROLE_ADMIN"])
 @Transactional(readOnly = true)
 class UserController {
 
@@ -20,7 +20,8 @@ class UserController {
 
     def show(User userInstance) {
         //respond userInstance
-        respond userInstance, model:[roles: UserRole.findAllByUser(userInstance).collect {it.role}]
+        println(userInstance.username)
+        respond userInstance, model:[bla: "bla", userInstance: userInstance]
     }
 
     def create() {
@@ -61,6 +62,10 @@ class UserController {
             UserRole.create(userInstance, Role.findByAuthority("ROLE_STUD"), true)
         }
 
+        if(params.ROLE_EDITOR) {
+            UserRole.create(userInstance, Role.findByAuthority("ROLE_EDITOR"), true)
+        }
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
@@ -71,7 +76,7 @@ class UserController {
     }
 
     def edit(User userInstance) {
-        respond userInstance, model:[admin: userInstance.isAdmin(), prof: userInstance.isProf(), stud: userInstance.isStud(), source: "create"]
+        respond userInstance, model:[admin: userInstance.isAdmin(), prof: userInstance.isProf(), stud: userInstance.isStud(), source: "create", userInstance: userInstance]
     }
 
     @Transactional
@@ -114,6 +119,10 @@ class UserController {
 
         if(params.ROLE_STUD) {
             UserRole.create(userInstance, Role.findByAuthority("ROLE_STUD"), true)
+        }
+
+        if(params.ROLE_EDITOR) {
+            UserRole.create(userInstance, Role.findByAuthority("ROLE_EDITOR"), true)
         }
 
         request.withFormat {
@@ -162,10 +171,6 @@ class UserController {
     def filteredList(String filter) {
         def query = "from User where camunda_id LIKE '%" + filter + "%' OR email LIKE '%" + filter + "%' OR username LIKE '%" + filter + "%' OR name LIKE '%" + filter + "%'"
         def list = User.executeQuery(query)
-
-        list.each { item ->
-            println(item.username)
-        }
 
         render(template: "grid", model:[userInstanceList: list])
     }

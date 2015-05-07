@@ -95,4 +95,14 @@ class User {
 		}
 		found
 	}
+
+	boolean isEditor() {
+		def found = false
+		getAuthorities().each {
+			if (it.authority == "ROLE_EDITOR") {
+				found = true
+			}
+		}
+		found
+	}
 }

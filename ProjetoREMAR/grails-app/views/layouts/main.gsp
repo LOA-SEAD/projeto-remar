@@ -21,35 +21,51 @@
 	<body>
 		<div class="content">
 			<nav class="navbar navbar-default">
-			       <div class="container-fluid">
-			         <div class="navbar-header">
-			           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-			             <span class="sr-only">Toggle navigation</span>
-			             <span class="icon-bar"></span>
-			             <span class="icon-bar"></span>
-			             <span class="icon-bar"></span>
-			           </button>
-			           <a class="navbar-brand" href="#">REMAR</a>
-			         </div>
-			         <div id="navbar" class="navbar-collapse collapse">
-			           <ul class="nav navbar-nav">
-			             <li><a href="#">Home</a></li>
-			           </ul>
-			           <sec:ifLoggedIn>
-				           <ul class="nav navbar-nav navbar-right">
-				           	 <li class="dropdown">
-				           	 	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><sec:username/><span class="caret"></span></a>
-				               	<ul class="dropdown-menu" role="menu">
-				                 	<li><a href="#">Meus dados</a></li>
-				                 	<li><a href="/logout">Sair</a></li>
-				               	</ul>
-				             </li>
-				           </ul>
-				        </sec:ifLoggedIn>
-			         </div><!--/.nav-collapse -->
-			       </div><!--/.container-fluid -->
-			     </nav>
-			<!-- <div align="center" id="grailsLogo" role="banner"><a target="_blank" href="http://www.loa.sead.ufscar.br/"><asset:image src="loa_banner.jpg" alt="REMAR" class="img-responsive"/></a></div> -->
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="http://www.loa.sead.ufscar.br"><asset:image src="icon.ico" alt="REMAR" class="img-responsive"/></a>
+					</div>
+					<div id="navbar" class="navbar-collapse collapse">
+						<!--<ul class="nav navbar-nav">
+							<li><a href="#">Home</a></li>
+						</ul>-->
+						<sec:ifAllGranted roles="ROLE_ADMIN">
+							<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Usuários <span class="caret"></span></a>
+									<ul class="dropdown-menu" role="menu">
+										<li><a href="/user">Listagem</a></li>
+										<li><a href="/user/create">Criar novo</a></li>
+									</ul>
+								</li>
+							</ul>
+						</sec:ifAllGranted>
+						<sec:ifAllGranted roles="ROLE_PROF">
+							<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="#">Professor</a>
+								</li>
+							</ul>
+						</sec:ifAllGranted>
+						<sec:ifAllGranted roles="ROLE_STUD">
+							<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="#">Estudante</a>
+								</li>
+							</ul>
+						</sec:ifAllGranted>
+						<ul class="nav navbar-nav navbar-right">
+							<li class="dropdown">
+								<a id="user_name" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><sec:loggedInUserInfo field="username"/><span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#">Meus dados</a></li>
+									<li><a href="/logout">Sair</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
 			<g:layoutBody/>
 			<div class="footer" role="contentinfo"></div>
 			<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
