@@ -1,7 +1,7 @@
 package br.ufscar.sead.loa.remar
 
-class ProcessGame {
-    static belongsTo = [prof: User]
+class ProcessoJogo {
+    static belongsTo = [professor: User]
 
     String id_process_definition
     //String key_process_definition

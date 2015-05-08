@@ -1,5 +1,7 @@
 package br.ufscar.sead.loa.remar
 
+
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -7,26 +9,31 @@ import org.camunda.bpm.engine.*
 import org.camunda.bpm.engine.repository.ProcessDefinition
 import org.camunda.bpm.engine.repository.ProcessDefinitionQuery
 import org.camunda.bpm.engine.runtime.ProcessInstance
+import org.camunda.bpm.engine.TaskService
+import org.camunda.bpm.engine.task.Task
+import org.camunda.bpm.engine.task.TaskQuery
 import org.springframework.security.access.annotation.Secured
 
 @Secured(['ROLE_PROF'])
-class ProcessGameController {
+class ProcessoJogoController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def springSecurityService
     RuntimeService runtimeService
     RepositoryService repositoryService
+    ProcessInstance processInstance
+    TaskService taskService
 
     def index(Integer max) {
-    	params.max = Math.min(max ?: 10, 100)
-        def processesGame = ProcessGame.findAllByProf(springSecurityService.currentUser)
-        print processesGame
-        respond processesGame, model:[processGameInstanceCount: processesGame.size()]
+        params.max = Math.min(max ?: 10, 100)
+        def processosJogos = ProcessoJogo.findAllByProfessor(springSecurityService.currentUser)
+        render view:'index', model:[processoJogoInstanceList: processosJogos, processoJogoInstanceCount: processosJogos.size()]
     }
 
-    def show(ProcessGame processGameInstance) {
-        respond processGameInstance
+    def show(ProcessoJogo processoJogoInstance) {
+        print processoJogoInstance
+        render view:'show', model:[processoJogoInstance: processoJogoInstance]
     }
 
     def jogos(){
@@ -45,9 +52,16 @@ class ProcessGameController {
         render view:'jogos', model:[jogos: jogos]
     }
 
+    def tarefas(ProcessoJogo processoJogoInstance){
+        List<Task> tasks = taskService.createTaskQuery().processInstanceId(processoJogoInstance.id_process_instance).list()
+        List<User> usuarios = User.list()
+
+        render view:'tarefas', model:[tarefas:tasks, usuarios: usuarios]
+    }
+
     def iniciar_desenvolvimento(String id){
         ProcessInstance createdProcess = runtimeService.startProcessInstanceById(id)
-        def professorJogo = new ProcessGame(prof: springSecurityService.currentUser, id_process_definition: createdProcess.getProcessDefinitionId(), id_process_instance: createdProcess.getProcessInstanceId()).save flush:true
+        def professorJogo = new ProcessoJogo(professor: springSecurityService.currentUser, id_process_definition: createdProcess.getProcessDefinitionId(), id_process_instance: createdProcess.getProcessInstanceId()).save flush:true
 
         if(professorJogo.hasErrors()){
 
@@ -56,24 +70,23 @@ class ProcessGameController {
             //redirect action: "tasks"
             redirect action: "index"
         }
-
     }
 
     @Transactional
-    def delete(ProcessGame processGameInstance) {
+    def delete(ProcessoJogo processoJogoInstance) {
 
-        if (processGameInstance == null) {
+        if (processoJogoInstance == null) {
             notFound()
             return
         }
 
-        runtimeService.deleteProcessInstance(processGameInstance.id_process_instance, "Professor removendo jogo")
+        runtimeService.deleteProcessInstance(processoJogoInstance.id_process_instance, "Professor removendo jogo")
 
-        processGameInstance.delete flush:true
+        processoJogoInstance.delete flush:true
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'ProcessGame.label', default: 'ProcessGame'), processGameInstance.id])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'ProcessoJogo.label', default: 'ProcessoJogo'), processoJogoInstance.id])
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }
@@ -83,7 +96,7 @@ class ProcessGameController {
     protected void notFound() {
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'processGame.label', default: 'ProcessGame'), params.id])
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'processoJogo.label', default: 'ProcessoJogo'), params.id])
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }
