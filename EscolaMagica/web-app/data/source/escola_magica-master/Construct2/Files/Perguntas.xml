@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Perguntas>
+    <Classe ClaAno="1">
+        <Pergunta PergNum="0" respCorreta="1" titulo="Ache um número que tenha sua raiz quadrada maior do que ele mesmo.">
+            <Resp num="0">1</Resp>
+            <Resp num="1">1/2</Resp>
+            <Resp num="2">5</Resp>
+            <Resp num="3">3</Resp>
+        </Pergunta>
+        <Pergunta PergNum="1" respCorreta="3" titulo="A Maria e o Manuel disputaram um jogo no qual são atribuídos 2 pontos por vitória e é retirado um ponto por derrota. Inicialmente cada um tinha 5 pontos. Se o Manuel ganhou exatamente 3 partidas, e a Maria no final ficou com 10 pontos, quantas partidas eles disputaram?">
+            <Resp num="0">5</Resp>
+            <Resp num="1">2</Resp>
+            <Resp num="2">Nenhuma</Resp>
+            <Resp num="3">7</Resp>
+        </Pergunta>
+		<Pergunta PergNum="2" respCorreta="3" titulo="Quatro moedas são lançadas simultaneamente. Qual é a probabilidade de ocorrer coroa em uma só moeda?">
+            <Resp num="0">1/8</Resp>
+            <Resp num="1">2/9</Resp>
+            <Resp num="2">1/4</Resp>
+            <Resp num="3">1/3</Resp>
+        </Pergunta>
+        <Pergunta PergNum="3" respCorreta="0" titulo="Usando todo o suco que está numa jarra é possível encher 9 copos pequenos e 4 copos grandes ou então encher 6 copos pequenos e 6 copos grandes. Quantos copos grandes é possível encher usando todo o suco da jarra?">
+            <Resp num="0">10</Resp>
+            <Resp num="1">9</Resp>
+            <Resp num="2">12</Resp>
+            <Resp num="3">8</Resp>
+        </Pergunta>
+		<Pergunta PergNum="4" respCorreta="3" titulo="Quantos noves existem entre 0 e 100?">
+            <Resp num="0">15</Resp>
+            <Resp num="1">32</Resp>
+            <Resp num="2">10</Resp>
+            <Resp num="3">20</Resp>
+        </Pergunta>
+    </Classe>
+    <Classe ClaAno="2">
+		<Pergunta PergNum="0" respCorreta="1" titulo="Elevei um número positivo ao quadrado, subtraí do resultado o mesmo número e o que restou dividi ainda pelo mesmo número. O resultado que achei foi igual:">
+            <Resp num="0">Ao próprio número</Resp>
+            <Resp num="1">Ao número menos 1</Resp>
+            <Resp num="2">Ao número mais 1</Resp>
+			<Resp num="3">Ao dobro do número</Resp>
+        </Pergunta>
+		<Pergunta PergNum="1" respCorreta="0" titulo="Luiz Eduardo comprou várias galinhas campeãs em pôr ovos. Ao testar a  eficiência das galinhas, ele observou que de minuto em minuto o número de ovos na cesta duplicava. Às duas horas a cesta estava cheia. A que horas a cesta estava pela metade?">
+            <Resp num="0">1h 59min</Resp>
+            <Resp num="1">1h</Resp>
+            <Resp num="2">1h 05min</Resp>
+            <Resp num="3">1h 20min</Resp>
+        </Pergunta>
+		<Pergunta PergNum="2" respCorreta="3" titulo="Qual número está faltando? {6,   11,  ?,  27}">
+            <Resp num="0">13</Resp>
+            <Resp num="1">15</Resp>
+            <Resp num="2">16</Resp>
+            <Resp num="3">18</Resp>
+        </Pergunta>
+		<Pergunta PergNum="3" respCorreta="1" titulo="Se eu leio 5 páginas por dia de um livro, eu termino de ler 16 dias antes do que se eu estivesse lendo 3 páginas por dia. Quantas páginas tem o livro?">
+            <Resp num="0">90</Resp>
+            <Resp num="1">120</Resp>
+            <Resp num="2">100</Resp>
+            <Resp num="3">110</Resp>
+        </Pergunta>
+		<Pergunta PergNum="4" respCorreta="2" titulo="Um relógio digital marca 19:57:33. Qual o número mínimo de segundos que devem passar até que se alterem todos os algarismos?">
+            <Resp num="0">132</Resp>
+            <Resp num="1">144</Resp>
+            <Resp num="2">147</Resp>
+            <Resp num="3">157</Resp>
+        </Pergunta>
+    </Classe>
+    <Classe ClaAno="3">
+		<Pergunta PergNum="0" respCorreta="0" titulo="A soma de três números pares consecutivos é igual a 96. Quais são os números?">
+            <Resp num="0">30, 32, 34</Resp>
+            <Resp num="1">28, 30, 32</Resp>
+            <Resp num="2">26, 28, 30</Resp>
+            <Resp num="3">32, 34, 36</Resp>
+        </Pergunta>
+		<Pergunta PergNum="1" respCorreta="1" titulo="Comprei 5 doces a R$ 1,80 cada um, 3 doces a R$ 1,50 e 2 doces a R$ 2,00 cada. O preço médio, por doce, foi de:">
+            <Resp num="0">R$ 1,85</Resp>
+            <Resp num="1">R$ 1,75</Resp>
+            <Resp num="2">R$ 1,93</Resp>
+            <Resp num="3">R$ 2,00</Resp>
+        </Pergunta>
+		<Pergunta PergNum="2" respCorreta="2" titulo="Um pequeno caminhão pode carregar 50 sacos de areia ou 400 tijolos. Se foram colocados no caminhão 32 sacos de areia, quantos tijolos pode ainda ele carregar? Resposta: 1 saco de areia = 8 tijolos.">
+            <Resp num="0">200</Resp>
+            <Resp num="1">256</Resp>
+            <Resp num="2">144</Resp>
+            <Resp num="3">48</Resp>
+        </Pergunta>
+		<Pergunta PergNum="3" respCorreta="3" titulo="Um elevador pode levar 20 adultos ou 24 crianças. Se 15 adultos já estão no elevador, qual é o número de crianças que ainda podem entrar no elevador?">
+            <Resp num="0">9</Resp>
+            <Resp num="1">12</Resp>
+            <Resp num="2">7</Resp>
+            <Resp num="3">6</Resp>
+        </Pergunta>
+        <Pergunta PergNum="4" respCorreta="1" titulo="Em um certo verão, uma fábrica de sorvetes realizou uma promoção que previa a troca de dez palitos de sorvete por um sorvete de palito. Nessa promoção, um palito de sorvete corresponde a que fração do preço de um sorvete?">
+            <Resp num="0">1/10</Resp>
+            <Resp num="1">1/5</Resp>
+            <Resp num="2">1/9</Resp>
+            <Resp num="3">2/5</Resp>
+        </Pergunta>
+    </Classe>
+</Perguntas>

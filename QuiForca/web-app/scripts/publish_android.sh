@@ -27,7 +27,8 @@
 ##########################################################################################
 
 source `pwd`/web-app/scripts/sources.sh
+make_apk.py
 
-make_apk.py --package=$1 --manifest=$2  --target-dir=$3
+# make_apk.py --package=$1 --manifest=$2  --target-dir=$3
 
 

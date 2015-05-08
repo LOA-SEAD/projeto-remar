@@ -9,55 +9,54 @@ import org.camunda.bpm.engine.runtime.ProcessInstance
 import org.camunda.bpm.engine.task.Task
 
 @Secured(["ROLE_PROF"])
-class ProcessController implements ExecutionListener{
+class ProcessController implements ExecutionListener {
 
     RuntimeService runtimeService
     ProcessInstance processInstance
     TaskService taskService
     def springSecurityService
-    int i=0;
-    def index() { }
+    int i = 0;
 
-    def startProcess(){
+    def index() {}
+
+    def startProcess() {
         session.processId = runtimeService.startProcessInstanceByKey("EscolaMagicaProcess").getId()
         session.userId = springSecurityService.getCurrentUser().getId()
 
     }
 
+    def newVersionsTask(){
+        def task = taskService.createTaskQuery().processInstanceId(session.processId).taskDefinitionKey(params.id).singleResult()
+        println params.id
+        println task
+        if((task != null)&&(params.id == "newVersions")){
+            redirect(controller:"game", action: "newVersion")
+        }
+        else{
+            render "deu merda"
+        }
+    }
 
-    def questionTask(){
+
+    def questionTask() {
 
         def task = taskService.createTaskQuery().processInstanceId(session.processId).taskDefinitionKey(params.id).singleResult()
         println params.id
         println task
-        if((task != null)&&(params.id == "createQuestions")){
+        if ((task != null) && (params.id == "createQuestions")) {
             redirect(controller: "question", action: "create")
-        }
-        else{
+        } else {
             render "deu merda"
         }
 
     }
 
-    def confirmingTask(){
-        def task = taskService.createTaskQuery().processInstanceId(session.processId).taskDefinitionKey(params.id).singleResult()
-        println params.id
-        println task
-        if((task != null)&&(params.id == "confirming")){
-           redirect(controller:"question", action: "confirming" )
-        }
-        else{
-            render "deu merda"
-        }
-    }
-
-    def completeTask(){
-
+    def completeTask() {
 
         def task = taskService.createTaskQuery().processInstanceId(session.processId).taskDefinitionKey(params.id).singleResult()
         taskService.complete(task.id)
         println session.processId
-        if(params.id == "publishService"){
+        if (params.id == "publishService") {
             redirect(controller: "")
         }
 
@@ -66,16 +65,15 @@ class ProcessController implements ExecutionListener{
 
     @Override
     void notify(DelegateExecution delegateExecution) throws Exception {
-        if(delegateExecution.eventName == EVENTNAME_START && delegateExecution.currentActivityId != "EndEvent") {
+        if (delegateExecution.eventName == EVENTNAME_START && delegateExecution.currentActivityId != "EndEvent") {
             println "Notify!"
             if (delegateExecution.currentActivityId == "createQuestions") {
                 redirect action: "questionTask", id: delegateExecution.currentActivityId
-            } else if (delegateExecution.currentActivityId == "confirming") {
-                redirect action: "confirmingTask", id: delegateExecution.currentActivityId
+            } else if (delegateExecution.currentActivityId == "newVersions") {
+                redirect action: "newVersionsTask", id: delegateExecution.currentActivityId
             }
-        }
-        else if(delegateExecution.currentActivityId == "EndEvent") {
-            render "Acabou o processo"
-        }
+        } //else if (delegateExecution.currentActivityId == "webVersion") {
+           // redirect(uri:"")
+        //}
     }
 }

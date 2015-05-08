@@ -23,7 +23,7 @@ class QuestionController {
 
     def confirming(){
         println params.id
-        redirect(controller: "process",action: "completeTask", id: "confirming")
+        //redirect(controller: "process",action: "completeTask", id: "confirming")
 
     }
 

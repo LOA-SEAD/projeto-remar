@@ -14,16 +14,13 @@ class WebVersionService {
     def serviceMethod(Execution execution) {
         println "no service method"
 
-        RuntimeService runtimeService
-        ProcessInstance processInstance
-        TaskService taskService
             println "No service method"
             def session = RequestContextHolder.currentRequestAttributes().getSession()
             def dataPath = ServletContextHolder.getServletContext().getRealPath("/data")
             def userPath = new File(dataPath, "/" + session.userId)
             def rootPath = ServletContextHolder.getServletContext().getRealPath("/")
             def scriptPath = ServletContextHolder.getServletContext().getRealPath("/scripts")
-            def gameFolder = new File(rootPath, "/data/$session.userId/game")
+            def gameFolder = new File(rootPath, "/data/$session.userId/NewVersions")
             gameFolder.mkdirs()
 
               //  "git clone https://github.com/LOA-SEAD/escola_magica.git $sourceFolder".execute().waitFor()
@@ -35,6 +32,8 @@ class WebVersionService {
                 "cp $userPath/perguntas.xml $gameFolder/escola_magicaVersion$session.processId/Deploy/perguntas.xml".execute().waitFor()
 
                 "rm $userPath/perguntas.xml".execute().waitFor()
+
+
 
 
     }

@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ProjetoREMAR.iml" filepath="$PROJECT_DIR$/ProjetoREMAR.iml" />
       <module fileurl="file://$PROJECT_DIR$/ProjetoREMAR-grailsPlugins.iml" filepath="$PROJECT_DIR$/ProjetoREMAR-grailsPlugins.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ProjetoREMAR.old.iml" filepath="$PROJECT_DIR$/ProjetoREMAR.old.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ProjetoREMAR.old-grailsPlugins.iml" filepath="$PROJECT_DIR$/ProjetoREMAR.old-grailsPlugins.iml" />
     </modules>
   </component>
 </project>
