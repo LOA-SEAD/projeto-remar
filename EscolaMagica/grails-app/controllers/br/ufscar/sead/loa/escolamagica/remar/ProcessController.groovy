@@ -14,11 +14,13 @@ class ProcessController implements ExecutionListener{
     RuntimeService runtimeService
     ProcessInstance processInstance
     TaskService taskService
+    def springSecurityService
     int i=0;
     def index() { }
 
     def startProcess(){
         session.processId = runtimeService.startProcessInstanceByKey("EscolaMagicaProcess").getId()
+        session.userId = springSecurityService.getCurrentUser().getId()
 
     }
 
