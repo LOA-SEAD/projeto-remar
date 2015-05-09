@@ -13,7 +13,6 @@ class RefactorService {
         rootPath = rootPath.substring(0, rootPath.length() -1)
         def sourceFodler = "$rootPath/data/source"
         def userId = WebUtils.retrieveGrailsWebRequest().session.userId
-        def themeId = WebUtils.retrieveGrailsWebRequest().session.themeId
         def userFolder = rootPath + "/data/$userId"
 
         "cp -R $sourceFodler/ $userFolder/game".execute().waitFor() // TODO: copy only on first user exec

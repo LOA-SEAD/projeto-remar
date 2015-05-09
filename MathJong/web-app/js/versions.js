@@ -5,15 +5,10 @@
 window.addEventListener("load", function() {
 
     $("#send").on("click", function() {
-        if($(this).attr("data-clicked")) {
-            return;
-        }
-
-        $(this).attr("data-clicked", true);
-
         $(".endpoint").each(function() {
             var checkbox = $(this).find("input");
             if(checkbox[0].checked) {
+                $(this).removeClass("endpoint");
                 var id = this.id;
                 var intervalId = setInterval(function(){etc(id)}, 500);
                 ajax(id, intervalId);
@@ -22,7 +17,6 @@ window.addEventListener("load", function() {
     });
 });
 
-
 function ajax(endpoint, intervalId) {
 
     $.ajax({
@@ -30,8 +24,7 @@ function ajax(endpoint, intervalId) {
         url: endpoint,
         success:function(data){
             clearInterval(intervalId);
-            $("#" + endpoint).find("h1").html("Versão web: <a href=\"" + data + "\">clique aqui</a>");
-
+            $("#" + endpoint).find("h1").html("Versão web: <a target=\"_blank\" href=\"" + location.origin + data + "\">clique aqui</a>");
         },
         error:function(XMLHttpRequest,textStatus,errorThrown){}});
 }
@@ -40,10 +33,10 @@ function etc(id) {
     var el = $("#" + id).find("h1");
     var html = $(el).html();
 
-    if(html != "Carregando..." && html.indexOf("Carregando") > -1) {
+    if(html != "Processando..." && html.indexOf("Processando") > -1) {
         html += ".";
-    } else if (!html.indexOf("Carregando") > -1 || html.indexOf("...") > -1) {
-        html = "Carregando.";
+    } else if (!html.indexOf("Processando") > -1 || html.indexOf("...") > -1) {
+        html = "Processando.";
     }
 
     $(el).html(html);

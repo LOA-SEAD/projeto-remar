@@ -88,10 +88,27 @@ grails.hibernate.osiv.readonly = false
 environments {
     development {
         grails.logging.jul.usebridge = true
+        grails.serverURL = "http://localhost:8080/mathjong"
+        grails.app.context = "/mathjong"
+        camunda {
+            engine {
+                configuration {
+                    history = 'full'
+                }
+            }
+        }
     }
     production {
         grails.logging.jul.usebridge = false
-        // TODO: grails.serverURL = "http://www.changeme.com"
+        grails.serverURL = "http://localhost:8080/mathjong"
+        grails.app.context = "/mathjong"
+        camunda {
+            engine {
+                configuration {
+                    history = 'full'
+                }
+            }
+        }
     }
 }
 
@@ -117,10 +134,13 @@ log4j.main = {
 }
 
 
+
+
+
 // Added by the Spring Security Core plugin:
-grails.plugin.springsecurity.userLookup.userDomainClassName = 'projetoremar.Usuario'
-grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'projetoremar.UsuarioPapel'
-grails.plugin.springsecurity.authority.className = 'projetoremar.Papel'
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'br.ufscar.sead.loa.remar.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'br.ufscar.sead.loa.remar.UserRole'
+grails.plugin.springsecurity.authority.className = 'br.ufscar.sead.loa.remar.Role'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                              ['permitAll'],
 	'/index':                         ['permitAll'],
@@ -130,7 +150,6 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**/css/**':                     ['permitAll'],
 	'/**/images/**':                  ['permitAll'],
 	'/**/favicon.ico':                ['permitAll'],
-    '/test':                          ['permitAll'],
-    '/test.gsp':                      ['permitAll']
+    '/data/**':                       ['permitAll']
 ]
 
