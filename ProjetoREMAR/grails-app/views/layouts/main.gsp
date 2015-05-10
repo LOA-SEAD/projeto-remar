@@ -43,7 +43,7 @@
 						<sec:ifAllGranted roles="ROLE_PROF">
 							<ul class="nav navbar-nav">
 								<li class="dropdown">
-									<a href="#">Professor</span></a>
+									<a href="#">Professor</a>
 								</li>
 							</ul>
 						</sec:ifAllGranted>

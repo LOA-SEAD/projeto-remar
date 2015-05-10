@@ -44,7 +44,7 @@ class QuestionController {
         def session = RequestContextHolder.currentRequestAttributes().getSession()
 
         def dataPath = servletContext.getRealPath("/data")
-        def userPath = new File(dataPath, "/" + session.processId)
+        def userPath = new File(dataPath, "/" + session.userId)
         userPath.mkdirs()
         println userPath
 
