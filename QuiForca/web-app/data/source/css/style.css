@@ -160,7 +160,7 @@ p
 	position: relative;
 	width: 500px;
 	height: 120px;
-	left: 30%;
+	left: 47%;
 	top: 65%;
 }
 
@@ -176,13 +176,6 @@ p
 	width: 119px;
 	height: 69px;
 	background-image: url("../imgs/btnCreditos.png")
-}
-
-#btnRanking
-{
-	width: 117px;
-	height: 65px;
-	background-image: url("../imgs/btnRanking.png")
 }
 
 #btnVoltar
@@ -236,4 +229,8 @@ border: 0 !important;
 height: 1px !important;
 width: 1px !important;
 overflow: hidden;
+}
+
+#falador{
+    color: transparent;
 }
