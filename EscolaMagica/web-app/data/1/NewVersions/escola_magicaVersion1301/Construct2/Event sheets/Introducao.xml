@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Introducao</name>
+    <events>
+        <comment>Carrega perguntas do jogo logo no inicio da animação, a fim de garantir que ela esteja pronta quando o layout Perguntas for executado.</comment>
+        <event-block>
+            <conditions>
+                <condition id="-2" name="On start of layout" type="System" />
+            </conditions>
+            <actions>
+                <action id="1" name="Request project file" type="AJAX">
+                    <param id="0" name="Tag">&quot;Perguntas&quot;</param>
+                    <param id="1" name="File">Perguntas.xml</param>
+                </action>
+                <action id="-16" name="Set opacity" type="LogosLOA">
+                    <param id="0" name="Opacity">0</param>
+                </action>
+                <action id="-16" name="Set opacity" type="txtApresentam">
+                    <param id="0" name="Opacity">0</param>
+                </action>
+                <action id="-12" name="Set group active" type="System">
+                    <param id="0" name="Group name">&quot;I_ELA&quot;</param>
+                    <param id="1" name="State">1</param>
+                </action>
+                <action id="-12" name="Set group active" type="System">
+                    <param id="0" name="Group name">&quot;I_ELB&quot;</param>
+                    <param id="1" name="State">0</param>
+                </action>
+                <action id="-12" name="Set group active" type="System">
+                    <param id="0" name="Group name">&quot;I_ExibirLogos&quot;</param>
+                    <param id="1" name="State">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="0" name="On completed" type="AJAX">
+                    <param id="0" name="Tag">&quot;Perguntas&quot;</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="0" name="Load" type="XML">
+                    <param id="0" name="XML">AJAX.LastData</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block>
+            <conditions>
+                <condition id="1" name="On error" type="AJAX">
+                    <param id="0" name="Tag">&quot;Perguntas&quot;</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-21" name="Reset global variables" type="System" />
+                <action id="-26" name="Restart layout" type="System" />
+            </actions>
+        </event-block>
+        <comment>Pula entre as logos sequenciais quando o jogador clica ou pressiona qualquer tecla</comment>
+        <event-block any="1">
+            <conditions>
+                <condition id="1" name="On any click" type="Mouse" />
+                <condition id="1" name="On any key pressed" type="Keyboard" />
+            </conditions>
+            <actions>
+                <action id="-16" name="Set opacity" type="LogosLOA">
+                    <param id="0" name="Opacity">0</param>
+                </action>
+                <action id="5" name="Set frame" type="LogosLOA">
+                    <param id="0" name="Frame number">self.AnimationFrame +1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-group description='Exibe as cinco diferentes logos na sequência dos frames presentes no objeto &quot;Logos&quot;. I_ELA descreve o efeito &quot;FadeIN&quot; e, quando finalizado, este chama I_ELB, que descreve o efeito &quot;FadeOUT&quot;. Este ciclo continua até que a última logo (de frame = 4) seja exibida e ocultada.' title="I_ExibirLogos">
+            <sub-events>
+                <event-group collapsed="1" description="" title="I_ELA">
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="-1" name="Every tick" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="-16" name="Set opacity" type="LogosLOA">
+                                    <param id="0" name="Opacity">self.Opacity + 50*dt</param>
+                                </action>
+                            </actions>
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-8" name="Compare two values" type="System">
+                                            <param id="0" name="First value">LogosLOA.Opacity</param>
+                                            <param id="1" name="Comparison">5</param>
+                                            <param id="2" name="Second value">100</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-12" name="Set group active" type="System">
+                                            <param id="0" name="Group name">&quot;I_ELB&quot;</param>
+                                            <param id="1" name="State">1</param>
+                                        </action>
+                                        <action id="-12" name="Set group active" type="System">
+                                            <param id="0" name="Group name">&quot;I_ELA&quot;</param>
+                                            <param id="1" name="State">0</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group description="" inactive="1" title="I_ELB">
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="-1" name="Every tick" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="-16" name="Set opacity" type="LogosLOA">
+                                    <param id="0" name="Opacity">self.Opacity - 50*dt</param>
+                                </action>
+                            </actions>
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-8" name="Compare two values" type="System">
+                                            <param id="0" name="First value">LogosLOA.Opacity</param>
+                                            <param id="1" name="Comparison">3</param>
+                                            <param id="2" name="Second value">0</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-12" name="Set group active" type="System">
+                                            <param id="0" name="Group name">&quot;I_ELA&quot;</param>
+                                            <param id="1" name="State">1</param>
+                                        </action>
+                                        <action id="-12" name="Set group active" type="System">
+                                            <param id="0" name="Group name">&quot;I_ELB&quot;</param>
+                                            <param id="1" name="State">0</param>
+                                        </action>
+                                    </actions>
+                                    <sub-events>
+                                        <event-block>
+                                            <conditions>
+                                                <condition id="3" name="Compare frame" type="LogosLOA">
+                                                    <param id="0" name="Comparison">1</param>
+                                                    <param id="1" name="Number">0</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="5" name="Set frame" type="LogosLOA">
+                                                    <param id="0" name="Frame number">self.AnimationFrame +1</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <event-block>
+                                            <conditions>
+                                                <condition id="-22" name="Else" type="System" />
+                                            </conditions>
+                                            <actions>
+                                                <action id="-12" name="Set group active" type="System">
+                                                    <param id="0" name="Group name">&quot;I_ExibirLogos&quot;</param>
+                                                    <param id="1" name="State">0</param>
+                                                </action>
+                                                <action id="-16" name="Wait" type="System">
+                                                    <param id="0" name="Seconds">0.5</param>
+                                                </action>
+                                                <action id="-12" name="Set group active" type="System">
+                                                    <param id="0" name="Group name">&quot;I_ExibirApresentam&quot;</param>
+                                                    <param id="1" name="State">1</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+            </sub-events>
+        </event-group>
+        <event-group description='Exibe o texto &quot;Apresentam&quot;. Este texto, além de se apresentar em um objeto diferente, não pode ser pulado pressionando qualquer tecla, como as logos anteriores.' inactive="1" title="I_ExibirApresentam">
+            <sub-events>
+                <event-block>
+                    <conditions>
+                        <condition id="-1" name="Every tick" type="System" />
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="-8" name="Compare two values" type="System">
+                                    <param id="0" name="First value">txtApresentam.FadeFlag</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Second value">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-16" name="Set opacity" type="txtApresentam">
+                                    <param id="0" name="Opacity">self.Opacity + 50*dt</param>
+                                </action>
+                            </actions>
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-8" name="Compare two values" type="System">
+                                            <param id="0" name="First value">txtApresentam.Opacity</param>
+                                            <param id="1" name="Comparison">5</param>
+                                            <param id="2" name="Second value">100</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-10" name="Set value" type="txtApresentam">
+                                            <param id="0" name="Instance variable">FadeFlag</param>
+                                            <param id="1" name="Value">1</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-8" name="Compare two values" type="System">
+                                    <param id="0" name="First value">txtApresentam.FadeFlag</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Second value">1</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-16" name="Set opacity" type="txtApresentam">
+                                    <param id="0" name="Opacity">self.Opacity - 50*dt</param>
+                                </action>
+                            </actions>
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-8" name="Compare two values" type="System">
+                                            <param id="0" name="First value">txtApresentam.Opacity</param>
+                                            <param id="1" name="Comparison">3</param>
+                                            <param id="2" name="Second value">0</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-12" name="Set group active" type="System">
+                                            <param id="0" name="Group name">&quot;txtApresentam&quot;</param>
+                                            <param id="1" name="State">0</param>
+                                        </action>
+                                        <action id="-12" name="Set group active" type="System">
+                                            <param id="0" name="Group name">&quot;I_ExibirApresentam&quot;</param>
+                                            <param id="1" name="State">0</param>
+                                        </action>
+                                        <action id="-12" name="Set group active" type="System">
+                                            <param id="0" name="Group name">&quot;I_ExibirLogos&quot;</param>
+                                            <param id="1" name="State">1</param>
+                                        </action>
+                                        <action id="-10" name="Set value" type="txtApresentam">
+                                            <param id="0" name="Instance variable">FadeFlag</param>
+                                            <param id="1" name="Value">0</param>
+                                        </action>
+                                        <action id="-2" name="Go to layout" type="System">
+                                            <param id="0" name="Layout">IntroducaoSonho</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+    </events>
+</c2eventsheet>

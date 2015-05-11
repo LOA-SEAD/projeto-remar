@@ -1,0 +1,1832 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Porta3</name>
+    <events>
+        <event-block>
+            <conditions>
+                <condition id="-2" name="On start of layout" type="System" />
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">AnoAtual</param>
+                    <param id="1" name="Value">3</param>
+                </action>
+                <action id="-5" name="Set width" type="BarraVida">
+                    <param id="0" name="Width">Capsula.Width * (vlrVida/100)</param>
+                </action>
+                <action id="4" name="Set animation" type="imgPlayer">
+                    <param id="0" name="Animation">&quot;Standing&quot;</param>
+                    <param id="1" name="From">1</param>
+                </action>
+                <action behavior="Pin" id="0" name="Pin to object" type="imgBalao">
+                    <param id="0" name="Pin to">imgPlayer</param>
+                    <param id="1" name="Mode">0</param>
+                </action>
+                <action behavior="Pin" id="0" name="Pin to object" type="txtFala">
+                    <param id="0" name="Pin to">imgBalao</param>
+                    <param id="1" name="Mode">0</param>
+                </action>
+                <action id="-4" name="Set position to another object" type="imgPlayer">
+                    <param id="0" name="Object">player</param>
+                    <param id="1" name="Image point (optional)">0</param>
+                </action>
+                <action behavior="Pin" id="0" name="Pin to object" type="imgPlayer">
+                    <param id="0" name="Pin to">player</param>
+                    <param id="1" name="Mode">0</param>
+                </action>
+                <action id="6" name="Stop" type="Audio">
+                    <param id="0" name="Tag">&quot;Pergunta&quot;</param>
+                </action>
+                <action id="6" name="Stop" type="Audio">
+                    <param id="0" name="Tag">&quot;Selecao&quot;</param>
+                </action>
+                <action id="0" name="Play" type="Audio">
+                    <param id="0" name="Audio file">FaseC</param>
+                    <param id="2" name="Loop">1</param>
+                    <param id="3" name="Volume">Volume</param>
+                    <param id="1" name="Tag (optional)">&quot;FaseC&quot;</param>
+                </action>
+                <action id="4" name="Preload" type="Audio">
+                    <param id="0" name="Audio file">IniDest</param>
+                </action>
+                <action id="4" name="Preload" type="Audio">
+                    <param id="0" name="Audio file">Morrer</param>
+                </action>
+                <action id="4" name="Preload" type="Audio">
+                    <param id="0" name="Audio file">Coruja</param>
+                </action>
+                <action id="5" name="Set frame" type="btnEditarSom">
+                    <param id="0" name="Frame number">Volume = -20 ? 2 : 0</param>
+                </action>
+                <action id="-12" name="Set group active" type="System">
+                    <param id="0" name="Group name">&quot;controleTeclas&quot;</param>
+                    <param id="1" name="State">1</param>
+                </action>
+                <action id="-12" name="Set group active" type="System">
+                    <param id="0" name="Group name">&quot;Pegar_pedra&quot;</param>
+                    <param id="1" name="State">0</param>
+                </action>
+                <action id="-12" name="Set group active" type="System">
+                    <param id="0" name="Group name">&quot;ColisaoCama&quot;</param>
+                    <param id="1" name="State">0</param>
+                </action>
+            </actions>
+            <sub-events>
+                <event-group collapsed="1" description="Preenche corretamente as constantes necessarios referentes as conquistas do jogador." title="PreencheConquistas">
+                    <sub-events>
+                        <event-block>
+                            <conditions />
+                            <actions>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">ConquistaInicoFase</param>
+                                    <param id="1" name="Value">time</param>
+                                </action>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">MAX_INI_MORT</param>
+                                    <param id="1" name="Value">8</param>
+                                </action>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">MIN_INI_MORT</param>
+                                    <param id="1" name="Value">1</param>
+                                </action>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">MIN_VELOC_FASE</param>
+                                    <param id="1" name="Value">100</param>
+                                </action>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">MIN_VELOC_RESP</param>
+                                    <param id="1" name="Value">10</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group description="Define eventos sucessivos a volta do jogador do layout Perguntas, ao responder uma." title="PosPergunta">
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="-8" name="Compare two values" type="System">
+                                    <param id="0" name="First value">PergAtual</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Second value">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">PosX</param>
+                                    <param id="1" name="Value">player.X</param>
+                                </action>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">PosY</param>
+                                    <param id="1" name="Value">player.Y</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-22" name="Else" type="System" />
+                                <condition id="-11" name="For Each" type="System">
+                                    <param id="0" name="Object">alavBase</param>
+                                </condition>
+                                <condition id="-15" name="Pick nearest/furthest" type="alavBarra">
+                                    <param id="0" name="Which">0</param>
+                                    <param id="1" name="X">alavBase.X</param>
+                                    <param id="2" name="Y">alavBase.Y</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-3" name="Set position" type="player">
+                                    <param id="0" name="X">PosX</param>
+                                    <param id="1" name="Y">PosY</param>
+                                </action>
+                                <action id="-8" name="Scroll to object" type="System">
+                                    <param id="0" name="Object">player</param>
+                                </action>
+                            </actions>
+                            <sub-events>
+                                <comment>Todas as alavancas que estao atras do jogador ja tiveram suas perguntas respondidas. Inibe que jogador entrem nelas novamente.</comment>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-8" name="Compare two values" type="System">
+                                            <param id="0" name="First value">alavBarra.X</param>
+                                            <param id="1" name="Comparison">3</param>
+                                            <param id="2" name="Second value">player.X +player.Width</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-8" name="Set angle" type="alavBarra">
+                                            <param id="0" name="Angle">315</param>
+                                        </action>
+                                        <action id="4" name="Set animation" type="alavBase">
+                                            <param id="0" name="Animation">&quot;ativo&quot;</param>
+                                            <param id="1" name="From">1</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">PergAtual</param>
+                                    <param id="1" name="Comparison">5</param>
+                                    <param id="2" name="Value">1</param>
+                                </condition>
+                                <condition id="-13" name="Pick nth instance" type="System">
+                                    <param id="0" name="Object">gatilhoEventos</param>
+                                    <param id="1" name="Instance">3</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;ColisaoCama&quot;</param>
+                                    <param id="1" name="State">1</param>
+                                </action>
+                                <action id="-9" name="Destroy" type="itPedra" />
+                                <action id="5" name="Set frame" type="Cama">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                                <action id="-13" name="Set boolean" type="gatilhoEventos">
+                                    <param id="0" name="Instance variable">Ativo</param>
+                                    <param id="1" name="Value">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">PergAtual</param>
+                                    <param id="1" name="Comparison">5</param>
+                                    <param id="2" name="Value">2</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;Flat1_3&quot;</param>
+                                    <param id="1" name="State">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">PergAtual</param>
+                                    <param id="1" name="Comparison">5</param>
+                                    <param id="2" name="Value">3</param>
+                                </condition>
+                                <condition id="-13" name="Pick nth instance" type="System">
+                                    <param id="0" name="Object">gatilhoEventos</param>
+                                    <param id="1" name="Instance">4</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="4" name="Set animation" type="itCaixaMusica">
+                                    <param id="0" name="Animation">&quot;Tocando&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;Pegar_pedra&quot;</param>
+                                    <param id="1" name="State">1</param>
+                                </action>
+                                <action id="-13" name="Set boolean" type="gatilhoEventos">
+                                    <param id="0" name="Instance variable">Ativo</param>
+                                    <param id="1" name="Value">0</param>
+                                </action>
+                            </actions>
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-11" name="For Each" type="System">
+                                            <param id="0" name="Object">Inimigo</param>
+                                        </condition>
+                                        <condition id="-7" name="Compare instance variable" type="Inimigo">
+                                            <param id="0" name="Instance variable">tipo</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">3</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action behavior="Sine" id="1" name="Set period" type="Inimigo">
+                                            <param id="0" name="Period">6</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">PergAtual</param>
+                                    <param id="1" name="Comparison">5</param>
+                                    <param id="2" name="Value">4</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-8" name="Compare two values" type="System">
+                                    <param id="0" name="First value">PergAtual</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Second value">5</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-11" name="For Each" type="System">
+                                    <param id="0" name="Object">Inimigo</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-7" name="Compare instance variable" type="Inimigo">
+                                            <param id="0" name="Instance variable">tipo</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">1</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="4" name="Set animation" type="Inimigo">
+                                            <param id="0" name="Animation">&quot;Atirador&quot;</param>
+                                            <param id="1" name="From">1</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <comment>Cria objeto TrocMovInimigo para inimigos que andam. Quando os inimigos colidem com estes objetos, eles trocam de sentido.</comment>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-7" name="Compare instance variable" type="Inimigo">
+                                            <param id="0" name="Instance variable">tipo</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">0</param>
+                                        </condition>
+                                        <condition behavior="Sine" id="1" name="Compare movement" type="Inimigo">
+                                            <param id="0" name="Movement">0</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="7" name="Set mirrored" type="Inimigo">
+                                            <param id="0" name="State">0</param>
+                                        </action>
+                                        <action id="-3" name="Create object" type="System">
+                                            <param id="0" name="Object to create">TrocMovInimigo</param>
+                                            <param id="1" name="Layer">&quot;layObjetos&quot;</param>
+                                            <param id="2" name="X">Inimigo.X -Inimigo.Sine.Magnitude</param>
+                                            <param id="3" name="Y">Inimigo.Y</param>
+                                        </action>
+                                        <action id="-3" name="Create object" type="System">
+                                            <param id="0" name="Object to create">TrocMovInimigo</param>
+                                            <param id="1" name="Layer">&quot;layObjetos&quot;</param>
+                                            <param id="2" name="X">Inimigo.X +Inimigo.Sine.Magnitude</param>
+                                            <param id="3" name="Y">Inimigo.Y</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-11" name="For Each" type="System">
+                                    <param id="0" name="Object">CP</param>
+                                </condition>
+                                <condition id="-1" name="Compare X" type="CP">
+                                    <param id="0" name="Comparison">3</param>
+                                    <param id="1" name="X co-ordinate">player.X +player.Width</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" type="CP">
+                                    <param id="0" name="Frame number">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+            </sub-events>
+        </event-block>
+        <event-group description="" title="RegrasGerais">
+            <sub-events>
+                <event-group collapsed="1" description="" title="ControleTeclas">
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="2" name="Key is down" type="Keyboard">
+                                    <param id="0" name="Key">37 (Left arrow)</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="7" name="Set mirrored" type="imgPlayer">
+                                    <param id="0" name="State">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="2" name="Key is down" type="Keyboard">
+                                    <param id="0" name="Key">39 (Right arrow)</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="7" name="Set mirrored" type="imgPlayer">
+                                    <param id="0" name="State">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="0" name="On key pressed" type="Keyboard">
+                                    <param id="0" name="Key">16 (Shift)</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action behavior="Platform" id="1" name="Set max speed" type="player">
+                                    <param id="0" name="Max Speed">2*VLR_MAX_VELOC</param>
+                                </action>
+                                <action id="6" name="Set speed" type="imgPlayer">
+                                    <param id="0" name="Speed">imgPlayer.AnimationSpeed *1.5</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="3" name="On key released" type="Keyboard">
+                                    <param id="0" name="Key">16 (Shift)</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action behavior="Platform" id="1" name="Set max speed" type="player">
+                                    <param id="0" name="Max Speed">VLR_MAX_VELOC</param>
+                                </action>
+                                <action id="6" name="Set speed" type="imgPlayer">
+                                    <param id="0" name="Speed">imgPlayer.AnimationSpeed /1.5</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="0" name="On key pressed" type="Keyboard">
+                                    <param id="0" name="Key">32 (Space)</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action behavior="Platform" id="7" name="Simulate control" type="player">
+                                    <param id="0" name="Control">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group description="" title="Jogador">
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition behavior="Platform" id="5" name="On jump" type="player" />
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Play" type="Audio">
+                                    <param id="0" name="Audio file">perPulo</param>
+                                    <param id="2" name="Loop">0</param>
+                                    <param id="3" name="Volume">Volume</param>
+                                    <param id="1" name="Tag (optional)">&quot;perPulo&quot;</param>
+                                </action>
+                                <action id="4" name="Set animation" type="imgPlayer">
+                                    <param id="0" name="Animation">&quot;Leaping&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition behavior="Platform" id="0" name="Is moving" type="player" />
+                            </conditions>
+                            <actions>
+                                <action id="-8" name="Scroll to object" type="System">
+                                    <param id="0" name="Object">player</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition behavior="Platform" id="8" name="On moved" type="player" />
+                            </conditions>
+                            <actions>
+                                <action id="4" name="Set animation" type="imgPlayer">
+                                    <param id="0" name="Animation">&quot;Running&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition behavior="Platform" id="7" name="On stopped" type="player" />
+                            </conditions>
+                            <actions>
+                                <action id="4" name="Set animation" type="imgPlayer">
+                                    <param id="0" name="Animation">&quot;Standing&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition behavior="Platform" id="9" name="On landed" type="player" />
+                            </conditions>
+                            <actions>
+                                <action id="4" name="Set animation" type="imgPlayer">
+                                    <param id="0" name="Animation">&quot;Standing&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition behavior="Platform" id="0" name="Is moving" type="player" />
+                                    </conditions>
+                                    <actions>
+                                        <action id="4" name="Set animation" type="imgPlayer">
+                                            <param id="0" name="Animation">&quot;Running&quot;</param>
+                                            <param id="1" name="From">1</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition behavior="Platform" id="4" name="Is falling" type="player" />
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <comment>imgPlayer nao esta sobre a ponte</comment>
+                                <event-block any="1">
+                                    <conditions>
+                                        <condition id="-8" name="Compare two values" type="System">
+                                            <param id="0" name="First value">imgPlayer.X</param>
+                                            <param id="1" name="Comparison">2</param>
+                                            <param id="2" name="Second value">itPonte.X -itPonte.Width/2</param>
+                                        </condition>
+                                        <condition id="-8" name="Compare two values" type="System">
+                                            <param id="0" name="First value">imgPlayer.X</param>
+                                            <param id="1" name="Comparison">4</param>
+                                            <param id="2" name="Second value">itPonte.X +itPonte.Width/2</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="4" name="Set animation" type="imgPlayer">
+                                            <param id="0" name="Animation">&quot;Falling&quot;</param>
+                                            <param id="1" name="From">1</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group description="" title="Interações">
+                    <sub-events>
+                        <event-group collapsed="1" description="" title="PlataformasFlutuantes">
+                            <sub-events>
+                                <event-group collapsed="1" description="" inactive="1" title="Flat1_3">
+                                    <sub-events>
+                                        <event-block>
+                                            <conditions>
+                                                <condition id="-6" name="Every X seconds" type="System">
+                                                    <param id="0" name="Interval (seconds)">0.01</param>
+                                                </condition>
+                                                <condition id="-13" name="Pick nth instance" type="System">
+                                                    <param id="0" name="Object">imgPlatMov</param>
+                                                    <param id="1" name="Instance">0</param>
+                                                </condition>
+                                                <condition id="-13" name="Pick nth instance" type="System">
+                                                    <param id="0" name="Object">imgPlatMovBase</param>
+                                                    <param id="1" name="Instance">0</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-2" name="Set Y" type="imgPlatMov">
+                                                    <param id="0" name="Y">imgPlatMov.Y +2</param>
+                                                </action>
+                                                <action id="-2" name="Set Y" type="imgPlatMovBase">
+                                                    <param id="0" name="Y">imgPlatMovBase.Y +2</param>
+                                                </action>
+                                            </actions>
+                                            <sub-events>
+                                                <event-block>
+                                                    <conditions>
+                                                        <condition id="-2" name="Compare Y" type="imgPlatMov">
+                                                            <param id="0" name="Comparison">5</param>
+                                                            <param id="1" name="Y co-ordinate">135</param>
+                                                        </condition>
+                                                    </conditions>
+                                                    <actions>
+                                                        <action id="-12" name="Set group active" type="System">
+                                                            <param id="0" name="Group name">&quot;Flat2_3&quot;</param>
+                                                            <param id="1" name="State">1</param>
+                                                        </action>
+                                                    </actions>
+                                                </event-block>
+                                                <event-block any="1">
+                                                    <conditions>
+                                                        <condition id="-2" name="Compare Y" type="imgPlatMov">
+                                                            <param id="0" name="Comparison">5</param>
+                                                            <param id="1" name="Y co-ordinate">269</param>
+                                                        </condition>
+                                                        <condition id="-14" name="Compare variable" type="System">
+                                                            <param id="0" name="Variable">PergAtual</param>
+                                                            <param id="1" name="Comparison">4</param>
+                                                            <param id="2" name="Value">3</param>
+                                                        </condition>
+                                                    </conditions>
+                                                    <actions>
+                                                        <action id="-12" name="Set group active" type="System">
+                                                            <param id="0" name="Group name">&quot;Flat1_3&quot;</param>
+                                                            <param id="1" name="State">0</param>
+                                                        </action>
+                                                        <action id="-2" name="Set Y" type="imgPlatMov">
+                                                            <param id="0" name="Y">269</param>
+                                                        </action>
+                                                        <action id="-2" name="Set Y" type="imgPlatMovBase">
+                                                            <param id="0" name="Y">264</param>
+                                                        </action>
+                                                    </actions>
+                                                </event-block>
+                                            </sub-events>
+                                        </event-block>
+                                    </sub-events>
+                                </event-group>
+                                <event-group collapsed="1" description="" inactive="1" title="Flat2_3">
+                                    <sub-events>
+                                        <event-block>
+                                            <conditions>
+                                                <condition id="-6" name="Every X seconds" type="System">
+                                                    <param id="0" name="Interval (seconds)">0.01</param>
+                                                </condition>
+                                                <condition id="-13" name="Pick nth instance" type="System">
+                                                    <param id="0" name="Object">imgPlatMov</param>
+                                                    <param id="1" name="Instance">1</param>
+                                                </condition>
+                                                <condition id="-13" name="Pick nth instance" type="System">
+                                                    <param id="0" name="Object">imgPlatMovBase</param>
+                                                    <param id="1" name="Instance">1</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-2" name="Set Y" type="imgPlatMov">
+                                                    <param id="0" name="Y">imgPlatMov.Y +2</param>
+                                                </action>
+                                                <action id="-2" name="Set Y" type="imgPlatMovBase">
+                                                    <param id="0" name="Y">imgPlatMovBase.Y +2</param>
+                                                </action>
+                                            </actions>
+                                            <sub-events>
+                                                <event-block any="1">
+                                                    <conditions>
+                                                        <condition id="-2" name="Compare Y" type="imgPlatMov">
+                                                            <param id="0" name="Comparison">5</param>
+                                                            <param id="1" name="Y co-ordinate">412</param>
+                                                        </condition>
+                                                        <condition id="-14" name="Compare variable" type="System">
+                                                            <param id="0" name="Variable">PergAtual</param>
+                                                            <param id="1" name="Comparison">4</param>
+                                                            <param id="2" name="Value">3</param>
+                                                        </condition>
+                                                    </conditions>
+                                                    <actions>
+                                                        <action id="-12" name="Set group active" type="System">
+                                                            <param id="0" name="Group name">&quot;Flat2_3&quot;</param>
+                                                            <param id="1" name="State">0</param>
+                                                        </action>
+                                                        <action id="-2" name="Set Y" type="imgPlatMov">
+                                                            <param id="0" name="Y">412</param>
+                                                        </action>
+                                                        <action id="-2" name="Set Y" type="imgPlatMovBase">
+                                                            <param id="0" name="Y">407</param>
+                                                        </action>
+                                                    </actions>
+                                                </event-block>
+                                            </sub-events>
+                                        </event-block>
+                                    </sub-events>
+                                </event-group>
+                            </sub-events>
+                        </event-group>
+                        <event-group collapsed="1" description="" title="Alavanca">
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="3" name="On key released" type="Keyboard">
+                                            <param id="0" name="Key">17 (Ctrl)</param>
+                                        </condition>
+                                        <condition id="1" name="Is overlapping another object" type="alavBarra">
+                                            <param id="0" name="Object">player</param>
+                                        </condition>
+                                        <condition id="-13" name="Is between angles" type="alavBarra">
+                                            <param id="0" name="First angle">44</param>
+                                            <param id="1" name="Second angle">46</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-12" name="Set group active" type="System">
+                                            <param id="0" name="Group name">&quot;CC_AlteraAlavanca&quot;</param>
+                                            <param id="1" name="State">1</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-group description="" inactive="1" title="CC_AlteraAlavanca">
+                                    <sub-events>
+                                        <event-block>
+                                            <conditions>
+                                                <condition id="-13" name="Is between angles" type="alavBarra">
+                                                    <param id="0" name="First angle">-45</param>
+                                                    <param id="1" name="Second angle">46</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-8" name="Set angle" type="alavBarra">
+                                                    <param id="0" name="Angle">alavBarra.Angle -3</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <event-block>
+                                            <conditions>
+                                                <condition id="-22" name="Else" type="System" />
+                                            </conditions>
+                                            <actions>
+                                                <action id="-12" name="Set group active" type="System">
+                                                    <param id="0" name="Group name">&quot;CC_AlteraAlavanca&quot;</param>
+                                                    <param id="1" name="State">0</param>
+                                                </action>
+                                                <action id="-8" name="Set angle" type="alavBarra">
+                                                    <param id="0" name="Angle">315</param>
+                                                </action>
+                                                <action id="-9" name="Set value" type="System">
+                                                    <param id="0" name="Variable">PosX</param>
+                                                    <param id="1" name="Value">player.X</param>
+                                                </action>
+                                                <action id="-9" name="Set value" type="System">
+                                                    <param id="0" name="Variable">PosY</param>
+                                                    <param id="1" name="Value">player.Y</param>
+                                                </action>
+                                                <action id="-2" name="Go to layout" type="System">
+                                                    <param id="0" name="Layout">Pergunta</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-group>
+                            </sub-events>
+                        </event-group>
+                        <event-group collapsed="1" description="" title="Balas">
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-6" name="Every X seconds" type="System">
+                                            <param id="0" name="Interval (seconds)">3</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions />
+                                    <sub-events>
+                                        <event-block>
+                                            <conditions>
+                                                <condition id="-7" name="Compare instance variable" type="Inimigo">
+                                                    <param id="0" name="Instance variable">tipo</param>
+                                                    <param id="1" name="Comparison">0</param>
+                                                    <param id="2" name="Value">1</param>
+                                                </condition>
+                                                <condition id="-11" name="For Each" type="System">
+                                                    <param id="0" name="Object">Inimigo</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-3" name="Create object" type="System">
+                                                    <param id="0" name="Object to create">itBala</param>
+                                                    <param id="1" name="Layer">&quot;layObjetos&quot;</param>
+                                                    <param id="2" name="X">Inimigo.X</param>
+                                                    <param id="3" name="Y">Inimigo.Y</param>
+                                                </action>
+                                                <action behavior="Bullet" id="3" name="Set angle of motion" type="itBala">
+                                                    <param id="0" name="Angle">250</param>
+                                                </action>
+                                                <action behavior="Bullet" id="1" name="Set acceleration" type="itBala">
+                                                    <param id="0" name="Acceleration">50</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <event-block>
+                                            <conditions>
+                                                <condition id="-13" name="Pick nth instance" type="System">
+                                                    <param id="0" name="Object">itBala</param>
+                                                    <param id="1" name="Instance">0</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions />
+                                        </event-block>
+                                    </sub-events>
+                                </event-block>
+                            </sub-events>
+                        </event-group>
+                        <event-group collapsed="1" description="" title="CaiuBuraco">
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-4" name="Is outside layout" type="player" />
+                                    </conditions>
+                                    <actions>
+                                        <action id="-10" name="Add to" type="System">
+                                            <param id="0" name="Variable">NumQuedas</param>
+                                            <param id="1" name="Value">1</param>
+                                        </action>
+                                        <action id="7" name="Play (by name)" type="Audio">
+                                            <param id="0" name="Folder">0</param>
+                                            <param id="1" name="Audio file name">&quot;Morrer&quot;</param>
+                                            <param id="3" name="Loop">0</param>
+                                            <param id="4" name="Volume">0</param>
+                                            <param id="2" name="Tag (optional)">&quot;Morrer&quot;</param>
+                                        </action>
+                                        <action id="-9" name="Set value" type="System">
+                                            <param id="0" name="Variable">vlrVida</param>
+                                            <param id="1" name="Value">vlrVida -VLR_DANO_QUEDA</param>
+                                        </action>
+                                        <action id="-3" name="Set position" type="player">
+                                            <param id="0" name="X">PosX</param>
+                                            <param id="1" name="Y">PosY</param>
+                                        </action>
+                                        <action behavior="Platform" id="11" name="Set enabled" type="player">
+                                            <param id="0" name="State">1</param>
+                                        </action>
+                                        <action id="-12" name="Set group active" type="System">
+                                            <param id="0" name="Group name">&quot;VerificaGameOver&quot;</param>
+                                            <param id="1" name="State">1</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-group>
+                        <event-group collapsed="1" description="" title="CheckPoint">
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="0" name="On collision with another object" type="imgPlayer">
+                                            <param id="0" name="Object">CP</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-9" name="Set value" type="System">
+                                            <param id="0" name="Variable">PosY</param>
+                                            <param id="1" name="Value">Player.Y</param>
+                                        </action>
+                                        <action id="-9" name="Set value" type="System">
+                                            <param id="0" name="Variable">PosX</param>
+                                            <param id="1" name="Value">Player.X</param>
+                                        </action>
+                                    </actions>
+                                    <sub-events>
+                                        <event-block>
+                                            <conditions>
+                                                <condition id="3" name="Compare frame" type="CP">
+                                                    <param id="0" name="Comparison">0</param>
+                                                    <param id="1" name="Number">0</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="0" name="Play" type="Audio">
+                                                    <param id="0" name="Audio file">Coruja</param>
+                                                    <param id="2" name="Loop">0</param>
+                                                    <param id="3" name="Volume">Volume</param>
+                                                    <param id="1" name="Tag (optional)">&quot;Coruja&quot;</param>
+                                                </action>
+                                                <action id="5" name="Set frame" type="CP">
+                                                    <param id="0" name="Frame number">1</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-block>
+                            </sub-events>
+                        </event-group>
+                        <event-group description='Descreve a interação da personagem com objetos do tipo caixa, que são &quot;arrastáveis&quot; pelo cenário.' inactive="1" title="Pegar_pedra">
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-4" name="Is outside layout" type="itPedra2" />
+                                    </conditions>
+                                    <actions>
+                                        <action id="-3" name="Set position" type="itPedra2">
+                                            <param id="0" name="X">itPonte.X</param>
+                                            <param id="1" name="Y">itPonte.Y -itPedra2.Height -itPonte.Height -50</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="1" inverted="1" name="Is overlapping another object" type="itPonte">
+                                            <param id="0" name="Object">itPedra2</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-2" name="Set Y" type="itPedra2">
+                                            <param id="0" name="Y">itPedra2.Y +5</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="3" name="On key released" type="Keyboard">
+                                            <param id="0" name="Key">17 (Ctrl)</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions />
+                                    <sub-events>
+                                        <event-block>
+                                            <conditions>
+                                                <condition behavior="Pin" id="0" name="Is pinned" type="itPedra2" />
+                                            </conditions>
+                                            <actions>
+                                                <action behavior="Pin" id="1" name="Unpin" type="itPedra2" />
+                                            </actions>
+                                        </event-block>
+                                        <event-block>
+                                            <conditions>
+                                                <condition id="-22" name="Else" type="System" />
+                                                <condition id="1" name="Is overlapping another object" type="imgPlayer">
+                                                    <param id="0" name="Object">itPedra2</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action behavior="Pin" id="0" name="Pin to object" type="itPedra2">
+                                                    <param id="0" name="Pin to">player</param>
+                                                    <param id="1" name="Mode">1</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-block>
+                                <comment>Quando mais da metade da pedra está após a metade da ponte, a ponte devera se inclinar para o lado direito. A posicao da ponte é medida a partir de sua medade, portanto seu início é em itPonte.X -itPonte.Width /2, e sua metade é EXATAMENTE itPonte.X</comment>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-8" name="Compare two values" type="System">
+                                            <param id="0" name="First value">itPedra2.X</param>
+                                            <param id="1" name="Comparison">5</param>
+                                            <param id="2" name="Second value">itPonte.X</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-12" name="Set group active" type="System">
+                                            <param id="0" name="Group name">&quot;C_PedraSobrePonte&quot;</param>
+                                            <param id="1" name="State">1</param>
+                                        </action>
+                                        <action id="-12" name="Set group active" type="System">
+                                            <param id="0" name="Group name">&quot;C_PadraoPonte&quot;</param>
+                                            <param id="1" name="State">0</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-22" name="Else" type="System" />
+                                    </conditions>
+                                    <actions>
+                                        <action id="-12" name="Set group active" type="System">
+                                            <param id="0" name="Group name">&quot;C_PadraoPonte&quot;</param>
+                                            <param id="1" name="State">1</param>
+                                        </action>
+                                        <action id="-12" name="Set group active" type="System">
+                                            <param id="0" name="Group name">&quot;C_PedraSobrePonte&quot;</param>
+                                            <param id="1" name="State">0</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-group description="Descreve o movimento de retorno do angulo original da ponte. Este grupo é ativado quando nenhuma pedra está sobre ele." inactive="1" title="C_PadraoPonte">
+                                    <sub-events>
+                                        <event-block>
+                                            <conditions>
+                                                <condition id="-8" name="Compare two values" type="System">
+                                                    <param id="0" name="First value">itPonte.Angle %360</param>
+                                                    <param id="1" name="Comparison">2</param>
+                                                    <param id="2" name="Second value">341</param>
+                                                </condition>
+                                                <condition id="-8" name="Compare two values" type="System">
+                                                    <param id="0" name="First value">itPonte.Angle %360</param>
+                                                    <param id="1" name="Comparison">4</param>
+                                                    <param id="2" name="Second value">20</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-8" name="Set angle" type="itPonte">
+                                                    <param id="0" name="Angle">340</param>
+                                                </action>
+                                                <action id="-12" name="Set group active" type="System">
+                                                    <param id="0" name="Group name">&quot;C_PadraoPonte&quot;</param>
+                                                    <param id="1" name="State">0</param>
+                                                </action>
+                                                <action id="-8" name="Set angle" type="itPedra2">
+                                                    <param id="0" name="Angle">itPonte.Angle</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <event-block>
+                                            <conditions>
+                                                <condition id="-22" name="Else" type="System" />
+                                            </conditions>
+                                            <actions>
+                                                <action id="-8" name="Set angle" type="itPonte">
+                                                    <param id="0" name="Angle">itPonte.Angle -0.2*(itPonte.X -itPedra2.X)/50</param>
+                                                </action>
+                                                <action id="-8" name="Set angle" type="itPedra2">
+                                                    <param id="0" name="Angle">itPonte.Angle</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-group>
+                                <event-group description="" inactive="1" title="C_PedraSobrePonte">
+                                    <sub-events>
+                                        <event-block any="1">
+                                            <conditions>
+                                                <condition id="-13" inverted="1" name="Is between angles" type="itPonte">
+                                                    <param id="0" name="First angle">340</param>
+                                                    <param id="1" name="Second angle">20</param>
+                                                </condition>
+                                                <condition id="-15" name="Is group active" type="System">
+                                                    <param id="0" name="Group name">&quot;C_PadraoPonte&quot;</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-8" name="Set angle" type="itPonte">
+                                                    <param id="0" name="Angle">20</param>
+                                                </action>
+                                                <action id="-12" name="Set group active" type="System">
+                                                    <param id="0" name="Group name">&quot;C_PedraSobrePonte&quot;</param>
+                                                    <param id="1" name="State">0</param>
+                                                </action>
+                                                <action id="-8" name="Set angle" type="itPedra2">
+                                                    <param id="0" name="Angle">itPonte.Angle</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <event-block>
+                                            <conditions>
+                                                <condition id="-22" name="Else" type="System" />
+                                            </conditions>
+                                            <actions>
+                                                <action id="-8" name="Set angle" type="itPonte">
+                                                    <param id="0" name="Angle">itPonte.Angle +0.2*(itPedra2.X -itPonte.X)/50</param>
+                                                </action>
+                                                <action id="-8" name="Set angle" type="itPedra2">
+                                                    <param id="0" name="Angle">itPonte.Angle</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-group>
+                            </sub-events>
+                        </event-group>
+                        <event-group description="" inactive="1" title="VerificaGameOver">
+                            <sub-events>
+                                <event-block>
+                                    <conditions />
+                                    <actions>
+                                        <action id="-12" name="Set group active" type="System">
+                                            <param id="0" name="Group name">&quot;VerificaGameOver&quot;</param>
+                                            <param id="1" name="State">0</param>
+                                        </action>
+                                        <action id="-5" name="Set width" type="BarraVida">
+                                            <param id="0" name="Width">Capsula.Width * (vlrVida/100)</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-14" name="Compare variable" type="System">
+                                            <param id="0" name="Variable">vlrVida</param>
+                                            <param id="1" name="Comparison">3</param>
+                                            <param id="2" name="Value">0</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-2" name="Go to layout" type="System">
+                                            <param id="0" name="Layout">GameOver</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-22" name="Else" type="System" />
+                                    </conditions>
+                                    <actions>
+                                        <action behavior="Flash" id="0" name="Flash" type="imgPlayer">
+                                            <param id="0" name="&apos;On&apos; time">0.1</param>
+                                            <param id="1" name="&apos;Off&apos; time">0.1</param>
+                                            <param id="2" name="Duration">2.0</param>
+                                        </action>
+                                        <action id="-8" name="Scroll to object" type="System">
+                                            <param id="0" name="Object">player</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-group>
+                    </sub-events>
+                </event-group>
+                <event-group collapsed="1" description="" title="Colisoes">
+                    <sub-events>
+                        <event-group collapsed="1" description="" title="ColisaoAreia">
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="1" name="Is overlapping another object" type="imgPlayer">
+                                            <param id="0" name="Object">AreiaMovetica</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action behavior="Platform" id="1" name="Set max speed" type="player">
+                                            <param id="0" name="Max Speed">VLR_MAX_VELOC /2</param>
+                                        </action>
+                                        <action behavior="Platform" id="6" name="Set max fall speed" type="player">
+                                            <param id="0" name="Max fall speed">VLR_MAX_ACELER /10</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-22" name="Else" type="System" />
+                                        <condition id="-4" name="Trigger once while true" type="System" />
+                                    </conditions>
+                                    <actions>
+                                        <action behavior="Platform" id="1" name="Set max speed" type="player">
+                                            <param id="0" name="Max Speed">VLR_MAX_VELOC</param>
+                                        </action>
+                                        <action behavior="Platform" id="6" name="Set max fall speed" type="player">
+                                            <param id="0" name="Max fall speed">VLR_MAX_ACELER</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-group>
+                        <event-group collapsed="1" description="" title="ColisaoPorta">
+                            <sub-events>
+                                <comment>Conclui terceiro ano, seta variavel CenariosCencluidos com 1 na terceira posição.</comment>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="0" name="On collision with another object" type="PortaC">
+                                            <param id="0" name="Object">player</param>
+                                        </condition>
+                                        <condition id="-14" name="Compare variable" type="System">
+                                            <param id="0" name="Variable">PergAtual</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">5</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-9" name="Set value" type="System">
+                                            <param id="0" name="Variable">CenariosConcluidos</param>
+                                            <param id="1" name="Value">left(CenariosConcluidos,2)&amp;1</param>
+                                        </action>
+                                    </actions>
+                                    <sub-events>
+                                        <event-group collapsed="1" description='Verifica variaveis responsaveis pelo registro das acoes do jogador e, caso tenha atingido uma conquista, atribui o valor 1 aa posicao correspondente dessa mesma ao vetor &quot;Conquistas&quot;, registrando que ela ja foi atingida.' title="VerificarConquistas">
+                                            <sub-events>
+                                                <comment>Intocavel</comment>
+                                                <event-block>
+                                                    <conditions>
+                                                        <condition id="-14" name="Compare variable" type="System">
+                                                            <param id="0" name="Variable">NumVezesDano</param>
+                                                            <param id="1" name="Comparison">0</param>
+                                                            <param id="2" name="Value">0</param>
+                                                        </condition>
+                                                    </conditions>
+                                                    <actions>
+                                                        <action id="2" name="Set at X" type="Conquistas">
+                                                            <param id="0" name="X">0</param>
+                                                            <param id="1" name="Value">1</param>
+                                                        </action>
+                                                    </actions>
+                                                </event-block>
+                                                <comment>Pacifista</comment>
+                                                <event-block>
+                                                    <conditions>
+                                                        <condition id="-14" name="Compare variable" type="System">
+                                                            <param id="0" name="Variable">NumInimigosMortos</param>
+                                                            <param id="1" name="Comparison">3</param>
+                                                            <param id="2" name="Value">MIN_INI_MORT</param>
+                                                        </condition>
+                                                    </conditions>
+                                                    <actions>
+                                                        <action id="2" name="Set at X" type="Conquistas">
+                                                            <param id="0" name="X">1</param>
+                                                            <param id="1" name="Value">1</param>
+                                                        </action>
+                                                    </actions>
+                                                </event-block>
+                                                <comment>Destruidor de lares</comment>
+                                                <event-block>
+                                                    <conditions>
+                                                        <condition id="-14" name="Compare variable" type="System">
+                                                            <param id="0" name="Variable">NumInimigosMortos</param>
+                                                            <param id="1" name="Comparison">5</param>
+                                                            <param id="2" name="Value">MAX_INI_MORT</param>
+                                                        </condition>
+                                                    </conditions>
+                                                    <actions>
+                                                        <action id="2" name="Set at X" type="Conquistas">
+                                                            <param id="0" name="X">2</param>
+                                                            <param id="1" name="Value">1</param>
+                                                        </action>
+                                                    </actions>
+                                                </event-block>
+                                                <comment>Acrobata</comment>
+                                                <event-block>
+                                                    <conditions>
+                                                        <condition id="-14" name="Compare variable" type="System">
+                                                            <param id="0" name="Variable">NumQuedas</param>
+                                                            <param id="1" name="Comparison">0</param>
+                                                            <param id="2" name="Value">0</param>
+                                                        </condition>
+                                                    </conditions>
+                                                    <actions>
+                                                        <action id="2" name="Set at X" type="Conquistas">
+                                                            <param id="0" name="X">3</param>
+                                                            <param id="1" name="Value">1</param>
+                                                        </action>
+                                                    </actions>
+                                                </event-block>
+                                                <comment>Estudioso</comment>
+                                                <event-block>
+                                                    <conditions>
+                                                        <condition id="-14" name="Compare variable" type="System">
+                                                            <param id="0" name="Variable">NumRespErradas</param>
+                                                            <param id="1" name="Comparison">0</param>
+                                                            <param id="2" name="Value">0</param>
+                                                        </condition>
+                                                    </conditions>
+                                                    <actions>
+                                                        <action id="2" name="Set at X" type="Conquistas">
+                                                            <param id="0" name="X">5</param>
+                                                            <param id="1" name="Value">1</param>
+                                                        </action>
+                                                    </actions>
+                                                </event-block>
+                                                <comment>Veloz</comment>
+                                                <event-block>
+                                                    <conditions>
+                                                        <condition id="-8" name="Compare two values" type="System">
+                                                            <param id="0" name="First value">time -ConquistaInicoFase</param>
+                                                            <param id="1" name="Comparison">3</param>
+                                                            <param id="2" name="Second value">MIN_VELOC_FASE</param>
+                                                        </condition>
+                                                    </conditions>
+                                                    <actions>
+                                                        <action id="2" name="Set at X" type="Conquistas">
+                                                            <param id="0" name="X">7</param>
+                                                            <param id="1" name="Value">1</param>
+                                                        </action>
+                                                    </actions>
+                                                </event-block>
+                                                <comment>Esforcado</comment>
+                                                <event-block>
+                                                    <conditions>
+                                                        <condition id="-14" name="Compare variable" type="System">
+                                                            <param id="0" name="Variable">vlrVida</param>
+                                                            <param id="1" name="Comparison">3</param>
+                                                            <param id="2" name="Value">20</param>
+                                                        </condition>
+                                                    </conditions>
+                                                    <actions>
+                                                        <action id="2" name="Set at X" type="Conquistas">
+                                                            <param id="0" name="X">8</param>
+                                                            <param id="1" name="Value">1</param>
+                                                        </action>
+                                                    </actions>
+                                                </event-block>
+                                            </sub-events>
+                                        </event-group>
+                                        <event-block>
+                                            <conditions />
+                                            <actions>
+                                                <action id="-9" name="Set value" type="System">
+                                                    <param id="0" name="Variable">LayoutAnterior</param>
+                                                    <param id="1" name="Value">&quot;Porta&quot;</param>
+                                                </action>
+                                                <action id="-2" name="Go to layout" type="System">
+                                                    <param id="0" name="Layout">Inicio</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-block>
+                            </sub-events>
+                        </event-group>
+                        <event-group collapsed="1" description="" title="ColisaoBala">
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="0" name="On collision with another object" type="itBala">
+                                            <param id="0" name="Object">player</param>
+                                        </condition>
+                                        <condition behavior="Flash" id="0" inverted="1" name="Is flashing" type="imgPlayer" />
+                                    </conditions>
+                                    <actions>
+                                        <action id="-10" name="Add to" type="System">
+                                            <param id="0" name="Variable">NumQuedas</param>
+                                            <param id="1" name="Value">1</param>
+                                        </action>
+                                        <action id="7" name="Play (by name)" type="Audio">
+                                            <param id="0" name="Folder">0</param>
+                                            <param id="1" name="Audio file name">&quot;Morrer&quot;</param>
+                                            <param id="3" name="Loop">0</param>
+                                            <param id="4" name="Volume">0</param>
+                                            <param id="2" name="Tag (optional)">&quot;Morrer&quot;</param>
+                                        </action>
+                                        <action id="-9" name="Set value" type="System">
+                                            <param id="0" name="Variable">vlrVida</param>
+                                            <param id="1" name="Value">vlrVida - VLR_DANO_BALA</param>
+                                        </action>
+                                        <action id="-12" name="Set group active" type="System">
+                                            <param id="0" name="Group name">&quot;VerificaGameOver&quot;</param>
+                                            <param id="1" name="State">1</param>
+                                        </action>
+                                        <action id="-9" name="Destroy" type="itBala" />
+                                    </actions>
+                                </event-block>
+                                <event-block any="1">
+                                    <conditions>
+                                        <condition id="0" name="On collision with another object" type="itBala">
+                                            <param id="0" name="Object">imgTeto</param>
+                                        </condition>
+                                        <condition id="0" name="On collision with another object" type="itBala">
+                                            <param id="0" name="Object">Plataforma</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-9" name="Destroy" type="itBala" />
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-group>
+                        <event-group collapsed="1" description="" title="ColisaoMonstros">
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="0" name="On collision with another object" type="Inimigo">
+                                            <param id="0" name="Object">player</param>
+                                        </condition>
+                                        <condition id="-9" name="Is visible" type="Inimigo" />
+                                    </conditions>
+                                    <actions />
+                                    <sub-events>
+                                        <event-block>
+                                            <conditions>
+                                                <condition behavior="Platform" id="4" name="Is falling" type="player" />
+                                                <condition id="-2" name="Compare Y" type="player">
+                                                    <param id="0" name="Comparison">2</param>
+                                                    <param id="1" name="Y co-ordinate">Inimigo.Y</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-10" name="Add to" type="System">
+                                                    <param id="0" name="Variable">NumInimigosMortos</param>
+                                                    <param id="1" name="Value">1</param>
+                                                </action>
+                                                <action id="7" name="Play (by name)" type="Audio">
+                                                    <param id="0" name="Folder">0</param>
+                                                    <param id="1" name="Audio file name">&quot;IniDest&quot;</param>
+                                                    <param id="3" name="Loop">0</param>
+                                                    <param id="4" name="Volume">0</param>
+                                                    <param id="2" name="Tag (optional)">&quot;IniDest&quot;</param>
+                                                </action>
+                                                <action behavior="Platform" id="9" name="Set vector Y" type="player">
+                                                    <param id="0" name="Vector Y">-400</param>
+                                                </action>
+                                            </actions>
+                                            <sub-events>
+                                                <comment>Inimigos do TIPO 3 devem reaparecer toda vez que são mortos pela personagem principal</comment>
+                                                <event-block>
+                                                    <conditions>
+                                                        <condition id="-7" name="Compare instance variable" type="Inimigo">
+                                                            <param id="0" name="Instance variable">tipo</param>
+                                                            <param id="1" name="Comparison">1</param>
+                                                            <param id="2" name="Value">3</param>
+                                                        </condition>
+                                                    </conditions>
+                                                    <actions>
+                                                        <action id="-9" name="Destroy" type="Inimigo" />
+                                                    </actions>
+                                                </event-block>
+                                                <event-block>
+                                                    <conditions>
+                                                        <condition id="-22" name="Else" type="System" />
+                                                    </conditions>
+                                                    <actions>
+                                                        <action id="-15" name="Set visible" type="Inimigo">
+                                                            <param id="0" name="Visibility">0</param>
+                                                        </action>
+                                                        <action id="-16" name="Wait" type="System">
+                                                            <param id="0" name="Seconds">1.0</param>
+                                                        </action>
+                                                        <action id="-15" name="Set visible" type="Inimigo">
+                                                            <param id="0" name="Visibility">1</param>
+                                                        </action>
+                                                    </actions>
+                                                </event-block>
+                                            </sub-events>
+                                        </event-block>
+                                        <event-block>
+                                            <conditions>
+                                                <condition id="-22" name="Else" type="System" />
+                                                <condition behavior="Flash" id="0" inverted="1" name="Is flashing" type="imgPlayer" />
+                                            </conditions>
+                                            <actions>
+                                                <action id="-10" name="Add to" type="System">
+                                                    <param id="0" name="Variable">NumVezesDano</param>
+                                                    <param id="1" name="Value">1</param>
+                                                </action>
+                                                <action id="-9" name="Set value" type="System">
+                                                    <param id="0" name="Variable">vlrVida</param>
+                                                    <param id="1" name="Value">vlrVida - VLR_DANO_MONSTROS</param>
+                                                </action>
+                                                <action id="-12" name="Set group active" type="System">
+                                                    <param id="0" name="Group name">&quot;VerificaGameOver&quot;</param>
+                                                    <param id="1" name="State">1</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-block>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="0" name="On collision with another object" type="Inimigo">
+                                            <param id="0" name="Object">TrocMovInimigo</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions />
+                                    <sub-events>
+                                        <event-block>
+                                            <conditions>
+                                                <condition id="7" name="Is mirrored" type="Inimigo" />
+                                            </conditions>
+                                            <actions>
+                                                <action id="7" name="Set mirrored" type="Inimigo">
+                                                    <param id="0" name="State">1</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <event-block>
+                                            <conditions>
+                                                <condition id="-22" name="Else" type="System" />
+                                            </conditions>
+                                            <actions>
+                                                <action id="7" name="Set mirrored" type="Inimigo">
+                                                    <param id="0" name="State">0</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-block>
+                            </sub-events>
+                        </event-group>
+                        <event-group collapsed="1" description="" inactive="1" title="ColisaoCama">
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="0" name="On collision with another object" type="Cama">
+                                            <param id="0" name="Object">player</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions />
+                                    <sub-events>
+                                        <event-block>
+                                            <conditions>
+                                                <condition behavior="Platform" id="4" name="Is falling" type="player" />
+                                                <condition id="-2" name="Compare Y" type="player">
+                                                    <param id="0" name="Comparison">2</param>
+                                                    <param id="1" name="Y co-ordinate">Cama.Y</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action behavior="Platform" id="9" name="Set vector Y" type="player">
+                                                    <param id="0" name="Vector Y">-1100</param>
+                                                </action>
+                                                <action id="3" name="Start" type="Cama">
+                                                    <param id="0" name="From">1</param>
+                                                </action>
+                                                <action id="0" name="Play" type="Audio">
+                                                    <param id="0" name="Audio file">camaElast</param>
+                                                    <param id="2" name="Loop">0</param>
+                                                    <param id="3" name="Volume">Volume</param>
+                                                    <param id="1" name="Tag (optional)">&quot;camaElast&quot;</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-block>
+                            </sub-events>
+                        </event-group>
+                    </sub-events>
+                </event-group>
+                <event-group collapsed="1" description="" inactive="1" title="Fala">
+                    <sub-events>
+                        <event-block>
+                            <conditions />
+                            <actions>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;Fala&quot;</param>
+                                    <param id="1" name="State">0</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="imgBalao">
+                                    <param id="0" name="Visibility">1</param>
+                                </action>
+                                <action id="5" name="Set frame" type="imgBalao">
+                                    <param id="0" name="Frame number">1</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.025</param>
+                                </action>
+                                <action id="5" name="Set frame" type="imgBalao">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.025</param>
+                                </action>
+                                <action id="5" name="Set frame" type="imgBalao">
+                                    <param id="0" name="Frame number">3</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.025</param>
+                                </action>
+                                <action id="5" name="Set frame" type="imgBalao">
+                                    <param id="0" name="Frame number">4</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.025</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="txtFala">
+                                    <param id="0" name="Visibility">1</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">2.0</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="txtFala">
+                                    <param id="0" name="Visibility">0</param>
+                                </action>
+                                <action id="4" name="Set animation" type="imgBalao">
+                                    <param id="0" name="Animation">&quot;Aparecer&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                                <action id="5" name="Set frame" type="imgBalao">
+                                    <param id="0" name="Frame number">3</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.025</param>
+                                </action>
+                                <action id="5" name="Set frame" type="imgBalao">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.025</param>
+                                </action>
+                                <action id="5" name="Set frame" type="imgBalao">
+                                    <param id="0" name="Frame number">1</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.025</param>
+                                </action>
+                                <action id="5" name="Set frame" type="imgBalao">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.025</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="imgBalao">
+                                    <param id="0" name="Visibility">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+            </sub-events>
+        </event-group>
+        <event-group description='Quando a personagem entra em colisão com o objeto &quot;gatilhoEventos&quot;, este dispara uma sequência.' title="GatilhoEventos">
+            <sub-events>
+                <event-block>
+                    <conditions>
+                        <condition id="0" name="On collision with another object" type="imgPlayer">
+                            <param id="0" name="Object">gatilhoEventos</param>
+                        </condition>
+                        <condition id="-8" name="Is boolean instance variable set" type="gatilhoEventos">
+                            <param id="0" name="Instance variable">Ativo</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-13" name="Set boolean" type="gatilhoEventos">
+                            <param id="0" name="Instance variable">Ativo</param>
+                            <param id="1" name="Value">0</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="-8" name="Compare two values" type="System">
+                                    <param id="0" name="First value">gatilhoEventos.IID</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Second value">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Set text" type="txtFala">
+                                    <param id="0" name="Text">&quot;Hum... Areia movediça! Tenho que tomar cuidado!&quot;</param>
+                                </action>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;Fala&quot;</param>
+                                    <param id="1" name="State">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-8" name="Compare two values" type="System">
+                                    <param id="0" name="First value">gatilhoEventos.IID</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Second value">1</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Set text" type="txtFala">
+                                    <param id="0" name="Text">&quot;Uma pedra! Será que eu posso carregá-la?&quot;</param>
+                                </action>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;Fala&quot;</param>
+                                    <param id="1" name="State">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-8" name="Compare two values" type="System">
+                                    <param id="0" name="First value">gatilhoEventos.IID</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Second value">2</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Set text" type="txtFala">
+                                    <param id="0" name="Text">&quot;Isso não é bom... Parece que a porta está trancada.&quot;</param>
+                                </action>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;Fala&quot;</param>
+                                    <param id="1" name="State">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-8" name="Compare two values" type="System">
+                                    <param id="0" name="First value">gatilhoEventos.IID</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Second value">3</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Set text" type="txtFala">
+                                    <param id="0" name="Text">&quot;Eu não tenho força para mover esta pedra. Deve existir outro modo de retirá-la daí!&quot;</param>
+                                </action>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;Fala&quot;</param>
+                                    <param id="1" name="State">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-8" name="Compare two values" type="System">
+                                    <param id="0" name="First value">gatilhoEventos.IID</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Second value">4</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Set text" type="txtFala">
+                                    <param id="0" name="Text">&quot;Uma caixa de música! Será os monstros ficarão mais calmos se eu ligá-la?&quot;</param>
+                                </action>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;Fala&quot;</param>
+                                    <param id="1" name="State">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group collapsed="1" description="Permite ao jogador alterar o volume do jogo." title="EventosSom">
+            <sub-events>
+                <event-block>
+                    <conditions>
+                        <condition id="3" name="On key released" type="Keyboard">
+                            <param id="0" name="Key">77 (M)</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">Volume</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">-20</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" type="btnEditarSom">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">Volume</param>
+                                    <param id="1" name="Value">0</param>
+                                </action>
+                                <action id="8" name="Set silent" type="Audio">
+                                    <param id="0" name="Mode">1</param>
+                                </action>
+                                <action id="3" name="Set volume" type="Audio">
+                                    <param id="0" name="Tag">&quot;FaseA&quot;</param>
+                                    <param id="1" name="dB">Volume</param>
+                                </action>
+                                <action id="3" name="Set volume" type="Audio">
+                                    <param id="0" name="Tag">&quot;Selecao&quot;</param>
+                                    <param id="1" name="dB">Volume</param>
+                                </action>
+                                <action id="3" name="Set volume" type="Audio">
+                                    <param id="0" name="Tag">&quot;Pergunta&quot;</param>
+                                    <param id="1" name="dB">Volume</param>
+                                </action>
+                                <action id="3" name="Set volume" type="Audio">
+                                    <param id="0" name="Tag">&quot;Fim&quot;</param>
+                                    <param id="1" name="dB">Volume</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-22" name="Else" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" type="btnEditarSom">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="cursorSom">
+                                    <param id="0" name="Visibility">0</param>
+                                </action>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">Volume</param>
+                                    <param id="1" name="Value">-20</param>
+                                </action>
+                                <action id="8" name="Set silent" type="Audio">
+                                    <param id="0" name="Mode">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <comment>[Mouse.X -btnEditarSom.X +btnEditarSom.Width] é o local relativo do clique do mouse sobre a barra de som, indo de 0 à btnEditarSom.Width. Através de uma regra de três, compactamos linearmente este valor num intervalo de 0 à 20 e posteriormente subtraímos por 20. Ao final, teremos um valor de -20 à 0, que é o intervalo válido para o componente audio.</comment>
+                <event-block>
+                    <conditions>
+                        <condition id="6" name="On object clicked" type="Mouse">
+                            <param id="0" name="Mouse button">0</param>
+                            <param id="1" name="Click type">0</param>
+                            <param id="2" name="Object clicked">btnEditarSom</param>
+                        </condition>
+                        <condition id="3" name="Compare frame" type="btnEditarSom">
+                            <param id="0" name="Comparison">0</param>
+                            <param id="1" name="Number">1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Set value" type="System">
+                            <param id="0" name="Variable">Volume</param>
+                            <param id="1" name="Value">20*(Mouse.X -btnEditarSom.X +btnEditarSom.Width)/btnEditarSom.Width -20</param>
+                        </action>
+                        <action id="-3" name="Set position" type="cursorSom">
+                            <param id="0" name="X">Mouse.X</param>
+                            <param id="1" name="Y">cursorSom.Y</param>
+                        </action>
+                        <action id="3" name="Set volume" type="Audio">
+                            <param id="0" name="Tag">&quot;FaseA&quot;</param>
+                            <param id="1" name="dB">Volume</param>
+                        </action>
+                        <action id="3" name="Set volume" type="Audio">
+                            <param id="0" name="Tag">&quot;Selecao&quot;</param>
+                            <param id="1" name="dB">Volume</param>
+                        </action>
+                        <action id="3" name="Set volume" type="Audio">
+                            <param id="0" name="Tag">&quot;Pergunta&quot;</param>
+                            <param id="1" name="dB">Volume</param>
+                        </action>
+                        <action id="3" name="Set volume" type="Audio">
+                            <param id="0" name="Tag">&quot;Fim&quot;</param>
+                            <param id="1" name="dB">Volume</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <event-block>
+                            <conditions />
+                            <actions />
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block any="1">
+                    <conditions>
+                        <condition id="3" name="Compare frame" type="btnEditarSom">
+                            <param id="0" name="Comparison">0</param>
+                            <param id="1" name="Number">0</param>
+                        </condition>
+                        <condition id="3" name="Compare frame" type="btnEditarSom">
+                            <param id="0" name="Comparison">0</param>
+                            <param id="1" name="Number">1</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="7" name="Cursor is over object" type="Mouse">
+                                    <param id="0" name="Object">btnEditarSom</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" type="btnEditarSom">
+                                    <param id="0" name="Frame number">1</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="cursorSom">
+                                    <param id="0" name="Visibility">1</param>
+                                </action>
+                                <action id="0" name="Set cursor style" type="Mouse">
+                                    <param id="0" name="Cursor style">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-22" name="Else" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" type="btnEditarSom">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                                <action id="0" name="Set cursor style" type="Mouse">
+                                    <param id="0" name="Cursor style">0</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="cursorSom">
+                                    <param id="0" name="Visibility">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+    </events>
+</c2eventsheet>

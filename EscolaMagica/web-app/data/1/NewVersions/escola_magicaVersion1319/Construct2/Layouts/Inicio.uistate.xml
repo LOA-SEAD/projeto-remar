@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2uistate>
+    <!--This is a UI state file - its content describes the user interface settings when the layout was last open.
+It is entirely optional and the project will load without it.  If you are placing the project under source control,
+you probably do not want to add any .uistate.xml files to the repository.-->
+    <camera>
+        <position-x>488.222</position-x>
+        <position-y>288.344</position-y>
+        <position-z>130.586</position-z>
+        <lookat-x>488.222</lookat-x>
+        <lookat-y>288.344</lookat-y>
+        <lookat-z>0</lookat-z>
+    </camera>
+    <snap-to-grid>0</snap-to-grid>
+    <snap-width>32</snap-width>
+    <snap-height>32</snap-height>
+    <properties>
+        <property expanded="1" name="Layout properties" />
+        <property expanded="0" name="Layout Size" />
+        <property expanded="0" name="Margins" />
+        <property expanded="1" name="Effects" />
+    </properties>
+    <active-layer name="layFore" />
+    <layers>
+        <layer locked="0" name="layBG" parallax-in-editor="0" visible="1" />
+        <layer locked="0" name="layPortas" parallax-in-editor="0" visible="1" />
+        <layer locked="0" name="layFore" parallax-in-editor="0" visible="1" />
+        <layer locked="0" name="layFade" parallax-in-editor="0" visible="0" />
+    </layers>
+</c2uistate>

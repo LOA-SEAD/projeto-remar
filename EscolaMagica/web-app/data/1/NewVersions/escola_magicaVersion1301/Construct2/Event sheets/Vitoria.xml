@@ -1,0 +1,594 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Vitoria</name>
+    <events>
+        <event-block>
+            <conditions>
+                <condition id="-2" name="On start of layout" type="System" />
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">AnimacaoAtual</param>
+                    <param id="1" name="Value">0</param>
+                </action>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">ANIMACAOFINAL</param>
+                    <param id="1" name="Value">14</param>
+                </action>
+                <action id="-18" name="Set layer opacity" type="System">
+                    <param id="0" name="Layer">0</param>
+                    <param id="1" name="Opacity">100</param>
+                </action>
+                <action id="-15" name="Set visible" type="galo">
+                    <param id="0" name="Visibility">0</param>
+                </action>
+                <action id="-15" name="Set visible" type="onomBonk">
+                    <param id="0" name="Visibility">0</param>
+                </action>
+                <action id="-15" name="Set visible" type="onomZzz">
+                    <param id="0" name="Visibility">0</param>
+                </action>
+                <action id="-15" name="Set visible" type="onomGlup">
+                    <param id="0" name="Visibility">0</param>
+                </action>
+                <action id="-15" name="Set visible" type="meninoSonhoInterrogação">
+                    <param id="0" name="Visibility">0</param>
+                </action>
+                <action id="-15" name="Set visible" type="onomTriiim">
+                    <param id="0" name="Visibility">0</param>
+                </action>
+                <action id="-3" name="Set position" type="pupila">
+                    <param id="0" name="X">563</param>
+                    <param id="1" name="Y">199</param>
+                </action>
+                <action id="-16" name="Set opacity" type="professorProva">
+                    <param id="0" name="Opacity">0</param>
+                </action>
+                <action id="-3" name="Set position" type="meninoProvaPupila">
+                    <param id="0" name="X">414</param>
+                    <param id="1" name="Y">305</param>
+                </action>
+            </actions>
+            <sub-events>
+                <variable constant="0" name="i" static="0" type="number">1</variable>
+                <event-block>
+                    <conditions>
+                        <condition id="-10" name="For" type="System">
+                            <param id="0" name="Name">&quot;&quot;</param>
+                            <param id="1" name="Start index">1</param>
+                            <param id="2" name="End index">ANIMACAOFINAL</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-18" name="Set layer opacity" type="System">
+                            <param id="0" name="Layer">i</param>
+                            <param id="1" name="Opacity">0</param>
+                        </action>
+                        <action id="-10" name="Add to" type="System">
+                            <param id="0" name="Variable">i</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block>
+                    <conditions />
+                    <actions>
+                        <action id="-16" name="Wait" type="System">
+                            <param id="0" name="Seconds">1</param>
+                        </action>
+                        <action id="-12" name="Set group active" type="System">
+                            <param id="0" name="Group name">&quot;AF_SEQUENCIA_ANIMACOES&quot;</param>
+                            <param id="1" name="State">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block>
+                    <conditions>
+                        <condition id="-13" name="Pick nth instance" type="System">
+                            <param id="0" name="Object">meninoEstudando</param>
+                            <param id="1" name="Instance">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="4" name="Set animation" type="meninoEstudando">
+                            <param id="0" name="Animation">&quot;dormindo2&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block>
+                    <conditions>
+                        <condition id="-13" name="Pick nth instance" type="System">
+                            <param id="0" name="Object">meninoEstudando</param>
+                            <param id="1" name="Instance">1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="4" name="Set animation" type="meninoEstudando">
+                            <param id="0" name="Animation">&quot;acordando&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <event-group description="Gerador da sequencia de animações na vitória" inactive="1" title="AF_SEQUENCIA_ANIMACOES">
+            <sub-events>
+                <variable comment="Tempo de espera entre cada transição de layer (em segundos)" constant="0" name="TEMPO_ESPERA" static="0" type="number">2</variable>
+                <event-block>
+                    <conditions>
+                        <condition id="-14" name="Compare variable" type="System">
+                            <param id="0" name="Variable">AnimacaoAtual</param>
+                            <param id="1" name="Comparison">2</param>
+                            <param id="2" name="Value">ANIMACAOFINAL</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-12" name="Set group active" type="System">
+                            <param id="0" name="Group name">&quot;AF_SEQUENCIA_ANIMACOES&quot;</param>
+                            <param id="1" name="State">0</param>
+                        </action>
+                        <action id="-18" name="Set layer opacity" type="System">
+                            <param id="0" name="Layer">AnimacaoAtual -1</param>
+                            <param id="1" name="Opacity">0</param>
+                        </action>
+                        <action id="-18" name="Set layer opacity" type="System">
+                            <param id="0" name="Layer">AnimacaoAtual</param>
+                            <param id="1" name="Opacity">100</param>
+                        </action>
+                        <action id="-10" name="Add to" type="System">
+                            <param id="0" name="Variable">AnimacaoAtual</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                        <action id="-9" name="Set value" type="System">
+                            <param id="0" name="Variable">CORTE_SECO</param>
+                            <param id="1" name="Value">0</param>
+                        </action>
+                        <action id="-9" name="Set value" type="System">
+                            <param id="0" name="Variable">TEMPO_ESPERA</param>
+                            <param id="1" name="Value">2</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">AnimacaoAtual</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">1</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">AnimacaoAtual</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">2</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;AF_onomCocorico&quot;</param>
+                                    <param id="1" name="State">1</param>
+                                </action>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">TEMPO_ESPERA</param>
+                                    <param id="1" name="Value">3</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">AnimacaoAtual</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">3</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">AnimacaoAtual</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">4</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">AnimacaoAtual</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">5</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">AnimacaoAtual</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">6</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">AnimacaoAtual</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">7</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">AnimacaoAtual</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">8</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">AnimacaoAtual</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">9</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;AF_onomTrim1&quot;</param>
+                                    <param id="1" name="State">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">AnimacaoAtual</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">10</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;AF_prof&quot;</param>
+                                    <param id="1" name="State">1</param>
+                                </action>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">TEMPO_ESPERA</param>
+                                    <param id="1" name="Value">4</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">AnimacaoAtual</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">11</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">AnimacaoAtual</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">12</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;AF_onomTrim2&quot;</param>
+                                    <param id="1" name="State">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">AnimacaoAtual</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">13</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;AF_olhar&quot;</param>
+                                    <param id="1" name="State">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">AnimacaoAtual</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">14</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                        </event-block>
+                        <event-block>
+                            <conditions />
+                            <actions>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">TEMPO_ESPERA</param>
+                                </action>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;AF_ALTERNAR_LAYERS&quot;</param>
+                                    <param id="1" name="State">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block>
+                    <conditions>
+                        <condition id="-22" name="Else" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="-12" name="Set group active" type="System">
+                            <param id="0" name="Group name">&quot;AF_SEQUENCIA_ANIMACOES&quot;</param>
+                            <param id="1" name="State">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group collapsed="1" description="Produz animação entre uma layer e outra." inactive="1" title="AF_ALTERNAR_LAYERS">
+            <sub-events>
+                <comment>Corte seco</comment>
+                <event-block>
+                    <conditions>
+                        <condition id="-4" name="Trigger once while true" type="System" />
+                        <condition id="-14" name="Compare variable" type="System">
+                            <param id="0" name="Variable">CORTE_SECO</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-12" name="Set group active" type="System">
+                            <param id="0" name="Group name">&quot;AF_ALTERNAR_LAYERS&quot;</param>
+                            <param id="1" name="State">0</param>
+                        </action>
+                        <action id="-12" name="Set group active" type="System">
+                            <param id="0" name="Group name">&quot;AF_SEQUENCIA_ANIMACOES&quot;</param>
+                            <param id="1" name="State">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>Transicao suave</comment>
+                <event-block>
+                    <conditions>
+                        <condition id="-6" name="Every X seconds" type="System">
+                            <param id="0" name="Interval (seconds)">0.1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-18" name="Set layer opacity" type="System">
+                            <param id="0" name="Layer">AnimacaoAtual -1</param>
+                            <param id="1" name="Opacity">LayerOpacity(AnimacaoAtual -1) -10</param>
+                        </action>
+                        <action id="-18" name="Set layer opacity" type="System">
+                            <param id="0" name="Layer">AnimacaoAtual</param>
+                            <param id="1" name="Opacity">LayerOpacity(AnimacaoAtual) +10</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <event-block any="1">
+                            <conditions>
+                                <condition id="-8" name="Compare two values" type="System">
+                                    <param id="0" name="First value">LayerOpacity(AnimacaoAtual)</param>
+                                    <param id="1" name="Comparison">5</param>
+                                    <param id="2" name="Second value">100</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;AF_ALTERNAR_LAYERS&quot;</param>
+                                    <param id="1" name="State">0</param>
+                                </action>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;AF_SEQUENCIA_ANIMACOES&quot;</param>
+                                    <param id="1" name="State">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="Animações que ocorrem simultaneamente às transições principais." title="AF_AnimacoesDisjuntas">
+            <sub-events>
+                <event-group collapsed="1" description="" inactive="1" title="AF_onomTrim1">
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="-13" name="Pick nth instance" type="System">
+                                    <param id="0" name="Object">onomTriiim</param>
+                                    <param id="1" name="Instance">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="1" name="Append text" type="txtApresentam">
+                                    <param id="0" name="Text">&quot; AF_onomTrim1 called; &quot;</param>
+                                </action>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;AF_onomTrim1&quot;</param>
+                                    <param id="1" name="State">0</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.5</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="onomTriiim">
+                                    <param id="0" name="Visibility">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group collapsed="1" description="" inactive="1" title="AF_onomTrim2">
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="-13" name="Pick nth instance" type="System">
+                                    <param id="0" name="Object">onomTriiim</param>
+                                    <param id="1" name="Instance">1</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="1" name="Append text" type="txtApresentam">
+                                    <param id="0" name="Text">&quot; AF_onomTrim2 called; &quot;</param>
+                                </action>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;AF_onomTrim2&quot;</param>
+                                    <param id="1" name="State">0</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.5</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="onomTriiim">
+                                    <param id="0" name="Visibility">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group collapsed="1" description="" inactive="1" title="AF_prof">
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="-8" name="Compare two values" type="System">
+                                    <param id="0" name="First value">professorProva.Opacity</param>
+                                    <param id="1" name="Comparison">5</param>
+                                    <param id="2" name="Second value">99</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;AF_prof&quot;</param>
+                                    <param id="1" name="State">0</param>
+                                </action>
+                                <action id="-2" name="Set Y" type="pupila">
+                                    <param id="0" name="Y">self.Y - 5</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-22" name="Else" type="System" />
+                                <condition id="-1" name="Every tick" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="-16" name="Set opacity" type="professorProva">
+                                    <param id="0" name="Opacity">self.Opacity + 75*dt</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group collapsed="1" description="" inactive="1" title="AF_olhar">
+                    <sub-events>
+                        <event-block>
+                            <conditions />
+                            <actions>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;AF_olhar&quot;</param>
+                                    <param id="1" name="State">0</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.8</param>
+                                </action>
+                                <action id="-2" name="Set Y" type="meninoProvaPupila">
+                                    <param id="0" name="Y">self.Y - 4</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group description="" inactive="1" title="AF_onomCocorico">
+                    <sub-events>
+                        <event-block>
+                            <conditions />
+                            <actions>
+                                <action id="1" name="Append text" type="txtApresentam">
+                                    <param id="0" name="Text">&quot; AF_onomCocorico called; &quot;</param>
+                                </action>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;AF_onomCocorico&quot;</param>
+                                    <param id="1" name="State">0</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">1.0</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="co">
+                                    <param id="0" name="Visibility">1</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="galo">
+                                    <param id="0" name="Visibility">1</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.5</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="co2">
+                                    <param id="0" name="Visibility">1</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.5</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="ri">
+                                    <param id="0" name="Visibility">1</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.5</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="onomCó">
+                                    <param id="0" name="Visibility">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+            </sub-events>
+        </event-group>
+        <event-block any="1">
+            <conditions>
+                <condition id="0" name="On key pressed" type="Keyboard">
+                    <param id="0" name="Key">27 (Esc)</param>
+                </condition>
+                <condition id="0" name="On key pressed" type="Keyboard">
+                    <param id="0" name="Key">13 (Return)</param>
+                </condition>
+                <condition id="0" name="On key pressed" type="Keyboard">
+                    <param id="0" name="Key">32 (Space)</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">LayoutAnterior</param>
+                    <param id="1" name="Value">&quot;Vitoria&quot;</param>
+                </action>
+                <action id="-2" name="Go to layout" type="System">
+                    <param id="0" name="Layout">Creditos</param>
+                </action>
+            </actions>
+        </event-block>
+    </events>
+</c2eventsheet>
