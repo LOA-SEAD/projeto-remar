@@ -44,7 +44,7 @@ class ProcessController implements ExecutionListener {
         println params.id
         println task
         if ((task != null) && (params.id == "createQuestions")) {
-            redirect(controller: "question", action: "create")
+            redirect(controller: "questionEscola", action: "create")
         } else {
             render "deu merda"
         }

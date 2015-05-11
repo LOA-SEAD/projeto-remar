@@ -1,6 +1,6 @@
 package br.ufscar.sead.loa.escolamagica.remar
 
-class Question {
+class QuestionEscola {
 
     String title
     String[] answers = new String[4]

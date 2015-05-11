@@ -16,7 +16,7 @@ class GameController {
         def userId = WebUtils.retrieveGrailsWebRequest().session.userId
         def processId = WebUtils.retrieveGrailsWebRequest().session.processId
 
-        render "/EscolaMagica/$userId/NewVersions/escola_magicaVersion$processId/Deploy"
+        render "/EscolaMagica/data/$userId/NewVersions/escola_magicaVersion$processId/Deploy"
 
       //  render "/$userId/NewVersions/escola_magicaVersion$processId/Deploy"
 

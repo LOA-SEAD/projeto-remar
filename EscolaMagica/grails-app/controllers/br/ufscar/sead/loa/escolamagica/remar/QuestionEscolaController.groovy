@@ -1,5 +1,7 @@
 package br.ufscar.sead.loa.escolamagica.remar
 
+
+
 import grails.plugin.springsecurity.annotation.Secured
 import org.camunda.bpm.engine.RuntimeService
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
@@ -10,7 +12,7 @@ import grails.transaction.Transactional
 
 @Secured(["ROLE_PROF"])
 @Transactional(readOnly = true)
-class QuestionController {
+class QuestionEscolaController {
 
     RuntimeService runtimeService
 
@@ -18,7 +20,7 @@ class QuestionController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Question.list(params), model:[questionInstanceCount: Question.count()]
+        respond QuestionEscola.list(params), model:[questionEscolaInstanceCount: QuestionEscola.count()]
     }
 
     def confirming(){
@@ -27,19 +29,19 @@ class QuestionController {
 
     }
 
-    def show(Question questionInstance) {
-        respond questionInstance
+    def show(QuestionEscola questionEscolaInstance) {
+        respond questionEscolaInstance
     }
 
     def create() {
-        respond new Question(params)
+        respond new QuestionEscola(params)
     }
 
     def createXML(){
 
-     //   def servletContext = ServletContextHolder.servletContext
-      //  def storagePath = servletContext.getRealPath("/")
-     //   println storagePath
+        //   def servletContext = ServletContextHolder.servletContext
+        //  def storagePath = servletContext.getRealPath("/")
+        //   println storagePath
 
         def session = RequestContextHolder.currentRequestAttributes().getSession()
 
@@ -55,7 +57,7 @@ class QuestionController {
         xml.mkp.xmlDeclaration(version: "1.0",encoding: "utf-8")
         xml.Perguntas(){
             for(int i=0; i<4; i++){
-                def questionList = Question.findAllByLevel(i+1)
+                def questionList = QuestionEscola.findAllByLevel(i+1)
                 if(!questionList.isEmpty()) {
                     int j=0
                     int k=0
@@ -87,45 +89,45 @@ class QuestionController {
     }
 
     @Transactional
-    def save(Question questionInstance) {
-        if (questionInstance == null) {
+    def save(QuestionEscola questionEscolaInstance) {
+        if (questionEscolaInstance == null) {
             notFound()
             return
         }
 
-        if (questionInstance.hasErrors()) {
-            respond questionInstance.errors, view:'create'
+        if (questionEscolaInstance.hasErrors()) {
+            respond questionEscolaInstance.errors, view:'create'
             return
         }
 
-        questionInstance.save flush:true
+        questionEscolaInstance.save flush:true
 
 
 
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'question.label', default: 'Question'), questionInstance.id])
+                flash.message = message(code: 'default.created.message', args: [message(code: 'question.label', default: 'QuestionEscola'), questionEscolaInstance.id])
                 redirect(action: "index")
             }
-            '*' { respond questionInstance, [status: CREATED] }
+            '*' { respond questionEscolaInstance, [status: CREATED] }
         }
 
     }
 
-    def edit(Question questionInstance) {
-        respond questionInstance
+    def edit(QuestionEscola questionEscolaInstance) {
+        respond questionEscolaInstance
     }
 
     @Transactional
-    def update(Question questionInstance) {
-        if (questionInstance == null) {
+    def update(QuestionEscola questionEscolaInstance) {
+        if (questionEscolaInstance == null) {
             notFound()
             return
         }
 
-        if (questionInstance.hasErrors()) {
-            respond questionInstance.errors, view:'edit'
+        if (questionEscolaInstance.hasErrors()) {
+            respond questionEscolaInstance.errors, view:'edit'
             return
         }
 
@@ -133,26 +135,26 @@ class QuestionController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'Question.label', default: 'Question'), questionInstance.id])
-                redirect questionInstance
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'Question.label', default: 'QuestionEscola'), questionEscolaInstance.id])
+                redirect questionEscolaInstance
             }
-            '*'{ respond questionInstance, [status: OK] }
+            '*'{ respond questionEscolaInstance, [status: OK] }
         }
     }
 
     @Transactional
-    def delete(Question questionInstance) {
+    def delete(QuestionEscola questionEscolaInstance) {
 
-        if (questionInstance == null) {
+        if (questionEscolaInstance == null) {
             notFound()
             return
         }
 
-        questionInstance.delete flush:true
+        questionEscolaInstance.delete flush:true
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Question.label', default: 'Question'), questionInstance.id])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Question.label', default: 'QuestionEscola'), questionEscolaInstance.id])
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }
@@ -162,7 +164,7 @@ class QuestionController {
     protected void notFound() {
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'question.label', default: 'Question'), params.id])
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'question.label', default: 'QuestionEscola'), params.id])
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }
