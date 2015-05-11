@@ -1,10 +1,11 @@
 import br.ufscar.sead.loa.remar.Role
 import br.ufscar.sead.loa.remar.UserRole
 import br.ufscar.sead.loa.remar.User
-
+import org.camunda.bpm.engine.IdentityService
 import javax.servlet.http.HttpServletRequest
 
 class BootStrap {
+    IdentityService identityService
 
     def init = { servletContext ->
 
@@ -35,6 +36,33 @@ class BootStrap {
         if (found == []) {
             def editorRole = new Role(authority: "ROLE_EDITOR").save flush: true
             println "ROLE_EDITOR inserted"
+        }
+
+        def allUsers = User.findAll()
+        def userExists = allUsers.findAll {it.username == "admin"}
+
+        if(userExists == []) {
+            def userInstance = new User (
+                username: "admin",
+                password: "admin",
+                email: "admin@gmail.com",
+                name: "Admin",
+                enabled: true
+            )
+
+            org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
+            camundaUser.setEmail(userInstance.email)
+            camundaUser.setFirstName(userInstance.name)
+            camundaUser.setPassword(userInstance.password)
+            identityService.saveUser(camundaUser)
+
+            userInstance.camunda_id = camundaUser.getId()
+
+            userInstance.save flush:true
+            UserRole.create(userInstance, Role.findByAuthority("ROLE_ADMIN"), true)
+            UserRole.create(userInstance, Role.findByAuthority("ROLE_PROF"), true)
+            UserRole.create(userInstance, Role.findByAuthority("ROLE_STUD"), true)
+            UserRole.create(userInstance, Role.findByAuthority("ROLE_EDITOR"), true)
         }
 
         /*def admin = new User(
