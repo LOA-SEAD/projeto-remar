@@ -2,7 +2,7 @@
 
 ##########################################################################################
 # USAGE:                                                                                 #
-# publish_android.sh package manifest_dir target_dir                                     #
+# publish_android.sh root_dir package manifest_dir target_dir                            #
 #                                                                                        #
 # Dependencies:                                                                          #
 # Java SDK (JDK)                                                                         #
@@ -26,9 +26,13 @@
 # Ensure permission to execute (chmod +x)                                                #
 ##########################################################################################
 
-source `pwd`/web-app/scripts/sources.sh
-make_apk.py
+source $1/web-app/scripts/sources.sh # TODO: REMOVE WHEN RUNNING PRODUCTION <---------
+source $1/scripts/sources.sh
 
-# make_apk.py --package=$1 --manifest=$2  --target-dir=$3
+make_apk.py --package=$2 --manifest=$3 --target-dir=$4
+
+cd $4
+
+zip forca_android.zip *.apk
 
 

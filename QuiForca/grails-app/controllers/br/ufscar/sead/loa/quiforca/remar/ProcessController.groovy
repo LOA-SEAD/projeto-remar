@@ -40,8 +40,8 @@ class ProcessController implements ExecutionListener {
             if(taskService.createTaskQuery().processInstanceId(session.processId).taskDefinitionKey("ChooseTheme").singleResult() != null) {
                 redirect controller: "theme"
             }
-        } else if(delegateExecution.currentActivityId == "RefactorService") {
-            redirect uri: "/data/$session.userId/game"
+        } else if(delegateExecution.currentActivityId == "RefactorTask") {
+            redirect controller: "refactor"
         }
     }
 }

@@ -21,11 +21,10 @@
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
       <bpmn2:incoming>SequenceFlow_8</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_9</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
     </bpmn2:parallelGateway>
     <bpmn2:sequenceFlow id="SequenceFlow_7" name="" sourceRef="ChooseQuestions" targetRef="Gateway_2"/>
     <bpmn2:sequenceFlow id="SequenceFlow_8" name="" sourceRef="ChooseTheme" targetRef="Gateway_2"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_9" name="" sourceRef="Gateway_2" targetRef="RefactorService"/>
     <bpmn2:parallelGateway id="Gateway_1">
       <bpmn2:extensionElements>
         <camunda:executionListener class="br.ufscar.sead.loa.quiforca.remar.ProcessController" event="start"/>
@@ -44,16 +43,22 @@
     </bpmn2:startEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_4" name="" sourceRef="StartEvent" targetRef="Gateway_1"/>
     <bpmn2:endEvent id="EndEvent_1" name="EndEvent">
-      <bpmn2:incoming>SequenceFlow_12</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_10</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:serviceTask id="RefactorService" camunda:expression="#{refactorService.serviceMethod(execution)}" name="Refatoração">
-      <bpmn2:extensionElements>
-        <camunda:executionListener class="br.ufscar.sead.loa.quiforca.remar.ProcessController" event="end"/>
-      </bpmn2:extensionElements>
-      <bpmn2:incoming>SequenceFlow_9</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_12</bpmn2:outgoing>
+    <bpmn2:serviceTask id="RefactorService" camunda:expression="#{refactorService.serviceMethod(execution)}" name="Refatoração &#xA;base">
+      <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
     </bpmn2:serviceTask>
-    <bpmn2:sequenceFlow id="SequenceFlow_12" name="" sourceRef="RefactorService" targetRef="EndEvent_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" name="" sourceRef="RefactorService" targetRef="RefactorTask"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_3" name="" sourceRef="Gateway_2" targetRef="RefactorService"/>
+    <bpmn2:userTask id="RefactorTask" name="Refatoração&#xA;avançada">
+      <bpmn2:extensionElements>
+        <camunda:executionListener class="br.ufscar.sead.loa.quiforca.remar.ProcessController" event="start"/>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_10</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_10" name="" sourceRef="RefactorTask" targetRef="EndEvent_1"/>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="ForcaProcess">
@@ -64,9 +69,9 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_EndEvent_2" bpmnElement="EndEvent_1">
-        <dc:Bounds height="36.0" width="36.0" x="876.0" y="215.0"/>
+        <dc:Bounds height="36.0" width="36.0" x="1068.0" y="215.0"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="17.0" width="52.0" x="868.0" y="256.0"/>
+          <dc:Bounds height="17.0" width="52.0" x="1060.0" y="256.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_ParallelGateway_6" bpmnElement="Gateway_1">
@@ -82,7 +87,7 @@
         <dc:Bounds height="80.0" width="100.0" x="364.0" y="305.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_UserTask_12" bpmnElement="RefactorService">
-        <dc:Bounds height="80.0" width="100.0" x="708.0" y="196.0"/>
+        <dc:Bounds height="80.0" width="100.0" x="684.0" y="193.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_4" sourceElement="_BPMNShape_StartEvent_2" targetElement="_BPMNShape_ParallelGateway_6">
         <di:waypoint xsi:type="dc:Point" x="132.0" y="230.0"/>
@@ -133,23 +138,29 @@
           <dc:Bounds height="6.0" width="6.0" x="573.0" y="345.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_9" bpmnElement="SequenceFlow_9" sourceElement="_BPMNShape_ParallelGateway_7" targetElement="_BPMNShape_UserTask_12">
-        <di:waypoint xsi:type="dc:Point" x="626.0" y="232.0"/>
-        <di:waypoint xsi:type="dc:Point" x="661.0" y="232.0"/>
-        <di:waypoint xsi:type="dc:Point" x="661.0" y="236.0"/>
-        <di:waypoint xsi:type="dc:Point" x="708.0" y="236.0"/>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_14" bpmnElement="RefactorTask">
+        <dc:Bounds height="80.0" width="100.0" x="900.0" y="190.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="_BPMNShape_UserTask_12" targetElement="_BPMNShape_UserTask_14">
+        <di:waypoint xsi:type="dc:Point" x="784.0" y="233.0"/>
+        <di:waypoint xsi:type="dc:Point" x="853.0" y="233.0"/>
+        <di:waypoint xsi:type="dc:Point" x="853.0" y="230.0"/>
+        <di:waypoint xsi:type="dc:Point" x="900.0" y="230.0"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="6.0" width="6.0" x="658.0" y="233.0"/>
+          <dc:Bounds height="6.0" width="6.0" x="828.0" y="233.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_12" bpmnElement="SequenceFlow_12" sourceElement="_BPMNShape_UserTask_12" targetElement="_BPMNShape_EndEvent_2">
-        <di:waypoint xsi:type="dc:Point" x="808.0" y="236.0"/>
-        <di:waypoint xsi:type="dc:Point" x="860.0" y="236.0"/>
-        <di:waypoint xsi:type="dc:Point" x="860.0" y="233.0"/>
-        <di:waypoint xsi:type="dc:Point" x="876.0" y="233.0"/>
-        <bpmndi:BPMNLabel>
-          <dc:Bounds height="6.0" width="6.0" x="857.0" y="235.0"/>
-        </bpmndi:BPMNLabel>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="_BPMNShape_ParallelGateway_7" targetElement="_BPMNShape_UserTask_12">
+        <di:waypoint xsi:type="dc:Point" x="626.0" y="232.0"/>
+        <di:waypoint xsi:type="dc:Point" x="655.0" y="232.0"/>
+        <di:waypoint xsi:type="dc:Point" x="655.0" y="233.0"/>
+        <di:waypoint xsi:type="dc:Point" x="684.0" y="233.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_10" bpmnElement="SequenceFlow_10" sourceElement="_BPMNShape_UserTask_14" targetElement="_BPMNShape_EndEvent_2">
+        <di:waypoint xsi:type="dc:Point" x="1000.0" y="230.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1034.0" y="230.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1034.0" y="233.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1068.0" y="233.0"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
