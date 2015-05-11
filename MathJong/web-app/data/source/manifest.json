@@ -1,5 +1,5 @@
 {
-  "name": "MathJong REMAR Edition",
+  "name": "MathJong REMAR Edition ",
    "app": {
         "launch": {
             "local_path": "index.html"
