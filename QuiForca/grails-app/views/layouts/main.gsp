@@ -48,7 +48,7 @@
                     <div class="side-bar-wrapper collapse navbar-collapse navbar-ex1-collapse">
                         <a href="#" class="logo hidden-sm hidden-xs">
                             <i class="icon-cloud-download"></i>
-                            <span>Sistema Administrativo<br />REMAR - QUIFORCA</span>
+                            <span>Sistema Administrativo<br />REMAR - FORCA</span>
                         </a>
                         <div class="relative-w">
                             <ul class="side-menu">
