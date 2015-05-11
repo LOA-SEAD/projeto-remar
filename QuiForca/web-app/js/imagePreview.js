@@ -5,10 +5,9 @@ window.onload = function() {
 
     document.getElementById("icone").onchange = function () {
         Preview(this, document.getElementById("iconePreview"));
-        if(verifyDimensions(this)){
+      //  if(verifyDimensions(this)){
 
-        }
-
+       // }
     }
 
 
