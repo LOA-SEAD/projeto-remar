@@ -1,0 +1,16 @@
+<plugin name='camunda' version='0.4.0' grailsVersion='2.3 &gt; *'>
+  <author>Martin Schimak</author>
+  <authorEmail>martin.schimak@plexiti.com</authorEmail>
+  <title>camunda Grails Plugin</title>
+  <description>This plugin integrates camunda BPM platform with Grails. camunda BPM is a 
+flexible framework for workflow and process automation. It's core is a 
+native BPMN 2.0 process engine running inside the Java Virtual Machine. It 
+is a perfect match for the Spring Framework, and therefore for Grails, too.</description>
+  <documentation>http://plexiti.github.io/camunda-grails-plugin</documentation>
+  <type>CamundaGrailsPlugin</type>
+  <resources>
+    <resource>CamundaUrlMappings</resource>
+    <resource>grails.plugin.camunda.CamundaController</resource>
+    <resource>grails.plugin.camunda.test.SampleService</resource>
+  </resources>
+</plugin>
