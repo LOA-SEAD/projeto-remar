@@ -127,7 +127,7 @@ class ThemeController {
 
         if((imageIn.getWidth() > 800)||imageIn.getHeight() > 600){
             BufferedImage newImg = Scalr.resize(imageIn, Scalr.Method.ULTRA_QUALITY, 600, 800, Scalr.OP_ANTIALIAS)
-            def newImgUploaded = new File(storagePath+"/"+name)
+            def newImgUploaded = new File("$storagePath/$name")
             ImageIO.write(newImg, 'png', newImgUploaded)
             return false
         }

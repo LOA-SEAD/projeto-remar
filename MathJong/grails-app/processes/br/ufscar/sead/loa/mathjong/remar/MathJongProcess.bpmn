@@ -15,7 +15,6 @@
     <bpmn2:userTask id="RefactorTask" camunda:expression="#{refactorService.serviceMethod(execution)}" name="Refatoração &#xA;avançada">
       <bpmn2:extensionElements>
         <camunda:executionListener class="br.ufscar.sead.loa.mathjong.remar.ProcessController" event="start"/>
-        <camunda:executionListener class="br.ufscar.sead.loa.mathjong.remar.ProcessController" event="end"/>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_15</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
