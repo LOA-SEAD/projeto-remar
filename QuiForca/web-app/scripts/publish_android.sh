@@ -34,5 +34,3 @@ make_apk.py --package=$2 --manifest=$3 --target-dir=$4
 cd $4
 
 zip forca_android.zip *.apk
-
-
