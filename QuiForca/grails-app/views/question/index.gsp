@@ -38,7 +38,7 @@
                                     <g:each in="${questionInstanceList}" status="i" var="questionInstance">
                                         <tr data-id="${fieldValue(bean: questionInstance, field: "id")}" data-owner-id="${fieldValue(bean: questionInstance, field: "ownerId")}"
                                             data-checked="false"  class="${(i % 2) == 0 ? 'even' : 'odd'}">
-                                            <td class="_not_editable"> <input class="checkbox" type="checkbox"/> </td>
+                                            <td class="_not_editable" align="center"> <input class="checkbox" type="checkbox"/> </td>
 
                                             <td>${fieldValue(bean: questionInstance, field: "statement")}</td>
 
@@ -54,12 +54,14 @@
                             </table>
                         </div>
                     </div>
+                    <g:submitButton name="create" class="create btn btn-info new-question-create-button" value="Nova questão" />
+                    <g:submitButton  name="delete" class="delete btn btn-danger new-question-create-button" value="Remover questões selecionadas"/>
+                    <br />
+                    <br />
                 </div>
             </div>
             <fieldset class="buttons">
-                <g:submitButton  name="create" class="create btn btn-info" value="Nova questão" />
-                <g:submitButton  name="delete" class="delete btn btn-danger" value="Remover questões selecionadas"/>
-                <g:submitButton  name="save" class="btn btn-success" value="Enviar"/>
+                <g:submitButton  name="save" class="btn btn-success" value="Enviar perguntas"/>
                 <div class="pagination">
                     <g:paginate total="${questionInstanceCount ?: 0}" />
                 </div>

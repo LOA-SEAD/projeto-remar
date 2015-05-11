@@ -17,7 +17,7 @@
         </g:if>
         <div class="main-content">
             <div class="widget">
-                <h3 class="section-title first-title"><i class="icon-table"></i> Visualização dos Seus Temas</h3>
+                <h3 class="section-title first-title"><i class="icon-table"></i> Visualização dos Meus Temas</h3>
                 <div class="widget-content-white glossed">
                     <div class="padded">
                         <div class="table-responsive">
@@ -33,13 +33,13 @@
                                 </thead>
                                 <tbody>
                                     <g:each in="${themeInstanceList}" status="i" var="themeInstance">
-                                        <tr data-id="${fieldValue(bean: themeInstance, field: "id")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
-                                            <td> <input class="checkbox" type="checkbox"/> </td>
+                                        <tr data-id="${fieldValue(bean: themeInstance, field: "id")}" class="${(i % 2) == 0 ? 'even' : 'odd'}" onclick="select">
+                                            <td align="center"> <input class="checkbox" type="checkbox"/> </td>
 
-                                            <td><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/icon.png" width="200" height="200"/></td>
-                                            <td><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/opening.png" width="200" height="200"/></td>
-                                            <td><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/background.png" width="200" height="200"/></td>
-                                            <td><button class="btn btn-danger">Remover</button></td>
+                                            <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/icon.png" width="200" height="200"/></td>
+                                            <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/opening.png" width="200" height="200"/></td>
+                                            <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/background.png" width="200" height="200"/></td>
+                                            <td align="center"><button class="btn btn-danger">Remover</button></td>
 
 
                                         </tr>

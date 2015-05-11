@@ -19,17 +19,17 @@
                         </g:if>
                         <form action='${postUrl}' method='POST' id='loginForm' class='cssform' autocomplete='off'>
                             <div class="form-group">
-                                <label for="username"><g:message code="springSecurity.login.username.label"/>:</label>
+                                <label for="username">Usuário:</label>
                                 <input type="text" class="form-control" name="j_username" id="username" required=""/>
                             </div>
                             <div class="form-group">
-                                <label for='password'><g:message code="springSecurity.login.password.label"/>:</label>
+                                <label for='password'>Senha:</label>
                                 <input type='password' class='form-control' name='j_password' id='password' required=""/>
                             </div>
                             <div class="form-group">
                                 <p id="remember_me_holder">
                                     <input type='checkbox' class='chk' name='${rememberMeParameter}' id='remember_me' <g:if test='${hasCookie}'>checked='checked'</g:if>/>
-                                    <label for='remember_me'><g:message code="springSecurity.login.remember.me.label"/></label>
+                                    <label for='remember_me'>Lembrar-me</label>
                                 </p>
 
                                 <p>

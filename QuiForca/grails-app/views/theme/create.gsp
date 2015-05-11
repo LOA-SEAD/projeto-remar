@@ -12,7 +12,7 @@
         </div>
         <div class="main-content">
             <div class="widget">
-                <h3 class="section-title first-title"><i class="icon-table"></i> Crie seu próprio tema</h3>
+                <h3 class="section-title first-title"><i class="icon-table"></i> Criando meu próprio tema</h3>
                 <div class="widget-content-white glossed">
                     <div class="padded">
                         <g:if test="${flash.message}">
