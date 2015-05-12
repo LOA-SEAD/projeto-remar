@@ -104,7 +104,6 @@ class QuestionController {
 
     @Transactional
     def delete(Question questionInstance) {
-
         if (questionInstance == null) {
             notFound()
             return
@@ -145,14 +144,13 @@ class QuestionController {
 
         def builder = new JsonBuilder()
 
-        def json = builder {
-            nome "Forca"
-            palavras list.collect {p ->
+        def json = builder (
+            list.collect {p ->
                 ["palavra": p.getAnswer(),
                  "dica": p.getStatement(),
                  "contribuicao": p.getAuthor()]
             }
-        }
+        )
 
 //        render builder.toString()
 
@@ -161,7 +159,7 @@ class QuestionController {
         userPath.mkdirs()
 
 
-        def fileName = "configuracao.json"
+        def fileName = "palavras.json"
 
         File file = new File("$userPath/$fileName");
         PrintWriter pw = new PrintWriter(file);
