@@ -1823,6 +1823,7 @@ textarea.input-lg {
   -ms-user-select: none;
   -o-user-select: none;
   user-select: none;
+  font-size: 20px;
 }
 .btn:focus {
   outline: thin dotted #333;
@@ -2023,7 +2024,7 @@ fieldset[disabled] .btn-danger.active {
   box-shadow: inset 0px 1px 1px 0px rgba(255,255,255,0.3), 0px 1px 3px 0px rgba(0,0,0,0.1);
   text-shadow: -1px -1px 1px #4e693e;
   border-bottom: 1px solid #597948;
-  font-size: 20px;
+  //font-size: 20px;
 }
 .btn-success:hover,
 .btn-success:focus,

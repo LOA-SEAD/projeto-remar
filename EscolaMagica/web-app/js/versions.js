@@ -17,6 +17,19 @@ window.addEventListener("load", function() {
     });
 });
 
+window.addEventListener("beforeunload", function() {
+    $.ajax({
+        type:'GET',
+        //async: false,
+        url: location.origin + "/forca/process/complete/RefactorTask",
+        success:function(data){
+            console.log("ok");
+        },
+        error:function(XMLHttpRequest,textStatus,errorThrown){}});
+});
+
+
+
 function ajax(endpoint, intervalId) {
 
     $.ajax({
@@ -40,5 +53,4 @@ function etc(id) {
     }
 
     $(el).html(html);
-
 }
