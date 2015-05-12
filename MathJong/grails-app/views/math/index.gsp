@@ -40,13 +40,31 @@
             </div>
             <table id="preview-table" data-next-id="5">
                 <tr>
-                    <td id="preview-1" class="math preview selectable" data-latex="\sqrt{16}">$$\sqrt{16}$$</td>
-                    <td id="preview-2" class="math preview selectable" data-latex="2^1 + 2">$$2^1 + 2$$</td>
+                    <td id="preview-1" class="math preview selectable" data-latex="2^1">$$2^1$$</td>
+                    <td id="preview-2" class="math preview selectable" data-latex="\frac{4}{2}">$$\frac{4}{2}$$</td>
+                    <td id="preview-3" class="math preview selectable" data-latex="\sqrt{4}">$$\sqrt{4}$$</td>
+                    <td id="preview-4" class="math preview selectable" data-latex="\frac{8}{4}">$$\frac{8}{4}$$</td>
                     <td class="new-td">Novo par</td>
                 </tr>
                 <tr>
-                    <td id="preview-3" class="math preview selectable" data-latex="\frac{4}{2}">$$\frac{4}{2}$$</td>
-                    <td id="preview-4" class="math preview selectable" data-latex="2^0 + 3^1">$$2^0 + 3^1$$</td>
+                    <td id="preview-5" class="math preview selectable" data-latex="\sqrt{16}">$$\sqrt{16}$$</td>
+                    <td id="preview-6" class="math preview selectable" data-latex="2^2">$$2^2$$</td>
+                    <td id="preview-7" class="math preview selectable" data-latex="\frac{36}{9}">$$\frac{36}{9}$$</td>
+                    <td id="preview-8" class="math preview selectable" data-latex="2^0 + 3^1">$$2^0 + 3^1$$</td>
+                    <td class="new-td">Novo par</td>
+                </tr>
+                <tr>
+                    <td id="preview-13" class="math preview selectable" data-latex="\sqrt{36}">$$\sqrt{36}$$</td>
+                    <td id="preview-14" class="math preview selectable" data-latex="\frac{24}{4}">$$\frac{24}{4}$$</td>
+                    <td id="preview-15" class="math preview selectable" data-latex="2^2 + 2">$$2^2 - 3$$</td>
+                    <td id="preview-16" class="math preview selectable" data-latex="\frac{12}{2}">$$\frac{12}{2}$$</td>
+                    <td class="new-td">Novo par</td>
+                </tr>
+                <tr>
+                    <td id="preview-9" class="math preview selectable" data-latex="\sqrt{64}">$$\sqrt{64}$$</td>
+                    <td id="preview-10" class="math preview selectable" data-latex="2^3">$$2^3$$</td>
+                    <td id="preview-11" class="math preview selectable" data-latex="\frac{16}{2}">$$\frac{16}{2}$$</td>
+                    <td id="preview-12" class="math preview selectable" data-latex="4+4">$$4+4$$</td>
                     <td class="new-td">Novo par</td>
                 </tr>
                 <tr class="new-tr">
