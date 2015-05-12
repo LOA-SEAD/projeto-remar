@@ -49,7 +49,7 @@
                     <div class="relative-w">
                         <ul class="side-menu">
                             <li><a class="home" href="${createLink(uri: '/')}">Início</a></li>
-                            <li><g:link>Logout</g:link></li>
+                            <li><a href="/logout">Logout</a></li>
                             </ul>
                         </div>
                     </div>
