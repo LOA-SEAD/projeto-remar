@@ -33,8 +33,8 @@
                                 </thead>
                                 <tbody>
                                     <g:each in="${themeInstanceList}" status="i" var="themeInstance">
-                                        <tr data-id="${fieldValue(bean: themeInstance, field: "id")}" class="${(i % 2) == 0 ? 'even' : 'odd'}" onclick="select">
-                                            <td align="center"> <input class="checkbox" type="checkbox"/> </td>
+                                        <tr data-id="${fieldValue(bean: themeInstance, field: "id")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
+                                            <td align="center"> <g:submitButton  name="save" class="save btn btn-success" value="Escolher Tema"/> </td>
 
                                             <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/icon.png" width="200" height="200"/></td>
                                             <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/opening.png" width="200" height="200"/></td>
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <fieldset class="buttons">
-                <g:submitButton  name="save" class="save btn btn-success" value="Escolher Tema"/>
+                %{--<g:submitButton  name="save" class="save btn btn-success" value="Escolher Tema"/>--}%
                 <div class="pagination">
                     <g:paginate total="${questionInstanceCount ?: 0}" />
                 </div>
