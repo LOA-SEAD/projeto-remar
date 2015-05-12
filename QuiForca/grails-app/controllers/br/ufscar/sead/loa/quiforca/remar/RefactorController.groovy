@@ -13,7 +13,7 @@ class RefactorController {
     def web() {
 
         def userId = WebUtils.retrieveGrailsWebRequest().session.userId
-
+	println userId
         render "/forca/data/$userId/game"
     }
 
