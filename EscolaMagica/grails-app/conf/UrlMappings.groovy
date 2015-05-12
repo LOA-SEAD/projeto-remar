@@ -7,7 +7,7 @@ class UrlMappings {
             }
         }
 
-        "/"(view:"/main")
+        "/"(controller: "process",action: "startProcess")
         "500"(view:'/error')
 	}
 }

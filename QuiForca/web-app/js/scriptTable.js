@@ -18,6 +18,7 @@ window.onload = function(){
 
         var td1 = document.createElement('td');
         td1.setAttribute('class', '_not_editable');
+        td1.setAttribute("align", "center");
         var cb = document.createElement('input');
         cb.setAttribute("type", "checkbox");
         cb.setAttribute("class", "checkbox");

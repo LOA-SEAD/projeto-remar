@@ -1,0 +1,708 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Inicio</name>
+    <events>
+        <comment>SelecaoPorta ee exibido sempre apos a introducao ou a saida de uma das classes (a conclusao das mesmas). Neste layout o jogador seleciona qual ano ele deseja jogar, alem das salas de visualizacao de conquistas e creditos.</comment>
+        <variable comment="Const. global respeitada pelos elementos do jogo." constant="0" name="VLR_MAX_VELOC" static="0" type="number">300</variable>
+        <variable constant="0" name="VLR_MAX_ACELER" static="0" type="number">1000</variable>
+        <variable constant="0" name="VLR_DANO_MONSTROS" static="0" type="number">10</variable>
+        <variable constant="0" name="VLR_DANO_ESPINHOS" static="0" type="number">10</variable>
+        <variable constant="0" name="VLR_DANO_QUEDA" static="0" type="number">30</variable>
+        <variable constant="0" name="VLR_DANO_BALA" static="0" type="number">10</variable>
+        <variable constant="0" name="VLR_FATOR_CURA" static="0" type="number">30</variable>
+        <comment>PosX e PosY sao utilizadas em todas as portas. Essas guardam a ultima posicao do jogador (quando este passa por um checkpoint ou resolve uma questao durante uma das classes). Finalmente, quando o jogador morre ou o layout de uma das portas ee resetado, ele volta para a ultima posicao definida por essas variaveis. Elas tambem devem sempre ser zeradas no layout SelecaoPorta.</comment>
+        <variable constant="0" name="PosX" static="0" type="number">0</variable>
+        <variable constant="0" name="PosY" static="0" type="number">0</variable>
+        <variable constant="0" name="vlrVida" static="0" type="number">100</variable>
+        <variable constant="0" name="AnoAtual" static="0" type="number">0</variable>
+        <variable constant="0" name="PergAtual" static="0" type="number">0</variable>
+        <variable constant="0" name="CenariosConcluidos" static="0" type="text">000</variable>
+        <variable comment="0: volume original; 20: dobro; -20: mudo" constant="0" name="Volume" static="0" type="number">0</variable>
+        <variable constant="0" name="LayoutAnterior" static="0" type="text"></variable>
+        <event-block>
+            <conditions>
+                <condition id="-2" name="On start of layout" type="System" />
+            </conditions>
+            <actions>
+                <action behavior="Platform" id="1" name="Set max speed" type="player">
+                    <param id="0" name="Max Speed">VLR_MAX_VELOC</param>
+                </action>
+                <action behavior="Platform" id="2" name="Set acceleration" type="player">
+                    <param id="0" name="Acceleration">VLR_MAX_ACELER</param>
+                </action>
+                <action behavior="Platform" id="3" name="Set deceleration" type="player">
+                    <param id="0" name="Deceleration">VLR_MAX_ACELER</param>
+                </action>
+                <action id="-4" name="Set position to another object" type="imgPlayer">
+                    <param id="0" name="Object">player</param>
+                    <param id="1" name="Image point (optional)">0</param>
+                </action>
+                <action behavior="Pin" id="0" name="Pin to object" type="imgPlayer">
+                    <param id="0" name="Pin to">player</param>
+                    <param id="1" name="Mode">0</param>
+                </action>
+                <action behavior="Pin" id="0" name="Pin to object" type="BarraVida">
+                    <param id="0" name="Pin to">Capsula</param>
+                    <param id="1" name="Mode">0</param>
+                </action>
+                <action id="4" name="Set animation" type="imgPlayer">
+                    <param id="0" name="Animation">&quot;Standing&quot;</param>
+                    <param id="1" name="From">1</param>
+                </action>
+                <action id="6" name="Stop" type="Audio">
+                    <param id="0" name="Tag">&quot;&quot;</param>
+                </action>
+                <action id="6" name="Stop" type="Audio">
+                    <param id="0" name="Tag">&quot;FaseA&quot;</param>
+                </action>
+                <action id="6" name="Stop" type="Audio">
+                    <param id="0" name="Tag">&quot;FaseB&quot;</param>
+                </action>
+                <action id="6" name="Stop" type="Audio">
+                    <param id="0" name="Tag">&quot;FaseC&quot;</param>
+                </action>
+                <action id="0" name="Play" type="Audio">
+                    <param id="0" name="Audio file">Menu_das_portas</param>
+                    <param id="2" name="Loop">1</param>
+                    <param id="3" name="Volume">Volume</param>
+                    <param id="1" name="Tag (optional)">&quot;Selecao&quot;</param>
+                </action>
+                <action id="4" name="Preload" type="Audio">
+                    <param id="0" name="Audio file">Coruja</param>
+                </action>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">PosX</param>
+                    <param id="1" name="Value">0</param>
+                </action>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">PosY</param>
+                    <param id="1" name="Value">0</param>
+                </action>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">PergAtual</param>
+                    <param id="1" name="Value">0</param>
+                </action>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">vlrVida</param>
+                    <param id="1" name="Value">100</param>
+                </action>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">NumQuedas</param>
+                    <param id="1" name="Value">0</param>
+                </action>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">NumRespErradas</param>
+                    <param id="1" name="Value">0</param>
+                </action>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">NumVezesDano</param>
+                    <param id="1" name="Value">0</param>
+                </action>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">NumInimigosMortos</param>
+                    <param id="1" name="Value">0</param>
+                </action>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">NumQuedas</param>
+                    <param id="1" name="Value">0</param>
+                </action>
+                <action id="5" name="Set frame" type="btnEditarSom">
+                    <param id="0" name="Frame number">Volume = -20 ? 2 : 0</param>
+                </action>
+                <action id="-12" name="Set group active" type="System">
+                    <param id="0" name="Group name">&quot;controleTeclas&quot;</param>
+                    <param id="1" name="State">1</param>
+                </action>
+            </actions>
+            <sub-events>
+                <comment>Jogador completou o jogo</comment>
+                <event-block>
+                    <conditions>
+                        <condition id="-14" name="Compare variable" type="System">
+                            <param id="0" name="Variable">CenariosConcluidos</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">&quot;111&quot;</param>
+                        </condition>
+                        <condition id="-14" name="Compare variable" type="System">
+                            <param id="0" name="Variable">LayoutAnterior</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">&quot;Porta&quot;</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-2" name="Go to layout" type="System">
+                            <param id="0" name="Layout">Vitoria</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-group collapsed="1" description="Responsavel por ordenar aletoriamente as perguntas que serao exibidas na proxima porta." title="EmbaralhaPerguntas">
+                    <sub-events>
+                        <variable constant="0" name="PergIndex" static="0" type="number">0</variable>
+                        <variable constant="0" name="PergRandom" static="0" type="number">0</variable>
+                        <variable comment="Auxiliar na troca de elementos do vetor nas posicoes i e random([0,5])" constant="0" name="ValueAux" static="0" type="number">0</variable>
+                        <event-block>
+                            <conditions />
+                            <actions>
+                                <action id="1" name="Set size" type="Perguntas">
+                                    <param id="0" name="Width">5</param>
+                                    <param id="1" name="Height">1</param>
+                                    <param id="2" name="Depth">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <comment>Preenche vetor Perguntas</comment>
+                        <event-block>
+                            <conditions>
+                                <condition id="-10" name="For" type="System">
+                                    <param id="0" name="Name">&quot;SetaPerg&quot;</param>
+                                    <param id="1" name="Start index">0</param>
+                                    <param id="2" name="End index">4</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="2" name="Set at X" type="Perguntas">
+                                    <param id="0" name="X">PergIndex</param>
+                                    <param id="1" name="Value">PergIndex</param>
+                                </action>
+                                <action id="-10" name="Add to" type="System">
+                                    <param id="0" name="Variable">PergIndex</param>
+                                    <param id="1" name="Value">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions />
+                            <actions>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">PergIndex</param>
+                                    <param id="1" name="Value">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <comment>Randomiza valores sem repeti-los</comment>
+                        <event-block>
+                            <conditions>
+                                <condition id="-10" name="For" type="System">
+                                    <param id="0" name="Name">&quot;EmbPerg&quot;</param>
+                                    <param id="1" name="Start index">0</param>
+                                    <param id="2" name="End index">4</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">PergRandom</param>
+                                    <param id="1" name="Value">round(random(4))</param>
+                                </action>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">ValueAux</param>
+                                    <param id="1" name="Value">Perguntas.At(PergIndex)</param>
+                                </action>
+                                <action id="2" name="Set at X" type="Perguntas">
+                                    <param id="0" name="X">PergIndex</param>
+                                    <param id="1" name="Value">Perguntas.At(PergRandom)</param>
+                                </action>
+                                <action id="2" name="Set at X" type="Perguntas">
+                                    <param id="0" name="X">PergRandom</param>
+                                    <param id="1" name="Value">ValueAux</param>
+                                </action>
+                                <action id="-10" name="Add to" type="System">
+                                    <param id="0" name="Variable">PergIndex</param>
+                                    <param id="1" name="Value">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-block>
+                    <conditions>
+                        <condition id="-13" name="Pick nth instance" type="System">
+                            <param id="0" name="Object">txtCenario</param>
+                            <param id="1" name="Instance">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Set text" type="txtCenario">
+                            <param id="0" name="Text">&quot;Dicas:&#x0D;&#x0A;&#x0D;&#x0A;Direcionais: movimentação&#x0D;&#x0A;Espaço: pular&#x0D;&#x0A;Shift: correr&#x0D;&#x0A;Ctrl: interagir com objetos&#x0D;&#x0A;M: alternar ativação de sons&quot;</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <event-group description="" title="RegrasGerais">
+            <sub-events>
+                <event-group collapsed="1" description="" title="ControleTeclas">
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="0" name="On key pressed" type="Keyboard">
+                                    <param id="0" name="Key">37 (Left arrow)</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="7" name="Set mirrored" type="imgPlayer">
+                                    <param id="0" name="State">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="0" name="On key pressed" type="Keyboard">
+                                    <param id="0" name="Key">39 (Right arrow)</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="7" name="Set mirrored" type="imgPlayer">
+                                    <param id="0" name="State">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="0" name="On key pressed" type="Keyboard">
+                                    <param id="0" name="Key">16 (Shift)</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action behavior="Platform" id="1" name="Set max speed" type="player">
+                                    <param id="0" name="Max Speed">2*VLR_MAX_VELOC</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="0" name="On key pressed" type="Keyboard">
+                                    <param id="0" name="Key">32 (Space)</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action behavior="Platform" id="7" name="Simulate control" type="player">
+                                    <param id="0" name="Control">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="3" name="On key released" type="Keyboard">
+                                    <param id="0" name="Key">16 (Shift)</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action behavior="Platform" id="1" name="Set max speed" type="player">
+                                    <param id="0" name="Max Speed">VLR_MAX_VELOC</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group collapsed="1" description="" title="Jogador">
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition behavior="Platform" id="5" name="On jump" type="player" />
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Play" type="Audio">
+                                    <param id="0" name="Audio file">perPulo</param>
+                                    <param id="2" name="Loop">0</param>
+                                    <param id="3" name="Volume">Volume</param>
+                                    <param id="1" name="Tag (optional)">&quot;perPulo&quot;</param>
+                                </action>
+                                <action id="4" name="Set animation" type="imgPlayer">
+                                    <param id="0" name="Animation">&quot;Leaping&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition behavior="Platform" id="0" name="Is moving" type="player" />
+                            </conditions>
+                            <actions>
+                                <action id="-8" name="Scroll to object" type="System">
+                                    <param id="0" name="Object">player</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition behavior="Platform" id="8" name="On moved" type="player" />
+                            </conditions>
+                            <actions>
+                                <action id="4" name="Set animation" type="imgPlayer">
+                                    <param id="0" name="Animation">&quot;Running&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition behavior="Platform" id="7" name="On stopped" type="player" />
+                            </conditions>
+                            <actions>
+                                <action id="4" name="Set animation" type="imgPlayer">
+                                    <param id="0" name="Animation">&quot;Standing&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition behavior="Platform" id="9" name="On landed" type="player" />
+                            </conditions>
+                            <actions>
+                                <action id="4" name="Set animation" type="imgPlayer">
+                                    <param id="0" name="Animation">&quot;Standing&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition behavior="Platform" id="0" name="Is moving" type="player" />
+                                    </conditions>
+                                    <actions>
+                                        <action id="4" name="Set animation" type="imgPlayer">
+                                            <param id="0" name="Animation">&quot;Running&quot;</param>
+                                            <param id="1" name="From">1</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition behavior="Platform" id="4" name="Is falling" type="player" />
+                            </conditions>
+                            <actions>
+                                <action id="4" name="Set animation" type="imgPlayer">
+                                    <param id="0" name="Animation">&quot;Falling&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group collapsed="1" description="" title="Portas">
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="1" name="Is overlapping another object" type="imgPlayer">
+                                    <param id="0" name="Object">PortaA</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="4" name="Set animation" type="PortaA">
+                                    <param id="0" name="Animation">&quot;Aberta&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="0" name="On key pressed" type="Keyboard">
+                                            <param id="0" name="Key">17 (Ctrl)</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-2" name="Go to layout" type="System">
+                                            <param id="0" name="Layout">Porta1</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-22" name="Else" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="4" name="Set animation" type="PortaA">
+                                    <param id="0" name="Animation">&quot;Default&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="1" name="Is overlapping another object" type="imgPlayer">
+                                    <param id="0" name="Object">PortaB</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="4" name="Set animation" type="PortaB">
+                                    <param id="0" name="Animation">&quot;Aberta&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="0" name="On key pressed" type="Keyboard">
+                                            <param id="0" name="Key">17 (Ctrl)</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-2" name="Go to layout" type="System">
+                                            <param id="0" name="Layout">Porta2</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-22" name="Else" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="4" name="Set animation" type="PortaB">
+                                    <param id="0" name="Animation">&quot;Default&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="1" name="Is overlapping another object" type="imgPlayer">
+                                    <param id="0" name="Object">PortaC</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="4" name="Set animation" type="PortaC">
+                                    <param id="0" name="Animation">&quot;Aberta&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="0" name="On key pressed" type="Keyboard">
+                                            <param id="0" name="Key">17 (Ctrl)</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-2" name="Go to layout" type="System">
+                                            <param id="0" name="Layout">Porta3</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-22" name="Else" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="4" name="Set animation" type="PortaC">
+                                    <param id="0" name="Animation">&quot;Default&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group collapsed="1" description="Interruptores que direcionam para créditos e conquistas" title="Interruptor">
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="3" name="On key released" type="Keyboard">
+                                    <param id="0" name="Key">17 (Ctrl)</param>
+                                </condition>
+                                <condition id="1" name="Is overlapping another object" type="imgPlayer">
+                                    <param id="0" name="Object">itInterrup</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-8" name="Compare two values" type="System">
+                                            <param id="0" name="First value">itInterrup.IID</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Second value">0</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-2" name="Go to layout" type="System">
+                                            <param id="0" name="Layout">Creditos</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-22" name="Else" type="System" />
+                                    </conditions>
+                                    <actions>
+                                        <action id="-2" name="Go to layout" type="System">
+                                            <param id="0" name="Layout">Conquistas</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+            </sub-events>
+        </event-group>
+        <event-group collapsed="1" description="Permite ao jogador alterar o volume do jogo." title="EventosSom">
+            <sub-events>
+                <event-block>
+                    <conditions>
+                        <condition id="3" name="On key released" type="Keyboard">
+                            <param id="0" name="Key">77 (M)</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">Volume</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">-20</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" type="btnEditarSom">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">Volume</param>
+                                    <param id="1" name="Value">0</param>
+                                </action>
+                                <action id="8" name="Set silent" type="Audio">
+                                    <param id="0" name="Mode">1</param>
+                                </action>
+                                <action id="3" name="Set volume" type="Audio">
+                                    <param id="0" name="Tag">&quot;FaseA&quot;</param>
+                                    <param id="1" name="dB">Volume</param>
+                                </action>
+                                <action id="3" name="Set volume" type="Audio">
+                                    <param id="0" name="Tag">&quot;Selecao&quot;</param>
+                                    <param id="1" name="dB">Volume</param>
+                                </action>
+                                <action id="3" name="Set volume" type="Audio">
+                                    <param id="0" name="Tag">&quot;Pergunta&quot;</param>
+                                    <param id="1" name="dB">Volume</param>
+                                </action>
+                                <action id="3" name="Set volume" type="Audio">
+                                    <param id="0" name="Tag">&quot;Fim&quot;</param>
+                                    <param id="1" name="dB">Volume</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-22" name="Else" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" type="btnEditarSom">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="cursorSom">
+                                    <param id="0" name="Visibility">0</param>
+                                </action>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">Volume</param>
+                                    <param id="1" name="Value">-20</param>
+                                </action>
+                                <action id="8" name="Set silent" type="Audio">
+                                    <param id="0" name="Mode">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <comment>[Mouse.X -btnEditarSom.X +btnEditarSom.Width] é o local relativo do clique do mouse sobre a barra de som, indo de 0 à btnEditarSom.Width. Através de uma regra de três, compactamos linearmente este valor num intervalo de 0 à 20 e posteriormente subtraímos por 20. Ao final, teremos um valor de -20 à 0, que é o intervalo válido para o componente audio.</comment>
+                <event-block>
+                    <conditions>
+                        <condition id="6" name="On object clicked" type="Mouse">
+                            <param id="0" name="Mouse button">0</param>
+                            <param id="1" name="Click type">0</param>
+                            <param id="2" name="Object clicked">btnEditarSom</param>
+                        </condition>
+                        <condition id="3" name="Compare frame" type="btnEditarSom">
+                            <param id="0" name="Comparison">0</param>
+                            <param id="1" name="Number">1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Set value" type="System">
+                            <param id="0" name="Variable">Volume</param>
+                            <param id="1" name="Value">20*(Mouse.X -btnEditarSom.X +btnEditarSom.Width)/btnEditarSom.Width -20</param>
+                        </action>
+                        <action id="-3" name="Set position" type="cursorSom">
+                            <param id="0" name="X">Mouse.X</param>
+                            <param id="1" name="Y">cursorSom.Y</param>
+                        </action>
+                        <action id="3" name="Set volume" type="Audio">
+                            <param id="0" name="Tag">&quot;FaseA&quot;</param>
+                            <param id="1" name="dB">Volume</param>
+                        </action>
+                        <action id="3" name="Set volume" type="Audio">
+                            <param id="0" name="Tag">&quot;Selecao&quot;</param>
+                            <param id="1" name="dB">Volume</param>
+                        </action>
+                        <action id="3" name="Set volume" type="Audio">
+                            <param id="0" name="Tag">&quot;Pergunta&quot;</param>
+                            <param id="1" name="dB">Volume</param>
+                        </action>
+                        <action id="3" name="Set volume" type="Audio">
+                            <param id="0" name="Tag">&quot;Fim&quot;</param>
+                            <param id="1" name="dB">Volume</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block any="1">
+                    <conditions>
+                        <condition id="3" name="Compare frame" type="btnEditarSom">
+                            <param id="0" name="Comparison">0</param>
+                            <param id="1" name="Number">0</param>
+                        </condition>
+                        <condition id="3" name="Compare frame" type="btnEditarSom">
+                            <param id="0" name="Comparison">0</param>
+                            <param id="1" name="Number">1</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="7" name="Cursor is over object" type="Mouse">
+                                    <param id="0" name="Object">btnEditarSom</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" type="btnEditarSom">
+                                    <param id="0" name="Frame number">1</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="cursorSom">
+                                    <param id="0" name="Visibility">1</param>
+                                </action>
+                                <action id="0" name="Set cursor style" type="Mouse">
+                                    <param id="0" name="Cursor style">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-22" name="Else" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" type="btnEditarSom">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                                <action id="0" name="Set cursor style" type="Mouse">
+                                    <param id="0" name="Cursor style">0</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="cursorSom">
+                                    <param id="0" name="Visibility">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+    </events>
+</c2eventsheet>

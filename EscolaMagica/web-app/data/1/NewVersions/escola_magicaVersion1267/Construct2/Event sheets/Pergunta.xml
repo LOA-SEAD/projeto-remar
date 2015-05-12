@@ -1,0 +1,1052 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Pergunta</name>
+    <events>
+        <comment>&quot;Resp&quot; armazena um numero que faz referencia a qual alavanca o jogador pressionou. &quot;RespCorreta&quot; armazena uma referencia da alavanca correta. Se ambas sao iguais quando o jogador tenta sair pela porta, sua resposta obviamente esta correta. Caso contrario, o jogador toma um choque (descrito pelo grupo &quot;Choque&quot;), e deverá responder a pergunta novamente.&#x0D;&#x0A;On start of layout: o objeto ajax e verificado. Se este for nulo, o carregamento das perguntas no layout &quot;Introducao&quot; foi mal sucedido. Uma segunda requisicao e entao executada.</comment>
+        <variable constant="0" name="Resp" static="0" type="number">-1</variable>
+        <variable constant="0" name="RespCorreta" static="0" type="number">-1</variable>
+        <event-block>
+            <conditions>
+                <condition id="-2" name="On start of layout" type="System" />
+            </conditions>
+            <actions>
+                <action id="-15" name="Set visible" type="PortaA">
+                    <param id="0" name="Visibility">0</param>
+                </action>
+                <action id="-15" name="Set visible" type="PortaB">
+                    <param id="0" name="Visibility">0</param>
+                </action>
+                <action id="-15" name="Set visible" type="PortaC">
+                    <param id="0" name="Visibility">0</param>
+                </action>
+                <action behavior="Pin" id="0" name="Pin to object" type="imgPlayer">
+                    <param id="0" name="Pin to">player</param>
+                    <param id="1" name="Mode">0</param>
+                </action>
+                <action behavior="Pin" id="0" name="Pin to object" type="imgRaios">
+                    <param id="0" name="Pin to">imgPlayer</param>
+                    <param id="1" name="Mode">0</param>
+                </action>
+                <action behavior="Pin" id="0" name="Pin to object" type="imgBalao">
+                    <param id="0" name="Pin to">imgPlayer</param>
+                    <param id="1" name="Mode">0</param>
+                </action>
+                <action behavior="Pin" id="0" name="Pin to object" type="txtFala">
+                    <param id="0" name="Pin to">imgBalao</param>
+                    <param id="1" name="Mode">0</param>
+                </action>
+                <action id="4" name="Set animation" type="imgPlayer">
+                    <param id="0" name="Animation">&quot;Standing&quot;</param>
+                    <param id="1" name="From">1</param>
+                </action>
+                <action id="-5" name="Set width" type="BarraVida">
+                    <param id="0" name="Width">Capsula.Width * (vlrVida/100)</param>
+                </action>
+                <action id="6" name="Stop" type="Audio">
+                    <param id="0" name="Tag">&quot;FaseA&quot;</param>
+                </action>
+                <action id="6" name="Stop" type="Audio">
+                    <param id="0" name="Tag">&quot;FaseB&quot;</param>
+                </action>
+                <action id="6" name="Stop" type="Audio">
+                    <param id="0" name="Tag">&quot;FaseC&quot;</param>
+                </action>
+                <action id="4" name="Preload" type="Audio">
+                    <param id="0" name="Audio file">Alavanca</param>
+                </action>
+                <action id="0" name="Play" type="Audio">
+                    <param id="0" name="Audio file">Pergunta</param>
+                    <param id="2" name="Loop">1</param>
+                    <param id="3" name="Volume">Volume</param>
+                    <param id="1" name="Tag (optional)">&quot;Pergunta&quot;</param>
+                </action>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">ConquistaInicioResp</param>
+                    <param id="1" name="Value">time</param>
+                </action>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">Resp</param>
+                    <param id="1" name="Value">-1</param>
+                </action>
+                <action id="-9" name="Set value" type="System">
+                    <param id="0" name="Variable">RespCorreta</param>
+                    <param id="1" name="Value">-1</param>
+                </action>
+                <action id="5" name="Set frame" type="btnEditarSom">
+                    <param id="0" name="Frame number">Volume = -20 ? 2 : 0</param>
+                </action>
+                <action id="-12" name="Set group active" type="System">
+                    <param id="0" name="Group name">&quot;controleTeclas&quot;</param>
+                    <param id="1" name="State">1</param>
+                </action>
+            </actions>
+            <sub-events>
+                <event-block>
+                    <conditions>
+                        <condition id="-8" name="Compare two values" type="System">
+                            <param id="0" name="First value">AJAX.LastData</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Second value">&quot;&quot;</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="1" name="Request project file" type="AJAX">
+                            <param id="0" name="Tag">&quot;Perguntas&quot;</param>
+                            <param id="1" name="File">Perguntas.xml</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block>
+                    <conditions>
+                        <condition id="-22" name="Else" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="-12" name="Set group active" type="System">
+                            <param id="0" name="Group name">&quot;CarregaPergunta&quot;</param>
+                            <param id="1" name="State">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block>
+                    <conditions>
+                        <condition id="-14" name="Compare variable" type="System">
+                            <param id="0" name="Variable">AnoAtual</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-15" name="Set visible" type="PortaA">
+                            <param id="0" name="Visibility">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block>
+                    <conditions>
+                        <condition id="-14" name="Compare variable" type="System">
+                            <param id="0" name="Variable">AnoAtual</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">2</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-15" name="Set visible" type="PortaB">
+                            <param id="0" name="Visibility">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block>
+                    <conditions>
+                        <condition id="-14" name="Compare variable" type="System">
+                            <param id="0" name="Variable">AnoAtual</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">3</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-15" name="Set visible" type="PortaC">
+                            <param id="0" name="Visibility">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <event-group description="" title="RegrasGerais">
+            <sub-events>
+                <event-group collapsed="1" description="" title="ControleTeclas">
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="2" name="Key is down" type="Keyboard">
+                                    <param id="0" name="Key">37 (Left arrow)</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="7" name="Set mirrored" type="imgPlayer">
+                                    <param id="0" name="State">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="2" name="Key is down" type="Keyboard">
+                                    <param id="0" name="Key">39 (Right arrow)</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="7" name="Set mirrored" type="imgPlayer">
+                                    <param id="0" name="State">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="0" name="On key pressed" type="Keyboard">
+                                    <param id="0" name="Key">16 (Shift)</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action behavior="Platform" id="1" name="Set max speed" type="player">
+                                    <param id="0" name="Max Speed">2*VLR_MAX_VELOC</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="0" name="On key pressed" type="Keyboard">
+                                    <param id="0" name="Key">32 (Space)</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action behavior="Platform" id="7" name="Simulate control" type="player">
+                                    <param id="0" name="Control">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="3" name="On key released" type="Keyboard">
+                                    <param id="0" name="Key">16 (Shift)</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action behavior="Platform" id="1" name="Set max speed" type="player">
+                                    <param id="0" name="Max Speed">VLR_MAX_VELOC</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group collapsed="1" description="" title="Jogador">
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition behavior="Platform" id="5" name="On jump" type="player" />
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Play" type="Audio">
+                                    <param id="0" name="Audio file">perPulo</param>
+                                    <param id="2" name="Loop">0</param>
+                                    <param id="3" name="Volume">Volume</param>
+                                    <param id="1" name="Tag (optional)">&quot;perPulo&quot;</param>
+                                </action>
+                                <action id="4" name="Set animation" type="imgPlayer">
+                                    <param id="0" name="Animation">&quot;Leaping&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition behavior="Platform" id="0" name="Is moving" type="player" />
+                            </conditions>
+                            <actions>
+                                <action id="-8" name="Scroll to object" type="System">
+                                    <param id="0" name="Object">player</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition behavior="Platform" id="8" name="On moved" type="player" />
+                            </conditions>
+                            <actions>
+                                <action id="4" name="Set animation" type="imgPlayer">
+                                    <param id="0" name="Animation">&quot;Running&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition behavior="Platform" id="7" name="On stopped" type="player" />
+                            </conditions>
+                            <actions>
+                                <action id="4" name="Set animation" type="imgPlayer">
+                                    <param id="0" name="Animation">&quot;Standing&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition behavior="Platform" id="9" name="On landed" type="player" />
+                            </conditions>
+                            <actions>
+                                <action id="4" name="Set animation" type="imgPlayer">
+                                    <param id="0" name="Animation">&quot;Standing&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition behavior="Platform" id="0" name="Is moving" type="player" />
+                                    </conditions>
+                                    <actions>
+                                        <action id="4" name="Set animation" type="imgPlayer">
+                                            <param id="0" name="Animation">&quot;Running&quot;</param>
+                                            <param id="1" name="From">1</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition behavior="Platform" id="4" name="Is falling" type="player" />
+                            </conditions>
+                            <actions>
+                                <action id="4" name="Set animation" type="imgPlayer">
+                                    <param id="0" name="Animation">&quot;Falling&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group description="" title="PERG_AlteraAlavanca">
+                    <sub-events>
+                        <event-group collapsed="1" description="" inactive="1" title="AA_A">
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-19" name="Pick all" type="System">
+                                            <param id="0" name="Object">alavBarra</param>
+                                        </condition>
+                                        <condition id="-13" name="Is between angles" type="alavBarra">
+                                            <param id="0" name="First angle">-45</param>
+                                            <param id="1" name="Second angle">43</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-8" name="Set angle" type="alavBarra">
+                                            <param id="0" name="Angle">alavBarra.Angle +3</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-22" name="Else" type="System" />
+                                        <condition id="-19" name="Pick all" type="System">
+                                            <param id="0" name="Object">alavBarra</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-8" name="Set angle" type="alavBarra">
+                                            <param id="0" name="Angle">45</param>
+                                        </action>
+                                        <action id="4" name="Set animation" type="alavBase">
+                                            <param id="0" name="Animation">&quot;desativo&quot;</param>
+                                            <param id="1" name="From">1</param>
+                                        </action>
+                                        <action id="-12" name="Set group active" type="System">
+                                            <param id="0" name="Group name">&quot;AA_A&quot;</param>
+                                            <param id="1" name="State">0</param>
+                                        </action>
+                                        <action id="-12" name="Set group active" type="System">
+                                            <param id="0" name="Group name">&quot;AA_B&quot;</param>
+                                            <param id="1" name="State">1</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-group>
+                        <event-group collapsed="1" description="" inactive="1" title="AA_B">
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-13" name="Pick nth instance" type="System">
+                                            <param id="0" name="Object">alavBarra</param>
+                                            <param id="1" name="Instance">Resp</param>
+                                        </condition>
+                                        <condition id="-13" name="Is between angles" type="alavBarra">
+                                            <param id="0" name="First angle">-45</param>
+                                            <param id="1" name="Second angle">46</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-8" name="Set angle" type="alavBarra">
+                                            <param id="0" name="Angle">alavBarra.Angle -3</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="-22" name="Else" type="System" />
+                                        <condition id="-13" name="Pick nth instance" type="System">
+                                            <param id="0" name="Object">alavBase</param>
+                                            <param id="1" name="Instance">Resp</param>
+                                        </condition>
+                                        <condition id="-13" name="Pick nth instance" type="System">
+                                            <param id="0" name="Object">alavBarra</param>
+                                            <param id="1" name="Instance">Resp</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="0" name="Play" type="Audio">
+                                            <param id="0" name="Audio file">Alavanca</param>
+                                            <param id="2" name="Loop">0</param>
+                                            <param id="3" name="Volume">0</param>
+                                            <param id="1" name="Tag (optional)">&quot;&quot;</param>
+                                        </action>
+                                        <action id="-8" name="Set angle" type="alavBarra">
+                                            <param id="0" name="Angle">-45</param>
+                                        </action>
+                                        <action id="4" name="Set animation" type="alavBase">
+                                            <param id="0" name="Animation">&quot;ativo&quot;</param>
+                                            <param id="1" name="From">1</param>
+                                        </action>
+                                        <action id="-12" name="Set group active" type="System">
+                                            <param id="0" name="Group name">&quot;AA_B&quot;</param>
+                                            <param id="1" name="State">0</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-group>
+                    </sub-events>
+                </event-group>
+                <event-group collapsed="1" description="" inactive="1" title="Fala">
+                    <sub-events>
+                        <event-block>
+                            <conditions />
+                            <actions>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;Fala&quot;</param>
+                                    <param id="1" name="State">0</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="imgBalao">
+                                    <param id="0" name="Visibility">1</param>
+                                </action>
+                                <action id="5" name="Set frame" type="imgBalao">
+                                    <param id="0" name="Frame number">1</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.025</param>
+                                </action>
+                                <action id="5" name="Set frame" type="imgBalao">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.025</param>
+                                </action>
+                                <action id="5" name="Set frame" type="imgBalao">
+                                    <param id="0" name="Frame number">3</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.025</param>
+                                </action>
+                                <action id="5" name="Set frame" type="imgBalao">
+                                    <param id="0" name="Frame number">4</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.025</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="txtFala">
+                                    <param id="0" name="Visibility">1</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">2.0</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="txtFala">
+                                    <param id="0" name="Visibility">0</param>
+                                </action>
+                                <action id="4" name="Set animation" type="imgBalao">
+                                    <param id="0" name="Animation">&quot;Aparecer&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                                <action id="5" name="Set frame" type="imgBalao">
+                                    <param id="0" name="Frame number">3</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.025</param>
+                                </action>
+                                <action id="5" name="Set frame" type="imgBalao">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.025</param>
+                                </action>
+                                <action id="5" name="Set frame" type="imgBalao">
+                                    <param id="0" name="Frame number">1</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.025</param>
+                                </action>
+                                <action id="5" name="Set frame" type="imgBalao">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">0.025</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="imgBalao">
+                                    <param id="0" name="Visibility">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+            </sub-events>
+        </event-group>
+        <event-group description="" title="Interacao">
+            <sub-events>
+                <event-group collapsed="1" description="" title="Alavanca">
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="3" name="On key released" type="Keyboard">
+                                    <param id="0" name="Key">17 (Ctrl)</param>
+                                </condition>
+                                <condition id="1" name="Is overlapping another object" type="alavBarra">
+                                    <param id="0" name="Object">player</param>
+                                </condition>
+                                <condition id="-15" inverted="1" name="Is group active" type="System">
+                                    <param id="0" name="Group name">&quot;AA_A&quot;</param>
+                                </condition>
+                                <condition id="-15" inverted="1" name="Is group active" type="System">
+                                    <param id="0" name="Group name">&quot;AA_B&quot;</param>
+                                </condition>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">Resp</param>
+                                    <param id="1" name="Comparison">1</param>
+                                    <param id="2" name="Value">alavBarra.IID</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">Resp</param>
+                                    <param id="1" name="Value">alavBarra.IID</param>
+                                </action>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;AA_A&quot;</param>
+                                    <param id="1" name="State">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group collapsed="1" description="" title="Portas">
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="0" name="On key pressed" type="Keyboard">
+                                    <param id="0" name="Key">17 (Ctrl)</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <event-block any="1">
+                                    <conditions>
+                                        <condition id="1" name="Is overlapping another object" type="imgPlayer">
+                                            <param id="0" name="Object">PortaA</param>
+                                        </condition>
+                                        <condition id="1" name="Is overlapping another object" type="imgPlayer">
+                                            <param id="0" name="Object">PortaB</param>
+                                        </condition>
+                                        <condition id="1" name="Is overlapping another object" type="imgPlayer">
+                                            <param id="0" name="Object">PortaC</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-12" name="Set group active" type="System">
+                                            <param id="0" name="Group name">&quot;AA_A&quot;</param>
+                                            <param id="1" name="State">0</param>
+                                        </action>
+                                        <action id="-12" name="Set group active" type="System">
+                                            <param id="0" name="Group name">&quot;AA_B&quot;</param>
+                                            <param id="1" name="State">0</param>
+                                        </action>
+                                    </actions>
+                                    <sub-events>
+                                        <event-block>
+                                            <conditions>
+                                                <condition id="-14" name="Compare variable" type="System">
+                                                    <param id="0" name="Variable">Resp</param>
+                                                    <param id="1" name="Comparison">1</param>
+                                                    <param id="2" name="Value">RespCorreta</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="-10" name="Add to" type="System">
+                                                    <param id="0" name="Variable">NumRespErradas</param>
+                                                    <param id="1" name="Value">1</param>
+                                                </action>
+                                                <action id="0" name="Set text" type="txtFala">
+                                                    <param id="0" name="Text">&quot;AIII!!! Parece que alguma coisa não está certa!&quot;</param>
+                                                </action>
+                                                <action id="-12" name="Set group active" type="System">
+                                                    <param id="0" name="Group name">&quot;Fala&quot;</param>
+                                                    <param id="1" name="State">1</param>
+                                                </action>
+                                                <action id="-12" name="Set group active" type="System">
+                                                    <param id="0" name="Group name">&quot;Choque&quot;</param>
+                                                    <param id="1" name="State">1</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                        <event-block>
+                                            <conditions>
+                                                <condition id="-22" name="Else" type="System" />
+                                            </conditions>
+                                            <actions>
+                                                <action id="6" name="Stop" type="Audio">
+                                                    <param id="0" name="Tag">&quot;Desafio&quot;</param>
+                                                </action>
+                                                <action id="-10" name="Add to" type="System">
+                                                    <param id="0" name="Variable">PergAtual</param>
+                                                    <param id="1" name="Value">1</param>
+                                                </action>
+                                            </actions>
+                                            <sub-events>
+                                                <event-group collapsed="1" description='Verifica variaveis responsaveis pelo registro das acoes do jogador e, caso tenha atingido uma conquista, atribui o valor 1 aa posicao correspondente dessa mesma ao vetor &quot;Conquistas&quot;, registrando que ela ja foi atingida.' title="VerificarConquistas">
+                                                    <sub-events>
+                                                        <comment>Espertinho</comment>
+                                                        <event-block>
+                                                            <conditions>
+                                                                <condition id="-8" name="Compare two values" type="System">
+                                                                    <param id="0" name="First value">time -ConquistaInicioResp</param>
+                                                                    <param id="1" name="Comparison">3</param>
+                                                                    <param id="2" name="Second value">MIN_VELOC_RESP</param>
+                                                                </condition>
+                                                            </conditions>
+                                                            <actions>
+                                                                <action id="2" name="Set at X" type="Conquistas">
+                                                                    <param id="0" name="X">4</param>
+                                                                    <param id="1" name="Value">1</param>
+                                                                </action>
+                                                            </actions>
+                                                        </event-block>
+                                                    </sub-events>
+                                                </event-group>
+                                                <event-block>
+                                                    <conditions>
+                                                        <condition id="-14" name="Compare variable" type="System">
+                                                            <param id="0" name="Variable">AnoAtual</param>
+                                                            <param id="1" name="Comparison">0</param>
+                                                            <param id="2" name="Value">1</param>
+                                                        </condition>
+                                                    </conditions>
+                                                    <actions>
+                                                        <action id="-2" name="Go to layout" type="System">
+                                                            <param id="0" name="Layout">Porta1</param>
+                                                        </action>
+                                                    </actions>
+                                                </event-block>
+                                                <event-block>
+                                                    <conditions>
+                                                        <condition id="-14" name="Compare variable" type="System">
+                                                            <param id="0" name="Variable">AnoAtual</param>
+                                                            <param id="1" name="Comparison">0</param>
+                                                            <param id="2" name="Value">2</param>
+                                                        </condition>
+                                                    </conditions>
+                                                    <actions>
+                                                        <action id="-2" name="Go to layout" type="System">
+                                                            <param id="0" name="Layout">Porta2</param>
+                                                        </action>
+                                                    </actions>
+                                                </event-block>
+                                                <event-block>
+                                                    <conditions>
+                                                        <condition id="-14" name="Compare variable" type="System">
+                                                            <param id="0" name="Variable">AnoAtual</param>
+                                                            <param id="1" name="Comparison">0</param>
+                                                            <param id="2" name="Value">3</param>
+                                                        </condition>
+                                                    </conditions>
+                                                    <actions>
+                                                        <action id="-2" name="Go to layout" type="System">
+                                                            <param id="0" name="Layout">Porta3</param>
+                                                        </action>
+                                                    </actions>
+                                                </event-block>
+                                            </sub-events>
+                                        </event-block>
+                                    </sub-events>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="1" inverted="1" name="Is overlapping another object" type="imgPlayer">
+                                    <param id="0" name="Object">PortaA</param>
+                                </condition>
+                                <condition id="1" inverted="1" name="Is overlapping another object" type="imgPlayer">
+                                    <param id="0" name="Object">PortaB</param>
+                                </condition>
+                                <condition id="1" inverted="1" name="Is overlapping another object" type="imgPlayer">
+                                    <param id="0" name="Object">PortaC</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="4" name="Set animation" type="PortaA">
+                                    <param id="0" name="Animation">&quot;Default&quot;</param>
+                                    <param id="1" name="From">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group collapsed="1" description="" inactive="1" title="VerificaGameOver">
+                    <sub-events>
+                        <event-block>
+                            <conditions />
+                            <actions>
+                                <action id="-5" name="Set width" type="BarraVida">
+                                    <param id="0" name="Width">287 * (vlrVida/100)</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">vlrVida</param>
+                                    <param id="1" name="Comparison">3</param>
+                                    <param id="2" name="Value">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="6" name="Stop" type="Audio">
+                                    <param id="0" name="Tag">&quot;Desafio&quot;</param>
+                                </action>
+                                <action id="-2" name="Go to layout" type="System">
+                                    <param id="0" name="Layout">GameOver</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-22" name="Else" type="System" />
+                            </conditions>
+                            <actions>
+                                <action behavior="Flash" id="0" name="Flash" type="imgPlayer">
+                                    <param id="0" name="&apos;On&apos; time">0.1</param>
+                                    <param id="1" name="&apos;Off&apos; time">0.1</param>
+                                    <param id="2" name="Duration">2.0</param>
+                                </action>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;VerificaGameOver&quot;</param>
+                                    <param id="1" name="State">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-group collapsed="1" description="Reduz vida do jogador quando esse responde uma pergunta errado." inactive="1" title="Choque">
+                    <sub-events>
+                        <event-block>
+                            <conditions />
+                            <actions>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;Choque&quot;</param>
+                                    <param id="1" name="State">0</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="imgRaios">
+                                    <param id="0" name="Visibility">1</param>
+                                </action>
+                                <action id="-11" name="Subtract from" type="System">
+                                    <param id="0" name="Variable">vlrVida</param>
+                                    <param id="1" name="Value">10</param>
+                                </action>
+                                <action id="-12" name="Set group active" type="System">
+                                    <param id="0" name="Group name">&quot;VerificaGameOver&quot;</param>
+                                    <param id="1" name="State">1</param>
+                                </action>
+                                <action id="-16" name="Wait" type="System">
+                                    <param id="0" name="Seconds">1.0</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="imgRaios">
+                                    <param id="0" name="Visibility">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+            </sub-events>
+        </event-group>
+        <event-group description="Em caso de falha do carregamento de pergunta,  uma segunda tentativa é realizada. Caso haja um erro, o jogo volta a tela inicial." title="PERG_PARSE_XML">
+            <sub-events>
+                <event-block>
+                    <conditions>
+                        <condition id="0" name="On completed" type="AJAX">
+                            <param id="0" name="Tag">&quot;Perguntas&quot;</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Load" type="XML">
+                            <param id="0" name="XML">AJAX.LastData</param>
+                        </action>
+                        <action id="-12" name="Set group active" type="System">
+                            <param id="0" name="Group name">&quot;CarregaPergunta&quot;</param>
+                            <param id="1" name="State">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block>
+                    <conditions>
+                        <condition id="1" name="On error" type="AJAX">
+                            <param id="0" name="Tag">&quot;Perguntas&quot;</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-21" name="Reset global variables" type="System" />
+                        <action id="-2" name="Go to layout" type="System">
+                            <param id="0" name="Layout">Introducao</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" inactive="1" title="CarregaPergunta">
+            <sub-events>
+                <variable constant="0" name="encontrouPergunta" static="0" type="number">0</variable>
+                <variable constant="0" name="RespCount" static="0" type="number">0</variable>
+                <event-block>
+                    <conditions />
+                    <actions>
+                        <action id="-12" name="Set group active" type="System">
+                            <param id="0" name="Group name">&quot;CarregaPergunta&quot;</param>
+                            <param id="1" name="State">0</param>
+                        </action>
+                        <action id="-9" name="Set value" type="System">
+                            <param id="0" name="Variable">encontrouPergunta</param>
+                            <param id="1" name="Value">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block>
+                    <conditions>
+                        <condition id="0" name="For each node" type="XML">
+                            <param id="0" name="XPath">&quot;/Perguntas/Classe&quot;</param>
+                        </condition>
+                        <condition id="-8" name="Compare two values" type="System">
+                            <param id="0" name="First value">int(XML.StringValue(&quot;@ClaAno&quot;))</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Second value">AnoAtual</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">encontrouPergunta</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">0</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <event-block>
+                                    <conditions>
+                                        <condition id="0" name="For each node" type="XML">
+                                            <param id="0" name="XPath">&quot;Pergunta&quot;</param>
+                                        </condition>
+                                        <condition id="-8" name="Compare two values" type="System">
+                                            <param id="0" name="First value">Perguntas.At(PergAtual)</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Second value">int(XML.StringValue(&quot;@PergNum&quot;))</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="0" name="Set text" type="txtPergunta">
+                                            <param id="0" name="Text">XML.StringValue(&quot;@titulo&quot;)</param>
+                                        </action>
+                                        <action id="-9" name="Set value" type="System">
+                                            <param id="0" name="Variable">RespCorreta</param>
+                                            <param id="1" name="Value">int(XML.StringValue(&quot;@respCorreta&quot;))</param>
+                                        </action>
+                                        <action id="-9" name="Set value" type="System">
+                                            <param id="0" name="Variable">encontrouPergunta</param>
+                                            <param id="1" name="Value">1</param>
+                                        </action>
+                                    </actions>
+                                    <sub-events>
+                                        <event-block>
+                                            <conditions>
+                                                <condition id="0" name="For each node" type="XML">
+                                                    <param id="0" name="XPath">&quot;Resp&quot;</param>
+                                                </condition>
+                                                <condition id="-13" name="Pick nth instance" type="System">
+                                                    <param id="0" name="Object">txtCenario</param>
+                                                    <param id="1" name="Instance">int(XML.StringValue(&quot;@num&quot;))</param>
+                                                </condition>
+                                            </conditions>
+                                            <actions>
+                                                <action id="0" name="Set text" type="txtCenario">
+                                                    <param id="0" name="Text">XML.StringValue(&quot;node()&quot;)</param>
+                                                </action>
+                                            </actions>
+                                        </event-block>
+                                    </sub-events>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group collapsed="1" description="Permite ao jogador alterar o volume do jogo." title="EventosSom">
+            <sub-events>
+                <event-block>
+                    <conditions>
+                        <condition id="3" name="On key released" type="Keyboard">
+                            <param id="0" name="Key">77 (M)</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="-14" name="Compare variable" type="System">
+                                    <param id="0" name="Variable">Volume</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">-20</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" type="btnEditarSom">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">Volume</param>
+                                    <param id="1" name="Value">0</param>
+                                </action>
+                                <action id="8" name="Set silent" type="Audio">
+                                    <param id="0" name="Mode">1</param>
+                                </action>
+                                <action id="3" name="Set volume" type="Audio">
+                                    <param id="0" name="Tag">&quot;FaseA&quot;</param>
+                                    <param id="1" name="dB">Volume</param>
+                                </action>
+                                <action id="3" name="Set volume" type="Audio">
+                                    <param id="0" name="Tag">&quot;Selecao&quot;</param>
+                                    <param id="1" name="dB">Volume</param>
+                                </action>
+                                <action id="3" name="Set volume" type="Audio">
+                                    <param id="0" name="Tag">&quot;Pergunta&quot;</param>
+                                    <param id="1" name="dB">Volume</param>
+                                </action>
+                                <action id="3" name="Set volume" type="Audio">
+                                    <param id="0" name="Tag">&quot;Fim&quot;</param>
+                                    <param id="1" name="dB">Volume</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-22" name="Else" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" type="btnEditarSom">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="cursorSom">
+                                    <param id="0" name="Visibility">0</param>
+                                </action>
+                                <action id="-9" name="Set value" type="System">
+                                    <param id="0" name="Variable">Volume</param>
+                                    <param id="1" name="Value">-20</param>
+                                </action>
+                                <action id="8" name="Set silent" type="Audio">
+                                    <param id="0" name="Mode">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <comment>[Mouse.X -btnEditarSom.X +btnEditarSom.Width] é o local relativo do clique do mouse sobre a barra de som, indo de 0 à btnEditarSom.Width. Através de uma regra de três, compactamos linearmente este valor num intervalo de 0 à 20 e posteriormente subtraímos por 20. Ao final, teremos um valor de -20 à 0, que é o intervalo válido para o componente audio.</comment>
+                <event-block>
+                    <conditions>
+                        <condition id="6" name="On object clicked" type="Mouse">
+                            <param id="0" name="Mouse button">0</param>
+                            <param id="1" name="Click type">0</param>
+                            <param id="2" name="Object clicked">btnEditarSom</param>
+                        </condition>
+                        <condition id="3" name="Compare frame" type="btnEditarSom">
+                            <param id="0" name="Comparison">0</param>
+                            <param id="1" name="Number">1</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Set value" type="System">
+                            <param id="0" name="Variable">Volume</param>
+                            <param id="1" name="Value">20*(Mouse.X -btnEditarSom.X +btnEditarSom.Width)/btnEditarSom.Width -20</param>
+                        </action>
+                        <action id="-3" name="Set position" type="cursorSom">
+                            <param id="0" name="X">Mouse.X</param>
+                            <param id="1" name="Y">cursorSom.Y</param>
+                        </action>
+                        <action id="3" name="Set volume" type="Audio">
+                            <param id="0" name="Tag">&quot;FaseA&quot;</param>
+                            <param id="1" name="dB">Volume</param>
+                        </action>
+                        <action id="3" name="Set volume" type="Audio">
+                            <param id="0" name="Tag">&quot;Selecao&quot;</param>
+                            <param id="1" name="dB">Volume</param>
+                        </action>
+                        <action id="3" name="Set volume" type="Audio">
+                            <param id="0" name="Tag">&quot;Pergunta&quot;</param>
+                            <param id="1" name="dB">Volume</param>
+                        </action>
+                        <action id="3" name="Set volume" type="Audio">
+                            <param id="0" name="Tag">&quot;Fim&quot;</param>
+                            <param id="1" name="dB">Volume</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block any="1">
+                    <conditions>
+                        <condition id="3" name="Compare frame" type="btnEditarSom">
+                            <param id="0" name="Comparison">0</param>
+                            <param id="1" name="Number">0</param>
+                        </condition>
+                        <condition id="3" name="Compare frame" type="btnEditarSom">
+                            <param id="0" name="Comparison">0</param>
+                            <param id="1" name="Number">1</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block>
+                            <conditions>
+                                <condition id="7" name="Cursor is over object" type="Mouse">
+                                    <param id="0" name="Object">btnEditarSom</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" type="btnEditarSom">
+                                    <param id="0" name="Frame number">1</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="cursorSom">
+                                    <param id="0" name="Visibility">1</param>
+                                </action>
+                                <action id="0" name="Set cursor style" type="Mouse">
+                                    <param id="0" name="Cursor style">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block>
+                            <conditions>
+                                <condition id="-22" name="Else" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" type="btnEditarSom">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                                <action id="0" name="Set cursor style" type="Mouse">
+                                    <param id="0" name="Cursor style">0</param>
+                                </action>
+                                <action id="-15" name="Set visible" type="cursorSom">
+                                    <param id="0" name="Visibility">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+    </events>
+</c2eventsheet>

@@ -21,11 +21,11 @@ class UserController {
     def show(User userInstance) {
         //respond userInstance
         println(userInstance.username)
-        respond userInstance, model:[bla: "bla", userInstance: userInstance]
+        respond userInstance, model:[userInstance: userInstance]
     }
 
     def create() {
-        respond new User(params), model:[admin: false, prof: false, stud: false, dev: false, source: "create"]
+        respond new User(params), model:[admin: false, prof: false, stud: false, editor: false, dev: false, source: "create"]
     }
 
     @Transactional
@@ -80,7 +80,7 @@ class UserController {
     }
 
     def edit(User userInstance) {
-        respond userInstance, model:[admin: userInstance.isAdmin(), prof: userInstance.isProf(), stud: userInstance.isStud(), dev: userInstance.isDev(), source: "create", userInstance: userInstance]
+        respond userInstance, model:[admin: userInstance.isAdmin(), prof: userInstance.isProf(), stud: userInstance.isStud(), editor: userInstance.isEditor(), dev: userInstance.isDev(), source: "create", userInstance: userInstance]
     }
 
     @Transactional

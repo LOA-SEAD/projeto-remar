@@ -43,7 +43,10 @@
 						<sec:ifAllGranted roles="ROLE_PROF">
 							<ul class="nav navbar-nav">
 								<li class="dropdown">
-									<a href="#">Professor</a>
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria=expanded="false">Jogos <span class="caret"></span></a>
+									<ul class="dropdown-menu" role="menu">
+										<li><a href="/processoJogo/jogos">Listagem</li>
+									</ul>
 								</li>
 							</ul>
 						</sec:ifAllGranted>
@@ -51,6 +54,13 @@
 							<ul class="nav navbar-nav">
 								<li class="dropdown">
 									<a href="#">Estudante</a>
+								</li>
+							</ul>
+						</sec:ifAllGranted>
+						<sec:ifAllGranted roles="ROLE_EDITOR">
+							<ul class="nav navbar-nav">
+								<li class="dropdown">
+									<a href="#">Editor</a>
 								</li>
 							</ul>
 						</sec:ifAllGranted>

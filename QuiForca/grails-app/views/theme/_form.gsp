@@ -12,50 +12,42 @@
     <fieldset id="form">
         <legend class="blue">Upload de Imagens</legend>
         <div>
-            <g:uploadForm   controller="design" action="ImagesManager">
+            <g:uploadForm controller="design" action="ImagesManager">
                 <div class="col-xs-6">
+                    <div>
+                        <p>Escolha um icone para seu jogo:</p>
+                    </div>
                     <div>
                         <img id="iconePreview" style="width: 100px; height: 100px;" />
                     </div>
-
+                    <br />
                     <input data-image="true"  type="file" name="icone" id="icone" />
-
-                    <div style="font-size:0.8em; margin: 1.0em;">
-                        <p>Escolha um icone para seu jogo.
-                        </p>
-                    </div>
-
                 </div>
                 <div class="col-xs-6">
+                    <div>
+                        <p>Escolha uma imagem de abertura:</p>
+                    </div>
                     <div>
                         <img id="openingPreview" style="width: 100px; height: 100px;" />
                     </div>
-
+                    <br />
                     <input data-image="true"  type="file" name="opening" id="opening" />
-                    <div style="font-size:0.8em; margin: 1.0em;">
-                        <p>Escolha uma imagem de abertura.
-                        </p>
-                    </div>
-
                 </div>
-                <div class="clearfix"></div>
                 <div class="col-xs-6">
+                    <div>
+                        <p> Escolha uma imagem de fundo:</p>
+                    </div>
                     <div>
                         <img  id="backgroundPreview" style="width: 100px; height: 100px;" />
                     </div>
+                    <br />
                     <input data-image="true" type="file" name="background" id="background"/>
-                    <div style="font-size:0.8em; margin: 1.0em;">
-                        <p> Escolha uma imagem de fundo.
-                        </p>
-
-
-                    </div>
                 </div>
             </div>
             <div class="clearfix"></div>
-
+            <br />
+            <br />
         </g:uploadForm>
-
-            <input id="upload" type="submit" name="upload" class="btn btn-success" value="Salvar"/>
+            <input id="upload" type="submit" name="upload" class="btn btn-success" value="Criar"/>
     </fieldset>
 </body>

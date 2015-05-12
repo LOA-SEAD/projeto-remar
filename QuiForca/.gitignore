@@ -16,3 +16,7 @@ stacktrace.log
 /.link_to_grails_plugins/
 /target-eclipse/
 *.iml
+
+
+/web-app/data/*
+!/web-app/data/source
