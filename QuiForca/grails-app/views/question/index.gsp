@@ -61,7 +61,7 @@
                 </div>
             </div>
             <fieldset class="buttons">
-                <g:submitButton  name="save" class="btn btn-success" value="Enviar perguntas"/>
+                <g:submitButton  name="save" class="btn btn-success" value="Enviar questões"/>
                 <div class="pagination">
                     <g:paginate total="${questionInstanceCount ?: 0}" />
                 </div>
