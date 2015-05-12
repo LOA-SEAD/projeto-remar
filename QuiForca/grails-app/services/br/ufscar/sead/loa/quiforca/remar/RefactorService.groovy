@@ -19,7 +19,7 @@ class RefactorService {
 
         "cp -R $sourceFodler/ $userFolder/game".execute().waitFor() // TODO: copy only on first user exec
 
-        "cp $userFolder/configuracao.json $userFolder/game/json/configuracao.json".execute().waitFor()
+        "cp $userFolder/palavras.json $userFolder/game/json/palavras.json".execute().waitFor()
 
         "cp $userFolder/themes/$themeId/opening.png $userFolder/game/imgs/inicio.png".execute().waitFor()
 
