@@ -37,6 +37,12 @@ class BootStrap {
             println "ROLE_EDITOR inserted"
         }
 
+        found = allRoles.findAll {it.authority == "ROLE_DESENVOLVEDOR"}
+        if (found == []) {
+            def devRole = new Role(authority: "ROLE_DESENVOLVEDOR").save flush: true
+            println "ROLE_DESENVOLVEDOR inserted"
+        }
+
         /*def admin = new User(
          
                 username: "admin",

@@ -23,5 +23,11 @@ class Role {
 		else if (authority == "ROLE_STUD") {
 			s += "Student"
 		}
+		else if (authority == "ROLE_EDITOR") {
+			s += "Editor"
+		}
+		else if (authority == "ROLE_DESENVOLVEDOR") {
+			s += "Desenvolvedor"
+		}
 	}
 }

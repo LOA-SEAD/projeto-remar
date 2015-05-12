@@ -13,7 +13,7 @@
 					<div class="col-sm-3">
 						<h3>${tarefa.getName()}</h3>
 						<input type="hidden" value="${tarefa.id}" name="task_id[]" id="task_id[]"/>
-						<g:select name="user_id[]" from="${usuarios}" optionValue="username" optionKey="camunda_id" noSelection="['':'Escolha um ajudante']"/>
+						<g:select multiple="true" name="user_id[]" from="${usuarios}" optionValue="username" optionKey="camunda_id"/>
 					</div>
 				</g:each>
 			</div>

@@ -32,8 +32,20 @@ class ProcessoJogoController {
     }
 
     def show(ProcessoJogo processoJogoInstance) {
-        print processoJogoInstance
-        render view:'show', model:[processoJogoInstance: processoJogoInstance]
+        if(processoJogoInstance){
+            if(springSecurityService.currentUser == processoJogoInstance.professor){
+                render view:'show', model:[processoJogoInstance: processoJogoInstance]
+            }
+            else{
+                flash.message = "Você não tem acesso a esse processo"
+                redirect action: 'index'
+            }
+        }
+        else{
+            flash.message = "Esse processo não existe"
+            redirect action: 'index'
+        }
+            
     }
 
     def jogos(){
@@ -53,27 +65,40 @@ class ProcessoJogoController {
     }
 
     def tarefas(ProcessoJogo processoJogoInstance){
-        // lista as tarefas ativas e seta para um usuário
-        List<Task> tasks = taskService.createTaskQuery().processInstanceId(processoJogoInstance.id_process_instance).list()
-        for(int i = tasks.size()-1; i >= 0; i--){
-            if(tasks.get(i).getAssignee() != null){
-                tasks.remove(i);
+        if(processoJogoInstance){
+            if(springSecurityService.currentUser == processoJogoInstance.professor){
+                // lista as tarefas ativas e seta para um usuário
+                List<Task> tasks = taskService.createTaskQuery().processInstanceId(processoJogoInstance.id_process_instance).list()
+                for(int i = tasks.size()-1; i >= 0; i--){
+                    if(tasks.get(i).getAssignee() != null){
+                        tasks.remove(i);
+                    }
+                }
+
+                List<User> usuarios = User.list()
+
+                
+                if(tasks.size == 0){
+                    flash.message = "Não existe atualmente tarefas a serem alocadas desse processo"
+                    redirect action:"index"
+                }
+                else{
+                    render view:'tarefas', model:[tarefas:tasks, usuarios: usuarios]
+                }
+            }
+            else{
+                flash.message = "Você não tem acesso a esse processo"
+                redirect action: 'index'    
             }
         }
-
-        List<User> usuarios = User.list()
-
-        
-        if(tasks.size == 0){
-            flash.message = "Não existe atualmente tarefas a serem alocadas desse processo"
-            redirect action:"index"
-        }
         else{
-            render view:'tarefas', model:[tarefas:tasks, usuarios: usuarios]
+            flash.message = "Esse processo não existe"
+            redirect action: 'index'
         }
     }
 
     def vincular_tarefas(){
+        /*
         if(params['task_id[]'] != null){
             if(params['task_id[]'] instanceof String){
                 String user_id  = params['user_id[]']
@@ -97,6 +122,9 @@ class ProcessoJogoController {
                 }
             }
         }
+        */
+
+        print params['user_id[]']
 
         redirect action: "index"
     }
@@ -109,8 +137,7 @@ class ProcessoJogoController {
 
         }
         else{
-            //redirect action: "tasks"
-            redirect action: "index"
+            redirect action: "tarefas", id: professorJogo.id
         }
     }
 
@@ -122,16 +149,22 @@ class ProcessoJogoController {
             return
         }
 
-        runtimeService.deleteProcessInstance(processoJogoInstance.id_process_instance, "Professor removendo jogo")
+        if(springSecurityService.currentUser == processoJogoInstance.professor){
+            runtimeService.deleteProcessInstance(processoJogoInstance.id_process_instance, "Professor removendo jogo")
 
-        processoJogoInstance.delete flush:true
+            processoJogoInstance.delete flush:true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'ProcessoJogo.label', default: 'ProcessoJogo'), processoJogoInstance.id])
-                redirect action:"index", method:"GET"
+            request.withFormat {
+                form multipartForm {
+                    flash.message = message(code: 'default.deleted.message', args: [message(code: 'ProcessoJogo.label', default: 'ProcessoJogo'), processoJogoInstance.id])
+                    redirect action:"index", method:"GET"
+                }
+                '*'{ render status: NO_CONTENT }
             }
-            '*'{ render status: NO_CONTENT }
+        }
+        else{
+            flash.message = "Você não tem acesso a esse processo"
+            redirect action: 'index'    
         }
     }
 

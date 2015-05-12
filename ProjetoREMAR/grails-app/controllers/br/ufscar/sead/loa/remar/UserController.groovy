@@ -25,7 +25,7 @@ class UserController {
     }
 
     def create() {
-        respond new User(params), model:[admin: false, prof: false, stud: false, source: "create"]
+        respond new User(params), model:[admin: false, prof: false, stud: false, dev: false, source: "create"]
     }
 
     @Transactional
@@ -66,6 +66,10 @@ class UserController {
             UserRole.create(userInstance, Role.findByAuthority("ROLE_EDITOR"), true)
         }
 
+        if(params.ROLE_DESENVOLVEDOR) {
+            UserRole.create(userInstance, Role.findByAuthority("ROLE_DESENVOLVEDOR"), true)
+        }
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
@@ -76,7 +80,7 @@ class UserController {
     }
 
     def edit(User userInstance) {
-        respond userInstance, model:[admin: userInstance.isAdmin(), prof: userInstance.isProf(), stud: userInstance.isStud(), source: "create", userInstance: userInstance]
+        respond userInstance, model:[admin: userInstance.isAdmin(), prof: userInstance.isProf(), stud: userInstance.isStud(), dev: userInstance.isDev(), source: "create", userInstance: userInstance]
     }
 
     @Transactional
@@ -123,6 +127,10 @@ class UserController {
 
         if(params.ROLE_EDITOR) {
             UserRole.create(userInstance, Role.findByAuthority("ROLE_EDITOR"), true)
+        }
+
+        if(params.ROLE_DESENVOLVEDOR) {
+            UserRole.create(userInstance, Role.findByAuthority("ROLE_DESENVOLVEDOR"), true)
         }
 
         request.withFormat {

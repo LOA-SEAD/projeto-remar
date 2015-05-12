@@ -54,6 +54,9 @@
 
 		<label class="fieldset_label" for="ROLE_STUD">Student</label>
 		<g:checkBox name="ROLE_STUD" value="${stud}" />
+
+		<label class="fieldset_label" for="ROLE_DESENVOLVEDOR">Desenvolvedor</label>
+		<g:checkBox name="ROLE_DESENVOLVEDOR" value="${dev}" />
 	</fieldset>
 </div>
 

@@ -26,6 +26,11 @@ class IndexController {
             		if (userAuthorities.any { it.authority == "ROLE_EDITOR" }) {
             			redirect controller: "editor"
             		}
+                    else{
+                       if (userAuthorities.any { it.authority == "ROLE_DESENVOLVEDOR" }) {
+                            redirect controller: "deploy"
+                        }
+                    }
             	}
             }
         }

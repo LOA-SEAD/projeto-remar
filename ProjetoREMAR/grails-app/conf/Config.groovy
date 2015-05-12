@@ -94,6 +94,7 @@ environments {
         grails.logging.jul.usebridge = true
         grails.serverURL = "http://localhost:8080"
         grails.app.context = "/"
+        camundaWebapps = '/home/dexterorion/Desktop/camunda/server/apache-tomcat-7.0.50/webapps/'
 	camunda {
             engine {
                 configuration {
@@ -106,6 +107,7 @@ environments {
         grails.logging.jul.usebridge = false
         grails.serverURL = "http://localhost:8080"
         grails.app.context = "/"
+        camundaWebapps = '/home/dexterorion/Desktop/camunda/server/apache-tomcat-7.0.50/webapps/'
         camunda {
             engine {
                 configuration {

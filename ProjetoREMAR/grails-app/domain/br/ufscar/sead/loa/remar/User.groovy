@@ -105,4 +105,14 @@ class User {
 		}
 		found
 	}
+
+	boolean isDev() {
+		def found = false
+		getAuthorities().each {
+			if (it.authority == "ROLE_DESENVOLVEDOR") {
+				found = true
+			}
+		}
+		found
+	}
 }
