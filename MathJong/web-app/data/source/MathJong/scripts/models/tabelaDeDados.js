@@ -74,7 +74,7 @@ define(function()
                             var str = "";
                             var index = 0;
                             while (index < fases[i].data[j][k].length) {
-                                if (fases[i].data[j][k][index] === '@') {
+                                if (fases[i].data[j][k][index] === '!') {
                                     index = index + 5;
                                     var param1 = "";
                                     while (fases[i].data[j][k][index] !== ')'
@@ -92,7 +92,7 @@ define(function()
                                     }
                                     str += raiz(param1, param2);
                                     index++;
-                                } else if (fases[i].data[j][k][index] === '#') {
+                                } else if (fases[i].data[j][k][index] === '@') {
                                     index = index + 5;
                                     var param1 = "";
                                     while (fases[i].data[j][k][index] !== ')'
