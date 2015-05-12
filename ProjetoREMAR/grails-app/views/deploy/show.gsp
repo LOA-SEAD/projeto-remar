@@ -36,7 +36,7 @@
 				<li class="fieldcontain">
 					<span id="desenvolvedor-label" class="property-label"><g:message code="deploy.desenvolvedor.label" default="Desenvolvedor" /></span>
 					
-						<span class="property-value" aria-labelledby="desenvolvedor-label"><g:link controller="usuario" action="show" id="${deployInstance?.desenvolvedor?.id}">${deployInstance?.desenvolvedor?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="desenvolvedor-label"><g:link controller="usuario" action="show" id="${deployInstance?.desenvolvedor?.id}">${deployInstance?.desenvolvedor?.name}</g:link></span>
 					
 				</li>
 				</g:if>

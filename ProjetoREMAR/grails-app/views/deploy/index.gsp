@@ -40,7 +40,7 @@
 					
 						<td><g:link action="show" id="${deployInstance.id}">${fieldValue(bean: deployInstance, field: "data_deploy")}</g:link></td>
 					
-						<td>${fieldValue(bean: deployInstance, field: "desenvolvedor")}</td>
+						<td>${deployInstance.desenvolvedor.name}</td>
 					
 						<td>${fieldValue(bean: deployInstance, field: "id_deploy")}</td>
 					
@@ -50,9 +50,6 @@
 				</g:each>
 				</tbody>
 			</table>
-			<div class="pagination">
-				<g:paginate total="${deployInstanceCount ?: 0}" />
-			</div>
 		</div>
 	</body>
 </html>
