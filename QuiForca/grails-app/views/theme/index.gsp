@@ -36,9 +36,9 @@
                                         <tr data-id="${fieldValue(bean: themeInstance, field: "id")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
                                             <td align="center"> <g:submitButton  name="save" class="save btn btn-success" value="Escolher Tema"/> </td>
 
-                                            <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/icon.png" width="200" height="200"/></td>
-                                            <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/opening.png" width="200" height="200"/></td>
-                                            <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/background.png" width="200" height="200"/></td>
+                                            <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/icon.png" class="img img-responsive max"/></td>
+                                            <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/opening.png" class="img-responsive max"/></td>
+                                            <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/background.png" class="img-responsive max"/></td>
                                             <td align="center"><button class="btn btn-danger delete">Remover</button></td>
 
 
@@ -51,9 +51,11 @@
                 </div>
             </div>
             <fieldset class="buttons">
+                <div class="col-xs-12 center">
                 %{--<g:submitButton  name="save" class="save btn btn-success" value="Escolher Tema"/>--}%
-                <div class="pagination">
-                    <g:paginate total="${questionInstanceCount ?: 0}" />
+                    <div class="paginacao">
+                        <g:paginate total="${questionInstanceCount ?: 0}" />
+                    </div>
                 </div>
             </fieldset>
         </div>

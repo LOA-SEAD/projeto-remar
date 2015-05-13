@@ -7749,3 +7749,39 @@ table .checkbox {
   background-repeat: repeat;
   background-position: top left;
 }
+
+
+.paginacao {
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    //float: left;
+}
+
+.paginacao a {
+    color: #333;
+    padding: 10px 15px;
+    border: 2px solid #ccc;
+    text-decoration: none;
+    margin: 1px 3px;
+}
+
+.paginacao a:hover {
+    background: #333;
+    color: #fff;
+}
+
+.paginacao span {
+    font-weight: bold;
+    background: #fff;
+    color: #333;
+    border: 0;
+    border: 5px solid #ccc;
+    font-size: 1.6em;
+}
+
+
+.center {
+    text-align: center;
+    padding-bottom: 55px;
+}
