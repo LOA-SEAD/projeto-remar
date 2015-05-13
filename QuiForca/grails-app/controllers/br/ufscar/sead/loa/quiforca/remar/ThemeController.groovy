@@ -127,6 +127,25 @@ class ThemeController {
         def imageIn = ImageIO.read(originalUpload)
         def name = originalUpload.getName()
 
+
+        if(originalUpload.toString().contains("icon")){
+            println "icone"
+
+            int[] sizes = [36,48,72,96,144,192]
+
+            for(int i=0; i<sizes.length; i++) {
+
+                BufferedImage newImg = Scalr.resize(imageIn, Scalr.Method.ULTRA_QUALITY, sizes[i], sizes[i], Scalr.OP_ANTIALIAS)
+                name = "icon" + sizes[i]
+                def newImgUploaded = new File("$storagePath/$name")
+                ImageIO.write(newImg, 'png', newImgUploaded)
+
+            }
+
+
+        }
+
+
         if((imageIn.getWidth() > 800)||imageIn.getHeight() > 600){
             BufferedImage newImg = Scalr.resize(imageIn, Scalr.Method.ULTRA_QUALITY, 600, 800, Scalr.OP_ANTIALIAS)
             def newImgUploaded = new File("$storagePath/$name")
