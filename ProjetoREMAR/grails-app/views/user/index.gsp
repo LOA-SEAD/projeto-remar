@@ -35,22 +35,29 @@
 		</script>
 	</head>
 	<body>
-		<a href="#list-user" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div id="list-user" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
-			<br />
-			<label for="filter">Seach: </label>
-			<input class="filter" name="filter" id="filter" type="text" value="${filter}" />
-			<br />
-			<br />
-			<g:if test="${flash.message}">
-				<div class="message" role="status">${flash.message}</div>
-			</g:if>
-			
-			<div id="grid">
-				<g:render template="grid" model="model" />
-			</div>
-
-		</div>
+		<div class="page-header">
+            <h1>Admin - Usuários</h1>
+        </div>
+        <div class="main-content">
+            <div class="widget">
+                <h3 class="section-title first-title"><i class="icon-table"></i> Lista de Usuários</h3>
+                <div class="widget-content-white glossed">
+                    <div class="padded">
+                    	<label for="filter">Buscar: </label>
+                    	<input class="filter" name="filter" id="filter" type="text" value="${filter}" />
+                    	<br />
+                    	<br />
+                    	<g:if test="${flash.message}">
+							<div class="message" role="status">${flash.message}</div>
+						</g:if>
+                        <div class="table-responsive">
+                            <div id="grid">
+								<g:render template="grid" model="model" />
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 	</body>
 </html>

@@ -8,6 +8,8 @@
 		<title>Admin page</title>
 	</head>
 	<body>
-		Admin
+		<p><a href="/forca">Forca</a></p>
+		<p><a href="/escolamagica">Escola Mágica</a></p>
+		<p><a href="/mathjong">MathJong</a></p>
 	</body>
 </html>
