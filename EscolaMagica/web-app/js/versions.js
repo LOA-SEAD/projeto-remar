@@ -21,7 +21,7 @@ window.addEventListener("beforeunload", function() {
     $.ajax({
         type:'GET',
         //async: false,
-        url: location.origin + "/escolamagica/process/completeTask/newVersionsTask",
+        url: location.origin + "/escolamagica/process/completeTask/newVersions",
         success:function(data){
             console.log("ok");
         },
