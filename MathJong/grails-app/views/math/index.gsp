@@ -36,7 +36,7 @@
                 <span class="center math latex" data-latex="\log{}">$$\log□$$</span>
             </div>
             <div class="frame">
-                <span id="mquill" class="center math mathquill-editable">\sqrt{}</span> <br>
+                <span id="mquill" class="center math mathquill-editable"></span> <br>
             </div>
             <table id="preview-table" data-next-id="5">
                 <tr>
@@ -71,6 +71,8 @@
                     <td class="new-td">Novo par</td>
                 </tr>
             </table>
+            <br />
+            <br />
             <br />
             <fieldset class="buttons">
                 <g:submitButton id="save-and-new" name="create" class="btn btn-success btn-large" value="Salvar e criar novo nível" />

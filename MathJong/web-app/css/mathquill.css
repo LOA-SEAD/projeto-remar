@@ -97,10 +97,12 @@
   line-height: inherit;
   margin: 0;
   padding: 0;
+  //padding: 15px 3px;
   border-color: black;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
+  padding-top: 14px;
 }
 .mathquill-rendered-math .empty {
   background: #ccc;
