@@ -88,7 +88,7 @@ grails.hibernate.osiv.readonly = false
 
 environments {
     development {
-        grails.serverURL = "http://localhost:8080/forca"
+//        grails.serverURL = "http://localhost:8080/forca"
         grails.app.context = "/forca"
         grails.logging.jul.usebridge = true
         camunda {
@@ -101,7 +101,7 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
-        grails.serverURL = "http://localhost:8080/forca"
+//        grails.serverURL = "http://localhost:8080/forca"
         grails.app.context = "/forca"
         camunda {
             engine {

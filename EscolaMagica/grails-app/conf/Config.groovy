@@ -91,7 +91,7 @@ logout.afterLogoutUrl = "/"
 environments {
     development {
         grails.logging.jul.usebridge = true
-        grails.serverURL = "http://localhost:8080/escolamagica"
+//        grails.serverURL = "http://localhost:8080/escolamagica"
         grails.app.context = "/escolamagica"
         camunda {
             engine {
@@ -103,7 +103,7 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
-        grails.serverURL = "http://localhost:8080/escolamagica"
+//        grails.serverURL = "http://localhost:8080/escolamagica"
         grails.app.context = "/escolamagica"
     }
 }
