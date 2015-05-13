@@ -131,7 +131,7 @@ class QuestionEscolaController {
             return
         }
 
-        questionInstance.save flush:true
+        questionEscolaInstance.save flush:true
 
         request.withFormat {
             form multipartForm {

@@ -45,6 +45,9 @@ body {
 a:focus {
   outline: thin dotted;
 }
+.spaced_td {
+  padding-left: 20px;
+}
 a:active,
 a:hover {
   outline: 0;
@@ -1350,7 +1353,7 @@ th {
 }
 .table-hover > tbody > tr:hover > td,
 .table-hover > tbody > tr:hover > th {
-  background-color: #f5f5f5;
+  background-color: #c4c4c4;
 }
 table col[class*="col-"] {
   float: none;
@@ -1373,7 +1376,7 @@ table th[class*="col-"] {
 .table > thead > tr.active > th,
 .table > tbody > tr.active > th,
 .table > tfoot > tr.active > th {
-  background-color: #f5f5f5;
+  
 }
 .table > thead > tr > td.success,
 .table > tbody > tr > td.success,
@@ -1389,6 +1392,9 @@ table th[class*="col-"] {
 .table > tfoot > tr.success > th {
   background-color: #dff0d8;
   border-color: #aed48e;
+}
+.selectable_tr:hover {
+  cursor: pointer;
 }
 .table-hover > tbody > tr > td.success:hover,
 .table-hover > tbody > tr > th.success:hover,
@@ -4498,6 +4504,61 @@ a.thumbnail:focus {
 }
 .alert-danger hr {
   border-top-color: #e17083;
+}
+.errors,
+.message {
+  font-size: 0.8em;
+  line-height: 2;
+  margin: 1em 2em;
+  padding: 0.25em;
+}
+
+.message {
+  background: #f3f3ff;
+  border: 1px solid #b2d1ff;
+  color: #006dba;
+     -moz-box-shadow: 0 0 0.25em #b2d1ff;
+  -webkit-box-shadow: 0 0 0.25em #b2d1ff;
+          box-shadow: 0 0 0.25em #b2d1ff;
+}
+
+.errors {
+  background: #fff3f3;
+  border: 1px solid #ffaaaa;
+  color: #cc0000;
+     -moz-box-shadow: 0 0 0.25em #ff8888;
+  -webkit-box-shadow: 0 0 0.25em #ff8888;
+          box-shadow: 0 0 0.25em #ff8888;
+}
+
+.errors ul,
+.message {
+  padding: 0;
+}
+
+.errors li {
+  list-style: none;
+  background: transparent url(../images/skin/exclamation.png) 0.5em 50% no-repeat;
+  text-indent: 2.2em;
+}
+
+.message {
+  background: transparent url(../images/skin/information.png) 0.5em 50% no-repeat;
+  text-indent: 2.2em;
+}
+
+/* form fields with errors */
+
+.error input, .error select, .error textarea {
+  background: #fff3f3;
+  border-color: #ffaaaa;
+  color: #cc0000;
+}
+
+.error input:focus, .error select:focus, .error textarea:focus {
+     -moz-box-shadow: 0 0 0.5em #ffaaaa;
+  -webkit-box-shadow: 0 0 0.5em #ffaaaa;
+          box-shadow: 0 0 0.5em #ffaaaa;
 }
 .alert-danger .alert-link {
   color: #953b39;
