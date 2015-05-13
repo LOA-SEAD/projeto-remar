@@ -17,3 +17,6 @@ stacktrace.log
 /target-eclipse/
 *.iml
 .idea
+
+/web-app/data
+!/web-app/data/source
