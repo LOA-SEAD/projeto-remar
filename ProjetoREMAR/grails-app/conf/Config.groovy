@@ -147,12 +147,16 @@ grails.plugin.springsecurity.userLookup.userDomainClassName = 'br.ufscar.sead.lo
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'br.ufscar.sead.loa.remar.UserRole'
 grails.plugin.springsecurity.authority.className = 'br.ufscar.sead.loa.remar.Role'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-	'/':                              ['permitAll'],
-	'/index':                         ['permitAll'],
-	'/index.gsp':                     ['permitAll'],
-	'/assets/**':                     ['permitAll'],
-	'/**/js/**':                      ['permitAll'],
-	'/**/css/**':                     ['permitAll'],
-	'/**/images/**':                  ['permitAll'],
-	'/**/favicon.ico':                ['permitAll']
+    '/':                              ['permitAll'],
+    '/index':                         ['permitAll'],
+    '/index.gsp':                     ['permitAll'],
+    '/assets/**':                     ['permitAll'],
+    '/**/js/**':                      ['permitAll'],
+    '/**/css/**':                     ['permitAll'],
+    '/**/images/**':                  ['permitAll'],
+    '/**/favicon.ico':                ['permitAll'],
+    '/data/**':                       ['permitAll'],
+    '/**/scss/**':                    ['permitAll'],
+    '/**/less/**':                    ['permitAll'],
+    '/**/fonts/**':                   ['permitAll']
 ]
