@@ -23,14 +23,14 @@
                 <div class="widget-content-white glossed">
                     <div class="padded">
                         <div id="web" class="endpoint">
-                            <h1>
+                            <h3>
                                 <input type="checkbox" name="web" />Gerar versão web
-                            </h1>
+                            </h3>
                         </div>
                         <div id="apk" class="endpoint">
-                            <h1>
+                            <h3>
                                 <input type="checkbox" name="apk" />Gerar APKs
-                            </h1>
+                            </h3>
                         </div>
                         <fieldset class="buttons">
                             <g:submitButton id="send" name="send" class="btn btn-success" value="Enviar" />

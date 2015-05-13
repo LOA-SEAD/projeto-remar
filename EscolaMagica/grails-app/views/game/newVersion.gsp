@@ -25,7 +25,7 @@
                         <fieldset class="buttons">
                             <a class="home" href="/EscolaMagica/">Principal</a>
                         </fieldset>
-                        <div id="web" class="endpoint"><h1><input type="checkbox" name="web"/> Gerar versão web</h1></div> <br>
+                        <div id="web" class="endpoint"><h3><input type="checkbox" name="web"/> Gerar versão web</h3></div> <br>
 
                         <fieldset class="buttons">
                             <g:submitButton id="send" name="send" class="btn btn-success" value="Enviar" />

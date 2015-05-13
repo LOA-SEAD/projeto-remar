@@ -16,8 +16,8 @@
                 <h3 class="section-title first-title"><i class="icon-table"></i> Opções para Publicação</h3>
                 <div class="widget-content-white glossed">
                     <div class="padded">
-                        <div id="web" class="endpoint"><h1><input type="checkbox" name="web"/>Gerar versão web</h1></div>
-                        <div id="apk" class="endpoint"><h1><input type="checkbox" name="apk"/>Gerar APK</h1></div>
+                        <div id="web" class="endpoint"><h3><input type="checkbox" name="web"/>Gerar versão web</h3></div>
+                        <div id="apk" class="endpoint"><h3><input type="checkbox" name="apk"/>Gerar APK</h3></div>
                     </div>
                     <br />
                     <fieldset class="buttons">
