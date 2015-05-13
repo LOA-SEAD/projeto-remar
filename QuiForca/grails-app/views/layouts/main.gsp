@@ -54,7 +54,7 @@
                             <ul class="side-menu">
                                 <li><a class="home" href="${createLink(uri: '/')}">Início</a></li>
                                 <li><g:link controller="theme" action="create">Criar tema</g:link></li>
-                                <li><g:link>Logout</g:link></li>
+                                <li><a href="/logout">Logout</a></li>
                                 </ul>
                             </div>
                         </div>
