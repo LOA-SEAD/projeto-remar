@@ -2,6 +2,8 @@ import br.ufscar.sead.loa.remar.Role
 import br.ufscar.sead.loa.remar.UserRole
 import br.ufscar.sead.loa.remar.User
 import org.camunda.bpm.engine.IdentityService
+import org.camunda.bpm.engine.identity.Group
+
 import javax.servlet.http.HttpServletRequest
 
 class BootStrap {
@@ -61,7 +63,6 @@ class BootStrap {
             camundaUser.setFirstName(userInstance.name)
             camundaUser.setPassword(userInstance.password)
             identityService.saveUser(camundaUser)
-            identityService.createMembership("camunda-admin", userInstance.username)
 
             userInstance.camunda_id = camundaUser.getId()
 
@@ -71,6 +72,15 @@ class BootStrap {
             UserRole.create(userInstance, Role.findByAuthority("ROLE_STUD"), true)
             UserRole.create(userInstance, Role.findByAuthority("ROLE_EDITOR"), true)
             UserRole.create(userInstance, Role.findByAuthority("ROLE_DESENVOLVEDOR"), true)
+            // TODO: terminar (mto trampo)
+
+//            Group group = identityService.newGroup("camunda-admin")
+//            group.setName("camunda BPM Administrators")
+//            group.setType("SYSTEM")
+//            identityService.saveGroup(group)
+//
+//
+//            identityService.createMembership(camundaUser.getId(), group.getId())
         }
 
         /*def admin = new User(
