@@ -196,12 +196,12 @@ function verificarErro(_letra)
     if (!deuErro)
     {
         //$("#falador").text("Letra Certa");
-        document.getElementById('tada').play();
+        //document.getElementById('tada').play();
     }
     if (deuErro)
     {
         //$("#falador").text("Letra Errada");
-        document.getElementById('slap').play();
+        //document.getElementById('slap').play();
         jogo.erros++;
         mudarPersonagem();
     }
