@@ -52,7 +52,7 @@
             </div>
             <fieldset class="buttons">
                 <div class="col-xs-12 center">
-                %{--<g:submitButton  name="save" class="save btn btn-success" value="Escolher Tema"/>--}%
+                    <g:link class="btn btn-success btn-lg" action="create">Novo tema</g:link>
                     <div class="paginacao">
                         <g:paginate total="${questionInstanceCount ?: 0}" />
                     </div>

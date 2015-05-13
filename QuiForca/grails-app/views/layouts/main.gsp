@@ -52,8 +52,7 @@
                         </a>
                         <div class="relative-w">
                             <ul class="side-menu">
-                                <li><a class="home" href="${createLink(uri: '/')}">Início</a></li>
-                                <li><g:link controller="theme" action="create">Criar tema</g:link></li>
+                                <li><a class="home" href="${createLink(uri: '/')}">Novo jogo</a></li>
                                 <li><a href="/logout">Logout</a></li>
                                 </ul>
                             </div>
