@@ -48,8 +48,7 @@
                         </a>
                         <div class="relative-w">
                             <ul class="side-menu">
-                                <li><g:link controller="questionEscola" action="index">Listar Questões</g:link></li>
-                                <li><g:link controller="questionEscola" action="create">Criar Questões</g:link></li>
+                                <li><g:link controller="process" action="startProcess">Novo Jogo</g:link></li>
                                 <li><a href="/logout">Logout</a></li>
                                 </ul>
                             </div>

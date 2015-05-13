@@ -55,6 +55,7 @@
             </div>
             <div class="pagination">
                 <g:link class="btn btn-info btn-lg" action="createXML">Finalizar</g:link>
+                <g:link class="btn btn-success btn-lg" action="create">Nova Questão</g:link>
                 <g:paginate total="${questionEscolaInstanceCount ?: 0}" />
             </div>
         </div>
