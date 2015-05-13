@@ -1,6 +1,6 @@
 var cor_botao = "#EEEEEE", cor_fonte = "#555555";
 
-var fonte = 18, line_height = fonte, largura = fonte * 6, altura = fonte*3+10;
+var fonte = 18, line_height = fonte, largura = fonte * 6, altura = fonte*3+20;
 
 define(['jquery', 'ui', '../utils/audio', 'text!../templates/layout.html', './models/model', './tutorial/tutorial'], function ($, Ui, Audio, Layout, Model, Tutorial) {
 
@@ -695,7 +695,7 @@ function troca_tamanho(tamanho) {
     fonte = tamanho;
     line_height = parseInt(fonte);
     largura = parseInt(fonte) * 6;
-    altura = parseInt(fonte) * 3 + 10;
+    altura = parseInt(fonte) * 3 + 20;
     document.getElementById('0-0').style = "height: " + altura + "px;" + "width: " + largura + "px;" + "font-size: " + fonte + "px;" +
             "line-height: " + line_height + "px;" + "color: " + cor_fonte + ";" + "background: " + cor_botao + ";";
     destroi_peca();
