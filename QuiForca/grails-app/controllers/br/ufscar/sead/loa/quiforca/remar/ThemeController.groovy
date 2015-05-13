@@ -129,14 +129,13 @@ class ThemeController {
 
 
         if(originalUpload.toString().contains("icon")){
-            println "icone"
 
             int[] sizes = [36,48,72,96,144,192]
 
             for(int i=0; i<sizes.length; i++) {
 
                 BufferedImage newImg = Scalr.resize(imageIn, Scalr.Method.ULTRA_QUALITY, sizes[i], sizes[i], Scalr.OP_ANTIALIAS)
-                name = "icon" + sizes[i]
+                name = "icon" + sizes[i] + ".png"
                 def newImgUploaded = new File("$storagePath/$name")
                 ImageIO.write(newImg, 'png', newImgUploaded)
 
