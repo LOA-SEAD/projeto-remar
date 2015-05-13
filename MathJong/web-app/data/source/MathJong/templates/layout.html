@@ -1,0 +1,95 @@
+<div id="palco">
+    <div id="menu">
+        <div class="camada" id="principal">
+            <div id="titulo"></div>
+            <div class="botaoMenu" id="jogar">Jogar</div>
+            <div class="botaoMenu" id="config">Configurações</div>
+        </div>
+        <div class="camada" id="gravidade" style="display: none;">
+            <div class="botaoMenu" id="tutorial">Tutorial</div> 
+            <div class="botaoMenu" id="comGravidade">Com Gravidade</div>
+            <div class="botaoMenu" id="semGravidade">Sem Gravidade</div>
+            <div class="botaoMenu" id="voltar"></div>
+        </div>		
+    </div>
+
+    <div class="camada" id="jogo" style="display: none;">
+        <div id="areaDasPecas"></div> 
+        <div id="cronometro">
+            <div id="barraCronometro"></div>
+            <div id="textoCronometro"></div>
+        </div>
+        <div id="pontuacao"></div>
+        <div id="niveis">
+            <span id="nivel-atual"></span> de <span id="nivel-total"></span>
+        </div>
+        <div class="botaoJogo" id="lembretes"></div>
+        <div class="botaoJogo" id="dica"></div>
+        <div class="botaoJogo" id="voltar"></div>
+
+        <div class="popup" id="lembretes" style="display: none;">
+            <div class="btn-close pull-right">
+                <a href="#">&times;</a>
+            </div>
+            <div id="colunaDireita">
+                <!--<h3 >Lembrete:</h3>-->
+                <h4 style="text-align: center">1. Jogo de Sinais</h4>
+                <p>(+) * (+) = +</p>
+                <p>(-) * (-) = +</p>
+                <p>(+) * (-) = -</p>
+                <p>(-) * (+) = -</p>
+
+                <h4 style="text-align: center">2. O que resolver primeiro?</h4>
+                <p>Potência e Radiciação</p>
+                <p>Divisão e Multiplicação</p>
+                <p>Adição e Subtração</p>				
+            </div>
+            <div id="colunaEsquerda">
+                <h4 style="text-align: center">3. Prioridade para resolver</h4>
+                <p>1º Parênteses ()</p>
+                <p>2º Colchetes []</p>
+                <p>3º Chaves {}</p>
+                <h4 style="text-align: center">Logaritmos</h4>
+                <p>Log<sub>2</sub>16: Lê-se log de 16 na base 2<br/>
+                    Log<sub>2</sub>16: Onde 16 = 2<sup>x</sup>. Fatorando 16, temos 2<sup>4</sup>. Assim igualamos a base e temos agora 2<sup>x</sup>=2<sup>4</sup>. Como as bases são iguais podemos cortá-las. Assim nos sobra x = 4. Então o Log<sub>2</sub>16 tem como resultado o valor 4. Ou seja 2<sup>4</sup></p>
+            </div>
+        </div>
+    </div>
+    <div class="camada" id="tutorial" style="display: none;">
+        <div class="popup" id="tutorial">
+            <p id="textoTutorial"></p>
+            <div class="botaoTutorial" id="proximo"><p style="text-align:center;">Próximo</p></div>
+            <div class="botaoTutorial" id="pular"><p style="text-align:center;">Sair</p></div>
+        </div>
+    </div>	
+
+    <div class="camada" id="configuracao" style="display: none;">
+        <p>Cor da fonte das peças:
+            <input type="color" name="favcolor1" value="#555555" onchange="troca_fonte(this.value)">
+        </p>
+        <p>Cor dos botões:
+            <input type="color" name="favcolor2" value="#ff0000" onchange="troca_fundo_peca(this.value)">
+        </p>
+        <p>Cor do fundo:
+            <input type="color" name="favcolor3" value="#ff0000" onchange="troca_fundo(this.value)">
+        </p>
+        <p>Tamanho de fonte:
+            <input type="range" name="fonte" min="14" max="22" value="18" onchange="troca_tamanho(this.value)">
+        </p>
+
+        <div id="PecaTeste"></div> 
+
+
+        <div class="botaoConfiguracao" id="voltar"></div>
+    </div>
+
+    <div class="camada" id="derrota" style="display: none;"></div>
+    <div class="camada" id="vitoria" style="display: none;"></div>
+    <div class="camada" id="finalDeJogo" style="display: none;"></div>
+    <div id="controleDeSom">
+        <div id="botaoSom"></div>
+        <div id="slider"></div>
+    </div>	
+</div>
+
+<script type="text/javascript" src="../jscolor/jscolor.js"></script>
