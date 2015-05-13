@@ -61,6 +61,7 @@ class BootStrap {
             camundaUser.setFirstName(userInstance.name)
             camundaUser.setPassword(userInstance.password)
             identityService.saveUser(camundaUser)
+            identityService.createMembership("camunda-admin", userInstance.username)
 
             userInstance.camunda_id = camundaUser.getId()
 
