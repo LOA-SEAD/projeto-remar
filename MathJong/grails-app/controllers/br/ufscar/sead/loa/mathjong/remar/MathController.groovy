@@ -29,7 +29,7 @@ class MathController {
         nLines.times {
             def line = []
             nCols.times {
-                line.add latex[k++]
+                line.add "\$\$" + latex[k++] + "\$\$"
             }
             _data.add line
         }

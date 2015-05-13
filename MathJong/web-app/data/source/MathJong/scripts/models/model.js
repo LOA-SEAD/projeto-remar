@@ -15,7 +15,7 @@ define(["./checagemLigacao2",  "./tabelaDeDados"],  function (checagem,  tabela)
 	cronometro;
 
 	/**
-	 * Essa função é chamada no começo do jogo é gera aleatoriamente a matriz com todas as peças do jogo
+	 * Essa funï¿½ï¿½o ï¿½ chamada no comeï¿½o do jogo ï¿½ gera aleatoriamente a matriz com todas as peï¿½as do jogo
 	 */
 	function gerarNovaMatriz()
 	{
@@ -61,7 +61,7 @@ define(["./checagemLigacao2",  "./tabelaDeDados"],  function (checagem,  tabela)
 	}
 	function validarLigacao(peca1,  peca2,  trocarCaminho)
 	{
-		//Essa função é chamada para checar se as duas peças se ligam
+		//Essa funï¿½ï¿½o ï¿½ chamada para checar se as duas peï¿½as se ligam
 		if(peca1.valor == peca2.valor)
 		{
 			return checarConexao(peca1.pos,  peca2.pos,  trocarCaminho); 			
@@ -75,13 +75,13 @@ define(["./checagemLigacao2",  "./tabelaDeDados"],  function (checagem,  tabela)
 	}
 	function tratarPecasLigadas(peca1,  peca2)
 	{		
-		//Tiramos as peças da matriz
+		//Tiramos as peï¿½as da matriz
 		matrizDePecas[peca1.pos[0]].splice(peca1.pos[1], 1, null);
 		matrizDePecas[peca2.pos[0]].splice(peca2.pos[1], 1, null);
 		
 		pontuacao += PONTOS_POR_ACERTO;
 		
-		//Se tiver gravidade nós a aplicamos
+		//Se tiver gravidade nï¿½s a aplicamos
 		if(gravidadeLigada)
 		{
 			aplicarGravidade(peca1.pos);
@@ -120,7 +120,7 @@ define(["./checagemLigacao2",  "./tabelaDeDados"],  function (checagem,  tabela)
 				{
 					acabou = false;
 					matrizDePecas[i][j] = matrizDePecas[i-1][j];
-					matrizDePecas[i][j].pos[0] += 1;  //atualizamos a posição da peça na matriz
+					matrizDePecas[i][j].pos[0] += 1;  //atualizamos a posiï¿½ï¿½o da peï¿½a na matriz
 					matrizDePecas[i-1][j] = null;
 				}
 			}
@@ -174,8 +174,8 @@ define(["./checagemLigacao2",  "./tabelaDeDados"],  function (checagem,  tabela)
 	}
 	function checarFinalDeJogo()
 	{
-		//Essa função checa se o jogo já acabou
-		//O jogo acaba quando não existem mais peças em jogo,  não existem mais ligações ou o tempo acabou
+		//Essa funï¿½ï¿½o checa se o jogo jï¿½ acabou
+		//O jogo acaba quando nï¿½o existem mais peï¿½as em jogo,  nï¿½o existem mais ligaï¿½ï¿½es ou o tempo acabou
 		if(checarFimPorTempo())
 		{
 			estadoDoJogo = "perdeu";
@@ -198,7 +198,7 @@ define(["./checagemLigacao2",  "./tabelaDeDados"],  function (checagem,  tabela)
 	}
 	function checarPossivelLigacao()
 	{
-		//algoritmo de checagem de combinação
+		//algoritmo de checagem de combinaï¿½ï¿½o
 		var i, j, x, y;
 		for ( i = NUM_DE_LINHAS -1; i >= 0; i-- )
 		{
@@ -277,7 +277,7 @@ define(["./checagemLigacao2",  "./tabelaDeDados"],  function (checagem,  tabela)
 			if(estadoDoJogo == "perdeu")
 				estadoDoJogo = 'parado';
 			
-			//Ajusta cronometro,  gera matriz,  incia pontuação
+			//Ajusta cronometro,  gera matriz,  incia pontuaï¿½ï¿½o
 			if(estadoDoJogo == "parado")
 			{				
 				resetarCronometro();

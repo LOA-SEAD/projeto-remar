@@ -204,7 +204,6 @@ function _delete(tr) {
         data: data,
         url: url,
         success:function(data){
-            console.log(data);
             $(tr).remove();
         },
         error:function(XMLHttpRequest,textStatus,errorThrown){}});

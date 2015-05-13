@@ -37,7 +37,12 @@ function ajax(endpoint, intervalId) {
         url: endpoint,
         success:function(data){
             clearInterval(intervalId);
-            $("#" + endpoint).find("h1").html("Versão web: <a target=\"_blank\" href=\"" + location.origin + data + "\">clique aqui</a>");
+            if(endpoint === "web") {
+                $("#" + endpoint).find("h1").html("Versão web: <a target=\"_blank\" href=\"" + location.origin + data + "\">clique aqui</a>");
+            } else if(endpoint === "apk") {
+                $("#" + endpoint).find("h1").html("Download APKs: <a target=\"_blank\" href=\"" + location.origin + data + "\">clique aqui</a>");
+            }
+
         },
         error:function(XMLHttpRequest,textStatus,errorThrown){}});
 }

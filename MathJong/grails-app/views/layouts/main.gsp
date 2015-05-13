@@ -44,12 +44,12 @@
                 <div class="side-bar-wrapper collapse navbar-collapse navbar-ex1-collapse">
                     <a href="#" class="logo hidden-sm hidden-xs">
                         <i class="icon-cog"></i>
-                        <span>Sistema Administrativo<br />MATHJONG - FORCA</span>
+                        <span>Sistema Administrativo<br />REMAR - MATHJONG</span>
                     </a>
                     <div class="relative-w">
                         <ul class="side-menu">
                             <li><a class="home" href="${createLink(uri: '/')}">Início</a></li>
-                            <li><g:link>Logout</g:link></li>
+                            <li><a href="/logout">Logout</a></li>
                             </ul>
                         </div>
                     </div>
