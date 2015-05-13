@@ -37,13 +37,13 @@ function ajax(endpoint, intervalId) {
         url: endpoint,
         success:function(data){
             clearInterval(intervalId);
-            $("#" + endpoint).find("h1").html("Versão web: <a target=\"_blank\" href=\"" + location.origin + data + "\">clique aqui</a>");
+            $("#" + endpoint).find("h3").html("Versão web: <a target=\"_blank\" href=\"" + location.origin + data + "\">clique aqui</a>");
         },
         error:function(XMLHttpRequest,textStatus,errorThrown){}});
 }
 
 function etc(id) {
-    var el = $("#" + id).find("h1");
+    var el = $("#" + id).find("h3");
     var html = $(el).html();
 
     if(html != "Processando..." && html.indexOf("Processando") > -1) {

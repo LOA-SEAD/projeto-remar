@@ -38,9 +38,9 @@ function ajax(endpoint, intervalId) {
         success:function(data){
             clearInterval(intervalId);
             if(endpoint === "web") {
-                $("#" + endpoint).find("h1").html("Versão web: <a target=\"_blank\" href=\"" + location.origin + data + "\">clique aqui</a>");
+                $("#" + endpoint).find("h3").html("Versão web: <a target=\"_blank\" href=\"" + location.origin + data + "\">clique aqui</a>");
             } else if(endpoint === "apk") {
-                $("#" + endpoint).find("h1").html("Download APKs: <a target=\"_blank\" href=\"" + location.origin + data + "\">clique aqui</a>");
+                $("#" + endpoint).find("h3").html("Download APKs: <a target=\"_blank\" href=\"" + location.origin + data + "\">clique aqui</a>");
             }
 
         },
@@ -48,7 +48,7 @@ function ajax(endpoint, intervalId) {
 }
 
 function etc(id) {
-    var el = $("#" + id).find("h1");
+    var el = $("#" + id).find("h3");
     var html = $(el).html();
 
     if(html != "Processando..." && html.indexOf("Processando") > -1) {
