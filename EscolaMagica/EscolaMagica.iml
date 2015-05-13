@@ -43,20 +43,6 @@
         </sourceRoots>
       </configuration>
     </facet>
-    <facet type="hibernate" name="Hibernate2">
-      <configuration>
-        <datasource-map />
-        <naming-strategy-map />
-        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/target/work/plugins/hibernate4-4.3.6.1/src/java/hibernate.cfg.xml" />
-      </configuration>
-    </facet>
-    <facet type="Spring" name="Spring2">
-      <configuration>
-        <fileset id="fileset" name="Spring Application Context" removed="false">
-          <file>file://$MODULE_DIR$/web-app/WEB-INF/applicationContext.xml</file>
-        </fileset>
-      </configuration>
-    </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
