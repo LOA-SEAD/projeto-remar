@@ -7778,3 +7778,13 @@ table .checkbox {
   background-repeat: repeat;
   background-position: top left;
 }
+
+.onhove{
+	opacity: 0.6;
+    filter: alpha(opacity=60); /* For IE8 and earlier */
+}
+
+.onhove:hover{
+	opacity: 1;
+    filter: alpha(opacity=100); /* For IE8 and earlier */
+}

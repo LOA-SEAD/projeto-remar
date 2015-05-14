@@ -25,13 +25,13 @@
 								<tr>
 									<td align="center"><a href="/forca"><img
 											src="${resource(dir:'images', file: 'forca.jpg')}"
-											class="img img-responsive max" /></a></td>
+											class="img img-responsive max onhove" /></a></td>
 									<td align="center"><a href="/mathjong"><img
 											src="${resource(dir:'images', file: 'mathjong.png')}"
-											class="img img-responsive max" /></a></td>
+											class="img img-responsive max onhove" /></a></td>
 									<td align="center"><a href="/forca"><img
 											src="${resource(dir:'escolamagica', file: 'escolamagica.png')}"
-											class="img img-responsive max" /></a></td>
+											class="img img-responsive max onhove" /></a></td>
 								</tr>
 							</tbody>
 						</table>
