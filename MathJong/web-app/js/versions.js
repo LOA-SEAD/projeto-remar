@@ -41,6 +41,8 @@ function ajax(endpoint, intervalId) {
                 $("#" + endpoint).find("h3").html("Versão web: <a target=\"_blank\" href=\"" + location.origin + data + "\">clique aqui</a>");
             } else if(endpoint === "apk") {
                 $("#" + endpoint).find("h3").html("Download APKs: <a target=\"_blank\" href=\"" + location.origin + data + "\">clique aqui</a>");
+            } else if(endpoint === "linux") {
+                $("#" + endpoint).find("h3").html("Download versão Linux: <a target=\"_blank\" href=\"" + location.origin + data + "\">clique aqui</a>");
             }
         },
         error:function(XMLHttpRequest,textStatus,errorThrown){}});

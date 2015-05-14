@@ -15,8 +15,8 @@ class RefactorService {
         def userId = WebUtils.retrieveGrailsWebRequest().session.userId
         def userFolder = rootPath + "/data/$userId"
 
-        "cp -R $sourceFodler/ $userFolder/game".execute().waitFor() // TODO: copy only on first user exec
+        "cp -R $sourceFodler/base $userFolder/web".execute().waitFor() // TODO: copy only on first user exec
 
-        "cp -R $userFolder/fases.json $userFolder/game/MathJong/json/fases.json".execute().waitFor()
+        "cp -R $userFolder/fases.json $userFolder/web/MathJong/json/fases.json".execute().waitFor()
     }
 }

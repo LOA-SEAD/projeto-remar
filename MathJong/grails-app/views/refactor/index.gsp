@@ -17,7 +17,8 @@
                 <div class="widget-content-white glossed">
                     <div class="padded">
                         <div id="web" class="endpoint"><h3><input type="checkbox" name="web"/>Gerar versão web</h3></div>
-                        <div id="apk" class="endpoint"><h3><input type="checkbox" name="apk"/>Gerar APK</h3></div>
+                        <div id="apk" class="endpoint"><h3><input type="checkbox" name="apk"/>Gerar versão Android</h3></div>
+                        <div id="linux" class="endpoint"><h3><input type="checkbox" name="linux"/>Gerar versão Linux</h3></div>
                     </div>
                     <br />
                     <fieldset class="buttons">
