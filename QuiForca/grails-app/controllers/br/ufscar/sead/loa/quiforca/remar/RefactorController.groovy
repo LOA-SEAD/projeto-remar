@@ -72,7 +72,7 @@ class RefactorController {
 
         "$rootPath/scripts/publish_linux.sh $rootPath $userFolder/linux/tmp $userFolder/linux/bin".execute().waitFor()
 
-//        "rm -rf $userFolder/linux/tmp ".execute().waitFor()
+        "rm -rf $userFolder/linux/tmp ".execute().waitFor()
 
         render "/forca/data/$userId/linux/bin/Forca.app"
 
