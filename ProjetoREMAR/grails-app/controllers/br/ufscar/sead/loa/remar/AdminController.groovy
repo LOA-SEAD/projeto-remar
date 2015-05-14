@@ -15,7 +15,6 @@ class AdminController {
     def index() {
     	List<Task> tarefas = taskService.createTaskQuery().taskAssignee(springSecurityService.currentUser.camunda_id).list()
 
-    	print tarefas
     	
         render view: 'index'
     }

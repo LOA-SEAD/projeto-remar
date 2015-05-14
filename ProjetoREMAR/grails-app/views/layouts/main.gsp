@@ -51,6 +51,8 @@
                         </a>
                         <div class="relative-w">
                             <ul class="side-menu">
+	                            <li><a href="/" class="dropdown-toggle">Lista de Jogos</a></li>
+	                            
 	                            <sec:ifAllGranted roles="ROLE_ADMIN">
 									<li><a href="/user" class="dropdown-toggle">Lista de Usuários</a></li>
 									<li><a href="/user/create" class="dropdown-toggle">Criar novo Usuário</a></li>

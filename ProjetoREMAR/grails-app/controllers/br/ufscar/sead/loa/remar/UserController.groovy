@@ -19,8 +19,6 @@ class UserController {
     }
 
     def show(User userInstance) {
-        //respond userInstance
-        println(userInstance.username)
         respond userInstance, model:[userInstance: userInstance]
     }
 
