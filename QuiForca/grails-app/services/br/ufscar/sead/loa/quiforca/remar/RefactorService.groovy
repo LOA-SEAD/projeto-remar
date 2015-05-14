@@ -17,20 +17,15 @@ class RefactorService {
 		def themeId = WebUtils.retrieveGrailsWebRequest().session.themeId
 		def userFolder = rootPath + "/data/$userId"
 
-		"cp -R $sourceFodler/ $userFolder/game".execute().waitFor() // TODO: copy only on first user exec
+		"cp -R $sourceFodler/base/ $userFolder/web".execute().waitFor() // TODO: copy only on first user exec
 
-		"cp $userFolder/palavras.json $userFolder/game/json/palavras.json".execute().waitFor()
+		"cp $userFolder/palavras.json $userFolder/web/json/palavras.json".execute().waitFor()
 
-		"cp $userFolder/themes/$themeId/opening.png $userFolder/game/imgs/inicio.png".execute().waitFor()
+		"cp $userFolder/themes/$themeId/opening.png $userFolder/web/imgs/inicio.png".execute().waitFor()
 
-		"cp $userFolder/themes/$themeId/background.png $userFolder/game/imgs/papel.png".execute().waitFor()
+		"cp $userFolder/themes/$themeId/background.png $userFolder/web/imgs/papel.png".execute().waitFor()
 
-		int[] sizes = [36, 48, 72, 96, 144, 192]
 
-		for(int i=0; i<sizes.length; i++) {
-			def name = "icon" + sizes[i] + ".png"
-			"cp $userFolder/themes/$themeId/$name $userFolder/game/imgs/$name".execute().waitFor()
-		}
 	}
 }
 

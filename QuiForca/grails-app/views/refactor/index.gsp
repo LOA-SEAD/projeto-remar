@@ -29,7 +29,12 @@
                         </div>
                         <div id="apk" class="endpoint">
                             <h3>
-                                <input type="checkbox" name="apk" />Gerar APKs
+                                <input type="checkbox" name="apk" />Gerar Android
+                            </h3>
+                        </div>
+                        <div id="linux" class="endpoint">
+                            <h3>
+                                <input type="checkbox" name="linux" />Gerar versão Linux
                             </h3>
                         </div>
                         <fieldset class="buttons">
