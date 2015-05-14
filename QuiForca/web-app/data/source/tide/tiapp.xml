@@ -10,7 +10,7 @@
 <!-- Window Definition - these values can be edited -->
 <window>
 <id>initial</id>
-<title>nome</title>
+<title>MathJong</title>
 <url>app://index.html</url>
 <width>1280</width>
 <max-width>3000</max-width>
