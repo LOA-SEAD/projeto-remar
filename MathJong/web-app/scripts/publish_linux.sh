@@ -17,3 +17,7 @@ source $1/scripts/sources.sh
 
 
 tidebuilder.py -d $3 $2
+
+cd $3
+
+zip -r forca_linux.zip Forca
