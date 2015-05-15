@@ -12,7 +12,7 @@
         <meta property="user-id" content="${userId}"/>
 
         <g:set var="entityName" value="${message(code: 'question.label', default: 'Question')}" />
-        <title><g:message code="default.list.label" args="[entityName]" /></title>
+        
     </head>
     <body>
         <div class="page-header">
