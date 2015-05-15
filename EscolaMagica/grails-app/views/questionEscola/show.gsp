@@ -3,8 +3,6 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'questionEscola.label', default: 'QuestionEscola')}" />
-		<title><g:message code="default.show.label" args="[entityName]" /></title>
 	</head>
 	<body>
 		<div class="page-header">
@@ -38,11 +36,11 @@
 								<p>
 									<b>
 										<span id="level-label" class="property-label">
-											<g:message code="questionEscola.level.label" default="Resposta: " />
+											<g:message code="questionEscola.level.label" default="Respostas: " />
 										</span>
 									</b>
+<g:fieldValue bean="${questionEscolaInstance}" field="answers"/>
 									<span id="answers-label" class="property-label">
-										<g:message code="questionEscola.answers.label" default="Answers" />
 									</span>
 								</p>
 							</g:if>
@@ -55,7 +53,10 @@
 										</span>
 									</b>
 									<span id="answers-label" class="property-label">
-										<g:fieldValue bean="${questionEscolaInstance}" field="correctAnswer"/>
+
+${questionEscolaInstance.correctAnswer+1}										
+
+
 									</span>
 								</p>
 							</g:if>

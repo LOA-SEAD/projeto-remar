@@ -21,8 +21,9 @@
                 </label>
             </td>
             <td class="spaced_td">
-                <g:textField id="answers[0]" name="answers[0]" required="" value="${questionEscolaInstance.answers[1]}"/>
-                <input type="radio" value="0" name="correctAnswer" required="" />
+                <g:textField id="answers[0]" name="answers[0]" required="" value="${questionEscolaInstance.answers[0]}"/>
+<g:radio name="correctAnswer" value="0" checked="${questionEscolaInstance.correctAnswer == 0}"/>
+
             </td>
         </div>
     </tr>
@@ -36,7 +37,8 @@
             </td>
             <td class="spaced_td">
                 <g:textField id="answers[1]" name="answers[1]" required="" value="${questionEscolaInstance.answers[1]}"/>
-                <input type="radio" value="1" name="correctAnswer" required="" />
+<g:radio name="correctAnswer" value="1" checked="${questionEscolaInstance.correctAnswer == 1}"/>
+
             </td>
         </div>
     </tr>
@@ -50,7 +52,8 @@
             </td>
             <td class="spaced_td">
                 <g:textField id="answers[2]" name="answers[2]" required="" value="${questionEscolaInstance.answers[2]}"/>
-                <input type="radio" value="2" name="correctAnswer" required="" />
+<g:radio name="correctAnswer" value="2" checked="${questionEscolaInstance.correctAnswer == 2}"/>
+
             </td>
         </div>
     </tr>
@@ -64,7 +67,7 @@
             </td>
             <td class="spaced_td">
                 <g:textField id="answers[3]" name="answers[3]" required="" value="${questionEscolaInstance.answers[3]}"/>
-                <input type="radio" value="3" name="correctAnswer" required="" />
+<g:radio name="correctAnswer" value="3" checked="${questionEscolaInstance.correctAnswer == 3}"/>
             </td>
         </div>
     </tr>
