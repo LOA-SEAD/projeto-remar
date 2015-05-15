@@ -64,6 +64,6 @@ class RefactorController {
 
         "rm -rf $userFolder/linux/tmp ".execute().waitFor()
 
-        render "/mathjong/data/$userId/linux/bin/MathJong.app"
+        render "/mathjong/data/$userId/linux/bin/mathjong_linux.zip"
     }
 }

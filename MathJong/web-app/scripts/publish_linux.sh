@@ -16,8 +16,8 @@ source $1/web-app/scripts/sources.sh # TODO: REMOVE WHEN RUNNING PRODUCTION <---
 source $1/scripts/sources.sh
 
 
-tidebuilder.py -d $3 $2
+tidebuilder.py -t bundle -n -d $3 $2
 
 cd $3
 
-zip -r forca_linux.zip Forca
+zip -r mathjong_linux.zip MathJong
