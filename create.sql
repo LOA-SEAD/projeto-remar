@@ -1,2 +1,2 @@
-drop database remar;
+drop database if exists remar;
 create database remar;
