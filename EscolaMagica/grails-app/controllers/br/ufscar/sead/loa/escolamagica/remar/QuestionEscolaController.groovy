@@ -107,7 +107,7 @@ class QuestionEscolaController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'question.label', default: 'QuestionEscola'), questionEscolaInstance.id])
+                flash.message = message(code: 'default.created.message', args: [message(code: 'question.label', default: 'Questão'), questionEscolaInstance.id])
                 redirect(action: "index")
             }
             '*' { respond questionEscolaInstance, [status: CREATED] }
@@ -135,7 +135,7 @@ class QuestionEscolaController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'Question.label', default: 'QuestionEscola'), questionEscolaInstance.id])
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'Question.label', default: 'Questão'), questionEscolaInstance.id])
                 redirect questionEscolaInstance
             }
             '*'{ respond questionEscolaInstance, [status: OK] }
@@ -154,7 +154,7 @@ class QuestionEscolaController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Question.label', default: 'QuestionEscola'), questionEscolaInstance.id])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Question.label', default: 'Questão'), questionEscolaInstance.id])
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }
@@ -164,7 +164,7 @@ class QuestionEscolaController {
     protected void notFound() {
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'question.label', default: 'QuestionEscola'), params.id])
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'question.label', default: 'Questão'), params.id])
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }

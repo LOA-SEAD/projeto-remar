@@ -3,8 +3,6 @@
     <head>
         <meta name="layout" content="main">
         <g:javascript src="scriptTheme.js"/>
-        <!--<g:set var="entityName" value="${message(code: 'Theme.label', default: 'Theme')}" />-->
-        <title><g:message code="default.list.label" args="[entityName]" /></title>
     </head>
     <body>
         <div class="page-header">

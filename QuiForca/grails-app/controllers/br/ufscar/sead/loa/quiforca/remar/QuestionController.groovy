@@ -146,7 +146,7 @@ class QuestionController {
 
         def json = builder (
             list.collect {p ->
-                ["palavra": p.getAnswer(),
+                ["palavra": p.getAnswer().toUpperCase(),
                  "dica": p.getStatement(),
                  "contribuicao": p.getAuthor()]
             }

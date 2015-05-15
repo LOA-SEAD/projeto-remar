@@ -3,8 +3,6 @@
     <head>
         <meta name="layout" content="main">
         <g:javascript src="scriptTheme.js"/>
-        <!--<g:set var="entityName" value="${message(code: 'Theme.label', default: 'Theme')}" />-->
-        <title><g:message code="default.list.label" args="[entityName]" /></title>
     </head>
     <body>
         <div class="page-header">
@@ -42,7 +40,7 @@
 
                                             <td>${fieldValue(bean: questionEscolaInstance, field: "answers")}</td>
 
-                                            <td>${questionEscolaInstance.correctAnswer + 1}</td>
+                                            <td>${questionEscolaInstance.answers[questionEscolaInstance.correctAnswer]} (${questionEscolaInstance.correctAnswer + 1}ª Alternativa)</td>
 
                                             <td>${fieldValue(bean: questionEscolaInstance, field: "title")}</td>
 
