@@ -54,7 +54,7 @@
 									</b>
 									<span id="answers-label" class="property-label">
 
-${questionEscolaInstance.correctAnswer+1}										
+${questionEscolaInstance.answers[questionEscolaInstance.correctAnswer]} (${questionEscolaInstance.correctAnswer + 1}ª Alternativa)										
 
 
 									</span>

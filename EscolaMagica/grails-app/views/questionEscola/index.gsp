@@ -40,7 +40,7 @@
 
                                             <td>${fieldValue(bean: questionEscolaInstance, field: "answers")}</td>
 
-                                            <td>${questionEscolaInstance.correctAnswer + 1}</td>
+                                            <td>${questionEscolaInstance.answers[questionEscolaInstance.correctAnswer]} (${questionEscolaInstance.correctAnswer + 1}ª Alternativa)</td>
 
                                             <td>${fieldValue(bean: questionEscolaInstance, field: "title")}</td>
 
