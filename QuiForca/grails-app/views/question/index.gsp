@@ -21,7 +21,8 @@
         <div class="main-content">
             <div class="widget">
                 <h3 class="section-title first-title"><i class="icon-table"></i> Visualização dos Seus Temas</h3>
-                <div class="widget-content-white glossed">
+                <h5><i class="icon-hand-up"> </i>Versão Alpha. Favor não utilizar Tab!</h5>
+                    <div class="widget-content-white glossed">
                     <div class="padded">
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered table-hover" id="table">

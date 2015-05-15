@@ -28,9 +28,9 @@ class RefactorController {
         "mkdir $userFolder/android/tmp".execute().waitFor()
         "mkdir $userFolder/android/apks".execute().waitFor()
 
-        "cp -R $userFolder/web/ $userFolder/android/tmp".execute().waitFor()
+        "cp -R $userFolder/web/. $userFolder/android/tmp".execute().waitFor()
 
-        "cp $sourceFolder/crosswalk/manifest.json $userFolder/android/tmp".execute().waitFor()
+        "cp $sourceFolder/crosswalk/manifest.json $userFolder/android/tmp/manifest.json".execute().waitFor()
 
         int[] sizes = [36, 48, 72, 96, 144, 192]
 
@@ -43,7 +43,7 @@ class RefactorController {
 
         "$rootPath/scripts/publish_android.sh $rootPath br.ufscar.sead.loa.forca $userFolder/android/tmp/manifest.json $userFolder/android/apks".execute().waitFor()
 
-        "rm -rf $userFolder/android/tmp".execute()
+//        "rm -rf $userFolder/android/tmp".execute()
 
         render "/forca/data/$userId/android/apks/forca_android.zip"
     }
@@ -61,12 +61,12 @@ class RefactorController {
         "mkdir $userFolder/linux/tmp/Resources".execute().waitFor()
         "mkdir $userFolder/linux/bin".execute().waitFor()
 
-        "cp -R $userFolder/web/ $userFolder/linux/tmp/Resources".execute().waitFor()
+        "cp -R $userFolder/web/. $userFolder/linux/tmp/Resources".execute().waitFor()
 
-        "cp $sourceFolder/tide/manifest $userFolder/linux/tmp".execute().waitFor()
-        "cp $sourceFolder/tide/tiapp.xml $userFolder/linux/tmp".execute().waitFor()
+        "cp $sourceFolder/tide/manifest $userFolder/linux/tmp/manifest".execute().waitFor()
+        "cp $sourceFolder/tide/tiapp.xml $userFolder/linux/tmp/tiapp.xml".execute().waitFor()
 
-        "cp $userFolder/themes/$themeId/icon.png $userFolder/linux/tmp/Resources/imgs".execute().waitFor()
+        "cp $userFolder/themes/$themeId/icon.png $userFolder/linux/tmp/Resources/imgs/icon.png".execute().waitFor()
 
         "chmod +x $rootPath/scripts/publish_linux.sh".execute().waitFor()
 
@@ -74,7 +74,7 @@ class RefactorController {
 
         "rm -rf $userFolder/linux/tmp ".execute().waitFor()
 
-        render "/forca/data/$userId/linux/bin/Forca.app"
+        render "/forca/data/$userId/linux/bin/forca_linux.zip"
 
     }
 }
