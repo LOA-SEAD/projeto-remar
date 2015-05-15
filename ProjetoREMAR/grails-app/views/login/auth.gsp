@@ -28,7 +28,7 @@
                             </div>
                             <div class="form-group">
                                 <p id="remember_me_holder">
-                                    <input type='checkbox' class='chk' name='${rememberMeParameter}' id='remember_me' <g:if test='${hasCookie}'>checked='checked'</g:if>/>
+                                    <input type='checkbox' class='chk' name='${rememberMeParameter}' id='remember_me' checked='checked'/>
                                     <label for='remember_me'>Lembrar-me</label>
                                 </p>
 

@@ -28,13 +28,13 @@ class RefactorController {
         "mkdir $userFolder/android/tmp".execute().waitFor()
         "mkdir $userFolder/android/apks".execute().waitFor()
 
-        "cp -R $userFolder/web/ $userFolder/android/tmp".execute().waitFor()
+        "cp -R $userFolder/web/. $userFolder/android/tmp".execute().waitFor()
 
-        "cp $sourceFolder/crosswalk/manifest.json $userFolder/android/tmp".execute().waitFor()
+        "cp $sourceFolder/crosswalk/manifest.json $userFolder/android/tmp/manifest.json".execute().waitFor()
 
         "chmod +x $rootPath/scripts/publish_android.sh".execute().waitFor()
 
-        println "$rootPath/scripts/publish_android.sh $rootPath br.ufscar.sead.loa.mathjong $userFolder/android/tmp/manifest.json $userFolder/android/apks".execute().text
+        "$rootPath/scripts/publish_android.sh $rootPath br.ufscar.sead.loa.mathjong $userFolder/android/tmp/manifest.json $userFolder/android/apks".execute().waitFor()
 
         "rm -rf $userFolder/android/tmp".execute()
 
@@ -53,10 +53,10 @@ class RefactorController {
         "mkdir $userFolder/linux/tmp/Resources".execute().waitFor()
         "mkdir $userFolder/linux/bin".execute().waitFor()
 
-        "cp -R $userFolder/web/ $userFolder/linux/tmp/Resources".execute().waitFor()
+        "cp -R $userFolder/web/. $userFolder/linux/tmp/Resources".execute().waitFor()
 
-        "cp $sourceFolder/tide/manifest $userFolder/linux/tmp".execute().waitFor()
-        "cp $sourceFolder/tide/tiapp.xml $userFolder/linux/tmp".execute().waitFor()
+        "cp $sourceFolder/tide/manifest $userFolder/linux/tmp/manifest".execute().waitFor()
+        "cp $sourceFolder/tide/tiapp.xml $userFolder/linux/tmp/tiapp.xml".execute().waitFor()
 
         "chmod +x $rootPath/scripts/publish_linux.sh".execute().waitFor()
 

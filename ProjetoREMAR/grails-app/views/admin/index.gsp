@@ -23,13 +23,13 @@
 						<table class="table table-striped table-bordered" id="table">
 							<tbody>
 								<tr>
-									<td align="center"><a href="/forca"><img
+									<td align="center"><a href="/forca" target="_blank"><img
 											src="${resource(dir:'images', file: 'forca.jpg')}"
 											class="img img-responsive max onhove" /></a></td>
-									<td align="center"><a href="/mathjong"><img
+									<td align="center"><a href="/mathjong" target="_blank"><img
 											src="${resource(dir:'images', file: 'mathjong.png')}"
 											class="img img-responsive max onhove" /></a></td>
-									<td align="center"><a href="/forca"><img
+									<td align="center"><a href="/escolamagica" target="_blank"><img
 											src="${resource(dir:'escolamagica', file: 'escolamagica.png')}"
 											class="img img-responsive max onhove" /></a></td>
 								</tr>
