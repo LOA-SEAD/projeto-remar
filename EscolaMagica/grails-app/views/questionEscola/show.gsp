@@ -23,11 +23,24 @@
 								<p>
 									<b>
 										<span id="level-label" class="property-label">
-											<g:message code="questionEscola.level.label" default="Level" />
+											<g:message code="questionEscola.level.label" default="Nível" />
 										</span>
 									</b>
 									<span class="property-value" aria-labelledby="username-label">
 										<g:fieldValue bean="${questionEscolaInstance}" field="level"/>
+									</span>
+								</p>
+							</g:if>
+
+							<g:if test="${questionEscolaInstance?.title}">
+								<p>
+									<b>
+										<span id="level-label" class="property-label">
+											<g:message code="questionEscola.title.labelsad" default="Pergunta: " />
+										</span>
+									</b>
+									<span id="answers-label" class="property-label">
+										<g:fieldValue bean="${questionEscolaInstance}" field="title"/>
 									</span>
 								</p>
 							</g:if>
@@ -61,18 +74,6 @@ ${questionEscolaInstance.answers[questionEscolaInstance.correctAnswer]} (${quest
 								</p>
 							</g:if>
 
-							<g:if test="${questionEscolaInstance?.title}">
-								<p>
-									<b>
-										<span id="level-label" class="property-label">
-											<g:message code="questionEscola.title.labelsad" default="Título: " />
-										</span>
-									</b>
-									<span id="answers-label" class="property-label">
-										<g:fieldValue bean="${questionEscolaInstance}" field="title"/>
-									</span>
-								</p>
-							</g:if>
                         </div>
                     </div>
                 </div>

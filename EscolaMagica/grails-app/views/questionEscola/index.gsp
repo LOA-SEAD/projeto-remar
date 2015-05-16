@@ -24,11 +24,13 @@
 
                                         <g:sortableColumn property="level" title="${message(code: 'questionEscola.level.label', default: 'Nível')}" />
 
+        <g:sortableColumn property="title" title="${message(code: 'questionEscola.title.label', default: 'Pergunta')}" />
+
                                         <g:sortableColumn property="answers" title="${message(code: 'questionEscola.answers.label', default: 'Respostas')}" />
 
                                         <g:sortableColumn property="correctAnswer" title="${message(code: 'questionEscola.correctAnswer.label', default: 'Alternativa Correta')}" />
 
-                                        <g:sortableColumn property="title" title="${message(code: 'questionEscola.title.label', default: 'Título')}" />
+                                
 
                                     </tr>
                                 </thead>
@@ -38,11 +40,13 @@
 
                                             <td>${fieldValue(bean: questionEscolaInstance, field: "level")}</td>
 
+                                            <td>${fieldValue(bean: questionEscolaInstance, field: "title")}</td>
+
                                             <td>${fieldValue(bean: questionEscolaInstance, field: "answers")}</td>
 
                                             <td>${questionEscolaInstance.answers[questionEscolaInstance.correctAnswer]} (${questionEscolaInstance.correctAnswer + 1}ª Alternativa)</td>
 
-                                            <td>${fieldValue(bean: questionEscolaInstance, field: "title")}</td>
+
 
                                         </tr>
                                     </g:each>
