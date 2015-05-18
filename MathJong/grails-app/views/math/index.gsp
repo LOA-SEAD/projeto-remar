@@ -56,7 +56,7 @@
                 <tr>
                     <td id="preview-13" class="math preview selectable" data-latex="\sqrt{36}">$$\sqrt{36}$$</td>
                     <td id="preview-14" class="math preview selectable" data-latex="\frac{24}{4}">$$\frac{24}{4}$$</td>
-                    <td id="preview-15" class="math preview selectable" data-latex="2^2 + 2">$$2^2 - 3$$</td>
+                    <td id="preview-15" class="math preview selectable" data-latex="3^2 - 3">$$3^2 - 3$$</td>
                     <td id="preview-16" class="math preview selectable" data-latex="\frac{12}{2}">$$\frac{12}{2}$$</td>
                     <td class="new-td">Novo par</td>
                 </tr>
