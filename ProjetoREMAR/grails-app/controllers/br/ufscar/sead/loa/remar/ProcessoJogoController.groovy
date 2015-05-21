@@ -98,7 +98,6 @@ class ProcessoJogoController {
     }
 
     def vincular_tarefas(){
-        /*
         if(params['task_id[]'] != null){
             if(params['task_id[]'] instanceof String){
                 String user_id  = params['user_id[]']
@@ -106,7 +105,7 @@ class ProcessoJogoController {
 
                 String uid = user_id
                 if(uid){
-                    taskService.delegateTask(task_id, uid)
+                    taskService.addCandidateUser(task_id, uid)
                 }
 
             }
@@ -117,14 +116,12 @@ class ProcessoJogoController {
                 for(int i = 0; i < user_ids.length; i++){
                     String uid = user_ids[i]
                     if(uid){
-                        taskService.delegateTask(tasks_ids[i], uid)
+                        taskService.addCandidateUser(tasks_ids[i], uid)
                     }
                 }
             }
         }
-        */
-
-        print params['user_id[]']
+        
 
         redirect action: "index"
     }
@@ -137,7 +134,14 @@ class ProcessoJogoController {
 
         }
         else{
-            redirect action: "tarefas", id: professorJogo.id
+            List<Task> tasks = taskService.createTaskQuery().processInstanceId(processoJogoInstance.id_process_instance).list()
+            for(int i = tasks.size()-1; i >= 0; i--){
+                taskService.setOwner(tasks.get(i).getId(), springSecurityService.currentUser.camunda_id)
+                taskService.addCandidateUser(tasks.get(i).getId(), springSecurityService.currentUser.camunda_id)
+            }
+
+            flash.message = "Processo de jogo iniciado com sucesso!"
+            redirect action: "index"
         }
     }
 

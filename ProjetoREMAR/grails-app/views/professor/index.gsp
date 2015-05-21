@@ -8,6 +8,19 @@
 		<title>Prof page</title>
 	</head>
 	<body>
-		Prof
+		<div class="row">
+			<div class="col-sm-6">
+				<h3>Tarefas do usuário</h3>
+				<g:each in="${tarefasDoUsuario}" status="i" var="tarefa">
+					<p>${tarefa.getId()}</p>
+				</g:each>
+			</div>
+			<div class="col-sm-6">
+				<h3>Tarefas candidatas</h3>
+				<g:each in="${tarefasCandidatas}" status="i" var="tarefa">
+					<p><g:link action="tarefa" id="${tarefa.getId()}">${tarefa.getId()}</g:link></p>
+				</g:each>
+			</div>
+		</div>
 	</body>
 </html>
