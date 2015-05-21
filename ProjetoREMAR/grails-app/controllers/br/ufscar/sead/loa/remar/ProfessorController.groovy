@@ -24,7 +24,16 @@ class ProfessorController {
         Task findTask = taskService.createTaskQuery().taskId(id).singleResult()
         if(findTask != null){
             if(springSecurityService.currentUser.camunda_id == findTask.getOwner()){
-                render view: 'tarefa', model:[tarefa: findTask, usuarios: User.list()]
+                def usuarios = User.list()
+
+                for(int i = usuarios.size()-1; i >= 0; i--){
+                    Set<Role> userAuthorities = usuarios.get(i).getAuthorities()
+                    if (userAuthorities.any { it.authority != "ROLE_EDITOR" }) {
+                        usuarios.remove(i)
+                    }
+                }
+
+                render view: 'tarefa', model:[tarefa: findTask, usuarios: usuarios]
             }
             else{
                 flash.message = "Você não tem autorização para trabalhar nessa tarefa!"

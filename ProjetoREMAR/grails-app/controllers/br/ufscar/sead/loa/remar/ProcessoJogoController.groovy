@@ -75,7 +75,14 @@ class ProcessoJogoController {
                     }
                 }
 
-                List<User> usuarios = User.list()
+                def usuarios = User.list()
+
+                for(int i = usuarios.size()-1; i >= 0; i--){
+                    Set<Role> userAuthorities = usuarios.get(i).getAuthorities()
+                    if (userAuthorities.any { it.authority != "ROLE_EDITOR" }) {
+                        usuarios.remove(i)
+                    }
+                }
 
                 
                 if(tasks.size == 0){
@@ -134,7 +141,7 @@ class ProcessoJogoController {
 
         }
         else{
-            List<Task> tasks = taskService.createTaskQuery().processInstanceId(processoJogoInstance.id_process_instance).list()
+            List<Task> tasks = taskService.createTaskQuery().processInstanceId(professorJogo.id_process_instance).list()
             for(int i = tasks.size()-1; i >= 0; i--){
                 taskService.setOwner(tasks.get(i).getId(), springSecurityService.currentUser.camunda_id)
                 taskService.addCandidateUser(tasks.get(i).getId(), springSecurityService.currentUser.camunda_id)
