@@ -24,7 +24,7 @@ $string['pluginadministration'] = 'remar administration';
 $string['pluginname'] = 'remar';
 
 /* for settings.php file */
-$string['game1'] = 'Jogo da Forca';
+$string['game1'] = 'QuiForca';
 $string['game1_config'] = 'Configuração do Jogo da Forca';
 $string['game1_help'] = 'help do game 1';
 $string['helpgame1'] = 'help do game 1';

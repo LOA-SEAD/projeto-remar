@@ -396,7 +396,7 @@ function remar_get_types(){
     { 
         $type = new object();
         $type->modclass = MOD_CLASS_ACTIVITY;
-        $type->type = "remar&amp;type=game1";
+        $type->type = "remar&amp;type=quiforca";
         $type->typestr = get_string('game1', 'remar');
         $types[] = $type;
     }
@@ -409,7 +409,7 @@ function remar_get_types(){
     { 
         $type = new object();
         $type->modclass = MOD_CLASS_ACTIVITY;
-        $type->type = "remar&amp;type=game2";
+        $type->type = "remar&amp;type=mathjong";
         $type->typestr = get_string('game2', 'remar');
         $types[] = $type;
     }

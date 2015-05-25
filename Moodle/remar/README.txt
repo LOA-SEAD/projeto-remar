@@ -30,6 +30,23 @@ Configurando o Moodle para aceitar o REMAR
 
 - Habilitar os serviços de web (web services)
 	Administração >> Administração do site >> Opções Avançadas >> Habilitar serviços web
+- Adicionar permissão para serviço do remar
+	Administração >> Administração do site >> Plugins >> Serviços da Web >> Serviços externos
+	Crie um novo serviço personalizado
+	Clique em "Funções" deste novo serviço e "Adicionar Funções"
+	Adicione a função "mod_remar_quiforca_update"
+- Ativar o protocolo XML-RPC
+	Administração >> Administração do site >> Plugins >> Serviços da Web >> Gerenciar protocolos
+- Autorizar usuário a usar o protocolo XML-RPC
+	Administração >> Administração do site >> Permissões >> Verificar permissões do sistema
+- Criar um papel para os usuários que terão acesso
+	Administração >> Administração do site >> Usuários >> Permissões >> Definir papéis
+	Crie um novo papel remar com base no papel ou arquétipo "Estudante"
+	Habilite a opção "Use o protocolo XML-RPC" (webservice/xmlrpc:use)
+- Atribua este papel ao usuário que irá usar o remar
+- Criar um token para o usuário (cliente) acessar o moodle externamente
+	Administração >> Administração do site >> Plugins >> Gerenciar tokens
+	Adicione um novo toke escolhendo o usuário e o webservice criado no em 2 passos anteriores
 
 
 ======================================================================================================

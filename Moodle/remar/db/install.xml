@@ -30,7 +30,7 @@
         <FIELD NAME="dica" TYPE="text" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Dica da palavra"/>
         <FIELD NAME="palavra" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Palavra que o jogador deve acertar"/>
         <FIELD NAME="contribuicao" TYPE="text" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Autor da dica e palavra"/>
-        <FIELD NAME="pontos" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" DEFAULT="0" COMMENT="Pontuação atual do jogador"/>
+        <FIELD NAME="cm" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" DEFAULT="0" COMMENT="ID do módulo do curso (course module id)"/>
         <FIELD NAME="letra_escolhida" TYPE="char" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="Letra escolhida pelo jogador"/>
         <FIELD NAME="timestamp" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="false"/>
       </FIELDS>
