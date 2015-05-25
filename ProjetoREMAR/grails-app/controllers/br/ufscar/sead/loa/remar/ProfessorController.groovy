@@ -4,9 +4,12 @@ import grails.plugin.springsecurity.annotation.Secured
 import org.camunda.bpm.engine.TaskService
 import org.camunda.bpm.engine.task.Task
 import org.camunda.bpm.engine.task.TaskQuery
+import org.camunda.bpm.engine.delegate.DelegateTask
+import org.camunda.bpm.engine.delegate.TaskListener
+import org.camunda.bpm.engine.delegate.TaskListener
 
 @Secured(['ROLE_PROF'])
-class ProfessorController {
+class ProfessorController implements TaskListener {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
     def springSecurityService
@@ -34,6 +37,26 @@ class ProfessorController {
                 }
 
                 render view: 'tarefa', model:[tarefa: findTask, usuarios: usuarios]
+            }
+            else{
+                flash.message = "Você não tem autorização para trabalhar nessa tarefa!"
+                redirect action: 'index'
+            }
+        }
+        else{
+            flash.message = "Tarefa não existe!"
+            redirect action: 'index'
+        }
+    }
+
+    def completar_tarefa(String id){
+        Task findTask = taskService.createTaskQuery().taskId(id).singleResult()
+        if(findTask != null){
+            if(springSecurityService.currentUser.camunda_id == findTask.getOwner()){
+                taskService.complete(id)
+
+                flash.message = "Tarefa completada com sucesso!"
+                redirect action: 'index'
             }
             else{
                 flash.message = "Você não tem autorização para trabalhar nessa tarefa!"
@@ -88,5 +111,13 @@ class ProfessorController {
         }
 
         redirect action: 'index'
+    }
+
+    @Override
+    void notify(DelegateTask delegateTask) throws Exception {
+        print "toaqui"
+        if(delegateTask.getEventName() == TaskListener.EVENTNAME_CREATE){
+            print delegateTask.getId()
+        }
     }
 }

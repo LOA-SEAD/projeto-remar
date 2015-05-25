@@ -12,7 +12,7 @@
 			<div class="col-sm-6">
 				<h3>Tarefas do usuário</h3>
 				<g:each in="${tarefasDoUsuario}" status="i" var="tarefa">
-					<p>${tarefa.getId()}</p>
+					<p>${tarefa.getId()} <g:link action="completar_tarefa" id="${tarefa.getId()}">completar</g:link></p>
 				</g:each>
 			</div>
 			<div class="col-sm-6">
