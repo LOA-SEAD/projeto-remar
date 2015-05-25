@@ -1,8 +1,9 @@
+<%@ page import="br.ufscar.sead.loa.escolamagica.remar.QuestionEscola" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta name="layout" content="main">
-        <g:javascript src="scriptTheme.js"/>
+    <g:javascript src="questions.js" ></g:javascript>
     </head>
     <body>
         <div class="page-header">
@@ -24,7 +25,7 @@
 
                                         <g:sortableColumn property="level" title="${message(code: 'questionEscola.level.label', default: 'Nível')}" />
 
-        <g:sortableColumn property="title" title="${message(code: 'questionEscola.title.label', default: 'Pergunta')}" />
+                                        <g:sortableColumn property="title" title="${message(code: 'questionEscola.title.label', default: 'Pergunta')}" />
 
                                         <g:sortableColumn property="answers" title="${message(code: 'questionEscola.answers.label', default: 'Respostas')}" />
 
@@ -38,7 +39,7 @@
                                     <g:each in="${questionEscolaInstanceList}" status="i" var="questionEscolaInstance">
                                         <tr class="selectable_tr" onclick='window.location = "${createLink(action: "show", id: questionEscolaInstance.id)}"'>
 
-                                            <td>${fieldValue(bean: questionEscolaInstance, field: "level")}</td>
+                                            <td class="level">${fieldValue(bean: questionEscolaInstance, field: "level")}</td>
 
                                             <td>${fieldValue(bean: questionEscolaInstance, field: "title")}</td>
 
@@ -62,7 +63,12 @@
                     <g:paginate total="${questionEscolaInstanceCount ?: 0}" />
                 </div>
 
-                <g:link class="btn btn-info btn-lg" action="createXML">Finalizar</g:link>
+
+                <g:if test="${br.ufscar.sead.loa.escolamagica.remar.QuestionEscola.validateQuestions()}" >
+                    <g:link class="btn btn-info btn-lg" action="createXML" >Finalizar</g:link>
+                </g:if>
+
+
                 <g:link class="btn btn-success btn-lg" action="create">Nova Questão</g:link>
 
             </div>

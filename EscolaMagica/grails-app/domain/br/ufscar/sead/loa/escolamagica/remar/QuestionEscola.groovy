@@ -8,6 +8,13 @@ class QuestionEscola {
     String level
 
 
+    static boolean validateQuestions(){
+
+
+        return (QuestionEscola.findAllByLevel("1").size()>=5 && QuestionEscola.findAllByLevel("2").size()>=5 && QuestionEscola.findAllByLevel("3").size()>=5)
+
+    }
+
     static constraints = {
         level inList: ['1','2','3']
 
