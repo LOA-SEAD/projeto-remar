@@ -83,6 +83,14 @@ class BootStrap {
 //            identityService.createMembership(camundaUser.getId(), group.getId())
         }
 
+        // REDIS
+
+
+
+
+
+
+
         /*def admin = new User(
          
                 username: "admin",

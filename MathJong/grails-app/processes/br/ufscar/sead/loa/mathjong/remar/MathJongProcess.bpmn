@@ -4,22 +4,25 @@
     <bpmn2:startEvent id="StartEvent_1" name="StartEvent">
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
     </bpmn2:startEvent>
-    <bpmn2:sequenceFlow id="SequenceFlow_4" name="" sourceRef="StartEvent_1" targetRef="CreateLevels"/>
-    <bpmn2:userTask id="CreateLevels" name="Criar fases">
+    <bpmn2:sequenceFlow id="SequenceFlow_4" name="" sourceRef="StartEvent_1" targetRef="math"/>
+    <bpmn2:userTask id="math" name="Criar fases">
       <bpmn2:extensionElements>
         <camunda:executionListener class="br.ufscar.sead.loa.mathjong.remar.ProcessController" event="start"/>
+        <camunda:properties>
+          <camunda:property/>
+        </camunda:properties>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_14</bpmn2:outgoing>
     </bpmn2:userTask>
-    <bpmn2:userTask id="RefactorTask" camunda:expression="#{refactorService.serviceMethod(execution)}" name="Refatoração &#xA;avançada">
+    <bpmn2:userTask id="refactor" camunda:expression="#{refactorService.serviceMethod(execution)}" name="Refatoração &#xA;avançada">
       <bpmn2:extensionElements>
         <camunda:executionListener class="br.ufscar.sead.loa.mathjong.remar.ProcessController" event="start"/>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_15</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
     </bpmn2:userTask>
-    <bpmn2:sequenceFlow id="SequenceFlow_7" name="" sourceRef="RefactorTask" targetRef="EndEvent_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_7" name="" sourceRef="refactor" targetRef="EndEvent_1"/>
     <bpmn2:endEvent id="EndEvent_1" name="EndEvent">
       <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
     </bpmn2:endEvent>
@@ -27,8 +30,8 @@
       <bpmn2:incoming>SequenceFlow_14</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_15</bpmn2:outgoing>
     </bpmn2:serviceTask>
-    <bpmn2:sequenceFlow id="SequenceFlow_14" name="" sourceRef="CreateLevels" targetRef="RefactorService"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_15" name="" sourceRef="RefactorService" targetRef="RefactorTask"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_14" name="" sourceRef="math" targetRef="RefactorService"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_15" name="" sourceRef="RefactorService" targetRef="refactor"/>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="MathJongProcess">
@@ -44,7 +47,7 @@
           <dc:Bounds height="17.0" width="52.0" x="1002.0" y="219.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_UserTask_12" bpmnElement="CreateLevels">
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_12" bpmnElement="math">
         <dc:Bounds height="80.0" width="100.0" x="420.0" y="156.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_4" sourceElement="_BPMNShape_StartEvent_2" targetElement="_BPMNShape_UserTask_12">
@@ -54,7 +57,7 @@
           <dc:Bounds height="6.0" width="6.0" x="375.0" y="196.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="_BPMNShape_ServiceTask_3" bpmnElement="RefactorTask">
+      <bpmndi:BPMNShape id="_BPMNShape_ServiceTask_3" bpmnElement="refactor">
         <dc:Bounds height="80.0" width="100.0" x="828.0" y="156.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_7" bpmnElement="SequenceFlow_7" sourceElement="_BPMNShape_ServiceTask_3" targetElement="_BPMNShape_EndEvent_2">

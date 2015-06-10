@@ -6,7 +6,7 @@ grails.project.work.dir = "target/work"
 grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
-grails.server.port.http = 8080
+grails.server.port.http = 9090
 
 
 grails.project.fork = [
@@ -69,6 +69,7 @@ grails.project.dependency.resolution = {
         // plugins needed at runtime but not for compilation
         runtime ":hibernate4:4.3.6.1" // or ":hibernate:3.6.10.18"
         runtime ":database-migration:1.4.0"
+        runtime ":redis:1.6.5"
         // runtime ":jquery:1.11.1"
 
         // Uncomment these to enable additional asset-pipeline capabilities

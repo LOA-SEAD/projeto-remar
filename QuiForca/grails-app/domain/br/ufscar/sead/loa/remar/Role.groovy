@@ -5,7 +5,8 @@ class Role {
 	String authority
 
 	static mapping = {
-		cache true
+		cache false
+        datasource 'remar'
 	}
 
 	static constraints = {

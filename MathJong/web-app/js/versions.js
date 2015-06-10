@@ -21,7 +21,7 @@ window.addEventListener("beforeunload", function() {
     $.ajax({
         type:'GET',
         //async: false,
-        url: location.origin + "/mathjong/process/complete/RefactorTask",
+        url: location.origin + "/mathjong/process/complete/refactor",
         success:function(data){
             console.log("ok");
         },

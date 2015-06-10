@@ -1,29 +1,19 @@
 package br.ufscar.sead.loa.remar
 
-import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 
+@Secured(['ROLE_PROF'])
 class TestController {
 
-    def springSecurityService
+    RedisConnection redisHandler
+    def redisService
 
-    @Secured(["ROLE_ADMIN"])
-    def admin() {
-        render springSecurityService.getCurrentUser().toString().replace("\n", "<br>")
+    def index() {
+        RedisConnection.reset() // for testing only
+        redisHandler = RedisConnection.getInstance(redisService)
     }
 
-    @Secured(["ROLE_PROF"])
-    def prof() {
-        render springSecurityService.getCurrentUser().toString().replace("\n", "<br>")
-    }
-
-    @Secured(["ROLE_STUD"])
-    def stud() {
-        render springSecurityService.getCurrentUser().toString().replace("\n", "<br>")
-    }
-
-    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
-    def anon() { // TODO: check if  logged in
-        render springSecurityService.getCurrentUser().toString().replace("\n", "<br>")
+    def psubscribe() {
+        RedisConnection.getInstance(redisService).pSubscribe("complete*")
     }
 }

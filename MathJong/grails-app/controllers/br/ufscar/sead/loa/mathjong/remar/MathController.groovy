@@ -80,6 +80,6 @@ class MathController {
         def finished = new File("$dataPath/${springSecurityService.getCurrentUser().getId()}/finished.txt")
         finished.createNewFile()
 
-        forward controller: "process", action: "complete", id: "CreateLevels"
+        forward controller: "process", action: "complete", id: "math"
     }
 }

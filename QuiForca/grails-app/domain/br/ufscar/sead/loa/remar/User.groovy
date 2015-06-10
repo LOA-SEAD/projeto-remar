@@ -26,8 +26,8 @@ class User {
 
 	static mapping = {
 		password column: '`password`'
-
 		tablePerHierarchy false
+        datasource 'remar'
 	}
 
 	Set<Role> getAuthorities() {
