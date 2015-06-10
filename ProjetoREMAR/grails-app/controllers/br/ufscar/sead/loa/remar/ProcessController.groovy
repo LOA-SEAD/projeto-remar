@@ -34,9 +34,42 @@ class ProcessController {
         session.processId =  runtimeService.startProcessInstanceByKey("TesteProcess").getId()
         session.userId = springSecurityService.getCurrentUser().getId()
 
+        def currentUser = springSecurityService.getCurrentUser().camunda_id
+        redirect action: "chooseUsersTasks"
+
+            //redirect(action: "tasksOverview")
+        /*
+            if(activeTasks.first().assignee==currentUser){
+                def parsedURI = parseBpmn(activeTasks[i])
+                redirect(uri: "http://localhost:8080/"+parsedURI) // REDIRECT PARA O JOGO (ÚNICO)
+            }
+            else{
+                redirect(uri: "http://localhost:8080/")
+            }
+        */
+
     }
 
+    def chooseUsersTasks(){
 
+        List<User> allUsers = identityService.createUserQuery().list()
+        List<Task> allTasks = taskService.createTaskQuery().processInstanceId(session.processId).list()
+        allUsers[0]
+
+        respond "",model:[allusers: allUsers, alltasks: allTasks]
+
+    }
+
+    def assignTasks(){
+
+    }
+
+    def tasksOverview(){
+
+        List<Task> activeTasks = taskService.createTaskQuery().processInstanceId(session.processId).active().list()
+        respond "", model:[list: activeTasks]
+
+    }
 
     def parseBpmn(Task task){
 
@@ -49,15 +82,15 @@ class ProcessController {
     def bpmnManagement(){
 
         def currentUser = springSecurityService.getCurrentUser().camunda_id
-        println currentUser
+
 
         List<Task> activeTasks = taskService.createTaskQuery().processInstanceId(session.processId).active().list()
+
 
         for(int i=0; i<activeTasks.size(); i++){
             if(currentUser == activeTasks[i].assignee){
                 def parsedURI = parseBpmn(activeTasks[i])
-                println "http://localhost:8080/"+parsedURI
-                redirect(uri: "http://localhost:8080/"+parsedURI)
+                redirect(uri: "http://localhost:8080/"+parsedURI)   //todo REDIS (Matheus)
             }
         }
 
