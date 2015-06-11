@@ -9,7 +9,7 @@
     </bpmn2:parallelGateway>
     <bpmn2:sequenceFlow id="SequenceFlow_6" name="" sourceRef="ParallelGateway_1" targetRef="admin.test2"/>
     <bpmn2:sequenceFlow id="SequenceFlow_7" name="" sourceRef="ParallelGateway_1" targetRef="admin.test3"/>
-    <bpmn2:userTask id="admin.test2" camunda:assignee="admin" name="task2">
+    <bpmn2:userTask id="admin.test2" name="task2">
       <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_9</bpmn2:outgoing>
     </bpmn2:userTask>
@@ -24,7 +24,7 @@
       <bpmn2:incoming>SequenceFlow_11</bpmn2:incoming>
     </bpmn2:endEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_11" name="" sourceRef="ParallelGateway_2" targetRef="EndEvent_2"/>
-    <bpmn2:userTask id="admin.test" camunda:assignee="deniscapp" name="task1">
+    <bpmn2:userTask id="admin.test" name="task1">
       <bpmn2:incoming>SequenceFlow_14</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_16</bpmn2:outgoing>
     </bpmn2:userTask>
@@ -34,7 +34,7 @@
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
     </bpmn2:startEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_4" name="" sourceRef="StartEvent_1" targetRef="ParallelGateway_1"/>
-    <bpmn2:userTask id="admin.test3" camunda:assignee="delano" name="task3">
+    <bpmn2:userTask id="admin.test3" name="task3">
       <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_10</bpmn2:outgoing>
     </bpmn2:userTask>

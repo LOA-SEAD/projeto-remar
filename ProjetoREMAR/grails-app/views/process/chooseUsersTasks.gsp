@@ -18,31 +18,38 @@
     </head>
 
         <body>
-            <table>
-                <thead>
-                    <tr>
-                      <th>  Tarefas </th>
-                      <th> Usuarios Disponíves </th>
-                    </tr>
-                </thead>
 
+            <g:form action="assignTasks" >
+                <table>
+                    <thead>
+                        <tr>
+                            <th>  Tarefas </th>
+                            <th> Usuarios Disponíves </th>
+                        </tr>
+                    </thead>
                 <tbody>
                     <g:each in="${alltasks}" status="i" var="task" >
                       <tr>
                         <td value="task"> ${task.getName()} </td>
-                          <td><select>
+                          <td><select  name="${task.getId()}">
                               <g:each in="${allusers}" status="j" var="user" >
-                                  <option value="firstname"> ${user.getFirstName()} </option>
+                                  <option value="${user.id}"> ${user.getFirstName()} </option>
 
                               </g:each>
 
-                                </select> </td>
+                              </select>
+                          </td>
                       </tr>
                     </g:each>
                 </tbody>
-            </table>
+                </table>
 
-            <div ><g:link action="assignTasks" controller="process" >Ok</g:link></div>
+                <input type="submit" value="Enviar" />
+            </g:form>
+
+
+
+
         </body>
 
     </html>
