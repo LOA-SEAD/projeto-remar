@@ -21,10 +21,15 @@
 
             <g:form action="assignTasks" >
                 <table>
+                    <p> <h2>Tarefas Disponiveis no momento</h2></p>
                     <thead>
                         <tr>
-                            <th>  Tarefas </th>
+                            <th> Nome </th>
                             <th> Usuarios Disponíves </th>
+                            <th> Delegação   </th>
+                            <th> Usuário delegado</th>
+                            <th> Completar</th>
+                            <th> Realizar Tarefa  </th>
                         </tr>
                     </thead>
                 <tbody>
@@ -34,11 +39,28 @@
                           <td><select  name="${task.getId()}">
                               <g:each in="${allusers}" status="j" var="user" >
                                   <option value="${user.id}"> ${user.getFirstName()} </option>
-
                               </g:each>
 
                               </select>
                           </td>
+                          <g:if test="${task.getDelegationState() == null}">
+                              <td>NÃO DELEGADA</td>
+                          </g:if>
+                          <g:else test="${task.getId() == null} && ${task.getDelegationState()=="PENDING"}">
+                              <td> PENDENTE</td>
+                          </g:else>
+
+                          <g:if test="${task.getAssignee() == null}">
+                              <td>SEM USUARIO</td>
+                          </g:if>
+                          <g:else test="${task.getId() == null}">
+                              <td>${task.getAssignee()}</td>
+                          </g:else>
+
+                        <td> <g:link action="completeTask" id="${task.getId()}" >Ok</g:link></td>
+
+                          <td><g:link action="doTask" id="${task.getId()}">Ir</g:link></td>
+
                       </tr>
                     </g:each>
                 </tbody>

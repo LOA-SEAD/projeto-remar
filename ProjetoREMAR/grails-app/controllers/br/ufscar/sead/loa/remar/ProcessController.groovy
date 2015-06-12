@@ -60,11 +60,18 @@ class ProcessController {
 
     }
 
+    def doTask(){
+        render 'TASK DO JOGO'
+
+    }
+
     def chooseUsersTasks(){
 
         List<User> allUsers = identityService.createUserQuery().list()
         List<Task> allTasks = taskService.createTaskQuery().processInstanceId(session.processId).list()
+        //println taskService.createTaskQuery().processInstanceId(session.processId).list()
 
+       // println allTasks.size()
 
         respond "",model:[allusers: allUsers, alltasks: allTasks]
 
@@ -77,13 +84,27 @@ class ProcessController {
     }
 */
 
+    def resolveTask(){
+
+
+    }
+
+    def completeTask(){
+        //println params.id
+
+        def task =  taskService.createTaskQuery().processInstanceId(session.processId).taskId(params.id).singleResult()
+        taskService.complete(task.id)
+        redirect(action: "chooseUsersTasks" ,controller: "process")
+
+    }
+
     def assignTasks(){
 
         //Authentication auth = identityService.getCurrentAuthentication()
         //println auth.getUserId()
         List<User> allUsers = identityService.createUserQuery().list()
         List<Task> allTasks2 = taskService.createTaskQuery().processInstanceId(session.processId).list()
-
+        allTasks2[2]
         //taskService.addUserIdentityLink("6841","lala", IdentityLinkType.ASSIGNEE)
         params.remove("action")
         params.remove("format")
@@ -105,8 +126,8 @@ class ProcessController {
           }
 
 
-
-        println params
+        redirect action: 'chooseUsersTasks'
+        //println params
 
 
     }

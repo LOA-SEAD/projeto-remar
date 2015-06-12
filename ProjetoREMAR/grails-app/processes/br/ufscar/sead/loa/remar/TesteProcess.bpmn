@@ -17,13 +17,9 @@
       <bpmn2:incoming>SequenceFlow_9</bpmn2:incoming>
       <bpmn2:incoming>SequenceFlow_10</bpmn2:incoming>
       <bpmn2:incoming>SequenceFlow_16</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_11</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
     </bpmn2:parallelGateway>
     <bpmn2:sequenceFlow id="SequenceFlow_9" name="" sourceRef="admin.test2" targetRef="ParallelGateway_2"/>
-    <bpmn2:endEvent id="EndEvent_2">
-      <bpmn2:incoming>SequenceFlow_11</bpmn2:incoming>
-    </bpmn2:endEvent>
-    <bpmn2:sequenceFlow id="SequenceFlow_11" name="" sourceRef="ParallelGateway_2" targetRef="EndEvent_2"/>
     <bpmn2:userTask id="admin.test" name="task1">
       <bpmn2:incoming>SequenceFlow_14</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_16</bpmn2:outgoing>
@@ -39,6 +35,15 @@
       <bpmn2:outgoing>SequenceFlow_10</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="SequenceFlow_10" name="" sourceRef="admin.test3" targetRef="ParallelGateway_2"/>
+    <bpmn2:endEvent id="EndEvent_2">
+      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:userTask id="admin.test4" name="task4">
+      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" name="" sourceRef="ParallelGateway_2" targetRef="admin.test4"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_2" name="" sourceRef="admin.test4" targetRef="EndEvent_2"/>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="TesteProcess">
@@ -102,19 +107,11 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_EndEvent_3" bpmnElement="EndEvent_2">
-        <dc:Bounds height="36.0" width="36.0" x="875.0" y="262.0"/>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_11" bpmnElement="SequenceFlow_11" sourceElement="_BPMNShape_ParallelGateway_3" targetElement="_BPMNShape_EndEvent_3">
-        <di:waypoint xsi:type="dc:Point" x="711.0" y="277.0"/>
-        <di:waypoint xsi:type="dc:Point" x="793.0" y="277.0"/>
-        <di:waypoint xsi:type="dc:Point" x="840.0" y="277.0"/>
-        <di:waypoint xsi:type="dc:Point" x="858.0" y="277.0"/>
-        <di:waypoint xsi:type="dc:Point" x="874.0" y="277.0"/>
-        <di:waypoint xsi:type="dc:Point" x="875.0" y="277.0"/>
+        <dc:Bounds height="36.0" width="36.0" x="1044.0" y="260.0"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="6.0" width="6.0" x="792.0" y="277.0"/>
+          <dc:Bounds height="0.0" width="0.0" x="1062.0" y="301.0"/>
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_UserTask_19" bpmnElement="admin.test">
         <dc:Bounds height="80.0" width="100.0" x="357.0" y="102.0"/>
       </bpmndi:BPMNShape>
@@ -131,6 +128,19 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds height="6.0" width="6.0" x="622.0" y="157.0"/>
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_20" bpmnElement="admin.test4">
+        <dc:Bounds height="80.0" width="100.0" x="823.0" y="237.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="_BPMNShape_ParallelGateway_3" targetElement="_BPMNShape_UserTask_20">
+        <di:waypoint xsi:type="dc:Point" x="711.0" y="277.0"/>
+        <di:waypoint xsi:type="dc:Point" x="823.0" y="277.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="_BPMNShape_UserTask_20" targetElement="_BPMNShape_EndEvent_3">
+        <di:waypoint xsi:type="dc:Point" x="923.0" y="277.0"/>
+        <di:waypoint xsi:type="dc:Point" x="983.0" y="277.0"/>
+        <di:waypoint xsi:type="dc:Point" x="983.0" y="278.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1044.0" y="278.0"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
