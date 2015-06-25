@@ -1,17 +1,22 @@
 package br.ufscar.sead.loa.remar
 
 import grails.plugin.springsecurity.annotation.Secured
+import grails.util.GrailsUtil
 import org.camunda.bpm.engine.IdentityService
+import org.camunda.bpm.engine.RepositoryService
 import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.TaskService
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.camunda.bpm.engine.delegate.ExecutionListener
+import org.camunda.bpm.engine.impl.RepositoryServiceImpl
 import org.camunda.bpm.engine.impl.identity.Authentication
+import org.camunda.bpm.engine.repository.DeploymentBuilder
 import org.camunda.bpm.engine.runtime.ProcessInstance
 import org.camunda.bpm.engine.task.IdentityLinkType
 import org.camunda.bpm.engine.task.Task
 import org.camunda.bpm.model.bpmn.Bpmn
 import org.camunda.bpm.model.bpmn.BpmnModelInstance
+import org.camunda.bpm.model.bpmn.builder.ProcessBuilder
 import org.camunda.bpm.model.bpmn.instance.FlowNode
 import org.camunda.bpm.model.bpmn.instance.SequenceFlow
 import org.camunda.bpm.model.bpmn.instance.ServiceTask
@@ -20,6 +25,9 @@ import org.camunda.bpm.model.xml.instance.ModelElementInstance
 import org.camunda.bpm.model.xml.type.ModelElementType
 import org.camunda.bpm.engine.identity.User
 import org.hibernate.SessionFactory
+import org.camunda.bpm.engine.*
+import org.camunda.bpm.engine.repository.*
+import org.camunda.bpm.model.bpmn.*
 
 
 @Secured(["ROLE_PROF"])
@@ -33,11 +41,15 @@ class ProcessController {
     User user
     Task task
     def springSecurityService
+    RepositoryService repositoryService
 
 
 
     def startNewProcess(){
-        session.processId =  runtimeService.startProcessInstanceByKey("TesteProcess").getId()
+
+
+        def name = params.name;
+        session.processId =  runtimeService.startProcessInstanceByKey(name + "Process").getId()
         session.userId = springSecurityService.getCurrentUser().getId()
 
         String currentUser = springSecurityService.getCurrentUser().camunda_id
@@ -57,6 +69,32 @@ class ProcessController {
                 redirect(uri: "http://localhost:8080/")
             }
         */
+
+    }
+
+    def test() {
+
+        BpmnModelInstance b = Bpmn.readModelFromFile(new File("/home/loa/Denis/remar-production/remar-production/tomcat/server/apache-tomcat-7.0.50/webapps/ROOT/process/Teste2.bpmn"))
+        DeploymentBuilder db = repositoryService.createDeployment()
+        db.addModelInstance("Teste2.bpmn", b)
+        Deployment depl = db.deploy()
+        println depl.getName()
+
+
+        println repositoryService.createDeploymentQuery().list()
+        
+        //repositoryService.getProcessDefinition("ForceProcess")
+
+        //ProcessBuilder pB = Bpmn.createProcess(b.getDefinitions().getId());
+
+        //DeploymentBuilder dB = RepositoryService.createDeployment()
+        //dB.addModelInstance("ArrozProcess", b);
+
+        //session.processId =  runtimeService.startProcessInstanceByKey("ArrozProcess").getId()
+
+       // println session.processId;
+
+
 
     }
 
@@ -132,7 +170,7 @@ class ProcessController {
 
     }
 
-    def test(){
+    def test2(){
         List<Task> allTasks2 = taskService.createTaskQuery().processInstanceId(session.processId).list()
 
         println "---- owners abaixo"
