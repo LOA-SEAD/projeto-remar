@@ -78,7 +78,7 @@
                     <div class="col-md-9">
 
                     <div class="content-wrapper wood-wrapper">
-                        <div class="content-inner">
+                        <div class="main-content">
                             <g:layoutBody/>
                         </div>
                     </div>
