@@ -73,8 +73,11 @@ class ProcessController {
     }
 
     def test() {
+        def rootPath = servletContext.getRealPath("/")
 
-        BpmnModelInstance b = Bpmn.readModelFromFile(new File("/home/loa/Denis/remar-production/remar-production/tomcat/server/apache-tomcat-7.0.50/webapps/ROOT/process/Teste2.bpmn"))
+        println rootPath
+
+        BpmnModelInstance b = Bpmn.readModelFromFile(new File("$rootPath/AaaProcess.bpmn"))
         DeploymentBuilder db = repositoryService.createDeployment()
         db.addModelInstance("Teste2.bpmn", b)
         Deployment depl = db.deploy()
