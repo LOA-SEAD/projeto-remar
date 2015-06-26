@@ -20,7 +20,7 @@ class User {
 		username blank: false, unique: true
 		password blank: false
 		name blank: false
-		email blank: false, email: true
+		email blank: false, email: true, unique: true
 		camunda_id nullable: true
 	}
 

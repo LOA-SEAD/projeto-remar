@@ -89,6 +89,9 @@ grails.hibernate.pass.readonly = false
 // configure passing read-only to OSIV session by default, requires "singleSession = false" OSIV mode
 grails.hibernate.osiv.readonly = false
 
+
+
+
 environments {
     development {
         grails.logging.jul.usebridge = true
@@ -96,10 +99,27 @@ environments {
         grails.app.context = "/"
         camundaWebapps = '/home/dexterorion/Desktop/camunda/server/apache-tomcat-7.0.50/webapps/'
 	camunda {
+        deployment.scenario = 'embedded'
             engine {
                 configuration {
+                    databaseSchemaUpdate = true
+                    jobExecutorActivate = false
+                    deploymentResources = ['classpath:/**/*.bpmn']
                     history = 'full'
                 }
+            }
+        }
+        grails {
+            mail {
+                host = "smtp.gmail.com"
+                port = 465
+                username = "loa.remar@gmail.com"
+                password = "L04_Remar!"
+                props = ["mail.smtp.auth":"true",
+                         "mail.smtp.socketFactory.port":"465",
+                         "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+                         "mail.smtp.socketFactory.fallback":"false"]
+
             }
         }
     }
@@ -108,9 +128,15 @@ environments {
 //        grails.serverURL = "http://localhost:8080"
         grails.app.context = "/"
         camunda {
+            deployment.autoreload = true
+            deployment.scenario = 'embedded'
             engine {
                 configuration {
+                    databaseSchemaUpdate = true
+                    deploymentResources = ['classpath:/**/*.bpmn']
+                    jobExecutorActivate = false
                     history = 'full'
+
                 }
             }
         }
@@ -145,6 +171,8 @@ grails.plugin.springsecurity.logout.postOnly = false
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'br.ufscar.sead.loa.remar.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'br.ufscar.sead.loa.remar.UserRole'
 grails.plugin.springsecurity.authority.className = 'br.ufscar.sead.loa.remar.Role'
+grails.plugin.springsecurity.successHandler.alwaysUseDefault = true
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/dashboard/check'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/':                              ['permitAll'],
     '/index':                         ['permitAll'],

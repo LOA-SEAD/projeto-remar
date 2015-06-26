@@ -34,6 +34,7 @@
 
                                 <p>
                                     <input type='submit' id="submit" class="btn btn-info btn-lg" value='${message(code: "springSecurity.login.button")}'/>
+                                    <g:link class="btn btn-success" controller="user" action="create">Criar Nova Conta</g:link>
                                 </p>
                             </div>
                         </form>

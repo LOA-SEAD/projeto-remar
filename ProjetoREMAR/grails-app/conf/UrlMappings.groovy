@@ -8,6 +8,7 @@ class UrlMappings {
         }
 
         "/"(controller:'/index')
+        '/user/email/confirm'(controller: 'user',action: 'confirmNewUser')
         "500"(view:'/error')
 	}
 }

@@ -22,22 +22,16 @@ class BootStrap {
             println "ROLE_ADMIN inserted"
         }
 
-        found = allRoles.findAll {it.authority == "ROLE_PROF"}
+        found = allRoles.findAll {it.authority == "ROLE_USER"}
         if (found == []) {
-            def profRole = new Role(authority: "ROLE_PROF").save flush: true
-            println "ROLE_PROF inserted"
+            def profRole = new Role(authority: "ROLE_USER").save flush: true
+            println "ROLE_USER inserted"
         }
 
         found = allRoles.findAll {it.authority == "ROLE_STUD"}
         if (found == []) {
             def studentRole = new Role(authority: "ROLE_STUD").save flush: true
             println "ROLE_STUD inserted"
-        }
-
-        found = allRoles.findAll {it.authority == "ROLE_EDITOR"}
-        if (found == []) {
-            def editorRole = new Role(authority: "ROLE_EDITOR").save flush: true
-            println "ROLE_EDITOR inserted"
         }
 
         found = allRoles.findAll {it.authority == "ROLE_DESENVOLVEDOR"}
@@ -59,9 +53,11 @@ class BootStrap {
             )
 
             org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
+
             camundaUser.setEmail(userInstance.email)
             camundaUser.setFirstName(userInstance.name)
             camundaUser.setPassword(userInstance.password)
+            camundaUser.setId(userInstance.id)
             identityService.saveUser(camundaUser)
 
             userInstance.camunda_id = camundaUser.getId()
