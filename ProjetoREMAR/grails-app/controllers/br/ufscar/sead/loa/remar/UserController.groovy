@@ -2,7 +2,6 @@ package br.ufscar.sead.loa.remar
 
 import grails.plugin.mail.MailService
 import org.apache.commons.lang.RandomStringUtils
-import org.apache.commons.mail.Email
 import org.camunda.bpm.engine.IdentityService
 import static org.springframework.http.HttpStatus.*
 import grails.plugin.springsecurity.annotation.Secured;
@@ -81,12 +80,52 @@ class UserController {
             subject "Confirmação de Cadastro"
             html '<h3>Clique no link abaixo para confirmar o cadastro</h3> <br>' +
                     '<br>' +
-                    'http://localhost:8080/user/email/confirm?Token=' + newToken.token
+                    'http://localhost:8080/user/email/confirm?Token=' + newToken.getToken()
         }
 
         println "metodo do email"
 
     }
+
+    def newPassword(){
+        // vai receber aqui a nova senha por post
+
+    }
+
+    def confirmEmail(){
+        if(PasswordToken.findByToken(params.Token)){
+            def userToChange = User.findById(EmailToken.findByToken(params.Token).idOwner)
+            redirect(action: "newPassword", params: [user: userToChange])
+
+        }
+    }
+
+    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
+    def checkEmail(){
+        if(User.findByEmail(params.email)){
+            User.findByEmail(params.email).passwordExpired = true
+            String charset =(('A') + ('0'..'9').join())
+            Integer length = 9
+            String randomString = RandomStringUtils.random(length, charset.toCharArray())
+            def newToken = new PasswordToken(token: randomString, idOwner: User.findByEmail(params.email).getId())
+            newToken.save flush: true
+
+            mailService.sendMail {
+                async true
+                to params.email
+                subject "Nova senha para o REMAR"
+                html '<h3>Clique no link abaixo para fazer uma nova senha</h3> <br>' +
+                        '<br>' +
+                        'http://localhost:8080/user/newpassword/confirm?Token=' + newToken.getToken()
+
+            }
+
+        }
+
+    }
+
+
+
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     @Transactional
     def save(User userInstance) {

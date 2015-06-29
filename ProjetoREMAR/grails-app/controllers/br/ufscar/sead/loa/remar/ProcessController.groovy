@@ -1,36 +1,24 @@
 package br.ufscar.sead.loa.remar
 
 import grails.plugin.springsecurity.annotation.Secured
-import grails.util.GrailsUtil
 import org.camunda.bpm.engine.IdentityService
+import org.camunda.bpm.engine.ProcessEngineException
 import org.camunda.bpm.engine.RepositoryService
 import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.TaskService
-import org.camunda.bpm.engine.delegate.DelegateExecution
-import org.camunda.bpm.engine.delegate.ExecutionListener
-import org.camunda.bpm.engine.impl.RepositoryServiceImpl
 import org.camunda.bpm.engine.impl.identity.Authentication
 import org.camunda.bpm.engine.repository.DeploymentBuilder
 import org.camunda.bpm.engine.runtime.ProcessInstance
-import org.camunda.bpm.engine.task.IdentityLinkType
 import org.camunda.bpm.engine.task.Task
 import org.camunda.bpm.model.bpmn.Bpmn
 import org.camunda.bpm.model.bpmn.BpmnModelInstance
-import org.camunda.bpm.model.bpmn.builder.ProcessBuilder
-import org.camunda.bpm.model.bpmn.instance.FlowNode
-import org.camunda.bpm.model.bpmn.instance.SequenceFlow
-import org.camunda.bpm.model.bpmn.instance.ServiceTask
-import org.camunda.bpm.model.bpmn.instance.UserTask
-import org.camunda.bpm.model.xml.instance.ModelElementInstance
-import org.camunda.bpm.model.xml.type.ModelElementType
 import org.camunda.bpm.engine.identity.User
-import org.hibernate.SessionFactory
-import org.camunda.bpm.engine.*
 import org.camunda.bpm.engine.repository.*
-import org.camunda.bpm.model.bpmn.*
 
 
-@Secured(["ROLE_PROF"])
+
+
+@Secured(["ROLE_ADMIN"])
 class ProcessController {
     IdentityService identityService
     RuntimeService runtimeService
@@ -42,6 +30,8 @@ class ProcessController {
     Task task
     def springSecurityService
     RepositoryService repositoryService
+    def processEngine
+    def grailsApplication
 
 
 
@@ -73,18 +63,14 @@ class ProcessController {
     }
 
     def test() {
-        def rootPath = servletContext.getRealPath("/")
-
-        println rootPath
-
-        BpmnModelInstance b = Bpmn.readModelFromFile(new File("$rootPath/AaaProcess.bpmn"))
+        BpmnModelInstance b = Bpmn.readModelFromFile(new File("/home/loa/Desktop/jujuuj.bpmn"))
         DeploymentBuilder db = repositoryService.createDeployment()
         db.addModelInstance("Teste2.bpmn", b)
         Deployment depl = db.deploy()
-        println depl.getName()
-
+        repositoryService.activateProcessDefinitionById()
 
         println repositoryService.createDeploymentQuery().list()
+        println ">>>" + repositoryService.createProcessDefinitionQuery().list()
         
         //repositoryService.getProcessDefinition("ForceProcess")
 
@@ -99,6 +85,26 @@ class ProcessController {
 
 
 
+    }
+
+    def testt() {
+        DeploymentBuilder deploymentBuilder = repositoryService
+                .createDeployment()
+                .enableDuplicateFiltering()
+                .name("GrailsHotDeployment")
+        File resource = new File("/home/loa/Desktop/jujuuj.bpmn")
+        String resourceName
+        try {
+            resourceName = resource.absolutePath
+        } catch (IOException e) {
+            resourceName = resource.name
+        }
+        try {
+            deploymentBuilder.addInputStream(resourceName, resource.newInputStream())
+        } catch (IOException e) {
+            throw new ProcessEngineException("couldn't auto deploy resource $resource: $e.message", e)
+        }
+        deploymentBuilder.deploy()
     }
 
     def doTask(){
