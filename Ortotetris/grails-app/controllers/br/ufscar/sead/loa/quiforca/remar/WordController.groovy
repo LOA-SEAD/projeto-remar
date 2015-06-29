@@ -13,21 +13,21 @@ class WordController {
 
     /* Funções que manipulam word e answer */
     def initialize_word(Word wordInstance){
-        String aux = ""+wordInstace.getAnswer()
-        if (wordInstace.getAnswer().length() < 10) {
-            for (int i = (10 - wordInstace.getAnswer().length()); i > 0; i--)
+        String aux = ""+wordInstance.getAnswer()
+        if (wordInstance.getAnswer().length() < 10) {
+            for (int i = (10 - wordInstance.getAnswer().length()); i > 0; i--)
                 aux+=("ì");
         }
-        wordInstace.setWord(aux)
-        wordInstace.setInitial_position(0)
+        wordInstance.setWord(aux)
+        wordInstance.setInitial_position(0)
     } //copia answer para word e completa word com 'ì' caso answer.lenght()<10
 
     def move_to_left(Word wordInstance) {
-        if (word.charAt(0) == 'ì') {
-            String aux = word.substring(1, 10);
+        if (wordInstance.getWord().charAt(0) == 'ì') {
+            String aux = wordInstance.getWord().substring(1, 10);
             aux+=("ì");
-            word = aux;
-            initial_position--;
+            wordInstance.setWord(aux)
+            wordInstance.setInitial_position(wordInstance.getInitial_position()-1)
         }
     }//move word para a esquerda
 
