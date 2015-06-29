@@ -172,11 +172,10 @@ grails.plugin.springsecurity.userLookup.userDomainClassName = 'br.ufscar.sead.lo
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'br.ufscar.sead.loa.remar.UserRole'
 grails.plugin.springsecurity.authority.className = 'br.ufscar.sead.loa.remar.Role'
 grails.plugin.springsecurity.successHandler.alwaysUseDefault = true
-grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/dashboard/check'
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/index'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/':                              ['permitAll'],
     '/index':                         ['permitAll'],
-    '/index.gsp':                     ['permitAll'],
     '/assets/**':                     ['permitAll'],
     '/**/js/**':                      ['permitAll'],
     '/**/css/**':                     ['permitAll'],
@@ -186,6 +185,6 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/**/scss/**':                    ['permitAll'],
     '/**/less/**':                    ['permitAll'],
     '/**/fonts/**':                   ['permitAll'],
-        '/password/**':                 ['permitAll'],
-    '/static/**':                 ['permitAll']
+    '/password/**':                   ['permitAll'],
+    '/static/**':                     ['permitAll']
 ]
