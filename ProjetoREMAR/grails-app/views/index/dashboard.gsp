@@ -15,6 +15,7 @@
     <title>Admin page</title>
 </head>
 <body>
+<h1>DASHBOARD</h1>
 <div class="page-header">
     <h1>Professor</h1>
 </div>
