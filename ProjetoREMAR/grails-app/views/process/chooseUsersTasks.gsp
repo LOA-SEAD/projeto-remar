@@ -43,13 +43,7 @@
 
                               </select>
                           </td>
-                          <g:if test="${task.getDelegationState() == null}">
-                              <td>NÃO DELEGADA</td>
-                          </g:if>
-                          <g:else test="${task.getId() == null} && ${task.getDelegationState()=="PENDING"}">
-                              <td> PENDENTE</td>
-                          </g:else>
-
+                              <td>${task.getDelegationState()}</td>
                           <g:if test="${task.getAssignee() == null}">
                               <td>SEM USUARIO</td>
                           </g:if>
