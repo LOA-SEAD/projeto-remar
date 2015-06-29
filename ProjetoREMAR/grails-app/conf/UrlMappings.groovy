@@ -9,14 +9,28 @@ class UrlMappings {
 
 
         "/"(controller:'index')
+
+        // begin user mappings
         '/user/email/confirm'(controller: 'user',action: 'confirmNewUser')
         '/user/newpassword/confirm'(controller: 'user',action: 'createPassword')
-        name resetPassword: "/password/reset"(view: "/static/forgottenPassword")
-        "500"(view:'/error')
+        // end user mappings
 
+        // begin password mappings
+        //noinspection GroovyAssignabilityCheck
+        name resetPassword: "/password/reset"(view: "/static/forgottenPassword")
+        // end password mappings
+
+        // begin Process API endpoints
         "/process/task/complete/$id"(controller:"process", action:"completeTask")
         "/process/task/resolve/$process/$id"(controller:"process", action:"resolveTask")
         "/process/task/delegate/$process/$id"(controller:"process", action:"delegateTasks")
+        // end Process API endpoints
+
+        // begin Deploy API endpoints
         "/deploy/review/$id/$status?"(controller:"deploy", action:"review")
+        // end Deploy API endpoints
+
+
+        "500"(view:'/error')
 	}
 }
