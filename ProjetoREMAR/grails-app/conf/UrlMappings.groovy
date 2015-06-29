@@ -10,7 +10,7 @@ class UrlMappings {
 
         "/"(controller:'/index')
         '/user/email/confirm'(controller: 'user',action: 'confirmNewUser')
-        '/user/newpassword/confirm'(controller: 'user',action: 'confirmEmail')
+        '/user/newpassword/confirm'(controller: 'user',action: 'createPassword')
         name resetPassword: "/password/reset"(view: "/static/forgottenPassword")
         "500"(view:'/error')
 
