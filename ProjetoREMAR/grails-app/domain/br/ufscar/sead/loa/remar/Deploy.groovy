@@ -1,13 +1,17 @@
 package br.ufscar.sead.loa.remar
 
 class Deploy {
-    static belongsTo = [desenvolvedor: User]
+    User owner
 
     static constraints = {
-        data_deploy (blank: false)
+        submittedAt blank: false
+        name blank: false
+        comment nullable: true, blank: true
     }
 
-    Date data_deploy
-    String id_deploy
-    String war_filename
+    Date submittedAt
+    String status
+    String name
+    String comment
+
 }
