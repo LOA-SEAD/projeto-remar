@@ -1,3 +1,4 @@
+import br.ufscar.sead.loa.remar.Platform
 import br.ufscar.sead.loa.remar.Role
 import br.ufscar.sead.loa.remar.UserRole
 import br.ufscar.sead.loa.remar.User
@@ -79,11 +80,14 @@ class BootStrap {
 //            identityService.createMembership(camundaUser.getId(), group.getId())
         }
 
-        // REDIS
+        def platforms = Platform.findAll();
 
-
-
-
+        if (platforms == []) {
+            new Platform(name: "Android").save flush: true
+            new Platform(name: "Linux").save flush: true
+            new Platform(name: "Web").save flush: true
+            new Platform(name: "Moodle").save flush: true
+        }
 
 
 
@@ -134,8 +138,8 @@ class BootStrap {
 //        def springContext = WebApplicationContextUtils.getWebApplicationContext(servletContext)
 //        springContext.getBean('marshallers').register();
 
-        println "Bootstrap: done"
 */
+        println "Bootstrap: done"
 
     }
     def destroy = {
