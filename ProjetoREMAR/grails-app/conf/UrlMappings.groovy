@@ -8,7 +8,7 @@ class UrlMappings {
         }
 
 
-        "/"(controller:'/index')
+        "/"(controller:'index')
         '/user/email/confirm'(controller: 'user',action: 'confirmNewUser')
         '/user/newpassword/confirm'(controller: 'user',action: 'createPassword')
         name resetPassword: "/password/reset"(view: "/static/forgottenPassword")
