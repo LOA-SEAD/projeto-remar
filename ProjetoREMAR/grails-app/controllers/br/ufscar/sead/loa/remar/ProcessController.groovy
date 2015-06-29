@@ -2,11 +2,11 @@ package br.ufscar.sead.loa.remar
 
 import grails.plugin.springsecurity.annotation.Secured
 import org.camunda.bpm.engine.IdentityService
-import org.camunda.bpm.engine.ProcessEngineException
 import org.camunda.bpm.engine.RepositoryService
 import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.TaskService
 import org.camunda.bpm.engine.impl.identity.Authentication
+import org.camunda.bpm.engine.impl.repository.DeploymentBuilderImpl
 import org.camunda.bpm.engine.repository.DeploymentBuilder
 import org.camunda.bpm.engine.runtime.ProcessInstance
 import org.camunda.bpm.engine.task.Task
@@ -14,11 +14,10 @@ import org.camunda.bpm.model.bpmn.Bpmn
 import org.camunda.bpm.model.bpmn.BpmnModelInstance
 import org.camunda.bpm.engine.identity.User
 import org.camunda.bpm.engine.repository.*
+import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl
 
 
-
-
-@Secured(["ROLE_ADMIN"])
+@Secured(["ROLE_PROF"])
 class ProcessController {
     IdentityService identityService
     RuntimeService runtimeService
@@ -30,16 +29,11 @@ class ProcessController {
     Task task
     def springSecurityService
     RepositoryService repositoryService
-    def processEngine
-    def grailsApplication
 
 
 
-    def startNewProcess(){
-
-
-        def name = params.name;
-        session.processId =  runtimeService.startProcessInstanceByKey(name + "Process").getId()
+    def start(){
+        session.processId =  runtimeService.startProcessInstanceByKey(params.id + "Process").getId()
         session.userId = springSecurityService.getCurrentUser().getId()
 
         String currentUser = springSecurityService.getCurrentUser().camunda_id
@@ -62,16 +56,25 @@ class ProcessController {
 
     }
 
-    def test() {
-        BpmnModelInstance b = Bpmn.readModelFromFile(new File("/home/loa/Desktop/jujuuj.bpmn"))
-        DeploymentBuilder db = repositoryService.createDeployment()
-        db.addModelInstance("Teste2.bpmn", b)
-        Deployment depl = db.deploy()
-        repositoryService.activateProcessDefinitionById()
+    @Secured(['ROLE_ADMIN'])
+    def deploy() {
+        def rootPath = servletContext.getRealPath("/")
+        def name = params.id + "Process"
+        def deployment = repositoryService.createDeploymentQuery().deploymentName(name).list()
 
-        println repositoryService.createDeploymentQuery().list()
-        println ">>>" + repositoryService.createProcessDefinitionQuery().list()
-        
+        if(deployment) {
+            repositoryService.deleteDeployment(deployment[0].id, true)
+        }
+
+        BpmnModelInstanceImpl bmi =  Bpmn.readModelFromFile(new File("$rootPath/processes/$name" + ".bpmn"));
+
+        DeploymentBuilderImpl db = repositoryService.createDeployment();
+        db.addModelInstance("${name}.bpmn", bmi);
+        db.name(name)
+
+        db.deploy();
+
+
         //repositoryService.getProcessDefinition("ForceProcess")
 
         //ProcessBuilder pB = Bpmn.createProcess(b.getDefinitions().getId());
@@ -84,27 +87,17 @@ class ProcessController {
        // println session.processId;
 
 
+        render "ok"
+
 
     }
 
-    def testt() {
-        DeploymentBuilder deploymentBuilder = repositoryService
-                .createDeployment()
-                .enableDuplicateFiltering()
-                .name("GrailsHotDeployment")
-        File resource = new File("/home/loa/Desktop/jujuuj.bpmn")
-        String resourceName
-        try {
-            resourceName = resource.absolutePath
-        } catch (IOException e) {
-            resourceName = resource.name
-        }
-        try {
-            deploymentBuilder.addInputStream(resourceName, resource.newInputStream())
-        } catch (IOException e) {
-            throw new ProcessEngineException("couldn't auto deploy resource $resource: $e.message", e)
-        }
-        deploymentBuilder.deploy()
+    @Secured(['ROLE_ADMIN'])
+    def undeploy() {
+        println params.id
+        repositoryService.deleteDeployment(params.id + "Process", true)
+
+        render "ok"
     }
 
     def doTask(){
@@ -117,6 +110,7 @@ class ProcessController {
         List<User> allUsers = identityService.createUserQuery().list()
         List<Task> allTasks = taskService.createTaskQuery().processInstanceId(session.processId).list()
         //println taskService.createTaskQuery().processInstanceId(session.processId).list()
+        println session.processId
 
        // println allTasks.size()
 
@@ -131,21 +125,22 @@ class ProcessController {
     }
 */
 
-    def resolveTask(){
-
-
-    }
-
     def completeTask(){
         //println params.id
 
         def task =  taskService.createTaskQuery().processInstanceId(session.processId).taskId(params.id).singleResult()
         taskService.complete(task.id)
-        redirect(action: "chooseUsersTasks" ,controller: "process")
-
     }
 
-    def assignTasks(){
+    def resolveTask(){
+        println params.process
+        println params.id
+
+        def task =  taskService.createTaskQuery().processInstanceId(params.process).taskId(params.id).singleResult()
+        taskService.resolveTask(task.id)
+    }
+
+    def delegateTasks(){
 
         //Authentication auth = identityService.getCurrentAuthentication()
         //println auth.getUserId()
