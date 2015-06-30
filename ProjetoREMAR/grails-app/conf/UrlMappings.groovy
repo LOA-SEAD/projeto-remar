@@ -20,6 +20,7 @@ class UrlMappings {
         // begin password mappings
         //noinspection GroovyAssignabilityCheck
         name resetPassword: "/password/reset"(view: "/static/forgottenPassword")
+
         // end password mappings
 
         // begin Process API endpoints
