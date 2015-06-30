@@ -11,10 +11,10 @@
 </div>
 <div class="main-content">
     <div class="widget">
-        <h3 class="section-title first-title"><i class="icon-user"></i> Criação de Nova Senha</h3>
+        <h3 class="section-title first-title"><i class="icon-user"></i> Nova Senha</h3>
         <div class="widget-content-white glossed">
             <div class="padded">
-               <h2 class="section-title ">Tenha alterada com sucesso! </h2>
+                <h2 class="section-title ">Link para nova senha enviado por email </h2>
                 <g:link class="btn btn-success" controller="index" action="index">Home</g:link>
             </div>
         </div>

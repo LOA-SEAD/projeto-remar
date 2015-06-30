@@ -86,24 +86,39 @@ class UserController {
         println "metodo do email"
 
     }
-
+    @Transactional(readOnly=false)
+    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def newPassword(){
         // vai receber aqui a nova senha por post
-
-    }
-
-    def confirmEmail(){
-        if(PasswordToken.findByToken(params.Token)){
-            def userToChange = User.findById(EmailToken.findByToken(params.Token).idOwner)
-            redirect(action: "newPassword", params: [user: userToChange])
+        println params
+        if(params.newPassword == params.confirmPassword){
+            def user = User.findById(params.userid)
+//            user.passwordExpired = false      NAO!
+            user.password = params.confirmPassword
+            println "password alterado"
 
         }
+
     }
 
+    @Transactional(readOnly=false)
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
-    def checkEmail(){
+    def createPassword(){
+        if(PasswordToken.findByToken(params.Token)){
+            def userToChange = User.findById(PasswordToken.findByToken(params.Token).idOwner)
+            respond("", model: [user: userToChange.id])
+
+        }
+        else{
+            // renderizar pagina de erro, token errado
+            render "token errado ou expirado"
+        }
+    }
+    @Transactional(readOnly=false)
+    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
+    def confirmEmail(){
         if(User.findByEmail(params.email)){
-            User.findByEmail(params.email).passwordExpired = true
+            //User.findByEmail(params.email).passwordExpired = true  NAO!
             String charset =(('A') + ('0'..'9').join())
             Integer length = 9
             String randomString = RandomStringUtils.random(length, charset.toCharArray())
@@ -122,6 +137,7 @@ class UserController {
 
         }
 
+       render(view: "/static/emailsent")
     }
 
 

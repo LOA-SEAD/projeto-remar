@@ -7,21 +7,26 @@
 
 <body>
 <div class="page-header">
-    <h1> Página de Login</h1>
+    <h1> Nova senha</h1>
 </div>
 <div class="main-content">
     <div class="widget">
-        <h3 class="section-title first-title"><i class="icon-user"></i> Confirme o email</h3>
+        <h3 class="section-title first-title"><i class="icon-user"></i> Criação de Nova Senha</h3>
         <div class="widget-content-white glossed">
             <div class="padded">
                 <g:if test='${flash.message}'>
                     <div class='login_message'>${flash.message}</div>
                 </g:if>
-                <g:form action="confirmEmail" controller="user" method='POST' class='cssform' autocomplete='off'>
+                <g:form action="newPassword" controller="user" method='POST' class='cssform' autocomplete='off'>
                     <div class="form-group">
-                        <label for="username">Email:</label>
-                        <input type="text" class="form-control" name="email" id="email" required=""/>
+                        <label for="newPassword">Nova senha:</label>
+                        <input type="password" class="form-control" name="newPassword" id="newPassword" required=""/>
                     </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirme Nova Senha:</label>
+                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" required=""/>
+                    </div>
+                        <input type="hidden" name="userid" value="${user}" />
                     <div>
                         <p>
                             <input type='submit' id="submit" class="btn btn-info btn-lg" value="Enviar"/>
