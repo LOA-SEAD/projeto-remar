@@ -7,8 +7,10 @@ class UrlMappings {
             }
         }
 
-
+        // begin index mappings
         "/"(controller:'index')
+        "/dashboard"(controller: "index", action: "dashboard")
+        // end index mappings
 
         // begin user mappings
         '/user/email/confirm'(controller: 'user',action: 'confirmNewUser')
