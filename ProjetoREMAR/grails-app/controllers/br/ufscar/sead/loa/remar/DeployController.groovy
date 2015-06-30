@@ -92,7 +92,13 @@ class DeployController {
         if (status == "approve" && deploy.status != "approved") {
             deploy.status  = "approved"
 
-            new Game(name: deploy.name, active: true, version: 0).save flush: true
+            def game = new Game(name: deploy.name, active: true, version: 0, owner: deploy.owner)
+            def platforms = Platform.list() // TODO: logic to select platforms
+            game.addToPlatforms(platforms[0])
+            game.addToPlatforms(platforms[1])
+            game.addToPlatforms(platforms[2])
+            game.addToPlatforms(platforms[3])
+            game.save flush: true
 
             mailService.sendMail {
                 async true
