@@ -22,22 +22,26 @@ class WordController {
         wordInstance.setInitial_position(0)
     } //copia answer para word e completa word com 'ì' caso answer.lenght()<10
 
-    def move_to_left(Word wordInstance) {
-        if (wordInstance.getWord().charAt(0) == 'ì') {
-            String aux = wordInstance.getWord().substring(1, 10)
+    @Transactional
+    def move_to_left() {
+        if (Word.findById(params.id).getWord().charAt(0) == 'ì') {
+            String aux = Word.findById(params.id).getWord().substring(1, 10)
             aux+=("ì")
-            wordInstance.setWord(aux)
-            wordInstance.setInitial_position(wordInstance.getInitial_position()-1)
+            Word.findById(params.id).setWord(aux)
+            Word.findById(params.id).setInitial_position(Word.findById(params.id).getInitial_position()-1)
         }
+        update(Word.findById(params.id))
     }//move word para a esquerda
 
-    def move_to_right(Word wordInstance) {
-        if (wordInstance.getWord().charAt(9) == 'ì') {
+    @Transactional
+    def move_to_right() {
+        if (Word.findById(params.id).getWord().charAt(9) == 'ì') {
             String aux = "ì"
-            aux+=(wordInstance.getWord().substring(0, 9))
-            wordInstance.setWord(aux)
-            wordInstance.setInitial_position(wordInstance.getInitial_position()+1)
+            aux+=(Word.findById(params.id).getWord().substring(0, 9))
+            Word.findById(params.id).setWord(aux)
+            Word.findById(params.id).setInitial_position(Word.findById(params.id).getInitial_position()+1)
         }
+        update(Word.findById(params.id))
     }//move word para a direita
 
     def mark_letter(Word wordInstance, int position) {
