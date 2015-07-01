@@ -19,7 +19,7 @@
 
         <body>
 
-            <g:form action="assignTasks" >
+            <g:form action="delegateTasks" >
                 <table>
                     <p> <h2>Tarefas Disponiveis no momento</h2></p>
                     <thead>
