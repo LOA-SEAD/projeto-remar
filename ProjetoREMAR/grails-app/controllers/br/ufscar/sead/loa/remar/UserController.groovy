@@ -4,7 +4,7 @@ import grails.plugin.mail.MailService
 import org.apache.commons.lang.RandomStringUtils
 import org.camunda.bpm.engine.IdentityService
 import static org.springframework.http.HttpStatus.*
-import grails.plugin.springsecurity.annotation.Secured;
+import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 
 
@@ -34,16 +34,20 @@ class UserController {
         respond new User(params), model:[admin: false, stud: false, dev: false, source: "create"]
     }
 
+    @Secured(["ROLE_ADMIN","ROLE_STUD","ROLE_USER","ROLE_DESENVOLVEDOR"])
     @Transactional(readOnly=false)
     def saveCamundaDB(userInstance){
 
         org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
-        camundaUser.setEmail(userInstance.email)
-        camundaUser.setFirstName(userInstance.name)
-        camundaUser.setPassword(userInstance.password)
-        userInstance.camunda_id = camundaUser.getId()
-        identityService.saveUser(camundaUser)
-
+        if(camundaUser.firstName == null) {
+            camundaUser.setEmail(userInstance.email)
+            camundaUser.setFirstName(userInstance.name)
+            camundaUser.setPassword(userInstance.password)
+            userInstance.camunda_id = camundaUser.getId()
+            identityService.saveUser(camundaUser)
+        }
+        else
+            redirect(controller: 'index')
     }
     @Transactional(readOnly=false)
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
@@ -58,7 +62,7 @@ class UserController {
             currentNewUser.save()
             saveCamundaDB(currentNewUser)
             println "Token correto - cadastro liberado"
-            redirect(controller: "dashboard", action: "index")
+            render(view: '/static/emailuser')
         }
         else
             render "deu errado! :("

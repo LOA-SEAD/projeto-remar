@@ -15,6 +15,7 @@ class UrlMappings {
         // begin user mappings
         '/user/email/confirm'(controller: 'user',action: 'confirmNewUser')
         '/user/newpassword/confirm'(controller: 'user',action: 'createPassword')
+        '/user/confirmation'(view: '/static/emailuser')
         // end user mappings
 
         // begin password mappings
