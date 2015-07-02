@@ -65,6 +65,16 @@
 				<input type="hidden" name="id" value="${wordInstance.id}"/>
 				<input type="submit" value="Mover para esquerda" />
 			</g:form>
+			<g:form controller="word" action="mark_letter">
+				<input type="hidden" name="id" value="${wordInstance.id}"/>
+				<input type="number" name="pos" value="pos"/>
+				<input type="submit" value="Esconder letra" />
+			</g:form>
+			<g:form controller="word" action="clear_position">
+				<input type="hidden" name="id" value="${wordInstance.id}"/>
+				<input type="number" name="pos" value="pos"/>
+				<input type="submit" value="Mostrar letra" />
+			</g:form>
 		</div>
 	</body>
 </html>

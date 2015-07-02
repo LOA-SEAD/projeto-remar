@@ -29,8 +29,10 @@ class WordController {
             aux+=("ì")
             Word.findById(params.id).setWord(aux)
             Word.findById(params.id).setInitial_position(Word.findById(params.id).getInitial_position()-1)
+            update(Word.findById(params.id))
         }
-        update(Word.findById(params.id))
+        else
+            redirect(action: show(Word.findById(params.id)))
     }//move word para a esquerda
 
     @Transactional
@@ -40,28 +42,42 @@ class WordController {
             aux+=(Word.findById(params.id).getWord().substring(0, 9))
             Word.findById(params.id).setWord(aux)
             Word.findById(params.id).setInitial_position(Word.findById(params.id).getInitial_position()+1)
+            update(Word.findById(params.id))
         }
-        update(Word.findById(params.id))
+        else
+            redirect(action: show(Word.findById(params.id)))
     }//move word para a direita
 
-    def mark_letter(Word wordInstance, int position) {
-        if ((position-1 >= wordInstance.getInitial_position()) && (position-1 <= wordInstance.getInitial_position() + wordInstance.getAnswer().length()-1)) {
+    @Transactional
+    def mark_letter() {
+        String teste = params.pos
+        int position = teste.toInteger()
+        if ((position-1 >= Word.findById(params.id).getInitial_position()) && (position-1 <= Word.findById(params.id).getInitial_position() + Word.findById(params.id).getAnswer().length()-1)) {
             String aux
-            aux = wordInstance.getWord().substring(0, position-1)
+            aux = Word.findById(params.id).getWord().substring(0, position-1)
             aux+=("0")
-            aux+=(wordInstance.getWord().substring(position, 10))
-            wordInstance.setWord(aux)
+            aux+=(Word.findById(params.id).getWord().substring(position, 10))
+            Word.findById(params.id).setWord(aux)
+            update(Word.findById(params.id))
         }
+        else
+            redirect(action: show(Word.findById(params.id)))
     }//marca o caractere como '0' (esconde o caractere)
 
-    def clear_position(Word wordInstance, int position) {
-        if ((position-1 >= wordInstance.getInitial_position()) && (position-1 <= wordInstance.getInitial_position() + wordInstance.getAnswer().length()-1)) {
+    @Transactional
+    def clear_position() {
+        String teste = params.pos
+        int position = teste.toInteger()
+        if ((position-1 >= Word.findById(params.id).getInitial_position()) && (position-1 <= Word.findById(params.id).getInitial_position() + Word.findById(params.id).getAnswer().length()-1)) {
             String aux
-            aux = wordInstance.getWord().substring(0, position-1)
-            aux+=(wordInstance.getAnswer().charAt(position - initial_position-1))
-            aux+=((wordInstance.getWord().substring(position, 10)))
-            wordInstance.setWord(aux)
+            aux = Word.findById(params.id).getWord().substring(0, position-1)
+            aux+=(Word.findById(params.id).getAnswer().charAt(position - Word.findById(params.id).getInitial_position()-1))
+            aux+=((Word.findById(params.id).getWord().substring(position, 10)))
+            Word.findById(params.id).setWord(aux)
+            update(Word.findById(params.id))
         }
+        else
+            redirect(action: show(Word.findById(params.id)))
     }//acessa answer e recupera o caractere que havia sido escondido
 
 
