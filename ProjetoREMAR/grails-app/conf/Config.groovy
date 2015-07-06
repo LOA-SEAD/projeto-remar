@@ -187,5 +187,6 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/**/less/**':                    ['permitAll'],
     '/**/fonts/**':                   ['permitAll'],
     '/password/**':                   ['permitAll'],
+    '/moodle/**':                     ['permitAll'],
     '/static/**':                     ['permitAll']
 ]
