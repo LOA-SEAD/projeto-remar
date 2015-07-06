@@ -23,23 +23,23 @@
 			<table>
 			<thead>
 					<tr>
-					
+
 						<g:sortableColumn property="answer" title="${message(code: 'word.answer.label', default: 'Answer')}" />
-					
+
 						<g:sortableColumn property="word" title="${message(code: 'word.word.label', default: 'Word')}" />
-					
+
 						<g:sortableColumn property="initial_position" title="${message(code: 'word.initial_position.label', default: 'Initialposition')}" />
-					
+
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${wordInstanceList}" status="i" var="wordInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
+
 						<td><g:link action="show" id="${wordInstance.id}">${fieldValue(bean: wordInstance, field: "answer")}</g:link></td>
-					
+
 						<td>${fieldValue(bean: wordInstance, field: "word")}</td>
-					
+
 						<td>${fieldValue(bean: wordInstance, field: "initial_position")}</td>
 
 					</tr>

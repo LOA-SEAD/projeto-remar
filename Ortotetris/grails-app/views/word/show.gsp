@@ -22,34 +22,34 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<ol class="property-list word">
-			
+
 				<g:if test="${wordInstance?.answer}">
 				<li class="fieldcontain">
 					<span id="answer-label" class="property-label"><g:message code="word.answer.label" default="Answer" /></span>
-					
+
 						<span class="property-value" aria-labelledby="answer-label"><g:fieldValue bean="${wordInstance}" field="answer"/></span>
-					
+
 				</li>
 				</g:if>
-			
+
 				<g:if test="${wordInstance?.word}">
 				<li class="fieldcontain">
 					<span id="word-label" class="property-label"><g:message code="word.word.label" default="Word" /></span>
-					
+
 						<span class="property-value" aria-labelledby="word-label"><g:fieldValue bean="${wordInstance}" field="word"/></span>
-					
+
 				</li>
 				</g:if>
-			
+
 				<g:if test="${wordInstance?.initial_position}">
 				<li class="fieldcontain">
 					<span id="initial_position-label" class="property-label"><g:message code="word.initial_position.label" default="Initialposition" /></span>
-					
+
 						<span class="property-value" aria-labelledby="initial_position-label"><g:fieldValue bean="${wordInstance}" field="initial_position"/></span>
-					
+
 				</li>
 				</g:if>
-			
+
 			</ol>
 			<g:form url="[resource:wordInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">

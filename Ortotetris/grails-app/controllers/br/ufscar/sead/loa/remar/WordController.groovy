@@ -24,60 +24,64 @@ class WordController {
 
     @Transactional
     def move_to_left() {
-        if (Word.findById(params.id).getWord().charAt(0) == 'ì') {
-            String aux = Word.findById(params.id).getWord().substring(1, 10)
+        Word wordInstance = Word.findById(params.id)
+        if (wordInstance.getWord().charAt(0) == 'ì') {
+            String aux = wordInstance.getWord().substring(1, 10)
             aux+=("ì")
-            Word.findById(params.id).setWord(aux)
-            Word.findById(params.id).setInitial_position(Word.findById(params.id).getInitial_position()-1)
+            wordInstance.setWord(aux)
+            wordInstance.setInitial_position(wordInstance.getInitial_position()-1)
             update(Word.findById(params.id))
         }
         else
-            redirect(action: show(Word.findById(params.id)))
+            redirect(action: show(wordInstance))
     }//move word para a esquerda
 
     @Transactional
     def move_to_right() {
-        if (Word.findById(params.id).getWord().charAt(9) == 'ì') {
+        Word wordInstance = Word.findById(params.id)
+        if (wordInstance.getWord().charAt(9) == 'ì') {
             String aux = "ì"
-            aux+=(Word.findById(params.id).getWord().substring(0, 9))
-            Word.findById(params.id).setWord(aux)
-            Word.findById(params.id).setInitial_position(Word.findById(params.id).getInitial_position()+1)
-            update(Word.findById(params.id))
+            aux+=(wordInstance.getWord().substring(0, 9))
+            wordInstance.setWord(aux)
+            wordInstance.setInitial_position(wordInstance.getInitial_position()+1)
+            update(wordInstance)
         }
         else
-            redirect(action: show(Word.findById(params.id)))
+            redirect(action: show(wordInstance))
     }//move word para a direita
 
     @Transactional
     def mark_letter() {
+        Word wordInstance = Word.findById(params.id)
         String teste = params.pos
         int position = teste.toInteger()
-        if ((position-1 >= Word.findById(params.id).getInitial_position()) && (position-1 <= Word.findById(params.id).getInitial_position() + Word.findById(params.id).getAnswer().length()-1)) {
+        if ((position-1 >= wordInstance.getInitial_position()) && (position-1 <= wordInstance.getInitial_position() + wordInstance.getAnswer().length()-1)) {
             String aux
-            aux = Word.findById(params.id).getWord().substring(0, position-1)
+            aux = wordInstance.getWord().substring(0, position-1)
             aux+=("0")
-            aux+=(Word.findById(params.id).getWord().substring(position, 10))
-            Word.findById(params.id).setWord(aux)
-            update(Word.findById(params.id))
+            aux+=(wordInstance.getWord().substring(position, 10))
+            wordInstance.setWord(aux)
+            update(wordInstance)
         }
         else
-            redirect(action: show(Word.findById(params.id)))
+            redirect(action: show(wordInstance))
     }//marca o caractere como '0' (esconde o caractere)
 
     @Transactional
     def clear_position() {
+        Word wordInstance = Word.findById(params.id)
         String teste = params.pos
         int position = teste.toInteger()
-        if ((position-1 >= Word.findById(params.id).getInitial_position()) && (position-1 <= Word.findById(params.id).getInitial_position() + Word.findById(params.id).getAnswer().length()-1)) {
+        if ((position-1 >= wordInstance.getInitial_position()) && (position-1 <= wordInstance.getInitial_position() + wordInstance.getAnswer().length()-1)) {
             String aux
-            aux = Word.findById(params.id).getWord().substring(0, position-1)
-            aux+=(Word.findById(params.id).getAnswer().charAt(position - Word.findById(params.id).getInitial_position()-1))
-            aux+=((Word.findById(params.id).getWord().substring(position, 10)))
-            Word.findById(params.id).setWord(aux)
-            update(Word.findById(params.id))
+            aux = wordInstance.getWord().substring(0, position-1)
+            aux+=(wordInstance.getAnswer().charAt(position - wordInstance.getInitial_position()-1).toUpperCase())
+            aux+=((wordInstance.getWord().substring(position, 10)))
+            wordInstance.setWord(aux)
+            update(wordInstance)
         }
         else
-            redirect(action: show(Word.findById(params.id)))
+            redirect(action: show(wordInstance))
     }//acessa answer e recupera o caractere que havia sido escondido
 
     def toJsonAnswer() {
