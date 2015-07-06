@@ -1,10 +1,10 @@
-package br.ufscar.sead.loa.quiforca.remar
+package br.ufscar.sead.loa.remar
 
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
-
-
+import grails.converters.JSON
+import groovy.json.JsonBuilder
 
 @Transactional(readOnly = true)
 class WordController {
@@ -80,6 +80,30 @@ class WordController {
             redirect(action: show(Word.findById(params.id)))
     }//acessa answer e recupera o caractere que havia sido escondido
 
+    def toJsonWord() {
+        def list = Word.getAll();
+        //def list = Word.getAll(params.id? params.id.split(',').toList() : null)
+        def builder = new JsonBuilder()
+        def json = builder (
+                list.collect {p ->
+                     [[p.getAnswer().toUpperCase()]]
+                }
+        )
+
+        render builder.toString()
+        def dataPath = servletContext.getRealPath("/data")
+
+
+        def fileName = "ortotetris.json"
+
+        File file = new File("$fileName");
+        PrintWriter pw = new PrintWriter(file);
+        pw.write("{\n \t\"c2array\": true,\n\t\"size\":[" + list.size() +",1,1],\n\t\"data\":[\n")
+        pw.write(builder.toString());
+        pw.write("\n}")
+        pw.close();
+
+    }
 
 
     def index(Integer max) {

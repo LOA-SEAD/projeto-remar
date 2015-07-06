@@ -1,5 +1,5 @@
 
-<%@ page import="br.ufscar.sead.loa.quiforca.remar.Word" %>
+<%@ page import="br.ufscar.sead.loa.remar.Word" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -74,6 +74,9 @@
 				<input type="hidden" name="id" value="${wordInstance.id}"/>
 				<input type="number" name="pos" value="pos"/>
 				<input type="submit" value="Mostrar letra" />
+			</g:form>
+			<g:form controller="word" action="toJsonWord">
+				<input type="submit" value="ToJson" />
 			</g:form>
 		</div>
 	</body>
