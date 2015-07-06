@@ -13,7 +13,7 @@ class WordController {
 
     /* Funções que manipulam word e answer */
     def initialize_word(Word wordInstance){
-        String aux = ""+wordInstance.getAnswer()
+        String aux = ""+wordInstance.getAnswer().toUpperCase()
         if (wordInstance.getAnswer().length() < 10) {
             for (int i = (10 - wordInstance.getAnswer().length()); i > 0; i--)
                 aux+=("ì")
@@ -80,29 +80,34 @@ class WordController {
             redirect(action: show(Word.findById(params.id)))
     }//acessa answer e recupera o caractere que havia sido escondido
 
-    def toJsonWord() {
+    def toJsonAnswer() {
         def list = Word.getAll();
-        //def list = Word.getAll(params.id? params.id.split(',').toList() : null)
-        def builder = new JsonBuilder()
-        def json = builder (
-                list.collect {p ->
-                     [[p.getAnswer().toUpperCase()]]
-                }
-        )
-
-        render builder.toString()
-        def dataPath = servletContext.getRealPath("/data")
-
-
-        def fileName = "ortotetris.json"
+        def fileName = "gabarito.json"
 
         File file = new File("$fileName");
         PrintWriter pw = new PrintWriter(file);
-        pw.write("{\n \t\"c2array\": true,\n\t\"size\":[" + list.size() +",1,1],\n\t\"data\":[\n")
-        pw.write(builder.toString());
+        pw.write("{\n \t\"c2array\": true,\n\t\"size\":[" + list.size() +",1,1],\n\t\"data\":[\n\t\t    ")
+        for(int i=0;i<list.size()-1;i++)
+            pw.write("[["+list[i].getAnswer().toUpperCase()+"]],")
+        pw.write("[["+list[list.size()-1].getAnswer().toUpperCase()+"]]\n\t       ]")
         pw.write("\n}")
         pw.close();
+        redirect action: "index"
 
+    }
+
+    def toJsonWord() {
+        def list = Word.getAll();
+        def fileName = "palavras.json"
+        File file = new File("$fileName");
+        PrintWriter pw = new PrintWriter(file);
+        pw.write("{\n \t\"c2array\": true,\n\t\"size\":[" + list.size() +",1,1],\n\t\"data\":[\n\t\t    ")
+        for(int i=0;i<list.size()-1;i++)
+            pw.write("[["+list[i].getWord()+"]],")
+        pw.write("[["+list[list.size()-1].getWord()+"]]\n\t       ]")
+        pw.write("\n}")
+        pw.close();
+        redirect action: "index"
     }
 
 

@@ -41,7 +41,7 @@
 						<td>${fieldValue(bean: wordInstance, field: "word")}</td>
 					
 						<td>${fieldValue(bean: wordInstance, field: "initial_position")}</td>
-					
+
 					</tr>
 				</g:each>
 				</tbody>
@@ -49,6 +49,12 @@
 			<div class="pagination">
 				<g:paginate total="${wordInstanceCount ?: 0}" />
 			</div>
+			<g:form controller="word" action="toJsonAnswer">
+				<input type="submit" value="ToJsonAnswer" />
+			</g:form>
+			<g:form controller="word" action="toJsonWord">
+				<input type="submit" value="ToJsonWord" />
+			</g:form>
 		</div>
 	</body>
 </html>
