@@ -6,6 +6,7 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'word.label', default: 'Word')}" />
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
+		%{--<link rel="stylesheet" href="/Ortotetris/web-app/css">--}%
 	</head>
 	<body>
 		<a href="#show-word" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -22,6 +23,17 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<ol class="property-list word">
+
+				<button type="button" class="btn btn-default">${wordInstance.word[0]}</button>
+				<button type="button" class="btn btn-default">${wordInstance.word[1]}</button>
+				<button type="button" class="btn btn-default">${wordInstance.word[2]}</button>
+				<button type="button" class="btn btn-default">${wordInstance.word[3]}</button>
+				<button type="button" class="btn btn-default">${wordInstance.word[4]}</button>
+				<button type="button" class="btn btn-default">${wordInstance.word[5]}</button>
+				<button type="button" class="btn btn-default">${wordInstance.word[6]}</button>
+				<button type="button" class="btn btn-default">${wordInstance.word[7]}</button>
+				<button type="button" class="btn btn-default">${wordInstance.word[8]}</button>
+				<button type="button" class="btn btn-default">${wordInstance.word[9]}</button>
 
 				<g:if test="${wordInstance?.answer}">
 				<li class="fieldcontain">
@@ -55,6 +67,8 @@
 				<fieldset class="buttons">
 					<g:link class="edit" action="edit" resource="${wordInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					<g:actionSubmit action="move_to_right" value="Move to right"></g:actionSubmit>
+					<g:actionSubmit action="move_to_left" value="Move to left"></g:actionSubmit>
 				</fieldset>
 			</g:form>
 			<g:form controller="word" action="move_to_right">

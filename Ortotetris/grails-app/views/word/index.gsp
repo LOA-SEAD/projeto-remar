@@ -15,7 +15,7 @@
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
-		<div id="list-word" class="content scaffold-list" role="main">
+		<div style="width:450px; height:350px; overflow: auto;" id="list-word" class="content scaffold-list" role="main" >
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
@@ -36,11 +36,10 @@
 				<g:each in="${wordInstanceList}" status="i" var="wordInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-						<td><g:link action="show" id="${wordInstance.id}">${fieldValue(bean: wordInstance, field: "answer")}</g:link></td>
-
+						<td><g:link action="show" id="${wordInstance.id}">${wordInstance.answer.toUpperCase()} </g:link></td>
 						<td>${fieldValue(bean: wordInstance, field: "word")}</td>
-
 						<td>${fieldValue(bean: wordInstance, field: "initial_position")}</td>
+
 
 					</tr>
 				</g:each>
@@ -49,12 +48,12 @@
 			<div class="pagination">
 				<g:paginate total="${wordInstanceCount ?: 0}" />
 			</div>
-			<g:form controller="word" action="toJsonAnswer">
-				<input type="submit" value="ToJsonAnswer" />
-			</g:form>
-			<g:form controller="word" action="toJsonWord">
-				<input type="submit" value="ToJsonWord" />
-			</g:form>
 		</div>
+		<g:form controller="word" action="toJsonAnswer">
+			<input type="submit" value="ToJsonAnswer" />
+		</g:form>
+		<g:form controller="word" action="toJsonWord">
+			<input type="submit" value="ToJsonWord" />
+		</g:form>
 	</body>
 </html>

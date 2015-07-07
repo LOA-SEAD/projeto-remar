@@ -140,7 +140,7 @@ class WordController {
             return
         }
 
-        initialize_word(wordInstance)
+        initialize_word(wordInstance) //inicializa a word conforme a answer passada como parâmetro
 
         wordInstance.save flush:true
 

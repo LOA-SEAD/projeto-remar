@@ -1,7 +1,7 @@
 {
  	"c2array": true,
-	"size":[4,1,1],
+	"size":[10,1,1],
 	"data":[
-		    [[MACARRÃO]],[[AÇAI]],[[CACHORRO]],[[ABACAXI]]
+		    [[MACARRÃO]],[[AÇAI]],[[CACHORRO]],[[ABACAXI]],[[MAÇÃ]],[[LOCAÇÃO]],[[EXCITAÇÃO]],[[EXPULSÃO]],[[SENSATEZ]],[[MAUSOLÉU]]
 	       ]
 }
