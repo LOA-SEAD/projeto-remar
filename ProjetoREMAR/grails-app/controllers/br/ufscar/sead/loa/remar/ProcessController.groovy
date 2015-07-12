@@ -35,8 +35,12 @@ class ProcessController {
 
     @Secured(["ROLE_ADMIN","ROLE_STUD","ROLE_USER"])
     def start(){
-        session.processId =  runtimeService.startProcessInstanceByKey(params.id + "Process").getId()
-        session.userId = springSecurityService.getCurrentUser().getId()
+        def processId = runtimeService.startProcessInstanceByKey(params.id).getId()
+        def userId = springSecurityService.getCurrentUser().getId()
+
+        runtimeService.setVariable(processId, "ownerId", userId as String)
+        runtimeService.setVariable(processId, "gameName", params.id as String)
+        session.userId = userId
 
         String currentUser = springSecurityService.getCurrentUser().camunda_id
         println "camunda id: " + currentUser
@@ -57,13 +61,27 @@ class ProcessController {
         */
 
     }
+    @Secured(["ROLE_ADMIN","ROLE_STUD","ROLE_USER"])
+
+    def startbeta() {
+        Map<String, String> map = new HashMap<>()
+        map.put("owner", "admin")
+        map.owner = "admin"
+
+        def proc = runtimeService.startProcessInstanceByKey("ForcaProcess", map)
+        session.processId = proc.getId()
+        println session.processId
+
+        runtimeService.setVariable(session.processId, "owner", "admin")
+    }
+
 
 
 
     @Secured(['ROLE_ADMIN'])
     def deploy() {
         def rootPath = servletContext.getRealPath("/")
-        def name = params.id + "Process"
+        def name = params.id
         def deployment = repositoryService.createDeploymentQuery().deploymentName(name).list()
 
         if(deployment) {

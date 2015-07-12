@@ -10,7 +10,7 @@ window.onload = function(){
         var _this = this;
 
 
-        var url = location.origin + '/deploy/review/' + id + "/" + status;
+        var url = location.origin + '/game/review/' + id + "/" + status;
 
 
         $.ajax({
@@ -18,12 +18,12 @@ window.onload = function(){
             url: url,
             success:function(data){
                 console.log(data);
-                var tr = $(_this).parents().eq(4);
-                $(tr).removeClass('warning success danger');
+                var tr = $(_this).parents().eq(5);
+                $(tr).removeClass('panel-red panel-yellow pannel-green');
                 if (status == 'approve') {
-                    $(tr).addClass('success');
+                    $(tr).addClass('panel-green');
                 } else {
-                    $(tr).addClass('danger');
+                    $(tr).addClass('panel-red');
                 }
 
             },
@@ -31,7 +31,7 @@ window.onload = function(){
     });
 
     $('.comment').on('focusout', function() {
-        var url = location.origin + '/deploy/review/' + $(this).data('id') + "?comment=" + encodeURIComponent($(this).val());
+        var url = location.origin + '/game/review/' + $(this).data('id') + "?comment=" + encodeURIComponent($(this).val());
         $.ajax({
             type:'POST',
             url: url,
