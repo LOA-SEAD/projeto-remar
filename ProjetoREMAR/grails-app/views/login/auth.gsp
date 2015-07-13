@@ -293,6 +293,8 @@
             <span><a href="#">Esqueci a senha!</a></span> <br>
             <span>Ainda n&atilde;o est&aacute; cadastrado?<a href="#"> Registre-se</a></span>
             <g:link controller="user" action="create" >Registre-se</g:link>
+            <g:link class="btn btn-danger" mapping="resetPassword">Esqueci a Senha</g:link>
+
         </div>
     </footer>
 </div>
