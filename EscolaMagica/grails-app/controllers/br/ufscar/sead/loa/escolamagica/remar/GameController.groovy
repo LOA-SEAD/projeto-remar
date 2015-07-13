@@ -3,7 +3,7 @@ package br.ufscar.sead.loa.escolamagica.remar
 import grails.plugin.springsecurity.annotation.Secured
 import org.codehaus.groovy.grails.web.util.WebUtils
 
-@Secured(["ROLE_PROF"])
+@Secured(["ROLE_PROF", "ROLE_ADMIN"])
 class GameController {
 
     def newVersion(){

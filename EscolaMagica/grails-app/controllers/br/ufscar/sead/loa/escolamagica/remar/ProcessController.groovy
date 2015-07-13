@@ -8,7 +8,7 @@ import org.camunda.bpm.engine.delegate.ExecutionListener
 import org.camunda.bpm.engine.runtime.ProcessInstance
 import org.camunda.bpm.engine.task.Task
 
-@Secured(["ROLE_PROF"])
+@Secured(["ROLE_PROF", "ROLE_ADMIN"])
 class ProcessController implements ExecutionListener {
 
     RuntimeService runtimeService
