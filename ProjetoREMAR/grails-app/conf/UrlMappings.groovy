@@ -15,6 +15,7 @@ class UrlMappings {
         // begin user mappings
         '/user/email/confirm'(controller: 'user',action: 'confirmNewUser')
         '/user/newpassword/confirm'(controller: 'user',action: 'createPassword')
+        '/user/confirmation'(view: '/static/emailuser')
         // end user mappings
 
         // begin password mappings
@@ -29,11 +30,12 @@ class UrlMappings {
         "/process/task/delegate/$process/$id"(controller:"process", action:"delegateTasks")
         // end Process API endpoints
 
-        // begin Deploy API endpoints
-        "/deploy/review/$id/$status?"(controller:"deploy", action:"review")
-        // end Deploy API endpoints
+        // begin Game API endpoints
+        "/game/review/$id/$status?"(controller:"game", action:"review")
+        // end Game API endpoints
 
 
         "500"(view:'/error')
+        "/doc"(view:'/doc')
 	}
 }

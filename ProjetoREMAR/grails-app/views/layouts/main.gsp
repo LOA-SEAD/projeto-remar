@@ -16,14 +16,13 @@
         <link rel="stylesheet" href="${resource(dir: 'css/datatables', file: 'datatables.css')}"	type="text/css">
         <link rel="stylesheet" href="${resource(dir: 'css/datatables', file: 'bootstrap.datatables.css')}"	type="text/css">
         <link rel="stylesheet" href="${resource(dir: 'scss', file: 'chosen.css')}"	type="text/css">
-        <link rel="stylesheet" href="${resource(dir: 'scss/font-awesome', file: 'font-awesome.css')}"	type="text/css">
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'app.css')}"	type="text/css">
 
         <link href='http://fonts.googleapis.com/css?family=Oswald:300,400,700|Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
 
 		<script type="text/javascript" src="${resource(dir: 'js/bootstrap', file: 'tab.js')}"></script>

@@ -1,10 +1,10 @@
-package br.ufscar.sead.loa.quiforca.remar
+package br.ufscar.sead.loa.remar
 
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
-
-
+import grails.converters.JSON
+import groovy.json.JsonBuilder
 
 @Transactional(readOnly = true)
 class WordController {
@@ -13,7 +13,7 @@ class WordController {
 
     /* Funções que manipulam word e answer */
     def initialize_word(Word wordInstance){
-        String aux = ""+wordInstance.getAnswer()
+        String aux = ""+wordInstance.getAnswer().toUpperCase()
         if (wordInstance.getAnswer().length() < 10) {
             for (int i = (10 - wordInstance.getAnswer().length()); i > 0; i--)
                 aux+=("ì")
@@ -22,44 +22,97 @@ class WordController {
         wordInstance.setInitial_position(0)
     } //copia answer para word e completa word com 'ì' caso answer.lenght()<10
 
-    def move_to_left(Word wordInstance) {
+    @Transactional
+    def move_to_left() {
+        Word wordInstance = Word.findById(params.id)
         if (wordInstance.getWord().charAt(0) == 'ì') {
             String aux = wordInstance.getWord().substring(1, 10)
             aux+=("ì")
             wordInstance.setWord(aux)
             wordInstance.setInitial_position(wordInstance.getInitial_position()-1)
+            update(Word.findById(params.id))
         }
+        else
+            redirect(action: show(wordInstance))
     }//move word para a esquerda
 
-    def move_to_right(Word wordInstance) {
+    @Transactional
+    def move_to_right() {
+        Word wordInstance = Word.findById(params.id)
         if (wordInstance.getWord().charAt(9) == 'ì') {
             String aux = "ì"
             aux+=(wordInstance.getWord().substring(0, 9))
             wordInstance.setWord(aux)
             wordInstance.setInitial_position(wordInstance.getInitial_position()+1)
+            update(wordInstance)
         }
+        else
+            redirect(action: show(wordInstance))
     }//move word para a direita
 
-    def mark_letter(Word wordInstance, int position) {
+    @Transactional
+    def mark_letter() {
+        Word wordInstance = Word.findById(params.id)
+        String teste = params.pos
+        int position = teste.toInteger()
         if ((position-1 >= wordInstance.getInitial_position()) && (position-1 <= wordInstance.getInitial_position() + wordInstance.getAnswer().length()-1)) {
             String aux
             aux = wordInstance.getWord().substring(0, position-1)
             aux+=("0")
             aux+=(wordInstance.getWord().substring(position, 10))
             wordInstance.setWord(aux)
+            update(wordInstance)
         }
+        else
+            redirect(action: show(wordInstance))
     }//marca o caractere como '0' (esconde o caractere)
 
-    def clear_position(Word wordInstance, int position) {
+    @Transactional
+    def clear_position() {
+        Word wordInstance = Word.findById(params.id)
+        String teste = params.pos
+        int position = teste.toInteger()
         if ((position-1 >= wordInstance.getInitial_position()) && (position-1 <= wordInstance.getInitial_position() + wordInstance.getAnswer().length()-1)) {
             String aux
             aux = wordInstance.getWord().substring(0, position-1)
-            aux+=(wordInstance.getAnswer().charAt(position - initial_position-1))
+            aux+=(wordInstance.getAnswer().charAt(position - wordInstance.getInitial_position()-1).toUpperCase())
             aux+=((wordInstance.getWord().substring(position, 10)))
             wordInstance.setWord(aux)
+            update(wordInstance)
         }
+        else
+            redirect(action: show(wordInstance))
     }//acessa answer e recupera o caractere que havia sido escondido
 
+    def toJsonAnswer() {
+        def list = Word.getAll();
+        def fileName = "gabarito.json"
+
+        File file = new File("$fileName");
+        PrintWriter pw = new PrintWriter(file);
+        pw.write("{\n \t\"c2array\": true,\n\t\"size\":[" + list.size() +",1,1],\n\t\"data\":[\n\t\t    ")
+        for(int i=0;i<list.size()-1;i++)
+            pw.write("[["+list[i].getAnswer().toUpperCase()+"]],")
+        pw.write("[["+list[list.size()-1].getAnswer().toUpperCase()+"]]\n\t       ]")
+        pw.write("\n}")
+        pw.close();
+        redirect action: "index"
+
+    }
+
+    def toJsonWord() {
+        def list = Word.getAll();
+        def fileName = "palavras.json"
+        File file = new File("$fileName");
+        PrintWriter pw = new PrintWriter(file);
+        pw.write("{\n \t\"c2array\": true,\n\t\"size\":[" + list.size() +",1,1],\n\t\"data\":[\n\t\t    ")
+        for(int i=0;i<list.size()-1;i++)
+            pw.write("[["+list[i].getWord()+"]],")
+        pw.write("[["+list[list.size()-1].getWord()+"]]\n\t       ]")
+        pw.write("\n}")
+        pw.close();
+        redirect action: "index"
+    }
 
 
     def index(Integer max) {
@@ -87,7 +140,7 @@ class WordController {
             return
         }
 
-        initialize_word(wordInstance)
+        initialize_word(wordInstance) //inicializa a word conforme a answer passada como parâmetro
 
         wordInstance.save flush:true
 

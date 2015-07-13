@@ -13,5 +13,8 @@ class Deploy {
     String status
     String name
     String comment
+    String uri
+    boolean valid
+
 
 }

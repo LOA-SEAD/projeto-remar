@@ -1,4 +1,4 @@
-<%@ page import="br.ufscar.sead.loa.quiforca.remar.Word" %>
+<%@ page import="br.ufscar.sead.loa.remar.Word" %>
 
 
 

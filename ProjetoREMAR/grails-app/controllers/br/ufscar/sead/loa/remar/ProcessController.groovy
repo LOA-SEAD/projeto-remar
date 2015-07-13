@@ -1,5 +1,6 @@
 package br.ufscar.sead.loa.remar
 
+import grails.plugin.mail.MailService
 import grails.plugin.springsecurity.annotation.Secured
 import org.camunda.bpm.engine.IdentityService
 import org.camunda.bpm.engine.RepositoryService
@@ -17,7 +18,7 @@ import org.camunda.bpm.engine.repository.*
 import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl
 
 
-@Secured(["ROLE_PROF"])
+@Secured(["ROLE_ADMIN","ROLE_STUD","ROLE_USER"])
 class ProcessController {
     IdentityService identityService
     RuntimeService runtimeService
@@ -29,12 +30,17 @@ class ProcessController {
     Task task
     def springSecurityService
     RepositoryService repositoryService
+    MailService mailService
 
 
-
+    @Secured(["ROLE_ADMIN","ROLE_STUD","ROLE_USER"])
     def start(){
-        session.processId =  runtimeService.startProcessInstanceByKey(params.id + "Process").getId()
-        session.userId = springSecurityService.getCurrentUser().getId()
+        def processId = runtimeService.startProcessInstanceByKey(params.id).getId()
+        def userId = springSecurityService.getCurrentUser().getId()
+
+        runtimeService.setVariable(processId, "ownerId", userId as String)
+        runtimeService.setVariable(processId, "gameName", params.id as String)
+        session.userId = userId
 
         String currentUser = springSecurityService.getCurrentUser().camunda_id
         println "camunda id: " + currentUser
@@ -55,11 +61,27 @@ class ProcessController {
         */
 
     }
+    @Secured(["ROLE_ADMIN","ROLE_STUD","ROLE_USER"])
+
+    def startbeta() {
+        Map<String, String> map = new HashMap<>()
+        map.put("owner", "admin")
+        map.owner = "admin"
+
+        def proc = runtimeService.startProcessInstanceByKey("ForcaProcess", map)
+        session.processId = proc.getId()
+        println session.processId
+
+        runtimeService.setVariable(session.processId, "owner", "admin")
+    }
+
+
+
 
     @Secured(['ROLE_ADMIN'])
     def deploy() {
         def rootPath = servletContext.getRealPath("/")
-        def name = params.id + "Process"
+        def name = params.id
         def deployment = repositoryService.createDeploymentQuery().deploymentName(name).list()
 
         if(deployment) {
@@ -110,7 +132,7 @@ class ProcessController {
         List<User> allUsers = identityService.createUserQuery().list()
         List<Task> allTasks = taskService.createTaskQuery().processInstanceId(session.processId).list()
         //println taskService.createTaskQuery().processInstanceId(session.processId).list()
-        println session.processId
+
 
        // println allTasks.size()
 
@@ -140,30 +162,52 @@ class ProcessController {
         taskService.resolveTask(task.id)
     }
 
+    def emailToNewTask(){
+
+
+    }
+
     def delegateTasks(){
 
         //Authentication auth = identityService.getCurrentAuthentication()
         //println auth.getUserId()
         List<User> allUsers = identityService.createUserQuery().list()
-        List<Task> allTasks2 = taskService.createTaskQuery().processInstanceId(session.processId).list()
-        allTasks2[2]
+        List<Task> allTasks = taskService.createTaskQuery().processInstanceId(session.processId).list()
+
         //taskService.addUserIdentityLink("6841","lala", IdentityLinkType.ASSIGNEE)
         params.remove("action")
         params.remove("format")
         params.remove("controller")
         //println identityService.getCurrentAuthentication().userId
-
+        List<ProcessInstance> instancesList = runtimeService.createProcessInstanceQuery().processInstanceId(session.processId).list()
+        def proc = instancesList[0].processDefinitionId
+        proc = proc.substring(0,proc.indexOf(":"))
+        taskService.createTaskQuery().processInstanceId(session.processId).list()
+        int i=0;
           params.each{
-            key, value -> println key + "->" + value
-
-                if(br.ufscar.sead.loa.remar.User.findByCamunda_id(value)) {
+            key, value ->
+            def user = br.ufscar.sead.loa.remar.User.findByCamunda_id(value)
+                if(user) {
                     taskService.setOwner(key, "Denis")
                     taskService.delegateTask(key, value)
+                    mailService.sendMail {
+                        async true
+                        to user.getEmail()
+                        subject "Nova Tarefa no REMAR"
+                        html '<h3>Você recebeu uma nova tarefa na plataforma REMAR</h3> <br>' +
+                                '<br>' +
+                                "Nome do processo: ${proc} " + "<br>" +
+                                "Nome da Tarefa: ${allTasks[i].name} " + "<br>" +
+                                "Quem delegou: ${allTasks[i].owner}" + "<br>"
+
+
+                    }
 
                 }
                 else{
                     //TODO
                 }
+                i++
 
           }
 

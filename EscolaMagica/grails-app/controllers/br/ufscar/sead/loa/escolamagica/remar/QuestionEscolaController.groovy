@@ -10,7 +10,7 @@ import org.springframework.web.context.request.RequestContextHolder
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Secured(["ROLE_PROF"])
+@Secured(["ROLE_PROF", "ROLE_ADMIN"])
 @Transactional(readOnly = true)
 class QuestionEscolaController {
 

@@ -1,4 +1,4 @@
-package br.ufscar.sead.loa.quiforca.remar
+package br.ufscar.sead.loa.remar
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification

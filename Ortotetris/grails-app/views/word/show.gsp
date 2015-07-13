@@ -1,11 +1,12 @@
 
-<%@ page import="br.ufscar.sead.loa.quiforca.remar.Word" %>
+<%@ page import="br.ufscar.sead.loa.remar.Word" %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'word.label', default: 'Word')}" />
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
+		%{--<link rel="stylesheet" href="/Ortotetris/web-app/css">--}%
 	</head>
 	<body>
 		<a href="#show-word" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -22,40 +23,71 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<ol class="property-list word">
-			
+
+				<button type="button" class="btn btn-default">${wordInstance.word[0]}</button>
+				<button type="button" class="btn btn-default">${wordInstance.word[1]}</button>
+				<button type="button" class="btn btn-default">${wordInstance.word[2]}</button>
+				<button type="button" class="btn btn-default">${wordInstance.word[3]}</button>
+				<button type="button" class="btn btn-default">${wordInstance.word[4]}</button>
+				<button type="button" class="btn btn-default">${wordInstance.word[5]}</button>
+				<button type="button" class="btn btn-default">${wordInstance.word[6]}</button>
+				<button type="button" class="btn btn-default">${wordInstance.word[7]}</button>
+				<button type="button" class="btn btn-default">${wordInstance.word[8]}</button>
+				<button type="button" class="btn btn-default">${wordInstance.word[9]}</button>
+
 				<g:if test="${wordInstance?.answer}">
 				<li class="fieldcontain">
 					<span id="answer-label" class="property-label"><g:message code="word.answer.label" default="Answer" /></span>
-					
+
 						<span class="property-value" aria-labelledby="answer-label"><g:fieldValue bean="${wordInstance}" field="answer"/></span>
-					
+
 				</li>
 				</g:if>
-			
+
 				<g:if test="${wordInstance?.word}">
 				<li class="fieldcontain">
 					<span id="word-label" class="property-label"><g:message code="word.word.label" default="Word" /></span>
-					
+
 						<span class="property-value" aria-labelledby="word-label"><g:fieldValue bean="${wordInstance}" field="word"/></span>
-					
+
 				</li>
 				</g:if>
-			
+
 				<g:if test="${wordInstance?.initial_position}">
 				<li class="fieldcontain">
 					<span id="initial_position-label" class="property-label"><g:message code="word.initial_position.label" default="Initialposition" /></span>
-					
+
 						<span class="property-value" aria-labelledby="initial_position-label"><g:fieldValue bean="${wordInstance}" field="initial_position"/></span>
-					
+
 				</li>
 				</g:if>
-			
+
 			</ol>
 			<g:form url="[resource:wordInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
 					<g:link class="edit" action="edit" resource="${wordInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					<g:actionSubmit action="move_to_right" value="Move to right"></g:actionSubmit>
+					<g:actionSubmit action="move_to_left" value="Move to left"></g:actionSubmit>
 				</fieldset>
+			</g:form>
+			<g:form controller="word" action="move_to_right">
+				<input type="hidden" name="id" value="${wordInstance.id}"/>
+				<input type="submit" value="Mover para direita" />
+			</g:form>
+			<g:form controller="word" action="move_to_left">
+				<input type="hidden" name="id" value="${wordInstance.id}"/>
+				<input type="submit" value="Mover para esquerda" />
+			</g:form>
+			<g:form controller="word" action="mark_letter">
+				<input type="hidden" name="id" value="${wordInstance.id}"/>
+				<input type="number" name="pos" value="pos"/>
+				<input type="submit" value="Esconder letra" />
+			</g:form>
+			<g:form controller="word" action="clear_position">
+				<input type="hidden" name="id" value="${wordInstance.id}"/>
+				<input type="number" name="pos" value="pos"/>
+				<input type="submit" value="Mostrar letra" />
 			</g:form>
 		</div>
 	</body>

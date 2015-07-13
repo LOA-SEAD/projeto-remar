@@ -8,34 +8,41 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <style>
-    table, th, td {
-        border: 1px solid black;
-    }
-    </style>
+    <meta name="layout" content="main">
 
     <title></title>
     </head>
 
         <body>
-
-            <g:form action="assignTasks" >
-                <table>
-                    <p> <h2>Tarefas Disponiveis no momento</h2></p>
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header-blue">Atribuição de Tarefas</h1>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Tabela de tarefas e usuários disponíveis</div>
+                                <div class="panel-body">
+                                    <div class="dataTables_wrapper">
+                                        <div id="tasks-table" class="dataTables_wrapper form-inline dt-boostrap no-footer">
+                                            <div class="col-sm-12">
+            <g:form action="delegateTasks" >
+                <table id="tasks-users" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="tasks-users-info" >
                     <thead>
-                        <tr>
-                            <th> Nome </th>
-                            <th> Usuarios Disponíves </th>
-                            <th> Delegação   </th>
-                            <th> Usuário delegado</th>
-                            <th> Completar</th>
-                            <th> Realizar Tarefa  </th>
+                        <tr role="row">
+                            <th class="sorting_asc" tabindex="0" style="width: 100px;" aria-controls="tasks-users" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" </th>                                                                                                                                                                                  > Nome </th>
+                            <th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" > Usuarios Disponíves </th>
+                            <th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" > Delegação   </th>
+                            <th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" >Usuário delegado</th>
+                            <th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" > Completar</th>
+                            <th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" > Realizar Tarefa  </th>
                         </tr>
                     </thead>
                 <tbody>
                     <g:each in="${alltasks}" status="i" var="task" >
-                      <tr>
-                        <td value="task"> ${task.getName()} </td>
+                      <tr role="row">
+                        <td  value="task"> ${task.getName()} </td>
                           <td><select  name="${task.getId()}">
                               <g:each in="${allusers}" status="j" var="user" >
                                   <option value="${user.id}"> ${user.getFirstName()} </option>
@@ -43,7 +50,7 @@
 
                               </select>
                           </td>
-                              <td>${task.getDelegationState()}</td>
+                              <td >${task.getDelegationState()}</td>
                           <g:if test="${task.getAssignee() == null}">
                               <td>SEM USUARIO</td>
                           </g:if>
@@ -59,12 +66,20 @@
                     </g:each>
                 </tbody>
                 </table>
-
-                <input type="submit" value="Enviar" />
+                <div class="input-group">
+                    <input class="btn btn-sm btn-primary" type="submit" value="Enviar" />
+                </div>
             </g:form>
 
 
+                                            </div>
+                                        </div>
 
+                                    </div>
+    </div>
+            </div>
+            </div>
+                </div>
 
         </body>
 

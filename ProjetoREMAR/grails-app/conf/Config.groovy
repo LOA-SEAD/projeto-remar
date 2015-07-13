@@ -176,6 +176,7 @@ grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/index'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/':                              ['permitAll'],
     '/index':                         ['permitAll'],
+    '/doc':                           ['permitAll'],
     '/assets/**':                     ['permitAll'],
     '/**/js/**':                      ['permitAll'],
     '/**/css/**':                     ['permitAll'],
@@ -186,5 +187,6 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/**/less/**':                    ['permitAll'],
     '/**/fonts/**':                   ['permitAll'],
     '/password/**':                   ['permitAll'],
+    '/moodle/**':                     ['permitAll'],
     '/static/**':                     ['permitAll']
 ]
