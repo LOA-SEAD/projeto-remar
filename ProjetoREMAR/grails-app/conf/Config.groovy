@@ -190,3 +190,8 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/moodle/**':                     ['permitAll'],
     '/static/**':                     ['permitAll']
 ]
+
+
+grails.plugin.springsecurity.facebook.domain.classname='FacebookUser'
+grails.plugin.springsecurity.facebook.appId='REMAR'
+grails.plugin.springsecurity.facebook.secret='loa-remar'
