@@ -22,50 +22,6 @@
 
     <style type="text/css">
 
-          .show {
-            display: block !important;
-
-        }
-        .modal {
-            position: fixed;
-            top: 0px;
-            right: 0px;
-            left: 0px;
-            bottom: 0px;
-            z-index: 1050;
-            display: none;
-            overflow: hidden;
-            outline: 0px none;
-            text-align: center;
-        }
-
-
-        .modal-content {
-            position: relative;
-            background-color: #fff;
-            background-clip: padding-box;
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            border-radius: 0px;
-            outline: 0px none;
-            min-height: 600px;
-            font-family: 'Ropa Sans', sans-serif;
-            background-color: rgba(255,255,255,0.2);
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-body {
-            position: relative;
-            padding: 15px;
-            padding-top: 20%;
-
-        }
-
-        .modal-footer {
-            margin-top: 200px;
-            border-top: 10px;
-            text-align: start;
-        }
-
         .input-lg {
             height: 46px;
             padding: 10px 16px;
@@ -97,26 +53,6 @@
             background-color: #2EBD59;
             border-color: #2EBD59;
         }
-        /*.btn {*/
-            /*display: block;*/
-            /*padding: 6px 12px;*/
-            /*margin-bottom: 0px;*/
-            /*font-size: 18px;*/
-            /*font-weight: normal;*/
-            /*line-height: 1.42857;*/
-            /*text-align: center;*/
-            /*white-space: nowrap;*/
-            /*vertical-align: middle;*/
-            /*cursor: pointer ;*/
-            /*-moz-user-select: none;*/
-            /*background-image: none;*/
-            /*border: 1px solid transparent;*/
-            /*right: 25%;*/
-            /*border-radius: 50px;*/
-            /*margin-top: 5%;*/
-            /*/!*box-shadow: 2px 2px 2px rgba(0,0,0, 0.25) inset;*!/*/
-
-        /*}*/
 
         .btn {
             display: block;
@@ -130,11 +66,20 @@
             min-width: 250px;
         }
 
+        .btn-login{
+            min-width: 50px;
+            width: 150px;
+            display: inline-block;
+            margin-left: -12%;
+
+        }
+
+
         .btn-primary:hover, .btn-primary:focus, .btn-primary.focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
             color: #FFF;
             background-image: linear-gradient(#2EBD59,#1ed760);
             /*background-color: #1ed760;*/
-            border-color: #2EBD59;
+            border-color: transparent ;
         }
 
           .form-control:focus {
@@ -218,12 +163,14 @@
         }
 
         .divider{
-            border-top: 1px solid #D9DADC;
+            border-top: 1px solid #2EBD59;
             display: block;
             line-height: 1px;
             margin: 30px 0px;
             position: relative;
             text-align: center;
+            outline: 3px none;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
         }
         strong{
             font-size: 18px;
@@ -235,109 +182,98 @@
 
         header{
             min-height: 200px;
+            padding-top: 30px;
+            margin-bottom: 50px;
         }
 
-        footer span{
+        header h1{
+            font-size: 120px;
+            color: #2EBD59;
+            text-shadow: 2px 4px 2px rgba(0,0,0,0.3);
+        }
+
+        .footer-span{
             diplay: block;
             font-size: 16px;
             text-align: center;
         }
-        footer span a{
+        .footer-span a{
             diplay:block;
             color: #2EBD59;
+
         }
-        footer span a:hover{
+        .footer-span a:hover{
             color: rgba(16, 151, 0, 1);
         }
+
+        footer{
+            margin-bottom: 80px;
+        }
+
+        /*Style para ajustar propriedade float*/
+        .clearfix::before,
+        .clearfix::after {
+            content: "";
+            display: table;
+        }
+        .clearfix::after {
+            clear: both;
+        }
+
+        .ck-style{
+            display: inline-block;
+            float: left;
+            margin-left: 15%;
+        }
+
+        .ck-style input[type="checkbox"]{
+            border-color: #2EBD59;
+        }
+
     </style>
 </head>
 <body>
+    <div class="container">
+        <header class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">REMAR</h1>
+            </div>
+        </header>
+        <article class="row">
+            <div class="col-md-12">
+                <form action='/j_spring_security_check' method='POST' class="form center-block login" >
+                    <g:if test='${flash.message}'>
+                        <div class="">${flash.message}</div>
+                    </g:if>
+                    <div class="form-group">
+                        <button class="btn  btn-social btn-facebook" ><i class="fa fa-facebook"></i> Entrar com o Facebook</button>
+                    </div>
+                    <div class="divider">
+                        <strong class="">ou</strong>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control input-lg" placeholder="Nome de usu&aacute;rio" name='j_username'>
+                        <span class="icon"><i class="fa fa-user"></i></span>
 
-<body>
-
-<div class="container">
-    <header class="row">
-        <div class="col-md-12">
-            <h1 class="text-center">Login</h1>
-
-        </div>
-
-    </header>
-    <article class="row">
-        <div class="col-md-12">
-            <form action='/j_spring_security_check' method='POST' class="form center-block login" >
-                <g:if test='${flash.message}'>
-                    <div class='login_message'>${flash.message}</div>
-                </g:if>
-                <div class="form-group">
-                    <button class="btn  btn-social btn-facebook" ><i class="fa fa-facebook"></i> Entrar com o Facebook</button>
-                </div>
-                <div class="divider">
-                    <strong class="">ou</strong>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control input-lg" placeholder="Nome de usu&aacute;rio" name='j_username'>
-                    <span class="icon"><i class="fa fa-user"></i></span>
-
-                    <input type="password" class="form-control input-lg" placeholder="Senha" name='j_password'>
-                    <span class="icon"><i class="fa fa-lock"></i></span>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-primary btn-block" >Entrar</button>
-                </div>
-            </form>
-        </div>
-    </article>
-    <footer class="row">
-        <div class="col-md-12">
-            <span><a href="#">Esqueci a senha!</a></span> <br>
-            <span>Ainda n&atilde;o est&aacute; cadastrado?<a href="#"> Registre-se</a></span>
-            <g:link controller="user" action="create" >Registre-se</g:link>
-            <g:link class="btn btn-danger" mapping="resetPassword">Esqueci a Senha</g:link>
-
-        </div>
-    </footer>
-</div>
-
-
-
-
-%{--<div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">--}%
-    %{--<div class="modal-dialog">--}%
-        %{--<div class="modal-content">--}%
-            %{--<div class="modal-header">--}%
-                %{--<h1 class="text-center">Login</h1>--}%
-            %{--</div>--}%
-            %{--<div class="modal-body">--}%
-                %{--<form action='/j_spring_security_check' method='POST' class="form center-block login" >--}%
-
-                    %{--<button class="btn btn-block btn-social btn-facebook"  style="top:0px"  ><i class="fa fa-facebook"></i> Entrar com o Facebook</button>--}%
-
-                    %{--<div class="form-group ">--}%
-                        %{--<input type="text" class="form-control input-lg" placeholder="Nome de usu&aacute;rio" name='j_username'>--}%
-                        %{--<span class="icon"><i class="fa fa-user"></i></span>--}%
-                   %{--</div>--}%
-                    %{--<div class="form-group">--}%
-                        %{--<input type="password" class="form-control input-lg" placeholder="Senha" name='j_password'>--}%
-                        %{--<span class="icon"><i class="fa fa-lock"></i></span>--}%
-                    %{--</div>--}%
-                    %{--<div class="form-group">--}%
-                        %{--<button class="btn btn-primary btn-block" >Entrar</button>--}%
-                    %{--</div>--}%
-                %{--</form>--}%
-            %{--</div>--}%
-            %{--<div class="show modal-footer">--}%
-                %{--<div class="col-md-12">--}%
-                    %{--<div class="form-group">--}%
-                        %{--<a href="#">&#8227; Esqueceu a senha?</a>--}%
-                        %{--<span class="pull-bottom">Ainda n&atilde;o possui cadastro? <a class="link_password" href="#">Registre-se</a></span>--}%
-                    %{--</div>--}%
-                %{--</div>--}%
-            %{--</div>--}%
-        %{--</div>--}%
-    %{--</div>--}%
-%{--</div>--}%
-
-
+                        <input type="password" class="form-control input-lg" placeholder="Senha" name='j_password'>
+                        <span class="icon"><i class="fa fa-lock"></i></span>
+                    </div>
+                    <div class="form-group clearfix">
+                        <div class="ck-style">
+                            <input type="checkbox" name="remember">
+                            <span class="footer-span">Lembre-me</span>
+                        </div>
+                        <button class="btn btn-primary btn-block btn-login" >Entrar</button>
+                    </div>
+                </form>
+            </div>
+        </article>
+        <footer class="row">
+            <div class="col-md-12">
+                <span class="footer-span"><g:link class="footer-span" mapping="resetPassword">Esqueci a Senha!</g:link></span> <br>
+                <span class="footer-span">Ainda n&atilde;o est&aacute; cadastrado? <g:link class="footer-span" controller="user" action="create" >Registre-se</g:link> </span>
+            </div>
+        </footer>
+    </div>
 </body>
 </html>
