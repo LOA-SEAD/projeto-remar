@@ -11,7 +11,7 @@ class UrlMappings {
         "/"(controller:'index')
         "/dashboard"(controller: "index", action: "dashboard")
         // end index mappings
-
+        "/login"(view: "login/auth")
         // begin user mappings
         '/user/email/confirm'(controller: 'user',action: 'confirmNewUser')
         '/user/newpassword/confirm'(controller: 'user',action: 'createPassword')
