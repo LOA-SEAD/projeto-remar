@@ -27,13 +27,11 @@ class WordController {
         Word wordInstance = Word.findById(params.id)
         if (wordInstance.getWord().charAt(0) == 'ì') {
             String aux = wordInstance.getWord().substring(1, 10)
-            aux+=("ì")
+            aux += ("ì")
             wordInstance.setWord(aux)
-            wordInstance.setInitial_position(wordInstance.getInitial_position()-1)
-            update(Word.findById(params.id))
+            wordInstance.setInitial_position(wordInstance.getInitial_position() - 1)
         }
-        else
-            redirect(action: show(wordInstance))
+            update(Word.findById(params.id))
     }//move word para a esquerda
 
     @Transactional
@@ -41,13 +39,11 @@ class WordController {
         Word wordInstance = Word.findById(params.id)
         if (wordInstance.getWord().charAt(9) == 'ì') {
             String aux = "ì"
-            aux+=(wordInstance.getWord().substring(0, 9))
+            aux += (wordInstance.getWord().substring(0, 9))
             wordInstance.setWord(aux)
-            wordInstance.setInitial_position(wordInstance.getInitial_position()+1)
-            update(wordInstance)
+            wordInstance.setInitial_position(wordInstance.getInitial_position() + 1)
         }
-        else
-            redirect(action: show(wordInstance))
+            update(wordInstance)
     }//move word para a direita
 
     @Transactional
@@ -57,14 +53,13 @@ class WordController {
         int position = teste.toInteger()
         if ((position-1 >= wordInstance.getInitial_position()) && (position-1 <= wordInstance.getInitial_position() + wordInstance.getAnswer().length()-1)) {
             String aux
-            aux = wordInstance.getWord().substring(0, position-1)
-            aux+=("0")
-            aux+=(wordInstance.getWord().substring(position, 10))
+            aux = wordInstance.getWord().substring(0, position - 1)
+            aux += ("0")
+            aux += (wordInstance.getWord().substring(position, 10))
             wordInstance.setWord(aux)
-            update(wordInstance)
         }
-        else
-            redirect(action: show(wordInstance))
+            update(wordInstance)
+
     }//marca o caractere como '0' (esconde o caractere)
 
     @Transactional
@@ -74,14 +69,13 @@ class WordController {
         int position = teste.toInteger()
         if ((position-1 >= wordInstance.getInitial_position()) && (position-1 <= wordInstance.getInitial_position() + wordInstance.getAnswer().length()-1)) {
             String aux
-            aux = wordInstance.getWord().substring(0, position-1)
-            aux+=(wordInstance.getAnswer().charAt(position - wordInstance.getInitial_position()-1).toUpperCase())
-            aux+=((wordInstance.getWord().substring(position, 10)))
+            aux = wordInstance.getWord().substring(0, position - 1)
+            aux += (wordInstance.getAnswer().charAt(position - wordInstance.getInitial_position() - 1).toUpperCase())
+            aux += ((wordInstance.getWord().substring(position, 10)))
             wordInstance.setWord(aux)
-            update(wordInstance)
         }
-        else
-            redirect(action: show(wordInstance))
+            update(wordInstance)
+
     }//acessa answer e recupera o caractere que havia sido escondido
 
     def toJsonAnswer() {

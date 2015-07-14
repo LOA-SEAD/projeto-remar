@@ -1,0 +1,46 @@
+.but {
+    display: inline-block;
+    background-color: #EEE9E9;
+    width: 75px;
+    height:50px;
+    color: #000000;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    border: 5px;
+    position:relative;
+    top: 50%;
+    left: 5%;
+}
+
+.but:hover {
+    background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,.15));
+    cursor: pointer;
+}
+
+.but-large {
+    font-size: 140%;
+}
+
+.but-invisible{
+    display: none;
+}
+
+.but-color1{
+    background-color: #FFFF99;
+}
+
+.but-color2{
+    background-color: rgb(255, 0, 1);
+
+}
+
+.but-img-left{
+    display:inline-block;
+    width: 205px;;
+    height: 196px;
+    overflow:hidden;
+    background:url("../images/left.png") no-repeat 0 0;
+
+}
