@@ -252,8 +252,24 @@
     </style>
 </head>
 <body>
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '1621035434837394',
+            xfbml      : true,
+            version    : 'v2.4'
+        });
+    };
 
-<body>
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+
 
 <div class="container">
     <header class="row">
@@ -270,7 +286,13 @@
                     <div class='login_message'>${flash.message}</div>
                 </g:if>
                 <div class="form-group">
-                    <button class="btn  btn-social btn-facebook" ><i class="fa fa-facebook"></i> Entrar com o Facebook</button>
+                    <sec:ifNotGranted roles="ROLE_USER">
+                        <facebookAuth:connect />
+                    </sec:ifNotGranted>
+                    <sec:ifAllGranted roles="ROLE_USER">
+                        Welcome <sec:username/>! (<g:link uri="/j_spring_security_logout">Logout</g:link>)
+                    </sec:ifAllGranted>
+                    %{--<button class="btn  btn-social btn-facebook" ><i class="fa fa-facebook"></i> Entrar com o Facebook</button>--}%
                 </div>
                 <div class="divider">
                     <strong class="">ou</strong>
