@@ -122,6 +122,18 @@ environments {
 
             }
         }
+//        grails{
+//            plugin{
+//                springsecurity{
+//                    facebook{
+//                        domain.classname = 'FacebookUser'
+//                        filter.types='redirect'
+//                        //filter.redirect.failureHandler='redirectFailureHandlerExample'
+//                        autoCreate.roles=['ROLE_USER', 'ROLE_FACEBOOK', 'ROLE_STUD']
+//                    }
+//                }
+//            }
+//        }
     }
     production {
         grails.logging.jul.usebridge = false
@@ -164,7 +176,9 @@ log4j.main = {
            'net.sf.ehcache.hibernate'
 }
 
-
+log4j = {
+    debug 'com.the6hours', 'grails.app.taglib.com.the6hours'
+}
 // Added by the Spring Security Core plugin:
 
 grails.plugin.springsecurity.logout.postOnly = false
@@ -192,6 +206,11 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 ]
 
 
-grails.plugin.springsecurity.facebook.domain.classname='FacebookUser'
-grails.plugin.springsecurity.facebook.appId='REMAR'
-grails.plugin.springsecurity.facebook.secret='loa-remar'
+
+grails.plugin.springsecurity.facebook.autoCreate.enabled=true
+grails.plugin.springsecurity.facebook.autoCreate.roles=['ROLE_USER', 'ROLE_FACEBOOK','ROLE_STUD']
+
+
+grails.plugin.springsecurity.facebook.domain.classname='br.ufscar.sead.loa.remar.FacebookUser'
+grails.plugin.springsecurity.facebook.appId='1621035434837394'
+grails.plugin.springsecurity.facebook.secret='0a70357ea42707a19d7fa38e080d20e1'

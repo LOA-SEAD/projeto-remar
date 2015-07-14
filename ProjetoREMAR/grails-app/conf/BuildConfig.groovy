@@ -69,7 +69,7 @@ grails.project.dependency.resolution = {
         compile ":quartz:1.0.2"
         compile ":spring-security-facebook:0.17"
         compile ":mail:1.0.7"
-
+        compile ":facebook-graph:0.14"
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate4:4.3.6.1" // or ":hibernate:3.6.10.18"
