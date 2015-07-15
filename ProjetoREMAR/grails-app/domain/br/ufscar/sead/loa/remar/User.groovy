@@ -14,6 +14,7 @@ class User {
 	String camunda_id
 	String name
 
+
 	static transients = ['springSecurityService']
 
 	static constraints = {
