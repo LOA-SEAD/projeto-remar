@@ -16,15 +16,15 @@
 				<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
 				</g:eachError>
 			</ul>
-			</g:hasErrors>
-			<g:form url="[resource:userInstance, action:'save']" >
-				<fieldset class="form">
-					<g:render template="form"/>
-				</fieldset>
-				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-				</fieldset>
-			</g:form>
+            </g:hasErrors>
+        <g:form url="[resource:userInstance, action:'save']" >
+            <fieldset class="form">
+            <g:render template="form"/>
+            </fieldset>
+            <fieldset class="buttons">
+            <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+            </fieldset>
+        </g:form>
 		</div>-->
 		<div class="page-header">
             <h1> Admin - Usuários</h1>

@@ -242,13 +242,13 @@
         <article class="row">
             <div class="col-md-12">
                 <form action='/j_spring_security_check' method='POST' class="form center-block login" >
-
-                    <sec:ifNotGranted roles="ROLE_USER">
-                        <facebookAuth:connect />
-                    </sec:ifNotGranted>
-                    <sec:ifAllGranted roles="ROLE_USER">
-                        Welcome <sec:username/>! (<g:link uri="/j_spring_security_logout">Logout</g:link>)
-                    </sec:ifAllGranted>
+                    <facebookAuth:connect permissions="email,user_about_me"/>
+                    %{--<sec:ifNotGranted roles="ROLE_USER">--}%
+                        %{--<facebookAuth:connect />--}%
+                    %{--</sec:ifNotGranted>--}%
+                    %{--<sec:ifAllGranted roles="ROLE_USER">--}%
+                        %{--Welcome <sec:username/>! (<g:link uri="/j_spring_security_logout">Logout</g:link>)--}%
+                    %{--</sec:ifAllGranted>--}%
                     <g:if test='${flash.message}'>
                         <div class="">${flash.message}</div>
                     </g:if>

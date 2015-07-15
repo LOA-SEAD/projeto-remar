@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="${resource(dir: 'css/datatables', file: 'datatables.css')}"	type="text/css">
         <link rel="stylesheet" href="${resource(dir: 'css/datatables', file: 'bootstrap.datatables.css')}"	type="text/css">
         <link rel="stylesheet" href="${resource(dir: 'scss', file: 'chosen.css')}"	type="text/css">
+        <link rel="stylesheet" href="${resource(dir: 'scss/font-awesome', file: 'font-awesome.css')}"	type="text/css">
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'app.css')}"	type="text/css">
 
         <link href='http://fonts.googleapis.com/css?family=Oswald:300,400,700|Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
@@ -52,25 +53,25 @@
                         <div class="relative-w">
                             <ul class="side-menu">
 	                            <li><a href="/" class="dropdown-toggle">Lista de Jogos</a></li>
-	                            
-	                            <sec:ifAllGranted roles="ROLE_ADMIN">
-									<li><a href="/user" class="dropdown-toggle">Lista de Usuários</a></li>
-									<li><a href="/user/create" class="dropdown-toggle">Criar novo Usuário</a></li>
-								</sec:ifAllGranted>
-                                <sec:ifAllGranted roles="ROLE_PROF">
-                                	<!--<li><a href="/processoJogo/jogos">Lista de Jogos Personalizaveis</a></li>-->
-								</sec:ifAllGranted>
-								<sec:ifAllGranted roles="ROLE_STUD">
-									<!--<li class="dropdown-toggle"><a href="#">Estudante</a></li>-->
-								</sec:ifAllGranted>
-								<sec:ifAllGranted roles="ROLE_EDITOR">
-									<!--<li class="dropdown-toggle"><a href="#">Editor</a></li>-->
-								</sec:ifAllGranted>
-								<sec:ifAllGranted roles="ROLE_DESENVOLVEDOR">
-									<!--<li class="dropdown-toggle"><a href="#">Desenvolvedor</a></li>-->
-								</sec:ifAllGranted>
+	                            %{----}%
+	                            %{--<sec:ifAllGranted roles="ROLE_ADMIN">--}%
+									%{--<li><a href="/user" class="dropdown-toggle">Lista de Usuários</a></li>--}%
+									%{--<li><a href="/user/create" class="dropdown-toggle">Criar novo Usuário</a></li>--}%
+								%{--</sec:ifAllGranted>--}%
+                                %{--<sec:ifAllGranted roles="ROLE_PROF">--}%
+                                	%{--<!--<li><a href="/processoJogo/jogos">Lista de Jogos Personalizaveis</a></li>-->--}%
+								%{--</sec:ifAllGranted>--}%
+								%{--<sec:ifAllGranted roles="ROLE_STUD">--}%
+									%{--<!--<li class="dropdown-toggle"><a href="#">Estudante</a></li>-->--}%
+								%{--</sec:ifAllGranted>--}%
+								%{--<sec:ifAllGranted roles="ROLE_EDITOR">--}%
+									%{--<!--<li class="dropdown-toggle"><a href="#">Editor</a></li>-->--}%
+								%{--</sec:ifAllGranted>--}%
+								%{--<sec:ifAllGranted roles="ROLE_DESENVOLVEDOR">--}%
+									%{--<!--<li class="dropdown-toggle"><a href="#">Desenvolvedor</a></li>-->--}%
+								%{--</sec:ifAllGranted>--}%
 
-								<li class="dropdown-toggle"><a href="/logout">Sair<!-- (<sec:loggedInUserInfo field="username"/>)--></a></li>
+								%{--<li class="dropdown-toggle"><a href="/logout">Sair<!-- (<sec:loggedInUserInfo field="username"/>)--></a></li>--}%
                                 </ul>
                             </div>
                         </div>
