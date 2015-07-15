@@ -44,3 +44,8 @@
     background:url("../images/left.png") no-repeat 0 0;
 
 }
+
+.form-inline{
+    display: inline-block;
+    background-color: rgb(255, 0, 1);
+}
