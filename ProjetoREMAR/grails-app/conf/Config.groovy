@@ -95,9 +95,8 @@ grails.hibernate.osiv.readonly = false
 environments {
     development {
         grails.logging.jul.usebridge = true
-//        grails.serverURL = "http://localhost:8080"
+        grails.serverURL = "http://myapp.dev:9090/"
         grails.app.context = "/"
-        camundaWebapps = '/home/dexterorion/Desktop/camunda/server/apache-tomcat-7.0.50/webapps/'
 	camunda {
         deployment.scenario = 'embedded'
             engine {
@@ -202,7 +201,8 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/**/fonts/**':                   ['permitAll'],
     '/password/**':                   ['permitAll'],
     '/moodle/**':                     ['permitAll'],
-    '/static/**':                     ['permitAll']
+    '/static/**':                     ['permitAll'],
+    "http://myapp.dev:9090/remar":      ['permitAll']
 ]
 
 grails.plugin.springsecurity.interceptUrlMap = [
@@ -216,7 +216,8 @@ grails.plugin.springsecurity.facebook.autoCreate.roles=['ROLE_USER', 'ROLE_FACEB
 grails.plugin.springsecurity.facebook.filter.type='redirect'
 
 
-
-grails.plugin.springsecurity.facebook.domain.classname='br.ufscar.sead.loa.remar.FacebookUser'
-grails.plugin.springsecurity.facebook.appId='1621035434837394'
-grails.plugin.springsecurity.facebook.secret='0a70357ea42707a19d7fa38e080d20e1'
+facebook.applicationSecret='0a70357ea42707a19d7fa38e080d20e1'
+facebook.applicationId='1621035434837394'
+//grails.plugin.springsecurity.facebook.domain.classname='br.ufscar.sead.loa.remar.FacebookUser'
+//grails.plugin.springsecurity.facebook.appId='1621035434837394'
+//grails.plugin.springsecurity.facebook.secret='0a70357ea42707a19d7fa38e080d20e1'

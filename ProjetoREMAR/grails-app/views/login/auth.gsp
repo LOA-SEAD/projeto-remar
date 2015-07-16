@@ -16,7 +16,29 @@
     <link href="${resource(dir: 'assets/css', file: 'bootstrap.css')}" rel="stylesheet" >
     <link href="${resource(dir: 'assets/css', file: 'bootstrap-social.css')}" rel="stylesheet" >
     <link href="${resource(dir: 'assets/css', file: 'external-styles.css')}" rel="stylesheet" >
+    <script type="text/javascript">
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '1621035434837394',
+                xfbml      : true,
+                version    : 'v2.4'
+            });
+        };
 
+        function facebookLogin() {
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    console.log("Conectado");
+                    // logged in and connected user, someone you know
+                    window.location ="${createLink(controller:'test', action:'facebookLogin')}";
+                }
+                else{
+                    console.log("nao conectado");
+                }
+            });
+        }
+    </script>
+    <fbg:resources />
 </head>
 <body>
     <div class="container">
@@ -27,8 +49,10 @@
         </header>
         <article class="row">
             <div class="col-md-12">
+                <fb:login-button perms="email" scope="email,publish_actions,user_about_me" onlogin="facebookLogin();" size="large">
+                    <g:message  code="Login por Facebook"/>
+                </fb:login-button>
                 <form action='/j_spring_security_check' method='POST' class="form center-block login" >
-                    <facebookAuth:connect permissions="email,user_about_me"/>
                     %{--<sec:ifNotGranted roles="ROLE_USER">--}%
                         %{--<facebookAuth:connect />--}%
                     %{--</sec:ifNotGranted>--}%

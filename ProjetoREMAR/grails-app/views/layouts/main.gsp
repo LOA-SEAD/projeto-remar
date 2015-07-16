@@ -25,7 +25,7 @@
     %{--<script type="text/javascript" src="${resource(dir: 'js/bootstrap', file: 'dropdown.js')}"></script>--}%
     %{--<script type="text/javascript" src="${resource(dir: 'js/bootstrap', file: 'collapse.js')}"></script>--}%
     %{--<script type="text/javascript" src="${resource(dir: 'js/bootstrap', file: 'transition.js')}"></script>--}%
-
+    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
     <meta charset="utf-8">
     <meta name="generator" content="Bootply" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -42,7 +42,7 @@
     <link href="${resource(dir: 'assets/css', file: 'bootstrap.css')}" rel="stylesheet" >
 
     <g:layoutHead/>
-
+    <fbg:resources/>
 </head>
 <body>
     <g:layoutBody/>
