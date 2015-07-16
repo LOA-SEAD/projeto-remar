@@ -1,65 +1,35 @@
 <%@ page import="br.ufscar.sead.loa.remar.User" %>
+<div class="divider">
+</div>
+<div class="form-group">
+	<label class="label-form" for="firstName">
+		<g:message code="user.name.label" default="Nome" /><span class="required-indicator">*</span>
+	</label>
+	<g:textField name="name" class="form-control input-form" required="" value="${userInstance?.name}" />
+</div>
+<div class="form-group">
+	<label class="label-form" for="firstName">
+		<g:message code="user.email.label" default="Email" /><span class="required-indicator">*</span>
+	</label>
+	<g:field type="email" name="email" class="form-control input-form" required="" value="${userInstance?.email}"  placeholder="nome@exemplo.com" />
 
-
-
-<table>
-	<tr>
-		<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'username', 'error')} required">
-			<td>
-				<label for="username">
-					<g:message code="user.username.label" default="Username" /><span class="required-indicator">*</span>
-				</label>
-			</td>
-			<td class="spaced_td">
-				<g:if test="${source == 'create'}">
-					<g:textField name="username" required="" value="${userInstance?.username}" />
-				</g:if>
-				<g:if test="${source == 'update'}">
-					<span name="username">${userInstance?.username}</span>
-				</g:if>
-			</td>
-		</div>
-	</tr>
-
-	<tr>
-		<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required spaced_tr">
-			<td>
-				<label for="password">
-					<g:message code="user.password.label" default="Password" /><span class="required-indicator">*</span>
-				</label>
-			</td>
-			<td class="spaced_td">
-				<g:passwordField name="password" required=""/>
-			</td>
-		</div>
-	</tr>
-
-	<tr>
-		<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'name', 'error')} required">
-			<td>
-				<label for="firstName">
-					<g:message code="user.name.label" default="Name" /><span class="required-indicator">*</span>
-				</label>
-			</td>
-			<td class="spaced_td">
-				<g:textField name="name" required="" value="${userInstance?.name}"/>
-			</td>
-		</div>
-	</tr>
-
-	<tr>
-		<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'email', 'error')} required">
-			<td>
-				<label for="firstName">
-					<g:message code="user.email.label" default="Email" /><span class="required-indicator">*</span>
-				</label>
-			</td>
-			<td class="spaced_td">
-				<g:field type="email" name="email" required="" value="${userInstance?.email}"/>
-			</td>
-		</div>
-	</tr>
-</table>
-<br />
+</div>
+<div class="form-group">
+	<label class="label-form" for="username">
+		<g:message code="user.username.label" default="Nome de usu&aacute;rio" /><span class="required-indicator">*</span>
+	</label>
+	<g:if test="${source == 'create'}">
+		<g:textField id="Name" class="form-control input-form" name="username" required="" value="${userInstance?.username}" />
+	</g:if>
+	<g:if test="${source == 'update'}">
+		<span name="username">${userInstance?.username}</span>
+	</g:if>
+</div>
+<div class="form-group">
+	<label class="label-form" for="password">
+		<g:message   code="user.password.label" default="Password" /><span class="required-indicator">*</span>
+	</label>
+	<g:passwordField name="password" class="form-control input-form" required="" />
+</div>
 
 
