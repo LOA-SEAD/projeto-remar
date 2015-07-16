@@ -205,10 +205,16 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/static/**':                     ['permitAll']
 ]
 
+grails.plugin.springsecurity.interceptUrlMap = [
+        "/j_spring_security_facebook_redirect": ["IS_AUTHENTICATED_ANONYMOUSLY"],
+        "/j_spring_security_facebook_check":    ["IS_AUTHENTICATED_ANONYMOUSLY"],
 
+]
 
 grails.plugin.springsecurity.facebook.autoCreate.enabled=true
 grails.plugin.springsecurity.facebook.autoCreate.roles=['ROLE_USER', 'ROLE_FACEBOOK','ROLE_STUD']
+grails.plugin.springsecurity.facebook.filter.type='redirect'
+
 
 
 grails.plugin.springsecurity.facebook.domain.classname='br.ufscar.sead.loa.remar.FacebookUser'

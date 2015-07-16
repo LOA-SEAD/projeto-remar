@@ -28,12 +28,17 @@
         <article class="row">
             <div class="col-md-12">
                 <form action='/j_spring_security_check' method='POST' class="form center-block login" >
+                    <facebookAuth:connect permissions="email,user_about_me"/>
+                    %{--<sec:ifNotGranted roles="ROLE_USER">--}%
+                        %{--<facebookAuth:connect />--}%
+                    %{--</sec:ifNotGranted>--}%
+                    %{--<sec:ifAllGranted roles="ROLE_USER">--}%
+                        %{--Welcome <sec:username/>! (<g:link uri="/j_spring_security_logout">Logout</g:link>)--}%
+                    %{--</sec:ifAllGranted>--}%
                     <g:if test='${flash.message}'>
                         <div class="">${flash.message}</div>
                     </g:if>
-                    <div class="form-group">
-                        <button class="btn  btn-social btn-facebook" ><i class="fa fa-facebook"></i> Entrar com o Facebook</button>
-                    </div>
+
                     <div class="divider">
                         <strong class="">ou</strong>
                     </div>
