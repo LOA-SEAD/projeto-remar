@@ -219,9 +219,8 @@ footer{
    ========================================================================== */
 
 .label-form {
-    display: inline-block;
+    display: block;
     font-weight: bold;
-    width: 30%;
     text-align: justify;
 }
 
@@ -233,7 +232,40 @@ footer{
     line-height: 25px;
     border-radius: 2px;
     border-style: solid;
-    width: 60%;
+    width: 100%;
     display: inline-block;
-    margin: 5px 0  5px 0;
+    margin: -3px 0  5px 0;
+}
+
+.ck-style-create{
+    margin-left: 0px;
+}
+
+.span-create{
+    text-align: justify;
+   margin-left: 30px;
+}
+
+.container-create{
+    max-width: 40%;
+    text-align: left;
+    position: static;
+    background-color:  rgba(234, 229, 235, 0.4);
+}
+
+.captcha{
+    text-align: center;
+    margin: 20px 0 20px 0;
+}
+
+.btn-create{
+    margin-left: 25%;
+    margin-right: 50%;
+    width: 100px;
+    display: inline-block;
+
+}
+
+input.btn-block[type="submit"], input.btn-block[type="reset"], input.btn-block[type="button"] {
+    width: 50%;
 }

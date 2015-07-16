@@ -45,10 +45,7 @@
 
 </head>
 <body>
-    <div class="container">
-        <g:layoutBody/>
-    </div>
-
+    <g:layoutBody/>
 
     %{--<div class="all-wrapper">--}%
         %{--<div class="row">--}%
