@@ -13,7 +13,6 @@ import grails.transaction.Transactional
 class UserController {
     def springSecurityService
     MailService mailService
-    FacebookUser facebookUser
     FacebookGraphService facebookGraphService
 
     IdentityService identityService
@@ -24,6 +23,11 @@ class UserController {
         params.max = Math.min(max ?: 10, 100)
 
         respond User.list(params)
+    }
+
+    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
+    def validateReCaptcha(){
+
     }
 
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
