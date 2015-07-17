@@ -95,7 +95,7 @@ grails.hibernate.osiv.readonly = false
 environments {
     development {
         grails.logging.jul.usebridge = true
-        grails.serverURL = "http://myapp.dev:9090/"
+        grails.serverURL = "http://myapp.dev:9090"
         grails.app.context = "/"
 	camunda {
         deployment.scenario = 'embedded'

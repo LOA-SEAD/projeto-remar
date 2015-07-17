@@ -23,6 +23,11 @@ class BootStrap {
             println "ROLE_ADMIN inserted"
         }
 
+        if (found == []) {
+            def adminRole = new Role(authority: "ROLE_FACEBOOK").save flush: true
+            println "ROLE_FACEBOOK inserted"
+        }
+
         found = allRoles.findAll {it.authority == "ROLE_USER"}
         if (found == []) {
             def profRole = new Role(authority: "ROLE_USER").save flush: true
