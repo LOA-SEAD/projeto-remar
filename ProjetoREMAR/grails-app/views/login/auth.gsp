@@ -30,7 +30,7 @@
                 if (response.status === 'connected') {
                     console.log("Conectado");
                     // logged in and connected user, someone you know
-                    window.location ="${createLink(controller:'test', action:'facebookLogin')}";
+                    window.location ="${createLink(controller:'facebook', action:'auth')}";
                 }
                 else{
                     console.log("nao conectado");
@@ -49,7 +49,13 @@
         </header>
         <article class="row">
             <div class="col-md-12">
-                <fb:login-button perms="email" scope="email,publish_actions,user_about_me" onlogin="facebookLogin();" size="large">
+                <sec:ifAllGranted roles="ROLE_USER,ROLE_FACEBOOK">
+                    <meta name="layout" content="main">
+                </sec:ifAllGranted>
+                <sec:ifNotGranted roles="ROLE_ADMIN,ROLE_USER_ROLE_FACEBOOK">
+
+                </sec:ifNotGranted>
+                <fb:login-button perms="email,public_profile" scope="public_profile,email,publish_actions,user_about_me" onlogin="facebookLogin();" size="large">
                     <g:message  code="Login por Facebook"/>
                 </fb:login-button>
                 <form action='/j_spring_security_check' method='POST' class="form center-block login" >

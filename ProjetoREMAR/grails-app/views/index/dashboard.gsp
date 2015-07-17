@@ -15,6 +15,7 @@
     <title>Admin page</title>
 </head>
 <body>
+
     <div class="container-fluid">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
@@ -65,6 +66,7 @@
                                     </div>
                                 </div>
                             </g:each>
+
                         </div>
                         %{--<div class="table-responsive">--}%
                             %{--<table class="table table-striped table-bordered" id="table">--}%

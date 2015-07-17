@@ -1,5 +1,6 @@
 package br.ufscar.sead.loa.remar
 
+import com.daureos.facebook.FacebookGraphService
 import grails.plugin.mail.MailService
 import org.apache.commons.lang.RandomStringUtils
 import org.camunda.bpm.engine.IdentityService
@@ -12,7 +13,8 @@ import grails.transaction.Transactional
 class UserController {
     def springSecurityService
     MailService mailService
-
+    FacebookUser facebookUser
+    FacebookGraphService facebookGraphService
 
     IdentityService identityService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", filteredList: "POST"]
@@ -170,8 +172,6 @@ class UserController {
         userInstance.save flush:true
 
         sendConfirmationMail(userInstance.getEmail(),userInstance.getId())
-        println userInstance.getEmail()
-        println userInstance.getId()
 
         UserRole.create(userInstance, Role.findByAuthority("ROLE_USER"), true)
         UserRole.create(userInstance, Role.findByAuthority("ROLE_STUD"), true)
