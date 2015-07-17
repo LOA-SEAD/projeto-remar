@@ -13,6 +13,7 @@ class User {
 	String email
 	String camunda_id
 	String name
+    String facebookId
 
 
 	static transients = ['springSecurityService']
@@ -23,6 +24,7 @@ class User {
 		name blank: false
 		email blank: false, email: true, unique: true
 		camunda_id nullable: true
+        facebookId nullable: true
 	}
 
 	static mapping = {
