@@ -6,9 +6,18 @@ import grails.plugin.springsecurity.annotation.Secured
 class MoodleGameController {
 
     def save(MoodleGame moodlegame) {
-        moodlegame.save flush:true
 
-        redirect controller: "index", action: "dashboard"
+    	if (moodlegame.hasErrors()) {
+    		println("Someone tried to register a new moodlegame but it doesn't worked:")
+    		println(moodlegame.errors)
+    	}
+    	else {
+        	moodlegame.save flush:true
+
+        	redirect controller: "index", action: "dashboard"
+    	}
+
+
     }
 
     def gamePublishConfig() {
