@@ -7,6 +7,8 @@ class MoodleGameController {
 
     def save(MoodleGame moodlegame) {
         moodlegame.save flush:true
+
+        redirect controller: "index", action: "dashboard"
     }
 
     def gamePublishConfig() {
