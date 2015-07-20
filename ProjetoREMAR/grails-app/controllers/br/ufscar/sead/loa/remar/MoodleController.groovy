@@ -1,6 +1,7 @@
 package br.ufscar.sead.loa.remar
 import static org.springframework.http.HttpStatus.*
 import grails.plugin.springsecurity.annotation.Secured
+import grails.converters.JSON
 
 class MoodleController {
 
@@ -29,5 +30,9 @@ class MoodleController {
             }
             '*' { respond moodle, [status: CREATED] }
         }
+    }
+
+    def moodleGameList(String domain) {
+        render MoodleGame.findAllByOwner(Moodle.findByDomain(domain)) as JSON
     }
 }
