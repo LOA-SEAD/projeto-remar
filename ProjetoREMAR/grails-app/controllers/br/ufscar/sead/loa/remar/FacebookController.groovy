@@ -27,6 +27,7 @@ class FacebookController {
             println details.email
             println details.name
             println details.id
+
             def n = Math.abs(new Random().nextInt() % 5000) + 1
             User newUser = new User(
                     username: details.name,
