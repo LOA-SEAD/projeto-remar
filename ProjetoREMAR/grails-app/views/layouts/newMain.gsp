@@ -34,7 +34,7 @@
     <script type="text/javascript" src="${resource(dir: 'assets/js', file: 'modernizr.custom.js')}"></script>
 
     <g:layoutHead />
-
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
 <body data-spy="scroll" data-offset="0" data-target="#navbar-main">

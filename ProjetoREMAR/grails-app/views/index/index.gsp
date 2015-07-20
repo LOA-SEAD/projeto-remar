@@ -47,8 +47,8 @@
 						<!--<li> <a href="#portfolio" class="smoothScroll"> Portfolio</a></li>
 						<li> <a href="#blog" class="smoothScroll"> Blog</a></li> -->
 						<li><a href="#contact" class="smoothScroll">Contato</a></li>
-						<li><a data-toggle="modal" href="/login">Login</a></li>
-                        <li><g:link controller="login">LOGIN</g:link></li>
+						%{--<li><a data-toggle="modal" href="/login">Login</a></li>--}%
+                        <li><g:link controller="login">Login</g:link></li>
 				</div><!--/.nav-collapse -->
 			</div>
 		</div>

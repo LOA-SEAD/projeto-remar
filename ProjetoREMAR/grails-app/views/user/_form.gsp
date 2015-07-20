@@ -42,12 +42,16 @@
 
 <div class="form-group captcha">
 	<span class="footer-span">CAPTCHA</span>
+    <div class="g-recaptcha" data-sitekey="6LdA8QkTAAAAANzRpkGUT__a9B2zHlU5Mnl6EDoJ"></div>
+
+    <recaptcha:script/>
 </div>
 
 <div class="form-group">
 	<div class="ck-style ck-style-create">
 		<input type="checkbox" name="remember">
 	</div>
+
 	<div class="footer-span span-create">
 		<span>Eu concordo com os <a>Termos e Servi&ccedil;os</a> e a
 			<a>Politica de Privacidade</a> do REMAR</span>
