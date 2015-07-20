@@ -7,7 +7,10 @@ import org.camunda.bpm.engine.IdentityService
 import static org.springframework.http.HttpStatus.*
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
-
+import groovyx.net.http.HTTPBuilder
+import groovyx.net.http.ContentType
+import groovyx.net.http.Method
+import groovyx.net.http.RESTClient
 
 @Transactional(readOnly = true)
 class UserController {
@@ -155,6 +158,26 @@ class UserController {
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     @Transactional
     def save(User userInstance) {
+        
+        def userIP = request.getRemoteAddr()
+
+        def captcha = params.get("g-recaptcha-response")
+
+        def http = new HTTPBuilder('https://www.google.com')
+        http.request(Method.GET, ContentType.TEXT) {
+            uri.path = '/recaptcha/api/siteverify'
+            uri.query = [secret: "6LdA8QkTAAAAACHA9KoBPT1BXXBrJpQNJfCGTm9x", response: captcha, remoteip: userIP]
+
+            //response handler for a success response code
+            response.success = { resp, reader ->
+                println reader.getText()
+            }
+        }
+        //println restrpc
+        /*def path = '&response='+captcha+'&remoteip='+userIP
+        def resp = restrpc.get(path:path)
+        def data = restrpc.data*/
+
         if (userInstance == null) {
             notFound()
             return
@@ -172,8 +195,7 @@ class UserController {
         userInstance.passwordExpired = false
 
 
-
-        userInstance.save flush:true
+        /*userInstance.save flush:true
 
         sendConfirmationMail(userInstance.getEmail(),userInstance.getId())
 
@@ -182,23 +204,13 @@ class UserController {
 
 
 
-//        if(params.ROLE_ADMIN) {
-//            UserRole.create(userInstance, Role.findByAuthority("ROLE_ADMIN"), true)
-//        }
-
-
-
-//        if(params.ROLE_DESENVOLVEDOR) {
-//            UserRole.create(userInstance, Role.findByAuthority("ROLE_DESENVOLVEDOR"), true)
-//        }
-
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
                 redirect userInstance
             }
             '*' { respond userInstance, [status: CREATED] }
-        }
+        }*/
     }
 
 
