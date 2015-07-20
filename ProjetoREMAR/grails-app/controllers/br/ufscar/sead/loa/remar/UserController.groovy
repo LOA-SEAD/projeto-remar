@@ -13,7 +13,6 @@ import grails.transaction.Transactional
 class UserController {
     def springSecurityService
     MailService mailService
-    FacebookUser facebookUser
     FacebookGraphService facebookGraphService
 
     IdentityService identityService
