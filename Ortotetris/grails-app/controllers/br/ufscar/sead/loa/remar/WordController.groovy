@@ -11,11 +11,6 @@ class WordController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def teste(int a){
-        println("Testando botao   " + a)
-        redirect action: "index"
-    }
-
     /* Funções que manipulam word e answer */
     def initialize_word(Word wordInstance){
         String aux = ""+wordInstance.getAnswer().toUpperCase()
@@ -35,11 +30,14 @@ class WordController {
             aux += ("ì")
             wordInstance.setWord(aux)
             wordInstance.setInitial_position(wordInstance.getInitial_position() - 1)
-            update(Word.findById(params.id))
+            //update(wordInstance,false)
+            wordInstance.save flush:true
+            redirect(action: "index")
         }
         else
         {
-            redirect(action: "show", id: params.id)
+            redirect(action: "index")
+            //redirect(action: "show", id: params.id)
         }
     }//move word para a esquerda
 
@@ -51,10 +49,14 @@ class WordController {
             aux += (wordInstance.getWord().substring(0, 9))
             wordInstance.setWord(aux)
             wordInstance.setInitial_position(wordInstance.getInitial_position() + 1)
-            update(wordInstance)
+            //update(wordInstance,false)
+            wordInstance.save flush:true
+            redirect(action: "index")
+
         }
         else {
-            redirect(action: "show", id: params.id)
+            redirect(action: "index")
+            //redirect(action: "show", id: params.id)
         }
     }//move word para a direita
 
@@ -69,10 +71,13 @@ class WordController {
             aux += ("0")
             aux += (wordInstance.getWord().substring(position, 10))
             wordInstance.setWord(aux)
-            update(wordInstance)
+            wordInstance.save flush:true
+            redirect(action: "index")
+            //update(wordInstance,false)
         }
         else{
-            redirect(action: "show", id: params.id)
+            redirect(action: "index")
+            //redirect(action: "show", id: params.id)
         }
 
     }//marca o caractere como '0' (esconde o caractere)
@@ -88,10 +93,13 @@ class WordController {
             aux += (wordInstance.getAnswer().charAt(position - wordInstance.getInitial_position() - 1).toUpperCase())
             aux += ((wordInstance.getWord().substring(position, 10)))
             wordInstance.setWord(aux)
-            update(wordInstance)
+            wordInstance.save flush:true
+            redirect(action: "index")
+            //update(wordInstance,false)
         }
         else{
-            redirect(action: "show", id: params.id)
+            redirect(action: "index")
+            //redirect(action: "show", id: params.id)
         }
 
     }//acessa answer e recupera o caractere que havia sido escondido
@@ -128,7 +136,7 @@ class WordController {
 
 
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
+        params.max = Math.min(max ?: 255, 1000)
         respond Word.list(params), model:[wordInstanceCount: Word.count()]
     }
 
@@ -171,7 +179,7 @@ class WordController {
     }
 
     @Transactional
-    def update(Word wordInstance) {
+    def update(Word wordInstance, boolean edited) {
         if (wordInstance == null) {
             notFound()
             return
@@ -182,6 +190,8 @@ class WordController {
             return
         }
 
+        if(edited==true)
+            initialize_word(wordInstance)
         wordInstance.save flush:true
 
         request.withFormat {
@@ -191,6 +201,9 @@ class WordController {
             }
             '*'{ respond wordInstance, [status: OK] }
         }
+
+
+
     }
 
     @Transactional

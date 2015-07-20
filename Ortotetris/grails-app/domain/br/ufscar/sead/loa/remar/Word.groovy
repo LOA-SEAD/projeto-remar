@@ -9,7 +9,7 @@ class Word {
     }
 
     String answer
-    String word
-    int initial_position
+    String word = "none"
+    int initial_position = 0
 }
 

@@ -22,8 +22,6 @@
 			<script type="text/javascript" defer="defer">
 				function ShowWord(word, answer,initial_position, id) {
 
-
-
 					var node = document.getElementById("ShowWord");
 					//var button_teste = "<button onclick=\" teste('"+word+"')\" >Teste Show Word</button>"
 					var button_move_right = "<button class='but' onclick=\"right('"+ word + "','"+ answer +"','" + initial_position+ "','"+ id+"')\" > Move to right</button>"
@@ -31,7 +29,6 @@
 
 					node.innerHTML=""
 					node.innerHTML+= button_move_left
-
 
 					for(var i=0; i<10;i++){
 						if(word[i]=="ì")
@@ -52,18 +49,18 @@
 					node.innerHTML+= button_move_right
 				}
 
-
 				function right(word,answer,initial_position,id){
 					var elementName="button"+id
 					var parameters = {"id": id}
-					<g:remoteFunction after="bla" action="move_to_right" params="parameters" />
+					<g:remoteFunction action="move_to_right" params="parameters" after="bla()"/>
+					ShowWord("hahahahaha","hahahahaha",0,1)
 					//ShowWord("hahahahha",answer,initial_position,id)
 //					document.getElementsByName(elementName).click();
 
 				}
 				function bla(){
 					println("oi")
-					ShowWord("hahahahha","hahahaha",0,17)
+					ShowWord("hahahahha","hahahaha",0,1)
 				}
 				function left(id){
 					var parameters = {"id": id}

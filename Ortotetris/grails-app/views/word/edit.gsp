@@ -29,6 +29,7 @@
 			</g:hasErrors>
 			<g:form url="[resource:wordInstance, action:'update']" method="PUT" >
 				<g:hiddenField name="version" value="${wordInstance?.version}" />
+				<g:hiddenField name="edited" value="true" />
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>
