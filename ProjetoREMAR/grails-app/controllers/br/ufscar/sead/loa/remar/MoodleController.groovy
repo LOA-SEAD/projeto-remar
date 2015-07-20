@@ -13,12 +13,12 @@ class MoodleController {
         /*if (moodle == null) {
             notFound()
             return
-        }
+        }*/
 
         if (moodle.hasErrors()) {
-            respond moodle.errors, view:'create'
-            return
-        }*/
+            println("Someone tried to install the REMAR plugin in his/her moodle but it didn't worked:")
+            println(moodle.errors)
+        }
 
         moodle.save flush:true
 
