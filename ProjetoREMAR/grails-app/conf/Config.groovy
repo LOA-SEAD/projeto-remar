@@ -97,6 +97,10 @@ environments {
         grails.logging.jul.usebridge = true
         grails.serverURL = "http://myapp.dev:9090"
         grails.app.context = "/"
+        bruteforcedefender {
+            time = 5
+            allowedNumberOfAttempts = 3
+        }
 	camunda {
         deployment.scenario = 'embedded'
             engine {

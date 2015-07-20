@@ -26,6 +26,11 @@ class UserController {
     }
 
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
+    def validateReCaptcha(){
+
+    }
+
+    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def show(User userInstance) {
         respond userInstance, model:[userInstance: userInstance]
     }
