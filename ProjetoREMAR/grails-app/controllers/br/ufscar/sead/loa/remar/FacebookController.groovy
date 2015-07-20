@@ -16,7 +16,7 @@ class FacebookController {
             SpringSecurityUtils.reauthenticate(currentUser.username, currentUser.password)
             println springSecurityService.getCurrentUser()
 
-            redirect(controller: 'index' ,action: 'index')
+            //redirect(controller: 'index' ,action: 'index')
         }
         else{
             println session.facebook
@@ -46,8 +46,9 @@ class FacebookController {
             UserRole.create(newUser, Role.findByAuthority("ROLE_USER"), true)
             UserRole.create(newUser, Role.findByAuthority("ROLE_FACEBOOK"), true)
 
-            redirect(controller: 'index', action: 'index')
+            //redirect(controller: 'index', action: 'index')
         }
 
+        redirect(controller: 'index', action: 'index')
     }
 }
