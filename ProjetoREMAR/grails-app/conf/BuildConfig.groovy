@@ -83,7 +83,6 @@ grails.project.dependency.resolution = {
         runtime ":database-migration:1.4.0"
         runtime ':twitter-bootstrap:3.3.4' // current: 3.3.4
         runtime ":redis:1.6.5"
-        runtime ":rest:0.7"
         
         // Uncomment these to enable additional asset-pipeline capabilities
         //compile ":sass-asset-pipeline:1.9.0"
