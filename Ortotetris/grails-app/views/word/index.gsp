@@ -54,8 +54,9 @@
 					var elementName="button"+id
 					var parameters = {"id": id}
 					<g:remoteFunction action="move_to_right" params="parameters"/>
-                    location.reload();
-                    location.reload();
+					location.reload()
+					location.reload()
+
 //                    window.onload=function(){
 //                        ShowWord(word,answer,initial_position,id)
 //                    }
@@ -107,8 +108,22 @@
 				function SaveNewWord(){
 					var ans = document.getElementById("NewWordLabel").value
 					var node = document.getElementById("ShowWord")
-					var parameters = {"answer": ans, "word": "bla", "initial_position":0}
+					var parameters = {"answer": ans, "word": "none", "initial_position":0}
 					<g:remoteFunction action="save" params="parameters"/>
+					location.reload()
+					location.reload()
+				}
+
+				function editWord(id, answer){
+					var node = document.getElementById("ShowWord")
+					node.innerHTML = "<input type='text' id='EditWordLabel' value='"+answer+"' onfocus=\"(this.value == '"+answer+"') && (this.value = '')\"onblur=\"(this.value == '') && (this.value = '"+answer+"')\"> </input>"
+					node.innerHTML+= " <button onclick=\"UpdateWord("+id+")\" >Salvar</button> "
+				}
+
+				function UpdateWord(id){
+					var ans = document.getElementById("EditWordLabel").value
+					var parameters = {"id":id, "new_answer": ans}
+					<g:remoteFunction action="editWord" params="parameters"/>
 					location.reload()
 					location.reload()
 				}
@@ -143,9 +158,8 @@
 						<td>${fieldValue(bean: wordInstance, field: "initial_position")}</td>
 						<td><button name="button${wordInstance.id}" onclick="ShowWord('${wordInstance.word}','${wordInstance.answer.toUpperCase()}',${wordInstance.initial_position}, ${wordInstance.id})">PERSONALIZAR</button></td>
 						<td>
-							<fieldset class="buttons">
-								<g:link class="edit" action="edit" resource="${wordInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-							</fieldset>
+								<button onclick="editWord(${wordInstance.id},'${wordInstance.answer}')">EDITAR</button>
+								%{--<g:link class="edit" action="edit" resource="${wordInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>--}%
 						</td>
 						<td>
 							<g:form url="[resource:wordInstance, action:'delete']" method="DELETE">

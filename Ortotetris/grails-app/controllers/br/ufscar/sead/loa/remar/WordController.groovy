@@ -104,6 +104,14 @@ class WordController {
 
     }//acessa answer e recupera o caractere que havia sido escondido
 
+    @Transactional
+    def editWord(){
+        Word wordInstance = Word.findById(params.id)
+        wordInstance.setAnswer(params.new_answer)
+        initialize_word(wordInstance)
+        wordInstance.save flush:true
+    }
+
     def toJsonAnswer() {
         def list = Word.getAll();
         def fileName = "gabarito.json"
