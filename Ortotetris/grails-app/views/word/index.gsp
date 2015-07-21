@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'layout.css')}"	type="text/css">
 	</head>
 	<body>
+    <div id="bodypage">
 		<a href="#list-word" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
@@ -20,10 +21,10 @@
 		<div id="ShowWord" style="width: 960px; height: 350px;" > %{--div que exibe a palavra--}%
 
 			<script type="text/javascript" defer="defer">
+
 				function ShowWord(word, answer,initial_position, id) {
 
 					var node = document.getElementById("ShowWord");
-					//var button_teste = "<button onclick=\" teste('"+word+"')\" >Teste Show Word</button>"
 					var button_move_right = "<button class='but' onclick=\"right('"+ word + "','"+ answer +"','" + initial_position+ "','"+ id+"')\" > Move to right</button>"
 					var button_move_left = "<button class='but' onclick='left(" + id +")' > Move to left</button>"
 
@@ -52,22 +53,28 @@
 				function right(word,answer,initial_position,id){
 					var elementName="button"+id
 					var parameters = {"id": id}
-					<g:remoteFunction action="move_to_right" params="parameters" after="bla()"/>
-					ShowWord("hahahahaha","hahahahaha",0,1)
-					//ShowWord("hahahahha",answer,initial_position,id)
+					<g:remoteFunction action="move_to_right" params="parameters"/>
+                    location.reload();
+                    location.reload();
+//                    window.onload=function(){
+//                        ShowWord(word,answer,initial_position,id)
+//                    }
+//					ShowWord("hahahahaha","hahahahaha",0,1)
+//					ShowWord("hahahahha",answer,initial_position,id)
 //					document.getElementsByName(elementName).click();
 
 				}
-				function bla(){
+
+                function bla(){
 					println("oi")
 					ShowWord("hahahahha","hahahaha",0,1)
 				}
-				function left(id){
+
+                function left(id){
 					var parameters = {"id": id}
 					<g:remoteFunction action="move_to_left" params="parameters"/>
 					location.reload();
 					location.reload();
-
 				}
 
 				function mark_letter(id,pos){
@@ -75,7 +82,6 @@
 					<g:remoteFunction action="mark_letter" params="parameters"/>
 					location.reload();
 					location.reload();
-
 				}
 
 				function clear_letter(id,pos){
@@ -89,6 +95,25 @@
 					<g:remoteFunction action="toJsonAnswer"/>
 					<g:remoteFunction action="toJsonWord" />
 				}
+
+				function createNewWord(){
+					var node = document.getElementById("ShowWord")
+					node.innerHTML = "<input type='text' id='NewWordLabel' value='Digite a nova palavra aqui' onfocus=\"(this.value == 'Digite a nova palavra aqui') && (this.value = '')\"onblur=\"(this.value == '') && (this.value = 'Digite a nova palavra aqui')\"> </input>"
+					node.innerHTML += " <input type=\"hidden\" name=\"word\" value=\"word\"/> "
+					node.innerHTML += " <input type=\"hidden\" name=\"initial_position\" value=\"0\"/> "
+					node.innerHTML+= " <button onclick=\"SaveNewWord()\" >Salvar nova palavra</button> "
+				}
+
+				function SaveNewWord(){
+					var ans = document.getElementById("NewWordLabel").value
+					var node = document.getElementById("ShowWord")
+					var parameters = {"answer": ans, "word": "bla", "initial_position":0}
+					<g:remoteFunction action="save" params="parameters"/>
+					location.reload()
+					location.reload()
+				}
+
+
 
 			</script>
 
@@ -108,8 +133,6 @@
 						<g:sortableColumn property="Personalizar" title="${message(code: 'word.initial_position.label', default: 'Personalizar')}" />
 						<g:sortableColumn property="Editar" title="${message(code: 'word.initial_position.label', default: 'Editar')}" />
 						<g:sortableColumn property="Remover" title="${message(code: 'word.initial_position.label', default: 'Remover')}" />
-
-
 					</tr>
 				</thead>
 				<tbody>
@@ -118,7 +141,7 @@
 						<td><g:link action="show" id="${wordInstance.id}">${wordInstance.answer.toUpperCase()} </g:link></td>
 						<td>${fieldValue(bean: wordInstance, field: "word")}</td>
 						<td>${fieldValue(bean: wordInstance, field: "initial_position")}</td>
-						<td><button name="button${wordInstance.id}" onclick="ShowWord('${wordInstance.word}','${wordInstance.answer.toUpperCase()}',${wordInstance.initial_position}, ${wordInstance.id})">${wordInstance.answer.toUpperCase()}</button></td>
+						<td><button name="button${wordInstance.id}" onclick="ShowWord('${wordInstance.word}','${wordInstance.answer.toUpperCase()}',${wordInstance.initial_position}, ${wordInstance.id})">PERSONALIZAR</button></td>
 						<td>
 							<fieldset class="buttons">
 								<g:link class="edit" action="edit" resource="${wordInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
@@ -139,6 +162,10 @@
 				<g:paginate total="${wordInstanceCount ?: 0}" />
 			</div>
 		</div>
-		<button onclick="allToJson()" > SALVAR TUDO </button>
+
+        <button onclick="allToJson()" > SALVAR TUDO </button>
+        <button onclick="createNewWord()">Criar nova palavra</button>
+
+	</div>
 	</body>
 </html>
