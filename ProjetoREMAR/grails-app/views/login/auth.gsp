@@ -39,7 +39,7 @@
         }
     </script>
     <fbg:resources />
-    <script src='https://www.google.com/recaptcha/api.js'></script>
+
 </head>
 <body>
     <div class="container">
@@ -85,16 +85,9 @@
                             <input type="checkbox" name="remember">
                             <span class="footer-span">Lembre-me</span>
                         </div>
-                        <div>
 
-                            <div class="g-recaptcha" data-sitekey="6LdA8QkTAAAAANzRpkGUT__a9B2zHlU5Mnl6EDoJ"></div>
-
-                        <recaptcha:script/>
-                        </div>
                         <button class="btn btn-primary btn-block btn-login" >Entrar</button>
                     </div>
-
-
                 </form>
             </div>
         </article>
