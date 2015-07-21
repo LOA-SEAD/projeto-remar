@@ -74,7 +74,7 @@ grails.project.dependency.resolution = {
         compile ":mail:1.0.7"
         compile ":facebook-graph:0.14"
         compile ":recaptcha:1.2.0"
-
+        compile ":rest-client-builder:2.0.0"
 
 
 

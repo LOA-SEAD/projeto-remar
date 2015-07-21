@@ -49,12 +49,12 @@
 
 <div class="form-group">
 	<div class="ck-style ck-style-create">
-		<input type="checkbox" name="remember">
+		<input type="checkbox" name="remember" id="remember">
 	</div>
 
 	<div class="footer-span span-create">
-		<span>Eu concordo com os <a>Termos e Servi&ccedil;os</a> e a
-			<a>Politica de Privacidade</a> do REMAR</span>
+		<span><label for="remember">Eu concordo com os <a>Termos e Servi&ccedil;os</a> e a
+			<a>Politica de Privacidade</a> do REMAR</label></span>
 	</div>
 
 </div>

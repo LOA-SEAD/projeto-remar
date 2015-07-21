@@ -7,6 +7,9 @@ import org.camunda.bpm.engine.IdentityService
 import static org.springframework.http.HttpStatus.*
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
+import grails.plugins.rest.client.RestBuilder
+import grails.converters.JSON
+
 
 @Transactional(readOnly = true)
 class UserController {
@@ -158,11 +161,12 @@ class UserController {
         def userIP = request.getRemoteAddr()
 
         def captcha = params.get("g-recaptcha-response")
+
+        def rest = new RestBuilder()
         
-        //println restrpc
-        /*def path = '&response='+captcha+'&remoteip='+userIP
-        def resp = restrpc.get(path:path)
-        def data = restrpc.data*/
+        def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?secret=6LdA8QkTAAAAACHA9KoBPT1BXXBrJpQNJfCGTm9x&response="+captcha+"&remoteip="+userIP)
+        println resp.json as JSON
+
 
         if (userInstance == null) {
             notFound()
@@ -181,7 +185,7 @@ class UserController {
         userInstance.passwordExpired = false
 
 
-        /*userInstance.save flush:true
+        userInstance.save flush:true
 
         sendConfirmationMail(userInstance.getEmail(),userInstance.getId())
 
@@ -196,7 +200,7 @@ class UserController {
                 redirect userInstance
             }
             '*' { respond userInstance, [status: CREATED] }
-        }*/
+        }
     }
 
 
