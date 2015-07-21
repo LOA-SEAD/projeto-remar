@@ -166,41 +166,51 @@ class UserController {
         
         def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?secret=6LdA8QkTAAAAACHA9KoBPT1BXXBrJpQNJfCGTm9x&response="+captcha+"&remoteip="+userIP)
         println resp.json as JSON
-
-
-        if (userInstance == null) {
-            notFound()
-            return
-        }
-
-        if (userInstance.hasErrors()) {
-            respond userInstance.errors, view:'create'
-            return
-        }
-
-
-        userInstance.accountExpired = false
-        userInstance.accountLocked = true //Before user confirmation
-        userInstance.enabled = false        // Before user confirmation
-        userInstance.passwordExpired = false
-
-
-        userInstance.save flush:true
-
-        sendConfirmationMail(userInstance.getEmail(),userInstance.getId())
-
-        UserRole.create(userInstance, Role.findByAuthority("ROLE_USER"), true)
-        UserRole.create(userInstance, Role.findByAuthority("ROLE_STUD"), true)
-
-
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
-                redirect userInstance
+        if(resp.json.success==true){
+            if (userInstance == null) {
+                notFound()
+                return
             }
-            '*' { respond userInstance, [status: CREATED] }
+
+            if (userInstance.hasErrors()) {
+                respond userInstance.errors, view:'create'
+                return
+            }
+
+
+            userInstance.accountExpired = false
+            userInstance.accountLocked = true //Before user confirmation
+            userInstance.enabled = false        // Before user confirmation
+            userInstance.passwordExpired = false
+
+
+            userInstance.save flush:true
+
+            sendConfirmationMail(userInstance.getEmail(),userInstance.getId())
+
+            UserRole.create(userInstance, Role.findByAuthority("ROLE_USER"), true)
+            UserRole.create(userInstance, Role.findByAuthority("ROLE_STUD"), true)
+
+
+
+            request.withFormat {
+                form multipartForm {
+                    flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
+                    redirect userInstance
+                }
+                '*' { respond userInstance, [status: CREATED] }
+            }
+
+
         }
+        else{
+            flash.message = message(code: 'bla')
+            //flash.message = message("Clique no recpatcha")
+            redirect (controller: "user", action: "create")
+        }
+
+
+
     }
 
 

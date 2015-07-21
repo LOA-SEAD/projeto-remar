@@ -40,9 +40,10 @@
 	<g:passwordField name="password" class="form-control input-form" required="" />
 </div>
 
+
 <div class="form-group captcha">
 	<span class="footer-span">CAPTCHA</span>
-    <div class="g-recaptcha" data-sitekey="6LdA8QkTAAAAANzRpkGUT__a9B2zHlU5Mnl6EDoJ"></div>
+    <div class="g-recaptcha" data-sitekey="6LdA8QkTAAAAANzRpkGUT__a9B2zHlU5Mnl6EDoJ"></div>${flash.message}
 
     <recaptcha:script/>
 </div>
