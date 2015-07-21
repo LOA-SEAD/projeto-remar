@@ -259,7 +259,7 @@ footer{
 }
 
 .btn-create{
-    margin-left: 25%;
+    margin-left: 23%;
     margin-right: 50%;
     width: 100px;
     display: inline-block;
@@ -268,4 +268,26 @@ footer{
 
 input.btn-block[type="submit"], input.btn-block[type="reset"], input.btn-block[type="button"] {
     width: 50%;
+}
+
+.g-recaptcha{
+    position: static;
+    margin-left: 30%;
+    margin-right: 50%;
+}
+
+.title-style{
+   text-align: center;
+   font-weight: bold;
+
+}
+
+.password-text-align{
+    text-align: center;
+}
+
+#link-password{
+    display: block;
+    position: static;
+    left:30%;
 }

@@ -64,28 +64,28 @@
                         %{--<i class="icon-cog"></i>--}%
                         %{--<span>Sistema Administrativo<br />REMAR</span>--}%
                     %{--</a>--}%
-                    <div class="relative-w">
-                        <ul class="side-menu">
-                            <li><a href="/" class="dropdown-toggle">Lista de Jogos</a></li>
+                    %{--<div class="relative-w">--}%
+                        %{--<ul class="side-menu">--}%
+                            %{--<li><a href="/" class="dropdown-toggle">Lista de Jogos</a></li>--}%
 
-                            <sec:ifAllGranted roles="ROLE_ADMIN">
-                                <li><a href="/user" class="dropdown-toggle">Lista de Usuários</a></li>
-                                <li><a href="/user/create" class="dropdown-toggle">Criar novo Usuário</a></li>
-                            </sec:ifAllGranted>
-                            <sec:ifAllGranted roles="ROLE_PROF">
-                                <!--<li><a href="/processoJogo/jogos">Lista de Jogos Personalizaveis</a></li>-->
-                            </sec:ifAllGranted>
-                            <sec:ifAllGranted roles="ROLE_STUD">
-                                <!--<li class="dropdown-toggle"><a href="#">Estudante</a></li>-->
-                            </sec:ifAllGranted>
-                            <sec:ifAllGranted roles="ROLE_EDITOR">
-                                <!--<li class="dropdown-toggle"><a href="#">Editor</a></li>-->
-                            </sec:ifAllGranted>
-                            <sec:ifAllGranted roles="ROLE_DESENVOLVEDOR">
-                                <!--<li class="dropdown-toggle"><a href="#">Desenvolvedor</a></li>-->
-                            </sec:ifAllGranted>
+                            %{--<sec:ifAllGranted roles="ROLE_ADMIN">--}%
+                                %{--<li><a href="/user" class="dropdown-toggle">Lista de Usuários</a></li>--}%
+                                %{--<li><a href="/user/create" class="dropdown-toggle">Criar novo Usuário</a></li>--}%
+                            %{--</sec:ifAllGranted>--}%
+                            %{--<sec:ifAllGranted roles="ROLE_PROF">--}%
+                                %{--<!--<li><a href="/processoJogo/jogos">Lista de Jogos Personalizaveis</a></li>-->--}%
+                            %{--</sec:ifAllGranted>--}%
+                            %{--<sec:ifAllGranted roles="ROLE_STUD">--}%
+                                %{--<!--<li class="dropdown-toggle"><a href="#">Estudante</a></li>-->--}%
+                            %{--</sec:ifAllGranted>--}%
+                            %{--<sec:ifAllGranted roles="ROLE_EDITOR">--}%
+                                %{--<!--<li class="dropdown-toggle"><a href="#">Editor</a></li>-->--}%
+                            %{--</sec:ifAllGranted>--}%
+                            %{--<sec:ifAllGranted roles="ROLE_DESENVOLVEDOR">--}%
+                                %{--<!--<li class="dropdown-toggle"><a href="#">Desenvolvedor</a></li>-->--}%
+                            %{--</sec:ifAllGranted>--}%
 
-                            <li class="dropdown-toggle"><a href="/logout">Sair<!-- (<sec:loggedInUserInfo field="username"/>)--></a></li>
+                            %{--<li class="dropdown-toggle"><a href="/logout">Sair<!-- (<sec:loggedInUserInfo field="username"/>)--></a></li>--}%
                             %{--</ul>--}%
                         %{--</div>--}%
                     %{--</div>--}%
