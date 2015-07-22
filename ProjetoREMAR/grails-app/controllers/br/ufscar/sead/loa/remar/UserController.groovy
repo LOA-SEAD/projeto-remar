@@ -27,10 +27,7 @@ class UserController {
         respond User.list(params)
     }
 
-    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
-    def validateReCaptcha(){
 
-    }
 
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def show(User userInstance) {
@@ -107,6 +104,8 @@ class UserController {
             def user = User.findById(params.userid)
 //            user.passwordExpired = false      NAO!
             user.password = params.confirmPassword
+            user.accountLocked = false
+            user.accountExpired = false
             println "password alterado"
 
         }
@@ -128,31 +127,44 @@ class UserController {
     }
     @Transactional(readOnly=false)
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
-    def confirmEmail(){
-        if(User.findByEmail(params.email)){
-            //User.findByEmail(params.email).passwordExpired = true  NAO!
-            String charset =(('A') + ('0'..'9').join())
-            Integer length = 9
-            String randomString = RandomStringUtils.random(length, charset.toCharArray())
-            def newToken = new PasswordToken(token: randomString, idOwner: User.findByEmail(params.email).getId())
-            newToken.save flush: true
+    def confirmEmail() {
+        def userIP = request.getRemoteAddr()
 
-            mailService.sendMail {
-                async true
-                to params.email
-                subject "Nova senha para o REMAR"
-                html '<h3>Clique no link abaixo para fazer uma nova senha</h3> <br>' +
-                        '<br>' +
-                        'http://localhost:8080/user/newpassword/confirm?Token=' + newToken.getToken()
+        def captcha = params.get("g-recaptcha-response")
 
+        def rest = new RestBuilder()
+
+        def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?secret=6LdA8QkTAAAAACHA9KoBPT1BXXBrJpQNJfCGTm9x&response=" + captcha + "&remoteip=" + userIP)
+        println resp.json as JSON
+        if (resp.json.success == true) {
+            if (User.findByEmail(params.email)) {
+                //User.findByEmail(params.email).passwordExpired = true  NAO!
+                String charset = (('A') + ('0'..'9').join())
+                Integer length = 9
+                String randomString = RandomStringUtils.random(length, charset.toCharArray())
+                def newToken = new PasswordToken(token: randomString, idOwner: User.findByEmail(params.email).getId())
+                newToken.save flush: true
+
+                mailService.sendMail {
+                    async true
+                    to params.email
+                    subject "Nova senha para o REMAR"
+                    html '<h3>Clique no link abaixo para fazer uma nova senha</h3> <br>' +
+                            '<br>' +
+                            'http://localhost:8080/user/newpassword/confirm?Token=' + newToken.getToken()
+
+                }
+
+            } else {
+                // TODO VERIFICAR EMAIL NAO ENCONTRADO E RETORNAR ERRO
             }
 
+            render(view: "/static/emailsent")
+        } else {
+            //TODO tratar erro no repactcha
+            render(view: "/static/forgottenPassword")
         }
-
-       render(view: "/static/emailsent")
     }
-
-
 
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     @Transactional
@@ -182,6 +194,7 @@ class UserController {
             userInstance.accountLocked = true //Before user confirmation
             userInstance.enabled = false        // Before user confirmation
             userInstance.passwordExpired = false
+            userInstance.camunda_id = userInstance.getName()
 
 
             userInstance.save flush:true

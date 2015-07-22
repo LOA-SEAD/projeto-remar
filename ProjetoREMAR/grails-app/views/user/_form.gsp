@@ -43,8 +43,10 @@
 
 <div class="form-group captcha">
 	<span class="footer-span">CAPTCHA</span>
-    <div class="g-recaptcha" data-sitekey="6LdA8QkTAAAAANzRpkGUT__a9B2zHlU5Mnl6EDoJ"></div>${flash.message}
-
+    <div class="g-recaptcha" data-sitekey="6LdA8QkTAAAAANzRpkGUT__a9B2zHlU5Mnl6EDoJ"></div>
+    <g:if test='${flash.message}'>
+        ${flash.message}
+    </g:if>
     <recaptcha:script/>
 </div>
 
