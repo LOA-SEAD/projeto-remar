@@ -137,7 +137,10 @@ class UserController {
         def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?secret=6LdA8QkTAAAAACHA9KoBPT1BXXBrJpQNJfCGTm9x&response=" + captcha + "&remoteip=" + userIP)
         println resp.json as JSON
         if (resp.json.success == true) {
+            println params.email
+            println User.findByEmail(params.email)
             if (User.findByEmail(params.email)) {
+                println User.findByEmail(params.email)
                 //User.findByEmail(params.email).passwordExpired = true  NAO!
                 String charset = (('A') + ('0'..'9').join())
                 Integer length = 9
@@ -151,19 +154,17 @@ class UserController {
                     subject "Nova senha para o REMAR"
                     html '<h3>Clique no link abaixo para fazer uma nova senha</h3> <br>' +
                             '<br>' +
-                            'http://localhost:8080/user/newpassword/confirm?Token=' + newToken.getToken()
+                            'http://localhost:9090/user/newpassword/confirm?Token=' + newToken.getToken()
 
                 }
 
+                render(view: "/static/emailsent")
+
             } else {
-                // TODO VERIFICAR EMAIL NAO ENCONTRADO E RETORNAR ERRO
+                // TODO EXIBIR FLASH MESSAGE DE EMAIL  NAO ENCONTRADO
+                render(view: '/static/forgottenPassword')
             }
 
-            render(view: "/static/emailsent")
-        } else {
-//
-//            render(view: "/static/forgottenPassword")
-            //VALIDACAO SENDO FEITA NO CLIENTE
         }
     }
 
