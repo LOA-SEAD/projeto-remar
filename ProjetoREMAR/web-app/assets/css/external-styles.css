@@ -224,6 +224,13 @@ footer{
     text-align: justify;
 }
 
+.label-info{
+    text-align: center;
+    font-weight: normal;
+    background-color: transparent;
+    font-size: 18px;
+}
+
 
 .input-form {
     height: 35px;
@@ -243,7 +250,7 @@ footer{
 
 .span-create{
     text-align: justify;
-   margin-left: 30px;
+    margin-left: 30px;
 }
 
 .container-create{

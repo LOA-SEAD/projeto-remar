@@ -17,11 +17,11 @@
         <article class="row">
             <div class="col-md-12">
                 <section>
-                    <h3 class="title-style">Recuperar sua conta</h3>
+                    <h3 class="title-style">Seja bem-vindo!</h3>
                     <div class="divider"></div>
                 </section>
                 <section>
-                    <h3 class="password-text-align">Nova senha redefinida com sucesso!</h3>
+                    <h3 class="password-text-align">Cadastro liberado com sucesso!</h3>
                     <span class="footer-span" id="link-password"><g:link class="footer-span" controller="index" action="index">Home</g:link></span>
                 </section>
             </div>
