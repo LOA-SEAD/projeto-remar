@@ -161,8 +161,9 @@ class UserController {
 
             render(view: "/static/emailsent")
         } else {
-            //TODO tratar erro no repactcha
-            render(view: "/static/forgottenPassword")
+//
+//            render(view: "/static/forgottenPassword")
+            //VALIDACAO SENDO FEITA NO CLIENTE
         }
     }
 
@@ -217,9 +218,11 @@ class UserController {
 
         }
         else{
-            flash.message = message(code: 'bla')
-            //flash.message = message("Clique no recpatcha")
-            redirect (controller: "user", action: "create")
+//            flash.message = message(code: 'bla')
+//            //flash.message = message("Clique no recpatcha")
+//            redirect (controller: "user", action: "create")
+
+            //VALIDACAO SENDO FEITA NO CLIENTE
         }
 
 

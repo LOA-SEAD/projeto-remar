@@ -4,7 +4,7 @@
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
     <title>Cadastro REMAR</title>
-
+    <g:javascript src="recaptcha.js"></g:javascript>
     <link href="${resource(dir: 'assets/css', file: 'external-styles.css')}" rel="stylesheet" >
 </head>
 <body>
@@ -32,11 +32,11 @@
                             <input type="text" class="form-control" name="email" id="email" placeholder="nome@exemplo.com" required=""/>
                         </div>
                         <div class="form-group captcha">
-                            <div class="g-recaptcha" data-sitekey="6LdA8QkTAAAAANzRpkGUT__a9B2zHlU5Mnl6EDoJ"></div>
+                            <div class="g-recaptcha" data-callback="recaptchaCallback" data-sitekey="6LdA8QkTAAAAANzRpkGUT__a9B2zHlU5Mnl6EDoJ"></div>
                             <recaptcha:script/>
                         </div>
                         <div class="form-group">
-                            <input type='submit' id="submit" class="btn btn-primary btn-block btn-create" value="Enviar"/>
+                            <input type='submit' id="submitBtn"  class="btn btn-primary btn-block btn-create" value="Enviar"/>
                         </div>
                     </g:form>
                 </section>

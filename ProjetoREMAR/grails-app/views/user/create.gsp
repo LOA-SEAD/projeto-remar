@@ -4,7 +4,7 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
 		<title>Cadastro REMAR</title>
-
+        <g:javascript src="recaptcha.js"></g:javascript>
 		<link href="${resource(dir: 'assets/css', file: 'external-styles.css')}" rel="stylesheet" >
 	</head>
 	<body>
@@ -39,7 +39,7 @@
 							</div>
 							<br />
 							<fieldset class="buttons">
-								<g:submitButton name="create" class="btn btn-primary btn-block btn-create" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+								<g:submitButton id="submitBtn" name="create" class="btn btn-primary btn-block btn-create" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 							</fieldset>
 						</g:form>
 					</section>
