@@ -33,12 +33,12 @@
 	<g:passwordField name="password" class="form-control input-form" required="" />
 </div>
 
-<div class="form-group">
-	<label class="label-form" for="password">
-		<g:message   code="user.password.label" default="Confirme sua senha" /><span class="required-indicator">*</span>
-	</label>
-	<g:passwordField name="password" class="form-control input-form" required="" />
-</div>
+%{--<div class="form-group">--}%
+	%{--<label class="label-form" for="password">--}%
+		%{--<g:message   code="user.password.label" default="Confirme sua senha" /><span class="required-indicator">*</span>--}%
+	%{--</label>--}%
+	%{--<g:passwordField name="password" class="form-control input-form" required="" />--}%
+%{--</div>--}%
 
 
 <div class="form-group captcha">
