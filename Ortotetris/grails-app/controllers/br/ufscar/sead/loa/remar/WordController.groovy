@@ -32,17 +32,18 @@ class WordController {
             wordInstance.setInitial_position(wordInstance.getInitial_position() - 1)
             //update(wordInstance,false)
             wordInstance.save flush:true
-            redirect(action: "index")
+            render template: 'list', model: [wordInstanceCount: Word.list().size(), wordInstanceList: Word.getAll()]
         }
         else
         {
-            redirect(action: "index")
+            render template: 'list', model: [wordInstanceCount: Word.list().size(), wordInstanceList: Word.getAll()]
             //redirect(action: "show", id: params.id)
         }
     }//move word para a esquerda
 
     @Transactional
     def move_to_right() {
+        int count = Word.count
         Word wordInstance = Word.findById(params.id)
         if (wordInstance.getWord().charAt(9) == 'ì') {
             String aux = "ì"
@@ -51,11 +52,11 @@ class WordController {
             wordInstance.setInitial_position(wordInstance.getInitial_position() + 1)
             //update(wordInstance,false)
             wordInstance.save flush:true
-            redirect(action: "index")
+            render template: 'list', model: [wordInstanceCount: Word.list().size(), wordInstanceList: Word.getAll()]
 
         }
         else {
-            redirect(action: "index")
+            render template: 'list', model: [wordInstanceCount: Word.list().size(), wordInstanceList: Word.getAll()]
             //redirect(action: "show", id: params.id)
         }
     }//move word para a direita
@@ -72,11 +73,11 @@ class WordController {
             aux += (wordInstance.getWord().substring(position, 10))
             wordInstance.setWord(aux)
             wordInstance.save flush:true
-            redirect(action: "index")
+            render template: 'list', model: [wordInstanceCount: Word.list().size(), wordInstanceList: Word.getAll()]
             //update(wordInstance,false)
         }
         else{
-            redirect(action: "index")
+            render template: 'list', model: [wordInstanceCount: Word.list().size(), wordInstanceList: Word.getAll()]
             //redirect(action: "show", id: params.id)
         }
 
@@ -94,11 +95,11 @@ class WordController {
             aux += ((wordInstance.getWord().substring(position, 10)))
             wordInstance.setWord(aux)
             wordInstance.save flush:true
-            redirect(action: "index")
+            render template: 'list', model: [wordInstanceCount: Word.list().size(), wordInstanceList: Word.getAll()]
             //update(wordInstance,false)
         }
         else{
-            redirect(action: "index")
+            render template: 'list', model: [wordInstanceCount: Word.list().size(), wordInstanceList: Word.getAll()]
             //redirect(action: "show", id: params.id)
         }
 
@@ -110,6 +111,8 @@ class WordController {
         wordInstance.setAnswer(params.new_answer)
         initialize_word(wordInstance)
         wordInstance.save flush:true
+        render template: 'list', model: [wordInstanceCount: Word.list().size(), wordInstanceList: Word.getAll()]
+
     }
 
     def toJsonAnswer() {
