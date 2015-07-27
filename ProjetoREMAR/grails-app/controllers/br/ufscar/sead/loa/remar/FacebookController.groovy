@@ -1,16 +1,16 @@
 package br.ufscar.sead.loa.remar
 
 import grails.converters.JSON
-import grails.plugin.facebooksdk.FacebookContext
-import grails.plugin.facebooksdk.FacebookGraphClient
+//import grails.plugin.facebooksdk.FacebookContext
+//import grails.plugin.facebooksdk.FacebookGraphClient
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import grails.plugins.rest.client.RestBuilder
 
 @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
 class FacebookController {
-
-    FacebookContext facebookContext
+//
+//    FacebookContext facebookContext
 
     def springSecurityService
     def facebookGraphService

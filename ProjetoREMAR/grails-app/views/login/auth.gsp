@@ -11,11 +11,20 @@
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-
-    <link href="${resource(dir: 'assets/css', file: 'jquery.min.js')}" rel="stylesheet" >
     <link href="${resource(dir: 'assets/css', file: 'bootstrap.css')}" rel="stylesheet" >
     <link href="${resource(dir: 'assets/css', file: 'bootstrap-social.css')}" rel="stylesheet" >
     <link href="${resource(dir: 'assets/css', file: 'external-styles.css')}" rel="stylesheet" >
+
+
+    %{--<link href="${resource(dir: 'assets/js', file: 'jquery.min.js')}" rel="stylesheet" >--}%
+    %{--<link href="${resource(dir: 'assets/js', file: 'jquery.validate.js')}" rel="stylesheet" >--}%
+    <g:javascript src="../assets/js/jquery.min.js" />
+    <g:javascript src="../assets/js/jquery.validate.js" />
+
+    %{--<script type="text/javascript" href="${resource(dir: 'assets/js', file: 'jquery.min.js')}" ></script>--}%
+    %{--<script type="text/javascript" href="${resource(dir: 'assets/js', file: 'jquery.validate.js')}" ></script>--}%
+
+
     <script type="text/javascript">
         window.fbAsyncInit = function() {
             FB.init({
@@ -46,6 +55,46 @@
             });
         }
     </script>
+
+    <script>
+        $(function() {
+            $('form').validate({
+                rules: {
+                    j_username: {
+                        minlength: 2,
+                        required: true
+                    },
+                    j_password: {
+                        minlength: 5,
+                        required: true
+                    }
+                },
+                messages:{
+                    j_username: {
+                        required: "Por favor digite seu nome de usuario",
+                        minlength: "Seu username deve ter no minimo 2 caracteres"
+                    },
+                    j_password: {
+                        required: "Por favor digite sua senha",
+                        minlength: "Sua senha deve ter no minimo 5 caracteres"
+                    }
+                },
+                highlight: function(element) {
+                    $(element).closest('.form-group').addClass('has-error');
+                },
+                unhighlight: function(element) {
+                    $(element).closest('.form-group').removeClass('has-error');
+                },
+                errorElement: 'span',
+                errorClass: 'help-block',
+                errorPlacement: function(error, element) {
+                    error.insertAfter(element.parent());
+                }
+            });
+        });
+
+    </script>
+
     <fbg:resources />
 
 </head>
@@ -83,19 +132,24 @@
                         <strong class="">ou</strong>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control input-lg" placeholder="Nome de usu&aacute;rio" name='j_username'>
-                        <span class="icon"><i class="fa fa-user"></i></span>
-
-                        <input type="password" class="form-control input-lg" placeholder="Senha" name='j_password'>
-                        <span class="icon"><i class="fa fa-lock"></i></span>
+                        <div clas="input-group">
+                            <input type="text" class="form-control input-lg" placeholder="Nome de usu&aacute;rio" name='j_username'>
+                            <span class="icon"><i class="fa fa-user"></i></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div clas="input-group">
+                            <input type="password" class="form-control input-lg" placeholder="Senha" name='j_password'>
+                            <span class="icon"><i class="fa fa-lock"></i></span>
+                        </div>
                     </div>
                     <div class="form-group clearfix">
                         <div class="ck-style">
-                            <input type="checkbox" name="remember">
+                            <input type="checkbox" name="${rememberMeParameter}" checked='checked'>
                             <span class="footer-span">Lembre-me</span>
                         </div>
 
-                        <button class="btn btn-primary btn-block btn-login" >Entrar</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-login" >Entrar</button>
                     </div>
                 </form>
             </div>
