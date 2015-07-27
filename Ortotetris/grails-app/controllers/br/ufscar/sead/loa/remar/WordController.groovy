@@ -1,10 +1,12 @@
 package br.ufscar.sead.loa.remar
 
+import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import grails.converters.JSON
 import groovy.json.JsonBuilder
+@Secured(["ROLE_USER","ROLE_ADMIN","ROLE_FACEBOOK"])
 
 @Transactional(readOnly = true)
 class WordController {
@@ -32,13 +34,10 @@ class WordController {
             wordInstance.setInitial_position(wordInstance.getInitial_position() - 1)
             //update(wordInstance,false)
             wordInstance.save flush:true
-            render template: 'list', model: [wordInstanceCount: Word.list().size(), wordInstanceList: Word.getAll()]
         }
-        else
-        {
-            render template: 'list', model: [wordInstanceCount: Word.list().size(), wordInstanceList: Word.getAll()]
-            //redirect(action: "show", id: params.id)
-        }
+        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+
+
     }//move word para a esquerda
 
     @Transactional
@@ -52,13 +51,9 @@ class WordController {
             wordInstance.setInitial_position(wordInstance.getInitial_position() + 1)
             //update(wordInstance,false)
             wordInstance.save flush:true
-            render template: 'list', model: [wordInstanceCount: Word.list().size(), wordInstanceList: Word.getAll()]
+        }
+        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
 
-        }
-        else {
-            render template: 'list', model: [wordInstanceCount: Word.list().size(), wordInstanceList: Word.getAll()]
-            //redirect(action: "show", id: params.id)
-        }
     }//move word para a direita
 
     @Transactional
@@ -73,13 +68,9 @@ class WordController {
             aux += (wordInstance.getWord().substring(position, 10))
             wordInstance.setWord(aux)
             wordInstance.save flush:true
-            render template: 'list', model: [wordInstanceCount: Word.list().size(), wordInstanceList: Word.getAll()]
-            //update(wordInstance,false)
         }
-        else{
-            render template: 'list', model: [wordInstanceCount: Word.list().size(), wordInstanceList: Word.getAll()]
-            //redirect(action: "show", id: params.id)
-        }
+        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+
 
     }//marca o caractere como '0' (esconde o caractere)
 
@@ -95,13 +86,9 @@ class WordController {
             aux += ((wordInstance.getWord().substring(position, 10)))
             wordInstance.setWord(aux)
             wordInstance.save flush:true
-            render template: 'list', model: [wordInstanceCount: Word.list().size(), wordInstanceList: Word.getAll()]
-            //update(wordInstance,false)
         }
-        else{
-            render template: 'list', model: [wordInstanceCount: Word.list().size(), wordInstanceList: Word.getAll()]
-            //redirect(action: "show", id: params.id)
-        }
+        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+
 
     }//acessa answer e recupera o caractere que havia sido escondido
 
@@ -111,8 +98,7 @@ class WordController {
         wordInstance.setAnswer(params.new_answer)
         initialize_word(wordInstance)
         wordInstance.save flush:true
-        render template: 'list', model: [wordInstanceCount: Word.list().size(), wordInstanceList: Word.getAll()]
-
+        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
     }
 
     def toJsonAnswer() {
@@ -168,21 +154,22 @@ class WordController {
         }
 
         if (wordInstance.hasErrors()) {
-            respond wordInstance.errors, view:'create'
+            //respond wordInstance.errors, view:'create'
             return
         }
 
         initialize_word(wordInstance) //inicializa a word conforme a answer passada como parâmetro
 
         wordInstance.save flush:true
+        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'word.label', default: 'Word'), wordInstance.id])
-                redirect wordInstance
-            }
-            '*' { respond wordInstance, [status: CREATED] }
-        }
+//        request.withFormat {
+//            form multipartForm {
+//                flash.message = message(code: 'default.created.message', args: [message(code: 'word.label', default: 'Word'), wordInstance.id])
+//                redirect wordInstance
+//            }
+//            '*' { respond wordInstance, [status: CREATED] }
+//        }
     }
 
     def edit(Word wordInstance) {

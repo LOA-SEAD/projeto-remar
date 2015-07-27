@@ -18,8 +18,6 @@
 		</div>
 		 
 		<div id="ShowWord" style="width: 960px; height: 300px;" > %{--div que exibe a palavra--}%
-
-
 		</div>
 
 
@@ -27,9 +25,10 @@
 			<g:render template="list"/>
 		</div>
 
-        <button onclick="allToJson()" > SALVAR TUDO </button>
-        <button onclick="createNewWord()">Criar nova palavra</button>
-		<script type="text/javascript" defer="defer">
+		<button onclick="createNewWord()">Criar nova palavra</button>
+		<button onclick="allToJson()" > SALVAR TUDO </button>
+
+	<script type="text/javascript" defer="defer">
 
 		function AutoClickButton(id){
 			var button = "#button"+id
@@ -39,8 +38,8 @@
 		function ShowWord(word, answer,initial_position, id) {
 
 			var node = document.getElementById("ShowWord");
-			var button_move_right = "<button class='but' onclick=\"right('"+id+"')\" > Move to right</button>"
-			var button_move_left = "<button class='but' onclick=\"left('"+id+"')\" > Move to left</button>"
+			var button_move_right = "<button class='but' onclick=\"right('"+id+"')\" > -----> </button>"
+			var button_move_left = "<button class='but' onclick=\"left('"+id+"')\" > \<----- </button>"
 
 			node.innerHTML=""
 			node.innerHTML+= button_move_left
@@ -92,10 +91,10 @@
 
 		function createNewWord(){
 			var node = document.getElementById("ShowWord")
-			node.innerHTML = "<input type='text' id='NewWordLabel' value='Digite a nova palavra aqui' onfocus=\"(this.value == 'Digite a nova palavra aqui') && (this.value = '')\"onblur=\"(this.value == '') && (this.value = 'Digite a nova palavra aqui')\"> </input>"
+			node.innerHTML = "<input class='resizedTextbox' type='text' id='NewWordLabel' value='Digite a nova palavra aqui' onfocus=\"(this.value == 'Digite a nova palavra aqui') && (this.value = '')\"onblur=\"(this.value == '') && (this.value = 'Digite a nova palavra aqui')\"> </input>"
 			node.innerHTML += " <input type=\"hidden\" name=\"word\" value=\"word\"/> "
 			node.innerHTML += " <input type=\"hidden\" name=\"initial_position\" value=\"0\"/> "
-			node.innerHTML+= " <button onclick=\"SaveNewWord()\" >Salvar nova palavra</button> "
+			node.innerHTML+= " <button class='but-edit' onclick=\"SaveNewWord()\" >Salvar</button> "
 		}
 
 		function SaveNewWord(){
@@ -107,8 +106,8 @@
 
 		function editWord(id, answer){
 			var node = document.getElementById("ShowWord")
-			node.innerHTML = "<input type='text' id='EditWordLabel' value='"+answer+"' onfocus=\"(this.value == '"+answer+"') && (this.value = '')\"onblur=\"(this.value == '') && (this.value = '"+answer+"')\"> </input>"
-			node.innerHTML+= " <button onclick=\"UpdateWord("+id+")\" >Salvar</button> "
+			node.innerHTML = "<input class='resizedTextbox' type='text' id='EditWordLabel' value='"+answer+"' onfocus=\"(this.value == '"+answer+"') && (this.value = '')\"onblur=\"(this.value == '') && (this.value = '"+answer+"')\"> </input>"
+			node.innerHTML+= " <button class='but-edit' onclick=\"UpdateWord("+id+")\" >Salvar</button> "
 		}
 
 		function UpdateWord(id){

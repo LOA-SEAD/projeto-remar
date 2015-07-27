@@ -1,17 +1,19 @@
 .but {
     display: inline-block;
-    background-color: #EEE9E9;
-    width: 75px;
-    height:50px;
+    background: #e6e6e6;
+    width: 70px;
+    height:60px;
     color: #000000;
     text-decoration: none;
     box-sizing: border-box;
     font-family: Helvetica, Arial, sans-serif;
-    font-size: 16px;
+    font-size: 20px;
     border: 5px;
+    border-radius:10px 10px 10px 10px;
     position:relative;
     top: 50%;
-    left: 5%;
+    left: 4%;
+    margin:2px;
 }
 
 .but:hover {
@@ -19,16 +21,40 @@
     cursor: pointer;
 }
 
-.but-large {
-    font-size: 140%;
-}
 
 .but-invisible{
     display: none;
 }
 
 .but-color1{
-    background-color: #FFFF99;
+    background-color: #fffdb2;
+}
+
+.but-edit{
+    display: inline-block;
+    background: #e6e6e6;
+    width: 70px;
+    height:60px;
+    color: #000000;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 20px;
+    border: 5px;
+    border-radius:10px 10px 10px 10px;
+    position:relative;
+    top: 50%;
+    margin:20px;
+    left: 35%;
+}
+.but-edit:hover{
+    background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,.15));
+    cursor: pointer;
+}
+
+.but-color1:hover{
+    background-image: linear-gradient(to bottom, transparent, #fffdd1);
+    cursor: pointer;
 }
 
 .but-color2{
@@ -36,16 +62,16 @@
 
 }
 
-.but-img-left{
-    display:inline-block;
-    width: 205px;;
-    height: 196px;
-    overflow:hidden;
-    background:url("../images/left.png") no-repeat 0 0;
-
-}
-
 .form-inline{
     display: inline-block;
     background-color: rgb(255, 0, 1);
 }
+
+.resizedTextbox {
+    display: inline-block;
+    font-size: 20px;
+    position: relative;
+    top: 50%;
+    left: 37%;
+}
+

@@ -37,8 +37,5 @@
         </g:each>
         </tbody>
     </table>
-    <div class="pagination">
-        <g:paginate total="${wordInstanceCount ?: 0}" />
-    </div>
 </div>
 
