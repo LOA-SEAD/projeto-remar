@@ -94,6 +94,7 @@ class WordController {
 
     @Transactional
     def editWord(){
+
         Word wordInstance = Word.findById(params.id)
         wordInstance.setAnswer(params.new_answer)
         initialize_word(wordInstance)
@@ -103,14 +104,14 @@ class WordController {
 
     def toJsonAnswer() {
         def list = Word.getAll();
-        def fileName = "gabarito.json"
+        def fileName = "gabaritos.txt"
 
         File file = new File("$fileName");
         PrintWriter pw = new PrintWriter(file);
         pw.write("{\n \t\"c2array\": true,\n\t\"size\":[" + list.size() +",1,1],\n\t\"data\":[\n\t\t    ")
         for(int i=0;i<list.size()-1;i++)
-            pw.write("[["+list[i].getAnswer().toUpperCase()+"]],")
-        pw.write("[["+list[list.size()-1].getAnswer().toUpperCase()+"]]\n\t       ]")
+            pw.write("[[\""+list[i].getAnswer().toUpperCase()+"\"]],")
+        pw.write("[[\""+list[list.size()-1].getAnswer().toUpperCase()+"\"]]\n\t       ]")
         pw.write("\n}")
         pw.close();
         redirect action: "index"
@@ -119,13 +120,13 @@ class WordController {
 
     def toJsonWord() {
         def list = Word.getAll();
-        def fileName = "palavras.json"
+        def fileName = "palavras.txt"
         File file = new File("$fileName");
         PrintWriter pw = new PrintWriter(file);
         pw.write("{\n \t\"c2array\": true,\n\t\"size\":[" + list.size() +",1,1],\n\t\"data\":[\n\t\t    ")
         for(int i=0;i<list.size()-1;i++)
-            pw.write("[["+list[i].getWord()+"]],")
-        pw.write("[["+list[list.size()-1].getWord()+"]]\n\t       ]")
+            pw.write("[[\""+list[i].getWord()+"\"]],")
+        pw.write("[[\""+list[list.size()-1].getWord()+"\"]]\n\t       ]")
         pw.write("\n}")
         pw.close();
         redirect action: "index"

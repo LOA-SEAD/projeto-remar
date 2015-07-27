@@ -35,6 +35,7 @@
 			$(button).click();
 		}
 
+
 		function ShowWord(word, answer,initial_position, id) {
 
 			var node = document.getElementById("ShowWord");

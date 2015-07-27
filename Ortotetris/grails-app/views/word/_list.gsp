@@ -4,8 +4,11 @@
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
-    <table>
+    <table id="tabela">
         <thead>
+        <tr>
+            <th><input  type="text" id="SearchLabel"/> Buscar</th>
+        </tr>
         <tr>
             <g:sortableColumn property="answer" title="${message(code: 'word.answer.label', default: 'Answer')}" />
             <g:sortableColumn property="word" title="${message(code: 'word.word.label', default: 'Word')}" />
@@ -14,6 +17,7 @@
             <g:sortableColumn property="Editar" title="${message(code: 'word.initial_position.label', default: 'Editar')}" />
             <g:sortableColumn property="Remover" title="${message(code: 'word.initial_position.label', default: 'Remover')}" />
         </tr>
+
         </thead>
         <tbody>
         <g:each in="${wordInstanceList}" status="i" var="wordInstance">
@@ -39,3 +43,22 @@
     </table>
 </div>
 
+<script type="text/javascript">
+    $(function(){
+        $("#tabela input").keyup(function(){
+            var index = $(this).parent().index();
+            var nth = "#tabela td:nth-child("+(index+1).toString()+")";
+            var valor = $(this).val().toUpperCase();
+            $("#tabela tbody tr").show();
+            $(nth).each(function(){
+                if($(this).text().toUpperCase().indexOf(valor) < 0){
+                    $(this).parent().hide();
+                }
+            });
+        });
+
+        $("#tabela input").blur(function(){
+            $(this).val("");
+        });
+    });
+</script>

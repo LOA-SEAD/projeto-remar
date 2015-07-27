@@ -73,5 +73,10 @@
     position: relative;
     top: 50%;
     left: 37%;
+    text-align: center;
+}
+
+.searchTextBox{
+
 }
 
