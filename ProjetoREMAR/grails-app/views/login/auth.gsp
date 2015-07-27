@@ -25,6 +25,14 @@
             });
         };
 
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
         function facebookLogin() {
             FB.getLoginStatus(function(response) {
                 if (response.status === 'connected') {
@@ -42,6 +50,7 @@
 
 </head>
 <body>
+%{--<facebook:initJS appId="${facebookContext.app.id}" />--}%
     <div class="container">
         <header class="row">
             <div class="col-md-12">

@@ -64,7 +64,7 @@ class UserController {
             def currentNewUser = User.findById(userId)
             currentNewUser.accountLocked = false
             currentNewUser.enabled = true
-            currentNewUser.save()
+  //          currentNewUser.save()
             saveCamundaDB(currentNewUser)
             println "Token correto - cadastro liberado"
             render(view: '/static/emailuser')
