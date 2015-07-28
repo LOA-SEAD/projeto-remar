@@ -4,8 +4,12 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
 		<title>Cadastro REMAR</title>
-        <g:javascript src="recaptcha.js"></g:javascript>
+
 		<link href="${resource(dir: 'assets/css', file: 'external-styles.css')}" rel="stylesheet" >
+
+		<g:javascript src="recaptcha.js" />
+		<g:javascript src="../assets/js/jquery.min.js" />
+		<g:javascript src="../assets/js/jquery.validate.js" />
 	</head>
 	<body>
 		<div class="container container-create">
@@ -21,7 +25,7 @@
 					</section>
 					<section>
 						<g:if test="${flash.message}">
-							<div class="message" role="status">${flash.message}</div>
+							<span class="message help-block" role="status">${flash.message}</span>
 						</g:if>
 
 						<g:hasErrors bean="${userInstance}">

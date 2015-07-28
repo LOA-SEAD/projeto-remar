@@ -15,15 +15,8 @@
     <link href="${resource(dir: 'assets/css', file: 'bootstrap-social.css')}" rel="stylesheet" >
     <link href="${resource(dir: 'assets/css', file: 'external-styles.css')}" rel="stylesheet" >
 
-
-    %{--<link href="${resource(dir: 'assets/js', file: 'jquery.min.js')}" rel="stylesheet" >--}%
-    %{--<link href="${resource(dir: 'assets/js', file: 'jquery.validate.js')}" rel="stylesheet" >--}%
     <g:javascript src="../assets/js/jquery.min.js" />
     <g:javascript src="../assets/js/jquery.validate.js" />
-
-    %{--<script type="text/javascript" href="${resource(dir: 'assets/js', file: 'jquery.min.js')}" ></script>--}%
-    %{--<script type="text/javascript" href="${resource(dir: 'assets/js', file: 'jquery.validate.js')}" ></script>--}%
-
 
     <script type="text/javascript">
         window.fbAsyncInit = function() {
@@ -124,21 +117,18 @@
                     %{--<sec:ifAllGranted roles="ROLE_USER">--}%
                         %{--Welcome <sec:username/>! (<g:link uri="/j_spring_security_logout">Logout</g:link>)--}%
                     %{--</sec:ifAllGranted>--}%
-                    <g:if test='${flash.message}'>
-                        <div class="">${flash.message}</div>
-                    </g:if>
 
                     <div class="divider">
                         <strong class="">ou</strong>
                     </div>
                     <div class="form-group">
-                        <div clas="input-group">
+                        <div id="input-username" class="">
                             <input type="text" class="form-control input-lg" placeholder="Nome de usu&aacute;rio" name='j_username'>
                             <span class="icon"><i class="fa fa-user"></i></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div clas="input-group">
+                        <div id="input-password" class="">
                             <input type="password" class="form-control input-lg" placeholder="Senha" name='j_password'>
                             <span class="icon"><i class="fa fa-lock"></i></span>
                         </div>
@@ -150,6 +140,29 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-block btn-login" >Entrar</button>
+                    </div>
+                    <div class="form-group">
+
+                        <div id="aux"></div>
+                        <g:if test='${flash.message}'>
+                            <script>
+                                $('.form-group').addClass('has-error');
+
+                                $('#input-username').append($("<div/>")
+                                                            .addClass("help-block")
+                                                            .text("Usuário e senha não coincidem"));
+
+                                $('#input-password').append($("<div/>")
+                                                            .addClass("help-block")
+                                                            .text("Usuário e senha não coincidem"));
+
+                                $("input").focus(function(){
+                                      $('.form-group').removeClass('has-error');
+                                      $('.help-block').remove();
+                                });
+
+                            </script>
+                        </g:if>
                     </div>
                 </form>
             </div>
