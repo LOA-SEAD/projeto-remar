@@ -193,7 +193,7 @@ grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/index'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/':                              ['permitAll'],
     '/index':                         ['permitAll'],
-    '/doc':                           ['permitAll'],
+    '/doc/**':                        ['permitAll'],
     '/assets/**':                     ['permitAll'],
     '/**/js/**':                      ['permitAll'],
     '/**/css/**':                     ['permitAll'],
@@ -206,7 +206,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/password/**':                   ['permitAll'],
     '/moodle/**':                     ['permitAll'],
     '/static/**':                     ['permitAll'],
-    "http://myapp.dev:9090/remar":      ['permitAll']
+    "http://myapp.dev:9090/remar":    ['permitAll']
 ]
 
 grails.plugin.springsecurity.interceptUrlMap = [

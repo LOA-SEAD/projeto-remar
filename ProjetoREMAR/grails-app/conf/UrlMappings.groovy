@@ -36,6 +36,6 @@ class UrlMappings {
 
 
         "500"(view:'/error')
-        "/doc"(view:'/doc')
+        "/doc"(view:'/doc/index')
 	}
 }
