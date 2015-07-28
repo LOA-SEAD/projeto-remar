@@ -4,7 +4,7 @@
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
-    <table id="tabela">
+    <table id="ListTable">
         <thead>
         <tr>
             <th><input  type="text" id="SearchLabel"/> Buscar</th>
@@ -32,9 +32,8 @@
                 </td>
                 <td>
                     <g:form url="[resource:wordInstance, action:'delete']" method="DELETE">
-                        <fieldset class="buttons">
-                            <g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-                        </fieldset>
+                           <button onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">Remover</button>
+                            %{--<g:actionSubmit  action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />--}%
                     </g:form>
                 </td>
             </tr>
@@ -45,11 +44,11 @@
 
 <script type="text/javascript">
     $(function(){
-        $("#tabela input").keyup(function(){
+        $("#ListTable input").keyup(function(){
             var index = $(this).parent().index();
-            var nth = "#tabela td:nth-child("+(index+1).toString()+")";
+            var nth = "#ListTable td:nth-child("+(index+1).toString()+")";
             var valor = $(this).val().toUpperCase();
-            $("#tabela tbody tr").show();
+            $("#ListTable tbody tr").show();
             $(nth).each(function(){
                 if($(this).text().toUpperCase().indexOf(valor) < 0){
                     $(this).parent().hide();
@@ -57,7 +56,7 @@
             });
         });
 
-        $("#tabela input").blur(function(){
+        $("#ListTable input").blur(function(){
             $(this).val("");
         });
     });

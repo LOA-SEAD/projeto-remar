@@ -94,23 +94,43 @@ class WordController {
 
     @Transactional
     def editWord(){
-
         Word wordInstance = Word.findById(params.id)
-        wordInstance.setAnswer(params.new_answer)
-        initialize_word(wordInstance)
-        wordInstance.save flush:true
-        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+        if(Word.findByAnswer(params.new_answer)==null && validate_form_answer(params.new_answer)) {
+            wordInstance.setAnswer(params.new_answer)
+            initialize_word(wordInstance)
+            wordInstance.save flush: true
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName: "Word"]
+        }
+
+
+    }
+
+    def validate_form_answer(String new_answer)
+    {
+        if (new_answer.length()>10 || new_answer.length()<1)
+            return false
+        else
+            return true
+
     }
 
     def toJsonAnswer() {
         def list = Word.getAll();
         def fileName = "gabaritos.txt"
 
+        int count = 0;
         File file = new File("$fileName");
         PrintWriter pw = new PrintWriter(file);
         pw.write("{\n \t\"c2array\": true,\n\t\"size\":[" + list.size() +",1,1],\n\t\"data\":[\n\t\t    ")
-        for(int i=0;i<list.size()-1;i++)
-            pw.write("[[\""+list[i].getAnswer().toUpperCase()+"\"]],")
+        for(int i=0;i<list.size()-1;i++) {
+            pw.write("[[\"" + list[i].getAnswer().toUpperCase() + "\"]],")
+            count++
+            if(count==14)
+            {
+                count=0;
+                pw.write("\n            ")
+            }
+        }
         pw.write("[[\""+list[list.size()-1].getAnswer().toUpperCase()+"\"]]\n\t       ]")
         pw.write("\n}")
         pw.close();
@@ -121,11 +141,19 @@ class WordController {
     def toJsonWord() {
         def list = Word.getAll();
         def fileName = "palavras.txt"
+        int count=0;
         File file = new File("$fileName");
         PrintWriter pw = new PrintWriter(file);
         pw.write("{\n \t\"c2array\": true,\n\t\"size\":[" + list.size() +",1,1],\n\t\"data\":[\n\t\t    ")
-        for(int i=0;i<list.size()-1;i++)
-            pw.write("[[\""+list[i].getWord()+"\"]],")
+        for(int i=0;i<list.size()-1;i++) {
+            pw.write("[[\"" + list[i].getWord() + "\"]],")
+            count++
+            if(count==14)
+            {
+                count=0;
+                pw.write("\n            ")
+            }
+        }
         pw.write("[[\""+list[list.size()-1].getWord()+"\"]]\n\t       ]")
         pw.write("\n}")
         pw.close();
@@ -189,7 +217,7 @@ class WordController {
             return
         }
 
-        if(edited==true)
+        if(edited)
             initialize_word(wordInstance)
         wordInstance.save flush:true
 

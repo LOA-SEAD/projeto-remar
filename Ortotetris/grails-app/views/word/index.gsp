@@ -1,4 +1,3 @@
-
 <%@ page import="br.ufscar.sead.loa.remar.Word" %>
 <!DOCTYPE html>
 <html>
@@ -9,7 +8,7 @@
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'layout.css')}"	type="text/css">
 	</head>
 	<body>
-		<a href="#list-word" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+	<a href="#list-word" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
@@ -21,14 +20,14 @@
 		</div>
 
 
-		<div id="tableteste">
+		<div id="TableWordList"> %{--div que exibe a tabela com todas as palavras--}%
 			<g:render template="list"/>
 		</div>
 
 		<button onclick="createNewWord()">Criar nova palavra</button>
 		<button onclick="allToJson()" > SALVAR TUDO </button>
 
-	<script type="text/javascript" defer="defer">
+	    <script type="text/javascript" defer="defer">
 
 		function AutoClickButton(id){
 			var button = "#button"+id
@@ -66,23 +65,23 @@
 
 		function right(id){
 			var parameters = {"id": id}
-			<g:remoteFunction action="move_to_right" params="parameters" update="tableteste" onComplete="AutoClickButton(id)"/>
+			<g:remoteFunction action="move_to_right" params="parameters" update="TableWordList" onComplete="AutoClickButton(id)"/>
 		}
 
 		function left(id){
 			var parameters = {"id": id}
-			<g:remoteFunction action="move_to_left" params="parameters" update="tableteste" onComplete="AutoClickButton(id)"/>
+			<g:remoteFunction action="move_to_left" params="parameters" update="TableWordList" onComplete="AutoClickButton(id)"/>
 
 		}
 
 		function mark_letter(id,pos){
 			var parameters = {"id": id, "pos":pos}
-			<g:remoteFunction action="mark_letter" params="parameters" update="tableteste" onComplete="AutoClickButton(id)"/>
+			<g:remoteFunction action="mark_letter" params="parameters" update="TableWordList" onComplete="AutoClickButton(id)"/>
 		}
 
 		function clear_letter(id,pos){
 			var parameters = {"id": id, "pos":pos}
-			<g:remoteFunction action="clear_position" params="parameters" update="tableteste" onComplete="AutoClickButton(id)"/>
+			<g:remoteFunction action="clear_position" params="parameters" update="TableWordList" onComplete="AutoClickButton(id)"/>
 		}
 
 		function allToJson(){
@@ -102,7 +101,7 @@
 			var ans = document.getElementById("NewWordLabel").value
 			var node = document.getElementById("ShowWord")
 			var parameters = {"answer": ans, "word": "none", "initial_position":0}
-			<g:remoteFunction action="save" params="parameters" update="tableteste"/>
+			<g:remoteFunction action="save" params="parameters" update="TableWordList"/>
 		}
 
 		function editWord(id, answer){
@@ -114,8 +113,10 @@
 		function UpdateWord(id){
 			var ans = document.getElementById("EditWordLabel").value
 			var parameters = {"id":id, "new_answer": ans}
-			<g:remoteFunction action="editWord" params="parameters" update="tableteste"/>
+			<g:remoteFunction action="editWord" params="parameters" update="TableWordList"/>
 		}
+
+
 	</script>
 
 	</body>
