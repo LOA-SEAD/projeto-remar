@@ -1,0 +1,1 @@
+<g:select name="owner" from="${moodleList}" optionValue="domain" optionKey="id" />

@@ -12,9 +12,9 @@ class MoodleGameController {
     		println(moodlegame.errors)
     	}
     	else {
-        	moodlegame.save flush:true
+        	/*moodlegame.save flush:true
 
-        	redirect controller: "index", action: "dashboard"
+        	redirect controller: "index", action: "dashboard"*/
     	}
 
 
@@ -23,5 +23,14 @@ class MoodleGameController {
     def gamePublishConfig() {
     	def moodleList = Moodle.list()
     	respond moodleList, model:[moodleList: moodleList]
+    }
+
+    def _moodles() {
+
+    }
+
+    def loadMoodleList() {
+        def moodleList = Moodle.list()
+        render(view: '/moodleGame/_moodles', model: [moodleList: moodleList])
     }
 }
