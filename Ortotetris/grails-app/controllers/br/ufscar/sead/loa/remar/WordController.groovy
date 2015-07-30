@@ -105,6 +105,14 @@ class WordController {
 
     }
 
+    @Transactional
+    def WordDelete(){
+        Word wordInstance = Word.findById(params.id)
+        wordInstance.delete flush: true
+        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll()]
+
+    }
+
     def validate_form_answer(String new_answer)
     {
         if (new_answer.length()>10 || new_answer.length()<1)
@@ -184,6 +192,7 @@ class WordController {
 
         if (wordInstance.hasErrors()) {
             //respond wordInstance.errors, view:'create'
+            //adicionar mensagem de erro aqui
             return
         }
 
@@ -228,7 +237,6 @@ class WordController {
             }
             '*'{ respond wordInstance, [status: OK] }
         }
-
 
 
     }

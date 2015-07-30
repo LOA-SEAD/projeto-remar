@@ -12,7 +12,7 @@
     border-radius:10px 10px 10px 10px;
     position:relative;
     top: 50%;
-    left: 4%;
+    left: 15%;
     margin:2px;
 }
 
@@ -20,7 +20,6 @@
     background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,.15));
     cursor: pointer;
 }
-
 
 .but-invisible{
     display: none;
@@ -45,7 +44,8 @@
     position:relative;
     top: 50%;
     margin:20px;
-    left: 35%;
+    left: 37%;
+
 }
 .but-edit:hover{
     background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,.15));
@@ -76,4 +76,46 @@
     text-align: center;
 }
 
+/* Left Arrow */
+div.icon div.leftArrow {
+    height: 0px;
+    width: 0px;
+    border-width: 16px;
+    border-style: solid;
+    border-color: transparent #333 transparent transparent;
+    position: absolute;
+    right: 16px;
+    top: 0;
+}
 
+div.icon div.leftArrow:after {
+    content: '';
+    width: 16px;
+    height: 12px;
+    background-color: #333;
+    position: absolute;
+    top: -6px;
+    left: 16px;
+}
+
+/* Right Arrow */
+div.icon div.rightArrow {
+    height: 0px;
+    width: 0px;
+    border-width: 16px;
+    border-style: solid;
+    border-color: transparent transparent transparent #333;
+    position: absolute;
+    left: 16px;
+    top: 0;
+}
+
+div.icon div.rightArrow:after {
+    content: '';
+    width: 16px;
+    height: 12px;
+    background-color: #333;
+    position: absolute;
+    top: -6px;
+    right: 16px;
+}
