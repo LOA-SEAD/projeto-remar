@@ -39,7 +39,7 @@ grails.views.default.codec = "html"
 
 // The default scope for controllers. May be prototype, session or singleton.
 // If unspecified, controllers are prototype scoped.
-grails.controllers.defaultScope = 'singleton'
+grails.controllers.defaultScope = 'prototype' //singleton
 
 // GSP settings
 grails {
@@ -63,7 +63,7 @@ grails {
 grails.converters.encoding = "UTF-8"
 // scaffolding templates configuration
 //grails.scaffolding.templates.domainSuffix = 'Instance'    
-
+grails.web.disable.multipart=true
 // twitter bootstrap
 grails.plugins.twitterbootstrap.fixtaglib = true
 grails.plugins.twitterbootstrap.defaultBundle = 'false'
@@ -215,6 +215,20 @@ grails.plugin.springsecurity.interceptUrlMap = [
         "/j_spring_security_facebook_check":    ["IS_AUTHENTICATED_ANONYMOUSLY"],
 
 ]
+
+
+grails {
+    plugin {
+        facebooksdk {
+            app = [
+                    controller: 'facebook',
+                    id: 1621035434837394,
+                    permissions:  ['email','user_photos','public_profile'],
+                    secret: '0a70357ea42707a19d7fa38e080d20e1'
+            ]
+        }
+    }
+}
 
 grails.plugin.springsecurity.facebook.autoCreate.enabled=true
 grails.plugin.springsecurity.facebook.autoCreate.roles=['ROLE_USER', 'ROLE_FACEBOOK','ROLE_STUD']

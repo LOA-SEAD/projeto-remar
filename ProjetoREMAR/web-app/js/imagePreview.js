@@ -3,25 +3,13 @@
  */
 window.onload = function() {
 
-    document.getElementById("icone").onchange = function () {
-        Preview(this, document.getElementById("iconePreview"));
+    document.getElementById("moodleimage").onchange = function () {
+        Preview(this, document.getElementById("imagePreview"));
+        console.log("Entrou");
       //  if(verifyDimensions(this)){
 
        // }
     }
-
-
-    document.getElementById("opening").onchange = function () {
-        Preview(this, document.getElementById("openingPreview"));
-        (verifyDimensions(this))
-
-    }
-
-    document.getElementById("background").onchange = function () {
-        Preview(this, document.getElementById("backgroundPreview"));
-        (verifyDimensions(this))
-    }
-
 
 
     function verifyDimensions(input) {

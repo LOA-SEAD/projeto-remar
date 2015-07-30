@@ -1,14 +1,33 @@
 package br.ufscar.sead.loa.remar
+
+import grails.transaction.Transactional
+import org.springframework.web.multipart.MultipartFile
+import org.springframework.web.multipart.MultipartRequest
+
 import static org.springframework.http.HttpStatus.*
 import grails.plugin.springsecurity.annotation.Secured
 import grails.converters.JSON
 import br.ufscar.sead.loa.remar.Moodle
 
 @Secured(['ROLE_ADMIN'])
+@Transactional(readOnly = true)
 class MoodleGameController {
 
-    def save(MoodleGame moodlegame) {
+    def springSecurityService
 
+    def save(MoodleGame moodlegame) {
+        //-------------------------------------Denis-----------------------
+        def userId = springSecurityService.getCurrentUser().getId()
+        def imageUploaded = request.getFile("moodleimage")
+        def path = servletContext.getRealPath("/")
+        def moodlePath = new File(path + "/moodle" + "/" + userId + "/")
+        moodlePath.mkdirs()
+
+       imageUploaded.transferTo(new File("$moodlePath/moodleimage.png"))
+
+
+
+        //--------------------------------------Denis----------------------
     	if (moodlegame.hasErrors()) {
     		println("Someone tried to register a new moodlegame but it doesn't worked:")
     		println(moodlegame.errors)
