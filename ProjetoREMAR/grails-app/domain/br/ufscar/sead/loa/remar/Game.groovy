@@ -10,12 +10,17 @@ class Game {
         name blank: false
         comment nullable: true, blank: true
         bpmn nullable: false
+        moodle nullable: true
     }
 
     String name
     boolean active
     int version
     String uri
+    boolean moodle // Exportavel para o moodle
+    boolean mobile
+    boolean web
+    boolean desktop
 
     // deploy
     Date submittedAt
