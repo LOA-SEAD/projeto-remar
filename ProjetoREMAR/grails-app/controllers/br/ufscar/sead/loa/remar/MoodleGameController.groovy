@@ -63,7 +63,11 @@ class MoodleGameController {
     def accountSave() {
         def arr = []
 
-        MoodleGame moodleGame = MoodleGame.find{id: params.find({it.key == "moodleGameId"}).value}
+        //println "---------------------------------" + params.find({it.key == "moodleGameId"}).value
+        def moodleId = Long.parseLong(params.find({it.key == "moodleGameId"}).value)
+        println "id: " + moodleId
+
+        MoodleGame moodleGame = MoodleGame.findById(moodleId)
 
         params?.each{
             def name = it.key

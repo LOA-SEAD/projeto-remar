@@ -33,6 +33,15 @@ class MoodleController {
     }
 
     def moodleGameList(String domain) {
-        render MoodleGame.findAllByOwner(Moodle.findByDomain(domain)) as JSON
+        def moodle = Moodle.findByDomain(domain)
+        def c = MoodleGame.createCriteria()
+        
+        def l = c.list () {
+            moodles {
+                idEq(moodle.id)
+            }
+        }
+
+        render l as JSON
     }
 }
