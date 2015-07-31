@@ -42,6 +42,13 @@ class MoodleController {
             }
         }
 
-        render l as JSON
+        def accs = moodle.accounts
+        println accs
+
+        def ret = [:]
+        ret["games"] = l
+        ret["accounts"] = accs
+
+        render ret as JSON
     }
 }
