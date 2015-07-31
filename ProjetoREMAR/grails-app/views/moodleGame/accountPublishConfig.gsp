@@ -13,6 +13,16 @@
 				$('#new-account').click(function() {
 					newAccount();
 				});
+
+				$("#form").submit(function(event) {
+					var validator = $("#account-list").has("div").length;
+					if (validator <= 0) {
+						return false;
+					}
+					else {
+						return true;
+					}
+				});
 			});
 
 			function newAccount() {
@@ -53,12 +63,26 @@
 					style: 'float: left; margin-left: 10px;',
 					required: 'required'
 				});
+				var hiddenId = jQuery('<input>', {
+					type: 'hidden',
+					value: local,
+					id: 'id'+local
+				});
+				//var deleteButton = $('<button type="button" id="deleteButton'+local+'" style="margin-left: 20px">X</button>');
+				var deleteButton = jQuery('<button/>', {
+					text: 'X',
+					type: 'button',
+					style: 'margin-left: 20px;',
+					id: 'deleteButton'+local
+				});
 				
 				$('#account-list').append(mainDiv);
 				$('#main-div'+local).append(label1);
 				$('#main-div'+local).append(select);
 				$('#main-div'+local).append(label2);
 				$('#main-div'+local).append(textField);
+				$('#main-div'+local).append(hiddenId);
+				$('#main-div'+local).append(deleteButton);
 				$('#main-div'+local).append(clearDiv);
 
 				$.ajax({
@@ -70,6 +94,11 @@
 					}
 				});
 
+				$('#deleteButton'+local).click(function() {
+					var id = $('#id'+local).val();
+					$('#main-div'+id).remove();
+				})
+
 				currentAccount++;
 			}
 		</script>
@@ -77,7 +106,7 @@
 	<body>
 		<div>
 			<h3>Jogo disponível para as contas:</h3>
-			<g:form url="[action:'accountSave']">
+			<g:form url="[action:'accountSave']" id="form">
 				<div id="account-list">
 					
 				</div>
