@@ -10,7 +10,6 @@ import grails.converters.JSON
 import br.ufscar.sead.loa.remar.Moodle
 
 @Secured(['ROLE_ADMIN'])
-@Transactional(readOnly = true)
 class MoodleGameController {
 
     def springSecurityService
@@ -23,7 +22,7 @@ class MoodleGameController {
         def moodlePath = new File(path + "/moodle" + "/" + userId + "/")
         moodlePath.mkdirs()
 
-       imageUploaded.transferTo(new File("$moodlePath/moodleimage.png"))
+        imageUploaded.transferTo(new File("$moodlePath/moodleimage.png"))
 
 
 
