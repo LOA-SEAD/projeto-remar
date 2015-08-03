@@ -1,0 +1,8 @@
+{
+	"name"    : "Escola Mágica",
+	"android" : false,
+	"linux"   : true,
+	"moodle"  : true,
+	"uri"     : "escolamagica",
+	"bpmn"    : "EscolaMagicaProcess"
+}
