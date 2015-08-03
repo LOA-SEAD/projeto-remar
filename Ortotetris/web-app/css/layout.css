@@ -21,14 +21,6 @@
     cursor: pointer;
 }
 
-.but-invisible{
-    display: none;
-}
-
-.but-color1{
-    background-color: #fffdb2;
-}
-
 .but-edit{
     display: inline-block;
     background: #e6e6e6;
@@ -52,15 +44,7 @@
     cursor: pointer;
 }
 
-.but-color1:hover{
-    background-image: linear-gradient(to bottom, transparent, #fffdd1);
-    cursor: pointer;
-}
 
-.but-color2{
-    background-color: rgb(255, 0, 1);
-
-}
 
 .form-inline{
     display: inline-block;
@@ -113,6 +97,7 @@
     border-bottom: 1.2em solid rgba(44, 44, 44, 0);
     content: "";
 }
+
 
 .myButton {
     background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #fc8d83), color-stop(1, #e4685d));

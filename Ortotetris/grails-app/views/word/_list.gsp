@@ -7,8 +7,8 @@
         </tr>
         <tr>
             <th>Palavra</th>
-            %{--<th>Word</th>--}%
-            %{--<th>Initial Position</th>--}%
+            <th>Word</th>
+            <th>Initial Position</th>
             <th>Editar</th>
             <th>Personalizar</th>
             <th>Remover</th>
@@ -19,8 +19,8 @@
             <g:each in="${wordInstanceList}" status="i" var="wordInstance">
                 <tr  class="${(i % 2) == 0 ? 'even' : 'odd'}">
                     <td><g:link action="show" id="${wordInstance.id}">${wordInstance.answer.toUpperCase()} </g:link></td>
-                    %{--<td>${fieldValue(bean: wordInstance, field: "word")}</td>--}%
-                    %{--<td>${fieldValue(bean: wordInstance, field: "initial_position")}</td>--}%
+                    <td>${fieldValue(bean: wordInstance, field: "word")}</td>
+                    <td>${fieldValue(bean: wordInstance, field: "initial_position")}</td>
                     <td><button id="button${wordInstance.id}" onclick="ShowWord('${wordInstance.word}','${wordInstance.answer.toUpperCase()}',${wordInstance.initial_position}, ${wordInstance.id})">PERSONALIZAR</button></td>
                     <td>
                         <button onclick="editWord(${wordInstance.id},'${wordInstance.answer}')">EDITAR</button>

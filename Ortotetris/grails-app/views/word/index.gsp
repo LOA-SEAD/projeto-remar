@@ -7,6 +7,7 @@
 
 	<link href='http://fonts.googleapis.com/css?family=Sniglet' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Ropa+Sans' rel='stylesheet'>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="${resource(dir: 'css', file: 'layout.css')}"	type="text/css">
 	<link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.css')}"	type="text/css">
 	<link rel="stylesheet" href="${resource(dir: 'css', file: 'external-styles.css')}"	type="text/css">
@@ -29,9 +30,9 @@
 
 <aside style="background-color: rgb(255, 255, 255); width: 100%; height: 50px;">
     <h3 style="display: inline-block">Lista de Palavras</h3>
-    <button onclick="createNewWord()"  >+</button>
-    <button id="SearchButton">Buscar</button>
-	<button onclick="allToJson()">Salvar</button>
+    <button id="CreateWordButton" onclick="createNewWord()"  ><i class="material-icons">add_circle_outline</i></button>
+    <button id="SearchButton"><i class="material-icons">search</i></button>
+	<button id="SaveButton" onclick="allToJson()"><i class="material-icons">save</i></button>
 </aside>
 
 <section id="TableWordList" style="height: 300px; overflow: auto">
@@ -46,6 +47,32 @@
         $("#SearchButton").click(function(){
             $("#SearchLine").toggle();
         });
+
+        $( "#SearchButton" ).hover(
+                function() {
+                    $( this ).append( $( "<span> Buscar</span>" ).fadeIn(300) );
+                }, function() {
+                    $( this ).find( "span:last" ).remove();
+                }
+        );
+
+        $( "#CreateWordButton" ).hover(
+                function() {
+                    $( this ).append( $( "<span> Nova palavra</span>" ).fadeIn(300) );
+                }, function() {
+                    $( this ).find( "span:last" ).remove();
+                }
+        );
+
+        $( "#SaveButton" ).hover(
+                function() {
+                    $( this ).append( $( "<span> Salvar banco</span>").fadeIn(300) );
+                }, function() {
+                    $( this ).find( "span:last" ).remove();
+                }
+        );
+
+
     });
 
 	function AutoClickButton(id){
