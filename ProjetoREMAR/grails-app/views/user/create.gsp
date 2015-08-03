@@ -3,56 +3,36 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
-		<title>Cadastro REMAR</title>
-
-		<link href="${resource(dir: 'assets/css', file: 'external-styles.css')}" rel="stylesheet" >
-
-		<g:javascript src="recaptcha.js" />
-		<g:javascript src="../assets/js/jquery.min.js" />
-		<g:javascript src="../assets/js/jquery.validate.js" />
+		<title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<div class="container container-create">
-			<header class="row">
-				<div class="col-md-12">
-					<h1>logo</h1>
-				</div>
-			</header>
-			<article class="row">
-				<div class="col-md-12">
-					<section>
-						<h3 class="">Crie um cadastro</h3>
-					</section>
-					<section>
-						<g:if test="${flash.message}">
-							<span class="message help-block" role="status">${flash.message}</span>
-						</g:if>
-
-						<g:hasErrors bean="${userInstance}">
-							<ul class="errors" role="alert">
-								<g:eachError bean="${userInstance}" var="error">
-									<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-								</g:eachError>
-							</ul>
-						</g:hasErrors>
-
-						<g:form url="[resource:userInstance, action:'save']" >
-							<g:hiddenField name="version" value="${userInstance?.version}" />
-							<div>
-								<g:render template="form"/>
-							</div>
-							<br />
-							<fieldset class="buttons">
-								<g:submitButton id="submitBtn" name="create" class="btn btn-primary btn-block btn-create" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-							</fieldset>
-						</g:form>
-					</section>
-				</div>
-			</article>
-			<footer class="row">
-				<div class="col-md-12">
-				</div>
-			</footer>
+		<a href="#create-user" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+		<div class="nav" role="navigation">
+			<ul>
+				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
+				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+			</ul>
+		</div>
+		<div id="create-user" class="content scaffold-create" role="main">
+			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
+			<g:if test="${flash.message}">
+			<div class="message" role="status">${flash.message}</div>
+			</g:if>
+			<g:hasErrors bean="${user}">
+			<ul class="errors" role="alert">
+				<g:eachError bean="${user}" var="error">
+				<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+				</g:eachError>
+			</ul>
+			</g:hasErrors>
+			<g:form url="[resource:user, action:'save']" >
+				<fieldset class="form">
+					<g:render template="form"/>
+				</fieldset>
+				<fieldset class="buttons">
+					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+				</fieldset>
+			</g:form>
 		</div>
 	</body>
 </html>
