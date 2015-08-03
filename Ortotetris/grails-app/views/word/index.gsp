@@ -23,13 +23,15 @@
 
 <section id="ShowWord" style="height: 250px">
 
+
+
 </section>
 
-<aside style="float: left; background-color: rgba(0, 0, 0, 0.14); width: 100px; height: 300px;">
-    <button onclick="createNewWord()" class="but" style="top: auto;">+</button>
-    <button class="but" style="top: auto;">Buscar</button>
-	<button class="but" style="top: auto;">B</button>
-	<button class="but" style="top: auto;">S</button>
+<aside style="background-color: rgb(255, 255, 255); width: 100%; height: 50px;">
+    <h3 style="display: inline-block">Lista de Palavras</h3>
+    <button onclick="createNewWord()"  >+</button>
+    <button id="SearchButton">Buscar</button>
+	<button onclick="allToJson()">Salvar</button>
 </aside>
 
 <section id="TableWordList" style="height: 300px; overflow: auto">
@@ -38,6 +40,13 @@
 
 
 <script type="text/javascript" defer="defer">
+
+    $(document).ready(function(){
+        $("#SearchLine").hide();
+        $("#SearchButton").click(function(){
+            $("#SearchLine").toggle();
+        });
+    });
 
 	function AutoClickButton(id){
 		var button = "#button"+id
@@ -48,24 +57,24 @@
 	function ShowWord(word, answer,initial_position, id) {
 
 		var node = document.getElementById("ShowWord");
-		var button_move_right = "<button class='but' onclick=\"right('"+id+"')\" > -----> </button>"
-		var button_move_left = "<button class='but' onclick=\"left('"+id+"')\" > \<----- </button>"
+		var button_move_right = "<button class='myButton4' onclick=\"right('"+id+"')\" > <div style=\"align-content: center;left: 50%;\" class=\"arrowright\"></div></button>"
+		var button_move_left = "<button class='myButton4' onclick=\"left('"+id+"')\" > <div style=\"align-content: center;left: 50%;\" class=\"arrowleft\"></div>  </button>"
 
 		node.innerHTML=""
 		node.innerHTML+= button_move_left
 
 		for(var i=0; i<10;i++){
 			if(word[i]=="ì")
-				node.innerHTML += "<button class='but but-color1' '>" + "-" + "</button>"
+				node.innerHTML += "<button class='myButton2' '>" + "-" + "</button>"
 			else{
 				if(word[i]=="0")
 				{
-					var button_clear_letter = "<button class='but but-color2' onclick='clear_letter(" + id + "," + (i+1) + ")' > " + answer[i-initial_position] + "</button>"
+					var button_clear_letter = "<button class='myButton' onclick='clear_letter(" + id + "," + (i+1) + ")' > " + answer[i-initial_position] + "</button>"
 					node.innerHTML += button_clear_letter
 				}
 				else
 				{
-					var button_mark_letter = "<button class='but' onclick='mark_letter(" + id + "," + (i+1) + ")' > " + word[i] + "</button>"
+					var button_mark_letter = "<button class='myButton3' onclick='mark_letter(" + id + "," + (i+1) + ")' > " + word[i] + "</button>"
 					node.innerHTML += button_mark_letter
 				}
 			}

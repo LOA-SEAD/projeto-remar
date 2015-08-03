@@ -1,10 +1,9 @@
 <%@ page import="br.ufscar.sead.loa.remar.Word" %>
 <section id="table" style="height: 300px">
-    <h2>Palavras</h2>
     <table id="ListTable"  class="table table-responsive" style="height: 300px;">
         <thead>
-        <tr>
-            <th><input  type="text" id="SearchLabel"/> Buscar</th>
+        <tr id="SearchLine">
+            <th><input  type="text" id="SearchLabel"  value="Buscar" onfocus="(this.value == 'Buscar') && (this.value = '')"/> </th>
         </tr>
         <tr>
             <th>Palavra</th>
@@ -28,20 +27,19 @@
                     </td>
                     <td>
                         <button onclick="WordDelete('${wordInstance.id}')">REMOVER</button>
-                        %{--<g:form  url="[resource:wordInstance, action:'delete']" method="DELETE">--}%
-                            %{--<button onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">REMOVER</button>--}%
-                        %{--</g:form>--}%
                     </td>
                 </tr>
             </g:each>
         </tbody>
-
     </table>
-
 </section>
 
 
 <script type="text/javascript">
+    $(document).ready(function(){
+        $("#SearchLine").hide();
+    });
+
     $(function(){
         $("#ListTable input").keyup(function(){
             var index = $(this).parent().index();
@@ -54,7 +52,6 @@
                 }
             });
         });
-
         $("#ListTable input").blur(function(){
             $(this).val("");
         });

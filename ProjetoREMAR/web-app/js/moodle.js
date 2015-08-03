@@ -4,7 +4,7 @@
 window.onload = function () {
 
         $("#moodle").click(function () {
-            $('#moodleForm').toggle($(':checkbox:checked').length > 0);
+            $('#moodleForm').toggle($('#moodle:checked').length > 0);
             console.log("Ola");
 
         });
