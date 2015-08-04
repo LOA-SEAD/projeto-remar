@@ -24,14 +24,17 @@
 
 <section id="ShowWord" style="height: 250px">
 
-
-
 </section>
 
-<aside style="background-color: rgb(255, 255, 255); width: 100%; height: 50px;">
-    <h3 style="display: inline-block">Lista de Palavras</h3>
-    <button id="CreateWordButton" onclick="createNewWord()"  ><i class="material-icons">add_circle_outline</i></button>
-    <button id="SearchButton"><i class="material-icons">search</i></button>
+<div id="MessageDiv" align="center" class="message">
+	<g:render template="message"/>
+</div>
+
+
+<aside style=" display:block; background-color: rgb(255, 255, 255); width: 100%; height: 50px;">
+	<h3 style="display: inline-block">Lista de Palavras</h3>
+	<button id="CreateWordButton" onclick="createNewWord()"  ><i class="material-icons">add_circle_outline</i></button>
+	<button id="SearchButton"><i class="material-icons">search</i></button>
 	<button id="SaveButton" onclick="allToJson()"><i class="material-icons">save</i></button>
 </aside>
 
@@ -42,38 +45,39 @@
 
 <script type="text/javascript" defer="defer">
 
-    $(document).ready(function(){
-        $("#SearchLine").hide();
-        $("#SearchButton").click(function(){
-            $("#SearchLine").toggle();
-        });
+	$(document).ready(function(){
+		$("#SearchButton").click(function(){
+			$("#SearchLine").toggle();
+		});
 
-        $( "#SearchButton" ).hover(
-                function() {
-                    $( this ).append( $( "<span> Buscar</span>" ).fadeIn(300) );
-                }, function() {
-                    $( this ).find( "span:last" ).remove();
-                }
-        );
+		$( "#SearchButton" ).hover(
+				function() {
+					$( this ).append( $( "<span> Buscar</span>" ).fadeIn(300) );
+				}, function() {
+					$( this ).find( "span:last" ).remove();
+				}
+		);
 
-        $( "#CreateWordButton" ).hover(
-                function() {
-                    $( this ).append( $( "<span> Nova palavra</span>" ).fadeIn(300) );
-                }, function() {
-                    $( this ).find( "span:last" ).remove();
-                }
-        );
+		$( "#CreateWordButton" ).hover(
+				function() {
+					$( this ).append( $( "<span> Nova palavra</span>" ).fadeIn(300) );
+				}, function() {
+					$( this ).find( "span:last" ).remove();
+				}
+		);
 
-        $( "#SaveButton" ).hover(
-                function() {
-                    $( this ).append( $( "<span> Salvar banco</span>").fadeIn(300) );
-                }, function() {
-                    $( this ).find( "span:last" ).remove();
-                }
-        );
+		$( "#SaveButton" ).hover(
+				function() {
+					$( this ).append( $( "<span> Salvar banco</span>").fadeIn(300) );
+				}, function() {
+					$( this ).find( "span:last" ).remove();
+				}
+		);
 
 
-    });
+	});
+
+
 
 	function AutoClickButton(id){
 		var button = "#button"+id

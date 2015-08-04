@@ -32,11 +32,14 @@ class WordController {
             aux += ("ì")
             wordInstance.setWord(aux)
             wordInstance.setInitial_position(wordInstance.getInitial_position() - 1)
-            //update(wordInstance,false)
             wordInstance.save flush:true
-        }
-        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
 
+        }
+        else {
+            render template: 'message', model: [WordMessage: "Não foi possível realizar a operação"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+        }
 
     }//move word para a esquerda
 
@@ -49,11 +52,13 @@ class WordController {
             aux += (wordInstance.getWord().substring(0, 9))
             wordInstance.setWord(aux)
             wordInstance.setInitial_position(wordInstance.getInitial_position() + 1)
-            //update(wordInstance,false)
             wordInstance.save flush:true
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
         }
-        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
-
+        else {
+            render template: 'message', model: [WordMessage: "Não foi possível realizar a operação"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+        }
     }//move word para a direita
 
     @Transactional
@@ -61,15 +66,27 @@ class WordController {
         Word wordInstance = Word.findById(params.id)
         String teste = params.pos
         int position = teste.toInteger()
-        if ((position-1 >= wordInstance.getInitial_position()) && (position-1 <= wordInstance.getInitial_position() + wordInstance.getAnswer().length()-1)) {
-            String aux
-            aux = wordInstance.getWord().substring(0, position - 1)
-            aux += ("0")
-            aux += (wordInstance.getWord().substring(position, 10))
-            wordInstance.setWord(aux)
-            wordInstance.save flush:true
+        if ((position-1 >= wordInstance.getInitial_position()) && (position-1 <= wordInstance.getInitial_position() + wordInstance.getAnswer().length()-1) ) {
+            String h_char = "" + wordInstance.getWord().charAt(position-1);
+            if(validate_hide_letter(h_char)) {
+
+                String aux
+                aux = wordInstance.getWord().substring(0, position - 1)
+                aux += ("0")
+                aux += (wordInstance.getWord().substring(position, 10))
+                wordInstance.setWord(aux)
+                wordInstance.save flush: true
+                render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName: "Word"]
+            }
+            else {
+                render template: 'message', model: [WordMessage: "Escolha um caracter válido"]
+                render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+            }
         }
-        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+        else {
+            render template: 'message', model: [WordMessage: "Escolha uma posição válida"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+        }
 
 
     }//marca o caractere como '0' (esconde o caractere)
@@ -86,8 +103,12 @@ class WordController {
             aux += ((wordInstance.getWord().substring(position, 10)))
             wordInstance.setWord(aux)
             wordInstance.save flush:true
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
         }
-        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+        else {
+            render template: 'message', model: [WordMessage: "Escolha uma posição válida"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+        }
 
 
     }//acessa answer e recupera o caractere que havia sido escondido
@@ -95,13 +116,22 @@ class WordController {
     @Transactional
     def editWord(){
         Word wordInstance = Word.findById(params.id)
-        if(Word.findByAnswer(params.new_answer)==null && validate_form_answer(params.new_answer)) {
+        if(Word.findByAnswer(params.new_answer)==null){
+            if(validate_form_answer(params.new_answer)){
             wordInstance.setAnswer(params.new_answer)
             initialize_word(wordInstance)
             wordInstance.save flush: true
             render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName: "Word"]
+            }
+            else{
+                render template: 'message', model: [WordMessage: "A palavra possui um número de caracteres inválidos"]
+                render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+            }
         }
-
+        else {
+            render template: 'message', model: [WordMessage: "A palavra já está no banco"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+        }
 
     }
 
@@ -113,13 +143,20 @@ class WordController {
 
     }
 
-    def validate_form_answer(String new_answer)
-    {
+    def validate_form_answer(String new_answer) {
         if (new_answer.length()>10 || new_answer.length()<1)
             return false
         else
             return true
 
+    }
+
+    def validate_hide_letter(String hide_letter){
+        String test_letter=hide_letter.toUpperCase();
+        if(test_letter=="S"||test_letter=="C"||test_letter=="Z"||test_letter=="Ç"||test_letter=="H"||test_letter=="X")
+            return true
+        else
+            return false
     }
 
     def toJsonAnswer() {
@@ -191,14 +228,16 @@ class WordController {
         }
 
         if (wordInstance.hasErrors()) {
-            //respond wordInstance.errors, view:'create'
-            //adicionar mensagem de erro aqui
+            render template: 'message', model: [WordMessage: "A palavra possui erros"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+
             return
         }
 
         initialize_word(wordInstance) //inicializa a word conforme a answer passada como parâmetro
 
         wordInstance.save flush:true
+        render template: 'message', model: [WordMessage: "Palavra criada com sucesso"]
         render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
 
 //        request.withFormat {
