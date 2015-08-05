@@ -1,3 +1,4 @@
+#!/bin/bash
 bpmn=".bpmn"
 
 cd $1

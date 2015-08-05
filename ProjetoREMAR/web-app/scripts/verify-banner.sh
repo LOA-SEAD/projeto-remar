@@ -1,3 +1,4 @@
+#!/bin/bash
 png=".png"
 
 cd $1
