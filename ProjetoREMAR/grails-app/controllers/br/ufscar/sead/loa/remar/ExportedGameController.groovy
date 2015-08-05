@@ -35,7 +35,7 @@ class ExportedGameController {
         println exportedGame as JSON
 
         exportedGame.save flush:true
-        redirect controller: "ExportedGame", action: "accountPublishConfig", id: exportedGame.id
+        redirect controller: "ExportedGame", action: "accountConfig", id: exportedGame.id
     }
 
     def _moodles() {
@@ -51,5 +51,44 @@ class ExportedGameController {
     def publish(ExportedGame exportedGame) {
         def moodleList = Moodle.list()
         respond moodleList, model:[moodleList: moodleList]
+    }
+
+    def accountConfig(ExportedGame exportedGame) {
+        Moodle m = Moodle.findWhere(id: Long.parseLong("1"))
+
+        render(view:"accountConfig", model:['exportedGameInstance': exportedGame]);
+    }
+
+    def accountSave() {
+        def arr = []
+
+        def exportedGameId = Long.parseLong(params.find({it.key == "exportedGameId"}).value)
+
+        ExportedGame exportedGame = ExportedGame.findById(exportedGameId)
+
+        params?.each{
+            def name = it.key
+            if (name.startsWith("moodlename")) {
+                def splitted = name.split("moodlename")
+                def id = Long.parseLong(it.value)
+                def moo = Moodle.findWhere(id: id)
+
+                def accName = params.find({it.key == "account"+splitted[1]}).value
+
+                def account = MoodleAccount.find({accountName == accName && owner.domain == moo.domain})
+
+                /* check if the account already exists */
+                if (account == null) {
+                    account = new MoodleAccount()
+                    account.accountName = accName
+                    account.owner = moo
+                    account.save flush:true
+                }
+
+                println account as JSON
+                exportedGame.addToAccounts(account)
+                exportedGame.save flush:true
+            }
+        }
     }
 }
