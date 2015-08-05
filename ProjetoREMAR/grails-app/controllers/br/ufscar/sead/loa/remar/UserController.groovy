@@ -4,6 +4,9 @@ import com.daureos.facebook.FacebookGraphService
 import grails.plugin.mail.MailService
 import org.apache.commons.lang.RandomStringUtils
 import org.camunda.bpm.engine.IdentityService
+
+import javax.validation.constraints.Null
+
 import static org.springframework.http.HttpStatus.*
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
@@ -180,13 +183,19 @@ class UserController {
         
         def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?secret=6LdA8QkTAAAAACHA9KoBPT1BXXBrJpQNJfCGTm9x&response="+captcha+"&remoteip="+userIP)
         println resp.json as JSON
-        if(resp.json.success==true){
+        if(resp.json.success==false){ //true recaptcha
             if (userInstance == null) {
                 notFound()
                 return
             }
 
+
             if (userInstance.hasErrors()) {
+//                userInstance.errors.allErrors.each {
+//                   print(it.field)
+//                    if(it.field == 'username')
+//                        contErrors++
+//                }
                 respond userInstance.errors, view:'create'
                 return
             }
@@ -206,8 +215,6 @@ class UserController {
             UserRole.create(userInstance, Role.findByAuthority("ROLE_USER"), true)
             UserRole.create(userInstance, Role.findByAuthority("ROLE_STUD"), true)
 
-
-
             request.withFormat {
                 form multipartForm {
                     flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
@@ -215,8 +222,6 @@ class UserController {
                 }
                 '*' { respond userInstance, [status: CREATED] }
             }
-
-
         }
         else{
 //            flash.message = message(code: 'bla')
@@ -337,4 +342,13 @@ class UserController {
 
         render(template: "grid", model:[userInstanceList: list])
     }
+
+    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
+    def exists(){
+        if(User.findByUsername(params.username))
+            render true
+        else
+            render false
+    }
+
 }

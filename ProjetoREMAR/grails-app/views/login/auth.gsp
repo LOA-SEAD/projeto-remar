@@ -111,12 +111,6 @@
                     <g:message  code="Login por Facebook"/>
                 </fb:login-button>
                 <form action='/j_spring_security_check' method='POST' class="form center-block login" >
-                    %{--<sec:ifNotGranted roles="ROLE_USER">--}%
-                        %{--<facebookAuth:connect />--}%
-                    %{--</sec:ifNotGranted>--}%
-                    %{--<sec:ifAllGranted roles="ROLE_USER">--}%
-                        %{--Welcome <sec:username/>! (<g:link uri="/j_spring_security_logout">Logout</g:link>)--}%
-                    %{--</sec:ifAllGranted>--}%
 
                     <div class="divider">
                         <strong class="">ou</strong>
@@ -149,18 +143,18 @@
                                 $('.form-group').addClass('has-error');
 
                                 $('#input-username').append($("<div/>")
-                                                            .addClass("help-block")
-                                                            .text("Usuário e senha não coincidem"));
+                                                        .addClass("help-block")
+                                                        .text("Usuário e senha não coincidem"));
 
                                 $('#input-password').append($("<div/>")
-                                                            .addClass("help-block")
-                                                            .text("Usuário e senha não coincidem"));
+                                                        .addClass("help-block")
+                                                        .text("Usuário e senha não coincidem"));
 
                                 $("input").focus(function(){
-                                      $('.form-group').removeClass('has-error');
-                                      $('.help-block').remove();
+                                    $('.form-group').removeClass('has-error');
+                                    $('.help-block').remove();
+                                    $('input').off("focus");
                                 });
-
                             </script>
                         </g:if>
                     </div>
