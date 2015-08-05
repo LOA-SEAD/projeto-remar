@@ -37,6 +37,8 @@
 	<button id="SearchButton"><i class="material-icons">search</i></button>
 	<button id="SaveButton" onclick="allToJson()"><i class="material-icons">save</i></button>
 </aside>
+<input  class="search-box" type="text" id="SearchLabel"  placeholder="Buscar nesta lista"/>
+
 
 <section id="TableWordList" style="height: 300px; overflow: auto">
 	<g:render template="list"/>
@@ -44,10 +46,23 @@
 
 
 <script type="text/javascript" defer="defer">
+	$(function(){
+		$("#SearchLabel").keyup(function(){
+			_this = this;
+			$.each($("#ListTable tbody").find("tr"), function() {
+				console.log($(this).text());
+				if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) == -1)
+					$(this).hide();
+				else
+					$(this).show();
+			});
+		});
+	});
 
 	$(document).ready(function(){
+		$("#SearchLabel").hide();
 		$("#SearchButton").click(function(){
-			$("#SearchLine").toggle();
+			$("#SearchLabel").toggle();
 		});
 
 		$( "#SearchButton" ).hover(
@@ -76,8 +91,6 @@
 
 
 	});
-
-
 
 	function AutoClickButton(id){
 		var button = "#button"+id
@@ -156,7 +169,7 @@
 
 	function editWord(id, answer){
 		var node = document.getElementById("ShowWord")
-		node.innerHTML = "<input class='resizedTextbox' type='text' id='EditWordLabel' value='"+answer+"' onfocus=\"(this.value == '"+answer+"') && (this.value = '')\"onblur=\"(this.value == '') && (this.value = '"+answer+"')\"> </input>"
+		node.innerHTML = "<input class='resizedTextbox' type='text' id='EditWordLabel' value='"+answer.toUpperCase()+"' onfocus=\"(this.value == '"+answer+"') && (this.value = '')\"onblur=\"(this.value == '') && (this.value = '"+answer+"')\"> </input>"
 		node.innerHTML+= " <button class='but-edit' onclick=\"UpdateWord("+id+")\" >Salvar</button> "
 	}
 

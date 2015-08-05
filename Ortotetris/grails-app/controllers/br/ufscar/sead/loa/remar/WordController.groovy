@@ -76,6 +76,7 @@ class WordController {
                 aux += (wordInstance.getWord().substring(position, 10))
                 wordInstance.setWord(aux)
                 wordInstance.save flush: true
+                render template: 'message', model: [WordMessage: "Caracter oculto com sucesso"]
                 render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName: "Word"]
             }
             else {
