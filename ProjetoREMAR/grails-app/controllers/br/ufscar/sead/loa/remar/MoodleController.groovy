@@ -69,7 +69,7 @@ class MoodleController {
         def builder = new JsonBuilder()
 
         def json = builder (
-            list.collect {p ->
+            "games": list.collect {p ->
                 [
                     "id": p.id,
                     "height": p.height,
@@ -79,7 +79,7 @@ class MoodleController {
                     "name": p.name,
                     "accounts": p.accounts.collect {a ->
                         [
-                            "name": a.accountName,
+                            "accountName": a.accountName,
                             "id": a.id
                         ]
                     }
