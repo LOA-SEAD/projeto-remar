@@ -114,7 +114,7 @@
 				<div style="margin-top: 10px;">
 					<button type="button" id="new-account">+ conta</a>
 				</div>
-				<g:hiddenField name="moodleGameId" value="${moodleGameInstance.id}" />
+				<g:hiddenField name="exportedGameId" value="${exportedGameInstance.id}" />
 				<br />
 				<g:submitButton name="create" class="btn btn-primary btn-block btn-create" value="Salvar Configuração" />
 				<hr />

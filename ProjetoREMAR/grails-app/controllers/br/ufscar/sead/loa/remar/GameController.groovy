@@ -44,9 +44,18 @@ class GameController {
         gameInstance.owner       = springSecurityService.currentUser as User
         gameInstance.status      = "pending"
         gameInstance.valid       = true
-//        gameInstance.name        = name TODO
 
-        if (war.contentType != "application/octet-stream") { // file is a WAR?
+        // move to wars folder
+        def file = new File(servletContext.getRealPath("/wars/${session.userId}"), fileName + ".war")
+        file.mkdirs()
+        war.transferTo(file)
+
+        // unzip
+        def unzip = "${servletContext.getRealPath("/scripts")}/unzip.sh ${servletContext.getRealPath("/wars/${session.userId}")} ${fileName}"
+        unzip.execute().waitFor()
+
+        file = new File(servletContext.getRealPath("/wars/${session.userId}/${fileName}/WEB-INF"))
+        if (!file.exists()) { // file is a WAR?
             gameInstance.valid = false
             gameInstance.name = war.originalFilename
             gameInstance.uri = ""
@@ -57,15 +66,6 @@ class GameController {
             println "not war"
             return
         }
-
-        // move to wars folder
-        def file = new File(servletContext.getRealPath("/wars/${session.userId}"), fileName + ".war")
-        file.mkdirs()
-        war.transferTo(file)
-
-        // unzip
-        def unzip = "sh ${servletContext.getRealPath("/scripts")}/unzip.sh ${servletContext.getRealPath("/wars/${session.userId}")} ${fileName}"
-        unzip.execute().waitFor()
 
         file = new File(servletContext.getRealPath("/wars/${session.userId}/${fileName}/manifest.json"))
         if (!file.exists()) { // WAR has a manifest.json?
@@ -99,7 +99,7 @@ class GameController {
         gameInstance.name = manifest.name
         gameInstance.uri = manifest.uri
 
-        def cmd = "sh " + servletContext.getRealPath("/scripts") + "/verify-banner.sh ${servletContext.getRealPath("/wars/${session.userId}")}/${fileName} ${manifest.uri}-banner"
+        def cmd = servletContext.getRealPath("/scripts") + "/verify-banner.sh ${servletContext.getRealPath("/wars/${session.userId}")}/${fileName} ${manifest.uri}-banner"
         def foundBanner = cmd.execute().text.toInteger()
 
         // has banner?
@@ -111,12 +111,13 @@ class GameController {
             gameInstance.comment = "${manifest.uri}-banner.png not found!"
             gameInstance.save flush: true
             redirect action: "index"
+            println "banner not found"
             return
         }
 
         // copy banner to /assets
 
-        cmd = "sh " + servletContext.getRealPath("/scripts") + "/verify-bpmn.sh ${servletContext.getRealPath("/wars/${session.userId}")}/${fileName} ${manifest.bpmn}"
+        cmd = servletContext.getRealPath("/scripts") + "/verify-bpmn.sh ${servletContext.getRealPath("/wars/${session.userId}")}/${fileName} ${manifest.bpmn}"
         def foundBpmn = cmd.execute().text.toInteger()
 
         // has bpmn?
@@ -128,7 +129,9 @@ class GameController {
             gameInstance.comment = "${manifest.bpmn}.bpmn not found!"
             gameInstance.save flush: true
             redirect action: "index"
+            println "bpmn not found"
             return
+
         }
 
         gameInstance.bpmn = manifest.bpmn
