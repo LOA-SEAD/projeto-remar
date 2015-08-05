@@ -44,21 +44,6 @@ class GameController {
         gameInstance.owner       = springSecurityService.currentUser as User
         gameInstance.status      = "pending"
         gameInstance.valid       = true
-//        gameInstance.name        = name TODO
-
-        println war.contentType
-//        if (war.contentType != "application/octet-stream") { // file is a WAR?
-//            gameInstance.valid = false
-//            gameInstance.name = war.originalFilename
-//            gameInstance.uri = ""
-//            gameInstance.status  = "rejected"
-//            gameInstance.comment = war.originalFilename + " isn't a war!"
-//            gameInstance.save flush: true
-//            redirect action: "index"
-//            println "not war"
-//            return
-//        }
-
 
         // move to wars folder
         def file = new File(servletContext.getRealPath("/wars/${session.userId}"), fileName + ".war")
@@ -66,9 +51,21 @@ class GameController {
         war.transferTo(file)
 
         // unzip
-
         def unzip = "${servletContext.getRealPath("/scripts")}/unzip.sh ${servletContext.getRealPath("/wars/${session.userId}")} ${fileName}"
         unzip.execute().waitFor()
+
+        file = new File(servletContext.getRealPath("/wars/${session.userId}/${fileName}/WEB-INF"))
+        if (!file.exists()) { // file is a WAR?
+            gameInstance.valid = false
+            gameInstance.name = war.originalFilename
+            gameInstance.uri = ""
+            gameInstance.status  = "rejected"
+            gameInstance.comment = war.originalFilename + " isn't a war!"
+            gameInstance.save flush: true
+            redirect action: "index"
+            println "not war"
+            return
+        }
 
         file = new File(servletContext.getRealPath("/wars/${session.userId}/${fileName}/manifest.json"))
         if (!file.exists()) { // WAR has a manifest.json?
@@ -114,7 +111,7 @@ class GameController {
             gameInstance.comment = "${manifest.uri}-banner.png not found!"
             gameInstance.save flush: true
             redirect action: "index"
-            println gameInstance.errors
+            println "banner not found"
             return
         }
 
@@ -132,6 +129,7 @@ class GameController {
             gameInstance.comment = "${manifest.bpmn}.bpmn not found!"
             gameInstance.save flush: true
             redirect action: "index"
+            println "bpmn not found"
             return
 
         }
