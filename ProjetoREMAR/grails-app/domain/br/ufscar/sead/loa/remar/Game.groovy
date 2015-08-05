@@ -17,6 +17,8 @@ class Game {
     boolean active
     int version
     String uri
+
+    /*should we remove that?*/
     boolean moodle // Exportavel para o moodle
     boolean mobile
     boolean web

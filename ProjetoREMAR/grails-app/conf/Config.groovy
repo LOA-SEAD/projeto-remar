@@ -205,7 +205,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/**/fonts/**':                   ['permitAll'],
     '/password/**':                   ['permitAll'],
     '/moodle/**':                     ['permitAll'],
-    '/moodleGame/**':                 ['permitAll'],
+    '/exportedGame/**':               ['permitAll'],
     '/static/**':                     ['permitAll'],
     "http://myapp.dev:9090/remar":    ['permitAll']
 ]

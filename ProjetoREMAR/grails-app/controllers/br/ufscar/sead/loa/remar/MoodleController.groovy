@@ -16,10 +16,10 @@ class MoodleController {
             return
         }*/
 
-        if (moodle.hasErrors()) {
+        /*if (moodle.hasErrors()) {
             println("Someone tried to install the REMAR plugin in his/her moodle but it didn't worked:")
             println(moodle.errors)
-        }
+        }*/
 
         moodle.save flush:true
 
@@ -33,7 +33,7 @@ class MoodleController {
     }
 
     def moodleGameList(String domain) {
-        def moodle = Moodle.findByDomain(domain)
+        /*def moodle = Moodle.findByDomain(domain)
         def c = MoodleGame.createCriteria()
         
         def l = c.list () {
@@ -49,6 +49,6 @@ class MoodleController {
         ret["games"] = l
         ret["accounts"] = accs
 
-        render ret as JSON
+        render ret as JSON*/
     }
 }
