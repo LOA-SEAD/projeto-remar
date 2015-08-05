@@ -14,7 +14,7 @@ class MoodleGameController {
 
     def springSecurityService
 
-    def save(MoodleGame moodlegame) {
+    /*def save(MoodleGame moodlegame) {
         //-------------------------------------Denis-----------------------
         def userId = springSecurityService.getCurrentUser().getId()
         def imageUploaded = request.getFile("moodleimage")
@@ -77,14 +77,14 @@ class MoodleGameController {
                 def moo = Moodle.findWhere(id: id)
 
                 /* check if that moodle instance is vinculated with the game already */
-                if (moodleGame.moodles.find {it.domain == moo.domain} == null) {
+                /*if (moodleGame.moodles.find {it.domain == moo.domain} == null) {
                     moodleGame.addToMoodles(moo)
                     moodleGame.save flush:true
                     println "salvou no moodleGame.moodles = " + moo.domain
                 }
 
                 /* check if there is an account with the same name to reuse it */
-                def account = MoodleAccount.find({accountName == params.find({it.key == "account"+splitted[1]}).value})
+                /*def account = MoodleAccount.find({accountName == params.find({it.key == "account"+splitted[1]}).value})
                 if (account == null) {
                     account = new MoodleAccount()
                     account.accountName = params.find({it.key == "account"+splitted[1]}).value
@@ -96,5 +96,5 @@ class MoodleGameController {
                 moo.save flush:true
             }
         }
-    }
+    }*/
 }
