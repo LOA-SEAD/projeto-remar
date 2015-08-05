@@ -59,14 +59,12 @@ class GameController {
 //            return
 //        }
 
-
         // move to wars folder
         def file = new File(servletContext.getRealPath("/wars/${session.userId}"), fileName + ".war")
         file.mkdirs()
         war.transferTo(file)
 
         // unzip
-
         def unzip = "${servletContext.getRealPath("/scripts")}/unzip.sh ${servletContext.getRealPath("/wars/${session.userId}")} ${fileName}"
         unzip.execute().waitFor()
 
@@ -114,7 +112,6 @@ class GameController {
             gameInstance.comment = "${manifest.uri}-banner.png not found!"
             gameInstance.save flush: true
             redirect action: "index"
-            println gameInstance.errors
             return
         }
 
