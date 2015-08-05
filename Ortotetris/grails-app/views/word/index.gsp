@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="${resource(dir: 'css', file: 'external-styles.css')}"	type="text/css">
 
 
+
 	<title>Ortotetris</title>
 	<nav></nav>
 	<h1 align="center">Ortotetris</h1>
@@ -26,7 +27,7 @@
 
 </section>
 
-<div id="MessageDiv" align="center" class="message">
+<div id="MessageDiv" align="center" style="height: 10px;" class="message">
 	<g:render template="message"/>
 </div>
 
@@ -148,8 +149,8 @@
 	}
 
 	function allToJson(){
-		<g:remoteFunction action="toJsonAnswer"/>
-		<g:remoteFunction action="toJsonWord" />
+		<g:remoteFunction action="toJsonAnswer" update="TableWordList"/>
+		<g:remoteFunction action="toJsonWord" update="TableWordList" />
 	}
 
 	function createNewWord(){
@@ -179,7 +180,7 @@
 		<g:remoteFunction action="editWord" params="parameters" update="TableWordList"/>
 	}
 
-    function WordDelete(id){
+	function WordDelete(id){
 		if(confirm("Você tem certeza?"))
 		{
 			var parameters = {"id":id}
@@ -187,7 +188,7 @@
 		}
 
 
-    }
+	}
 
 
 </script>

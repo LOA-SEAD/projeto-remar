@@ -154,10 +154,26 @@ class WordController {
 
     def validate_hide_letter(String hide_letter){
         String test_letter=hide_letter.toUpperCase();
-        if(test_letter=="S"||test_letter=="C"||test_letter=="Z"||test_letter=="Ç"||test_letter=="H"||test_letter=="X")
-            return true
-        else
-            return false
+
+        switch (test_letter){
+            case "S":
+                return true;
+            case "C":
+                return true;
+            case "Z":
+                return true;
+            case "Ç":
+                return true;
+            case "H":
+                return true;
+            case "X":
+                return true;
+            default:
+                return false;
+        }
+
+
+
     }
 
     def toJsonAnswer() {
@@ -180,7 +196,9 @@ class WordController {
         pw.write("[[\""+list[list.size()-1].getAnswer().toUpperCase()+"\"]]\n\t       ]")
         pw.write("\n}")
         pw.close();
-        redirect action: "index"
+        render template: 'message', model: [WordMessage: "Banco atualizado"]
+        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+
 
     }
 
@@ -203,7 +221,10 @@ class WordController {
         pw.write("[[\""+list[list.size()-1].getWord()+"\"]]\n\t       ]")
         pw.write("\n}")
         pw.close();
-        redirect action: "index"
+        render template: 'message', model: [WordMessage: "Banco atualizado"]
+        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+
+
     }
 
 
@@ -262,7 +283,7 @@ class WordController {
         }
 
         if (wordInstance.hasErrors()) {
-            respond wordInstance.errors, view:'edit'
+            respond wordInstance.errors, view:'index'
             return
         }
 
