@@ -2,7 +2,7 @@ package br.ufscar.sead.loa.remar
 
 class ExportedGame {
 	static belongsTo = [owner: User]
-    static hasMany = [platforms: Platform, moodles: Moodle, accounts: MoodleAccount]
+    static hasMany = [platforms: Platform, accounts: MoodleAccount]
 
     static constraints = {
     	moodleUrl nullable: true
@@ -10,9 +10,6 @@ class ExportedGame {
     	windowsUrl nullable: true
     	webUrl nullable: true
     	androidUrl nullable: true
-
-    	//remove for the version with communication between publish page and it
-    	
     }
 
     String moodleUrl
