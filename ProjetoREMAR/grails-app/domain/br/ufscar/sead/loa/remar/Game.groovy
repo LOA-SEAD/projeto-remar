@@ -9,7 +9,7 @@ class Game {
         submittedAt blank: false
         name blank: false
         comment nullable: true, blank: true
-        bpmn nullable: false
+        bpmn nullable: true
         moodle nullable: true
     }
 
