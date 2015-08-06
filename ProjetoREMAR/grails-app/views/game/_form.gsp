@@ -7,4 +7,3 @@
 	</label>
 	<input type="file" name="war"/>
 </div>
-

@@ -18,7 +18,7 @@
 <div>
     <label for="moodle">
         Deseja publicar para o moodle?
-        <input type="checkbox" id="moodle" name="moodle" value="${false}"/> <br>
+        <input class="checkbox.moodle" type="checkbox" id="moodle" name="moodle" value="${false}"/> <br>
         <a id="moodleForm" target="_blank" href="/moodleGame/gamePublishConfig/">Formulario para o Moodle</a>
     </label>
 </div>

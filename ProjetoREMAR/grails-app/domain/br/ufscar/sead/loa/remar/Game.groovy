@@ -11,6 +11,9 @@ class Game {
         comment nullable: true, blank: true
         bpmn nullable: true
         moodle nullable: true
+        mobile nullable: true
+        web nullable: true
+        desktop nullable: true
     }
 
     String name
