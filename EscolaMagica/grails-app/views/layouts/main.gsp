@@ -14,8 +14,8 @@
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'fullcalendar.css')}"	type="text/css">
         <link rel="stylesheet" href="${resource(dir: 'css/datatables', file: 'datatables.css')}"	type="text/css">
         <link rel="stylesheet" href="${resource(dir: 'css/datatables', file: 'bootstrap.datatables.css')}"	type="text/css">
-        <link rel="stylesheet" href="${resource(dir: 'scss', file: 'chosen.css')}"	type="text/css">
-        <link rel="stylesheet" href="${resource(dir: 'scss/font-awesome', file: 'font-awesome.css')}"	type="text/css">
+        <link rel="stylesheet" href="${resource(dir: 'scripts/scss', file: 'chosen.css')}"	type="text/css">
+        <link rel="stylesheet" href="${resource(dir: 'scripts/scss', file: 'font-awesome.css')}"	type="text/css">
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'app.css')}"	type="text/css">
 
         <link href='http://fonts.googleapis.com/css?family=Oswald:300,400,700|Open+Sans:400,700,300' rel='stylesheet' type='text/css'>

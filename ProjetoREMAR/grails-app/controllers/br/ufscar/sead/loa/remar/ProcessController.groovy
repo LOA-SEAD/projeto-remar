@@ -33,6 +33,7 @@ class ProcessController {
     MailService mailService
 
 
+
     @Secured(["ROLE_ADMIN","ROLE_STUD","ROLE_USER"])
     def start(){
         println params.id
@@ -158,7 +159,8 @@ class ProcessController {
 */
 
     def pendingTasks(){
-
+        def currentUser = springSecurityService.getCurrentUser().id
+       println br.ufscar.sead.loa.remar.User.findById(currentUser).getName()
 
     }
 
