@@ -64,9 +64,15 @@
                                                 <input class="comment" data-id="${gameInstance.id}" type="text" placeholder="Comment" value="${gameInstance.comment}">
                                                 <div class="pull-right">
                                                     <i class="fa fa-at"></i>
-                                                    <i class="fa fa-android"></i>
-                                                    <i class="fa fa-linux"></i>
-                                                    <i class="fa fa-graduation-cap"></i>
+                                                    <g:if test="${gameInstance.android}">
+                                                        <i class="fa fa-android"></i>
+                                                    </g:if>
+                                                    <g:if test="${gameInstance.linux}">
+                                                        <i class="fa fa-linux"></i>
+                                                    </g:if>
+                                                    <g:if test="${gameInstance.moodle}">
+                                                        <i class="fa fa-graduation-cap"></i>
+                                                    </g:if>
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </div>

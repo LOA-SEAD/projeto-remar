@@ -96,8 +96,11 @@ class GameController {
             return
         }
 
-        gameInstance.name = manifest.name
-        gameInstance.uri = manifest.uri
+        gameInstance.name    = manifest.name
+        gameInstance.uri     = manifest.uri
+        gameInstance.android = manifest.android
+        gameInstance.linux   = manifest.linux
+        gameInstance.moodle  = manifest.moodle
 
         def cmd = servletContext.getRealPath("/scripts") + "/verify-banner.sh ${servletContext.getRealPath("/wars/${session.userId}")}/${fileName} ${manifest.uri}-banner"
         def foundBanner = cmd.execute().text.toInteger()
@@ -174,19 +177,12 @@ class GameController {
         }
 
         if (status == "approve" && gameInstance.status != "approved") {
-            def platforms = Platform.list() // TODO: logic to select platforms
 
             gameInstance.status  = "approved"
             gameInstance.active = true
             gameInstance.version = 0
-            gameInstance.addToPlatforms(platforms[0])
-            gameInstance.addToPlatforms(platforms[1])
-            gameInstance.addToPlatforms(platforms[2])
-            gameInstance.addToPlatforms(platforms[3])
 
             gameInstance.save flush: true
-
-
 
             mailService.sendMail {
                 async true

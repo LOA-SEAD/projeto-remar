@@ -3,17 +3,16 @@ package br.ufscar.sead.loa.remar
 class Game {
 
     static belongsTo = [owner: User]
-    static hasMany = [platforms: Platform]
 
     static constraints = {
         submittedAt blank: false
         name blank: false
         comment nullable: true, blank: true
         bpmn nullable: true
-        moodle nullable: true
-        mobile nullable: true
-        web nullable: true
-        desktop nullable: true
+        moodle defaultValue: false
+        android defaultValue: false
+        web defaultValue: true
+        linux defaultValue: false
     }
 
     String name
@@ -21,11 +20,10 @@ class Game {
     int version
     String uri
 
-    /*should we remove that?*/
-    boolean moodle // Exportavel para o moodle
-    boolean mobile
     boolean web
-    boolean desktop
+    boolean android
+    boolean linux
+    boolean moodle
 
     // deploy
     Date submittedAt

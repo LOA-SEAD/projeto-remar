@@ -34,7 +34,7 @@
                     <div class="padded">
                         <div class="row">
                             <g:each in="${gameInstanceList}" var="gameInstance">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="panel panel-primary">
                                         <div class="panel-heading">
                                             ${gameInstance.name}
@@ -48,19 +48,16 @@
                                         </div>
                                         <div class="panel-footer">
                                             <div class="pull-right">
-                                                <g:if test=" ${(gameInstance as String).indexOf('Web') != -1}">
-                                                    <i class="fa fa-at"></i>
-                                                </g:if>
-                                                <g:if test=" ${(gameInstance as String).indexOf('Android') != -1}">
+                                                <i class="fa fa-at"></i>
+                                                <g:if test="${gameInstance.android}">
                                                     <i class="fa fa-android"></i>
                                                 </g:if>
-                                                <g:if test=" ${(gameInstance as String).indexOf('Linux') != -1}">
+                                                <g:if test="${gameInstance.linux}">
                                                     <i class="fa fa-linux"></i>
                                                 </g:if>
-                                                <g:if test=" ${(gameInstance as String).indexOf('Moodle') != -1}">
+                                                <g:if test="${gameInstance.moodle}">
                                                     <i class="fa fa-graduation-cap"></i>
                                                 </g:if>
-
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
