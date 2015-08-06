@@ -1,0 +1,19 @@
+{
+  "name": "Escola Magica",
+   "app": {
+        "launch": {
+            "local_path": "index.html"
+        }
+    },
+  "icons": [
+    {
+      "src": "images/icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "density": "4.0"
+    }    
+  ],
+  "start_url": "index.html",
+  "display": "standalone",
+  "orientation": "any"
+}

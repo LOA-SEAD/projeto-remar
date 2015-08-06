@@ -35,7 +35,9 @@ class ProcessController {
 
     @Secured(["ROLE_ADMIN","ROLE_STUD","ROLE_USER"])
     def start(){
+        println params.id
         def processId = runtimeService.startProcessInstanceByKey(params.id).getId()
+        session.processId = processId
         def userId = springSecurityService.getCurrentUser().getId()
 
         runtimeService.setVariable(processId, "ownerId", userId as String)
@@ -83,7 +85,7 @@ class ProcessController {
         def rootPath = servletContext.getRealPath("/")
         def name = params.id
         def deployment = repositoryService.createDeploymentQuery().deploymentName(name).list()
-
+        Date date
         if(deployment) {
             repositoryService.deleteDeployment(deployment[0].id, true)
         }
@@ -95,6 +97,9 @@ class ProcessController {
         db.name(name)
 
         db.deploy();
+        db.activateProcessDefinitionsOn(date)
+
+        //println repositoryService.getProcessDefinition(params.id)
 
 
         //repositoryService.getProcessDefinition("ForceProcess")
@@ -135,8 +140,13 @@ class ProcessController {
 
 
        // println allTasks.size()
-
-        respond "",model:[allusers: allUsers, alltasks: allTasks]
+        if(allTasks.size()==0){
+            render "Processo finalizado"
+        }
+        else {
+            respond "", model: [allusers: allUsers, alltasks: allTasks]
+            println allTasks.size()
+        }
 
     }
 
@@ -147,11 +157,24 @@ class ProcessController {
     }
 */
 
+    def publishGame(){
+
+    }
+
+    def finishedProcess(){
+        println Game.findByWeb(true)
+        def webVersion = Game.findByWeb(true)
+        render(view: "finishedProcess",model:[web: webVersion])
+    }
+
     def completeTask(){
         //println params.id
 
         def task =  taskService.createTaskQuery().processInstanceId(session.processId).taskId(params.id).singleResult()
         taskService.complete(task.id)
+        if(taskService.createTaskQuery().processInstanceId(session.processId).list().size()==0){
+            redirect(action: "finishedProcess")
+        }
     }
 
     def resolveTask(){
@@ -162,10 +185,6 @@ class ProcessController {
         taskService.resolveTask(task.id)
     }
 
-    def emailToNewTask(){
-
-
-    }
 
     def delegateTasks(){
 

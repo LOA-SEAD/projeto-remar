@@ -134,6 +134,7 @@ class GameController {
 
         }
 
+        gameInstance.web = true //default
         gameInstance.bpmn = manifest.bpmn
         gameInstance.comment = "Awaiting review"
 
