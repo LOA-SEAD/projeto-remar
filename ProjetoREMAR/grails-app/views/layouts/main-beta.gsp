@@ -27,6 +27,15 @@
         <script src='https://www.google.com/recaptcha/api.js'></script>
     </head>
     <body>
+    <div class="container-fluid">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li> <g:link controller="process" action="pendingTasks" >Tarefas Pendentes</g:link></li>
+                <li> <g:link uri="http://myapp.dev:9090/dashboard" >Jogos Personalizáveis</g:link></li>
+                <li> <a href="a">Meus Processos</a></li>
+            </ul>
+        </div>
+    </div>
     <div class="row">
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">

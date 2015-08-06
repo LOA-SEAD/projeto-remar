@@ -183,7 +183,7 @@ class UserController {
         
         def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?secret=6LdA8QkTAAAAACHA9KoBPT1BXXBrJpQNJfCGTm9x&response="+captcha+"&remoteip="+userIP)
         println resp.json as JSON
-        if(resp.json.success==false){ //true recaptcha
+        if(resp.json.success==true){ //true recaptcha
             if (userInstance == null) {
                 notFound()
                 return

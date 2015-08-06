@@ -157,7 +157,14 @@ class ProcessController {
     }
 */
 
+    def pendingTasks(){
+
+
+    }
+
     def publishGame(){
+        println params.web
+        redirect(action: "finishedProcess")
 
     }
 

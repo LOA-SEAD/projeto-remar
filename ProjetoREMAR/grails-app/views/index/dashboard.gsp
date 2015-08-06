@@ -16,13 +16,14 @@
 </head>
 <body>
 
-    <div class="container-fluid">
-        <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-                <li> <a href="a">aaa</a></li>
-            </ul>
-        </div>
-    </div>
+    %{--<div class="container-fluid">--}%
+        %{--<div class="col-sm-3 col-md-2 sidebar">--}%
+            %{--<ul class="nav nav-sidebar">--}%
+                %{--<li> <a href="a">Tarefas Pendentes</a></li>--}%
+                %{--<li> <a href="a">Meus Processos</a></li>--}%
+            %{--</ul>--}%
+        %{--</div>--}%
+    %{--</div>--}%
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <div class="main-content">
             <div class="widget">
@@ -39,7 +40,7 @@
                                             ${gameInstance.name}
                                         </div>
                                         <div class="panel-body">
-                                            <a href="/process/start/${gameInstance.bpmn}" target="_blank">
+                                            <a href="/process/start/${gameInstance.bpmn}" target="_self">
                                                 <img
                                                     src="/images/${gameInstance.uri}-banner.png"
                                                     class="img img-responsive center-block"/>

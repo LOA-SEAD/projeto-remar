@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
-    <g:javascript src="moodle.js"/>
+    <g:javascript src="versions.js"/>
     <style>
     #moodleForm {
         display: none;
@@ -26,7 +26,7 @@
 <div>
     <label for="web">
         Deseja publicar para a Web?
-        <input type="checkbox" id="web" name="web" value="${false}"/> <br>
+        <input name="web" id="web2" type="checkbox" id="web" name="web"/> <br>
         <a id="webLink" target="_blank" href="a" />
     </label>
 </div>
@@ -38,7 +38,7 @@
         %{--<a id="androidLink" target="_blank" />--}%
     %{--</label>--}%
 </div>
-    <input type="submit" value="Enviar"/>
+    <input id="send" name="send" type="submit" value="Enviar"/>
 </g:form>
 </body>
 </html>
