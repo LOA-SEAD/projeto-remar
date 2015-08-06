@@ -105,11 +105,22 @@ class WordController {
         Word wordInstance = Word.findById(params.id)
         String position_text = params.pos
         int position = position_text.toInteger()
+        String clear_char = "" + wordInstance.getAnswer().charAt(position-wordInstance.initial_position-1);
+        clear_char=clear_char.toUpperCase()
         if ((position-1 >= wordInstance.getInitial_position()) && (position-1 <= wordInstance.getInitial_position() + wordInstance.getAnswer().length()-1)) {
             String aux
             aux = wordInstance.getWord().substring(0, position - 1)
-            aux += (wordInstance.getAnswer().charAt(position - wordInstance.getInitial_position() - 1).toUpperCase())
-            aux += ((wordInstance.getWord().substring(position, 10)))
+            if(clear_char=="C" && wordInstance.getAnswer().substring(position-wordInstance.getInitial_position(),position-wordInstance.getInitial_position()+1).toUpperCase()=="H"){
+                aux += (wordInstance.getAnswer().charAt(position - wordInstance.getInitial_position() - 1).toUpperCase())
+                aux += (wordInstance.getAnswer().charAt(position - wordInstance.getInitial_position()).toUpperCase())
+                aux += ((wordInstance.getWord().substring(position+1, 10)))
+            }
+            else{
+                aux += (wordInstance.getAnswer().charAt(position - wordInstance.getInitial_position() - 1).toUpperCase())
+                aux += ((wordInstance.getWord().substring(position, 10)))
+            }
+
+
             wordInstance.setWord(aux)
             wordInstance.save flush:true
             render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
@@ -173,7 +184,6 @@ class WordController {
             case "Ç":
                 return true;
             case "H":
-                println("Remover letra anterior");
                 return true;
             case "X":
                 return true;
