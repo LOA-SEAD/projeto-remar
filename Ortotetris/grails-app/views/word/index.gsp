@@ -149,8 +149,8 @@
 	}
 
 	function allToJson(){
-		<g:remoteFunction action="toJsonAnswer" update="TableWordList"/>
-		<g:remoteFunction action="toJsonWord" update="TableWordList" />
+		<g:remoteFunction action="toJsonAnswer" update="MessageDiv"/>
+		<g:remoteFunction action="toJsonWord" update="MessageDiv" />
 	}
 
 	function createNewWord(){

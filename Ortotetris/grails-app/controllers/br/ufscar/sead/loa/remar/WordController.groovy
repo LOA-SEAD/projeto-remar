@@ -62,17 +62,25 @@ class WordController {
     }//move word para a direita
 
     @Transactional
-    def mark_letter() {
-        Word wordInstance = Word.findById(params.id)
-        String teste = params.pos
-        int position = teste.toInteger()
+    def mark_letter(int id, int pos) {
+        Word wordInstance = Word.findById(id)
+        String position_text = pos
+        int position = position_text.toInteger()
         if ((position-1 >= wordInstance.getInitial_position()) && (position-1 <= wordInstance.getInitial_position() + wordInstance.getAnswer().length()-1) ) {
             String h_char = "" + wordInstance.getWord().charAt(position-1);
             if(validate_hide_letter(h_char)) {
-
                 String aux
-                aux = wordInstance.getWord().substring(0, position - 1)
-                aux += ("0")
+                if(h_char=="H")
+                {
+                    aux = wordInstance.getWord().substring(0, position - 2)
+                    aux += ("00")
+                }
+                else
+                {
+                    aux = wordInstance.getWord().substring(0, position - 1)
+                    aux += ("0")
+                }
+
                 aux += (wordInstance.getWord().substring(position, 10))
                 wordInstance.setWord(aux)
                 wordInstance.save flush: true
@@ -95,8 +103,8 @@ class WordController {
     @Transactional
     def clear_position() {
         Word wordInstance = Word.findById(params.id)
-        String teste = params.pos
-        int position = teste.toInteger()
+        String position_text = params.pos
+        int position = position_text.toInteger()
         if ((position-1 >= wordInstance.getInitial_position()) && (position-1 <= wordInstance.getInitial_position() + wordInstance.getAnswer().length()-1)) {
             String aux
             aux = wordInstance.getWord().substring(0, position - 1)
@@ -165,6 +173,7 @@ class WordController {
             case "Ç":
                 return true;
             case "H":
+                println("Remover letra anterior");
                 return true;
             case "X":
                 return true;
@@ -197,9 +206,6 @@ class WordController {
         pw.write("\n}")
         pw.close();
         render template: 'message', model: [WordMessage: "Banco atualizado"]
-        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
-
-
     }
 
     def toJsonWord() {
@@ -222,8 +228,6 @@ class WordController {
         pw.write("\n}")
         pw.close();
         render template: 'message', model: [WordMessage: "Banco atualizado"]
-        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
-
 
     }
 
