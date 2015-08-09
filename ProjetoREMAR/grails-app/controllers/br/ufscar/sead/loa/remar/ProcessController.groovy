@@ -227,8 +227,10 @@ class ProcessController {
 
         def task =  taskService.createTaskQuery().processInstanceId(session.processId).taskId(params.id).singleResult()
         taskService.complete(task.id)
-        if(taskService.createTaskQuery().processInstanceId(session.processId).list().size()==0){
+        if(taskService.createTaskQuery().processInstanceId(session.processId).list().size()==0) {
             redirect(action: "finishedProcess")
+        }else{
+            redirect(action: "chooseUsersTasks" )
         }
     }
 

@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <meta name="layout" content="main">
+    <meta name="layout" content="main-beta">
     <g:javascript src="versions.js"/>
     <style>
     #moodleForm {
@@ -13,6 +13,8 @@
 </head>
 
 <body>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
 <h1>Processo Finalizado!</h1>
 <g:form controller="process" action="publishGame">
 %{--<div>--}%
@@ -37,8 +39,9 @@
         %{--<input type="checkbox" id="android" name="android" value="${false}"/> <br>--}%
         %{--<a id="androidLink" target="_blank" />--}%
     %{--</label>--}%
-</div>
+%{--</div>--}%
     <input id="send" name="send" type="submit" value="Enviar"/>
 </g:form>
+</div>
 </body>
 </html>
