@@ -155,28 +155,39 @@ class ProcessController {
     def userProcesses(){
         String userId = springSecurityService.getCurrentUser().getId()
         List<ProcessInstance> processesList = runtimeService.createProcessInstanceQuery().list()
-        HashMap<ProcessInstance,List<Task>> myProcessesAndTasks = new HashMap<>()
-        for (processes in processesList) {
-            def var = runtimeService.getVariable(processes.id,"ownerId")
-            if(userId==var){
-                List<Task> taskList = taskService.createTaskQuery().processInstanceId(processes.id).list()
-                myProcessesAndTasks.put(processes,taskList)
+        if(processesList.size()!=0) {
+            HashMap<ProcessInstance, List<Task>> myProcessesAndTasks = new HashMap<>()
+            for (processes in processesList) {
+                def var = runtimeService.getVariable(processes.id, "ownerId")
+                if (userId == var) {
+                    List<Task> taskList = taskService.createTaskQuery().processInstanceId(processes.id).list()
+                    myProcessesAndTasks.put(processes, taskList)
+                }
             }
+            if(myProcessesAndTasks.size()!=0) {
+                render(view: "userProcesses", model: [myProcessesAndTasks: myProcessesAndTasks])
+            }
+            else{
+                render(view: "noProcesses")
+            }
+
         }
-        render(view:"userProcesses", model:[myProcessesAndTasks: myProcessesAndTasks])
+        else{
+            render(view: "noProcesses")
+        }
 
     }
 
     def pendingTasks() {
         def currentUser = springSecurityService.getCurrentUser().id
         def username = br.ufscar.sead.loa.remar.User.findById(currentUser).getUsername()
+        println username
         List<ProcessInstance> processesList = runtimeService.createProcessInstanceQuery().list()
         HashMap<List<Task>,br.ufscar.sead.loa.remar.User> myProcessesAndTasks = new HashMap<>()
             if (processesList.size() != 0) {
-//                List<List<Task>> allTasks = new ArrayList<List<Task>>()
-                println processesList.size()
                 for (processes in processesList) {
                     List<Task>  taskListPerProcess = taskService.createTaskQuery().processInstanceId(processes.id).taskAssignee(username).list()
+                    println taskListPerProcess.size()
                     if(taskListPerProcess.size()!=0){
                         def ownerId = runtimeService.getVariable(processes.id,"ownerId")
                         def ownerUsername = br.ufscar.sead.loa.remar.User.findById(ownerId)
@@ -189,14 +200,13 @@ class ProcessController {
                     render(view: "pendingTasks", model: [myProcessesAndTasks: myProcessesAndTasks])
                 }
                 else{
-                    render "SEM TAREFAs - FAZER PAGINA"
+                    render (view:"noTasks")
                 }
-                //TODO nao tem tarefas
 
             }else{
-                render "SEM TAREFAs - FAZER PAGINA"
+                render (view:"noTasks")
             }
-                //TODO nao tem tarefas
+
         }
 
 
@@ -250,12 +260,14 @@ class ProcessController {
         int i=0;
           params.each{
             key, value ->
-            def user = br.ufscar.sead.loa.remar.User.findByCamunda_id(value)
+            def user = br.ufscar.sead.loa.remar.User.findByUsername(value)
                 if(user) {
                     //taskService.setOwner(key, "Denis")
                     String Key = key
                     taskService.addUserIdentityLink(Key,value,IdentityLinkType.CANDIDATE)
                     taskService.delegateTask(key, value)
+                    println "chave:"+ key
+                    println "valor:"+value
                     mailService.sendMail {
                         async true
                         to user.getEmail()
