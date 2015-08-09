@@ -55,13 +55,14 @@ class BootStrap {
                 password: "admin",
                 email: "admin@gmail.com",
                 name: "Admin",
-                enabled: true
+                enabled: true,
+                    camunda_id: "admin"
             )
 
             org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
 
             camundaUser.setEmail(userInstance.email)
-            camundaUser.setFirstName(userInstance.name)
+            camundaUser.setFirstName(userInstance.username)
             camundaUser.setPassword(userInstance.password)
             camundaUser.setId(userInstance.id)
             identityService.saveUser(camundaUser)
