@@ -39,7 +39,6 @@
         </thead>
         <tbody>
 
-
                 <g:each in="${myProcessesAndTasks.entrySet()}" var="process">
                     <tr role="row">
                         <td  value="process"> ${process.key.processDefinitionId} </td>

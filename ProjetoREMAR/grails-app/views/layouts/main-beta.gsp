@@ -29,6 +29,7 @@
     <body>
     <div class="container-fluid">
         <div class="col-sm-3 col-md-2 sidebar">
+         <h3><i class="glyphicon glyphicon-briefcase"></i> Workspace</h3>
             <ul class="nav nav-sidebar">
                 <li> <g:link controller="process" action="pendingTasks" >Tarefas Pendentes</g:link></li>
                 <li> <g:link uri="http://myapp.dev:9090/dashboard" >Jogos Personalizáveis</g:link></li>
@@ -36,6 +37,7 @@
             </ul>
         </div>
     </div>
+
     <div class="row">
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
@@ -46,15 +48,28 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Brand</a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-toggle"></span>
+                </button>
+                <a class="navbar-brand" href="#">Painel de Controle</a>
             </div>
-            <div class="collapse navbar-collapse">
+
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><g:link controller="logout">Logout</g:link></li>
+                    <li><a href="/dashboard">Espaço do Usuário  <span class="sr-only">(current)</span></a></li>
+                    <li><a href="/game/index">Espaço do Desenvolvedor<span class="sr-only">(current)</span></a></li>
                 </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+                        <i class="glyphicon glyphicon-user"></i>  <span class="caret"></span></a>
+                    <ul id="g-account-menu" class="dropdown-menu" role="menu">
+                        <li><a href="#">My Profile</a></li>
+                        <li><a href="/logout/index"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
             </div>
+
         </div>
     </nav>
         <g:layoutBody/>
