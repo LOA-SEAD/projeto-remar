@@ -49,7 +49,7 @@ class UserController {
         org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
         if(camundaUser.firstName == null) {
             camundaUser.setEmail(userInstance.email)
-            camundaUser.setFirstName(userInstance.name)
+            camundaUser.setFirstName(userInstance.username)
             camundaUser.setPassword(userInstance.password)
             userInstance.camunda_id = camundaUser.getId()
             identityService.saveUser(camundaUser)

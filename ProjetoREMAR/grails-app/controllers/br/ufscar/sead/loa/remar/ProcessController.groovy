@@ -10,6 +10,7 @@ import org.camunda.bpm.engine.impl.identity.Authentication
 import org.camunda.bpm.engine.impl.repository.DeploymentBuilderImpl
 import org.camunda.bpm.engine.repository.DeploymentBuilder
 import org.camunda.bpm.engine.runtime.ProcessInstance
+import org.camunda.bpm.engine.task.IdentityLinkType
 import org.camunda.bpm.engine.task.Task
 import org.camunda.bpm.model.bpmn.Bpmn
 import org.camunda.bpm.model.bpmn.BpmnModelInstance
@@ -40,9 +41,10 @@ class ProcessController {
         def processId = runtimeService.startProcessInstanceByKey(params.id).getId()
         session.processId = processId
         def userId = springSecurityService.getCurrentUser().getId()
-
+        def userUserName =  br.ufscar.sead.loa.remar.User.findById(userId).getUsername()
         runtimeService.setVariable(processId, "ownerId", userId as String)
         runtimeService.setVariable(processId, "gameName", params.id as String)
+        runtimeService.setVariable(processId, "username", userUserName as String )
         session.userId = userId
 
         String currentUser = springSecurityService.getCurrentUser().camunda_id
@@ -139,8 +141,6 @@ class ProcessController {
         List<Task> allTasks = taskService.createTaskQuery().processInstanceId(session.processId).list()
         //println taskService.createTaskQuery().processInstanceId(session.processId).list()
 
-
-       // println allTasks.size()
         if(allTasks.size()==0){
             render "Processo finalizado"
         }
@@ -151,18 +151,54 @@ class ProcessController {
 
     }
 
-    /*
-    def beforeInterceptor = [action: this.&auth]
-    private auth() {
-        println params;
-    }
-*/
+    @Secured(["ROLE_ADMIN","ROLE_STUD","ROLE_USER"])
+    def userProcesses(){
+        String userId = springSecurityService.getCurrentUser().getId()
+        List<ProcessInstance> processesList = runtimeService.createProcessInstanceQuery().list()
+        HashMap<ProcessInstance,List<Task>> myProcessesAndTasks = new HashMap<>()
+        for (processes in processesList) {
+            def var = runtimeService.getVariable(processes.id,"ownerId")
+            if(userId==var){
+                List<Task> taskList = taskService.createTaskQuery().processInstanceId(processes.id).list()
+                myProcessesAndTasks.put(processes,taskList)
+            }
+        }
+        render(view:"userProcesses", model:[myProcessesAndTasks: myProcessesAndTasks])
 
-    def pendingTasks(){
+    }
+
+    def pendingTasks() {
         def currentUser = springSecurityService.getCurrentUser().id
-       println br.ufscar.sead.loa.remar.User.findById(currentUser).getName()
+        def username = br.ufscar.sead.loa.remar.User.findById(currentUser).getUsername()
+        List<ProcessInstance> processesList = runtimeService.createProcessInstanceQuery().list()
+        HashMap<List<Task>,br.ufscar.sead.loa.remar.User> myProcessesAndTasks = new HashMap<>()
+            if (processesList.size() != 0) {
+//                List<List<Task>> allTasks = new ArrayList<List<Task>>()
+                println processesList.size()
+                for (processes in processesList) {
+                    List<Task>  taskListPerProcess = taskService.createTaskQuery().processInstanceId(processes.id).taskAssignee(username).list()
+                    if(taskListPerProcess.size()!=0){
+                        def ownerId = runtimeService.getVariable(processes.id,"ownerId")
+                        def ownerUsername = br.ufscar.sead.loa.remar.User.findById(ownerId)
+//                        allTasks.add(taskListPerProcess)
+                        myProcessesAndTasks.put(taskListPerProcess, ownerUsername)
+                    }
+                }
+                if (myProcessesAndTasks.size() != 0) {
+                    println myProcessesAndTasks.size()
+                    render(view: "pendingTasks", model: [myProcessesAndTasks: myProcessesAndTasks])
+                }
+                else{
+                    render "SEM TAREFAs - FAZER PAGINA"
+                }
+                //TODO nao tem tarefas
 
-    }
+            }else{
+                render "SEM TAREFAs - FAZER PAGINA"
+            }
+                //TODO nao tem tarefas
+        }
+
 
     def publishGame(){
         println params.web
@@ -216,7 +252,9 @@ class ProcessController {
             key, value ->
             def user = br.ufscar.sead.loa.remar.User.findByCamunda_id(value)
                 if(user) {
-                    taskService.setOwner(key, "Denis")
+                    //taskService.setOwner(key, "Denis")
+                    String Key = key
+                    taskService.addUserIdentityLink(Key,value,IdentityLinkType.CANDIDATE)
                     taskService.delegateTask(key, value)
                     mailService.sendMail {
                         async true
@@ -246,31 +284,6 @@ class ProcessController {
 
     }
 
-    def test2(){
-        List<Task> allTasks2 = taskService.createTaskQuery().processInstanceId(session.processId).list()
-
-        println "---- owners abaixo"
-        println allTasks2[0].owner
-        println allTasks2[1].owner
-        println allTasks2[2].owner
-
-        println "---- Assignes abaixo"
-        println allTasks2[0].assignee
-        println allTasks2[1].assignee
-        println allTasks2[2].assignee
-        println "---- delegations state abaixo"
-        println allTasks2[0].delegationState
-        println allTasks2[1].delegationState
-        println allTasks2[2].delegationState
-        println params
-    }
-
-    def tasksOverview(){
-
-        List<Task> activeTasks = taskService.createTaskQuery().processInstanceId(session.processId).active().list()
-        respond "", model:[list: activeTasks]
-
-    }
 
      private String parseBpmn(Task task){
 

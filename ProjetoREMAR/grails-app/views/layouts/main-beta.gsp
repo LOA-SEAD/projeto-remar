@@ -32,7 +32,7 @@
             <ul class="nav nav-sidebar">
                 <li> <g:link controller="process" action="pendingTasks" >Tarefas Pendentes</g:link></li>
                 <li> <g:link uri="http://myapp.dev:9090/dashboard" >Jogos Personalizáveis</g:link></li>
-                <li> <a href="a">Meus Processos</a></li>
+                <li> <g:link controller="process" action="userProcesses">Meus Processos</g:link></li>
             </ul>
         </div>
     </div>
