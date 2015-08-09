@@ -39,7 +39,7 @@
     </div>
 
     <div class="row">
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -57,6 +57,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="/dashboard">Espaço do Usuário  <span class="sr-only">(current)</span></a></li>
                     <li><a href="/game/index">Espaço do Desenvolvedor<span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Torne-se um Desenvolvedor no REMAR<span class="sr-only">(current)</span></a></li>
                 </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
