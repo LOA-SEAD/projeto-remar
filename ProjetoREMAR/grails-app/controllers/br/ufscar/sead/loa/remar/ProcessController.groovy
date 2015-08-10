@@ -34,18 +34,17 @@ class ProcessController {
     MailService mailService
 
 
-
-    @Secured(["ROLE_ADMIN","ROLE_STUD","ROLE_USER"])
-    def start(){
+    @Secured(["ROLE_ADMIN", "ROLE_STUD", "ROLE_USER"])
+    def start() {
         println params.id
         def processId = runtimeService.startProcessInstanceByKey(params.id).getId()
         session.processId = processId
         def userId = springSecurityService.getCurrentUser().getId()
-        def userUserName =  br.ufscar.sead.loa.remar.User.findById(userId).getUsername()
+        def userUserName = br.ufscar.sead.loa.remar.User.findById(userId).getUsername()
         runtimeService.setVariable(processId, "ownerId", userId as String)
         runtimeService.setVariable(processId, "gameName", params.id as String)
         runtimeService.setVariable(processId, "gameUri", Game.findByBpmn(params.id).uri as String)
-        runtimeService.setVariable(processId, "username", userUserName as String )
+        runtimeService.setVariable(processId, "username", userUserName as String)
         session.userId = userId
 
         String currentUser = springSecurityService.getCurrentUser().camunda_id
@@ -55,7 +54,7 @@ class ProcessController {
 
         redirect action: "chooseUsersTasks"
 
-            //redirect(action: "tasksOverview")
+        //redirect(action: "tasksOverview")
         /*
             if(activeTasks.first().assignee==currentUser){
                 def parsedURI = parseBpmn(activeTasks[i])
@@ -67,22 +66,7 @@ class ProcessController {
         */
 
     }
-    @Secured(["ROLE_ADMIN","ROLE_STUD","ROLE_USER"])
-
-    def startbeta() {
-        Map<String, String> map = new HashMap<>()
-        map.put("owner", "admin")
-        map.owner = "admin"
-
-        def proc = runtimeService.startProcessInstanceByKey("ForcaProcess", map)
-        session.processId = proc.getId()
-        println session.processId
-
-        runtimeService.setVariable(session.processId, "owner", "admin")
-    }
-
-
-
+//
 
     @Secured(['ROLE_ADMIN'])
     def deploy() {
@@ -90,11 +74,11 @@ class ProcessController {
         def name = params.id
         def deployment = repositoryService.createDeploymentQuery().deploymentName(name).list()
         Date date
-        if(deployment) {
+        if (deployment) {
             repositoryService.deleteDeployment(deployment[0].id, true)
         }
 
-        BpmnModelInstanceImpl bmi =  Bpmn.readModelFromFile(new File("$rootPath/processes/$name" + ".bpmn"));
+        BpmnModelInstanceImpl bmi = Bpmn.readModelFromFile(new File("$rootPath/processes/$name" + ".bpmn"));
 
         DeploymentBuilderImpl db = repositoryService.createDeployment();
         db.addModelInstance("${name}.bpmn", bmi);
@@ -105,7 +89,6 @@ class ProcessController {
 
         //println repositoryService.getProcessDefinition(params.id)
 
-
         //repositoryService.getProcessDefinition("ForceProcess")
 
         //ProcessBuilder pB = Bpmn.createProcess(b.getDefinitions().getId());
@@ -115,7 +98,7 @@ class ProcessController {
 
         //session.processId =  runtimeService.startProcessInstanceByKey("ArrozProcess").getId()
 
-       // println session.processId;
+        // println session.processId;
 
 
         render "ok"
@@ -131,45 +114,41 @@ class ProcessController {
         render "ok"
     }
 
-    def doTask(){
-        render 'TASK DO JOGO'
-
-    }
-
-    private String parseBpmn(Task task){
+    private String parseBpmn(Task task) {
 
         def toParseURI = task.taskDefinitionKey
-        String parsedURI = toParseURI.replace(".","/")
+        String parsedURI = toParseURI.replace(".", "/")
         println parsedURI
         return parsedURI
 
     }
 
-    def chooseUsersTasks(){
+    def chooseUsersTasks() {
 
         List<User> allUsers = identityService.createUserQuery().list()
         List<Task> allTasks = taskService.createTaskQuery().processInstanceId(session.processId).list()
         //println taskService.createTaskQuery().processInstanceId(session.processId).list()
-        for(task in allTasks){
+        def uri = runtimeService.getVariable(session.processId, "gameUri")
+        println "uri encontrado: " + uri
+        for (task in allTasks) {
             task.taskDefinitionKey = parseBpmn(task)
             println task.taskDefinitionKey
         }
 
-        if(allTasks.size()==0){
+        if (allTasks.size() == 0) {
             render "Processo finalizado"
-        }
-        else {
-            respond "", model: [allusers: allUsers, alltasks: allTasks]
+        } else {
+            respond "", model: [allusers: allUsers, alltasks: allTasks, uri: uri]
             println allTasks.size()
         }
 
     }
 
-    @Secured(["ROLE_ADMIN","ROLE_STUD","ROLE_USER"])
-    def userProcesses(){
+    @Secured(["ROLE_ADMIN", "ROLE_STUD", "ROLE_USER"])
+    def userProcesses() {
         String userId = springSecurityService.getCurrentUser().getId()
         List<ProcessInstance> processesList = runtimeService.createProcessInstanceQuery().list()
-        if(processesList.size()!=0) {
+        if (processesList.size() != 0) {
             HashMap<ProcessInstance, List<Task>> myProcessesAndTasks = new HashMap<>()
             for (processes in processesList) {
                 def var = runtimeService.getVariable(processes.id, "ownerId")
@@ -178,15 +157,13 @@ class ProcessController {
                     myProcessesAndTasks.put(processes, taskList)
                 }
             }
-            if(myProcessesAndTasks.size()!=0) {
+            if (myProcessesAndTasks.size() != 0) {
                 render(view: "userProcesses", model: [myProcessesAndTasks: myProcessesAndTasks])
-            }
-            else{
+            } else {
                 render(view: "noProcesses")
             }
 
-        }
-        else{
+        } else {
             render(view: "noProcesses")
         }
 
@@ -197,67 +174,70 @@ class ProcessController {
         def username = br.ufscar.sead.loa.remar.User.findById(currentUser).getUsername()
         println username
         List<ProcessInstance> processesList = runtimeService.createProcessInstanceQuery().list()
-        HashMap<List<Task>,br.ufscar.sead.loa.remar.User> myProcessesAndTasks = new HashMap<>()
-            if (processesList.size() != 0) {
-                for (processes in processesList) {
-                    List<Task>  taskListPerProcess = taskService.createTaskQuery().processInstanceId(processes.id).taskAssignee(username).list()
-                    println taskListPerProcess.size()
-                    if(taskListPerProcess.size()!=0){
-                        def ownerId = runtimeService.getVariable(processes.id,"ownerId")
-                        def ownerUsername = br.ufscar.sead.loa.remar.User.findById(ownerId)
-//                        allTasks.add(taskListPerProcess)
-                        myProcessesAndTasks.put(taskListPerProcess, ownerUsername)
+        HashMap<List<Task>, br.ufscar.sead.loa.remar.User> myProcessesAndTasks = new HashMap<>()
+        def uri
+        if (processesList.size() != 0) {
+            for (processes in processesList) {
+                List<Task> taskListPerProcess = taskService.createTaskQuery().processInstanceId(processes.id).taskAssignee(username).list()
+                println taskListPerProcess.size()
+                if (taskListPerProcess.size() != 0) {
+                    for(task in taskListPerProcess){
+                        task.taskDefinitionKey = parseBpmn(task)
                     }
+                    def ownerId = runtimeService.getVariable(processes.id, "ownerId")
+                    uri = runtimeService.getVariable(processes.id, "gameUri")
+                    def ownerUsername = br.ufscar.sead.loa.remar.User.findById(ownerId)
+                    myProcessesAndTasks.put(taskListPerProcess, ownerUsername)
+                    println uri
                 }
-                if (myProcessesAndTasks.size() != 0) {
-                    println myProcessesAndTasks.size()
-                    render(view: "pendingTasks", model: [myProcessesAndTasks: myProcessesAndTasks])
-                }
-                else{
-                    render (view:"noTasks")
-                }
-
-            }else{
-                render (view:"noTasks")
+            }
+            if (myProcessesAndTasks.size() != 0) {
+                render(view: "pendingTasks", model: [myProcessesAndTasks: myProcessesAndTasks, uri:uri])
+            } else {
+                render(view: "noTasks")
             }
 
+        } else {
+            render(view: "noTasks")
         }
 
+    }
 
-    def publishGame(){
+
+    def publishGame() {
         println params.web
         redirect(action: "finishedProcess")
 
     }
 
-    def finishedProcess(){
+    def finishedProcess() {
         println Game.findByWeb(true)
         def webVersion = Game.findByWeb(true)
-        render(view: "finishedProcess",model:[web: webVersion])
+        render(view: "finishedProcess", model: [web: webVersion])
     }
 
-    def completeTask(){
+    def completeTask() {
         //println params.id
 
-        def task =  taskService.createTaskQuery().processInstanceId(session.processId).taskId(params.id).singleResult()
+        def task = taskService.createTaskQuery().processInstanceId(session.processId).taskId(params.id).singleResult()
         taskService.complete(task.id)
-        if(taskService.createTaskQuery().processInstanceId(session.processId).list().size()==0) {
+        if (taskService.createTaskQuery().processInstanceId(session.processId).list().size() == 0) {
             redirect(action: "finishedProcess")
-        }else{
-            redirect(action: "chooseUsersTasks" )
+        } else {
+            redirect(action: "chooseUsersTasks")
         }
     }
 
-    def resolveTask(){
+    def resolveTask() {
         println params.process
         println params.id
 
-        def task =  taskService.createTaskQuery().processInstanceId(params.process).taskId(params.id).singleResult()
+        def task = taskService.createTaskQuery().processInstanceId(params.process).taskId(params.id).singleResult()
         taskService.resolveTask(task.id)
     }
 
 
-    def delegateTasks(){
+    def delegateTasks() {
 
         //Authentication auth = identityService.getCurrentAuthentication()
         //println auth.getUserId()
@@ -271,19 +251,19 @@ class ProcessController {
         //println identityService.getCurrentAuthentication().userId
         List<ProcessInstance> instancesList = runtimeService.createProcessInstanceQuery().processInstanceId(session.processId).list()
         def proc = instancesList[0].processDefinitionId
-        proc = proc.substring(0,proc.indexOf(":"))
+        proc = proc.substring(0, proc.indexOf(":"))
         taskService.createTaskQuery().processInstanceId(session.processId).list()
-        int i=0;
-          params.each{
+        int i = 0;
+        params.each {
             key, value ->
-            def user = br.ufscar.sead.loa.remar.User.findByUsername(value)
-                if(user) {
+                def user = br.ufscar.sead.loa.remar.User.findByUsername(value)
+                if (user) {
                     //taskService.setOwner(key, "Denis")
                     String Key = key
-                    taskService.addUserIdentityLink(Key,value,IdentityLinkType.CANDIDATE)
+                    taskService.addUserIdentityLink(Key, value, IdentityLinkType.CANDIDATE)
                     taskService.delegateTask(key, value)
-                    println "chave:"+ key
-                    println "valor:"+value
+                    println "chave:" + key
+                    println "valor:" + value
                     mailService.sendMail {
                         async true
                         to user.getEmail()
@@ -297,13 +277,12 @@ class ProcessController {
 
                     }
 
-                }
-                else{
+                } else {
                     //TODO
                 }
                 i++
 
-          }
+        }
 
 
         redirect action: 'chooseUsersTasks'
@@ -312,32 +291,42 @@ class ProcessController {
 
     }
 
+    // @Secured(["ROLE_ADMIN","ROLE_STUD","ROLE_USER"])
+//
+//    def startbeta() {
+//        Map<String, String> map = new HashMap<>()
+//        map.put("owner", "admin")
+//        map.owner = "admin"
+//
+//        def proc = runtimeService.startProcessInstanceByKey("ForcaProcess", map)
+//        session.processId = proc.getId()
+//        println session.processId
+//
+//        runtimeService.setVariable(session.processId, "owner", "admin")
+//    }
 
+//    def bpmnManagement(){
+//
+//        def currentUser = springSecurityService.getCurrentUser().camunda_id
+//
+//
+//        List<Task> activeTasks = taskService.createTaskQuery().processInstanceId(session.processId).active().list()
+//
+//
+//        for(int i=0; i<activeTasks.size(); i++){
+//            if(currentUser == activeTasks[i].assignee){
+//                def parsedURI = parseBpmn(activeTasks[i])
+//                redirect(uri: "http://localhost:8080/"+parsedURI)   //todo REDIS (Matheus)
+//            }
+//        }
 
+    // def modelPath = servletContext.getRealPath("/process/Teste2Process.bpmn")
+    //def currentUser = springSecurityService.getCurrentUser().camunda_id
+    //println identityService.createUserQuery().userEmail("admin@gmail.com")
 
-    def bpmnManagement(){
+    // BpmnModelInstance modelInstance = Bpmn.readModelFromFile(new File(modelPath))
 
-        def currentUser = springSecurityService.getCurrentUser().camunda_id
-
-
-        List<Task> activeTasks = taskService.createTaskQuery().processInstanceId(session.processId).active().list()
-
-
-        for(int i=0; i<activeTasks.size(); i++){
-            if(currentUser == activeTasks[i].assignee){
-                def parsedURI = parseBpmn(activeTasks[i])
-                redirect(uri: "http://localhost:8080/"+parsedURI)   //todo REDIS (Matheus)
-            }
-        }
-
-
-       // def modelPath = servletContext.getRealPath("/process/Teste2Process.bpmn")
-        //def currentUser = springSecurityService.getCurrentUser().camunda_id
-        //println identityService.createUserQuery().userEmail("admin@gmail.com")
-
-       // BpmnModelInstance modelInstance = Bpmn.readModelFromFile(new File(modelPath))
-
-        //Collection<ModelElementInstance> tasks = modelInstance.getModelElementsByType(UserTask.class);
+    //Collection<ModelElementInstance> tasks = modelInstance.getModelElementsByType(UserTask.class);
 /*
         for(int i=0; i<tasks.size(); i++){
             if(tasks[i].camundaAssignee == currentUser){
@@ -350,4 +339,4 @@ class ProcessController {
     }
 
 
-}
+
