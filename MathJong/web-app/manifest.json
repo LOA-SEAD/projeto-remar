@@ -1,0 +1,8 @@
+{
+	"name"    : "MathJong",
+	"android" : false,
+	"linux"   : true,
+	"moodle"  : true,
+	"uri"     : "mathjong",
+	"bpmn"    : "MathJongProcess"
+}
