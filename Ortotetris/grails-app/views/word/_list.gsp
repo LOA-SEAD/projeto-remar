@@ -2,7 +2,7 @@
 
 <section id="table" style="height: 300px">
 
-    <table  id="ListTable" class="table" style="height: 250px;">
+    <table  id="ListTable" class="table">
        <thead>
         <tr style="top: -10px;">
             <th style="text-align: center">Palavra</th>
