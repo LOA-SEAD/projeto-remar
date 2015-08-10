@@ -25,7 +25,7 @@ class IndexController {
     def dashboard() {
         def model = [:]
 
-        model.gameInstanceList = Game.list()
+        model.gameInstanceList = Game.findAllByStatus('approved')
 
         def instances = []
         runtimeService.createProcessInstanceQuery().variableValueEquals("ownerId", "1").list().each {instance ->
