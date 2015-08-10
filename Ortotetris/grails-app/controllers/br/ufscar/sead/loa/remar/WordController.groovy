@@ -45,7 +45,6 @@ class WordController {
 
     @Transactional
     def move_to_right() {
-        int count = Word.count
         Word wordInstance = Word.findById(params.id)
         if (wordInstance.getWord().charAt(9) == 'ì') {
             String aux = "ì"
@@ -70,7 +69,7 @@ class WordController {
             String h_char = "" + wordInstance.getWord().charAt(position-1);
             if(validate_hide_letter(h_char)) {
                 String aux
-                if(h_char=="H")
+                if(h_char=="H") //caso a letra escondida seja "H" é necessário esconder a letra "C" que a antecede
                 {
                     aux = wordInstance.getWord().substring(0, position - 2)
                     aux += ("00")
@@ -111,6 +110,7 @@ class WordController {
             String aux
             aux = wordInstance.getWord().substring(0, position - 1)
             if(clear_char=="C" && wordInstance.getAnswer().substring(position-wordInstance.getInitial_position(),position-wordInstance.getInitial_position()+1).toUpperCase()=="H"){
+                //caso a letra "C" seja limpa é necessário verificar se a letra sucessora é "H", em caso positivo é necessáiro limpar a mesma também
                 aux += (wordInstance.getAnswer().charAt(position - wordInstance.getInitial_position() - 1).toUpperCase())
                 aux += (wordInstance.getAnswer().charAt(position - wordInstance.getInitial_position()).toUpperCase())
                 aux += ((wordInstance.getWord().substring(position+1, 10)))
@@ -123,6 +123,7 @@ class WordController {
 
             wordInstance.setWord(aux)
             wordInstance.save flush:true
+            render template: 'message', model: [WordMessage: "Operação realizada com sucesso"]
             render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
         }
         else {
@@ -141,6 +142,7 @@ class WordController {
             wordInstance.setAnswer(params.new_answer)
             initialize_word(wordInstance)
             wordInstance.save flush: true
+            render template: 'message', model: [WordMessage: "Palavra atualizada com sucesso"]
             render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName: "Word"]
             }
             else{
@@ -159,6 +161,7 @@ class WordController {
     def WordDelete(){
         Word wordInstance = Word.findById(params.id)
         wordInstance.delete flush: true
+        render template: 'message', model: [WordMessage: "Palavra deletada com sucesso"]
         render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll()]
 
     }
