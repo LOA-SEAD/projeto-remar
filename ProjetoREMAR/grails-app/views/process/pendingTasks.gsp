@@ -48,7 +48,8 @@
 
                                             <td >${task.key.get(j).name}</td>
                                             <td >${task.value.username}</td>
-                                            <td><g:link uri="/">Ir</g:link></td>
+
+                                            <td><g:link target="_blank" uri="/${uri}/${task.key.get(j).taskDefinitionKey}">Ir</g:link></td>
                                             %{--<g:if test="${task.getAssignee() == null}">--}%
                                                 %{--<td>SEM USUARIO</td>--}%
                                             %{--</g:if>--}%
