@@ -44,6 +44,7 @@ class ProcessController {
         def userUserName =  br.ufscar.sead.loa.remar.User.findById(userId).getUsername()
         runtimeService.setVariable(processId, "ownerId", userId as String)
         runtimeService.setVariable(processId, "gameName", params.id as String)
+        runtimeService.setVariable(processId, "gameUri", Game.findByBpmn(params.id).uri as String)
         runtimeService.setVariable(processId, "username", userUserName as String )
         session.userId = userId
 
@@ -135,11 +136,24 @@ class ProcessController {
 
     }
 
+    private String parseBpmn(Task task){
+
+        def toParseURI = task.taskDefinitionKey
+        String parsedURI = toParseURI.replace(".","/")
+        println parsedURI
+        return parsedURI
+
+    }
+
     def chooseUsersTasks(){
 
         List<User> allUsers = identityService.createUserQuery().list()
         List<Task> allTasks = taskService.createTaskQuery().processInstanceId(session.processId).list()
         //println taskService.createTaskQuery().processInstanceId(session.processId).list()
+        for(task in allTasks){
+            task.taskDefinitionKey = parseBpmn(task)
+            println task.taskDefinitionKey
+        }
 
         if(allTasks.size()==0){
             render "Processo finalizado"
@@ -299,13 +313,7 @@ class ProcessController {
     }
 
 
-     private String parseBpmn(Task task){
 
-            def toParseURI = task.taskDefinitionKey
-            String parsedURI = toParseURI.replace(".","/")
-            return parsedURI
-
-    }
 
     def bpmnManagement(){
 

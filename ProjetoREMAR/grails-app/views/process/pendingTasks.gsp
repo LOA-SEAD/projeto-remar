@@ -48,7 +48,7 @@
 
                                             <td >${task.key.get(j).name}</td>
                                             <td >${task.value.username}</td>
-                                            <td><g:link>Ir</g:link></td>
+                                            <td><g:link uri="/">Ir</g:link></td>
                                             %{--<g:if test="${task.getAssignee() == null}">--}%
                                                 %{--<td>SEM USUARIO</td>--}%
                                             %{--</g:if>--}%

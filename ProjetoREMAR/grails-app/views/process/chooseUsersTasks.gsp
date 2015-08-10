@@ -61,7 +61,7 @@
 
                         <td> <g:link action="completeTask" id="${task.getId()}" >Ok</g:link></td>
 
-                          <td><g:link action="doTask" id="${task.getId()}">Ir</g:link></td>
+                          <td><g:link target="_blank" uri="/${}/${task.taskDefinitionKey}" id="${task.getId()}">Ir</g:link></td>
 
                       </tr>
                     </g:each>
