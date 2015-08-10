@@ -7,7 +7,6 @@
     <bpmn2:sequenceFlow id="SequenceFlow_4" name="" sourceRef="StartEvent_1" targetRef="math"/>
     <bpmn2:userTask id="math" name="Criar fases">
       <bpmn2:extensionElements>
-        <camunda:executionListener class="br.ufscar.sead.loa.mathjong.remar.ProcessController" event="start"/>
         <camunda:properties>
           <camunda:property/>
         </camunda:properties>
@@ -16,9 +15,6 @@
       <bpmn2:outgoing>SequenceFlow_14</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:userTask id="refactor" camunda:expression="#{refactorService.serviceMethod(execution)}" name="Refatoração &#xA;avançada">
-      <bpmn2:extensionElements>
-        <camunda:executionListener class="br.ufscar.sead.loa.mathjong.remar.ProcessController" event="start"/>
-      </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_15</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
     </bpmn2:userTask>
@@ -26,7 +22,7 @@
     <bpmn2:endEvent id="EndEvent_1" name="EndEvent">
       <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:serviceTask id="RefactorService" camunda:expression="#{refactorService.serviceMethod(execution)}" name="Refatoração&#xA;base">
+    <bpmn2:serviceTask id="RefactorService" camunda:expression="#{generateGameService.serviceMethod(execution)}" name="Refatoração&#xA;base">
       <bpmn2:incoming>SequenceFlow_14</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_15</bpmn2:outgoing>
     </bpmn2:serviceTask>
