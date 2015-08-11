@@ -32,21 +32,20 @@ class MoodleController {
         }
     }
 
-    def remove(String moodle) {
+    def remove(String domain) {
         Moodle moodleToDelete = Moodle.where {
-            active == true && domain == moodle
+            active == true && domain == domain
         }.list().first()
-        println moodleToDelete
 
-        if(moodle == null || moodleToDelete == []) {
-            def str = 'Someone tried to uninstall the REMAR plugin of his/her moodle ("'+moodle+'") but it wasn\'t found or have been deleted already.'
+        if(domain == null || moodleToDelete == []) {
+            def str = 'Someone tried to uninstall the REMAR plugin of his/her moodle ("'+domain+'") but it wasn\'t found or have been deleted already.'
             render str
         }
 
         moodleToDelete.active = false
         moodleToDelete.save flush:true
 
-        render 'Moodle "'+moodle+'" successfully deleted.'
+        render 'Moodle "'+domain+'" successfully deleted.'
 
         /*if (moodle.hasErrors()) {
             print "Someone tried to uninstall the REMAR plugin of his/her moodle but it didn't worked: "
