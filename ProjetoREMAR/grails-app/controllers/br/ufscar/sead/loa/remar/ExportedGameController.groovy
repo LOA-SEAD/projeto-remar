@@ -32,8 +32,6 @@ class ExportedGameController {
         exportedGame.type = 'public'
         exportedGame.addToPlatforms(Platform.findByName("Moodle"))
 
-        println exportedGame as JSON
-
         exportedGame.save flush:true
         redirect controller: "ExportedGame", action: "accountConfig", id: exportedGame.id
     }
