@@ -5,7 +5,7 @@
     <table  id="ListTable" class="table">
        <thead>
         <tr style="top: -10px;">
-            <th style="text-align: center">Palavra</th>
+            <th id="AnswerLabel" style="text-align: center;">Palavra</th>
             %{--<th>Word</th>--}%
             %{--<th>Initial Position</th>--}%
             <th style="text-align: center">Editar</th>
@@ -38,5 +38,23 @@
 <script type="text/javascript" defer="defer">
     $(document).ready(function() {
         $("#MessageDivTemplate").delay(1000).fadeOut(500);
+            var table = $("#AnswerLabel").parents('table').eq(0)
+            var rows = table.find('tr:gt(0)').toArray().sort(compare($("#AnswerLabel").index()))
+        $("#AnswerLabel").asc = !$("#AnswerLabel").asc
+            if ($("#AnswerLabel").asc){rows = rows.reverse()}
+            for (var i = 0; i < rows.length; i++){table.append(rows[i])}
+
+        function compare(index){
+            return function(a, b) {
+                var valA = getCellValue(a, index), valB = getCellValue(b, index)
+                return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB)
+            }
+        }
+        function getCellValue(row, index){
+            return $(row).children('td').eq(index).html()
+        }
+
     });
+
+
 </script>
