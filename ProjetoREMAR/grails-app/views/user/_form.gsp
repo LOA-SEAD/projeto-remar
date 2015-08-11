@@ -21,7 +21,7 @@
 	<label class="label-form" for="username">
 		<g:message code="user.username.label" default="Nome de usu&aacute;rio" /><span class="required-indicator">*</span>
 	</label>
-	<g:textField id="username" class="form-control input-form" name="username" required="" />
+	<g:textField id="username" class="form-control input-form" name="username"  />
 
 	%{--<g:if test="${source == 'update'}">--}%
 	%{--<span name="username">${userInstance?.username}</span>--}%

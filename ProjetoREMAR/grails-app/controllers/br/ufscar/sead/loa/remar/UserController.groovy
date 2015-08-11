@@ -165,7 +165,8 @@ class UserController {
 
             } else {
                 // TODO EXIBIR FLASH MESSAGE DE EMAIL  NAO ENCONTRADO
-                render(view: '/static/forgottenPassword')
+                flash.message = message(code: 'error.mail')
+                redirect(uri: '/password/reset')
             }
 
         }
@@ -346,6 +347,14 @@ class UserController {
     @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def exists(){
         if(User.findByUsername(params.username))
+            render true
+        else
+            render false
+    }
+
+    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
+    def existsEmail(){
+        if(User.findByEmail(params.email))
             render true
         else
             render false

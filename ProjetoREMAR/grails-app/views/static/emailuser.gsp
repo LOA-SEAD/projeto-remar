@@ -9,9 +9,9 @@
 </head>
 <body>
     <div class="container container-create">
-        <header class="row">
-            <div class="col-md-12">
-                <h1>logo</h1>
+        <header class="row logotipo" >
+            <div class="logotipo" align="center" >
+                <img  alt="logo remar" src="../assets/img/logo/logo-remar-v2.svg" height="50%" width="50%" />
             </div>
         </header>
         <article class="row">

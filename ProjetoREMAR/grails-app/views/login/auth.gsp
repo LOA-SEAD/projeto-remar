@@ -5,6 +5,7 @@
     <meta name="generator" content="Bootply" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Entrar</title>
+    <link rel="shortcut icon" href="${resource(dir: 'assets/img/logo', file: 'icone-remar_v2.ico')}" type="image/x-icon">
     <link href='http://fonts.googleapis.com/css?family=Ropa+Sans' rel='stylesheet'>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel='stylesheet'>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" ></script>
@@ -95,9 +96,11 @@
 %{--<facebook:initJS appId="${facebookContext.app.id}" />--}%
     <div class="container">
         <header class="row">
-            <div class="col-md-12">
-                <h1 class="text-center">REMAR</h1>
-            </div>
+            <header class="row logotipo" >
+                <div class="logotipo" align="center" >
+                    <img  alt="logo remar" src="../assets/img/logo/logo-remar-v2.svg" height="100%" width="100%" />
+                </div>
+            </header>
         </header>
         <article class="row">
             <div class="col-md-12">

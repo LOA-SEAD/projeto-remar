@@ -3,15 +3,74 @@
 <head>
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
-    <title>Cadastro REMAR</title>
+    <title>Recuperar conta</title>
 
     <link href="${resource(dir: 'assets/css', file: 'external-styles.css')}" rel="stylesheet" >
+    <link href="${resource(dir: 'assets/css', file: 'external-styles.css')}" rel="stylesheet" >
+    <link href="${resource(dir: 'assets/css', file: 'icomoon.css')}" rel="stylesheet" >
+    %{--<g:javascript src="recaptcha.js" />--}%
+
+    <g:javascript src="../assets/js/jquery.min.js" />
+    <g:javascript src="../assets/js/jquery.validate.js" />
+
+    <script>
+        $(function() {
+
+                    var existUser = false;
+                    var existEmail = false;
+
+                    $('form').validate({
+                        rules: {
+                            newPassword: {
+                                minlength: 5,
+                                required: true
+                            },
+                            confirm_password: {
+                                required: true,
+                                minlength: 5,
+                                equalTo: "#newPassword"
+                            }
+                        },
+                        messages: {
+                            newPassword: {
+                                required: "Por favor digite uma senha",
+                                minlength: "A senha deve ter no minimo 5 caracteres"
+                            },
+                            confirm_password: {
+                                required: "Por favor confirme sua senha",
+                                minlength: "Sua senha deve ter no minimo 5 caracteres",
+                                equalTo: "As senhas não coincidem"
+                            }
+                        },
+                        highlight: function (element) {
+                            $(element).closest('.form-group')
+                                    .addClass('has-error');
+
+                        },
+                        unhighlight: function (element) {
+                            if (existUser == false && existEmail == false) {
+                                $(element).closest('.form-group').removeClass('has-error');
+                                $('#span-error').remove();
+
+                            }
+                        },
+                        errorElement: 'span',
+                        errorClass: 'help-block help-block-create',
+                        errorPlacement: function (error, element) {
+                            error.insertAfter(element.parent());
+                        }
+                    });
+
+                });
+
+        </script>
+
 </head>
 <body>
 <div class="container container-create">
-    <header class="row">
-        <div class="col-md-12">
-            <h1>logo</h1>
+    <header class="row logotipo" >
+        <div class="logotipo" align="center" >
+            <img  alt="logo remar" src="../../assets/img/logo/logo-remar-v2.svg" height="50%" width="50%" />
         </div>
     </header>
     <article class="row">
@@ -30,13 +89,13 @@
                         <input type="password" class="form-control input-form" name="newPassword" id="newPassword" required=""/>
                     </div>
                     <div class="form-group">
-                        <label for="confirmPassword">Confirme Nova Senha:</label>
-                        <input type="password" class="form-control input-form" name="confirmPassword" id="confirmPassword" required=""/>
+                        <label for="confirm_Password">Confirme Nova Senha:</label>
+                        <input type="password" class="form-control input-form" name="confirm_password" id="confirm_password" required=""/>
                     </div>
                     <input type="hidden" name="userid" value="${user}" />
                     <div>
                         <p>
-                            <input type='submit' id="submit" class="btn btn-primary btn-block btn-create" value="Enviar"/>
+                            <input type='submit' id="submitBtn" class="btn btn-primary btn-block btn-create" value="Enviar"/>
                             %{--value='${message(code: "springSecurity.login.button")}--}%
                         </p>
                     </div>
