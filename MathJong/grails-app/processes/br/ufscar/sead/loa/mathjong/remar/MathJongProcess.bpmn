@@ -4,8 +4,8 @@
     <bpmn2:startEvent id="StartEvent_1" name="StartEvent">
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
     </bpmn2:startEvent>
-    <bpmn2:sequenceFlow id="SequenceFlow_4" name="" sourceRef="StartEvent_1" targetRef="math"/>
-    <bpmn2:userTask id="math" name="Criar fases">
+    <bpmn2:sequenceFlow id="SequenceFlow_4" name="" sourceRef="StartEvent_1" targetRef="math.index"/>
+    <bpmn2:userTask id="math.index" name="Criar fases">
       <bpmn2:extensionElements>
         <camunda:properties>
           <camunda:property/>
@@ -14,20 +14,15 @@
       <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_14</bpmn2:outgoing>
     </bpmn2:userTask>
-    <bpmn2:userTask id="refactor" camunda:expression="#{refactorService.serviceMethod(execution)}" name="Refatoração &#xA;avançada">
-      <bpmn2:incoming>SequenceFlow_15</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
-    </bpmn2:userTask>
-    <bpmn2:sequenceFlow id="SequenceFlow_7" name="" sourceRef="refactor" targetRef="EndEvent_1"/>
     <bpmn2:endEvent id="EndEvent_1" name="EndEvent">
-      <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
+      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
     </bpmn2:endEvent>
     <bpmn2:serviceTask id="RefactorService" camunda:expression="#{generateGameService.serviceMethod(execution)}" name="Refatoração&#xA;base">
       <bpmn2:incoming>SequenceFlow_14</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_15</bpmn2:outgoing>
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
     </bpmn2:serviceTask>
-    <bpmn2:sequenceFlow id="SequenceFlow_14" name="" sourceRef="math" targetRef="RefactorService"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_15" name="" sourceRef="RefactorService" targetRef="refactor"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_14" name="" sourceRef="math.index" targetRef="RefactorService"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" name="" sourceRef="RefactorService" targetRef="EndEvent_1"/>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="MathJongProcess">
@@ -43,7 +38,7 @@
           <dc:Bounds height="17.0" width="52.0" x="1002.0" y="219.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_UserTask_12" bpmnElement="math">
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_12" bpmnElement="math.index">
         <dc:Bounds height="80.0" width="100.0" x="420.0" y="156.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_4" sourceElement="_BPMNShape_StartEvent_2" targetElement="_BPMNShape_UserTask_12">
@@ -53,16 +48,6 @@
           <dc:Bounds height="6.0" width="6.0" x="375.0" y="196.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="_BPMNShape_ServiceTask_3" bpmnElement="refactor">
-        <dc:Bounds height="80.0" width="100.0" x="828.0" y="156.0"/>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_7" bpmnElement="SequenceFlow_7" sourceElement="_BPMNShape_ServiceTask_3" targetElement="_BPMNShape_EndEvent_2">
-        <di:waypoint xsi:type="dc:Point" x="928.0" y="196.0"/>
-        <di:waypoint xsi:type="dc:Point" x="1010.0" y="196.0"/>
-        <bpmndi:BPMNLabel>
-          <dc:Bounds height="6.0" width="6.0" x="966.0" y="196.0"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_ServiceTask_5" bpmnElement="RefactorService">
         <dc:Bounds height="80.0" width="100.0" x="612.0" y="156.0"/>
       </bpmndi:BPMNShape>
@@ -70,9 +55,9 @@
         <di:waypoint xsi:type="dc:Point" x="520.0" y="196.0"/>
         <di:waypoint xsi:type="dc:Point" x="612.0" y="196.0"/>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_15" bpmnElement="SequenceFlow_15" sourceElement="_BPMNShape_ServiceTask_5" targetElement="_BPMNShape_ServiceTask_3">
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="_BPMNShape_ServiceTask_5" targetElement="_BPMNShape_EndEvent_2">
         <di:waypoint xsi:type="dc:Point" x="712.0" y="196.0"/>
-        <di:waypoint xsi:type="dc:Point" x="828.0" y="196.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1010.0" y="196.0"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
