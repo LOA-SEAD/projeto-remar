@@ -42,7 +42,9 @@ class ExportedGameController {
 
     /* to test the moodle list */
     def loadMoodleList() {
-        def moodleList = Moodle.list()
+        def moodleList = Moodle.where {
+            active == true
+        }.list()
         render(view: '/exportedGame/_moodles', model: [moodleList: moodleList, id: params.local])
     }
 
