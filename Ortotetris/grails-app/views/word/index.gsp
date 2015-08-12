@@ -23,7 +23,7 @@
 
 
 
-<section id="ShowWord" style="height: 250px">
+<section id="ShowWord" style="height: 250px;">
 
 </section>
 

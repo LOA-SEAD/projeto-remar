@@ -69,15 +69,22 @@ class WordController {
             String h_char = "" + wordInstance.getWord().charAt(position-1);
             if(validate_hide_letter(h_char)) {
                 String aux
-                if(h_char=="H") //caso a letra escondida seja "H" é necessário esconder a letra "C" que a antecede
+                if(h_char=="H" && wordInstance.getAnswer().charAt(position-2).toUpperCase()=='C') //caso a letra escondida seja "H" é necessário esconder a letra "C" que a antecede
                 {
                     aux = wordInstance.getWord().substring(0, position - 2)
                     aux += ("00")
                 }
                 else
                 {
-                    aux = wordInstance.getWord().substring(0, position - 1)
-                    aux += ("0")
+                    if(h_char!="H"){
+                        aux = wordInstance.getWord().substring(0, position - 1)
+                        aux += ("0")
+                    }
+                    else{
+                        render template: 'message', model: [WordMessage: "Escolha um caracter válido"]
+                        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+                        return ;
+                    }
                 }
 
                 aux += (wordInstance.getWord().substring(position, 10))
@@ -109,7 +116,7 @@ class WordController {
         if ((position-1 >= wordInstance.getInitial_position()) && (position-1 <= wordInstance.getInitial_position() + wordInstance.getAnswer().length()-1)) {
             String aux
             aux = wordInstance.getWord().substring(0, position - 1)
-            if(clear_char=="C" && wordInstance.getAnswer().substring(position-wordInstance.getInitial_position(),position-wordInstance.getInitial_position()+1).toUpperCase()=="H"){
+            if(clear_char=="C" && wordInstance.getAnswer().charAt(position).toUpperCase()=='H'){
                 //caso a letra "C" seja limpa é necessário verificar se a letra sucessora é "H", em caso positivo é necessáiro limpar a mesma também
                 aux += (wordInstance.getAnswer().charAt(position - wordInstance.getInitial_position() - 1).toUpperCase())
                 aux += (wordInstance.getAnswer().charAt(position - wordInstance.getInitial_position()).toUpperCase())
