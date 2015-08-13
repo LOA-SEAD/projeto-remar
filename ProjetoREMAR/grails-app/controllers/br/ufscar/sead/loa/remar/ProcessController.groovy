@@ -1,21 +1,20 @@
 package br.ufscar.sead.loa.remar
 
 import grails.plugin.mail.MailService
+import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import org.camunda.bpm.engine.IdentityService
+import org.camunda.bpm.engine.ProcessEngineException
 import org.camunda.bpm.engine.RepositoryService
 import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.TaskService
 import org.camunda.bpm.engine.impl.identity.Authentication
 import org.camunda.bpm.engine.impl.repository.DeploymentBuilderImpl
-import org.camunda.bpm.engine.repository.DeploymentBuilder
 import org.camunda.bpm.engine.runtime.ProcessInstance
 import org.camunda.bpm.engine.task.IdentityLinkType
 import org.camunda.bpm.engine.task.Task
 import org.camunda.bpm.model.bpmn.Bpmn
-import org.camunda.bpm.model.bpmn.BpmnModelInstance
 import org.camunda.bpm.engine.identity.User
-import org.camunda.bpm.engine.repository.*
 import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl
 
 
@@ -37,22 +36,31 @@ class ProcessController {
     @Secured(["ROLE_ADMIN", "ROLE_STUD", "ROLE_USER"])
     def start() {
         println params.id
-        def processId = runtimeService.startProcessInstanceByKey(params.id).getId()
-        session.processId = processId
-        def userId = springSecurityService.getCurrentUser().getId()
-        def userUserName = br.ufscar.sead.loa.remar.User.findById(userId).getUsername()
-        runtimeService.setVariable(processId, "ownerId", userId as String)
+        def processId
+        try {
+            processId = runtimeService.startProcessInstanceByKey(params.id).getId()
+        } catch (ProcessEngineException ignored) {
+            response.status = 404
+            render 'The process ' + params.id + ' doesn\'t exists!'
+            return
+        }
+
+        if(!Game.findByBpmn(params.id)) {
+            response.status = 404
+            render 'The process ' + params.id + ' doesn\'t exists!'
+            return
+        }
+
+        session.user = springSecurityService.getCurrentUser()
+
+        runtimeService.setVariable(processId, "ownerId", session.user.id as String)
         runtimeService.setVariable(processId, "gameName", params.id as String)
         runtimeService.setVariable(processId, "gameUri", Game.findByBpmn(params.id).uri as String)
-        runtimeService.setVariable(processId, "username", userUserName as String)
-        session.userId = userId
+        runtimeService.setVariable(processId, "username", session.user.username as String)
 
-        String currentUser = springSecurityService.getCurrentUser().camunda_id
-        println "camunda id: " + currentUser
+        identityService.setAuthenticatedUserId(session.user.camunda_id)
 
-        identityService.setAuthenticatedUserId(currentUser)
-
-        redirect action: "chooseUsersTasks"
+        redirect uri: "/process/tasks/overview/$processId"
 
         //redirect(action: "tasksOverview")
         /*
@@ -109,7 +117,7 @@ class ProcessController {
     @Secured(['ROLE_ADMIN'])
     def undeploy() {
         println params.id
-        repositoryService.deleteDeployment(params.id + "Process", true)
+        repositoryService.deleteDeployment(params.id, true)
 
         render "ok"
     }
@@ -118,28 +126,30 @@ class ProcessController {
 
         def toParseURI = task.taskDefinitionKey
         String parsedURI = toParseURI.replace(".", "/")
-        println parsedURI
         return parsedURI
 
     }
 
     def chooseUsersTasks() {
-
-        List<User> allUsers = identityService.createUserQuery().list()
-        List<Task> allTasks = taskService.createTaskQuery().processInstanceId(session.processId).list()
-        //println taskService.createTaskQuery().processInstanceId(session.processId).list()
-        def uri = runtimeService.getVariable(session.processId, "gameUri")
-        println "uri encontrado: " + uri
-        for (task in allTasks) {
-            task.taskDefinitionKey = parseBpmn(task)
-            println task.taskDefinitionKey
+        if (runtimeService.getVariable(params.processId, 'ownerId') as int != springSecurityService.currentUser.id && !SpringSecurityUtils.ifAllGranted('ROLE_ADMIN')) {
+            response.status = 404
+            render "You shouldn't be here"
+            return
         }
 
-        if (allTasks.size() == 0) {
+        List<User> allUsers = identityService.createUserQuery().list()
+        List<Task> tasks = taskService.createTaskQuery().processInstanceId(params.processId).list()
+
+        def uri = runtimeService.getVariable(params.processId, "gameUri")
+
+        for (task in tasks) {
+            task.taskDefinitionKey = task.taskDefinitionKey.replace('.', '/')
+        }
+
+        if (tasks.size() == 0) {
             render "Processo finalizado"
         } else {
-            respond "", model: [allusers: allUsers, alltasks: allTasks, uri: uri]
-            println allTasks.size()
+            respond "", model: [allusers: allUsers, alltasks: tasks, uri: uri, processId: params.processId]
         }
 
     }
@@ -234,58 +244,54 @@ class ProcessController {
 
         def task = taskService.createTaskQuery().processInstanceId(params.process).taskId(params.id).singleResult()
         taskService.resolveTask(task.id)
+
+        render "resolved"
     }
 
 
     def delegateTasks() {
 
-        //Authentication auth = identityService.getCurrentAuthentication()
-        //println auth.getUserId()
-        List<User> allUsers = identityService.createUserQuery().list()
+        def processId = params.processId
         List<Task> allTasks = taskService.createTaskQuery().processInstanceId(session.processId).list()
-
-        //taskService.addUserIdentityLink("6841","lala", IdentityLinkType.ASSIGNEE)
+        println params
         params.remove("action")
         params.remove("format")
         params.remove("controller")
-        //println identityService.getCurrentAuthentication().userId
-        List<ProcessInstance> instancesList = runtimeService.createProcessInstanceQuery().processInstanceId(session.processId).list()
-        def proc = instancesList[0].processDefinitionId
-        proc = proc.substring(0, proc.indexOf(":"))
-        taskService.createTaskQuery().processInstanceId(session.processId).list()
+        params.remove("processId")
+        def proc = runtimeService.createProcessInstanceQuery().processInstanceId(processId).singleResult()
+        def processName = proc.processDefinitionId.substring(0, proc.processDefinitionId.indexOf(":"))
+        taskService.createTaskQuery().processInstanceId(processId).list()
         int i = 0;
+
         params.each {
-            key, value ->
-                def user = br.ufscar.sead.loa.remar.User.findByUsername(value)
+            taskId, username ->
+                taskId   = taskId as String
+                username = username as String
+                def user = br.ufscar.sead.loa.remar.User.findByUsername(username)
                 if (user) {
-                    //taskService.setOwner(key, "Denis")
-                    String Key = key
-                    taskService.addUserIdentityLink(Key, value, IdentityLinkType.CANDIDATE)
-                    taskService.delegateTask(key, value)
-                    println "chave:" + key
-                    println "valor:" + value
+                    //taskService.setOwner(taskId, "Denis")
+                    taskService.addUserIdentityLink(taskId, username, IdentityLinkType.CANDIDATE)
+                    taskService.delegateTask(taskId, username)
                     mailService.sendMail {
                         async true
                         to user.getEmail()
                         subject "Nova Tarefa no REMAR"
                         html '<h3>Você recebeu uma nova tarefa na plataforma REMAR</h3> <br>' +
                                 '<br>' +
-                                "Nome do processo: ${proc} " + "<br>" +
+                                "Nome do processo: ${processName} " + "<br>" +
                                 "Nome da Tarefa: ${allTasks[i].name} " + "<br>" +
                                 "Quem delegou: ${allTasks[i].owner}" + "<br>"
-
-
                     }
 
                 } else {
                     //TODO
+                    println "else uehauhea!!!"
                 }
                 i++
-
         }
 
 
-        redirect action: 'chooseUsersTasks'
+        redirect uri:"/process/tasks/overview/$processId"
         //println params
 
 
