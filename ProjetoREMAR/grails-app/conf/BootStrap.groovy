@@ -62,9 +62,9 @@ class BootStrap {
             org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
 
             camundaUser.setEmail(userInstance.email)
-            camundaUser.setFirstName(userInstance.username)
+            camundaUser.setFirstName(userInstance.name)
             camundaUser.setPassword(userInstance.password)
-            camundaUser.setId(userInstance.id)
+            camundaUser.setId(userInstance.username)
             identityService.saveUser(camundaUser)
 
             userInstance.camunda_id = camundaUser.getId()
