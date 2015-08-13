@@ -284,10 +284,10 @@ a:focus {
 
 .about-section {
     width: 100%;
-    padding: 200px ;
+    padding: 250px ;
     margin-top: -13%;
     color: #fff;
-    background: url(../img/bg/show-ufscar-2.jpg) no-repeat center center scroll;
+    background: url(../img/bg/bg-ufscar.png) no-repeat center center scroll;
     background-color: #000;
     -webkit-background-size: cover;
     -moz-background-size: cover;
