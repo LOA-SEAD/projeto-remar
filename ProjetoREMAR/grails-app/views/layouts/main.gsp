@@ -38,12 +38,12 @@
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" ></script>
 
-    <link href="${resource(dir: 'assets/css', file: 'jquery.min.js')}" rel="stylesheet" >
+    <link href="${resource(dir: 'assets/js', file: 'jquery.min.js')}" rel="stylesheet" >
     <link href="${resource(dir: 'assets/css', file: 'bootstrap.css')}" rel="stylesheet" >
 
     <g:layoutHead/>
     <fbg:resources/>
-<script src='https://www.google.com/recaptcha/api.js'></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
     <g:layoutBody/>

@@ -3,112 +3,149 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- <link rel="shortcut icon" href="assets/ico/favicon.png"> -->
-	<link href='http://fonts.googleapis.com/css?family=Sniglet' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Ropa+Sans' rel='stylesheet'>
 
 	<title>REMAR</title>
+	<link rel="shortcut icon" href="${resource(dir: 'assets/img/logo', file: 'icone-remar_v2.ico')}" type="image/x-icon">
+
+	<link href='http://fonts.googleapis.com/css?family=Sniglet' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Ropa+Sans' rel='stylesheet'>
+	<link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 
 	<!-- Bootstrap core CSS -->
 	<link href="${resource(dir: 'assets/css', file: 'bootstrap.css')}" rel="stylesheet">
-	<link href="${resource(dir: 'assets/css', file: 'addStyles.css')}" rel="stylesheet">
-
-	<!-- Custom styles for this template -->
+	<link href="${resource(dir: 'assets/css', file: 'grayscale.css')}" rel="stylesheet">
 	<link href="${resource(dir: 'assets/css', file: 'icomoon.css')}"  rel="stylesheet">
-	<link href="${resource(dir: 'assets/css', file: 'animate-custom.css')}" rel="stylesheet">
-
-	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
-
-	<script src="${resource(dir: 'assets/js', file: 'jquery.min.js')}"></script>
-	<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'modernizr.custom.js')}"></script>
 
 </head>
 
-<body data-spy="scroll" data-offset="0" data-target="#navbar-main">
+<body id="#page-top" data-spy="scroll" data-offset="0" data-target="#navbar-main">
 
-	<div id="navbar-main" style="font-family: 'Ropa Sans', sans-serif; /*font-family: 'Sniglet', cursive;*/">
-		<!-- Fixed navbar -->
-		<div class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-						<span class="icon icon-shield" style="font-size:30px; color:#3498db;"></span>
-					</button>
-					<a class="navbar-brand hidden-xs hidden-sm" href="#home"><!--<span class="icon icon-shield" style="font-size:18px; color:#3498db;"></span>--></a>
+	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand page-scroll" href="#page-top">
+					<span class="icon-puzzle-2 light"></span>REMAR
+				</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+				<ul class="nav navbar-nav">
+					<!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+					<li class="hidden">
+						<a href="#page-top">asascascas</a>
+					</li>
+					<li>
+						<a class="page-scroll" href="#about">Sobre</a>
+					</li>
+					<li>
+						<a class="page-scroll" href="#team">Equipe</a>
+					</li>
+					<li>
+						<a class="page-scroll" href="#contact">Contato</a>
+					</li>
+					<li>
+						<g:link  class="btn btn-default btn-lg" controller="login">Entrar</g:link>
+					</li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
+	</nav>
+
+
+	<!-- Intro Header -->
+	<header class="intro">
+		<div class="intro-body">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2">
+						<h1 class="brand-heading">REMAR</h1>
+						<p class="intro-text">Recursos Educacionais abertos na rede </p>
+						<a href="#about" class="btn btn-circle page-scroll">
+							<span class="icon-circle-arrow-down"></span>
+						</a>
+					</div>
 				</div>
-				<div class="navbar-collapse collapse">
-					<ul class="nav navbar-nav">
-						%{--<li><a href="#home" class="smoothScroll">Home</a></li>--}%
-						<li><a href="#home" style="word-wrap: break-word;">Home</a> </li>
-						<li> <a href="#about" class="smoothScroll">Sobre</a></li>
-						<li> <a href="#services" class="smoothScroll">Servi&ccedil;os</a></li>
-						<li> <a href="#team" class="smoothScroll">Equipe</a></li>
-						<!--<li> <a href="#portfolio" class="smoothScroll"> Portfolio</a></li>
-						<li> <a href="#blog" class="smoothScroll"> Blog</a></li> -->
-						<li><a href="#contact" class="smoothScroll">Contato</a></li>
-						%{--<li><a data-toggle="modal" href="/login">Login</a></li>--}%
-                        <li><g:link controller="login">Login</g:link></li>
-				</div><!--/.nav-collapse -->
+			</div>
+		</div>
+	</header>
+
+	<!-- About Section -->
+	<section id="about" class="content-section text-center">
+	<div class="about-section">
+
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2 about">
+				<p>Grayscale is a free Bootstrap 3 theme created by Start Bootstrap. It can be yours right now, simply team the template on <a href="http://startbootstrap.com/template-overviews/grayscale/">the preview page</a>. The theme is open source, and you can use it for any purpose, personal or commercial.</p>
+				<p>This theme features stock photos by <a href="http://gratisography.com/">Gratisography</a> along with a custom Google Maps skin courtesy of <a href="http://snazzymaps.com/">Snazzy Maps</a>.</p>
+				<p>Grayscale includes full HTML, CSS, and custom JavaScript files along with LESS files for easy customization.</p>
 			</div>
 		</div>
 	</div>
 
-	%{--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">--}%
-		%{--<div class="modal-dialog">--}%
-			%{--<div class="modal-content">--}%
-				%{--<div class="modal-header">--}%
-					%{--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>--}%
-					%{--<h4 class="modal-title">Sign in</h4>--}%
-				%{--</div>--}%
+	</section>
 
-				%{--<div class="modal-body">--}%
-					%{--<form action='${postUrl}' method='POST' class="form-horizontal" role="form">--}%
-						%{--<div class="form-group">--}%
-							%{--<div class="col-lg-12">--}%
-								%{--<input type="text" class="form-control" id="username" placeholder="Nome de usu&aacute;rio"  name="j_username" />--}%
-							%{--</div>--}%
-						%{--</div>--}%
-						%{--<div class="form-group">--}%
-							%{--<div class="col-lg-12">--}%
-								%{--<input type="password" class="form-control" id="inputPassword" placeholder="Senha" name='j_password' />--}%
-							%{--</div>--}%
-						%{--</div>--}%
-						%{--<div class="form-group">--}%
-							%{--<div class="col-lg-12">--}%
-								%{--<input type='submit' id="submit" class="btn btn-info btn-lg" value='${message(code: "springSecurity.login.button")}'/>--}%
-								%{--<p class="col-lg-7" style="font-size: 12px"> N&atilde;o possui cadastro? <a href="#"> Inscreva-se j&aacute;</a>--}%
-							%{--</div>--}%
-						%{--</div>--}%
-					%{--</form><!-- form -->--}%
+	<!-- team Section -->
+	<section id="team" class="content-section text-center">
+		<div class="team-section">
+			<div class="container">
+				<div class="col-lg-8 col-lg-offset-2">
+					<h2>team Grayscale</h2>
+					<p>You can team Grayscale for free on the preview page at Start Bootstrap.</p>
+					<a href="http://startbootstrap.com/template-overviews/grayscale/" class="btn btn-default btn-lg">Visit team Page</a>
+				</div>
+			</div>
+		</div>
+	</section>
 
-				%{--</div>--}%
+	<!-- Contact Section -->
+	<section id="contact" class="container content-section text-center">
+		<div class="row">
+			<div class="col-lg-8 col-lg-offset-2">
+				<h2>Contact Start Bootstrap</h2>
+				<p>Feel free to email us to provide some feedback on our templates, give us suggestions for new templates and themes, or to just say hello!</p>
+				<p><a href="mailto:feedback@startbootstrap.com">feedback@startbootstrap.com</a>
+				</p>
+				<ul class="list-inline banner-social-buttons">
+					<li>
+						<a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
+					</li>
+					<li>
+						<a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
+					</li>
+					<li>
+						<a href="https://plus.google.com/+Startbootstrap/posts" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
 
-			%{--</div><!-- /.modal-content -->--}%
-		%{--</div><!-- /.modal-dialog -->--}%
-	%{--</div><!-- /.modal -->--}%
+	<!-- Map Section -->
+	<div id="map"></div>
 
-	%{--<!----}%
-	%{--<p>--}%
+	<!-- Footer -->
+	<footer>
+		<div class="container text-center">
+			<p>Copyright &copy; Your Website 2014</p>
+		</div>
+	</footer>
 
-        %{--<h1>LANDING PAGE</h1>--}%
-
-        %{--<g:link class="btn btn-success" controller="user" action="create">Criar Nova Conta</g:link>--}%
-
-        %{--<g:link class="btn btn-danger" mapping="resetPassword">Esqueci a Senha</g:link>--}%
-
-		%{--<g:link mapping="dashboard" class="btn btn-success">Dashboard</g:link>--}%
-    %{--</p>--}%
-	%{---->--}%
-
-
-
+	<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery.min.js')}"></script>
 	<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'bootstrap.min.js')}"></script>
-	<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'retina.js')}"></script>
 	<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery.easing.1.3.js')}"></script>
+	<script src="${resource(dir: 'assets/js', file: 'grayscale.js')}"></script>
+
+
+	<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'modernizr.custom.js')}"></script>
+	<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'retina.js')}"></script>
 	<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'smoothscroll.js')}"></script>
 	<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery-func.js')}"></script>
 
-
-	</body>
+</body>
 </html>
