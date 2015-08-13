@@ -8,10 +8,13 @@ window.onload = function(){
         var id = $(this).data('id');
         var status = $(this).data('review');
         var _this = this;
+        var img = $(this).parents().eq(5).find('img');
+        var imgSrc = $(img).attr('src');
+        console.log(imgSrc);
 
+        $(img).attr('src', '/images/loading_spinner.gif');
 
         var url = location.origin + '/game/review/' + id + "/" + status;
-
 
         $.ajax({
             type:'POST',
@@ -25,9 +28,13 @@ window.onload = function(){
                 } else {
                     $(tr).addClass('panel-red');
                 }
+                $(img).attr('src', imgSrc);
 
             },
-            error:function(XMLHttpRequest,textStatus,errorThrown){}});
+            error:function(req, status, err){
+                console.log(req.responseText);
+                $(img).attr('src', imgSrc);
+            }});
     });
 
     $('.comment').on('focusout', function() {
@@ -45,6 +52,23 @@ window.onload = function(){
         if (e.keyCode == 13) {
             $(this).blur();
         }
+    });
+
+    $('.delete').on('click', function() {
+        var el = $(this);
+        var id = $(this).data('id');
+
+        $.ajax({
+            type: 'DELETE',
+            url: location.origin + '/game/delete/' + id,
+            success: function(data) {
+                console.log(data);
+                console.log($(el).parents().eq(6).remove());
+            },
+            error: function(req, status, err) {
+                console.log(req.responseText);
+            }
+        })
     });
 
 

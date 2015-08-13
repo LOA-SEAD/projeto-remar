@@ -44,7 +44,7 @@
                                                 <li><a class="review" data-review="reject" data-id="${gameInstance.id}">Reject</a></li>
                                                 <li class="divider"></li>
                                             </sec:ifAllGranted>
-                                            <li><a href="/game/delete/${gameInstance.id}">Delete</a></li>
+                                            <li><a class="delete" data-id="${gameInstance.id}">Delete</a></li>
                                         </ul>
                                     </div>
                                 </div>
