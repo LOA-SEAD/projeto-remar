@@ -21,13 +21,13 @@ class UrlMappings {
         // begin password mappings
         //noinspection GroovyAssignabilityCheck
         name resetPassword: "/password/reset"(view: "/static/forgottenPassword")
-
         // end password mappings
 
         // begin Process API endpoints
         "/process/task/complete/$id"(controller:"process", action:"completeTask")
         "/process/task/resolve/$process/$id"(controller:"process", action:"resolveTask")
-        "/process/task/delegate/$process/$id"(controller:"process", action:"delegateTasks")
+        "/process/tasks/delegate/$processId"(controller:"process", action:"delegateTasks")
+        "/process/tasks/overview/$processId"(controller:"process", action:"chooseUsersTasks")
         // end Process API endpoints
 
         // begin Game API endpoints
