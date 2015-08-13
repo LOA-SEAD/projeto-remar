@@ -45,16 +45,23 @@ p {
 }
 
 a {
-    color: #42dca3;
+    color: #fff;
     -webkit-transition: all .2s ease-in-out;
     -moz-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
 }
 
 a:hover,
-a:focus {
+a:focus{
     text-decoration: none;
-    color: #1d9b6c;
+    color: #fff;
+}
+
+.container-black{
+    background-color: rgba(0,0,0,.7);
+    /*border: 1px solid rgba(0,0,0,.7);*/
+    border-radius: 10px;
+    float: right;
 }
 
 .light {
@@ -89,16 +96,12 @@ a:focus {
 .navbar-custom .navbar-brand .navbar-toggle {
     padding: 4px 6px;
     font-size: 16px;
-    color: #fff;
+    /*color: #fff;*/
 }
 
 .navbar-custom .navbar-brand .navbar-toggle:focus,
 .navbar-custom .navbar-brand .navbar-toggle:active {
     outline: 0;
-}
-
-.navbar-custom a {
-    color: #fff;
 }
 
 .navbar-custom .nav li a {
@@ -113,10 +116,14 @@ a:focus {
     background-color: transparent;
 }
 
+.navbar-custom-white:hover{
+    color: rgba(255,255,255,.8);
+}
+
 .navbar-custom .nav li a:focus,
 .navbar-custom .nav li a:active {
     outline: 0;
-    background-color: transparent;
+    background-color: #42dca3;
 }
 
 .navbar-custom .nav li.active {
@@ -284,7 +291,7 @@ a:focus {
 
 .about-section {
     width: 100%;
-    padding: 250px ;
+    padding: 20%;
     margin-top: -13%;
     color: #fff;
     background: url(../img/bg/bg-ufscar.png) no-repeat center center scroll;
@@ -340,6 +347,7 @@ a:focus {
     color: #000;
     background-color: #42dca3;
 }
+
 
 ul.banner-social-buttons {
     margin-top: 0;
@@ -397,5 +405,6 @@ body {
 
 .btn-login{
     color: #42DCA3;
+    margin: 7px 7px 5px 7px;
 }
 
