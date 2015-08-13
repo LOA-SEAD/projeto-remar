@@ -2,6 +2,7 @@ package br.ufscar.sead.loa.remar
 
 import com.daureos.facebook.FacebookGraphService
 import grails.plugin.mail.MailService
+import grails.util.Environment
 import org.apache.commons.lang.RandomStringUtils
 import org.camunda.bpm.engine.IdentityService
 
@@ -202,16 +203,43 @@ class UserController {
             }
 
 
-            userInstance.accountExpired = false
-            userInstance.accountLocked = true //Before user confirmation
-            userInstance.enabled = false        // Before user confirmation
-            userInstance.passwordExpired = false
-            userInstance.camunda_id = userInstance.getName()
+            if (Environment.current == Environment.DEVELOPMENT) {
+                userInstance.accountExpired = false
+                userInstance.accountLocked = false
+                userInstance.enabled = true
+                userInstance.passwordExpired = false
 
+                org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
+                camundaUser.setEmail(userInstance.email)
+                camundaUser.setFirstName(userInstance.name)
+                camundaUser.setPassword(userInstance.password)
+                camundaUser.setId(userInstance.username)
+                identityService.saveUser(camundaUser)
 
-            userInstance.save flush:true
+                userInstance.camunda_id = camundaUser.id
 
-            sendConfirmationMail(userInstance.getEmail(),userInstance.getId())
+                if (userInstance.username.indexOf('admin') != -1) {
+                    UserRole.create(userInstance, Role.findByAuthority("ROLE_ADMIN"), true)
+                }
+            } else {
+                userInstance.accountExpired = false
+                userInstance.accountLocked = true //Before user confirmation
+                userInstance.enabled = false        // Before user confirmation
+                userInstance.passwordExpired = false
+
+                org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
+                camundaUser.setEmail(userInstance.email)
+                camundaUser.setFirstName(userInstance.name)
+                camundaUser.setPassword(userInstance.password)
+                camundaUser.setId(userInstance.id as String)
+                identityService.saveUser(camundaUser)
+
+                userInstance.camunda_id = camundaUser.id
+
+                sendConfirmationMail(userInstance.getEmail(), userInstance.getId())
+            }
+
+            userInstance.save flush: true
 
             UserRole.create(userInstance, Role.findByAuthority("ROLE_USER"), true)
             UserRole.create(userInstance, Role.findByAuthority("ROLE_STUD"), true)
