@@ -53,9 +53,11 @@ class ProcessController {
 
         session.user = springSecurityService.getCurrentUser()
 
+        def game = Game.findByBpmn(params.id)
+
         runtimeService.setVariable(processId, "ownerId", session.user.id as String)
-        runtimeService.setVariable(processId, "gameName", params.id as String)
-        runtimeService.setVariable(processId, "gameUri", Game.findByBpmn(params.id).uri as String)
+        runtimeService.setVariable(processId, "gameName", game.name as String)
+        runtimeService.setVariable(processId, "gameUri", game.uri as String)
         runtimeService.setVariable(processId, "username", session.user.username as String)
 
         identityService.setAuthenticatedUserId(session.user.camunda_id)
@@ -213,6 +215,24 @@ class ProcessController {
 
     }
 
+    def pendingTasksBeta() {
+        def user = springSecurityService.currentUser as br.ufscar.sead.loa.remar.User
+        def tasks = taskService.createTaskQuery().taskAssignee(user.username).list()
+        def list = []
+        for (task in tasks) {
+            println "==============="
+            println runtimeService.createProcessInstanceQuery().processInstanceId(task.processInstanceId)
+            println runtimeService.getVariable(task.processInstanceId, 'gameName')
+            println "==============="
+        }
+
+//        for (process in processes) {
+//            def tasks = taskService.createTaskQuery().processInstanceId(process.id).taskAssignee(user.username).list()
+//            println tasks.size() + "<~~"
+//        }
+
+    }
+
 
     def publishGame() {
         println params.web
@@ -227,15 +247,14 @@ class ProcessController {
     }
 
     def completeTask() {
-        //println params.id
+        println params.id
 
-        def task = taskService.createTaskQuery().processInstanceId(session.processId).taskId(params.id).singleResult()
-        taskService.complete(task.id)
-        if (taskService.createTaskQuery().processInstanceId(session.processId).list().size() == 0) {
-            redirect(action: "finishedProcess")
-        } else {
-            redirect(action: "chooseUsersTasks")
-        }
+        taskService.complete(params.id)
+//        if (taskService.createTaskQuery().processInstanceId(session.processId).list().size() == 0) {
+//            redirect(action: "finishedProcess")
+//        } else {
+//            redirect(action: "chooseUsersTasks")
+//        }
     }
 
     def resolveTask() {
@@ -258,6 +277,7 @@ class ProcessController {
         params.remove("format")
         params.remove("controller")
         params.remove("processId")
+        println params
         def proc = runtimeService.createProcessInstanceQuery().processInstanceId(processId).singleResult()
         def processName = proc.processDefinitionId.substring(0, proc.processDefinitionId.indexOf(":"))
         taskService.createTaskQuery().processInstanceId(processId).list()
@@ -269,8 +289,7 @@ class ProcessController {
                 username = username as String
                 def user = br.ufscar.sead.loa.remar.User.findByUsername(username)
                 if (user) {
-                    //taskService.setOwner(taskId, "Denis")
-                    taskService.addUserIdentityLink(taskId, username, IdentityLinkType.CANDIDATE)
+                    taskService.addUserIdentityLink(taskId, session.user.username as String, IdentityLinkType.OWNER)
                     taskService.delegateTask(taskId, username)
                     mailService.sendMail {
                         async true
