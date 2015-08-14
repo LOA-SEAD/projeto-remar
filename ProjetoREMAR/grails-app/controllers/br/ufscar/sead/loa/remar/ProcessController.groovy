@@ -16,6 +16,7 @@ import org.camunda.bpm.engine.task.Task
 import org.camunda.bpm.model.bpmn.Bpmn
 import org.camunda.bpm.engine.identity.User
 import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl
+import grails.converters.JSON
 
 
 @Secured(["ROLE_ADMIN","ROLE_STUD","ROLE_USER"])
@@ -181,7 +182,8 @@ class ProcessController {
 
     }
 
-    def pendingTasks() {
+    /* MUST BE DELETED!!!! */
+    def pendingTasksBeta() {
         def currentUser = springSecurityService.getCurrentUser().id
         def username = br.ufscar.sead.loa.remar.User.findById(currentUser).getUsername()
         println username
@@ -215,22 +217,24 @@ class ProcessController {
 
     }
 
-    def pendingTasksBeta() {
+    def pendingTasks() {
         def user = springSecurityService.currentUser as br.ufscar.sead.loa.remar.User
         def tasks = taskService.createTaskQuery().taskAssignee(user.username).list()
         def list = []
         for (task in tasks) {
-            println "==============="
-            println runtimeService.createProcessInstanceQuery().processInstanceId(task.processInstanceId)
-            println runtimeService.getVariable(task.processInstanceId, 'gameName')
-            println "==============="
+            def formmatedTask = [:]
+            formmatedTask.put('gameName', runtimeService.getVariable(task.processInstanceId, 'gameName'))
+            formmatedTask.put('taskName', task.getName())
+            formmatedTask.put('taskOwner', br.ufscar.sead.loa.remar.User.findByUsername(task.getOwner()).name) //tem o owner da task salvo em algum lugar pra não precisar fazer isso?
+            formmatedTask.put('taskURI', runtimeService.getVariable(task.processInstanceId, 'gameUri')) //não sei se é esse o campo de onde tem que pegar...
+            list.add(formmatedTask)
         }
-
-//        for (process in processes) {
-//            def tasks = taskService.createTaskQuery().processInstanceId(process.id).taskAssignee(user.username).list()
-//            println tasks.size() + "<~~"
-//        }
-
+        if (list != [] && list != null) {
+            render(view: "pendingTasks", model: [myProcessesAndTasks: list])
+        }
+        else {
+            render(view: "noTasks")
+        }
     }
 
 

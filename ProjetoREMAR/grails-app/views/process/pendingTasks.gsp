@@ -31,39 +31,22 @@
                         <div class="col-sm-12">
                                 <table id="pending-tasks" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="tasks-users-info" >
                                     <thead>
-                                    <tr role="row">
-                                        %{--<th class="sorting_asc" tabindex="0" style="width: 100px;" aria-controls="pending-tasks" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" </th>                                                                                                                                                                                  > Nome </th>--}%
-                                        <th class="sorting" tabindex="0" aria-controls="pending-tasks" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" > Nome do Processo </th>
-                                        <th class="sorting" tabindex="0" aria-controls="pending-tasks" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" > Nome da Tarefa   </th>
-                                        <th class="sorting" tabindex="0" aria-controls="pending-tasks" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" > Dono do Processo          </th>
-                                        <th class="sorting" tabindex="0" aria-controls="pending-tasks" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" > Realizar Tarefa  </th>
-
-                                    </tr>
+                                        <tr role="row">
+                                            <th class="sorting" tabindex="0" aria-controls="pending-tasks" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">Nome do Jogo</th>
+                                            <th class="sorting" tabindex="0" aria-controls="pending-tasks" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">Nome da Tarefa</th>
+                                            <th class="sorting" tabindex="0" aria-controls="pending-tasks" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">Atribuído por: (Dono do Processo)</th>
+                                            <th class="sorting" tabindex="0" aria-controls="pending-tasks" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">Realizar Tarefa</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <g:each in="${myProcessesAndTasks.entrySet()}" status="i" var="task" >
-                                        <g:each in="${(0..<task.key.size())}" var="j">
-                                        <tr role="row">
-                                            <td  value="task"> ${task.key.get(j).processDefinitionId} </td>
-
-                                            <td >${task.key.get(j).name}</td>
-                                            <td >${task.value.username}</td>
-
-                                            <td><g:link target="_blank" uri="/${uri}/${task.key.get(j).taskDefinitionKey}">Ir</g:link></td>
-                                            %{--<g:if test="${task.getAssignee() == null}">--}%
-                                                %{--<td>SEM USUARIO</td>--}%
-                                            %{--</g:if>--}%
-                                            %{--<g:else test="${task.getId() == null}">--}%
-                                                %{--<td>${task.getAssignee()}</td>--}%
-                                            %{--</g:else>--}%
-
-                                            %{--<td> <g:link action="completeTask" id="${task.getId()}" >Ok</g:link></td>--}%
-
-                                            %{--<td><g:link action="doTask" id="${task.getId()}">Ir</g:link></td>--}%
-
-                                        </tr>
+                                        <g:each in="${myProcessesAndTasks}">
+                                            <tr role="row">
+                                                <td  value="task">${it.gameName}</td>
+                                                <td >${it.taskName}</td>
+                                                <td >${it.taskOwner}</td>
+                                                <td><g:link target="_blank" uri="${it.taskURI}">Ir</g:link></td>
+                                            </tr>
                                         </g:each>
-                                    </g:each>
                                     </tbody>
                                 </table>
                         </div>
