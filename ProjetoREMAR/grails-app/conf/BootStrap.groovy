@@ -46,10 +46,9 @@ class BootStrap {
             println "ROLE_DESENVOLVEDOR inserted"
         }
 
-        def allUsers = User.findAll()
-        def userExists = allUsers.findAll {it.username == "admin"}
+        def adminUser = User.findByUsername("admin")
 
-        if(userExists == []) {
+        if(adminUser == null) {
             def userInstance = new User (
                 username: "admin",
                 password: "admin",
@@ -75,6 +74,9 @@ class BootStrap {
             UserRole.create(userInstance, Role.findByAuthority("ROLE_STUD"), true)
             UserRole.create(userInstance, Role.findByAuthority("ROLE_EDITOR"), true)
             UserRole.create(userInstance, Role.findByAuthority("ROLE_DESENVOLVEDOR"), true)
+            UserRole.create(userInstance, Role.findByAuthority("ROLE_FACEBOOK"), true)
+
+            println "admin user inserted"
             // TODO: terminar (mto trampo)
 
 //            Group group = identityService.newGroup("camunda-admin")
@@ -84,6 +86,40 @@ class BootStrap {
 //
 //
 //            identityService.createMembership(camundaUser.getId(), group.getId())
+        }
+
+        def guestUser = User.findByUsername("guest")
+        println "guestUser: " + guestUser
+
+        if(guestUser == null) {
+            def guestUserInstance = new User (
+                username: "guest",
+                password: "guest",
+                email: "guest@gmail.com",
+                name: "Guest User",
+                enabled: true,
+                camunda_id: "guest"
+            )
+
+            org.camunda.bpm.engine.identity.User camundaGuestUser = identityService.newUser(guestUserInstance.username)
+
+            camundaGuestUser.setEmail(guestUserInstance.email)
+            camundaGuestUser.setFirstName(guestUserInstance.name)
+            camundaGuestUser.setPassword(guestUserInstance.password)
+            camundaGuestUser.setId(guestUserInstance.username)
+            identityService.saveUser(camundaGuestUser)
+
+            guestUserInstance.camunda_id = camundaGuestUser.getId()
+
+            guestUserInstance.save flush:true
+            UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_ADMIN"), true)
+            UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_PROF"), true)
+            UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_STUD"), true)
+            UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_EDITOR"), true)
+            UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_DESENVOLVEDOR"), true)
+            UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_FACEBOOK"), true)
+
+            println "guest user inserted"
         }
 
         def platforms = Platform.findAll();
