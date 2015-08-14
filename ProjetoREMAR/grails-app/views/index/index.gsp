@@ -19,13 +19,13 @@
 
 </head>
 
-<body id="#page-top" data-spy="scroll" data-offset="0" data-target="#navbar-main">
+<body data-spy="scroll" data-offset="0" data-target="#navbar-main">
 
 	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand page-scroll" href="#page-top">
-					<span class="icon-puzzle-2 light"></span>REMAR
+				<a class="navbar-brand page-scroll navbar-custom-white" href="#page-top">
+					<span class="icon-puzzle-2 light navbar-custom-white"></span>REMAR
 				</a>
 			</div>
 
@@ -34,7 +34,7 @@
 				<ul class="nav navbar-nav">
 					<!-- Hidden li included to remove active class from about link when scrolled up past about section -->
 					<li class="hidden">
-						<a href="#page-top">asascascas</a>
+						<a href="#page-top"></a>
 					</li>
 					<li>
 						<a class="page-scroll" href="#about">Sobre</a>
@@ -45,10 +45,10 @@
 					<li>
 						<a class="page-scroll" href="#contact">Contato</a>
 					</li>
-					<li>
-						<g:link  class="btn btn-default btn-lg" controller="login">Entrar</g:link>
+					<li id="navbar-custom-green">
 					</li>
 				</ul>
+				<g:link  class="btn btn-default btn-login" controller="login">Entrar</g:link>
 			</div>
 			<!-- /.navbar-collapse -->
 		</div>
@@ -58,36 +58,36 @@
 
 	<!-- Intro Header -->
 	<header class="intro">
-		<div class="intro-body">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-8 col-md-offset-2">
-						<h1 class="brand-heading">REMAR</h1>
-						<p class="intro-text">Recursos Educacionais abertos na rede </p>
-						<a href="#about" class="btn btn-circle page-scroll">
-							<span class="icon-circle-arrow-down"></span>
-						</a>
+		<section id="page-top" class="content-section text-center" >
+			<div class="intro-body">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2">
+							<h1 class="brand-heading">REMAR</h1>
+							<p class="intro-text">Recursos Educacionais abertos na rede </p>
+							<a href="#about" class="btn btn-circle page-scroll">
+								<span class="icon-circle-arrow-down"></span>
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</section>
 	</header>
 
 	<!-- About Section -->
 	<section id="about" class="content-section text-center">
-	<div class="about-section">
-
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-8 col-lg-offset-2 about">
-				<p>Grayscale is a free Bootstrap 3 theme created by Start Bootstrap. It can be yours right now, simply team the template on <a href="http://startbootstrap.com/template-overviews/grayscale/">the preview page</a>. The theme is open source, and you can use it for any purpose, personal or commercial.</p>
-				<p>This theme features stock photos by <a href="http://gratisography.com/">Gratisography</a> along with a custom Google Maps skin courtesy of <a href="http://snazzymaps.com/">Snazzy Maps</a>.</p>
-				<p>Grayscale includes full HTML, CSS, and custom JavaScript files along with LESS files for easy customization.</p>
+		<div class="about-section">
+			<div class="container container-black">
+				<div class="row">
+					<div class="col-lg-8 col-lg-offset-2 about">
+						<p>Grayscale is a free Bootstrap 3 theme created by Start Bootstrap. It can be yours right now, simply team the template on <a href="http://startbootstrap.com/template-overviews/grayscale/">the preview page</a>. The theme is open source, and you can use it for any purpose, personal or commercial.</p>
+						<p>This theme features stock photos by <a href="http://gratisography.com/">Gratisography</a> along with a custom Google Maps skin courtesy of <a href="http://snazzymaps.com/">Snazzy Maps</a>.</p>
+						<p>Grayscale includes full HTML, CSS, and custom JavaScript files along with LESS files for easy customization.</p>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-
 	</section>
 
 	<!-- team Section -->
