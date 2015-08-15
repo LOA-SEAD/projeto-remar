@@ -54,7 +54,13 @@
                                      class="img img-responsive center-block"/>
                             </div>
                             <div class="panel-footer">
-                                <input class="comment" data-id="${gameInstance.id}" type="text" placeholder="Comment" value="${gameInstance.comment}">
+                                <sec:ifAllGranted roles="ROLE_ADMIN">
+                                    <input class="comment" data-id="${gameInstance.id}" type="text" placeholder="Comment" value="${gameInstance.comment}">
+                                </sec:ifAllGranted>
+                                <sec:ifNotGranted roles="ROLE_USER">
+                                    ${gameInstance.comment}
+                                </sec:ifNotGranted>
+
                                 <div class="pull-right">
                                     <i class="fa fa-at"></i>
                                     <g:if test="${gameInstance.android}">
