@@ -112,7 +112,6 @@ class BootStrap {
             guestUserInstance.camunda_id = camundaGuestUser.getId()
 
             guestUserInstance.save flush:true
-            UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_ADMIN"), true)
             UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_PROF"), true)
             UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_STUD"), true)
             UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_EDITOR"), true)
