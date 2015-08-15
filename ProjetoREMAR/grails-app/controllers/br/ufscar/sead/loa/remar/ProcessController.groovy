@@ -57,6 +57,7 @@ class ProcessController {
         def game = Game.findByBpmn(params.id)
 
         runtimeService.setVariable(processId, "ownerId", session.user.id as String)
+        runtimeService.setVariable(processId, "ownerName", session.user.name as String)
         runtimeService.setVariable(processId, "gameName", game.name as String)
         runtimeService.setVariable(processId, "gameUri", game.uri as String)
         runtimeService.setVariable(processId, "username", session.user.username as String)
@@ -222,15 +223,16 @@ class ProcessController {
         def tasks = taskService.createTaskQuery().taskAssignee(user.username).list()
         def list = []
         for (task in tasks) {
-            def formmatedTask = [:]
-            formmatedTask.put('gameName', runtimeService.getVariable(task.processInstanceId, 'gameName'))
-            formmatedTask.put('taskName', task.getName())
-            formmatedTask.put('taskOwner', br.ufscar.sead.loa.remar.User.findByUsername(task.getOwner()).name) //tem o owner da task salvo em algum lugar pra não precisar fazer isso?
-            formmatedTask.put('taskURI', runtimeService.getVariable(task.processInstanceId, 'gameUri')) //não sei se é esse o campo de onde tem que pegar...
-            list.add(formmatedTask)
+            def formattedTask = []
+            formattedTask[0] = runtimeService.getVariable(task.processInstanceId, 'gameName')
+            formattedTask[1] = task.getName()
+            formattedTask[2] = runtimeService.getVariable(task.processInstanceId, 'ownerName')
+            formattedTask[3] = runtimeService.getVariable(task.processInstanceId, 'gameUri')
+            formattedTask[3] += '/' + task.taskDefinitionKey.replace('.', '/')
+            list.add(formattedTask)
         }
-        if (list != [] && list != null) {
-            render(view: "pendingTasks", model: [myProcessesAndTasks: list])
+        if (list) {
+            render(view: "pendingTasks", model: [tasks: list])
         }
         else {
             render(view: "noTasks")
