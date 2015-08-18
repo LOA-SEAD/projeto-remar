@@ -194,7 +194,7 @@ class ProcessController {
             formattedTask[0] = runtimeService.getVariable(task.processInstanceId, 'gameName')
             formattedTask[1] = task.getName()
             formattedTask[2] = runtimeService.getVariable(task.processInstanceId, 'ownerName')
-            formattedTask[3] = runtimeService.getVariable(task.processInstanceId, 'gameUri')
+            formattedTask[3] = '/' + runtimeService.getVariable(task.processInstanceId, 'gameUri')
             formattedTask[3] += '/' + task.taskDefinitionKey.replace('.', '/')
             list.add(formattedTask)
         }
