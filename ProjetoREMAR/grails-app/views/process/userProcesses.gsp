@@ -7,6 +7,12 @@
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <head>
+    <style>
+    td a {
+        display:block;
+        width:100%;
+    }
+    </style>
     <title></title>
     <meta name="layout" content="main-beta">
 
@@ -41,11 +47,12 @@
 
                 <g:each in="${processes}" var="process">
                     <tr role="row">
-                        <td  value="process"> ${process[0]} </td>
+                        <td ><a href="/tasks/overview/${process[3]}"> ${process[0]} </a> </td>
                         <td> ${process[1]}</td>
                         <g:if test="${!process[2]}">
                         <td>Ativo </td>
                         </g:if>
+
 
                 %{--</td>--}%
                 %{--<td >${task.getDelegationState()}</td>--}%
