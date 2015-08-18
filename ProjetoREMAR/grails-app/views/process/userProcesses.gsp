@@ -39,12 +39,12 @@
         </thead>
         <tbody>
 
-                <g:each in="${myProcessesAndTasks.entrySet()}" var="process">
+                <g:each in="${processes}" var="process">
                     <tr role="row">
-                        <td  value="process"> ${process.key.processDefinitionId} </td>
-                        <td> ${process.value.size()}</td>
-                        <g:if test="${!process.key.suspended}">
-                        <td> Ativo  </td>
+                        <td  value="process"> ${process[0]} </td>
+                        <td> ${process[1]}</td>
+                        <g:if test="${!process[2]}">
+                        <td>Ativo </td>
                         </g:if>
 
                 %{--</td>--}%

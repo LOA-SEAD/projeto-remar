@@ -158,64 +158,89 @@ class ProcessController {
 
     }
 
+//    @Secured(["ROLE_ADMIN", "ROLE_STUD", "ROLE_USER"])
+//    def userProcesses() {
+//        String userId = springSecurityService.getCurrentUser().getId()
+//        List<ProcessInstance> processesList = runtimeService.createProcessInstanceQuery().list()
+//        if (processesList.size() != 0) {
+//            HashMap<ProcessInstance, List<Task>> myProcessesAndTasks = new HashMap<>()
+//            for (processes in processesList) {
+//                def var = runtimeService.getVariable(processes.id, "ownerId")
+//                if (userId == var) {
+//                    List<Task> taskList = taskService.createTaskQuery().processInstanceId(processes.id).list()
+//                    myProcessesAndTasks.put(processes, taskList)
+//                }
+//            }
+//            if (myProcessesAndTasks.size() != 0) {
+//                render(view: "userProcesses", model: [myProcessesAndTasks: myProcessesAndTasks])
+//            } else {
+//                render(view: "noProcesses")
+//            }
+//
+//        } else {
+//            render(view: "noProcesses")
+//        }
+//
+//    }
+
+//    /* MUST BE DELETED!!!! */
+//    def pendingTasksBeta() {
+//        def currentUser = springSecurityService.getCurrentUser().id
+//        def username = br.ufscar.sead.loa.remar.User.findById(currentUser).getUsername()
+//        println username
+//        List<ProcessInstance> processesList = runtimeService.createProcessInstanceQuery().list()
+//        HashMap<List<Task>, br.ufscar.sead.loa.remar.User> myProcessesAndTasks = new HashMap<>()
+//        def uri
+//        if (processesList.size() != 0) {
+//            for (processes in processesList) {
+//                List<Task> taskListPerProcess = taskService.createTaskQuery().processInstanceId(processes.id).taskAssignee(username).list()
+//                println taskListPerProcess.size()
+//                if (taskListPerProcess.size() != 0) {
+//                    for(task in taskListPerProcess){
+//                        task.taskDefinitionKey = parseBpmn(task)
+//                    }
+//                    def ownerId = runtimeService.getVariable(processes.id, "ownerId")
+//                    uri = runtimeService.getVariable(processes.id, "gameUri")
+//                    def ownerUsername = br.ufscar.sead.loa.remar.User.findById(ownerId)
+//                    myProcessesAndTasks.put(taskListPerProcess, ownerUsername)
+//                    println uri
+//                }
+//            }
+//            if (myProcessesAndTasks.size() != 0) {
+//                render(view: "pendingTasks", model: [myProcessesAndTasks: myProcessesAndTasks, uri:uri])
+//            } else {
+//                render(view: "noTasks")
+//            }
+//
+//        } else {
+//            render(view: "noTasks")
+//        }
+//
+//    }
+
+
     @Secured(["ROLE_ADMIN", "ROLE_STUD", "ROLE_USER"])
     def userProcesses() {
         String userId = springSecurityService.getCurrentUser().getId()
         List<ProcessInstance> processesList = runtimeService.createProcessInstanceQuery().list()
-        if (processesList.size() != 0) {
-            HashMap<ProcessInstance, List<Task>> myProcessesAndTasks = new HashMap<>()
-            for (processes in processesList) {
-                def var = runtimeService.getVariable(processes.id, "ownerId")
-                if (userId == var) {
-                    List<Task> taskList = taskService.createTaskQuery().processInstanceId(processes.id).list()
-                    myProcessesAndTasks.put(processes, taskList)
-                }
+        def list = []
+        for (processes in processesList) {
+            def var = runtimeService.getVariable(processes.id, "ownerId")
+            if (userId == var) {
+                def formattedProcesses = []
+                formattedProcesses[0] = runtimeService.getVariable(processes.id, "gameName")
+                formattedProcesses[1] = taskService.createTaskQuery().processInstanceId(processes.id).list().size()
+                formattedProcesses[2] = runtimeService.createProcessInstanceQuery().processInstanceId(processes.id).list()[0].suspended
+                println  formattedProcesses[2]
+                list.add(formattedProcesses)
             }
-            if (myProcessesAndTasks.size() != 0) {
-                render(view: "userProcesses", model: [myProcessesAndTasks: myProcessesAndTasks])
-            } else {
-                render(view: "noProcesses")
-            }
-
-        } else {
+        }
+        if(list){
+            render(view: "userProcesses", model:[processes: list])
+        }
+        else{
             render(view: "noProcesses")
         }
-
-    }
-
-    /* MUST BE DELETED!!!! */
-    def pendingTasksBeta() {
-        def currentUser = springSecurityService.getCurrentUser().id
-        def username = br.ufscar.sead.loa.remar.User.findById(currentUser).getUsername()
-        println username
-        List<ProcessInstance> processesList = runtimeService.createProcessInstanceQuery().list()
-        HashMap<List<Task>, br.ufscar.sead.loa.remar.User> myProcessesAndTasks = new HashMap<>()
-        def uri
-        if (processesList.size() != 0) {
-            for (processes in processesList) {
-                List<Task> taskListPerProcess = taskService.createTaskQuery().processInstanceId(processes.id).taskAssignee(username).list()
-                println taskListPerProcess.size()
-                if (taskListPerProcess.size() != 0) {
-                    for(task in taskListPerProcess){
-                        task.taskDefinitionKey = parseBpmn(task)
-                    }
-                    def ownerId = runtimeService.getVariable(processes.id, "ownerId")
-                    uri = runtimeService.getVariable(processes.id, "gameUri")
-                    def ownerUsername = br.ufscar.sead.loa.remar.User.findById(ownerId)
-                    myProcessesAndTasks.put(taskListPerProcess, ownerUsername)
-                    println uri
-                }
-            }
-            if (myProcessesAndTasks.size() != 0) {
-                render(view: "pendingTasks", model: [myProcessesAndTasks: myProcessesAndTasks, uri:uri])
-            } else {
-                render(view: "noTasks")
-            }
-
-        } else {
-            render(view: "noTasks")
-        }
-
     }
 
     def pendingTasks() {
