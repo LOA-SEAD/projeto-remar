@@ -47,7 +47,7 @@
 
                 <g:each in="${processes}" var="process">
                     <tr role="row">
-                        <td ><a href="/tasks/overview/${process[3]}"> ${process[0]} </a> </td>
+                        <td ><a href="/process/tasks/overview/${process[3]}"> ${process[0]} </a> </td>
                         <td> ${process[1]}</td>
                         <g:if test="${!process[2]}">
                         <td>Ativo </td>

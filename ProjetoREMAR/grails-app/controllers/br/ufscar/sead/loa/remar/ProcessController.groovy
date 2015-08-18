@@ -173,7 +173,6 @@ class ProcessController {
                 formattedProcesses[1] = taskService.createTaskQuery().processInstanceId(processes.id).list().size()
                 formattedProcesses[2] = runtimeService.createProcessInstanceQuery().processInstanceId(processes.id).list()[0].suspended
                 formattedProcesses[3] = processes.id
-                println formattedProcesses[3]
                 list.add(formattedProcesses)
             }
         }
