@@ -14,7 +14,7 @@ class IndexController {
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def index() {
         if (springSecurityService.isLoggedIn()) {
-            session.userId = springSecurityService.getCurrentUser().id
+            session.user = springSecurityService.currentUser
             redirect uri: "/dashboard"
         } else {
             render view: "index"
@@ -25,7 +25,7 @@ class IndexController {
     def dashboard() {
         def model = [:]
 
-        model.gameInstanceList = Game.findAllByStatus('approved')
+        model.gameInstanceList = Game.findAllByStatus('approved') // change to #findAllByActive?
 
         def instances = []
         runtimeService.createProcessInstanceQuery().variableValueEquals("ownerId", "1").list().each {instance ->
