@@ -24,8 +24,8 @@ class UrlMappings {
         // end password mappings
 
         // begin Process API endpoints
-        "/process/task/complete/$id"(controller:"process", action:"completeTask")
-        "/process/task/resolve/$process/$id"(controller:"process", action:"resolveTask")
+        "/process/task/complete/$taskId"(controller:"process", action:"completeTask")
+        "/process/task/resolve/$taskId"(controller:"process", action:"resolveTask")
         "/process/tasks/delegate/$processId"(controller:"process", action:"delegateTasks")
         "/process/tasks/overview/$processId"(controller:"process", action:"chooseUsersTasks")
         // end Process API endpoints
