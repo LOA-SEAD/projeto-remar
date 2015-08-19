@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
         <link rel="stylesheet" href="/css/custom.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
 
         <title>REMAR</title>
@@ -31,9 +32,9 @@
         <div class="col-sm-3 col-md-2 sidebar">
          <h3><i class="glyphicon glyphicon-briefcase"></i> Workspace</h3>
             <ul class="nav nav-sidebar">
-                <li> <g:link controller="process" action="pendingTasks" >Tarefas Pendentes</g:link></li>
-                <li> <g:link uri="http://myapp.dev:9090/dashboard" >Jogos Personalizáveis</g:link></li>
-                <li> <g:link controller="process" action="userProcesses">Meus Processos</g:link></li>
+                <li> <g:link controller="process" action="pendingTasks"><i class="fa fa-list-ul fa-1x fa-fw"></i> Tarefas Pendentes </g:link></li>
+                <li> <g:link uri="http://myapp.dev:9090/dashboard"> <i class="fa fa-gamepad fa-1x fa-fw "></i> Jogos Personalizáveis  </g:link> </li>
+                <li> <g:link controller="process" action="userProcesses"> <i class="fa fa-list-alt fa-1x fa-fw"></i> Meus Processos  </g:link></li>
             </ul>
         </div>
     </div>
