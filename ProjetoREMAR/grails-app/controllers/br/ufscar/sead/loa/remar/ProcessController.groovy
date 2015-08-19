@@ -153,7 +153,7 @@ class ProcessController {
         }
 
         if (tasks.size() == 0) {
-            render "Processo finalizado"
+            render(view:'finishedProcess')
         } else {
             respond "", model: [allusers: allUsers, alltasks: tasks, uri: uri, processId: params.processId]
         }
@@ -221,14 +221,12 @@ class ProcessController {
     }
 
     def completeTask() {
-        println params.id
+        println params.taskId
+        def processId = taskService.createTaskQuery().taskId(params.taskId).singleResult().processInstanceId
 
-        taskService.complete(params.id)
-//        if (taskService.createTaskQuery().processInstanceId(session.processId).list().size() == 0) {
-//            redirect(action: "finishedProcess")
-//        } else {
-//            redirect(action: "chooseUsersTasks")
-//        }
+        taskService.complete(params.taskId)
+        redirect(uri: "/process/tasks/overview/${processId}")
+
     }
 
     def resolveTask() {
