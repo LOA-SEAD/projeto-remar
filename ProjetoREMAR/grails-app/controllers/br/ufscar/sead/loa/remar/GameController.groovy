@@ -73,7 +73,7 @@ class GameController {
             return
         }
 
-        file = new File(servletContext.getRealPath("/wars/${session.userId}/${fileName}/manifest.json"))
+        file = new File(servletContext.getRealPath("/wars/${session.userId}/${fileName}/data/manifest.json"))
         if (!file.exists()) { // WAR has a manifest.json?
             gameInstance.valid = false
             gameInstance.name = war.originalFilename
