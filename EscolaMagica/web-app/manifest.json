@@ -1,8 +1,13 @@
 {
-	"name"    : "Escola Mágica",
-	"android" : false,
-	"linux"   : true,
-	"moodle"  : true,
-	"uri"     : "escolamagica",
-	"bpmn"    : "EscolaMagicaProcess"
+  "name"    : "Escola Mágica",
+  "android" : false,
+  "linux"   : true,
+  "moodle"  : true,
+  "uri"     : "escolamagica",
+  "bpmn"    : "EscolaMagicaProcess",
+
+  "files": {
+    "perguntas.xml": "/Deploy"
+  }
+
 }
