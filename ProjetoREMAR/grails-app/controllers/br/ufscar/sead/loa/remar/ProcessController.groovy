@@ -11,6 +11,7 @@ import org.camunda.bpm.engine.TaskService
 import org.camunda.bpm.engine.impl.identity.Authentication
 import org.camunda.bpm.engine.impl.repository.DeploymentBuilderImpl
 import org.camunda.bpm.engine.runtime.ProcessInstance
+import org.camunda.bpm.engine.task.DelegationState
 import org.camunda.bpm.engine.task.IdentityLinkType
 import org.camunda.bpm.engine.task.Task
 import org.camunda.bpm.model.bpmn.Bpmn
@@ -231,13 +232,25 @@ class ProcessController {
     }
 
     def resolveTask() {
-        println params.process
-        println params.id
+//        println taskService.createTaskQuery().taskId(params.taskId).singleResult().assignee
+//        taskService.resolveTask(params.taskId)
 
-        def task = taskService.createTaskQuery().processInstanceId(params.process).taskId(params.id).singleResult()
-        taskService.resolveTask(task.id)
+        def task = taskService.createTaskQuery().taskId(params.taskId).singleResult()
+        if (task) {
+            if (task.delegationState == DelegationState.PENDING) {
+                if (task.assignee == session.user.username) {
+                    taskService.resolveTask(params.taskId)
+                    redirect uri: '/process/pendingTasks'
+                } else {
+                    render "user != assignee"
+                }
+            } else {
+                render "delegation state not pending"
+            }
 
-        render "resolved"
+        } else {
+            render "task doesn't exists"
+        }
     }
 
 
