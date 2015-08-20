@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <meta name="layout" content="main-beta">
+    <meta name="layout" content="main-inside">
     <g:javascript src="versions.js"/>
     <style>
     #moodleForm {

@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="main-beta">
+    <meta name="layout" content="main-inside">
     <g:set var="entityName"
            value="${message(code: 'user.label', default: 'User')}" />
     <title>Admin page</title>

@@ -9,7 +9,7 @@
 <html>
 <head>
     <title></title>
-    <meta name="layout" content="main-beta">
+    <meta name="layout" content="main-inside">
 </head>
 
 <body>

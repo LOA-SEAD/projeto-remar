@@ -46,60 +46,41 @@
     <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
-    <g:layoutBody/>
-
-    %{--<div class="all-wrapper">--}%
-        %{--<div class="row">--}%
-            %{--<div class="col-md-3" id="menu-latera">--}%
-                %{--<div class="text-center">--}%
-                    %{--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">--}%
-                        %{--<span class="sr-only">Toggle navigation</span>--}%
-                        %{--<span class="icon-bar"></span>--}%
-                        %{--<span class="icon-bar"></span>--}%
-                        %{--<span class="icon-bar"></span>--}%
-                    %{--</button>--}%
-                %{--</div>--}%
-                %{--<div class="side-bar-wrapper collapse navbar-collapse navbar-ex1-collapse">--}%
-                    %{--<a href="#" class="logo hidden-sm hidden-xs">--}%
-                        %{--<i class="icon-cog"></i>--}%
-                        %{--<span>Sistema Administrativo<br />REMAR</span>--}%
-                    %{--</a>--}%
-                    %{--<div class="relative-w">--}%
-                        %{--<ul class="side-menu">--}%
-                            %{--<li><a href="/" class="dropdown-toggle">Lista de Jogos</a></li>--}%
-
-                            %{--<sec:ifAllGranted roles="ROLE_ADMIN">--}%
-                                %{--<li><a href="/user" class="dropdown-toggle">Lista de Usuários</a></li>--}%
-                                %{--<li><a href="/user/create" class="dropdown-toggle">Criar novo Usuário</a></li>--}%
-                            %{--</sec:ifAllGranted>--}%
-                            %{--<sec:ifAllGranted roles="ROLE_PROF">--}%
-                                %{--<!--<li><a href="/processoJogo/jogos">Lista de Jogos Personalizaveis</a></li>-->--}%
-                            %{--</sec:ifAllGranted>--}%
-                            %{--<sec:ifAllGranted roles="ROLE_STUD">--}%
-                                %{--<!--<li class="dropdown-toggle"><a href="#">Estudante</a></li>-->--}%
-                            %{--</sec:ifAllGranted>--}%
-                            %{--<sec:ifAllGranted roles="ROLE_EDITOR">--}%
-                                %{--<!--<li class="dropdown-toggle"><a href="#">Editor</a></li>-->--}%
-                            %{--</sec:ifAllGranted>--}%
-                            %{--<sec:ifAllGranted roles="ROLE_DESENVOLVEDOR">--}%
-                                %{--<!--<li class="dropdown-toggle"><a href="#">Desenvolvedor</a></li>-->--}%
-                            %{--</sec:ifAllGranted>--}%
-
-                            %{--<li class="dropdown-toggle"><a href="/logout">Sair<!-- (<sec:loggedInUserInfo field="username"/>)--></a></li>--}%
-                            %{--</ul>--}%
-                        %{--</div>--}%
-                    %{--</div>--}%
-                %{--</div>--}%
-                %{--<div class="col-md-9">--}%
-
-                %{--<div class="content-wrapper wood-wrapper">--}%
-                    %{--<div class="main-content">--}%
-                        %{--<g:layoutBody/>--}%
-                    %{--</div>--}%
-                %{--</div>--}%
+    %{--<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">--}%
+        %{--<div class="container">--}%
+            %{--<div class="navbar-header">--}%
+                %{--<a class="navbar-brand page-scroll navbar-custom-white" href="#page-top">--}%
+                    %{--<span class="icon-puzzle-2 light navbar-custom-white"></span>REMAR--}%
+                %{--</a>--}%
             %{--</div>--}%
+
+            %{--<!-- Collect the nav links, forms, and other content for toggling -->--}%
+            %{--<div class="collapse navbar-collapse navbar-right navbar-main-collapse">--}%
+                %{--<ul class="nav navbar-nav">--}%
+                    %{--<!-- Hidden li included to remove active class from about link when scrolled up past about section -->--}%
+                    %{--<li class="hidden">--}%
+                        %{--<a href="#page-top"></a>--}%
+                    %{--</li>--}%
+                    %{--<li>--}%
+                        %{--<a class="page-scroll" href="#about">Sobre</a>--}%
+                    %{--</li>--}%
+                    %{--<li>--}%
+                        %{--<a class="page-scroll" href="#team">Equipe</a>--}%
+                    %{--</li>--}%
+                    %{--<li>--}%
+                        %{--<a class="page-scroll" href="#contact">Contato</a>--}%
+                    %{--</li>--}%
+                    %{--<li id="navbar-custom-green">--}%
+                    %{--</li>--}%
+                %{--</ul>--}%
+                %{--<g:link  class="btn btn-default btn-login" controller="login">Entrar</g:link>--}%
+            %{--</div>--}%
+            %{--<!-- /.navbar-collapse -->--}%
         %{--</div>--}%
-    %{--</div>--}%
+        %{--<!-- /.container -->--}%
+    %{--</nav>--}%
+
+    <g:layoutBody/>
 
 </body>
 </html>

@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Sem tarefas no momento</title>
-    <meta name="layout" content="main-beta">
+    <meta name="layout" content="main-inside">
 
 </head>
 

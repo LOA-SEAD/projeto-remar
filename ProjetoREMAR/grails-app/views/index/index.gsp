@@ -19,7 +19,7 @@
 
 </head>
 
-<body data-spy="scroll" data-offset="0" data-target="#navbar-main">
+<body data-spy="scroll" data-offset="0" data-target=".navbar-fixed-top">
 
 	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
 		<div class="container">
@@ -139,13 +139,12 @@
 	<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery.min.js')}"></script>
 	<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'bootstrap.min.js')}"></script>
 	<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery.easing.1.3.js')}"></script>
-	<script src="${resource(dir: 'assets/js', file: 'grayscale.js')}"></script>
+	<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'grayscale.js')}"></script>
 
-
-	<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'modernizr.custom.js')}"></script>
-	<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'retina.js')}"></script>
-	<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'smoothscroll.js')}"></script>
-	<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery-func.js')}"></script>
+	%{--<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'modernizr.custom.js')}"></script>--}%
+	%{--<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'retina.js')}"></script>--}%
+	%{--<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'smoothscroll.js')}"></script>--}%
+	%{--<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery-func.js')}"></script>--}%
 
 </body>
 </html>
