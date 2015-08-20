@@ -15,7 +15,7 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import org.springframework.security.access.annotation.Secured
 
-@Secured(['ROLE_DESENVOLVEDOR'])
+@Secured(['ROLE_DESENVOLVEDOR','ROLE_USER'])
 class GameController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -166,6 +166,11 @@ class GameController {
     def test() {
         "chmod a+x ${servletContext.getRealPath("/scripts/test.sh")}".execute().waitFor()
         render "${servletContext.getRealPath("/scripts/test.sh")}".execute().text
+    }
+
+    @Secured(['ROLE_USER'])
+    def newDeveloper(){
+        println "OLa"
     }
 
     @Secured(['ROLE_ADMIN'])
