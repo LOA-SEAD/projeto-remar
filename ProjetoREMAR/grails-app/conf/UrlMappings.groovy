@@ -21,7 +21,8 @@ class UrlMappings {
         // begin password mappings
         //noinspection GroovyAssignabilityCheck
         name resetPassword: "/password/reset"(view: "/static/forgottenPassword")
-        name developerForm: "/new/developer"(view:"/static/formDeveloper")
+        //noinspection GroovyAssignabilityCheck
+        name developerForm: "/developer/new"(view:"/static/formDeveloper")
         // end password mappings
 
         // begin Process API endpoints
