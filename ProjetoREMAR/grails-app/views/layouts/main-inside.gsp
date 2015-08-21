@@ -21,7 +21,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-        <link rel="stylesheet" href="/css/custom.css">
+        <link rel="stylesheet" href="/assets/css/custom.css">
 
         <link href='http://fonts.googleapis.com/css?family=Sniglet' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Ropa+Sans' rel='stylesheet'>
@@ -33,11 +33,10 @@
         <link href="${resource(dir: 'assets/css', file: 'bootstrap.css')}" rel="stylesheet">
         <link href="${resource(dir: 'assets/css', file: 'grayscale-menu.css')}" rel="stylesheet">
         <link href="${resource(dir: 'assets/css', file: 'icomoon.css')}"  rel="stylesheet">
-        <link href="${resource(dir: 'css', file: 'custom.css')}" rel="stylesheet">
+        <link href="${resource(dir: 'assets/css', file: 'custom.css')}" rel="stylesheet">
+        <script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery.min.js')}"></script>
 
         <g:layoutHead/>
-
-        <script src='https://www.google.com/recaptcha/api.js'></script>
 
     </head>
     <body>
@@ -46,12 +45,32 @@
         <div class="col-sm-3 col-md-2 sidebar">
          <h3><i class="glyphicon glyphicon-briefcase"></i> Workspace</h3>
             <ul class="nav nav-sidebar">
-                <li> <g:link controller="process" action="pendingTasks" >Tarefas Pendentes</g:link></li>
-                <li> <g:link uri="/dashboard" >Jogos Personalizáveis</g:link></li>
-                <li> <g:link controller="process" action="userProcesses">Meus Processos</g:link></li>
+                <li> <g:link controller="process" action="pendingTasks" >
+                    Tarefas Pendentes</g:link></li>
+                <li> <g:link uri="http://myapp.dev:9090/dashboard" >Jogos Personalizáveis</g:link></li>
+                <li> <g:link controller="process" action="userProcesses">
+                    <i class="fa fa-list-alt"></i>
+                    Meus Processos</g:link>
+                </li>
             </ul>
         </div>
     </div>
+
+    %{--<div id="wrapper" class="active">--}%
+
+        %{--<div id="sidebar-wrapper">--}%
+            %{--<ul id="sidebar_menu" class="sidebar-nav">--}%
+                %{--<li class="sidebar-brand"><a id="menu-toggle" href="#">Workspace<span id="main_icon" class="glyphicon glyphicon-align-justify"></span></a></li>--}%
+            %{--</ul>--}%
+            %{--<ul class="sidebar-nav" id="sidebar">--}%
+                %{--<li><a>REAs Personalizáveis<span class="sub_icon glyphicon glyphicon-link"></span></a></li>--}%
+                %{--<li><a>Meus REAs<span class="sub_icon glyphicon glyphicon-link"></span></a></li>--}%
+                %{--<li><a>REAs Publicos<span class="sub_icon glyphicon glyphicon-link"></span></a></li>--}%
+                %{--<li><a>Tarefas Pendentes<span class="sub_icon glyphicon glyphicon-link"></span></a></li>--}%
+            %{--</ul>--}%
+        %{--</div>--}%
+
+    %{--</div>--}%
 
     <div class="row">
 
@@ -84,7 +103,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="/dashboard">Espaço do Usuário  <span class="sr-only">(current)</span></a></li>
                         <li><a href="/game/index">Espaço do Desenvolvedor<span class="sr-only">(current)</span></a></li>
-                        <li><g:link mapping="developerForm">Torne-se um Desenvolver no REMAR</g:link><span class="sr-only">(current)</span></li>
+                        <li><a href="#">Torne-se um Desenvolvedor<span class="sr-only">(current)</span></a></li>
                     </ul>
                 </div>
 
@@ -126,6 +145,8 @@
                 %{--</ul>--}%
             %{--</div>--}%
         %{--</nav>--}%
+
+
 
         <g:layoutBody/>
     </div>

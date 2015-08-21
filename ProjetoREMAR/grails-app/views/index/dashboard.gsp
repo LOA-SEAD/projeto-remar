@@ -24,11 +24,24 @@
             %{--</ul>--}%
         %{--</div>--}%
     %{--</div>--}%
+
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <div class="main-content">
+
+
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                <h3 class="panel-title">  <i class="fa fa-gamepad"></i> Jogos personalizáveis</h3>
+                </div>
+                <div class="panel-body">The server successfully processed the request.</div>
+            </div>
+
+
+
+
             <div class="widget">
                 <h3 class="section-title first-title">
-                    <i class="fa fa-gamepad"></i> Jogos personalizáveis
+
                 </h3>
                 <div class="widget-content-white glossed">
                     <div class="padded">

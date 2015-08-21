@@ -60,7 +60,9 @@ a:focus{
 .container-black{
     background-color: rgba(0,0,0,.7);
     border-radius: 10px;
-    float: right;
+    position: relative;
+    top:50%;
+    left: -25%;
 }
 
 .light {
