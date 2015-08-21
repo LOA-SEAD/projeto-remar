@@ -3,6 +3,7 @@ import br.ufscar.sead.loa.remar.RequestMap
 import br.ufscar.sead.loa.remar.Role
 import br.ufscar.sead.loa.remar.UserRole
 import br.ufscar.sead.loa.remar.User
+import grails.util.Environment
 import org.camunda.bpm.engine.IdentityService
 import org.camunda.bpm.engine.identity.Group
 
@@ -181,6 +182,9 @@ class BootStrap {
 //        springContext.getBean('marshallers').register();
 
 */
+        if (Environment.current ==  Environment.DEVELOPMENT) {
+            RequestMap.findAll().each {it.delete flush: true}
+        }
         if(!RequestMap.findById(1)) {
             for (url in [
                     '/', '/index', '/doc/**', '/assets/**', '/**/js/**', '/**/css/**', '/**/images/**',
@@ -199,7 +203,7 @@ class BootStrap {
             new RequestMap(url: '/process/deploy', configAttribute: 'ROLE_ADMIN').save()
             new RequestMap(url: '/process/undeploy', configAttribute: 'ROLE_ADMIN').save()
             new RequestMap(url: '/user/index', configAttribute: 'ROLE_ADMIN').save()
-            new RequestMap(url: '/')
+            new RequestMap(url: '/developer/new', configAttribute: 'IS_AUTHENTICATED_FULLY').save()
 //            new RequestMap(url: '', configAttribute: '').save()
         }
 
