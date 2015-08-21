@@ -15,14 +15,7 @@
 
 <body>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<g:form>
-    <fieldset class="form">
-        <g:render template="formDeveloper"/>
-    </fieldset>
-    <fieldset class="buttons">
-        <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-    </fieldset>
-</g:form>
+<h1>Obrigado pelas informações, agora você é um desenvolvedor no REMAR :D</h1>
     </div>
 </body>
 </html>

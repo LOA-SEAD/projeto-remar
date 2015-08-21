@@ -170,7 +170,8 @@ class GameController {
 
     @Secured(['ROLE_USER'])
     def newDeveloper(){
-        println "OLa"
+        println params
+        render(view:"/static/newDeveloper")
     }
 
     @Secured(['ROLE_ADMIN'])

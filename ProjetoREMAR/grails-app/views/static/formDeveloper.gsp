@@ -1,11 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<head>
+    <meta name="layout" content="main-inside">
 <style>
+
     #reasons{
         height:100px;
         width: 300px;
     }
 </style>
-<div>
+</head>
+<body>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <g:form action="newDeveloper" controller="game">
     <label for="fullName"> Nome Completo
         <span class="required-indicator">*</span>
         <input id="fullName" type="text" name="fullName" />
@@ -229,5 +235,14 @@
 
         </div>
     </div>
+        <input type="checkbox" name="agree" id="remember">
 
+    %{--<div class="footer-span span-create">--}%
+        <span class="footer-span span-create" ><label for="remember">Eu concordo com os <a>Termos e Servi&ccedil;os</a> e a
+            <a>Politica de Privacidade</a> do REMAR</label></span> <br> <br>
+
+        <g:submitButton name="Enviar"/>
+    </g:form>
 </div>
+
+</body>

@@ -47,7 +47,7 @@
          <h3><i class="glyphicon glyphicon-briefcase"></i> Workspace</h3>
             <ul class="nav nav-sidebar">
                 <li> <g:link controller="process" action="pendingTasks" >Tarefas Pendentes</g:link></li>
-                <li> <g:link uri="http://myapp.dev:9090/dashboard" >Jogos Personalizáveis</g:link></li>
+                <li> <g:link uri="/dashboard" >Jogos Personalizáveis</g:link></li>
                 <li> <g:link controller="process" action="userProcesses">Meus Processos</g:link></li>
             </ul>
         </div>
@@ -84,7 +84,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="/dashboard">Espaço do Usuário  <span class="sr-only">(current)</span></a></li>
                         <li><a href="/game/index">Espaço do Desenvolvedor<span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">Torne-se um Desenvolvedor<span class="sr-only">(current)</span></a></li>
+                        <li><g:link mapping="developerForm">Torne-se um Desenvolver no REMAR</g:link><span class="sr-only">(current)</span></li>
                     </ul>
                 </div>
 

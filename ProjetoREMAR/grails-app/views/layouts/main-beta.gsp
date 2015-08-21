@@ -58,7 +58,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="/dashboard">Espaço do Usuário  <span class="sr-only">(current)</span></a></li>
                     <li><a href="/game/index">Espaço do Desenvolvedor<span class="sr-only">(current)</span></a></li>
-                    <li><a href="#">Torne-se um Desenvolvedor no REMAR<span class="sr-only">(current)</span></a></li>
+                    <li><a href="/game/newDeveloper">Torne-se um Desenvolvedor no REMAR<span class="sr-only">(current)</span></a></li>
                 </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
