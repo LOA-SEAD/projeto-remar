@@ -79,7 +79,7 @@ grails.project.dependency.resolution = {
 
 
         // plugins needed at runtime but not for compilation
-        runtime ":hibernate4:4.3.6.1" // or ":hibernate:3.6.10.18"
+        runtime ":hibernate4:4.3.5.5" // or ":hibernate:3.6.10.18"
         runtime ":database-migration:1.4.0"
         runtime ':twitter-bootstrap:3.3.4' // current: 3.3.4
         runtime ":redis:1.6.5"

@@ -1,3 +1,7 @@
+import br.ufscar.sead.loa.remar.RequestMap
+import grails.plugin.springsecurity.SecurityConfigType
+import org.apache.catalina.security.SecurityConfig
+
 // locations to search for config files that get merged into the main config;
 // config files can be ConfigSlurper scripts, Java properties files, or classes
 // in the classpath in ConfigSlurper format
@@ -185,31 +189,15 @@ log4j = {
 }
 // Added by the Spring Security Core plugin:
 
+grails.plugin.springsecurity.securityConfigType = SecurityConfigType.Requestmap
+grails.plugin.springsecurity.requestMap.className = 'br.ufscar.sead.loa.remar.RequestMap'
+
 grails.plugin.springsecurity.logout.postOnly = false
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'br.ufscar.sead.loa.remar.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'br.ufscar.sead.loa.remar.UserRole'
 grails.plugin.springsecurity.authority.className = 'br.ufscar.sead.loa.remar.Role'
 grails.plugin.springsecurity.successHandler.alwaysUseDefault = true
 grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/index'
-grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-    '/':                              ['permitAll'],
-    '/index':                         ['permitAll'],
-    '/doc/**':                        ['permitAll'],
-    '/assets/**':                     ['permitAll'],
-    '/**/js/**':                      ['permitAll'],
-    '/**/css/**':                     ['permitAll'],
-    '/**/images/**':                  ['permitAll'],
-    '/**/favicon.ico':                ['permitAll'],
-    '/data/**':                       ['permitAll'],
-    '/**/scss/**':                    ['permitAll'],
-    '/**/less/**':                    ['permitAll'],
-    '/**/fonts/**':                   ['permitAll'],
-    '/password/**':                   ['permitAll'],
-    '/moodle/**':                     ['permitAll'],
-    '/exportedGame/**':               ['permitAll'],
-    '/static/**':                     ['permitAll'],
-    "http://myapp.dev:9090/remar":    ['permitAll']
-]
 
 grails.plugin.springsecurity.interceptUrlMap = [
         "/j_spring_security_facebook_redirect": ["IS_AUTHENTICATED_ANONYMOUSLY"],

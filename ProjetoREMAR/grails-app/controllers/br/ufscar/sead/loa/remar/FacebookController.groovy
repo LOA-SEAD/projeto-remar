@@ -7,7 +7,6 @@ import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
 import grails.plugins.rest.client.RestBuilder
 
-@Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
 class FacebookController {
 //
 //    FacebookContext facebookContext

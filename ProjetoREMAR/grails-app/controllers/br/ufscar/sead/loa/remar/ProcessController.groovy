@@ -34,8 +34,6 @@ class ProcessController {
     RepositoryService repositoryService
     MailService mailService
 
-
-    @Secured(["ROLE_ADMIN", "ROLE_STUD", "ROLE_USER"])
     def start() {
         println params.id
         def processId
@@ -66,8 +64,6 @@ class ProcessController {
 
         identityService.setAuthenticatedUserId(session.user.camunda_id)
 
-        redirect uri: "/process/tasks/overview/$processId"
-
         //redirect(action: "tasksOverview")
         /*
             if(activeTasks.first().assignee==currentUser){
@@ -82,7 +78,6 @@ class ProcessController {
     }
 //
 
-    @Secured(['ROLE_ADMIN'])
     def deploy() {
         def rootPath = servletContext.getRealPath("/")
         def name = params.id
@@ -120,7 +115,6 @@ class ProcessController {
 
     }
 
-    @Secured(['ROLE_ADMIN'])
     def undeploy() {
         println params.id
         repositoryService.deleteDeployment(params.id, true)
@@ -135,7 +129,7 @@ class ProcessController {
         return parsedURI
 
     }
-    @Secured(["ROLE_ADMIN", "ROLE_STUD", "ROLE_USER"])
+
     def chooseUsersTasks() {
         if (runtimeService.getVariable(params.processId, 'ownerId') as int != springSecurityService.currentUser.id && !SpringSecurityUtils.ifAllGranted('ROLE_ADMIN')) {
             response.status = 404
@@ -160,8 +154,6 @@ class ProcessController {
 
     }
 
-
-    @Secured(["ROLE_ADMIN", "ROLE_STUD", "ROLE_USER"])
     def userProcesses() {
         String userId = springSecurityService.getCurrentUser().getId()
         List<ProcessInstance> processesList = runtimeService.createProcessInstanceQuery().list()
@@ -346,7 +338,7 @@ class ProcessController {
 */
 
 
-    }
+}
 
 
 

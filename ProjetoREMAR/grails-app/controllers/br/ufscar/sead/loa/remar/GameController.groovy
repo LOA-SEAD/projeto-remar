@@ -15,7 +15,7 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import org.springframework.security.access.annotation.Secured
 
-@Secured(['ROLE_DESENVOLVEDOR','ROLE_USER'])
+
 class GameController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -32,7 +32,6 @@ class GameController {
 
     }
 
-    @Secured(['ROLE_ADMIN'])
     def edit(Game gameInstance) {
         render view: 'edit', model:[deployInstance: deployInstance]
     }
@@ -94,7 +93,7 @@ class GameController {
             gameInstance.valid = false
             gameInstance.name = war.originalFilename
             gameInstance.uri = ""
-            gameInstance.status  = "rejected"
+            gameInstance.status = "rejected"
             gameInstance.comment = war.originalFilename + " doesn't contain a valid manifest.json."
             gameInstance.save flush: true
             redirect action: "index"
@@ -168,13 +167,11 @@ class GameController {
         render "${servletContext.getRealPath("/scripts/test.sh")}".execute().text
     }
 
-    @Secured(['ROLE_USER'])
     def newDeveloper(){
         println params
         render(view:"/static/newDeveloper")
     }
 
-    @Secured(['ROLE_ADMIN'])
     def review() {
         def gameInstance = Game.findById(params.id)
         String status  = params.status

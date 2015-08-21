@@ -1,4 +1,5 @@
 import br.ufscar.sead.loa.remar.Platform
+import br.ufscar.sead.loa.remar.RequestMap
 import br.ufscar.sead.loa.remar.Role
 import br.ufscar.sead.loa.remar.UserRole
 import br.ufscar.sead.loa.remar.User
@@ -40,10 +41,10 @@ class BootStrap {
             println "ROLE_STUD inserted"
         }
 
-        found = allRoles.findAll {it.authority == "ROLE_DESENVOLVEDOR"}
+        found = allRoles.findAll {it.authority == "ROLE_DEV"}
         if (found == []) {
-            def devRole = new Role(authority: "ROLE_DESENVOLVEDOR").save flush: true
-            println "ROLE_DESENVOLVEDOR inserted"
+            def devRole = new Role(authority: "ROLE_DEV").save flush: true
+            println "ROLE_DEV inserted"
         }
 
         def adminUser = User.findByUsername("admin")
@@ -73,7 +74,7 @@ class BootStrap {
             UserRole.create(userInstance, Role.findByAuthority("ROLE_PROF"), true)
             UserRole.create(userInstance, Role.findByAuthority("ROLE_STUD"), true)
             UserRole.create(userInstance, Role.findByAuthority("ROLE_EDITOR"), true)
-            UserRole.create(userInstance, Role.findByAuthority("ROLE_DESENVOLVEDOR"), true)
+            UserRole.create(userInstance, Role.findByAuthority("ROLE_DEV"), true)
             UserRole.create(userInstance, Role.findByAuthority("ROLE_FACEBOOK"), true)
 
             println "admin user inserted"
@@ -115,7 +116,7 @@ class BootStrap {
             UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_PROF"), true)
             UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_STUD"), true)
             UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_EDITOR"), true)
-            UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_DESENVOLVEDOR"), true)
+            UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_DEV"), true)
             UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_FACEBOOK"), true)
 
             println "guest user inserted"
@@ -180,6 +181,30 @@ class BootStrap {
 //        springContext.getBean('marshallers').register();
 
 */
+        if(!RequestMap.findById(1)) {
+            for (url in [
+                    '/', '/index', '/doc/**', '/assets/**', '/**/js/**', '/**/css/**', '/**/images/**',
+                    '/**/favicon.ico', '/data/**', '/**/scss/**', '/**/less/**', '/**/fonts/**',
+                    '/password/**', '/moodle/**', '/exportedGame/**', '/static/**', '/login/**', '/logout/**', '/user/**',
+                    '/facebook/**'
+            ]) {
+                new RequestMap(url: url, configAttribute: 'permitAll').save()
+            }
+
+            new RequestMap(url: '/dashboard', configAttribute: 'IS_AUTHENTICATED_FULLY').save()
+            new RequestMap(url: '/game/**', configAttribute: 'ROLE_DEV').save()
+            new RequestMap(url: '/game/edit', configAttribute: 'ROLE_ADMIN').save()
+            new RequestMap(url: '/game/review', configAttribute: 'ROLE_ADMIN').save()
+            new RequestMap(url: '/process/**', configAttribute: 'IS_AUTHENTICATED_FULLY').save()
+            new RequestMap(url: '/process/deploy', configAttribute: 'ROLE_ADMIN').save()
+            new RequestMap(url: '/process/undeploy', configAttribute: 'ROLE_ADMIN').save()
+            new RequestMap(url: '/user/index', configAttribute: 'ROLE_ADMIN').save()
+            new RequestMap(url: '/')
+//            new RequestMap(url: '', configAttribute: '').save()
+        }
+
+
+
         println "Bootstrap: done"
 
     }

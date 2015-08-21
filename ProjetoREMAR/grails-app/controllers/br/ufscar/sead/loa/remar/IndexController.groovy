@@ -11,7 +11,6 @@ class IndexController {
     def springSecurityService
     RuntimeService runtimeService
 
-    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def index() {
         if (springSecurityService.isLoggedIn()) {
             session.user = springSecurityService.currentUser
@@ -21,7 +20,6 @@ class IndexController {
         }
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY'])
     def dashboard() {
         def model = [:]
 

@@ -24,26 +24,24 @@ class UserController {
     IdentityService identityService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", filteredList: "POST"]
 
-    @Secured(["ROLE_ADMIN"])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
 
         respond User.list(params)
     }
 
+    def test() {
+        render '^~^'
+    }
 
-
-    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def show(User userInstance) {
         respond userInstance, model:[userInstance: userInstance]
     }
 
-    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def create() {
         respond new User(params), model:[admin: false, stud: false, dev: false, source: "create"]
     }
 
-    @Secured(["ROLE_ADMIN","ROLE_STUD","ROLE_USER","ROLE_DESENVOLVEDOR"])
     @Transactional(readOnly=false)
     def saveCamundaDB(userInstance){
 
@@ -59,7 +57,6 @@ class UserController {
             redirect(controller: 'index')
     }
     @Transactional(readOnly=false)
-    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def confirmNewUser(){
 
         println params.Token
@@ -77,7 +74,6 @@ class UserController {
             render "deu errado! :("
     }
 
-    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def sendConfirmationMail(userEmail,userId){
 
 
@@ -100,7 +96,6 @@ class UserController {
 
     }
     @Transactional(readOnly=false)
-    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def newPassword(){
         // vai receber aqui a nova senha por post
         println params
@@ -117,7 +112,6 @@ class UserController {
     }
 
     @Transactional(readOnly=false)
-    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def createPassword(){
         if(PasswordToken.findByToken(params.Token)){
             def userToChange = User.findById(PasswordToken.findByToken(params.Token).idOwner)
@@ -130,7 +124,6 @@ class UserController {
         }
     }
     @Transactional(readOnly=false)
-    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def confirmEmail() {
         def userIP = request.getRemoteAddr()
 
@@ -173,7 +166,6 @@ class UserController {
         }
     }
 
-    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     @Transactional
     def save(User userInstance) {
         
@@ -265,12 +257,10 @@ class UserController {
     }
 
 
-    @Secured(["ROLE_ADMIN"])
     def edit(User userInstance) {
         respond userInstance, model:[admin: userInstance.isAdmin(), prof: userInstance.isProf(), stud: userInstance.isStud(), editor: userInstance.isEditor(), dev: userInstance.isDev(), source: "create", userInstance: userInstance]
     }
 
-    @Secured(["ROLE_ADMIN"])
     @Transactional
     def update(User userInstance) {
         if (userInstance == null) {
@@ -330,7 +320,6 @@ class UserController {
         }
     }
 
-    @Secured(["ROLE_ADMIN"])
     @Transactional
     def delete(User userInstance) {
 
@@ -372,7 +361,6 @@ class UserController {
         render(template: "grid", model:[userInstanceList: list])
     }
 
-    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def exists(){
         if(User.findByUsername(params.username))
             render true
@@ -380,7 +368,6 @@ class UserController {
             render false
     }
 
-    @Secured(["IS_AUTHENTICATED_ANONYMOUSLY"])
     def existsEmail(){
         if(User.findByEmail(params.email))
             render true
