@@ -13,6 +13,7 @@ class Game {
         android defaultValue: false
         web defaultValue: true
         linux defaultValue: false
+        files nullable: true
     }
 
     String name
@@ -24,6 +25,7 @@ class Game {
     boolean android
     boolean linux
     boolean moodle
+    String files
 
     // deploy
     Date submittedAt
