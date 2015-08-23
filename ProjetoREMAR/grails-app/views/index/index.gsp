@@ -37,14 +37,27 @@
 						<a href="#page-top"></a>
 					</li>
 					<li>
-						<a class="page-scroll" href="#about">Sobre</a>
+						<a class="page-scroll" href="#groupRemar">GT-REMAR</a>
 					</li>
 					<li>
-						<a class="page-scroll" href="#team">Equipe</a>
+						<a class="page-scroll" href="#description">Descrição</a>
 					</li>
 					<li>
-						<a class="page-scroll" href="#contact">Contato</a>
+						<a class="page-scroll" href="#architecture">Arquitetura</a>
 					</li>
+
+                    <li>
+                        <a class="page-scroll" href="#team">Equipe</a>
+                    </li>
+
+                    <li>
+                        <a class="page-scroll" href="#partners">Parceiros</a>
+                    </li>
+
+                    <li>
+                        <a class="page-scroll" href="#contact">Contato</a>
+                    </li>
+
 					<li id="navbar-custom-green">
 					</li>
 				</ul>
@@ -65,7 +78,7 @@
 						<div class="col-md-8 col-md-offset-2">
 							<h1 class="brand-heading">REMAR</h1>
 							<p class="intro-text">Recursos Educacionais abertos na rede </p>
-							<a href="#about" class="btn btn-circle page-scroll">
+							<a href="#groupRemar" class="btn btn-circle page-scroll">
 								<span class="icon-circle-arrow-down"></span>
 							</a>
 						</div>
@@ -75,58 +88,163 @@
 		</section>
 	</header>
 
-	<!-- About Section -->
-	<section id="about" class="content-section text-center">
+	<!-- GT REMAR -->
+	<section id="groupRemar" class="content-section text-center">
 		<div class="about-section">
-			<div class="container container-black">
+			<div class="container">
 				<div class="row">
 					<div class="col-lg-8 col-lg-offset-2 about">
-						<p>Grayscale is a free Bootstrap 3 theme created by Start Bootstrap. It can be yours right now, simply team the template on <a href="http://startbootstrap.com/template-overviews/grayscale/">the preview page</a>. The theme is open source, and you can use it for any purpose, personal or commercial.</p>
-						<p>This theme features stock photos by <a href="http://gratisography.com/">Gratisography</a> along with a custom Google Maps skin courtesy of <a href="http://snazzymaps.com/">Snazzy Maps</a>.</p>
-						<p>Grayscale includes full HTML, CSS, and custom JavaScript files along with LESS files for easy customization.</p>
+                        <div class="container-black">
+                        <h2 style="text-align: left;">GT-REMAR</h2>
+                        <p style="text-align: justify">
+                            Este projeto encontra-se no contexto dos grupos de trabalho (GTs) Temáticos em EAD (sub-tema: Universidade Aberta OnLine) da RNP.
+                            O GT-REMAR tem como objetivo facilitar e ampliar a construção e o reuso de recursos educacionais abertos (REA), por meio de um serviço,
+                            na forma de uma plataforma web, que ofereça ferramentas que facilitem a construção e a customização de REA, seguindo diretrizes que favoreçam
+                            o reuso, a disponibilização desses recursos em diferentes plataformas, bem como a integração com ambientes virtuais de aprendizagem. Espera-se obter
+                            como resultados: (i) um conjunto de diretrizes para o desenvolvimento de REA reutilizáveis, adaptáveis, multiplataforma e acessíveis; (ii) um protótipo
+                            da plataforma, que deverá ser testado e validado por meio do desenvolvimento e adaptação de REA pelo grupo proponente, em conjunto com instituições parceiras.
+                        </p>
+                        </div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<!-- team Section -->
-	<section id="team" class="content-section text-center">
-		<div class="team-section">
+	<!-- Descrição -->
+	<section id="description" class="content-section text-center">
+		<div class="description-section">
 			<div class="container">
 				<div class="col-lg-8 col-lg-offset-2">
-					<h2>team Grayscale</h2>
-					<p>You can team Grayscale for free on the preview page at Start Bootstrap.</p>
-					<a href="http://startbootstrap.com/template-overviews/grayscale/" class="btn btn-default btn-lg">Visit team Page</a>
+                    <div class="container-black">
+                    <h2 style="text-align: left;">Descrição</h2>
+                    <p style="text-align: justify">
+                        O acesso aberto a recursos educacionais é um requisito essencial
+                        para a educação democrática, de qualidade, sustentável e aberta,
+                        em qualquer modalidade (presencial, a distância, híbrida) e em
+                        todos os níveis de formação. Além do acesso, o reuso de recursos
+                        educacionais deve ser promovido, considerando que o desenvolvimento
+                        desses recursos, em geral, é um processo bastante dispendioso e requer
+                        um trabalho conjunto entre especialistas do conteúdo e uma equipe
+                        multidisciplinar, sobretudo quando consideramos os recursos educacionais
+                        interativos e que integram diferentes mídias e tecnologias. Dessa
+                        forma, este projeto tem como intuito ampliar o acesso aos recursos
+                        educacionais abertos, por meio de um serviço, na forma de uma plataforma
+                        web, que ofereça ferramentas que facilitem a construção e customização
+                        de REA seguindo diretrizes que favoreçam o reuso, bem como a
+                        disponibilização desses recursos em diferentes plataformas e a
+                        integração com ambientes virtuais de aprendizagem.
+                    </p>
+                    </div>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<!-- Contact Section -->
-	<section id="contact" class="container content-section text-center">
+	<!-- Arquitetura -->
+	<section id="architecture" class="container content-section text-center">
 		<div class="row">
 			<div class="col-lg-8 col-lg-offset-2">
-				<h2>Contact Start Bootstrap</h2>
-				<p>Feel free to email us to provide some feedback on our templates, give us suggestions for new templates and themes, or to just say hello!</p>
-				<p><a href="mailto:feedback@startbootstrap.com">feedback@startbootstrap.com</a>
-				</p>
-				<ul class="list-inline banner-social-buttons">
-					<li>
-						<a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
-					</li>
-					<li>
-						<a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
-					</li>
-					<li>
-						<a href="https://plus.google.com/+Startbootstrap/posts" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a>
-					</li>
-				</ul>
-			</div>
+				<h2 style="text-align:left;">Arquitetura</h2>
+				<p style="text-align: justify">
+                    Um esboço da arquitetura da plataforma proposta é apresentado abaixo.
+                    Os usuários da plataforma poderão realizar a autoria e/ou adaptação e
+                    posterior publicação de instâncias de recursos educacionais abertos (REA),
+                    segundo um conjunto de diretrizes para a construção de REA que serão estabelecidas
+                    para este serviço. A plataforma proposta disponibilizará, por meio de duas
+                    ferramentas (de autoria e de publicação), um conjunto de funcionalidades que visam
+                    facilitar: (i) a construção de REA utilizando tecnologia HTML5; (ii) a adaptação
+                    dos componentes constituintes do REA para o atendimento de diferentes necessidades
+                    (adaptação de conteúdo, interface para dispositivos móveis, acessibilidade); (iii)
+                    a geração e publicação de instâncias dos REA para plataformas web, móvel, desktop;
+                    (iv) a integração de REA com ambientes virtuais de aprendizagem. As duas primeiras
+                    funcionalidades (construção e adaptação) estarão sob a responsabilidade da ferramenta
+                    de autoria, enquanto as duas últimas (geração/publicação para múltiplas plataformas e
+                    integração com AVA) sob a responsabilidade da ferramenta de publicação.
+                </p>
+                <div class="container-white">
+                      %{--<div class="architecture-img"/>--}%
+                    <img src="../images/architecture.png" width="90%" height="90%"></img>
+                </div>
+            </div>
 		</div>
 	</section>
 
-	<!-- Map Section -->
+    <!-- Equipe -->
+    <section id="team" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2 style="text-align:left;">Equipe</h2>
+                <p style="text-align: justify">
+                    Equipe
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parceiros -->
+    <section id="partners" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 " >
+                <div class="container-white">
+                <h2 style="text-align:left;">Parceiros</h2>
+                <p style="text-align: justify">
+                    Instituições
+                </p>
+
+                <div>
+                    <a style="padding: 2px;" href="http://www.ufscar.br" target="_blank" rel="prettyPhoto" title="Universidade Federal de São Carlos">
+                        <img src="../images/partners/ufscar.png" alt="UFSCar">
+                    </a>
+                    <a href="http://www.unicamp.br/unicamp/" target="_blank" rel="prettyPhoto" title="Universidade Estadual de Campinas">
+                        <img src="../images/partners/unicamp.png" alt="UNICAMP">
+                    </a>
+                    <a href="http://www.unifesp.br/" target="_blank" rel="prettyPhoto" title="Universidade Federal de São Paulo">
+                        <img src="../images/partners/unifesp.png" alt="UNIFESP">
+                    </a>
+                    <a href="http://ufsc.br/" target="_blank" rel="prettyPhoto" title="Universidade Federal de Santa Catarina">
+                        <img src="../images/partners/ufsc.png" alt="UFSC">
+                    </a>
+                    <a href="http://www.uneb.br/" target="_blank" rel="prettyPhoto" title="Universidade do Estado da Bahia">
+                        <img src="../images/partners/uneb.png" alt="UNEB">
+                    </a>
+                </div>
+                <p>
+
+                </p>
+
+
+                <p style="text-align: justify">
+                    Investimento
+                </p>
+                <div>
+                    <a href="http://www.rnp.br/" target="_blank" rel="prettyPhoto" title="Rede Nacional de Ensino e Pesquisa">
+                        <img src="../images/partners/rnp.png" alt="RNP">
+                    </a>
+                </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!--Contato -->
+    <section id="contact" class="container content-section text-center">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <h2 style="text-align:left;">Contato</h2>
+                <p style="text-align: justify">
+                    Endereço:</p>
+                <p style="text-align: justify">
+                    Email: remar@sead.ufscar.br
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+<!-- Map Section -->
 	<div id="map"></div>
 
 	<!-- Footer -->

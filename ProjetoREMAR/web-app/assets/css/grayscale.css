@@ -9,7 +9,9 @@ body {
     height: 100%;
     font-family: Lora,"Helvetica Neue",Helvetica,Arial,sans-serif;
     color: #fff;
-    background-color: rgba(0, 0, 0, 1);
+    background-color: #000000
+    /*background: url(../../images/backgrounds/description.JPG) repeat center center scroll;*/
+
 }
 
 html {
@@ -58,11 +60,18 @@ a:focus{
 }
 
 .container-black{
-    background-color: rgba(0,0,0,.7);
+    background-color: rgba(0,0,0,.5);
     border-radius: 10px;
-    position: relative;
-    top:50%;
-    left: -25%;
+    text-align: justify;
+
+}
+
+.container-white{
+    background-color: rgba(255, 255, 255, .85);
+    border-radius: 15px;
+    border: solid;
+    border-color: #9b9ea5;
+
 }
 
 .light {
@@ -156,7 +165,8 @@ a:focus{
     padding: 100px 0;
     text-align: center;
     color: #fff;
-    background: url(../img/header_bg.jpg) no-repeat bottom center scroll;
+    /*background: url(../img/header_bg.jpg) no-repeat bottom center scroll;*/
+    background: url(../../images/backgrounds/intro.jpg) no-repeat bottom center scroll;
     background-color: #000;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -274,8 +284,9 @@ a:focus{
     width: 100%;
     padding: 50px 0;
     color: #fff;
-    background: url(../img/bg/event-bg.jpg) no-repeat center center scroll;
-    background-color: #000;
+    /*background: url(../img/bg/event-bg.jpg) no-repeat center center scroll;*/
+    /*background-color: #6C7477;*/
+    background: url(../../images/backgrounds/description.JPG) no-repeat center center scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -284,15 +295,23 @@ a:focus{
 
 .about-section {
     width: 100%;
-    padding: 20%;
-    margin-top: -13%;
-    color: #fff;
-    background: url(../img/bg/bg-ufscar.png) no-repeat center center scroll;
-    background-color: #000;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
+    background: url(../../images/backgrounds/gtRemar2.jpg) no-repeat center center scroll;
+    padding: 100px 0;
+
+}
+
+.description-section {
+    width: 100%;
+    background: url(../../images/backgrounds/gtRemar3.jpg) no-repeat center center scroll;
+    padding: 100px 0;
+
+}
+
+.architecture-section {
+    width: 100%;
+    background: url(../../images/backgrounds/description.JPG) no-repeat center center scroll;
+    padding: 100px 0;
+
 }
 
 
@@ -401,3 +420,18 @@ body {
     margin: 7px 7px 5px 7px;
 }
 
+.architecture-img{
+    background: url(../../images/architecture.png) no-repeat center center scroll;
+    resize: both;
+    color: #fff;
+    /*background: url(../img/bg/event-bg.jpg) no-repeat center center scroll;*/
+    /*background-color: #000;*/
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+
+}
+.partners-div{
+    background-color: #FFF;
+}
