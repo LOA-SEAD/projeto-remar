@@ -89,180 +89,327 @@
 	</header>
 
     <div class="container-black">
+        <section class="content-section text-center">
+            <div class="about-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-lg-offset-2 about">
+                            <div class="container-black">
+                                %{--GroupRemar--}%
+                                <div id="groupRemar"  class="about-section">
+                                    <div class="container-custom">
+                                        <h2 style="text-align: left;">GT-REMAR</h2>
+                                        <p style="text-align: justify">
+                                    Este projeto encontra-se no contexto dos grupos de trabalho (GTs) Temáticos em EAD (sub-tema: Universidade Aberta OnLine) da RNP.
+                                    O GT-REMAR tem como objetivo facilitar e ampliar a construção e o reuso de recursos educacionais abertos (REA), por meio de um serviço,
+                                    na forma de uma plataforma web, que ofereça ferramentas que facilitem a construção e a customização de REA, seguindo diretrizes que favoreçam
+                                    o reuso, a disponibilização desses recursos em diferentes plataformas, bem como a integração com ambientes virtuais de aprendizagem. Espera-se obter
+                                    como resultados: (i) um conjunto de diretrizes para o desenvolvimento de REA reutilizáveis, adaptáveis, multiplataforma e acessíveis; (ii) um protótipo
+                                    da plataforma, que deverá ser testado e validado por meio do desenvolvimento e adaptação de REA pelo grupo proponente, em conjunto com instituições parceiras.
+                                </p>
+                                    </div>
+                                </div>
+                                %{--Fim GroupRemar--}%
 
-	<!-- GT REMAR -->
-	<section id="groupRemar" class="content-section text-center">
-		<div class="about-section">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-8 col-lg-offset-2 about">
-                        <div class="container-black">
-                        <h2 style="text-align: left;">GT-REMAR</h2>
-                        <p style="text-align: justify">
-                            Este projeto encontra-se no contexto dos grupos de trabalho (GTs) Temáticos em EAD (sub-tema: Universidade Aberta OnLine) da RNP.
-                            O GT-REMAR tem como objetivo facilitar e ampliar a construção e o reuso de recursos educacionais abertos (REA), por meio de um serviço,
-                            na forma de uma plataforma web, que ofereça ferramentas que facilitem a construção e a customização de REA, seguindo diretrizes que favoreçam
-                            o reuso, a disponibilização desses recursos em diferentes plataformas, bem como a integração com ambientes virtuais de aprendizagem. Espera-se obter
-                            como resultados: (i) um conjunto de diretrizes para o desenvolvimento de REA reutilizáveis, adaptáveis, multiplataforma e acessíveis; (ii) um protótipo
-                            da plataforma, que deverá ser testado e validado por meio do desenvolvimento e adaptação de REA pelo grupo proponente, em conjunto com instituições parceiras.
-                        </p>
+                                %{--Descrição--}%
+                                <div id="description"  class="about-section">
+                                    <div class="container-custom">
+                                        <h2 style="text-align: left;">Descrição</h2>
+                                        <p style="text-align: justify">
+                                    O acesso aberto a recursos educacionais é um requisito essencial
+                                    para a educação democrática, de qualidade, sustentável e aberta,
+                                    em qualquer modalidade (presencial, a distância, híbrida) e em
+                                    todos os níveis de formação. Além do acesso, o reuso de recursos
+                                    educacionais deve ser promovido, considerando que o desenvolvimento
+                                    desses recursos, em geral, é um processo bastante dispendioso e requer
+                                    um trabalho conjunto entre especialistas do conteúdo e uma equipe
+                                    multidisciplinar, sobretudo quando consideramos os recursos educacionais
+                                    interativos e que integram diferentes mídias e tecnologias. Dessa
+                                    forma, este projeto tem como intuito ampliar o acesso aos recursos
+                                    educacionais abertos, por meio de um serviço, na forma de uma plataforma
+                                    web, que ofereça ferramentas que facilitem a construção e customização
+                                    de REA seguindo diretrizes que favoreçam o reuso, bem como a
+                                    disponibilização desses recursos em diferentes plataformas e a
+                                    integração com ambientes virtuais de aprendizagem.
+                                </p>
+                                    </div>
+                                </div>
+                                %{--Fim Descrição--}%
+
+                                %{--Arquitetura--}%
+                                <div id="architecture"  class="about-section">
+                                    <div class="container-custom">
+                                        <h2  style="text-align:left;">Arquitetura</h2>
+                                        <p style="text-align: justify">
+                                    Um esboço da arquitetura da plataforma proposta é apresentado abaixo.
+                                    Os usuários da plataforma poderão realizar a autoria e/ou adaptação e
+                                    posterior publicação de instâncias de recursos educacionais abertos (REA),
+                                    segundo um conjunto de diretrizes para a construção de REA que serão estabelecidas
+                                    para este serviço. A plataforma proposta disponibilizará, por meio de duas
+                                    ferramentas (de autoria e de publicação), um conjunto de funcionalidades que visam
+                                    facilitar: (i) a construção de REA utilizando tecnologia HTML5; (ii) a adaptação
+                                    dos componentes constituintes do REA para o atendimento de diferentes necessidades
+                                    (adaptação de conteúdo, interface para dispositivos móveis, acessibilidade); (iii)
+                                    a geração e publicação de instâncias dos REA para plataformas web, móvel, desktop;
+                                    (iv) a integração de REA com ambientes virtuais de aprendizagem. As duas primeiras
+                                    funcionalidades (construção e adaptação) estarão sob a responsabilidade da ferramenta
+                                    de autoria, enquanto as duas últimas (geração/publicação para múltiplas plataformas e
+                                    integração com AVA) sob a responsabilidade da ferramenta de publicação.
+                                </p>
+                                        <div class="container-white" style="text-align: center;">
+                                    %{--<div class="architecture-img"/>--}%
+                                    <img src="../images/architecture.png" width="90%" height="90%"></img>
+                                </div>
+                                    </div>
+                                </div>
+                                %{--Fim Arquitetura--}%
+
+                                %{--Equipe--}%
+                                <div id="team"  class="about-section">
+                                    <div class="container-custom">
+                                        <h2 style="text-align:left;">Equipe</h2>
+                                        <p style="text-align: justify">
+                                    Equipe
+                                </p>
+                                    </div>
+                                </div>
+                                %{--Fim Equipe--}%
+
+                                %{--Parceiros--}%
+                                <div id="partners"  class="about-section">
+                                    <div class="container-custom">
+                                        <h2 style="text-align:left;">Parceiros</h2>
+                                        <p style="text-align: justify">
+                                    Instituições
+                                </p>
+                                        <div class="container-white" style="text-align: center">
+                                    <div>
+                                        <a style="padding: 2px;" href="http://www.ufscar.br" target="_blank" rel="prettyPhoto" title="Universidade Federal de São Carlos">
+                                            <img src="../images/partners/ufscar.png" alt="UFSCar">
+                                        </a>
+                                        <a href="http://www.unicamp.br/unicamp/" target="_blank" rel="prettyPhoto" title="Universidade Estadual de Campinas">
+                                            <img src="../images/partners/unicamp.png" alt="UNICAMP">
+                                        </a>
+                                        <a href="http://www.unifesp.br/" target="_blank" rel="prettyPhoto" title="Universidade Federal de São Paulo">
+                                            <img src="../images/partners/unifesp.png" alt="UNIFESP">
+                                        </a>
+                                        <a href="http://ufsc.br/" target="_blank" rel="prettyPhoto" title="Universidade Federal de Santa Catarina">
+                                            <img src="../images/partners/ufsc.png" alt="UFSC">
+                                        </a>
+                                        <a href="http://www.uneb.br/" target="_blank" rel="prettyPhoto" title="Universidade do Estado da Bahia">
+                                            <img src="../images/partners/uneb.png" alt="UNEB">
+                                        </a>
+                                    </div>
+                                </div>
+                                        <p>
+
+                                        </p>
+
+                                        <p style="text-align: justify">
+                                            Investimento
+                                        </p>
+                                        <div class="container-white" style="text-align: center">
+                                            <div>
+                                                <a href="http://www.rnp.br/" target="_blank" rel="prettyPhoto" title="Rede Nacional de Ensino e Pesquisa">
+                                                    <img src="../images/partners/rnp.png" alt="RNP">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                %{--Fim Parceiros--}%
+
+                                %{--Contato--}%
+                                <div id="contact"  class="about-section">
+                                    <div class="container-custom">
+                                        <h2 style="text-align:left;">Contato</h2>
+                                        <p style="text-align: justify">
+                                            Email: remar@sead.ufscar.br
+                                        </p>
+                                        <p style="text-align: justify">
+                                            Endereço: Universidade Federal de São Carlos, At3 - Sala 54 - São Carlos - SP
+                                        </p>
+                                    </div>
+                                </div>
+                                %{--Fim Contato--}%
+                            </div>
                         </div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- Descrição -->
-	<section id="description" class="content-section text-center">
-		<div class="description-section">
-			<div class="container">
-				<div class="col-lg-8 col-lg-offset-2">
-                    <div class="container-black">
-                    <h2 style="text-align: left;">Descrição</h2>
-                    <p style="text-align: justify">
-                        O acesso aberto a recursos educacionais é um requisito essencial
-                        para a educação democrática, de qualidade, sustentável e aberta,
-                        em qualquer modalidade (presencial, a distância, híbrida) e em
-                        todos os níveis de formação. Além do acesso, o reuso de recursos
-                        educacionais deve ser promovido, considerando que o desenvolvimento
-                        desses recursos, em geral, é um processo bastante dispendioso e requer
-                        um trabalho conjunto entre especialistas do conteúdo e uma equipe
-                        multidisciplinar, sobretudo quando consideramos os recursos educacionais
-                        interativos e que integram diferentes mídias e tecnologias. Dessa
-                        forma, este projeto tem como intuito ampliar o acesso aos recursos
-                        educacionais abertos, por meio de um serviço, na forma de uma plataforma
-                        web, que ofereça ferramentas que facilitem a construção e customização
-                        de REA seguindo diretrizes que favoreçam o reuso, bem como a
-                        disponibilização desses recursos em diferentes plataformas e a
-                        integração com ambientes virtuais de aprendizagem.
-                    </p>
                     </div>
-				</div>
-			</div>
-		</div>
-	</section>
+                </div>
+            </div>
+        </section>
 
-	<!-- Arquitetura -->
-	<section class="container content-section text-center">
-    <div id="architecture" class="description-section">
-        <div class="row">
-			<div  class="col-lg-8 col-lg-offset-2">
-                <div  class="container-black">
+	%{--<!-- GT REMAR -->--}%
+	%{--<section id="groupRemar" class="content-section text-center">--}%
+		%{--<div class="about-section">--}%
+			%{--<div class="container">--}%
+				%{--<div class="row">--}%
+					%{--<div class="col-lg-8 col-lg-offset-2 about">--}%
+                        %{--<div class="container-black">--}%
+                        %{--<h2 style="text-align: left;">GT-REMAR</h2>--}%
+                        %{--<p style="text-align: justify">--}%
+                            %{--Este projeto encontra-se no contexto dos grupos de trabalho (GTs) Temáticos em EAD (sub-tema: Universidade Aberta OnLine) da RNP.--}%
+                            %{--O GT-REMAR tem como objetivo facilitar e ampliar a construção e o reuso de recursos educacionais abertos (REA), por meio de um serviço,--}%
+                            %{--na forma de uma plataforma web, que ofereça ferramentas que facilitem a construção e a customização de REA, seguindo diretrizes que favoreçam--}%
+                            %{--o reuso, a disponibilização desses recursos em diferentes plataformas, bem como a integração com ambientes virtuais de aprendizagem. Espera-se obter--}%
+                            %{--como resultados: (i) um conjunto de diretrizes para o desenvolvimento de REA reutilizáveis, adaptáveis, multiplataforma e acessíveis; (ii) um protótipo--}%
+                            %{--da plataforma, que deverá ser testado e validado por meio do desenvolvimento e adaptação de REA pelo grupo proponente, em conjunto com instituições parceiras.--}%
+                        %{--</p>--}%
+                        %{--</div>--}%
+					%{--</div>--}%
+				%{--</div>--}%
+			%{--</div>--}%
+		%{--</div>--}%
+	%{--</section>--}%
 
-                    <h2  style="text-align:left;">Arquitetura</h2>
-				    <p style="text-align: justify">
-                    Um esboço da arquitetura da plataforma proposta é apresentado abaixo.
-                    Os usuários da plataforma poderão realizar a autoria e/ou adaptação e
-                    posterior publicação de instâncias de recursos educacionais abertos (REA),
-                    segundo um conjunto de diretrizes para a construção de REA que serão estabelecidas
-                    para este serviço. A plataforma proposta disponibilizará, por meio de duas
-                    ferramentas (de autoria e de publicação), um conjunto de funcionalidades que visam
-                    facilitar: (i) a construção de REA utilizando tecnologia HTML5; (ii) a adaptação
-                    dos componentes constituintes do REA para o atendimento de diferentes necessidades
-                    (adaptação de conteúdo, interface para dispositivos móveis, acessibilidade); (iii)
-                    a geração e publicação de instâncias dos REA para plataformas web, móvel, desktop;
-                    (iv) a integração de REA com ambientes virtuais de aprendizagem. As duas primeiras
-                    funcionalidades (construção e adaptação) estarão sob a responsabilidade da ferramenta
-                    de autoria, enquanto as duas últimas (geração/publicação para múltiplas plataformas e
-                    integração com AVA) sob a responsabilidade da ferramenta de publicação.
-                </p>
-                <div class="container-white" style="text-align: center;">
+	%{--<!-- Descrição -->--}%
+	%{--<section id="description" class="content-section text-center">--}%
+		%{--<div class="description-section">--}%
+			%{--<div class="container">--}%
+				%{--<div class="col-lg-8 col-lg-offset-2">--}%
+                    %{--<div class="container-black">--}%
+                    %{--<h2 style="text-align: left;">Descrição</h2>--}%
+                    %{--<p style="text-align: justify">--}%
+                        %{--O acesso aberto a recursos educacionais é um requisito essencial--}%
+                        %{--para a educação democrática, de qualidade, sustentável e aberta,--}%
+                        %{--em qualquer modalidade (presencial, a distância, híbrida) e em--}%
+                        %{--todos os níveis de formação. Além do acesso, o reuso de recursos--}%
+                        %{--educacionais deve ser promovido, considerando que o desenvolvimento--}%
+                        %{--desses recursos, em geral, é um processo bastante dispendioso e requer--}%
+                        %{--um trabalho conjunto entre especialistas do conteúdo e uma equipe--}%
+                        %{--multidisciplinar, sobretudo quando consideramos os recursos educacionais--}%
+                        %{--interativos e que integram diferentes mídias e tecnologias. Dessa--}%
+                        %{--forma, este projeto tem como intuito ampliar o acesso aos recursos--}%
+                        %{--educacionais abertos, por meio de um serviço, na forma de uma plataforma--}%
+                        %{--web, que ofereça ferramentas que facilitem a construção e customização--}%
+                        %{--de REA seguindo diretrizes que favoreçam o reuso, bem como a--}%
+                        %{--disponibilização desses recursos em diferentes plataformas e a--}%
+                        %{--integração com ambientes virtuais de aprendizagem.--}%
+                    %{--</p>--}%
+                    %{--</div>--}%
+				%{--</div>--}%
+			%{--</div>--}%
+		%{--</div>--}%
+	%{--</section>--}%
+
+	%{--<!-- Arquitetura -->--}%
+	%{--<section class="container content-section text-center">--}%
+    %{--<div id="architecture" class="description-section">--}%
+        %{--<div class="row">--}%
+			%{--<div  class="col-lg-8 col-lg-offset-2">--}%
+                %{--<div  class="container-black">--}%
+
+                    %{--<h2  style="text-align:left;">Arquitetura</h2>--}%
+				    %{--<p style="text-align: justify">--}%
+                    %{--Um esboço da arquitetura da plataforma proposta é apresentado abaixo.--}%
+                    %{--Os usuários da plataforma poderão realizar a autoria e/ou adaptação e--}%
+                    %{--posterior publicação de instâncias de recursos educacionais abertos (REA),--}%
+                    %{--segundo um conjunto de diretrizes para a construção de REA que serão estabelecidas--}%
+                    %{--para este serviço. A plataforma proposta disponibilizará, por meio de duas--}%
+                    %{--ferramentas (de autoria e de publicação), um conjunto de funcionalidades que visam--}%
+                    %{--facilitar: (i) a construção de REA utilizando tecnologia HTML5; (ii) a adaptação--}%
+                    %{--dos componentes constituintes do REA para o atendimento de diferentes necessidades--}%
+                    %{--(adaptação de conteúdo, interface para dispositivos móveis, acessibilidade); (iii)--}%
+                    %{--a geração e publicação de instâncias dos REA para plataformas web, móvel, desktop;--}%
+                    %{--(iv) a integração de REA com ambientes virtuais de aprendizagem. As duas primeiras--}%
+                    %{--funcionalidades (construção e adaptação) estarão sob a responsabilidade da ferramenta--}%
+                    %{--de autoria, enquanto as duas últimas (geração/publicação para múltiplas plataformas e--}%
+                    %{--integração com AVA) sob a responsabilidade da ferramenta de publicação.--}%
+                    %{--</p>--}%
+                    %{--<div class="container-white" style="text-align: center;">--}%
                       %{--<div class="architecture-img"/>--}%
-                    <img src="../images/architecture.png" width="90%" height="90%"></img>
-                </div>
-                </div>
-            </div>
-		</div>
-    </div>
-	</section>
+                        %{--<img src="../images/architecture.png" width="90%" height="90%"></img>--}%
+                    %{--</div>--}%
+                %{--</div>--}%
+            %{--</div>--}%
+		%{--</div>--}%
+    %{--</div>--}%
+	%{--</section>--}%
 
-    <!-- Equipe -->
-    <section id="team" class="container content-section text-center">
-    <div class="description-section">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2">
-                <div class="container-black">
-                    <h2 style="text-align:left;">Equipe</h2>
-                    <p style="text-align: justify">
-                        Equipe
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    </section>
+    %{--<!-- Equipe -->--}%
+    %{--<section id="team" class="container content-section text-center">--}%
+    %{--<div class="description-section">--}%
+        %{--<div class="row">--}%
+            %{--<div class="col-lg-8 col-lg-offset-2">--}%
+                %{--<div class="container-black">--}%
+                    %{--<h2 style="text-align:left;">Equipe</h2>--}%
+                    %{--<p style="text-align: justify">--}%
+                        %{--Equipe--}%
+                    %{--</p>--}%
+                %{--</div>--}%
+            %{--</div>--}%
+        %{--</div>--}%
+    %{--</div>--}%
+    %{--</section>--}%
 
-    <!-- Parceiros -->
-    <section id="partners" class="container content-section text-center">
-    <div class="description-section">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 " >
-                <div class="container-black">
+    %{--<!-- Parceiros -->--}%
+    %{--<section id="partners" class="container content-section text-center">--}%
+    %{--<div class="description-section">--}%
+        %{--<div class="row">--}%
+            %{--<div class="col-lg-8 col-lg-offset-2 " >--}%
+                %{--<div class="container-black">--}%
 
-                <h2 style="text-align:left;">Parceiros</h2>
-                <p style="text-align: justify">
-                    Instituições
-                </p>
-                <div class="container-white" style="text-align: center">
-                    <div>
-                        <a style="padding: 2px;" href="http://www.ufscar.br" target="_blank" rel="prettyPhoto" title="Universidade Federal de São Carlos">
-                            <img src="../images/partners/ufscar.png" alt="UFSCar">
-                        </a>
-                        <a href="http://www.unicamp.br/unicamp/" target="_blank" rel="prettyPhoto" title="Universidade Estadual de Campinas">
-                            <img src="../images/partners/unicamp.png" alt="UNICAMP">
-                        </a>
-                        <a href="http://www.unifesp.br/" target="_blank" rel="prettyPhoto" title="Universidade Federal de São Paulo">
-                            <img src="../images/partners/unifesp.png" alt="UNIFESP">
-                        </a>
-                        <a href="http://ufsc.br/" target="_blank" rel="prettyPhoto" title="Universidade Federal de Santa Catarina">
-                            <img src="../images/partners/ufsc.png" alt="UFSC">
-                        </a>
-                        <a href="http://www.uneb.br/" target="_blank" rel="prettyPhoto" title="Universidade do Estado da Bahia">
-                            <img src="../images/partners/uneb.png" alt="UNEB">
-                        </a>
-                    </div>
-                </div>
-                <p>
+                %{--<h2 style="text-align:left;">Parceiros</h2>--}%
+                %{--<p style="text-align: justify">--}%
+                    %{--Instituições--}%
+                %{--</p>--}%
+                %{--<div class="container-white" style="text-align: center">--}%
+                    %{--<div>--}%
+                        %{--<a style="padding: 2px;" href="http://www.ufscar.br" target="_blank" rel="prettyPhoto" title="Universidade Federal de São Carlos">--}%
+                            %{--<img src="../images/partners/ufscar.png" alt="UFSCar">--}%
+                        %{--</a>--}%
+                        %{--<a href="http://www.unicamp.br/unicamp/" target="_blank" rel="prettyPhoto" title="Universidade Estadual de Campinas">--}%
+                            %{--<img src="../images/partners/unicamp.png" alt="UNICAMP">--}%
+                        %{--</a>--}%
+                        %{--<a href="http://www.unifesp.br/" target="_blank" rel="prettyPhoto" title="Universidade Federal de São Paulo">--}%
+                            %{--<img src="../images/partners/unifesp.png" alt="UNIFESP">--}%
+                        %{--</a>--}%
+                        %{--<a href="http://ufsc.br/" target="_blank" rel="prettyPhoto" title="Universidade Federal de Santa Catarina">--}%
+                            %{--<img src="../images/partners/ufsc.png" alt="UFSC">--}%
+                        %{--</a>--}%
+                        %{--<a href="http://www.uneb.br/" target="_blank" rel="prettyPhoto" title="Universidade do Estado da Bahia">--}%
+                            %{--<img src="../images/partners/uneb.png" alt="UNEB">--}%
+                        %{--</a>--}%
+                    %{--</div>--}%
+                %{--</div>--}%
+                %{--<p>--}%
 
-                </p>
+                %{--</p>--}%
 
-                <p style="text-align: justify">
-                    Investimento
-                </p>
-                <div class="container-white" style="text-align: center">
-                    <div>
-                        <a href="http://www.rnp.br/" target="_blank" rel="prettyPhoto" title="Rede Nacional de Ensino e Pesquisa">
-                            <img src="../images/partners/rnp.png" alt="RNP">
-                        </a>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </section>
+                %{--<p style="text-align: justify">--}%
+                    %{--Investimento--}%
+                %{--</p>--}%
+                %{--<div class="container-white" style="text-align: center">--}%
+                    %{--<div>--}%
+                        %{--<a href="http://www.rnp.br/" target="_blank" rel="prettyPhoto" title="Rede Nacional de Ensino e Pesquisa">--}%
+                            %{--<img src="../images/partners/rnp.png" alt="RNP">--}%
+                        %{--</a>--}%
+                    %{--</div>--}%
+                %{--</div>--}%
+                %{--</div>--}%
+            %{--</div>--}%
+        %{--</div>--}%
+    %{--</div>--}%
+    %{--</section>--}%
 
 
-    <!--Contato -->
-    <section id="contact" class="container content-section text-center">
-    <div class="description-section">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2">
-                <div class="container-black">
-                        <h2 style="text-align:left;">Contato</h2>
-                    <p style="text-align: justify">
-                        Endereço:</p>
-                    <p style="text-align: justify">
-                        Email: remar@sead.ufscar.br
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    </section>
-
-    </div>
+    %{--<!--Contato -->--}%
+    %{--<section id="contact" class="container content-section text-center">--}%
+    %{--<div class="description-section">--}%
+        %{--<div class="row">--}%
+            %{--<div class="col-lg-8 col-lg-offset-2">--}%
+                %{--<div class="container-black">--}%
+                        %{--<h2 style="text-align:left;">Contato</h2>--}%
+                    %{--<p style="text-align: justify">--}%
+                        %{--Endereço:</p>--}%
+                    %{--<p style="text-align: justify">--}%
+                        %{--Email: remar@sead.ufscar.br--}%
+                    %{--</p>--}%
+                %{--</div>--}%
+            %{--</div>--}%
+        %{--</div>--}%
+    %{--</div>--}%
+    %{--</section>--}%
 
 <!-- Map Section -->
 	<div id="map"></div>
@@ -273,6 +420,7 @@
 			<p>Copyright &copy; Your Website 2014</p>
 		</div>
 	</footer>
+</div>
 
 	<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery.min.js')}"></script>
 	<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'bootstrap.min.js')}"></script>
