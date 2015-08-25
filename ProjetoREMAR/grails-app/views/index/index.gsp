@@ -77,7 +77,7 @@
 					<div class="row">
 						<div class="col-md-8 col-md-offset-2">
 							<h1 class="brand-heading">REMAR</h1>
-							<p class="intro-text">Recursos Educacionais abertos na rede </p>
+							<p class="intro-text">Recursos Educacionais Multiplataforma Abertos na Rede </p>
 							<a href="#groupRemar" class="btn btn-circle page-scroll">
 								<span class="icon-circle-arrow-down"></span>
 							</a>
@@ -87,6 +87,8 @@
 			</div>
 		</section>
 	</header>
+
+    <div class="container-black">
 
 	<!-- GT REMAR -->
 	<section id="groupRemar" class="content-section text-center">
@@ -142,13 +144,13 @@
 	</section>
 
 	<!-- Arquitetura -->
-	<section id="architecture" class="container content-section text-center">
-    <div class="description-section">
+	<section class="container content-section text-center">
+    <div id="architecture" class="description-section">
         <div class="row">
-			<div class="col-lg-8 col-lg-offset-2">
-                <div class="container-black">
+			<div  class="col-lg-8 col-lg-offset-2">
+                <div  class="container-black">
 
-                    <h2 style="text-align:left;">Arquitetura</h2>
+                    <h2  style="text-align:left;">Arquitetura</h2>
 				    <p style="text-align: justify">
                     Um esboço da arquitetura da plataforma proposta é apresentado abaixo.
                     Os usuários da plataforma poderão realizar a autoria e/ou adaptação e
@@ -165,7 +167,7 @@
                     de autoria, enquanto as duas últimas (geração/publicação para múltiplas plataformas e
                     integração com AVA) sob a responsabilidade da ferramenta de publicação.
                 </p>
-                <div class="container-white">
+                <div class="container-white" style="text-align: center;">
                       %{--<div class="architecture-img"/>--}%
                     <img src="../images/architecture.png" width="90%" height="90%"></img>
                 </div>
@@ -203,39 +205,37 @@
                     Instituições
                 </p>
                 <div class="container-white" style="text-align: center">
-                <div>
-                    <a style="padding: 2px;" href="http://www.ufscar.br" target="_blank" rel="prettyPhoto" title="Universidade Federal de São Carlos">
-                        <img src="../images/partners/ufscar.png" alt="UFSCar">
-                    </a>
-                    <a href="http://www.unicamp.br/unicamp/" target="_blank" rel="prettyPhoto" title="Universidade Estadual de Campinas">
-                        <img src="../images/partners/unicamp.png" alt="UNICAMP">
-                    </a>
-                    <a href="http://www.unifesp.br/" target="_blank" rel="prettyPhoto" title="Universidade Federal de São Paulo">
-                        <img src="../images/partners/unifesp.png" alt="UNIFESP">
-                    </a>
-                    <a href="http://ufsc.br/" target="_blank" rel="prettyPhoto" title="Universidade Federal de Santa Catarina">
-                        <img src="../images/partners/ufsc.png" alt="UFSC">
-                    </a>
-                    <a href="http://www.uneb.br/" target="_blank" rel="prettyPhoto" title="Universidade do Estado da Bahia">
-                        <img src="../images/partners/uneb.png" alt="UNEB">
-                    </a>
-                </div>
+                    <div>
+                        <a style="padding: 2px;" href="http://www.ufscar.br" target="_blank" rel="prettyPhoto" title="Universidade Federal de São Carlos">
+                            <img src="../images/partners/ufscar.png" alt="UFSCar">
+                        </a>
+                        <a href="http://www.unicamp.br/unicamp/" target="_blank" rel="prettyPhoto" title="Universidade Estadual de Campinas">
+                            <img src="../images/partners/unicamp.png" alt="UNICAMP">
+                        </a>
+                        <a href="http://www.unifesp.br/" target="_blank" rel="prettyPhoto" title="Universidade Federal de São Paulo">
+                            <img src="../images/partners/unifesp.png" alt="UNIFESP">
+                        </a>
+                        <a href="http://ufsc.br/" target="_blank" rel="prettyPhoto" title="Universidade Federal de Santa Catarina">
+                            <img src="../images/partners/ufsc.png" alt="UFSC">
+                        </a>
+                        <a href="http://www.uneb.br/" target="_blank" rel="prettyPhoto" title="Universidade do Estado da Bahia">
+                            <img src="../images/partners/uneb.png" alt="UNEB">
+                        </a>
+                    </div>
                 </div>
                 <p>
 
                 </p>
 
-
                 <p style="text-align: justify">
                     Investimento
                 </p>
                 <div class="container-white" style="text-align: center">
-                <div>
-                    <a href="http://www.rnp.br/" target="_blank" rel="prettyPhoto" title="Rede Nacional de Ensino e Pesquisa">
-                        <img src="../images/partners/rnp.png" alt="RNP">
-                    </a>
-                </div>
-                </div>
+                    <div>
+                        <a href="http://www.rnp.br/" target="_blank" rel="prettyPhoto" title="Rede Nacional de Ensino e Pesquisa">
+                            <img src="../images/partners/rnp.png" alt="RNP">
+                        </a>
+                    </div>
                 </div>
                 </div>
             </div>
@@ -262,6 +262,7 @@
     </div>
     </section>
 
+    </div>
 
 <!-- Map Section -->
 	<div id="map"></div>

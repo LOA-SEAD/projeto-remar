@@ -9,7 +9,9 @@ body {
     height: 100%;
     font-family: Lora,"Helvetica Neue",Helvetica,Arial,sans-serif;
     color: #fff;
-    background-color: #000000
+    /*background-color: #21272D;*/
+    background-image: linear-gradient(to right, #21272D, #3f5068, #21272D);
+
     /*background: url(../../images/backgrounds/description.JPG) repeat center center scroll;*/
 
 }
@@ -286,7 +288,7 @@ a:focus{
     color: #fff;
     /*background: url(../img/bg/event-bg.jpg) no-repeat center center scroll;*/
     /*background-color: #6C7477;*/
-    background: url(../../images/backgrounds/description.JPG) no-repeat center center scroll;
+    /*background: url(../../images/backgrounds/description.JPG) no-repeat center center scroll;*/
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -295,14 +297,14 @@ a:focus{
 
 .about-section {
     width: 100%;
-    background: url(../../images/backgrounds/gtRemar3.jpg) no-repeat center center scroll;
+    /*background: url(../../images/backgrounds/gtRemar3.jpg) no-repeat center center scroll;*/
     padding: 100px 0;
 
 }
 
 .description-section {
     width: 100%;
-    background: url(../../images/backgrounds/gtRemar3.jpg) no-repeat center center scroll;
+    /*background: url(../../images/backgrounds/gtRemar3.jpg) no-repeat center center scroll;*/
     padding: 100px 0;
 
 }
