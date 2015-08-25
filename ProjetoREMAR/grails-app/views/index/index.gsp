@@ -143,10 +143,13 @@
 
 	<!-- Arquitetura -->
 	<section id="architecture" class="container content-section text-center">
-		<div class="row">
+    <div class="description-section">
+        <div class="row">
 			<div class="col-lg-8 col-lg-offset-2">
-				<h2 style="text-align:left;">Arquitetura</h2>
-				<p style="text-align: justify">
+                <div class="container-black">
+
+                    <h2 style="text-align:left;">Arquitetura</h2>
+				    <p style="text-align: justify">
                     Um esboço da arquitetura da plataforma proposta é apresentado abaixo.
                     Os usuários da plataforma poderão realizar a autoria e/ou adaptação e
                     posterior publicação de instâncias de recursos educacionais abertos (REA),
@@ -166,32 +169,40 @@
                       %{--<div class="architecture-img"/>--}%
                     <img src="../images/architecture.png" width="90%" height="90%"></img>
                 </div>
+                </div>
             </div>
 		</div>
+    </div>
 	</section>
 
     <!-- Equipe -->
     <section id="team" class="container content-section text-center">
+    <div class="description-section">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <h2 style="text-align:left;">Equipe</h2>
-                <p style="text-align: justify">
-                    Equipe
-                </p>
+                <div class="container-black">
+                    <h2 style="text-align:left;">Equipe</h2>
+                    <p style="text-align: justify">
+                        Equipe
+                    </p>
+                </div>
             </div>
         </div>
+    </div>
     </section>
 
     <!-- Parceiros -->
     <section id="partners" class="container content-section text-center">
+    <div class="description-section">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 " >
-                <div class="container-white">
+                <div class="container-black">
+
                 <h2 style="text-align:left;">Parceiros</h2>
                 <p style="text-align: justify">
                     Instituições
                 </p>
-
+                <div class="container-white" style="text-align: center">
                 <div>
                     <a style="padding: 2px;" href="http://www.ufscar.br" target="_blank" rel="prettyPhoto" title="Universidade Federal de São Carlos">
                         <img src="../images/partners/ufscar.png" alt="UFSCar">
@@ -209,6 +220,7 @@
                         <img src="../images/partners/uneb.png" alt="UNEB">
                     </a>
                 </div>
+                </div>
                 <p>
 
                 </p>
@@ -217,30 +229,37 @@
                 <p style="text-align: justify">
                     Investimento
                 </p>
+                <div class="container-white" style="text-align: center">
                 <div>
                     <a href="http://www.rnp.br/" target="_blank" rel="prettyPhoto" title="Rede Nacional de Ensino e Pesquisa">
                         <img src="../images/partners/rnp.png" alt="RNP">
                     </a>
                 </div>
                 </div>
-
+                </div>
+                </div>
             </div>
         </div>
+    </div>
     </section>
 
 
     <!--Contato -->
     <section id="contact" class="container content-section text-center">
+    <div class="description-section">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <h2 style="text-align:left;">Contato</h2>
-                <p style="text-align: justify">
-                    Endereço:</p>
-                <p style="text-align: justify">
-                    Email: remar@sead.ufscar.br
-                </p>
+                <div class="container-black">
+                        <h2 style="text-align:left;">Contato</h2>
+                    <p style="text-align: justify">
+                        Endereço:</p>
+                    <p style="text-align: justify">
+                        Email: remar@sead.ufscar.br
+                    </p>
+                </div>
             </div>
         </div>
+    </div>
     </section>
 
 

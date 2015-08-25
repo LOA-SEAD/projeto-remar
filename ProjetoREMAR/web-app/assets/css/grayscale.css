@@ -295,7 +295,7 @@ a:focus{
 
 .about-section {
     width: 100%;
-    background: url(../../images/backgrounds/gtRemar2.jpg) no-repeat center center scroll;
+    background: url(../../images/backgrounds/gtRemar3.jpg) no-repeat center center scroll;
     padding: 100px 0;
 
 }
@@ -309,7 +309,6 @@ a:focus{
 
 .architecture-section {
     width: 100%;
-    background: url(../../images/backgrounds/description.JPG) no-repeat center center scroll;
     padding: 100px 0;
 
 }
@@ -323,7 +322,7 @@ a:focus{
 
 @media(min-width:767px) {
     .content-section {
-        padding-top: 250px;
+        padding-top: 100px;
     }
 
     .team-section {
