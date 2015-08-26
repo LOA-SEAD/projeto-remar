@@ -32,7 +32,7 @@
         <!-- Bootstrap core CSS -->
         <link href="${resource(dir: 'assets/css', file: 'bootstrap.css')}" rel="stylesheet">
         <link href="${resource(dir: 'assets/css', file: 'grayscale-menu.css')}" rel="stylesheet">
-        <link href="${resource(dir: 'assets/css', file: 'icomoon.css')}"  rel="stylesheet">
+        %{--<link href="${resource(dir: 'assets/css', file: 'icomoon.css')}"  rel="stylesheet">--}%
         <link href="${resource(dir: 'assets/css', file: 'custom.css')}" rel="stylesheet">
         <script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery.min.js')}"></script>
 
@@ -43,14 +43,19 @@
 
     <div class="container-fluid">
         <div class="col-sm-3 col-md-2 sidebar">
-         <h3><i class="glyphicon glyphicon-briefcase"></i> Workspace</h3>
+         <h3><i class="glyphicon glyphicon-briefcase"></i> Área de trabalho</h3>
             <ul class="nav nav-sidebar">
+                <li> <g:link uri="http://myapp.dev:9090/dashboard" >
+                        R.E.A. personalizáveis</g:link>
+                </li>
+                <li> <g:link uri="http://myapp.dev:9090/dashboard" >
+                        R.E.A. públicos</g:link></li>
+                <li>
+                    <g:link controller="process" action="userProcesses">
+                        Meus R.E.A.</g:link>
+                </li>
                 <li> <g:link controller="process" action="pendingTasks" >
-                    Tarefas Pendentes</g:link></li>
-                <li> <g:link uri="http://myapp.dev:9090/dashboard" >Jogos Personalizáveis</g:link></li>
-                <li> <g:link controller="process" action="userProcesses">
-                    <i class="fa fa-list-alt"></i>
-                    Meus Processos</g:link>
+                        Tarefas pendentes</g:link>
                 </li>
             </ul>
         </div>

@@ -74,10 +74,10 @@ body {
     padding: 15px;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background-color: #222;
+    background-color: #e5e5e5;
     text-align: center;
     vertical-align: middle;
-    color: #9D9D9D;
+    color: #222;
     font-size: 14px;
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -100,7 +100,7 @@ nav > li > a:hover, .nav > li > a:focus {
 }
 .nav-sidebar > li > a {
     font-size: 14px;
-    color: #9D9D9D;
+    color: #555;
     text-align: justify;
     vertical-align: middle;
     padding-right: 20px;
@@ -111,7 +111,8 @@ nav > li > a:hover, .nav > li > a:focus {
 .nav-sidebar > li > a:hover {
     padding-right: 20px;
     padding-left: 20px;
-    background-color: black;
+    background-color: transparent;
+    color: #222;
 
 }
 .nav-sidebar > .active > a,

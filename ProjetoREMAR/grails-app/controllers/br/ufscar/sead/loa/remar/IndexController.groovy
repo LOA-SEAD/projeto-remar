@@ -31,8 +31,10 @@ class IndexController {
             i.push(runtimeService.getVariable(instance.processInstanceId, "gameName"))
 
         }
-
-        render view: "dashboard", model: model
+        def userId = springSecurityService.getCurrentUser().getId()
+        def user = User.findById(userId)
+        println user.name
+        render view: "dashboard", model: [model:model, user: user]
 
 
     }

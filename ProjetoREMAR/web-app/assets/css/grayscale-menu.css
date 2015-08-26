@@ -103,12 +103,13 @@
 }
 
 .dropdown a:hover {
-    background-color: #101010;
+    color: rgba(255,255,255,.8);
 
 }
 
 .dropdown-menu li a:hover {
-    background-color: #101010;
+    background-color: #e5e5e5;
+    font-weight: bold;
     font-size: 14px;
 }
 
