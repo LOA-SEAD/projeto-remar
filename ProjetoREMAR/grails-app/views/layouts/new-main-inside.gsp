@@ -49,14 +49,26 @@
                 <!-- logo for regular state and mobile devices -->
                 <span class="logo-lg"><b>REMAR</b>LTE</span>
             </a>
+
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
                 <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                     <span class="sr-only">Toggle navigation</span>
                 </a>
-                <!-- Navbar Right Menu -->
-                <div class="navbar-custom-menu">
+
+
+                <div class="col-xs-offset-4">
+                    <ul class="nav navbar-nav  nav-menu-custom">
+                        <li><a href="/dashboard">Espaço do Usuário  <span class="sr-only">(current)</span></a></li>
+                        <li><a href="/game/index">Espaço do Desenvolvedor<span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">Torne-se um Desenvolvedor<span class="sr-only">(current)</span></a></li>
+                    </ul>
+                </div>
+
+
+            <!-- Navbar Right Menu -->
+                <div class="navbar-custom-menu" style="display: block">
                     <ul class="nav navbar-nav">
                         <!-- Messages: style can be found in dropdown.less-->
                         <li class="dropdown messages-menu">
@@ -162,6 +174,8 @@
                     </ul>
                 </div>
             </nav>
+
+
         </header>
 
         <!-- Left side column. contains the logo and sidebar -->
@@ -250,9 +264,12 @@
         </aside>
 
         <div class="content-wrapper" style="min-height: 916px;">
-            <section class="content-header">
-                <h1>Dashboard</h1>
-            </section>
+            %{--<section class="content-header">--}%
+                %{--<h1>Dashboard</h1>--}%
+            %{--</section>--}%
+            <artigle>
+                <g:layoutBody/>
+            </artigle>
         </div>
 
         <!-- jQuery 2.1.4 -->

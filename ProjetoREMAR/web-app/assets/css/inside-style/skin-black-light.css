@@ -70,7 +70,7 @@
   }
 }
 .skin-black-light .main-header li.user-header {
-  background-color: #222;
+  background-color: #444;
 }
 .skin-black-light .content-header {
   background: transparent;
@@ -173,4 +173,9 @@
   .skin-black-light.sidebar-mini.sidebar-collapse .sidebar-menu > li > .treeview-menu {
     border-left: 1px solid #d2d6de;
   }
+}
+
+
+.nav-menu-custom{
+  border-left: 1px solid #393939;
 }

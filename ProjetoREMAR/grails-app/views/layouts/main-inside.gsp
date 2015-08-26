@@ -191,9 +191,6 @@
                             </ul>
                         </li>
                     </ul>
-
-
-
                     %{--<ul class="nav navbar-nav">--}%
                         %{--<li class="dropdown">--}%
                             %{--<a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">--}%
@@ -208,52 +205,16 @@
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div id="navbar-center" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
+                    <ul class="nav navbar-nav ">
                         <li><a href="/dashboard">Espaço do Usuário  <span class="sr-only">(current)</span></a></li>
                         <li><a href="/game/index">Espaço do Desenvolvedor<span class="sr-only">(current)</span></a></li>
                         <li><a href="#">Torne-se um Desenvolvedor<span class="sr-only">(current)</span></a></li>
                     </ul>
                 </div>
 
-
-
             </div>
             <!-- /.container -->
         </nav>
-
-        %{--<nav class="navbar navbar-inverse navbar-fixed-top">--}%
-            %{--<div class="container-fluid">--}%
-                %{--<div class="navbar-header">--}%
-                    %{--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">--}%
-                        %{--<span class="sr-only">Toggle navigation</span>--}%
-                        %{--<span class="icon-bar"></span>--}%
-                        %{--<span class="icon-bar"></span>--}%
-                        %{--<span class="icon-bar"></span>--}%
-                    %{--</button>--}%
-                    %{--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">--}%
-                        %{--<span class="icon-toggle"></span>--}%
-                    %{--</button>--}%
-                    %{--<a class="navbar-brand" href="#">Painel de Controle</a>--}%
-                %{--</div>--}%
-
-                %{--<ul class="nav navbar-nav">--}%
-                    %{--<li><a href="/dashboard">Espaço do Usuário  <span class="sr-only">(current)</span></a></li>--}%
-                    %{--<li><a href="/game/index">Espaço do Desenvolvedor<span class="sr-only">(current)</span></a></li>--}%
-                    %{--<li><a href="#">Torne-se um Desenvolvedor no REMAR<span class="sr-only">(current)</span></a></li>--}%
-                %{--</ul>--}%
-                %{--<ul class="nav navbar-nav navbar-right">--}%
-                    %{--<li class="dropdown">--}%
-                        %{--<a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">--}%
-                            %{--<i class="glyphicon glyphicon-user"></i>  <span class="caret"></span></a>--}%
-                        %{--<ul id="g-account-menu" class="dropdown-menu" role="menu">--}%
-                            %{--<li><a href="#">My Profile</a></li>--}%
-                            %{--<li><a href="/logout/index"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>--}%
-                        %{--</ul>--}%
-                    %{--</li>--}%
-                %{--</ul>--}%
-            %{--</div>--}%
-        %{--</nav>--}%
-
 
 
         <g:layoutBody/>
