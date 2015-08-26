@@ -20,7 +20,6 @@ import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl
 import grails.converters.JSON
 
 
-@Secured(["ROLE_ADMIN","ROLE_STUD","ROLE_USER"])
 class ProcessController {
     IdentityService identityService
     RuntimeService runtimeService

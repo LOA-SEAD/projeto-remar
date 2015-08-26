@@ -50,16 +50,17 @@ class GameController {
         gameInstance.valid       = true
 
         // move to wars folder
-        def file = new File(servletContext.getRealPath("/wars/${session.session.user.id}"), fileName + ".war")
+        println "Session|" + session.user.id + "|************************************"
+        def file = new File(servletContext.getRealPath("/wars/${session.user.id}"), fileName + ".war")
         file.mkdirs()
         war.transferTo(file)
 
         // unzip
         "chmod -R a+x ${servletContext.getRealPath('/scripts')}"
-        def unzip = "${servletContext.getRealPath("/scripts")}/unzip.sh ${servletContext.getRealPath("/wars/${session.session.user.id}")} ${fileName}"
+        def unzip = "${servletContext.getRealPath("/scripts")}/unzip.sh ${servletContext.getRealPath("/wars/${session.user.id}")} ${fileName}"
         unzip.execute().waitFor()
 
-        file = new File(servletContext.getRealPath("/wars/${session.session.user.id}/${fileName}/WEB-INF"))
+        file = new File(servletContext.getRealPath("/wars/${session.user.id}/${fileName}/WEB-INF"))
         if (!file.exists()) { // file is a WAR?
             gameInstance.valid = false
             gameInstance.name = war.originalFilename
@@ -72,7 +73,7 @@ class GameController {
             return
         }
 
-        file = new File(servletContext.getRealPath("/wars/${session.session.user.id}/${fileName}/data/manifest.json"))
+        file = new File(servletContext.getRealPath("/wars/${session.user.id}/${fileName}/data/manifest.json"))
         if (!file.exists()) { // WAR has a manifest.json?
             gameInstance.valid = false
             gameInstance.name = war.originalFilename
@@ -107,7 +108,7 @@ class GameController {
         gameInstance.linux   = manifest.linux
         gameInstance.moodle  = manifest.moodle
 
-        def cmd = servletContext.getRealPath("/scripts") + "/verify-banner.sh ${servletContext.getRealPath("/wars/${session.session.user.id}")}/${fileName} ${manifest.uri}-banner"
+        def cmd = servletContext.getRealPath("/scripts") + "/verify-banner.sh ${servletContext.getRealPath("/wars/${session.user.id}")}/${fileName} ${manifest.uri}-banner"
         def foundBanner = cmd.execute().text.toInteger()
 
         // has banner?
@@ -125,7 +126,7 @@ class GameController {
 
         // copy banner to /assets
 
-        cmd = servletContext.getRealPath("/scripts") + "/verify-bpmn.sh ${servletContext.getRealPath("/wars/${session.session.user.id}")}/${fileName} ${manifest.bpmn}"
+        cmd = servletContext.getRealPath("/scripts") + "/verify-bpmn.sh ${servletContext.getRealPath("/wars/${session.user.id}")}/${fileName} ${manifest.bpmn}"
         def foundBpmn = cmd.execute().text.toInteger()
 
         // has bpmn?
@@ -146,8 +147,8 @@ class GameController {
         gameInstance.bpmn = manifest.bpmn
         gameInstance.comment = "Awaiting review"
 
-        file = new File(servletContext.getRealPath("/wars/${session.session.user.id}"), fileName + ".war")
-                       .renameTo(servletContext.getRealPath("/wars/${session.session.user.id}") + "/" + manifest.uri + ".war")
+        file = new File(servletContext.getRealPath("/wars/${session.user.id}"), fileName + ".war")
+                       .renameTo(servletContext.getRealPath("/wars/${session.user.id}") + "/" + manifest.uri + ".war")
 
         gameInstance.save flush:true
 
@@ -207,7 +208,7 @@ class GameController {
             def http = new HTTPBuilder('http://root:root@localhost:8080')
             def resp = http.get(path: '/manager/text/deploy',
                     query: [path: "/${gameInstance.uri}",
-                            war: servletContext.getRealPath("/wars/${session.session.user.id}/${gameInstance.uri}.war") ])
+                            war: servletContext.getRealPath("/wars/${session.user.id}/${gameInstance.uri}.war") ])
             resp = GrailsIOUtils.toString(resp)
             if(resp.indexOf('OK') != -1) {
                 gameInstance.status  = "approved"
