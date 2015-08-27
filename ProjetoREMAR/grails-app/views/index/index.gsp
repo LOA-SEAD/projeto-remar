@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Logo Nav - REMAR</title>
+    <title>REMAR</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
@@ -24,6 +24,14 @@
 
     <!-- Custom CSS -->
     <link href="../assets/css/logo-nav.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="../assets/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="${resource(dir: 'assets/js', file: 'grayscale.js')}"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,7 +44,7 @@
 
 
 <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top" style="position: absolute;" role="navigation">
         <div class="container">
 
 
@@ -53,7 +61,7 @@
                 </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="float: right;">
                 <ul class="nav navbar-nav">
                     <li>
                         <a class="page-scroll" href="#gt-remar">GT-REMAR</a>
@@ -74,7 +82,7 @@
                         <a class="page-scroll" href="#contact">Contato</a>
                     </li>
                     <li>
-                        <g:link class="btn-login" controller="login">Entrar</g:link>
+                        <g:link class="btn-login link-center" controller="login">Entrar</g:link>
                     </li>
                 </ul>
             </div>
@@ -228,16 +236,8 @@
     </div>
     <!-- /.container -->
 
-    <!-- jQuery -->
-    <script src="../assets/js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../assets/js/bootstrap.min.js"></script>
-    <script src="../assets/js/jquery.easing.1.3.js"></script>
-    <script type="text/javascript" src="${resource(dir: 'assets/js', file: 'grayscale.js')}"></script>
-
     <footer>
-        <div class="container text-center" style="margin-top: 30px;">
+        <div class="container text-center" style="margin-top: 250px;">
             <p>Copyright &copy; Your Website 2014</p>
         </div>
     </footer>
