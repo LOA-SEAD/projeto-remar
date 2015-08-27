@@ -1,13 +1,18 @@
 package br.ufscar.sead.loa.remar
 
+import grails.converters.JSON
 import grails.plugin.mail.MailService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.plugin.springsecurity.annotation.Secured
+import grails.util.Environment
 import org.camunda.bpm.engine.IdentityService
 import org.camunda.bpm.engine.ProcessEngineException
 import org.camunda.bpm.engine.RepositoryService
 import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.TaskService
+import org.camunda.bpm.engine.delegate.DelegateExecution
+import org.camunda.bpm.engine.delegate.ExecutionListener
+import org.camunda.bpm.engine.delegate.JavaDelegate
 import org.camunda.bpm.engine.impl.identity.Authentication
 import org.camunda.bpm.engine.impl.repository.DeploymentBuilderImpl
 import org.camunda.bpm.engine.runtime.ProcessInstance
@@ -18,7 +23,7 @@ import org.camunda.bpm.model.bpmn.Bpmn
 import org.camunda.bpm.engine.identity.User
 import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl
 
-class ProcessController {
+class ProcessController implements JavaDelegate, ExecutionListener{
     IdentityService identityService
     RuntimeService runtimeService
     ProcessInstance processInstance
@@ -54,9 +59,10 @@ class ProcessController {
 
         runtimeService.setVariable(processId, "ownerId", session.user.id as String)
         runtimeService.setVariable(processId, "ownerName", session.user.name as String)
+        runtimeService.setVariable(processId, "gameId", game.id as String)
         runtimeService.setVariable(processId, "gameName", game.name as String)
         runtimeService.setVariable(processId, "gameUri", game.uri as String)
-        runtimeService.setVariable(processId, "username", session.user.username as String)
+        runtimeService.setVariable(processId, "ownerUsername", session.user.username as String)
 
 
         identityService.setAuthenticatedUserId(session.user.camunda_id)
@@ -213,29 +219,50 @@ class ProcessController {
     }
 
     def completeTask() {
-        println params.taskId
-        def processId = taskService.createTaskQuery().taskId(params.taskId).singleResult().processInstanceId
+//        println params.taskId
+//        def processId = taskService.createTaskQuery().taskId(params.taskId).singleResult().processInstanceId
+//
+//        taskService.complete(params.taskId)
+//        redirect(uri: "/process/tasks/overview/${processId}")
+        def task = taskService.createTaskQuery().taskId(params.taskId).singleResult()
 
-        taskService.complete(params.taskId)
-        redirect(uri: "/process/tasks/overview/${processId}")
+        if (task) {
+            if (task.delegationState == DelegationState.RESOLVED) {
+                if (task.owner == session.user.username) {
+                    taskService.complete(params.taskId)
+
+                } else {
+                    render "user != owner"
+                }
+            } else {
+                render "delegation state != resolved"
+            }
+        } else {
+            render "task doesn't exists"
+        }
+
+
 
     }
 
     def resolveTask() {
-//        println taskService.createTaskQuery().taskId(params.taskId).singleResult().assignee
-//        taskService.resolveTask(params.taskId)
-
         def task = taskService.createTaskQuery().taskId(params.taskId).singleResult()
         if (task) {
             if (task.delegationState == DelegationState.PENDING) {
                 if (task.assignee == session.user.username) {
+                    def destination = servletContext.getRealPath("/data/users/${task.owner}/${task.processInstanceId}")
+                    taskService.getVariable(params.taskId, "files").each { file ->
+                        file = file as String
+                        def fileName =  file.substring(file.lastIndexOf('/') + 1, file.length())
+                        new AntBuilder().copy(file: file, tofile: destination + "/" + fileName)
+                    }
                     taskService.resolveTask(params.taskId)
                     redirect uri: '/process/pendingTasks'
                 } else {
                     render "user != assignee"
                 }
             } else {
-                render "delegation state not pending"
+                render "delegation state != pending"
             }
 
         } else {
@@ -293,6 +320,48 @@ class ProcessController {
 
     }
 
+    @Override
+    void notify(DelegateExecution delegateExecution) throws Exception {
+        println "notify"
+        println delegateExecution.processInstanceId
+
+        if (delegateExecution.currentActivityId == 'start') {
+            redirect uri: "/process/tasks/overview/${delegateExecution.processInstanceId}"
+        } else if (delegateExecution.currentActivityId == 'game_versions'){
+            render "versions"
+        }
+    }
+
+    @Override
+    void execute(DelegateExecution delegateExecution) throws Exception {
+        if (delegateExecution.currentActivityId == 'game_web') {
+            def ownerUsername = runtimeService.getVariable(delegateExecution.processInstanceId, 'ownerUsername') as String
+            def game = Game.get(runtimeService.getVariable(delegateExecution.processInstanceId, 'gameId') as String)
+            def instanceFolder = new File(servletContext.getRealPath("/data/users/${ownerUsername}/${delegateExecution.processInstanceId}"))
+            def json = JSON.parse(game.files)
+
+            new AntBuilder().copy(todir: "${instanceFolder}/${game.uri}") {
+                fileset(dir: servletContext.getRealPath("/data/games/sources/${game.id}"))
+            }
+
+            json.each {file, destinationFolder ->
+                new AntBuilder().copy(file: "${instanceFolder}/${file}", tofile: "${instanceFolder}/${game.uri}/${destinationFolder}/${file}")
+            }
+        }
+    }
+
+    def example() {
+        def file = new File(servletContext.getRealPath("/perguntas.xml"))
+        def file2 = new File(servletContext.getRealPath("/perguntas2.xml"))
+        taskService.setVariable(params.id, "files", [file, file2])
+        redirect uri:"/process/task/resolve/${params.id}"
+
+    }
+
+    def test() {
+        new RequestMap(url: '/data/users/admin/851/escolamagica', configAttribute: 'IS_AUTHENTICATED_FULLY').save flush: true
+        springSecurityService.clearCachedRequestmaps()
+    }
     // @Secured(["ROLE_ADMIN","ROLE_STUD","ROLE_USER"])
 //
 //    def startbeta() {
