@@ -15,6 +15,37 @@
     <title>Admin page</title>
 </head>
 <body>
+<g:each in="${gameInstanceList}" var="gameInstance">
+    <div class="col-md-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                ${gameInstance.name}
+            </div>
+            <div class="panel-body">
+                <a href="/process/start/${gameInstance.bpmn}" target="_self">
+                    <img
+                            src="/images/${gameInstance.uri}-banner.png"
+                            class="img img-responsive center-block"/>
+                </a>
+            </div>
+            <div class="panel-footer">
+                <div class="pull-right">
+                    <i class="fa fa-at"></i>
+                    <g:if test="${gameInstance.android}">
+                        <i class="fa fa-android"></i>
+                    </g:if>
+                    <g:if test="${gameInstance.linux}">
+                        <i class="fa fa-linux"></i>
+                    </g:if>
+                    <g:if test="${gameInstance.moodle}">
+                        <i class="fa fa-graduation-cap"></i>
+                    </g:if>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</g:each>
 
     <div class="row">
         <div class="col-xs-5 format-box-style">
@@ -25,37 +56,6 @@
                 </div>
                 <div class="box-body">
 
-                    <g:each in="${gameInstanceList}" var="gameInstance">
-                        <div class="col-md-3">
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    ${gameInstance.name}
-                                </div>
-                                <div class="panel-body">
-                                    <a href="/process/start/${gameInstance.bpmn}" target="_self">
-                                        <img
-                                                src="/images/${gameInstance.uri}-banner.png"
-                                                class="img img-responsive center-block"/>
-                                    </a>
-                                </div>
-                                <div class="panel-footer">
-                                    <div class="pull-right">
-                                        <i class="fa fa-at"></i>
-                                        <g:if test="${gameInstance.android}">
-                                            <i class="fa fa-android"></i>
-                                        </g:if>
-                                        <g:if test="${gameInstance.linux}">
-                                            <i class="fa fa-linux"></i>
-                                        </g:if>
-                                        <g:if test="${gameInstance.moodle}">
-                                            <i class="fa fa-graduation-cap"></i>
-                                        </g:if>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </g:each>
 
                 </div>
             </div>

@@ -24,6 +24,7 @@ class IndexController {
         def model = [:]
 
         model.gameInstanceList = Game.findAllByStatus('approved') // change to #findAllByActive?
+        model.userName = session.user.name
 
         def instances = []
         runtimeService.createProcessInstanceQuery().variableValueEquals("ownerId", "1").list().each {instance ->
@@ -31,11 +32,6 @@ class IndexController {
             i.push(runtimeService.getVariable(instance.processInstanceId, "gameName"))
 
         }
-        def userId = springSecurityService.getCurrentUser().getId()
-        def user = User.findById(userId)
-        println user.name
-        render view: "dashboard", model: [model:model, user: user]
-
-
+        render view: "dashboard", model: model
     }
 }

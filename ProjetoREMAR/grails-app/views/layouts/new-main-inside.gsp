@@ -137,14 +137,14 @@
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img class="user-image" alt="User Image" src="../assets/img/inside/avatar.png"/>
-                                <span class="hidden-xs">${user.name}</span>
+                                <span class="hidden-xs">${userName}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
                                     <img src="../assets/img/inside/avatar.png" class="img-circle" alt="User Image">
                                     <p>
-                                        ${user.name}
+                                        ${userName}
                                         <small>Member since Nov. 2012</small>
                                     </p>
                                 </li>
@@ -188,7 +188,7 @@
                         <img src="../assets/img/inside/avatar.png" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>${user.name}</p>
+                        <p>${userName}</p>
                         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
                 </div>
