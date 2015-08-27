@@ -1,17 +1,13 @@
 package br.ufscar.sead.loa.remar
 
-import grails.converters.JSON
 import grails.plugin.mail.MailService
 import grails.plugin.springsecurity.SpringSecurityUtils
-import grails.util.Environment
+import grails.plugin.springsecurity.annotation.Secured
 import org.camunda.bpm.engine.IdentityService
 import org.camunda.bpm.engine.ProcessEngineException
 import org.camunda.bpm.engine.RepositoryService
 import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.TaskService
-import org.camunda.bpm.engine.delegate.DelegateExecution
-import org.camunda.bpm.engine.delegate.ExecutionListener
-import org.camunda.bpm.engine.delegate.JavaDelegate
 import org.camunda.bpm.engine.impl.identity.Authentication
 import org.camunda.bpm.engine.impl.repository.DeploymentBuilderImpl
 import org.camunda.bpm.engine.runtime.ProcessInstance
@@ -21,10 +17,8 @@ import org.camunda.bpm.engine.task.Task
 import org.camunda.bpm.model.bpmn.Bpmn
 import org.camunda.bpm.engine.identity.User
 import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl
-import org.springframework.web.multipart.MultipartFile
 
-
-class ProcessController implements ExecutionListener, JavaDelegate{
+class ProcessController {
     IdentityService identityService
     RuntimeService runtimeService
     ProcessInstance processInstance
@@ -60,7 +54,6 @@ class ProcessController implements ExecutionListener, JavaDelegate{
 
         runtimeService.setVariable(processId, "ownerId", session.user.id as String)
         runtimeService.setVariable(processId, "ownerName", session.user.name as String)
-        runtimeService.setVariable(processId, "gameId", game.id as String)
         runtimeService.setVariable(processId, "gameName", game.name as String)
         runtimeService.setVariable(processId, "gameUri", game.uri as String)
         runtimeService.setVariable(processId, "username", session.user.username as String)
@@ -150,10 +143,13 @@ class ProcessController implements ExecutionListener, JavaDelegate{
             task.taskDefinitionKey = task.taskDefinitionKey.replace('.', '/')
         }
 
+        //for tests
+        def debug = Environment.current == Environment.DEVELOPMENT
+
         if (tasks.size() == 0) {
             render(view:'finishedProcess')
         } else {
-            respond "", model: [allusers: allUsers, alltasks: tasks, uri: uri, processId: params.processId]
+            respond "", model: [allusers: allUsers, alltasks: tasks, uri: uri, processId: params.processId, debug: debug]
         }
 
     }
@@ -217,62 +213,34 @@ class ProcessController implements ExecutionListener, JavaDelegate{
     }
 
     def completeTask() {
-//        println params.taskId
-//        def processId = taskService.createTaskQuery().taskId(params.taskId).singleResult().processInstanceId
-//
-//        taskService.complete(params.taskId)
-//        redirect(uri: "/process/tasks/overview/${processId}")
-        def task = taskService.createTaskQuery().taskId(params.taskId).singleResult()
+        println params.taskId
+        def processId = taskService.createTaskQuery().taskId(params.taskId).singleResult().processInstanceId
 
-        if (task) {
-            if (task.delegationState == DelegationState.RESOLVED) {
-                if (task.owner == session.user.username) {
-                    taskService.complete(params.taskId)
-
-                } else {
-                    render "user != owner"
-                }
-            } else {
-                render "delegation state != resolved"
-            }
-        } else {
-            render "task doesn't exists"
-        }
-
-
+        taskService.complete(params.taskId)
+        redirect(uri: "/process/tasks/overview/${processId}")
 
     }
 
     def resolveTask() {
+//        println taskService.createTaskQuery().taskId(params.taskId).singleResult().assignee
+//        taskService.resolveTask(params.taskId)
+
         def task = taskService.createTaskQuery().taskId(params.taskId).singleResult()
         if (task) {
             if (task.delegationState == DelegationState.PENDING) {
                 if (task.assignee == session.user.username) {
-                    if (params.file) {
-                        def file = new File(servletContext.getRealPath("/data/${task.owner}/${task.processInstanceId}"), params.file.originalFilename)
-                        file.mkdirs()
-                        params.file.transferTo(file)
-                        taskService.resolveTask(params.taskId)
-                        redirect uri: '/process/pendingTasks'
-                    } else if (Environment.current == Environment.DEVELOPMENT) {
-                        taskService.resolveTask(params.taskId)
-                        redirect uri: '/process/pendingTasks'
-                    } else {
-                        render "error while uploading file"
-                    }
+                    taskService.resolveTask(params.taskId)
+                    redirect uri: '/process/pendingTasks'
                 } else {
                     render "user != assignee"
                 }
             } else {
-                render "delegation state != pending"
+                render "delegation state not pending"
             }
 
         } else {
             render "task doesn't exists"
         }
-    }
-    def resolveTaskTest() {
-        taskService.resolveTask(params.id)
     }
 
 
@@ -312,8 +280,8 @@ class ProcessController implements ExecutionListener, JavaDelegate{
                     }
 
                 } else {
-                    println "else uehauhea!!!"
                     //TODO
+                    println "else uehauhea!!!"
                 }
                 i++
         }
@@ -325,30 +293,6 @@ class ProcessController implements ExecutionListener, JavaDelegate{
 
     }
 
-    @Override
-    void notify(DelegateExecution delegateExecution) throws Exception {
-        println "notify"
-        println delegateExecution.processInstanceId
-
-        if (delegateExecution.currentActivityId == 'start') {
-            redirect uri: "/process/tasks/overview/${delegateExecution.processInstanceId}"
-        } else if (delegateExecution.currentActivityId == 'game_versions'){
-            render "versions"
-        }
-    }
-
-    @Override
-    void execute(DelegateExecution delegateExecution) throws Exception {
-        if (delegateExecution.currentActivityId == 'game_web') {
-            println runtimeService.getVariable(delegateExecution.processInstanceId, 'gameId') + "<<<"
-            def game = Game.get(runtimeService.getVariable(delegateExecution.processInstanceId, 'gameId') as String)
-            println game.files
-        }
-    }
-
-    def kkk() {
-        springSecurityService.clearCachedRequestmaps()
-    }
     // @Secured(["ROLE_ADMIN","ROLE_STUD","ROLE_USER"])
 //
 //    def startbeta() {

@@ -59,7 +59,10 @@
                                                               <td>${task.getAssignee()}</td>
                                                           </g:else>
                                                           <td> <g:link uri="/process/task/complete/${task.getId()}">Ok</g:link></td>
-                                                          <td><g:link target="_blank" uri="/${uri}/${task.taskDefinitionKey}" id="${task.getId()}">Ir</g:link></td>
+                                                          <td><g:link target="_blank" uri="/${uri}/${task.taskDefinitionKey}" id="${task.getId()}">Ir</g:link>
+                                                              <g:if test="${debug == true}">
+                                                                  ---- <g:link target="_blank" uri="/process/task/resolve/${task.getId()}">(RESOLVER)</g:link></td>
+                                                              </g:if>
                                                       </tr>
                                                     </g:each>
                                                 </tbody>
