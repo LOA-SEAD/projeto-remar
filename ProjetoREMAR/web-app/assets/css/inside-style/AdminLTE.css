@@ -1529,6 +1529,7 @@ a:focus {
 }
 .box.box-primary {
   border-top-color: #3c8dbc;
+  background-color: #F9FAFC;
 }
 .box.box-info {
   border-top-color: #00c0ef;
@@ -1802,7 +1803,7 @@ a:focus {
   border-bottom-left-radius: 3px;
   border-top: 1px solid #f4f4f4;
   padding: 10px;
-  background-color: #ffffff;
+  background-color: #F9FAFC;
 }
 .chart-legend {
   margin: 10px 0;
@@ -2043,13 +2044,13 @@ a:focus {
 }
 .info-box-number {
   display: block;
-  font-weight: bold;
-  font-size: 18px;
+  font-size: 14px;
 }
 .progress-description,
 .info-box-text {
   display: block;
-  font-size: 14px;
+  font-size: 18px;
+  font-weight: bold;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2685,8 +2686,9 @@ table.text-center th {
   -o-transform: translate(0, 0);
   transform: translate(0, 0);
   padding: 10px;
-  height: 250px;
+  min-height: 40%;
   overflow: auto;
+
 }
 .direct-chat-msg,
 .direct-chat-text {
@@ -4735,4 +4737,12 @@ table.text-center th {
 
 .format-box-style{
   margin: 10px 10px 10px 10px;
+}
+
+.info-box-icon a{
+  color: white;
+}
+
+.info-box-icon a:hover{
+  color: rgba(255,255,255,0.5);
 }

@@ -47,7 +47,7 @@
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini">ICON</span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>REMAR</b>LTE</span>
+                <span class="logo-lg"><b>REMAR</b></span>
             </a>
 
             <!-- Header Navbar: style can be found in header.less -->
@@ -58,8 +58,8 @@
                 </a>
 
 
-                <div class="col-xs-offset-4">
-                    <ul class="nav navbar-nav  nav-menu-custom">
+                <div>
+                    <ul class="nav navbar-nav">
                         <li><a href="/dashboard">Espaço do Usuário  <span class="sr-only">(current)</span></a></li>
                         <li><a href="/game/index">Espaço do Desenvolvedor<span class="sr-only">(current)</span></a></li>
                         <li><a href="#">Torne-se um Desenvolvedor<span class="sr-only">(current)</span></a></li>
@@ -149,24 +149,24 @@
                                     </p>
                                 </li>
                                 <!-- Menu Body -->
-                                <li class="user-body">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Followers</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Sales</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Friends</a>
-                                    </div>
-                                </li>
+                                %{--<li class="user-body">--}%
+                                    %{--<div class="col-xs-4 text-center">--}%
+                                        %{--<a href="#">Followers</a>--}%
+                                    %{--</div>--}%
+                                    %{--<div class="col-xs-4 text-center">--}%
+                                        %{--<a href="#">Sales</a>--}%
+                                    %{--</div>--}%
+                                    %{--<div class="col-xs-4 text-center">--}%
+                                        %{--<a href="#">Friends</a>--}%
+                                    %{--</div>--}%
+                                %{--</li>--}%
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <a href="#" class="btn btn-default btn-flat">Perfil</a>
                                     </div>
                                     <div class="pull-right">
-                                        <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                        <a href="/logout/index" class="btn btn-default btn-flat">Sair</a>
                                     </div>
                                 </li>
                             </ul>
