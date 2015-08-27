@@ -141,14 +141,26 @@ class GameController {
             redirect action: "index"
             println "bpmn not found"
             return
+        }
 
+        file = new File(servletContext.getRealPath("/wars/${session.user.id}/${fileName}/data/source"))
+        if (!file.exists()) { // source folder exists?
+            gameInstance.valid = false
+            gameInstance.name = war.originalFilename
+            gameInstance.uri = ""
+            gameInstance.status  = "rejected"
+            gameInstance.comment = "source folder not found"
+            gameInstance.save flush: true
+            redirect action: "index"
+            println "source folder not found"
+            return
         }
 
         gameInstance.web = true //default
         gameInstance.bpmn = manifest.bpmn
         gameInstance.comment = "Awaiting review"
 
-        file = new File(servletContext.getRealPath("/wars/${session.user.id}"), fileName + ".war")
+        new File(servletContext.getRealPath("/wars/${session.user.id}"), fileName + ".war")
                        .renameTo(servletContext.getRealPath("/wars/${session.user.id}") + "/" + manifest.uri + ".war")
 
         gameInstance.save flush:true
@@ -158,6 +170,7 @@ class GameController {
             println gameInstance.errors
             respond gameInstance.errors, view:"create"
         } else {
+            file.renameTo(servletContext.getRealPath("/data/games/sources/${gameInstance.id}")) as String
             flash.message = message(code: 'default.created.message', args: [message(code: 'deploy.label', default: 'Deploy'), gameInstance.id])
             redirect action: "index"
         }
