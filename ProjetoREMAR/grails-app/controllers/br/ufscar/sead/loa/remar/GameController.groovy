@@ -107,6 +107,7 @@ class GameController {
         gameInstance.android = manifest.android
         gameInstance.linux   = manifest.linux
         gameInstance.moodle  = manifest.moodle
+        gameInstance.files   = manifest.files
 
         def cmd = servletContext.getRealPath("/scripts") + "/verify-banner.sh ${servletContext.getRealPath("/wars/${session.user.id}")}/${fileName} ${manifest.uri}-banner"
         def foundBanner = cmd.execute().text.toInteger()
