@@ -57,7 +57,7 @@
                                 <sec:ifAllGranted roles="ROLE_ADMIN">
                                     <input class="comment" data-id="${gameInstance.id}" type="text" placeholder="Comment" value="${gameInstance.comment}">
                                 </sec:ifAllGranted>
-                                <sec:ifNotGranted roles="ROLE_USER">
+                                <sec:ifNotGranted roles="ROLE_ADMIN">
                                     ${gameInstance.comment}
                                 </sec:ifNotGranted>
 
