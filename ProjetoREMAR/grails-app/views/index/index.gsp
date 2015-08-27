@@ -81,7 +81,7 @@
                     <li>
                         <a class="page-scroll" href="#contact">Contato</a>
                     </li>
-                    <li>
+                    <li id="login">
                         <g:link class="btn-login link-center" controller="login">Entrar</g:link>
                     </li>
                 </ul>
