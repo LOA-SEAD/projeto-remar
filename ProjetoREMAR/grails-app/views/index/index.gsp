@@ -64,23 +64,23 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="float: right;">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a class="page-scroll" href="#gt-remar">GT-REMAR</a>
+                        <a class="page-scroll" href="/index">GT-REMAR</a>
                     </li>
+                    %{--<li>--}%
+                        %{--<a class="page-scroll" href="#description">Descrição</a>--}%
+                    %{--</li>--}%
                     <li>
-                        <a class="page-scroll" href="#description">Descrição</a>
+                        <a class="page-scroll" href="/index/info">Mais Informações</a>
                     </li>
-                    <li>
-                        <a class="page-scroll" href="#architecture">Arquitetura</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#team">Equipe</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#partners">Parceiros</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#contact">Contato</a>
-                    </li>
+                    %{--<li>--}%
+                        %{--<a class="page-scroll" href="#team">Equipe</a>--}%
+                    %{--</li>--}%
+                    %{--<li>--}%
+                        %{--<a class="page-scroll" href="#partners">Parceiros</a>--}%
+                    %{--</li>--}%
+                    %{--<li>--}%
+                        %{--<a class="page-scroll" href="#contact">Contato</a>--}%
+                    %{--</li>--}%
                     <li id="login">
                         <g:link class="btn-login link-center" controller="login">Entrar</g:link>
                     </li>
@@ -132,105 +132,6 @@
                     disponibilização desses recursos em diferentes plataformas e a
                     integração com ambientes virtuais de aprendizagem.
                 </p>
-
-                <h3 id="architecture" style="text-align:left;">Arquitetura</h3>
-                <p style="text-align: justify">
-                    Um esboço da arquitetura da plataforma proposta é apresentado abaixo.
-                    Os usuários da plataforma poderão realizar a autoria e/ou adaptação e
-                    posterior publicação de instâncias de recursos educacionais abertos (REA),
-                    segundo um conjunto de diretrizes para a construção de REA que serão estabelecidas
-                    para este serviço. A plataforma proposta disponibilizará, por meio de duas
-                    ferramentas (de autoria e de publicação), um conjunto de funcionalidades que visam
-                    facilitar: (i) a construção de REA utilizando tecnologia HTML5; (ii) a adaptação
-                    dos componentes constituintes do REA para o atendimento de diferentes necessidades
-                    (adaptação de conteúdo, interface para dispositivos móveis, acessibilidade); (iii)
-                    a geração e publicação de instâncias dos REA para plataformas web, móvel, desktop;
-                    (iv) a integração de REA com ambientes virtuais de aprendizagem. As duas primeiras
-                    funcionalidades (construção e adaptação) estarão sob a responsabilidade da ferramenta
-                    de autoria, enquanto as duas últimas (geração/publicação para múltiplas plataformas e
-                    integração com AVA) sob a responsabilidade da ferramenta de publicação.
-                </p>
-
-                <div class="container-white" style="text-align: center;">
-                    <img src="../images/architecture.png" />
-                </div>
-
-                <h3 id="team" style="text-align:left;">Equipe</h3>
-                <p>Coordenação</p>
-
-                <ul>
-                    <li><a href="http://lattes.cnpq.br/5845245549777383" target="_blank">Delano Medeiros Beder</a>, Departamento de Computação, UFSCar</li>
-                    <li><a href="http://lattes.cnpq.br/8235968002513082" target="_blank">Joice Lee Otsuka</a>, Departamento de Computação, UFSCar</li>
-                </ul>
-
-                <p>Equipe de Desenvolvimento</p>
-
-                <ul>
-                    <li><a href="http://lattes.cnpq.br/8675003419316612" target="_blank">Alex Roberto Guido</a>, Pós-Graduando em Ciência da Computação, UFSCar</li>
-                    <li>Denis Cappelini, Graduando em Ciência da Computação, UFSCar</li>
-                    <li><a href="http://lattes.cnpq.br/9470649292364278" target="_blank">Pablo Bizzi Mahmud</a>, Pós-Graduando em Ciência da Computação, UFSCar</li>
-                    <li><a href="http://lattes.cnpq.br/3111439904701090" target="_blank">Rogerio Augusto Bordini</a>, Pós-Graduando em Educação, UFSCar</li>
-                </ul>
-
-                <p>Pesquisadores Colaboradores<p>
-                <ul>
-                    <li><a href="http://lattes.cnpq.br/1515286597269486" target="_blank">Daniel Ribeiro Silva Mill</a>, Departamento de Educação, UFSCar</li>
-                    <li><a href="http://lattes.cnpq.br/1543348404865052" target="_blank">Dulce Márcia Cruz</a>, Departamento Metodologia de Ensino (MEN), UFSC</li>
-                    <li><a href="http://lattes.cnpq.br/2727662627646050" target="_blank">Fernanda M. Pereira Freire</a>, Núcleo de Informática Aplicada à Educação, UNICAMP</li>
-                    <li><a href="http://lattes.cnpq.br/0131332176384646" target="_blank">Flavia Linhalis Arantes</a>, Núcleo de Informática Aplicada à Educação, UNICAMP</li>
-                    <li><a href="http://lattes.cnpq.br/5340922290331025" target="_blank">Izabel Patrícia Meister</a>, Secretaria de Educação a Distância, UNIFESP</li>
-                    <li><a href="http://lattes.cnpq.br/9826026025118073" target="_blank">Marilde Prado Santos</a>, Departamento de Computação, UFSCar</li>
-                    <li><a href="http://lattes.cnpq.br/0130140163490918" target="_blank">Silvar Ferreira Ribeiro</a>, Departamento de Ciência Humanas, UNEB</li>
-                    <li><a href="http://lattes.cnpq.br/0185144417072417" target="_blank">Sílvia Zem-Mascarenhas</a>, Departamento de Enfermagem, UFSCar</li>
-                    <li><a href="http://lattes.cnpq.br/0246540741711761" target="_blank">Tel Amiel</a>, Núcleo de Informática Aplicada à Educação, UNICAMP</li>
-                    <li><a href="http://lattes.cnpq.br/3246940231681306" target="_blank">Valeria Sperduti Lima</a>, Secretaria de Educação a Distância, UNIFESP</li>
-                </ul>
-
-                <h3 id="partners" style="text-align:left;">Parceiros</h3>
-                <p style="text-align: justify">
-                    Instituições
-                </p>
-                <div class="container-white" style="text-align: center">
-                    <div>
-                        <a style="padding: 2px;" href="http://www.ufscar.br" target="_blank" rel="prettyPhoto" title="Universidade Federal de São Carlos">
-                            <img src="../images/partners/ufscar.png" alt="UFSCar">
-                        </a>
-                        <a href="http://www.unicamp.br/unicamp/" target="_blank" rel="prettyPhoto" title="Universidade Estadual de Campinas">
-                            <img src="../images/partners/unicamp.png" alt="UNICAMP">
-                        </a>
-                        <a href="http://www.unifesp.br/" target="_blank" rel="prettyPhoto" title="Universidade Federal de São Paulo">
-                            <img src="../images/partners/unifesp.png" alt="UNIFESP">
-                        </a>
-                        <a href="http://ufsc.br/" target="_blank" rel="prettyPhoto" title="Universidade Federal de Santa Catarina">
-                            <img src="../images/partners/ufsc.png" alt="UFSC">
-                        </a>
-                        <a href="http://www.uneb.br/" target="_blank" rel="prettyPhoto" title="Universidade do Estado da Bahia">
-                            <img src="../images/partners/uneb.png" alt="UNEB">
-                        </a>
-                    </div>
-                </div>
-                <p>
-                </p>
-                <p style="text-align: justify">
-                    Investimento
-                </p>
-                <div class="container-white" style="text-align: center">
-                    <div class="container-custom">
-                        <a href="http://www.rnp.br/" target="_blank" rel="prettyPhoto" title="Rede Nacional de Ensino e Pesquisa">
-                            <img src="../images/partners/rnp.png" alt="RNP">
-                        </a>
-                    </div>
-                </div>
-
-
-                <h3 id="contact" style="text-align:left;">Contato</h3>
-                <p style="text-align: justify">
-                    Email: remar@sead.ufscar.br
-                </p>
-                <p style="text-align: justify">
-                    Endereço: Universidade Federal de São Carlos, At3 - Sala 54 - São Carlos - SP
-                </p>
-
             </div>
         </div>
     </div>

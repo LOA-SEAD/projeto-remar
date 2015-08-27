@@ -187,7 +187,7 @@ class BootStrap {
         }
         if(!RequestMap.findById(1)) {
             for (url in [
-                    '/', '/index', '/doc/**', '/assets/**', '/**/js/**', '/**/css/**', '/**/images/**',
+                    '/', '/index', '/index/info', '/doc/**', '/assets/**', '/**/js/**', '/**/css/**', '/**/images/**',
                     '/**/favicon.ico', '/data/**', '/**/scss/**', '/**/less/**', '/**/fonts/**',
                     '/password/**', '/moodle/**', '/exportedGame/**', '/static/**', '/login/**', '/logout/**', '/user/**',
                     '/facebook/**'
@@ -204,6 +204,7 @@ class BootStrap {
             new RequestMap(url: '/process/undeploy', configAttribute: 'ROLE_ADMIN').save()
             new RequestMap(url: '/user/index', configAttribute: 'ROLE_ADMIN').save()
             new RequestMap(url: '/developer/new', configAttribute: 'IS_AUTHENTICATED_FULLY').save()
+
 //            new RequestMap(url: '', configAttribute: '').save()
         }
 

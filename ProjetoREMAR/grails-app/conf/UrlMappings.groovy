@@ -23,6 +23,7 @@ class UrlMappings {
         name resetPassword: "/password/reset"(view: "/static/forgottenPassword")
         //noinspection GroovyAssignabilityCheck
         name developerForm: "/developer/new"(view:"/static/formDeveloper")
+        name infoPage: "/index/info" (view: "index/info")
         // end password mappings
 
         // begin Process API endpoints
