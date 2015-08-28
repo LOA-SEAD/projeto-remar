@@ -357,7 +357,10 @@ class ProcessController implements JavaDelegate, ExecutionListener{
         newGame.height = params.int('gameHeight')
 
         if(params.Web) {
-            newGame.webUrl = "webUrl"
+            def ownerUsername = runtimeService.getVariable(params.processId, 'ownerUsername') as String
+            def game = Game.get(runtimeService.getVariable(params.processId, 'gameId') as String)
+            def instanceFolder = servletContext.getRealPath("/data/users/${ownerUsername}/${params.processId}")
+            newGame.webUrl = "${instanceFolder}/${game.uri}"  //Need some tests!
             newGame.addToPlatforms(Platform.findByName("Web"))
         }
         if(params.Linux) {
