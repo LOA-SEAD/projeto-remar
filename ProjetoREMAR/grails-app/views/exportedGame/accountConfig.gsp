@@ -105,7 +105,7 @@
 	</head>
 	<body>
 		<div>
-			<h3>Jogo disponível para as contas:</h3>
+			<h3>R.E.A disponível para as contas do Moodle:</h3>
 			<g:form url="[action:'accountSave']" id="form">
 				<div id="account-list">
 					

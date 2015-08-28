@@ -206,12 +206,6 @@ class ProcessController implements JavaDelegate, ExecutionListener{
     }
 
 
-    def publishGame() {
-        println params.web
-        redirect(action: "finishedProcess")
-
-    }
-
     def finishedProcess() {
         println Game.findByWeb(true)
         def webVersion = Game.findByWeb(true)
@@ -270,7 +264,6 @@ class ProcessController implements JavaDelegate, ExecutionListener{
         }
     }
 
-
     def delegateTasks() {
         def userId = springSecurityService.getCurrentUser().getId()
         def ownerUsername = br.ufscar.sead.loa.remar.User.findById(userId).username
@@ -320,6 +313,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
 
     }
 
+
     @Override
     void notify(DelegateExecution delegateExecution) throws Exception {
         println "notify"
@@ -338,7 +332,8 @@ class ProcessController implements JavaDelegate, ExecutionListener{
             def ownerUsername = runtimeService.getVariable(delegateExecution.processInstanceId, 'ownerUsername') as String
             def game = Game.get(runtimeService.getVariable(delegateExecution.processInstanceId, 'gameId') as String)
             def instanceFolder = new File(servletContext.getRealPath("/data/users/${ownerUsername}/${delegateExecution.processInstanceId}"))
-            def json = JSON.parse(game.files)
+            def json = JSON.parse(Game.get(runtimeService.getVariable(delegateExecution.processInstanceId, 'gameId') as String).files)
+            println "instanceFolder = " + instanceFolder.toString()
 
             new AntBuilder().copy(todir: "${instanceFolder}/${game.uri}") {
                 fileset(dir: servletContext.getRealPath("/data/games/sources/${game.id}"))
@@ -347,6 +342,44 @@ class ProcessController implements JavaDelegate, ExecutionListener{
             json.each {file, destinationFolder ->
                 new AntBuilder().copy(file: "${instanceFolder}/${file}", tofile: "${instanceFolder}/${game.uri}/${destinationFolder}/${file}")
             }
+        }
+    }
+
+    def publishGame() {
+        ExportedGame newGame = new ExportedGame()
+        newGame.owner = br.ufscar.sead.loa.remar.User.findById(springSecurityService.getCurrentUser().getId())
+        newGame.exportedAt = new Date()
+        newGame.type = 'public'
+        newGame.image = params.gameImage
+        newGame.name = params.gameName
+        println params.gameWidth.toInteger()
+        newGame.width = params.int('gameWidth')
+        newGame.height = params.int('gameHeight')
+
+        if(params.Web) {
+            newGame.webUrl = "webUrl"
+            newGame.addToPlatforms(Platform.findByName("Web"))
+        }
+        if(params.Linux) {
+            newGame.linuxUrl = "linuxUrl"
+            newGame.addToPlatforms(Platform.findByName("Linux"))
+        }
+        if(params.Moodle) {
+            newGame.moodleUrl = "moodleUrl"
+            newGame.addToPlatforms(Platform.findByName("Moodle"))
+        }
+        if(params.Android) {
+            newGame.androidUrl = "androidUrl"
+            newGame.addToPlatforms(Platform.findByName("Android"))
+        }
+
+        newGame.save flush:true
+
+        if(params.Moodle) {
+            redirect controller: "ExportedGame", action: "accountConfig", id: newGame.id
+        }
+        else {
+            redirect(uri: "/dashboard")
         }
     }
 
@@ -362,49 +395,26 @@ class ProcessController implements JavaDelegate, ExecutionListener{
         new RequestMap(url: '/data/users/admin/851/escolamagica', configAttribute: 'IS_AUTHENTICATED_FULLY').save flush: true
         springSecurityService.clearCachedRequestmaps()
     }
-    // @Secured(["ROLE_ADMIN","ROLE_STUD","ROLE_USER"])
-//
-//    def startbeta() {
-//        Map<String, String> map = new HashMap<>()
-//        map.put("owner", "admin")
-//        map.owner = "admin"
-//
-//        def proc = runtimeService.startProcessInstanceByKey("ForcaProcess", map)
-//        session.processId = proc.getId()
-//        println session.processId
-//
-//        runtimeService.setVariable(session.processId, "owner", "admin")
-//    }
 
-//    def bpmnManagement(){
-//
-//        def currentUser = springSecurityService.getCurrentUser().camunda_id
-//
-//
-//        List<Task> activeTasks = taskService.createTaskQuery().processInstanceId(session.processId).active().list()
-//
-//
-//        for(int i=0; i<activeTasks.size(); i++){
-//            if(currentUser == activeTasks[i].assignee){
-//                def parsedURI = parseBpmn(activeTasks[i])
-//                redirect(uri: "http://localhost:8080/"+parsedURI)   //todo REDIS (Matheus)
-//            }
-//        }
+    def publishOptions() {
+        def game = Game.get(runtimeService.getVariable(params.processId, 'gameId') as String)
+        def platforms = []
 
-    // def modelPath = servletContext.getRealPath("/process/Teste2Process.bpmn")
-    //def currentUser = springSecurityService.getCurrentUser().camunda_id
-    //println identityService.createUserQuery().userEmail("admin@gmail.com")
-
-    // BpmnModelInstance modelInstance = Bpmn.readModelFromFile(new File(modelPath))
-
-    //Collection<ModelElementInstance> tasks = modelInstance.getModelElementsByType(UserTask.class);
-/*
-        for(int i=0; i<tasks.size(); i++){
-            if(tasks[i].camundaAssignee == currentUser){
-                println "tarefa " + tasks[i].name + "é do usuario: " + currentUser
-            }
+        if (game.android) {
+            platforms  << "Android"
         }
-*/
+        if (game.moodle) {
+            platforms << "Moodle"
+        }
+        if (game.linux) {
+            platforms << "Linux"
+        }
+        if (game.web) {
+            platforms << "Web"
+        }
+
+        render view: "publishOptions", model: [platforms: platforms, processId: params.processId]
+    }
 
 
 }

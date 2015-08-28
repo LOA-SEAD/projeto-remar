@@ -31,6 +31,7 @@ class UrlMappings {
         "/process/task/resolve/$taskId"(controller:"process", action:"resolveTask")
         "/process/tasks/delegate/$processId"(controller:"process", action:"delegateTasks")
         "/process/tasks/overview/$processId"(controller:"process", action:"chooseUsersTasks")
+        "/process/publishOptions/$processId"(controller:"process", action:"publishOptions")
         // end Process API endpoints
 
         // begin Game API endpoints
