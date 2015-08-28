@@ -79,3 +79,7 @@ Ortotetris/.link_to_grails_plugins/
 Ortotetris/target-eclipse/
 Ortotetris/*.iml
 Ortotetris/.idea
+
+EscolaMagica/*.iml
+EscolaMagica/.idea
+
