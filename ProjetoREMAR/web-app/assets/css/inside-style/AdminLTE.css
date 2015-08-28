@@ -96,8 +96,8 @@ body {
 .content-wrapper,
 .right-side {
   min-height: 100%;
-  background: url("../../img/bg/bg.png") repeat;
-  /*background-repeat: repeat;*/
+  background-image: url("../../img/bg/bg.png");
+  background-repeat: repeat;
   /*background-color: #ffffff;*/
   z-index: 800;
 }
@@ -1532,13 +1532,22 @@ a:focus {
   background-color: #F9FAFC;
 }
 .box.box-info {
-  border-top-color: #00c0ef;
+  border-top: 4px solid #00c0ef;
+  border-bottom: 2px solid #00c0ef;
+  border-right: 2px solid #00c0ef;
+  border-left: 2px solid #00c0ef;
 }
 .box.box-danger {
-  border-top-color: #dd4b39;
+  border-top: 4px solid #dd4b39;
+  border-bottom: 2px solid #dd4b39;
+  border-right: 2px solid #dd4b39;
+  border-left: 2px solid #dd4b39;
 }
 .box.box-warning {
-  border-top-color: #f39c12;
+  border-top: 3px solid #f39c12;
+  border-bottom: 2px solid #f39c12;
+  border-right: 2px solid #f39c12;
+  border-left: 2px solid #f39c12;
 }
 .box.box-success {
   border-top-color: #00a65a;
@@ -2686,8 +2695,9 @@ table.text-center th {
   -o-transform: translate(0, 0);
   transform: translate(0, 0);
   padding: 10px;
-  min-height: 40%;
-  overflow: auto;
+  min-height: 200px;
+  max-height: 300px;
+  overflow-y: scroll;
 
 }
 .direct-chat-msg,

@@ -86,7 +86,7 @@
                                         <li><!-- start message -->
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="../assets/img/inside/avatar.png" class="img-circle" alt="User Image">                                              </div>
+                                                    <img src="http://myapp.dev:9090/assets/img/inside/avatar.png" class="img-circle" alt="User Image">                                              </div>
                                                 <h4>
                                                     Fulano
                                                     <small><i class="fa fa-clock-o"></i> 5 mins</small>
@@ -136,13 +136,13 @@
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img class="user-image" alt="User Image" src="../assets/img/inside/avatar.png"/>
+                                <img class="user-image" alt="User Image" src="http://myapp.dev:9090/assets/img/inside/avatar.png"/>
                                 <span class="hidden-xs">${userName}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
-                                    <img src="../assets/img/inside/avatar.png" class="img-circle" alt="User Image">
+                                    <img src="http://myapp.dev:9090/assets/img/inside/avatar.png" class="img-circle" alt="User Image">
                                     <p>
                                         ${userName}
                                         <small>Member since Nov. 2012</small>
@@ -185,7 +185,7 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="../assets/img/inside/avatar.png" class="img-circle" alt="User Image">
+                        <img src="http://myapp.dev:9090/assets/img/inside/avatar.png" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
                         <p>${userName}</p>
@@ -221,12 +221,12 @@
                     </li>
                     <li>
                         <a href="http://myapp.dev:9090/dashboard">
-                            <i class="fa fa-th"></i><span>R.E.A. públicos</span>
+                            <i class="fa fa-users"></i><span> R.E.A. públicos</span>
                         </a>
                     </li>
                     <li class="treeview">
                         <g:link controller="process" action="userProcesses">
-                            <i class="fa fa-table"></i>
+                            <i class="fa fa-lock"></i>
                             <span>
                                Meus R.E.A.
                             </span>
