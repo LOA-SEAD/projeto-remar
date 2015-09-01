@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <meta name="layout" content="main-inside">
+    <meta name="layout" content="new-main-inside">
     <title></title>
 </head>
 <body>
