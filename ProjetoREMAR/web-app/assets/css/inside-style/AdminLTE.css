@@ -1532,28 +1532,34 @@ a:focus {
   background-color: #F9FAFC;
 }
 .box.box-info {
-  border-top: 4px solid #00c0ef;
+  border-top: 2px solid #00c0ef;
   border-bottom: 2px solid #00c0ef;
   border-right: 2px solid #00c0ef;
   border-left: 2px solid #00c0ef;
 }
 .box.box-danger {
-  border-top: 4px solid #dd4b39;
+  border-top: 2px solid #dd4b39;
   border-bottom: 2px solid #dd4b39;
   border-right: 2px solid #dd4b39;
   border-left: 2px solid #dd4b39;
 }
 .box.box-warning {
-  border-top: 3px solid #f39c12;
+  border-top: 2px solid #f39c12;
   border-bottom: 2px solid #f39c12;
   border-right: 2px solid #f39c12;
   border-left: 2px solid #f39c12;
 }
 .box.box-success {
-  border-top-color: #00a65a;
+  border-top: 2px solid #00a65a;
+  border-bottom: 2px solid #00a65a;
+  border-right: 2px solid #00a65a;
+  border-left: 2px solid #00a65a;
 }
 .box.box-default {
-  border-top-color: #d2d6de;
+  border-top: 2px solid #333;
+  border-bottom: 2px solid #333;
+  border-right: 2px solid #333;
+  border-left: 2px solid #333;
 }
 .box.collapsed-box .box-body,
 .box.collapsed-box .box-footer {
@@ -4235,7 +4241,8 @@ table.text-center th {
 .alert-info,
 .label-info,
 .modal-info .modal-body {
-  background-color: #00c0ef !important;
+
+  background-color: rgba(0,192,239,1) !important;
 }
 .bg-blue {
   background-color: #0073b7 !important;
