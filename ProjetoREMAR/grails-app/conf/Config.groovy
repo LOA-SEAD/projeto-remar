@@ -229,3 +229,5 @@ facebook.applicationId='1621035434837394'
 //grails.plugin.springsecurity.facebook.domain.classname='br.ufscar.sead.loa.remar.FacebookUser'
 //grails.plugin.springsecurity.facebook.appId='1621035434837394'
 //grails.plugin.springsecurity.facebook.secret='0a70357ea42707a19d7fa38e080d20e1'
+
+grails.web.url.converter = 'hyphenated'
