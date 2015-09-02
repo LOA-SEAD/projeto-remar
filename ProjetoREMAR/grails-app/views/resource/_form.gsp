@@ -5,5 +5,7 @@
 		<g:message code="deploy.war_file.label" default="WAR file:" />
 		<span class="required-indicator">*</span>
 	</label>
-	<input type="file" name="war"/>
+	<span class="btn">
+		<input type="file" name="war" />
+	</span>
 </div>
