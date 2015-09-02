@@ -13,10 +13,22 @@
     <g:set var="entityName"
            value="${message(code: 'user.label', default: 'User')}" />
     <title>Admin page</title>
+
+    <!-- jQuery 2.1.4 -->
+    <script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery.min.js')}"></script>
+
+
+    <script type="text/javascript">
+        $(function(){
+           $("#dashboard_page").addClass("active");
+
+        });
+    </script>
 </head>
 <body>
 
-        <div class="content">
+
+<div class="content">
             <div class="row">
                 <div class="col-md-12">
                     <div class="box box-body box-info">
@@ -25,9 +37,7 @@
                                 <i class="fa fa-edit"></i>
                                 Recursos personalizáveis
                             </h3>
-                            <div class="box-tools pull-right">
-                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                            </div>
+
                         </div><!-- /.box-header -->
                         <div class="box-body">
                             <div class="direct-chat-messages" >
@@ -86,9 +96,6 @@
                                 <i class="fa fa-users"></i>
                                 Recursos Públicos
                             </h3>
-                            <div class="box-tools pull-right">
-                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                            </div>
                         </div>
                         <div class="box-body no-padding">
                             <div class="direct-chat-messages" >
@@ -104,7 +111,7 @@
                                             <span class="info-box-number">
                                                 <img class="img-circle" alt="User Image" src="http://myapp.dev:9090/assets/img/inside/avatar04.png"
                                                      height="25" width="25"/>
-                                                lauro Silva. Copyright © REMAR
+                                                lauro Silva
                                             </span>
                                             <span class="progress-description">
                                                 <div class="pull-right">
@@ -128,7 +135,7 @@
                                             <span class="info-box-number">
                                                 <img class="img-circle" alt="User Image" src="http://myapp.dev:9090/assets/img/inside/avatar2.png"
                                                      height="25" width="25"/>
-                                                Julia Rocha. Copyright © REMAR
+                                                Julia Rocha
                                             </span>
 
                                             <span class="progress-description">
@@ -158,9 +165,6 @@
                                 <i class="fa fa-lock"></i>
                                 Meus Recursos
                             </h3>
-                            <div class="box-tools pull-right">
-                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                            </div>
                         </div><!-- /.box-header -->
                         <div class="box-body">
                             <div class="direct-chat-messages" >
@@ -176,7 +180,7 @@
                                             <span class="info-box-number">
                                                 <img class="img-circle" alt="User Image" src="http://myapp.dev:9090/assets/img/inside/avatar04.png"
                                                      height="25" width="25"/>
-                                                lauro Silva. Copyright © REMAR
+                                                lauro Silva
                                             </span>
                                             <span class="progress-description">
                                                 <div class="pull-right">
@@ -200,7 +204,7 @@
                                             <span class="info-box-number">
                                                 <img class="img-circle" alt="User Image" src="http://myapp.dev:9090/assets/img/inside/avatar2.png"
                                                      height="25" width="25"/>
-                                                Julia Rocha. Copyright © REMAR
+                                                Julia Rocha
                                             </span>
 
                                             <span class="progress-description">
@@ -217,7 +221,7 @@
                             </div>
                         </div><!-- /.box-body -->
                         <div class="box-footer text-center">
-                        <a href="#" class="uppercase">Ir para meus recursos</a>
+                            <a href="#" class="uppercase">Ir para meus recursos</a>
                         </div><!-- /.box-footer-->
                     </div><!--/.direct-chat -->
                 </div><!-- /.col -->
@@ -229,11 +233,11 @@
                     <!-- MAP & BOX PANE -->
                     <div class="box box-success">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Visitors Report</h3>
-                            <div class="box-tools pull-right">
-                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                            </div>
+                            <h3 class="box-title">
+                                <i class="fa fa-list-alt"></i>
+                                Tarefas Pendentes
+                            </h3>
+
                         </div><!-- /.box-header -->
                         <div class="box-body no-padding">
                             <div class="row">
@@ -246,34 +250,37 @@
                                 <div class="col-md-3 col-sm-4">
                                     <div class="pad box-pane-right bg-green" style="min-height: 280px">
                                         <div class="description-block margin-bottom">
-                                            <div class="sparkbar pad" data-color="#fff">90,70,90,70,75,80,70</div>
-                                            <h5 class="description-header">8390</h5>
-                                            <span class="description-text">Visits</span>
+
+                                            <h5 class="description-header">100</h5>
+                                            <span class="description-text">Tarefas</span>
                                         </div><!-- /.description-block -->
                                         <div class="description-block margin-bottom">
-                                            <div class="sparkbar pad" data-color="#fff">90,50,90,70,61,83,63</div>
+
                                             <h5 class="description-header">30%</h5>
-                                            <span class="description-text">Referrals</span>
+                                            <span class="description-text">Concluídas</span>
                                         </div><!-- /.description-block -->
                                         <div class="description-block">
-                                            <div class="sparkbar pad" data-color="#fff">90,50,90,70,61,83,63</div>
+
                                             <h5 class="description-header">70%</h5>
-                                            <span class="description-text">Organic</span>
+                                            <span class="description-text">Pendentes</span>
                                         </div><!-- /.description-block -->
                                     </div>
                                 </div><!-- /.col -->
                             </div><!-- /.row -->
+                            <div class="box-footer text-center">
+                                <a href="#" class="uppercase">Ir para tarefas pendentes</a>
+                            </div><!-- /.box-footer-->
                         </div><!-- /.box-body -->
                     </div><!-- /.box -->
                 </div>
                 <div class="col-md-4">
                     <div class="box box-default">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Browser Usage</h3>
-                            <div class="box-tools pull-right">
-                                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                                <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                            </div>
+                            <h3 class="box-title">
+                                <i class="fa fa-info"></i>
+                                 Recursos mais personalizáveis
+                            </h3>
+
                         </div><!-- /.box-header -->
                         <div class="box-body">
                             <div class="row">

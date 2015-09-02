@@ -208,12 +208,12 @@
 
                     <li class="header"><i class="glyphicon glyphicon-briefcase"></i>  Área de trabalho</li>
 
-                    <li class="active treeview">
-                        <a href="#">
+                    <li id="dashboard_page" class="treeview">
+                        <a href="http://myapp.dev:9090/dashboard">
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span></i>
                         </a>
                     </li>
-                    <li class="treeview">
+                    <li id="reapersonalizavel_page" class="treeview">
                         <a href="http://myapp.dev:9090/dashboard">
                             <i class="fa fa-edit"></i>
                             <span>R.E.A. personalizáveis </span> <small class="label pull-right bg-green">new</small>
@@ -221,11 +221,11 @@
                         </a>
                     </li>
                     <li>
-                        <a href="http://myapp.dev:9090/dashboard">
+                        <a  id="reapublicos_page" href="http://myapp.dev:9090/dashboard">
                             <i class="fa fa-users"></i><span> R.E.A. públicos</span>
                         </a>
                     </li>
-                    <li class="treeview">
+                    <li id="meusrea_page" class="treeview">
                         <g:link controller="process" action="userProcesses">
                             <i class="fa fa-lock"></i>
                             <span>
@@ -234,7 +234,7 @@
                         </g:link>
                     </li>
 
-                    <li class="treeview">
+                    <li id="tarefaspendentes_page" class="treeview">
                         %{--<a href="#">--}%
                          <g:link controller="process" action="pendingTasks" >
                             <i class="fa fa-list-alt"></i>
