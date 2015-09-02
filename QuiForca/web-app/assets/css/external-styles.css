@@ -1,0 +1,352 @@
+
+/* ==========================================================================
+   Base Styles and Bootstrap Modifications
+   ========================================================================== */
+
+/* ==========================================================================
+   General styles
+   ========================================================================== */
+
+.logotipo{
+    margin-top: 0;
+    margin-bottom: 30px;
+    padding-top: 0;
+    border: 0;
+}
+
+
+.input-lg {
+    height: 46px;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 40px;
+    border-radius: 0px;
+    border-style: solid none solid solid;
+    width: 60%;
+    display: inline-block;
+    margin: 5px 0  5px 0;
+}
+
+.btn-block {
+    display: block;
+    width: 50%;
+    position: absolute;
+
+
+}
+.btn-lg, .btn-group-lg > .btn {
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.33333;
+
+}
+.btn-primary {
+    color: #FFF;
+    background-color: #2EBD59;
+    border-color: #2EBD59;
+}
+
+.btn {
+    display: block;
+    font-size: 18px;
+    line-height: 1.2;
+    text-align: center;
+    -moz-user-select: none;
+    border: 1px solid transparent;
+    border-radius: 50px;
+    margin-left: 20%;
+    min-width: 250px;
+}
+
+.btn-login{
+    min-width: 50px;
+    width: 150px;
+    display: inline-block;
+    margin-left: -12%;
+
+}
+
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary.focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    color: #FFF;
+    background-image: linear-gradient(#2EBD59,#1ed760);
+    /*background-color: #1ed760;*/
+    border-color: transparent ;
+}
+
+
+.login span.icon {
+    width: 10%;
+    transition: all 800ms ease 0s;
+    text-align: center;
+    color: #999;
+    border-radius: 0px 3px 3px 0px;
+    background: #E8E8E8 none repeat scroll 0% 0%;
+    height: 46px;
+    line-height: 46px;
+    display: inline-block;
+    border-width: 1px 1px 1px medium;
+    border-style: solid solid solid none;
+    border-color: #CCC #CCC #CCC -moz-use-text-color;
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+    font-size: 16px;
+    margin: 5px 0  5px -10px;
+}
+
+.icon:focus:invalid{
+    border-color: #ba0500;
+}
+
+.input-lg, .login span.icon {
+    vertical-align: top;
+}
+
+
+.form-control:focus {
+    border-color: #2EBD59;
+    outline: 0px none;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(16, 151, 0, 0.6);
+}
+
+.form-control:focus + .icon{
+    border-color: #2EBD59;
+    outline: 3px none;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(16, 151, 0, 0.6);
+}
+
+.has-error .form-control + .icon{
+    border-color: #a94442;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+.has-error .form-control:focus + .icon {
+    border-color: #843534;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px #ce8483;
+}
+
+
+.fa {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    font-size-adjust: none;
+    font-stretch: normal;
+    font-feature-settings: normal;
+    font-language-override: normal;
+    font-kerning: auto;
+    font-synthesis: weight style;
+    font-variant: normal;
+    font-size: inherit;
+    text-rendering: auto;
+}
+
+.container{
+    display: block;
+    margin: 0px auto;
+    max-width: 500px;
+    outline: 0px none;
+    text-align: center;
+    position: static;
+
+    font-family: 'Ropa Sans', sans-serif;
+}
+
+form{
+    display: block !important;
+    min-height: 300px;
+}
+
+.form-group{
+    display: block;
+    padding: 0px;
+    margin: 10px;
+}
+
+.divider{
+    border-top: 1px solid #2EBD59;
+    display: block;
+    line-height: 1px;
+    margin: 30px 0px;
+    position: relative;
+    text-align: center;
+    outline: 3px none;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+}
+strong{
+    font-size: 18px;
+    display: inline;
+    background-color: #ffffff;
+    margin-top: 25px;
+    padding: 10px;
+}
+
+header{
+    min-height: 200px;
+    padding-top: 0;
+    margin-bottom: 0;
+}
+
+header h1{
+    font-size: 120px;
+    color: #2EBD59;
+    text-shadow: 2px 4px 2px rgba(0,0,0,0.3);
+}
+
+.footer-span{
+    diplay: block;
+    font-size: 16px;
+    text-align: center;
+}
+.footer-span a{
+    diplay:block;
+    color: #2EBD59;
+
+}
+.footer-span a:hover{
+    color: rgba(16, 151, 0, 1);
+}
+
+footer{
+    margin-bottom: 80px;
+}
+
+.help-block {
+    display: block;
+    margin-top: -2px;
+    margin-bottom: 10px;
+    text-align: left;
+    margin-left: 15%;
+    color: #843534;
+}
+
+/*Style para ajustar propriedade float*/
+.clearfix::before,
+.clearfix::after {
+    content: "";
+    display: table;
+}
+.clearfix::after {
+    clear: both;
+}
+
+.ck-style{
+    display: inline-block;
+    float: left;
+    margin-left: 15%;
+}
+
+.ck-style input[type="checkbox"]{
+    border-color: #2EBD59;
+}
+
+/* ==========================================================================
+   create add styles
+   ========================================================================== */
+
+.label-form {
+    display: block;
+    font-weight: bold;
+    text-align: justify;
+}
+
+.label-info{
+    text-align: center;
+    font-weight: normal;
+    background-color: transparent;
+    font-size: 18px;
+}
+
+
+.input-form {
+    height: 35px;
+    padding: 5px 10px;
+    font-size: 16px;
+    line-height: 25px;
+    border-radius: 2px;
+    border-style: solid;
+    width: 100%;
+    display: inline-block;
+    margin: -3px 0  5px 0;
+}
+
+.ck-style-create{
+    margin-left: 0px;
+}
+
+.span-create{
+    text-align: justify;
+    margin-left: 30px;
+}
+
+.container-create{
+    max-width: 40%;
+    text-align: left;
+    position: static;
+    /*background-color:  rgba(234, 229, 235, 0.4);*/
+}
+
+.captcha{
+    text-align: center;
+    margin-left: 8%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.btn-create{
+    margin-left: 23%;
+    margin-right: 50%;
+    width: 100px;
+    display: inline-block;
+
+}
+
+input.btn-block[type="submit"], input.btn-block[type="reset"], input.btn-block[type="button"] {
+    width: 50%;
+}
+
+.g-recaptcha{
+    position: static;
+    margin-left: 30%;
+    margin-right: 50%;
+}
+
+.title-style{
+    text-align: center;
+    font-weight: bold;
+
+}
+
+.password-text-align{
+    text-align: center;
+}
+
+#link-password{
+    display: block;
+    position: static;
+    left:30%;
+}
+
+.help-block-create{
+    margin-left: 10px;
+}
+
+
+
+/**/
+.icon-style{
+    color: #843534;
+    font-size: 13px;
+    display: inline-block;
+    margin-left: -30px;
+}
+
+.team-section{
+
+}
