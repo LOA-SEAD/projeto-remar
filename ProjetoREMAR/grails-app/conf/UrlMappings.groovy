@@ -34,10 +34,9 @@ class UrlMappings {
         "/process/publishOptions/$processId"(controller:"process", action:"publishOptions")
         // end Process API endpoints
 
-        // begin Game API endpoints
-        "/game/review/$id/$status?"(controller:"game", action:"review")
-        // end Game API endpoints
-
+        // begin Resource API endpoints
+        "/resource/review/$id/$status?"(controller:"resource", action:"review")
+        // end Resource API endpoints
 
         "500"(view:'/error')
 	}

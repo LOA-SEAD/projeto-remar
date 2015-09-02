@@ -1,6 +1,6 @@
 package br.ufscar.sead.loa.remar
 
-class Game {
+class Resource {
 
     static belongsTo = [owner: User]
 
@@ -34,4 +34,6 @@ class Game {
     boolean valid
     String bpmn
 
+    int width
+    int height
 }

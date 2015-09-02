@@ -12,7 +12,7 @@
     <title></title>
 </head>
 <body>
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="content">
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header-blue">Atribuição de Tarefas</h1>
@@ -32,7 +32,7 @@
                                                         <tr role="row">
                                                             <th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">Nome</th>
                                                             <th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">Usuarios Disponíves</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">Delegação</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">Status</th>
                                                             <th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">Usuário delegado</th>
                                                             <th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">Completar</th>
                                                             <th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">Realizar Tarefa</th>

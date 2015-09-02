@@ -1,7 +1,7 @@
 package br.ufscar.sead.loa.remar
 
-class ExportedGame {
-	static belongsTo = [owner: User]
+class ExportedResource {
+	static belongsTo = [owner: User, resource: Resource]
     static hasMany = [platforms: Platform, accounts: MoodleAccount]
 
     static constraints = {

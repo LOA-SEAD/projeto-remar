@@ -1,6 +1,6 @@
 package br.ufscar.sead.loa.remar
 import static org.springframework.http.HttpStatus.*
-import grails.plugin.springsecurity.annotation.Secured
+
 import grails.converters.JSON
 import groovy.json.JsonBuilder
 
@@ -61,7 +61,7 @@ class MoodleController {
         if (moodle != []) {
             /* list of games published only for moodle */
             def plat = Platform.findByName("Moodle")
-            def list = ExportedGame.findAll()
+            def list = ExportedResource.findAll()
 
             Iterator i = list.iterator();
             while (i.hasNext()) {

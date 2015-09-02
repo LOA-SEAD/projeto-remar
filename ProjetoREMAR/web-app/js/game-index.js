@@ -14,7 +14,7 @@ window.onload = function(){
 
         $(img).attr('src', '/images/loading_spinner.gif');
 
-        var url = location.origin + '/game/review/' + id + "/" + status;
+        var url = location.origin + '/resource/review/' + id + "/" + status;
 
         $.ajax({
             type:'POST',
@@ -38,7 +38,7 @@ window.onload = function(){
     });
 
     $('.comment').on('focusout', function() {
-        var url = location.origin + '/game/review/' + $(this).data('id') + "?comment=" + encodeURIComponent($(this).val());
+        var url = location.origin + '/resource/review/' + $(this).data('id') + "?comment=" + encodeURIComponent($(this).val());
         $.ajax({
             type:'POST',
             url: url,
@@ -60,7 +60,7 @@ window.onload = function(){
 
         $.ajax({
             type: 'DELETE',
-            url: location.origin + '/game/delete/' + id,
+            url: location.origin + '/resource/delete/' + id,
             success: function(data) {
                 console.log(data);
                 console.log($(el).parents().eq(6).remove());

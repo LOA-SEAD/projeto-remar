@@ -1,5 +1,5 @@
 
-<%@ page import="br.ufscar.sead.loa.remar.Game" %>
+<%@ page import="br.ufscar.sead.loa.remar.Resource" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +19,7 @@
             <div class="widget-content-white glossed">
                 <div class="padded">
                     <div class="row">
-                        <g:each in="${gameInstanceList}" status="i" var="gameInstance">
+                        <g:each in="${resourceInstanceList}" status="i" var="gameInstance">
                             <div class="col-md-3">
                             <g:if test="${gameInstance.status == 'pending'}">
                                 <div class="panel panel-yellow">
@@ -79,7 +79,7 @@
                         </div>
                         </g:each>
                         <div class="col-md-3">
-                            <a href="/game/create">
+                            <a href="/resource/create">
                                 <div class="panel panel-default">
                                     <div class="panel-heading">New deploy</div>
                                     <div class="panel-body">

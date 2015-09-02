@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <g:form action="newDeveloper" controller="game">
+    <g:form action="newDeveloper" controller="resource">
     <label for="fullName"> Nome Completo
         <span class="required-indicator">*</span>
         <input id="fullName" type="text" name="fullName" />

@@ -1,21 +1,15 @@
 package br.ufscar.sead.loa.remar
 
-import grails.transaction.Transactional
-import org.springframework.web.multipart.MultipartFile
-import org.springframework.web.multipart.MultipartRequest
-
-import static org.springframework.http.HttpStatus.*
 import grails.plugin.springsecurity.annotation.Secured
 import grails.converters.JSON
-import br.ufscar.sead.loa.remar.Moodle
 
 @Secured(['ROLE_ADMIN'])
-class ExportedGameController {
+class ExportedResourceController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
     def springSecurityService
 
-    def save(ExportedGame exportedGame) {
+    def save(ExportedResource exportedGame) {
         /*if (exportedGame.hasErrors()) {
             println("Someone tried to register a new moodlegame but it doesn't worked:")
             println(exportedGame.errors)
@@ -45,15 +39,15 @@ class ExportedGameController {
         def moodleList = Moodle.where {
             active == true
         }.list()
-        render(view: '/exportedGame/_moodles', model: [moodleList: moodleList, id: params.local])
+        render(view: '/exportedResource/_moodles', model: [moodleList: moodleList, id: params.local])
     }
 
-    def publish(ExportedGame exportedGame) {
+    def publishOld(ExportedResource exportedGame) {
         def moodleList = Moodle.list()
         respond moodleList, model:[moodleList: moodleList]
     }
 
-    def accountConfig(ExportedGame exportedGame) {
+    def accountConfig(ExportedResource exportedGame) {
         Moodle m = Moodle.findWhere(id: Long.parseLong("1"))
 
         render(view:"accountConfig", model:['exportedGameInstance': exportedGame]);
@@ -64,7 +58,7 @@ class ExportedGameController {
 
         def exportedGameId = Long.parseLong(params.find({it.key == "exportedGameId"}).value)
 
-        ExportedGame exportedGame = ExportedGame.findById(exportedGameId)
+        ExportedResource exportedGame = ExportedResource.findById(exportedGameId)
 
         params?.each{
             def name = it.key
@@ -90,5 +84,49 @@ class ExportedGameController {
                 exportedGame.save flush:true
             }
         }
+    }
+
+    def publish(ExportedResource exportedResourceInstance) {
+        def resource = exportedResourceInstance.resource
+        def platforms = []
+
+        if(exportedResourceInstance.webUrl) {
+            platforms << 'Web:' +  exportedResourceInstance.webUrl
+        } else if(resource.web) {
+            platforms << 'Web'
+        }
+        if(exportedResourceInstance.androidUrl) {
+            platforms << 'Android:' +  exportedResourceInstance.androidUrl
+        } else if(resource.android) {
+            platforms << 'Android'
+        }
+        if(exportedResourceInstance.linuxUrl) {
+            platforms << 'Linux:' +  exportedResourceInstance.linuxUrl
+        } else if(resource.linux) {
+            platforms << 'Linux'
+        }
+        if(exportedResourceInstance.moodleUrl) {
+            platforms << 'Moodle:' +  exportedResourceInstance.moodleUrl
+        } else if(resource.moodle) {
+            platforms << 'Moodle'
+        }
+
+        render view:'publish', model: [resourceName: exportedResourceInstance.name, resourceId: exportedResourceInstance.id,
+                                       platforms: platforms]
+    }
+
+    def web(ExportedResource exportedResourceInstance) {
+        def user = springSecurityService.currentUser as User
+        def url = "/published/${exportedResourceInstance.id}/web"
+        if (params.type == 'public') {
+            new RequestMap(url: url + '/**', configAttribute: 'permitAll').save flush: true
+            springSecurityService.clearCachedRequestmaps()
+        }
+
+        exportedResourceInstance.webUrl = url
+        exportedResourceInstance.save flush: true
+
+        render url
+
     }
 }

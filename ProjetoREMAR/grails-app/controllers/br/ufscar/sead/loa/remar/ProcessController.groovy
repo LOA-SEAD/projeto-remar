@@ -3,7 +3,6 @@ package br.ufscar.sead.loa.remar
 import grails.converters.JSON
 import grails.plugin.mail.MailService
 import grails.plugin.springsecurity.SpringSecurityUtils
-import grails.plugin.springsecurity.annotation.Secured
 import grails.util.Environment
 import org.camunda.bpm.engine.IdentityService
 import org.camunda.bpm.engine.ProcessEngineException
@@ -26,12 +25,7 @@ import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl
 class ProcessController implements JavaDelegate, ExecutionListener{
     IdentityService identityService
     RuntimeService runtimeService
-    ProcessInstance processInstance
     TaskService taskService
-    Authentication authentication
-    def redisService
-    User user
-    Task task
     def springSecurityService
     RepositoryService repositoryService
     MailService mailService
@@ -47,7 +41,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
             return
         }
 
-        if(!Game.findByBpmn(params.id)) {
+        if(!Resource.findByBpmn(params.id)) {
             response.status = 404
             render 'The process ' + params.id + ' doesn\'t exists!'
             return
@@ -55,13 +49,13 @@ class ProcessController implements JavaDelegate, ExecutionListener{
 
         session.user = springSecurityService.getCurrentUser()
 
-        def game = Game.findByBpmn(params.id)
+        def resource = Resource.findByBpmn(params.id)
 
         runtimeService.setVariable(processId, "ownerId", session.user.id as String)
         runtimeService.setVariable(processId, "ownerName", session.user.name as String)
-        runtimeService.setVariable(processId, "gameId", game.id as String)
-        runtimeService.setVariable(processId, "gameName", game.name as String)
-        runtimeService.setVariable(processId, "gameUri", game.uri as String)
+        runtimeService.setVariable(processId, "resourceId", resource.id as String)
+        runtimeService.setVariable(processId, "resourceName", resource.name as String)
+        runtimeService.setVariable(processId, "resourceUri", resource.uri as String)
         runtimeService.setVariable(processId, "ownerUsername", session.user.username as String)
 
 
@@ -143,7 +137,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
         List<User> allUsers = identityService.createUserQuery().list()
         List<Task> tasks = taskService.createTaskQuery().processInstanceId(params.processId).list()
 
-        def uri = runtimeService.getVariable(params.processId, "gameUri")
+        def uri = runtimeService.getVariable(params.processId, "resourceUri")
 
         for (task in tasks) {
             task.taskDefinitionKey = task.taskDefinitionKey.replace('.', '/')
@@ -168,7 +162,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
             def var = runtimeService.getVariable(processes.id, "ownerId")
             if (userId == var) {
                 def formattedProcesses = []
-                formattedProcesses[0] = runtimeService.getVariable(processes.id, "gameName")
+                formattedProcesses[0] = runtimeService.getVariable(processes.id, "resourceName")
                 formattedProcesses[1] = taskService.createTaskQuery().processInstanceId(processes.id).list().size()
                 formattedProcesses[2] = runtimeService.createProcessInstanceQuery().processInstanceId(processes.id).list()[0].suspended
                 formattedProcesses[3] = processes.id
@@ -190,10 +184,10 @@ class ProcessController implements JavaDelegate, ExecutionListener{
         def list = []
         for (task in tasks) {
             def formattedTask = []
-            formattedTask[0] = runtimeService.getVariable(task.processInstanceId, 'gameName')
+            formattedTask[0] = runtimeService.getVariable(task.processInstanceId, 'resourceName')
             formattedTask[1] = task.getName()
             formattedTask[2] = runtimeService.getVariable(task.processInstanceId, 'ownerName')
-            formattedTask[3] = '/' + runtimeService.getVariable(task.processInstanceId, 'gameUri')
+            formattedTask[3] = '/' + runtimeService.getVariable(task.processInstanceId, 'resourceUri')
             formattedTask[3] += '/' + task.taskDefinitionKey.replace('.', '/')
             list.add(formattedTask)
         }
@@ -207,8 +201,8 @@ class ProcessController implements JavaDelegate, ExecutionListener{
 
 
     def finishedProcess() {
-        println Game.findByWeb(true)
-        def webVersion = Game.findByWeb(true)
+        println Resource.findByWeb(true)
+        def webVersion = Resource.findByWeb(true)
         render(view: "finishedProcess", model: [web: webVersion])
     }
 
@@ -321,65 +315,85 @@ class ProcessController implements JavaDelegate, ExecutionListener{
 
         if (delegateExecution.currentActivityId == 'start') {
             redirect uri: "/process/tasks/overview/${delegateExecution.processInstanceId}"
-        } else if (delegateExecution.currentActivityId == 'game_versions'){
+        } else if (delegateExecution.currentActivityId == 'resource_versions'){
             render "versions"
         }
     }
 
     @Override
     void execute(DelegateExecution delegateExecution) throws Exception {
-        if (delegateExecution.currentActivityId == 'game_web') {
+        if (delegateExecution.currentActivityId == 'resource_reuse') {
+            def resource = Resource.get(runtimeService.getVariable(delegateExecution.processInstanceId, 'resourceId') as String)
             def ownerUsername = runtimeService.getVariable(delegateExecution.processInstanceId, 'ownerUsername') as String
-            def game = Game.get(runtimeService.getVariable(delegateExecution.processInstanceId, 'gameId') as String)
-            def instanceFolder = new File(servletContext.getRealPath("/data/users/${ownerUsername}/${delegateExecution.processInstanceId}"))
-            def json = JSON.parse(Game.get(runtimeService.getVariable(delegateExecution.processInstanceId, 'gameId') as String).files)
-            println "instanceFolder = " + instanceFolder.toString()
 
-            new AntBuilder().copy(todir: "${instanceFolder}/${game.uri}") {
-                fileset(dir: servletContext.getRealPath("/data/games/sources/${game.id}"))
+            def exportedResourceInstance = new ExportedResource()
+            exportedResourceInstance.owner = br.ufscar.sead.loa.remar.User.get(runtimeService.getVariable(delegateExecution.processInstanceId, 'ownerId') as int)
+            exportedResourceInstance.resource = resource
+            exportedResourceInstance.exportedAt = new Date()
+            exportedResourceInstance.type = 'public' // TODO
+            exportedResourceInstance.image = resource.uri + '-banner.png'
+            exportedResourceInstance.name = resource.name
+            exportedResourceInstance.width = resource.width
+            exportedResourceInstance.height = resource.height
+            exportedResourceInstance.save flush:true
+
+            def resourceFolder = new File(servletContext.getRealPath("/data/users/${ownerUsername}/${delegateExecution.processInstanceId}"))
+            def instanceFolder = new File(servletContext.getRealPath("/published/${exportedResourceInstance.id}"))
+            def json = JSON.parse(Resource.get(runtimeService.getVariable(delegateExecution.processInstanceId, 'resourceId') as String).files)
+
+            new AntBuilder().copy(todir: "${instanceFolder}/web") {
+                fileset(dir: servletContext.getRealPath("/data/resources/sources/${resource.uri}/base"))
             }
 
             json.each {file, destinationFolder ->
-                new AntBuilder().copy(file: "${instanceFolder}/${file}", tofile: "${instanceFolder}/${game.uri}/${destinationFolder}/${file}")
+                new AntBuilder().copy(file: "${resourceFolder}/${file}", tofile: "${instanceFolder}/web/${destinationFolder}/${file}")
             }
+
+            redirect uri:"/exported-resource/publish/${exportedResourceInstance.id}"
         }
     }
 
+
+    def abc() {
+        render "euaheuahea!!!!!!!!"
+    }
+
+    @Deprecated
     def publishGame() {
-        ExportedGame newGame = new ExportedGame()
-        newGame.owner = br.ufscar.sead.loa.remar.User.findById(springSecurityService.getCurrentUser().getId())
-        newGame.exportedAt = new Date()
-        newGame.type = 'public'
-        newGame.image = params.gameImage
-        newGame.name = params.gameName
-        println params.gameWidth.toInteger()
-        newGame.width = params.int('gameWidth')
-        newGame.height = params.int('gameHeight')
+        ExportedResource newResource = new ExportedResource()
+        newResource.owner = br.ufscar.sead.loa.remar.User.findById(springSecurityService.getCurrentUser().getId())
+        newResource.exportedAt = new Date()
+        newResource.type = 'public'
+        newResource.image = params.resourceImage
+        newResource.name = params.resourceName
+        println params.resourceWidth.toInteger()
+        newResource.width = params.int('resourceWidth')
+        newResource.height = params.int('resourceHeight')
 
         if(params.Web) {
             def ownerUsername = runtimeService.getVariable(params.processId, 'ownerUsername') as String
-            def game = Game.get(runtimeService.getVariable(params.processId, 'gameId') as String)
+            def resource = Resource.get(runtimeService.getVariable(params.processId, 'resourceId') as String)
             def instanceFolder = servletContext.getRealPath("/data/users/${ownerUsername}/${params.processId}")
-            newGame.webUrl = "${instanceFolder}/${game.uri}"  //Need some tests!
-            newGame.addToPlatforms(Platform.findByName("Web"))
+            newResource.webUrl = "${instanceFolder}/${resource.uri}"  //Need some tests!
+            newResource.addToPlatforms(Platform.findByName("Web"))
         }
         if(params.Linux) {
-            newGame.linuxUrl = "linuxUrl"
-            newGame.addToPlatforms(Platform.findByName("Linux"))
+            newResource.linuxUrl = "linuxUrl"
+            newResource.addToPlatforms(Platform.findByName("Linux"))
         }
         if(params.Moodle) {
-            newGame.moodleUrl = "moodleUrl"
-            newGame.addToPlatforms(Platform.findByName("Moodle"))
+            newResource.moodleUrl = "moodleUrl"
+            newResource.addToPlatforms(Platform.findByName("Moodle"))
         }
         if(params.Android) {
-            newGame.androidUrl = "androidUrl"
-            newGame.addToPlatforms(Platform.findByName("Android"))
+            newResource.androidUrl = "androidUrl"
+            newResource.addToPlatforms(Platform.findByName("Android"))
         }
 
-        newGame.save flush:true
+        newResource.save flush:true
 
         if(params.Moodle) {
-            redirect controller: "ExportedGame", action: "accountConfig", id: newGame.id
+            redirect controller: "ExportedGame", action: "accountConfig", id: newResource.id
         }
         else {
             redirect(uri: "/dashboard")
@@ -391,32 +405,11 @@ class ProcessController implements JavaDelegate, ExecutionListener{
         def file2 = new File(servletContext.getRealPath("/perguntas2.xml"))
         taskService.setVariable(params.id, "files", [file, file2])
         redirect uri:"/process/task/resolve/${params.id}"
-
     }
 
     def test() {
         new RequestMap(url: '/data/users/admin/851/escolamagica', configAttribute: 'IS_AUTHENTICATED_FULLY').save flush: true
         springSecurityService.clearCachedRequestmaps()
-    }
-
-    def publishOptions() {
-        def game = Game.get(runtimeService.getVariable(params.processId, 'gameId') as String)
-        def platforms = []
-
-        if (game.android) {
-            platforms  << "Android"
-        }
-        if (game.moodle) {
-            platforms << "Moodle"
-        }
-        if (game.linux) {
-            platforms << "Linux"
-        }
-        if (game.web) {
-            platforms << "Web"
-        }
-
-        render view: "publishOptions", model: [platforms: platforms, processId: params.processId]
     }
 
 

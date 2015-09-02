@@ -13,16 +13,10 @@
 </head>
 
 <body>
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<div class="content">
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header-blue">Tarefas Pendentes</h1>
-    </div>
-</div>
-    </div>
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-<div class="row">
-    <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">Tabela de Tarefas Pendentes</div>
             <div class="panel-body">

@@ -5,9 +5,9 @@ package br.ufscar.sead.loa.remar
 import grails.test.mixin.*
 import spock.lang.*
 
-@TestFor(ExportedGameController)
-@Mock(ExportedGame)
-class ExportedGameControllerSpec extends Specification {
+@TestFor(ExportedResourceController)
+@Mock(ExportedResource)
+class ExportedResourceControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
@@ -38,7 +38,7 @@ class ExportedGameControllerSpec extends Specification {
         when:"The save action is executed with an invalid instance"
             request.contentType = FORM_CONTENT_TYPE
             request.method = 'POST'
-            def exportedGame = new ExportedGame()
+            def exportedGame = new ExportedResource()
             exportedGame.validate()
             controller.save(exportedGame)
 
@@ -49,14 +49,14 @@ class ExportedGameControllerSpec extends Specification {
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
-            exportedGame = new ExportedGame(params)
+            exportedGame = new ExportedResource(params)
 
             controller.save(exportedGame)
 
         then:"A redirect is issued to the show action"
             response.redirectedUrl == '/exportedGame/show/1'
             controller.flash.message != null
-            ExportedGame.count() == 1
+            ExportedResource.count() == 1
     }
 
     void "Test that the show action returns the correct model"() {
@@ -68,7 +68,7 @@ class ExportedGameControllerSpec extends Specification {
 
         when:"A domain instance is passed to the show action"
             populateValidParams(params)
-            def exportedGame = new ExportedGame(params)
+            def exportedGame = new ExportedResource(params)
             controller.show(exportedGame)
 
         then:"A model is populated containing the domain instance"
@@ -84,7 +84,7 @@ class ExportedGameControllerSpec extends Specification {
 
         when:"A domain instance is passed to the edit action"
             populateValidParams(params)
-            def exportedGame = new ExportedGame(params)
+            def exportedGame = new ExportedResource(params)
             controller.edit(exportedGame)
 
         then:"A model is populated containing the domain instance"
@@ -104,7 +104,7 @@ class ExportedGameControllerSpec extends Specification {
 
         when:"An invalid domain instance is passed to the update action"
             response.reset()
-            def exportedGame = new ExportedGame()
+            def exportedGame = new ExportedResource()
             exportedGame.validate()
             controller.update(exportedGame)
 
@@ -115,7 +115,7 @@ class ExportedGameControllerSpec extends Specification {
         when:"A valid domain instance is passed to the update action"
             response.reset()
             populateValidParams(params)
-            exportedGame = new ExportedGame(params).save(flush: true)
+            exportedGame = new ExportedResource(params).save(flush: true)
             controller.update(exportedGame)
 
         then:"A redirect is issues to the show action"
@@ -136,16 +136,16 @@ class ExportedGameControllerSpec extends Specification {
         when:"A domain instance is created"
             response.reset()
             populateValidParams(params)
-            def exportedGame = new ExportedGame(params).save(flush: true)
+            def exportedGame = new ExportedResource(params).save(flush: true)
 
         then:"It exists"
-            ExportedGame.count() == 1
+            ExportedResource.count() == 1
 
         when:"The domain instance is passed to the delete action"
             controller.delete(exportedGame)
 
         then:"The instance is deleted"
-            ExportedGame.count() == 0
+            ExportedResource.count() == 0
             response.redirectedUrl == '/exportedGame/index'
             flash.message != null
     }

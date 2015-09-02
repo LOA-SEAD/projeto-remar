@@ -37,6 +37,7 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <g:layoutHead/>
 </head>
     <body class="hold-transition skin-black-light sidebar-mini">
     <!-- <body class="layout-top-nav"> -->
@@ -61,7 +62,7 @@
                 <div>
                     <ul class="nav navbar-nav">
                         <li><a href="/dashboard">Espaço do Usuário  <span class="sr-only">(current)</span></a></li>
-                        <li><a href="/game/index">Espaço do Desenvolvedor<span class="sr-only">(current)</span></a></li>
+                        <li><a href="/resource/index">Espaço do Desenvolvedor<span class="sr-only">(current)</span></a></li>
                         <li><a href="#">Torne-se um Desenvolvedor<span class="sr-only">(current)</span></a></li>
                     </ul>
                 </div>

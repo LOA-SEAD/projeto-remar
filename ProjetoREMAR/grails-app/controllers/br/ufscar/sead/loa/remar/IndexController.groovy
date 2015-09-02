@@ -1,9 +1,6 @@
 package br.ufscar.sead.loa.remar
 
-import grails.plugin.springsecurity.annotation.Secured
 import org.camunda.bpm.engine.RuntimeService
-import org.camunda.bpm.engine.runtime.ProcessInstance
-
 
 class IndexController {
 
@@ -23,7 +20,7 @@ class IndexController {
     def dashboard() {
         def model = [:]
 
-        model.gameInstanceList = Game.findAllByStatus('approved') // change to #findAllByActive?
+        model.gameInstanceList = Resource.findAllByStatus('approved') // change to #findAllByActive?
         model.userName = session.user.name
 
         def instances = []
