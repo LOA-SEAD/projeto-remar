@@ -10,7 +10,7 @@ import org.camunda.bpm.engine.form.TaskFormData
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Secured(["ROLE_PROF"])
+@Secured(["IS_AUTHENTICATED_FULLY"])
 @Transactional(readOnly = true)
 class QuestionController {
 

@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X7 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="180mm" height="200mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 18000 20000"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str1 {stroke:#98A3A3;stroke-width:105.83}
+    .str3 {stroke:#CFE7F7;stroke-width:564.44}
+    .str4 {stroke:#FEFEFE;stroke-width:20}
+    .str12 {stroke:#39CA74;stroke-width:20}
+    .str8 {stroke:#60ADE0;stroke-width:20}
+    .str0 {stroke:#98A3A3;stroke-width:20}
+    .str10 {stroke:#CFE7F7;stroke-width:20}
+    .str5 {stroke:#E54D42;stroke-width:20}
+    .str7 {stroke:#F19B2C;stroke-width:20}
+    .str9 {stroke:white;stroke-width:20}
+    .str6 {stroke:white;stroke-width:20}
+    .str11 {stroke:#FEFEFE;stroke-width:17.64}
+    .str2 {stroke:#98A3A3;stroke-width:17.64}
+    .fil1 {fill:none}
+    .fil10 {fill:#FEFEFE}
+    .fil11 {fill:#39CA74}
+    .fil7 {fill:#60ADE0}
+    .fil0 {fill:#98A3A3}
+    .fil9 {fill:#CFE7F7}
+    .fil4 {fill:#E54D42}
+    .fil6 {fill:#F19B2C}
+    .fil3 {fill:white}
+    .fil8 {fill:#60ADE0;fill-rule:nonzero}
+    .fil2 {fill:#98A3A3;fill-rule:nonzero}
+    .fil5 {fill:#E54D42;fill-rule:nonzero}
+   ]]>
+  </style>
+ </defs>
+ <g id="Camada_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_168648848048">
+   <path class="fil0 str0" d="M13481 10482c-364,-245 -545,-463 -994,-795l-5184 -641c-337,137 -531,219 -923,318l7101 1118z"/>
+   <path class="fil0 str0" d="M13928 10743c-159,596 -902,1259 -1711,1146l-5659 -706c-517,-826 -967,-1440 -1594,-1912l8964 1472z"/>
+   <line class="fil1 str1" x1="10115" y1="518" x2="9800" y2= "9373" />
+   <path class="fil0 str0" d="M10159 548l-57 1014c342,-152 1566,-217 1993,-224 -347,-363 -1557,-606 -1936,-790z"/>
+   <path class="fil0 str0" d="M10038 8131l4845 209c-1463,-759 -3562,-3765 -4672,-6505l-173 6296z"/>
+   <path class="fil0 str0" d="M9904 1796c-2697,1335 -4924,4503 -5932,6364 2003,849 3835,-188 5604,630 -640,-1617 -612,-4491 328,-6994z"/>
+   <path class="fil2 str2" d="M9844 8465l4 -179 5307 194 -2 90 -5309 -105zm2 -90m2655 8m2653 142m-2655 -8"/>
+  </g>
+  <g id="cloud.cdr">
+   <ellipse class="fil3 str3" transform="matrix(2.8525 0.0676007 -0.0676007 2.8525 5597.34 13751.8)" rx="1017" ry="1031"/>
+   <ellipse class="fil3 str3" transform="matrix(2.13949 0.0507032 -0.0507032 2.13949 9169.17 13349.9)" rx="1017" ry="1031"/>
+   <ellipse class="fil3 str3" transform="matrix(2.49899 0.0592229 -0.0592229 2.49899 12182.1 13840.8)" rx="1017" ry="1031"/>
+   <ellipse class="fil3 str3" transform="matrix(2.49899 0.0592229 -0.0592229 2.49899 14375.9 15268.4)" rx="1017" ry="1031"/>
+   <ellipse class="fil3 str3" transform="matrix(2.49899 0.0592229 -0.0592229 2.49899 8615 16189.1)" rx="1017" ry="1031"/>
+   <ellipse class="fil3 str3" transform="matrix(2.12113 0.0502681 -0.0502681 2.12113 11704.3 16188.2)" rx="1017" ry="1031"/>
+   <ellipse class="fil3 str3" transform="matrix(1.42648 0.0338057 -0.0338057 1.42648 5347.58 16205.5)" rx="1017" ry="1031"/>
+   <ellipse class="fil3 str3" transform="matrix(2.14812 0.0509076 -0.0509076 2.14812 3016.2 15097.1)" rx="1017" ry="1031"/>
+  </g>
+  <ellipse class="fil3 str4" transform="matrix(2.8525 0.0676007 -0.0676007 2.8525 5608.21 13742.7)" rx="1017" ry="1031"/>
+  <ellipse class="fil3 str4" transform="matrix(2.13949 0.0507032 -0.0507032 2.13949 9180.04 13340.9)" rx="1017" ry="1031"/>
+  <ellipse class="fil3 str4" transform="matrix(2.49899 0.0592229 -0.0592229 2.49899 12192.9 13831.8)" rx="1017" ry="1031"/>
+  <ellipse class="fil3 str4" transform="matrix(2.49899 0.0592229 -0.0592229 2.49899 14386.8 15259.4)" rx="1017" ry="1031"/>
+  <ellipse class="fil3 str4" transform="matrix(2.49899 0.0592229 -0.0592229 2.49899 8625.87 16180)" rx="1017" ry="1031"/>
+  <ellipse class="fil3 str4" transform="matrix(2.12113 0.0502681 -0.0502681 2.12113 11715.1 16179.1)" rx="1017" ry="1031"/>
+  <ellipse class="fil3 str4" transform="matrix(1.42648 0.0338057 -0.0338057 1.42648 5358.45 16196.4)" rx="1017" ry="1031"/>
+  <ellipse class="fil3 str4" transform="matrix(2.14812 0.0509076 -0.0509076 2.14812 3027.07 15088)" rx="1017" ry="1031"/>
+  <g id="icones.cdr">
+   <g>
+    <ellipse class="fil4 str5" cx="11883" cy="13403" rx="1358" ry="1374"/>
+    <polygon class="fil4 str5" points="12829,11942 13096,12127 12896,12464 12565,12225 "/>
+    <polygon class="fil4 str5" points="13480,12862 13581,13172 13219,13319 13099,12929 "/>
+    <polygon class="fil4 str5" points="13436,14058 13320,14362 12945,14248 13098,13870 "/>
+    <polygon class="fil4 str5" points="12651,14974 12349,15096 12178,14744 12559,14599 "/>
+    <polygon class="fil4 str5" points="11515,15089 11197,15019 11254,14632 11651,14727 "/>
+    <polygon class="fil4 str5" points="10481,14436 10315,14156 10635,13933 10838,14287 "/>
+    <polygon class="fil4 str5" points="10158,13287 10209,12965 10599,12999 10528,13401 "/>
+    <polygon class="fil4 str5" points="10659,12181 10909,11973 11180,12255 10862,12510 "/>
+    <polygon class="fil4 str5" points="11728,11655 12053,11654 12081,12044 11674,12038 "/>
+   </g>
+   <rect class="fil3 str6" x="10746" y="13069" width="2194" height="791" rx="479" ry="395"/>
+   <ellipse class="fil4 str5" cx="11184" cy="13473" rx="314" ry="310"/>
+   <ellipse class="fil3 str6" cx="11186" cy="13478" rx="251" ry="248"/>
+   <circle class="fil4 str5" cx="12604" cy="13345" r="60"/>
+   <circle class="fil4 str5" cx="12457" cy="13500" r="60"/>
+   <circle class="fil4 str5" cx="12748" cy="13496" r="60"/>
+   <circle class="fil4 str5" cx="12609" cy="13645" r="60"/>
+   <rect class="fil4 str5" x="11606" y="13618" width="189.575" height="60.5025"/>
+   <rect class="fil4 str5" x="11830" y="13619" width="189.575" height="60.5025"/>
+   <rect class="fil4 str5" x="12057" y="13620" width="189.575" height="60.5025"/>
+   <rect class="fil3 str6" x="11682" y="13011" width="242.01" height="58.4841"/>
+   <path class="fil1 str6" d="M11803 13011c311,-250 -193,-291 1,-569"/>
+   <path class="fil5 str5" d="M11142 13651l75 0 0 -136 136 0 0 -64 -136 0 0 -136 -75 0 0 136 -136 0 0 64 136 0 0 136zm38 0m37 -68m68 -68m68 -32m-68 -32m-68 -68m-37 -68m-38 68m-68 68m-68 32m68 32m68 68"/>
+  </g>
+  <g id="icones.cdr_0">
+   <g>
+    <ellipse class="fil6 str7" cx="14646" cy="14964" rx="1300" ry="1315"/>
+    <polygon class="fil6 str7" points="15551,13565 15807,13743 15616,14065 15299,13837 "/>
+    <polygon class="fil6 str7" points="16175,14447 16271,14743 15925,14884 15810,14511 "/>
+    <polygon class="fil6 str7" points="16132,15592 16021,15883 15663,15774 15809,15412 "/>
+    <polygon class="fil6 str7" points="15381,16469 15091,16585 14928,16248 15293,16109 "/>
+    <polygon class="fil6 str7" points="14293,16579 13989,16512 14044,16141 14423,16232 "/>
+    <polygon class="fil6 str7" points="13303,15954 13144,15686 13451,15472 13645,15811 "/>
+    <polygon class="fil6 str7" points="12994,14853 13043,14546 13416,14578 13348,14963 "/>
+    <polygon class="fil6 str7" points="13474,13795 13713,13595 13972,13865 13668,14110 "/>
+    <polygon class="fil6 str7" points="14497,13291 14808,13290 14835,13664 14445,13658 "/>
+   </g>
+   <rect class="fil3 str6" x="13731" y="14396" width="1858" height="1101" rx="25" ry="25"/>
+   <rect class="fil6 str7" x="13813" y="14475" width="1693" height="886"/>
+   <rect class="fil3 str6" x="14433" y="15498" width="407" height="225"/>
+   <rect class="fil3 str6" x="14214" y="15724" width="838.034" height="45.4944" rx="23" ry="23"/>
+  </g>
+  <g id="icones.cdr_1">
+   <g>
+    <ellipse class="fil7 str8" cx="8679" cy="15380" rx="1827" ry="1847"/>
+    <polygon class="fil7 str8" points="9950,13415 10310,13665 10041,14117 9596,13796 "/>
+    <polygon class="fil7" points="10827,14653 10913,14918 10913,15089 10475,15267 10314,14743 "/>
+    <polygon class="fil8" points="10838,14649 10913,14879 10913,14957 10818,14667 10330,14753 10483,15251 10913,15076 10913,15103 10480,15279 10467,15284 10464,15271 10303,14747 10298,14733 10312,14731 10825,14641 10835,14639 "/>
+    <polygon class="fil7 str8" points="10767,16262 10610,16670 10107,16517 10312,16008 "/>
+    <polygon class="fil7 str8" points="9711,17493 9305,17656 9075,17183 9587,16988 "/>
+    <polygon class="fil7 str8" points="8183,17648 7756,17553 7833,17033 8366,17161 "/>
+    <polygon class="fil7 str8" points="6793,16769 6569,16393 7001,16093 7273,16569 "/>
+    <polygon class="fil7 str8" points="6359,15224 6428,14792 6952,14837 6856,15378 "/>
+    <polygon class="fil7 str8" points="7032,13737 7369,13457 7733,13836 7305,14180 "/>
+    <polygon class="fil7 str8" points="8469,13029 8907,13029 8945,13553 8397,13545 "/>
+   </g>
+   <rect class="fil3 str9" x="7557" y="14479" width="2296" height="1384" rx="39" ry="49"/>
+   <rect class="fil7 str9" x="7648" y="14670" width="2119" height="1114"/>
+   <ellipse class="fil7 str8" cx="8681" cy="14566" rx="43" ry="49"/>
+   <polygon class="fil3 str9" points="7274,15940 10093,15940 10012,16190 7377,16190 "/>
+  </g>
+  <g id="_168902504928">
+   <ellipse class="fil9 str10" transform="matrix(0.594791 0.110657 -0.118752 0.638301 2367.08 14660.4)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="3224,13756 3388,13922 3203,14132 3001,13921 "/>
+   <polygon class="fil9 str10" points="3562,14489 3592,14720 3318,14777 3285,14486 "/>
+   <polygon class="fil9 str10" points="3374,15325 3252,15524 3004,15395 3161,15149 "/>
+   <polygon class="fil9 str10" points="2701,15867 2473,15913 2399,15643 2686,15591 "/>
+   <polygon class="fil9 str10" points="1887,15799 1672,15708 1763,15443 2030,15562 "/>
+   <polygon class="fil9 str10" points="1245,15204 1164,14985 1419,14870 1516,15146 "/>
+   <polygon class="fil9 str10" points="1168,14353 1246,14133 1516,14208 1413,14482 "/>
+   <polygon class="fil9 str10" points="1665,13640 1869,13527 2022,13761 1765,13899 "/>
+   <polygon class="fil9 str10" points="2486,13410 2715,13452 2684,13730 2398,13672 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.627892 0.116815 -0.107348 0.577005 2366.05 14647.5)" rx="1085" ry="1204"/>
+  </g>
+  <g id="_168789887520">
+   <ellipse class="fil9 str10" transform="matrix(0.594791 0.110657 -0.118752 0.638301 11864.7 16243)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="12721,15338 12885,15504 12701,15715 12499,15503 "/>
+   <polygon class="fil9 str10" points="13060,16072 13090,16303 12816,16359 12783,16069 "/>
+   <polygon class="fil9 str10" points="12872,16908 12750,17106 12501,16977 12658,16731 "/>
+   <polygon class="fil9 str10" points="12199,17450 11971,17495 11896,17226 12184,17173 "/>
+   <polygon class="fil9 str10" points="11384,17382 11170,17291 11261,17026 11528,17145 "/>
+   <polygon class="fil9 str10" points="10742,16787 10662,16568 10917,16453 11013,16728 "/>
+   <polygon class="fil9 str10" points="10666,15936 10744,15716 11013,15791 10911,16064 "/>
+   <polygon class="fil9 str10" points="11163,15223 11366,15109 11520,15343 11263,15481 "/>
+   <polygon class="fil9 str10" points="11984,14992 12213,15035 12182,15313 11896,15255 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.627892 0.116815 -0.107348 0.577005 11863.7 16230.1)" rx="1085" ry="1204"/>
+  </g>
+  <g id="_169002661920">
+   <ellipse class="fil9 str10" transform="matrix(0.387794 0.0721464 -0.077424 0.416161 3306.75 16364.7)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="3865,15775 3972,15883 3852,16020 3720,15882 "/>
+   <polygon class="fil9 str10" points="4086,16253 4106,16404 3927,16440 3905,16251 "/>
+   <polygon class="fil9 str10" points="3963,16798 3884,16928 3722,16843 3824,16683 "/>
+   <polygon class="fil9 str10" points="3525,17151 3376,17181 3327,17005 3515,16971 "/>
+   <polygon class="fil9 str10" points="2994,17107 2854,17048 2913,16875 3087,16953 "/>
+   <polygon class="fil9 str10" points="2575,16719 2522,16577 2689,16501 2752,16681 "/>
+   <polygon class="fil9 str10" points="2525,16164 2576,16021 2752,16070 2685,16248 "/>
+   <polygon class="fil9 str10" points="2849,15700 2982,15625 3082,15778 2914,15868 "/>
+   <polygon class="fil9 str10" points="3384,15549 3534,15577 3514,15758 3327,15721 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.409375 0.0761615 -0.069989 0.376198 3306.08 16356.3)" rx="1085" ry="1204"/>
+  </g>
+  <g id="_169002674336">
+   <ellipse class="fil9 str10" transform="matrix(0.327517 0.0609323 -0.0653896 0.351475 8680.82 18080.7)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="9153,17583 9243,17674 9141,17790 9030,17673 "/>
+   <polygon class="fil9 str10" points="9339,17987 9356,18114 9205,18145 9186,17985 "/>
+   <polygon class="fil9 str10" points="9235,18447 9168,18556 9031,18485 9118,18350 "/>
+   <polygon class="fil9 str10" points="8865,18745 8739,18770 8698,18622 8856,18593 "/>
+   <polygon class="fil9 str10" points="8416,18708 8298,18658 8348,18512 8495,18577 "/>
+   <polygon class="fil9 str10" points="8063,18380 8018,18260 8159,18196 8212,18348 "/>
+   <polygon class="fil9 str10" points="8021,17911 8064,17791 8212,17832 8156,17982 "/>
+   <polygon class="fil9 str10" points="8294,17519 8406,17456 8491,17585 8349,17661 "/>
+   <polygon class="fil9 str10" points="8746,17392 8873,17415 8856,17569 8698,17537 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.345744 0.0643233 -0.0591103 0.317723 8680.26 18073.6)" rx="1085" ry="1204"/>
+  </g>
+  <g id="_169002670016">
+   <ellipse class="fil9 str10" transform="matrix(0.242363 0.04509 -0.0483884 0.260092 3895.93 15286.4)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="4245,14918 4312,14985 4237,15071 4154,14985 "/>
+   <polygon class="fil9 str10" points="4383,15217 4395,15311 4283,15334 4270,15216 "/>
+   <polygon class="fil9 str10" points="4306,15557 4257,15638 4155,15586 4219,15485 "/>
+   <polygon class="fil9 str10" points="4032,15778 3939,15797 3909,15687 4026,15665 "/>
+   <polygon class="fil9 str10" points="3700,15750 3613,15713 3650,15605 3759,15654 "/>
+   <polygon class="fil9 str10" points="3439,15508 3406,15419 3510,15372 3549,15484 "/>
+   <polygon class="fil9 str10" points="3407,15161 3439,15072 3549,15102 3507,15214 "/>
+   <polygon class="fil9 str10" points="3610,14871 3693,14824 3755,14920 3651,14976 "/>
+   <polygon class="fil9 str10" points="3944,14777 4038,14794 4025,14907 3909,14884 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.255851 0.0475994 -0.0437417 0.235116 3895.51 15281.2)" rx="1085" ry="1204"/>
+  </g>
+  <g id="_169002664672">
+   <ellipse class="fil9 str10" transform="matrix(0.242363 0.04509 -0.0483884 0.260092 2031.04 16327.5)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="2380,15959 2447,16026 2372,16112 2289,16026 "/>
+   <polygon class="fil9 str10" points="2518,16258 2530,16352 2419,16375 2405,16257 "/>
+   <polygon class="fil9 str10" points="2441,16598 2392,16679 2290,16627 2354,16526 "/>
+   <polygon class="fil9 str10" points="2167,16819 2074,16838 2044,16728 2161,16707 "/>
+   <polygon class="fil9 str10" points="1835,16792 1748,16754 1785,16647 1894,16695 "/>
+   <polygon class="fil9 str10" points="1574,16549 1541,16460 1645,16413 1684,16525 "/>
+   <polygon class="fil9 str10" points="1542,16202 1574,16113 1684,16143 1642,16255 "/>
+   <polygon class="fil9 str10" points="1745,15912 1828,15865 1891,15961 1786,16017 "/>
+   <polygon class="fil9 str10" points="2080,15818 2173,15835 2160,15949 2044,15925 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.255851 0.0475994 -0.0437417 0.235116 2030.62 16322.3)" rx="1085" ry="1204"/>
+  </g>
+  <g id="_169009780032">
+   <ellipse class="fil9 str10" transform="matrix(0.220199 0.0409666 -0.0439634 0.236307 6364.05 15839.4)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="6681,15505 6742,15566 6674,15644 6599,15566 "/>
+   <polygon class="fil9 str10" points="6806,15776 6818,15862 6716,15882 6704,15775 "/>
+   <polygon class="fil9 str10" points="6737,16086 6692,16159 6600,16111 6658,16020 "/>
+   <polygon class="fil9 str10" points="6488,16286 6403,16303 6376,16203 6482,16184 "/>
+   <polygon class="fil9 str10" points="6186,16261 6107,16227 6141,16129 6239,16173 "/>
+   <polygon class="fil9 str10" points="5949,16041 5919,15960 6013,15917 6049,16019 "/>
+   <polygon class="fil9 str10" points="5920,15726 5949,15644 6049,15672 6011,15773 "/>
+   <polygon class="fil9 str10" points="6104,15462 6180,15420 6236,15506 6141,15557 "/>
+   <polygon class="fil9 str10" points="6408,15376 6493,15392 6482,15495 6376,15474 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.232454 0.0432465 -0.0397416 0.213615 6363.67 15834.6)" rx="1085" ry="1204"/>
+  </g>
+  <g id="_169009775040">
+   <ellipse class="fil9 str10" transform="matrix(0.163904 0.116805 -0.125349 0.175894 6280.36 16925.3)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="6666,16773 6692,16846 6607,16883 6575,16791 "/>
+   <polygon class="fil9 str10" points="6665,17041 6642,17115 6551,17094 6582,17002 "/>
+   <polygon class="fil9 str10" points="6491,17267 6426,17310 6369,17236 6451,17184 "/>
+   <polygon class="fil9 str10" points="6212,17336 6137,17318 6152,17226 6246,17251 "/>
+   <polygon class="fil9 str10" points="5976,17201 5924,17144 5988,17077 6052,17150 "/>
+   <polygon class="fil9 str10" points="5866,16932 5872,16855 5965,16856 5955,16952 "/>
+   <polygon class="fil9 str10" points="5962,16664 6016,16609 6087,16670 6018,16738 "/>
+   <polygon class="fil9 str10" points="6212,16519 6289,16513 6303,16605 6206,16611 "/>
+   <polygon class="fil9 str10" points="6492,16565 6555,16610 6507,16689 6428,16632 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.173025 0.123305 -0.113312 0.159003 6281.86 16921.3)" rx="1085" ry="1204"/>
+  </g>
+  <g id="_169009772704">
+   <ellipse class="fil9 str10" transform="matrix(0.163904 0.116805 -0.125349 0.175894 16414.4 15191.5)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="16800,15039 16826,15112 16741,15149 16709,15057 "/>
+   <polygon class="fil9 str10" points="16799,15307 16776,15381 16685,15360 16716,15268 "/>
+   <polygon class="fil9 str10" points="16625,15533 16560,15576 16503,15502 16585,15450 "/>
+   <polygon class="fil9 str10" points="16346,15602 16271,15584 16286,15492 16380,15517 "/>
+   <polygon class="fil9 str10" points="16110,15468 16058,15410 16122,15343 16186,15416 "/>
+   <polygon class="fil9 str10" points="16000,15198 16006,15121 16099,15122 16089,15218 "/>
+   <polygon class="fil9 str10" points="16096,14931 16150,14875 16221,14936 16152,15004 "/>
+   <polygon class="fil9 str10" points="16346,14785 16423,14780 16437,14872 16340,14877 "/>
+   <polygon class="fil9 str10" points="16626,14831 16689,14876 16641,14955 16562,14898 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.173025 0.123305 -0.113312 0.159003 16415.9 15187.4)" rx="1085" ry="1204"/>
+  </g>
+  <g id="_169009765824">
+   <ellipse class="fil9 str10" transform="matrix(0.124039 0.0883951 -0.0948614 0.133112 10280.7 12262)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="10572,12146 10592,12202 10528,12230 10504,12160 "/>
+   <polygon class="fil9 str10" points="10572,12350 10554,12406 10486,12389 10509,12320 "/>
+   <polygon class="fil9 str10" points="10440,12521 10391,12553 10348,12497 10410,12458 "/>
+   <polygon class="fil9 str10" points="10229,12573 10172,12559 10184,12490 10255,12508 "/>
+   <polygon class="fil9 str10" points="10050,12471 10011,12427 10060,12377 10108,12432 "/>
+   <polygon class="fil9 str10" points="9967,12267 9972,12208 10042,12209 10035,12282 "/>
+   <polygon class="fil9 str10" points="10040,12064 10081,12023 10134,12068 10082,12120 "/>
+   <polygon class="fil9 str10" points="10229,11955 10287,11950 10298,12020 10224,12024 "/>
+   <polygon class="fil9 str10" points="10441,11989 10488,12023 10452,12083 10393,12040 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.130942 0.0933144 -0.0857519 0.12033 10281.8 12258.9)" rx="1085" ry="1204"/>
+  </g>
+  <g id="_169009764416">
+   <ellipse class="fil9 str10" transform="matrix(0.10807 0.0770155 -0.0826493 0.115976 16538.5 15881.9)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="16793,15781 16810,15829 16754,15854 16733,15793 "/>
+   <polygon class="fil9 str10" points="16792,15958 16777,16007 16717,15993 16737,15932 "/>
+   <polygon class="fil9 str10" points="16677,16107 16635,16136 16597,16087 16651,16052 "/>
+   <polygon class="fil9 str10" points="16493,16153 16444,16141 16454,16080 16516,16096 "/>
+   <polygon class="fil9 str10" points="16338,16064 16303,16026 16346,15982 16388,16030 "/>
+   <polygon class="fil9 str10" points="16265,15886 16269,15835 16331,15836 16324,15900 "/>
+   <polygon class="fil9 str10" points="16328,15710 16364,15673 16411,15713 16365,15758 "/>
+   <polygon class="fil9 str10" points="16493,15614 16544,15610 16553,15671 16489,15675 "/>
+   <polygon class="fil9 str10" points="16678,15644 16720,15674 16688,15726 16636,15688 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.114085 0.0813015 -0.0747125 0.104839 16539.5 15879.3)" rx="1085" ry="1204"/>
+  </g>
+  <g id="_169009760288">
+   <ellipse class="fil9 str10" transform="matrix(0.267499 0.0497665 -0.053407 0.287068 7115.43 17374.8)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="7501,16968 7574,17043 7491,17137 7401,17042 "/>
+   <polygon class="fil9 str10" points="7653,17298 7666,17402 7543,17427 7528,17297 "/>
+   <polygon class="fil9 str10" points="7568,17674 7514,17763 7402,17705 7472,17594 "/>
+   <polygon class="fil9 str10" points="7266,17918 7163,17938 7130,17817 7259,17793 "/>
+   <polygon class="fil9 str10" points="6899,17887 6803,17846 6844,17727 6964,17780 "/>
+   <polygon class="fil9 str10" points="6611,17619 6574,17521 6689,17469 6732,17593 "/>
+   <polygon class="fil9 str10" points="6576,17237 6611,17138 6733,17171 6686,17294 "/>
+   <polygon class="fil9 str10" points="6800,16916 6891,16865 6960,16970 6845,17032 "/>
+   <polygon class="fil9 str10" points="7169,16812 7272,16831 7258,16957 7129,16930 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.282386 0.0525361 -0.0482784 0.259501 7114.97 17369)" rx="1085" ry="1204"/>
+  </g>
+  <g id="_169009755840">
+   <ellipse class="fil9 str10" transform="matrix(0.465389 0.0865825 -0.0929161 0.499433 5061.26 16412.9)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="5732,15705 5860,15835 5715,15999 5558,15834 "/>
+   <polygon class="fil9 str10" points="5996,16279 6020,16460 5805,16504 5779,16277 "/>
+   <polygon class="fil9 str10" points="5849,16933 5754,17088 5559,16987 5682,16795 "/>
+   <polygon class="fil9 str10" points="5323,17357 5144,17393 5086,17182 5311,17141 "/>
+   <polygon class="fil9 str10" points="4685,17304 4518,17233 4589,17025 4798,17118 "/>
+   <polygon class="fil9 str10" points="4183,16838 4120,16667 4320,16577 4395,16793 "/>
+   <polygon class="fil9 str10" points="4123,16172 4184,16001 4395,16059 4315,16273 "/>
+   <polygon class="fil9 str10" points="4512,15615 4671,15526 4792,15709 4590,15817 "/>
+   <polygon class="fil9 str10" points="5154,15434 5334,15467 5310,15685 5086,15640 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.491289 0.091401 -0.0839935 0.451473 5060.45 16402.8)" rx="1085" ry="1204"/>
+  </g>
+  <g id="_169009752352">
+   <ellipse class="fil9 str10" transform="matrix(0.278548 0.09312 -0.0999319 0.298924 9537.07 12923.3)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="10010,12546 10077,12637 9974,12725 9892,12610 "/>
+   <polygon class="fil9 str10" points="10123,12921 10122,13034 9987,13043 9990,12901 "/>
+   <polygon class="fil9 str10" points="9977,13311 9905,13398 9794,13319 9886,13211 "/>
+   <polygon class="fil9 str10" points="9617,13526 9504,13533 9486,13398 9628,13392 "/>
+   <polygon class="fil9 str10" points="9230,13439 9133,13380 9194,13259 9315,13334 "/>
+   <polygon class="fil9 str10" points="8961,13109 8937,12999 9067,12961 9095,13100 "/>
+   <polygon class="fil9 str10" points="8981,12695 9033,12595 9158,12649 9090,12773 "/>
+   <polygon class="fil9 str10" points="9268,12386 9373,12345 9432,12468 9299,12517 "/>
+   <polygon class="fil9 str10" points="9678,12330 9786,12366 9752,12497 9618,12450 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.294049 0.0983023 -0.0903355 0.270219 9537.44 12917.1)" rx="1085" ry="1204"/>
+  </g>
+  <g id="_169009747168">
+   <ellipse class="fil9 str10" transform="matrix(0.228676 0.0843946 -0.0905682 0.245404 14065.3 13149.7)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="14467,12849 14521,12926 14433,12997 14367,12899 "/>
+   <polygon class="fil9 str10" points="14551,13163 14548,13257 14435,13261 14442,13143 "/>
+   <polygon class="fil9 str10" points="14420,13482 14358,13553 14268,13485 14347,13398 "/>
+   <polygon class="fil9 str10" points="14116,13652 14022,13654 14011,13542 14129,13541 "/>
+   <polygon class="fil9 str10" points="13797,13569 13718,13519 13772,13420 13870,13485 "/>
+   <polygon class="fil9 str10" points="13583,13289 13565,13197 13675,13169 13694,13285 "/>
+   <polygon class="fil9 str10" points="13610,12946 13656,12864 13758,12912 13699,13014 "/>
+   <polygon class="fil9 str10" points="13856,12697 13944,12666 13990,12769 13878,12806 "/>
+   <polygon class="fil9 str10" points="14198,12661 14286,12694 14255,12802 14145,12760 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.241402 0.0890913 -0.081871 0.221838 14065.7 13144.5)" rx="1085" ry="1204"/>
+  </g>
+  <g id="_169009811872">
+   <ellipse class="fil9 str10" transform="matrix(0.19238 0.0643137 -0.0690184 0.206453 13493.5 12406.5)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="13820,12146 13867,12208 13796,12270 13738,12190 "/>
+   <polygon class="fil9 str10" points="13898,12405 13898,12483 13804,12489 13806,12391 "/>
+   <polygon class="fil9 str10" points="13797,12674 13747,12734 13671,12680 13734,12605 "/>
+   <polygon class="fil9 str10" points="13549,12823 13471,12827 13458,12734 13556,12730 "/>
+   <polygon class="fil9 str10" points="13281,12762 13214,12722 13257,12638 13340,12690 "/>
+   <polygon class="fil9 str10" points="13096,12535 13079,12459 13169,12432 13188,12528 "/>
+   <polygon class="fil9 str10" points="13110,12249 13146,12180 13232,12217 13185,12303 "/>
+   <polygon class="fil9 str10" points="13308,12035 13381,12007 13421,12092 13329,12126 "/>
+   <polygon class="fil9 str10" points="13591,11997 13665,12021 13642,12112 13550,12080 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.203087 0.0678929 -0.0623906 0.186628 13493.8 12402.2)" rx="1085" ry="1204"/>
+  </g>
+  <g id="_169009809888">
+   <ellipse class="fil9 str10" transform="matrix(0.231176 0.0772833 -0.0829368 0.248087 15960.9 16428.8)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="16353,16116 16409,16191 16324,16265 16255,16169 "/>
+   <polygon class="fil9 str10" points="16447,16427 16447,16521 16334,16528 16337,16411 "/>
+   <polygon class="fil9 str10" points="16326,16750 16266,16823 16174,16757 16250,16668 "/>
+   <polygon class="fil9 str10" points="16027,16929 15933,16935 15919,16823 16036,16818 "/>
+   <polygon class="fil9 str10" points="15706,16857 15625,16808 15676,16708 15776,16770 "/>
+   <polygon class="fil9 str10" points="15483,16583 15463,16492 15571,16460 15594,16575 "/>
+   <polygon class="fil9 str10" points="15500,16239 15543,16156 15646,16201 15590,16304 "/>
+   <polygon class="fil9 str10" points="15738,15983 15825,15949 15873,16051 15763,16091 "/>
+   <polygon class="fil9 str10" points="16078,15936 16167,15966 16139,16075 16028,16036 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.244041 0.0815843 -0.0749724 0.224263 15961.2 16423.6)" rx="1085" ry="1204"/>
+  </g>
+  <g id="_169009806624">
+   <ellipse class="fil9 str10" transform="matrix(0.250668 0.0886733 -0.0899296 0.28465 13433.4 16711.1)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="13859,16352 13920,16438 13827,16523 13753,16413 "/>
+   <polygon class="fil9 str10" points="13961,16709 13960,16817 13838,16825 13841,16690 "/>
+   <polygon class="fil9 str10" points="13829,17080 13764,17163 13665,17088 13747,16985 "/>
+   <polygon class="fil9 str10" points="13505,17285 13404,17291 13388,17163 13515,17157 "/>
+   <polygon class="fil9 str10" points="13157,17202 13070,17146 13125,17031 13233,17102 "/>
+   <polygon class="fil9 str10" points="12915,16888 12893,16783 13011,16747 13036,16879 "/>
+   <polygon class="fil9 str10" points="12933,16494 12980,16398 13092,16450 13032,16568 "/>
+   <polygon class="fil9 str10" points="13191,16199 13286,16160 13339,16277 13219,16324 "/>
+   <polygon class="fil9 str10" points="13561,16146 13657,16180 13627,16306 13507,16261 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.264618 0.0936081 -0.0812937 0.257315 13433.8 16705.2)" rx="1085" ry="1204"/>
+  </g>
+  <g id="_169009801920">
+   <ellipse class="fil9 str10" transform="matrix(0.278548 0.09312 -0.0999319 0.298924 10370.8 17303.5)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="10843,16926 10911,17017 10808,17106 10725,16990 "/>
+   <polygon class="fil9 str10" points="10957,17301 10956,17415 10820,17423 10824,17281 "/>
+   <polygon class="fil9 str10" points="10810,17691 10738,17778 10628,17699 10720,17591 "/>
+   <polygon class="fil9 str10" points="10451,17906 10338,17913 10320,17778 10462,17772 "/>
+   <polygon class="fil9 str10" points="10063,17819 9966,17761 10028,17639 10148,17714 "/>
+   <polygon class="fil9 str10" points="9795,17490 9771,17379 9901,17341 9929,17480 "/>
+   <polygon class="fil9 str10" points="9815,17075 9867,16975 9992,17029 9924,17154 "/>
+   <polygon class="fil9 str10" points="10102,16766 10207,16725 10265,16848 10132,16897 "/>
+   <polygon class="fil9 str10" points="10512,16710 10619,16746 10586,16878 10452,16831 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.294049 0.0983023 -0.0903355 0.270219 10371.2 17297.2)" rx="1085" ry="1204"/>
+  </g>
+  <g id="_169009799168">
+   <ellipse class="fil9 str10" transform="matrix(0.207499 0.0893762 -0.0959142 0.222678 12724.1 17541.3)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="13111,17283 13157,17356 13072,17418 13016,17324 "/>
+   <polygon class="fil9 str10" points="13173,17578 13165,17664 13061,17662 13073,17554 "/>
+   <polygon class="fil9 str10" points="13036,17867 12975,17929 12895,17861 12973,17785 "/>
+   <polygon class="fil9 str10" points="12746,18008 12659,18006 12655,17902 12763,17906 "/>
+   <polygon class="fil9 str10" points="12455,17916 12385,17866 12440,17777 12527,17842 "/>
+   <polygon class="fil9 str10" points="12270,17647 12259,17560 12362,17539 12374,17648 "/>
+   <polygon class="fil9 str10" points="12313,17330 12359,17257 12451,17306 12391,17398 "/>
+   <polygon class="fil9 str10" points="12553,17112 12636,17087 12673,17185 12568,17214 "/>
+   <polygon class="fil9 str10" points="12871,17096 12951,17130 12916,17229 12817,17184 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.219046 0.0943501 -0.0867036 0.201294 12724.7 17536.5)" rx="1085" ry="1204"/>
+  </g>
+  <g id="_169009796960">
+   <ellipse class="fil9 str10" transform="matrix(0.35269 0.0381559 -0.0409471 0.37849 8075.44 12422.7)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="8536,11856 8639,11945 8541,12077 8413,11962 "/>
+   <polygon class="fil9 str10" points="8766,12269 8795,12403 8637,12448 8604,12280 "/>
+   <polygon class="fil9 str10" points="8694,12767 8632,12888 8480,12824 8561,12673 "/>
+   <polygon class="fil9 str10" points="8325,13113 8193,13150 8138,12996 8303,12952 "/>
+   <polygon class="fil9 str10" points="7845,13110 7716,13066 7757,12907 7919,12965 "/>
+   <polygon class="fil9 str10" points="7444,12791 7387,12666 7531,12588 7599,12745 "/>
+   <polygon class="fil9 str10" points="7361,12297 7397,12165 7558,12196 7510,12361 "/>
+   <polygon class="fil9 str10" points="7620,11858 7733,11782 7834,11912 7689,12004 "/>
+   <polygon class="fil9 str10" points="8089,11686 8225,11701 8219,11865 8050,11844 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.372318 0.0402793 -0.0370149 0.342144 8074.27 12415.2)" rx="1085" ry="1204"/>
+  </g>
+  <g id="_169009792352">
+   <ellipse class="fil9 str10" transform="matrix(0.280704 0.0303681 -0.0325896 0.301238 14509 17137)" rx="1607" ry="1515"/>
+   <polygon class="fil9 str10" points="14876,16686 14958,16757 14879,16861 14778,16770 "/>
+   <polygon class="fil9 str10" points="15059,17015 15081,17121 14956,17157 14930,17023 "/>
+   <polygon class="fil9 str10" points="15001,17411 14952,17507 14831,17456 14896,17336 "/>
+   <polygon class="fil9 str10" points="14707,17687 14603,17716 14559,17593 14690,17559 "/>
+   <polygon class="fil9 str10" points="14326,17684 14223,17649 14256,17523 14384,17569 "/>
+   <polygon class="fil9 str10" points="14006,17430 13961,17331 14075,17268 14130,17393 "/>
+   <polygon class="fil9 str10" points="13940,17037 13969,16932 14097,16957 14059,17088 "/>
+   <polygon class="fil9 str10" points="14146,16687 14237,16627 14317,16731 14202,16804 "/>
+   <polygon class="fil9 str10" points="14520,16551 14628,16562 14624,16693 14488,16676 "/>
+   <ellipse class="fil10 str11" transform="matrix(0.296326 0.0320581 -0.02946 0.272311 14508 17131.1)" rx="1085" ry="1204"/>
+  </g>
+  <polygon class="fil11 str12" points="6369,11381 6698,11610 6452,12025 6044,11730 "/>
+  <polygon class="fil11 str12" points="7172,12516 7296,12898 6850,13080 6702,12599 "/>
+  <polygon class="fil11 str12" points="7117,13991 6974,14366 6512,14225 6701,13759 "/>
+  <polygon class="fil11 str12" points="6149,15121 5777,15270 5566,14836 6036,14657 "/>
+  <polygon class="fil11 str12" points="4748,15262 4357,15175 4427,14698 4916,14816 "/>
+  <polygon class="fil11 str12" points="3474,14457 3269,14112 3664,13836 3914,14273 "/>
+  <polygon class="fil11 str12" points="3076,13040 3139,12643 3619,12685 3531,13181 "/>
+  <polygon class="fil11 str12" points="3693,11676 4002,11420 4336,11767 3944,12082 "/>
+  <polygon class="fil11 str12" points="5011,11028 5412,11027 5447,11508 4944,11500 "/>
+  <ellipse class="fil11 str12" cx="5203" cy="13183" rx="1675" ry="1694"/>
+  <g id="_169009788672">
+   <rect class="fil3 str12" x="4374" y="11957" width="1651" height="2429" rx="186" ry="220"/>
+   <rect class="fil11 str12" x="4479" y="12330" width="1447" height="1514"/>
+   <ellipse class="fil11 str12" cx="5213" cy="14114" rx="192" ry="183"/>
+  </g>
+ </g>
+</svg>
