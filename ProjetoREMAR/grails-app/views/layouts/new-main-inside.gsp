@@ -48,9 +48,14 @@
         <header class="main-header">
             <a href="" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini">ICON</span>
+                <span class="logo-mini">
+
+                </span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>REMAR</b></span>
+                <span class="logo-lg">
+                     <img src="http://localhost:9090/assets/img/logo/new-remar-logo-letra.png"
+                        width="100" height="25"/>
+                </span>
             </a>
 
             <!-- Header Navbar: style can be found in header.less -->
@@ -89,7 +94,7 @@
                                         <li><!-- start message -->
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="http://myapp.dev:9090/assets/img/inside/avatar.png" class="img-circle" alt="User Image">                                              </div>
+                                                    <img src="http://localhost:9090/assets/img/inside/avatar.png" class="img-circle" alt="User Image">                                              </div>
                                                 <h4>
                                                     Fulano
                                                     <small><i class="fa fa-clock-o"></i> 5 mins</small>
@@ -139,13 +144,13 @@
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img class="user-image" alt="User Image" src="http://myapp.dev:9090/assets/img/inside/avatar.png"/>
+                                <img class="user-image" alt="User Image" src="http://localhost:9090/assets/img/inside/avatar.png"/>
                                 <span class="hidden-xs"><sec:username/></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
-                                    <img src="http://myapp.dev:9090/assets/img/inside/avatar.png" class="img-circle" alt="User Image">
+                                    <img src="http://localhost:9090/assets/img/inside/avatar.png" class="img-circle" alt="User Image">
                                     <p>
                                         <sec:username/>
                                         <small>Member since Nov. 2012</small>
@@ -188,7 +193,7 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="http://myapp.dev:9090/assets/img/inside/avatar.png" class="img-circle" alt="User Image">
+                        <img src="http://localhost:9090/assets/img/inside/avatar.png" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
                         <p><sec:username/></p>
@@ -211,19 +216,19 @@
                     <li class="header"><i class="glyphicon glyphicon-briefcase"></i>  Área de trabalho</li>
 
                     <li id="dashboard_page" class="treeview">
-                        <a href="http://myapp.dev:9090/dashboard">
+                        <a href="http://localhost:9090/dashboard">
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span></i>
                         </a>
                     </li>
                     <li id="reapersonalizavel_page" class="treeview">
-                        <a href="http://myapp.dev:9090/dashboard">
+                        <a href="http://localhost:9090/dashboard">
                             <i class="fa fa-edit"></i>
                             <span>R.E.A. personalizáveis </span> <small class="label pull-right bg-green">new</small>
                             <!-- <span class="label label-primary pull-right">4</span> -->
                         </a>
                     </li>
                     <li>
-                        <a  id="reapublicos_page" href="http://myapp.dev:9090/dashboard">
+                        <a  id="reapublicos_page" href="http://localhost:9090/dashboard">
                             <i class="fa fa-users"></i><span> R.E.A. públicos</span>
                         </a>
                     </li>

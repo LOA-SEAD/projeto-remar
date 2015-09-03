@@ -1466,7 +1466,7 @@ a:focus {
   background: rgba(0, 0, 0, 0.15);
 }
 .small-box h3 {
-  font-size: 38px;
+  font-size: 20px;
   font-weight: bold;
   margin: 0 0 10px 0;
   white-space: nowrap;
@@ -4309,7 +4309,9 @@ table.text-center th {
 .bg-aqua-active,
 .modal-info .modal-header,
 .modal-info .modal-footer {
-  background-color: #00a7d0 !important;
+  /*background-color: #00a7d0 !important;*/
+  background-color: rgba(0,167,208,0.5) !important;
+  /*box-shadow: 5px 5px 8px rgba(0,0, 0, 0.6);*/
 }
 .bg-blue-active {
   background-color: #005384 !important;
@@ -4768,4 +4770,12 @@ table.text-center th {
 
 .info-box-icon a:hover{
   color: rgba(255,255,255,0.5);
+}
+
+
+.page-size{
+  min-height: 500px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+
 }
