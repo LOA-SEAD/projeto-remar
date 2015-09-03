@@ -2,10 +2,13 @@ package br.ufscar.sead.loa.quiforca.remar
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import grails.util.Holders
 import groovy.json.JsonBuilder
+import groovyx.net.http.HTTPBuilder
 import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.TaskService
 import org.camunda.bpm.engine.form.TaskFormData
+import org.codehaus.groovy.grails.io.support.GrailsIOUtils
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -19,12 +22,25 @@ class QuestionController {
     def springSecurityService
     RuntimeService runtimeService
     TaskService taskService
+    def grailsApplication
 
     def index(Integer max) { // TODO: change to ModelAndView
         def user = springSecurityService.getCurrentUser()
 //        params.max = Math.min(max ?: 10, 100)
         params.max = 100 // TODO
-        respond Question.findAllByOwnerId(user.getId(), params), model:[questionInstanceCount: Question.count(), userName: user.getName(), userId: user.getId()]
+
+        if (params.p) {
+            session.processId = params.p
+            session.taskId = params.t
+            redirect controller: "question"
+        }
+
+        println session.processId
+        println session.taskId
+
+        def list = Question.findAllByProcessIdAndTaskId(session.processId, session.taskId)
+        render view:"index", model:[questionInstanceList: list, questionInstanceCount: Question.count(), userName: user.getName(), userId: user.getId()]
+
     }
 
     /*def show(Question questionInstance) {
@@ -47,6 +63,9 @@ class QuestionController {
             render questionInstance.errors;
             return
         }
+
+        questionInstance.processId = session.processId as long
+        questionInstance.taskId    = session.taskId as long
 
         questionInstance.save flush:true
 
@@ -140,22 +159,22 @@ class QuestionController {
 
     def toJson() {
 
-        def list = Question.getAll(params.id? params.id.split(',').toList() : null)
+        def list = Question.getAll(params.id ? params.id.split(',').toList() : null)
 
         def builder = new JsonBuilder()
 
-        def json = builder (
-            list.collect {p ->
-                ["palavra": p.getAnswer().toUpperCase(),
-                 "dica": p.getStatement(),
-                 "contribuicao": p.getAuthor()]
-            }
+        def json = builder(
+                list.collect { p ->
+                    ["palavra"     : p.getAnswer().toUpperCase(),
+                     "dica"        : p.getStatement(),
+                     "contribuicao": p.getAuthor()]
+                }
         )
 
-//        render builder.toString()
+        println builder.toString()
 
         def dataPath = servletContext.getRealPath("/data")
-        def userPath = new File(dataPath, "/" + springSecurityService.getCurrentUser().getId())
+        def userPath = new File(dataPath, "/" + springSecurityService.getCurrentUser().getId() + "/" + session.taskId)
         userPath.mkdirs()
 
 
@@ -166,6 +185,33 @@ class QuestionController {
         pw.write(builder.toString());
         pw.close();
 
-        redirect controller: "process", action: "complete", id: "ChooseQuestions"
+        json = builder(
+                "files": [
+                        file.absolutePath
+                ]
+
+        )
+
+        println builder.toString()
+        file = new File("${file.parentFile}/files.json")
+        pw = new PrintWriter(file);
+        pw.write(builder.toString());
+        pw.close();
+
+        redirect uri: "http://${request.serverName}:${request.serverPort}/process/task/resolve/${session.taskId}", params: [json: file]
+    }
+
+    def test() {
+
+        def builder = new JsonBuilder()
+        def files = []
+        files.add("123")
+        files.add("456")
+        files.add("789")
+        def json = builder(
+                files: ["123", "123333", "1343443"]
+        )
+
+        println builder.toString()
     }
 }

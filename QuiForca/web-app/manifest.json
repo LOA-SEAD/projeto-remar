@@ -1,8 +1,0 @@
-{
-	"name"    : "Forca",
-	"android" : true,
-	"linux"   : true,
-	"moodle"  : true,
-	"uri"     : "forca",
-	"bpmn"    : "ForcaProcess"
-}

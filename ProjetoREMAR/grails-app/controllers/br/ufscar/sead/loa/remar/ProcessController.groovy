@@ -140,7 +140,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
         def uri = runtimeService.getVariable(params.processId, "resourceUri")
 
         for (task in tasks) {
-            task.taskDefinitionKey = task.taskDefinitionKey.replace('.', '/')
+            task.taskDefinitionKey = "${task.taskDefinitionKey.replace('.', '/')}?p=${task.processInstanceId}&t=${task.id}"
         }
 
         //for tests
@@ -188,7 +188,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
             formattedTask[1] = task.getName()
             formattedTask[2] = runtimeService.getVariable(task.processInstanceId, 'ownerName')
             formattedTask[3] = '/' + runtimeService.getVariable(task.processInstanceId, 'resourceUri')
-            formattedTask[3] += '/' + task.taskDefinitionKey.replace('.', '/')
+            formattedTask[3] += "/${task.taskDefinitionKey.replace('.', '/')}?p=${task.processInstanceId}&t=${task.id}"
             list.add(formattedTask)
         }
         if (list) {
@@ -218,6 +218,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
             if (task.delegationState == DelegationState.RESOLVED) {
                 if (task.owner == session.user.username) {
                     taskService.complete(params.taskId)
+                    redirect uri:"/process/tasks/overview/${task.processInstanceId}"
 
                 } else {
                     render "user != owner"
@@ -234,6 +235,11 @@ class ProcessController implements JavaDelegate, ExecutionListener{
     }
 
     def resolveTask() {
+        try {
+            def json = JSON.parse(params.json)
+        } catch (Exception ignored) {
+            def json = JSON.parse("{files:[]}")
+        }
         def task = taskService.createTaskQuery().taskId(params.taskId).singleResult()
         if (task) {
             if (task.delegationState == DelegationState.PENDING) {
@@ -245,7 +251,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
                         new AntBuilder().copy(file: file, tofile: destination + "/" + fileName)
                     }
                     taskService.resolveTask(params.taskId)
-                    redirect uri: '/process/pendingTasks'
+                    render '/process/pendingTasks'
                 } else {
                     render "user != assignee"
                 }

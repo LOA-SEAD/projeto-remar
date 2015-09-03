@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
-@Secured(['ROLE_PROF'])
+@Secured(['IS_AUTHENTICATED_FULLY'])
 @Transactional(readOnly = true)
 class ThemeController {
 
@@ -18,8 +18,20 @@ class ThemeController {
     def springSecurityService
 
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond Theme.findAllByOwnerId(springSecurityService.getCurrentUser().getId(), params), model:[themeInstanceCount: Theme.count()]
+        if (params.p) {
+            session.processId = params.p
+            session.taskId = params.t
+            redirect controller: "theme"
+        }
+
+        println session.processId
+        println session.taskId
+
+        if (params.review) {
+            respond Theme.findAllByProcessIdAndTaskId(session.processId, session.taskId), model:[themeInstanceCount: Theme.count()]
+
+        }
+        respond Theme.list(), model:[themeInstanceCount: Theme.count()]
     }
 
     def show(Theme themeInstance) {
@@ -70,6 +82,9 @@ class ThemeController {
             respond themeInstance.errors, view:'edit'
             return
         }
+
+        themeInstance.processId = session.processId as long
+        themeInstance.taskId    = session.taskId as long
 
         themeInstance.save flush:true
 

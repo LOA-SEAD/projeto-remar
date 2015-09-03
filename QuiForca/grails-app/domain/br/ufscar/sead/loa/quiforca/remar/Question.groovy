@@ -8,6 +8,8 @@ class Question {
     String author
 
     long ownerId
+    long processId
+    long taskId
 
     static constraints = {
         statement blank: false
@@ -15,5 +17,7 @@ class Question {
         category blank: true
         author blank: false
         ownerId blank: false, nullable: false
+        processId nullable: true
+        taskId nullable: true
     }
 }
