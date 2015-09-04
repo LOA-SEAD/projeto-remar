@@ -1,0 +1,17 @@
+{
+  "name"    : "Forca",
+  "android" : true,
+  "linux"   : true,
+  "moodle"  : true,
+  "uri"     : "forca",
+  "bpmn"    : "ForcaProcess",
+
+  "files"   : {
+    "palavras.json": "/json",
+    "papel.png"    : "/imgs",
+    "inicio.png"   : "/imgs"
+  },
+
+  "width" : 800,
+  "height": 600
+}
