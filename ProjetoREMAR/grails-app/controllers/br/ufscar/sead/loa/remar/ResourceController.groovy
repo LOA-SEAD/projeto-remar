@@ -52,7 +52,7 @@ class ResourceController {
         war.transferTo(file)
 
         // unzip
-        "chmod -R a+x ${servletContext.getRealPath('/scripts')}"
+        "chmod -R a+x ${servletContext.getRealPath('/scripts')}".execute().waitFor()
         def unzip = "${servletContext.getRealPath("/scripts")}/unzip.sh ${servletContext.getRealPath("/wars/${username}")} ${fileName}"
         unzip.execute().waitFor()
 
@@ -236,7 +236,7 @@ class ResourceController {
                     html '<h3>O seu WAR \"${resourceInstance.name}\" foi aprovado! :)</h3> <br>'
                 }
 
-                render "success"
+                redirect controller: "process", action: "deploy", id: resourceInstance.bpmn
             } else {
                 response.status = 500
                 render resp
