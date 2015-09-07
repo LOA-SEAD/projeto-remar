@@ -31,7 +31,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <title><g:layoutTitle /></title>
-    <link rel="shortcut icon" href="${resource(dir: 'assets/img/logo', file: 'icone-remar_v2.ico')}" type="image/x-icon">
+    <link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
+
     <link href='http://fonts.googleapis.com/css?family=Ropa+Sans' rel='stylesheet'>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel='stylesheet'>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
