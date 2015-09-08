@@ -41,16 +41,18 @@
     <![endif]-->
     <g:layoutHead/>
 </head>
-    <body class="hold-transition skin-black-light sidebar-mini">
+<body class="hold-transition skin-black-light sidebar-mini">
     <!-- <body class="layout-top-nav"> -->
     <div class="wrapper">
-
         <header class="main-header">
-            <a href="" class="logo">
+            <a href="/dashboard" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini">ICON</span>
+                %{--<span class="logo-mini">ICON</span>--}%
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>REMAR</b></span>
+                <span class="logo-lg">
+                    <img src="http://myapp.dev:9090/assets/img/logo/remar-logo-transparente.png"
+                         width="120" height="45" />
+                </span>
             </a>
 
             <!-- Header Navbar: style can be found in header.less -->
@@ -177,8 +179,6 @@
                     </ul>
                 </div>
             </nav>
-
-
         </header>
 
         <!-- Left side column. contains the logo and sidebar -->
@@ -244,24 +244,7 @@
                          </g:link>
                         %{--</a>--}%
                     </li>
-
-                    <!--  <li class="treeview">
-                  <a href="#">
-                    <i class="fa fa-folder"></i> <span>Examples</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                    <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
-                    <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-                    <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-                    <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-                    <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-                    <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-                    <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-                  </ul>
-                </li> -->
-
+                </ul>
             </section>
             <!-- /.sidebar -->
         </aside>
@@ -298,6 +281,7 @@
         %{--<script src="dist/js/pages/dashboard2.js"></script>--}%
         %{--<!-- AdminLTE for demo purposes -->--}%
         %{--<script src="dist/js/demo.js"></script>--}%
+    </div>
 
     </body>
 </html>

@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="main">
+		<meta name="layout" content="new-main-external">
 		<g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
-		<title>Criar usuário</title>
+		<title>Registrar-se</title>
 
-		<link href="${resource(dir: 'assets/css', file: 'external-styles.css')}" rel="stylesheet" >
-		<link href="${resource(dir: 'assets/css', file: 'icomoon.css')}" rel="stylesheet" >
-		%{--<g:javascript src="recaptcha.js" />--}%
-
-		<g:javascript src="../assets/js/jquery.min.js" />
-		<g:javascript src="../assets/js/jquery.validate.js" />
+		<g:javascript src="recaptcha.js" />
 
 		<script>
 			$(function() {
@@ -63,25 +58,45 @@
 							minlength: "Sua senha deve ter no minimo 5 caracteres",
 							equalTo: "As senhas não coincidem"
 						},
-						agree: "Para concluir o cadastro no REMAR você deve aceitar nossos  termos de compromisso" +
-						" e política de privacidade"
+						agree: ""
 					},
 					highlight: function (element) {
 						$(element).closest('.form-group')
 								  .addClass('has-error');
 
+//						if(element.closest("input").name == "agree"){
+//							$(element).closest('.form-group')
+//									.addClass('has-error');
+//						}
+
 					},
 					unhighlight: function (element) {
-						if(existUser == false && existEmail == false) {
-							$(element).closest('.form-group').removeClass('has-error');
-							$('#span-error').remove();
 
+						if(element.closest("input").name == "igree") {
+							$(element).closest('.control-label').removeClass('has-error')
+						}
+
+
+						if(!(element.closest("input").name == "username")&&
+								!(element.closest("input").name == "email")) {
+
+							$(element).closest('.form-group').removeClass('has-error')
+										.closest('.control-label').remove();
+						}else{
+							if((element.closest("input").name == "username") && !existUser){
+								$(element).closest('.form-group').removeClass('has-error')
+										.closest('.control-label').remove();
+
+							}else if((element.closest("input").name == "email") && !existEmail){
+								$(element).closest('.form-group').removeClass('has-error')
+										.closest('.control-label').remove();
+							}
 						}
 					},
-					errorElement: 'span',
-					errorClass: 'help-block help-block-create',
+					errorElement: 'div',
+					errorClass: 'control-label',
 					errorPlacement: function (error, element) {
-						error.insertAfter(element.parent());
+						error.insertAfter(element.next());
 					}
 
 				});
@@ -99,24 +114,16 @@
 							if(data == "true"){
 								if(!$('#div-username-error').length){
 									existUser = true;
-									console.log("entrou aki");
 									$('#div-username').addClass('has-error')
-//											.append($("<span/>")
-//													.attr("id","span-username-error")
-//													.addClass("icon-close")
-//													.addClass("icon-style"))
-
-											.after($("<div/>")
-													.attr("id","div-username-error")
-													.addClass("help-block")
-													.addClass("help-block-create")
-													.text("Esse nome de usuário já está em uso"));
+														.append($("<div/>")
+																.attr("id","div-username-error")
+																.addClass("control-label")
+																.text("Esse nome de usuário já está em uso"));
 								}
 							}else{
-								if(text.username.length > 1){
+								if(text.username.length > 1 && existUser){
 									existUser = false;
 									$('#div-username').removeClass('has-error');
-//									$('#span-username-error').remove();
 									$('#div-username-error').remove();
 								}
 							}
@@ -138,22 +145,15 @@
 								if(!$('#div-email-error').length){
 									existEmail = true;
 									$('#div-email').addClass('has-error')
-//											.append($("<span/>")
-//													.attr("id","span-email-error")
-//													.addClass("icon-close")
-//													.addClass("icon-style"))
-
-											.after($("<div/>")
-													.attr("id","div-email-error")
-													.addClass("help-block")
-													.addClass("help-block-create")
-													.text("Esse email já está em uso"));
+													.append($("<div/>")
+															.attr("id","div-email-error")
+															.addClass("control-label")
+															.text("Esse email já está em uso"));
 								}
 							}else{
-								if(text.email.length > 1){
+								if(text.email.length > 1 && existEmail){
 									existEmail = false;
 									$('#div-email').removeClass('has-error');
-//									$('#span-email-error').remove();
 									$('#div-email-error').remove();
 								}
 							}
@@ -166,45 +166,14 @@
 
 	</head>
 	<body>
-		<div class="container container-create">
-			<header class="row logotipo" >
-				<div class="logotipo" align="center" >
-					<img  alt="logo remar" src="../assets/img/logo/logo-remar-v2.svg" height="50%" width="50%" />
-				</div>
-			</header>
-			<article class="row">
-				<div class="col-md-12">
-					<section>
-						<h3>Participe do REMAR, crie uma conta agora mesmo!</h3>
-					</section>
-					<section>
-						<div id="create-user" class="content scaffold-create" role="main">
-							<g:form url="[resource:user, action:'save']" >
-								<fieldset class="form">
-									<g:render template="form"/>
-								</fieldset>
-								<fieldset class="buttons">
-									<g:submitButton id="submitBtn" name="create" class="btn btn-primary btn-block btn-create" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-								</fieldset>
-							</g:form>
-
-							<g:hasErrors bean="${user}">
-								<g:eachError bean="${user}" var="error">
-									<g:if test="${error in org.springframework.validation.FieldError}">
-
-									</g:if>
-								%{--<g:message error="${error}"/>--}%
-								</g:eachError>
-							</g:hasErrors>
-
-						</div>
-					</section>
-				</div>
-			</article>
-			<footer class="row">
-				<div class="col-md-12">
-				</div>
-			</footer>
-		<div>
+		<p class="login-box-msg">Registrar um novo membro</p>
+		<g:form url="[resource:user, action:'save']" >
+			<div class="row">
+				<g:render template="form"/>
+				<div class="col-xs-12">
+					<button type="submit" class="btn btn-primary btn-block btn-flat" name="create" id="submitBtn">Registrar</button>
+				</div><!-- /.col -->
+			</div>
+		</g:form>
 	</body>
 </html>

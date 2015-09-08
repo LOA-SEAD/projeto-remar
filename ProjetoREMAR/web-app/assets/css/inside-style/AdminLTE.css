@@ -152,6 +152,16 @@ body.hold-transition .main-header .logo {
   padding-left: 15px;
   padding-right: 15px;
 }
+
+.content-index {
+  min-height: 250px;
+  padding: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: transparent;
+}
 /* H1 - H6 font */
 h1,
 h2,
@@ -3244,6 +3254,16 @@ table.text-center th {
 .register-box-body .form-control-feedback {
   color: #777;
 }
+
+.login-box-body a{
+  color: #f19b2c;
+}
+
+.login-box-body a:hover{
+  color: rgba(241, 155, 44, 0.7);
+}
+
+
 .login-box-msg,
 .register-box-msg {
   margin: 0;
@@ -3308,6 +3328,36 @@ table.text-center th {
 
 }
 
+/*
+ * Page:  Create e Register user
+ * -----------------------------
+ */
+
+.g-recaptcha{
+  position: static;
+  width: 100%;
+}
+
+.has-error .form-control-feedback {
+  color: #a94442 !important;
+}
+
+/*
+ * Page:  Show register confirm user
+ * -----------------------------
+ */
+
+.label-info-title{
+  text-align: center;
+  font-weight: bold;
+}
+
+.label-info-user{
+  text-align: center;
+  font-weight: normal;
+  background-color: transparent !important;
+  font-size: 16px;
+}
 
 /*
  * Page: 400 and 500 error pages

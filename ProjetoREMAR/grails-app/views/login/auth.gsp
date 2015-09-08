@@ -8,9 +8,6 @@
     <title>Entrar</title>
     <link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
 
-
-    %{--<link href="${resource(dir: 'assets/css', file: 'external-styles.css')}" rel="stylesheet" >--}%
-
     <g:javascript src="../assets/js/jquery.min.js" />
     <g:javascript src="../assets/js/jquery.validate.js" />
 
@@ -45,59 +42,14 @@
         }
     </script>
 
-    %{--<script>--}%
-        %{--$(function() {--}%
-            %{--$('form').validate({--}%
-                %{--rules: {--}%
-                    %{--j_username: {--}%
-                        %{--minlength: 2,--}%
-                        %{--required: true--}%
-                    %{--},--}%
-                    %{--j_password: {--}%
-                        %{--minlength: 5,--}%
-                        %{--required: true--}%
-                    %{--}--}%
-                %{--},--}%
-                %{--messages:{--}%
-                    %{--j_username: {--}%
-                        %{--required: "Por favor digite seu nome de usuario",--}%
-                        %{--minlength: "Seu username deve ter no minimo 2 caracteres"--}%
-                    %{--},--}%
-                    %{--j_password: {--}%
-                        %{--required: "Por favor digite sua senha",--}%
-                        %{--minlength: "Sua senha deve ter no minimo 5 caracteres"--}%
-                    %{--}--}%
-                %{--},--}%
-                %{--highlight: function(element) {--}%
-                    %{--$(element).closest('.form-group').addClass('has-error');--}%
-                %{--},--}%
-                %{--unhighlight: function(element) {--}%
-                    %{--$(element).closest('.form-group').removeClass('has-error');--}%
-                %{--},--}%
-                %{--errorElement: 'span',--}%
-                %{--errorClass: 'help-block',--}%
-                %{--errorPlacement: function(error, element) {--}%
-                    %{--error.insertAfter(element.parent());--}%
-                %{--}--}%
-            %{--});--}%
-        %{--});--}%
-
-    %{--</script>--}%
-
-    <fbg:resources />
-
 </head>
 <body>
     <form action='/j_spring_security_check' method='POST'>
         <div class="form-group has-feedback">
-            %{--<div id="input-username" class="">--}%
             <input type="text" class="form-control-remar" placeholder="Nome de usuário" name='j_username' >
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
-            %{--<label class="control-label" for="emailError"><i class="fa fa-times-circle-o"></i> Usuário e senha não coincidem </label>--}%
-            %{--</div>--}%
         </div>
         <div class="form-group has-feedback">
-
             <input type="password" class="form-control-remar" placeholder="Senha" name='j_password'>
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
