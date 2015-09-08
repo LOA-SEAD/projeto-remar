@@ -1,12 +1,12 @@
+
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="main">
+    <meta name="layout" content="new-main-external">
     <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
     <title>Recuperar conta</title>
 
 
-    <link href="${resource(dir: 'assets/css', file: 'external-styles.css')}" rel="stylesheet" >
     <g:javascript src="recaptcha.js"/>
     <g:javascript src="../assets/js/jquery.min.js" />
     <g:javascript src="../assets/js/jquery.validate.js" />
@@ -34,8 +34,8 @@
 
                 },
                 unhighlight: function (element) {
-                        $(element).closest('.form-group').removeClass('has-error');
-                        $('#span-error').remove();
+                    $(element).closest('.form-group').removeClass('has-error');
+                    $('#span-error').remove();
                 },
                 errorElement: 'span',
                 errorClass: 'help-block help-block-create',
@@ -48,12 +48,8 @@
     </script>
 </head>
 <body>
-<div class="container container-create">
-    <header class="row logotipo" >
-        <div class="logotipo" align="center" >
-            <img  alt="logo remar" src="../assets/img/logo/logo-remar-v2.svg" height="50%" width="50%" />
-        </div>
-    </header>
+<div class="login-box-msg">
+
     <article class="row">
         <div class="col-md-12">
             <section>
