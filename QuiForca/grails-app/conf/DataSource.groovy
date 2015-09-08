@@ -61,13 +61,13 @@ environments {
                 testWhileIdle = true
                 testOnReturn = false
                 jdbcInterceptors = "ConnectionState"
+                autoReconnect = true
                 defaultTransactionIsolation = java.sql.Connection.TRANSACTION_READ_COMMITTED
             }
         }
         dataSource_remar {
             dbCreate = "update"
             url = "jdbc:mysql://localhost/remar"
-            jndiName = "java:comp/env/remar"
             properties {
                 // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                 jmxEnabled = true
@@ -86,6 +86,7 @@ environments {
                 testWhileIdle = true
                 testOnReturn = false
                 jdbcInterceptors = "ConnectionState"
+                autoReconnect = true
                 defaultTransactionIsolation = java.sql.Connection.TRANSACTION_READ_COMMITTED
             }
         }
