@@ -21,3 +21,5 @@ stacktrace.log
 /web-app/data/*
 !/web-app/data/source
 !/web-app/data/manifest.json
+!/web-app/data/moodleDB.json
+!/web-app/data/moodle.js
