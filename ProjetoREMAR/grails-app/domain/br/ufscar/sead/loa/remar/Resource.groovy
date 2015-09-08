@@ -14,6 +14,8 @@ class Resource {
         web defaultValue: true
         linux defaultValue: false
         files nullable: true
+        width nullable: true
+        height nullable: true
     }
 
     String name
