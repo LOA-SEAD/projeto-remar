@@ -1456,11 +1456,11 @@ a:focus {
  * --------------------
  */
 .small-box {
-  border-radius: 2px;
+  border-radius: 0px;
   position: relative;
   display: block;
   margin-bottom: 20px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
 }
 .small-box > .inner {
   padding: 10px;
@@ -1477,7 +1477,7 @@ a:focus {
   text-decoration: none;
 }
 .small-box > .small-box-footer:hover {
-  color: #fff;
+  /*color: #fff;*/
   background: rgba(0, 0, 0, 0.15);
 }
 .small-box h3 {
@@ -1501,9 +1501,10 @@ a:focus {
   z-index: 5px;
 }
 .small-box .icon {
-  -webkit-transition: all 0.3s linear;
-  -o-transition: all 0.3s linear;
-  transition: all 0.3s linear;
+  /*-webkit-transition: all 0.3s linear;*/
+  /*-o-transition: all 0.3s linear;*/
+  /*transition: all 0.3s linear;*/
+  animation: pulse 2.5s infinite;
   position: absolute;
   top: -10px;
   right: 10px;
@@ -1511,13 +1512,27 @@ a:focus {
   font-size: 90px;
   color: rgba(0, 0, 0, 0.15);
 }
-.small-box:hover {
-  text-decoration: none;
-  color: #f9f9f9;
+/*.small-box:hover {*/
+  /*text-decoration: none;*/
+  /*/!*color: #f9f9f9;*!/*/
+/*}*/
+/*.small-box:hover .icon {*/
+  /*font-size: 95px;*/
+/*}*/
+
+
+@keyframes pulse {
+  0% {
+    font-size: 85px;
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    font-size: 95px;
+  }
 }
-.small-box:hover .icon {
-  font-size: 95px;
-}
+
+
 @media (max-width: 767px) {
   .small-box {
     text-align: center;
@@ -1784,6 +1799,14 @@ a:focus {
   background: transparent;
   color: #97a0b3;
 }
+
+.btn-upload{
+  background-color: transparent;
+  border: 0px;
+}
+
+
+
 .open .btn-box-tool,
 .btn-box-tool:hover {
   color: #606c84;

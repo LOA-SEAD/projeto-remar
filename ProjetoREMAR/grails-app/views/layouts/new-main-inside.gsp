@@ -76,68 +76,68 @@
                 <div class="navbar-custom-menu" style="display: block">
                     <ul class="nav navbar-nav">
                         <!-- Messages: style can be found in dropdown.less-->
-                        <li class="dropdown messages-menu">
+                        %{--<li class="dropdown messages-menu">--}%
 
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-envelope-o"></i>
-                                <span class="label label-success">0</span>
-                            </a>
+                            %{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--}%
+                                %{--<i class="fa fa-envelope-o"></i>--}%
+                                %{--<span class="label label-success">0</span>--}%
+                            %{--</a>--}%
 
-                            <ul class="dropdown-menu">
-                                <li class="header">Você tem 1 menssagem</li>
-                                <li>
-                                    <!-- inner menu: contains the actual data -->
-                                    <ul class="menu">
-                                        <li><!-- start message -->
-                                            <a href="#">
-                                                <div class="pull-left">
-                                                    <img src="http://myapp.dev:9090/assets/img/inside/avatar.png" class="img-circle" alt="User Image">                                              </div>
-                                                <h4>
-                                                    Fulano
-                                                    <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                                                </h4>
-                                                <p>título</p>
-                                            </a>
-                                        </li><!-- end message -->
-                                    ...
-                                    </ul>
-                                </li>
-                                <li class="footer"><a href="#">Ver todas mensagens</a></li>
-                            </ul>
-                        </li>
+                            %{--<ul class="dropdown-menu">--}%
+                                %{--<li class="header">Você tem 1 menssagem</li>--}%
+                                %{--<li>--}%
+                                    %{--<!-- inner menu: contains the actual data -->--}%
+                                    %{--<ul class="menu">--}%
+                                        %{--<li><!-- start message -->--}%
+                                            %{--<a href="#">--}%
+                                                %{--<div class="pull-left">--}%
+                                                    %{--<img src="http://myapp.dev:9090/assets/img/inside/avatar.png" class="img-circle" alt="User Image">                                              </div>--}%
+                                                %{--<h4>--}%
+                                                    %{--Fulano--}%
+                                                    %{--<small><i class="fa fa-clock-o"></i> 5 mins</small>--}%
+                                                %{--</h4>--}%
+                                                %{--<p>título</p>--}%
+                                            %{--</a>--}%
+                                        %{--</li><!-- end message -->--}%
+                                    %{--...--}%
+                                    %{--</ul>--}%
+                                %{--</li>--}%
+                                %{--<li class="footer"><a href="#">Ver todas mensagens</a></li>--}%
+                            %{--</ul>--}%
+                        %{--</li>--}%
 
-                        <!-- Tasks: style can be found in dropdown.less -->
-                        <li class="dropdown tasks-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-flag-o"></i>
-                                <span class="label label-danger">1</span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">Você tem tarefas pendentes</li>
-                                <li>
-                                    <!-- inner menu: contains the actual data -->
-                                    <ul class="menu">
-                                        <li><!-- Task item -->
-                                            <a href="#">
-                                                <h3>
-                                                    implementar Escola Mágica
-                                                    <small class="pull-right">20%</small>
-                                                </h3>
-                                                <div class="progress xs">
-                                                    <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                        <span class="sr-only">20% Complete</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </li><!-- end task item -->
-                                    ...
-                                    </ul>
-                                </li>
-                                <li class="footer">
-                                    <a href="#">Ver todas as tarefas</a>
-                                </li>
-                            </ul>
-                        </li>
+                        %{--<!-- Tasks: style can be found in dropdown.less -->--}%
+                        %{--<li class="dropdown tasks-menu">--}%
+                            %{--<a href="#" class="dropdown-toggle" data-toggle="dropdown">--}%
+                                %{--<i class="fa fa-flag-o"></i>--}%
+                                %{--<span class="label label-danger">1</span>--}%
+                            %{--</a>--}%
+                            %{--<ul class="dropdown-menu">--}%
+                                %{--<li class="header">Você tem tarefas pendentes</li>--}%
+                                %{--<li>--}%
+                                    %{--<!-- inner menu: contains the actual data -->--}%
+                                    %{--<ul class="menu">--}%
+                                        %{--<li><!-- Task item -->--}%
+                                            %{--<a href="#">--}%
+                                                %{--<h3>--}%
+                                                    %{--implementar Escola Mágica--}%
+                                                    %{--<small class="pull-right">20%</small>--}%
+                                                %{--</h3>--}%
+                                                %{--<div class="progress xs">--}%
+                                                    %{--<div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">--}%
+                                                        %{--<span class="sr-only">20% Complete</span>--}%
+                                                    %{--</div>--}%
+                                                %{--</div>--}%
+                                            %{--</a>--}%
+                                        %{--</li><!-- end task item -->--}%
+                                    %{--...--}%
+                                    %{--</ul>--}%
+                                %{--</li>--}%
+                                %{--<li class="footer">--}%
+                                    %{--<a href="#">Ver todas as tarefas</a>--}%
+                                %{--</li>--}%
+                            %{--</ul>--}%
+                        %{--</li>--}%
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">

@@ -55,17 +55,20 @@
                                     <div class="direct-chat-messages direct-chat-submit-war" >
                                         <g:render template="form"/>
 
-                                        <button name="create" class="btn btn-primary btn-flat">
-                                            <i class="fa fa-upload"></i>
-                                        </button>
-
                                         %{--<fieldset>--}%
                                         %{--<g:submitButton name="create" class="btn btn-block btn-default btn-flat"  value="Enviar"/> --}%
                                         %{--<input type="submit" name="create" > <i class="fa fa-upload"></i></input>--}%
                                         %{--</fieldset>--}%
+
+                                        %{--<button name="create" class="btn btn-primary btn-flat">--}%
+                                            %{--<i class="fa fa-upload"></i>--}%
+                                        %{--</button>--}%
+
                                     </div>
                                     <div class="icon">
-                                        <i class="fa fa-upload"></i>
+                                        <button name="create" class="btn-upload" title="Enviar">
+                                            <i class="fa fa-upload"></i>
+                                        </button>
                                     </div>
                                 </g:form>
                             </div>

@@ -15,5 +15,6 @@
 			</span>
 		</span>
 		<input type="text" class="form-control" placeholder="WAR file..." readonly>
+
 	</div>
 </div>
