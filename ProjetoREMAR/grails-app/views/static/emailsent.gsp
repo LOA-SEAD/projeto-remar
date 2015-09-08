@@ -8,8 +8,7 @@
     <link href="${resource(dir: 'assets/css', file: 'external-styles.css')}" rel="stylesheet" >
 </head>
 <body>
-    <div class="container container-create">
-        <article class="row">
+    <div class="row">
             <div class="col-md-12">
                 <section>
                     <p class="title-style">Recuperar sua conta</p>
@@ -19,11 +18,7 @@
                     <span class="footer-span" id="link-password"><g:link class="footer-span" controller="index" action="index">Home</g:link></span>
                 </section>
             </div>
-        </article>
-        <footer class="row">
-            <div class="col-md-12">
-            </div>
-        </footer>
+
     </div>
 </body>
 </html>
