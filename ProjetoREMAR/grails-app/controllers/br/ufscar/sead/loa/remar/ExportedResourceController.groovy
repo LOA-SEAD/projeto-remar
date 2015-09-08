@@ -129,4 +129,17 @@ class ExportedResourceController {
         render url
 
     }
+
+    def moodle(ExportedResource exportedResourceInstance) {
+        def user = springSecurityService.currentUser as User
+        def file = new File(servletContext.getRealPath("/wars/${user.username}/${fileName}/WEB-INF"))
+
+        //criar a tabela dentro do moodle
+        //salvar o nome da tabela na classe
+        //copiar os arquivos
+        //salvar url
+        //redirecionar para as outras páginas
+
+        render "asdasd!!"
+    }
 }

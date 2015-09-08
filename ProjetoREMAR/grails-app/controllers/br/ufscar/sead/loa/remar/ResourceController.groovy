@@ -135,7 +135,7 @@ class ResourceController {
             resourceInstance.width   = manifest.height
         }
 
-        def moodleBD = new File(servletContext.getRealPath("/wars/${username}/${fileName}/data/moodle-bd.json"))
+        def moodleBD = new File(servletContext.getRealPath("/wars/${username}/${fileName}/data/moodleBD.json"))
 
         if (resourceInstance.moodle) {
             if (!moodleBD.exists()) {
@@ -143,14 +143,35 @@ class ResourceController {
                 resourceInstance.name = war.originalFilename
                 resourceInstance.uri = ""
                 resourceInstance.status  = "rejected"
-                resourceInstance.comment = "moodle-bd.json file not found"
+                resourceInstance.comment = "moodleBD.json file not found"
                 resourceInstance.save flush: true
                 redirect action: "index"
-                println "moodle-bd.json file not found"
+                println "moodleBD.json file not found"
                 return
             }
             else {
-                println "everything OK."
+                new AntBuilder().copy(file: servletContext.getRealPath("/wars/${username}/${fileName}/data/moodleBD.json"),
+                        tofile: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}/moodle/moodleBD.json"))
+            }
+        }
+
+        def moodleJS = new File(servletContext.getRealPath("/wars/${username}/${fileName}/data/moodle.js"))
+
+        if (resourceInstance.moodle) {
+            if (!moodleJS.exists()) {
+                resourceInstance.valid = false
+                resourceInstance.name = war.originalFilename
+                resourceInstance.uri = ""
+                resourceInstance.status  = "rejected"
+                resourceInstance.comment = "moodle.js file not found"
+                resourceInstance.save flush: true
+                redirect action: "index"
+                println "moodle.js file not found!!!"
+                return
+            }
+            else {
+                new AntBuilder().copy(file: servletContext.getRealPath("/wars/${username}/${fileName}/data/moodle.js"),
+                        tofile: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}/moodle/moodle.js"))
             }
         }
 
@@ -215,7 +236,10 @@ class ResourceController {
             println resourceInstance.errors
             respond resourceInstance.errors, view:"create"
         } else {
-            file.renameTo(servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}")) as String
+
+            new AntBuilder().copy(todir: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}")) {
+                fileset(dir: file)
+            }
             flash.message = message(code: 'default.created.message', args: [message(code: 'deploy.label', default: 'Deploy'), resourceInstance.id])
             redirect action: "index"
         }

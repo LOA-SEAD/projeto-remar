@@ -1,15 +1,6 @@
 /**
  * Created by matheus on 5/7/15.
  */
-
-window.onload = function () {
-    $("#moodle").click(function () {
-        $('#moodleForm').toggle($('#moodle:checked').length > 0);
-        console.log("Ola");
-
-    });
-};
-
 window.addEventListener("load", function() {
     $("#send").on("click", function() {
         $(".checkbox-platform").each(function() {
