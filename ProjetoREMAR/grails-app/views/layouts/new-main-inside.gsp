@@ -218,7 +218,7 @@
                     <li id="reapersonalizavel_page" class="treeview">
                         <a href="http://myapp.dev:9090/dashboard">
                             <i class="fa fa-edit"></i>
-                            <span>R.E.A. personalizáveis </span> <small class="label pull-right bg-green">new</small>
+                            <span>R.E.A. personalizáveis </span>
                             <!-- <span class="label label-primary pull-right">4</span> -->
                         </a>
                     </li>

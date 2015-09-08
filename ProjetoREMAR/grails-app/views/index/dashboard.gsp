@@ -80,9 +80,9 @@
                                 </g:each>
                             </div>
                         </div>
-                        <div class="box-footer text-center">
-                            <a href="#" class="uppercase">Ir para recursos personalizáveis</a>
-                        </div>
+                        %{--<div class="box-footer text-center">--}%
+                            %{--<a href="#" class="uppercase">Ir para recursos personalizáveis</a>--}%
+                        %{--</div>--}%
                     </div>
                 </div>
             </div>
@@ -142,9 +142,9 @@
                             </div>
 
                         </div>
-                        <div class="box-footer text-center">
-                            <a href="#" class="uppercase">Ir para recursos públicos</a>
-                        </div>
+                        %{--<div class="box-footer text-center">--}%
+                            %{--<a href="#" class="uppercase">Ir para recursos públicos</a>--}%
+                        %{--</div>--}%
                     </div>
                 </div><!-- /.col -->
 
@@ -199,9 +199,9 @@
                                 </g:else>
 
                         </div><!-- /.box-body -->
-                        <div class="box-footer text-center">
-                            <a href="#" class="uppercase">Ir para meus recursos</a>
-                        </div><!-- /.box-footer-->
+                        %{--<div class="box-footer text-center">--}%
+                            %{--<a href="#" class="uppercase">Ir para meus recursos</a>--}%
+                        %{--</div><!-- /.box-footer-->--}%
                     </div><!--/.direct-chat -->
                 </div><!-- /.col -->
             </div><!-- /.row -->
