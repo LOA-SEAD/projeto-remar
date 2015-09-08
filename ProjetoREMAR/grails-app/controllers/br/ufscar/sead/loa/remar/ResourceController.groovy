@@ -104,9 +104,55 @@ class ResourceController {
         resourceInstance.linux   = manifest.linux
         resourceInstance.moodle  = manifest.moodle
         resourceInstance.files   = manifest.files
-        resourceInstance.width   = manifest.width
-        resourceInstance.height  = manifest.height
 
+        if (!manifest.width) {
+            resourceInstance.valid = false
+            resourceInstance.name = war.originalFilename
+            resourceInstance.uri = ""
+            resourceInstance.status = "rejected"
+            resourceInstance.comment = "Missing 'width' property in manifest.json."
+            resourceInstance.save flush: true
+            redirect action: "index"
+            println "invalid manifest"
+            return
+        }
+        else {
+            resourceInstance.width   = manifest.width
+        }
+
+        if (!manifest.height) {
+            resourceInstance.valid = false
+            resourceInstance.name = war.originalFilename
+            resourceInstance.uri = ""
+            resourceInstance.status = "rejected"
+            resourceInstance.comment = "Missing 'width' property in manifest.json."
+            resourceInstance.save flush: true
+            redirect action: "index"
+            println "invalid manifest"
+            return
+        }
+        else {
+            resourceInstance.width   = manifest.height
+        }
+
+        def moodleBD = new File(servletContext.getRealPath("/wars/${username}/${fileName}/data/moodle-bd.json"))
+
+        if (resourceInstance.moodle) {
+            if (!moodleBD.exists()) {
+                resourceInstance.valid = false
+                resourceInstance.name = war.originalFilename
+                resourceInstance.uri = ""
+                resourceInstance.status  = "rejected"
+                resourceInstance.comment = "moodle-bd.json file not found"
+                resourceInstance.save flush: true
+                redirect action: "index"
+                println "moodle-bd.json file not found"
+                return
+            }
+            else {
+                println "everything OK."
+            }
+        }
 
         def cmd = servletContext.getRealPath("/scripts") + "/verify-banner.sh ${servletContext.getRealPath("/wars/${username}")}/${fileName} ${manifest.uri}-banner"
         def foundBanner = cmd.execute().text.toInteger()
