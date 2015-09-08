@@ -52,23 +52,20 @@
                             <div class="inner">
                                 <h3>Submeter um recurso:</h3>
                                 <g:form class="" url="[resource:gameInstance, action:'save']" enctype="multipart/form-data" useToken="true">
-                                    <div class="direct-chat-messages direct-chat-submit-war" >
-                                        <g:render template="form"/>
+                                    <div class="row">
 
-                                        %{--<fieldset>--}%
-                                        %{--<g:submitButton name="create" class="btn btn-block btn-default btn-flat"  value="Enviar"/> --}%
-                                        %{--<input type="submit" name="create" > <i class="fa fa-upload"></i></input>--}%
-                                        %{--</fieldset>--}%
+                                        <div class="direct-chat-messages direct-chat-submit-war col-xs-8" >
+                                            <g:render template="form"/>
+                                        </div>
+                                        <div class="icon">
+                                            %{--<button name="create" class="btn-upload" title="Enviar">--}%
+                                                %{--<i class="fa fa-upload"></i>--}%
+                                            %{--</button>--}%
+                                            <button name="create" class="btn btn-primary btn-flat bottom-update">
+                                                <i class="fa fa-upload"></i>
+                                            </button>
+                                        </div>
 
-                                        %{--<button name="create" class="btn btn-primary btn-flat">--}%
-                                            %{--<i class="fa fa-upload"></i>--}%
-                                        %{--</button>--}%
-
-                                    </div>
-                                    <div class="icon">
-                                        <button name="create" class="btn-upload" title="Enviar">
-                                            <i class="fa fa-upload"></i>
-                                        </button>
                                     </div>
                                 </g:form>
                             </div>
@@ -104,9 +101,8 @@
 
                                             <div class="info-box-content">
                                                 <div class="pull-right">
-                                                    <div class="dropdown pointer">
-                                                        %{--<a href="#" data-toggle="dropdown" class="dropdown-toggle"><b class="caret"></b></a>--}%
-                                                        <div class="dropdown-toggle" data-toggle="dropdown">
+                                                    <div class="dropdown pointer text-center">
+                                                        <div class="dropdown-toggle" data-toggle="dropdown" style="min-width: 10px;">
                                                             <i class="fa fa-ellipsis-v"></i>
                                                         </div>
                                                         <ul class="dropdown-menu">

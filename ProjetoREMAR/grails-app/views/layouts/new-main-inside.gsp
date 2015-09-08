@@ -64,11 +64,17 @@
 
 
                 <div>
-                    <ul class="nav navbar-nav">
+                    <sec class="nav navbar-nav">
                         <li><a href="/dashboard">Espaço do Usuário  <span class="sr-only">(current)</span></a></li>
-                        <li><a href="/resource/index">Espaço do Desenvolvedor<span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">Torne-se um Desenvolvedor<span class="sr-only">(current)</span></a></li>
-                    </ul>
+
+                        <sec:ifAllGranted roles="ROLE_DEV">
+                            <li><a href="/resource/index">Espaço do Desenvolvedor<span class="sr-only">(current)</span></a></li>
+                        </sec:ifAllGranted>
+
+                        <sec:ifAnyGranted roles="ROLE_USER">
+                            <li><a href="#">Torne-se um Desenvolvedor<span class="sr-only">(current)</span></a></li>
+                         </sec:ifAnyGranted>
+                    </sec>
                 </div>
 
 

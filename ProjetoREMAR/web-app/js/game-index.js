@@ -22,11 +22,11 @@ window.onload = function(){
             success:function(data){
                 console.log(data);
                 var tr = $(_this).parents().eq(5);
-                $(tr).removeClass('panel-red panel-yellow pannel-green');
+                $(tr).removeClass('bg-red-gradient bg-yellow-gradient bg-green-gradient');
                 if (status == 'approve') {
-                    $(tr).addClass('panel-green');
+                    $(tr).addClass('bg-green-gradient');
                 } else {
-                    $(tr).addClass('panel-red');
+                    $(tr).addClass('bg-red-gradient');
                 }
                 $(img).attr('src', imgSrc);
 

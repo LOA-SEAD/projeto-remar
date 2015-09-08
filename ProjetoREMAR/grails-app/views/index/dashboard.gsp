@@ -43,39 +43,40 @@
                             <div class="direct-chat-messages" >
                                 <g:each in="${gameInstanceList}" var="gameInstance">
                                     <div class="col-md-3">
-                                        <div class="info-box bg-aqua">
-                                            <span class="info-box-icon">
-                                                <a href="/process/start/${gameInstance.bpmn}" target="_self">
-                                                    %{--<img--}%
-                                                            %{--src="/images/${gameInstance.uri}-banner.png"--}%
-                                                            %{--class="img img-responsive center-block"/>--}%
-                                                    <i class="fa fa-magic"></i>
-                                                </a>
-                                            </span>
-                                            <div class="info-box-content">
-                                                <span class="info-box-text">${gameInstance.name}</span>
-                                                <span id="development" class="info-box-number">
-                                                    <img class="img-circle" alt="User Image" src="http://myapp.dev:9090/assets/img/inside/avatar.png"
-                                                         height="25" width="25"/>
-                                                    REMAR
-                                                </span>
+                                        <a href="/process/start/${gameInstance.bpmn}" target="_self">
+                                            <div class="info-box bg-aqua">
+                                                <span class="info-box-icon">
 
-                                                <span class="progress-description">
-                                                    <div class="pull-right">
-                                                        <i class="fa fa-at"></i>
-                                                        <g:if test="${gameInstance.android}">
-                                                            <i class="fa fa-android"></i>
-                                                        </g:if>
-                                                        <g:if test="${gameInstance.linux}">
-                                                            <i class="fa fa-linux"></i>
-                                                        </g:if>
-                                                        <g:if test="${gameInstance.moodle}">
-                                                            <i class="fa fa-graduation-cap"></i>
-                                                        </g:if>
-                                                    </div>
+                                                        <img src="/images/${gameInstance.uri}-banner.png"
+                                                                class="img img-responsive center-block"/>
+                                                        %{--<i class="fa fa-magic"></i>--}%
+
                                                 </span>
-                                            </div><!-- /.info-box-content -->
-                                        </div><!-- /.info-box -->
+                                                <div class="info-box-content">
+                                                    <span class="info-box-text">${gameInstance.name}</span>
+                                                    <span id="development" class="info-box-number">
+                                                        <img class="img-circle" alt="User Image" src="http://myapp.dev:9090/assets/img/inside/avatar.png"
+                                                             height="25" width="25"/>
+                                                        REMAR
+                                                    </span>
+
+                                                    <span class="progress-description">
+                                                        <div class="pull-right">
+                                                            <i class="fa fa-at"></i>
+                                                            <g:if test="${gameInstance.android}">
+                                                                <i class="fa fa-android"></i>
+                                                            </g:if>
+                                                            <g:if test="${gameInstance.linux}">
+                                                                <i class="fa fa-linux"></i>
+                                                            </g:if>
+                                                            <g:if test="${gameInstance.moodle}">
+                                                                <i class="fa fa-graduation-cap"></i>
+                                                            </g:if>
+                                                        </div>
+                                                    </span>
+                                                </div><!-- /.info-box-content -->
+                                            </div><!-- /.info-box -->
+                                        </a>
                                     </div>
                                 </g:each>
                             </div>
