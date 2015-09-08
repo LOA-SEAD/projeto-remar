@@ -71,9 +71,9 @@
                             <li><a href="/resource/index">Espaço do Desenvolvedor<span class="sr-only">(current)</span></a></li>
                         </sec:ifAllGranted>
 
-                        <sec:ifAnyGranted roles="ROLE_USER">
+                        <sec:ifNotGranted roles="ROLE_DEV">
                             <li><a href="#">Torne-se um Desenvolvedor<span class="sr-only">(current)</span></a></li>
-                         </sec:ifAnyGranted>
+                         </sec:ifNotGranted>
                     </sec>
                 </div>
 
