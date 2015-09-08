@@ -3,8 +3,6 @@ dataSource {
     jmxExport = true
     driverClassName = "com.mysql.jdbc.Driver"
     dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
-    username = "root"
-    password = "root"
 }
 hibernate {
     cache.use_second_level_cache = true
@@ -18,13 +16,12 @@ hibernate {
 // environment specific settings
 environments {
     development {
-
         dataSource {
-            dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
+            dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate'
             url = "jdbc:mysql://localhost/remar"
-
+            username = "root"
+            password = "root"
         }
-
     }
     test {
         dataSource {
@@ -55,6 +52,7 @@ environments {
                 testWhileIdle = true
                 testOnReturn = false
                 jdbcInterceptors = "ConnectionState"
+                autoReconnect = true
                 defaultTransactionIsolation = java.sql.Connection.TRANSACTION_READ_COMMITTED
             }
         }

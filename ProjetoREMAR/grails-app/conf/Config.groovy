@@ -1,6 +1,9 @@
 import br.ufscar.sead.loa.remar.RequestMap
 import grails.plugin.springsecurity.SecurityConfigType
 import org.apache.catalina.security.SecurityConfig
+import org.codehaus.groovy.grails.web.context.ServletContextHolder
+
+import javax.servlet.ServletContext
 
 // locations to search for config files that get merged into the main config;
 // config files can be ConfigSlurper scripts, Java properties files, or classes
@@ -14,6 +17,9 @@ import org.apache.catalina.security.SecurityConfig
 // if (System.properties["${appName}.config.location"]) {
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
+
+grails.config.locations = ["classpath:remar.properties"]
+
 
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 

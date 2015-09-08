@@ -19,6 +19,7 @@ ProjetoREMAR/*.iml
 ProjetoREMAR/.idea
 ProjetoREMAR/web-app/moodle/*
 .DS_Store
+ProjetoREMAR/grails-app/conf/remar.properties
 
 MathJong/*.iws
 MathJong/*Db.properties
