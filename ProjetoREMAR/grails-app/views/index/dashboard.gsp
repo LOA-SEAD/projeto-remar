@@ -80,9 +80,9 @@
                                 </g:each>
                             </div>
                         </div>
-                        <div class="box-footer text-center">
-                            <a href="#" class="uppercase">Ir para recursos personalizáveis</a>
-                        </div>
+                        %{--<div class="box-footer text-center">--}%
+                            %{--<a href="#" class="uppercase">Ir para recursos personalizáveis</a>--}%
+                        %{--</div>--}%
                     </div>
                 </div>
             </div>
@@ -98,63 +98,53 @@
                             </h3>
                         </div>
                         <div class="box-body no-padding">
+
                             <div class="direct-chat-messages" >
+                                <g:if test="${publicExportedResourcesList.size() == 0}">
+                                    <p>Nenhum jogo foi publicado no modo público.</p>
+                                </g:if>
+                                <g:else>
+                                    <g:each in="${publicExportedResourcesList}" var="exportedResourceInstance">
+                                        <div class="col-md-6">
+                                            <div class="info-box bg-red">
+                                                <span class="info-box-icon">
+                                                    <i class="fa fa-simplybuilt"></i>
+                                                </span>
+                                                <div class="info-box-content">
+                                                    <span class="info-box-text">${exportedResourceInstance.name}</span>
+                                                    <span class="info-box-number">
+                                                        <img class="img-circle" alt="User Image" src="http://myapp.dev:9090/assets/img/inside/avatar04.png"
+                                                             height="25" width="25"/>
+                                                        ${exportedResourceInstance.owner.name}
+                                                    </span>
+                                                    <span class="progress-description">
+                                                        <div class="pull-right">
+                                                            <g:if test="${exportedResourceInstance.webUrl != null}">
+                                                                <a href="${exportedResourceInstance.webUrl}" style="color: white;"><i class="fa fa-at"></i></a>
+                                                            </g:if>
+                                                            <g:if test="${exportedResourceInstance.androidUrl != null}">
+                                                                <a href="${exportedResourceInstance.androidUrl}"><i class="fa fa-android"></i></a>
+                                                            </g:if>
+                                                            <g:if test="${exportedResourceInstance.linuxUrl != null}">
+                                                                <a href="${exportedResourceInstance.linuxUrl}"><i class="fa fa-linux"></i></a>
+                                                            </g:if>
+                                                            <g:if test="${exportedResourceInstance.moodleUrl != null}">
+                                                                <a href="${exportedResourceInstance.moodleUrl}"><i class="fa fa-graduation-cap"></i></a>
+                                                            </g:if>
+                                                        </div>
+                                                    </span>
+                                                </div><!-- /.info-box-content -->
+                                            </div><!-- /.info-box -->
+                                        </div>
+                                    </g:each>
+                                </g:else>
 
-                                <div class="col-md-6">
-                                    <div class="info-box bg-red">
-                                        <span class="info-box-icon">
-                                            <i class="fa fa-simplybuilt"></i>
-
-                                        </span>
-                                        <div class="info-box-content">
-                                            <span class="info-box-text">FABRICA MÁGICA</span>
-                                            <span class="info-box-number">
-                                                <img class="img-circle" alt="User Image" src="http://myapp.dev:9090/assets/img/inside/avatar04.png"
-                                                     height="25" width="25"/>
-                                                lauro Silva
-                                            </span>
-                                            <span class="progress-description">
-                                                <div class="pull-right">
-                                                    <i class="fa fa-at"></i>
-                                                    <i class="fa fa-android"></i>
-                                                    <i class="fa fa-linux"></i>
-                                                    <i class="fa fa-graduation-cap"></i>
-                                                </div>
-                                            </span>
-                                        </div><!-- /.info-box-content -->
-                                    </div><!-- /.info-box -->
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="info-box bg-red">
-                                        <span class="info-box-icon">
-                                            <i class="fa fa-laptop"></i>
-                                        </span>
-                                        <div class="info-box-content">
-                                            <span class="info-box-text">COMPFORCA</span>
-                                            <span class="info-box-number">
-                                                <img class="img-circle" alt="User Image" src="http://myapp.dev:9090/assets/img/inside/avatar2.png"
-                                                     height="25" width="25"/>
-                                                Julia Rocha
-                                            </span>
-
-                                            <span class="progress-description">
-                                                <div class="pull-right">
-                                                    <i class="fa fa-at"></i>
-                                                    <i class="fa fa-android"></i>
-                                                    <i class="fa fa-linux"></i>
-                                                    <i class="fa fa-graduation-cap"></i>
-                                                </div>
-                                            </span>
-                                        </div><!-- /.info-box-content -->
-                                    </div><!-- /.info-box -->
-                                </div>
                             </div>
 
                         </div>
-                        <div class="box-footer text-center">
-                            <a href="#" class="uppercase">Ir para recursos públicos</a>
-                        </div>
+                        %{--<div class="box-footer text-center">--}%
+                            %{--<a href="#" class="uppercase">Ir para recursos públicos</a>--}%
+                        %{--</div>--}%
                     </div>
                 </div><!-- /.col -->
 
@@ -169,163 +159,152 @@
                         <div class="box-body">
                             <div class="direct-chat-messages" >
 
-                                <div class="col-md-6">
-                                    <div class="info-box bg-yellow">
-                                        <span class="info-box-icon">
-                                            <i class="fa fa-simplybuilt"></i>
+                                <g:if test="${myExportedResourcesList.size() == 0}">
+                                    <p>Você ainda não tem nenhum jogo publicado</p>
+                                </g:if>
+                                <g:else>
+                                    <g:each in="${myExportedResourcesList}" var="myExportedResourceInstance">
+                                        <div class="col-md-6">
+                                            <div class="info-box bg-yellow">
+                                                <span class="info-box-icon">
+                                                    <i class="fa fa-simplybuilt"></i>
+                                                </span>
+                                                <div class="info-box-content">
+                                                    <span class="info-box-text">${myExportedResourceInstance.name}</span>
+                                                    <span class="info-box-number">
+                                                        <img class="img-circle" alt="User Image" src="http://myapp.dev:9090/assets/img/inside/avatar04.png"
+                                                             height="25" width="25"/>
+                                                        ${myExportedResourceInstance.owner.name}
+                                                    </span>
+                                                    <span class="progress-description">
+                                                        <div class="pull-right">
+                                                            <g:if test="${myExportedResourceInstance.webUrl != null}">
+                                                                <a href="${myExportedResourceInstance.webUrl}" style="color: white;"><i class="fa fa-at"></i></a>
+                                                            </g:if>
+                                                            <g:if test="${myExportedResourceInstance.androidUrl != null}">
+                                                                <a href="${myExportedResourceInstance.androidUrl}"><i class="fa fa-android"></i></a>
+                                                            </g:if>
+                                                            <g:if test="${myExportedResourceInstance.linuxUrl != null}">
+                                                                <a href="${myExportedResourceInstance.linuxUrl}"><i class="fa fa-linux"></i></a>
+                                                            </g:if>
+                                                            <g:if test="${myExportedResourceInstance.moodleUrl != null}">
+                                                                <a href="${myExportedResourceInstance.moodleUrl}"><i class="fa fa-graduation-cap"></i></a>
+                                                            </g:if>
+                                                        </div>
+                                                    </span>
+                                                </div><!-- /.info-box-content -->
+                                            </div><!-- /.info-box -->
+                                        </div>
+                                    </g:each>
+                                </g:else>
 
-                                        </span>
-                                        <div class="info-box-content">
-                                            <span class="info-box-text">FABRICA MÁGICA</span>
-                                            <span class="info-box-number">
-                                                <img class="img-circle" alt="User Image" src="http://myapp.dev:9090/assets/img/inside/avatar04.png"
-                                                     height="25" width="25"/>
-                                                lauro Silva
-                                            </span>
-                                            <span class="progress-description">
-                                                <div class="pull-right">
-                                                    <i class="fa fa-at"></i>
-                                                    <i class="fa fa-android"></i>
-                                                    <i class="fa fa-linux"></i>
-                                                    <i class="fa fa-graduation-cap"></i>
-                                                </div>
-                                            </span>
-                                        </div><!-- /.info-box-content -->
-                                    </div><!-- /.info-box -->
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="info-box bg-yellow">
-                                        <span class="info-box-icon">
-                                            <i class="fa fa-laptop"></i>
-                                        </span>
-                                        <div class="info-box-content">
-                                            <span class="info-box-text">COMPFORCA</span>
-                                            <span class="info-box-number">
-                                                <img class="img-circle" alt="User Image" src="http://myapp.dev:9090/assets/img/inside/avatar2.png"
-                                                     height="25" width="25"/>
-                                                Julia Rocha
-                                            </span>
-
-                                            <span class="progress-description">
-                                                <div class="pull-right">
-                                                    <i class="fa fa-at"></i>
-                                                    <i class="fa fa-android"></i>
-                                                    <i class="fa fa-linux"></i>
-                                                    <i class="fa fa-graduation-cap"></i>
-                                                </div>
-                                            </span>
-                                        </div><!-- /.info-box-content -->
-                                    </div><!-- /.info-box -->
-                                </div>
-                            </div>
                         </div><!-- /.box-body -->
-                        <div class="box-footer text-center">
-                            <a href="#" class="uppercase">Ir para meus recursos</a>
-                        </div><!-- /.box-footer-->
+                        %{--<div class="box-footer text-center">--}%
+                            %{--<a href="#" class="uppercase">Ir para meus recursos</a>--}%
+                        %{--</div><!-- /.box-footer-->--}%
                     </div><!--/.direct-chat -->
                 </div><!-- /.col -->
             </div><!-- /.row -->
 
-            <div class="row">
-                <!-- Left col -->
-                <div class="col-md-8">
-                    <!-- MAP & BOX PANE -->
-                    <div class="box box-success">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">
-                                <i class="fa fa-list-alt"></i>
-                                Tarefas Pendentes
-                            </h3>
+            %{--<div class="row">--}%
+                %{--<!-- Left col -->--}%
+                %{--<div class="col-md-8">--}%
+                    %{--<!-- MAP & BOX PANE -->--}%
+                    %{--<div class="box box-success">--}%
+                        %{--<div class="box-header with-border">--}%
+                            %{--<h3 class="box-title">--}%
+                                %{--<i class="fa fa-list-alt"></i>--}%
+                                %{--Tarefas Pendentes--}%
+                            %{--</h3>--}%
 
-                        </div><!-- /.box-header -->
-                        <div class="box-body no-padding">
-                            <div class="row">
-                                <div class="col-md-9 col-sm-8">
-                                    <div class="pad">
-                                        <!-- Map will be created here -->
-                                        <div id="world-map-markers" style="height: 325px;"></div>
-                                    </div>
-                                </div><!-- /.col -->
-                                <div class="col-md-3 col-sm-4">
-                                    <div class="pad box-pane-right bg-green" style="min-height: 280px">
-                                        <div class="description-block margin-bottom">
+                        %{--</div><!-- /.box-header -->--}%
+                        %{--<div class="box-body no-padding">--}%
+                            %{--<div class="row">--}%
+                                %{--<div class="col-md-9 col-sm-8">--}%
+                                    %{--<div class="pad">--}%
+                                        %{--<!-- Map will be created here -->--}%
+                                        %{--<div id="world-map-markers" style="height: 325px;"></div>--}%
+                                    %{--</div>--}%
+                                %{--</div><!-- /.col -->--}%
+                                %{--<div class="col-md-3 col-sm-4">--}%
+                                    %{--<div class="pad box-pane-right bg-green" style="min-height: 280px">--}%
+                                        %{--<div class="description-block margin-bottom">--}%
 
-                                            <h5 class="description-header">100</h5>
-                                            <span class="description-text">Tarefas</span>
-                                        </div><!-- /.description-block -->
-                                        <div class="description-block margin-bottom">
+                                            %{--<h5 class="description-header">100</h5>--}%
+                                            %{--<span class="description-text">Tarefas</span>--}%
+                                        %{--</div><!-- /.description-block -->--}%
+                                        %{--<div class="description-block margin-bottom">--}%
 
-                                            <h5 class="description-header">30%</h5>
-                                            <span class="description-text">Concluídas</span>
-                                        </div><!-- /.description-block -->
-                                        <div class="description-block">
+                                            %{--<h5 class="description-header">30%</h5>--}%
+                                            %{--<span class="description-text">Concluídas</span>--}%
+                                        %{--</div><!-- /.description-block -->--}%
+                                        %{--<div class="description-block">--}%
 
-                                            <h5 class="description-header">70%</h5>
-                                            <span class="description-text">Pendentes</span>
-                                        </div><!-- /.description-block -->
-                                    </div>
-                                </div><!-- /.col -->
-                            </div><!-- /.row -->
-                            <div class="box-footer text-center">
-                                <a href="#" class="uppercase">Ir para tarefas pendentes</a>
-                            </div><!-- /.box-footer-->
-                        </div><!-- /.box-body -->
-                    </div><!-- /.box -->
-                </div>
-                <div class="col-md-4">
-                    <div class="box box-default">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">
-                                <i class="fa fa-info"></i>
-                                 Recursos mais personalizáveis
-                            </h3>
+                                            %{--<h5 class="description-header">70%</h5>--}%
+                                            %{--<span class="description-text">Pendentes</span>--}%
+                                        %{--</div><!-- /.description-block -->--}%
+                                    %{--</div>--}%
+                                %{--</div><!-- /.col -->--}%
+                            %{--</div><!-- /.row -->--}%
+                            %{--<div class="box-footer text-center">--}%
+                                %{--<a href="#" class="uppercase">Ir para tarefas pendentes</a>--}%
+                            %{--</div><!-- /.box-footer-->--}%
+                        %{--</div><!-- /.box-body -->--}%
+                    %{--</div><!-- /.box -->--}%
+                %{--</div>--}%
+                %{--<div class="col-md-4">--}%
+                    %{--<div class="box box-default">--}%
+                        %{--<div class="box-header with-border">--}%
+                            %{--<h3 class="box-title">--}%
+                                %{--<i class="fa fa-info"></i>--}%
+                                 %{--Recursos mais personalizáveis--}%
+                            %{--</h3>--}%
 
-                        </div><!-- /.box-header -->
-                        <div class="box-body">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="chart-responsive">
-                                        <canvas id="pieChart" height="150"></canvas>
-                                    </div><!-- ./chart-responsive -->
-                                </div><!-- /.col -->
-                                <div class="col-md-4">
-                                    <ul class="chart-legend clearfix">
-                                        <li><i class="fa fa-circle-o text-red"></i> Escola Mágica</li>
-                                        <li><i class="fa fa-circle-o text-green"></i> QuiForca</li>
-                                        <li><i class="fa fa-circle-o text-yellow"></i> MathJong</li>
-                                        <li><i class="fa fa-circle-o text-aqua"></i> Piramática</li>
-                                        <li><i class="fa fa-circle-o text-light-blue"></i> Ortotetris</li>
-                                        <li><i class="fa fa-circle-o text-gray"></i> Musikinésia</li>
-                                    </ul>
-                                </div><!-- /.col -->
-                            </div><!-- /.row -->
-                        </div><!-- /.box-body -->
-                        <div class="box-footer no-padding">
-                            <ul class="nav nav-pills nav-stacked">
-                                <li>
-                                    <a href="#">Escola Mágica
-                                        <span class="pull-right text-red">
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">QuiForca
-                                        <span class="pull-right text-green">
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">MathJong
-                                        <span class="pull-right text-yellow">
-                                        </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div><!-- /.footer -->
-                    </div><!-- /.box -->
-                </div>
-            </div>
+                        %{--</div><!-- /.box-header -->--}%
+                        %{--<div class="box-body">--}%
+                            %{--<div class="row">--}%
+                                %{--<div class="col-md-8">--}%
+                                    %{--<div class="chart-responsive">--}%
+                                        %{--<canvas id="pieChart" height="150"></canvas>--}%
+                                    %{--</div><!-- ./chart-responsive -->--}%
+                                %{--</div><!-- /.col -->--}%
+                                %{--<div class="col-md-4">--}%
+                                    %{--<ul class="chart-legend clearfix">--}%
+                                        %{--<li><i class="fa fa-circle-o text-red"></i> Escola Mágica</li>--}%
+                                        %{--<li><i class="fa fa-circle-o text-green"></i> QuiForca</li>--}%
+                                        %{--<li><i class="fa fa-circle-o text-yellow"></i> MathJong</li>--}%
+                                        %{--<li><i class="fa fa-circle-o text-aqua"></i> Piramática</li>--}%
+                                        %{--<li><i class="fa fa-circle-o text-light-blue"></i> Ortotetris</li>--}%
+                                        %{--<li><i class="fa fa-circle-o text-gray"></i> Musikinésia</li>--}%
+                                    %{--</ul>--}%
+                                %{--</div><!-- /.col -->--}%
+                            %{--</div><!-- /.row -->--}%
+                        %{--</div><!-- /.box-body -->--}%
+                        %{--<div class="box-footer no-padding">--}%
+                            %{--<ul class="nav nav-pills nav-stacked">--}%
+                                %{--<li>--}%
+                                    %{--<a href="#">Escola Mágica--}%
+                                        %{--<span class="pull-right text-red">--}%
+                                        %{--</span>--}%
+                                    %{--</a>--}%
+                                %{--</li>--}%
+                                %{--<li>--}%
+                                    %{--<a href="#">QuiForca--}%
+                                        %{--<span class="pull-right text-green">--}%
+                                        %{--</span>--}%
+                                    %{--</a>--}%
+                                %{--</li>--}%
+                                %{--<li>--}%
+                                    %{--<a href="#">MathJong--}%
+                                        %{--<span class="pull-right text-yellow">--}%
+                                        %{--</span>--}%
+                                    %{--</a>--}%
+                                %{--</li>--}%
+                            %{--</ul>--}%
+                        %{--</div><!-- /.footer -->--}%
+                    %{--</div><!-- /.box -->--}%
+                %{--</div>--}%
+            %{--</div>--}%
         </div>
 </body>
 </html>

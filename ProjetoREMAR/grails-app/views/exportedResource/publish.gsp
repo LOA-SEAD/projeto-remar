@@ -29,7 +29,8 @@ Time: 09:55
                 <p>
                     <input type="radio" name="type" value="public" checked/>Público
                     <br>
-                    <input type="radio" name="type" value="private"/>Privado
+                    <input type="radio" name="type" value="private" disabled readonly/>Privado
+                    <span class="label label-warning">Em breve</span>
                     <br>
                     <input type="radio" name="type" value="group" disabled readonly />
                     Grupo
@@ -49,8 +50,15 @@ Time: 09:55
                             <a target="_blank" href="${platform.substring(platform.indexOf(':') + 1)}"> Acessar </a> </b>
                         </g:if>
                         <g:else>
-                            <input type="checkbox" name="${platform.toLowerCase()}" id="${platform.toLowerCase()}" class="checkbox-platform"/>
-                            <label for="${platform.toLowerCase()}" data-resource-id="${resourceId}">${platform}</label>
+                            <g:if test="${platform.toLowerCase() != 'web'}">
+                                <input type="checkbox" name="${platform.toLowerCase()}" id="${platform.toLowerCase()}" class="checkbox-platform" disabled readonly/>
+                                <label for="${platform.toLowerCase()}" data-resource-id="${resourceId}">${platform}</label>
+                                <span class="label label-warning">Em breve</span>
+                            </g:if>
+                            <g:else>
+                                <input type="checkbox" name="${platform.toLowerCase()}" id="${platform.toLowerCase()}" class="checkbox-platform"/>
+                                <label for="${platform.toLowerCase()}" data-resource-id="${resourceId}">${platform}</label>
+                            </g:else>
                         </g:else>
                         <br>
                     </g:each>

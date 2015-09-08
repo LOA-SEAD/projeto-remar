@@ -41,20 +41,17 @@
     <![endif]-->
     <g:layoutHead/>
 </head>
-    <body class="hold-transition skin-black-light sidebar-mini">
+<body class="hold-transition skin-black-light sidebar-mini">
     <!-- <body class="layout-top-nav"> -->
     <div class="wrapper">
-
         <header class="main-header">
-            <a href="" class="logo">
+            <a href="/dashboard" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini">
-
-                </span>
+                %{--<span class="logo-mini">ICON</span>--}%
                 <!-- logo for regular state and mobile devices -->
                 <span class="logo-lg">
-                     <img src="http://localhost:9090/assets/img/logo/new-remar-logo-letra.png"
-                        width="100" height="25"/>
+                    <img src="http://myapp.dev:9090/assets/img/logo/remar-logo-transparente.png"
+                         width="120" height="45" />
                 </span>
             </a>
 
@@ -94,7 +91,7 @@
                                         <li><!-- start message -->
                                             <a href="#">
                                                 <div class="pull-left">
-                                                    <img src="http://localhost:9090/assets/img/inside/avatar.png" class="img-circle" alt="User Image">                                              </div>
+                                                    <img src="http://myapp.dev:9090/assets/img/inside/avatar.png" class="img-circle" alt="User Image">                                              </div>
                                                 <h4>
                                                     Fulano
                                                     <small><i class="fa fa-clock-o"></i> 5 mins</small>
@@ -144,13 +141,13 @@
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img class="user-image" alt="User Image" src="http://localhost:9090/assets/img/inside/avatar.png"/>
+                                <img class="user-image" alt="User Image" src="http://myapp.dev:9090/assets/img/inside/avatar.png"/>
                                 <span class="hidden-xs"><sec:username/></span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
-                                    <img src="http://localhost:9090/assets/img/inside/avatar.png" class="img-circle" alt="User Image">
+                                    <img src="http://myapp.dev:9090/assets/img/inside/avatar.png" class="img-circle" alt="User Image">
                                     <p>
                                         <sec:username/>
                                         <small>Member since Nov. 2012</small>
@@ -182,8 +179,6 @@
                     </ul>
                 </div>
             </nav>
-
-
         </header>
 
         <!-- Left side column. contains the logo and sidebar -->
@@ -193,7 +188,7 @@
                 <!-- Sidebar user panel -->
                 <div class="user-panel">
                     <div class="pull-left image">
-                        <img src="http://localhost:9090/assets/img/inside/avatar.png" class="img-circle" alt="User Image">
+                        <img src="http://myapp.dev:9090/assets/img/inside/avatar.png" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
                         <p><sec:username/></p>
@@ -216,19 +211,19 @@
                     <li class="header"><i class="glyphicon glyphicon-briefcase"></i>  Área de trabalho</li>
 
                     <li id="dashboard_page" class="treeview">
-                        <a href="http://localhost:9090/dashboard">
+                        <a href="http://myapp.dev:9090/dashboard">
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span></i>
                         </a>
                     </li>
                     <li id="reapersonalizavel_page" class="treeview">
-                        <a href="http://localhost:9090/dashboard">
+                        <a href="http://myapp.dev:9090/dashboard">
                             <i class="fa fa-edit"></i>
-                            <span>R.E.A. personalizáveis </span> <small class="label pull-right bg-green">new</small>
+                            <span>R.E.A. personalizáveis </span>
                             <!-- <span class="label label-primary pull-right">4</span> -->
                         </a>
                     </li>
                     <li>
-                        <a  id="reapublicos_page" href="http://localhost:9090/dashboard">
+                        <a  id="reapublicos_page" href="http://myapp.dev:9090/dashboard">
                             <i class="fa fa-users"></i><span> R.E.A. públicos</span>
                         </a>
                     </li>
@@ -249,24 +244,7 @@
                          </g:link>
                         %{--</a>--}%
                     </li>
-
-                    <!--  <li class="treeview">
-                  <a href="#">
-                    <i class="fa fa-folder"></i> <span>Examples</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                  </a>
-                  <ul class="treeview-menu">
-                    <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-                    <li><a href="pages/examples/profile.html"><i class="fa fa-circle-o"></i> Profile</a></li>
-                    <li><a href="pages/examples/login.html"><i class="fa fa-circle-o"></i> Login</a></li>
-                    <li><a href="pages/examples/register.html"><i class="fa fa-circle-o"></i> Register</a></li>
-                    <li><a href="pages/examples/lockscreen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-                    <li><a href="pages/examples/404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-                    <li><a href="pages/examples/500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
-                    <li><a href="pages/examples/blank.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-                  </ul>
-                </li> -->
-
+                </ul>
             </section>
             <!-- /.sidebar -->
         </aside>
@@ -303,6 +281,7 @@
         %{--<script src="dist/js/pages/dashboard2.js"></script>--}%
         %{--<!-- AdminLTE for demo purposes -->--}%
         %{--<script src="dist/js/demo.js"></script>--}%
+    </div>
 
     </body>
 </html>

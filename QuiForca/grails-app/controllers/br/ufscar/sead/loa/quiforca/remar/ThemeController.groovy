@@ -1,5 +1,6 @@
 package br.ufscar.sead.loa.quiforca.remar
 
+import groovy.json.JsonBuilder
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.imgscalr.Scalr
 import org.springframework.security.access.annotation.Secured
@@ -24,8 +25,7 @@ class ThemeController {
             redirect controller: "theme"
         }
 
-        println session.processId
-        println session.taskId
+        session.user = springSecurityService.currentUser
 
         if (params.review) {
             respond Theme.findAllByProcessIdAndTaskId(session.processId, session.taskId), model:[themeInstanceCount: Theme.count()]
@@ -190,8 +190,8 @@ class ThemeController {
         if((!iconUploaded.isEmpty())||(!openingUploaded.isEmpty())||(!backgroundUploaded.isEmpty())) {
 
             def originalIconUploaded = new File("$userPath/icon.png")
-            def originalOpeningUploaded = new File("$userPath/opening.png")
-            def originalBackgroundUploaded = new File("$userPath/background.png")
+            def originalOpeningUploaded = new File("$userPath/inicio.png")
+            def originalBackgroundUploaded = new File("$userPath/papel.png")
 
             iconUploaded.transferTo(originalIconUploaded)
             openingUploaded.transferTo(originalOpeningUploaded)
@@ -207,7 +207,22 @@ class ThemeController {
     }
 
     def choose() {
-        session.themeId = params.id
-        redirect controller: "process", action: "complete", id: "ChooseTheme"
+        def list = []
+        list.add(servletContext.getRealPath("/data/${session.user.id}/themes/${params.id}/inicio.png"))
+        list.add(servletContext.getRealPath("/data/${session.user.id}/themes/${params.id}/papel.png"))
+
+        def builder = new JsonBuilder()
+        def json = builder(
+                "files": list
+        )
+
+        def file = new File(servletContext.getRealPath("/data/${session.user.id}/${session.taskId}"))
+        file.mkdirs()
+        file = new File("${file}/files.json")
+        def pw = new PrintWriter(file);
+        pw.write(builder.toString());
+        pw.close();
+
+        redirect uri: "http://${request.serverName}:${request.serverPort}/process/task/resolve/${session.taskId}", params: [json: file]
     }
 }

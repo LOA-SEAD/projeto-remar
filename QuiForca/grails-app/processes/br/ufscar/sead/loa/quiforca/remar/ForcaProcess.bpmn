@@ -11,49 +11,58 @@
       <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
       <bpmn2:outgoing>SequenceFlow_6</bpmn2:outgoing>
     </bpmn2:parallelGateway>
-    <bpmn2:sequenceFlow id="SequenceFlow_5" name="" sourceRef="Gateway_1" targetRef="ChooseQuestions"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_6" name="" sourceRef="Gateway_1" targetRef="ChooseTheme"/>
-    <bpmn2:userTask id="ChooseQuestions" name="Escolher questões">
-      <bpmn2:incoming>SequenceFlow_5</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
-    </bpmn2:userTask>
-    <bpmn2:sequenceFlow id="SequenceFlow_7" name="" sourceRef="ChooseQuestions" targetRef="Gateway_2"/>
-    <bpmn2:userTask id="ChooseTheme" name="Escolher tema">
-      <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
-      <bpmn2:outgoing>SequenceFlow_8</bpmn2:outgoing>
-    </bpmn2:userTask>
-    <bpmn2:sequenceFlow id="SequenceFlow_8" name="" sourceRef="ChooseTheme" targetRef="Gateway_2"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_5" name="" sourceRef="Gateway_1" targetRef="question.index"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_6" name="" sourceRef="Gateway_1" targetRef="theme.index"/>
     <bpmn2:parallelGateway id="Gateway_2">
       <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
       <bpmn2:incoming>SequenceFlow_8</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
     </bpmn2:parallelGateway>
-    <bpmn2:sequenceFlow id="SequenceFlow_3" name="" sourceRef="Gateway_2" targetRef="RefactorService"/>
-    <bpmn2:serviceTask id="RefactorService" camunda:expression="#{generateGameService.serviceMethod(execution)}" name="Refatoração &#xA;base">
+    <bpmn2:sequenceFlow id="SequenceFlow_3" name="" sourceRef="Gateway_2" targetRef="resource_reuse"/>
+    <bpmn2:serviceTask id="resource_reuse" camunda:class="br.ufscar.sead.loa.remar.ProcessController" name="&#xA;Reuso base">
       <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
     </bpmn2:serviceTask>
+    <bpmn2:startEvent id="start" name="StartEvent&#x9;">
+      <bpmn2:extensionElements>
+        <camunda:executionListener class="br.ufscar.sead.loa.remar.ProcessController" event="start"/>
+      </bpmn2:extensionElements>
+      <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_4" name="" sourceRef="start" targetRef="Gateway_1"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_2" name="" sourceRef="resource_reuse" targetRef="EndEvent_1"/>
     <bpmn2:endEvent id="EndEvent_1" name="EndEvent">
       <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:startEvent id="StartEvent" camunda:formKey="embedded:app:camunda/test/sampleForm" name="StartEvent">
-      <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
-    </bpmn2:startEvent>
-    <bpmn2:sequenceFlow id="SequenceFlow_4" name="" sourceRef="StartEvent" targetRef="Gateway_1"/>
-    <bpmn2:sequenceFlow id="SequenceFlow_2" name="" sourceRef="RefactorService" targetRef="EndEvent_1"/>
+    <bpmn2:userTask id="question.index" name="&#xA;Banco de Questões">
+      <bpmn2:extensionElements>
+        <camunda:executionListener class="br.ufscar.sead.loa.remar.ProcessController" event="end"/>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_5</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_7" name="" sourceRef="question.index" targetRef="Gateway_2"/>
+    <bpmn2:userTask id="theme.index" name="&#xA;Criar tema">
+      <bpmn2:extensionElements>
+        <camunda:executionListener class="br.ufscar.sead.loa.remar.ProcessController" event="end"/>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_6</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_8</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_8" name="" sourceRef="theme.index" targetRef="Gateway_2"/>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="ForcaProcess">
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="start">
         <dc:Bounds height="36.0" width="36.0" x="142.0" y="215.0"/>
         <bpmndi:BPMNLabel>
           <dc:Bounds height="22.0" width="68.0" x="126.0" y="256.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_EndEvent_2" bpmnElement="EndEvent_1">
-        <dc:Bounds height="36.0" width="36.0" x="852.0" y="215.0"/>
+        <dc:Bounds height="36.0" width="36.0" x="749.0" y="215.0"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="22.0" width="63.0" x="839.0" y="256.0"/>
+          <dc:Bounds height="17.0" width="52.0" x="741.0" y="256.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_ParallelGateway_6" bpmnElement="Gateway_1">
@@ -62,13 +71,13 @@
           <dc:Bounds height="0.0" width="0.0" x="272.0" y="262.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_UserTask_10" bpmnElement="ChooseQuestions">
-        <dc:Bounds height="80.0" width="100.0" x="336.0" y="78.0"/>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_10" bpmnElement="question.index">
+        <dc:Bounds height="80.0" width="100.0" x="324.0" y="84.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_UserTask_11" bpmnElement="ChooseTheme">
-        <dc:Bounds height="80.0" width="100.0" x="324.0" y="308.0"/>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_11" bpmnElement="theme.index">
+        <dc:Bounds height="80.0" width="100.0" x="312.0" y="311.0"/>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_UserTask_12" bpmnElement="RefactorService">
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_12" bpmnElement="resource_reuse">
         <dc:Bounds height="80.0" width="100.0" x="552.0" y="193.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_4" bpmnElement="SequenceFlow_4" sourceElement="_BPMNShape_StartEvent_2" targetElement="_BPMNShape_ParallelGateway_6">
@@ -82,16 +91,16 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="SequenceFlow_5" sourceElement="_BPMNShape_ParallelGateway_6" targetElement="_BPMNShape_UserTask_10">
         <di:waypoint xsi:type="dc:Point" x="272.0" y="207.0"/>
-        <di:waypoint xsi:type="dc:Point" x="272.0" y="118.0"/>
-        <di:waypoint xsi:type="dc:Point" x="336.0" y="118.0"/>
+        <di:waypoint xsi:type="dc:Point" x="272.0" y="124.0"/>
+        <di:waypoint xsi:type="dc:Point" x="324.0" y="124.0"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="6.0" width="6.0" x="278.0" y="118.0"/>
+          <dc:Bounds height="6.0" width="6.0" x="284.0" y="124.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_6" bpmnElement="SequenceFlow_6" sourceElement="_BPMNShape_ParallelGateway_6" targetElement="_BPMNShape_UserTask_11">
         <di:waypoint xsi:type="dc:Point" x="272.0" y="257.0"/>
-        <di:waypoint xsi:type="dc:Point" x="272.0" y="348.0"/>
-        <di:waypoint xsi:type="dc:Point" x="324.0" y="348.0"/>
+        <di:waypoint xsi:type="dc:Point" x="272.0" y="351.0"/>
+        <di:waypoint xsi:type="dc:Point" x="312.0" y="351.0"/>
         <bpmndi:BPMNLabel>
           <dc:Bounds height="6.0" width="6.0" x="269.0" y="348.0"/>
         </bpmndi:BPMNLabel>
@@ -103,19 +112,19 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_7" bpmnElement="SequenceFlow_7" sourceElement="_BPMNShape_UserTask_10" targetElement="_BPMNShape_ParallelGateway_7">
-        <di:waypoint xsi:type="dc:Point" x="436.0" y="118.0"/>
-        <di:waypoint xsi:type="dc:Point" x="460.0" y="118.0"/>
+        <di:waypoint xsi:type="dc:Point" x="424.0" y="124.0"/>
+        <di:waypoint xsi:type="dc:Point" x="460.0" y="124.0"/>
         <di:waypoint xsi:type="dc:Point" x="460.0" y="207.0"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="6.0" width="6.0" x="457.0" y="204.0"/>
+          <dc:Bounds height="6.0" width="6.0" x="457.0" y="198.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_8" bpmnElement="SequenceFlow_8" sourceElement="_BPMNShape_UserTask_11" targetElement="_BPMNShape_ParallelGateway_7">
-        <di:waypoint xsi:type="dc:Point" x="424.0" y="348.0"/>
-        <di:waypoint xsi:type="dc:Point" x="460.0" y="348.0"/>
+        <di:waypoint xsi:type="dc:Point" x="412.0" y="351.0"/>
+        <di:waypoint xsi:type="dc:Point" x="460.0" y="351.0"/>
         <di:waypoint xsi:type="dc:Point" x="460.0" y="257.0"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="6.0" width="6.0" x="457.0" y="272.0"/>
+          <dc:Bounds height="6.0" width="6.0" x="457.0" y="287.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="_BPMNShape_ParallelGateway_7" targetElement="_BPMNShape_UserTask_12">
@@ -127,7 +136,10 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="_BPMNShape_UserTask_12" targetElement="_BPMNShape_EndEvent_2">
         <di:waypoint xsi:type="dc:Point" x="652.0" y="233.0"/>
-        <di:waypoint xsi:type="dc:Point" x="852.0" y="233.0"/>
+        <di:waypoint xsi:type="dc:Point" x="749.0" y="233.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="698.0" y="233.0"/>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

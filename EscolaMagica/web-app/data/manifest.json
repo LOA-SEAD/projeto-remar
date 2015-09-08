@@ -8,6 +8,8 @@
 
   "files": {
     "perguntas.xml": "/Deploy"
-  }
+  },
 
+  "width" : 800,
+  "height": 600
 }

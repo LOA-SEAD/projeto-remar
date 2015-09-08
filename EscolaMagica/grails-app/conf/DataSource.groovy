@@ -36,7 +36,6 @@ environments {
         dataSource {
             dbCreate = "update"
             url = "jdbc:mysql://localhost/remar"
-            jndiName = "java:comp/env/remar"
             properties {
                 // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                 jmxEnabled = true

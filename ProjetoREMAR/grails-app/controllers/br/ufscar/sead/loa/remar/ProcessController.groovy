@@ -107,7 +107,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
         // println session.processId;
 
 
-        render "ok"
+        render "success"
 
 
     }
@@ -218,7 +218,11 @@ class ProcessController implements JavaDelegate, ExecutionListener{
             if (task.delegationState == DelegationState.RESOLVED) {
                 if (task.owner == session.user.username) {
                     taskService.complete(params.taskId)
-                    redirect uri:"/process/tasks/overview/${task.processInstanceId}"
+                    if(!session.processFinished) {
+                        redirect uri: "/process/tasks/overview/${task.processInstanceId}"
+                    } else {
+                        session.processFinished = null
+                    }
 
                 } else {
                     render "user != owner"
@@ -235,23 +239,27 @@ class ProcessController implements JavaDelegate, ExecutionListener{
     }
 
     def resolveTask() {
+        def json
         try {
-            def json = JSON.parse(params.json)
+            json = JSON.parse(new File(params.json).text)
         } catch (Exception ignored) {
-            def json = JSON.parse("{files:[]}")
+            json = JSON.parse("{files:[]}")
         }
+
+        println json
         def task = taskService.createTaskQuery().taskId(params.taskId).singleResult()
         if (task) {
             if (task.delegationState == DelegationState.PENDING) {
                 if (task.assignee == session.user.username) {
                     def destination = servletContext.getRealPath("/data/users/${task.owner}/${task.processInstanceId}")
-                    taskService.getVariable(params.taskId, "files").each { file ->
+                    json.files.each { file ->
                         file = file as String
+                        println file
                         def fileName =  file.substring(file.lastIndexOf('/') + 1, file.length())
                         new AntBuilder().copy(file: file, tofile: destination + "/" + fileName)
                     }
                     taskService.resolveTask(params.taskId)
-                    render '/process/pendingTasks'
+                    redirect uri: '/process/pendingTasks'
                 } else {
                     render "user != assignee"
                 }
@@ -321,8 +329,6 @@ class ProcessController implements JavaDelegate, ExecutionListener{
 
         if (delegateExecution.currentActivityId == 'start') {
             redirect uri: "/process/tasks/overview/${delegateExecution.processInstanceId}"
-        } else if (delegateExecution.currentActivityId == 'resource_versions'){
-            render "versions"
         }
     }
 
@@ -346,15 +352,19 @@ class ProcessController implements JavaDelegate, ExecutionListener{
             def resourceFolder = new File(servletContext.getRealPath("/data/users/${ownerUsername}/${delegateExecution.processInstanceId}"))
             def instanceFolder = new File(servletContext.getRealPath("/published/${exportedResourceInstance.id}"))
             def json = JSON.parse(Resource.get(runtimeService.getVariable(delegateExecution.processInstanceId, 'resourceId') as String).files)
+            println json
 
             new AntBuilder().copy(todir: "${instanceFolder}/web") {
                 fileset(dir: servletContext.getRealPath("/data/resources/sources/${resource.uri}/base"))
             }
+            println "^~^"
 
             json.each {file, destinationFolder ->
-                new AntBuilder().copy(file: "${resourceFolder}/${file}", tofile: "${instanceFolder}/web/${destinationFolder}/${file}")
+                new AntBuilder().copy(file: "${resourceFolder}/${file}", tofile: "${instanceFolder}/web/${destinationFolder}/${file}", overwrite: true)
+                println "each"
             }
 
+            session.processFinished = true
             redirect uri:"/exported-resource/publish/${exportedResourceInstance.id}"
         }
     }

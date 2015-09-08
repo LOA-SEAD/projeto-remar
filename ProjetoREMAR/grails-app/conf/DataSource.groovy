@@ -36,6 +36,7 @@ environments {
         dataSource {
             dbCreate = "update"
             url = "jdbc:mysql://localhost/remar"
+            //noinspection GroovyAssignabilityCheck
             properties {
                 // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                 jmxEnabled = true

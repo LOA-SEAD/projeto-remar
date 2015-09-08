@@ -43,7 +43,6 @@ environments {
         dataSource {
             dbCreate = "update"
             url = "jdbc:mysql://localhost/forca"
-            jndiName = "java:comp/env/forca"
             properties {
                 // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                 jmxEnabled = true
