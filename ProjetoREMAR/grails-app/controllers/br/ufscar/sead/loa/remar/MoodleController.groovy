@@ -6,33 +6,33 @@ import groovy.json.JsonBuilder
 
 class MoodleController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: ["GET","POST"], update: "PUT", delete: "DELETE"]
 
-    def save(Moodle moodle) {
-        moodle.installedAt = new Date()
+    def save(String domain) {
+        if (!Moodle.findByDomain(domain)) {
+            def moodle = new Moodle()
+            moodle.domain = domain
+            moodle.installedAt = new Date()
+            moodle.active = true
 
-        /*if (moodle == null) {
-            notFound()
-            return
-        }*/
+            moodle.save flush: true
 
-        /*if (moodle.hasErrors()) {
-            println("Someone tried to install the REMAR plugin in his/her moodle but it didn't worked:")
-            println(moodle.errors)
-        }*/
-
-        moodle.save flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'moodle.label', default: 'Moodle'), moodle.id])
-                redirect moodle
-            }
-            '*' { respond moodle, [status: CREATED] }
+            println "moodle saved: " + moodle
         }
+        else {
+            def moodle = Moodle.findByDomain(domain)
+            moodle.active = true
+
+            moodle.save flush: true
+        }
+
+
+
+        render 'Moodle "'+domain+'" successfully created.'
     }
 
     def remove(String domain) {
+
         Moodle moodleToDelete = Moodle.where {
             active == true && domain == domain
         }.list().first()
@@ -46,11 +46,6 @@ class MoodleController {
         moodleToDelete.save flush:true
 
         render 'Moodle "'+domain+'" successfully deleted.'
-
-        /*if (moodle.hasErrors()) {
-            print "Someone tried to uninstall the REMAR plugin of his/her moodle but it didn't worked: "
-            println moodle.errors as JSON
-        }*/
     }
 
     def moodleGameList(String domain) {
