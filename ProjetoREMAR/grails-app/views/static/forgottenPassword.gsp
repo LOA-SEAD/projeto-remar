@@ -54,7 +54,6 @@
         <div class="col-md-12">
             <section>
                 <h3 class="title-style">Recuperar sua conta</h3>
-                <div class="divider"></div>
             </section>
             <section>
 
