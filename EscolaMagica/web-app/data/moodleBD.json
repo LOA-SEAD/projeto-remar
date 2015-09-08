@@ -1,0 +1,45 @@
+{
+  "table_name": "escola_magica",
+  "structure": {
+    "field1": {
+      "name": "enunciado",
+      "type": "TEXT",
+      "length": "big"
+    },
+    "field2": {
+      "name": "alternativaA",
+      "type": "TEXT",
+      "length": "big"
+    },
+    "field3": {
+      "name": "alternativaB",
+      "type": "TEXT",
+      "length": "big"
+    },
+    "field4": {
+      "name": "alternativaC",
+      "type": "TEXT",
+      "length": "big"
+    },
+    "field5": {
+      "name": "alternativaD",
+      "type": "TEXT",
+      "length": "big"
+    },
+    "field6": {
+      "name": "resposta_certa",
+      "type": "TEXT",
+      "length": "big"
+    },
+    "field7": {
+      "name": "resposta",
+      "type": "CHAR",
+      "length": 1,
+    },
+    "field4": {
+      "name": "timestamp",
+      "type": "INTEGER",
+      "length": 10
+    }
+  }
+}

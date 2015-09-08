@@ -98,7 +98,8 @@ class UserController {
     @Transactional(readOnly=false)
     def newPassword(){
         // vai receber aqui a nova senha por post
-        println params
+
+
         if(params.newPassword == params.confirmPassword){
             def user = User.findById(params.userid)
 //            user.passwordExpired = false      NAO!
@@ -108,6 +109,7 @@ class UserController {
             println "password alterado"
 
         }
+
 
     }
 
@@ -213,6 +215,8 @@ class UserController {
                 if (userInstance.username.indexOf('admin') != -1) {
                     UserRole.create(userInstance, Role.findByAuthority("ROLE_ADMIN"), true)
                 }
+                sendConfirmationMail(userInstance.getEmail(), userInstance.getId())
+
             } else {
                 userInstance.accountExpired = false
                 userInstance.accountLocked = true //Before user confirmation
