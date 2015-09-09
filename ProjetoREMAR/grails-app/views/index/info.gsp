@@ -147,6 +147,15 @@
                         </ul>
 
                         <p>Equipe de Desenvolvimento</p>
+                        <ul>
+                            <li>Lucas Fernando Bocanegra, Graduando em Ciência da Computação, UFSCar</li>
+                            <li>Marcus Marangon Mourão, Graduando em Ciência da Computação, UFSCar</li>
+                            <li>Matheus Vieira Fernandes, Graduando em Ciência da Computação, UFSCar</li>
+                            <li><a href="http://lattes.cnpq.br/3936850286110811" target="_blank">Rener Baffa da Silva</a>, Mestrando em Ciência da Computação, UFSCar</li>
+                        </ul>
+
+
+                        <p style="margin-left: 5px;">Ex-desenvolvedores:</p>
 
                         <ul>
                             <li><a href="http://lattes.cnpq.br/8675003419316612" target="_blank">Alex Roberto Guido</a>, Pós-Graduando em Ciência da Computação, UFSCar</li>
