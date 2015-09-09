@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Configurando um game para o Moodle</title>
+		<title>Configurando um Recurso para o Moodle</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 		<script type="text/javascript">
@@ -63,6 +63,19 @@
 					style: 'float: left; margin-left: 10px;',
 					required: 'required'
 				});
+				var label3 = jQuery('<label>', {
+					class: 'label-form',
+					for: 'token'+local,
+					html: 'Token<span class="required-indicator">*</span>',
+					style: 'float: left; margin-left: 30px'
+				});
+				var textField2 = jQuery('<input>', {
+					type: 'text',
+					id: 'token'+local,
+					name: 'token' + local,
+					style: 'float: left; margin-left: 10px;',
+					required: 'required'
+				});
 				var hiddenId = jQuery('<input>', {
 					type: 'hidden',
 					value: local,
@@ -81,6 +94,8 @@
 				$('#main-div'+local).append(select);
 				$('#main-div'+local).append(label2);
 				$('#main-div'+local).append(textField);
+				$('#main-div'+local).append(label3);
+				$('#main-div'+local).append(textField2);
 				$('#main-div'+local).append(hiddenId);
 				$('#main-div'+local).append(deleteButton);
 				$('#main-div'+local).append(clearDiv);
@@ -114,7 +129,7 @@
 				<div style="margin-top: 10px;">
 					<button type="button" id="new-account">+ conta</a>
 				</div>
-				<g:hiddenField name="exportedGameId" value="${exportedGameInstance.id}" />
+				<g:hiddenField name="exportedResourceId" value="${exportedResourceInstance.id}" />
 				<br />
 				<g:submitButton name="create" class="btn btn-primary btn-block btn-create" value="Salvar Configuração" />
 				<hr />

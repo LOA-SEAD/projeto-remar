@@ -1,9 +1,10 @@
 package br.ufscar.sead.loa.remar
 
-import grails.plugin.springsecurity.annotation.Secured
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
+import grails.util.Environment
+import groovy.json.JsonSlurper
 import groovyx.net.http.HTTPBuilder
-import org.codehaus.groovy.grails.io.support.GrailsIOUtils
 
 @Secured(['ROLE_ADMIN'])
 class ExportedResourceController {
@@ -11,25 +12,25 @@ class ExportedResourceController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
     def springSecurityService
 
-    def save(ExportedResource exportedGame) {
-        /*if (exportedGame.hasErrors()) {
+    def save(ExportedResource exportedResourceInstance) {
+        /*if (exportedResourceInstance.hasErrors()) {
             println("Someone tried to register a new moodlegame but it doesn't worked:")
-            println(exportedGame.errors)
+            println(exportedResourceInstance.errors)
         }
         else {
-            println exportedGame as JSON
+            println exportedResourceInstance as JSON
             //moodlegame.save flush:true
             //redirect controller: "MoodleGame", action: "accountPublishConfig", id: moodlegame.id
         }*/
 
         //need to improve that
-        exportedGame.owner = User.findById(springSecurityService.getCurrentUser().getId())
-        exportedGame.exportedAt = new Date()
-        exportedGame.type = 'public'
-        exportedGame.addToPlatforms(Platform.findByName("Moodle"))
+        exportedResourceInstance.owner = User.findById(springSecurityService.getCurrentUser().getId())
+        exportedResourceInstance.exportedAt = new Date()
+        exportedResourceInstance.type = 'public'
+        exportedResourceInstance.addToPlatforms(Platform.findByName("Moodle"))
 
-        exportedGame.save flush:true
-        redirect controller: "ExportedGame", action: "accountConfig", id: exportedGame.id
+        exportedResourceInstance.save flush:true
+        redirect controller: "ExportedResource", action: "accountConfig", id: exportedResourceInstance.id
     }
 
     def _moodles() {
@@ -44,24 +45,18 @@ class ExportedResourceController {
         render(view: '/exportedResource/_moodles', model: [moodleList: moodleList, id: params.local])
     }
 
-    def publishOld(ExportedResource exportedGame) {
-        def moodleList = Moodle.list()
-        respond moodleList, model:[moodleList: moodleList]
-    }
-
-    def accountConfig(ExportedResource exportedGame) {
-        println "sadas"
+    def accountConfig(ExportedResource exportedResource) {
         Moodle m = Moodle.findWhere(id: Long.parseLong("1"))
 
-        render(view:"accountConfig", model:['exportedGameInstance': exportedGame]);
+        render(view:"accountConfig", model:['exportedResourceInstance': exportedResource]);
     }
 
     def accountSave() {
         def arr = []
 
-        def exportedGameId = Long.parseLong(params.find({it.key == "exportedGameId"}).value)
+        def exportedResourceId = Long.parseLong(params.find({it.key == "exportedResourceId"}).value)
 
-        ExportedResource exportedGame = ExportedResource.findById(exportedGameId)
+        ExportedResource exportedResourceInstance = ExportedResource.findById(exportedResourceId)
 
         params?.each{
             def name = it.key
@@ -71,6 +66,7 @@ class ExportedResourceController {
                 def moo = Moodle.findWhere(id: id)
 
                 def accName = params.find({it.key == "account"+splitted[1]}).value
+                def token = params.find({it.key == "token"+splitted[1]}).value
 
                 def account = MoodleAccount.find({accountName == accName && owner.domain == moo.domain})
 
@@ -79,14 +75,16 @@ class ExportedResourceController {
                     account = new MoodleAccount()
                     account.accountName = accName
                     account.owner = moo
+                    account.token = token
                     account.save flush:true
                 }
 
-                println account as JSON
-                exportedGame.addToAccounts(account)
-                exportedGame.save flush:true
+                 exportedResourceInstance.addToAccounts(account)
+                 exportedResourceInstance.save flush:true
             }
         }
+
+        redirect uri: "/exported-resource/moodle/${exportedResourceInstance.id}"
     }
 
     def publish(ExportedResource exportedResourceInstance) {
@@ -135,18 +133,49 @@ class ExportedResourceController {
 
     def moodle(ExportedResource exportedResourceInstance) {
 
+        //pega os dados de como será a tabela no moodle
+        def file = new File(servletContext.getRealPath("/data/resources/sources/${exportedResourceInstance.resource.uri}/moodle/moodleBD.json"))
+        def inputJson = new JsonSlurper().parseText(file.text)
+
+        exportedResourceInstance.moodleTableName = inputJson.table_name
+
+        /*inputJson.structure.each {
+            def i = 0
+            def field = [:]
+
+            it.value.each {
+                field.put(it.key, it.value)
+            }
+
+            println field
+        }*/
+
+
         //criar a tabela dentro do moodle
+        def http
+
+        if(Environment.current == Environment.DEVELOPMENT) {
+            http = new HTTPBuilder("http://localhost")  //it SHALL be dynamic ******
+        }
+        else {
+            http = new HTTPBuilder("http://${Moodle.list().first()}")  //it SHALL be dynamic ******
+        }
+
+        def parameters = [:]
+        parameters.table_name = exportedResourceInstance.moodleTableName as String
+        parameters.structure = inputJson.structure
+
+        def resp = http.post(path: "/moodle/webservice/rest/server.php",
+                query: [wstoken: exportedResourceInstance.accounts.first().token,
+                        wsfunction: "mod_remarmoodle_create_table",
+                        json: file.text])
+        println resp
 
         /*new AntBuilder().copy(todir: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}")) {
             fileset(dir: servletContext.getRealPath("/published/${exportedResourceInstance.id}/moodle"))
         }
 
         //criar tabela dentro do moodle
-        def http = new HTTPBuilder('http://''@localhost:8080')
-        def resp = http.get(path: '/manager/text/deploy',
-                query: [path: "/${resourceInstance.uri}",
-                        war: servletContext.getRealPath("/wars/${springSecurityService.currentUser.username}/${resourceInstance.uri}.war") ])
-        resp = GrailsIOUtils.toString(resp)
 
 
         def file = new File(servletContext.getRealPath("/wars/${user.username}/${fileName}/WEB-INF"))
@@ -157,9 +186,9 @@ class ExportedResourceController {
         //salvar url
         //redirecionar para as outras páginas*/
 
-        //render "asdasd!!"
         println exportedResourceInstance
-        redirect uri: "exported-resource/accountConfig/${exportedResourceInstance.id}"
+        //redirect uri: "exported-resource/accountConfig/${exportedResourceInstance.id}"
         println "........"
+        render "asdasd!!"
     }
 }

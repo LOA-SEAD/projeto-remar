@@ -48,7 +48,7 @@ class MoodleController {
         render 'Moodle "'+domain+'" successfully deleted.'
     }
 
-    def moodleGameList(String domain) {
+    def resources_list(String domain) {
         //def moodle = Moodle.findByDomain(domain).Where(active)
         def moodle = Moodle.where {
             active == true && domain == domain
