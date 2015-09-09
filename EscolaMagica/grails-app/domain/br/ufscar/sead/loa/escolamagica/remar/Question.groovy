@@ -11,7 +11,7 @@ class Question {
     static boolean validateQuestions() {
 
 
-        return (Question.findAllByLevel("1").size() >= 5 && Question.findAllByLevel("2").size() >= 5 && Question.findAllByLevel("3").size() >= 5)
+        return (findAllByLevel("1").size() >= 5 && findAllByLevel("2").size() >= 5 && findAllByLevel("3").size() >= 5)
 
     }
 

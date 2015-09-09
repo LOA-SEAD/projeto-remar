@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <head>
-    <meta name="layout" content="main-inside">
+    <meta name="layout" content="new-main-inside">
 <style>
 
     #reasons{
@@ -10,7 +10,7 @@
 </style>
 </head>
 <body>
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<div>
     <g:form action="newDeveloper" controller="resource">
     <label for="fullName"> Nome Completo
         <span class="required-indicator">*</span>
