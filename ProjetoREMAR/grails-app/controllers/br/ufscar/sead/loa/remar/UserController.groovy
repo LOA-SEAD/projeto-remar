@@ -45,16 +45,16 @@ class UserController {
     @Transactional(readOnly=false)
     def saveCamundaDB(userInstance){
 
-        org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
-        if(camundaUser.firstName == null) {
-            camundaUser.setEmail(userInstance.email)
-            camundaUser.setFirstName(userInstance.username)
-            camundaUser.setPassword(userInstance.password)
-            userInstance.camunda_id = camundaUser.getId()
-            identityService.saveUser(camundaUser)
-        }
-        else
-            redirect(controller: 'index')
+//        org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
+//        if(camundaUser.firstName == null) {
+//            camundaUser.setEmail(userInstance.email)
+//            camundaUser.setFirstName(userInstance.username)
+//            camundaUser.setPassword(userInstance.password)
+//            userInstance.camunda_id = camundaUser.getId()
+//            identityService.saveUser(camundaUser)
+//        }
+//        else
+//            redirect(controller: 'index')
     }
     @Transactional(readOnly=false)
     def confirmNewUser(){
@@ -89,7 +89,7 @@ class UserController {
             subject "Confirmação de Cadastro"
             html '<h3>Clique no link abaixo para confirmar o cadastro</h3> <br>' +
                     '<br>' +
-                    'http://localhost:8080/user/email/confirm?Token=' + newToken.getToken()
+                    'http://localhost:9090/user/email/confirm?Token=' + newToken.getToken()
         }
 
         println "metodo do email"
@@ -211,10 +211,7 @@ class UserController {
                 identityService.saveUser(camundaUser)
 
                 userInstance.camunda_id = camundaUser.id
-
-                if (userInstance.username.indexOf('admin') != -1) {
-                    UserRole.create(userInstance, Role.findByAuthority("ROLE_ADMIN"), true)
-                }
+                userInstance.save flush: true
                 sendConfirmationMail(userInstance.getEmail(), userInstance.getId())
 
             } else {
@@ -231,11 +228,10 @@ class UserController {
                 identityService.saveUser(camundaUser)
 
                 userInstance.camunda_id = camundaUser.id
-
+                userInstance.save flush: true
                 sendConfirmationMail(userInstance.getEmail(), userInstance.getId())
             }
 
-            userInstance.save flush: true
 
             UserRole.create(userInstance, Role.findByAuthority("ROLE_USER"), true)
             UserRole.create(userInstance, Role.findByAuthority("ROLE_STUD"), true)
