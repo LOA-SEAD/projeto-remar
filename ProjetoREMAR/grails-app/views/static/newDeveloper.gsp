@@ -15,22 +15,13 @@
 
 <body>
 <div class="row">
-    %{--<header class="row logotipo" >--}%
-    %{--<div class="logotipo" align="center" >--}%
-    %{--<img  alt="logo remar" src="../assets/img/logo/logo-remar-v2.svg" height="50%" width="50%" />--}%
-    %{--</div>--}%
-    %{--</header>--}%
-    <article class="row">
-        <div class="col-md-12">
-            <section>
-                <h3 class="title-style">Obrigado pelas informações!</h3>
-            </section>
-            <section>
-                <h3 class="password-text-align">Agora você é um deenvolvedor do REMAR!</h3>
-                <span class="footer-span" id="link-password"><g:link class="footer-span" controller="index" action="index">Home</g:link></span>
-            </section>
+    <div class="container-fluid" style="margin: 7% auto; width: 30%; background-color:#FFF;">
+        <h2 style="text-align: center;">Obrigado pelas informações!</h2>
+        <h4 style="margin-top:20px; text-align: justify;"> Agora você é um desenvolvedor do REMAR. Para efetivar as mudanças saia do sistema e faça login novamente.</h4>
+        <div class="container-fluid" style="margin: 7% auto; width: 25%;">
+            <a href="/logout/index"  class="btn btn-primary btn-block btn-flat">Sair</a>
         </div>
-    </article>
+    </div>
 </div>
 %{--<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">--}%
 %{--<h1>Obrigado pelas informações, agora você é um desenvolvedor no REMAR :D</h1>--}%
