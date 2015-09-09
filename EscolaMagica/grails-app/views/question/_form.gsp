@@ -1,4 +1,4 @@
-<%@ page import="br.ufscar.sead.loa.escolamagica.remar.QuestionEscola" %>
+<%@ page import="br.ufscar.sead.loa.escolamagica.remar.Question" %>
 
 <div class="table-responsive">
     <table class="table table-striped table-bordered table-hover" id="table">
@@ -9,7 +9,7 @@
                 </label>
             </td>
             <td class="spaced_td">
-                <g:textField class="form-control" id="title" name="title" required="" value="${questionEscolaInstance?.title}"/>
+                <g:textField class="form-control" id="title" name="title" required="" value="${questionInstance?.title}"/>
             </td>
         </tr>
 
@@ -21,8 +21,8 @@
                 </label>
             </td>
             <td class="spaced_td">
-                <g:textField class="form-control" id="answers[0]" name="answers[0]" required="" value="${questionEscolaInstance.answers[0]}"/>
-            </td><td><g:radio name="correctAnswer" value="0" checked="${questionEscolaInstance.correctAnswer == 0}"/>
+                <g:textField class="form-control" id="answers[0]" name="answers[0]" required="" value="${questionInstance.answers[0]}"/>
+            </td><td><g:radio name="correctAnswer" value="0" checked="${questionInstance.correctAnswer == 0}"/>
 
             </td>
         </div>
@@ -36,8 +36,8 @@
                 </label>
             </td>
             <td class="spaced_td">
-                <g:textField class="form-control" id="answers[1]" name="answers[1]" required="" value="${questionEscolaInstance.answers[1]}"/>
-            </td><td><g:radio name="correctAnswer" value="1" checked="${questionEscolaInstance.correctAnswer == 1}"/>
+                <g:textField class="form-control" id="answers[1]" name="answers[1]" required="" value="${questionInstance.answers[1]}"/>
+            </td><td><g:radio name="correctAnswer" value="1" checked="${questionInstance.correctAnswer == 1}"/>
 
             </td>
         </div>
@@ -47,12 +47,12 @@
         <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'name', 'error')} required">
             <td>
                 <label for="answers[2]">
-                    <g:message code="questionEscola.answers.label" default="Alternativa 3" /><span style="color:red">*</span>
+                    <g:message code="question.answers.label" default="Alternativa 3" /><span style="color:red">*</span>
                 </label>
             </td>
             <td class="spaced_td">
-                <g:textField class="form-control" id="answers[2]" name="answers[2]" required="" value="${questionEscolaInstance.answers[2]}"/>
-            </td><td><g:radio name="correctAnswer" value="2" checked="${questionEscolaInstance.correctAnswer == 2}"/>
+                <g:textField class="form-control" id="answers[2]" name="answers[2]" required="" value="${questionInstance.answers[2]}"/>
+            </td><td><g:radio name="correctAnswer" value="2" checked="${questionInstance.correctAnswer == 2}"/>
 
             </td>
         </div>
@@ -62,12 +62,12 @@
         <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'name', 'error')} required">
             <td>
                 <label for="answers[3]">
-                    <g:message code="questionEscola.answers.label" default="Alternativa 4" /><span style="color:red">*</span>
+                    <g:message code="question.answers.label" default="Alternativa 4" /><span style="color:red">*</span>
                 </label>
             </td>
             <td class="spaced_td">
-                <g:textField class="form-control" id="answers[3]" name="answers[3]" required="" value="${questionEscolaInstance.answers[3]}"/>
-            </td><td><g:radio name="correctAnswer" value="3" checked="${questionEscolaInstance.correctAnswer == 3}"/>
+                <g:textField class="form-control" id="answers[3]" name="answers[3]" required="" value="${questionInstance.answers[3]}"/>
+            </td><td><g:radio name="correctAnswer" value="3" checked="${questionInstance.correctAnswer == 3}"/>
             </td>
         </div>
         </tr>
@@ -80,7 +80,7 @@
                 </label>
             </td>
             <td class="spaced_td">
-                <g:select id="level" name="level" class="form-control" from="${questionEscolaInstance.constraints.level.inList}" required="" value="${questionEscolaInstance?.level}" valueMessagePrefix="questionEscola.level"/>
+                <g:select id="level" name="level" class="form-control" from="${questionInstance.constraints.level.inList}" required="" value="${questionInstance?.level}" valueMessagePrefix="question.level"/>
             </td>
         </div>
         </tr>

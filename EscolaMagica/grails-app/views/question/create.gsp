@@ -19,15 +19,15 @@
                         <g:if test="${flash.message}">
                             <div class="message" role="status">${flash.message}</div>
                         </g:if>
-                        <g:hasErrors bean="${questionEscolaInstance}">
+                        <g:hasErrors bean="${questionInstance}">
                             <ul class="errors" role="alert">
-                                <g:eachError bean="${questionEscolaInstance}" var="error">
+                                <g:eachError bean="${questionInstance}" var="error">
                                     <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
                                     </g:eachError>
                             </ul>
                         </g:hasErrors>
                         <h3 class="section-title first-title"><i class="icon-question"></i> Utilize o botão ao lado do campo de texto para indicar a questão certa</h3>
-                        <g:form url="[resource:questionEscolaInstance, action:'save']" >
+                        <g:form url="[resource:questionInstance, action:'save']" >
                             <fieldset class="form">
                                 <g:render template="form"/>
                             </fieldset>
