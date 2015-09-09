@@ -1,4 +1,4 @@
-<%@ page import="br.ufscar.sead.loa.escolamagica.remar.QuestionEscola" %>
+<%@ page import="br.ufscar.sead.loa.escolamagica.remar.Question" %>
 <!DOCTYPE html>
 <html>
 	<head>
