@@ -8,6 +8,9 @@ class Question {
     String level
 
 
+    long processId
+    long taskId
+
     static boolean validateQuestions() {
 
 
