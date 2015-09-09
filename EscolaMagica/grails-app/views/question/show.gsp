@@ -19,55 +19,55 @@
                                 <br />
                             </g:if>
 
-                            <g:if test="${questionEscolaInstance?.level}">
+                            <g:if test="${questionInstance?.level}">
 								<p>
 									<b>
 										<span id="level-label" class="property-label">
-											<g:message code="questionEscola.level.label" default="Nível" />
+											<g:message code="question.level.label" default="Nível" />
 										</span>
 									</b>
 									<span class="property-value" aria-labelledby="username-label">
-										<g:fieldValue bean="${questionEscolaInstance}" field="level"/>
+										<g:fieldValue bean="${questionInstance}" field="level"/>
 									</span>
 								</p>
 							</g:if>
 
-							<g:if test="${questionEscolaInstance?.title}">
+							<g:if test="${questionInstance?.title}">
 								<p>
 									<b>
 										<span id="level-label" class="property-label">
-											<g:message code="questionEscola.title.labelsad" default="Pergunta: " />
+											<g:message code="question.title.labelsad" default="Pergunta: " />
 										</span>
 									</b>
 									<span id="answers-label" class="property-label">
-										<g:fieldValue bean="${questionEscolaInstance}" field="title"/>
+										<g:fieldValue bean="${questionInstance}" field="title"/>
 									</span>
 								</p>
 							</g:if>
 
-							<g:if test="${questionEscolaInstance?.answers}">
+							<g:if test="${questionInstance?.answers}">
 								<p>
 									<b>
 										<span id="level-label" class="property-label">
-											<g:message code="questionEscola.level.label" default="Respostas: " />
+											<g:message code="question.level.label" default="Respostas: " />
 										</span>
 									</b>
-<g:fieldValue bean="${questionEscolaInstance}" field="answers"/>
+<g:fieldValue bean="${questionInstance}" field="answers"/>
 									<span id="answers-label" class="property-label">
 									</span>
 								</p>
 							</g:if>
 
-							<g:if test="${questionEscolaInstance.correctAnswer >= 0}">
+							<g:if test="${questionInstance.correctAnswer >= 0}">
 								<p>
 									<b>
 										<span id="level-label" class="property-label">
-											<g:message code="questionEscola.level.label" default="Resposta Correta: " />
+											<g:message code="question.level.label" default="Resposta Correta: " />
 										</span>
 									</b>
 									<span id="answers-label" class="property-label">
 
-${questionEscolaInstance.answers[questionEscolaInstance.correctAnswer]} (${questionEscolaInstance.correctAnswer + 1}ª Alternativa)										
+${questionInstance.answers[questionInstance.correctAnswer]} (${questionInstance.correctAnswer + 1}ª Alternativa)										
 
 
 									</span>
@@ -79,9 +79,9 @@ ${questionEscolaInstance.answers[questionEscolaInstance.correctAnswer]} (${quest
                 </div>
             </div>
 
-            <g:form url="[resource:questionEscolaInstance, action:'delete']" method="DELETE">
+            <g:form url="[resource:questionInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
-					<g:link class="edit btn btn-info btn-lg" resource="${questionEscolaInstance}" action="edit">Editar</g:link>
+					<g:link class="edit btn btn-info btn-lg" resource="${questionInstance}" action="edit">Editar</g:link>
 					<g:actionSubmit class="delete btn btn-danger btn-lg" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Tem certeza que deseja excluir?')}');" />
 					<g:link class="btn btn-warning btn-lg" action="index">Voltar</g:link>
 				</fieldset>
