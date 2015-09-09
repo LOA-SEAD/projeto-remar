@@ -59,9 +59,6 @@
             </div>
 
             <div class="col-xs-12 center">
-                <div class="paginacao">
-                    <g:paginate total="${questionInstanceCount ?: 0}" />
-                </div>
 
 
                 <g:if test="${Question.validateQuestions()}" >
