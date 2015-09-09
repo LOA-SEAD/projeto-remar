@@ -34,7 +34,7 @@
     "field7": {
       "name": "resposta",
       "type": "CHAR",
-      "length": 1,
+      "length": 1
     },
     "field4": {
       "name": "timestamp",
