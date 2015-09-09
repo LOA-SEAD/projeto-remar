@@ -19,7 +19,7 @@ class QuestionController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond QuestionEscola.list(params), model: [questionEscolaInstanceCount: QuestionEscola.count()]
+        respond Question.list(params), model: [questionInstanceCount: Question.count()]
     }
 
     def confirming() {
