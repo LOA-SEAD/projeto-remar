@@ -6591,8 +6591,8 @@ td.visible-print {
 }
 .content-wrapper .content-inner {
     -webkit-box-shadow: 0px 2px 40px 2px rgba(0, 0, 0, 0.8);
-    box-shadow: 0px 2px 40px 2px rgba(0, 0, 0, 0.8);
-    border-radius: 4px;
+    /*box-shadow: 0px 2px 40px 2px rgba(0, 0, 0, 0.8);*/
+    /*border-radius: 4px;*/
 }
 .content-wrapper .content-inner.content-inner-white .main-content {
     background-color: #fff;
@@ -6650,11 +6650,11 @@ td.visible-print {
     color: #444;
 }
 .content-wrapper.wood-wrapper {
-    background: #5f3c22 url(../images/bg-wood.jpg) top left repeat;
-    border-radius: 20px;
+    /*background: url("/forca/assets/img/bg/bg.png") repeat;*/
+    /*min-height: 500px;*/
     padding: 30px;
-    -webkit-box-shadow: inset 2px 2px 2px rgba(255,255,255,0.3), 0px 0px 20px 2px rgba(0,0,0,0.7);
-    box-shadow: inset 2px 2px 2px rgba(255,255,255,0.3), 0px 0px 20px 2px rgba(0,0,0,0.7);
+    /*-webkit-box-shadow: inset 2px 2px 2px rgba(255,255,255,0.3), 0px 0px 20px 2px rgba(0,0,0,0.7);*/
+    /*box-shadow: inset 2px 2px 2px rgba(255,255,255,0.3), 0px 0px 20px 2px rgba(0,0,0,0.7);*/
 }
 .content-wrapper.wood-wrapper .content-inner {
     -webkit-box-shadow: 0px 2px 8px 2px rgba(0, 0, 0, 0.7);
@@ -6686,9 +6686,9 @@ td.visible-print {
     background-color: #82403b;
     color: #fff;
     padding: 15px 20px;
-    border-radius: 4px 4px 0px 0px;
-    -webkit-box-shadow: inset 0px 2px 1px rgba(255,255,255,0.1), 0px 2px 3px 0px rgba(0,0,0,0.2);
-    box-shadow: inset 0px 2px 1px rgba(255,255,255,0.1), 0px 2px 3px 0px rgba(0,0,0,0.2);
+    /*border-radius: 4px 4px 0px 0px;*/
+    /*-webkit-box-shadow: inset 0px 2px 1px rgba(255,255,255,0.1), 0px 2px 3px 0px rgba(0,0,0,0.2);*/
+    /*box-shadow: inset 0px 2px 1px rgba(255,255,255,0.1), 0px 2px 3px 0px rgba(0,0,0,0.2);*/
     position: relative;
     z-index: 20;
     border: 1px solid #542420;
@@ -6874,10 +6874,11 @@ td.visible-print {
 .content-wrapper .main-content {
     background-color: #f3eee7;
     border-top: none;
-    border-radius: 0px 0px 4px 4px;
+    /*border-radius: 0px 0px 4px 4px;*/
     padding: 30px;
-    -webkit-box-shadow: inset 2px 0px 2px 0px rgba(255, 255, 255, 0.5);
-    box-shadow: inset 2px 0px 2px 0px rgba(255, 255, 255, 0.5);
+    /*-webkit-box-shadow: inset 2px 0px 2px 0px rgba(255, 255, 255, 0.5);*/
+    /*box-shadow: inset 2px 0px 2px 0px rgba(255, 255, 255, 0.5);*/
+    min-height: 900px;
 }
 @media (min-width: 992px) and (max-width: 1199px) {
     .content-wrapper .main-content {
@@ -7347,15 +7348,16 @@ td.visible-print {
 .widget .widget-content-white {
     background-color: #fff;
     -webkit-box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.15);
-    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.15);
+    /*box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.15);*/
     border: 1px solid #CECAC4;
     border-bottom: 1px solid #B2ACA4;
-    border-radius: 4px;
+    /*border-radius: 4px;*/
 }
 .widget .widget-content-white.glossed {
     background-color: #F9F8F7;
     -webkit-box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.15), inset 1px 2px 2px 0px #fff;
     box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.15), inset 1px 2px 2px 0px #fff;
+
 }
 .widget .widget-content-white.glossed .value-self {
     text-shadow: 1px 1px 2px #fff;
@@ -7787,4 +7789,11 @@ table .checkbox {
 
 .max {
     width: 80%;
+}
+
+
+.container-fluid{
+    width:  80%;
+    margin: 7% auto;
+    margin-top: 0px;
 }

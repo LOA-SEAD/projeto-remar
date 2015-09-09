@@ -25,6 +25,13 @@
                     <div class="widget-content-white glossed">
                     <div class="padded">
                         <div class="table-responsive">
+                            <div class="pull-right">
+                                <g:submitButton name="create" class="create btn btn-info new-question-create-button" value="Nova questão" />
+                                <g:submitButton  name="delete" class="delete btn btn-danger new-question-create-button" value="Remover" alt="Remove questões selecionadas"/>
+                                <br />
+                                <br />
+                            </div>
+
                             <table class="table table-striped table-bordered table-hover" id="table">
                                 <thead>
                                     <tr>
@@ -55,14 +62,11 @@
                             </table>
                         </div>
                     </div>
-                    <g:submitButton name="create" class="create btn btn-info new-question-create-button" value="Nova questão" />
-                    <g:submitButton  name="delete" class="delete btn btn-danger new-question-create-button" value="Remover questões selecionadas"/>
-                    <br />
-                    <br />
+
                 </div>
             </div>
             <fieldset class="buttons">
-                <g:submitButton  name="save" class="btn btn-success" value="Enviar questões"/>
+                <g:submitButton  name="save" class="btn btn-success" value="Enviar"/>
                 <div class="pagination">
                     <g:paginate total="${questionInstanceCount ?: 0}" />
                 </div>

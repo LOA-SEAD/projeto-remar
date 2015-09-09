@@ -96,7 +96,7 @@ body {
 .content-wrapper,
 .right-side {
   min-height: 100%;
-  background-image: url("../../img/bg/bg.png");
+  background-image: url("/forca/assets/img/bg/bg.png");
   background-repeat: repeat;
   /*background-color: #ffffff;*/
   z-index: 800;
@@ -151,6 +151,16 @@ body.hold-transition .main-header .logo {
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.content-index {
+  min-height: 250px;
+  padding: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: transparent;
 }
 /* H1 - H6 font */
 h1,
@@ -1277,6 +1287,11 @@ a:focus {
   border-color: #dd4b39;
   box-shadow: none;
 }
+
+.form-group.has-error .form-control-remar {
+  border-color: #dd4b39;
+  box-shadow: none;
+}
 /* Input group */
 .input-group .input-group-addon {
   border-radius: 0;
@@ -1441,11 +1456,11 @@ a:focus {
  * --------------------
  */
 .small-box {
-  border-radius: 2px;
+  border-radius: 0px;
   position: relative;
   display: block;
   margin-bottom: 20px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
 }
 .small-box > .inner {
   padding: 10px;
@@ -1462,11 +1477,11 @@ a:focus {
   text-decoration: none;
 }
 .small-box > .small-box-footer:hover {
-  color: #fff;
+  /*color: #fff;*/
   background: rgba(0, 0, 0, 0.15);
 }
 .small-box h3 {
-  font-size: 38px;
+  font-size: 20px;
   font-weight: bold;
   margin: 0 0 10px 0;
   white-space: nowrap;
@@ -1486,9 +1501,10 @@ a:focus {
   z-index: 5px;
 }
 .small-box .icon {
-  -webkit-transition: all 0.3s linear;
-  -o-transition: all 0.3s linear;
+  /*-webkit-transition: all 0.3s linear;*/
+  /*-o-transition: all 0.3s linear;*/
   transition: all 0.3s linear;
+  /*animation: pulse 2.5s infinite;*/
   position: absolute;
   top: -10px;
   right: 10px;
@@ -1496,13 +1512,35 @@ a:focus {
   font-size: 90px;
   color: rgba(0, 0, 0, 0.15);
 }
-.small-box:hover {
-  text-decoration: none;
-  color: #f9f9f9;
+
+/*.small-box:hover {*/
+  /*text-decoration: none;*/
+  /*/!*color: #f9f9f9;*!/*/
+/*}*/
+/*.small-box:hover .icon {*/
+  /*font-size: 95px;*/
+/*}*/
+
+.bottom-update {
+  /*-webkit-transition: all 0.3s linear;*/
+  /*-o-transition: all 0.3s linear;*/
+  /*animation: pulse 2.5s infinite;*/
+  font-size: 20px;
 }
-.small-box:hover .icon {
-  font-size: 95px;
-}
+
+
+/*@keyframes pulse {*/
+  /*0% {*/
+    /*font-size: 85px;*/
+    /*opacity: 1;*/
+  /*}*/
+  /*100% {*/
+    /*opacity: 1;*/
+    /*font-size: 95px;*/
+  /*}*/
+/*}*/
+
+
 @media (max-width: 767px) {
   .small-box {
     text-align: center;
@@ -1769,6 +1807,14 @@ a:focus {
   background: transparent;
   color: #97a0b3;
 }
+
+.btn-upload{
+  background-color: transparent;
+  border: 0px;
+}
+
+
+
 .open .btn-box-tool,
 .btn-box-tool:hover {
   color: #606c84;
@@ -2701,10 +2747,16 @@ table.text-center th {
   -o-transform: translate(0, 0);
   transform: translate(0, 0);
   padding: 10px;
-  min-height: 200px;
-  max-height: 300px;
+  min-height: 400px;
+  max-height: 500px;
   overflow-y: scroll;
 
+}
+
+.direct-chat-submit-war{
+  overflow-y: auto;
+  min-height: 100px;
+  max-width: 500px;
 }
 .direct-chat-msg,
 .direct-chat-text {
@@ -3203,7 +3255,12 @@ table.text-center th {
 }
 .login-page,
 .register-page {
-  background: #d2d6de;
+  /*background: #d2d6de;*/
+  min-height: 100%;
+  background-image: url("/forca/assets/img/bg/bg.png");
+  background-repeat: repeat;
+  /*background-color: #ffffff;*/
+  z-index: 800;
 }
 .login-box,
 .register-box {
@@ -3228,6 +3285,16 @@ table.text-center th {
 .register-box-body .form-control-feedback {
   color: #777;
 }
+
+.login-box-body a{
+  color: #f19b2c;
+}
+
+.login-box-body a:hover{
+  color: rgba(241, 155, 44, 0.7);
+}
+
+
 .login-box-msg,
 .register-box-msg {
   margin: 0;
@@ -3237,6 +3304,92 @@ table.text-center th {
 .social-auth-links {
   margin: 10px 0;
 }
+
+.footer-span{
+  diplay: block;
+  font-size: 14px;
+  text-align: center;
+}
+.footer-span a{
+  diplay:block;
+  color: #f19b2c;
+
+}
+.footer-span a:hover{
+  color: rgba(241, 155, 44, 0.7);
+}
+
+.input-remar{
+  border-radius: 0px;
+}
+
+
+.divider{
+  border-top: 1px solid #30ad63;
+  display: block;
+  line-height: 1px;
+  margin: 30px 0px;
+  position: relative;
+  text-align: center;
+  outline: 3px none;
+}
+
+.form-control-remar {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 0px;
+  /*-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);*/
+  /*box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);*/
+  /*-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;*/
+  /*-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;*/
+  /*transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;*/
+}
+
+.form-control-remar:focus {
+  border: 1.5px solid #566471;
+  outline: 0;
+
+}
+
+/*
+ * Page:  Create e Register user
+ * -----------------------------
+ */
+
+.g-recaptcha{
+  position: static;
+  width: 100%;
+}
+
+.has-error .form-control-feedback {
+  color: #a94442 !important;
+}
+
+/*
+ * Page:  Show register confirm user
+ * -----------------------------
+ */
+
+.label-info-title{
+  text-align: center;
+  font-weight: bold;
+}
+
+.label-info-user{
+  text-align: center;
+  font-weight: normal;
+  background-color: transparent !important;
+  font-size: 16px;
+}
+
 /*
  * Page: 400 and 500 error pages
  * ------------------------------
@@ -4303,7 +4456,9 @@ table.text-center th {
 .bg-aqua-active,
 .modal-info .modal-header,
 .modal-info .modal-footer {
-  background-color: #00a7d0 !important;
+  /*background-color: #00a7d0 !important;*/
+  background-color: rgba(0,167,208,0.5) !important;
+  /*box-shadow: 5px 5px 8px rgba(0,0, 0, 0.6);*/
 }
 .bg-blue-active {
   background-color: #005384 !important;
@@ -4762,4 +4917,12 @@ table.text-center th {
 
 .info-box-icon a:hover{
   color: rgba(255,255,255,0.5);
+}
+
+
+.page-size{
+  min-height: 500px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+
 }

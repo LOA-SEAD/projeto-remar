@@ -15,12 +15,11 @@
     <meta name="author" content="">
 
     <title>REMAR</title>
+    <link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
 
     <!-- Bootstrap Core CSS -->
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="${resource(dir: 'assets/css', file: 'bootstrap.css')}" rel="stylesheet">
-    %{--<link href="${resource(dir: 'assets/css', file: 'grayscale.css')}" rel="stylesheet">--}%
-    %{--<link href="${resource(dir: 'assets/css', file: 'icomoon.css')}"  rel="stylesheet">--}%
 
     <!-- Custom CSS -->
     %{--<link href="../assets/css/logo-nav.css" rel="stylesheet">--}%

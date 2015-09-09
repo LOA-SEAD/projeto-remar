@@ -32,40 +32,16 @@
         <g:layoutHead/>
     </head>
     <body>
-
         <div class="all-wrapper">
             <div class="row">
-                <div class="col-md-3" id="menu-latera">
-                    <div class="text-center">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
-                    <div class="side-bar-wrapper collapse navbar-collapse navbar-ex1-collapse">
-                        <a href="#" class="logo hidden-sm hidden-xs">
-                            <i class="icon-cog"></i>
-                            <span>Sistema Administrativo<br />REMAR - FORCA</span>
-                        </a>
-                        <div class="relative-w">
-                            <ul class="side-menu">
-                                <li><a class="home" href="${createLink(uri: '/')}">Novo jogo</a></li>
-                                <li><a href="/logout">Logout</a></li>
-                                </ul>
+                  <div class="container-fluid">
+                        <div class="content-wrapper wood-wrapper">
+                            <div class="content-inner">
+
+                                <g:layoutBody/>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-9">
-
-                    <div class="content-wrapper wood-wrapper">
-                        <div class="content-inner">
-
-                            <g:layoutBody/>
-                        </div>
-                    </div>
-                </div>
+                  </div>
             </div>
         </div>
     </body>
