@@ -14,7 +14,7 @@
     "field7": {
       "name": "letra_escolhida",
       "type": "CHAR",
-      "length": 1,
+      "length": 1
     },
     "field4": {
       "name": "timestamp",
