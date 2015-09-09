@@ -252,8 +252,8 @@ class ResourceController {
     }
 
     def newDeveloper(){
-        println params
-        render(view:"/static/newDeveloper")
+
+
     }
 
     def review() {

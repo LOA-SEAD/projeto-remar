@@ -72,7 +72,7 @@
                         </sec:ifAllGranted>
 
                         <sec:ifNotGranted roles="ROLE_DEV">
-                            <li><a href="#">Torne-se um Desenvolvedor<span class="sr-only">(current)</span></a></li>
+                            <li><a href="/developer/new">Torne-se um Desenvolvedor<span class="sr-only">(current)</span></a></li>
                          </sec:ifNotGranted>
                     </sec>
                 </div>

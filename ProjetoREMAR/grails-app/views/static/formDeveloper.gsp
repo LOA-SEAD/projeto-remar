@@ -16,12 +16,12 @@
 
 
 
-    <g:form action="newDeveloper" controller="resource">
+    <g:form action="makeDeveloper" controller="user" params="">
         <section>
             <h3 style="text-align: center; margin-bottom: 20px;"> Tornar-se um desenvolvedor</h3>
         </section>
         <div class="form-group" style="margin: 10px;">
-            <input placeholder="Nome completo" type="text" class="form-control input-form" name="fullName" id="fullName" required=""/>
+            <input placeholder="Nome completo" type="text" class="form-control input-form" name="fullName" id="fullName" value="${fullname}" required=""/>
         </div>
         <div class="form-group" style="margin: 10px;">
             <input placeholder="Estado (ex: SP)" type="text" class="form-control input-form" name="state" id="state" required=""/>

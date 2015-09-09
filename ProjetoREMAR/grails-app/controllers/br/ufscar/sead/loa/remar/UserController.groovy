@@ -153,7 +153,7 @@ class UserController {
                     subject "Nova senha para o REMAR"
                     html '<h3>Clique no link abaixo para fazer uma nova senha</h3> <br>' +
                             '<br>' +
-                            'http://localhost:9090/user/newpassword/confirm?Token=' + newToken.getToken()
+                            'http://'+${request.serverName}+':'+${request.serverPort}+'/user/newpassword/confirm?Token=' + newToken.getToken()
 
                 }
 
@@ -352,6 +352,17 @@ class UserController {
             '*'{ render status: NOT_FOUND }
         }
     }
+
+    @Transactional
+    def makeDeveloper(){
+        UserRole.create(springSecurityService.getCurrentUser() as User, Role.findByAuthority("ROLE_DEV"), true)
+        println("Deu Certo")
+        println(params.fullName)
+        render(view:"/static/newDeveloper")
+
+    }
+
+
 
     @Transactional
     def filteredList(String filter) {
