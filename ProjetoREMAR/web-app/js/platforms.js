@@ -19,14 +19,19 @@ window.addEventListener("load", function() {
 
 
 function ajax(endpoint, intervalId, el, originalText) {
-    $.ajax({
-        type:'GET',
-        url: location.origin + '/exported-resource/' + endpoint + "?id=" + $(el).data("resource-id") + "&type=" + $("input[name=type]:checked").val(),
-        success:function(data){
-            clearInterval(intervalId);
-            $(el).html(originalText +": <a target=\"_blank\" href=\"" + data + "\">Acessar</a>");
-        },
-        error:function(XMLHttpRequest,textStatus,errorThrown){}});
+    if (endpoint == "moodle") {
+        window.location.href = location.origin + "/exported-resource/accountConfig/" + $(el).data("resource-id");;
+    }
+    else {
+        $.ajax({
+            type:'GET',
+            url: location.origin + '/exported-resource/' + endpoint + "?id=" + $(el).data("resource-id") + "&type=" + $("input[name=type]:checked").val(),
+            success:function(data){
+                clearInterval(intervalId);
+                $(el).html(originalText +": <a target=\"_blank\" href=\"" + data + "\">Acessar</a>");
+            },
+            error:function(XMLHttpRequest,textStatus,errorThrown){}});
+    }
 }
 
 function etc(el) {

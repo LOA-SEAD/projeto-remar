@@ -2,6 +2,8 @@ package br.ufscar.sead.loa.remar
 
 import grails.plugin.springsecurity.annotation.Secured
 import grails.converters.JSON
+import groovyx.net.http.HTTPBuilder
+import org.codehaus.groovy.grails.io.support.GrailsIOUtils
 
 @Secured(['ROLE_ADMIN'])
 class ExportedResourceController {
@@ -48,6 +50,7 @@ class ExportedResourceController {
     }
 
     def accountConfig(ExportedResource exportedGame) {
+        println "sadas"
         Moodle m = Moodle.findWhere(id: Long.parseLong("1"))
 
         render(view:"accountConfig", model:['exportedGameInstance': exportedGame]);
@@ -131,15 +134,32 @@ class ExportedResourceController {
     }
 
     def moodle(ExportedResource exportedResourceInstance) {
-        def user = springSecurityService.currentUser as User
+
+        //criar a tabela dentro do moodle
+
+        /*new AntBuilder().copy(todir: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}")) {
+            fileset(dir: servletContext.getRealPath("/published/${exportedResourceInstance.id}/moodle"))
+        }
+
+        //criar tabela dentro do moodle
+        def http = new HTTPBuilder('http://''@localhost:8080')
+        def resp = http.get(path: '/manager/text/deploy',
+                query: [path: "/${resourceInstance.uri}",
+                        war: servletContext.getRealPath("/wars/${springSecurityService.currentUser.username}/${resourceInstance.uri}.war") ])
+        resp = GrailsIOUtils.toString(resp)
+
+
         def file = new File(servletContext.getRealPath("/wars/${user.username}/${fileName}/WEB-INF"))
 
         //criar a tabela dentro do moodle
         //salvar o nome da tabela na classe
         //copiar os arquivos
         //salvar url
-        //redirecionar para as outras páginas
+        //redirecionar para as outras páginas*/
 
-        render "asdasd!!"
+        //render "asdasd!!"
+        println exportedResourceInstance
+        redirect uri: "exported-resource/accountConfig/${exportedResourceInstance.id}"
+        println "........"
     }
 }
