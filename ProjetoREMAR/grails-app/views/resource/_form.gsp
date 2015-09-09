@@ -15,6 +15,10 @@
 			</span>
 		</span>
 		<input type="text" class="form-control" placeholder="WAR file..." readonly>
-
+        <span class="input-group-btn">
+            <button name="create" class="btn btn-primary btn-file btn-flat" >
+                <i class="fa fa-upload"> </i>
+            </button>
+        </span>
 	</div>
 </div>

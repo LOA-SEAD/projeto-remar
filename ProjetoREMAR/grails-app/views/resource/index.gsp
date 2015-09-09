@@ -57,14 +57,7 @@
                                         <div class="direct-chat-messages direct-chat-submit-war col-xs-8" >
                                             <g:render template="form"/>
                                         </div>
-                                        <div class="icon">
-                                            %{--<button name="create" class="btn-upload" title="Enviar">--}%
-                                                %{--<i class="fa fa-upload"></i>--}%
-                                            %{--</button>--}%
-                                            <button name="create" class="btn btn-primary btn-flat bottom-update">
-                                                <i class="fa fa-upload"></i>
-                                            </button>
-                                        </div>
+
 
                                     </div>
                                 </g:form>
