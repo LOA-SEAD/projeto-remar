@@ -44,7 +44,7 @@
     <div class="login-box-body">
         <div class="login-logo">
         <g:link controller="index" action="index">
-            <img src="http://myapp.dev:9090/assets/img/logo/remar-logo-branco.png"
+            <img src="/assets/img/logo/remar-logo-branco.png"
                              class="img-rounded" width="250" height="100"/> </g:link>
         </div>
         <g:layoutBody/>

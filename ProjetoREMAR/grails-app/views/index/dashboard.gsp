@@ -36,7 +36,7 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">
                             <i class="fa fa-edit"></i>
-                            Recursos personalizáveis
+                            R.E.A. personalizáveis
                         </h3>
                     </div>
                     <div class="box-body no-padding">
@@ -56,7 +56,7 @@
                                             <div class="info-box-content">
                                                 <span class="info-box-text">${gameInstance.name}</span>
                                                 <span id="development" class="info-box-number">
-                                                    <img class="img-circle" alt="User Image" src="http://myapp.dev:9090/assets/img/inside/avatar.png"
+                                                    <img class="img-circle" alt="User Image" src="assets/img/inside/avatar.png"
                                                          height="25" width="25"/>
                                                     REMAR
                                                 </span>
@@ -84,7 +84,7 @@
                         </div>
                     </div>
                     %{--<div class="box-footer text-center">--}%
-                        %{--<a href="#" class="uppercase">Ir para recursos públicos</a>--}%
+                        %{--<a href="#" class="uppercase">Ir para R.E.A. públicos</a>--}%
                     %{--</div>--}%
                 </div>
             </div><!-- /.col -->
@@ -98,14 +98,14 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">
                             <i class="fa fa-users"></i>
-                            Recursos Públicos
+                            R.E.A. públicos
                         </h3>
                     </div>
                     <div class="box-body no-padding">
 
                         <div class="direct-chat-messages" >
                             <g:if test="${publicExportedResourcesList.size() == 0}">
-                                <p>Nenhum jogo foi publicado no modo público.</p>
+                                <p>Nenhum R.E.A. foi publicado no modo público.</p>
                             </g:if>
                             <g:else>
                                 <g:each in="${publicExportedResourcesList}" var="exportedResourceInstance">
@@ -117,7 +117,7 @@
                                             <div class="info-box-content">
                                                 <span class="info-box-text">${exportedResourceInstance.name}</span>
                                                 <span class="info-box-number">
-                                                    <img class="img-circle" alt="User Image" src="http://myapp.dev:9090/assets/img/inside/avatar04.png"
+                                                    <img class="img-circle" alt="User Image" src="/assets/img/inside/avatar04.png"
                                                          height="25" width="25"/>
                                                     ${exportedResourceInstance.owner.name}
                                                 </span>
@@ -147,7 +147,7 @@
 
                     </div>
                     %{--<div class="box-footer text-center">--}%
-                        %{--<a href="#" class="uppercase">Ir para recursos públicos</a>--}%
+                        %{--<a href="#" class="uppercase">Ir para R.E.A. públicos</a>--}%
                     %{--</div>--}%
                 </div>
             </div><!-- /.col -->
@@ -157,14 +157,14 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">
                             <i class="fa fa-lock"></i>
-                            Meus Recursos
+                            Meus R.E.A.
                         </h3>
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <div class="direct-chat-messages" >
 
                             <g:if test="${myExportedResourcesList.size() == 0}">
-                                <p>Você ainda não tem nenhum jogo publicado</p>
+                                <p>Você ainda não tem nenhum R.E.A. publicado</p>
                             </g:if>
                             <g:else>
                                 <g:each in="${myExportedResourcesList}" var="myExportedResourceInstance">
@@ -176,7 +176,7 @@
                                             <div class="info-box-content">
                                                 <span class="info-box-text">${myExportedResourceInstance.name}</span>
                                                 <span class="info-box-number">
-                                                    <img class="img-circle" alt="User Image" src="http://myapp.dev:9090/assets/img/inside/avatar04.png"
+                                                    <img class="img-circle" alt="User Image" src="/assets/img/inside/avatar04.png"
                                                          height="25" width="25"/>
                                                     ${myExportedResourceInstance.owner.name}
                                                 </span>

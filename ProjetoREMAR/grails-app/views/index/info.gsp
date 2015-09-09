@@ -63,7 +63,7 @@
             %{--<span class="logo-mini">ICON</span>--}%
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg">
-                <img src="http://myapp.dev:9090/assets/img/logo/remar-logo-transparente.png"
+                <img src="/assets/img/logo/remar-logo-transparente.png"
                      width="120" height="45" />
             </span>
         </a>
@@ -71,7 +71,7 @@
         %{--<a class="logo">--}%
         %{--<g:link controller="index" action="index" class="logo">--}%
         %{--<span class="logo-lg">--}%
-        %{--<img src="http://myapp.dev:9090/assets/img/logo/remar-logo-letra.png"--}%
+        %{--<img src="/assets/img/logo/remar-logo-letra.png"--}%
         %{--width="90" height="20" />--}%
         %{--</span>--}%
         %{--</g:link>--}%
