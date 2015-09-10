@@ -1,52 +1,104 @@
-<html>
-    <head>
-        <meta name='layout' content='main'/>
-        <title><g:message code="springSecurity.login.title"/></title>
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+    <meta name="layout" content="new-main-external">
+    <meta charset="utf-8">
+    <meta name="generator" content="Bootply" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Entrar</title>
+    <link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
 
-    </head>
+    <g:javascript src="../assets/js/jquery.min.js" />
+    <g:javascript src="../assets/js/jquery.validate.js" />
 
-    <body>
-        <div class="page-header">
-            <h1> Página de Login</h1>
-        </div>
-        <div class="main-content">
-            <div class="widget">
-                <h3 class="section-title first-title"><i class="icon-table"></i> Por favor, faça seu login</h3>
-                <div class="widget-content-white glossed">
-                    <div class="padded">
-                        <g:if test='${flash.message}'>
-                            <div class='login_message'>${flash.message}</div>
-                        </g:if>
-                        <form action='${postUrl}' method='POST' id='loginForm' class='cssform' autocomplete='off'>
-                            <div class="form-group">
-                                <label for="username">Usuário:</label>
-                                <input type="text" class="form-control" name="j_username" id="username" required=""/>
-                            </div>
-                            <div class="form-group">
-                                <label for='password'>Senha:</label>
-                                <input type='password' class='form-control' name='j_password' id='password' required=""/>
-                            </div>
-                            <div class="form-group">
-                                <p id="remember_me_holder">
-                                    <input type='checkbox' class='chk' name='${rememberMeParameter}' id='remember_me' <g:if test='${hasCookie}'>checked='checked'</g:if>/>
-                                    <label for='remember_me'>Lembrar-me</label>
-                                </p>
-
-                                <p>
-                                    <input type='submit' id="submit" class="btn btn-info btn-lg" value='${message(code: "springSecurity.login.button")}'/>
-                                </p>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <script type="text/javascript">
-
-            $(function() {
-            document.getElementById('menu-latera').style.display = "none";
+    <script type="text/javascript">
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '1621035434837394',
+                xfbml      : true,
+                version    : 'v2.4'
             });
-        </script>
-    </body>
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        function facebookLogin() {
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    console.log("Conectado");
+                    // logged in and connected user, someone you know
+                    window.location ="${createLink(controller:'facebook', action:'auth')}";
+                }
+                else{
+                    console.log("nao conectado");
+                }
+            });
+        }
+    </script>
+
+</head>
+<body>
+<form action='${postUrl}' method='POST' id='loginForm' utocomplete='off'>
+    <div class="form-group has-feedback">
+        <input type="text" class="form-control-remar" placeholder="Nome de usuário" name="j_username" id="username" >
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+    </div>
+    <div class="form-group has-feedback">
+        <input type="password" class="form-control-remar" placeholder="Senha" name='j_password' id='password'>
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+    </div>
+    <div class="row">
+        <div class="col-xs-8">
+            %{--<div class="checkbox icheck">--}%
+            %{--<label>--}%
+            %{--<input type="checkbox"> Lembre-me--}%
+            %{--</label>--}%
+            %{--</div>--}%
+        </div><!-- /.col -->
+        <div class="col-xs-4">
+            <button type="submit" id="submit" class="btn btn-primary btn-block btn-flat">Entrar</button>
+        </div><!-- /.col -->
+    </div>
+</form>
+
+
+<div class="social-auth-links text-center">
+    <!--
+        <p>- OR -</p>
+    <fb:login-button perms="email,public_profile" scope="public_profile,email,publish_actions,user_about_me" onlogin="facebookLogin();" size="large">
+        <g:message  code="Login por Facebook"/>
+    </fb:login-button>
+        <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Entrar com o Facebook</a>
+        -->
+</div>
+
+
+%{--<div class="footer-span"><g:link class="footer-span" mapping="resetPassword">Esqueci a Senha!</g:link></div>--}%
+%{--<div class="footer-span">Ainda n&atilde;o est&aacute; cadastrado? <g:link class="footer-span" controller="user" action="create" >Registre-se</g:link> </div>--}%
+
+<g:if test='${flash.message}'>
+    <script>
+        $('.form-group').addClass('has-error');
+
+        $('.form-control-feedback').after($("<div />")
+                .addClass("control-label")
+                .text("Usuário e senha não coincidem"));
+
+        $("input").focus(function(){
+            $('.form-group').removeClass('has-error');
+            $('.control-label').remove();
+            $('input').off("focus");
+        });
+    </script>
+</g:if>
+
+</body>
 </html>
+
+
