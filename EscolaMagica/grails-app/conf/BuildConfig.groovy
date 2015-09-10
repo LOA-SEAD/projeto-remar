@@ -62,7 +62,6 @@ grails.project.dependency.resolution = {
         compile ":scaffolding:2.1.2"
         compile ':cache:1.1.8'
         compile ":asset-pipeline:1.9.9"
-        compile ":camunda:0.4.0"
         compile ":spring-security-core:2.0-RC4"
 
 

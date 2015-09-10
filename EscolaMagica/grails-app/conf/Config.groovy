@@ -95,13 +95,6 @@ environments {
         grails.logging.jul.usebridge = true
 //        grails.serverURL = "http://localhost:8080/escolamagica"
         grails.app.context = "/escolamagica"
-        camunda {
-            engine {
-                configuration {
-                    history = 'full'
-                }
-            }
-        }
     }
     production {
         grails.logging.jul.usebridge = false
