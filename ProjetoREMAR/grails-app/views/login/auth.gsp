@@ -51,17 +51,12 @@
         </div>
         <div class="form-group has-feedback">
             <input type="password" class="form-control-remar" placeholder="Senha" name='j_password'>
+            <input type="hidden" name="_spring_security_remember_me" value="on">
+
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
         <div class="row">
-            <div class="col-xs-8">
-                <div class="checkbox icheck">
-                    <label>
-                        <input type="checkbox"> Lembre-me
-                    </label>
-                </div>
-            </div><!-- /.col -->
-            <div class="col-xs-4">
+            <div class="col-xs-4 pull-right">
                 <button type="submit" class="btn btn-primary btn-block btn-flat">Entrar</button>
             </div><!-- /.col -->
         </div>
