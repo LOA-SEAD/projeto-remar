@@ -2,24 +2,69 @@ package br.ufscar.sead.loa.escolamagica.remar
 
 
 import grails.plugin.springsecurity.annotation.Secured
-import org.camunda.bpm.engine.RuntimeService
-import org.codehaus.groovy.grails.web.context.ServletContextHolder
-import org.springframework.web.context.request.RequestContextHolder
+import grails.web.JSONBuilder
+import groovy.json.JsonBuilder
+import groovy.xml.MarkupBuilder
+//import org.camunda.bpm.engine.RuntimeService
+//import org.codehaus.groovy.grails.web.context.ServletContextHolder
+//import org.springframework.web.context.request.RequestContextHolder
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
 @Secured(["IS_AUTHENTICATED_FULLY"])
-@Transactional(readOnly = true)
 class QuestionController {
 
-    RuntimeService runtimeService
+    def springSecurityService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond Question.list(params), model: [questionInstanceCount: Question.count()]
+        if (params.p) {
+            session.processId = params.p
+            session.taskId = params.t
+            redirect controller: "question"
+            return
+        }
+
+        def list = Question.findAllByProcessIdAndTaskId(session.processId, session.taskId)
+
+        if(!list) {
+            new Question(title: 'Questão 1 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
+                         correctAnswer: 0, level: 1, processId: session.processId, taskId: session.taskId).save flush: true
+            new Question(title: 'Questão 2 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
+                         correctAnswer: 0, level: 1, processId: session.processId, taskId: session.taskId).save flush: true
+            new Question(title: 'Questão 3 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
+                         correctAnswer: 0, level: 1, processId: session.processId, taskId: session.taskId).save flush: true
+            new Question(title: 'Questão 4 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
+                         correctAnswer: 0, level: 1, processId: session.processId, taskId: session.taskId).save flush: true
+            new Question(title: 'Questão 5 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
+                         correctAnswer: 0, level: 1, processId: session.processId, taskId: session.taskId).save flush: true
+
+            new Question(title: 'Questão 1 – Nível 2', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
+                    correctAnswer: 0, level: 2, processId: session.processId, taskId: session.taskId).save flush: true
+            new Question(title: 'Questão 2 – Nível 2', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
+                    correctAnswer: 0, level: 2, processId: session.processId, taskId: session.taskId).save flush: true
+            new Question(title: 'Questão 3 – Nível 2', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
+                    correctAnswer: 0, level: 2, processId: session.processId, taskId: session.taskId).save flush: true
+            new Question(title: 'Questão 4 – Nível 2', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
+                    correctAnswer: 0, level: 2, processId: session.processId, taskId: session.taskId).save flush: true
+            new Question(title: 'Questão 5 – Nível 2', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
+                    correctAnswer: 0, level: 2, processId: session.processId, taskId: session.taskId).save flush: true
+
+            new Question(title: 'Questão 1 – Nível 3', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
+                    correctAnswer: 0, level: 3, processId: session.processId, taskId: session.taskId).save flush: true
+            new Question(title: 'Questão 2 – Nível 3', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
+                    correctAnswer: 0, level: 3, processId: session.processId, taskId: session.taskId).save flush: true
+            new Question(title: 'Questão 3 – Nível 3', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
+                    correctAnswer: 0, level: 3, processId: session.processId, taskId: session.taskId).save flush: true
+            new Question(title: 'Questão 4 – Nível 3', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
+                    correctAnswer: 0, level: 3, processId: session.processId, taskId: session.taskId).save flush: true
+            new Question(title: 'Questão 5 – Nível 3', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
+                    correctAnswer: 0, level: 3, processId: session.processId, taskId: session.taskId).save flush: true
+        }
+
+        respond Question.findAllByProcessIdAndTaskId(session.processId, session.taskId), model: [questionInstanceCount: Question.count()]
     }
 
     def confirming() {
@@ -41,21 +86,17 @@ class QuestionController {
         //  def storagePath = servletContext.getRealPath("/")
         //   println storagePath
 
-        def session = RequestContextHolder.currentRequestAttributes().getSession()
-
         def dataPath = servletContext.getRealPath("/data")
-        def userPath = new File(dataPath, "/" + session.userId)
-        userPath.mkdirs()
-        println userPath
+        def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
+        instancePath.mkdirs()
+        println instancePath
 
-        def fw = new FileWriter("$userPath/perguntas.xml")
-        //def fw = new FileWriter(storagePath+"perguntas.xml")
-        //def xml = new MarkupBuilder(xmlObj)
-        def xml = new groovy.xml.MarkupBuilder(fw)
+        def fw = new FileWriter("$instancePath/perguntas.xml")
+        def xml = new MarkupBuilder(fw)
         xml.mkp.xmlDeclaration(version: "1.0", encoding: "utf-8")
         xml.Perguntas() {
             for (int i = 0; i < 4; i++) {
-                def questionList = Question.findAllByLevel(i + 1)
+                def questionList = Question.findAllByLevelAndProcessIdAndTaskId(i + 1, session.processId, session.taskId)
                 if (!questionList.isEmpty()) {
                     int j = 0
                     int k = 0
@@ -79,10 +120,19 @@ class QuestionController {
 
         }
 
+        def builder = new JsonBuilder()
+        def json = builder(
+                "files": [
+                        "${instancePath}/perguntas.xml"
+                ]
+        )
 
+        def file = new File("${instancePath}/files.json")
+        def pw = new PrintWriter(file);
+        pw.write(builder.toString());
+        pw.close();
 
-        redirect(controller: "process", action: "completeTask", id: "createQuestions")
-
+        redirect uri: "http://${request.serverName}:${request.serverPort}/process/task/resolve/${session.taskId}", params: [json: file]
 
     }
 
@@ -98,9 +148,10 @@ class QuestionController {
             return
         }
 
+        questionInstance.processId = session.processId as long
+        questionInstance.taskId = session.taskId as long
+
         questionInstance.save flush: true
-
-
 
 
         request.withFormat {
