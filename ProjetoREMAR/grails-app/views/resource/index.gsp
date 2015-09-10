@@ -88,7 +88,7 @@
                                                 %{--<i class="fa fa-magic"></i>--}%
                                                 %{--</a>--}%
 
-                                                <img src="http://localhost:9090/images/${gameInstance.uri}-banner.png"
+                                                <img src="/images/${gameInstance.uri}-banner.png"
                                                      class="img img-responsive center-block"/>
                                             </span>
 
