@@ -288,7 +288,7 @@ class ResourceController {
                 return
             }
 
-            def http = new HTTPBuilder('http://root:root@localhost:8080')
+            def http = new HTTPBuilder("http://root:${grailsApplication.config.root.password}@localhost:8080")
             def resp = http.get(path: '/manager/text/deploy',
                     query: [path: "/${resourceInstance.uri}",
                             war: servletContext.getRealPath("/wars/${springSecurityService.currentUser.username}/${resourceInstance.uri}.war") ])
