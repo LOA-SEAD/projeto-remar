@@ -1,4 +1,4 @@
-//package br.ufscar.sead.loa.escolamagica.remar
+package br.ufscar.sead.loa.escolamagica.remar
 //
 //import grails.transaction.Transactional
 ////import org.camunda.bpm.engine.RuntimeService
@@ -9,7 +9,7 @@
 //import org.springframework.web.context.request.RequestContextHolder
 //
 //@Transactional
-//class WebVersionService {
+class WebVersionService {}
 //
 //    def serviceMethod(Execution execution) {
 //        println "no service method"

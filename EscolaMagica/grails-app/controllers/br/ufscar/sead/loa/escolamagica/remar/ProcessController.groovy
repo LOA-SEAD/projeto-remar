@@ -1,4 +1,4 @@
-//package br.ufscar.sead.loa.escolamagica.remar
+package br.ufscar.sead.loa.escolamagica.remar
 //
 //import grails.plugin.springsecurity.annotation.Secured
 //import org.camunda.bpm.engine.RuntimeService
@@ -8,7 +8,7 @@
 //import org.camunda.bpm.engine.runtime.ProcessInstance
 //
 //@Secured(["ROLE_PROF", "ROLE_ADMIN"])
-//class ProcessController implements ExecutionListener {
+class ProcessController  {}
 //
 //    RuntimeService runtimeService
 //    ProcessInstance processInstance
