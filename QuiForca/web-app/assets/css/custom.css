@@ -53,7 +53,7 @@
 }
 
 .pointer {
-    cursor: pointer;
+    cursor: default;
 }
 
 body {
