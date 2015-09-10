@@ -18,8 +18,8 @@
                                 <div class="message" role="status">${flash.message}</div>
                                 <br />
                             </g:if>
-                             <g:form url="[resource:questionEscolaInstance, action:'update']" method="PUT" >
-								<g:hiddenField name="version" value="${questionEscolaInstance?.version}" />
+                             <g:form url="[resource:questionInstance, action:'update']" method="PUT" >
+								<g:hiddenField name="version" value="${questionInstance?.version}" />
 								<fieldset class="form">
 									<g:render template="form"/>
 								</fieldset>
