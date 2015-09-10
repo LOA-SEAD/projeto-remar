@@ -5,7 +5,7 @@
       <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
     </bpmn2:userTask>
-    <bpmn2:sequenceFlow id="SequenceFlow_3" name="" sourceRef="question.index" targetRef="game_web"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_3" name="" sourceRef="question.index" targetRef="resource_reuse"/>
     <bpmn2:startEvent id="start" camunda:formKey="app:startEvent" name="StartEvent">
       <bpmn2:extensionElements>
         <camunda:executionListener class="br.ufscar.sead.loa.remar.ProcessController" event="start"/>
@@ -13,11 +13,11 @@
       <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
     </bpmn2:startEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_1" name="" sourceRef="start" targetRef="question.index"/>
-    <bpmn2:serviceTask id="game_web" camunda:class="br.ufscar.sead.loa.remar.ProcessController" name="&#xA;Reuso base">
+    <bpmn2:serviceTask id="resource_reuse" camunda:class="br.ufscar.sead.loa.remar.ProcessController" name="&#xA;Reuso base">
       <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
     </bpmn2:serviceTask>
-    <bpmn2:sequenceFlow id="SequenceFlow_2" name="" sourceRef="game_web" targetRef="endProcess"/>
+    <bpmn2:sequenceFlow id="SequenceFlow_2" name="" sourceRef="resource_reuse" targetRef="endProcess"/>
     <bpmn2:endEvent id="endProcess">
       <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
     </bpmn2:endEvent>
@@ -46,7 +46,7 @@
           <dc:Bounds height="0.0" width="0.0" x="806.0" y="147.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_ServiceTask_3" bpmnElement="game_web">
+      <bpmndi:BPMNShape id="_BPMNShape_ServiceTask_3" bpmnElement="resource_reuse">
         <dc:Bounds height="80.0" width="100.0" x="576.0" y="84.0"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="_BPMNShape_UserTask_2" targetElement="_BPMNShape_ServiceTask_3">
