@@ -45,7 +45,7 @@
     <div class="login-box-body">
         <div class="login-logo">
         <g:link controller="index" action="index">
-            <img src="/forca/assets/img/logo/remar-logo-branco.png"
+            <img src="/escolamagica/assets/img/logo/remar-logo-branco.png"
                              class="img-rounded" width="250" height="100"/> </g:link>
         </div>
         <g:layoutBody/>

@@ -19,6 +19,18 @@
                                 <div class="message" role="status">${flash.message}</div>
                                 <br />
                             </g:if>
+                            <div class="pull-right">
+
+
+                                <g:if test="${Question.validateQuestions()}" >
+                                    <g:link class="btn btn-info btn-lg" action="createXML" >Finalizar</g:link>
+                                </g:if>
+
+
+                                <g:link class="btn btn-success btn-lg" action="create">Nova Questão</g:link>
+                                <br>
+                                <br>
+                            </div>
                             <table class="table table-striped table-bordered table-hover" id="table">
                                 <thead>
                                     <tr>
@@ -30,9 +42,6 @@
                                         <g:sortableColumn property="answers" title="${message(code: 'question.answers.label', default: 'Respostas')}" />
 
                                         <g:sortableColumn property="correctAnswer" title="${message(code: 'question.correctAnswer.label', default: 'Alternativa Correta')}" />
-
-                                
-
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -58,17 +67,7 @@
                 </div>
             </div>
 
-            <div class="col-xs-12 center">
 
-
-                <g:if test="${Question.validateQuestions()}" >
-                    <g:link class="btn btn-info btn-lg" action="createXML" >Finalizar</g:link>
-                </g:if>
-
-
-                <g:link class="btn btn-success btn-lg" action="create">Nova Questão</g:link>
-
-            </div>
         </div>
     </body>
 </html>
