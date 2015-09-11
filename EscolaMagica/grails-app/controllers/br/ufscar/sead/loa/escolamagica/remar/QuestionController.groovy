@@ -12,7 +12,7 @@ import groovy.xml.MarkupBuilder
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Secured(["IS_AUTHENTICATED_FULLY"])
+//@Secured(["IS_AUTHENTICATED_FULLY"])
 class QuestionController {
 
     def springSecurityService
