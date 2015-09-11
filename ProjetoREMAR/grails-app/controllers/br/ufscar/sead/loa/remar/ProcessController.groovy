@@ -73,6 +73,11 @@ class ProcessController implements JavaDelegate, ExecutionListener{
         */
 
     }
+
+    def delete() {
+        runtimeService.deleteProcessInstance(params.id, "")
+        redirect action: "userProcesses"
+    }
 //
 
     def deploy() {
@@ -143,13 +148,10 @@ class ProcessController implements JavaDelegate, ExecutionListener{
             task.taskDefinitionKey = "${task.taskDefinitionKey.replace('.', '/')}?p=${task.processInstanceId}&t=${task.id}"
         }
 
-        //for tests
-        def debug = Environment.current == Environment.DEVELOPMENT
-
         if (tasks.size() == 0) {
             render(view:'finishedProcess')
         } else {
-            respond "", model: [allusers: allUsers, alltasks: tasks, uri: uri, processId: params.processId, debug: debug]
+            respond "", model: [allusers: allUsers, alltasks: tasks, uri: uri, processId: params.processId, currentUser: session.user]
         }
 
     }
@@ -259,7 +261,11 @@ class ProcessController implements JavaDelegate, ExecutionListener{
                         new AntBuilder().copy(file: file, tofile: destination + "/" + fileName)
                     }
                     taskService.resolveTask(params.taskId)
-                    redirect uri: '/process/pendingTasks'
+                    if (task.owner == session.user.username) {
+                        redirect uri: "/process/tasks/overview/${task.processInstanceId}"
+                    } else {
+                        redirect uri: '/process/pendingTasks'
+                    }
                 } else {
                     render "user != assignee"
                 }
