@@ -221,23 +221,23 @@
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span></i>
                         </a>
                     </li>
-                    <li id="reapersonalizavel_page" class="treeview">
-                        <a href="/dashboard">
-                            <i class="fa fa-edit"></i>
-                            <span>R.E.A. personalizáveis </span>
-                            <!-- <span class="label label-primary pull-right">4</span> -->
-                        </a>
-                    </li>
-                    <li>
-                        <a  id="reapublicos_page" href="/dashboard">
-                            <i class="fa fa-users"></i><span> R.E.A. públicos</span>
-                        </a>
-                    </li>
+                    %{--<li id="reapersonalizavel_page" class="treeview">--}%
+                        %{--<a href="/dashboard">--}%
+                            %{--<i class="fa fa-edit"></i>--}%
+                            %{--<span>R.E.A. personalizáveis </span>--}%
+                            %{--<!-- <span class="label label-primary pull-right">4</span> -->--}%
+                        %{--</a>--}%
+                    %{--</li>--}%
+                    %{--<li>--}%
+                        %{--<a  id="reapublicos_page" href="/dashboard">--}%
+                            %{--<i class="fa fa-users"></i><span> R.E.A. públicos</span>--}%
+                        %{--</a>--}%
+                    %{--</li>--}%
                     <li id="meusrea_page" class="treeview">
                         <g:link controller="process" action="userProcesses">
                             <i class="fa fa-lock"></i>
                             <span>
-                               Meus R.E.A.
+                               Meus processos
                             </span>
                         </g:link>
                     </li>

@@ -9,6 +9,7 @@
 <html>
 <head>
     <meta name="layout" content="new-main-inside">
+    <g:javascript src="help.js"/>
     <title></title>
 </head>
 <body>
@@ -21,7 +22,6 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">Tabela de tarefas e usuários disponíveis</div>
                             <div class="panel-body">
                                 <div class="dataTables_wrapper">
                                     <div id="tasks-table" class="dataTables_wrapper form-inline dt-boostrap no-footer">
@@ -30,39 +30,51 @@
                                                 <table id="tasks-users" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="tasks-users-info" >
                                                     <thead>
                                                         <tr role="row">
-                                                            <th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">Nome</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">Usuarios Disponíves</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">Status</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">Usuário delegado</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">Completar</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">Realizar Tarefa</th>
+                                                            <th class="sorting col-md-2" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">Nome</th>
+                                                            <th class="sorting col-md-2" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">
+                                                                Usuario responsável
+                                                                <i class="fa fa-question-circle help" data-content="Cada tarefa deve ser atribuída a um usuário – pode ser você ou outra pessoa :)" rel="popover" data-placement="bottom" data-original-title="Ajuda" data-trigger="hover"></i>
+                                                            </th>
+                                                            <th class="sorting col-md-2" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">
+                                                                Status
+                                                                <i class="fa fa-question-circle help" data-content="Cada tarefa deve ser resolvida e depois aprovada. Futuramente você poderá ver o que foi feito antes de aprová-la :)" rel="popover" data-placement="bottom" data-original-title="Ajuda" data-trigger="hover"></i>
+                                                            </th>
                                                         </tr>
                                                     </thead>
                                                 <tbody>
                                                     <g:each in="${alltasks}" status="i" var="task" >
                                                       <tr role="row">
-                                                        <td value="task">${task.getName()}</td>
+                                                        <td>${task.getName()}</td>
                                                           <td>
                                                               <label>
                                                                   <select name="${task.getId()}">
+                                                                      <g:if test="${task.getAssignee() == null}">
+                                                                          <option disabled selected>Selecione</option>
+                                                                      </g:if>
                                                                       <g:each in="${allusers}" status="j" var="user">
-                                                                          <option value="${user.id}">${user.getFirstName()}</option>
+                                                                          <g:if test="${task.getAssignee() == user.id}">
+                                                                              <option selected value="${user.id}">${user.getFirstName()}</option>
+                                                                          </g:if>
+                                                                          <g:else>
+                                                                              <option value="${user.id}">${user.getFirstName()}</option>
+                                                                          </g:else>
                                                                       </g:each>
                                                                   </select>
                                                               </label>
                                                           </td>
-                                                          <td>${task.getDelegationState()}</td>
-                                                          <g:if test="${task.getAssignee() == null}">
-                                                              <td>SEM USUARIO</td>
+
+                                                          <g:if test="${task.getDelegationState().toString() == "PENDING" && currentUser.username == task.getAssignee()}">
+                                                              <td>Pendente – <g:link target="_blank" uri="/${uri}/${task.taskDefinitionKey}" id="${task.getId()}">REALIZAR</g:link></td>
                                                           </g:if>
-                                                          <g:else test="${task.getId() == null}">
-                                                              <td>${task.getAssignee()}</td>
-                                                          </g:else>
-                                                          <td> <g:link uri="/process/task/complete/${task.getId()}">Ok</g:link></td>
-                                                          <td><g:link target="_blank" uri="/${uri}/${task.taskDefinitionKey}" id="${task.getId()}">Ir</g:link>
-                                                              <g:if test="${debug == true}">
-                                                                  ---- <g:link target="_blank" uri="/process/task/resolve/${task.getId()}">(RESOLVER)</g:link></td>
-                                                              </g:if>
+                                                          <g:elseif test="${task.getDelegationState().toString() == "PENDING"}">
+                                                              <td>Pendente</td>
+                                                          </g:elseif>
+                                                          <g:elseif test="${task.getDelegationState().toString() == "RESOLVED"}">
+                                                              <td>Realizada – Aguardando aprovação – <g:link uri="/process/task/complete/${task.getId()}">APROVAR</g:link></td>
+                                                          </g:elseif>
+                                                          <g:elseif test="${task.getDelegationState().toString() == "null"}">
+                                                              <td>Sem usuário responsável</td>
+                                                          </g:elseif>
                                                       </tr>
                                                     </g:each>
                                                 </tbody>

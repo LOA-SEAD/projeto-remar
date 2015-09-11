@@ -34,9 +34,9 @@
                                         <table id="tasks-users" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="tasks-users-info" >
                                             <thead>
                                                 <tr role="row">
-                                                    <th class="sorting_asc" tabindex="0" style="width: 100px;" aria-controls="tasks-users" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" </th>                                                                                                                                                                                  > Nome </th>
-                                                    <th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" > Tarefas Restantes </th>
-                                                    <th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" > Status   </th>
+                                                    <th class="sorting_asc col-md-3" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Nome</th>
+                                                    <th class="sorting col-md-3" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" > Tarefas Restantes </th>
+                                                    <th class="sorting col-md-3" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" > Status   </th>
                                                     %{--<th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" >Usuário delegado</th>--}%
                                                     %{--<th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" > Completar</th>--}%
                                                     %{--<th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" > Realizar Tarefa  </th>--}%
@@ -45,10 +45,10 @@
                                             <tbody>
                                                 <g:each in="${processes}" var="process">
                                                     <tr role="row">
-                                                        <td ><a href="/process/tasks/overview/${process[3]}"> ${process[0]} </a> </td>
+                                                        <td><a href="/process/delete/${process[3]}"><i class="fa fa-trash fa-lg pull-right">&nbsp;&nbsp;</i></a><a href="/process/tasks/overview/${process[3]}">${process[0]}</a></td>
                                                         <td> ${process[1]}</td>
                                                         <g:if test="${!process[2]}">
-                                                            <td>Ativo </td>
+                                                            <td>Ativo</td>
                                                         </g:if>
                                                         %{--</td>--}%
                                                         %{--<td >${task.getDelegationState()}</td>--}%

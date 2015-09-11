@@ -63,7 +63,7 @@
 
                                                 <span class="progress-description">
                                                     <div class="pull-right">
-                                                        <i class="fa fa-at"></i>
+                                                        <i class="fa fa-internet-explorer"></i>
                                                         <g:if test="${gameInstance.android}">
                                                             <i class="fa fa-android"></i>
                                                         </g:if>
@@ -105,13 +105,15 @@
 
                         <div class="direct-chat-messages" >
                             <g:if test="${publicExportedResourcesList.size() == 0}">
-                                <p>Nenhum R.E.A. foi publicado no modo público.</p>
+                                <p>Não há nenhum R.E.A público :(</p>
                             </g:if>
                             <g:else>
                                 <g:each in="${publicExportedResourcesList}" var="exportedResourceInstance">
                                     <div class="col-md-6">
                                         <div class="info-box bg-red">
                                             <span class="info-box-icon">
+                                                <img src="/images/${exportedResourceInstance.resource.uri}-banner.png"
+                                                     class="img img-responsive center-block"/>
                                                 <i class="fa fa-simplybuilt"></i>
                                             </span>
                                             <div class="info-box-content">
@@ -124,7 +126,7 @@
                                                 <span class="progress-description">
                                                     <div class="pull-right">
                                                         <g:if test="${exportedResourceInstance.webUrl != null}">
-                                                            <a href="${exportedResourceInstance.webUrl}" style="color: white;"><i class="fa fa-at"></i></a>
+                                                            <a href="${exportedResourceInstance.webUrl}" style="color: white;"><i class="fa fa-internet-explorer"></i></a>
                                                         </g:if>
                                                         <g:if test="${exportedResourceInstance.androidUrl != null}">
                                                             <a href="${exportedResourceInstance.androidUrl}"><i class="fa fa-android"></i></a>
@@ -157,24 +159,34 @@
                     <div class="box-header with-border">
                         <h3 class="box-title">
                             <i class="fa fa-lock"></i>
-                            Meus R.E.A.
+                            Meus R.E.A
                         </h3>
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <div class="direct-chat-messages" >
 
                             <g:if test="${myExportedResourcesList.size() == 0}">
-                                <p>Você ainda não tem nenhum R.E.A. publicado</p>
+                                <p>Você ainda não tem nenhum R.E.A. publicado :(</p>
                             </g:if>
                             <g:else>
                                 <g:each in="${myExportedResourcesList}" var="myExportedResourceInstance">
                                     <div class="col-md-6">
                                         <div class="info-box bg-yellow">
                                             <span class="info-box-icon">
+                                                <img src="/images/${myExportedResourceInstance.resource.uri}-banner.png"
+                                                     class="img img-responsive center-block"/>
                                                 <i class="fa fa-simplybuilt"></i>
                                             </span>
                                             <div class="info-box-content">
-                                                <span class="info-box-text">${myExportedResourceInstance.name}</span>
+                                                <span class="info-box-text">
+                                                    ${myExportedResourceInstance.name}
+                                                    <a href="/exported-resource/delete/${myExportedResourceInstance.id}">
+                                                        <i class="fa fa-trash pull-right" style="color: white;"></i>
+                                                    </a>
+                                                    <a href="/exported-resource/publish/${myExportedResourceInstance.id}">
+                                                        <i class="fa fa-pencil pull-right" style="color: white;"></i>
+                                                    </a>
+                                                </span>
                                                 <span class="info-box-number">
                                                     <img class="img-circle" alt="User Image" src="/assets/img/inside/avatar04.png"
                                                          height="25" width="25"/>
@@ -183,7 +195,7 @@
                                                 <span class="progress-description">
                                                     <div class="pull-right">
                                                         <g:if test="${myExportedResourceInstance.webUrl != null}">
-                                                            <a href="${myExportedResourceInstance.webUrl}" style="color: white;"><i class="fa fa-at"></i></a>
+                                                            <a href="${myExportedResourceInstance.webUrl}" style="color: white;"><i class="fa fa-internet-explorer"></i></a>
                                                         </g:if>
                                                         <g:if test="${myExportedResourceInstance.androidUrl != null}">
                                                             <a href="${myExportedResourceInstance.androidUrl}"><i class="fa fa-android"></i></a>

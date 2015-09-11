@@ -15,7 +15,7 @@
 
 <body>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h3>Nao existem tarefas disponíveis no momento</h3>
+    <h3>Não há nenhuma tarefa disponível para você no momento! :)</h3>
     </div>
 </body>
 </html>
