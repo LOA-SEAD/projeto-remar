@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest
 
 class BootStrap {
     IdentityService identityService
+    def grailsApplication
 
     def init = { servletContext ->
 
@@ -79,7 +80,7 @@ class BootStrap {
             )
 
             if(Environment.current == Environment.PRODUCTION) {
-                userInstance.password = grailsApplication.config.root.password
+                guestUserInstance.password = grailsApplication.config.root.password
             }
 
             org.camunda.bpm.engine.identity.User camundaGuestUser = identityService.newUser(guestUserInstance.username)
@@ -109,30 +110,31 @@ class BootStrap {
         }
 
         if (Environment.current ==  Environment.DEVELOPMENT) {
-            RequestMap.findAll().each {it.delete flush: true}
+            RequestMap.findAll().each { it.delete flush: true }
+        }
 
-            for (url in [
-                    '/', '/index', '/index/info', '/doc/**', '/assets/**', '/**/js/**', '/**/css/**', '/**/images/**',
-                    '/**/favicon.ico', '/data/**', '/**/scss/**', '/**/less/**', '/**/fonts/**', '/password/**',
-                    '/moodle/**', '/exportedGame/**', '/static/**', '/login/**', '/logout/**', '/user/**',
-                    '/facebook/**']) {
-                new RequestMap(url: url, configAttribute: 'permitAll').save()
-            }
+        for (url in [
+                '/', '/index', '/index/info', '/doc/**', '/assets/**', '/**/js/**', '/**/css/**', '/**/images/**',
+                '/**/favicon.ico', '/data/**', '/**/scss/**', '/**/less/**', '/**/fonts/**', '/password/**',
+                '/moodle/**', '/exportedGame/**', '/static/**', '/login/**', '/logout/**', '/user/**',
+                '/facebook/**']) {
+            new RequestMap(url: url, configAttribute: 'permitAll').save()
+        }
 
-            new RequestMap(url: '/dashboard', configAttribute: 'IS_AUTHENTICATED_FULLY').save()
-            new RequestMap(url: '/resource/**', configAttribute: 'ROLE_DEV').save()
-            new RequestMap(url: '/resource/edit', configAttribute: 'ROLE_ADMIN').save()
-            new RequestMap(url: '/resource/review', configAttribute: 'ROLE_ADMIN').save()
-            new RequestMap(url: '/process/**', configAttribute: 'IS_AUTHENTICATED_FULLY').save()
-            new RequestMap(url: '/process/deploy', configAttribute: 'ROLE_ADMIN').save()
-            new RequestMap(url: '/process/undeploy', configAttribute: 'ROLE_ADMIN').save()
-            new RequestMap(url: '/user/index', configAttribute: 'ROLE_ADMIN').save()
-            new RequestMap(url: '/developer/new', configAttribute: 'IS_AUTHENTICATED_FULLY').save()
-            new RequestMap(url: '/process/versions', configAttribute: 'IS_AUTHENTICATED_FULLY').save()
-            new RequestMap(url: '/exported-resource/**', configAttribute: 'IS_AUTHENTICATED_FULLY').save()
+        new RequestMap(url: '/dashboard', configAttribute: 'IS_AUTHENTICATED_FULLY').save()
+        new RequestMap(url: '/resource/**', configAttribute: 'ROLE_DEV').save()
+        new RequestMap(url: '/resource/edit', configAttribute: 'ROLE_ADMIN').save()
+        new RequestMap(url: '/resource/review', configAttribute: 'ROLE_ADMIN').save()
+        new RequestMap(url: '/process/**', configAttribute: 'IS_AUTHENTICATED_FULLY').save()
+        new RequestMap(url: '/process/deploy', configAttribute: 'ROLE_ADMIN').save()
+        new RequestMap(url: '/process/undeploy', configAttribute: 'ROLE_ADMIN').save()
+        new RequestMap(url: '/user/index', configAttribute: 'ROLE_ADMIN').save()
+        new RequestMap(url: '/developer/new', configAttribute: 'IS_AUTHENTICATED_FULLY').save()
+        new RequestMap(url: '/process/versions', configAttribute: 'IS_AUTHENTICATED_FULLY').save()
+        new RequestMap(url: '/exported-resource/**', configAttribute: 'IS_AUTHENTICATED_FULLY').save()
 
 //            new RequestMap(url: '', configAttribute: '').save()
-        }
+
 
         println "Bootstrap: done"
     }
