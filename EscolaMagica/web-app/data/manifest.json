@@ -7,7 +7,7 @@
   "bpmn"    : "EscolaMagicaProcess",
 
   "files": {
-    "perguntas.xml": "/Deploy"
+    "perguntas.xml": "/"
   },
 
   "width" : 800,
