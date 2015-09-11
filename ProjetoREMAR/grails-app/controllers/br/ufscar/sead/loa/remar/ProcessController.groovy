@@ -302,7 +302,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
                 if (user) {
                     taskService.addUserIdentityLink(taskId, ownerUsername as String, IdentityLinkType.OWNER)
                     taskService.delegateTask(taskId, username)
-                    if (usernam != session.user.username) {
+                    if (username != session.user.username) {
                         mailService.sendMail {
                             async true
                             to user.getEmail()
