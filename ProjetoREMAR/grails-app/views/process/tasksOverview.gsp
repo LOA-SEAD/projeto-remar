@@ -12,21 +12,39 @@
     <title></title>
 
 </head>
+<body>
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-body box-info">
+                    <div class="box-header with-border">
+                        %{--<h3 class="box-title">--}%
+                            %{--<i class="fa fa-list-alt"></i>--}%
+                            %{--Tarefas pendentes--}%
+                        %{--</h3>--}%
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="direct-chat-messages page-size" >
+                            <tbody>
+                                <g:each in="${list}" status="i" var="task">
+                                    <table>
+                                        <tr>
+                                            <td><g:link action="--"> ${task.getName()}  </g:link> <br>
+                                                ${task.assignee}
 
-    <body>
-        <tbody>
-        <g:each in="${list}" status="i" var="task">
-            <table>
-                <tr>
-                    <td><g:link action="--"> ${task.getName()}  </g:link> <br>
-                        ${task.assignee}
+                                            </td>
 
-                    </td>
+                                        </tr>
 
-                </tr>
+                                    </table>
+                                </g:each>
+                            </tbody>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            </table>
-        </g:each>
-        </tbody>
-    </body>
+</body>
 </html>

@@ -41,7 +41,9 @@
                     </div>
                     <div class="box-body no-padding">
                         <div class="direct-chat-messages" >
-
+                            <g:if test="${gameInstanceList.size() == 0}">
+                                <p>Não há nenhum R.E.A disponível para ser personalizado :(</p>
+                            </g:if>
                             <g:each in="${gameInstanceList}" var="gameInstance">
                                 <div class="col-md-3">
                                     <a href="/process/start/${gameInstance.bpmn}" target="_self">

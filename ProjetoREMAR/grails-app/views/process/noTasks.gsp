@@ -14,8 +14,26 @@
 </head>
 
 <body>
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h3>Não há nenhuma tarefa disponível para você no momento! :)</h3>
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-body box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">
+                        <i class="fa fa-list-alt"></i>
+                        Tarefas pendentes
+                    </h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="direct-chat-messages page-size" >
+                        <p> Não há nenhuma tarefa disponível para você no momento! :) </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
 </body>
 </html>

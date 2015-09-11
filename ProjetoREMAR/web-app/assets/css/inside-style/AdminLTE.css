@@ -2746,11 +2746,17 @@ table.text-center th {
   -ms-transform: translate(0, 0);
   -o-transform: translate(0, 0);
   transform: translate(0, 0);
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   padding: 10px;
   min-height: 400px;
   max-height: 500px;
   overflow-y: scroll;
 
+}
+
+.direct-chat-messages h4{
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  text-align: justify;
 }
 
 .direct-chat-submit-war{
@@ -3323,6 +3329,9 @@ table.text-center th {
   border-radius: 0px;
 }
 
+.textarea-remar{
+  min-height: 100px;
+}
 
 .divider{
   border-top: 1px solid #30ad63;
@@ -4263,6 +4272,13 @@ table.text-center th {
 }
 .select2-container .select2-selection--single .select2-selection__rendered {
   padding-right: 10px;
+}
+
+.container-center{
+  margin-top: 0%;
+  margin: 7% auto;
+
+  width: 40%;
 }
 /*
  * General: Miscellaneous

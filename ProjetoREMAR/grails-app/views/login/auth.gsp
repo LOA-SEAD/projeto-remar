@@ -11,36 +11,36 @@
     <g:javascript src="../assets/js/jquery.min.js" />
     <g:javascript src="../assets/js/jquery.validate.js" />
 
-    <script type="text/javascript">
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId      : '1621035434837394',
-                xfbml      : true,
-                version    : 'v2.4'
-            });
-        };
+    %{--<script type="text/javascript">--}%
+        %{--window.fbAsyncInit = function() {--}%
+            %{--FB.init({--}%
+                %{--appId      : '1621035434837394',--}%
+                %{--xfbml      : true,--}%
+                %{--version    : 'v2.4'--}%
+            %{--});--}%
+        %{--};--}%
 
-        (function(d, s, id){
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
+        %{--(function(d, s, id){--}%
+            %{--var js, fjs = d.getElementsByTagName(s)[0];--}%
+            %{--if (d.getElementById(id)) {return;}--}%
+            %{--js = d.createElement(s); js.id = id;--}%
+            %{--js.src = "//connect.facebook.net/en_US/sdk.js";--}%
+            %{--fjs.parentNode.insertBefore(js, fjs);--}%
+        %{--}(document, 'script', 'facebook-jssdk'));--}%
 
-        function facebookLogin() {
-            FB.getLoginStatus(function(response) {
-                if (response.status === 'connected') {
-                    console.log("Conectado");
-                    // logged in and connected user, someone you know
-                    window.location ="${createLink(controller:'facebook', action:'auth')}";
-                }
-                else{
-                    console.log("nao conectado");
-                }
-            });
-        }
-    </script>
+        %{--function facebookLogin() {--}%
+            %{--FB.getLoginStatus(function(response) {--}%
+                %{--if (response.status === 'connected') {--}%
+                    %{--console.log("Conectado");--}%
+                    %{--// logged in and connected user, someone you know--}%
+                    %{--window.location ="${createLink(controller:'facebook', action:'auth')}";--}%
+                %{--}--}%
+                %{--else{--}%
+                    %{--console.log("nao conectado");--}%
+                %{--}--}%
+            %{--});--}%
+        %{--}--}%
+    %{--</script>--}%
 
 </head>
 <body>

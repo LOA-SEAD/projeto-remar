@@ -14,8 +14,24 @@
 </head>
 
 <body>
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h3>Você ainda não tem nenhum processo :(</h3>
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-body box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">
+                        <i class="fa fa-lock"></i>
+                        Meus processos
+                    </h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                   <div class="direct-chat-messages page-size" >
+                         <p> Você ainda não tem nenhum processo :( </p>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
