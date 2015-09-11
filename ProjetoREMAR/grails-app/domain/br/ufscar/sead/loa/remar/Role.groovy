@@ -11,23 +11,4 @@ class Role {
 	static constraints = {
 		authority blank: false, unique: true
 	}
-
-	String toString() {
-		String s = ""
-		if(authority == "ROLE_ADMIN") {
-			s += "Admin"
-		}
-		else if (authority == "ROLE_PROF") {
-			s += "Professor"
-		}
-		else if (authority == "ROLE_STUD") {
-			s += "Student"
-		}
-		else if (authority == "ROLE_EDITOR") {
-			s += "Editor"
-		}
-		else if (authority == "ROLE_DESENVOLVEDOR") {
-			s += "Desenvolvedor"
-		}
-	}
 }
