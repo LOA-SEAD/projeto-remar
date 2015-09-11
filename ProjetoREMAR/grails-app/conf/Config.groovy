@@ -18,7 +18,6 @@ import javax.servlet.ServletContext
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
 
-grails.config.locations = ["classpath:remar.properties"]
 
 
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
@@ -150,6 +149,9 @@ environments {
 //        }
     }
     production {
+
+        grails.config.locations = ["classpath:remar.properties"]
+
         grails.logging.jul.usebridge = false
 //        grails.serverURL = "http://localhost:8080"
         grails.app.context = "/"
