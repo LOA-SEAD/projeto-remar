@@ -302,15 +302,17 @@ class ProcessController implements JavaDelegate, ExecutionListener{
                 if (user) {
                     taskService.addUserIdentityLink(taskId, ownerUsername as String, IdentityLinkType.OWNER)
                     taskService.delegateTask(taskId, username)
-                    mailService.sendMail {
-                        async true
-                        to user.getEmail()
-                        subject "Nova Tarefa no REMAR"
-                        html '<h3>Você recebeu uma nova tarefa na plataforma REMAR</h3> <br>' +
-                                '<br>' +
-                                "Nome do processo: ${processName} " + "<br>" +
-                                "Nome da Tarefa: ${allTasks[i].name} " + "<br>" +
-                                "Quem delegou: ${ownerUsername}" + "<br>"
+                    if (usernam != session.user.username) {
+                        mailService.sendMail {
+                            async true
+                            to user.getEmail()
+                            subject "Nova Tarefa no REMAR"
+                            html '<h3>Você recebeu uma nova tarefa na plataforma REMAR</h3> <br>' +
+                                    '<br>' +
+                                    "Nome do processo: ${processName} " + "<br>" +
+                                    "Nome da Tarefa: ${allTasks[i].name} " + "<br>" +
+                                    "Quem delegou: ${ownerUsername}" + "<br>"
+                        }
                     }
 
                 } else {
