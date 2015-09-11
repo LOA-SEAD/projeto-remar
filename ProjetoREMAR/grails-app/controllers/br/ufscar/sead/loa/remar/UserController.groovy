@@ -5,6 +5,7 @@ import grails.plugin.mail.MailService
 import grails.util.Environment
 import org.apache.commons.lang.RandomStringUtils
 import org.camunda.bpm.engine.IdentityService
+import org.springframework.security.core.context.SecurityContextHolder
 
 import javax.validation.constraints.Null
 
@@ -89,7 +90,7 @@ class UserController {
             subject "Confirmação de Cadastro"
             html '<h3>Clique no link abaixo para confirmar o cadastro</h3> <br>' +
                     '<br>' +
-                    'http://localhost:9090/user/email/confirm?Token=' + newToken.getToken()
+                    "http://${request.serverName}:${request.serverPort}/user/email/confirm?Token=${newToken.getToken()}"
         }
 
         println "metodo do email"
@@ -153,7 +154,7 @@ class UserController {
                     subject "Nova senha para o REMAR"
                     html '<h3>Clique no link abaixo para fazer uma nova senha</h3> <br>' +
                             '<br>' +
-                            'http://'+${request.serverName}+':'+${request.serverPort}+'/user/newpassword/confirm?Token=' + newToken.getToken()
+                            "http://${request.serverName}:${request.serverPort}/user/newpassword/confirm?Token=${newToken.getToken()}"
 
                 }
 
@@ -224,7 +225,7 @@ class UserController {
                 camundaUser.setEmail(userInstance.email)
                 camundaUser.setFirstName(userInstance.name)
                 camundaUser.setPassword(userInstance.password)
-                camundaUser.setId(userInstance.id as String)
+                camundaUser.setId(userInstance.username)
                 identityService.saveUser(camundaUser)
 
                 userInstance.camunda_id = camundaUser.id
