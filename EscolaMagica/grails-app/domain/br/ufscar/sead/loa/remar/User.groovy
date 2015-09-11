@@ -13,15 +13,18 @@ class User {
     String email
     String camunda_id
     String name
+    String facebookId
+
 
     static transients = ['springSecurityService']
 
     static constraints = {
-        username blank: false, unique: true
-        password blank: false
+        username blank: false, unique: true, nullable: false
+        password blank: false, nullable: false
         name blank: false
-        email blank: false, email: true
+        email blank: false, email: true, unique: true
         camunda_id nullable: true
+        facebookId nullable: true
     }
 
     static mapping = {
@@ -48,51 +51,4 @@ class User {
         password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
     }
 
-    String getName() {
-        return name
-    }
-
-    String getRoles() {
-        String s = "-"
-        getAuthorities().each {
-            if (s == "-") {
-                s = it.toString()
-            }
-            else {
-                s += ", " + it.toString()
-            }
-        }
-
-        s
-    }
-
-    boolean isAdmin() {
-        def found = false
-        getAuthorities().each {
-            if (it.authority == "ROLE_ADMIN") {
-                found = true;
-            }
-        }
-        found
-    }
-
-    boolean isProf() {
-        def found = false
-        getAuthorities().each {
-            if (it.authority == "ROLE_PROF") {
-                found = true
-            }
-        }
-        found
-    }
-
-    boolean isStud() {
-        def found = false
-        getAuthorities().each {
-            if (it.authority == "ROLE_STUD") {
-                found = true
-            }
-        }
-        found
-    }
 }
