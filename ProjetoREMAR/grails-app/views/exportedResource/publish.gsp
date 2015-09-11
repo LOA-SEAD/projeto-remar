@@ -12,6 +12,8 @@ Time: 09:55
     <g:javascript src="platforms.js" />
     <title></title>
 
+
+
 </head>
 <body>
 <div class="content">
@@ -35,7 +37,7 @@ Time: 09:55
                     <input type="radio" name="type" value="group" disabled readonly />
                     Grupo
                     <select disabled>
-                        <option>Truma 1</option>
+                        <option>Turma 1</option>
                     </select>
                     <span class="label label-warning">Em breve</span>
                 </p>
