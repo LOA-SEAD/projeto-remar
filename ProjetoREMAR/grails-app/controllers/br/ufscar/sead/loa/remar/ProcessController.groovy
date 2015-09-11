@@ -279,19 +279,16 @@ class ProcessController implements JavaDelegate, ExecutionListener{
     }
 
     def delegateTasks() {
-        def userId = springSecurityService.getCurrentUser().getId()
-        def ownerUsername = br.ufscar.sead.loa.remar.User.findById(userId).username
         def processId = params.processId
-        List<Task> allTasks = taskService.createTaskQuery().processInstanceId(session.processId).list()
+        def uri = runtimeService.getVariable(processId, "resourceUri")
+        List<Task> allTasks = taskService.createTaskQuery().processInstanceId(processId).list()
         println params
         params.remove("action")
         params.remove("format")
         params.remove("controller")
         params.remove("processId")
         println params
-        def proc = runtimeService.createProcessInstanceQuery().processInstanceId(processId).singleResult()
-        def processName = proc.processDefinitionId.substring(0, proc.processDefinitionId.indexOf(":"))
-        taskService.createTaskQuery().processInstanceId(processId).list()
+        def resourceName = runtimeService.getVariable(processId, "resourceName")
         int i = 0;
 
         params.each {
@@ -300,18 +297,18 @@ class ProcessController implements JavaDelegate, ExecutionListener{
                 username = username as String
                 def user = br.ufscar.sead.loa.remar.User.findByUsername(username)
                 if (user) {
-                    taskService.addUserIdentityLink(taskId, ownerUsername as String, IdentityLinkType.OWNER)
+                    taskService.addUserIdentityLink(taskId, session.user.username as String, IdentityLinkType.OWNER)
                     taskService.delegateTask(taskId, username)
                     if (username != session.user.username) {
                         mailService.sendMail {
                             async true
                             to user.getEmail()
-                            subject "Nova Tarefa no REMAR"
-                            html '<h3>Você recebeu uma nova tarefa na plataforma REMAR</h3> <br>' +
-                                    '<br>' +
-                                    "Nome do processo: ${processName} " + "<br>" +
+                            subject "Nova tarefa no REMAR – ${resourceName}"
+                            html '<h3>Você foi designado como responsável por uma tarefa no REMAR!</h3>' +
+                                    "Nome do processo: ${resourceName} " + "<br>" +
+                                    "Dono do processo: ${session.user.name}" + "<br>" +
                                     "Nome da Tarefa: ${allTasks[i].name} " + "<br>" +
-                                    "Quem delegou: ${ownerUsername}" + "<br>"
+                                    "<a href=http://${request.serverName}:${request.serverPort}/${uri}/${allTasks[i].taskDefinitionKey.replace('.', '/')}?p=${processId}&t=${allTasks[i].id}><b>Realizar tarefa<b>"
                         }
                     }
 
