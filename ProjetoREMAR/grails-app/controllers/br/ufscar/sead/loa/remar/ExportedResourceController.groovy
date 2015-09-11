@@ -9,7 +9,7 @@ import groovyx.net.http.HTTPBuilder
 @Secured(['ROLE_ADMIN'])
 class ExportedResourceController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "GET"]
     def springSecurityService
 
     def save(ExportedResource exportedResourceInstance) {
@@ -31,6 +31,11 @@ class ExportedResourceController {
 
         exportedResourceInstance.save flush:true
         redirect controller: "ExportedResource", action: "accountConfig", id: exportedResourceInstance.id
+    }
+
+    def delete(ExportedResource instance) {
+        instance.delete flush: true
+        redirect uri: "/"
     }
 
     def _moodles() {
@@ -128,7 +133,20 @@ class ExportedResourceController {
         exportedResourceInstance.save flush: true
 
         render url
+    }
 
+    def android(ExportedResource exportedResourceInstance) {
+        def dir = servletContext.getRealPath("/published/${exportedResourceInstance.id}/android")
+        def resourceDir = servletContext.getRealPath("/data/resources/sources/${exportedResourceInstance.resource.uri}")
+        def ant = new AntBuilder()
+        ant.sequential {
+            mkdir(dir: dir + '/tmp')
+            copy(todir: dir + '/tmp') {
+                fileset dir: resourceDir + "/base"
+            }
+            copy(file: resourceDir + "/android/manifest.json", tofile: dir + '/tmp/manifest.json')
+
+        }
     }
 
     def moodle(ExportedResource exportedResourceInstance) {
