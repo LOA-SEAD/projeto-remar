@@ -15,7 +15,7 @@
     <meta name="author" content="">
 
     <title>REMAR</title>
-    <link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
+    <link rel="shortcut icon" href="${assetPath(src: 'favicon.png')}?v=2">
 
     <!-- Bootstrap Core CSS -->
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
@@ -61,7 +61,7 @@
             %{--<span class="logo-mini">ICON</span>--}%
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg">
-                <img src="/assets/img/logo/remar-logo-transparente.png"
+                <img src="/assets/img/logo/logo-remar-branco-transparente.png"
                      width="120" height="45" />
             </span>
         </a>

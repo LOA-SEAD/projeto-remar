@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>REMAR</title>
-    <link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
+    <link rel="shortcut icon" href="${assetPath(src: 'favicon.png')}" type="image/x-icon">
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -39,7 +39,7 @@
                 %{--<span class="logo-mini">ICON</span>--}%
                 <!-- logo for regular state and mobile devices -->
                 <span class="logo-lg">
-                    <img src="/assets/img/logo/remar-logo-transparente.png"
+                    <img src="/assets/img/logo/logo-remar-branco-transparente.png"
                          width="120" height="45" />
                 </span>
             </a>

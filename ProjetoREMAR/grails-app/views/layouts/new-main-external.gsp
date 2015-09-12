@@ -12,7 +12,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title><g:layoutTitle /></title>
-    <link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
+    <link rel="shortcut icon" href="${assetPath(src: 'favicon.png')}?v=2">
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Font Awesome -->
@@ -44,7 +44,7 @@
     <div class="login-box-body">
         <div class="login-logo">
         <g:link controller="index" action="index">
-            <img src="/assets/img/logo/remar-logo-branco.png"
+            <img src="/assets/img/logo/logo-remar-preto-transparente.png"
                              class="img-rounded" width="250" height="100"/> </g:link>
         </div>
         <g:layoutBody/>
