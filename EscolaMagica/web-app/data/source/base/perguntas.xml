@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Perguntas>
+    <Classe ClaAno="1">
+        <Pergunta PergNum="0" respCorreta="1" titulo="Ache um número que tenha sua raíz quadrada maior do que ele mesmo.">
+            <Resp num="0">1</Resp>
+            <Resp num="1">1/2</Resp>
+            <Resp num="2">5</Resp>
+            <Resp num="3">2</Resp>
+        </Pergunta>
+        <Pergunta PergNum="1" respCorreta="3" titulo="Quantos noves existem entre 0 e 100?">
+            <Resp num="0">15</Resp>
+            <Resp num="1">19</Resp>
+            <Resp num="2">10</Resp>
+            <Resp num="3">20</Resp>
+        </Pergunta>
+        <Pergunta PergNum="2" respCorreta="3" titulo="Luiz Eduardo comprou várias galinhas campeãs em pôr ovos. Ao testar a  eficiência das galinhas, ele observou que de minuto em minuto o número de ovos na cesta duplicava. Às duas horas a cesta estava cheia. A que horas a cesta estava pela metade?">
+            <Resp num="0">1h</Resp>
+            <Resp num="1">1h05min</Resp>
+            <Resp num="2">1h20min</Resp>
+            <Resp num="3">1h59min</Resp>
+        </Pergunta>
+		<Pergunta PergNum="3" respCorreta="2" titulo="Se um gato faminto come um rato gordo em um minuto. 6 gatos famintos comem 6 ratos gordos em quantos minutos?">
+            <Resp num="0">6 min</Resp>
+            <Resp num="1">36 min</Resp>
+            <Resp num="2">1 min</Resp>
+            <Resp num="3">2 min</Resp>
+        </Pergunta>
+        <Pergunta PergNum="4" respCorreta="0" titulo="Quantos meses do ano têm 30 dias?">
+            <Resp num="0">11</Resp>
+            <Resp num="1">4</Resp>
+            <Resp num="2">6</Resp>
+            <Resp num="3">5</Resp>
+        </Pergunta>
+    </Classe>
+    <Classe ClaAno="2">
+		<Pergunta PergNum="0" respCorreta="2" titulo="A quantidade de números entre 0 e 130, terminados em 3, é:">
+            <Resp num="0">23</Resp>
+            <Resp num="1">20</Resp>
+            <Resp num="2">13</Resp>
+			<Resp num="3">10</Resp>
+        </Pergunta>
+		<Pergunta PergNum="1" respCorreta="3" titulo="Qual é o resultado de 2 + 4 × 8 − 4 ÷ 2 ?">
+            <Resp num="0">9</Resp>
+            <Resp num="1">12</Resp>
+            <Resp num="2">22</Resp>
+            <Resp num="3">32</Resp>
+        </Pergunta>
+		<Pergunta PergNum="2" respCorreta="2" titulo="Um caminhão carregado de abobrinhas e melancia está em alta velocidade e prestes a fazer uma curva acentuada. Supondo que o caminhão não tombou, o que caiu primeiro?">
+            <Resp num="0">As abobrinhas</Resp>
+            <Resp num="1">As melancias</Resp>
+            <Resp num="2">A velocidade</Resp>
+            <Resp num="3">As maçãs</Resp>
+        </Pergunta>
+		<Pergunta PergNum="3" respCorreta="1" titulo="Num quarto quadrado estão quatro gatos sentados, um em cada canto. Em frente a cada gato estão 3 gatos. Quantos gatos estão no quarto?">
+            <Resp num="0">3</Resp>
+            <Resp num="1">4</Resp>
+            <Resp num="2">12</Resp>
+            <Resp num="3">16</Resp>
+        </Pergunta>
+		<Pergunta PergNum="4" respCorreta="0" titulo="No último verão, houve um grande torneio eliminatório de duplas de volêi de praia. Cento e vinte oito duplas se inscreveram para o evento. Considerando que a dupla João e José ficou em terceiro lugar, quantos jogos foram realizados no torneio?">
+            <Resp num="0">128</Resp>
+            <Resp num="1">64</Resp>
+            <Resp num="2">32</Resp>
+            <Resp num="3">127</Resp>
+        </Pergunta>
+    </Classe>
+    <Classe ClaAno="3">
+		<Pergunta PergNum="0" respCorreta="3" titulo="O avesso de uma blusa preta é branco. O avesso de uma calça preta é azul. O avesso de uma bermuda preta é branco. O avesso do avesso das três peças de roupa é:">
+            <Resp num="0">Preto e branco.</Resp>
+            <Resp num="1">Branco.</Resp>
+            <Resp num="2">Azul.</Resp>
+            <Resp num="3">Preto.</Resp>
+        </Pergunta>
+		<Pergunta PergNum="1" respCorreta="2" titulo="Assinale a alternativa que completa a série seguinte: 9, 16, 25, 36, …">
+            <Resp num="0">45</Resp>
+            <Resp num="1">61</Resp>
+            <Resp num="2">49</Resp>
+            <Resp num="3">63</Resp>
+        </Pergunta>
+		<Pergunta PergNum="2" respCorreta="1" titulo="Assinale a alternativa que substitui corretamente a incógnita 'x' na seguinte sequência numérica: 6  11  x  27.">
+            <Resp num="0">15</Resp>
+            <Resp num="1">18</Resp>
+            <Resp num="2">13</Resp>
+            <Resp num="3">17</Resp>
+        </Pergunta>
+		<Pergunta PergNum="3" respCorreta="0" titulo="Quando se escreve a sucessão dos números naturais, de 1 a 1000, quantas vezes aparece o algarismo 2 como algarismos das unidades?">
+            <Resp num="0">100</Resp>
+            <Resp num="1">10</Resp>
+            <Resp num="2">50</Resp>
+            <Resp num="3">500</Resp>
+        </Pergunta>
+        <Pergunta PergNum="4" respCorreta="1" titulo="O professor Epaminondas, no primeiro dia de aula, apostou que, entre os alunos daquela classe, pelo menos dois fariam aniversário no mesmo dia do mês. O professor tinha certeza de que ganharia a aposta, pois naquela classe o número de alunos era maior ou igual a:">
+            <Resp num="0">15</Resp>
+            <Resp num="1">32</Resp>
+            <Resp num="2">31</Resp>
+            <Resp num="3">30</Resp>
+        </Pergunta>
+    </Classe>
+</Perguntas>
