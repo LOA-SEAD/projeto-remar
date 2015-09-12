@@ -12,7 +12,8 @@
         <div class="main-content">
             <div class="widget">
                 <div class="alert alert-info">
-                    <i class="fa fa-info-circle"></i> Temos algumas questões-exemplo. Você editá-las! Basta clicar sobre alguma <i class="fa fa-smile-o"></i>
+                    <i class="fa fa-info-circle"></i> Temos algumas questões-exemplo. Você pode editá-las! Basta clicar sobre alguma <i
+                        class="fa fa-smile-o"></i>
                 </div>
                 <div class="widget-content-white glossed">
                     <div class="padded">
