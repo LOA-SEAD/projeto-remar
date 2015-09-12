@@ -11,9 +11,6 @@ Time: 09:55
     <meta name="layout" content="new-main-inside">
     <g:javascript src="platforms.js" />
     <title></title>
-
-
-
 </head>
 <body>
 <div class="content">

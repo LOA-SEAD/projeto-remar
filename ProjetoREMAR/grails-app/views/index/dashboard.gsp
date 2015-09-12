@@ -65,7 +65,7 @@
 
                                                 <span class="progress-description">
                                                     <div class="pull-right">
-                                                        <i class="fa fa-internet-explorer"></i>
+                                                        <i class="fa fa-globe"></i>
                                                         <g:if test="${gameInstance.android}">
                                                             <i class="fa fa-android"></i>
                                                         </g:if>
@@ -128,7 +128,7 @@
                                                 <span class="progress-description">
                                                     <div class="pull-right">
                                                         <g:if test="${exportedResourceInstance.webUrl != null}">
-                                                            <a href="${exportedResourceInstance.webUrl}" style="color: white;"><i class="fa fa-internet-explorer"></i></a>
+                                                            <a href="${exportedResourceInstance.webUrl}" style="color: white;"><i class="fa fa-globe"></i></a>
                                                         </g:if>
                                                         <g:if test="${exportedResourceInstance.androidUrl != null}">
                                                             <a href="${exportedResourceInstance.androidUrl}"><i class="fa fa-android"></i></a>
@@ -197,7 +197,7 @@
                                                 <span class="progress-description">
                                                     <div class="pull-right">
                                                         <g:if test="${myExportedResourceInstance.webUrl != null}">
-                                                            <a href="${myExportedResourceInstance.webUrl}" style="color: white;"><i class="fa fa-internet-explorer"></i></a>
+                                                            <a href="${myExportedResourceInstance.webUrl}" style="color: white;"><i class="fa fa-globe"></i>
                                                         </g:if>
                                                         <g:if test="${myExportedResourceInstance.androidUrl != null}">
                                                             <a href="${myExportedResourceInstance.androidUrl}"><i class="fa fa-android"></i></a>

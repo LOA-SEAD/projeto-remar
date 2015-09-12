@@ -32,7 +32,6 @@
                     <div class="direct-chat-messages page-size" >
 
                             <div class="panel panel-default">
-                                <div class="panel-heading">Tabela de Processos Iniciados</div>
                                 <div class="panel-body">
                                     <div class="dataTables_wrapper">
                                         <div id="tasks-table" class="dataTables_wrapper form-inline dt-boostrap no-footer">
@@ -41,8 +40,8 @@
                                                     <thead>
                                                     <tr role="row">
                                                         <th class="sorting_asc col-md-3" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Nome</th>
-                                                        <th class="sorting col-md-3" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" > Tarefas Restantes </th>
-                                                        <th class="sorting col-md-3" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" > Status   </th>
+                                                        <th class="sorting col-md-3" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" >Tarefas pendentes</th>
+                                                        <th class="sorting col-md-3" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" >Status</th>
                                                         %{--<th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" >Usuário delegado</th>--}%
                                                         %{--<th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" > Completar</th>--}%
                                                         %{--<th class="sorting" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending" > Realizar Tarefa  </th>--}%

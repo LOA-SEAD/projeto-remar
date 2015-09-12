@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta name="layout" content="main">
-    <g:javascript src="questions.js" ></g:javascript>
+    <g:javascript src="questions.js" />
     </head>
     <body>
         <div class="page-header">
@@ -11,7 +11,9 @@
         </div>
         <div class="main-content">
             <div class="widget">
-                <h3 class="section-title first-title"><i class="icon-table"></i> Visualização das Minhas Questões</h3>
+                <div class="alert alert-info">
+                    <i class="fa fa-info-circle"></i> Temos algumas questões-exemplo. Você editá-las! Basta clicar sobre alguma <i class="fa fa-smile-o"></i>
+                </div>
                 <div class="widget-content-white glossed">
                     <div class="padded">
                         <div class="table-responsive">
@@ -27,7 +29,7 @@
                                 </g:if>
 
 
-                                <g:link class="btn btn-success btn-lg" action="create">Nova Questão</g:link>
+                                <g:link class="btn btn-success btn-lg disabled" action="create">Nova Questão</g:link>
                                 <br>
                                 <br>
                             </div>
@@ -46,7 +48,7 @@
                                 </thead>
                                 <tbody>
                                     <g:each in="${questionInstanceList}" status="i" var="questionInstance">
-                                        <tr class="selectable_tr" onclick='window.location = "${createLink(action: "show", id: questionInstance.id)}"'>
+                                        <tr class="selectable_tr" onclick='window.location = "${createLink(action: "edit", id: questionInstance.id)}"' style="cursor: pointer;">
 
                                             <td class="level">${fieldValue(bean: questionInstance, field: "level")}</td>
 

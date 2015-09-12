@@ -182,13 +182,7 @@ class QuestionController {
 
         questionInstance.save flush: true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'Question.label', default: 'Questão'), questionInstance.id])
-                redirect questionInstance
-            }
-            '*' { respond questionInstance, [status: OK] }
-        }
+        redirect action: "index"
     }
 
     @Transactional
