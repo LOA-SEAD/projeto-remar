@@ -10,7 +10,6 @@ class IndexController {
 
     def index() {
         if (springSecurityService.isLoggedIn()) {
-            session.user = springSecurityService.currentUser
             redirect uri: "/dashboard"
         } else {
             render view: "index"

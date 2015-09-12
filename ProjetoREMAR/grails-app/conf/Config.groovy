@@ -1,9 +1,5 @@
-import br.ufscar.sead.loa.remar.RequestMap
 import grails.plugin.springsecurity.SecurityConfigType
-import org.apache.catalina.security.SecurityConfig
-import org.codehaus.groovy.grails.web.context.ServletContextHolder
-
-import javax.servlet.ServletContext
+import org.springframework.web.context.request.RequestContextHolder
 
 // locations to search for config files that get merged into the main config;
 // config files can be ConfigSlurper scripts, Java properties files, or classes
@@ -217,8 +213,12 @@ grails.plugin.springsecurity.logout.postOnly = false
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'br.ufscar.sead.loa.remar.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'br.ufscar.sead.loa.remar.UserRole'
 grails.plugin.springsecurity.authority.className = 'br.ufscar.sead.loa.remar.Role'
-grails.plugin.springsecurity.successHandler.alwaysUseDefault = true
-grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/index'
+grails.plugin.springsecurity.useSecurityEventListener = true
+
+grails.plugin.springsecurity.onInteractiveAuthenticationSuccessEvent = { e, context ->
+    def session = RequestContextHolder.currentRequestAttributes().getSession()
+    session.user = context.getBean("springSecurityService").currentUser
+}
 
 grails.plugin.springsecurity.interceptUrlMap = [
         "/j_spring_security_facebook_redirect": ["IS_AUTHENTICATED_ANONYMOUSLY"],
