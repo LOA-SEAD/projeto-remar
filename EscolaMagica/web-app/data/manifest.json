@@ -7,7 +7,13 @@
   "bpmn"    : "EscolaMagicaProcess",
 
   "files": {
-    "perguntas.xml": "/"
+    "perguntas.xml": "/",
+    "portaa-sheet0.png": "/images",
+    "portaa-sheet1.png": "/images",
+    "portab-sheet0.png": "/images",
+    "portab-sheet1.png": "/images",
+    "portac-sheet0.png": "/images",
+    "portac-sheet1.png": "/images"
   },
 
   "width" : 800,
