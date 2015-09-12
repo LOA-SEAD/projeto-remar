@@ -42,7 +42,7 @@
       <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="SequenceFlow_7" name="" sourceRef="question.index" targetRef="Gateway_2"/>
-    <bpmn2:userTask id="theme.index" name="&#xA;Criar tema">
+    <bpmn2:userTask id="theme.index" name="&#xA;Criar/escolher tema">
       <bpmn2:extensionElements>
         <camunda:executionListener class="br.ufscar.sead.loa.remar.ProcessController" event="end"/>
       </bpmn2:extensionElements>
