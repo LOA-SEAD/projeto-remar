@@ -1,5 +1,6 @@
 package br.ufscar.sead.loa.remar
 
+import grails.util.Environment
 import org.camunda.bpm.engine.RuntimeService
 
 class IndexController {
@@ -33,5 +34,27 @@ class IndexController {
 
         }
         render view: "dashboard", model: model
+    }
+
+    def frame() {
+        def model = [:]
+        model.development = Environment.current == Environment.DEVELOPMENT
+        model.uri = params.remove('uri')
+
+        params.remove("controller")
+        params.remove("action")
+        params.remove("format")
+
+        model.uri += "?" + params.collect { k,v -> "$k=$v" }.join('&')
+
+        if (model.development) {
+            if (model.uri.indexOf('escola') != -1) {
+                model.uri = "http://localhost:7070${model.uri}"
+            } else if (model.uri.indexOf('forca') != -1) {
+                model.uri = "http://localhost:8080${model.uri}"
+            }
+        }
+
+        render view: "frame", model: model
     }
 }

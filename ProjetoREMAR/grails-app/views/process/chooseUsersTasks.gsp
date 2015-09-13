@@ -10,6 +10,9 @@
 <head>
     <meta name="layout" content="new-main-inside">
     <g:javascript src="help.js"/>
+    <g:if test="${dev}">
+        <script>window.dev = true</script>
+    </g:if>
     <title></title>
 </head>
 <body>
@@ -23,6 +26,7 @@
                     <h3 class="box-title">
                         <i class="fa fa-tasks"></i>
                        Atribuição de Tarefas
+                        <div class="test">aaa</div>
                     </h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
@@ -71,7 +75,9 @@
                                                             </td>
 
                                                             <g:if test="${task.getDelegationState().toString() == "PENDING" && currentUser.username == task.getAssignee()}">
-                                                                <td>Pendente – <g:link target="_blank" uri="/${uri}/${task.taskDefinitionKey}" id="${task.getId()}">REALIZAR</g:link></td>
+                                                                %{--<td>Pendente – <g:link target="_blank" uri="/${uri}/${task.taskDefinitionKey}" id="${task.getId()}">REALIZAR</g:link></td>--}%
+                                                                <td>Pendente – <a href="/frame/${uri}/${task.taskDefinitionKey}" >REALIZAR</a></td>
+
                                                             </g:if>
                                                             <g:elseif test="${task.getDelegationState().toString() == "PENDING"}">
                                                                 <td>Pendente</td>

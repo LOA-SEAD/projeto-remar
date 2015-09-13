@@ -11,10 +11,6 @@
         </div>
         <div class="main-content">
             <div class="widget">
-                <div class="alert alert-info">
-                    <i class="fa fa-info-circle"></i> Temos algumas questões-exemplo. Você pode editá-las! Basta clicar sobre alguma <i
-                        class="fa fa-smile-o"></i>
-                </div>
                 <div class="widget-content-white glossed">
                     <div class="padded">
                         <div class="table-responsive">
@@ -22,11 +18,13 @@
                                 <div class="message" role="status">${flash.message}</div>
                                 <br />
                             </g:if>
+                            <div class="pull-left alert alert-info">
+                                <i class="fa fa-info-circle"></i> Temos algumas questões-exemplo. Você pode editá-las!
+                                Basta clicar sobre alguma <i class="fa fa-smile-o"></i>
+                            </div>
                             <div class="pull-right">
-
-
                                 <g:if test="${Question.validateQuestions()}" >
-                                    <g:link class="btn btn-info btn-lg" action="createXML" >Finalizar</g:link>
+                                    <g:link class="btn btn-info btn-lg" target="_parent" action="createXML" >Finalizar</g:link>
                                 </g:if>
 
 

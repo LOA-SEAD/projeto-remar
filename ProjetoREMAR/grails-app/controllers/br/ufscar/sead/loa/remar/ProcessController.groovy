@@ -151,7 +151,8 @@ class ProcessController implements JavaDelegate, ExecutionListener{
         if (tasks.size() == 0) {
             render(view:'finishedProcess')
         } else {
-            respond "", model: [allusers: allUsers, alltasks: tasks, uri: uri, processId: params.processId, currentUser: session.user]
+            respond "", model: [allusers: allUsers, alltasks: tasks, uri: uri, processId: params.processId,
+                                currentUser: session.user, dev: Environment.current == Environment.DEVELOPMENT]
         }
 
     }
