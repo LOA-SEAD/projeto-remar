@@ -1,15 +1,15 @@
 package br.ufscar.sead.loa.quiforca.remar
 
-import grails.transaction.Transactional
+/*import grails.transaction.Transactional
 import org.camunda.bpm.engine.runtime.Execution
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
-import org.codehaus.groovy.grails.web.util.WebUtils
+import org.codehaus.groovy.grails.web.util.WebUtils*/
 
-@Transactional
+
 
 class RefactorService {
 
-	def serviceMethod(Execution execution) {
+	/*def serviceMethod(Execution execution) {
 		def rootPath = ServletContextHolder.getServletContext().getRealPath("/")
 		rootPath = rootPath.substring(0, rootPath.length() -1)
 		def sourceFodler = "$rootPath/data/source"
@@ -26,6 +26,6 @@ class RefactorService {
 		"cp $userFolder/themes/$themeId/background.png $userFolder/web/imgs/papel.png".execute().waitFor()
 
 
-	}
+	}*/
 }
 

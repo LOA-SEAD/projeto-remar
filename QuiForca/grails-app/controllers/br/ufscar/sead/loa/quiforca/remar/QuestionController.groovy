@@ -5,9 +5,6 @@ import grails.plugin.springsecurity.annotation.Secured
 import grails.util.Holders
 import groovy.json.JsonBuilder
 import groovyx.net.http.HTTPBuilder
-import org.camunda.bpm.engine.RuntimeService
-import org.camunda.bpm.engine.TaskService
-import org.camunda.bpm.engine.form.TaskFormData
 import org.codehaus.groovy.grails.io.support.GrailsIOUtils
 
 import static org.springframework.http.HttpStatus.*
@@ -20,8 +17,6 @@ class QuestionController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def springSecurityService
-    RuntimeService runtimeService
-    TaskService taskService
     def grailsApplication
 
     def index(Integer max) { // TODO: change to ModelAndView

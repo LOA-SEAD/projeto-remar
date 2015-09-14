@@ -3,6 +3,13 @@
  */
 window.addEventListener("load", function() {
     $("#send").on("click", function() {
+        //save new resource name
+        var resourceId = $("#resource-id").val();
+        if ($("#resourceName").val() != null && $("#resourceName").val() != '') {
+            updateExportedResourceName(resourceId);
+        }
+
+
         $(".checkbox-platform").each(function() {
             if (this.checked) {
                 $(this).removeClass('checkbox-platform');
@@ -17,10 +24,20 @@ window.addEventListener("load", function() {
 
 });
 
+function updateExportedResourceName(resourceId) {
+    $.ajax({
+        type: 'GET',
+        url: location.origin + '/exported-resource/updateName?id=' + resourceId + '&name=' + $("#resourceName").val(),
+        success: function(data) {
+
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown){}
+    });
+}
 
 function ajax(endpoint, intervalId, el, originalText) {
     if (endpoint == "moodle") {
-        window.location.href = location.origin + "/exported-resource/accountConfig/" + $(el).data("resource-id");;
+        window.location.href = location.origin + "/exported-resource/accountConfig/" + $(el).data("resource-id");
     }
     else {
         $.ajax({
@@ -29,8 +46,6 @@ function ajax(endpoint, intervalId, el, originalText) {
             success:function(data){
                 clearInterval(intervalId);
                 $(el).html(originalText +": <a target=\"_blank\" href=\"" + data + "\">Acessar</a>");
-                $(el).effect("pulsate", { color: "#ff0000" }, 3000);
-
             },
             error:function(XMLHttpRequest,textStatus,errorThrown){}});
     }
