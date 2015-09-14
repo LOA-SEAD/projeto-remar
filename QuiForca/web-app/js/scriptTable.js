@@ -79,7 +79,7 @@ window.onload = function(){
         }
         if(params.length) {
             params = params.substr(0, params.length -1);
-            window.location.href = "toJson/" + params;
+            window.top.location.href = "toJson/" + params;
         }
     });
 

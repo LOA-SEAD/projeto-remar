@@ -8,7 +8,7 @@ window.onload = function(){
     $(".save").click(function() {
         var id = $(this).parent().parent().attr("data-id");
 
-        window.location.href = "choose/" + id;
+        window.top.location.href = "choose/" + id;
     });
 
 
