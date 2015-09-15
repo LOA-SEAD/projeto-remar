@@ -16,24 +16,28 @@
 <body>
 <div class="content">
     <div class="row">
-        <div class="col-md-12">
-            <div class="box box-body box-info">
+        <article class="row">
+        <div class="col-md-12" align="center">
+            <div class="box box-body box-info" style="width:40%;" align="center" >
                 <div class="box-header with-border">
                     <h3 class="box-title">
-                        <i class="fa fa-level-up"></i>
+                        %{--<i class="fa fa-level-up"></i>--}%
                         Tornar-se um desenvolvedor
                     </h3>
                 </div><!-- /.box-header -->
-                <div class="box-body">
-                    <div class="direct-chat-messages page-size container-center">
+                <div class="box-body" style="height: 300px;">
+                    <div class="direct-chat-messages page-size container-center" style="width: 90%;"  >
                         <h2 class="text-center" style="margin-bottom: 40px; font-weight: bold;">Obrigado pelas informações!</h2>
                         <h4 style="margin-bottom: 20px; text-align: justify"> Agora você é um desenvolvedor do REMAR. Para efetivar as mudanças saia do sistema e faça login novamente.</h4>
                         %{--<a href="/logout/index"  class="btn btn-primary btn-block btn-flat">Sair</a>--}%
-                        <a href="/logout/index"  class="btn btn-primary btn-block btn-flat">Sair</a>
+                        <div align="center" style="width: 30%;">
+                            <a href="/logout/index"  class="btn btn-primary btn-block btn-flat">Sair</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        </article>
     </div>
 </div>
 

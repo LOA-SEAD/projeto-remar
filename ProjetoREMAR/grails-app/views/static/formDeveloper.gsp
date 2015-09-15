@@ -6,16 +6,17 @@
 <body>
 <div class="content">
     <div class="row">
-        <div class="col-md-12">
-            <div class="box box-body box-info">
+        <article class="row">
+        <div class="col-md-12" align="center">
+            <div class="box box-body box-info" style="width:40%;" align="center" >
                 <div class="box-header with-border">
                     <h3 class="box-title">
-                        <i class="fa fa-level-up"></i>
+                        %{--<i class="fa fa-level-up"></i>--}%
                         Tornar-se um desenvolvedor
                     </h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                    <div class="direct-chat-messages page-size" style="width: 30%;" >
+                    <div class="direct-chat-messages page-size" style="width: 90%;" >
                         <g:form action="makeDeveloper" controller="user" params="">
                             <div class="form-group has-feedback" >
                                 <input placeholder="Nome completo" type="text" class="form-control-remar" name="fullName" id="fullName" value="${fullname}" required=""/>
@@ -39,13 +40,15 @@
                                 <span class="control-label">Eu concordo com os termos adicionais presentes nos <a>Termos e privacidade</a> do remar.</span>
                             </div>
 
-
-                            <g:submitButton class="btn btn-primary btn-block btn-flat" name="Enviar"/>
+                            <div style="width: 30%;" align="center">
+                                 <g:submitButton class="btn btn-primary btn-block btn-flat" name="Enviar"/>
+                            </div>
                         </g:form>
                     </div>
                 </div>
             </div>
         </div>
+        </article>
     </div>
 </div>
 
