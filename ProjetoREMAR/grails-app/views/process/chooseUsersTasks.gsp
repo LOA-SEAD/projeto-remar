@@ -26,7 +26,7 @@
                     <h3 class="box-title">
                         <i class="fa fa-tasks"></i>
                        Atribuição de Tarefas
-                        <div class="test">aaa</div>
+                        %{--<div class="test">aaa</div>--}%
                     </h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">

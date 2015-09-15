@@ -11,7 +11,7 @@
             <div class="box box-body box-info" style="width:40%;" align="center" >
                 <div class="box-header with-border">
                     <h3 class="box-title">
-                        %{--<i class="fa fa-level-up"></i>--}%
+                        <i class="fa fa-code"></i>
                         Tornar-se um desenvolvedor
                     </h3>
                 </div><!-- /.box-header -->
