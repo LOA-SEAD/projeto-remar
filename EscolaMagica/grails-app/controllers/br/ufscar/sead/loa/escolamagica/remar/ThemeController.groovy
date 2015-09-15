@@ -32,7 +32,7 @@ class ThemeController {
             respond Theme.findAllByProcessIdAndTaskId(session.processId, session.taskId), model:[themeInstanceCount: Theme.count()]
 
         }
-        respond Theme.list(), model:[themeInstanceCount: Theme.count()]
+        respond Theme.findAllByOwnerId(session.user.id) , model:[themeInstanceCount: Theme.count()]
     }
 
     def show(Theme themeInstance) {
@@ -224,12 +224,9 @@ class ThemeController {
 
     def choose() {
         def list = []
-        list.add(servletContext.getRealPath("/data/${session.user.id}/themes/${params.id}/portaa-sheet0.png"))
-        list.add(servletContext.getRealPath("/data/${session.user.id}/themes/${params.id}/portaa-sheet1.png"))
-        list.add(servletContext.getRealPath("/data/${session.user.id}/themes/${params.id}/portab-sheet0.png"))
-        list.add(servletContext.getRealPath("/data/${session.user.id}/themes/${params.id}/portab-sheet1.png"))
-        list.add(servletContext.getRealPath("/data/${session.user.id}/themes/${params.id}/portac-sheet0.png"))
-        list.add(servletContext.getRealPath("/data/${session.user.id}/themes/${params.id}/portac-sheet1.png"))
+        for (name in ["portaa-sheet0", "portaa-sheet1", "portab-sheet0", "portab-sheet1", "portac-sheet0", "portac-sheet1"]) {
+            list.add(servletContext.getRealPath("/data/${Theme.get(params.id).ownerId}/themes/${params.id}/${name}.png"))
+        }
 
         def builder = new JsonBuilder()
         def json = builder(
