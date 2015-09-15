@@ -6,7 +6,6 @@
     <meta name="generator" content="Bootply" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Entrar</title>
-    <link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
 
     <g:javascript src="../assets/js/jquery.min.js" />
     <g:javascript src="../assets/js/jquery.validate.js" />

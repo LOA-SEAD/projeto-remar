@@ -44,7 +44,7 @@
 
 </head>
 <body>
-<form action='${postUrl}' method='POST' id='loginForm' utocomplete='off'>
+<form action='${postUrl}' method='POST' id='loginForm' autocomplete='off'>
     <div class="form-group has-feedback">
         <input type="text" class="form-control-remar" placeholder="Nome de usuário" name="j_username" id="username" >
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
@@ -86,7 +86,6 @@
 
 </form>
 
-
 %{--<div class="social-auth-links text-center">--}%
     %{--<!----}%
         %{--<p>- OR -</p>--}%
@@ -96,7 +95,6 @@
         %{--<a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Entrar com o Facebook</a>--}%
         %{---->--}%
 %{--</div>--}%
-
 
 
 </body>

@@ -13,7 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title><g:layoutTitle /></title>
 
-    <link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
+    <link rel="shortcut icon" href="${assetPath(src: 'favicon.png')}" type="image/x-icon">
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Font Awesome -->
@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
 
-    <link href="${resource(dir: 'assets/css', file: 'bootstrap.css')}" rel="stylesheet" >
+    <link href="${resource(dir: '/assets/css', file: 'bootstrap.css')}" rel="stylesheet" >
     <!-- Theme style -->
     <link href="${resource(dir: 'assets/css/inside-style', file: 'AdminLTE.css')}" rel="stylesheet">
     <!-- iCheck -->
@@ -44,11 +44,12 @@
 <div class="login-box">
     <div class="login-box-body">
         <div class="login-logo">
-            <g:link controller="index" action="index">
-                <img src="/escolamagica/assets/img/logo/logo-remar-preto-transparente.png"
-                     class="img-rounded" width="250" height="100"/> </g:link>
+        <g:link controller="index" action="index">
+            <img src="/forca/assets/img/logo/logo-remar-preto-transparente.png"
+                             class="img-rounded" width="250" height="100"/> </g:link>
         </div>
         <g:layoutBody/>
+    </div>
     </div>
 </div>
 
@@ -63,13 +64,13 @@
 <g:javascript src="../assets/js/jquery.min.js" />
 
 %{--<script>--}%
-%{--$(function () {--}%
-%{--$('input').iCheck({--}%
-%{--checkboxClass: 'icheckbox_square-blue',--}%
-%{--radioClass: 'iradio_square-blue',--}%
-%{--increaseArea: '20%' // optional--}%
-%{--});--}%
-%{--});--}%
+    %{--$(function () {--}%
+        %{--$('input').iCheck({--}%
+            %{--checkboxClass: 'icheckbox_square-blue',--}%
+            %{--radioClass: 'iradio_square-blue',--}%
+            %{--increaseArea: '20%' // optional--}%
+        %{--});--}%
+    %{--});--}%
 %{--</script>--}%
 
 </body>
