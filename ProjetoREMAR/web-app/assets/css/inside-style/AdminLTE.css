@@ -4938,7 +4938,24 @@ table.text-center th {
 
 .page-size{
   min-height: 500px;
+  max-height: 1000px;
   overflow-y: hidden;
   overflow-x: hidden;
 
+}
+
+fieldset {
+  min-width: 0;
+  padding: 0;
+  margin: 10%;
+  border: 0;
+  text-align: left;
+}
+
+fieldset legend{
+  text-align: left;
+}
+
+fieldset input{
+  margin: 5px;
 }
