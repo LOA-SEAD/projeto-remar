@@ -1,10 +1,13 @@
 package br.ufscar.sead.loa.escolamagica.remar
 
-
+import br.ufscar.sead.loa.remar.User
 import grails.plugin.springsecurity.annotation.Secured
 import grails.web.JSONBuilder
 import groovy.json.JsonBuilder
 import groovy.xml.MarkupBuilder
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.context.SecurityContextHolder
+
 //import org.camunda.bpm.engine.RuntimeService
 //import org.codehaus.groovy.grails.web.context.ServletContextHolder
 //import org.springframework.web.context.request.RequestContextHolder
@@ -20,11 +23,14 @@ class QuestionController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
-        if (params.p) {
+        if (params.p && params.t && params.h) {
             session.processId = params.p
             session.taskId = params.t
+
+            def u = User.findByUsername(new String(params.h.decodeBase64()))
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.test()))
+
             redirect controller: "question"
-            return
         }
 
         def list = Question.findAllByProcessIdAndTaskId(session.processId, session.taskId)
