@@ -34,7 +34,7 @@ class MoodleController {
         println params.domain
         def http = new HTTPBuilder(params.domain)
         def resp = JSON.parse(http.post(path: "/webservice/rest/server.php",
-                             query: [wstoken: "ae798c3b329b0f5d8c929950a703ae88",
+                             query: [wstoken: grailsApplication.config.wstoken,
                                      wsfunction: "mod_remarmoodle_link_remar_user",
                                      remar_user_id: "1",
                                      moodle_username: "matheus"]) as String)
@@ -48,7 +48,7 @@ class MoodleController {
     def confirm() {
         def http = new HTTPBuilder("http://remar.dc.ufscar.br:9090")
         def resp = JSON.parse(http.post(path: "/webservice/rest/server.php",
-                query: [wstoken: "ae798c3b329b0f5d8c929950a703ae88",
+                query: [wstoken: grailsApplication.config.wstoken,
                         wsfunction: "mod_remarmoodle_token_verifier",
                         hash: params.id]) as String)
 

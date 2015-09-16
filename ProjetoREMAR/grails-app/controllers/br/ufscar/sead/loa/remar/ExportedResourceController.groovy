@@ -192,59 +192,28 @@ class ExportedResourceController {
         def file = new File(servletContext.getRealPath("/data/resources/sources/${exportedResourceInstance.resource.uri}/moodle/moodleBD.json"))
         def inputJson = new JsonSlurper().parseText(file.text)
 
-        exportedResourceInstance.moodleTableName = inputJson.table_name
+        def http = new HTTPBuilder("http://remar.dc.ufscar.br:9090")
 
-        /*inputJson.structure.each {
-            def i = 0
-            def field = [:]
-
-            it.value.each {
-                field.put(it.key, it.value)
-            }
-
-            println field
-        }*/
-
-
-        //criar a tabela dentro do moodle
-        def http
-
-        if(Environment.current == Environment.DEVELOPMENT) {
-            http = new HTTPBuilder("http://localhost")  //it SHALL be dynamic ******
-        }
-        else {
-            http = new HTTPBuilder("http://${Moodle.list().first()}")  //it SHALL be dynamic ******
-        }
-
-        def parameters = [:]
-        parameters.table_name = exportedResourceInstance.moodleTableName as String
-        parameters.structure = inputJson.structure
-
-        def resp = http.post(path: "/moodle/webservice/rest/server.php",
-                query: [wstoken: exportedResourceInstance.accounts.first().token,
+        //Creates the table in the moodle
+        def resp = http.post(path: "/webservice/rest/server.php",
+                query: [wstoken: grailsApplication.config.wstoken,
                         wsfunction: "mod_remarmoodle_create_table",
                         json: file.text])
-        println resp
+        println "Resp: " + resp
 
-        /*new AntBuilder().copy(todir: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}")) {
-            fileset(dir: servletContext.getRealPath("/published/${exportedResourceInstance.id}/moodle"))
-        }
+        //Save the table name in the object
+        exportedResourceInstance.moodleTableName = inputJson.table_name
 
-        //criar tabela dentro do moodle
+        //Save the moodleUrl (same as webWurl)
+        exportedResourceInstance.moodleUrl = exportedResourceInstance.webUrl
+        exportedResourceInstance.save flush: true
 
 
-        def file = new File(servletContext.getRealPath("/wars/${user.username}/${fileName}/WEB-INF"))
 
-        //criar a tabela dentro do moodle
-        //salvar o nome da tabela na classe
         //copiar os arquivos
-        //salvar url
-        //redirecionar para as outras páginas*/
 
-        println exportedResourceInstance
+
         //redirect uri: "exported-resource/accountConfig/${exportedResourceInstance.id}"
-        println "........"
-        render "asdasd!!"
     }
 
     def update(ExportedResource instance) {

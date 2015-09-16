@@ -27,8 +27,14 @@ Time: 09:55
                 <div class="box-body">
                     <div class="direct-chat-messages page-size" style="width: 30%;" >
 
-                        <p>Nome: </p>
-                        <input id="name" data-resource-id="${resourceId}" type="text" placeholder="${resourceName}" class="form-control-remar"/>
+                        <p>Nome:
+                        <g:if test="${resourceName != ""}">
+                            <input id="name" data-resource-id="${resourceId}" type="text" value="${resourceName}" class="form-control-remar"/>
+                        </g:if>
+                        <g:else>
+                            <input id="name" data-resource-id="${resourceId}" type="text" placeholder="${resourceName}" class="form-control-remar"/>
+                        </g:else>
+                        </p>
                         <fieldset>
                             <legend>Tipo</legend>
                             <div class="form-group">
@@ -59,7 +65,7 @@ Time: 09:55
                                         <a target="_blank" href="${platform.substring(platform.indexOf(':') + 1)}"> Acessar </a> </b>
                                 </g:if>
                                 <g:else>
-                                    <g:if test="${platform.toLowerCase() != 'web' && platform.toLowerCase() != 'android' && platform.toLowerCase() != 'linux'}">
+                                    <g:if test="${platform.toLowerCase() == 'windows'}">
                                         <input type="checkbox" name="${platform.toLowerCase()}" id="${platform.toLowerCase()}" class="checkbox-platform" disabled readonly/>
                                         <label for="${platform.toLowerCase()}" data-resource-id="${resourceId}">${platform}</label>
                                         <span class="label label-warning">Em breve</span>
