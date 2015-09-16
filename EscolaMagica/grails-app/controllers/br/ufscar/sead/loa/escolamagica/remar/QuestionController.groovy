@@ -15,13 +15,14 @@ import org.springframework.security.core.context.SecurityContextHolder
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-//@Secured(["IS_AUTHENTICATED_FULLY"])
+@Secured(["IS_AUTHENTICATED_FULLY"])
 class QuestionController {
 
     def springSecurityService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    @Secured(['permitAll'])
     def index(Integer max) {
         if (params.p && params.t && params.h) {
             session.processId = params.p

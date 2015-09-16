@@ -8,7 +8,8 @@ package br.ufscar.sead.loa.escolamagica.remar
 //import org.camunda.bpm.engine.runtime.ProcessInstance
 //
 //@Secured(["ROLE_PROF", "ROLE_ADMIN"])
-class ProcessController  {}
+class ProcessController {
+}
 //
 //    RuntimeService runtimeService
 //    ProcessInstance processInstance

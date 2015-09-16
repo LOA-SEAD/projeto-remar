@@ -127,14 +127,23 @@ log4j.main = {
 
 // Added by the Spring Security Core plugin:
 
-grails.plugin.springsecurity.securityConfigType = 'Requestmap'
-grails.plugin.springsecurity.requestMap.className = 'br.ufscar.sead.loa.remar.RequestMap'
-
 grails.plugin.springsecurity.logout.postOnly = false
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'br.ufscar.sead.loa.remar.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'br.ufscar.sead.loa.remar.UserRole'
 grails.plugin.springsecurity.authority.className = 'br.ufscar.sead.loa.remar.Role'
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+        '/'              : ['permitAll'],
+        '/index'         : ['permitAll'],
+        '/index.gsp'     : ['permitAll'],
+        '/assets/**'     : ['permitAll'],
+        '/**/js/**'      : ['permitAll'],
+        '/**/css/**'     : ['permitAll'],
+        '/**/images/**'  : ['permitAll'],
+        '/**/favicon.ico': ['permitAll'],
+        '/main'          : ['permitAll'],
+        '/data/**'       : ['permitAll'],
+        '/**/scss/**'    : ['permitAll'],
+        '/**/less/**'    : ['permitAll'],
+        '/**/fonts/**'   : ['permitAll']
 
-
-//grails.plugin.springsecurity.successHandler.alwaysUseDefault = true
-//grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/index'
+]

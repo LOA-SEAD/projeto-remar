@@ -22,6 +22,7 @@ class ThemeController {
 
     def springSecurityService
 
+    @Secured(['permitAll'])
     def index(Integer max) {
         if (params.p && params.t && params.h) {
             session.processId = params.p
