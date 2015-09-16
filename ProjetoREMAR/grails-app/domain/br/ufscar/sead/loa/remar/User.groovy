@@ -1,5 +1,7 @@
 package br.ufscar.sead.loa.remar
 
+import org.springframework.security.core.GrantedAuthority
+
 class User {
 
 	transient springSecurityService
@@ -14,6 +16,7 @@ class User {
 	String camunda_id
 	String name
     String facebookId
+    String moodleUsername
 
 
 	static transients = ['springSecurityService']
@@ -25,6 +28,8 @@ class User {
 		email blank: false, email: true, unique: true
 		camunda_id nullable: true
         facebookId nullable: true
+        moodleUsername nullable: true
+
 	}
 
 	static mapping = {

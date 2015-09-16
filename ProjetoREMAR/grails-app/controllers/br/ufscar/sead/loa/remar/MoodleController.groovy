@@ -1,34 +1,68 @@
 package br.ufscar.sead.loa.remar
-import static org.springframework.http.HttpStatus.*
 
 import grails.converters.JSON
 import groovy.json.JsonBuilder
+import groovyx.net.http.HTTPBuilder
 
 class MoodleController {
 
     static allowedMethods = [save: ["GET","POST"], update: "PUT", delete: "DELETE"]
 
-    def save(String domain) {
-        if (!Moodle.findByDomain(domain)) {
-            def moodle = new Moodle()
-            moodle.domain = domain
-            moodle.installedAt = new Date()
-            moodle.active = true
+    def index() {
+        def model = [:]
+        model.moodleInstanceList = Moodle.findAllByActive(true)
+        render view: "index", model: model
+    }
 
-            moodle.save flush: true
-
-            println "moodle saved: " + moodle
+    def save(Moodle instance) {
+        if (!Moodle.findByDomain(params.domain)) {
+            instance.installedAt = new Date()
+            instance.active = true
+            instance.save flush: true
+            println "moodle saved: ${instance.name}"
         }
         else {
-            def moodle = Moodle.findByDomain(domain)
-            moodle.active = true
+            instance.active = true
 
-            moodle.save flush: true
+            instance.save flush: true
+
+            println "moodle reactivated: ${instance.name}"
+        }
+    }
+
+    def link() {
+        println params.domain
+        def http = new HTTPBuilder(params.domain)
+        def resp = JSON.parse(http.post(path: "/webservice/rest/server.php",
+                             query: [wstoken: "ae798c3b329b0f5d8c929950a703ae88",
+                                     wsfunction: "mod_remarmoodle_link_remar_user",
+                                     remar_user_id: "1",
+                                     moodle_username: "matheus"]) as String)
+        if(resp.success) {
+            render view: "linkSuccess"
+        } else {
+            render "Ops. Algo deu errado :("
+        }
+    }
+
+    def confirm() {
+        def http = new HTTPBuilder("http://remar.dc.ufscar.br:9090")
+        def resp = JSON.parse(http.post(path: "/webservice/rest/server.php",
+                query: [wstoken: "ae798c3b329b0f5d8c929950a703ae88",
+                        wsfunction: "mod_remarmoodle_token_verifier",
+                        hash: params.id]) as String)
+
+        if (resp.username) {
+            def user = User.get(session.user.id)
+            user.moodleUsername = resp.username
+            user.save flush: true
+            session.user = user
+
+            render view: "confirmed", model: [username: resp.username]
+        } else {
+            render "Ops. Algo deu errado :("
         }
 
-
-
-        render 'Moodle "'+domain+'" successfully created.'
     }
 
     def remove(String domain) {

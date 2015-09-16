@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>REMAR</title>
-    <link rel="shortcut icon" href="${assetPath(src: 'favicon.png')}" type="image/x-icon">
+    <link rel="shortcut icon" href="${assetPath(src: 'favicon.png')}?v=2" type="image/x-icon">
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -62,7 +62,11 @@
 
                         <sec:ifNotGranted roles="ROLE_DEV">
                             <li><a href="/developer/new">Torne-se um Desenvolvedor<span class="sr-only">(current)</span></a></li>
-                         </sec:ifNotGranted>
+                        </sec:ifNotGranted>
+                        <g:if test="${session.user.moodleUsername == null}">
+
+                        <li><a href="/moodle">Vincular minha conta ao Moodle</a></li>
+                        </g:if>
                     </sec>
                 </div>
 
@@ -137,14 +141,14 @@
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img class="user-image" alt="User Image" src="/assets/img/inside/avatar.png"/>
-                                <span class="hidden-xs"><sec:username/></span>
+                                <span class="hidden-xs">${session.user.name}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
                                     <img src="/assets/img/inside/avatar.png" class="img-circle" alt="User Image">
                                     <p>
-                                        <sec:username/>
+                                        ${session.user.name}
                                         <small>Member since Sep. 2015</small>
                                     </p>
                                 </li>
@@ -186,7 +190,7 @@
                         <img src="/assets/img/inside/avatar.png" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p><sec:username/></p>
+                        <p>${session.user.name}</p>
                         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                     </div>
                 </div>
