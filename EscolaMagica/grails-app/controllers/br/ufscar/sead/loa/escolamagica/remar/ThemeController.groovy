@@ -3,6 +3,7 @@ package br.ufscar.sead.loa.escolamagica.remar
 import br.ufscar.sead.loa.remar.User
 import grails.transaction.Transactional
 import groovy.json.JsonBuilder
+import jdk.nashorn.internal.runtime.regexp.joni.constants.AnchorType
 
 //import org.imgscalr.Scalr
 import org.springframework.security.access.annotation.Secured
@@ -15,7 +16,6 @@ import org.springframework.security.core.context.SecurityContextHolder
 import static org.springframework.http.HttpStatus.*
 
 @Secured(['IS_AUTHENTICATED_FULLY'])
-@Transactional(readOnly = true)
 class ThemeController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -30,8 +30,10 @@ class ThemeController {
 
             def u = User.findByUsername(new String(params.h.decodeBase64()))
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.test()))
-
             redirect controller: "theme"
+            return
+        } else {
+            session.user = springSecurityService.currentUser
         }
 
         session.user = springSecurityService.currentUser
@@ -40,6 +42,20 @@ class ThemeController {
             respond Theme.findAllByProcessIdAndTaskId(session.processId, session.taskId), model:[themeInstanceCount: Theme.count()]
 
         }
+
+        if (!Theme.findAllByOwnerId(session.user.id)) {
+            def id = new Theme(ownerId: session.user.id).save(flush: true).id
+            def samples = servletContext.getRealPath("/data/samples/tema-escola-magica-remar")
+            def dir = servletContext.getRealPath("/data/${session.user.id}/themes/${id}")
+            def ant = new AntBuilder()
+            ant.sequential() {
+                mkdir(dir: dir)
+                copy(todir: dir) {
+                    fileset(dir: samples)
+                }
+            }
+        }
+
         respond Theme.findAllByOwnerId(session.user.id) , model:[themeInstanceCount: Theme.count()]
     }
 

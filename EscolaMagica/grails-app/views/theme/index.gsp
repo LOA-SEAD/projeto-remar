@@ -17,9 +17,8 @@
         </g:if>
         <div class="main-content">
             <div class="widget">
-                <div class="alert alert-info">
+                <div class="alert alert-danger">
                     <i class="fa fa-info-circle"></i>
-                    <a href="/escolamagica/data/samples/tema-escola-magica-original.zip">Download tema original</a> |
                     <a href="/escolamagica/data/samples/tema-escola-magica-esr.zip">Download tema ESR</a>
                 </div>
                 <div class="widget-content-white glossed">

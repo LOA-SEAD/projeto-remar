@@ -1,11 +1,14 @@
 package br.ufscar.sead.loa.escolamagica.remar
 
+import br.ufscar.sead.loa.remar.User
+
 class Question {
 
     String title
     String[] answers = new String[4]
     int correctAnswer
     String level
+    String ownerId
 
 
     long processId

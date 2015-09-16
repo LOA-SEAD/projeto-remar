@@ -15,7 +15,7 @@
     "portac-sheet0.png": "/images",
     "portac-sheet1.png": "/images"
   },
-
-  "width" : 800,
-  "height": 600
+  "width": 816,
+  "height": 616,
+  "moodlejson": "/"
 }

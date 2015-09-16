@@ -32,46 +32,49 @@ class QuestionController {
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.test()))
 
             redirect controller: "question"
+            return
+        } else {
+            session.user = springSecurityService.currentUser
         }
 
         def list = Question.findAllByProcessIdAndTaskId(session.processId, session.taskId)
 
         if(!list) {
             new Question(title: 'Questão 1 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                         correctAnswer: 0, level: 1, processId: session.processId, taskId: session.taskId).save flush: true
+                    correctAnswer: 0, level: 1, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 2 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                         correctAnswer: 0, level: 1, processId: session.processId, taskId: session.taskId).save flush: true
+                    correctAnswer: 0, level: 1, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 3 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                         correctAnswer: 0, level: 1, processId: session.processId, taskId: session.taskId).save flush: true
+                    correctAnswer: 0, level: 1, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 4 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                         correctAnswer: 0, level: 1, processId: session.processId, taskId: session.taskId).save flush: true
+                    correctAnswer: 0, level: 1, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 5 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                         correctAnswer: 0, level: 1, processId: session.processId, taskId: session.taskId).save flush: true
+                    correctAnswer: 0, level: 1, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
 
             new Question(title: 'Questão 1 – Nível 2', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 2, processId: session.processId, taskId: session.taskId).save flush: true
+                    correctAnswer: 0, level: 2, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 2 – Nível 2', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 2, processId: session.processId, taskId: session.taskId).save flush: true
+                    correctAnswer: 0, level: 2, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 3 – Nível 2', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 2, processId: session.processId, taskId: session.taskId).save flush: true
+                    correctAnswer: 0, level: 2, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 4 – Nível 2', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 2, processId: session.processId, taskId: session.taskId).save flush: true
+                    correctAnswer: 0, level: 2, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 5 – Nível 2', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 2, processId: session.processId, taskId: session.taskId).save flush: true
+                    correctAnswer: 0, level: 2, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
 
             new Question(title: 'Questão 1 – Nível 3', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 3, processId: session.processId, taskId: session.taskId).save flush: true
+                    correctAnswer: 0, level: 3, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 2 – Nível 3', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 3, processId: session.processId, taskId: session.taskId).save flush: true
+                    correctAnswer: 0, level: 3, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 3 – Nível 3', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 3, processId: session.processId, taskId: session.taskId).save flush: true
+                    correctAnswer: 0, level: 3, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 4 – Nível 3', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 3, processId: session.processId, taskId: session.taskId).save flush: true
+                    correctAnswer: 0, level: 3, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 5 – Nível 3', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 3, processId: session.processId, taskId: session.taskId).save flush: true
+                    correctAnswer: 0, level: 3, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
         }
 
-        respond Question.findAllByProcessIdAndTaskId(session.processId, session.taskId), model: [questionInstanceCount: Question.count()]
+        respond Question.findAllByOwnerId(session.user.id), model: [questionInstanceCount: Question.count()]
     }
 
     def confirming() {
