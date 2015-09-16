@@ -149,7 +149,7 @@
 
             <footer>
                 <div class="container text-center" style="margin-top: 250px;">
-                    <p>Copyright &copy; Your Website 2014</p>
+                    <p>Copyright &copy; REMAR 2015</p>
                 </div>
             </footer>
         </artigle>
