@@ -355,8 +355,11 @@ class ProcessController implements JavaDelegate, ExecutionListener{
             exportedResourceInstance.height = resource.height
             exportedResourceInstance.save flush:true
 
+            def time = exportedResourceInstance.exportedAt.getTime() as String
+
             def resourceFolder = new File(servletContext.getRealPath("/data/users/${ownerUsername}/${delegateExecution.processInstanceId}"))
-            def instanceFolder = new File(servletContext.getRealPath("/published/${exportedResourceInstance.id}"))
+            def instanceFolder = new File(servletContext.getRealPath("/published/${time.substring(0, time.length() - 4)}"))
+            println "instanceFolder: " + instanceFolder
             def json = JSON.parse(Resource.get(runtimeService.getVariable(delegateExecution.processInstanceId, 'resourceId') as String).files)
             println json
 

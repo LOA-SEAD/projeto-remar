@@ -117,29 +117,30 @@ class ExportedResourceController {
             platforms << 'Moodle'
         }
 
+        def time = exportedResourceInstance.exportedAt.getTime() as String
+        def url = "/published/${time.substring(0, time.length() - 4)}"
+        println "Url: " + url
+
+        new RequestMap(url: url + '/**', configAttribute: 'permitAll').save flush: true
+        springSecurityService.clearCachedRequestmaps()
+
+        exportedResourceInstance.webUrl = url + "/web"
+        exportedResourceInstance.save flush: true
+
         render view:'publish', model: [resourceName: exportedResourceInstance.name, resourceId: exportedResourceInstance.id,
                                        platforms: platforms]
     }
 
     def web(ExportedResource exportedResourceInstance) {
-        def user = springSecurityService.currentUser as User
-        def url = "/published/${exportedResourceInstance.id}/web"
-        if (params.type == 'public') {
-            new RequestMap(url: url + '/**', configAttribute: 'permitAll').save flush: true
-            springSecurityService.clearCachedRequestmaps()
-        }
-
-        exportedResourceInstance.webUrl = url
-        exportedResourceInstance.save flush: true
-
-        render url
+        render exportedResourceInstance.webUrl
     }
 
     def android(ExportedResource exportedResourceInstance) {
         def root = servletContext.getRealPath("/")
         root = root.substring(0, root.length() -1)
 
-        def dir = servletContext.getRealPath("/published/${exportedResourceInstance.id}/android")
+        def time = exportedResourceInstance.exportedAt.getTime() as String
+        def dir = servletContext.getRealPath("/published/${time.substring(0, time.length() - 4)}/android")
         def resourceDir = servletContext.getRealPath("/data/resources/sources/${exportedResourceInstance.resource.uri}")
         def ant = new AntBuilder()
         ant.sequential {
@@ -157,14 +158,18 @@ class ExportedResourceController {
                 arg(value: dir + '/apk')
             }
         }
-        render "ok"
+
+        exportedResourceInstance.androidUrl = dir + '/apks.zip'
+
+        render exportedResourceInstance.androidUrl
     }
 
     def linux(ExportedResource exportedResourceInstance) {
         def root = servletContext.getRealPath("/")
         root = root.substring(0, root.length() -1)
 
-        def dir = servletContext.getRealPath("/published/${exportedResourceInstance.id}/linux")
+        def time = exportedResourceInstance.exportedAt.getTime() as String
+        def dir = servletContext.getRealPath("/published/${time.substring(0, time.length() - 4)}/linux")
         def resourceDir = servletContext.getRealPath("/data/resources/sources/${exportedResourceInstance.resource.uri}")
         def ant = new AntBuilder()
         ant.sequential {
@@ -183,7 +188,10 @@ class ExportedResourceController {
                 arg(value: dir + '/bin')
             }
         }
-        render "ok"
+
+        exportedResourceInstance.linuxUrl = dir + '/bin/resource.zip'
+
+        render exportedResourceInstance.linuxUrl
     }
 
     def moodle(ExportedResource exportedResourceInstance) {
@@ -208,12 +216,9 @@ class ExportedResourceController {
         exportedResourceInstance.moodleUrl = exportedResourceInstance.webUrl
         exportedResourceInstance.save flush: true
 
+        //Must handle the json and js files
 
-
-        //copiar os arquivos
-
-
-        //redirect uri: "exported-resource/accountConfig/${exportedResourceInstance.id}"
+        redirect exportedResourceInstance.moodleUrl
     }
 
     def update(ExportedResource instance) {
