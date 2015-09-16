@@ -209,4 +209,9 @@ class ExportedResourceController {
         println "........"
         render "asdasd!!"
     }
+
+    def update(ExportedResource instance) {
+        instance.save(flush: true)
+        response.status = 200
+    }
 }
