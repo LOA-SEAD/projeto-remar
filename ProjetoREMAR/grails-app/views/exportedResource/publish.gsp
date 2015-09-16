@@ -57,7 +57,6 @@ Time: 09:55
                         </fieldset>
                         <fieldset>
                             <legend>Plataformas</legend>
-
                             <g:each in="${platforms}" var="platform">
                                 <g:if test="${platform.contains(':')}">
                                     <input type="checkbox" checked disabled readonly/>
@@ -71,8 +70,15 @@ Time: 09:55
                                         <span class="label label-warning">Em breve</span>
                                     </g:if>
                                     <g:else>
-                                        <input type="checkbox" name="${platform.toLowerCase()}" id="${platform.toLowerCase()}" class="checkbox-platform"/>
-                                        <label for="${platform.toLowerCase()}" data-resource-id="${resourceId}">${platform}</label>
+                                        <g:if test="${platform.toLowerCase() == 'moodle' && session.user.moodleUsername == null}">
+                                            <input type="checkbox" name="${platform.toLowerCase()}" id="${platform.toLowerCase()}" class="checkbox-platform" disabled readonly/>
+                                            <label for="${platform.toLowerCase()}" data-resource-id="${resourceId}">${platform}</label>
+                                            <span class="label label-danger">Vincule sua conta ao Moodle</span>
+                                        </g:if>
+                                        <g:else>
+                                            <input type="checkbox" name="${platform.toLowerCase()}" id="${platform.toLowerCase()}" class="checkbox-platform"/>
+                                            <label for="${platform.toLowerCase()}" data-resource-id="${resourceId}">${platform}</label>
+                                        </g:else>
                                     </g:else>
                                 </g:else>
                                 <br>

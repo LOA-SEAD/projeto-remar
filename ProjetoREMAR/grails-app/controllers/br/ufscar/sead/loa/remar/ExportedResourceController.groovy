@@ -218,7 +218,7 @@ class ExportedResourceController {
 
         //Must handle the json and js files
 
-        redirect exportedResourceInstance.moodleUrl
+        render "Vá ao moodle e adicione seu jogo como atividade"
     }
 
     def update(ExportedResource instance) {
