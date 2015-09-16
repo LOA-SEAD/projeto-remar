@@ -16,6 +16,7 @@ class Resource {
         files nullable: true
         width nullable: true
         height nullable: true
+        moodleJson nullable: true
     }
 
     String name
@@ -38,4 +39,5 @@ class Resource {
 
     int width
     int height
+    String moodleJson
 }

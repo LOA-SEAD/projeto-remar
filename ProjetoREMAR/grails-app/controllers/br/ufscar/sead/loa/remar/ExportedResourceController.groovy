@@ -159,7 +159,8 @@ class ExportedResourceController {
             }
         }
 
-        exportedResourceInstance.androidUrl = dir + '/apks.zip'
+        exportedResourceInstance.androidUrl = "/published/${time.substring(0, time.length() - 4)}/apk/apks.zip"
+        exportedResourceInstance.save flush: true
 
         render exportedResourceInstance.androidUrl
     }
@@ -189,7 +190,8 @@ class ExportedResourceController {
             }
         }
 
-        exportedResourceInstance.linuxUrl = dir + '/bin/resource.zip'
+        exportedResourceInstance.linuxUrl = "/published/${time.substring(0, time.length() - 4)}/linux/bin/resource.zip"
+        exportedResourceInstance.save flush: true
 
         render exportedResourceInstance.linuxUrl
     }

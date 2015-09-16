@@ -20,4 +20,4 @@ tidebuilder.py -d $3 $2
 
 cd $3
 
-zip -r resource.zip Resource
+zip -r resource.zip *

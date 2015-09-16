@@ -98,12 +98,13 @@ class ResourceController {
             return
         }
 
-        resourceInstance.name    = manifest.name
-        resourceInstance.uri     = manifest.uri
-        resourceInstance.android = manifest.android
-        resourceInstance.linux   = manifest.linux
-        resourceInstance.moodle  = manifest.moodle
-        resourceInstance.files   = manifest.files
+        resourceInstance.name       = manifest.name
+        resourceInstance.uri        = manifest.uri
+        resourceInstance.android    = manifest.android
+        resourceInstance.linux      = manifest.linux
+        resourceInstance.moodle     = manifest.moodle
+        resourceInstance.files      = manifest.files
+        resourceInstance.moodleJson = manifest.moodlejson
 
         if (!manifest.width) {
             resourceInstance.valid = false
@@ -318,7 +319,6 @@ class ResourceController {
             resourceInstance.status  = "rejected"
 
             render "success"
-
         }
 
         resourceInstance.save flush: true
