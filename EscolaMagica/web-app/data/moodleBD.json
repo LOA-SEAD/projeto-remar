@@ -7,27 +7,27 @@
       "length": "big"
     },
     "field2": {
-      "name": "alternativaA",
+      "name": "alternativaa",
       "type": "TEXT",
       "length": "big"
     },
     "field3": {
-      "name": "alternativaB",
+      "name": "alternativab",
       "type": "TEXT",
       "length": "big"
     },
-    "field4": {
-      "name": "alternativaC",
+    "field3223": {
+      "name": "alternativac",
       "type": "TEXT",
       "length": "big"
     },
     "field5": {
-      "name": "alternativaD",
+      "name": "alternativad",
       "type": "TEXT",
       "length": "big"
     },
     "field6": {
-      "name": "resposta_certa",
+      "name": "respostacerta",
       "type": "TEXT",
       "length": "big"
     },
