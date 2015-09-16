@@ -10,7 +10,6 @@
 <head>
     <meta name="layout" content="new-main-inside">
 
-    <title></title>
 </head>
 
 <body>

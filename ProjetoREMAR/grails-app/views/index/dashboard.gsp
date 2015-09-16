@@ -180,14 +180,31 @@
                                                 <i class="fa fa-simplybuilt"></i>
                                             </span>
                                             <div class="info-box-content">
+
+                                                <div class="pull-right">
+                                                    <div class="dropdown pointer text-center">
+                                                        <a href="/exported-resource/delete/${myExportedResourceInstance.id}">
+                                                            <i class="fa fa-trash pull-right" style="color: white;"></i>
+                                                        </a>
+                                                        <a href="/exported-resource/publish/${myExportedResourceInstance.id}">
+                                                            <i class="fa fa-pencil pull-right" style="color: white;"></i>
+                                                        </a>
+                                                        %{--<div class="dropdown-toggle" data-toggle="dropdown" style="min-width: 10px;">--}%
+                                                            %{--<i class="fa fa-ellipsis-v"></i>--}%
+                                                        %{--</div>--}%
+                                                        %{--<ul class="dropdown-menu">--}%
+                                                            %{--<sec:ifAllGranted roles="ROLE_ADMIN">--}%
+                                                                %{--<li><a class="review" data-review="approve" data-id="${gameInstance.id}">Aprovar</a></li>--}%
+                                                                %{--<li><a class="review" data-review="reject" data-id="${gameInstance.id}">Rejeitar</a></li>--}%
+                                                                %{--<li class="divider"></li>--}%
+                                                            %{--</sec:ifAllGranted>--}%
+                                                            %{--<li><a class="delete" data-id="${gameInstance.id}">Excluir</a></li>--}%
+                                                        %{--</ul>--}%
+                                                    </div>
+                                                </div>
+
                                                 <span class="info-box-text">
                                                     ${myExportedResourceInstance.name}
-                                                    <a href="/exported-resource/delete/${myExportedResourceInstance.id}">
-                                                        <i class="fa fa-trash pull-right" style="color: white;"></i>
-                                                    </a>
-                                                    <a href="/exported-resource/publish/${myExportedResourceInstance.id}">
-                                                        <i class="fa fa-pencil pull-right" style="color: white;"></i>
-                                                    </a>
                                                 </span>
                                                 <span class="info-box-number">
                                                     <img class="img-circle" alt="User Image" src="/assets/img/inside/avatar04.png"
@@ -323,6 +340,7 @@
                     %{--</div><!-- /.box -->--}%
                 %{--</div>--}%
             %{--</div>--}%
+        </div>
     </div>
 </body>
 </html>

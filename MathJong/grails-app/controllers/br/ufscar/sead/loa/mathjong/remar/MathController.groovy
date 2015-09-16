@@ -5,7 +5,7 @@ import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 import org.codehaus.groovy.grails.web.json.JSONArray
 
-@Secured(["ROLE_PROF"])
+@Secured(["IS_AUTHENTICATED_FULLY"])
 class MathController {
 
     def springSecurityService

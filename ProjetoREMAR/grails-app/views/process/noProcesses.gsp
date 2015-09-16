@@ -8,7 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Sem processos no momento</title>
     <meta name="layout" content="new-main-inside">
 
 </head>

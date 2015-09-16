@@ -38,7 +38,7 @@ class MoodleController {
                                      wsfunction: "mod_remarmoodle_link_remar_user",
                                      remar_user_id: "1",
                                      moodle_username: "matheus"]) as String)
-        if(resp.success) {
+        if(!resp.success) {
             render view: "linkSuccess"
         } else {
             render "Ops. Algo deu errado :("

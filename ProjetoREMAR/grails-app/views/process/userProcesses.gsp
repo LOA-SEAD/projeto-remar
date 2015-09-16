@@ -13,7 +13,6 @@
         width:100%;
     }
     </style>
-    <title></title>
     <meta name="layout" content="new-main-inside">
 
 </head>

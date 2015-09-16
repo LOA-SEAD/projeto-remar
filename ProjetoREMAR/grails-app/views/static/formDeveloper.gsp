@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <head>
     <meta name="layout" content="new-main-inside">
-
+    <title>REMAR</title>
 </head>
 <body>
 <div class="content">

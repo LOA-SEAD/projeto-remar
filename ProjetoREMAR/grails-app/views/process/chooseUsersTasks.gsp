@@ -13,7 +13,7 @@
     <g:if test="${dev}">
         <script>window.dev = true</script>
     </g:if>
-    <title></title>
+
 </head>
 <body>
 

@@ -9,7 +9,7 @@
         display: none;
     }
     </style>
-    <title></title>
+    
 </head>
 
 <body>

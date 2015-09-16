@@ -5,7 +5,7 @@
 <head>
     <meta name="layout" content="new-main-inside">
     <g:set var="entityName" value="${message(code: 'game.label', default: 'Game')}" />
-    <title><g:message code="default.list.label" args="[entityName]" /></title>
+
     <g:javascript  src="game-index.js"/>
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}"	type="text/css">
     <script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery.min.js')}"></script>
