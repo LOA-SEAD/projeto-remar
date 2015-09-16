@@ -92,6 +92,10 @@
                         <a class="page-scroll" href="/index/info">Mais Informações</a>
                     </li>
 
+                    <li class="dropdown tasks-menu">
+                        <a class="page-scroll" href="https://remar.readme.io/">Documentação</a>
+                    </li>
+
                     <li class="dropdown user user-menu">
                         %{--<g:link class="btn btn-primary btn-block btn-flat" controller="login">Entrar</g:link>--}%
                         <g:link class="page-scroll" controller="login">Entrar</g:link>
