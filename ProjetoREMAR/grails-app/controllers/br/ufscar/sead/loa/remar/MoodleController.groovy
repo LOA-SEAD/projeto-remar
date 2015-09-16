@@ -36,9 +36,9 @@ class MoodleController {
         def resp = JSON.parse(http.post(path: "/webservice/rest/server.php",
                              query: [wstoken: grailsApplication.config.wstoken,
                                      wsfunction: "mod_remarmoodle_link_remar_user",
-                                     remar_user_id: "1",
-                                     moodle_username: "matheus"]) as String)
-        if(!resp.success) {
+                                     remar_user_id: session.user.id,
+                                     moodle_username: params.username]) as String)
+        if(resp.success) {
             render view: "linkSuccess"
         } else {
             render "Ops. Algo deu errado :("
@@ -105,7 +105,7 @@ class MoodleController {
             def builder = new JsonBuilder()
 
             def json = builder (
-                "games": list.collect {p ->
+                "resources": list.collect {p ->
                     [
                         "id": p.id,
                         "height": p.height,
@@ -129,5 +129,9 @@ class MoodleController {
         else {
             render 'O moodle "'+domain+'" foi desinstalado ou não existe.'
         }
+    }
+
+    def send() {
+
     }
 }
