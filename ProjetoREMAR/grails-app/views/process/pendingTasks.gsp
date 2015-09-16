@@ -48,7 +48,7 @@
                                                         <td >${task[0]}</td>
                                                         <td >${task[1]}</td>
                                                         <td >${task[2]}</td>
-                                                        <td><g:link target="_blank" uri="${task[3]}">Ir</g:link></td>
+                                                        <td><g:link uri="/frame${task[3]}">Ir</g:link></td>
                                                     </tr>
                                                 </g:each>
                                                 </tbody>
