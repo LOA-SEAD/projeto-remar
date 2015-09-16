@@ -87,35 +87,18 @@ class MoodleController {
         def moodle = Moodle.where {
             active == true && domain == domain
         }.list()
+
         if (moodle != []) {
             /* list of games published only for moodle */
-            def plat = Platform.findByName("Moodle")
             def list = ExportedResource.findAll()
 
             Iterator i = list.iterator();
             while (i.hasNext()) {
                 def n = i.next()
 
-                if (plat in n.platforms == false) {
+                if (!n.moodleUrl) {
                     i.remove()
-                }
-                else {
-                    Iterator acci = n.accounts.iterator();
-                    def del = true;
-
-                    while(acci.hasNext()) {
-                        def localAcc = acci.next()
-                        if(localAcc.owner.domain == domain) {
-                            del = false;
-                        }
-                        else {
-                            acci.remove()
-                        }
-                    }
-
-                    if(del) {
-                        i.remove();
-                    }
+                    println "removed."
                 }
             }
 
@@ -130,12 +113,13 @@ class MoodleController {
                         "image": p.image,
                         "moodleUrl": p.moodleUrl,
                         "name": p.name,
-                        "accounts": p.accounts.collect {a ->
+                        "remar_user_id": p.ownerId
+                        /*"accounts": p.accounts.collect {a ->
                             [
                                 "accountName": a.accountName,
                                 "id": a.id
                             ]
-                        }
+                        }*/
                     ]
                 }
             )

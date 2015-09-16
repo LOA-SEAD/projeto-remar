@@ -125,14 +125,14 @@ class ResourceController {
             resourceInstance.name = war.originalFilename
             resourceInstance.uri = ""
             resourceInstance.status = "rejected"
-            resourceInstance.comment = "Missing 'width' property in manifest.json."
+            resourceInstance.comment = "Missing 'height' property in manifest.json."
             resourceInstance.save flush: true
             redirect action: "index"
             println "invalid manifest"
             return
         }
         else {
-            resourceInstance.width   = manifest.height
+            resourceInstance.height   = manifest.height
         }
 
         def moodleBD = new File(servletContext.getRealPath("/wars/${username}/${fileName}/data/moodleBD.json"))
