@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title><g:layoutTitle>REMAR</g:layoutTitle></title>
+    <title><g:layoutTitle default="REMAR"/></title>
     <link rel="shortcut icon" href="${assetPath(src: 'favicon.png')}?v=2" type="image/x-icon">
 
     <!-- Tell the browser to be responsive to screen width -->

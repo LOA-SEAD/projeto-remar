@@ -12,7 +12,7 @@
     <meta name="layout" content="new-main-inside">
     <g:set var="entityName"
            value="${message(code: 'user.label', default: 'User')}" />
-    <title>Admin page</title>
+    <title>REMAR</title>
 
     <!-- jQuery 2.1.4 -->
     <script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery.min.js')}"></script>
