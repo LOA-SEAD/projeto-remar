@@ -4,9 +4,18 @@
 window.addEventListener("load", function() {
     $("#send").on("click", function() {
         //save new resource name
-        var resourceId = $("#resource-id").val();
-        if ($("#resourceName").val() != null && $("#resourceName").val() != '') {
-            updateExportedResourceName(resourceId);
+
+        var name = $("#name");
+        if ($(name).val()) {
+            $.ajax({
+                type: 'PUT',
+                url: location.origin + '/exported-resource/update/' + $(name).data("resource-id") + '?name=' + $(name).val(),
+                success: function(data) {
+                    console.log("resource name updated");
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown){}
+            });
+
         }
 
 
@@ -24,16 +33,7 @@ window.addEventListener("load", function() {
 
 });
 
-function updateExportedResourceName(resourceId) {
-    $.ajax({
-        type: 'GET',
-        url: location.origin + '/exported-resource/updateName?id=' + resourceId + '&name=' + $("#resourceName").val(),
-        success: function(data) {
 
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown){}
-    });
-}
 
 function ajax(endpoint, intervalId, el, originalText) {
     if (endpoint == "moodle") {

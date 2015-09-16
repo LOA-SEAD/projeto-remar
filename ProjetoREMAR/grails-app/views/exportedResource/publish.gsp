@@ -28,7 +28,7 @@ Time: 09:55
                     <div class="direct-chat-messages page-size" style="width: 30%;" >
 
                         <p>Nome: </p>
-                        <input type="text" placeholder="${resourceName}" class="form-control-remar"/>
+                        <input id="name" data-resource-id="${resourceId}" type="text" placeholder="${resourceName}" class="form-control-remar"/>
                         <fieldset>
                             <legend>Tipo</legend>
                             <div class="form-group">
