@@ -1,9 +1,12 @@
 package br.ufscar.sead.loa.quiforca.remar
 
+import br.ufscar.sead.loa.remar.User
 import groovy.json.JsonBuilder
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.imgscalr.Scalr
 import org.springframework.security.access.annotation.Secured
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.context.SecurityContextHolder
 
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
@@ -19,10 +22,14 @@ class ThemeController {
     def springSecurityService
 
     def index(Integer max) {
-        if (params.p) {
+        if (params.p && params.t && params.h) {
             session.processId = params.p
             session.taskId = params.t
-            redirect controller: "theme"
+
+            def u = User.findByUsername(new String(params.h.decodeBase64()))
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.test()))
+
+            redirect controller: "question"
         }
 
         session.user = springSecurityService.currentUser
@@ -210,6 +217,7 @@ class ThemeController {
         def list = []
         list.add(servletContext.getRealPath("/data/${session.user.id}/themes/${params.id}/inicio.png"))
         list.add(servletContext.getRealPath("/data/${session.user.id}/themes/${params.id}/papel.png"))
+        list.add(servletContext.getRealPath("/data/${session.user.id}/themes/${params.id}/icon.png"))
 
         def builder = new JsonBuilder()
         def json = builder(

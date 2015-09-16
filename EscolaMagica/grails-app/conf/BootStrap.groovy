@@ -11,7 +11,7 @@ class BootStrap {
                 '/', '/index', '/index/info', '/doc/**', '/assets/**', '/**/js/**', '/**/css/**', '/**/images/**',
                 '/**/favicon.ico', '/data/**', '/**/scss/**', '/**/less/**', '/**/fonts/**', '/password/**',
                 '/moodle/**', '/exportedGame/**', '/static/**', '/login/**', '/logout/**', '/user/**',
-                '/facebook/**']) {
+                '/facebook/**', '/theme/index', '/question/index']) {
             new RequestMap(url: url, configAttribute: 'permitAll').save()
         }
     }

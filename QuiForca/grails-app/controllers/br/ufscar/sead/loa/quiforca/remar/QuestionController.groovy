@@ -1,11 +1,14 @@
 package br.ufscar.sead.loa.quiforca.remar
 
+import br.ufscar.sead.loa.remar.User
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.util.Holders
 import groovy.json.JsonBuilder
 import groovyx.net.http.HTTPBuilder
 import org.codehaus.groovy.grails.io.support.GrailsIOUtils
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.context.SecurityContextHolder
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -19,14 +22,19 @@ class QuestionController {
     def springSecurityService
     def grailsApplication
 
+    @Secured(["permitAll"])
     def index(Integer max) { // TODO: change to ModelAndView
         def user = springSecurityService.getCurrentUser()
 //        params.max = Math.min(max ?: 10, 100)
         params.max = 100 // TODO
 
-        if (params.p) {
+        if (params.p && params.t && params.h) {
             session.processId = params.p
             session.taskId = params.t
+
+            def u = User.findByUsername(new String(params.h.decodeBase64()))
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.test()))
+
             redirect controller: "question"
         }
 
