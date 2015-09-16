@@ -1,6 +1,6 @@
 package br.ufscar.sead.loa.remar
 
-import com.daureos.facebook.FacebookGraphService
+//import com.daureos.facebook.FacebookGraphService
 import grails.plugin.mail.MailService
 import grails.util.Environment
 import org.apache.commons.lang.RandomStringUtils
@@ -20,7 +20,7 @@ import grails.converters.JSON
 class UserController {
     def springSecurityService
     MailService mailService
-    FacebookGraphService facebookGraphService
+//    FacebookGraphService facebookGraphService
 
     IdentityService identityService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", filteredList: "POST"]
@@ -355,7 +355,7 @@ class UserController {
     }
 
     @Transactional
-    def makeDeveloper(){
+    def makeDeveloper() {
         UserRole.create(springSecurityService.getCurrentUser() as User, Role.findByAuthority("ROLE_DEV"), true)
         println("Deu Certo")
         println(params.fullName)
