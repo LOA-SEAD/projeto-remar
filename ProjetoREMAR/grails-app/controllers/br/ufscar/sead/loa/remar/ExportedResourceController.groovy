@@ -136,17 +136,54 @@ class ExportedResourceController {
     }
 
     def android(ExportedResource exportedResourceInstance) {
+        def root = servletContext.getRealPath("/")
+        root = root.substring(0, root.length() -1)
+
         def dir = servletContext.getRealPath("/published/${exportedResourceInstance.id}/android")
         def resourceDir = servletContext.getRealPath("/data/resources/sources/${exportedResourceInstance.resource.uri}")
         def ant = new AntBuilder()
         ant.sequential {
             mkdir(dir: dir + '/tmp')
+            mkdir(dir: dir + '/apk')
             copy(todir: dir + '/tmp') {
-                fileset dir: resourceDir + "/base"
+                fileset dir: dir + "/../web"
             }
             copy(file: resourceDir + "/android/manifest.json", tofile: dir + '/tmp/manifest.json')
-
+            chmod(file: "${root}/scripts/publish_android.sh", perm: "+x")
+            exec(executable: "${root}/scripts/publish_android.sh") {
+                arg(value: root)
+                arg(value: "br.ufscar.sead.loa.${exportedResourceInstance.resource.uri}")
+                arg(value: dir + '/tmp/manifest.json')
+                arg(value: dir + '/apk')
+            }
         }
+        render "ok"
+    }
+
+    def linux(ExportedResource exportedResourceInstance) {
+        def root = servletContext.getRealPath("/")
+        root = root.substring(0, root.length() -1)
+
+        def dir = servletContext.getRealPath("/published/${exportedResourceInstance.id}/linux")
+        def resourceDir = servletContext.getRealPath("/data/resources/sources/${exportedResourceInstance.resource.uri}")
+        def ant = new AntBuilder()
+        ant.sequential {
+            mkdir(dir: dir + '/tmp')
+            mkdir(dir: dir + '/bin')
+            mkdir(dir: dir + '/tmp/Resources')
+            copy(todir: dir +  "/tmp/Resources") {
+                fileset dir: dir + "/../web"
+            }
+            copy(file: resourceDir + "/linux/manifest", tofile: dir + '/tmp/manifest')
+            copy(file: resourceDir + "/linux/tiapp.xml", tofile: dir + '/tmp/tiapp.xml')
+            chmod(file: "${root}/scripts/publish_linux.sh", perm: "+x")
+            exec(executable: "${root}/scripts/publish_linux.sh") {
+                arg(value: root)
+                arg(value: dir + '/tmp')
+                arg(value: dir + '/bin')
+            }
+        }
+        render "ok"
     }
 
     def moodle(ExportedResource exportedResourceInstance) {
