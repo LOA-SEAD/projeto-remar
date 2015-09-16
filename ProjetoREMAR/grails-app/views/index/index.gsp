@@ -114,7 +114,11 @@
                                 <img src="../images/logo/loa-topo.png"/>
                             </a>
                         </div>
-                        <h1 class="text-center" style="font-weight: bold">REMAR</h1>
+                        %{--<h1 class="text-center" style="font-weight: bold">REMAR</h1>--}%
+                        <div align="center">
+                            <img src="/assets/img/logo/logo-remar-preto-transparente.png" width="450px;" align="center" style="margin-bottom: 15px;"/>
+                        </div>
+
                         <p class="text-center">Recursos Educacionais Multiplataforma Abertos na Rede</p>
                         %{--<p>Note: You may need to adjust some CSS based on the size of your logo. The default logo size is 150x50 pixels.</p>--}%
 
