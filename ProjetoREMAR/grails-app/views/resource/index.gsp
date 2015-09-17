@@ -112,7 +112,7 @@
                                                 <span class="info-box-text">${gameInstance.name.toUpperCase()}</span>
                                                 <span id="development" class="info-box-number">
                                                     <sec:ifAllGranted roles="ROLE_ADMIN">
-                                                        <input class="form-control" data-id="${gameInstance.id}" type="text" placeholder="Comment" value="${gameInstance.comment}">
+                                                        <input class="form-control comment" data-id="${gameInstance.id}" type="text" placeholder="Comment" value="${gameInstance.comment}">
                                                     </sec:ifAllGranted>
                                                     <sec:ifNotGranted roles="ROLE_ADMIN">
                                                         ${gameInstance.comment}

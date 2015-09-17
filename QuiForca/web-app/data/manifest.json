@@ -2,14 +2,15 @@
   "name"    : "Forca",
   "android" : true,
   "linux"   : true,
-  "moodle"  : true,
+  "moodle"  : false,
   "uri"     : "forca",
   "bpmn"    : "ForcaProcess",
 
   "files"   : {
     "palavras.json": "/json",
     "papel.png"    : "/imgs",
-    "inicio.png"   : "/imgs"
+    "inicio.png"   : "/imgs",
+    "icon.png"   : "/imgs"
   },
 
   "width" : 800,

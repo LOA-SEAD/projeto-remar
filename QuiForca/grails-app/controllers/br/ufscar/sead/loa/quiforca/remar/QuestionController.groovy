@@ -36,6 +36,7 @@ class QuestionController {
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.test()))
 
             redirect controller: "question"
+            return
         }
 
         println session.processId

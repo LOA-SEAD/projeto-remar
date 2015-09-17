@@ -12,7 +12,9 @@
         <meta property="user-id" content="${userId}"/>
 
         <g:set var="entityName" value="${message(code: 'question.label', default: 'Question')}" />
-        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
     </head>
     <body>
         <div class="page-header">
@@ -20,11 +22,15 @@
         </div>
         <div class="main-content">
             <div class="widget">
-                <h3 class="section-title first-title"><i class="icon-table"></i> Visualização dos Seus Temas</h3>
-                <h5><i class="fa fa-exclamation-circle"></i> Versão beta. Favor não utilizar a tecla Tab!</h5>
                     <div class="widget-content-white glossed">
                     <div class="padded">
                         <div class="table-responsive">
+                            <div class="pull-left alert alert-danger">
+                                <i class="fa fa-exclamation-triangle"></i>Favor não utilizar a tecla tab
+                                 <i class="fa fa-smile-o"></i><br>
+                                 <i class="fa fa-exclamation-triangle"></i>
+                                Certifique-se que você tirou o foco dos campos editáveis antes de clicar em "Enviar" <i class="fa fa-smile-o"></i><br>
+                            </div>
                             <div class="pull-right">
                                 <g:submitButton name="create" class="create btn btn-info new-question-create-button" value="Nova questão" />
                                 <g:submitButton  name="delete" class="delete btn btn-danger new-question-create-button" value="Remover" alt="Remove questões selecionadas"/>

@@ -5,44 +5,6 @@
             "local_path": "index.html"
         }
     },
-  "icons": [
-    {
-      "src": "imgs/icon192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "density": "4.0"
-    },
-    {
-      "src": "imgs/icon144.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "density": "4.0"
-    },
-    {
-      "src": "imgs/icon96.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "density": "4.0"
-    },
-    {
-      "src": "imgs/icon72.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "density": "4.0"
-    },
-    {
-      "src": "imgs/icon48.png",
-      "sizes": "48x48",
-      "type": "image/png",
-      "density": "4.0"
-    },
-    {
-      "src": "imgs/icon36.png",
-      "sizes": "36x36",
-      "type": "image/png",
-      "density": "4.0"
-    }                        
-  ],
   "start_url": "index.html",
   "display": "standalone",
   "orientation": "any"

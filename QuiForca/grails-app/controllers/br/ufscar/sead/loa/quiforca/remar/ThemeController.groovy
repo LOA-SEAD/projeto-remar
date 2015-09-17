@@ -29,7 +29,8 @@ class ThemeController {
             def u = User.findByUsername(new String(params.h.decodeBase64()))
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.test()))
 
-            redirect controller: "question"
+            redirect controller: "theme"
+            return
         }
 
         session.user = springSecurityService.currentUser

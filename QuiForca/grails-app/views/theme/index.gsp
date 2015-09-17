@@ -37,8 +37,8 @@
                                             <td align="center"> <g:submitButton  name="save" class="save btn btn-success" value="Escolher Tema"/> </td>
 
                                             <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/icon.png" class="img img-responsive max"/></td>
-                                            <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/opening.png" class="img-responsive max"/></td>
-                                            <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/background.png" class="img-responsive max"/></td>
+                                            <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/papel.png" class="img-responsive max"/></td>
+                                            <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/inicio.png" class="img-responsive max"/></td>
                                             <td align="center"><button class="btn btn-danger delete">Remover</button></td>
 
 

@@ -155,11 +155,11 @@ class ExportedResourceController {
                 arg(value: root)
                 arg(value: "br.ufscar.sead.loa.${exportedResourceInstance.resource.uri}")
                 arg(value: dir + '/tmp/manifest.json')
-                arg(value: dir + '/apk')
+                arg(value: dir)
             }
         }
 
-        exportedResourceInstance.androidUrl = "/published/${time.substring(0, time.length() - 4)}/apk/apks.zip"
+        exportedResourceInstance.androidUrl = "/published/${time.substring(0, time.length() - 4)}/android/apks.zip"
         exportedResourceInstance.save flush: true
 
         render exportedResourceInstance.androidUrl

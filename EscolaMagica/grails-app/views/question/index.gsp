@@ -18,9 +18,11 @@
                                 <div class="message" role="status">${flash.message}</div>
                                 <br />
                             </g:if>
-                            <div class="pull-left alert alert-info">
-                                <i class="fa fa-info-circle"></i> Temos algumas questões-exemplo. Você pode editá-las!
-                                Basta clicar sobre alguma <i class="fa fa-smile-o"></i>
+                            <div class="pull-left alert alert-danger">
+                                <i class="fa fa-exclamation-triangle"></i>Temos algumas questões-exemplo. Você pode editá-las!
+                                Basta clicar sobre alguma <i class="fa fa-smile-o"></i><br>
+                                <i class="fa fa-exclamation-triangle"></i>
+                                Não delete nenhuma questão e não mude o nível de nenhuma <i class="fa fa-smile-o"></i><br>
                             </div>
                             <div class="pull-right">
                                 <g:if test="${Question.validateQuestions()}" >

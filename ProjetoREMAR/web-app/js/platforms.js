@@ -46,6 +46,7 @@ function ajax(endpoint, intervalId, el, originalText) {
             success:function(data){
                 clearInterval(intervalId);
                 $(el).html(originalText +": <a target=\"_blank\" href=\"" + data + "\">Acessar</a>");
+                $(el).effect("pulsate", {}, 3000);
             },
             error:function(XMLHttpRequest,textStatus,errorThrown){}});
     //}

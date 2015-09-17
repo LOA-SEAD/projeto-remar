@@ -52,6 +52,7 @@ Time: 09:55
                                 <select disabled>
                                     <option>Turma 1</option>
                                 </select>
+                                <span class="label label-warning">Em breve</span>
                             </div>
 
                         </fieldset>
