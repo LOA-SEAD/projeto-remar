@@ -3,7 +3,6 @@ package br.ufscar.sead.loa.escolamagica.remar
 import br.ufscar.sead.loa.remar.User
 import grails.transaction.Transactional
 import groovy.json.JsonBuilder
-import jdk.nashorn.internal.runtime.regexp.joni.constants.AnchorType
 
 //import org.imgscalr.Scalr
 import org.springframework.security.access.annotation.Secured

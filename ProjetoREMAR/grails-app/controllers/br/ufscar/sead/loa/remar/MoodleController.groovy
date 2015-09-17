@@ -136,16 +136,24 @@ class MoodleController {
         params.remove("controller")
         params.remove("format")
         params.remove("action")
-        params.wstoken    = grailsApplication.config.wstoken
-        params.wsfunction = "mod_remarmoodle_insert_record"
         params.user_id = session.user.id
-        params.cm      = "auhea"
-        params.timestamp = new Date().time as String
+        params.cm      = 27
+        def time = new Date().time as String
+
+        params.timestamp = time.substring(0, time.length() - 3)
+
+        def table = params.remove("table_name")
 
         def http = new HTTPBuilder("http://localhost")
-        def resp = JSON.parse(http.post(path: "/moodle/webservice/rest/server.php",
-                query: [parms]) as String)
+        println http.post(path: "/moodle/webservice/rest/server.php",
+                query: [json: params as JSON,
+                        table_name: table,
+                       wstoken: "5405714207a701a5e7efaf4d35efebe5",
+                wsfunction: "mod_remarmoodle_insert_record"]) as String
+        return
+        //def resp = JSON.parse(http.post(path: "/moodle/webservice/rest/server.php",
+          //      query: params) as String)
 
-        println resp
+        println "resp: " + resp
     }
 }
