@@ -84,8 +84,8 @@ class ExportedResourceController {
                     account.save flush:true
                 }
 
-                 exportedResourceInstance.addToAccounts(account)
-                 exportedResourceInstance.save flush:true
+                exportedResourceInstance.addToAccounts(account)
+                exportedResourceInstance.save flush:true
             }
         }
 
@@ -206,7 +206,7 @@ class ExportedResourceController {
 
         //Creates the table in the moodle
         def resp = http.post(path: "/webservice/rest/server.php",
-                query: [wstoken: grailsApplication.config.wstoken,
+                query: [wstoken: "647c093b186a187a0ac89884c8c79795",
                         wsfunction: "mod_remarmoodle_create_table",
                         json: file.text])
         println "Resp: " + resp

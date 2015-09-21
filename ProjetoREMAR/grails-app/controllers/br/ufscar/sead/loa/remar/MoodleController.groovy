@@ -31,10 +31,22 @@ class MoodleController {
     }
 
     def link() {
+
+
+        if(params.test) {
+            def http = new HTTPBuilder(params.domain)
+            render JSON.parse(http.post(path: "/webservice/rest/server.php",
+                    query: [wstoken: "647c093b186a187a0ac89884c8c79795",
+                            wsfunction: "mod_remarmoodle_link_remar_user",
+                            remar_user_id: session.user.id,
+                            moodle_username: params.username]) as String).success
+            return
+        }
+
         println params.domain
         def http = new HTTPBuilder(params.domain)
         def resp = JSON.parse(http.post(path: "/webservice/rest/server.php",
-                             query: [wstoken: grailsApplication.config.wstoken,
+                             query: [wstoken: "647c093b186a187a0ac89884c8c79795",
                                      wsfunction: "mod_remarmoodle_link_remar_user",
                                      remar_user_id: session.user.id,
                                      moodle_username: params.username]) as String)
@@ -48,7 +60,7 @@ class MoodleController {
     def confirm() {
         def http = new HTTPBuilder("http://remar.dc.ufscar.br:9090")
         def resp = JSON.parse(http.post(path: "/webservice/rest/server.php",
-                query: [wstoken: grailsApplication.config.wstoken,
+                query: [wstoken: "647c093b186a187a0ac89884c8c79795",
                         wsfunction: "mod_remarmoodle_token_verifier",
                         hash: params.id]) as String)
 
@@ -143,16 +155,31 @@ class MoodleController {
         params.timestamp = time.substring(0, time.length() - 3)
 
         def table = params.remove("table_name")
-
-        def http = new HTTPBuilder("http://localhost")
-        println http.post(path: "/moodle/webservice/rest/server.php",
-                query: [json: params as JSON,
-                        table_name: table,
-                       wstoken: "5405714207a701a5e7efaf4d35efebe5",
-                wsfunction: "mod_remarmoodle_insert_record"]) as String
+        def q = [alternativaa: params.alternativaa,
+                 alternativab: params.alternativab,
+                 alternativac: params.alternativac,
+                 alternativad: params.alternativad,
+                 respostacerta: params.respostacerta,
+                 resposta: params.resposta,
+                 timestamp: params.timestamp,
+                 user_id: params.user_id,
+                 cm: params.cm,
+                 enunciado: params.enunciado,
+                 remar_resource_id: params.remar_resource_id,
+                 table_name: table,
+                 wstoken: "647c093b186a187a0ac89884c8c79795",
+                 wsfunction: "mod_remarmoodle_insert_record"]
+        println "~~~~~~~"
+        println q
+        println "~~~~~~~"
+        def http = new HTTPBuilder("http://remar.dc.ufscar.br:9090")
+        println http.post(path: "/webservice/rest/server.php",
+                query: q) as String
         return
         //def resp = JSON.parse(http.post(path: "/moodle/webservice/rest/server.php",
           //      query: params) as String)
+
+
 
         println "resp: " + resp
     }
