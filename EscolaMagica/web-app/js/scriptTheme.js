@@ -6,8 +6,8 @@ window.onload = function(){
     console.log("ok");
 
     $(".save").click(function() {
-        var id = $(this).parent().parent().attr("data-id");
-
+        //var id = $(this).parent().parent().attr("data-id");
+        var id = document.forms["formName"].elements["radio"].value
         window.top.location.href = "choose/" + id;
     });
 
