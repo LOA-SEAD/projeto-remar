@@ -22,9 +22,11 @@ class IndexController {
 
         model.gameInstanceList = Resource.findAllByStatus('approved') // change to #findAllByActive?
         model.userName = session.user.name
+        model.userGender = User.findById(session.user.id).gender
         model.publicExportedResourcesList = ExportedResource.findAllByType('public')
         model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id))
 
+        println model.userGender
         println "RESULT: " + model.publicExportedResourcesList.size()
 
         def instances = []

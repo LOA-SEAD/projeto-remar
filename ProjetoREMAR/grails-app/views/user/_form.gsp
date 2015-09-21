@@ -28,6 +28,15 @@
 	<span class="glyphicon glyphicon-log-in form-control-feedback"></span>
 </div>
 
+
+<div class="form-group has-feedback ">
+	<span class="control-label" style="margin-right: 15px;">Sexo:</span>
+	<input type="radio" name="gender" value="female" checked>
+	<span class="control-label" style="margin-right: 15px;">Feminino</span>
+	<input type="radio" name="gender" value="male" >
+	<span class="control-label" style="margin-right: 15px;">Masculino</span>
+</div>
+
 <div class="form-group container-fluid">
 	<div class="g-recaptcha" data-sitekey="6LdA8QkTAAAAANzRpkGUT__a9B2zHlU5Mnl6EDoJ"> </div>
 	<g:if test='${flash.message}'>
@@ -35,6 +44,8 @@
 	</g:if>
 	<recaptcha:script/>
 </div>
+
+
 
 <div class="form-group has-feedback">
 	<input type="checkbox" name="agree" id="remember">

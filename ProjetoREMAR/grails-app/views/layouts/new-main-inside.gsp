@@ -145,13 +145,25 @@
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img class="user-image" alt="User Image" src="/assets/img/inside/avatar.png"/>
-                            <span class="hidden-xs">${session.user.name}</span>
+
+                            <g:if test="${userGender == 'female'}">
+                                <img class="user-image" alt="User Image" src="/assets/img/inside/avatar2.png"/>
+                            </g:if>
+                            <g:else>
+                                <img class="user-image" alt="User Image" src="/assets/img/inside/avatar.png"/>
+                            </g:else>
+
+                            <span class="hidden-xs">${gender} ${session.user.name}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img src="/assets/img/inside/avatar.png" class="img-circle" alt="User Image">
+                                <g:if test="${userGender == 'female'}">
+                                    <img class="img-circle" alt="User Image" src="/assets/img/inside/avatar2.png"/>
+                                </g:if>
+                                <g:else>
+                                    <img class="img-circle" alt="User Image" src="/assets/img/inside/avatar.png"/>
+                                </g:else>
                                 <p>
                                     ${session.user.name}
                                     <small>Member since Sep. 2015</small>
@@ -192,7 +204,12 @@
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="/assets/img/inside/avatar.png" class="img-circle" alt="User Image">
+                    <g:if test="${userGender == 'female'}">
+                        <img class="img-circle" alt="User Image" src="/assets/img/inside/avatar2.png"/>
+                    </g:if>
+                    <g:else>
+                        <img class="img-circle" alt="User Image" src="/assets/img/inside/avatar.png"/>
+                    </g:else>
                 </div>
                 <div class="pull-left info">
                     <p>${session.user.name}</p>

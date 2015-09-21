@@ -203,6 +203,7 @@ class UserController {
                 userInstance.accountLocked = false
                 userInstance.enabled = true
                 userInstance.passwordExpired = false
+                userInstance.setGender(userInstance.gender) //teste
 
                 org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
                 camundaUser.setEmail(userInstance.email)
@@ -220,6 +221,7 @@ class UserController {
                 userInstance.accountLocked = true //Before user confirmation
                 userInstance.enabled = false        // Before user confirmation
                 userInstance.passwordExpired = false
+                userInstance.setGender(userInstance.gender) //teste
 
                 org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
                 camundaUser.setEmail(userInstance.email)
