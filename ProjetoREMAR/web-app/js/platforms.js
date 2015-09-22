@@ -44,6 +44,11 @@ function ajax(endpoint, intervalId, el, originalText) {
             type:'GET',
             url: location.origin + '/exported-resource/' + endpoint + "?id=" + $(el).data("resource-id") + "&type=" + $("input[name=type]:checked").val(),
             success:function(data){
+                if (endpoint == "moodle" ) {
+                    clearInterval(intervalId);
+                    $(el).html(originalText +" <span class=\"label label-success\">Vá ao Moodle e adicione seu jogo como atividade</span>");
+                    return
+                }
                 clearInterval(intervalId);
                 $(el).html(originalText +": <a target=\"_blank\" href=\"" + data + "\">Acessar</a>");
                 $(el).effect("pulsate", {}, 3000);

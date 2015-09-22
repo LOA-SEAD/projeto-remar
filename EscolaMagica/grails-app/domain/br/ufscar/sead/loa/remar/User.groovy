@@ -16,6 +16,7 @@ class User {
     String camunda_id
     String name
     String facebookId
+    String gender
 
 
     static transients = ['springSecurityService']
