@@ -38,11 +38,19 @@
                             <tbody>
                             <g:each in="${themeInstanceList}" status="i" var="themeInstance">
                                 <tr data-id="${fieldValue(bean: themeInstance, field: "id")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
-                                    <td align="center"> <input type="radio" name="radio" id="radio_button${i}" value="${fieldValue(bean: themeInstance, field: "id")}"></td>
+                                    <td align="center"><input type="radio" name="radio"
+                                                              value="${fieldValue(bean: themeInstance, field: "id")}" ${i == 0 ? "checked" : ""}>
+                                    </td>
                                     %{--<td align="center"> <g:submitButton name="save" class="save btn btn-success" value="Escolher Tema"/> </td>--}%
-                                    <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portaa-sheet1.png" class="img-responsive max"/></td>
-                                    <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portab-sheet1.png" class="img-responsive max"/></td>
-                                    <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portac-sheet1.png" class="img-responsive max"/></td>
+                                    <td align="center"><img
+                                            src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portaa-sheet1.png"
+                                            class="img-responsive door"/></td>
+                                    <td align="center"><img
+                                            src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portab-sheet1.png"
+                                            class="img-responsive door"/></td>
+                                    <td align="center"><img
+                                            src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portac-sheet1.png"
+                                            class="img-responsive door"/></td>
                                     <td align="center"><button class="btn btn-danger delete">Remover</button></td>
                                 </tr>
                             </g:each>
@@ -56,9 +64,6 @@
             <div class="col-xs-12 center">
                 <td align="center"> <g:submitButton name="save" class="save btn btn-success" value="Enviar"/> </td>
                 <g:link class="btn btn-success btn-lg" action="create">Novo tema</g:link>
-                <div class="paginacao">
-                    <g:paginate total="${questionInstanceCount ?: 0}" />
-                </div>
             </div>
         </fieldset>
     </div>

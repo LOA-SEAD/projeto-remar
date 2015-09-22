@@ -20,7 +20,7 @@ class QuestionController {
 
     def springSecurityService
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "GET"]
 
     @Secured(['permitAll'])
     def index(Integer max) {
@@ -37,7 +37,7 @@ class QuestionController {
             session.user = springSecurityService.currentUser
         }
 
-        def list = Question.findAllByProcessIdAndTaskId(session.processId, session.taskId)
+        def list = Question.findAllByOwnerId(session.user.id)
 
         if(!list) {
             new Question(title: 'Questão 1 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
@@ -106,7 +106,7 @@ class QuestionController {
         xml.mkp.xmlDeclaration(version: "1.0", encoding: "utf-8")
         xml.Perguntas() {
             for (int i = 0; i < 4; i++) {
-                def questionList = Question.findAllByLevelAndProcessIdAndTaskId(i + 1, session.processId, session.taskId)
+                def questionList = Question.findAllByOwnerIdAndLevel(session.user.id, String.valueOf(i + 1))
                 if (!questionList.isEmpty()) {
                     int j = 0
                     int k = 0
@@ -153,13 +153,23 @@ class QuestionController {
             return
         }
 
+        println "=="
+        println session.user.id
+        println "=="
+
+        questionInstance.processId = session.processId as long
+        questionInstance.taskId = session.taskId as long
+        questionInstance.ownerId = session.user.id as long
+
+        println "=="
+        println questionInstance.ownerId;
+        println "=="
+
         if (questionInstance.hasErrors()) {
             respond questionInstance.errors, view: 'create'
             return
         }
 
-        questionInstance.processId = session.processId as long
-        questionInstance.taskId = session.taskId as long
 
         questionInstance.save flush: true
 
@@ -205,13 +215,7 @@ class QuestionController {
 
         questionInstance.delete flush: true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Question.label', default: 'Questão'), questionInstance.id])
-                redirect action: "index", method: "GET"
-            }
-            '*' { render status: NO_CONTENT }
-        }
+        redirect action: "index"
     }
 
     protected void notFound() {
