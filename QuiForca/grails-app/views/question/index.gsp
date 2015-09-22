@@ -25,7 +25,7 @@
                     <div class="widget-content-white glossed">
                     <div class="padded">
                         <div class="table-responsive">
-                            <div class="pull-left alert alert-danger">
+                            <div class="pull-left alert alert-info">
                                 <i class="fa fa-exclamation-triangle"></i>Favor não utilizar a tecla tab
                                  <i class="fa fa-smile-o"></i><br>
                                  <i class="fa fa-exclamation-triangle"></i>
