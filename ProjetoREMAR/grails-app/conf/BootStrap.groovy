@@ -58,8 +58,10 @@ class BootStrap {
             identityService.saveUser(camundaUser)
 
             userInstance.camunda_id = camundaUser.getId()
+            userInstance.gender = "M"
 
             userInstance.save flush:true
+            
             UserRole.create(userInstance, Role.findByAuthority("ROLE_ADMIN"), true)
             UserRole.create(userInstance, Role.findByAuthority("ROLE_DEV"), true)
 
@@ -92,6 +94,7 @@ class BootStrap {
             identityService.saveUser(camundaGuestUser)
 
             guestUserInstance.camunda_id = camundaGuestUser.getId()
+            guestUserInstance.gender = "M"
 
             guestUserInstance.save flush:true
             UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_PROF"), true)
