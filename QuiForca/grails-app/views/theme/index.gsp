@@ -17,6 +17,10 @@
         </g:if>
         <div class="main-content">
             <div class="widget">
+                <div class="alert alert-danger">
+                    <i class="fa fa-info-circle"></i>
+                    <a href="/forca/data/samples/tema-forca-esr.zip">Download tema ESR</a>
+                </div>
                 <h3 class="section-title first-title"><i class="icon-table"></i> Visualização dos Meus Temas</h3>
                 <div class="widget-content-white glossed">
                     <div class="padded">
