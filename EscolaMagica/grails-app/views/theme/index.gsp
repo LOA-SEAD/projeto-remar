@@ -44,13 +44,13 @@
                                     %{--<td align="center"> <g:submitButton name="save" class="save btn btn-success" value="Escolher Tema"/> </td>--}%
                                     <td align="center"><img
                                             src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portaa-sheet1.png"
-                                            class="img-responsive door"/></td>
+                                            class="img-responsive max door"/></td>
                                     <td align="center"><img
                                             src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portab-sheet1.png"
-                                            class="img-responsive door"/></td>
+                                            class="img-responsive max door"/></td>
                                     <td align="center"><img
                                             src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portac-sheet1.png"
-                                            class="img-responsive door"/></td>
+                                            class="img-responsive max door"/></td>
                                     <td align="center"><button class="btn btn-danger delete">Remover</button></td>
                                 </tr>
                             </g:each>
