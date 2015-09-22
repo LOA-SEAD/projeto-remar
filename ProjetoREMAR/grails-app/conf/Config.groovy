@@ -94,12 +94,13 @@ grails.hibernate.cache.queries = false
 grails.hibernate.pass.readonly = false
 // configure passing read-only to OSIV session by default, requires "singleSession = false" OSIV mode
 grails.hibernate.osiv.readonly = false
-grails.config.locations = ["classpath:moodle.properties"]
+
 
 
 
 environments {
     development {
+        grails.config.locations = ["classpath:moodle.properties"]
         grails.logging.jul.usebridge = true
         //grails.serverURL = "http://myapp.dev:9090"
         grails.app.context = "/"
@@ -146,7 +147,7 @@ environments {
     }
     production {
 
-        grails.config.locations = ["classpath:remar.properties"]
+        grails.config.locations += ["classpath:remar.properties", "classpath:moodle.properties"]
 
         grails.logging.jul.usebridge = false
 //        grails.serverURL = "http://localhost:8080"
