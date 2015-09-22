@@ -147,7 +147,7 @@ environments {
     }
     production {
 
-        grails.config.locations += ["classpath:remar.properties", "classpath:moodle.properties"]
+        grails.config.locations = ["classpath:remar.properties", "classpath:moodle.properties"]
 
         grails.logging.jul.usebridge = false
 //        grails.serverURL = "http://localhost:8080"
