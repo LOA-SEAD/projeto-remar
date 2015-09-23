@@ -9,6 +9,7 @@
         
     </head>
     <body>
+    <form name="formName">
         <div class="page-header">
             <h1> Meus Temas</h1>
         </div>
@@ -38,13 +39,15 @@
                                 <tbody>
                                     <g:each in="${themeInstanceList}" status="i" var="themeInstance">
                                         <tr data-id="${fieldValue(bean: themeInstance, field: "id")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
-                                            <td align="center"> <g:submitButton  name="save" class="save btn btn-success" value="Escolher Tema"/> </td>
+                                            <td align="center"><input type="radio" name="radio"
+                                                                      value="${fieldValue(bean: themeInstance, field: "id")}" ${i == 0 ? "checked" : ""}>
+                                            </td>
+                                            %{--<td align="center"> <g:submitButton  name="save" class="save btn btn-success" value="Escolher Tema"/> </td>--}%
 
                                             <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/icon.png" class="img img-responsive max"/></td>
                                             <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/papel.png" class="img-responsive max"/></td>
                                             <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/inicio.png" class="img-responsive max"/></td>
-                                            <td align="center"><button class="btn btn-danger delete">Remover</button></td>
-
+                                            <td align="center"><button class="btn btn-danger delete"> Remover</button></td>
 
                                         </tr>
                                     </g:each>
@@ -56,6 +59,7 @@
             </div>
             <fieldset class="buttons">
                 <div class="col-xs-12 center">
+                    <g:submitButton name="save" class="save btn btn-success btn-lg" value="Enviar"/>
                     <g:link class="btn btn-success btn-lg" action="create">Novo tema</g:link>
                     <div class="paginacao">
                         <g:paginate total="${questionInstanceCount ?: 0}" />
@@ -63,5 +67,6 @@
                 </div>
             </fieldset>
         </div>
+        </form>
     </body>
 </html>
