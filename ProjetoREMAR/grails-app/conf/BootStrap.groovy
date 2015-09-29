@@ -33,14 +33,16 @@ class BootStrap {
             println "ROLE_DEV inserted"
         }
 
-        def adminUser = User.findByUsername("admin")
+        def adminUser = User.findByFirstName("admin")
 
         if(adminUser == null) {
             def userInstance = new User (
                 username: "admin",
                 password: "admin",
                 email: "admin@gmail.com",
-                name: "Admin",
+                firstName: "Admin",
+                lastName: "User",
+                gender: 'male',
                 enabled: true,
                 camunda_id: "admin"
             )
@@ -52,7 +54,7 @@ class BootStrap {
             org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
 
             camundaUser.setEmail(userInstance.email)
-            camundaUser.setFirstName(userInstance.name)
+            camundaUser.setFirstName(userInstance.firstName)
             camundaUser.setPassword(userInstance.password)
             camundaUser.setId(userInstance.username)
             identityService.saveUser(camundaUser)
@@ -68,7 +70,8 @@ class BootStrap {
             println "admin user inserted"
         }
 
-        def guestUser = User.findByUsername("guest")
+        def guestUser = User.findByFirstName("guest")
+
         println "guestUser: " + guestUser
 
         if(guestUser == null) {
@@ -76,7 +79,9 @@ class BootStrap {
                 username: "guest",
                 password: "guest",
                 email: "guest@gmail.com",
-                name: "Guest User",
+                firstName: "Guest",
+                lastName: "User",
+                gender: 'female',
                 enabled: true,
                 camunda_id: "guest"
             )
@@ -88,7 +93,7 @@ class BootStrap {
             org.camunda.bpm.engine.identity.User camundaGuestUser = identityService.newUser(guestUserInstance.username)
 
             camundaGuestUser.setEmail(guestUserInstance.email)
-            camundaGuestUser.setFirstName(guestUserInstance.name)
+            camundaGuestUser.setFirstName(guestUserInstance.firstName)
             camundaGuestUser.setPassword(guestUserInstance.password)
             camundaGuestUser.setId(guestUserInstance.username)
             identityService.saveUser(camundaGuestUser)

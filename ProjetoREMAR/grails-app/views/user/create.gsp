@@ -15,7 +15,10 @@
 
 				$('form').validate({
 					rules: {
-						name: {
+						first_name: {
+							required: true
+						},
+						last_name: {
 							required: true
 						},
 						email: {
@@ -38,8 +41,11 @@
 						agree: "required"
 					},
 					messages: {
-						name: {
-							required: "Por favor digite o seu nome"
+						first_name: {
+							required: "Por favor digite o seu primeiro nome"
+						},
+						last_name: {
+							required: "Por favor digite o seu sobrenome"
 						},
 						email: {
 							required: "Por favor digite um email",

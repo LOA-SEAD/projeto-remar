@@ -14,7 +14,8 @@ class User {
 	boolean passwordExpired
 	String email
 	String camunda_id
-	String name
+	String firstName
+	String lastName
     String facebookId
     String moodleUsername
 	String gender
@@ -25,7 +26,8 @@ class User {
 	static constraints = {
 		username blank: false, unique: true, nullable: false
 		password blank: false, nullable: false
-		name blank: false
+		firstName blank: false
+		lastName blank: true
 		email blank: false, email: true, unique: true
 		camunda_id nullable: true
         facebookId nullable: true

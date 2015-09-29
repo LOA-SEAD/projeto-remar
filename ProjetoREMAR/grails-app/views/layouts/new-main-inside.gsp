@@ -146,26 +146,27 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
-                            <g:if test="${userGender == 'female'}">
+                            <g:if test="${session.user.gender == 'female'}">
+                            %{--<g:if test="${== 'female'}">--}%
                                 <img class="user-image" alt="User Image" src="/assets/img/inside/avatar2.png"/>
                             </g:if>
                             <g:else>
                                 <img class="user-image" alt="User Image" src="/assets/img/inside/avatar.png"/>
                             </g:else>
 
-                            <span class="hidden-xs">${gender} ${session.user.name}</span>
+                            <span class="hidden-xs">${session.user.firstName}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <g:if test="${userGender == 'female'}">
+                                <g:if test="${session.user.gender == 'female'}">
                                     <img class="img-circle" alt="User Image" src="/assets/img/inside/avatar2.png"/>
                                 </g:if>
                                 <g:else>
                                     <img class="img-circle" alt="User Image" src="/assets/img/inside/avatar.png"/>
                                 </g:else>
                                 <p>
-                                    ${session.user.name}
+                                    ${session.user.firstName}
                                     <small>Member since Sep. 2015</small>
                                 </p>
                             </li>
@@ -204,7 +205,7 @@
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <g:if test="${userGender == 'female'}">
+                    <g:if test="${session.user.gender == 'female'}">
                         <img class="img-circle" alt="User Image" src="/assets/img/inside/avatar2.png"/>
                     </g:if>
                     <g:else>
@@ -212,7 +213,7 @@
                     </g:else>
                 </div>
                 <div class="pull-left info">
-                    <p>${session.user.name}</p>
+                    <p>${session.user.firstName}</p>
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>

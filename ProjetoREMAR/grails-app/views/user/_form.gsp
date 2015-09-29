@@ -4,7 +4,12 @@
 %{--</div>--}%
 
 <div class="form-group has-feedback">
-	<input type="text" class="form-control-remar" placeholder="Nome" value="${user?.name}"  name="name" />
+	<input type="text" class="form-control-remar" placeholder="Primeiro nome" value=""  name="firstName" />
+	<span class="glyphicon glyphicon-edit form-control-feedback"></span>
+</div>
+
+<div class="form-group has-feedback">
+	<input type="text" class="form-control-remar" placeholder="Sobrenome" value=""  name="lastName" />
 	<span class="glyphicon glyphicon-edit form-control-feedback"></span>
 </div>
 

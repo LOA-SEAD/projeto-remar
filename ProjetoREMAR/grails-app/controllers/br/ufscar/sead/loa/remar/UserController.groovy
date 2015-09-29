@@ -207,7 +207,7 @@ class UserController {
 
                 org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
                 camundaUser.setEmail(userInstance.email)
-                camundaUser.setFirstName(userInstance.name)
+                camundaUser.setFirstName(userInstance.firstName)
                 camundaUser.setPassword(userInstance.password)
                 camundaUser.setId(userInstance.username)
                 identityService.saveUser(camundaUser)
@@ -225,7 +225,8 @@ class UserController {
 
                 org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
                 camundaUser.setEmail(userInstance.email)
-                camundaUser.setFirstName(userInstance.name)
+                camundaUser.setFirstName(userInstance.firstName)
+                camundaUser.setLastName(userInstance.lastName)
                 camundaUser.setPassword(userInstance.password)
                 camundaUser.setId(userInstance.username)
                 identityService.saveUser(camundaUser)
@@ -285,7 +286,8 @@ class UserController {
         //reinsert the user in the camunda BD
         org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
         camundaUser.setEmail(userInstance.email)
-        camundaUser.setFirstName(userInstance.name)
+        camundaUser.setFirstName(userInstance.firstName)
+        camundaUser.setLastName(userInstance.lastName)
         camundaUser.setPassword(userInstance.password)
         identityService.saveUser(camundaUser)
 

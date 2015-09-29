@@ -123,7 +123,7 @@
                                                 <span class="info-box-number">
                                                     <img class="img-circle" alt="User Image" src="/assets/img/inside/avatar04.png"
                                                          height="25" width="25"/>
-                                                    ${exportedResourceInstance.owner.name}
+                                                    ${exportedResourceInstance.owner.firstName}
                                                 </span>
                                                 <span class="progress-description">
                                                     <div class="pull-right">
@@ -209,7 +209,7 @@
                                                 <span class="info-box-number">
                                                     <img class="img-circle" alt="User Image" src="/assets/img/inside/avatar04.png"
                                                          height="25" width="25"/>
-                                                    ${myExportedResourceInstance.owner.name}
+                                                    ${myExportedResourceInstance.owner.firstName}
                                                 </span>
                                                 <span class="progress-description">
                                                     <div class="pull-right">
