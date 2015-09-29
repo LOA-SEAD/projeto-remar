@@ -62,7 +62,7 @@
         </div>
         <fieldset class="buttons">
             <div class="col-xs-12 center">
-                <td align="center"> <g:submitButton name="save" class="save btn btn-success" value="Enviar"/> </td>
+                <td align="center"> <g:submitButton name="save" class="save btn btn-success btn-lg" value="Enviar"/> </td>
                 <g:link class="btn btn-success btn-lg" action="create">Novo tema</g:link>
             </div>
         </fieldset>

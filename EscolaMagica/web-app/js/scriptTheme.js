@@ -17,15 +17,21 @@ window.onload = function(){
         var id = $(tr).attr("data-id");
         var data = { _method: 'DELETE' };
 
-        $.ajax({
-            type:'POST',
-            data: data,
-            url: "delete/" + id,
-            success:function(data){
-                console.log(data);
-                $(tr).remove();
-            },
-            error:function(XMLHttpRequest,textStatus,errorThrown){}});
+
+        if(confirm("Deseja realmente excluir este tema?")) {
+            $.ajax({
+                type: 'POST',
+                data: data,
+                url: "delete/" + id,
+                success: function (data) {
+                    console.log(data);
+                    $(tr).hide();
+                    $(tr).remove();
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                }
+            });
+        }
     });
 
     var doors = $(".door");

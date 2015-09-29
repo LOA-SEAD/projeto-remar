@@ -25,6 +25,7 @@ window.onload = function(){
             url: "delete/" + id,
             success:function(data){
                 console.log(data);
+                $(tr).hide();
                 $(tr).remove();
             },
             error:function(XMLHttpRequest,textStatus,errorThrown){}});}
