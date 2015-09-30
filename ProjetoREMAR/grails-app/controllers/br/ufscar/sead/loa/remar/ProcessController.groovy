@@ -307,7 +307,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
                             subject "Nova tarefa no REMAR – ${resourceName}"
                             html '<h3>Você foi designado como responsável por uma tarefa no REMAR!</h3>' +
                                     "Nome do processo: ${resourceName} " + "<br>" +
-                                    "Dono do processo: ${session.user.name}" + "<br>" +
+                                    "Dono do processo: ${session.user.firstName}" + "<br>" +
                                     "Nome da Tarefa: ${allTasks[i].name} " + "<br>" +
                                     "<a href=http://${request.serverName}:${request.serverPort}/${uri}/${allTasks[i].taskDefinitionKey.replace('.', '/')}?p=${processId}&t=${allTasks[i].id}><b>Realizar tarefa<b>"
                         }

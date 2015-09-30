@@ -13,7 +13,6 @@
     <g:if test="${dev}">
         <script>window.dev = true</script>
     </g:if>
-    %{--<script src="../js/autocomplete.js"></script>--}%
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 </head>
@@ -59,8 +58,7 @@
                                                         <tr role="row">
                                                             <td>${task.getName()}</td>
                                                             <td>
-                                                                <label for="autocomplete">
-                                                                    <input name="${task.getId()}"  id="autocomplete" value="${autocomplete}">
+                                                                    <input name="${task.getId()}"  id="userlabel" value="${userlabel}">
                                                                     %{--<select name="${task.getId()}">--}%
                                                                         %{--<g:if test="${task.getAssignee() == null}">--}%
                                                                             %{--<option disabled selected>Selecione</option>--}%
@@ -74,7 +72,7 @@
                                                                             %{--</g:else>--}%
                                                                         %{--</g:each>--}%
                                                                     %{--</select>--}%
-                                                                </label>
+
                                                             </td>
 
 
@@ -116,7 +114,7 @@
 <script>
     $("input").on('keyup', function () {
     var url = location.origin + '/user/autocomplete';
-    var data = {autocomplete: $("#autocomplete").val()};
+    var data = {autocomplete: $(this).val()};
 
     $.ajax({
         type: 'GET',
