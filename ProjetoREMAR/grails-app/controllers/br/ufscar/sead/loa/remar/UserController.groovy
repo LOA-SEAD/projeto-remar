@@ -384,6 +384,20 @@ class UserController {
             render false
     }
 
+    def autocomplete() {
+        List<User> allUsers = User.getAll();
+        String autocompleteAlternatives = "";
+        if (params.autocomplete !="") {
+            for (User users : allUsers) {
+                if (users.getUsername().contains(params.autocomplete)) {
+                    autocompleteAlternatives +=users.getUsername() + ",";
+                }
+            }
+            println(autocompleteAlternatives)
+            render autocompleteAlternatives
+        }
+    }
+
     def existsEmail(){
         if(User.findByEmail(params.email))
             render true

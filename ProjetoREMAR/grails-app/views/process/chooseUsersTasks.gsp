@@ -13,7 +13,9 @@
     <g:if test="${dev}">
         <script>window.dev = true</script>
     </g:if>
-
+    %{--<script src="../js/autocomplete.js"></script>--}%
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 </head>
 <body>
 
@@ -57,22 +59,24 @@
                                                         <tr role="row">
                                                             <td>${task.getName()}</td>
                                                             <td>
-                                                                <label>
-                                                                    <select name="${task.getId()}">
-                                                                        <g:if test="${task.getAssignee() == null}">
-                                                                            <option disabled selected>Selecione</option>
-                                                                        </g:if>
-                                                                        <g:each in="${allusers}" status="j" var="user">
-                                                                            <g:if test="${task.getAssignee() == user.id}">
-                                                                                <option selected value="${user.id}">${user.getFirstName()}</option>
-                                                                            </g:if>
-                                                                            <g:else>
-                                                                                <option value="${user.id}">${user.getFirstName()}</option>
-                                                                            </g:else>
-                                                                        </g:each>
-                                                                    </select>
+                                                                <label for="autocomplete">
+                                                                    <input name="${task.getId()}"  id="autocomplete" value="${autocomplete}">
+                                                                    %{--<select name="${task.getId()}">--}%
+                                                                        %{--<g:if test="${task.getAssignee() == null}">--}%
+                                                                            %{--<option disabled selected>Selecione</option>--}%
+                                                                        %{--</g:if>--}%
+                                                                        %{--<g:each in="${allusers}" status="j" var="user">--}%
+                                                                            %{--<g:if test="${task.getAssignee() == user.id}">--}%
+                                                                                %{--<option selected value="${user.id}">${user.getFirstName()}</option>--}%
+                                                                            %{--</g:if>--}%
+                                                                            %{--<g:else>--}%
+                                                                                %{--<option value="${user.id}">${user.getFirstName()}</option>--}%
+                                                                            %{--</g:else>--}%
+                                                                        %{--</g:each>--}%
+                                                                    %{--</select>--}%
                                                                 </label>
                                                             </td>
+
 
                                                             <g:if test="${task.getDelegationState().toString() == "PENDING" && currentUser.username == task.getAssignee()}">
                                                                 %{--<td>Pendente – <g:link target="_blank" uri="/${uri}/${task.taskDefinitionKey}" id="${task.getId()}">REALIZAR</g:link></td>--}%
@@ -96,7 +100,6 @@
                                                     <input class="btn btn-sm btn-primary" type="submit" value="Enviar" />
                                                 </div>
                                             </form>
-
                                         </div>
                                     </div>
                                 </div>
@@ -109,6 +112,33 @@
         </div>
     </div>
 </div>
+
+<script>
+    $("input").on('keyup', function () {
+    var url = location.origin + '/user/autocomplete';
+    var data = {autocomplete: $("#autocomplete").val()};
+
+    $.ajax({
+        type: 'GET',
+        data: data,
+        url: url,
+        success: function (data) {
+
+            if (data != "") {
+
+                $("input").autocomplete({
+                    source: data.split(","),
+                    minLength: 3
+                });
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+});
+
+</script>
+
 
 </body>
 </html>
