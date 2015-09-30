@@ -52,7 +52,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
         def resource = Resource.findByBpmn(params.id)
 
         runtimeService.setVariable(processId, "ownerId", session.user.id as String)
-        runtimeService.setVariable(processId, "ownerName", session.user.name as String)
+        runtimeService.setVariable(processId, "ownerName", session.user.firstName as String)
         runtimeService.setVariable(processId, "resourceId", resource.id as String)
         runtimeService.setVariable(processId, "resourceName", resource.name as String)
         runtimeService.setVariable(processId, "resourceUri", resource.uri as String)
