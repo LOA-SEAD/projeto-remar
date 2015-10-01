@@ -43,7 +43,7 @@ class QuestionController {
         println session.taskId
 
         def list = Question.findAllByProcessIdAndTaskId(session.processId, session.taskId)
-        render view:"index", model:[questionInstanceList: list, questionInstanceCount: Question.count(), userName: user.getName(), userId: user.getId()]
+        render view:"index", model:[questionInstanceList: list, questionInstanceCount: Question.count(), userName: user.getUsername(), userId: user.getId()]
 
     }
 
