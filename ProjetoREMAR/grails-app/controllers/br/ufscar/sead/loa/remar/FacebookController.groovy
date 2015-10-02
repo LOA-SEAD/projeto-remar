@@ -17,22 +17,22 @@ class FacebookController {
     def auth() {
 //
 //        if(facebookContext.authenticated){
-//            println "Autenticado!"
-//            println facebookContext.user.age
+//            log.debug "Autenticado!"
+//            log.debug facebookContext.user.age
 //
 //            String access_token =  session.facebook.access_token
-//            println access_token
+//            log.debug access_token
 //
 //           FacebookGraphClient facebookGraphClient = new FacebookGraphClient(access_token)
 //           def user = facebookGraphClient.fetchObject("me")
-//            println user
+//            log.debug user
 //            //facebookContext.getLoginURL('req_perms','email')
 //
 //
 //
 //
 ////            def publishMessageResponse = facebookGraphClient.publish("me/feed", [message:"RestFB test"])
-////            println "Published message ID: " + publishMessageResponse.id
+////            log.debug "Published message ID: " + publishMessageResponse.id
 //        }
 
         if (springSecurityService.isLoggedIn()) {
@@ -40,24 +40,24 @@ class FacebookController {
         } else {
 
             def details = facebookGraphService.getDetails()
-            println details
+            log.debug details
 
             if (User.findByFacebookId(details.id)) {
                 def currentUser = User.findByFacebookId(details.id)
                 SpringSecurityUtils.reauthenticate(currentUser.username, currentUser.password)
-                println springSecurityService.getCurrentUser()
-                println "Usuario já no banco"
+                log.debug springSecurityService.getCurrentUser()
+                log.debug "Usuario já no banco"
 
                 //redirect(controller: 'index' ,action: 'index')
             } else {
-                println session.facebook
+                log.debug session.facebook
                 def acess_token = session.facebook.access_token
-                // println facebookGraphService.getFacebookProfile(token)
+                // log.debug facebookGraphService.getFacebookProfile(token)
                 //facebookGraphService.api("me",HttpMethod.GET,LogCallback)
-                //println facebookGraphService.getFacebookProfile(session.facebook.access_token)
-                println details.email
-                println details.name
-                println details.id
+                //log.debug facebookGraphService.getFacebookProfile(session.facebook.access_token)
+                log.debug details.email
+                log.debug details.name
+                log.debug details.id
 
                 def n = Math.abs(new Random().nextInt() % 5000) + 1
                 User newUser = new User(
@@ -78,7 +78,7 @@ class FacebookController {
                 UserRole.create(newUser, Role.findByAuthority("ROLE_FACEBOOK"), true)
 
                 SpringSecurityUtils.reauthenticate(newUser.username, newUser.password)
-                println "Novo usuario criado pelo Facebook"
+                log.debug "Novo usuario criado pelo Facebook"
                 //redirect(controller: 'index', action: 'index')
             }
 

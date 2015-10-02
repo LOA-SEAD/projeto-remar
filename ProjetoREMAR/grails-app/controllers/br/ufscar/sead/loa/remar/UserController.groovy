@@ -60,7 +60,7 @@ class UserController {
     @Transactional(readOnly=false)
     def confirmNewUser(){
 
-        println params.Token
+        log.debug params.Token
         if(EmailToken.findByToken(params.Token)){
             def userId = EmailToken.findByToken(params.Token).idOwner
             def currentNewUser = User.findById(userId)
@@ -68,7 +68,7 @@ class UserController {
             currentNewUser.enabled = true
   //          currentNewUser.save()
             saveCamundaDB(currentNewUser)
-            println "Token correto - cadastro liberado"
+            log.debug "Token correto - cadastro liberado"
             render(view: '/static/emailuser')
         }
         else
@@ -93,7 +93,7 @@ class UserController {
                     "http://${request.serverName}:${request.serverPort}/user/email/confirm?Token=${newToken.getToken()}"
         }
 
-        println "metodo do email"
+        log.debug "metodo do email"
 
     }
     @Transactional(readOnly=false)
@@ -107,7 +107,7 @@ class UserController {
             user.password = params.confirmPassword
             user.accountLocked = false
             user.accountExpired = false
-            println "password alterado"
+            log.debug "password alterado"
 
         }
 
@@ -135,12 +135,12 @@ class UserController {
         def rest = new RestBuilder()
 
         def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?secret=6LdA8QkTAAAAACHA9KoBPT1BXXBrJpQNJfCGTm9x&response=" + captcha + "&remoteip=" + userIP)
-        println resp.json as JSON
+        log.debug resp.json as JSON
         if (resp.json.success == true) {
-            println params.email
-            println User.findByEmail(params.email)
+            log.debug params.email
+            log.debug User.findByEmail(params.email)
             if (User.findByEmail(params.email)) {
-                println User.findByEmail(params.email)
+                log.debug User.findByEmail(params.email)
                 //User.findByEmail(params.email).passwordExpired = true  NAO!
                 String charset = (('A') + ('0'..'9').join())
                 Integer length = 9
@@ -179,7 +179,7 @@ class UserController {
         def rest = new RestBuilder()
         
         def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?secret=6LdA8QkTAAAAACHA9KoBPT1BXXBrJpQNJfCGTm9x&response="+captcha+"&remoteip="+userIP)
-        println resp.json as JSON
+        log.debug resp.json as JSON
         if(resp.json.success==true){ //true recaptcha
             if (userInstance == null) {
                 notFound()
@@ -361,8 +361,8 @@ class UserController {
     @Transactional
     def makeDeveloper() {
         UserRole.create(springSecurityService.getCurrentUser() as User, Role.findByAuthority("ROLE_DEV"), true)
-        println("Deu Certo")
-        println(params.fullName)
+        log.debug("Deu Certo")
+        log.debug(params.fullName)
         render(view:"/static/newDeveloper")
 
     }
@@ -393,7 +393,7 @@ class UserController {
                     autocompleteAlternatives +=users.getUsername() + ",";
                 }
             }
-            println(autocompleteAlternatives)
+            log.debug(autocompleteAlternatives)
             render autocompleteAlternatives
         }
     }

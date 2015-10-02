@@ -65,7 +65,7 @@ class ResourceController {
             resourceInstance.comment = war.originalFilename + " isn't a war!"
             resourceInstance.save flush: true
             redirect action: "index"
-            println "not war"
+            log.debug "not war"
             return
         }
 
@@ -78,7 +78,7 @@ class ResourceController {
             resourceInstance.comment = war.originalFilename + " doesn't contain a manifest.json."
             resourceInstance.save flush: true
             redirect action: "index"
-            println "missng manifest"
+            log.debug "missng manifest"
             return
         }
 
@@ -94,7 +94,7 @@ class ResourceController {
             resourceInstance.comment = war.originalFilename + " doesn't contain a valid manifest.json."
             resourceInstance.save flush: true
             redirect action: "index"
-            println "invalid manifest"
+            log.debug "invalid manifest"
             return
         }
 
@@ -114,7 +114,7 @@ class ResourceController {
             resourceInstance.comment = "Missing 'width' property in manifest.json."
             resourceInstance.save flush: true
             redirect action: "index"
-            println "invalid manifest"
+            log.debug "invalid manifest"
             return
         }
         else {
@@ -129,7 +129,7 @@ class ResourceController {
             resourceInstance.comment = "Missing 'height' property in manifest.json."
             resourceInstance.save flush: true
             redirect action: "index"
-            println "invalid manifest"
+            log.debug "invalid manifest"
             return
         }
         else {
@@ -147,7 +147,7 @@ class ResourceController {
                 resourceInstance.comment = "moodleBD.json file not found"
                 resourceInstance.save flush: true
                 redirect action: "index"
-                println "moodleBD.json file not found"
+                log.debug "moodleBD.json file not found"
                 return
             }
             else {
@@ -167,7 +167,7 @@ class ResourceController {
                 resourceInstance.comment = "moodle.js file not found"
                 resourceInstance.save flush: true
                 redirect action: "index"
-                println "moodle.js file not found!!!"
+                log.debug "moodle.js file not found!!!"
                 return
             }
             else {
@@ -188,7 +188,7 @@ class ResourceController {
             resourceInstance.comment = "${manifest.uri}-banner.png not found!"
             resourceInstance.save flush: true
             redirect action: "index"
-            println "banner not found"
+            log.debug "banner not found"
             return
         }
 
@@ -206,7 +206,7 @@ class ResourceController {
             resourceInstance.comment = "${manifest.bpmn}.bpmn not found!"
             resourceInstance.save flush: true
             redirect action: "index"
-            println "bpmn not found"
+            log.debug "bpmn not found"
             return
         }
 
@@ -219,7 +219,7 @@ class ResourceController {
             resourceInstance.comment = "source folder not found"
             resourceInstance.save flush: true
             redirect action: "index"
-            println "source folder not found"
+            log.debug "source folder not found"
             return
         }
 
@@ -234,7 +234,7 @@ class ResourceController {
 
 
         if(resourceInstance.hasErrors()) {
-            println resourceInstance.errors
+            log.debug resourceInstance.errors
             respond resourceInstance.errors, view:"create"
         } else {
 

@@ -19,14 +19,14 @@ class MoodleController {
             instance.installedAt = new Date()
             instance.active = true
             instance.save flush: true
-            println "moodle saved: ${instance.name}"
+            log.debug "moodle saved: ${instance.name}"
         }
         else {
             instance.active = true
 
             instance.save flush: true
 
-            println "moodle reactivated: ${instance.name}"
+            log.debug "moodle reactivated: ${instance.name}"
         }
     }
 
@@ -43,7 +43,7 @@ class MoodleController {
             return
         }
 
-        println params.domain
+        log.debug params.domain
         def http = new HTTPBuilder(params.domain)
         def resp = JSON.parse(http.post(path: "/webservice/rest/server.php",
                              query: [wstoken: "647c093b186a187a0ac89884c8c79795",
@@ -110,7 +110,7 @@ class MoodleController {
 
                 if (!n.moodleUrl) {
                     i.remove()
-                    println "removed."
+                    log.debug "removed."
                 }
             }
 
@@ -144,7 +144,7 @@ class MoodleController {
     }
 
     def send() {
-        println params
+        log.debug params
         params.remove("controller")
         params.remove("format")
         params.remove("action")
@@ -169,11 +169,11 @@ class MoodleController {
                  table_name: table,
                  wstoken: "647c093b186a187a0ac89884c8c79795",
                  wsfunction: "mod_remarmoodle_insert_record"]
-        println "~~~~~~~"
-        println q
-        println "~~~~~~~"
+        log.debug "~~~~~~~"
+        log.debug q
+        log.debug "~~~~~~~"
         def http = new HTTPBuilder("http://remar.dc.ufscar.br:9090")
-        println http.post(path: "/webservice/rest/server.php",
+        log.debug http.post(path: "/webservice/rest/server.php",
                 query: q) as String
         return
         //def resp = JSON.parse(http.post(path: "/moodle/webservice/rest/server.php",
@@ -181,6 +181,6 @@ class MoodleController {
 
 
 
-        println "resp: " + resp
+        log.debug "resp: " + resp
     }
 }

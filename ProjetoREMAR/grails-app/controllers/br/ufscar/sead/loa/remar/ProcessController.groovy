@@ -31,7 +31,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
     MailService mailService
 
     def start() {
-        println params.id
+        log.debug params.id
         def processId
         try {
             processId = runtimeService.startProcessInstanceByKey(params.id).getId()
@@ -98,7 +98,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
         db.deploy();
         db.activateProcessDefinitionsOn(date)
 
-        //println repositoryService.getProcessDefinition(params.id)
+        //log.debug repositoryService.getProcessDefinition(params.id)
 
         //repositoryService.getProcessDefinition("ForceProcess")
 
@@ -109,7 +109,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
 
         //session.processId =  runtimeService.startProcessInstanceByKey("ArrozProcess").getId()
 
-        // println session.processId;
+        // log.debug session.processId;
 
 
         render "success"
@@ -118,7 +118,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
     }
 
     def undeploy() {
-        println params.id
+        log.debug params.id
         repositoryService.deleteDeployment(params.id, true)
 
         render "ok"
@@ -173,7 +173,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
             }
         }
         if(list){
-            println list[0][3]
+            log.debug list[0][3]
             render(view: "userProcesses", model:[processes: list])
         }
         else{
@@ -204,13 +204,13 @@ class ProcessController implements JavaDelegate, ExecutionListener{
 
 
     def finishedProcess() {
-        println Resource.findByWeb(true)
+        log.debug Resource.findByWeb(true)
         def webVersion = Resource.findByWeb(true)
         render(view: "finishedProcess", model: [web: webVersion])
     }
 
     def completeTask() {
-//        println params.taskId
+//        log.debug params.taskId
 //        def processId = taskService.createTaskQuery().taskId(params.taskId).singleResult().processInstanceId
 //
 //        taskService.complete(params.taskId)
@@ -249,7 +249,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
             json = JSON.parse("{files:[]}")
         }
 
-        println json
+        log.debug json
         def task = taskService.createTaskQuery().taskId(params.taskId).singleResult()
         if (task) {
             if (task.delegationState == DelegationState.PENDING) {
@@ -257,7 +257,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
                     def destination = servletContext.getRealPath("/data/users/${task.owner}/${task.processInstanceId}")
                     json.files.each { file ->
                         file = file as String
-                        println file
+                        log.debug file
                         def fileName =  file.substring(file.lastIndexOf('/') + 1, file.length())
                         new AntBuilder().copy(file: file, tofile: destination + "/" + fileName)
                     }
@@ -283,12 +283,12 @@ class ProcessController implements JavaDelegate, ExecutionListener{
         def processId = params.processId
         def uri = runtimeService.getVariable(processId, "resourceUri")
         List<Task> allTasks = taskService.createTaskQuery().processInstanceId(processId).list()
-        println params
+        log.debug params
         params.remove("action")
         params.remove("format")
         params.remove("controller")
         params.remove("processId")
-        println params
+        log.debug params
         def resourceName = runtimeService.getVariable(processId, "resourceName")
         int i = 0;
 
@@ -315,14 +315,14 @@ class ProcessController implements JavaDelegate, ExecutionListener{
 
                 } else {
                     //TODO
-                    println "else uehauhea!!!"
+                    log.debug "else uehauhea!!!"
                 }
                 i++
         }
 
 
         redirect uri:"/process/tasks/overview/$processId"
-        //println params
+        //log.debug params
 
 
     }
@@ -330,8 +330,8 @@ class ProcessController implements JavaDelegate, ExecutionListener{
 
     @Override
     void notify(DelegateExecution delegateExecution) throws Exception {
-        println "notify"
-        println delegateExecution.processInstanceId
+        log.debug "notify"
+        log.debug delegateExecution.processInstanceId
 
         if (delegateExecution.currentActivityId == 'start') {
             redirect uri: "/process/tasks/overview/${delegateExecution.processInstanceId}"
@@ -359,9 +359,9 @@ class ProcessController implements JavaDelegate, ExecutionListener{
 
             def resourceFolder = new File(servletContext.getRealPath("/data/users/${ownerUsername}/${delegateExecution.processInstanceId}"))
             def instanceFolder = new File(servletContext.getRealPath("/published/${time.substring(0, time.length() - 4)}"))
-            println "instanceFolder: " + instanceFolder
+            log.debug "instanceFolder: " + instanceFolder
             def json = JSON.parse(Resource.get(runtimeService.getVariable(delegateExecution.processInstanceId, 'resourceId') as String).files)
-            println json
+            log.debug json
 
             new AntBuilder().copy(todir: "${instanceFolder}/web") {
                 fileset(dir: servletContext.getRealPath("/data/resources/sources/${resource.uri}/base"))
@@ -374,7 +374,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
 
             json.each {file, destinationFolder ->
                 new AntBuilder().copy(file: "${resourceFolder}/${file}", tofile: "${instanceFolder}/web/${destinationFolder}/${file}", overwrite: true)
-                println "each"
+                log.debug "each"
             }
 
             session.processFinished = true
@@ -395,7 +395,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
         newResource.type = 'public'
         newResource.image = params.resourceImage
         newResource.name = params.resourceName
-        println params.resourceWidth.toInteger()
+        log.debug params.resourceWidth.toInteger()
         newResource.width = params.int('resourceWidth')
         newResource.height = params.int('resourceHeight')
 

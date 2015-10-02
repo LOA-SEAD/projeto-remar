@@ -15,7 +15,7 @@ class GenerateGameService {
     def serviceMethod(Execution execution) {
 
 
-        println "No service method"
+        log.debug "No service method"
         def session = RequestContextHolder.currentRequestAttributes().getSession()
         def dataPath = ServletContextHolder.getServletContext().getRealPath("/data")
         def userPath = new File(dataPath, "/" + session.userId)

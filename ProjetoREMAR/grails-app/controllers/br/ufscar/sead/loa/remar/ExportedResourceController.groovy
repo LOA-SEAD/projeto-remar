@@ -14,11 +14,11 @@ class ExportedResourceController {
 
     def save(ExportedResource exportedResourceInstance) {
         /*if (exportedResourceInstance.hasErrors()) {
-            println("Someone tried to register a new moodlegame but it doesn't worked:")
-            println(exportedResourceInstance.errors)
+            log.debug("Someone tried to register a new moodlegame but it doesn't worked:")
+            log.debug(exportedResourceInstance.errors)
         }
         else {
-            println exportedResourceInstance as JSON
+            log.debug exportedResourceInstance as JSON
             //moodlegame.save flush:true
             //redirect controller: "MoodleGame", action: "accountPublishConfig", id: moodlegame.id
         }*/
@@ -119,7 +119,7 @@ class ExportedResourceController {
 
         def time = exportedResourceInstance.exportedAt.getTime() as String
         def url = "/published/${time.substring(0, time.length() - 4)}"
-        println "Url: " + url
+        log.debug "Url: " + url
 
         new RequestMap(url: url + '/**', configAttribute: 'permitAll').save flush: true
         springSecurityService.clearCachedRequestmaps()
@@ -209,7 +209,7 @@ class ExportedResourceController {
                 query: [wstoken: "647c093b186a187a0ac89884c8c79795",
                         wsfunction: "mod_remarmoodle_create_table",
                         json: file.text])
-        println "Resp: " + resp
+        log.debug "Resp: " + resp
 
         //Save the table name in the object
         exportedResourceInstance.moodleTableName = inputJson.table_name

@@ -8,17 +8,17 @@ import redis.clients.jedis.JedisPubSub
 class RedisListener extends JedisPubSub {
     @Override
     void onMessage(String channel, String message) {
-        println "message @ " + channel + ": " + message
+        log.debug "message @ " + channel + ": " + message
     }
 
     @Override
     void onPMessage(String pattern, String channel, String message) {
-        println "pmessage @ " + channel + ": " + message
+        log.debug "pmessage @ " + channel + ": " + message
     }
 
     @Override
     void onSubscribe(String channel, int i) {
-        println "subscribe: " + channel
+        log.debug "subscribe: " + channel
 
     }
 
@@ -34,7 +34,7 @@ class RedisListener extends JedisPubSub {
 
     @Override
     void onPSubscribe(String channel, int i) {
-        println "pattern subscribe: " + channel
+        log.debug "pattern subscribe: " + channel
 
     }
 }

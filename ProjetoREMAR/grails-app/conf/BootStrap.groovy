@@ -24,13 +24,13 @@ class BootStrap {
         def found = allRoles.findAll {it.authority == "ROLE_ADMIN"}
         if (found == []) {
             def adminRole = new Role(authority: "ROLE_ADMIN").save flush: true
-            println "ROLE_ADMIN inserted"
+            log.info "ROLE_ADMIN inserted"
         }
 
         found = allRoles.findAll {it.authority == "ROLE_DEV"}
         if (found == []) {
             def devRole = new Role(authority: "ROLE_DEV").save flush: true
-            println "ROLE_DEV inserted"
+            log.info "ROLE_DEV inserted"
         }
 
         def adminUser = User.findByFirstName("admin")
@@ -67,12 +67,12 @@ class BootStrap {
             UserRole.create(userInstance, Role.findByAuthority("ROLE_ADMIN"), true)
             UserRole.create(userInstance, Role.findByAuthority("ROLE_DEV"), true)
 
-            println "admin user inserted"
+            log.info "admin user inserted"
         }
 
         def guestUser = User.findByFirstName("guest")
 
-        println "guestUser: " + guestUser
+        log.info "guestUser: " + guestUser
 
         if(guestUser == null) {
             def guestUserInstance = new User (
@@ -105,7 +105,7 @@ class BootStrap {
             UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_PROF"), true)
             UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_DEV"), true)
 
-            println "guest user inserted"
+            log.info "guest user inserted"
         }
 
         def platforms = Platform.findAll();
@@ -145,7 +145,7 @@ class BootStrap {
 //            new RequestMap(url: '', configAttribute: '').save()
 
 
-        println "Bootstrap: done"
+        log.info "Bootstrap: done"
     }
     def destroy = {
     }
