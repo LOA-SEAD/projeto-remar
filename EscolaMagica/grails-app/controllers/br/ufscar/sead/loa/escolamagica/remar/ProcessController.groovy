@@ -28,8 +28,8 @@ class ProcessController {
 //
 //    def newVersionsTask(){
 //        def task = taskService.createTaskQuery().processInstanceId(session.processId).taskDefinitionKey(params.id).singleResult()
-//        println params.id
-//        println task
+//        log.debug params.id
+//        log.debug task
 //        if((task != null)&&(params.id == "newVersions")){
 //            redirect(controller:"game", action: "newVersion")
 //        }
@@ -42,8 +42,8 @@ class ProcessController {
 //    def questionTask() {
 //
 //        def task = taskService.createTaskQuery().processInstanceId(session.processId).taskDefinitionKey(params.id).singleResult()
-//        println params.id
-//        println task
+//        log.debug params.id
+//        log.debug task
 //        if ((task != null) && (params.id == "createQuestions")) {
 //            redirect(controller: "question", action: "index")
 //        } else {
@@ -56,7 +56,7 @@ class ProcessController {
 //
 //        def task = taskService.createTaskQuery().processInstanceId(session.processId).taskDefinitionKey(params.id).singleResult()
 //        taskService.complete(task.id)
-//        println session.processId
+//        log.debug session.processId
 //        if (params.id == "publishService") {
 //            redirect(controller: "")
 //        }
@@ -67,7 +67,7 @@ class ProcessController {
 //    @Override
 //    void notify(DelegateExecution delegateExecution) throws Exception {
 //        if (delegateExecution.eventName == EVENTNAME_START && delegateExecution.currentActivityId != "EndEvent") {
-//            println "Notify!"
+//            log.debug "Notify!"
 //            if (delegateExecution.currentActivityId == "createQuestions") {
 //                redirect action: "questionTask", id: delegateExecution.currentActivityId
 //            } else if (delegateExecution.currentActivityId == "newVersions") {

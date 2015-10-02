@@ -12,9 +12,9 @@ package br.ufscar.sead.loa.escolamagica.remar
 class WebVersionService {}
 //
 //    def serviceMethod(Execution execution) {
-//        println "no service method"
+//        log.debug "no service method"
 //
-//            println "No service method"
+//            log.debug "No service method"
 //            def session = RequestContextHolder.currentRequestAttributes().getSession()
 //            def dataPath = ServletContextHolder.getServletContext().getRealPath("/data")
 //            def userPath = new File(dataPath, "/" + session.userId)

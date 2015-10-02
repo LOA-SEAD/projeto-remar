@@ -11,6 +11,8 @@
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
 
+import org.apache.log4j.DailyRollingFileAppender
+
 grails.config.locations = ["classpath:remar.properties"]
 
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
@@ -102,14 +104,22 @@ environments {
         grails.app.context = "/escolamagica"
     }
 }
-
 // log4j configuration
 log4j.main = {
     // Example of changing the log pattern for the default console appender:
     //
-    //appenders {
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-    //}
+
+appenders {
+appender new DailyRollingFileAppender(
+name: 'dailyAppender',
+datePattern: "'.'yyyy-MM-dd",  // See the API for all patterns.
+fileName: "logs/${grails.util.Metadata.current.'app.name'}.log",
+layout: pattern(conversionPattern:'%d [%t] %-5p %c{2} %x - %m%n'))
+}
+
+root {
+info 'dailyAppender'
+} 
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
@@ -123,7 +133,6 @@ log4j.main = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
-
 
 // Added by the Spring Security Core plugin:
 

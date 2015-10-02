@@ -78,7 +78,7 @@ class QuestionController {
     }
 
     def confirming() {
-        println params.id
+        log.debug params.id
         //redirect(controller: "process",action: "completeTask", id: "confirming")
     }
 
@@ -94,12 +94,12 @@ class QuestionController {
 
         //   def servletContext = ServletContextHolder.servletContext
         //  def storagePath = servletContext.getRealPath("/")
-        //   println storagePath
+        //   log.debug storagePath
 
         def dataPath = servletContext.getRealPath("/data")
         def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
         instancePath.mkdirs()
-        println instancePath
+        log.debug instancePath
 
         def fw = new FileWriter("$instancePath/perguntas.xml")
         def xml = new MarkupBuilder(fw)
@@ -153,17 +153,17 @@ class QuestionController {
             return
         }
 
-        println "=="
-        println session.user.id
-        println "=="
+        log.debug "=="
+        log.debug session.user.id
+        log.debug "=="
 
         questionInstance.processId = session.processId as long
         questionInstance.taskId = session.taskId as long
         questionInstance.ownerId = session.user.id as long
 
-        println "=="
-        println questionInstance.ownerId;
-        println "=="
+        log.debug "=="
+        log.debug questionInstance.ownerId;
+        log.debug "=="
 
         if (questionInstance.hasErrors()) {
             respond questionInstance.errors, view: 'create'

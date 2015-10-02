@@ -39,8 +39,8 @@ class QuestionController {
             return
         }
 
-        println session.processId
-        println session.taskId
+        log.debug session.processId
+        log.debug session.taskId
 
         def list = Question.findAllByProcessIdAndTaskId(session.processId, session.taskId)
         render view:"index", model:[questionInstanceList: list, questionInstanceCount: Question.count(), userName: user.getUsername(), userId: user.getId()]
@@ -175,7 +175,7 @@ class QuestionController {
                 }
         )
 
-        println builder.toString()
+        log.debug builder.toString()
 
         def dataPath = servletContext.getRealPath("/data")
         def userPath = new File(dataPath, "/" + springSecurityService.getCurrentUser().getId() + "/" + session.taskId)
@@ -196,7 +196,7 @@ class QuestionController {
 
         )
 
-        println builder.toString()
+        log.debug builder.toString()
         file = new File("${file.parentFile}/files.json")
         pw = new PrintWriter(file);
         pw.write(builder.toString());
@@ -216,6 +216,6 @@ class QuestionController {
                 files: ["123", "123333", "1343443"]
         )
 
-        println builder.toString()
+        log.debug builder.toString()
     }
 }

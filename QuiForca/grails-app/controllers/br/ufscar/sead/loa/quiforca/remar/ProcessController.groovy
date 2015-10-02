@@ -19,7 +19,7 @@ class ProcessController  {}
 //    def start(){
 //        session.processId = runtimeService.startProcessInstanceByKey("ForcaProcess").getId()
 //        session.userId = springSecurityService.getCurrentUser().getId()
-//        println "process started"
+//        log.debug "process started"
 //    }
 //
 //    def complete() {
@@ -27,7 +27,7 @@ class ProcessController  {}
 //
 //        if (task != null) {
 //            taskService.complete(task.id)
-//            println params.id + " completed "
+//            log.debug params.id + " completed "
 //        }
 //    }
 //

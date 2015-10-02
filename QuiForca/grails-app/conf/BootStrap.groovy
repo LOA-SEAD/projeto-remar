@@ -18,7 +18,7 @@ class BootStrap {
         // *************************
 
 
-        println "Bootstrap: done"
+        log.debug "Bootstrap: done"
 
     }
     def destroy = {
