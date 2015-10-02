@@ -6,7 +6,7 @@ grails.project.work.dir = "target/work"
 grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
-grails.server.port.http = 8080
+grails.server.port.http = 6060
 
 grails.project.fork = [
     // configure settings for compilation JVM, note that if you alter the Groovy version forked compilation is required
@@ -63,14 +63,11 @@ grails.project.dependency.resolution = {
         compile ':cache:1.1.8'
         compile ":asset-pipeline:1.9.9"
         compile ":spring-security-core:2.0-RC4"
-        compile ":camunda:0.4.0"
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate4:4.3.6.1" // or ":hibernate:3.6.10.18"
         runtime ":database-migration:1.4.0"
-        runtime ":redis:1.6.5"
         runtime ':twitter-bootstrap:3.3.4' // current: 3.3.4
-        runtime ":redis:1.6.5"
         // runtime ":jquery:1.11.1"
 
         // Uncomment these to enable additional asset-pipeline capabilities
