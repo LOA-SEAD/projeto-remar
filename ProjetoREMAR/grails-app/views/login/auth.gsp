@@ -1,97 +1,60 @@
 <!DOCTYPE html>
 <html lang="en-IN">
 <head>
-    <meta name="layout" content="new-main-external">
     <meta charset="utf-8">
-    <meta name="generator" content="Bootply" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Entrar</title>
-    <link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="${assetPath(src: 'favicon.png')}?v=2">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
 
-    <g:javascript src="../assets/js/jquery.min.js" />
-    <g:javascript src="../assets/js/jquery.validate.js" />
+    <link type="text/css" rel="stylesheet" href="../css/style.css"/>
 
-    %{--<script type="text/javascript">--}%
-        %{--window.fbAsyncInit = function() {--}%
-            %{--FB.init({--}%
-                %{--appId      : '1621035434837394',--}%
-                %{--xfbml      : true,--}%
-                %{--version    : 'v2.4'--}%
-            %{--});--}%
-        %{--};--}%
-
-        %{--(function(d, s, id){--}%
-            %{--var js, fjs = d.getElementsByTagName(s)[0];--}%
-            %{--if (d.getElementById(id)) {return;}--}%
-            %{--js = d.createElement(s); js.id = id;--}%
-            %{--js.src = "//connect.facebook.net/en_US/sdk.js";--}%
-            %{--fjs.parentNode.insertBefore(js, fjs);--}%
-        %{--}(document, 'script', 'facebook-jssdk'));--}%
-
-        %{--function facebookLogin() {--}%
-            %{--FB.getLoginStatus(function(response) {--}%
-                %{--if (response.status === 'connected') {--}%
-                    %{--console.log("Conectado");--}%
-                    %{--// logged in and connected user, someone you know--}%
-                    %{--window.location ="${createLink(controller:'facebook', action:'auth')}";--}%
-                %{--}--}%
-                %{--else{--}%
-                    %{--console.log("nao conectado");--}%
-                %{--}--}%
-            %{--});--}%
-        %{--}--}%
-    %{--</script>--}%
+    <title>REMAR</title>
+    <link rel="shortcut icon" href="${assetPath(src: 'favicon.png')}?v=2" type="image/x-icon">
 
 </head>
 <body>
-    <form action='/j_spring_security_check' method='POST'>
-        <div class="form-group has-feedback">
-            <input type="text" class="form-control-remar" placeholder="Nome de usuário" name='j_username' >
-            <span class="glyphicon glyphicon-user form-control-feedback"></span>
-        </div>
-        <div class="form-group has-feedback">
-            <input type="password" class="form-control-remar" placeholder="Senha" name='j_password'>
-            <input type="hidden" name="_spring_security_remember_me" value="on">
+<div class="container">
+    ${flash.message}
+    <div class="row">
+        <div class="card white z-depth-4 col s12 m6 l4 offset-m3 offset-l4 offset-vertical-15">
+            <div class="card-content">
+                <div class="card-image">
+                    <img src="/assets/img/logo/logo-remar-preto-transparente.png">
+                </div> <!-- card-image -->
+                <form action="/j_spring_security_check" method="POST">
+                    <div class="input-field">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input id="username" name="j_username" type="text">
+                        <label for="username">Usuário</label>
+                    </div> <!-- input-field -->
 
-            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-        </div>
-        <div class="row">
-            <div class="col-xs-4 pull-right">
-                <button type="submit" class="btn btn-primary btn-block btn-flat">Entrar</button>
-            </div><!-- /.col -->
-        </div>
-    </form>
+                    <div class="input-field">
+                        <i class="material-icons prefix">lock</i>
+                        <input id="password" name="j_password" type="password">
+                        <label for="password">Senha</label>
+                    </div> <!-- input-field -->
+                    <div class="input-field center">
+                        <button type="submit" class="btn waves-effect waves-light">Entrar</button>
+                    </div>
+                    <div class="input-field center">
+                        <g:link class="margin" mapping="resetPassword">Esqueceu sua senha?</g:link><br>
+                        <g:link  controller="user" action="create">Cadastre-se</g:link>
+                    </div> <!-- input field -->
+                </form>
+            </div> <!-- card-content -->
+        </div> <!-- card -->
+    </div> <!-- row -->
+</div> <!-- container -->
 
-
-    <div class="social-auth-links text-center">
-        <!--
-        <p>- OR -</p>
-        %{--<fb:login-button perms="email,public_profile" scope="public_profile,email,publish_actions,user_about_me" onlogin="facebookLogin();" size="large">--}%
-            %{--<g:message  code="Login por Facebook"/>--}%
-        %{--</fb:login-button>--}%
-        <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Entrar com o Facebook</a>
-        -->
-   </div>
-
-
-    <div class="footer-span"><g:link class="footer-span" mapping="resetPassword">Esqueci a Senha!</g:link></div>
-    <div class="footer-span">Ainda n&atilde;o est&aacute; cadastrado? <g:link class="footer-span" controller="user" action="create" >Registre-se</g:link> </div>
-
-    <g:if test='${flash.message}'>
-        <script>
-            $('.form-group').addClass('has-error');
-
-            $('.form-control-feedback').after($("<div />")
-                                        .addClass("control-label")
-                                        .text("Usuário e senha não coincidem"));
-
-            $("input").focus(function(){
-                $('.form-group').removeClass('has-error');
-                $('.control-label').remove();
-                $('input').off("focus");
-            });
-        </script>
-    </g:if>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="../js/materialize.min.js"></script>
 
 </body>
 </html>
