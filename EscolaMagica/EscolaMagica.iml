@@ -57,13 +57,14 @@
       <excludeFolder url="file://$MODULE_DIR$/target/work/plugin-build-classes" />
       <excludeFolder url="file://$MODULE_DIR$/target/work/plugin-classes" />
       <excludeFolder url="file://$MODULE_DIR$/target/work/plugin-provided-classes" />
+      <excludeFolder url="file://$MODULE_DIR$/target/work/process-lock" />
       <excludeFolder url="file://$MODULE_DIR$/target/work/resources" />
       <excludeFolder url="file://$MODULE_DIR$/target/work/scriptCache" />
       <excludeFolder url="file://$MODULE_DIR$/target/work/tomcat" />
+      <excludeFolder url="file://$MODULE_DIR$/web-app/data/source" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="grails-2.4.4" level="application" />
     <orderEntry type="module-library" exported="">
       <library name="Grails User Library (EscolaMagica)">
         <CLASSES>
@@ -112,5 +113,6 @@
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="EscolaMagica-grailsPlugins" />
+    <orderEntry type="library" name="grails-2.4.4" level="application" />
   </component>
 </module>
