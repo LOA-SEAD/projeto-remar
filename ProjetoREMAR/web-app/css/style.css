@@ -1,3 +1,8 @@
 .offset-vertical-15 {
     margin-top: 15%;
 }
+
+span.align-with-icon {
+    position: relative;
+    bottom: 0.5rem;
+}

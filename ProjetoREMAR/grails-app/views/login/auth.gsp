@@ -21,7 +21,6 @@
 </head>
 <body>
 <div class="container">
-    ${flash.message}
     <div class="row">
         <div class="card white z-depth-4 col s12 m6 l4 offset-m3 offset-l4 offset-vertical-15">
             <div class="card-content">
@@ -29,6 +28,13 @@
                     <img src="/assets/img/logo/logo-remar-preto-transparente.png">
                 </div> <!-- card-image -->
                 <form action="/j_spring_security_check" method="POST">
+                    <g:if test="${flash.message}">
+                    <div class="input-field" id="input-login-error">
+                        <i class="material-icons small red-text">error</i><span class="align-with-icon red-text">
+                        Usuário ou senha inválidos</span>
+                        <div class="divider"></div>
+                    </div>
+                    </g:if>
                     <div class="input-field">
                         <i class="material-icons prefix">account_circle</i>
                         <input id="username" name="j_username" type="text">
