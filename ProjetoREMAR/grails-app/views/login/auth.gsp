@@ -1,23 +1,8 @@
 <!DOCTYPE html>
-<html lang="en-IN">
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="shortcut icon" href="${assetPath(src: 'favicon.png')}?v=2">
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
-
-    <link type="text/css" rel="stylesheet" href="../css/style.css"/>
-
-    <title>REMAR</title>
-    <link rel="shortcut icon" href="${assetPath(src: 'favicon.png')}?v=2" type="image/x-icon">
-
+    <meta name="layout" content="base">
+    <title>REMAR – Login</title>
 </head>
 <body>
 <div class="container">
@@ -30,7 +15,7 @@
                 <form action="/j_spring_security_check" method="POST">
                     <g:if test="${flash.message}">
                     <div class="input-field" id="input-login-error">
-                        <i class="material-icons small red-text">error</i><span class="align-with-icon red-text">
+                        <i class="material-icons small red-text">error</i><span class="align-with-icon-small red-text">
                         Usuário ou senha inválidos</span>
                         <div class="divider"></div>
                     </div>
@@ -51,16 +36,12 @@
                     </div>
                     <div class="input-field center">
                         <g:link class="margin" mapping="resetPassword">Esqueceu sua senha?</g:link><br>
-                        <g:link  controller="user" action="create">Cadastre-se</g:link>
+                        <g:link mapping="signup">Cadastre-se</g:link>
                     </div> <!-- input field -->
                 </form>
             </div> <!-- card-content -->
         </div> <!-- card -->
     </div> <!-- row -->
 </div> <!-- container -->
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script type="text/javascript" src="../js/materialize.min.js"></script>
-
 </body>
 </html>
