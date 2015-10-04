@@ -2,7 +2,20 @@
     margin-top: 15%;
 }
 
-span.align-with-icon {
+.offset-vertical-10 {
+    margin-top: 10%;
+}
+
+.offset-vertical-5 {
+    margin-top: 5%;
+}
+
+span.align-with-icon-tiny {
+    position: relative;
+    bottom: 0.4rem;
+}
+
+span.align-with-icon-small {
     position: relative;
     bottom: 0.5rem;
 }
