@@ -38,7 +38,7 @@
                                 %{--Certifique-se que você tirou o foco dos campos editáveis antes de clicar em "Enviar" <i class="fa fa-smile-o"></i><br>--}%
                             %{--</div>--}%
                             <div class="pull-right">
-                                <g:link name="create" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Nova Questão</g:link>
+                                <g:link name="create" class="btn btn-success btn-lg"action="create">Nova Questão</g:link>
                                 <g:submitButton id="delete" name="delete" class="delete btn btn-danger btn-lg new-question-create-button" value="Remover" alt="Remove questões selecionadas"/>
                                 <br />
                                 <br />
