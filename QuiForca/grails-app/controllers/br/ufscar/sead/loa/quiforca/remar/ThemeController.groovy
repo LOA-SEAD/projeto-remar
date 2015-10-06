@@ -214,11 +214,11 @@ class ThemeController {
 
     }
 
-    def choose() {
+    def choose(Theme instance) {
         def list = []
-        list.add(servletContext.getRealPath("/data/${session.user.id}/themes/${params.id}/inicio.png"))
-        list.add(servletContext.getRealPath("/data/${session.user.id}/themes/${params.id}/papel.png"))
-        list.add(servletContext.getRealPath("/data/${session.user.id}/themes/${params.id}/icon.png"))
+        list.add(servletContext.getRealPath("/data/${instance.ownerId}/themes/${params.id}/inicio.png"))
+        list.add(servletContext.getRealPath("/data/${instance.ownerId}/themes/${params.id}/papel.png"))
+        list.add(servletContext.getRealPath("/data/${instance.ownerId}/themes/${params.id}/icon.png"))
 
         def builder = new JsonBuilder()
         def json = builder(

@@ -4,6 +4,11 @@
 <html>
     <head>
         <meta name="layout" content="main">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <g:javascript src="editableTable.js"/>
         <g:javascript src="scriptTable.js"/>
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'stylesheet.css')}" />
@@ -17,6 +22,7 @@
 
     </head>
     <body>
+
         <div class="page-header">
             <h1> Minhas Questões</h1>
         </div>
@@ -32,8 +38,8 @@
                                 %{--Certifique-se que você tirou o foco dos campos editáveis antes de clicar em "Enviar" <i class="fa fa-smile-o"></i><br>--}%
                             %{--</div>--}%
                             <div class="pull-right">
-                                <g:link name="create" class="btn btn-success btn-lg" action="create">Nova Questão</g:link>
-                                <g:submitButton id="delete" name="delete" class="delete btn btn-danger new-question-create-button" value="Remover" alt="Remove questões selecionadas"/>
+                                <g:link name="create" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Nova Questão</g:link>
+                                <g:submitButton id="delete" name="delete" class="delete btn btn-danger btn-lg new-question-create-button" value="Remover" alt="Remove questões selecionadas"/>
                                 <br />
                                 <br />
                             <div class="pull-right" style="margin-bottom: 15px;">
@@ -81,7 +87,7 @@
                 </div>
             </div>
             <fieldset class="buttons">
-                <g:submitButton  name="save" class="btn btn-success" value="Enviar"/>
+                <g:submitButton  name="save" class="btn btn-success btn-lg" value="Enviar"/>
                 <div class="pagination">
                     <g:paginate total="${questionInstanceCount ?: 0}" />
                 </div>
