@@ -32,38 +32,44 @@
                                 Certifique-se que você tirou o foco dos campos editáveis antes de clicar em "Enviar" <i class="fa fa-smile-o"></i><br>
                             </div>
                             <div class="pull-right">
-                                <g:submitButton name="create" class="create btn btn-info new-question-create-button" value="Nova questão" />
-                                <g:submitButton  name="delete" class="delete btn btn-danger new-question-create-button" value="Remover" alt="Remove questões selecionadas"/>
+                                <g:link class="btn btn-success btn-lg" action="create">Nova Questão</g:link>
+                                <g:submitButton id="delete" name="delete" class="delete btn btn-danger new-question-create-button" value="Remover" alt="Remove questões selecionadas"/>
                                 <br />
                                 <br />
                             </div>
 
                             <table class="table table-striped table-bordered table-hover" id="table">
                                 <thead>
-                                    <tr>
-                                        <th>Selecionar</th>
-                                        <th>Pergunta</th>
-                                        <th>Resposta</th>
-                                        <th>Categoria</th>
-                                        <th>Autor</th>
-                                    </tr>
+                                <tr>
+
+                                    <th style="text-align: center">Selecionar</th>
+                                    <th style="text-align: center" >Pergunta</th>
+                                    <th style="text-align: center">Resposta</th>
+                                    <th style="text-align: center">Categoria</th>
+                                    <th style="text-align: center" >Autor</th>
+
+
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <g:each in="${questionInstanceList}" status="i" var="questionInstance">
-                                        <tr data-id="${fieldValue(bean: questionInstance, field: "id")}" data-owner-id="${fieldValue(bean: questionInstance, field: "ownerId")}"
-                                            data-checked="false"  class="${(i % 2) == 0 ? 'even' : 'odd'}">
-                                            <td class="_not_editable" align="center"> <input class="checkbox" type="checkbox"/> </td>
+                                <g:each in="${questionInstanceList}" status="i" var="questionInstance">
+                                    <tr class="selectable_tr ${(i % 2) == 0 ? 'even' : 'odd'} " style="cursor: pointer;"
+                                        data-id="${fieldValue(bean: questionInstance, field: "id")}" data-owner-id="${fieldValue(bean: questionInstance, field: "ownerId")}"
+                                        data-checked="false"
+                                    >
 
-                                            <td>${fieldValue(bean: questionInstance, field: "statement")}</td>
+                                        <td class="_not_editable" align="center" > <input class="checkbox" type="checkbox"/> </td>
 
-                                            <td>${fieldValue(bean: questionInstance, field: "answer")} </td>
+                                        <td style="text-align: center;"  onclick='window.location = "${createLink(action: "edit", id: questionInstance.id)}"' >${fieldValue(bean: questionInstance, field: "statement")}</td>
 
-                                            <td>${fieldValue(bean: questionInstance, field: "category")} </td>
+                                        <td style="text-align: center;"  onclick='window.location = "${createLink(action: "edit", id: questionInstance.id)}"'  >${fieldValue(bean: questionInstance, field: "answer")}</td>
 
-                                            <td >${fieldValue(bean: questionInstance, field: "author")}</td>
+                                        <td style="text-align: center;"  onclick='window.location = "${createLink(action: "edit", id: questionInstance.id)}"' >${fieldValue(bean: questionInstance, field: "category")}</td>
 
-                                        </tr>
-                                    </g:each>
+                                        <td style="text-align: center;"  onclick='window.location = "${createLink(action: "edit", id: questionInstance.id)}"' >${fieldValue(bean: questionInstance, field: "author")}</td>
+
+                                    </tr>
+                                </g:each>
                                 </tbody>
                             </table>
                         </div>

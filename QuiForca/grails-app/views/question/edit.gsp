@@ -1,0 +1,47 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: marcus
+  Date: 06/10/15
+  Time: 10:44
+--%>
+
+<%@ page import="br.ufscar.sead.loa.quiforca.remar.Question" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="layout" content="main">
+</head>
+<body>
+<div class="page-header">
+    <h1> Questões - Forca</h1>
+</div>
+<div class="main-content">
+    <div class="widget">
+        <h3 class="section-title first-title"><i class="icon-table"></i> Visualização das Minhas Questões</h3>
+        <div class="widget-content-white glossed">
+            <div class="padded">
+                <div class="table-responsive">
+                    <g:if test="${flash.message}">
+                        <div class="message" role="status">${flash.message}</div>
+                        <br />
+                    </g:if>
+                    <g:form url="[resource:questionInstance, action:'update']" method="PUT" >
+                        <g:hiddenField name="version" value="${questionInstance?.version}" />
+                        <fieldset class="form">
+                            <g:render template="form"/>
+                        </fieldset>
+                        <fieldset class="buttons">
+                            <g:actionSubmit class="save btn btn-success btn-lg" action="update"
+                                            value="${message(code: 'default.button.update.laasdbel', default: 'Salvar')}"/>
+                            <g:link class="btn btn-warning btn-lg" action="index">Voltar</g:link>
+                            <g:link class="delete btn btn-danger btn-lg" action="delete"
+                                    params='[id: "${questionInstance.id}"]'>Remover</g:link>
+                        </fieldset>
+                    </g:form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

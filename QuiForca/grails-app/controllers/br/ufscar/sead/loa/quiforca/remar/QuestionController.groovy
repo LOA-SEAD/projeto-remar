@@ -49,11 +49,11 @@ class QuestionController {
 
     /*def show(Question questionInstance) {
         respond questionInstance
-    }
+    }*/
 
     def create() {
         respond new Question(params)
-    }*/
+    }
 
     @Transactional
     def save(Question questionInstance) {
@@ -63,7 +63,7 @@ class QuestionController {
         }
 
         if (questionInstance.hasErrors()) {
-            // respond questionInstance.errors, view:'create' TODO
+             respond questionInstance.errors, view:'create' TODO
             render questionInstance.errors;
             return
         }
@@ -81,6 +81,8 @@ class QuestionController {
             // TODO
         }
 
+        redirect(action: index())
+
        /* request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'question.label', default: 'Question'), questionInstance.id])
@@ -90,9 +92,9 @@ class QuestionController {
         }*/
     }
 
-    /*def edit(Question questionInstance) {
+    def edit(Question questionInstance) {
         respond questionInstance
-    }*/
+    }
 
     @Transactional
     def update(Question questionInstance) {
@@ -115,6 +117,8 @@ class QuestionController {
         } else {
             // TODO
         }
+
+        redirect(action: index())
 
         /*request.withFormat {
             form multipartForm {
