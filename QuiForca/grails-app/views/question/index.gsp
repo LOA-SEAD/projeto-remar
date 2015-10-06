@@ -25,15 +25,16 @@
                     <div class="widget-content-white glossed">
                     <div class="padded">
                         <div class="table-responsive">
-                            <div class="pull-left alert alert-info">
-                                <i class="fa fa-exclamation-triangle"></i>Favor não utilizar a tecla tab
-                                 <i class="fa fa-smile-o"></i><br>
-                                 <i class="fa fa-exclamation-triangle"></i>
-                                Certifique-se que você tirou o foco dos campos editáveis antes de clicar em "Enviar" <i class="fa fa-smile-o"></i><br>
-                            </div>
+                            %{--<div class="pull-left alert alert-info">--}%
+                                %{--<i class="fa fa-exclamation-triangle"></i>Favor não utilizar a tecla tab--}%
+                                 %{--<i class="fa fa-smile-o"></i><br>--}%
+                                 %{--<i class="fa fa-exclamation-triangle"></i>--}%
+                                %{--Certifique-se que você tirou o foco dos campos editáveis antes de clicar em "Enviar" <i class="fa fa-smile-o"></i><br>--}%
+                            %{--</div>--}%
                             <div class="pull-right">
-                                <g:link class="btn btn-success btn-lg" action="create">Nova Questão</g:link>
+                                <g:link name="create" class="btn btn-success btn-lg" action="create">Nova Questão</g:link>
                                 <g:submitButton id="delete" name="delete" class="delete btn btn-danger new-question-create-button" value="Remover" alt="Remove questões selecionadas"/>
+                                <input  type="text" id="SearchLabel" placeholder="Buscar" style="margin-left: 10px;"/>
                                 <br />
                                 <br />
                             </div>
@@ -45,7 +46,7 @@
                                     <th style="text-align: center">Selecionar</th>
                                     <th style="text-align: center" >Pergunta</th>
                                     <th style="text-align: center">Resposta</th>
-                                    <th style="text-align: center">Categoria</th>
+                                    <th style="text-align: center">Tema</th>
                                     <th style="text-align: center" >Autor</th>
 
 
@@ -64,7 +65,7 @@
 
                                         <td style="text-align: center;"  onclick='window.location = "${createLink(action: "edit", id: questionInstance.id)}"'  >${fieldValue(bean: questionInstance, field: "answer")}</td>
 
-                                        <td style="text-align: center;"  onclick='window.location = "${createLink(action: "edit", id: questionInstance.id)}"' >${fieldValue(bean: questionInstance, field: "category")}</td>
+                                        <td name="theme" id="theme" style="text-align: center;"  onclick='window.location = "${createLink(action: "edit", id: questionInstance.id)}"' >${fieldValue(bean: questionInstance, field: "category")}</td>
 
                                         <td style="text-align: center;"  onclick='window.location = "${createLink(action: "edit", id: questionInstance.id)}"' >${fieldValue(bean: questionInstance, field: "author")}</td>
 

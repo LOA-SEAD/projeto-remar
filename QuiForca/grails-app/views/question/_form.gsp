@@ -31,7 +31,7 @@
             <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required spaced_tr">
                 <td>
                     <label for="category">
-                        <g:message code="question.category.label" default="Categoria" /><span style="color:red">*</span>
+                        <g:message code="question.category.label" default="Tema" /><span style="color:red">*</span>
                     </label>
                 </td>
                 <td class="spaced_td">

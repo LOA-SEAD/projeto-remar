@@ -3,7 +3,7 @@
  */
 
 window.onload = function(){
-    $('#table').editableTableWidget();
+   // $('#table').editableTableWidget();
 
     addListeners();
 
@@ -53,7 +53,7 @@ window.onload = function(){
 
         tbody.appendChild(tr);
 
-        $('#table').editableTableWidget(); // new tr
+       // $('#table').editableTableWidget(); // new tr
         addListeners(); // new tr
 
 
@@ -208,3 +208,16 @@ function _delete(tr) {
         },
         error:function(XMLHttpRequest,textStatus,errorThrown){}});
 }
+
+$(function(){
+    $("#SearchLabel").keyup(function(){
+        _this = this;
+        $.each($("#table tbody").find("tr"), function() {
+            console.log($(this).text());
+            if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) == -1)
+                $(this).hide();
+            else
+                $(this).show();
+        });
+    });
+});
