@@ -34,9 +34,11 @@
                             <div class="pull-right">
                                 <g:link name="create" class="btn btn-success btn-lg" action="create">Nova Questão</g:link>
                                 <g:submitButton id="delete" name="delete" class="delete btn btn-danger new-question-create-button" value="Remover" alt="Remove questões selecionadas"/>
-                                <input  type="text" id="SearchLabel" placeholder="Buscar" style="margin-left: 10px;"/>
                                 <br />
                                 <br />
+                            <div class="pull-right" style="margin-bottom: 15px;">
+                                <input  type="text" id="SearchLabel" placeholder="Buscar"/>
+                            </div>
                             </div>
 
                             <table class="table table-striped table-bordered table-hover" id="table">
