@@ -57,7 +57,7 @@ class UserController {
             render(view: '/static/welcome')
         }
         else {
-            render(view: '/static/welcome')
+            response.status = 400 // TODO
         }
     }
 
