@@ -6,13 +6,13 @@
         <meta name="layout" content="main">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         %{--<g:javascript src="editableTable.js"/>--}%
         <g:javascript src="scriptTable.js"/>
+        <g:javascript src="../assets/js/jquery.min.js"/>
+        <g:javascript src="../assets/js/bootstrap.min.js"/>
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'stylesheet.css')}" />
-
+        <link rel="stylesheet" href="${resource(dir: 'assets/css', file: 'bootstrap.min.css')}" />
+        <link rel="stylesheet" href="${resource(dir: 'assets/css', file: 'modal.css')}" />
         <meta property="user-name" content="${userName}"/>
         <meta property="user-id" content="${userId}"/>
 
@@ -38,7 +38,7 @@
                                 %{--Certifique-se que você tirou o foco dos campos editáveis antes de clicar em "Enviar" <i class="fa fa-smile-o"></i><br>--}%
                             %{--</div>--}%
                             <div class="pull-right">
-                                <g:link name="create" class="btn btn-success btn-lg" action="create">Nova Questão</g:link>
+                                <button name="create" type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Nova Questão</button>
                                 <g:submitButton id="delete" name="delete" class="delete btn btn-danger btn-lg new-question-create-button" value="Remover" alt="Remove questões selecionadas"/>
                                 <br />
                                 <br />
@@ -86,7 +86,6 @@
                         </div>
                     </div>
 
-                </div>
             </div>
             <fieldset class="buttons">
                 <g:submitButton  name="save" class="btn btn-success btn-lg" value="Enviar"/>
@@ -94,6 +93,50 @@
                     <g:paginate total="${questionInstanceCount ?: 0}" />
                 </div>
             </fieldset>
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog center new-size ">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title"><i class="icon-table"></i>  Criar uma Questão</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <g:if test="${flash.message}">
+                                        <div class="message" role="status">${flash.message}</div>
+                                    </g:if>
+
+                                    <div class="padded">
+                                        <g:if test="${flash.message}">
+                                            <div class="message" role="status">${flash.message}</div>
+                                        </g:if>
+                                        <g:hasErrors bean="${questionInstance}">
+                                            <ul class="errors" role="alert">
+                                                <g:eachError bean="${questionInstance}" var="error">
+                                                    <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+                                                </g:eachError>
+                                            </ul>
+                                        </g:hasErrors>
+                                        <g:form url="[resource:questionInstance, action:'save']" >
+                                            <fieldset class="form">
+                                                <g:render template="form"/>
+                                            </fieldset>
+                                            <br />
+                                            <fieldset class="buttons">
+                                                <g:submitButton name="create" class="btn btn-success btn-lg" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+                                                <g:link class="btn btn-warning btn-lg" action="index">Voltar</g:link>
+                                            </fieldset>
+                                            </g:form>
+                                    </div>
+                                </div>
+                                %{--<div class="modal-footer">--}%
+                                    %{--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--}%
+                                %{--</div>--}%
+                            </div>
+                        </div>
+                    </div>
+            </div>
         </div>
     </body>
 </html>
