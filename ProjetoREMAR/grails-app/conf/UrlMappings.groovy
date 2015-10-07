@@ -19,7 +19,7 @@ class UrlMappings {
         "/signup/success/$id"(controller: "user", action: "signUpSuccess")
 
         // begin user mappings
-        '/user/email/confirm'(controller: 'user',action: 'confirmNewUser')
+        "/user/account/confirm/$token"(controller: 'user',action: 'confirmAccount')
         '/user/newpassword/confirm'(controller: 'user',action: 'createPassword')
         '/user/confirmation'(view: '/static/emailuser')
         // end user mappings

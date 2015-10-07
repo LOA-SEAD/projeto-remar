@@ -5,6 +5,8 @@ import grails.plugin.mail.MailService
 import grails.util.Environment
 import org.apache.commons.lang.RandomStringUtils
 import org.camunda.bpm.engine.IdentityService
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 import static org.springframework.http.HttpStatus.*
@@ -38,25 +40,29 @@ class UserController {
     }
 
     @Transactional(readOnly=false)
-    def confirmNewUser(){
+    def confirmAccount() {
+        def token = EmailToken.findByToken(params.token)
+        if(token) {
+            def user = User.findById(token.idOwner)
 
-        println params.Token
-        if(EmailToken.findByToken(params.Token)){
-            def userId = EmailToken.findByToken(params.Token).idOwner
-            def currentNewUser = User.findById(userId)
-            currentNewUser.accountLocked = false
-            currentNewUser.enabled = true
-  //          currentNewUser.save()
-            saveCamundaDB(currentNewUser)
-            println "Token correto - cadastro liberado"
-            render(view: '/static/emailuser')
+            user.accountLocked = false
+            user.enabled = true
+            token.valid = false
+            user.save flush: true
+            token.save flush: true
+
+            SecurityContextHolder.context.authentication = new UsernamePasswordAuthenticationToken(user, null,
+                    user.authoritiesHashSet())
+
+            render(view: '/static/welcome')
         }
-        else
-            render "deu errado! :("
+        else {
+            render(view: '/static/welcome')
+        }
     }
 
     def sendConfirmationMail(userEmail, userId) {
-        def token = new EmailToken(token: RandomStringUtils.random(30, true, true), idOwner: userId)
+        def token = new EmailToken(token: RandomStringUtils.random(30, true, true), idOwner: userId, valid: true)
         token.save flush: true
 
         mailService.sendMail {
@@ -65,7 +71,7 @@ class UserController {
             subject "REMAR – Confirmação de cadastro"
             html '<h3>Clique no link abaixo para confirmar seu cadastro</h3> <br>' +
                     '<br>' +
-                    "http://${request.serverName}:${request.serverPort}/user/account/confirm?token=${token.getToken()}"
+                    "http://${request.serverName}:${request.serverPort}/user/account/confirm/${token.token}"
         }
     }
     @Transactional(readOnly=false)
@@ -143,11 +149,11 @@ class UserController {
 
     @Transactional
     def save(User instance) {
-        
+
         def userIP = request.getRemoteAddr()
         def recaptchaResponse = params.get("g-recaptcha-response")
         def rest = new RestBuilder()
-        
+
         def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?" +
                 "secret=6LdA8QkTAAAAACHA9KoBPT1BXXBrJpQNJfCGTm9x&response=" + recaptchaResponse + "&remoteip=" + userIP)
         if(resp.json.success){

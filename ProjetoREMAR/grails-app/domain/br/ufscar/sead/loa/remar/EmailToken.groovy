@@ -4,6 +4,7 @@ class EmailToken {
 
     String token
     int idOwner
+    boolean valid
 
     static constraints = {
     }

@@ -60,4 +60,21 @@ class User {
 		password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
 	}
 
+	HashSet<GrantedAuthority> authoritiesHashSet() {
+		def roles = UserRole.findAllByUser(this).collect { it.role }
+		def auths = new HashSet<GrantedAuthority>()
+		roles.each { role ->
+			def auth = new GrantedAuthority() {
+
+				@Override
+				String getAuthority() {
+					return role.authority
+				}
+			}
+			auths.add(auth)
+
+		} as Set<Role>
+		return auths
+	}
+
 }
