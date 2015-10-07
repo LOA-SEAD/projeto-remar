@@ -19,3 +19,27 @@ span.align-with-icon-small {
     position: relative;
     bottom: 0.5rem;
 }
+
+.suffix {
+    position: absolute;
+    pointer-events: none;
+    right: 0.5rem;
+    top: 0.75rem;
+}
+
+span.invalid-input {
+    font-size: 0.8rem;
+    position: absolute;
+    top: 3.1rem;
+    left: 3.75rem;
+    color: #F44335;
+}
+
+.g-recaptcha div div {
+    margin: auto;
+}
+
+.profile-picture {
+    max-width: 6rem;
+    max-height: 6rem;
+}
