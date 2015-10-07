@@ -41,7 +41,7 @@ class UserController {
 
     @Transactional(readOnly=false)
     def confirmAccount() {
-        def token = EmailToken.findByToken(params.token)
+        def token = EmailToken.findByTokenAndValid(params.token, true)
         if(token) {
             def user = User.findById(token.idOwner)
 
@@ -53,10 +53,10 @@ class UserController {
 
             SecurityContextHolder.context.authentication = new UsernamePasswordAuthenticationToken(user, null,
                     user.authoritiesHashSet())
+            session.user = user
 
             render(view: '/static/welcome')
-        }
-        else {
+        } else {
             response.status = 400 // TODO
         }
     }
