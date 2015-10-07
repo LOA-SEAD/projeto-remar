@@ -1,6 +1,26 @@
 /**
  * Created by loa on 19/03/15.
  */
+$(document).ready(function () {
+    $("#CheckAll").click(function () {
+        var CheckAll = document.getElementById("CheckAll");
+        var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
+        $(".checkbox").prop('checked', $(this).prop('checked'));
+
+        if(CheckAll.checked==true){
+            for (var i = 0; i < trs.length; i++) {
+                $(trs[i]).attr('data-checked', "true");
+            }
+        }
+        else{
+            for (var i = 0; i < trs.length; i++) {
+                $(trs[i]).attr('data-checked', "false");
+            }
+        }
+
+
+    });
+});
 
 window.onload = function(){
    // $('#table').editableTableWidget();
@@ -223,3 +243,4 @@ $(function(){
         });
     });
 });
+

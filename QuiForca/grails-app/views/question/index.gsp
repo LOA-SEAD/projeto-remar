@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <g:javascript src="editableTable.js"/>
+        %{--<g:javascript src="editableTable.js"/>--}%
         <g:javascript src="scriptTable.js"/>
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'stylesheet.css')}" />
 
@@ -38,7 +38,7 @@
                                 %{--Certifique-se que você tirou o foco dos campos editáveis antes de clicar em "Enviar" <i class="fa fa-smile-o"></i><br>--}%
                             %{--</div>--}%
                             <div class="pull-right">
-                                <g:link name="create" class="btn btn-success btn-lg"action="create">Nova Questão</g:link>
+                                <g:link name="create" class="btn btn-success btn-lg" action="create">Nova Questão</g:link>
                                 <g:submitButton id="delete" name="delete" class="delete btn btn-danger btn-lg new-question-create-button" value="Remover" alt="Remove questões selecionadas"/>
                                 <br />
                                 <br />
@@ -50,15 +50,17 @@
                             <table class="table table-striped table-bordered table-hover" id="table">
                                 <thead>
                                 <tr>
-
-                                    <th style="text-align: center">Selecionar</th>
-                                    <th style="text-align: center" >Pergunta</th>
+                                    <th style="text-align: center">Selecionar </th>
+                                    <th style="text-align: center">Pergunta </th>
                                     <th style="text-align: center">Resposta</th>
                                     <th style="text-align: center">Tema</th>
-                                    <th style="text-align: center" >Autor</th>
-
-
+                                    <th style="text-align: center">Autor</th>
                                 </tr>
+
+                                <tr style="height: 5px; width: 5px;">
+                                    <th align="center"><input align="center" class="checkbox" type="checkbox" id="CheckAll" style="margin-left: 42%;"/></th>
+                                </tr>
+
                                 </thead>
                                 <tbody>
                                 <g:each in="${questionInstanceList}" status="i" var="questionInstance">
