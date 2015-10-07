@@ -16,6 +16,7 @@ class UrlMappings {
 
         name login: "/login"(view: "login/auth")
         name signup: "/signup"(controller: "user", action: "create")
+        "/signup/success/$id"(controller: "user", action: "signUpSuccess")
 
         // begin user mappings
         '/user/email/confirm'(controller: 'user',action: 'confirmNewUser')

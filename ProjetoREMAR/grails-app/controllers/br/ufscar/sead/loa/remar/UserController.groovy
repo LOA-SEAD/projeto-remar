@@ -29,32 +29,14 @@ class UserController {
         respond User.list(params)
     }
 
-    def test() {
-        render '^~^'
-    }
-
-    def show(User userInstance) {
-        respond userInstance, model:[userInstance: userInstance]
+    def signUpSuccess(User instance) {
+        render view: "show", model: [email: instance.email]
     }
 
     def create() {
         respond new User(params), model:[admin: false, stud: false, dev: false, source: "create"]
     }
 
-    @Transactional(readOnly=false)
-    def saveCamundaDB(userInstance){
-
-//        org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
-//        if(camundaUser.firstName == null) {
-//            camundaUser.setEmail(userInstance.email)
-//            camundaUser.setFirstName(userInstance.username)
-//            camundaUser.setPassword(userInstance.password)
-//            userInstance.camunda_id = camundaUser.getId()
-//            identityService.saveUser(camundaUser)
-//        }
-//        else
-//            redirect(controller: 'index')
-    }
     @Transactional(readOnly=false)
     def confirmNewUser(){
 
@@ -73,26 +55,18 @@ class UserController {
             render "deu errado! :("
     }
 
-    def sendConfirmationMail(userEmail,userId){
-
-
-        String charset =(('A') + ('0'..'9').join())
-        Integer length = 9
-        String randomString = RandomStringUtils.random(length, charset.toCharArray())
-        def newToken = new EmailToken(token: randomString, idOwner: userId)
-        newToken.save flush: true
+    def sendConfirmationMail(userEmail, userId) {
+        def token = new EmailToken(token: RandomStringUtils.random(30, true, true), idOwner: userId)
+        token.save flush: true
 
         mailService.sendMail {
             async true
             to userEmail
-            subject "Confirmação de Cadastro"
-            html '<h3>Clique no link abaixo para confirmar o cadastro</h3> <br>' +
+            subject "REMAR – Confirmação de cadastro"
+            html '<h3>Clique no link abaixo para confirmar seu cadastro</h3> <br>' +
                     '<br>' +
-                    "http://${request.serverName}:${request.serverPort}/user/email/confirm?Token=${newToken.getToken()}"
+                    "http://${request.serverName}:${request.serverPort}/user/account/confirm?token=${token.getToken()}"
         }
-
-        println "metodo do email"
-
     }
     @Transactional(readOnly=false)
     def newPassword(){
@@ -238,13 +212,7 @@ class UserController {
                 sendConfirmationMail(instance.getEmail(), instance.getId())
             }
 
-            request.withFormat {
-                form multipartForm {
-                    flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), instance.id])
-                    redirect instance
-                }
-                '*' { respond instance, [status: CREATED] }
-            }
+            redirect uri: "/signup/success/$instance.id"
         }
         else{
 //            flash.message = message(code: 'bla')
