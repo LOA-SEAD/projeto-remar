@@ -3,5 +3,5 @@
  */
 
 window.addEventListener("load", function() {
-    $(".help").popover();
+    //$(".help").popover();
 });
