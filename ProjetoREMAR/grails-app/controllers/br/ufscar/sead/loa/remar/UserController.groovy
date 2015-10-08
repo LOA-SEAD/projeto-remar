@@ -5,12 +5,12 @@ import grails.plugin.mail.MailService
 import grails.util.Environment
 import org.apache.commons.lang.RandomStringUtils
 import org.camunda.bpm.engine.IdentityService
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
-
-import javax.validation.constraints.Null
+import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 import static org.springframework.http.HttpStatus.*
-import grails.plugin.springsecurity.annotation.Secured
+
 import grails.transaction.Transactional
 import grails.plugins.rest.client.RestBuilder
 import grails.converters.JSON
@@ -31,12 +31,8 @@ class UserController {
         respond User.list(params)
     }
 
-    def test() {
-        render '^~^'
-    }
-
-    def show(User userInstance) {
-        respond userInstance, model:[userInstance: userInstance]
+    def signUpSuccess(User instance) {
+        render view: "show", model: [email: instance.email]
     }
 
     def create() {
@@ -44,57 +40,39 @@ class UserController {
     }
 
     @Transactional(readOnly=false)
-    def saveCamundaDB(userInstance){
+    def confirmAccount() {
+        def token = EmailToken.findByTokenAndValid(params.token, true)
+        if(token) {
+            def user = User.findById(token.idOwner)
 
-//        org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
-//        if(camundaUser.firstName == null) {
-//            camundaUser.setEmail(userInstance.email)
-//            camundaUser.setFirstName(userInstance.username)
-//            camundaUser.setPassword(userInstance.password)
-//            userInstance.camunda_id = camundaUser.getId()
-//            identityService.saveUser(camundaUser)
-//        }
-//        else
-//            redirect(controller: 'index')
-    }
-    @Transactional(readOnly=false)
-    def confirmNewUser(){
+            user.accountLocked = false
+            user.enabled = true
+            token.valid = false
+            user.save flush: true
+            token.save flush: true
 
-        log.debug params.Token
-        if(EmailToken.findByToken(params.Token)){
-            def userId = EmailToken.findByToken(params.Token).idOwner
-            def currentNewUser = User.findById(userId)
-            currentNewUser.accountLocked = false
-            currentNewUser.enabled = true
-  //          currentNewUser.save()
-            saveCamundaDB(currentNewUser)
-            log.debug "Token correto - cadastro liberado"
-            render(view: '/static/emailuser')
+            SecurityContextHolder.context.authentication = new UsernamePasswordAuthenticationToken(user, null,
+                    user.authoritiesHashSet())
+            session.user = user
+
+            render(view: '/static/welcome')
+        } else {
+            response.status = 400 // TODO
         }
-        else
-            render "deu errado! :("
     }
 
-    def sendConfirmationMail(userEmail,userId){
-
-
-        String charset =(('A') + ('0'..'9').join())
-        Integer length = 9
-        String randomString = RandomStringUtils.random(length, charset.toCharArray())
-        def newToken = new EmailToken(token: randomString, idOwner: userId)
-        newToken.save flush: true
+    def sendConfirmationMail(userEmail, userId) {
+        def token = new EmailToken(token: RandomStringUtils.random(30, true, true), idOwner: userId, valid: true)
+        token.save flush: true
 
         mailService.sendMail {
             async true
             to userEmail
-            subject "Confirmação de Cadastro"
-            html '<h3>Clique no link abaixo para confirmar o cadastro</h3> <br>' +
+            subject "REMAR – Confirmação de cadastro"
+            html '<h3>Clique no link abaixo para confirmar seu cadastro</h3> <br>' +
                     '<br>' +
-                    "http://${request.serverName}:${request.serverPort}/user/email/confirm?Token=${newToken.getToken()}"
+                    "http://${request.serverName}:${request.serverPort}/user/account/confirm/${token.token}"
         }
-
-        log.debug "metodo do email"
-
     }
     @Transactional(readOnly=false)
     def newPassword(){
@@ -135,10 +113,10 @@ class UserController {
         def rest = new RestBuilder()
 
         def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?secret=6LdA8QkTAAAAACHA9KoBPT1BXXBrJpQNJfCGTm9x&response=" + captcha + "&remoteip=" + userIP)
-        log.debug resp.json as JSON
+        println resp.json as JSON
         if (resp.json.success == true) {
-            log.debug params.email
-            log.debug User.findByEmail(params.email)
+            println params.email
+            println User.findByEmail(params.email)
             if (User.findByEmail(params.email)) {
                 log.debug User.findByEmail(params.email)
                 //User.findByEmail(params.email).passwordExpired = true  NAO!
@@ -170,83 +148,77 @@ class UserController {
     }
 
     @Transactional
-    def save(User userInstance) {
-        
+    def save(User instance) {
+
         def userIP = request.getRemoteAddr()
-
-        def captcha = params.get("g-recaptcha-response")
-
+        def recaptchaResponse = params.get("g-recaptcha-response")
         def rest = new RestBuilder()
-        
-        def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?secret=6LdA8QkTAAAAACHA9KoBPT1BXXBrJpQNJfCGTm9x&response="+captcha+"&remoteip="+userIP)
-        log.debug resp.json as JSON
-        if(resp.json.success==true){ //true recaptcha
-            if (userInstance == null) {
+
+        def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?" +
+                "secret=6LdA8QkTAAAAACHA9KoBPT1BXXBrJpQNJfCGTm9x&response=" + recaptchaResponse + "&remoteip=" + userIP)
+        if(resp.json.success){
+            if (instance == null) {
                 notFound()
                 return
             }
 
-
-            if (userInstance.hasErrors()) {
-//                userInstance.errors.allErrors.each {
-//                   print(it.field)
-//                    if(it.field == 'username')
-//                        contErrors++
-//                }
-                respond userInstance.errors, view:'create'
+            if (instance.hasErrors()) { // TODO
+                respond instance.errors, view:'create'
+                println instance.errors
                 return
             }
 
+            def root = servletContext.getRealPath("/")
+            def f = new File("${root}data/users/${instance.username}")
+            f.mkdirs()
+            def destination = new File(f, "profile-picture")
+            def photo = params.photo as CommonsMultipartFile
+
+            if(!photo.isEmpty()) {
+                photo.transferTo(destination)
+            } else {
+                new AntBuilder().copy(file: "${root}images/avatars/${instance.gender}.png", tofile: destination)
+            }
 
             if (Environment.current == Environment.DEVELOPMENT) {
-                userInstance.accountExpired = false
-                userInstance.accountLocked = false
-                userInstance.enabled = true
-                userInstance.passwordExpired = false
-                userInstance.setGender(userInstance.gender) //teste
+                instance.accountExpired = false
+                instance.accountLocked = false
+                instance.enabled = true
+                instance.passwordExpired = false
 
-                org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
-                camundaUser.setEmail(userInstance.email)
-                camundaUser.setFirstName(userInstance.firstName)
-                camundaUser.setPassword(userInstance.password)
-                camundaUser.setId(userInstance.username)
+                org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(instance.username)
+                camundaUser.setEmail(instance.email)
+                camundaUser.setFirstName(instance.firstName)
+                camundaUser.setLastName(instance.lastName)
+                camundaUser.setPassword(instance.password)
+                camundaUser.setId(instance.username)
                 identityService.saveUser(camundaUser)
 
-                userInstance.camunda_id = camundaUser.id
-                userInstance.save flush: true
-                sendConfirmationMail(userInstance.getEmail(), userInstance.getId())
+                instance.camunda_id = camundaUser.id
+                instance.save flush: true
+                sendConfirmationMail(instance.getEmail(), instance.getId())
 
             } else {
-                userInstance.accountExpired = false
-                userInstance.accountLocked = true //Before user confirmation
-                userInstance.enabled = false        // Before user confirmation
-                userInstance.passwordExpired = false
-                userInstance.setGender(userInstance.gender) //teste
+                instance.accountExpired = false
+                instance.accountLocked = true //Before user confirmation
+                instance.enabled = false        // Before user confirmation
+                instance.passwordExpired = false
+                instance.setGender(instance.gender) //teste
 
-                org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
-                camundaUser.setEmail(userInstance.email)
-                camundaUser.setFirstName(userInstance.firstName)
-                camundaUser.setLastName(userInstance.lastName)
-                camundaUser.setPassword(userInstance.password)
-                camundaUser.setId(userInstance.username)
+                org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(instance.username)
+                camundaUser.setEmail(instance.email)
+                camundaUser.setFirstName(instance.firstName)
+                camundaUser.setLastName(instance.lastName)
+                camundaUser.setPassword(instance.password)
+                camundaUser.setId(instance.username)
                 identityService.saveUser(camundaUser)
 
-                userInstance.camunda_id = camundaUser.id
-                userInstance.save flush: true
-                sendConfirmationMail(userInstance.getEmail(), userInstance.getId())
+                instance.camunda_id = camundaUser.id
+                instance.save flush: true
+                sendConfirmationMail(instance.getEmail(), instance.getId())
             }
 
-
-            UserRole.create(userInstance, Role.findByAuthority("ROLE_USER"), true)
-            UserRole.create(userInstance, Role.findByAuthority("ROLE_STUD"), true)
-
-            request.withFormat {
-                form multipartForm {
-                    flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
-                    redirect userInstance
-                }
-                '*' { respond userInstance, [status: CREATED] }
-            }
+            redirect uri: "/signup/success/$instance.id"
         }
         else{
 //            flash.message = message(code: 'bla')
@@ -255,8 +227,6 @@ class UserController {
 
             //VALIDACAO SENDO FEITA NO CLIENTE
         }
-
-
 
     }
 
@@ -377,11 +347,9 @@ class UserController {
         render(template: "grid", model:[userInstanceList: list])
     }
 
-    def exists(){
-        if(User.findByUsername(params.username))
-            render true
-        else
-            render false
+    def usernameAvailable(){
+        println params.username
+        render User.findByUsername(params.username) == null
     }
 
     def autocomplete() {
@@ -398,11 +366,8 @@ class UserController {
         }
     }
 
-    def existsEmail(){
-        if(User.findByEmail(params.email))
-            render true
-        else
-            render false
+    def emailAvailable(){
+        render User.findByEmail(params.email) == null
     }
 
 }

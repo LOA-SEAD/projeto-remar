@@ -1,185 +1,92 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta name="layout" content="new-main-external">
-		<g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
-		<title>Registrar-se</title>
+<head>
+    <meta name="layout" content="base">
+    <title>Registrar-se</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="card white z-depth-2 col s12 m8 l6 offset-m2 offset-l3">
+            <div class="card-content">
+                <div class="card-image">
+                    <img src="/assets/img/logo/logo-remar-preto-transparente.png">
+                </div> <!-- card-image -->
+                <form action="/user/save" method="POST" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            <i class="material-icons prefix">person</i>
+                            <input id="first-name" name="firstName" type="text"/>
+                            <label for="first-name">Nome</label>
+                        </div>
 
-		<g:javascript src="recaptcha.js" />
-
-		<script>
-			$(function() {
-
-				var existUser = false;
-				var existEmail = false;
-
-				$('form').validate({
-					rules: {
-						first_name: {
-							required: true
-						},
-						last_name: {
-							required: true
-						},
-						email: {
-							email: true,
-							required: true
-						},
-						username: {
-							minlength: 2,
-							required: true
-						},
-						password: {
-							minlength: 5,
-							required: true
-						},
-						confirm_password: {
-							required: true,
-							minlength: 5,
-							equalTo: "#password"
-						},
-						agree: "required"
-					},
-					messages: {
-						first_name: {
-							required: "Por favor digite o seu primeiro nome"
-						},
-						last_name: {
-							required: "Por favor digite o seu sobrenome"
-						},
-						email: {
-							required: "Por favor digite um email",
-							email: "Digite um email no formato: nome@exemplo"
-						},
-						username: {
-							required: "Por favor digite um nome de usuário",
-							minlength: "O nome de usuário de ter ao menos 2 caracteres"
-						},
-						password: {
-							required: "Por favor digite uma senha",
-							minlength: "A senha deve ter no minimo 5 caracteres"
-						},
-						confirm_password: {
-							required: "Por favor confirme sua senha",
-							minlength: "Sua senha deve ter no minimo 5 caracteres",
-							equalTo: "As senhas não coincidem"
-						},
-						agree: ""
-					},
-					highlight: function (element) {
-						$(element).closest('.form-group')
-								  .addClass('has-error');
-
-//						if(element.closest("input").name == "agree"){
-//							$(element).closest('.form-group')
-//									.addClass('has-error');
-//						}
-
-					},
-					unhighlight: function (element) {
-
-						if(element.closest("input").name == "igree") {
-							$(element).closest('.control-label').removeClass('has-error')
-						}
+                        <div class="input-field col s12 m6">
+                            <i class="material-icons prefix">person</i>
+                            <input id="last-name" name="lastName" type="text"/>
+                            <label for="last-name">Sobrenome</label>
+                        </div>
 
 
-						if(!(element.closest("input").name == "username")&&
-								!(element.closest("input").name == "email")) {
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">email</i>
+                            <input id="email" name="email" type="email"/>
+                            <label for="email">Email</label>
+                        </div>
 
-							$(element).closest('.form-group').removeClass('has-error')
-										.closest('.control-label').remove();
-						}else{
-							if((element.closest("input").name == "username") && !existUser){
-								$(element).closest('.form-group').removeClass('has-error')
-										.closest('.control-label').remove();
+                        <div class="input-field col s12 m6">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input id="username" name="username" type="text"/>
+                            <label for="username">Nome de usuário</label>
+                        </div>
 
-							}else if((element.closest("input").name == "email") && !existEmail){
-								$(element).closest('.form-group').removeClass('has-error')
-										.closest('.control-label').remove();
-							}
-						}
-					},
-					errorElement: 'div',
-					errorClass: 'control-label',
-					errorPlacement: function (error, element) {
-						error.insertAfter(element.next());
-					}
+                        <div class="input-field col s12 m6">
+                            <i class="material-icons prefix">face</i>
+                            <select id="select" name="gender">
+                                <option value="male">Masculino</option>
+                                <option value="female">Feminino</option>
+                            </select>
+                            <label for="select">Sexo</label>
+                        </div>
 
-				});
+                        <div class="input-field col s12 m6">
+                            <i class="material-icons prefix">lock</i>
+                            <input id="password" name="password" type="password"/>
+                            <label for="password">Senha</label>
+                        </div>
 
-				$('#username').on('keyup', function() {
-					var url = location.origin + '/user/exists';
-					var data = { username: $("#username").val()};
-					var text = data;
+                        <div class="input-field col s12 m6">
+                            <i class="material-icons prefix">lock</i>
+                            <input id="confirm-password" name="confirm_password" type="password"/>
+                            <label for="confirm-password">Confirme sua senha</label>
+                        </div>
 
-					$.ajax({
-						type:'GET',
-						data: data,
-						url: url,
-						success:function(data){
-							if(data == "true"){
-								if(!$('#div-username-error').length){
-									existUser = true;
-									$('#div-username').addClass('has-error')
-														.append($("<div/>")
-																.attr("id","div-username-error")
-																.addClass("control-label")
-																.text("Esse nome de usuário já está em uso"));
-								}
-							}else{
-								if(text.username.length > 1 && existUser){
-									existUser = false;
-									$('#div-username').removeClass('has-error');
-									$('#div-username-error').remove();
-								}
-							}
-						},
-						error:function(XMLHttpRequest,textStatus,errorThrown){}});
-				});
+                        <div class="input-field file-field col s12">
+                            <div class="col s3">
+                                <img id="profile-picture" class="circle profile-picture" src="/images/avatars/male.png"/>
+                            </div>
+                            <div>
+                                <input type="file" id="file" name="photo" accept="image/jpeg, image/png">
+                                <div class="file-path-wrapper">
+                                    <input class="file-path" type="text" placeholder="Selecione uma foto (opicional)">
+                                </div>
+                            </div>
+                        </div>
 
-				$('#email').on('keyup', function() {
-					var url = location.origin + '/user/existsEmail';
-					var data = { email: $("#email").val()};
-					var text = data;
-
-					$.ajax({
-						type:'GET',
-						data: data,
-						url: url,
-						success:function(data){
-							if(data == "true"){
-								if(!$('#div-email-error').length){
-									existEmail = true;
-									$('#div-email').addClass('has-error')
-													.append($("<div/>")
-															.attr("id","div-email-error")
-															.addClass("control-label")
-															.text("Esse email já está em uso"));
-								}
-							}else{
-								if(text.email.length > 1 && existEmail){
-									existEmail = false;
-									$('#div-email').removeClass('has-error');
-									$('#div-email-error').remove();
-								}
-							}
-						},
-						error:function(XMLHttpRequest,textStatus,errorThrown){}});
-				});
-
-			});
-		</script>
-
-	</head>
-	<body>
-		<p class="login-box-msg">Registrar um novo membro</p>
-		<g:form url="[resource:user, action:'save']" >
-			<div class="row">
-				<g:render template="form"/>
-				<div class="col-xs-12">
-					<button type="submit" class="btn btn-primary btn-block btn-flat" name="create" id="submitBtn">Registrar</button>
-				</div><!-- /.col -->
-			</div>
-		</g:form>
-	</body>
+                        <div class="input-field col s12">
+                            <div class="g-recaptcha text-center" data-sitekey="6LdA8QkTAAAAANzRpkGUT__a9B2zHlU5Mnl6EDoJ"> </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="input-field center-align">
+                            <button id="submit" class="btn waves-effect waves-light tooltipped" type="submit" data-position="top" data-delay="50" data-tooltip="Você é um robô?">Enviar</button>
+                        </div>
+                    </div>
+                </form>
+            </div> <!-- card-content -->
+        </div> <!-- card -->
+    </div> <!-- row -->
+</div> <!-- container -->
+<g:javascript src="jquery/jquery.validate.js"/>
+<recaptcha:script/>
+<g:javascript src="user/form.js"/>
+</body>
 </html>

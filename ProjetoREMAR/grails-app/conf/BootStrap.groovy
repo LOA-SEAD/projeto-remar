@@ -123,8 +123,8 @@ class BootStrap {
 
         for (url in [
                 '/', '/index', '/index/info', '/doc/**', '/assets/**', '/**/js/**', '/**/css/**', '/**/images/**',
-                '/**/favicon.ico', '/data/**', '/**/scss/**', '/**/less/**', '/**/fonts/**', '/password/**',
-                '/moodle/**', '/exportedGame/**', '/static/**', '/login/**', '/logout/**', '/user/**',
+                '/**/favicon.ico', '/data/**', '/**/scss/**', '/**/less/**', '/**/fonts/**', '/**/font/**',
+                '/password/**', '/moodle/**', '/exportedGame/**', '/static/**', '/login/**', '/logout/**', '/signup/**', '/user/**',
                 '/facebook/**']) {
             new RequestMap(url: url, configAttribute: 'permitAll').save()
         }

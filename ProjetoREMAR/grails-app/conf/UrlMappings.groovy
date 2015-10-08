@@ -1,6 +1,7 @@
 class UrlMappings {
 
-	static mappings = {
+	@SuppressWarnings("GroovyAssignabilityCheck")
+    static mappings = {
         "/$controller/$action?/$id?(.$format)?"{
             constraints {
                 // apply constraints here
@@ -12,9 +13,13 @@ class UrlMappings {
         "/dashboard"(controller: "index", action: "dashboard")
         "/frame$uri**"(controller: "index", action: "frame")
         // end index mappings
-        "/login"(view: "login/auth")
+
+        name login: "/login"(view: "login/auth")
+        name signup: "/signup"(controller: "user", action: "create")
+        "/signup/success/$id"(controller: "user", action: "signUpSuccess")
+
         // begin user mappings
-        '/user/email/confirm'(controller: 'user',action: 'confirmNewUser')
+        "/user/account/confirm/$token"(controller: 'user',action: 'confirmAccount')
         '/user/newpassword/confirm'(controller: 'user',action: 'createPassword')
         '/user/confirmation'(view: '/static/emailuser')
         // end user mappings
