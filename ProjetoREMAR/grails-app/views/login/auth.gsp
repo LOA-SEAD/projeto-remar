@@ -20,24 +20,26 @@
                         <div class="divider"></div>
                     </div>
                     </g:if>
-                    <div class="input-field">
-                        <i class="material-icons prefix">account_circle</i>
-                        <input id="username" name="j_username" type="text">
-                        <label for="username">Usuário</label>
-                    </div> <!-- input-field -->
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input id="username" name="j_username" type="text">
+                            <label for="username">Usuário</label>
+                        </div> <!-- input-field -->
 
-                    <div class="input-field">
-                        <i class="material-icons prefix">lock</i>
-                        <input id="password" name="j_password" type="password">
-                        <label for="password">Senha</label>
-                    </div> <!-- input-field -->
-                    <div class="input-field center">
-                        <button type="submit" class="btn waves-effect waves-light">Entrar</button>
-                    </div>
-                    <div class="input-field center">
-                        <g:link class="margin" mapping="resetPassword">Esqueceu sua senha?</g:link><br>
-                        <g:link mapping="signup">Cadastre-se</g:link>
-                    </div> <!-- input field -->
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">lock</i>
+                            <input id="password" name="j_password" type="password">
+                            <label for="password">Senha</label>
+                        </div> <!-- input-field -->
+                        <div class="input-field center col s12">
+                            <button type="submit" class="btn waves-effect waves-light">Entrar</button>
+                        </div>
+                        <div class="input-field center col s12">
+                            <g:link class="margin" mapping="resetPassword">Esqueceu sua senha?</g:link><br>
+                            <g:link mapping="signup">Cadastre-se</g:link>
+                        </div> <!-- input field -->
+                    </div> <!-- row -->
                 </form>
             </div> <!-- card-content -->
         </div> <!-- card -->
