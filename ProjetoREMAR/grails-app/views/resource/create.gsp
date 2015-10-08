@@ -1,34 +1,48 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="main-developer">
-		<g:set var="entityName" value="${message(code: 'game.label', default: 'Game')}" />
-		<title><g:message code="default.create.label" args="[entityName]" /></title>
+		<meta name="layout" content="new-main-inside">
+		<title>Novo R.E.A.</title>
+
+		<!-- jQuery 2.1.4 -->
+		<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery.min.js')}"></script>
+		<script type="text/javascript" src="${resource(dir: 'js', file: "imgPreview.js")}"></script>
+
+
 	</head>
 	<body>
-	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-		%{--<a href="#create-game" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>--}%
-		<div id="create-game" class="content scaffold-create" role="main">
-			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
-			<g:hasErrors bean="${gameInstance}">
-			<ul class="errors" role="alert">
-				<g:eachError bean="${gameInstance}" var="error">
-				<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-				</g:eachError>
-			</ul>
-			</g:hasErrors>
-			<g:form url="[resource:gameInstance, action:'save']" enctype="multipart/form-data" useToken="true">
-				<fieldset class="form">
-					<g:render template="form"/>
-				</fieldset>
-				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-				</fieldset>
-			</g:form>
+	<div class="content">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box box-body box-info">
+					<div class="box-header with-border">
+						<h3 class="box-title">
+							<i class="fa fa-upload"></i>
+							Novo R.E.A.
+						</h3>
+					</div><!-- /.box-header -->
+					<div class="box-body">
+						<div class="direct-chat-messages page-size" >
+							<div class="widget-content-white glossed">
+								<div class="padded">
+									<div class="row">
+										%{-- TODO mudar controlador --}%
+										<g:form url="[action: 'update']" method="PUT" enctype="multipart/form-data">
+											<input type="hidden" name="id" value="${id}">
+											<div class="col-xs-6" >
+												<g:render template="form"/>
+											</div>
+										</g:form>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
+
 	</body>
 </html>

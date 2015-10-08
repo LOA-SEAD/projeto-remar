@@ -61,4 +61,5 @@ class IndexController {
 
         render view: "frame", model: model
     }
+
 }

@@ -14,7 +14,7 @@ import grails.transaction.Transactional
 
 class ResourceController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE"]
     def springSecurityService
     MailService mailService
 
@@ -33,7 +33,33 @@ class ResourceController {
     }
 
     def create() {
-        respond new Deploy(params)
+        render view: "create", model: [id: params.id]
+    }
+
+    @Transactional
+    def update(Resource instance){
+        def path = new File(servletContext.getRealPath("/data/resources/assets/${instance.uri}"))
+        path.mkdirs()
+
+        MultipartFile img1 = request.getFile('img1')
+        MultipartFile img2 = request.getFile('img2')
+        MultipartFile img3 = request.getFile('img3')
+
+        def file1, file2, file3
+
+        file1 = new File(path, "description-1")
+        img1.transferTo(file1)
+
+        file2 = new File(path, "description-2")
+        img2.transferTo(file2)
+
+        file3 = new File(path, "description-3")
+        img3.transferTo(file3)
+
+        instance.save flush: true
+
+        redirect action: "index"
+//       redirect action: "index", params: [id: resourceInstance.id]
     }
 
     @Transactional
@@ -225,7 +251,7 @@ class ResourceController {
 
         resourceInstance.web = true //default
         resourceInstance.bpmn = manifest.bpmn
-        resourceInstance.comment = "Awaiting review"
+        resourceInstance.comment = "Awaiting form"
 
         new File(servletContext.getRealPath("/wars/${username}"), fileName + ".war")
                        .renameTo(servletContext.getRealPath("/wars/${username}") + "/" + manifest.uri + ".war")
@@ -242,7 +268,7 @@ class ResourceController {
                 fileset(dir: file)
             }
             flash.message = message(code: 'default.created.message', args: [message(code: 'deploy.label', default: 'Deploy'), resourceInstance.id])
-            redirect action: "index"
+            redirect action: "create", params: [id: resourceInstance.id]
         }
 
     }
@@ -349,5 +375,15 @@ class ResourceController {
             }
             '*'{ render status: NOT_FOUND }
         }
+    }
+
+    def show(Resource instance){
+
+        println instance.id + instance.name  + "<<<<<<<<<<"
+
+
+        render view: "show", model: [resourceInstance : instance]
+
+
     }
 }

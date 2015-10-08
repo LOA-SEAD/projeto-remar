@@ -1,70 +1,95 @@
-
-<%@ page import="br.ufscar.sead.loa.remar.Deploy" %>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'deploy.label', default: 'Deploy')}" />
-		<title><g:message code="default.show.label" args="[entityName]" /></title>
-	</head>
-	<body>
-		<a href="#show-deploy" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
+<head>
+	<meta name="layout" content="new-main-inside">
+	<title>R.E.A.</title>
+
+	<!-- jQuery 2.1.4 -->
+	<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery.min.js')}"></script>
+
+
+</head>
+<body>
+<div class="content">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-body box-info">
+				<div class="box-header with-border">
+					<h3 class="box-title">
+						<i class="fa fa-upload"></i>
+						Novo R.E.A.
+					</h3>
+				</div><!-- /.box-header -->
+				<div class="box-body">
+					<div class="direct-chat-messages page-size">
+
+						<form action="/process/start/${resourceInstance.bpmn}" method="POST">
+							<div class="row">
+								<div class="col-xs-4">
+									<img src="/images/${resourceInstance.uri}-banner.png"
+										 class="img img-responsive img-bordered-sm" style="background-color: #3c8dbc;"/>
+								</div>
+								<div class="col-xs-4">
+									<h1>${resourceInstance.name}</h1>
+									<span id="development" class="info-box-number">
+										<img class="img-circle" alt="User Image" src="assets/img/inside/avatar.png"
+											 height="25" width="25"/>
+										REMAR
+									</span>
+								</div>
+								<div class="col-xs-4">
+									<div style="">
+										<button type="submit" class="btn btn-primary btn-file btn-flat">
+											Personalizar
+										</button>
+									</div>
+
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-4">
+									<img src="/data/resources/assets/${resourceInstance.uri}/description-1"
+										 class="img img-responsive img-bordered-sm" />
+								</div>
+								<div class="col-lg-4">
+									<img src="/data/resources/assets/${resourceInstance.uri}/description-1"
+										 class="img img-responsive img-bordered-sm" />
+								</div>
+								<div class="col-lg-4">
+									<img src="/data/resources/assets/${resourceInstance.uri}/description-1"
+										 class="img img-responsive img-bordered-sm" />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-12">
+									<p>${resourceInstance.description}</p>
+								</div>
+							</div>
+
+
+							%{--<div class="box-body">--}%
+								%{--<span class="" style="display: inline-block;">--}%
+								%{----}%
+								%{--</span>--}%
+
+								%{--<div class="" style="display: inline-block; margin-left: 20px; vertical-align: top">--}%
+									%{----}%
+								%{--</div><!-- /.info-box-content -->--}%
+								%{--<div class="pull-right" style="vertical-align:bottom;">--}%
+									%{----}%
+								%{--</div>--}%
+							%{--</div><!-- /.info-box -->--}%
+
+
+
+						</form>
+
+					</div>
+				</div>
+			</div>
 		</div>
-		<div id="show-deploy" class="content scaffold-show" role="main">
-			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
-			<ol class="property-list deploy">
-			
-				<g:if test="${deployInstance?.data_deploy}">
-				<li class="fieldcontain">
-					<span id="data_deploy-label" class="property-label"><g:message code="deploy.data_deploy.label" default="Datadeploy" /></span>
-					
-						<span class="property-value" aria-labelledby="data_deploy-label"><g:formatDate date="${deployInstance?.data_deploy}" /></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${deployInstance?.desenvolvedor}">
-				<li class="fieldcontain">
-					<span id="desenvolvedor-label" class="property-label"><g:message code="deploy.desenvolvedor.label" default="Desenvolvedor" /></span>
-					
-						<span class="property-value" aria-labelledby="desenvolvedor-label"><g:link controller="usuario" action="show" id="${deployInstance?.desenvolvedor?.id}">${deployInstance?.desenvolvedor?.name}</g:link></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${deployInstance?.id_deploy}">
-				<li class="fieldcontain">
-					<span id="id_deploy-label" class="property-label"><g:message code="deploy.id_deploy.label" default="Iddeploy" /></span>
-					
-						<span class="property-value" aria-labelledby="id_deploy-label"><g:fieldValue bean="${deployInstance}" field="id_deploy"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${deployInstance?.war_filename}">
-				<li class="fieldcontain">
-					<span id="war_filename-label" class="property-label"><g:message code="deploy.war_filename.label" default="Warfilename" /></span>
-					
-						<span class="property-value" aria-labelledby="war_filename-label"><g:fieldValue bean="${deployInstance}" field="war_filename"/></span>
-					
-				</li>
-				</g:if>
-			
-			</ol>
-			<g:form url="[resource:deployInstance, action:'delete']" method="DELETE">
-				<fieldset class="buttons">
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-				</fieldset>
-			</g:form>
-		</div>
-	</body>
+	</div>
+</div>
+
+</body>
 </html>

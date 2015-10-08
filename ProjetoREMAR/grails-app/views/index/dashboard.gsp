@@ -46,7 +46,8 @@
                             </g:if>
                             <g:each in="${gameInstanceList}" var="gameInstance">
                                 <div class="col-md-3">
-                                    <a href="/process/start/${gameInstance.bpmn}" target="_self">
+                                    %{--<a href="/process/start/${gameInstance.bpmn}" target="_self">--}%
+                                    <a href="/resource/show/${gameInstance.id}" >
                                         <div class="info-box bg-aqua">
                                             <span class="info-box-icon">
 
