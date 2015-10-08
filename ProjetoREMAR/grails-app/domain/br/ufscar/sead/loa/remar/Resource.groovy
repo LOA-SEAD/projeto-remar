@@ -17,7 +17,7 @@ class Resource {
         width nullable: true
         height nullable: true
         moodleJson nullable: true
-        description nullable: true
+        description nullable: true, maxSize: 1000
     }
 
     String name

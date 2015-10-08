@@ -7,6 +7,7 @@
     <title>Submeter R.E.A.</title>
 
     <script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery.min.js')}"></script>
+    <script type="text/javascript" src="${resource(dir: 'js', file: 'game-index.js')}"></script>
     <script>
         $(document).on('change', '.btn-file :file', function() {
             var input = $(this),
