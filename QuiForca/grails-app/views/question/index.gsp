@@ -31,14 +31,9 @@
                     <div class="widget-content-white glossed">
                     <div class="padded">
                         <div class="table-responsive">
-                            %{--<div class="pull-left alert alert-info">--}%
-                                %{--<i class="fa fa-exclamation-triangle"></i>Favor não utilizar a tecla tab--}%
-                                 %{--<i class="fa fa-smile-o"></i><br>--}%
-                                 %{--<i class="fa fa-exclamation-triangle"></i>--}%
-                                %{--Certifique-se que você tirou o foco dos campos editáveis antes de clicar em "Enviar" <i class="fa fa-smile-o"></i><br>--}%
-                            %{--</div>--}%
+
                             <div class="pull-right">
-                                <button name="create" type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Nova Questão</button>
+                                <button name="create" type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#CreateModal">Nova Questão</button>
                                 <g:submitButton id="delete" name="delete" class="delete btn btn-danger btn-lg new-question-create-button" value="Remover" alt="Remove questões selecionadas"/>
                                 <br />
                                 <br />
@@ -71,9 +66,9 @@
 
                                         <td class="_not_editable" align="center" > <input class="checkbox" type="checkbox"/> </td>
 
-                                        <td style="text-align: center;"  onclick='window.location = "${createLink(action: "edit", id: questionInstance.id)}"' >${fieldValue(bean: questionInstance, field: "statement")}</td>
+                                        <td name="question_label" style="text-align: center;" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" data-questionId="${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "statement")}</td>
 
-                                        <td style="text-align: center;"  onclick='window.location = "${createLink(action: "edit", id: questionInstance.id)}"'  >${fieldValue(bean: questionInstance, field: "answer")}</td>
+                                        <td style="text-align: center;"  >${fieldValue(bean: questionInstance, field: "answer")}</td>
 
                                         <td name="theme" id="theme" style="text-align: center;"  onclick='window.location = "${createLink(action: "edit", id: questionInstance.id)}"' >${fieldValue(bean: questionInstance, field: "category")}</td>
 
@@ -93,8 +88,8 @@
                     <g:paginate total="${questionInstanceCount ?: 0}" />
                 </div>
             </fieldset>
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal" role="dialog">
+                    <!-- Create Question Modal -->
+                    <div class="modal fade" id="CreateModal" role="dialog">
                         <div class="modal-dialog center new-size ">
                             <!-- Modal content-->
                             <div class="modal-content">
@@ -136,7 +131,37 @@
                             </div>
                         </div>
                     </div>
+                <!--Edit Question Modal -->
+                <div class="modal fade" id="EditModal" role="dialog">
+                    <div class="modal-dialog center new-size ">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+
+                            <div class="modal-body">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
+    <script type="text/javascript">
+        var x = document.getElementsByName("question_label");
+        $(document).on("click", ".selectable_tr", function () {
+            console.log("click event");
+            var myNameId = $(this).data('id')
+            console.log(myNameId);
+            $("#questionInstance").val( myNameId );
+
+            $('body').on('hidden.bs.modal', '#EditModal', function (e) {
+                console.log("entrou aqui");
+                $(e.target).removeData("bs.modal");
+                $("#EditModal > div > div > div").empty();
+            });
+
+        });
+
+    </script>
     </body>
 </html>
