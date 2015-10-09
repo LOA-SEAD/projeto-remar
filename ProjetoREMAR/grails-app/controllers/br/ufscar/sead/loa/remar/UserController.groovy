@@ -39,6 +39,10 @@ class UserController {
         respond new User(params), model:[admin: false, stud: false, dev: false, source: "create"]
     }
 
+    def test() {
+        render view: "test"
+    }
+
     @Transactional(readOnly=false)
     def confirmAccount() {
         def token = EmailToken.findByTokenAndValid(params.token, true)

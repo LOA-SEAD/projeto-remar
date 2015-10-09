@@ -15,7 +15,7 @@
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <g:javascript src="materialize.min.js"/>
-    <title><g:layoutTitle /></title>
+    <title><g:layoutTitle default="REMAR"/></title>
     <g:layoutHead/>
 </head>
 <body>
