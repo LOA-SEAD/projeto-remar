@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta name="layout" content="main">
-        <g:javascript src="questions.js" />
+        %{--<g:javascript src="questions.js" />--}%
         <g:javascript src="../assets/js/jquery.min.js"/>
         <g:javascript src="../assets/js/bootstrap.min.js"/>
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'stylesheet.css')}" />
@@ -37,6 +37,9 @@
                                 <button class="btn btn-success btn-lg" data-toggle="modal" href="create" data-target="#CreateModal">Nova Questão</button>
                                 <br>
                                 <br>
+                                <div class="pull-right" style="margin-bottom: 15px;">
+                                    <input  type="text" id="SearchLabel" placeholder="Buscar"/>
+                                </div>
                             </div>
                             <table class="table table-striped table-bordered table-hover" id="table">
                                 <thead>
@@ -110,6 +113,19 @@
                 $("#EditModal > div > div > div").empty();
             });
 
+        });
+
+        $(function(){
+            $("#SearchLabel").keyup(function(){
+                _this = this;
+                $.each($("#table tbody ").find("tr"), function() {
+                    console.log($(this).text());
+                    if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) == -1)
+                        $(this).hide();
+                    else
+                        $(this).show();
+                });
+            });
         });
 
     </script>
