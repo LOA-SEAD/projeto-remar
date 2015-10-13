@@ -68,11 +68,11 @@
 
                                         <td name="question_label" style="text-align: center;" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" data-questionId="${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "statement")}</td>
 
-                                        <td style="text-align: center;"  >${fieldValue(bean: questionInstance, field: "answer")}</td>
+                                        <td style="text-align: center;" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "answer")}</td>
 
-                                        <td name="theme" id="theme" style="text-align: center;"  onclick='window.location = "${createLink(action: "edit", id: questionInstance.id)}"' >${fieldValue(bean: questionInstance, field: "category")}</td>
+                                        <td name="theme" id="theme" style="text-align: center;"  data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "category")}</td>
 
-                                        <td style="text-align: center;"  onclick='window.location = "${createLink(action: "edit", id: questionInstance.id)}"' >${fieldValue(bean: questionInstance, field: "author")}</td>
+                                        <td style="text-align: center;"  data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "author")}</td>
 
                                     </tr>
                                 </g:each>

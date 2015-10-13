@@ -3,7 +3,13 @@
 <html>
     <head>
         <meta name="layout" content="main">
-    <g:javascript src="questions.js" />
+        <g:javascript src="questions.js" />
+        <g:javascript src="../assets/js/jquery.min.js"/>
+        <g:javascript src="../assets/js/bootstrap.min.js"/>
+        <link rel="stylesheet" href="${resource(dir: 'css', file: 'stylesheet.css')}" />
+        <link rel="stylesheet" href="${resource(dir: 'assets/css', file: 'bootstrap.min.css')}" />
+        <link rel="stylesheet" href="${resource(dir: 'assets/css', file: 'modal.css')}" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     </head>
     <body>
         <div class="page-header">
@@ -28,7 +34,7 @@
                                 </g:if>
 
 
-                                <g:link class="btn btn-success btn-lg" action="create">Nova Questão</g:link>
+                                <button class="btn btn-success btn-lg" data-toggle="modal" href="create" data-target="#CreateModal">Nova Questão</button>
                                 <br>
                                 <br>
                             </div>
@@ -47,7 +53,7 @@
                                 </thead>
                                 <tbody>
                                     <g:each in="${questionInstanceList}" status="i" var="questionInstance">
-                                        <tr class="selectable_tr" onclick='window.location = "${createLink(action: "edit", id: questionInstance.id)}"' style="cursor: pointer;">
+                                        <tr class="selectable_tr" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" style="cursor: pointer;">
 
                                             <td class="level">${fieldValue(bean: questionInstance, field: "level")}</td>
 
@@ -56,9 +62,6 @@
                                             <td>${fieldValue(bean: questionInstance, field: "answers")}</td>
 
                                             <td>${questionInstance.answers[questionInstance.correctAnswer]} (${questionInstance.correctAnswer + 1}ª Alternativa)</td>
-
-
-
                                         </tr>
                                     </g:each>
                                 </tbody>
@@ -67,8 +70,48 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
+    <!-- Create Question Modal -->
+    <div class="modal fade" id="CreateModal" role="dialog">
+        <div class="modal-dialog center new-size ">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Question Modal -->
+    <div class="modal fade" id="EditModal" role="dialog">
+        <div class="modal-dialog center new-size ">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var x = document.getElementsByName("question_label");
+        $(document).on("click", ".selectable_tr", function () {
+            console.log("click event");
+            var myNameId = $(this).data('id')
+            console.log(myNameId);
+            $("#questionInstance").val( myNameId );
+
+            $('body').on('hidden.bs.modal', '#EditModal', function (e) {
+                console.log("entrou aqui");
+                $(e.target).removeData("bs.modal");
+                $("#EditModal > div > div > div").empty();
+            });
+
+        });
+
+    </script>
     </body>
 </html>
