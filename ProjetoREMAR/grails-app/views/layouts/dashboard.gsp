@@ -7,18 +7,18 @@
     </head>
     <body>
     <header>
-        <nav class="top-nav fixed">
-            <div class="container">
+        <nav class="top-nav fixed orange">
+            <div class="container-dashboard">
                 <div class="nav-wrapper">
                     <a class="page-title"><g:layoutTitle/></a>
                 </div>
-            </div>
+            </div> <!-- container-dashboard -->
         </nav>
-        <div class="container">
+        <div class="container-dashboard">
             <a href="#" data-activates="side-nav" id="button-collapse" class="button-collapse top-nav full hide-on-large-only">
                 <i class="material-icons small">menu</i>
             </a>
-        </div> <!-- container -->
+        </div> <!-- container-dashboard -->
         <ul id="side-nav" class="side-nav fixed">
             <li class="logo">
                 <a href="/">
@@ -26,23 +26,21 @@
                 </a>
             </li>
             <li>
-                <a><i class="material-icons">book</i><span class="align-with-icon-small">Dashboard</span></a>
+                <div class="divider"></div>
             </li>
             <li>
-                <a><i class="material-icons">book</i><span class="align-with-icon-small">Foo</span></a>
+                <a><i class="fa fa-flag fa-lg"></i> Foo</a>
             </li>
             <li>
-                <a><i class="material-icons">book</i><span class="align-with-icon-small">Bar</span></a>
+                <a><i class="fa fa-flag fa-lg"></i> Bar</a>
             </li>
             <li>
-                <a><i class="material-icons">book</i><span class="align-with-icon-small">Qux</span></a>
+                <a><i class="fa fa-flag fa-lg"></i> Qux</a>
             </li>
-        </ul>
+        </ul> <!-- side-nav -->
     </header>
     <main>
         <g:layoutBody/>
     </main>
     </body>
-
-
 </g:applyLayout>

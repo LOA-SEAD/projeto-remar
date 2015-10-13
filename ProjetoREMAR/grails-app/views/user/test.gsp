@@ -13,10 +13,10 @@
 </head>
 
 <body>
-<div class="container">
+<div class="container-dashboard">
     <div class="row">
         <div class=" col s12 m6 l4">
-            <div class="card white z-depth-2">
+            <div class="card white z-depth-1-half">
                 <div class="card-content">
                     <span class="card-title black-text">Banco de questões</span>
                     <div class="row">
@@ -26,15 +26,14 @@
                         <div class="col l6 center">
                             <p>Responsável:</p>
                             <img class="circle profile-picture" src="/images/avatars/male.png"/>
-                            <br>Matheus
+                            <br><p>Matheus</p>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
         <div class=" col s12 m6 l4">
-            <div class="card white z-depth-2">
+            <div class="card white z-depth-1-half">
                 <div class="card-content">
                     <span class="card-title black-text">Criar/escolher tema</span>
                     <div class="row">
@@ -52,7 +51,7 @@
             </div>
         </div>
         <div class=" col s12 m6 l4">
-            <div class="card white z-depth-2">
+            <div class="card white z-depth-1-half">
                 <div class="card-content">
                     <span class="card-title black-text">Lorem ipsum</span>
                     <div class="row">
