@@ -8,17 +8,22 @@
     <body>
     <header>
         <nav class="top-nav fixed orange">
-            <div class="container-dashboard">
+            <div class="container dashboard">
                 <div class="nav-wrapper">
                     <a class="page-title"><g:layoutTitle/></a>
+                    <ul id="top-nav-menu" class="right hide-on-med-and-down">
+                        <li><a href="sass.html">Sass</a></li>
+                        <li><a href="badges.html">Components</a></li>
+                        <li><a href="collapsible.html">JavaScript</a></li>
+                    </ul>
                 </div>
-            </div> <!-- container-dashboard -->
+            </div> <!-- container -->
         </nav>
-        <div class="container-dashboard">
+        <div class="container dashboard">
             <a href="#" data-activates="side-nav" id="button-collapse" class="button-collapse top-nav full hide-on-large-only">
                 <i class="material-icons small">menu</i>
             </a>
-        </div> <!-- container-dashboard -->
+        </div> <!-- container -->
         <ul id="side-nav" class="side-nav fixed">
             <li class="logo">
                 <a href="/">
@@ -40,7 +45,11 @@
         </ul> <!-- side-nav -->
     </header>
     <main>
-        <g:layoutBody/>
+        <div class="container dashboard">
+            <div class="row">
+                <g:layoutBody/>
+            </div>
+        </div>
     </main>
     </body>
 </g:applyLayout>

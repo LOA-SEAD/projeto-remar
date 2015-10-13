@@ -9,10 +9,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="material-layout-inside">
+    <meta name="layout" content="dashboard">
     <title>REMAR</title>
 </head>
 <body>
+
 
 </body>
 </html>

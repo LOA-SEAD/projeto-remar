@@ -69,7 +69,7 @@ li.logo:hover {
     background-color: transparent;
 }
 
-li:not(.logo) a {
+.side-nav li:not(.logo) a {
     height: 2.75rem;
     line-height: 2.75rem;
 }
@@ -89,20 +89,20 @@ header, main, footer {
 }
 
 @media only screen and (min-width : 993px) {
-    .container-dashboard {
+    .container.dashboard {
         width: 98%;
         max-width: none;
     }
 }
 
-.container-dashboard {
+.container.dashboard {
     padding: 0 2.5rem;
     margin: 0 auto;
     max-width: 100% !important;
     width: 100%;
 }
 
-main div.container-dashboard {
+main div.container.dashboard {
     padding: 5.3rem 1.7rem;
 }
 
@@ -113,7 +113,7 @@ a.button-collapse.top-nav {
     float: none;
     color: #fff;
     font-size: 32px;
-    z-index: 9999;
+    z-index: 1;
 }
 
 nav.top-nav.fixed {
@@ -123,8 +123,14 @@ nav.top-nav.fixed {
     line-height: 64px !important;
 }
 
+#top-nav-menu {
+    position: relative;
+    right: 14em;
+}
+
 .page-title {
     font-size: 1.5rem;
+
 }
 
 /*================================================================================
