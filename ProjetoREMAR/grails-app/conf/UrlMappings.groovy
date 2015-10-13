@@ -10,7 +10,6 @@ class UrlMappings {
 
         // begin index mappings
         "/"(controller:'index')
-        "/dashboard"(controller: "index", action: "dashboard")
         "/frame$uri**"(controller: "index", action: "frame")
         // end index mappings
 

@@ -11,31 +11,27 @@ class IndexController {
 
     def index() {
         if (springSecurityService.isLoggedIn()) {
-            redirect uri: "/dashboard"
+            def model = [:]
+
+            model.gameInstanceList = Resource.findAllByStatus('approved') // change to #findAllByActive?
+            model.userName = session.user.firstName
+            model.userGender = User.findById(session.user.id).gender
+            model.publicExportedResourcesList = ExportedResource.findAllByType('public')
+            model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id))
+
+            log.debug model.userGender
+            log.debug "RESULT: " + model.publicExportedResourcesList.size()
+
+            def instances = []
+            runtimeService.createProcessInstanceQuery().variableValueEquals("ownerId", "1").list().each {instance ->
+                def i = []
+                i.push(runtimeService.getVariable(instance.processInstanceId, "gameName"))
+
+            }
+            render view: "dashboard", model: model
         } else {
             render view: "index"
         }
-    }
-
-    def dashboard() {
-        def model = [:]
-
-        model.gameInstanceList = Resource.findAllByStatus('approved') // change to #findAllByActive?
-        model.userName = session.user.firstName
-        model.userGender = User.findById(session.user.id).gender
-        model.publicExportedResourcesList = ExportedResource.findAllByType('public')
-        model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id))
-
-        log.debug model.userGender
-        log.debug "RESULT: " + model.publicExportedResourcesList.size()
-
-        def instances = []
-        runtimeService.createProcessInstanceQuery().variableValueEquals("ownerId", "1").list().each {instance ->
-            def i = []
-            i.push(runtimeService.getVariable(instance.processInstanceId, "gameName"))
-
-        }
-        render view: "dashboard", model: model
     }
 
     def frame() {
