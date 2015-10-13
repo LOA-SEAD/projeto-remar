@@ -1,4 +1,5 @@
 <g:applyLayout name="base">
+    
     <header id="header" class="page-topbar">
         <div class="navbar-fixed">
             <nav class="cyan darken-2">

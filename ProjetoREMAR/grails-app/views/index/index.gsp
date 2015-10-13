@@ -21,8 +21,6 @@
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="${resource(dir: 'assets/css', file: 'bootstrap.css')}" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    %{--<link href="../assets/css/logo-nav.css" rel="stylesheet">--}%
 
     <!-- Bootstrap 3.3.5 -->
     <link href="${resource(dir: 'assets/css', file: 'bootstrap.css')}" rel="stylesheet">

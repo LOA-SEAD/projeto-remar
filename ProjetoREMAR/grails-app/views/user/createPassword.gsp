@@ -5,8 +5,6 @@
     <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
     <title>Recuperar conta</title>
 
-    %{--<link href="${resource(dir: 'assets/css', file: 'external-styles.css')}" rel="stylesheet" >--}%
-    %{--<link href="${resource(dir: 'assets/css', file: 'external-styles.css')}" rel="stylesheet" >--}%
     <link href="${resource(dir: 'assets/css', file: 'icomoon.css')}" rel="stylesheet" >
     %{--<g:javascript src="recaptcha.js" />--}%
 
