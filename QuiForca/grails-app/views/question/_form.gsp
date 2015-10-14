@@ -50,7 +50,7 @@
                     </label>
                 </td>
                 <td class="spaced_td">
-                    <g:textField class="form-control" id="author" name="author" required="" value="${questionInstance?.author}"/>
+                    <g:textField class="form-control" id="author" name="author" required="" readonly="readonly" value="${questionInstance?.author}"/>
                 </td>
 
             </td>

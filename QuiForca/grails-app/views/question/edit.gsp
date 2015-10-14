@@ -10,6 +10,7 @@
 <html>
 <head>
     %{--<meta name="layout" content="main">--}%
+    <g:javascript src="scriptTable.js"/>
 </head>
 <body>
     <!-- Modal content-->

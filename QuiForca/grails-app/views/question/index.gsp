@@ -145,23 +145,5 @@
                 </div>
             </div>
         </div>
-
-    <script type="text/javascript">
-        var x = document.getElementsByName("question_label");
-        $(document).on("click", ".selectable_tr", function () {
-            console.log("click event");
-            var myNameId = $(this).data('id')
-            console.log(myNameId);
-            $("#questionInstance").val( myNameId );
-
-            $('body').on('hidden.bs.modal', '#EditModal', function (e) {
-                console.log("entrou aqui");
-                $(e.target).removeData("bs.modal");
-                $("#EditModal > div > div > div").empty();
-            });
-
-        });
-
-    </script>
     </body>
 </html>

@@ -6,5 +6,8 @@
 .new-size{
     width: 800px;
     min-height: 300px;
+    position: fixed;
+    top: 15%;
+    left: 24%;
 
 }
