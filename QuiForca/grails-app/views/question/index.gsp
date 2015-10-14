@@ -61,18 +61,18 @@
                                 <g:each in="${questionInstanceList}" status="i" var="questionInstance">
                                     <tr class="selectable_tr ${(i % 2) == 0 ? 'even' : 'odd'} " style="cursor: pointer;"
                                         data-id="${fieldValue(bean: questionInstance, field: "id")}" data-owner-id="${fieldValue(bean: questionInstance, field: "ownerId")}"
-                                        data-checked="false" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}"
+                                        data-checked="false"
                                     >
 
                                         <td class="_not_editable" align="center" > <input class="checkbox" type="checkbox"/> </td>
 
-                                        <td name="question_label" style="text-align: center;" data-questionId="${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "statement")}</td>
+                                        <td name="question_label" style="text-align: center;" data-questionId="${questionInstance.id}" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "statement")}</td>
 
-                                        <td style="text-align: center;"  >${fieldValue(bean: questionInstance, field: "answer")}</td>
+                                        <td style="text-align: center;" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "answer")}</td>
 
-                                        <td name="theme" id="theme" style="text-align: center;" >${fieldValue(bean: questionInstance, field: "category")}</td>
+                                        <td name="theme" id="theme" style="text-align: center;" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "category")}</td>
 
-                                        <td style="text-align: center;"  >${fieldValue(bean: questionInstance, field: "author")}</td>
+                                        <td style="text-align: center;" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "author")}</td>
 
                                     </tr>
                                 </g:each>

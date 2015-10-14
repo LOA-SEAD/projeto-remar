@@ -3,11 +3,12 @@
 <html>
 	<head>
 		%{--<meta name="layout" content="main">--}%
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	</head>
 	<body>
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"><i class="icon-table"></i> Editar Questão</h4>
+        <h4 class="modal-title"> <i class="fa fa-table"></i> Editar Questão</h4>
     </div>
     <div class="widget-content-white glossed">
         <div class="padded">
