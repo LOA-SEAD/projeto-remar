@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="base">
+    <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
     <title>Registrar-se</title>
 </head>
 <body>
@@ -85,8 +86,18 @@
         </div> <!-- card -->
     </div> <!-- row -->
 </div> <!-- container -->
+
+<div id="modal-profile-picture" class="modal">
+    <div class="modal-content center">
+        <img id="crop-preview" class="responsive-img">
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect btn-flat">Enviar</a>
+    </div>
+</div>
 <g:javascript src="jquery/jquery.validate.js"/>
 <recaptcha:script/>
 <g:javascript src="user/form.js"/>
+<g:javascript src="jquery/jquery.Jcrop.js"/>
 </body>
 </html>

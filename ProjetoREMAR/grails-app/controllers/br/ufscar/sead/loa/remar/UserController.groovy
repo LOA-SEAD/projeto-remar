@@ -9,6 +9,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 
+import javax.imageio.ImageIO
+import java.awt.image.BufferedImage
+
 import static org.springframework.http.HttpStatus.*
 
 import grails.transaction.Transactional
@@ -372,6 +375,29 @@ class UserController {
 
     def emailAvailable(){
         render User.findByEmail(params.email) == null
+    }
+
+    def cropProfilePicture() {
+        def root = servletContext.getRealPath("/")
+        def f = new File("${root}data/tmp")
+        f.mkdirs()
+        def destination = new File(f, RandomStringUtils.random(50, true, true))
+        def photo = params.photo as CommonsMultipartFile
+        photo.transferTo(destination)
+
+        def x = Math.round(params.float('x'))
+        def y = Math.round(params.float('y'))
+        def w = Math.round(params.float('w'))
+        def h = Math.round(params.float('h'))
+        println x
+        println y
+        println w
+        println h
+        BufferedImage img = ImageIO.read(destination)
+        ImageIO.write(img.getSubimage(x, y, w, h),
+                      photo.contentType.contains('png')? 'png' : 'jpg', destination)
+        println destination.name
+        render destination.name
     }
 
 }

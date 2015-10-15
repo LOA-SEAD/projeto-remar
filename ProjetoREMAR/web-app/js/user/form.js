@@ -114,12 +114,64 @@ $('select').on('change', function() {
     }
 });
 
+var jcrop;
+
 $('#file').on('change', function() {
+    var file = $(this).prop('files')[0];
     var fr = new FileReader();
 
-    fr.readAsDataURL($(this).prop('files')[0]);
+    fr.readAsDataURL(file);
     fr.onload = function(event) {
-        $('#profile-picture').attr('src', event.target.result);
+        var image = new Image();
+        image.src = event.target.result;
+        image.onload = function() {
+            var el = $('#crop-preview');
+            $(el).attr('src', event.target.result);
+            $("#modal-profile-picture").openModal({
+                complete: function () {
+                    jcrop.destroy();
+                    $(".jcrop-holder").remove();
+                    $(el).removeAttr("style");
+
+                    var formData = new FormData();
+                    var coordinates = jcrop.tellSelect();
+                    console.log(coordinates);
+                    console.log(jcrop.tellScaled());
+                    formData.append('photo', file);
+                    formData.append('x', coordinates.x);
+                    formData.append('y', coordinates.y);
+                    formData.append('w', coordinates.w);
+                    formData.append('h', coordinates.h);
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "user/crop-profile-picture",
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (data) {
+                            $('#profile-picture').attr("src", "/data/tmp/" + data);
+                        },
+                        error: function(req, res, err) {
+                            console.log(req);
+                            console.log(res);
+                            console.log(err);
+                        }
+                    })
+
+
+                }
+            });
+            console.log(this.width + " " + this.height + " auhuea");
+            $(el).Jcrop({
+                aspectRatio: 1,
+                setSelect: [0, 0, Math.max(this.width, this.height), Math.max(this.width, this.height)],
+                boxHeight: 500,
+                trueSize: [this.width, this.height]
+            }, function () {
+                jcrop = this;
+            });
+        }
     }
 });
 

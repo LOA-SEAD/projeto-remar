@@ -44,6 +44,12 @@ span.invalid-input {
     max-height: 6rem;
 }
 
+.card-header .profile-picture {
+    position: relative;
+    bottom: 59px;
+    width: 70px;
+}
+
 .max-height-180 {
     max-height: 550px;
 }
@@ -131,6 +137,38 @@ nav.top-nav.fixed {
 .page-title {
     font-size: 1.5rem;
 
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.card-header .card-title {
+    padding: 20px;
+}
+
+.card-header .card-title .task-name {
+    margin: 0;
+    font-weight: 300;
+}
+
+.card-header .card-title .task-status {
+    font-size: 1rem;
+    margin: 0;
+}
+
+
+#modal-profile-picture {
+    width: 33.33% !important;
+}
+
+#crop-preview {
+    max-height: 70%;
+}
+
+.jcrop-holder {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /*================================================================================
