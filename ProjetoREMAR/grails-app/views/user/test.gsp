@@ -21,34 +21,90 @@
                 dismissible: false,
                 opacity: .5,
                 ready: function() {
-                    console.log("Modal openned");
+                    //console.log("Modal openned");
                 },
                 complete: function() {
-                    console.log("modal completed");
+                    //console.log("modal completed");
                 }
             });
 
             fillUsers("");
+
+            $("#userSearch").keyup(function() {
+                fillUsers($("#userSearch").val())
+            });
+
         });
 
         function fillUsers(filter) {
-            /*$.ajax({
-                type: 'POST',
-                url: ''
-            });*/
+            if($("#userSearch").val() == undefined) {
+                filter = "";
+            }
 
-            $('#users-content').load('/user/filteredUserList');
+            /*
+            * <div class="preloader-wrapper big active">
+             <div class="spinner-layer spinner-blue">
+             <div class="circle-clipper left">
+             <div class="circle"></div>
+             </div><div class="gap-patch">
+             <div class="circle"></div>
+             </div><div class="circle-clipper right">
+             <div class="circle"></div>
+             </div>
+             </div>
+
+             <div class="spinner-layer spinner-red">
+             <div class="circle-clipper left">
+             <div class="circle"></div>
+             </div><div class="gap-patch">
+             <div class="circle"></div>
+             </div><div class="circle-clipper right">
+             <div class="circle"></div>
+             </div>
+             </div>
+
+             <div class="spinner-layer spinner-yellow">
+             <div class="circle-clipper left">
+             <div class="circle"></div>
+             </div><div class="gap-patch">
+             <div class="circle"></div>
+             </div><div class="circle-clipper right">
+             <div class="circle"></div>
+             </div>
+             </div>
+
+             <div class="spinner-layer spinner-green">
+             <div class="circle-clipper left">
+             <div class="circle"></div>
+             </div><div class="gap-patch">
+             <div class="circle"></div>
+             </div><div class="circle-clipper right">
+             <div class="circle"></div>
+             </div>
+             </div>
+             </div>*/
+
+            $.ajax({
+                type: 'POST',
+                url: '/user/filteredUserList',
+                data: {
+                    filter: filter
+                }
+            }).success(function(data) {
+                console.log("ajax done");
+                $('#users-content').html(data);
+            });
         }
     </script>
 
     <!-- Modal with fixed footer -->
-    <div id="modal1" class="modal modal-fixed-footer">
+    <div id="modal" class="modal modal-fixed-footer">
         <div class="modal-content">
             <h4>Escolha um responsável</h4>
             <div class="row">
                 <div class="header-search-wrapper">
                     <i class="mdi-action-search"></i>
-                    <input type="text" name="search" class="header-search-input z-depth-2" placeholder="Procure por pessoas" />
+                    <input type="text" id="userSearch" class="header-search-input z-depth-2" placeholder="Procure por pessoas" />
                 </div>
             </div>
             <div class="row">
@@ -61,7 +117,7 @@
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat green lighten-1" style="margin-left: 10px">Escolher</a>
-            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat red lighten-1">Cancelar</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat bg-gray lighten-1">Cancelar</a>
         </div>
     </div>
 
@@ -76,7 +132,7 @@
                     </div>
                     <div class="col l6 center">
                         <p>Responsável:</p>
-                        <a class="modal-trigger" href="#modal1">
+                        <a class="modal-trigger" href="#modal">
                             <img class="circle profile-picture" src="/images/avatars/male.png"/>
                         </a>
 
@@ -97,24 +153,13 @@
                     </div>
                     <div class="col l6 center">
                         <p>Responsável:</p>
-                        <a class="modal-trigger" href="#modal2">
+                        <a class="modal-trigger" href="#modal">
                             <img class="circle profile-picture" src="/images/avatars/male.png"/>
                         </a>
                         <br>Matheus
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- Modal with fixed footer -->
-    <div id="modal2" class="modal modal-fixed-footer">
-        <div class="modal-content">
-            <h4>Modal Header</h4>
-            <p>A bunch of text</p>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat green">Escolher</a>
         </div>
     </div>
 
@@ -128,7 +173,9 @@
                     </div>
                     <div class="col l6 center">
                         <p>Responsável:</p>
-                        <img class="circle profile-picture" src="/images/avatars/male.png"/>
+                        <a class="modal-trigger" href="#modal">
+                            <img class="circle profile-picture" src="/images/avatars/male.png"/>
+                        </a>
                         <br>Matheus
                     </div>
                 </div>

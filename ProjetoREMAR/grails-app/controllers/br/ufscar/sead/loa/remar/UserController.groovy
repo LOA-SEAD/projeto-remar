@@ -353,8 +353,10 @@ class UserController {
 
         render(template: "grid", model:[userInstanceList: list])
     }
+
     def filteredUserList(String filter) {
-        def filteredUserList = User.findAll()
+        filter = "%"+filter+"%"
+        def filteredUserList = User.findAllByFirstNameOrLastNameIlikeOrEmailIlikeOrUsernameIlike(filter, filter, filter, filter, null)
 
         render template: 'filteredUsers', model: [filteredUserList: filteredUserList]
     }
