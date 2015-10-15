@@ -1,4 +1,4 @@
-<!--<g:each in="${filteredUsers}" var="user">-->
+<g:each in="${filteredUserList}" var="user">
     <div class="col s12 m4 l3">
         <div class="card white">
             <div class="card-content">
@@ -7,13 +7,13 @@
                         <img class="circle profile-picture" src="/images/avatars/male.png"/>
                     </div>
                     <div class="col s8">
-                        Rener Baffa da Silva
-                        <p class="gray-text ultra-small">renerbaffa@gmail.com</p>
-                        <p class="gray-text ultra-small">Sexo: Masculino</p>
-                        <p class="gray-text ultra-small">renerbaffa</p>
+                        ${user.firstName} ${user.lastName}
+                        <p class="gray-text ultra-small">${user.email}</p>
+                        <p class="gray-text ultra-small">Sexo: <g:if test="${user.gender == 'M'}">Masculino</g:if><g:else>Feminino</g:else></p>
+                        <p class="gray-text ultra-small">${user.username}</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-<!--</g:each>->
+</g:each>
