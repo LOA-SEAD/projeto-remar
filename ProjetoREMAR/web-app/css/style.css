@@ -178,6 +178,55 @@ nav.top-nav.fixed {
     margin-right: auto;
 }
 
+/* input to search users */
+.header-search-wrapper {
+    width: 100%;
+    margin: 0 auto;
+    height: 40px;
+    display: inline-block;
+    position: relative;
+}
+
+.header-search-wrapper i {
+    position: absolute;
+    top: 0;
+    font-size: 24px;
+    top: 6px;
+    left: 24px;
+    line-height: 32px !important;
+    -webkit-transition: color 200ms ease;
+    transition: color 200ms ease;
+}
+
+input.header-search-input {
+    display: block;
+    padding: 8px 8px 8px 72px;
+    width: calc(100% - 72px);
+    background: rgba(219,219,219,0.3);
+    height: 24px;
+    -webkit-transition: all 200ms ease;
+    transition: all 200ms ease;
+    border: none;
+    font-weight: 400;
+    outline: none;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+/* end input to search users */
+
+/* cards to search people */
+.ultra-small {
+    font-size: 0.8em;
+}
+
+.gray-text {
+    color: #9e9e9e !important;
+}
+/* end cards to search people */
+
+
+
 /*================================================================================
 	Item Name: Materialize - Material Design Admin Template
 	Version: 2.1
