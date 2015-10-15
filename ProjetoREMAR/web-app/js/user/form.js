@@ -135,8 +135,6 @@ $('#file').on('change', function() {
 
                     var formData = new FormData();
                     var coordinates = jcrop.tellSelect();
-                    console.log(coordinates);
-                    console.log(jcrop.tellScaled());
                     formData.append('photo', file);
                     formData.append('x', coordinates.x);
                     formData.append('y', coordinates.y);
@@ -162,7 +160,6 @@ $('#file').on('change', function() {
 
                 }
             });
-            console.log(this.width + " " + this.height + " auhuea");
             $(el).Jcrop({
                 aspectRatio: 1,
                 setSelect: [0, 0, Math.max(this.width, this.height), Math.max(this.width, this.height)],

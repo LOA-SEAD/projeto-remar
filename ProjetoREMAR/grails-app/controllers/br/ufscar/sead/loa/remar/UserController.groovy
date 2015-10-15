@@ -389,10 +389,6 @@ class UserController {
         def y = Math.round(params.float('y'))
         def w = Math.round(params.float('w'))
         def h = Math.round(params.float('h'))
-        println x
-        println y
-        println w
-        println h
         BufferedImage img = ImageIO.read(destination)
         ImageIO.write(img.getSubimage(x, y, w, h),
                       photo.contentType.contains('png')? 'png' : 'jpg', destination)

@@ -34,7 +34,8 @@
     <bpmn2:endEvent id="EndEvent_1" name="EndEvent">
       <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:userTask id="question.index" name="&#xA;Banco de Questões">
+    <bpmn2:userTask id="question.index" name="&#xA;Banco de questões">
+      <bpmn2:documentation>As questões devem conter um enunciado e quatro alternativas, sendo uma correta. Cada um dos 3 níveis deve conter pelo menos 5 questões. </bpmn2:documentation>
       <bpmn2:extensionElements>
         <camunda:executionListener class="br.ufscar.sead.loa.remar.ProcessController" event="end"/>
       </bpmn2:extensionElements>
@@ -42,7 +43,8 @@
       <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="SequenceFlow_7" name="" sourceRef="question.index" targetRef="Gateway_2"/>
-    <bpmn2:userTask id="theme.index" name="&#xA;Criar/escolher tema">
+    <bpmn2:userTask id="theme.index" name="&#xA;Tema">
+      <bpmn2:documentation>O tema consiste em 3 pares de imagens que representam as portas dos 3 níveis do jogo – abertas e fechadas.</bpmn2:documentation>
       <bpmn2:extensionElements>
         <camunda:executionListener class="br.ufscar.sead.loa.remar.ProcessController" event="end"/>
       </bpmn2:extensionElements>

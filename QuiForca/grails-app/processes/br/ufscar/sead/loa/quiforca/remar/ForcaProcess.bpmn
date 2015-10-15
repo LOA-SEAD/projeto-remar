@@ -35,6 +35,7 @@
       <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
     </bpmn2:endEvent>
     <bpmn2:userTask id="question.index" name="&#xA;Banco de Questões">
+      <bpmn2:documentation>description</bpmn2:documentation>
       <bpmn2:extensionElements>
         <camunda:executionListener class="br.ufscar.sead.loa.remar.ProcessController" event="end"/>
       </bpmn2:extensionElements>
