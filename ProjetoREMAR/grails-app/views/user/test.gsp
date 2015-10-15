@@ -27,8 +27,44 @@
                     console.log("modal completed");
                 }
             });
+
+            fillUsers("");
         });
+
+        function fillUsers(filter) {
+            /*$.ajax({
+                type: 'POST',
+                url: ''
+            });*/
+
+            $('#users-content').load('/user/filteredUserList');
+        }
     </script>
+
+    <!-- Modal with fixed footer -->
+    <div id="modal1" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4>Escolha um responsável</h4>
+            <div class="row">
+                <div class="header-search-wrapper">
+                    <i class="mdi-action-search"></i>
+                    <input type="text" name="search" class="header-search-input z-depth-2" placeholder="Procure por pessoas" />
+                </div>
+            </div>
+            <div class="row">
+                <div id="users-content">
+
+
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat green lighten-1" style="margin-left: 10px">Escolher</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat red lighten-1">Cancelar</a>
+        </div>
+    </div>
+
 
     <div class=" col s12 m6 l4">
         <div class="card white z-depth-1-half">
@@ -51,17 +87,6 @@
         </div>
     </div>
 
-    <!-- Modal with fixed footer -->
-    <div id="modal1" class="modal modal-fixed-footer">
-        <div class="modal-content">
-            <h4>Modal Header</h4>
-            <p>A bunch of text</p>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat green">Escolher</a>
-        </div>
-    </div>
-
     <div class=" col s12 m6 l4">
         <div class="card white z-depth-1-half">
             <div class="card-content">
@@ -78,7 +103,6 @@
                         <br>Matheus
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
