@@ -69,6 +69,7 @@
                                 <input type="file" id="file" name="photo" accept="image/jpeg, image/png">
                                 <div class="file-path-wrapper">
                                     <input class="file-path" type="text" placeholder="Selecione uma foto (opicional)">
+                                    <span class="input-description">Outros usuários irão te identificar mais facilmente :)</span>
                                 </div>
                             </div>
                         </div>

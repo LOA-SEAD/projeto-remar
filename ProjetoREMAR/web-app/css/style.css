@@ -35,6 +35,13 @@ span.invalid-input {
     color: #F44335;
 }
 
+span.input-description {
+    font-size: 0.8rem;
+    position: absolute;
+    top: 3.1rem;
+    color: #9e9e9e;
+}
+
 .g-recaptcha div div {
     margin: auto;
 }
