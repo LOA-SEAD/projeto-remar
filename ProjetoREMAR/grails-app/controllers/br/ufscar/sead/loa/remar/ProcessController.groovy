@@ -146,12 +146,13 @@ class ProcessController implements JavaDelegate, ExecutionListener{
 
         for (task in tasks) {
             task.taskDefinitionKey = "${task.taskDefinitionKey.replace('.', '/')}?p=${task.processInstanceId}&t=${task.id}"
+            task.getDescription()
         }
 
         if (tasks.size() == 0) {
             render(view:'finishedProcess')
         } else {
-            respond "", model: [allusers: allUsers, alltasks: tasks, uri: uri, processId: params.processId,
+            render view: "chooseUsersTasks", model: [users: allUsers, tasks: tasks, uri: uri, processId: params.processId,
                                 currentUser: session.user, dev: Environment.current == Environment.DEVELOPMENT]
         }
 
