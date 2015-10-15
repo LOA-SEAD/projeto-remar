@@ -353,6 +353,11 @@ class UserController {
 
         render(template: "grid", model:[userInstanceList: list])
     }
+    def filteredUserList(String filter) {
+        def filteredUserList = User.findAll()
+
+        render template: 'filteredUsers', model: [filteredUserList: filteredUserList]
+    }
 
     def usernameAvailable(){
         println params.username
