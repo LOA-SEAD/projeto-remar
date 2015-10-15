@@ -63,17 +63,29 @@
                                         data-id="${fieldValue(bean: questionInstance, field: "id")}" data-owner-id="${fieldValue(bean: questionInstance, field: "ownerId")}"
                                         data-checked="false"
                                     >
+                                        <g:if test="${questionInstance.author == userName }">
 
-                                        <td class="_not_editable" align="center" > <input class="checkbox" type="checkbox"/> </td>
+                                            <td class="_not_editable" align="center" > <input class="checkbox" type="checkbox"/> </td>
 
-                                        <td name="question_label" style="text-align: center;" data-questionId="${questionInstance.id}" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "statement")}</td>
+                                            <td name="question_label" style="text-align: center;" data-questionId="${questionInstance.id}" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "statement")}</td>
 
-                                        <td style="text-align: center;" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "answer")}</td>
+                                            <td style="text-align: center;" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "answer")}</td>
 
-                                        <td name="theme" id="theme" style="text-align: center;" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "category")}</td>
+                                            <td name="theme" id="theme" style="text-align: center;" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "category")}</td>
 
-                                        <td style="text-align: center;" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "author")}</td>
+                                            <td style="text-align: center;" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "author")}</td>
+                                        </g:if>
+                                        <g:else>
+                                            <td class="_not_editable" align="center" > <input class="checkbox" type="checkbox"/> </td>
 
+                                            <td name="question_label" style="text-align: center;" data-questionId="${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "statement")}</td>
+
+                                            <td style="text-align: center;" >${fieldValue(bean: questionInstance, field: "answer")}</td>
+
+                                            <td name="theme" id="theme" style="text-align: center;" >${fieldValue(bean: questionInstance, field: "category")}</td>
+
+                                            <td style="text-align: center;" >${fieldValue(bean: questionInstance, field: "author")}</td>
+                                        </g:else>
                                     </tr>
                                 </g:each>
                                 </tbody>
@@ -90,7 +102,7 @@
             </fieldset>
                     <!-- Create Question Modal -->
                     <div class="modal fade" id="CreateModal" role="dialog">
-                        <div class="modal-dialog center new-size ">
+                        <div class="modal-dialog text-center ">
                             <!-- Modal content-->
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -133,7 +145,7 @@
                     </div>
                 <!--Edit Question Modal -->
                 <div class="modal fade" id="EditModal" role="dialog">
-                    <div class="modal-dialog center new-size ">
+                    <div class="modal-dialog text-center">
                         <!-- Modal content-->
                         <div class="modal-content">
 

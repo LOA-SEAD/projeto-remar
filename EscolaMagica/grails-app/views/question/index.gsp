@@ -76,7 +76,7 @@
         </div>
     <!-- Create Question Modal -->
     <div class="modal fade" id="CreateModal" role="dialog">
-        <div class="modal-dialog center new-size ">
+        <div class="modal-dialog text-center">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
@@ -88,7 +88,7 @@
     </div>
     <!-- Edit Question Modal -->
     <div class="modal fade" id="EditModal" role="dialog">
-        <div class="modal-dialog center new-size ">
+        <div class="modal-dialog text-center ">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">

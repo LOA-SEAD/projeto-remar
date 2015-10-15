@@ -80,13 +80,19 @@ window.onload = function(){
     });
 
     $('#delete').click(function() {
+        if (confirm("Você tem certeza?")) {
+
         var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
-        for(var i = 0; i < trs.length; i++) {
-            if($(trs[i]).attr('data-checked') == "true") {
+        console.log(trs.length);
+        for (var i = 0; i < trs.length; i++) {
+            if ($(trs[i]).attr('data-checked') == "true") {
                 $(trs[i]).addClass('disabled');
                 _delete(trs[i]);
             }
         }
+    }
+
+
     });
 
     $('#save').click(function () {
@@ -218,17 +224,27 @@ function update(tr) {
 }
 
 function _delete(tr) {
-    var url = location.origin + '/forca/question/delete/' + $(tr).attr('data-id');
-    var data = { _method: 'DELETE' };
+    var tds = $(tr).find("td");
+    if ($(tds)[4].textContent == getUserName()) {
+        var url = location.origin + '/forca/question/delete/' + $(tr).attr('data-id');
+        var data = {_method: 'DELETE'};
 
-    $.ajax({
-        type:'POST',
-        data: data,
-        url: url,
-        success:function(data){
-            $(tr).remove();
-        },
-        error:function(XMLHttpRequest,textStatus,errorThrown){}});
+        $.ajax({
+                type: 'POST',
+                data: data,
+                url: url,
+                success: function (data) {
+                    $(tr).remove();
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                }
+            }
+        );
+    }
+    else
+    {
+        alert("Você não pode excluir uma questão de outro usuário!");
+    }
 }
 
 $(function(){

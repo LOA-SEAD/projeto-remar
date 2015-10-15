@@ -11,3 +11,9 @@
     left: 24%;
 
 }
+
+.modal-dialog{
+    left: auto;
+    right: auto;
+    top: 15%;
+}
