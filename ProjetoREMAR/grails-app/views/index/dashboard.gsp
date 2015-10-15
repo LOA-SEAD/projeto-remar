@@ -10,7 +10,6 @@
 <html>
 <head>
     <meta name="layout" content="dashboard">
-    <title>REMAR</title>
 </head>
 <body>
 
