@@ -6047,7 +6047,7 @@ a.waves-effect .waves-ripple {
   background-color: #fafafa;
   padding: 0;
   max-height: 70%;
-  width: 80%;
+  width: 55%;
   margin: auto;
   overflow-y: auto;
   border-radius: 2px;
@@ -6086,7 +6086,7 @@ a.waves-effect .waves-ripple {
 
 .modal.modal-fixed-footer {
   padding: 0;
-  height: 80%; }
+  height: 70%; }
   .modal.modal-fixed-footer .modal-content {
     position: absolute;
     height: calc(100% - 56px);
