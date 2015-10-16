@@ -2,9 +2,174 @@
  * New layout styles
  */
 
+/*=================================================================================
+    Navbar
+====================================================================================*/
+/*----------------------------------------
+    navbar new styles
+------------------------------------------*/
+
+nav ul a.logo{
+    padding: 0;
+}
+
 body{
     background-color: #f2f2f2;
 }
+
+
+li.logo img {
+    width: 150px;
+    margin-top: 7px;
+}
+
+li.logo-icon img {
+    width: 40px;
+    margin-top: 10px;
+    margin-right: 15px;
+}
+
+li.logo {
+    margin-bottom: 32px !important;
+}
+
+li.logo:hover, li.logo-icon:hover, li.user:hover {
+    background-color: transparent;
+}
+
+li.user a img{
+    width: 40px;
+    height: 40px;
+    margin-top: 10px;
+}
+
+@media only screen and (max-width : 992px) {
+
+    li.logo{
+        margin-right: 2.5rem;
+    }
+}
+
+/*=================================================================================
+    Container
+====================================================================================*/
+/*----------------------------------------
+    container and blocks layout
+------------------------------------------*/
+
+
+#main{
+    padding-left: 240px;
+}
+
+.container {
+    padding: 0 0.5rem;
+    margin: 0 auto;
+    max-width: 100% !important;
+    width: 98%;
+}
+
+.external-container {
+    padding: 0 0.5rem;
+    margin: 0 auto;
+    max-width: 1280px; !important; /* referência material*/
+    width: 98%;
+}
+
+@media only screen and (max-width: 993px){
+    #main, footer {
+        padding-left: 0px;
+    }
+}
+
+@media only screen and (min-width: 601px) {
+    .container {
+        width: 98%;
+    }
+}
+@media only screen and (min-width: 993px) {
+    .container {
+        width: 98%;
+    }
+}
+@media only screen and (max-width: 993px) {
+    #main,
+    footer {
+        padding-left: 0px;
+    }
+}
+
+main, footer {
+    padding-left: 100px;
+    padding-top: 20px;
+}
+
+
+@media only screen and (max-width : 992px) {
+    main, footer {
+        padding-left: 0;
+    }
+
+    .nav-wrapper {
+        left: 2rem;
+    }
+}
+
+
+.container.menu {
+    padding: 0 0.8rem;
+    margin: 0 auto;
+    max-width: 100% !important;
+    width: 100%;
+}
+
+#chart-dashboard{
+    padding-top: 12px;
+}
+
+
+/*=================================================================================
+    Sidebar
+====================================================================================*/
+/*----------------------------------------
+    Sidebar Main Menu
+------------------------------------------*/
+
+.side-nav {
+    background-color: #fff ;
+}
+
+.side-nav.fixed a:not(.profile-btn) {
+    display: block;
+    padding: 0 10px;
+    /*color: #444;*/
+    color: #00695c;
+}
+
+.side-nav.fixed li{
+    margin: 5px;
+}
+
+.side-nav li:hover, .side-nav li.active {
+    background-color: #e0f2f1;  }
+
+.side-nav a {
+    line-height: 42px;
+    height: 42px;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.side-nav li a i {
+    line-height: inherit;
+    width: 2rem;
+    font-size: 1.6rem;
+    display: block;
+    float: left;
+    text-align: center;
+    margin-right: 1rem;
+}
+
 
 ul.side-nav.leftside-navigation {
     top: 64px;
@@ -31,87 +196,7 @@ a.button-collapse.top-nav {
     float: none;
     color: #fff;
     font-size: 32px;
-    z-index: 99999;
-    /*margin-left: 10px;*/
-    /*margin-right: 10px;*/
-}
-
-li.logo img {
-    width: 150px;
-    margin-top: 7px;
-}
-
-li.logo {
-    margin-bottom: 32px;
-}
-
-li.logo:hover, li.user:hover {
-    background-color: transparent;
-}
-
-li.user img{
-    width: 40px;
-    height: 40px;
-    margin-top: 10px;
-}
-
-nav ul a.logo{
-    padding: 0;
-}
-
-main, footer {
-    padding-left: 100px;
-    padding-top: 20px;
-}
-
-
-@media only screen and (max-width : 992px) {
-    main, footer {
-        padding-left: 0;
-    }
-
-    .nav-wrapper {
-        left: 2rem;
-    }
-
-    li.logo{
-        margin-right: 2.5rem;
-    }
-}
-
-/*@media only screen and (min-width : 993px) {*/
-    /*.container.menu {*/
-        /*width: 98%;*/
-        /*max-width: none;*/
-    /*}*/
-/*}*/
-
-.container.menu {
-    padding: 0 0.8rem;
-    margin: 0 auto;
-    max-width: 100% !important;
-    width: 100%;
-}
-
-.collection-content {
-    background-color: #FFFFFF;
-    /*margin: 0;*/
-    display: none;
-    min-width: 400px; /* Changed this to accomodate content width */
-    min-height: 300px;
-    overflow: hidden; /* Changed this from overflow-y:auto; to overflow:hidden; */
-    opacity: 0;
-    /*position: absolute;*/
-    white-space: nowrap;
-    z-index: 0;
-    will-change: width, height;
-
-    width: auto;
-    right: auto;
-    position: static;
-    top: auto;
-    margin-top: 4rem;
-    margin-right: 0rem;
+    z-index: 999;
 }
 
 #left-sidebar-nav {
@@ -122,43 +207,121 @@ main, footer {
     height: auto;
 }
 
-#chart-dashboard{
-    padding-top: 12px;
+.side-nav li.user img{
+    width: 40px;
+    height: 40px;
+    margin-top: 10px;
 }
 
-#main{
-    padding-left: 240px;
+#profile-btn{
+    margin: 0;
+    text-transform: capitalize;
+    padding: 0; !important;
+    /*text-shadow: 1px 1px 1px #444;*/
+    font-size: 15px;
 }
 
-.container {
-    padding: 0 0.5rem;
-    margin: 0 auto;
-    max-width: 100% !important;
-    width: 98%;
+
+/*=================================================================================
+    Collection
+====================================================================================*/
+/*----------------------------------------
+    Collection menu
+------------------------------------------*/
+
+.collection-content {
+    background-color: #FFFFFF;
+    /*margin: 0;*/
+    display: none;
+    min-width: 400px; /* Changed this to accomodate content width */
+    min-height: 0;
+    overflow: hidden; /* Changed this from overflow-y:auto; to overflow:hidden; */
+    opacity: 0;
+    /*position: absolute;*/
+    white-space: nowrap;
+    z-index: 9999;
+    will-change: width, height;
+
+    width: auto;
+    right: auto;
+    position: static;
+    top: auto;
+    margin-top: 4rem;
+    margin-right: 0rem;
 }
 
-@media only screen and (max-width: 993px){
-    #main, footer {
-        padding-left: 0px;
-    }
+.collection-item{
+    display: block;
+    float: none;
+    color: #00695c
+}
+
+.setting-item{
+    line-height: 4.5rem;
+}
+
+.collection-item.footer{
+    background-color: #fafafa;
+    float: right;
+}
+
+.user-info{
+    line-height: 0.5;
+    display: inline-block;
+}
+.user-info.info{
+    margin-right: 50px;
+}
+
+.title{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.email{
+    font-size: 13px;
+    color: #4db6ac;
+}
+
+.profile-image{
+    width: 120px; !important;
+    height: 120px; !important;
+}
+
+.icon-button{
+    line-height: normal; !important;
 }
 
 @media only screen and (min-width: 601px) {
-    .container {
-        width: 98%;
+    nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
+        height: 64px;
+        line-height: 64px;
+    }
+    nav .nav-wrapper a.btn i{
+        line-height: 38px;
     }
 }
-@media only screen and (min-width: 993px) {
-    .container {
-        width: 98%;
-    }
+
+/*=================================================================================
+    Button
+====================================================================================*/
+/*----------------------------------------
+   button style
+------------------------------------------*/
+
+.btn-cancel {
+    color: #26a69a; !important;
+    background-color: #fafafa ; !important;
 }
-@media only screen and (max-width: 993px) {
-    #main,
-    footer {
-        padding-left: 0px;
-    }
+.btn-cancel:hover{
+    background-color: #fafafa ; !important;
 }
+
+
+
+
+
+
 
 
 

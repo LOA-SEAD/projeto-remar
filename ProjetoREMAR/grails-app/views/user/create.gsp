@@ -6,7 +6,7 @@
     <title>Registrar-se</title>
 </head>
 <body>
-<div class="container">
+<div class="external-container">
     <div class="row">
         <div class="card white z-depth-2 col s12 m8 l6 offset-m2 offset-l3">
             <div class="card-content">
