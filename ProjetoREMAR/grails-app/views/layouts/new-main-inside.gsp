@@ -69,7 +69,7 @@
                         <li><a href="/developer/new">Torne-se um Desenvolvedor<span class="sr-only">(current)</span></a></li>
                     </sec:ifNotGranted>
 
-                    <g:if test="${session.user.moodleUsername == null}">
+                    <g:if test="${session.user.moodleHash == null}">
                         <li><a href="/moodle">Vincular minha conta ao Moodle</a></li>
                     </g:if>
                 </ul>
