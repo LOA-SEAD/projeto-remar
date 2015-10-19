@@ -32,24 +32,28 @@ class MoodleController {
 
     def link() {
 
+        log.debug params.domain
+        println Moodle.findByDomain(parms.domain)
+        println "saddsadsadsadasdsadsadasdsadsadsadsadasdasdsadsadsadsadasdas"
 
         if(params.test) {
             def http = new HTTPBuilder(params.domain)
             render JSON.parse(http.post(path: "/webservice/rest/server.php",
-                    query: [wstoken: "647c093b186a187a0ac89884c8c79795",
+                    query: [wstoken: "5405714207a701a5e7efaf4d35efebe5",
                             wsfunction: "mod_remarmoodle_link_remar_user",
                             remar_user_id: session.user.id,
                             moodle_username: params.username]) as String).success
             return
         }
+        else {
+            def http = new HTTPBuilder(params.domain)
+            def resp = JSON.parse(http.post(path: "/webservice/rest/server.php",
+                                 query: [wstoken: "5405714207a701a5e7efaf4d35efebe5",
+                                         wsfunction: "mod_remarmoodle_link_remar_user",
+                                         remar_user_id: session.user.id,
+                                         moodle_username: params.username]) as String)
+        }
 
-        log.debug params.domain
-        def http = new HTTPBuilder(params.domain)
-        def resp = JSON.parse(http.post(path: "/webservice/rest/server.php",
-                             query: [wstoken: "647c093b186a187a0ac89884c8c79795",
-                                     wsfunction: "mod_remarmoodle_link_remar_user",
-                                     remar_user_id: session.user.id,
-                                     moodle_username: params.username]) as String)
         if(resp.success) {
             render view: "linkSuccess"
         } else {

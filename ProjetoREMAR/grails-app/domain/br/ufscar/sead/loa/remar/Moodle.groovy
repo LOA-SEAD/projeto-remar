@@ -5,4 +5,5 @@ class Moodle {
     String domain
     boolean active
     String name
+    String token
 }
