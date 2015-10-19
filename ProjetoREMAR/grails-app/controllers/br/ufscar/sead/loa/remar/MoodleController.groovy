@@ -1,8 +1,12 @@
 package br.ufscar.sead.loa.remar
 
 import grails.converters.JSON
+import grails.util.Environment
 import groovy.json.JsonBuilder
 import groovyx.net.http.HTTPBuilder
+import org.apache.commons.lang.RandomStringUtils
+
+import java.security.MessageDigest
 
 class MoodleController {
 
@@ -31,50 +35,28 @@ class MoodleController {
     }
 
     def link() {
+        def hash = RandomStringUtils.random(30, true, true)
 
-        log.debug params.domain
-        println Moodle.findByDomain(parms.domain)
-        println "saddsadsadsadasdsadsadasdsadsadsadsadasdasdsadsadsadsadasdas"
+        def url
 
-        if(params.test) {
-            def http = new HTTPBuilder(params.domain)
-            render JSON.parse(http.post(path: "/webservice/rest/server.php",
-                    query: [wstoken: "5405714207a701a5e7efaf4d35efebe5",
-                            wsfunction: "mod_remarmoodle_link_remar_user",
-                            remar_user_id: session.user.id,
-                            moodle_username: params.username]) as String).success
-            return
+        if (Environment.current == Environment.DEVELOPMENT) {
+            url = params.domain + "/moodle/mod/remarmoodle/new-account-confirmation.php?hash=" + hash
         }
         else {
-            def http = new HTTPBuilder(params.domain)
-            def resp = JSON.parse(http.post(path: "/webservice/rest/server.php",
-                                 query: [wstoken: "5405714207a701a5e7efaf4d35efebe5",
-                                         wsfunction: "mod_remarmoodle_link_remar_user",
-                                         remar_user_id: session.user.id,
-                                         moodle_username: params.username]) as String)
+            url = params.domain + "/mod/remarmoodle/new-account-confirmation.php?hash=" + hash
         }
 
-        if(resp.success) {
-            render view: "linkSuccess"
-        } else {
-            render "Ops. Algo deu errado :("
-        }
+        redirect url: url
     }
 
     def confirm() {
-        def http = new HTTPBuilder("http://remar.dc.ufscar.br:9090")
-        def resp = JSON.parse(http.post(path: "/webservice/rest/server.php",
-                query: [wstoken: "647c093b186a187a0ac89884c8c79795",
-                        wsfunction: "mod_remarmoodle_token_verifier",
-                        hash: params.id]) as String)
-
-        if (resp.username) {
+        if (params.hash) {
             def user = User.get(session.user.id)
-            user.moodleUsername = resp.username
+            user.moodleHash = params.hash
             user.save flush: true
             session.user = user
 
-            render view: "confirmed", model: [username: resp.username]
+            render view: "confirmed", model: [username: params.username]
         } else {
             render "Ops. Algo deu errado :("
         }

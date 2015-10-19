@@ -44,6 +44,10 @@ class UrlMappings {
         "/resource/review/$id/$status?"(controller:"resource", action:"review")
         // end Resource API endpoints
 
+        //begin moodle mappings
+        "/moodle/confirm/$hash"(controller: "moodle", action: "confirm")
+        //end moodle mappings
+
         "500"(view:'/error')
 	}
 }
