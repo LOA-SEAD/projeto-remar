@@ -45,7 +45,7 @@
                                                         <th class="sorting col-md-2" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">Nome</th>
                                                         <th class="sorting col-md-2" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">
                                                             Usuario responsável
-                                                            <i class="fa fa-question-circle help" data-content="Cada tarefa deve ser atribuída a um usuário – pode ser você ou outra pessoa :)" rel="popover" data-placement="bottom" data-original-title="Ajuda" data-trigger="hover"></i>
+                                                            <i class="fa fa-question-circle help" data-content="Por padrão, você será o responsável em realizar esta tarefa, porém, você pode pedir que outra pessoa faça-a por você  :)" rel="popover" data-placement="bottom" data-original-title="Ajuda" data-trigger="hover"></i>
                                                         </th>
                                                         <th class="sorting col-md-2" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">
                                                             Status
@@ -58,20 +58,25 @@
                                                         <tr role="row">
                                                             <td>${task.getName()}</td>
                                                             <td>
-                                                                    <input name="${task.getId()}"  id="userlabel" value="${userlabel}">
-                                                                    %{--<select name="${task.getId()}">--}%
-                                                                        %{--<g:if test="${task.getAssignee() == null}">--}%
-                                                                            %{--<option disabled selected>Selecione</option>--}%
+                                                                <g:if test="${task.getDelegationState().toString() == "PENDING" && currentUser.username == task.getAssignee()}">
+                                                                    <input name="${task.getId()}"  id="userlabel" value="${task.getAssignee()}">
+                                                                </g:if>
+                                                                <g:else>
+                                                                    <input name="${task.getId()}"  id="userlabel" value="${currentUser.firstName}">
+                                                                </g:else>
+                                                                %{--<select name="${task.getId()}">--}%
+                                                                    %{--<g:if test="${task.getAssignee() == null}">--}%
+                                                                        %{--<option disabled selected>Selecione</option>--}%
+                                                                    %{--</g:if>--}%
+                                                                    %{--<g:each in="${allusers}" status="j" var="user">--}%
+                                                                        %{--<g:if test="${task.getAssignee() == user.id}">--}%
+                                                                            %{--<option selected value="${user.id}">${user.getFirstName()}</option>--}%
                                                                         %{--</g:if>--}%
-                                                                        %{--<g:each in="${allusers}" status="j" var="user">--}%
-                                                                            %{--<g:if test="${task.getAssignee() == user.id}">--}%
-                                                                                %{--<option selected value="${user.id}">${user.getFirstName()}</option>--}%
-                                                                            %{--</g:if>--}%
-                                                                            %{--<g:else>--}%
-                                                                                %{--<option value="${user.id}">${user.getFirstName()}</option>--}%
-                                                                            %{--</g:else>--}%
-                                                                        %{--</g:each>--}%
-                                                                    %{--</select>--}%
+                                                                        %{--<g:else>--}%
+                                                                            %{--<option value="${user.id}">${user.getFirstName()}</option>--}%
+                                                                        %{--</g:else>--}%
+                                                                    %{--</g:each>--}%
+                                                                %{--</select>--}%
 
                                                             </td>
 
