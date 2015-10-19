@@ -118,7 +118,7 @@ main, footer {
 
 .container.menu {
     padding: 0 0.8rem;
-    margin: 0 auto;
+    /*margin: 0 auto;*/
     max-width: 100% !important;
     width: 100%;
 }
@@ -141,7 +141,7 @@ main, footer {
 
 .side-nav.fixed a:not(.profile-btn) {
     display: block;
-    padding: 0 10px;
+    padding: 0;
     /*color: #444;*/
     color: #00695c;
 }
@@ -213,6 +213,10 @@ a.button-collapse.top-nav {
     margin-top: 10px;
 }
 
+.li-margin{
+    margin-bottom: 0;
+}
+
 #profile-btn{
     margin: 0;
     text-transform: capitalize;
@@ -221,6 +225,22 @@ a.button-collapse.top-nav {
     font-size: 15px;
 }
 
+.dropdown-content {
+    background-color: #FFFFFF;
+    display: none;
+    min-width: 150px;
+    min-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    white-space: nowrap;
+    z-index: 9999;
+    width: auto;
+    right: auto;
+    position: static;
+    margin-top: 3rem;
+    margin-left: -1rem;
+    will-change: width, height;
+}
 
 /*=================================================================================
     Collection
@@ -261,7 +281,7 @@ a.button-collapse.top-nav {
 }
 
 .collection-item.footer{
-    background-color: #fafafa;
+    /*background-color: #e0f2f1;*/
     float: right;
 }
 
@@ -318,12 +338,55 @@ a.button-collapse.top-nav {
 }
 
 
+/*=================================================================================
+    Card
+====================================================================================*/
+/*----------------------------------------
+   Card style
+------------------------------------------*/
 
 
+.card-header .profile-picture {
+    position: relative;
+    bottom: 59px;
+    width: 70px;
+}
 
 
+.card-header .card-title {
+    padding: 20px;
+}
+
+.card-header .card-title .task-name {
+    margin: 0;
+    font-weight: 300;
+}
+
+.card-header .card-title .task-status {
+    font-size: 1rem;
+    margin: 0;
+}
 
 
+.card-image{
+    /*background-color: #ff9100 ;*/
+}
+
+.card-small{
+    height: 245px;
+    width: 160px;
+    font-size: 16px;
+}
+
+.session-title{
+    font-size: 20px;
+    color: #00695c;
+}
+
+.session-title a{
+    bottom: 50px;
+    margin-right: 20px;
+}
 
 /*
  * Old styles layout
@@ -334,8 +397,8 @@ main div.container.dashboard {
     padding: 5.3rem 1.7rem;
 }
 
-.offset-vertical-15 {
-    margin-top: 15%;
+.offset-vertical-2 {
+    margin-top: 2%;
 }
 
 .offset-vertical-10 {
@@ -385,27 +448,6 @@ span.input-description {
 .profile-picture {
     max-width: 6rem;
     max-height: 6rem;
-}
-
-.card-header .profile-picture {
-    position: relative;
-    bottom: 59px;
-    width: 70px;
-}
-
-
-.card-header .card-title {
-    padding: 20px;
-}
-
-.card-header .card-title .task-name {
-    margin: 0;
-    font-weight: 300;
-}
-
-.card-header .card-title .task-status {
-    font-size: 1rem;
-    margin: 0;
 }
 
 
@@ -469,7 +511,9 @@ input.header-search-input {
 }
 
 
-
+.navbar-fixed nav {
+    position: fixed;
+}
 
 
 

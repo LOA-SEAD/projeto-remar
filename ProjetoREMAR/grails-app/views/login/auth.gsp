@@ -7,7 +7,7 @@
 <body>
 <div class="external-container">
     <div class="row">
-        <div class="card white z-depth-4 col s12 m6 l4 offset-m3 offset-l4 offset-vertical-15">
+        <div class="card white z-depth-4 col s12 m6 l4 offset-m3 offset-l4 offset-vertical-2">
             <div class="card-content">
                 <div class="card-image">
                     <img src="/assets/img/logo/logo-remar-preto-transparente.png">
