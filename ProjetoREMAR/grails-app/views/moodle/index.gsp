@@ -33,10 +33,6 @@
                                      <label>Moodle:</label>
                                      <g:select name="domain" from="${moodleInstanceList}" optionValue="name" optionKey="domain" class="form-control-remar" />
                                 </div>
-                                <div class="form-group has-feedback" >
-                                   <label>Usuário: </label>
-                                    <input type="text" name="username" class="form-control-remar" placeholder="Informe seu usuário no Moodle" class="form-control-remar">
-                                </div>
                                 <div class="form-group has-feedback" align="center" >
                                     <label></label>
                                     <input type="submit" value="Enviar" class="btn btn-primary btn-block btn-flat" style="max-width: 30%;">
