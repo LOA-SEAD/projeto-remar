@@ -62,7 +62,7 @@
                                                                     <input name="${task.getId()}"  id="userlabel" value="${task.getAssignee()}">
                                                                 </g:if>
                                                                 <g:else>
-                                                                    <input name="${task.getId()}"  id="userlabel" value="${currentUser.firstName}">
+                                                                    <input name="${task.getId()}"  id="userlabel" value="${currentUser.username}">
                                                                 </g:else>
                                                                 %{--<select name="${task.getId()}">--}%
                                                                     %{--<g:if test="${task.getAssignee() == null}">--}%
