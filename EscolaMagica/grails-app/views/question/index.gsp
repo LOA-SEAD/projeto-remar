@@ -31,13 +31,18 @@
                             </div>
                             <div class="pull-right">
                                 <g:if test="${Question.validateQuestions("${session.user.id}")}">
-                                    <g:link class="btn btn-info btn-lg" target="_parent" action="createXML" >Finalizar</g:link>
+                                    <button class="btn btn-info btn-lg" id="submitButton" > Finalizar </button>
+                                    %{--<g:link class="btn btn-info btn-lg" target="_parent" action="createXML" >Finalizar</g:link>--}%
                                 </g:if>
+                                <g:else>
+                                    <button class="btn btn-warning btn-lg" id="noSubmitButton" data-toggle="tooltip" data-placement="right" title="Crie pelo menos 5 (cinco) questões de cada nível">Finalizar</button>
+                                </g:else>
 
 
                                 <button class="btn btn-success btn-lg" data-toggle="modal" href="create" data-target="#CreateModal">Nova Questão</button>
                                 <br>
                                 <br>
+
                                 <div class="pull-right" style="margin-bottom: 15px;">
                                     <input  type="text" id="SearchLabel" placeholder="Buscar"/>
                                 </div>
@@ -45,6 +50,7 @@
                             <table class="table table-striped table-bordered table-hover" id="table">
                                 <thead>
                                     <tr>
+                                        <th style="text-align: center">Selecionar </th>
 
                                         <g:sortableColumn property="level" title="${message(code: 'question.level.label', default: 'Nível')}" />
 
@@ -54,18 +60,26 @@
 
                                         <g:sortableColumn property="correctAnswer" title="${message(code: 'question.correctAnswer.label', default: 'Alternativa Correta')}" />
                                     </tr>
+                                    <tr style="height: 5px; width: 5px;">
+                                        <th align="center"><input align="center" class="checkbox" type="checkbox" id="CheckAll" style="margin-left: 42%;"/></th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     <g:each in="${questionInstanceList}" status="i" var="questionInstance">
-                                        <tr class="selectable_tr" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" style="cursor: pointer;">
+                                        <tr class="selectable_tr" style="cursor: pointer;"
+                                            data-id="${fieldValue(bean: questionInstance, field: "id")}" data-owner-id="${fieldValue(bean: questionInstance, field: "ownerId")}" data-level="${fieldValue(bean: questionInstance, field: "level")}"
+                                            data-checked="false"
+                                        >
 
-                                            <td class="level">${fieldValue(bean: questionInstance, field: "level")}</td>
+                                            <td class="_not_editable" align="center" > <input class="checkbox" type="checkbox"/> </td>
 
-                                            <td>${fieldValue(bean: questionInstance, field: "title")}</td>
+                                            <td class="level" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "level")}</td>
 
-                                            <td>${fieldValue(bean: questionInstance, field: "answers")}</td>
+                                            <td data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "title")}</td>
 
-                                            <td>${questionInstance.answers[questionInstance.correctAnswer]} (${questionInstance.correctAnswer + 1}ª Alternativa)</td>
+                                            <td data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}"  >${fieldValue(bean: questionInstance, field: "answers")}</td>
+
+                                            <td data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${questionInstance.answers[questionInstance.correctAnswer]} (${questionInstance.correctAnswer + 1}ª Alternativa)</td>
                                         </tr>
                                     </g:each>
                                 </tbody>
@@ -105,7 +119,11 @@
         $(document).on("click", ".selectable_tr", function () {
             console.log("click event");
             var myNameId = $(this).data('id')
+            var myCheck = $(this).data('checked')
+            var myLevel = $(this).data('level')
             console.log(myNameId);
+            console.log(myCheck);
+            console.log(myLevel);
             $("#questionInstance").val( myNameId );
 
             $('body').on('hidden.bs.modal', '#EditModal', function (e) {
@@ -129,6 +147,91 @@
             });
         });
 
+        $(document).ready(function () {
+
+            $('.checkbox').on('change', function() {
+                $(this).parent().parent().attr('data-checked', $(this).prop('checked'));
+            });
+
+
+            $("#CheckAll").click(function () {
+                var CheckAll = document.getElementById("CheckAll");
+                var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
+                $(".checkbox").prop('checked', $(this).prop('checked'));
+
+                if(CheckAll.checked==true){
+                    for (var i = 0; i < trs.length; i++) {
+                        $(trs[i]).attr('data-checked', "true");
+                    }
+                }
+                else{
+                    for (var i = 0; i < trs.length; i++) {
+                        $(trs[i]).attr('data-checked', "false");
+                    }
+                }
+
+
+            });
+        });
+
+        $('#submitButton').click(function () {
+            var list_id = [];
+            var questions_level1 = 0;
+            var questions_level2 = 0;
+            var questions_level3 = 0;
+            var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
+            for (var i = 0; i < trs.length; i++) {
+                if ($(trs[i]).attr('data-checked') == "true") {
+                    console.log($(trs[i]).attr('data-level'));
+
+                    switch ($(trs[i]).attr('data-level')){
+                        case "1":
+                            questions_level1 += 1;
+                            break;
+                        case "2":
+                            questions_level2 += 1;
+                            break;
+                        default :
+                            questions_level3 += 1;
+                    }
+
+                    list_id.push(  $(trs[i]).attr('data-id') );
+                }
+            }
+            console.log(list_id);
+            console.log(questions_level1);
+            console.log(questions_level2);
+            console.log(questions_level3);
+
+            if(questions_level1 >= 5 && questions_level2 >= 5 && questions_level3 >= 5){
+                $.ajax({
+                    type: "POST",
+                    traditional: true,
+                    url: "${createLink(controller: 'question', action: 'createXML')}",
+                    data: { list_id: list_id },
+                    success: function(returndata) {
+                        window.top.location.href = returndata;
+                    },
+                    error: function(returndata) {
+                        alert("Error:\n" + returndata.responseText);
+
+
+                    }
+                });
+            }
+            else
+            {
+                alert("Você deve selecionar no mínimo 5 (cinco) questões de cada nível.\nQuestões nível 1: " + questions_level1 +
+                        "\nQuestões nível 2: " + questions_level2 + "\nQuestões nível 3: " + questions_level3);
+            }
+
+        });
+
+        $('#noSubmitButton').click(function () {
+            alert("Você deve criar no mínimo 5 (cinco) questões de cada nível.");
+        })
+
     </script>
+
     </body>
 </html>

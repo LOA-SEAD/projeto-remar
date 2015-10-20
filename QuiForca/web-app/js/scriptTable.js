@@ -264,8 +264,10 @@ $(function(){
 var x = document.getElementsByName("question_label");
 $(document).on("click", ".selectable_tr", function () {
     console.log("click event");
-    var myNameId = $(this).data('id')
+    var myNameId = $(this).data('id');
+    var myCheck = $(this).data('checked');
     console.log(myNameId);
+    console.log(myCheck);
     $("#questionInstance").val( myNameId );
     $('body').on('hidden.bs.modal', '#EditModal', function (e) {
         console.log("entrou aqui");

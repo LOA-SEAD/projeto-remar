@@ -87,7 +87,7 @@ class QuestionController {
     }
 
     def create() {
-        respond new Question(params)
+        respond new Question(params.id)
     }
 
     def createXML() {
@@ -95,6 +95,13 @@ class QuestionController {
         //   def servletContext = ServletContextHolder.servletContext
         //  def storagePath = servletContext.getRealPath("/")
         //   log.debug storagePath
+
+        ArrayList<Integer> list_questionId = new ArrayList<Integer>() ;
+        ArrayList<Question> questionList = new ArrayList<Question>();
+        list_questionId.addAll(params.list_id);
+        for (int i=0; i<list_questionId.size();i++){
+            questionList.add(Question.findById(list_questionId[i]));
+        }
 
         def dataPath = servletContext.getRealPath("/data")
         def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
@@ -106,7 +113,7 @@ class QuestionController {
         xml.mkp.xmlDeclaration(version: "1.0", encoding: "utf-8")
         xml.Perguntas() {
             for (int i = 0; i < 4; i++) {
-                def questionList = Question.findAllByOwnerIdAndLevel(session.user.id, String.valueOf(i + 1))
+                //def questionList = Question.findAllByOwnerIdAndLevel(session.user.id, String.valueOf(i + 1))
                 if (!questionList.isEmpty()) {
                     int j = 0
                     int k = 0
@@ -141,9 +148,7 @@ class QuestionController {
         def pw = new PrintWriter(file);
         pw.write(builder.toString());
         pw.close();
-
-        redirect uri: "http://${request.serverName}:${request.serverPort}/process/task/resolve/${session.taskId}", params: [json: file]
-
+        render "http://${request.serverName}:${request.serverPort}/process/task/resolve/${session.taskId}?json=${file}"
     }
 
     @Transactional
