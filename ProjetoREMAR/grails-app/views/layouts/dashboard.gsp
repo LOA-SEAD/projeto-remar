@@ -179,10 +179,19 @@
                     <li class="waves-effect waves-block waves-light">
                         <a href="/" class=""><i class=" medium mdi-action-dashboard"></i>Home</a>
                     </li>
-                    <li>
+                    <li class="waves-effect waves-block waves-light">
+                        <a href="#"><i class="left small material-icons">supervisor_account</i>R.E.A. públicos </a>
+                    </li>
+                    <li class="waves-effect waves-block waves-light">
+                        <a href="#"><i class="left small material-icons">open_in_new</i>R.E.A. personalizáveis </a>
+                    </li>
+                    <li class="waves-effect waves-block waves-light">
+                        <a href="#"><i class="left small material-icons">https</i>Meus R.E.A.</a>
+                    </li>
+                    <li class="waves-effect waves-block waves-light">
                         <a href="/process/user-processes"><i class="medium material-icons">web</i>Meus processos</a>
                     </li>
-                    <li>
+                    <li class="waves-effect waves-block waves-light">
                         <a href="/process/pending-tasks"><i class="large material-icons">view_agenda</i>Tarefas pendentes</a>
                     </li>
                 </ul>

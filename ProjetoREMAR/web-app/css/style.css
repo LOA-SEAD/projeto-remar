@@ -17,6 +17,9 @@ body{
     background-color: #f2f2f2;
 }
 
+.row p{
+    color: #004d40;
+}
 
 li.logo img {
     width: 150px;
@@ -373,10 +376,49 @@ a.button-collapse.top-nav {
 }
 
 .card-small{
-    height: 245px;
+    /*height: 255px;*/
+    height: 275px;
     width: 160px;
     font-size: 16px;
 }
+
+.card-small .card-content, .card-small .card-action{
+    padding-top: 0;
+}
+.card-small .card-action{
+    color: #004d40;
+    font-size: 20px;
+    right: 50%;
+}
+
+.card-small .card-image{
+    background-color: #00897b;
+}
+
+.card-small .developer{
+    margin-top: -8px;
+}
+
+.card-small .developer img{
+    width: 30px;
+    height: 30px;
+}
+
+.card-small .developer span{
+    font-size: 13px;
+    line-height: 15px;
+    color: #004d40;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+.card-small .card-title{
+    font-size: 20px;
+    line-height: 30px;
+    font-weight:  400;
+    color: #004d40;
+}
+
 
 .session-title{
     font-size: 20px;
@@ -387,6 +429,10 @@ a.button-collapse.top-nav {
     bottom: 50px;
     margin-right: 20px;
 }
+
+
+
+
 
 /*
  * Old styles layout
