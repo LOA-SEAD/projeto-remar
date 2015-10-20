@@ -71,7 +71,7 @@ Time: 09:55
                                         <span class="label label-warning">Em breve</span>
                                     </g:if>
                                     <g:else>
-                                        <g:if test="${platform.toLowerCase() == 'moodle' && session.user.moodleUsername == null}">
+                                        <g:if test="${platform.toLowerCase() == 'moodle' && session.user.moodleHash == null}">
                                             <input type="checkbox" name="${platform.toLowerCase()}" id="${platform.toLowerCase()}" class="checkbox-platform" disabled readonly/>
                                             <label for="${platform.toLowerCase()}" data-resource-id="${resourceId}">${platform}</label>
                                             <span class="label label-danger">Vincule sua conta ao Moodle</span>

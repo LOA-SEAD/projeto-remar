@@ -17,7 +17,7 @@ class User {
     String firstName
     String lastName
     String facebookId
-    String moodleUsername
+    String moodleHash
     String gender
 
 
@@ -31,7 +31,7 @@ class User {
         email blank: false, email: true, unique: true
         camunda_id nullable: true
         facebookId nullable: true
-        moodleUsername nullable: true
+        moodleHash nullable: true
         gender blank: false
     }
 
