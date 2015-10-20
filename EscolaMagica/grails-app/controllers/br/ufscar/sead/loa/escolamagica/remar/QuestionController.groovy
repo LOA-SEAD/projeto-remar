@@ -101,6 +101,7 @@ class QuestionController {
         list_questionId.addAll(params.list_id);
         for (int i=0; i<list_questionId.size();i++){
             questionList.add(Question.findById(list_questionId[i]));
+
         }
 
         def dataPath = servletContext.getRealPath("/data")
@@ -113,20 +114,26 @@ class QuestionController {
         xml.mkp.xmlDeclaration(version: "1.0", encoding: "utf-8")
         xml.Perguntas() {
             for (int i = 0; i < 4; i++) {
-                //def questionList = Question.findAllByOwnerIdAndLevel(session.user.id, String.valueOf(i + 1))
-                if (!questionList.isEmpty()) {
+                def list = []
+                questionList.each {
+                    if(it.level == String.valueOf(i+1))
+                        list.push(it);
+                }
+
+               // def questionList = Question.findAllByOwnerIdAndLevel(session.user.id, String.valueOf(i + 1))
+                if (!list.isEmpty()) {
                     int j = 0
                     int k = 0
                     int l = 0
                     Classe(ClaAno: i + 1) {
-                        while (!questionList.isEmpty()) {
-                            Pergunta(PergNum: k, respCorreta: questionList.get(l).getCorrectAnswer(), titulo: questionList.get(j).getTitle()) {
-                                Resp(num: '0', questionList.get(l).getAnswers()[0])
-                                Resp(num: '1', questionList.get(l).getAnswers()[1])
-                                Resp(num: '2', questionList.get(l).getAnswers()[2])
-                                Resp(num: '3', questionList.get(l).getAnswers()[3])
+                        while (!list.isEmpty()) {
+                            Pergunta(PergNum: k, respCorreta: list.get(l).getCorrectAnswer(), titulo: list.get(j).getTitle()) {
+                                Resp(num: '0', list.get(l).getAnswers()[0])
+                                Resp(num: '1', list.get(l).getAnswers()[1])
+                                Resp(num: '2', list.get(l).getAnswers()[2])
+                                Resp(num: '3', list.get(l).getAnswers()[3])
                             }
-                            questionList.remove(j)
+                            list.remove(j)
                             k++
                         }
 
