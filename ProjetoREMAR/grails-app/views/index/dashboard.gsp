@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<div class="container">
+%{--<div class="container">--}%
     <div class="row"> <!-- REA personalizaveis-->
         <div class="col s12 m12 l12 session-title" >
             <p class="session-title text-teal text-darken-3">
@@ -23,7 +23,7 @@
             <a class="right btn-floating  waves-effect waves-light red"><i class="material-icons">add</i></a>
             <div class="divider"></div>
         </div>
-
+        <div class="col s12 m12 l12">
         <g:if test="${gameInstanceList.size() == 0}">
             <p>Não há nenhum R.E.A disponível para ser personalizado :(</p>
         </g:if>
@@ -58,13 +58,10 @@
                             </g:if>
                         </div>
                     </div> <!-- End card-action -->
-                    %{--<div class="card-reveal">--}%
-                        %{--<span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>--}%
-                        %{--<p>Here is some more information about this product that is only revealed once clicked on.</p>--}%
-                    %{--</div> <!-- End card-reveal -->--}%
                 </a>
             </div> <!-- End Card-->
         </g:each>
+        </div>
     </div> <!-- End Row R.E.A Personalizaveis -->
 
 
@@ -77,7 +74,7 @@
             <a class="right btn-floating  waves-effect waves-light red"><i class="material-icons">add</i></a>
             <div class="divider"></div>
         </div>
-
+        <div class="col s12 m12 l12">
         <g:if test="${publicExportedResourcesList.size() == 0}">
             <p>Não há nenhum R.E.A público :(</p>
         </g:if>
@@ -114,30 +111,45 @@
                     </div>
                 </div> <!-- End card-action -->
                 <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                    <span class="card-title"><i class="material-icons right">close</i></span>
+                    <span class="card-title truncate" style="margin-bottom: 20px;">${exportedResourceInstance.name}</span>
+
                     <g:if test="${exportedResourceInstance.webUrl != null}">
-                        <a href="${exportedResourceInstance.webUrl}" style="color: white;">
-                            <i class="fa fa-globe"></i>
+                        <a href="${exportedResourceInstance.webUrl}" >
+                            <div class="card-action ">
+                                <i class="fa fa-globe"></i>
+                                <i class="fa fa-arrow-right right"></i>
+                            </div>
                         </a>
                     </g:if>
                     <g:if test="${exportedResourceInstance.androidUrl != null}">
                         <a href="${exportedResourceInstance.androidUrl}">
-                            <i class="fa fa-android"></i>
+                            <div class="card-action">
+                                <i class="fa fa-android" ></i>
+                                <i class="fa fa-arrow-right right"></i>
+                            </div>
                         </a>
                     </g:if>
                     <g:if test="${exportedResourceInstance.linuxUrl != null}">
                         <a href="${exportedResourceInstance.linuxUrl}">
-                            <i class="fa fa-linux"></i>
+                            <div class="card-action">
+                                <i class="fa fa-linux" ></i>
+                                <i class="fa fa-arrow-right right"></i>
+                            </div>
                         </a>
                     </g:if>
                     <g:if test="${exportedResourceInstance.moodleUrl != null}">
                         <a href="${exportedResourceInstance.moodleUrl}">
-                            <i class="fa fa-graduation-cap"></i>
+                            <div class="card-action">
+                                <i class="fa fa-graduation-cap" ></i>
+                                <i class="fa fa-arrow-right right"></i>
+                            </div>
                         </a>
                     </g:if>
                 </div> <!-- End card-reveal -->
             </div> <!-- End Card-->
         </g:each>
+        </div>
     </div> <!-- End Row -->
 
     <div class="row"> <!-- Meus R.E.A.  -->
@@ -149,52 +161,97 @@
             <a class="right btn-floating  waves-effect waves-light red"><i class="material-icons">add</i></a>
             <div class="divider"></div>
         </div>
-
-        <g:if test="${gameInstanceList.size() == 0}">
-            <p>Não há nenhum R.E.A disponível para ser personalizado :(</p>
+        <div class="col s12 m12 l12">
+        <g:if test="${myExportedResourcesList.size() == 0}">
+            <p>Você ainda não tem nenhum R.E.A. publicado :(</p>
         </g:if>
-        <g:each in="${gameInstanceList}" var="gameInstance">
-            <div class="card card-small hoverable">
-                <a href="/resource/show/${gameInstance.id}" >
+        <g:else>
+            <g:each in="${myExportedResourcesList}" var="myExportedResourceInstance">
+                <div class="card card-small hoverable">
                     <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" src="/images/${gameInstance.uri}-banner.png">
+                        <img class="activator" src="/images/${myExportedResourceInstance.resource.uri}-banner.png">
                     </div>
                     <div class="card-content">
                         <span class="card-title activator truncate">
-                            ${gameInstance.name}
+                            ${myExportedResourceInstance.name}
                             %{--<i class="material-icons right">more_vert</i>--}%
                         </span>
                         <div class="developer">
-                            <img src="../data/users/${gameInstance.owner.username}/profile-picture"
+                            <img src="../data/users/${myExportedResourceInstance.owner.username}/profile-picture"
                                  class="circle left">
-                            <span class="truncate">${gameInstance.owner.firstName}</span>
+                            <span class="truncate">${myExportedResourceInstance.owner.firstName}</span>
                         </div>
                     </div> <!-- End card-content -->
                     <div class="card-action" >
                         <div class="right">
-                            <i class="fa fa-globe"></i>
-                            <g:if test="${gameInstance.android}">
-                                <i class="fa fa-android"></i>
+                            <g:if test="${myExportedResourceInstance.webUrl != null}">
+                               <i class="fa fa-globe"></i>
                             </g:if>
-                            <g:if test="${gameInstance.linux}">
+                            <g:if test="${myExportedResourceInstance.androidUrl != null}">
+                               <i class="fa fa-android"></i>
+                            </g:if>
+                            <g:if test="${myExportedResourceInstance.linuxUrl != null}">
                                 <i class="fa fa-linux"></i>
                             </g:if>
-                            <g:if test="${gameInstance.moodle}">
+                            <g:if test="${myExportedResourceInstance.moodleUrl != null}">
                                 <i class="fa fa-graduation-cap"></i>
                             </g:if>
                         </div>
                     </div> <!-- End card-action -->
                     <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                        <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                        <span class="card-title"><i class="material-icons right">close</i></span>
+                        <span class="card-title truncate" style="margin-bottom: 20px;" >  ${myExportedResourceInstance.name}</span>
+
+                        <g:if test="${myExportedResourceInstance.webUrl != null}">
+                            <a href="${myExportedResourceInstance.webUrl}" >
+                                <div class="card-action ">
+                                    <i class="fa fa-globe"></i>
+                                    <i class="fa fa-arrow-right right"></i>
+                                </div>
+                            </a>
+                        </g:if>
+                        <g:if test="${myExportedResourceInstance.androidUrl != null}">
+                            <a href="${myExportedResourceInstance.androidUrl}">
+                                <div class="card-action">
+                                    <i class="fa fa-android"></i>
+                                    <i class="fa fa-arrow-right right"></i>
+                                </div>
+                            </a>
+                        </g:if>
+                        <g:if test="${myExportedResourceInstance.linuxUrl != null}">
+                            <a href="${myExportedResourceInstance.linuxUrl}">
+                                <div class="card-action">
+                                    <i class="fa fa-linux"></i>
+                                    <i class="fa fa-arrow-right right"></i>
+                                </div>
+                            </a>
+                        </g:if>
+                        <g:if test="${myExportedResourceInstance.moodleUrl != null}">
+                            <a href="${myExportedResourceInstance.moodleUrl}">
+                                <div class="card-action">
+                                    <i class="fa fa-graduation-cap"></i>
+                                    <i class="fa fa-arrow-right right"></i>
+                                </div>
+                            </a>
+                        </g:if>
+
+                        <div class="card-title footer">
+                            <a href="/exported-resource/delete/${myExportedResourceInstance.id}">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                            <a href="/exported-resource/publish/${myExportedResourceInstance.id}">
+                                <i class="fa fa-pencil" ></i>
+                            </a>
+                        </div>
                     </div> <!-- End card-reveal -->
-                </a>
-            </div> <!-- End Card-->
-        </g:each>
+                </div> <!-- End Card-->
+            </g:each>
+        </g:else>
+        </div>
     </div> <!-- End Row -->
 
 
-</div> <!-- End Container -->
+%{--</div> <!-- End Container -->--}%
 
 
 </body>

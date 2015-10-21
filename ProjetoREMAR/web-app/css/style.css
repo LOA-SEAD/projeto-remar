@@ -348,13 +348,11 @@ a.button-collapse.top-nav {
    Card style
 ------------------------------------------*/
 
-
 .card-header .profile-picture {
     position: relative;
     bottom: 59px;
     width: 70px;
 }
-
 
 .card-header .card-title {
     padding: 20px;
@@ -371,24 +369,52 @@ a.button-collapse.top-nav {
 }
 
 
-.card-image{
-    /*background-color: #ff9100 ;*/
-}
-
 .card-small{
     /*height: 255px;*/
     height: 275px;
     width: 160px;
     font-size: 16px;
+    display: inline-block;
+    margin-right: 15px;
 }
 
 .card-small .card-content, .card-small .card-action{
     padding-top: 0;
+    padding-left: 7px;
+    padding-right: 7px;
 }
 .card-small .card-action{
     color: #004d40;
     font-size: 20px;
     right: 50%;
+}
+
+.card-small .card-action i{
+    color: #004d40;
+    font-size: 20px;
+    margin-top: 5px;
+}
+.card-small >.card-reveal .card-action i:first-child{
+    font-size: 28px;
+}
+
+.card-small .card-reveal .card-action{
+    padding: 0;
+}
+
+.card-small .card-reveal .card-action:hover{
+    background-color: #e0f2f1;;
+}
+
+.card-title.footer{
+    position:fixed;
+    width:100%;
+    padding:0px;
+    bottom:0px;
+    margin-left: 90px;
+}
+.card-title.footer a{
+    color:#004d40;
 }
 
 .card-small .card-image{
@@ -413,12 +439,11 @@ a.button-collapse.top-nav {
 }
 
 .card-small .card-title{
-    font-size: 20px;
+    font-size: 18px;
     line-height: 30px;
     font-weight:  400;
     color: #004d40;
 }
-
 
 .session-title{
     font-size: 20px;
