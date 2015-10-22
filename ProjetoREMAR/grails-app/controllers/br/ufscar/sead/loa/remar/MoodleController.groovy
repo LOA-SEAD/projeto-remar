@@ -134,13 +134,16 @@ class MoodleController {
         params.remove("controller")
         params.remove("format")
         params.remove("action")
-        params.user_id = session.user.id
+        params.hash = User.get(session.user.id).moodleHash
         params.cm      = 27
         def time = new Date().time as String
 
+        def token = Moodle.findAll().first().token
+
         params.timestamp = time.substring(0, time.length() - 3)
 
-        def table = params.remove("table_name")
+        ExportedResource.get(params.remar_resource_id).moodleTableName
+
         def q = [alternativaa: params.alternativaa,
                  alternativab: params.alternativab,
                  alternativac: params.alternativac,
@@ -148,25 +151,33 @@ class MoodleController {
                  respostacerta: params.respostacerta,
                  resposta: params.resposta,
                  timestamp: params.timestamp,
-                 user_id: params.user_id,
-                 cm: params.cm,
+                 hash: params.hash,
                  enunciado: params.enunciado,
                  remar_resource_id: params.remar_resource_id,
                  table_name: table,
-                 wstoken: "647c093b186a187a0ac89884c8c79795",
+                 wstoken: token,
                  wsfunction: "mod_remarmoodle_insert_record"]
+        
         log.debug "~~~~~~~"
         log.debug q
         log.debug "~~~~~~~"
-        def http = new HTTPBuilder("http://remar.dc.ufscar.br:9090")
-        log.debug http.post(path: "/webservice/rest/server.php",
+        def http, path
+        if (Environment.current == Environment.DEVELOPMENT) {
+            http = new HTTPBuilder("http://localhost")
+            path = "/moodle/webservice/rest/server.php"
+        }
+        else {
+            http = new HTTPBuilder("http://remar.dc.ufscar.br:9090")
+            path = "/webservice/rest/server.php"
+        }
+
+
+        def resp = http.post(path: path,
                 query: q) as String
+
+        println resp
         return
         //def resp = JSON.parse(http.post(path: "/moodle/webservice/rest/server.php",
           //      query: params) as String)
-
-
-
-        log.debug "resp: " + resp
     }
 }
