@@ -20,7 +20,7 @@ class QuestionController {
 
     def springSecurityService
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "GET"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "GET" ]
 
     @Secured(['permitAll'])
     def index(Integer max) {

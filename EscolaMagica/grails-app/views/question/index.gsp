@@ -24,15 +24,18 @@
                                 <div class="message" role="status">${flash.message}</div>
                                 <br />
                             </g:if>
-                            <div class="pull-left alert alert-info">
+                            <div class="pull-left">
+                                <div class=" alert alert-info">
                                 <i class="fa fa-info-circle"></i> Temos algumas questões-exemplo. Você pode editá-las!
                                 Basta clicar sobre alguma <i class="fa fa-smile-o"></i><br>
                                 <i class="fa fa-info-circle"></i> Não se esqueça: para finalizar a tarefa, são necessárias pelo menos 5 questões para cada nível!</i><br>
                             </div>
+                                %{--<input  align="center" class="checkbox" type="checkbox" id="CheckAll">--}%
+                                %{--<button id="heckAll" onclick="check_all()"> Selecionar todas </button>--}%
+                            </div>
                             <div class="pull-right">
                                 <g:if test="${Question.validateQuestions("${session.user.id}")}">
                                     <button class="btn btn-info btn-lg" id="submitButton" > Finalizar </button>
-                                    %{--<g:link class="btn btn-info btn-lg" target="_parent" action="createXML" >Finalizar</g:link>--}%
                                 </g:if>
                                 <g:else>
                                     <button class="btn btn-warning btn-lg" id="noSubmitButton" data-toggle="tooltip" data-placement="right" title="Crie pelo menos 5 (cinco) questões de cada nível">Finalizar</button>
@@ -50,19 +53,17 @@
                             <table class="table table-striped table-bordered table-hover" id="table">
                                 <thead>
                                     <tr>
-                                        <th style="text-align: center">Selecionar </th>
-
-                                        <g:sortableColumn property="level" title="${message(code: 'question.level.label', default: 'Nível')}" />
-
-                                        <g:sortableColumn property="title" title="${message(code: 'question.title.label', default: 'Pergunta')}" />
-
-                                        <g:sortableColumn property="answers" title="${message(code: 'question.answers.label', default: 'Respostas')}" />
-
-                                        <g:sortableColumn property="correctAnswer" title="${message(code: 'question.correctAnswer.label', default: 'Alternativa Correta')}" />
+                                        <th style="text-align: center; color: #337AB7">Selecionar </th>
+                                        <th style="text-align: center; color: #337AB7"> Nível </th>
+                                        <th style="text-align: center; color: #337AB7"> Pergunta </th>
+                                        <th style="text-align: center; color: #337AB7"> Respostas </th>
+                                        <th style="text-align: center; color: #337AB7"> Alternativa Correta </th>
+                                        <th style="text-align: center; color: #337AB7">Editar</th>
+                                        <th style="text-align: center; color: #337AB7" >Remover</th>
                                     </tr>
-                                    <tr style="height: 5px; width: 5px;">
-                                        <th align="center"><input align="center" class="checkbox" type="checkbox" id="CheckAll" style="margin-left: 42%;"/></th>
-                                    </tr>
+                                <tr style="height: 5px; width: 5px;">
+                                    <th align="center"><input align="center" class="checkbox" type="checkbox" id="CheckAll" style="margin-left: 42%;"/></th>
+                                </tr>
                                 </thead>
                                 <tbody>
                                     <g:each in="${questionInstanceList}" status="i" var="questionInstance">
@@ -73,13 +74,18 @@
 
                                             <td class="_not_editable" align="center" > <input class="checkbox" type="checkbox"/> </td>
 
-                                            <td class="level" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "level")}</td>
+                                            <td class="level"  >${fieldValue(bean: questionInstance, field: "level")}</td>
 
-                                            <td data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "title")}</td>
+                                            <td  >${fieldValue(bean: questionInstance, field: "title")}</td>
 
-                                            <td data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}"  >${fieldValue(bean: questionInstance, field: "answers")}</td>
+                                            <td >${fieldValue(bean: questionInstance, field: "answers")}</td>
 
-                                            <td data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${questionInstance.answers[questionInstance.correctAnswer]} (${questionInstance.correctAnswer + 1}ª Alternativa)</td>
+                                            <td  >${questionInstance.answers[questionInstance.correctAnswer]} (${questionInstance.correctAnswer + 1}ª Alternativa)</td>
+
+                                            <td style="text-align: center;" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" ><i style="color: cornflowerblue;" class="fa fa-pencil"></i> </td>
+
+                                            <td style="text-align: center;"  onclick="_delete($(this.closest('tr')))" > <i style="color: cornflowerblue;" class="fa fa-trash-o"></i> </td>
+
                                         </tr>
                                     </g:each>
                                 </tbody>
@@ -117,13 +123,10 @@
     <script type="text/javascript">
         var x = document.getElementsByName("question_label");
         $(document).on("click", ".selectable_tr", function () {
-            console.log("click event");
+            //console.log("click event");
             var myNameId = $(this).data('id')
             var myCheck = $(this).data('checked')
             var myLevel = $(this).data('level')
-            console.log(myNameId);
-            console.log(myCheck);
-            console.log(myLevel);
             $("#questionInstance").val( myNameId );
 
             $('body').on('hidden.bs.modal', '#EditModal', function (e) {
@@ -152,6 +155,9 @@
             $('.checkbox').on('change', function() {
                 $(this).parent().parent().attr('data-checked', $(this).prop('checked'));
             });
+
+
+
 
 
             $("#CheckAll").click(function () {
@@ -230,6 +236,49 @@
         $('#noSubmitButton').click(function () {
             alert("Você deve criar no mínimo 5 (cinco) questões de cada nível.");
         })
+
+        function _delete(tr) {
+            if(confirm("Você tem certeza que deseja excluir esta questão?")) {
+                var tds = $(tr).find("td");
+                    var url = location.origin + '/escolamagica/question/delete/' + $(tr).attr('data-id');
+                    var data = {_method: 'DELETE'};
+
+                    $.ajax({
+                                type: 'GET',
+                                data: data,
+                                url: url,
+                                success: function (data) {
+                                    $(tr).remove();
+                                    window.location.reload();
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                }
+                            }
+                    );
+
+
+            }
+        }
+
+        function check_all(){
+            console.log("selecionar todas");
+
+//            var CheckAll = document.getElementById("CheckAll");
+            var trs = $('tr');
+            $(".checkbox").prop('checked', $(this).prop('checked'));
+
+
+            for (var i = 0; i < trs.length; i++) {
+                $(trs[i]).attr('data-checked', "true");
+            }
+
+//
+//                    for (var i = 0; i < trs.length; i++) {
+//                        $(trs[i]).attr('data-checked', "false");
+//                    }
+//
+
+        }
 
     </script>
 

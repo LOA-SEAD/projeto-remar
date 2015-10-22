@@ -25,8 +25,6 @@
 						<fieldset class="buttons">
                             <g:actionSubmit class="save btn btn-success btn-lg" action="update"
                                 value="${message(code: 'default.button.update.laasdbel', default: 'Salvar')}"/>
-                                <g:link class="delete btn btn-danger btn-lg" action="delete"
-                                params='[id: "${questionInstance.id}"]' onclick="return confirm('Você tem certeza?')">Remover</g:link>
                         </fieldset>
 				</g:form>
             </div>
