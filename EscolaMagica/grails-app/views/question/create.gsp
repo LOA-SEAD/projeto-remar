@@ -23,7 +23,7 @@
                         </g:eachError>
                         </ul>
                         </g:hasErrors>
-                        <h3 class="section-title first-title"><i class="icon-question"></i> Utilize o botão ao lado do campo de texto para indicar a questão certa</h3>
+                        <h3 class="section-title first-title"><i class="icon-question"></i> Utilize o botão ao lado do campo de texto para indicar a alternativa correta </h3>
                         <g:form url="[resource:questionInstance, action:'save']" >
                             <fieldset class="form">
                                 <g:render template="form"/>

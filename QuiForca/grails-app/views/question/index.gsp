@@ -76,15 +76,15 @@
                                             <td style="text-align: center;" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "author")}</td>
                                         </g:if>
                                         <g:else>
-                                            <td class="_not_editable" align="center" > <input class="checkbox" type="checkbox"/> </td>
+                                            <td class="_not_editable" align="center"> <input class="checkbox" type="checkbox"/> </td>
 
-                                            <td name="question_label" style="text-align: center;" data-questionId="${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "statement")}</td>
+                                            <td name="question_label" style="text-align: center;" data-questionId="${questionInstance.id}" onclick="alert('Você não pode editar uma questão de outro usuário.')">${fieldValue(bean: questionInstance, field: "statement")}</td>
 
-                                            <td style="text-align: center;" >${fieldValue(bean: questionInstance, field: "answer")}</td>
+                                            <td style="text-align: center;" onclick="alert('Você não pode editar uma questão de outro usuário.')">${fieldValue(bean: questionInstance, field: "answer")}</td>
 
-                                            <td name="theme" id="theme" style="text-align: center;" >${fieldValue(bean: questionInstance, field: "category")}</td>
+                                            <td name="theme" id="theme" style="text-align: center;" onclick="alert('Você não pode editar uma questão de outro usuário.')">${fieldValue(bean: questionInstance, field: "category")}</td>
 
-                                            <td style="text-align: center;" >${fieldValue(bean: questionInstance, field: "author")}</td>
+                                            <td style="text-align: center;" onclick="alert('Você não pode editar uma questão de outro usuário.')">${fieldValue(bean: questionInstance, field: "author")}</td>
                                         </g:else>
                                     </tr>
                                 </g:each>
