@@ -111,7 +111,7 @@ class MoodleController {
                         "image": p.image,
                         "moodleUrl": p.moodleUrl,
                         "name": p.name,
-                        "remar_user_id": p.ownerId
+                        "moodleHash": User.get(p.ownerId).moodleHash
                         /*"accounts": p.accounts.collect {a ->
                             [
                                 "accountName": a.accountName,
