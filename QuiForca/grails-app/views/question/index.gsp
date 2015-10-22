@@ -24,7 +24,7 @@
     <body>
 
         <div class="page-header">
-            <h1> Minhas Questões</h1>
+            <h1> Tabela de Questões</h1>
         </div>
         <div class="main-content">
             <div class="widget">
@@ -132,7 +132,6 @@
                                             <br />
                                             <fieldset class="buttons">
                                                 <g:submitButton name="create" class="btn btn-success btn-lg" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-                                                <g:link class="btn btn-warning btn-lg" action="index">Voltar</g:link>
                                             </fieldset>
                                             </g:form>
                                     </div>
