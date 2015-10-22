@@ -202,13 +202,29 @@ class ExportedResourceController {
         def file = new File(servletContext.getRealPath("/data/resources/sources/${exportedResourceInstance.resource.uri}/moodle/moodleBD.json"))
         def inputJson = new JsonSlurper().parseText(file.text)
 
-        def http = new HTTPBuilder("http://remar.dc.ufscar.br:9090")
+        //it needs to change to a dynamic method
+        def token = Moodle.findAll().first().token
+
+        def http, path
+
+        if(Environment.current == Environment.DEVELOPMENT) {
+            http = new HTTPBuilder("http://localhost")
+            path = "/moodle/webservice/rest/server.php"
+        }
+        else {
+            http = new HTTPBuilder("http://remar.dc.ufscar.br:9090")
+            path = "/webservice/test/server.php"
+        }
+
+        log.debug "Token: " + token
+        log.debug "Path: " + path
 
         //Creates the table in the moodle
-        def resp = http.post(path: "/webservice/rest/server.php",
-                query: [wstoken: "647c093b186a187a0ac89884c8c79795",
+        def resp = http.post(path: path,
+                query: [wstoken: token,
                         wsfunction: "mod_remarmoodle_create_table",
                         json: file.text])
+        println resp
         log.debug "Resp: " + resp
 
         //Save the table name in the object
