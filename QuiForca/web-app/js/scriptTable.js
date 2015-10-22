@@ -224,26 +224,28 @@ function update(tr) {
 }
 
 function _delete(tr) {
-    var tds = $(tr).find("td");
-    if ($(tds)[4].textContent == getUserName()) {
-        var url = location.origin + '/forca/question/delete/' + $(tr).attr('data-id');
-        var data = {_method: 'DELETE'};
 
-        $.ajax({
-                type: 'POST',
-                data: data,
-                url: url,
-                success: function (data) {
-                    $(tr).remove();
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
+    if(confirm("Você tem certeza que deseja excluir esta questão?")) {
+        var tds = $(tr).find("td");
+        if ($(tds)[4].textContent == getUserName()) {
+            var url = location.origin + '/forca/question/delete/' + $(tr).attr('data-id');
+            var data = {_method: 'DELETE'};
+
+            $.ajax({
+                    type: 'POST',
+                    data: data,
+                    url: url,
+                    success: function (data) {
+                        $(tr).remove();
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    }
                 }
-            }
-        );
-    }
-    else
-    {
-        alert("Você não pode excluir uma questão de outro usuário!");
+            );
+        }
+        else {
+            alert("Você não pode excluir uma questão de outro usuário!");
+        }
     }
 }
 

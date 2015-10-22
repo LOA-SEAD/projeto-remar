@@ -33,8 +33,8 @@
                         <div class="table-responsive">
 
                             <div class="pull-right">
-                                <button name="create" type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#CreateModal">Nova Questão</button>
-                                <g:submitButton id="delete" name="delete" class="delete btn btn-danger btn-lg new-question-create-button" value="Remover" alt="Remove questões selecionadas"/>
+                                <button name="create" type="button" class="btn btn-success btn-lg" style="margin-left: 100px;" data-toggle="modal" data-target="#CreateModal">Nova Questão</button>
+                                %{--<g:submitButton id="delete" name="delete" class="delete btn btn-danger btn-lg new-question-create-button" value="Remover" alt="Remove questões selecionadas"/>--}%
                                 <br />
                                 <br />
                             <div class="pull-right" style="margin-bottom: 15px;">
@@ -50,6 +50,8 @@
                                     <th style="text-align: center">Resposta</th>
                                     <th style="text-align: center">Tema</th>
                                     <th style="text-align: center">Autor</th>
+                                    <th style="text-align: center">Editar</th>
+                                    <th style="text-align: center">Remover</th>
                                 </tr>
 
                                 <tr style="height: 5px; width: 5px;">
@@ -67,24 +69,33 @@
 
                                             <td class="_not_editable" align="center" > <input class="checkbox" type="checkbox"/> </td>
 
-                                            <td name="question_label" style="text-align: center;" data-questionId="${questionInstance.id}" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "statement")}</td>
+                                            <td name="question_label" style="text-align: center;"  >${fieldValue(bean: questionInstance, field: "statement")}</td>
 
-                                            <td style="text-align: center;" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "answer")}</td>
+                                            <td style="text-align: center;"  >${fieldValue(bean: questionInstance, field: "answer")}</td>
 
-                                            <td name="theme" id="theme" style="text-align: center;" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "category")}</td>
+                                            <td name="theme" id="theme" style="text-align: center;" >${fieldValue(bean: questionInstance, field: "category")}</td>
 
-                                            <td style="text-align: center;" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "author")}</td>
+                                            <td style="text-align: center;" >${fieldValue(bean: questionInstance, field: "author")}</td>
+
+                                            <td style="text-align: center;" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" ><i style="color: cornflowerblue;" class="fa fa-pencil"></i> </td>
+
+                                            <td style="text-align: center;" onclick="_delete($(this.closest('tr')))" > <i style="color: cornflowerblue;" class="fa fa-trash-o"></i> </td>
+
                                         </g:if>
                                         <g:else>
                                             <td class="_not_editable" align="center"> <input class="checkbox" type="checkbox"/> </td>
 
-                                            <td name="question_label" style="text-align: center;" data-questionId="${questionInstance.id}" onclick="alert('Você não pode editar uma questão de outro usuário.')">${fieldValue(bean: questionInstance, field: "statement")}</td>
+                                            <td name="question_label" style="text-align: center;" data-questionId="${questionInstance.id}" >${fieldValue(bean: questionInstance, field: "statement")}</td>
 
-                                            <td style="text-align: center;" onclick="alert('Você não pode editar uma questão de outro usuário.')">${fieldValue(bean: questionInstance, field: "answer")}</td>
+                                            <td style="text-align: center;" >${fieldValue(bean: questionInstance, field: "answer")}</td>
 
-                                            <td name="theme" id="theme" style="text-align: center;" onclick="alert('Você não pode editar uma questão de outro usuário.')">${fieldValue(bean: questionInstance, field: "category")}</td>
+                                            <td name="theme" id="theme" style="text-align: center;" >${fieldValue(bean: questionInstance, field: "category")}</td>
 
-                                            <td style="text-align: center;" onclick="alert('Você não pode editar uma questão de outro usuário.')">${fieldValue(bean: questionInstance, field: "author")}</td>
+                                            <td style="text-align: center;" >${fieldValue(bean: questionInstance, field: "author")}</td>
+
+                                            <td style="text-align: center;"> <i style="color: lightslategray;" class="fa fa-pencil"></i> </td>
+
+                                            <td style="text-align: center;" > <i style="color: lightslategray;" class="fa fa-trash-o"></i> </td>
                                         </g:else>
                                     </tr>
                                 </g:each>
