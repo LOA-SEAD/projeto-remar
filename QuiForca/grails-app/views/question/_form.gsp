@@ -42,15 +42,15 @@
             </div>
         </tr>
 
-        <tr>
+        <tr style="display: none">
             <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'name', 'error')} required">
                 <td>
                     <label for="author">
                         <g:message code="question.author.label" default=" Autor" /><span style="color:red">*</span>
                     </label>
                 </td>
-                <td class="spaced_td">
-                    <g:textField class="form-control" id="author" name="author" required="" readonly="readonly" value="${questionInstance?.author}"/>
+                <td  class="spaced_td">
+                    <g:textField  class="form-control" id="author" name="author" required="" readonly="readonly" value="${questionInstance?.author}"/>
                 </td>
 
             </td>
