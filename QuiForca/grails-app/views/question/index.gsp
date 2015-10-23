@@ -42,6 +42,19 @@
                             </div>
                             </div>
 
+                            <div class="pull-left">
+                                %{--<button name="create" type="button" class="btn btn-success btn-lg" style="margin-left: 100px;" data-toggle="modal" data-target="#CreateModal">Nova Questão</button>--}%
+                                <br />
+                                <br />
+                                <br/>
+                                <br/>
+                                <div class="pull-left" style="margin-bottom: 15px;">
+                                </div>
+                                <button class="btn btn-primary btn-md" style="margin-bottom: 10px;" id="BtnCheckAll" onclick="check_all()" > Selecionar todas</button>
+                                <button class="btn btn-primary  btn-md" style="margin-bottom: 10px; background-color: rgba(40, 96, 144, 0.76);"  id="BtnUnCheckAll" onclick="uncheck_all()" > Selecionar todas</button>
+
+                            </div>
+
                             <table class="table table-striped table-bordered table-hover" id="table">
                                 <thead>
                                 <tr>
@@ -54,9 +67,10 @@
                                     <th style="text-align: center">Remover</th>
                                 </tr>
 
-                                <tr style="height: 5px; width: 5px;">
-                                    <th align="center"><input align="center" class="checkbox" type="checkbox" id="CheckAll" style="margin-left: 42%;"/></th>
-                                </tr>
+                                %{--<tr style="height: 5px; width: 5px;">--}%
+                                    %{--<th align="center"><input align="center" class="checkbox" type="checkbox" id="CheckAll" style="margin-left: 42%;"/></th>--}%
+                                %{--</tr>--}%
+
 
                                 </thead>
                                 <tbody>

@@ -286,6 +286,46 @@ $(document).on("click", ".selectable_tr", function () {
 
 
 $( document ).ready(function() {
+    $('#BtnUnCheckAll').hide();
     var author = document.getElementById("author");
     author.value = getUserName();
 });
+
+function check_all(){
+    console.log("selecionar todas");
+    var CheckAll = document.getElementById("BtnCheckAll");
+    var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
+    $(".checkbox:visible").prop('checked', 'checked');
+
+
+    for (var i = 0; i < trs.length; i++) {
+        if($(trs[i]).is(':visible')) {
+            $(trs[i]).attr('data-checked', "true");
+        }
+    }
+
+    $('#BtnCheckAll').hide();
+    $('#BtnUnCheckAll').show();
+
+
+
+
+}
+
+function uncheck_all(){
+    console.log("selecionar todas");
+    var UnCheckAll = document.getElementById("BtnUnCheckAll");
+    var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
+    $(".checkbox:visible").prop('checked', false);
+
+
+    for (var i = 0; i < trs.length; i++) {
+        if($(trs[i]).is(':visible')) {
+            $(trs[i]).attr('data-checked', "false");
+        }
+    }
+
+    $('#BtnUnCheckAll').hide();
+    $('#BtnCheckAll').show();
+
+}

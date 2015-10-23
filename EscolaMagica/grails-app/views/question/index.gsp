@@ -30,7 +30,9 @@
                                 Basta clicar sobre alguma <i class="fa fa-smile-o"></i><br>
                                 <i class="fa fa-info-circle"></i> Não se esqueça: para finalizar a tarefa, são necessárias pelo menos 5 questões para cada nível!</i><br>
                             </div>
-                                %{--<button class="btn btn-default" data-checked="false" id="BtnCheckAll" onclick="check_all()" > Selecionar todas</button>--}%
+                                <button class="btn btn-primary btn-md" style="margin-bottom: 10px;" id="BtnCheckAll" onclick="check_all()" > Selecionar todas</button>
+                                <button class="btn btn-primary  btn-md" style="margin-bottom: 10px; background-color: rgba(40, 96, 144, 0.76) "  id="BtnUnCheckAll" onclick="uncheck_all()" > Selecionar todas</button>
+
                                 %{--<input align="center" class="checkbox" type="checkbox" id="CheckAll"/>--}%
                                 %{--<input  align="center" class="checkbox" type="checkbox" id="CheckAll">--}%
                                 %{--<button id="heckAll" onclick="check_all()"> Selecionar todas </button>--}%
@@ -63,9 +65,9 @@
                                         <th style="text-align: center; color: #337AB7">Editar</th>
                                         <th style="text-align: center; color: #337AB7" >Remover</th>
                                     </tr>
-                                <tr style="height: 5px; width: 5px;">
-                                    <th align="center"><input align="center" class="checkbox" type="checkbox" id="CheckAll" style="margin-left: 42%;"/></th>
-                                </tr>
+                                %{--<tr style="height: 5px; width: 5px;">--}%
+                                    %{--<th align="center"><input align="center" class="checkbox" type="checkbox" id="CheckAll" style="margin-left: 42%;"/></th>--}%
+                                %{--</tr>--}%
                                 </thead>
                                 <tbody>
                                     <g:each in="${questionInstanceList}" status="i" var="questionInstance">
@@ -153,6 +155,8 @@
         });
 
         $(document).ready(function () {
+            $('#BtnUnCheckAll').hide();
+
 
             $('.checkbox').on('change', function() {
                 $(this).parent().parent().attr('data-checked', $(this).prop('checked'));
@@ -266,41 +270,42 @@
         function check_all(){
             console.log("selecionar todas");
             var CheckAll = document.getElementById("BtnCheckAll");
-            CheckAll.attr('data-checked',"true");
             var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
             $(".checkbox:visible").prop('checked', 'checked');
 
-            if(CheckAll.checked==true){
+
                 for (var i = 0; i < trs.length; i++) {
                     if($(trs[i]).is(':visible')) {
                         $(trs[i]).attr('data-checked', "true");
                     }
                 }
-            }
-            else{
-                for (var i = 0; i < trs.length; i++) {
-                    if($(trs[i]).is(':visible')){
-                        $(trs[i]).attr('data-checked', "false");
-                    }
+
+            $('#BtnCheckAll').hide();
+            $('#BtnUnCheckAll').show();
+
+
+
+
+        }
+
+        function uncheck_all(){
+            console.log("selecionar todas");
+            var UnCheckAll = document.getElementById("BtnUnCheckAll");
+            var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
+            $(".checkbox:visible").prop('checked', false);
+
+
+            for (var i = 0; i < trs.length; i++) {
+                if($(trs[i]).is(':visible')) {
+                    $(trs[i]).attr('data-checked', "false");
                 }
             }
 
-//            var CheckAll = document.getElementById("CheckAll");
-//            var trs = $('tr');
-//            $(".checkbox:visible").prop('checked', 'checked');
-//
-//
-//            for (var i = 0; i < trs.length; i++) {
-//                $(trs[i]).attr('data-checked', "true");
-//            }
-
-//
-//                    for (var i = 0; i < trs.length; i++) {
-//                        $(trs[i]).attr('data-checked', "false");
-//                    }
-//
+            $('#BtnUnCheckAll').hide();
+            $('#BtnCheckAll').show();
 
         }
+
 
     </script>
 
