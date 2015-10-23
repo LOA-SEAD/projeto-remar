@@ -58,7 +58,7 @@
                                             <div class="info-box-content">
                                                 <span class="info-box-text">${gameInstance.name}</span>
                                                 <span id="development" class="info-box-number">
-                                                    <img class="img-circle" alt="User Image" src="assets/img/inside/avatar.png"
+                                                    <img class="img-circle" alt="User Image" src="/data/users/${session.user.username}/profile-picture"
                                                          height="25" width="25"/>
                                                     REMAR
                                                 </span>
@@ -121,7 +121,7 @@
                                             <div class="info-box-content">
                                                 <span class="info-box-text">${exportedResourceInstance.name}</span>
                                                 <span class="info-box-number">
-                                                    <img class="img-circle" alt="User Image" src="/assets/img/inside/avatar04.png"
+                                                    <img class="img-circle" alt="User Image" src="/data/users/${session.user.username}/profile-picture"
                                                          height="25" width="25"/>
                                                     ${exportedResourceInstance.owner.firstName}
                                                 </span>
@@ -207,7 +207,7 @@
                                                     ${myExportedResourceInstance.name}
                                                 </span>
                                                 <span class="info-box-number">
-                                                    <img class="img-circle" alt="User Image" src="/assets/img/inside/avatar04.png"
+                                                    <img class="img-circle" alt="User Image" src="/data/users/${session.user.username}/profile-picture"
                                                          height="25" width="25"/>
                                                     ${myExportedResourceInstance.owner.firstName}
                                                 </span>

@@ -48,7 +48,7 @@ class BootStrap {
             )
 
             if(Environment.current == Environment.PRODUCTION) {
-                userInstance.password = grailsApplication.config.root.password
+                userInstance.password = "seadloaremar1!"
             }
 
             org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
@@ -87,7 +87,7 @@ class BootStrap {
             )
 
             if(Environment.current == Environment.PRODUCTION) {
-                guestUserInstance.password = grailsApplication.config.root.password
+                guestUserInstance.password = "seadloaremar1!"
             }
 
             org.camunda.bpm.engine.identity.User camundaGuestUser = identityService.newUser(guestUserInstance.username)
@@ -141,6 +141,7 @@ class BootStrap {
         new RequestMap(url: '/process/deploy', configAttribute: 'ROLE_ADMIN').save()
         new RequestMap(url: '/process/undeploy', configAttribute: 'ROLE_ADMIN').save()
         new RequestMap(url: '/user/index', configAttribute: 'ROLE_ADMIN').save()
+        new RequestMap(url: '/reset', configAttribute: 'ROLE_ADMIN').save()
 
 //            new RequestMap(url: '', configAttribute: '').save()
 
