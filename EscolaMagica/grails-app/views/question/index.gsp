@@ -30,6 +30,8 @@
                                 Basta clicar sobre alguma <i class="fa fa-smile-o"></i><br>
                                 <i class="fa fa-info-circle"></i> Não se esqueça: para finalizar a tarefa, são necessárias pelo menos 5 questões para cada nível!</i><br>
                             </div>
+                                %{--<button class="btn btn-default" data-checked="false" id="BtnCheckAll" onclick="check_all()" > Selecionar todas</button>--}%
+                                %{--<input align="center" class="checkbox" type="checkbox" id="CheckAll"/>--}%
                                 %{--<input  align="center" class="checkbox" type="checkbox" id="CheckAll">--}%
                                 %{--<button id="heckAll" onclick="check_all()"> Selecionar todas </button>--}%
                             </div>
@@ -157,22 +159,23 @@
             });
 
 
-
-
-
             $("#CheckAll").click(function () {
                 var CheckAll = document.getElementById("CheckAll");
                 var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
-                $(".checkbox").prop('checked', $(this).prop('checked'));
+                $(".checkbox:visible").prop('checked', $(this).prop('checked'));
 
                 if(CheckAll.checked==true){
                     for (var i = 0; i < trs.length; i++) {
-                        $(trs[i]).attr('data-checked', "true");
+                        if($(trs[i]).is(':visible')) {
+                            $(trs[i]).attr('data-checked', "true");
+                        }
                     }
                 }
                 else{
                     for (var i = 0; i < trs.length; i++) {
-                        $(trs[i]).attr('data-checked', "false");
+                        if($(trs[i]).is(':visible')){
+                            $(trs[i]).attr('data-checked', "false");
+                        }
                     }
                 }
 
@@ -262,15 +265,34 @@
 
         function check_all(){
             console.log("selecionar todas");
+            var CheckAll = document.getElementById("BtnCheckAll");
+            CheckAll.attr('data-checked',"true");
+            var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
+            $(".checkbox:visible").prop('checked', 'checked');
+
+            if(CheckAll.checked==true){
+                for (var i = 0; i < trs.length; i++) {
+                    if($(trs[i]).is(':visible')) {
+                        $(trs[i]).attr('data-checked', "true");
+                    }
+                }
+            }
+            else{
+                for (var i = 0; i < trs.length; i++) {
+                    if($(trs[i]).is(':visible')){
+                        $(trs[i]).attr('data-checked', "false");
+                    }
+                }
+            }
 
 //            var CheckAll = document.getElementById("CheckAll");
-            var trs = $('tr');
-            $(".checkbox").prop('checked', $(this).prop('checked'));
-
-
-            for (var i = 0; i < trs.length; i++) {
-                $(trs[i]).attr('data-checked', "true");
-            }
+//            var trs = $('tr');
+//            $(".checkbox:visible").prop('checked', 'checked');
+//
+//
+//            for (var i = 0; i < trs.length; i++) {
+//                $(trs[i]).attr('data-checked', "true");
+//            }
 
 //
 //                    for (var i = 0; i < trs.length; i++) {
