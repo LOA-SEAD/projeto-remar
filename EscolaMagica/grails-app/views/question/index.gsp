@@ -62,8 +62,7 @@
                                         <th style="text-align: center; color: #337AB7"> Pergunta </th>
                                         <th style="text-align: center; color: #337AB7"> Respostas </th>
                                         <th style="text-align: center; color: #337AB7"> Alternativa Correta </th>
-                                        <th style="text-align: center; color: #337AB7">Editar</th>
-                                        <th style="text-align: center; color: #337AB7" >Remover</th>
+                                        <th style="text-align: center; color: #337AB7">Ações</th>
                                     </tr>
                                 %{--<tr style="height: 5px; width: 5px;">--}%
                                     %{--<th align="center"><input align="center" class="checkbox" type="checkbox" id="CheckAll" style="margin-left: 42%;"/></th>--}%
@@ -86,9 +85,7 @@
 
                                             <td  >${questionInstance.answers[questionInstance.correctAnswer]} (${questionInstance.correctAnswer + 1}ª Alternativa)</td>
 
-                                            <td style="text-align: center;" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" ><i style="color: cornflowerblue;" class="fa fa-pencil"></i> </td>
-
-                                            <td style="text-align: center;"  onclick="_delete($(this.closest('tr')))" > <i style="color: cornflowerblue;" class="fa fa-trash-o"></i> </td>
+                                            <td style="text-align: center;"  ><i style="color: cornflowerblue; margin-right:10px;" class="fa fa-pencil" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}"></i> <i style="color: cornflowerblue;" class="fa fa-trash-o" onclick="_delete($(this.closest('tr')))" ></i></td>
 
                                         </tr>
                                     </g:each>
@@ -125,12 +122,33 @@
     </div>
 
     <script type="text/javascript">
+
+        window.onload = function() {
+            // $('#table').editableTableWidget();
+
+            // addListeners();
+
+            $('#table tr td:not(:last-child)').click(function (event) {
+                var tr = this.closest('tr');
+                if ($(tr).attr('data-checked') == "true") {
+                    $(tr).attr('data-checked', "false");
+                    $(':checkbox', this.closest('tr')).prop('checked', false);
+                }
+                else {
+                    $(tr).attr('data-checked', "true");
+                    $(':checkbox', this.closest('tr')).prop('checked', 'checked');
+                }
+
+            });
+        };
+
+
         var x = document.getElementsByName("question_label");
         $(document).on("click", ".selectable_tr", function () {
             //console.log("click event");
             var myNameId = $(this).data('id')
-            var myCheck = $(this).data('checked')
-            var myLevel = $(this).data('level')
+//            var myCheck = $(this).data('checked')
+//            var myLevel = $(this).data('level')
             $("#questionInstance").val( myNameId );
 
             $('body').on('hidden.bs.modal', '#EditModal', function (e) {
@@ -157,35 +175,10 @@
         $(document).ready(function () {
             $('#BtnUnCheckAll').hide();
 
-
-            $('.checkbox').on('change', function() {
-                $(this).parent().parent().attr('data-checked', $(this).prop('checked'));
-            });
-
-
-            $("#CheckAll").click(function () {
-                var CheckAll = document.getElementById("CheckAll");
-                var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
-                $(".checkbox:visible").prop('checked', $(this).prop('checked'));
-
-                if(CheckAll.checked==true){
-                    for (var i = 0; i < trs.length; i++) {
-                        if($(trs[i]).is(':visible')) {
-                            $(trs[i]).attr('data-checked', "true");
-                        }
-                    }
-                }
-                else{
-                    for (var i = 0; i < trs.length; i++) {
-                        if($(trs[i]).is(':visible')){
-                            $(trs[i]).attr('data-checked', "false");
-                        }
-                    }
-                }
-
-
-            });
         });
+
+
+
 
         $('#submitButton').click(function () {
             var list_id = [];
