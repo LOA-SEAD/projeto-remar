@@ -148,10 +148,10 @@
 
                             <g:if test="${session.user.gender == 'female'}">
                             %{--<g:if test="${== 'female'}">--}%
-                                <img class="user-image" alt="User Image" src="/assets/img/inside/avatar2.png"/>
+                                <img class="user-image" alt="User Image" src="/data/users/${session.user.username}/profile-picture"/>
                             </g:if>
                             <g:else>
-                                <img class="user-image" alt="User Image" src="/assets/img/inside/avatar.png"/>
+                                <img class="user-image" alt="User Image" src="/data/users/${session.user.username}/profile-picture"/>
                             </g:else>
 
                             <span class="hidden-xs">${session.user.firstName}</span>
@@ -160,10 +160,10 @@
                             <!-- User image -->
                             <li class="user-header">
                                 <g:if test="${session.user.gender == 'female'}">
-                                    <img class="img-circle" alt="User Image" src="/assets/img/inside/avatar2.png"/>
+                                    <img class="img-circle" alt="User Image" src="/data/users/${session.user.username}/profile-picture"/>
                                 </g:if>
                                 <g:else>
-                                    <img class="img-circle" alt="User Image" src="/assets/img/inside/avatar.png"/>
+                                    <img class="img-circle" alt="User Image" src="/data/users/${session.user.username}/profile-picture"/>
                                 </g:else>
                                 <p>
                                     ${session.user.firstName}
@@ -206,10 +206,10 @@
             <div class="user-panel">
                 <div class="pull-left image">
                     <g:if test="${session.user.gender == 'female'}">
-                        <img class="img-circle" alt="User Image" src="/assets/img/inside/avatar2.png"/>
+                        <img class="img-circle" alt="User Image" src="/data/users/${session.user.username}/profile-picture"/>
                     </g:if>
                     <g:else>
-                        <img class="img-circle" alt="User Image" src="/assets/img/inside/avatar.png"/>
+                        <img class="img-circle" alt="User Image" src="/data/users/${session.user.username}/profile-picture"/>
                     </g:else>
                 </div>
                 <div class="pull-left info">

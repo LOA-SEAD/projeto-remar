@@ -200,8 +200,8 @@ class UserController {
 
             } else {
                 instance.accountExpired = false
-                instance.accountLocked = true //Before user confirmation
-                instance.enabled = false        // Before user confirmation
+                instance.accountLocked = false //Before user confirmation
+                instance.enabled = true        // Before user confirmation
                 instance.passwordExpired = false
                 instance.setGender(instance.gender) //teste
 
