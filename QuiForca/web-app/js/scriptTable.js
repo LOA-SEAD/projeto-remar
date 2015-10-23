@@ -4,30 +4,6 @@
 $(document).ready(function () {
 
 
-
-
-    $("#CheckAll").click(function () {
-        var CheckAll = document.getElementById("CheckAll");
-        var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
-        $(".checkbox:visible").prop('checked', $(this).prop('checked'));
-
-        if(CheckAll.checked==true){
-            for (var i = 0; i < trs.length; i++) {
-                if($(trs[i]).is(':visible')) {
-                    $(trs[i]).attr('data-checked', "true");
-                }
-            }
-        }
-        else{
-            for (var i = 0; i < trs.length; i++) {
-                if($(trs[i]).is(':visible')){
-                    $(trs[i]).attr('data-checked', "false");
-                }
-            }
-        }
-
-
-    });
 });
 
 window.onload = function(){
@@ -47,9 +23,6 @@ window.onload = function(){
         }
 
     });
-
-
-
 
 
     $('#delete').click(function() {
@@ -138,9 +111,6 @@ function addListeners() {
         }
     });
 
-    $('.checkbox').on('change', function() {
-        $(this).parent().parent().attr('data-checked', $(this).prop('checked'));
-    });
 }
 
 function getUserName() {
