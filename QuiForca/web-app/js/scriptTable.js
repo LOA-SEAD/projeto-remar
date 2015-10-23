@@ -2,6 +2,10 @@
  * Created by loa on 19/03/15.
  */
 $(document).ready(function () {
+
+
+
+
     $("#CheckAll").click(function () {
         var CheckAll = document.getElementById("CheckAll");
         var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
@@ -29,59 +33,24 @@ $(document).ready(function () {
 window.onload = function(){
    // $('#table').editableTableWidget();
 
-    addListeners();
+   // addListeners();
 
-
-
-    $('#create').click(function() {
-        var tr = document.createElement('tr');
-        tr.setAttribute('data-new', '1');
-        tr.setAttribute('data-checked', 'false');
-        tr.setAttribute('data-owner-id', getUserId());
-        //tr.setAttribute('class', 'odd'); TODO
-
-        var td1 = document.createElement('td');
-        td1.setAttribute('class', '_not_editable');
-        td1.setAttribute("align", "center");
-        var cb = document.createElement('input');
-        cb.setAttribute("type", "checkbox");
-        cb.setAttribute("class", "checkbox");
-        td1.appendChild(cb);
-
-        var td2 = document.createElement('td');
-        td2.setAttribute('tabindex', '1');
-        td2.setAttribute('class', '_error');
-
-        var td3 = document.createElement('td');
-        td3.setAttribute('tabindex', '1');
-        td3.setAttribute('class', '_error');
-
-        var td4 = document.createElement('td');
-        td4.setAttribute('tabindex', '1');
-        td4.setAttribute('class', '_error');
-        td4.setAttribute('data-save', '1');
-
-        var td5 = document.createElement('td');
-        td5.setAttribute('tabindex', '1');
-        td5.textContent = getUserName();
-
-        tr.appendChild(td1);
-        tr.appendChild(td2);
-        tr.appendChild(td3);
-        tr.appendChild(td4);
-        tr.appendChild(td5);
-
-        var table = document.getElementById('table');
-
-        var tbody = table.getElementsByTagName('tbody')[0];
-
-        tbody.appendChild(tr);
-
-       // $('#table').editableTableWidget(); // new tr
-        addListeners(); // new tr
-
+    $('#table tr td:not(:last-child)').click(function (event) {
+        var tr = this.closest('tr');
+        if($(tr).attr('data-checked') == "true") {
+            $(tr).attr('data-checked', "false");
+            $(':checkbox', this.closest('tr')).prop('checked', false);
+        }
+        else {
+            $(tr).attr('data-checked', "true");
+            $(':checkbox', this.closest('tr')).prop('checked', 'checked');
+        }
 
     });
+
+
+
+
 
     $('#delete').click(function() {
         if (confirm("Você tem certeza?")) {
@@ -269,11 +238,11 @@ $(function(){
 
 var x = document.getElementsByName("question_label");
 $(document).on("click", ".selectable_tr", function () {
-    console.log("click event");
+    //console.log("click event");
     var myNameId = $(this).data('id');
-    var myCheck = $(this).data('checked');
+    //var myCheck = $(this).data('checked');
     console.log(myNameId);
-    console.log(myCheck);
+    //console.log(myCheck);
     $("#questionInstance").val( myNameId );
     $('body').on('hidden.bs.modal', '#EditModal', function (e) {
         console.log("entrou aqui");

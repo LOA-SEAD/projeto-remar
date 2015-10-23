@@ -63,8 +63,7 @@
                                     <th style="text-align: center">Resposta</th>
                                     <th style="text-align: center">Tema</th>
                                     <th style="text-align: center">Autor</th>
-                                    <th style="text-align: center">Editar</th>
-                                    <th style="text-align: center">Remover</th>
+                                    <th style="text-align: center">Ação</th>
                                 </tr>
 
                                 %{--<tr style="height: 5px; width: 5px;">--}%
@@ -91,9 +90,8 @@
 
                                             <td style="text-align: center;" >${fieldValue(bean: questionInstance, field: "author")}</td>
 
-                                            <td style="text-align: center;" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}" ><i style="color: cornflowerblue;" class="fa fa-pencil"></i> </td>
+                                            <td style="text-align: center;"  ><i style="color: cornflowerblue; margin-right:10px;" class="fa fa-pencil" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}"></i> <i style="color: cornflowerblue;" class="fa fa-trash-o" onclick="_delete($(this.closest('tr')))" ></i></td>
 
-                                            <td style="text-align: center;" onclick="_delete($(this.closest('tr')))" > <i style="color: cornflowerblue;" class="fa fa-trash-o"></i> </td>
 
                                         </g:if>
                                         <g:else>
@@ -107,9 +105,8 @@
 
                                             <td style="text-align: center;" >${fieldValue(bean: questionInstance, field: "author")}</td>
 
-                                            <td style="text-align: center;"> <i style="color: lightslategray;" class="fa fa-pencil"></i> </td>
+                                            <td style="text-align: center;"> <i style="color: lightslategray; margin-right:10px;" class="fa fa-pencil"></i>  <i style="color: lightslategray;" class="fa fa-trash-o"></i> </td>
 
-                                            <td style="text-align: center;" > <i style="color: lightslategray;" class="fa fa-trash-o"></i> </td>
                                         </g:else>
                                     </tr>
                                 </g:each>
