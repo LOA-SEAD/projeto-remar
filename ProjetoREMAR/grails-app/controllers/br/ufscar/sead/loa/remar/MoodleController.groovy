@@ -82,9 +82,9 @@ class MoodleController {
 
     def resources_list(String domain) {
         //def moodle = Moodle.findByDomain(domain).Where(active)
-        def moodle = Moodle.where {
-            active == true && domain == domain
-        }.list()
+        def moodle = Moodle.findAllByActiveAndDomain(true, domain)
+
+        log.debug moodle
 
         if (moodle != []) {
             /* list of games published only for moodle */
@@ -130,7 +130,12 @@ class MoodleController {
     }
 
     def send() {
+        log.debug "PARAMS: "
         log.debug params
+
+        println "params: "
+        println params
+
         params.remove("controller")
         params.remove("format")
         params.remove("action")
@@ -142,7 +147,7 @@ class MoodleController {
 
         params.timestamp = time.substring(0, time.length() - 3)
 
-        ExportedResource.get(params.remar_resource_id).moodleTableName
+        //def table = ExportedResource.get(params.remar_resource_id).moodleTableName
 
         def q = [alternativaa: params.alternativaa,
                  alternativab: params.alternativab,
@@ -154,10 +159,12 @@ class MoodleController {
                  hash: params.hash,
                  enunciado: params.enunciado,
                  remar_resource_id: params.remar_resource_id,
-                 table_name: table,
+                 table_name: "escola_magica",
                  wstoken: token,
                  wsfunction: "mod_remarmoodle_insert_record"]
-        
+
+
+
         log.debug "~~~~~~~"
         log.debug q
         log.debug "~~~~~~~"

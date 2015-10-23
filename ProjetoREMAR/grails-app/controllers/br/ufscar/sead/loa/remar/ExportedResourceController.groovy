@@ -213,7 +213,7 @@ class ExportedResourceController {
         }
         else {
             http = new HTTPBuilder("http://remar.dc.ufscar.br:9090")
-            path = "/webservice/test/server.php"
+            path = "/webservice/rest/server.php"
         }
 
         log.debug "Token: " + token
