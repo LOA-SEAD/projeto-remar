@@ -20,7 +20,7 @@ environments {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate'
             url = "jdbc:mysql://localhost/remar"
             username = "root"
-            password = "3wJBssW0tAtadw0HjPD3"
+            password = "root"
         }
     }
     test {
