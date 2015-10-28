@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta name="layout" content="main">
-        %{--<g:javascript src="questions.js" />--}%
+        <g:javascript src="questions.js" />
         <g:javascript src="../assets/js/jquery.min.js"/>
         <g:javascript src="../assets/js/bootstrap.min.js"/>
         <link rel="stylesheet" href="${resource(dir: 'css', file: 'stylesheet.css')}" />
@@ -27,15 +27,11 @@
                             <div class="pull-left">
                                 <div class=" alert alert-info">
                                 <i class="fa fa-info-circle"></i> Temos algumas questões-exemplo. Você pode editá-las!
-                                Basta clicar sobre alguma <i class="fa fa-smile-o"></i><br>
+                                Basta clicar sobre o ícone <i class="fa fa-pencil"></i><br>
                                 <i class="fa fa-info-circle"></i> Não se esqueça: para finalizar a tarefa, são necessárias pelo menos 5 questões para cada nível!</i><br>
                             </div>
                                 <button class="btn btn-primary btn-md" style="margin-bottom: 10px;" id="BtnCheckAll" onclick="check_all()" > Selecionar todas</button>
                                 <button class="btn btn-primary  btn-md" style="margin-bottom: 10px; background-color: rgba(40, 96, 144, 0.76) "  id="BtnUnCheckAll" onclick="uncheck_all()" > Selecionar todas</button>
-
-                                %{--<input align="center" class="checkbox" type="checkbox" id="CheckAll"/>--}%
-                                %{--<input  align="center" class="checkbox" type="checkbox" id="CheckAll">--}%
-                                %{--<button id="heckAll" onclick="check_all()"> Selecionar todas </button>--}%
                             </div>
                             <div class="pull-right">
                                 <g:if test="${Question.validateQuestions("${session.user.id}")}">
@@ -64,9 +60,6 @@
                                         <th style="text-align: center; color: #337AB7"> Alternativa Correta </th>
                                         <th style="text-align: center; color: #337AB7">Ações</th>
                                     </tr>
-                                %{--<tr style="height: 5px; width: 5px;">--}%
-                                    %{--<th align="center"><input align="center" class="checkbox" type="checkbox" id="CheckAll" style="margin-left: 42%;"/></th>--}%
-                                %{--</tr>--}%
                                 </thead>
                                 <tbody>
                                     <g:each in="${questionInstanceList}" status="i" var="questionInstance">
@@ -123,123 +116,11 @@
 
     <script type="text/javascript">
 
-        window.onload = function() {
-            // $('#table').editableTableWidget();
-
-            // addListeners();
-
-            $('#table tr td:not(:last-child)').click(function (event) {
-                var tr = this.closest('tr');
-                if ($(tr).attr('data-checked') == "true") {
-                    $(tr).attr('data-checked', "false");
-                    $(':checkbox', this.closest('tr')).prop('checked', false);
-                }
-                else {
-                    $(tr).attr('data-checked', "true");
-                    $(':checkbox', this.closest('tr')).prop('checked', 'checked');
-                }
-
-            });
-        };
 
 
-        var x = document.getElementsByName("question_label");
-        $(document).on("click", ".selectable_tr", function () {
-            //console.log("click event");
-            var myNameId = $(this).data('id')
-//            var myCheck = $(this).data('checked')
-//            var myLevel = $(this).data('level')
-            $("#questionInstance").val( myNameId );
-
-            $('body').on('hidden.bs.modal', '#EditModal', function (e) {
-                console.log("entrou aqui");
-                $(e.target).removeData("bs.modal");
-                $("#EditModal > div > div > div").empty();
-            });
-
-        });
-
-        $(function(){
-            $("#SearchLabel").keyup(function(){
-                _this = this;
-                $.each($("#table tbody ").find("tr"), function() {
-                    console.log($(this).text());
-                    if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) == -1)
-                        $(this).hide();
-                    else
-                        $(this).show();
-                });
-            });
-        });
-
-        $(document).ready(function () {
-            $('#BtnUnCheckAll').hide();
-
-        });
-
-
-
-
-        $('#submitButton').click(function () {
-            var list_id = [];
-            var questions_level1 = 0;
-            var questions_level2 = 0;
-            var questions_level3 = 0;
-            var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
-            for (var i = 0; i < trs.length; i++) {
-                if ($(trs[i]).attr('data-checked') == "true") {
-                    console.log($(trs[i]).attr('data-level'));
-
-                    switch ($(trs[i]).attr('data-level')){
-                        case "1":
-                            questions_level1 += 1;
-                            break;
-                        case "2":
-                            questions_level2 += 1;
-                            break;
-                        default :
-                            questions_level3 += 1;
-                    }
-
-                    list_id.push(  $(trs[i]).attr('data-id') );
-                }
-            }
-            console.log(list_id);
-            console.log(questions_level1);
-            console.log(questions_level2);
-            console.log(questions_level3);
-
-            if(questions_level1 >= 5 && questions_level2 >= 5 && questions_level3 >= 5){
-                $.ajax({
-                    type: "POST",
-                    traditional: true,
-                    url: "${createLink(controller: 'question', action: 'createXML')}",
-                    data: { list_id: list_id },
-                    success: function(returndata) {
-                        window.top.location.href = returndata;
-                    },
-                    error: function(returndata) {
-                        alert("Error:\n" + returndata.responseText);
-
-
-                    }
-                });
-            }
-            else
-            {
-                alert("Você deve selecionar no mínimo 5 (cinco) questões de cada nível.\nQuestões nível 1: " + questions_level1 +
-                        "\nQuestões nível 2: " + questions_level2 + "\nQuestões nível 3: " + questions_level3);
-            }
-
-        });
-
-        $('#noSubmitButton').click(function () {
-            alert("Você deve criar no mínimo 5 (cinco) questões de cada nível.");
-        })
-
-        function _delete(tr) {
-            if(confirm("Você tem certeza que deseja excluir esta questão?")) {
-                var tds = $(tr).find("td");
+            function _delete(tr) {
+                if(confirm("Você tem certeza que deseja excluir esta questão?")) {
+                    var tds = $(tr).find("td");
                     var url = location.origin + '/escolamagica/question/delete/' + $(tr).attr('data-id');
                     var data = {_method: 'DELETE'};
 
@@ -257,14 +138,14 @@
                     );
 
 
+                }
             }
-        }
 
-        function check_all(){
-            console.log("selecionar todas");
-            var CheckAll = document.getElementById("BtnCheckAll");
-            var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
-            $(".checkbox:visible").prop('checked', 'checked');
+            function check_all(){
+                console.log("selecionar todas");
+                var CheckAll = document.getElementById("BtnCheckAll");
+                var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
+                $(".checkbox:visible").prop('checked', 'checked');
 
 
                 for (var i = 0; i < trs.length; i++) {
@@ -273,32 +154,28 @@
                     }
                 }
 
-            $('#BtnCheckAll').hide();
-            $('#BtnUnCheckAll').show();
+                $('#BtnCheckAll').hide();
+                $('#BtnUnCheckAll').show();
 
-
-
-
-        }
-
-        function uncheck_all(){
-            console.log("selecionar todas");
-            var UnCheckAll = document.getElementById("BtnUnCheckAll");
-            var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
-            $(".checkbox:visible").prop('checked', false);
-
-
-            for (var i = 0; i < trs.length; i++) {
-                if($(trs[i]).is(':visible')) {
-                    $(trs[i]).attr('data-checked', "false");
-                }
             }
 
-            $('#BtnUnCheckAll').hide();
-            $('#BtnCheckAll').show();
+            function uncheck_all(){
+                console.log("remover todas");
+                var UnCheckAll = document.getElementById("BtnUnCheckAll");
+                var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
+                $(".checkbox:visible").prop('checked', false);
 
-        }
 
+                for (var i = 0; i < trs.length; i++) {
+                    if($(trs[i]).is(':visible')) {
+                        $(trs[i]).attr('data-checked', "false");
+                    }
+                }
+
+                $('#BtnUnCheckAll').hide();
+                $('#BtnCheckAll').show();
+
+            }
 
     </script>
 
