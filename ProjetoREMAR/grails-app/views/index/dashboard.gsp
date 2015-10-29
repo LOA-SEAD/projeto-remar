@@ -23,47 +23,63 @@
             <a class="right btn-floating  waves-effect waves-light red"><i class="material-icons">add</i></a>
             <div class="divider"></div>
         </div>
-        <div class="col s12 m12 l12">
+
         <g:if test="${gameInstanceList.size() == 0}">
             <p>Não há nenhum R.E.A disponível para ser personalizado :(</p>
         </g:if>
         <g:each in="${gameInstanceList}" var="gameInstance">
-            <div class="card card-small hoverable">
-                <a href="/resource/show/${gameInstance.id}" >
-                    <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" src="/images/${gameInstance.uri}-banner.png">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-title activator truncate">
-                            ${gameInstance.name}
-                            %{--<i class="material-icons right">more_vert</i>--}%
-                        </span>
-                        <div class="developer">
-                            <img src="../data/users/${gameInstance.owner.username}/profile-picture"
-                                 class="circle left">
-                            <span class="truncate">${gameInstance.owner.firstName}</span>
-                        </div>
-                    </div> <!-- End card-content -->
-                    <div class="card-action" >
-                        <div class="right">
-                            <i class="fa fa-globe"></i>
-                            <g:if test="${gameInstance.android}">
-                                <i class="fa fa-android"></i>
-                            </g:if>
-                            <g:if test="${gameInstance.linux}">
-                                <i class="fa fa-linux"></i>
-                            </g:if>
-                            <g:if test="${gameInstance.moodle}">
-                                <i class="fa fa-graduation-cap"></i>
-                            </g:if>
-                        </div>
-                    </div> <!-- End card-action -->
-                </a>
-            </div> <!-- End Card-->
-        </g:each>
-        </div>
-    </div> <!-- End Row R.E.A Personalizaveis -->
+            <div class="col l2 m3 s12">
+                <div class="card-resource">
+                    <a href="/resource/show/${gameInstance.id}" >
+                        <div class="card hoverable">
+                            <div class="card-content-bg">
+                                <div class="card-image">
+                                    <img class="activator" src="/images/${gameInstance.uri}-banner.png">
+                                </div>
+                            </div>
+                            <ul class="card-image card-action-buttons">
+                                <li>
+                                    <span class="btn-icon green accent-4 disabled" style="background-color: #00C853 !important;">
+                                        <i class="fa fa-globe"></i>
+                                    </span>
+                                </li>
+                                <g:if test="${gameInstance.android}">
+                                    <li>
+                                        <span class="btn-icon deep-purple disabled"  style="background-color: #673ab7 !important;">
+                                            <i class="fa fa-android"></i>
+                                        </span>
+                                    </li>
+                                </g:if>
+                                <g:if test="${gameInstance.linux}">
+                                    <li>
+                                        <span class="btn-icon red disabled" style="background-color: #F44336 !important;">
+                                            <i class="fa fa-linux"></i>
+                                        </span>
+                                    </li>
+                                </g:if>
+                                <g:if test="${gameInstance.moodle}">
+                                    <li>
+                                        <span class="btn-icon amber darken-4 disabled" style="background-color: #ff6f00 !important;">
+                                            <i class="fa fa-graduation-cap"></i>
+                                        </span>
+                                    </li>
+                                </g:if>
+                            </ul>
 
+                            <div class="card-title center">
+                                <span class="truncate">${gameInstance.name}</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </g:each>
+        %{--<div class="developer">--}%
+            %{--<img src="../data/users/${gameInstance.owner.username}/profile-picture"--}%
+                 %{--class="circle left">--}%
+            %{--<span class="truncate">${gameInstance.owner.firstName}</span>--}%
+        %{--</div>--}%
+    </div> <!-- End Row R.E.A Personalizaveis -->
 
     <div class="row"> <!-- R.E.A. publicos -->
         <div class="col s12 m12 l12 session-title" >
@@ -74,82 +90,101 @@
             <a class="right btn-floating  waves-effect waves-light red"><i class="material-icons">add</i></a>
             <div class="divider"></div>
         </div>
-        <div class="col s12 m12 l12">
         <g:if test="${publicExportedResourcesList.size() == 0}">
             <p>Não há nenhum R.E.A público :(</p>
         </g:if>
         <g:each in="${publicExportedResourcesList}" var="exportedResourceInstance">
-            <div class="card card-small hoverable">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="/images/${exportedResourceInstance.resource.uri}-banner.png">
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator truncate">
-                        ${exportedResourceInstance.name}
-                        %{--<i class="material-icons right">more_vert</i>--}%
-                    </span>
-                    <div class="developer">
-                        <img src="../data/users/${exportedResourceInstance.owner.username}/profile-picture"
-                             class="circle left">
-                        <span class="truncate">${exportedResourceInstance.owner.firstName}</span>
-                    </div>
-                </div> <!-- End card-content -->
-                <div class="card-action" >
-                    <div class="right">
-                        <g:if test="${exportedResourceInstance.webUrl != null}">
-                            <i class="fa fa-globe"></i>
-                        </g:if>
-                        <g:if test="${exportedResourceInstance.androidUrl != null}">
-                            <i class="fa fa-android"></i>
-                        </g:if>
-                        <g:if test="${exportedResourceInstance.linuxUrl != null}">
-                            <i class="fa fa-linux"></i>
-                        </g:if>
-                        <g:if test="${exportedResourceInstance.moodleUrl != null}">
-                            <i class="fa fa-graduation-cap"></i>
-                        </g:if>
-                    </div>
-                </div> <!-- End card-action -->
-                <div class="card-reveal">
-                    <span class="card-title"><i class="material-icons right">close</i></span>
-                    <span class="card-title truncate" style="margin-bottom: 20px;">${exportedResourceInstance.name}</span>
+            <div class="col l2 m4 s12">
+                <div class="card-resource ">
+                    <div class="card hoverable">
+                        <div class="card-content-bg">
+                            <div class="card-image">
+                                <img class="activator" src="/images/${exportedResourceInstance.resource.uri}-banner.png">
+                            </div>
+                        </div>
+                        <ul class="card-image card-action-buttons">
+                            <g:if test="${exportedResourceInstance.webUrl != null}">
+                                <li>
+                                    <span  class="btn-floating green accent-4 disabled" style="background-color: #00C853 !important;">
+                                        <i class="fa fa-globe"></i>
+                                    </span>
+                                </li>
+                            </g:if>
+                            <g:if test="${exportedResourceInstance.androidUrl != null}">
+                                <li>
+                                    <span class="btn-floating deep-purple disabled"  style="background-color: #673ab7 !important;">
+                                        <i class="fa fa-android"></i>
+                                    </span>
+                                </li>
+                            </g:if>
+                            <g:if test="${exportedResourceInstance.linuxUrl != null}">
+                                <li>
+                                    <span class="btn-floating red disabled" style="background-color: #F44336 !important;">
+                                        <i class="fa fa-linux"></i>
+                                    </span>
+                                </li>
+                            </g:if>
+                            <g:if test="${exportedResourceInstance.moodleUrl != null}">
+                                <li>
+                                    <span class="btn-floating amber darken-4 disabled" style="background-color: #ff6f00 !important;">
+                                        <i class="fa fa-graduation-cap"></i>
+                                    </span>
+                                </li>
+                            </g:if>
+                        </ul>
+                        <div class="card-title center">
+                            <span class="truncate">${exportedResourceInstance.name}</span>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title"><i class="material-icons right">close</i></span>
+                            <span class="card-title truncate" style="margin-bottom: 10px;">${exportedResourceInstance.name}</span>
 
-                    <g:if test="${exportedResourceInstance.webUrl != null}">
-                        <a href="${exportedResourceInstance.webUrl}" >
-                            <div class="card-action ">
-                                <i class="fa fa-globe"></i>
-                                <i class="fa fa-arrow-right right"></i>
-                            </div>
-                        </a>
-                    </g:if>
-                    <g:if test="${exportedResourceInstance.androidUrl != null}">
-                        <a href="${exportedResourceInstance.androidUrl}">
-                            <div class="card-action">
-                                <i class="fa fa-android" ></i>
-                                <i class="fa fa-arrow-right right"></i>
-                            </div>
-                        </a>
-                    </g:if>
-                    <g:if test="${exportedResourceInstance.linuxUrl != null}">
-                        <a href="${exportedResourceInstance.linuxUrl}">
-                            <div class="card-action">
-                                <i class="fa fa-linux" ></i>
-                                <i class="fa fa-arrow-right right"></i>
-                            </div>
-                        </a>
-                    </g:if>
-                    <g:if test="${exportedResourceInstance.moodleUrl != null}">
-                        <a href="${exportedResourceInstance.moodleUrl}">
-                            <div class="card-action">
-                                <i class="fa fa-graduation-cap" ></i>
-                                <i class="fa fa-arrow-right right"></i>
-                            </div>
-                        </a>
-                    </g:if>
-                </div> <!-- End card-reveal -->
-            </div> <!-- End Card-->
+                            <g:if test="${exportedResourceInstance.webUrl != null}">
+                                <div class="card-action">
+                                    <span class="btn-floating green accent-4 disabled" style="background-color: #00C853 !important;">
+                                        <i class="fa fa-globe"></i>
+                                    </span>
+                                    <a href="${exportedResourceInstance.webUrl}">
+                                        <i class="fa fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </g:if>
+                            <g:if test="${exportedResourceInstance.androidUrl != null}">
+                                <div class="card-action">
+                                    <span class="btn-floating deep-purple disabled"  style="background-color: #673ab7 !important;">
+                                        <i class="fa fa-android"></i>
+                                    </span>
+                                    <a href="${exportedResourceInstance.androidUrl}">
+                                        <i class="fa fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </g:if>
+                            <g:if test="${exportedResourceInstance.linuxUrl != null}">
+                                <div class="card-action">
+                                    <span href="${exportedResourceInstance.linuxUrl}" class="btn-floating red disabled" style="background-color: #F44336 !important;">
+                                        <i class="fa fa-linux"></i>
+                                    </span>
+                                    <a href="${exportedResourceInstance.linuxUrl}" >
+                                        <i class="fa fa-arrow-right"></i>
+                                    </a>
+
+                                </div>
+                            </g:if>
+                            <g:if test="${exportedResourceInstance.moodleUrl != null}">
+                                <div class="card-action">
+                                    <span  class="btn-floating amber darken-4 disabled" style="background-color: #ff6f00 !important;">
+                                        <i class="fa fa-graduation-cap"></i>
+                                    </span>
+                                    <a href="${exportedResourceInstance.moodleUrl}">
+                                        <i class="fa fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </g:if>
+                        </div> <!-- End card-reveal -->
+                    </div>
+                </div>
+            </div>
         </g:each>
-        </div>
     </div> <!-- End Row -->
 
     <div class="row"> <!-- Meus R.E.A.  -->
@@ -161,93 +196,81 @@
             <a class="right btn-floating  waves-effect waves-light red"><i class="material-icons">add</i></a>
             <div class="divider"></div>
         </div>
-        <div class="col s12 m12 l12">
+
         <g:if test="${myExportedResourcesList.size() == 0}">
             <p>Você ainda não tem nenhum R.E.A. publicado :(</p>
         </g:if>
         <g:else>
             <g:each in="${myExportedResourcesList}" var="myExportedResourceInstance">
-                <div class="card card-small hoverable">
-                    <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" src="/images/${myExportedResourceInstance.resource.uri}-banner.png">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-title activator truncate">
-                            ${myExportedResourceInstance.name}
-                            %{--<i class="material-icons right">more_vert</i>--}%
-                        </span>
-                        <div class="developer">
-                            <img src="../data/users/${myExportedResourceInstance.owner.username}/profile-picture"
-                                 class="circle left">
-                            <span class="truncate">${myExportedResourceInstance.owner.firstName}</span>
-                        </div>
-                    </div> <!-- End card-content -->
-                    <div class="card-action" >
-                        <div class="right">
-                            <g:if test="${myExportedResourceInstance.webUrl != null}">
-                               <i class="fa fa-globe"></i>
-                            </g:if>
-                            <g:if test="${myExportedResourceInstance.androidUrl != null}">
-                               <i class="fa fa-android"></i>
-                            </g:if>
-                            <g:if test="${myExportedResourceInstance.linuxUrl != null}">
-                                <i class="fa fa-linux"></i>
-                            </g:if>
-                            <g:if test="${myExportedResourceInstance.moodleUrl != null}">
-                                <i class="fa fa-graduation-cap"></i>
-                            </g:if>
-                        </div>
-                    </div> <!-- End card-action -->
-                    <div class="card-reveal">
-                        <span class="card-title"><i class="material-icons right">close</i></span>
-                        <span class="card-title truncate" style="margin-bottom: 20px;" >  ${myExportedResourceInstance.name}</span>
-
-                        <g:if test="${myExportedResourceInstance.webUrl != null}">
-                            <a href="${myExportedResourceInstance.webUrl}" >
-                                <div class="card-action ">
-                                    <i class="fa fa-globe"></i>
-                                    <i class="fa fa-arrow-right right"></i>
-                                </div>
-                            </a>
-                        </g:if>
-                        <g:if test="${myExportedResourceInstance.androidUrl != null}">
-                            <a href="${myExportedResourceInstance.androidUrl}">
-                                <div class="card-action">
-                                    <i class="fa fa-android"></i>
-                                    <i class="fa fa-arrow-right right"></i>
-                                </div>
-                            </a>
-                        </g:if>
-                        <g:if test="${myExportedResourceInstance.linuxUrl != null}">
-                            <a href="${myExportedResourceInstance.linuxUrl}">
-                                <div class="card-action">
-                                    <i class="fa fa-linux"></i>
-                                    <i class="fa fa-arrow-right right"></i>
-                                </div>
-                            </a>
-                        </g:if>
-                        <g:if test="${myExportedResourceInstance.moodleUrl != null}">
-                            <a href="${myExportedResourceInstance.moodleUrl}">
-                                <div class="card-action">
-                                    <i class="fa fa-graduation-cap"></i>
-                                    <i class="fa fa-arrow-right right"></i>
-                                </div>
-                            </a>
-                        </g:if>
-
-                        <div class="card-title footer">
-                            <a href="/exported-resource/delete/${myExportedResourceInstance.id}">
-                                <i class="fa fa-trash"></i>
-                            </a>
-                            <a href="/exported-resource/publish/${myExportedResourceInstance.id}">
-                                <i class="fa fa-pencil" ></i>
-                            </a>
-                        </div>
-                    </div> <!-- End card-reveal -->
-                </div> <!-- End Card-->
+                 <div class="col l2 m4 s12">
+                     <div class="card-resource ">
+                         <div class="card hoverable">
+                             <div class="card-content-bg">
+                                 <div class="card-image">
+                                     <img class="activator" src="/images/${myExportedResourceInstance.resource.uri}-banner.png">
+                                 </div>
+                             </div>
+                             <ul class="card-image card-action-buttons">
+                                 <g:if test="${myExportedResourceInstance.webUrl != null}">
+                                     <li>
+                                         <a href="${myExportedResourceInstance.webUrl}" class="btn-floating green accent-4 disabled" style="background-color: #00C853 !important;">
+                                             <i class="fa fa-globe"></i>
+                                         </a>
+                                     </li>
+                                 </g:if>
+                                 <g:if test="${myExportedResourceInstance.androidUrl != null}">
+                                     <li>
+                                         <a href="${myExportedResourceInstance.androidUrl}" class="btn-floating deep-purple disabled"  style="background-color: #673ab7 !important;">
+                                             <i class="fa fa-android"></i>
+                                         </a>
+                                     </li>
+                                 </g:if>
+                                 <g:if test="${myExportedResourceInstance.linuxUrl != null}">
+                                     <li>
+                                         <a href="${myExportedResourceInstance.linuxUrl}" class="btn-floating red disabled" style="background-color: #F44336 !important;">
+                                             <i class="fa fa-linux"></i>
+                                         </a>
+                                     </li>
+                                 </g:if>
+                                 <g:if test="${myExportedResourceInstance.moodleUrl != null}">
+                                     <li>
+                                         <a href="${myExportedResourceInstance.moodleUrl}" class="btn-floating amber darken-4 disabled" style="background-color: #ff6f00 !important;">
+                                             <i class="fa fa-graduation-cap"></i>
+                                         </a>
+                                     </li>
+                                 </g:if>
+                             </ul>
+                             <div class="card-title center">
+                                 <span class="truncate">${myExportedResourceInstance.name}</span>
+                             </div>
+                             <div class="card-reveal arrow card-title">
+                                 <g:if test="${myExportedResourceInstance.webUrl != null}">
+                                     <div class="card-action">
+                                         <i class="fa fa-arrow-right right"></i>
+                                     </div>
+                                 </g:if>
+                                 <g:if test="${myExportedResourceInstance.androidUrl != null}">
+                                     <div class="card-action">
+                                         <i class="fa fa-arrow-right right"></i>
+                                     </div>
+                                 </g:if>
+                                 <g:if test="${myExportedResourceInstance.linuxUrl != null}">
+                                     <div class="card-action">
+                                         <i class="fa fa-arrow-right right"></i>
+                                     </div>
+                                 </g:if>
+                                 <g:if test="${myExportedResourceInstance.moodleUrl != null}">
+                                     <div class="card-action">
+                                         <i class="fa fa-arrow-right right"></i>
+                                     </div>
+                                 </g:if>
+                                 <span class="card-title"><i class="fa fa-caret-down left"></i></span>
+                             </div> <!-- End card-reveal -->
+                         </div>
+                     </div>
+                 </div>
             </g:each>
         </g:else>
-        </div>
     </div> <!-- End Row -->
 
 

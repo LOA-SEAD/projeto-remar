@@ -2,6 +2,20 @@
  * New layout styles
  */
 
+
+body{
+    background-color: #f2f2f2;
+}
+
+.darken-3-5 {
+    background-color: #333 !important;
+}
+
+.row p{
+    color: #444;
+}
+
+
 /*=================================================================================
     Navbar
 ====================================================================================*/
@@ -13,17 +27,9 @@ nav ul a.logo{
     padding: 0;
 }
 
-body{
-    background-color: #f2f2f2;
-}
-
-.row p{
-    color: #004d40;
-}
-
 li.logo img {
-    width: 150px;
-    margin-top: 7px;
+    width: 130px;
+    margin-top: 10px;
 }
 
 li.logo-icon img {
@@ -369,80 +375,32 @@ a.button-collapse.top-nav {
 }
 
 
-.card-small{
-    /*height: 255px;*/
-    height: 275px;
-    width: 160px;
-    font-size: 16px;
+.card-resource ul.card-action-buttons {
+    margin: -26px 5px 0px 0px;
+    text-align: right;
+}
+
+.card-resource ul.card-action-buttons li {
     display: inline-block;
-    margin-right: 15px;
+    padding-left: 3px;
 }
 
-.card-small .card-content, .card-small .card-action{
-    padding-top: 0;
-    padding-left: 7px;
-    padding-right: 7px;
-}
-.card-small .card-action{
-    color: #004d40;
-    font-size: 20px;
-    right: 50%;
+.card-resource ul.card-action-buttons li {
+    padding:3px;
 }
 
-.card-small .card-action i{
-    color: #004d40;
-    font-size: 20px;
-    margin-top: 5px;
-}
-.card-small >.card-reveal .card-action i:first-child{
-    font-size: 28px;
+.card-resource .card-content-bg{
+    background-color: #0091ea ;
 }
 
-.card-small .card-reveal .card-action{
-    padding: 0;
-}
-
-.card-small .card-reveal .card-action:hover{
-    background-color: #e0f2f1;;
-}
-
-.card-title.footer{
-    position:fixed;
-    width:100%;
-    padding:0px;
-    bottom:0px;
-    margin-left: 90px;
-}
-.card-title.footer a{
-    color:#004d40;
-}
-
-.card-small .card-image{
-    background-color: #00897b;
-}
-
-.card-small .developer{
-    margin-top: -8px;
-}
-
-.card-small .developer img{
-    width: 30px;
-    height: 30px;
-}
-
-.card-small .developer span{
-    font-size: 13px;
-    line-height: 15px;
-    color: #004d40;
-    padding-left: 5px;
-    padding-top: 5px;
-}
-
-.card-small .card-title{
+.card-resource .card-title{
     font-size: 18px;
-    line-height: 30px;
-    font-weight:  400;
-    color: #004d40;
+    color: #444;
+    font-weight: 400;
+}
+
+.btn-floating.disable{
+    background-color: black !important;
 }
 
 .session-title{
@@ -455,7 +413,157 @@ a.button-collapse.top-nav {
     margin-right: 20px;
 }
 
+.card-resource > .card-reveal{
+    font-size: 23px;
+    opacity: 0.95;
 
+}
+.card-reveal > .card-title{
+     padding: 0;
+}
+
+.card-reveal > .card-action{
+    border-top: 0 !important;
+    padding-bottom: 0;
+    padding-top: 10px;
+}
+
+.card-reveal > .card-action a{
+    font-size: 25px;
+    float: right;
+}
+
+
+/*=================================================================================
+    Button
+====================================================================================*/
+/*----------------------------------------
+   Button style
+------------------------------------------*/
+
+.btn-icon {
+    display: inline-block;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    width: 37px;
+    height: 37px;
+    line-height: 37px;
+    padding: 0;
+    background-color: #26a69a;
+    border-radius: 50%;
+    transition: .3s;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.btn-icon i {
+    width: inherit;
+    display: inline-block;
+    text-align: center;
+    color: #fff;
+    font-size: 1.6rem;
+    line-height: 37px;
+}
+
+.btn-icon:before {
+    border-radius: 0;
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1510px)  {
+    .btn-icon {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+    }
+    .btn-icon i {
+        font-size: 1.2rem;
+        line-height: 30px;
+    }
+    .card-resource ul.card-action-buttons {
+        margin: -20px 3px 0px 0px;
+        text-align: right;
+    }
+    .card-resource ul.card-action-buttons li {
+        padding-left: 1px;
+    }
+}
+@media only screen and (min-width: 1077px) and (max-width: 1327px) or (max-width: 823px) {
+    .btn-icon {
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+    }
+    .btn-icon i {
+        font-size: 1.0rem;
+        line-height: 21px;
+    }
+    .card-resource ul.card-action-buttons {
+        margin: -16px 3px 0px 0px;
+        text-align: right;
+    }
+    .card-resource ul.card-action-buttons li {
+        padding-left: 1px;
+    }
+}
+
+@media only screen and (min-width: 993px) and (max-width: 1076px) {
+    .btn-icon {
+        width: 15px;
+        height: 15px;
+        line-height: 15px;
+    }
+    .btn-icon i {
+        font-size: 0.9rem;
+        line-height: 10px;
+    }
+    .card-resource ul.card-action-buttons {
+        margin: -16px 3px 0px 0px;
+        text-align: right;
+    }
+    .card-resource ul.card-action-buttons li {
+        padding-left: 1px;
+    }
+}
+
+@media only screen and (min-width: 667px) and (max-width: 823px) {
+    .btn-icon {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+    }
+    .btn-icon i {
+        font-size: 1.2rem;
+        line-height: 30px;
+    }
+    .card-resource ul.card-action-buttons {
+        margin: -20px 3px 0px 0px;
+        text-align: right;
+    }
+    .card-resource ul.card-action-buttons li {
+        padding-left: 1px;
+    }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 666px) {
+    .btn-icon {
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+    }
+    .btn-icon i {
+        font-size: 1.0rem;
+        line-height: 21px;
+    }
+    .card-resource ul.card-action-buttons {
+        margin: -16px 3px 0px 0px;
+        text-align: right;
+    }
+    .card-resource ul.card-action-buttons li {
+        padding-left: 1px;
+    }
+}
 
 
 

@@ -8,7 +8,7 @@
     <body>
     <header>
         <div class="navbar-fixed">
-            <nav class=" teal darken-1">
+            <nav class="grey darken-3-5">
                 <div class="container menu">
                     <div class="nav-wrapper">
                         <ul class="left  hide-on-med-and-down">
