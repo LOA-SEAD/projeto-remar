@@ -13,9 +13,13 @@
     <g:set var="entityName"
            value="${message(code: 'user.label', default: 'User')}" />
     <title>REMAR</title>
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'introjs.css')}" />
+
 
     <!-- jQuery 2.1.4 -->
     <script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery.min.js')}"></script>
+    <script type="text/javascript" src="${resource(dir: 'js', file: 'intro.js')}"></script>
+
 
 
     <script type="text/javascript">
@@ -23,18 +27,27 @@
            $("#dashboard_page").addClass("active");
 
         });
+
+//        window.onload = function(){
+//            if(confirm("                                  Bem vindo ao REMAR!\nPreparamos um wizard para apresentar a plataforma para você.\n" +
+//                            "                                    Vamos começar?")) {
+//                introJs().setOption('showProgress', true).start();
+//            }
+//        }
+
+
     </script>
 </head>
 <body>
 
-<div class="content">
+<div class="content" >
 
         <div class="row">
             <div class="col-md-12">
                 <!-- REAS PUBLICOS -->
-                <div class="box box-info">
+                <div class="box box-info" data-intro="Aqui você encontra todos os R.E.A que pode personalizar." data-step="1">
                     <div class="box-header with-border">
-                        <h3 class="box-title">
+                        <h3 class="box-title" >
                             <i class="fa fa-edit"></i>
                             R.E.A. personalizáveis
                         </h3>
@@ -96,7 +109,7 @@
         <div class="row">
             <div class="col-md-6">
                 <!-- REAS PUBLICOS -->
-                <div class="box box-danger">
+                <div class="box box-danger" data-intro="Aqui você encontra os R.E.A públicos que já foram publicados." data-step="2" data-position="top">
                     <div class="box-header with-border">
                         <h3 class="box-title">
                             <i class="fa fa-users"></i>
@@ -157,7 +170,7 @@
             </div><!-- /.col -->
 
             <div class="col-md-6">
-                <div class="box box-warning direct-chat direct-chat-warning">
+                <div class="box box-warning direct-chat direct-chat-warning" data-intro="Aqui estão os R.E.A que você publicou." data-step="3" data-position="top">
                     <div class="box-header with-border">
                         <h3 class="box-title">
                             <i class="fa fa-lock"></i>

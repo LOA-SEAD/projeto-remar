@@ -6,6 +6,11 @@
     <title><g:layoutTitle default="REMAR"/></title>
     <link rel="shortcut icon" href="${assetPath(src: 'favicon.png')}?v=2" type="image/x-icon">
 
+    <!-- css and js files to wizard -->
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'introjs.css')}" />
+    <script type="text/javascript" src="${resource(dir: 'js', file: 'intro.js')}"></script>
+
+
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -33,7 +38,8 @@
 <body class="hold-transition skin-black-light sidebar-mini">
 <!-- <body class="layout-top-nav"> -->
 <div class="wrapper">
-    <header class="main-header">
+    <header class="main-header" style="width: 100%;">
+
         <a href="/dashboard" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini">
@@ -199,7 +205,7 @@
     </header>
 
     <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar">
+    <aside class="main-sidebar" style="position: absolute; z-index: auto; opacity: 1.0">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
             <!-- Sidebar user panel -->
@@ -249,7 +255,7 @@
                 %{--<i class="fa fa-users"></i><span> R.E.A. públicos</span>--}%
                 %{--</a>--}%
                 %{--</li>--}%
-                <li id="meusrea_page" class="treeview">
+                <li id="meusrea_page" class="treeview"  data-intro="Aqui estão os processos dos R.E.A que você começou a personalizar" data-step="4" data-position="right">
                     <g:link controller="process" action="userProcesses">
                         <i class="fa fa-lock"></i>
                         <span>
@@ -258,7 +264,7 @@
                     </g:link>
                 </li>
 
-                <li id="tarefaspendentes_page" class="treeview">
+                <li id="tarefaspendentes_page" class="treeview" data-intro="Aqui estão as tarefas que foram atribuídas à você e que ainda não foram realizadas" data-step="5" data-position="right">
                 %{--<a href="#">--}%
                     <g:link controller="process" action="pendingTasks" >
                         <i class="fa fa-list-alt"></i>
@@ -301,6 +307,7 @@
                 increaseArea: '20%' // optional
             });
         });
+
     </script>
 
 </div>
