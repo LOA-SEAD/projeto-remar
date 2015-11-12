@@ -151,8 +151,8 @@ main, footer {
 .side-nav.fixed a:not(.profile-btn) {
     display: block;
     padding: 0;
-    /*color: #444;*/
-    color: #00695c;
+    color: #444;
+    /*color: #00695c;*/
 }
 
 .side-nav.fixed li{
@@ -642,6 +642,17 @@ span.input-description {
     margin-left: auto;
     margin-right: auto;
 }
+
+
+
+/*     choose user's task */
+
+.task-status {
+    margin-top: 5px !important;
+}
+
+/* end choose user's task*/
+
 
 /* input to search users */
 .header-search-wrapper {
