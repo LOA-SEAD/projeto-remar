@@ -185,6 +185,7 @@ class UserController {
                 instance.accountLocked = false
                 instance.enabled = true
                 instance.passwordExpired = false
+                instance.firstAccess = true
 
                 org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(instance.username)
                 camundaUser.setEmail(instance.email)
@@ -204,6 +205,8 @@ class UserController {
                 instance.enabled = true        // Before user confirmation
                 instance.passwordExpired = false
                 instance.setGender(instance.gender) //teste
+                instance.firstAccess = true
+
 
                 org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(instance.username)
                 camundaUser.setEmail(instance.email)
@@ -368,6 +371,15 @@ class UserController {
 
     def emailAvailable(){
         render User.findByEmail(params.email) == null
+    }
+
+    @Transactional
+    def setFalseFirstAccess(){
+        String username = session.user.username;
+        User userInstance = User.findByUsername(username)
+        userInstance.firstAccess = false;
+        session.user.firstAccess = false;
+        userInstance.save flush: true
     }
 
 }

@@ -22,18 +22,46 @@
 
 
 
+
     <script type="text/javascript">
+
         $(function(){
            $("#dashboard_page").addClass("active");
 
         });
 
-//        window.onload = function(){
-//            if(confirm("                                  Bem vindo ao REMAR!\nPreparamos um wizard para apresentar a plataforma para você.\n" +
-//                            "                                    Vamos começar?")) {
-//                introJs().setOption('showProgress', true).start();
-//            }
-//        }
+
+        window.onload = function(){
+            var userFirstAccess = document.getElementById("userFirstAccessLabel").value;
+            console.log("Teste: " + userFirstAccess);
+
+            if( userFirstAccess == "true"){
+                if(confirm("                                  Bem vindo ao REMAR!\nPreparamos um wizard para apresentar a plataforma para você.\n" +
+                            "                                    Vamos começar?")) {
+                introJs().setOption('showProgress', true).start();
+
+                    $.ajax({
+                        url: '/user/setFalseFirstAccess',
+                        type: 'POST',
+                        success: function () {
+                            console.log("Sucess!");
+                            //your success code
+                        },
+                        error: function (XMLHttpRequest,textStatus,errorThrown) {
+                            //your error code
+                            console.log(textStatus + "\n" + errorThrown);
+
+                        }
+                    });
+
+
+                }
+
+            }
+
+
+
+        }
 
 
     </script>
@@ -50,6 +78,7 @@
                         <h3 class="box-title" >
                             <i class="fa fa-edit"></i>
                             R.E.A. personalizáveis
+                            <input id="userFirstAccessLabel" type="hidden" value="${session.user.firstAccess}" >
                         </h3>
                     </div>
                     <div class="box-body no-padding">
