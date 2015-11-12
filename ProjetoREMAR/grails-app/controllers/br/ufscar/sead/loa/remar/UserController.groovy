@@ -358,7 +358,12 @@ class UserController {
         filter = "%"+filter+"%"
         def filteredUserList = User.findAllByFirstNameOrLastNameIlikeOrEmailIlikeOrUsernameIlike(filter, filter, filter, filter, null)
 
-        render template: 'filteredUsers', model: [filteredUserList: filteredUserList]
+        if(filteredUserList.isEmpty()) {
+            render "Nenhum usuário encontrado.";
+        }
+        else {
+            render template: 'filteredUsers', model: [filteredUserList: filteredUserList]
+        }
     }
 
     def usernameAvailable(){
