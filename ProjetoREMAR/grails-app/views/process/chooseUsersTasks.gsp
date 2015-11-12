@@ -49,7 +49,7 @@
     </script>
 
     <!-- The modal code -->
-    <div id="user-modal" class="modal">
+    <div id="user-modal" class="modal modal-fixed-footer">
         <div class="modal-content">
             <h4>Escolha um responsável</h4>
             <div class="row">
@@ -72,27 +72,36 @@
         </div>
     </div>
 
-
-    <g:each in="${tasks}" var="task">
-        <div class="col s12 m6 l4">
-            <div class="card z-depth-1-half">
-                <div class="card-header red">
-                    <div class="card-title">
-                        <h5 class="task-name truncate">${task.name}</h5>
-                        <p class="task-status">Sem usuário responsável</p>
-                        <a class="modal-trigger" href="#user-modal"><img class="circle profile-picture right" src="/images/avatars/female.png?v=2"/></a>
+    <div class="container">
+        <ul class="collection with-header">
+            <li class="collection-header">
+                <h4>Tarefas pendentes</h4>
+            </li>
+            <g:each in="${tasks}" var="task">
+                <li class="collection-item">
+                    <div class="row valign-wrapper">
+                        <div class="col s3 m2 l2 center">
+                            <a class="modal-trigger" href="#user-modal">
+                                <img src="http://demo.geekslabs.com/materialize/v2.1/layout01/images/avatar.jpg" alt class="circle my-img" />
+                                <br />
+                                <p class="no-margin truncate">Matheus<br />Fernandes</p>
+                            </a>
+                        </div>
+                        <div class="col s9 m10 l10">
+                            <span class="title">${task.name}SSDASD S</span>
+                            <p>Tarefa sem descrição. A Bia só clicou o botao direito da playlist e enviou o link para a galera. A paz reinou novamente até o Rafa se meter!</p>
+                        </div>
+                        <div class="secondary-content">
+                            <a href="#"><i class=" small mdi-content-send"></i></a>
+                        </div>
                     </div>
-                </div>
-                <div class="card-content">
-                    <g:if test="${task.description != null}">
-                        <p class="text-justify">${task.description}</p>
-                    </g:if>
-                    <g:else>
-                        <p class="text-justify">Tarefa sem descrição.</p>
-                    </g:else>
-                </div> <!-- card-content -->
-            </div> <!-- card -->
-        </div> <!-- col -->
-    </g:each>
+                </li>
+
+
+
+
+            </g:each>
+        </ul>
+    </div>
 </body>
 </html>

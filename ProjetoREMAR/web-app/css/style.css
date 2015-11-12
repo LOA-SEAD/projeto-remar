@@ -701,6 +701,24 @@ input.header-search-input {
 }
 
 
+.my-img {
+    width: 42px !important;
+    height: 42px !important;
+}
+
+.collection-item .row {
+    margin-bottom: 8px;
+}
+
+.collection-item .row p {
+    margin: 0px;
+}
+
+.my-first-column {
+    padding-left: 0px !important;
+}
+
+
 .navbar-fixed nav {
     position: fixed;
 }
