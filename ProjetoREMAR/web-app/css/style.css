@@ -779,3 +779,7 @@ input[type=search]:focus:not([readonly]) + label,
 textarea.materialize-textarea:focus:not([readonly]) + label {
     color: #FF5722 !important;
 }
+
+.dropdown-content li > a, .dropdown-content li > span {
+    color: #212121;
+}

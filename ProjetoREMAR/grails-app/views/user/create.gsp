@@ -10,7 +10,7 @@
     <div class="row">
         <div class="card white z-depth-2 col s12 m8 l6 offset-m2 offset-l3">
             <div class="card-content">
-                <div class="card-image">
+                <div class="card-image padding-bottom">
                     <img src="/assets/img/logo/logo-remar-preto-transparente.png">
                 </div> <!-- card-image -->
                 <form action="/user/save" method="POST" enctype="multipart/form-data">
@@ -41,7 +41,7 @@
                         </div>
 
                         <div class="input-field col s12 m6">
-                            <i class="material-icons prefix">face</i>
+                            <i class="material-icons prefix" style="color: #FF5722;">face</i>
                             <select id="select" name="gender">
                                 <option value="male">Masculino</option>
                                 <option value="female">Feminino</option>
