@@ -88,18 +88,14 @@
                             </a>
                         </div>
                         <div class="col s9 m10 l10">
-                            <span class="title">${task.name}SSDASD S</span>
-                            <p>Tarefa sem descrição. A Bia só clicou o botao direito da playlist e enviou o link para a galera. A paz reinou novamente até o Rafa se meter!</p>
+                            <span class="title">${task.name}</span>
+                            <p>Tarefa sem descrição.</p>
                         </div>
                         <div class="secondary-content">
                             <a href="#"><i class=" small mdi-content-send"></i></a>
                         </div>
                     </div>
                 </li>
-
-
-
-
             </g:each>
         </ul>
     </div>
