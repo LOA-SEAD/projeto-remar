@@ -282,7 +282,7 @@ a.button-collapse.top-nav {
 .collection-item{
     display: block;
     float: none;
-    color: #00695c
+    color: #212121;
 }
 
 .setting-item{
@@ -782,4 +782,8 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
 
 .dropdown-content li > a, .dropdown-content li > span {
     color: #212121;
+}
+
+.card .card-action {
+
 }

@@ -17,10 +17,10 @@
     <div class="row"> <!-- REA personalizaveis-->
         <div class="col s12 m12 l12 session-title" >
             <p class="session-title text-teal text-darken-3">
-              <i class="left small material-icons">open_in_new</i>R.E.A. personalizáveis
-                <span class="new badge orange" style="right: inherit; margin-left: 5px;"></span>
+              <i class="left small material-icons">open_in_new</i>R.E.A.s personalizáveis
+
             </p>
-            <a class="right btn-floating  waves-effect waves-light red"><i class="material-icons">add</i></a>
+
             <div class="divider"></div>
         </div>
 
@@ -39,27 +39,27 @@
                             </div>
                             <ul class="card-image card-action-buttons">
                                 <li>
-                                    <span class="btn-icon green accent-4 disabled" style="background-color: #00C853 !important;">
+                                    <span class="btn-icon disabled" style="background-color: #FF5722 !important;">
                                         <i class="fa fa-globe"></i>
                                     </span>
                                 </li>
                                 <g:if test="${gameInstance.android}">
                                     <li>
-                                        <span class="btn-icon deep-purple disabled"  style="background-color: #673ab7 !important;">
+                                        <span class="btn-icon disabled"  style="background-color: #FF5722 !important;">
                                             <i class="fa fa-android"></i>
                                         </span>
                                     </li>
                                 </g:if>
                                 <g:if test="${gameInstance.linux}">
                                     <li>
-                                        <span class="btn-icon red disabled" style="background-color: #F44336 !important;">
+                                        <span class="btn-icon disabled" style="background-color: #FF5722 !important;">
                                             <i class="fa fa-linux"></i>
                                         </span>
                                     </li>
                                 </g:if>
                                 <g:if test="${gameInstance.moodle}">
                                     <li>
-                                        <span class="btn-icon amber darken-4 disabled" style="background-color: #ff6f00 !important;">
+                                        <span class="btn-icon disabled" style="background-color: #FF5722 !important;">
                                             <i class="fa fa-graduation-cap"></i>
                                         </span>
                                     </li>
@@ -84,10 +84,10 @@
     <div class="row"> <!-- R.E.A. publicos -->
         <div class="col s12 m12 l12 session-title" >
             <p class="session-title text-teal text-darken-3">
-                <i class="left small material-icons">supervisor_account</i>R.E.A. públicos
-                <span class="new badge orange" style="right: inherit; margin-left: 5px;"></span>
+                <i class="left small material-icons">supervisor_account</i>R.E.A.s públicos
+
             </p>
-            <a class="right btn-floating  waves-effect waves-light red"><i class="material-icons">add</i></a>
+
             <div class="divider"></div>
         </div>
         <g:if test="${publicExportedResourcesList.size() == 0}">
@@ -105,28 +105,28 @@
                         <ul class="card-image card-action-buttons">
                             <g:if test="${exportedResourceInstance.webUrl != null}">
                                 <li>
-                                    <span  class="btn-floating green accent-4 disabled" style="background-color: #00C853 !important;">
+                                    <span  class="btn-floating disabled" style="background-color: #FF5722 !important;">
                                         <i class="fa fa-globe"></i>
                                     </span>
                                 </li>
                             </g:if>
                             <g:if test="${exportedResourceInstance.androidUrl != null}">
                                 <li>
-                                    <span class="btn-floating deep-purple disabled"  style="background-color: #673ab7 !important;">
+                                    <span class="btn-floating disabled"  style="background-color: #FF5722 !important;">
                                         <i class="fa fa-android"></i>
                                     </span>
                                 </li>
                             </g:if>
                             <g:if test="${exportedResourceInstance.linuxUrl != null}">
                                 <li>
-                                    <span class="btn-floating red disabled" style="background-color: #F44336 !important;">
+                                    <span class="btn-floating disabled" style="background-color: #FF5722 !important;">
                                         <i class="fa fa-linux"></i>
                                     </span>
                                 </li>
                             </g:if>
                             <g:if test="${exportedResourceInstance.moodleUrl != null}">
                                 <li>
-                                    <span class="btn-floating amber darken-4 disabled" style="background-color: #ff6f00 !important;">
+                                    <span class="btn-floating disabled" style="background-color: #FF5722 !important;">
                                         <i class="fa fa-graduation-cap"></i>
                                     </span>
                                 </li>
@@ -140,43 +140,39 @@
                             <span class="card-title truncate" style="margin-bottom: 10px;">${exportedResourceInstance.name}</span>
 
                             <g:if test="${exportedResourceInstance.webUrl != null}">
-                                <div class="card-action">
-                                    <span class="btn-floating green accent-4 disabled" style="background-color: #00C853 !important;">
+                                <div class="card-action no-padding padding-bottom">
+                                    <span class="btn-floating disabled" style="background-color: #FF5722 !important;">
                                         <i class="fa fa-globe"></i>
                                     </span>
-                                    <a href="${exportedResourceInstance.webUrl}">
-                                        <i class="fa fa-arrow-right"></i>
+                                    <a href="${exportedResourceInstance.webUrl}" style="color: #FF5722;">WEB <i class="fa fa-arrow-right"></i>
                                     </a>
                                 </div>
                             </g:if>
                             <g:if test="${exportedResourceInstance.androidUrl != null}">
-                                <div class="card-action">
-                                    <span class="btn-floating deep-purple disabled"  style="background-color: #673ab7 !important;">
+                                <div class="card-action no-padding padding-bottom">
+                                    <span class="btn-floating disabled"  style="background-color: #FF5722 !important;">
                                         <i class="fa fa-android"></i>
                                     </span>
-                                    <a href="${exportedResourceInstance.androidUrl}">
-                                        <i class="fa fa-arrow-right"></i>
+                                    <a href="${exportedResourceInstance.androidUrl}" style="color: #FF5722;">ANDROID <i class="fa fa-arrow-right"></i>
                                     </a>
                                 </div>
                             </g:if>
                             <g:if test="${exportedResourceInstance.linuxUrl != null}">
-                                <div class="card-action">
-                                    <span href="${exportedResourceInstance.linuxUrl}" class="btn-floating red disabled" style="background-color: #F44336 !important;">
+                                <div class="card-action no-padding padding-bottom">
+                                    <span href="${exportedResourceInstance.linuxUrl}" class="btn-floating disabled" style="background-color: #FF5722 !important;">
                                         <i class="fa fa-linux"></i>
                                     </span>
-                                    <a href="${exportedResourceInstance.linuxUrl}" >
-                                        <i class="fa fa-arrow-right"></i>
+                                    <a href="${exportedResourceInstance.linuxUrl}" style="color: #FF5722;">LINUX <i class="fa fa-arrow-right"></i>
                                     </a>
 
                                 </div>
                             </g:if>
                             <g:if test="${exportedResourceInstance.moodleUrl != null}">
-                                <div class="card-action">
-                                    <span  class="btn-floating amber darken-4 disabled" style="background-color: #ff6f00 !important;">
+                                <div class="card-action no-padding">
+                                    <span  class="btn-floating disabled" style="background-color: #FF5722 !important;">
                                         <i class="fa fa-graduation-cap"></i>
                                     </span>
-                                    <a href="${exportedResourceInstance.moodleUrl}">
-                                        <i class="fa fa-arrow-right"></i>
+                                    <a href="${exportedResourceInstance.moodleUrl}" style="color: #FF5722;">MOODLE <i class="fa fa-arrow-right"></i>
                                     </a>
                                 </div>
                             </g:if>
@@ -190,10 +186,9 @@
     <div class="row"> <!-- Meus R.E.A.  -->
         <div class="col s12 m12 l12 session-title" >
             <p class="session-title text-teal text-darken-3">
-                <i class="left small material-icons">https</i>Meus R.E.A.
-                <span class="new badge orange" style="right: inherit; margin-left: 5px;"></span>
+                <i class="left small material-icons">https</i>Meus R.E.A.s
             </p>
-            <a class="right btn-floating  waves-effect waves-light red"><i class="material-icons">add</i></a>
+
             <div class="divider"></div>
         </div>
 
@@ -202,73 +197,93 @@
         </g:if>
         <g:else>
             <g:each in="${myExportedResourcesList}" var="myExportedResourceInstance">
-                 <div class="col l2 m4 s12">
-                     <div class="card-resource ">
-                         <div class="card hoverable">
-                             <div class="card-content-bg">
-                                 <div class="card-image">
-                                     <img class="activator" src="/images/${myExportedResourceInstance.resource.uri}-banner.png">
-                                 </div>
-                             </div>
-                             <ul class="card-image card-action-buttons">
-                                 <g:if test="${myExportedResourceInstance.webUrl != null}">
-                                     <li>
-                                         <a href="${myExportedResourceInstance.webUrl}" class="btn-floating green accent-4 disabled" style="background-color: #00C853 !important;">
-                                             <i class="fa fa-globe"></i>
-                                         </a>
-                                     </li>
-                                 </g:if>
-                                 <g:if test="${myExportedResourceInstance.androidUrl != null}">
-                                     <li>
-                                         <a href="${myExportedResourceInstance.androidUrl}" class="btn-floating deep-purple disabled"  style="background-color: #673ab7 !important;">
-                                             <i class="fa fa-android"></i>
-                                         </a>
-                                     </li>
-                                 </g:if>
-                                 <g:if test="${myExportedResourceInstance.linuxUrl != null}">
-                                     <li>
-                                         <a href="${myExportedResourceInstance.linuxUrl}" class="btn-floating red disabled" style="background-color: #F44336 !important;">
-                                             <i class="fa fa-linux"></i>
-                                         </a>
-                                     </li>
-                                 </g:if>
-                                 <g:if test="${myExportedResourceInstance.moodleUrl != null}">
-                                     <li>
-                                         <a href="${myExportedResourceInstance.moodleUrl}" class="btn-floating amber darken-4 disabled" style="background-color: #ff6f00 !important;">
-                                             <i class="fa fa-graduation-cap"></i>
-                                         </a>
-                                     </li>
-                                 </g:if>
-                             </ul>
-                             <div class="card-title center">
-                                 <span class="truncate">${myExportedResourceInstance.name}</span>
-                             </div>
-                             <div class="card-reveal arrow card-title">
-                                 <g:if test="${myExportedResourceInstance.webUrl != null}">
-                                     <div class="card-action">
-                                         <i class="fa fa-arrow-right right"></i>
-                                     </div>
-                                 </g:if>
-                                 <g:if test="${myExportedResourceInstance.androidUrl != null}">
-                                     <div class="card-action">
-                                         <i class="fa fa-arrow-right right"></i>
-                                     </div>
-                                 </g:if>
-                                 <g:if test="${myExportedResourceInstance.linuxUrl != null}">
-                                     <div class="card-action">
-                                         <i class="fa fa-arrow-right right"></i>
-                                     </div>
-                                 </g:if>
-                                 <g:if test="${myExportedResourceInstance.moodleUrl != null}">
-                                     <div class="card-action">
-                                         <i class="fa fa-arrow-right right"></i>
-                                     </div>
-                                 </g:if>
-                                 <span class="card-title"><i class="fa fa-caret-down left"></i></span>
-                             </div> <!-- End card-reveal -->
-                         </div>
-                     </div>
-                 </div>
+                <div class="col l2 m4 s12">
+                    <div class="card-resource ">
+                        <div class="card hoverable">
+                            <div class="card-content-bg">
+                                <div class="card-image">
+                                    <img class="activator" src="/images/${myExportedResourceInstance.resource.uri}-banner.png">
+                                </div>
+                            </div>
+                            <ul class="card-image card-action-buttons">
+                                <g:if test="${myExportedResourceInstance.webUrl != null}">
+                                    <li>
+                                        <a href="${myExportedResourceInstance.webUrl}" class="btn-floating disabled" style="background-color: #FF5722 !important;">
+                                            <i class="fa fa-globe"></i>
+                                        </a>
+                                    </li>
+                                </g:if>
+                                <g:if test="${myExportedResourceInstance.androidUrl != null}">
+                                    <li>
+                                        <a href="${myExportedResourceInstance.androidUrl}" class="btn-floating disabled"  style="background-color: #FF5722 !important;">
+                                            <i class="fa fa-android"></i>
+                                        </a>
+                                    </li>
+                                </g:if>
+                                <g:if test="${myExportedResourceInstance.linuxUrl != null}">
+                                    <li>
+                                        <a href="${myExportedResourceInstance.linuxUrl}" class="btn-floating disabled" style="background-color: #FF5722 !important;">
+                                            <i class="fa fa-linux"></i>
+                                        </a>
+                                    </li>
+                                </g:if>
+                                <g:if test="${myExportedResourceInstance.moodleUrl != null}">
+                                    <li>
+                                        <a href="${myExportedResourceInstance.moodleUrl}" class="btn-floating disabled" style="background-color: #FF5722 !important;">
+                                            <i class="fa fa-graduation-cap"></i>
+                                        </a>
+                                    </li>
+                                </g:if>
+                            </ul>
+                            <div class="card-title center">
+                                <span class="truncate">${myExportedResourceInstance.name}</span>
+                            </div>
+                            <div class="card-reveal">
+                                <span class="card-title"><i class="material-icons right">close</i></span>
+                                <span class="card-title truncate" style="margin-bottom: 10px;">${myExportedResourceInstance.name}</span>
+
+                                <g:if test="${myExportedResourceInstance.webUrl != null}">
+                                    <div class="card-action no-padding padding-bottom">
+                                        <span class="btn-floating disabled" style="background-color: #FF5722 !important;">
+                                            <i class="fa fa-globe"></i>
+                                        </span>
+                                        <a href="${myExportedResourceInstance.webUrl}" style="color: #FF5722;">WEB <i class="fa fa-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </g:if>
+                                <g:if test="${myExportedResourceInstance.androidUrl != null}">
+                                    <div class="card-action no-padding padding-bottom">
+                                        <span class="btn-floating disabled"  style="background-color: #FF5722 !important;">
+                                            <i class="fa fa-android"></i>
+                                        </span>
+                                        <a href="${myExportedResourceInstance.androidUrl}" style="color: #FF5722;">ANDROID <i class="fa fa-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </g:if>
+                                <g:if test="${myExportedResourceInstance.linuxUrl != null}">
+                                    <div class="card-action no-padding padding-bottom">
+                                        <span href="${myExportedResourceInstance.linuxUrl}" class="btn-floating disabled" style="background-color: #FF5722 !important;">
+                                            <i class="fa fa-linux"></i>
+                                        </span>
+                                        <a href="${myExportedResourceInstance.linuxUrl}" style="color: #FF5722;">LINUX <i class="fa fa-arrow-right"></i>
+                                        </a>
+
+                                    </div>
+                                </g:if>
+                                <g:if test="${myExportedResourceInstance.moodleUrl != null}">
+                                    <div class="card-action no-padding">
+                                        <span  class="btn-floating disabled" style="background-color: #FF5722 !important;">
+                                            <i class="fa fa-graduation-cap"></i>
+                                        </span>
+                                        <a href="${myExportedResourceInstance.moodleUrl}" style="color: #FF5722;">MOODLE <i class="fa fa-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </g:if>
+                                <a href="#">Remover</a>
+                            </div> <!-- End card-reveal -->
+                        </div>
+                    </div>
+                </div>
             </g:each>
         </g:else>
     </div> <!-- End Row -->

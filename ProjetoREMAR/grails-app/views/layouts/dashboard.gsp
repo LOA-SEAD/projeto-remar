@@ -8,7 +8,7 @@
     <body>
     <header>
         <div class="navbar-fixed">
-            <nav class="grey darken-3-5">
+            <nav class="my-dark-brown">
                 <div class="container menu">
                     <div class="nav-wrapper">
                         <ul class="left  hide-on-med-and-down">
@@ -27,9 +27,7 @@
                         </ul>
                         <ul id="top-nav-menu" class="right hide-on-med-and-down">
                             <li>
-                                <a href="#" data-activates="dropdown-notifications" class=" dropdown-button waves-effect waves-block waves-light">
-                                    <i class="mdi-social-notifications"></i>
-                                </a>
+
 
                                 <!-- Dropdown Structure -->
                                 <ul id="dropdown-notifications" class="collection-content collection">
@@ -68,7 +66,7 @@
                                             <div>
                                                 <span class="setting-item"><i class="left material-icons">code</i>Tornar-se um desenvolvedor</span>
                                                 <a href="/resource/index" class="secondary-content">
-                                                    <i class="material-icons">send</i>
+                                                    <i class="material-icons my-black-text">send</i>
                                                 </a>
                                             </div>
                                         </li>
@@ -78,7 +76,7 @@
                                             <div>
                                                 <span class="setting-item"><i class="left fa fa-graduation-cap"></i>Vincular conta ao moodle</span>
                                                 <a href="/moodle" class="secondary-content">
-                                                    <i class="material-icons">send</i>
+                                                    <i class="material-icons my-black-text">send</i>
                                                 </a>
                                             </div>
                                         </li>
@@ -96,9 +94,10 @@
                                 <ul id="dropdown-user" class="collection-content collection">
                                     <li class="collection-item">
                                         <div class="user-info info center">
-                                            <p class="title">${session.user.firstName} ${session.user.lastName}</p>
-                                            <p class="email">${session.user.email} </p>
-                                            <a class="btn waves-effect waves-light"><i class="material-icons left icon-button">perm_identity</i>Perfil</a>
+                                            <p class="title my-black-text">${session.user.firstName} ${session.user.lastName}</p>
+                                            <p class="email my-secondary-color">${session.user.email} </p>
+                                            <p> </p>
+                                            <!--<a class="btn-flat my-orange"><i class="material-icons left icon-button">perm_identity</i>Perfil</a>-->
                                         </div>
                                         <div class="user-info center">
                                             <img src="../data/users/${session.user.username}/profile-picture"
@@ -108,7 +107,7 @@
 
                                     </li>
                                     <li class="collection-item footer">
-                                        <a href="/logout/index" h class="btn btn-cancel waves-effect waves-light"><i class="material-icons left">power_settings_new</i>Sair</a>
+                                        <a href="/logout/index" h class="btn waves-effect waves-light my-orange"><i class="material-icons left">power_settings_new</i>Sair</a>
                                     </li>
                                 </ul>
                             </li>
