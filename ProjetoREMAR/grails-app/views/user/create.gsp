@@ -79,7 +79,7 @@
                         </div>
                         <div class="clearfix"></div>
                         <div class="input-field center-align">
-                            <button id="submit" class="btn waves-effect waves-light tooltipped" type="submit" data-position="top" data-delay="50" data-tooltip="Você é um robô?">Enviar</button>
+                            <button id="submit" class="btn waves-effect waves-light tooltiped my-orange" type="submit">Enviar</button>
                         </div>
                     </div>
                 </form>
