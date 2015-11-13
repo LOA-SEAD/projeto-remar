@@ -59,7 +59,7 @@
             %{--<span class="logo-mini">ICON</span>--}%
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg">
-                <img src="/assets/img/logo/logo-remar-branco-transparente.png"
+                <img src="/images/logo/logo-remar-branco-transparente.png"
                      width="120" height="45" />
             </span>
         </a>
