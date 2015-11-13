@@ -8,8 +8,8 @@
 <div class="external-container">
     <div class="row">
         <div class="card white z-depth-4 col s12 m6 l4 offset-m3 offset-l4 offset-vertical-2">
-            <div class="card-content">
-                <div class="card-image">
+            <div class="card-content no-padding-bottom">
+                <div class="card-image padding-bottom">
                     <img src="/assets/img/logo/logo-remar-preto-transparente.png">
                 </div> <!-- card-image -->
                 <form action="/j_spring_security_check" method="POST">
@@ -21,23 +21,32 @@
                     </div>
                     </g:if>
                     <div class="row">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">account_circle</i>
-                            <input id="username" name="j_username" type="text">
-                            <label for="username">Usuário</label>
-                        </div> <!-- input-field -->
-
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">lock</i>
-                            <input id="password" name="j_password" type="password">
-                            <label for="password">Senha</label>
-                        </div> <!-- input-field -->
-                        <div class="input-field center col s12">
-                            <button type="submit" class="btn waves-effect waves-light">Entrar</button>
+                        <div class="row no-margin-bottom">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">account_circle</i>
+                                <input id="username" name="j_username" type="text">
+                                <label for="username">Usuário</label>
+                            </div> <!-- input-field -->
                         </div>
-                        <div class="input-field center col s12">
-                            <g:link class="margin" mapping="resetPassword">Esqueceu sua senha?</g:link><br>
-                            <g:link mapping="signup">Cadastre-se</g:link>
+                        <div class="row no-margin-bottom">
+                            <div class="input-field col s12">
+                                <i class="material-icons prefix">lock</i>
+                                <input id="password" name="j_password" type="password">
+                                <label for="password">Senha</label>
+                            </div> <!-- input-field -->
+                        </div>
+                        <div class="row no-margin-bottom">
+                            <div class="input-field center col s12">
+                                <button type="submit" class="btn waves-effect waves-light my-orange">Entrar</button>
+                            </div>
+                        </div>
+                        <div class="row no-margin-bottom">
+                            <div class="input-field col s6 m6 l6">
+                                <g:link class="margin" mapping="resetPassword">Esqueceu sua senha?</g:link><br>
+                            </div>
+                            <div class="input-field col s6 m6 l6 right-align">
+                                <g:link mapping="signup">Cadastre-se</g:link>
+                            </div>
                         </div> <!-- input field -->
                     </div> <!-- row -->
                 </form>
