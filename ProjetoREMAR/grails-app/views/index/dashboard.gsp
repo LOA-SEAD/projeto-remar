@@ -38,24 +38,22 @@
             if( userFirstAccess == "true"){
                 if(confirm("                                  Bem vindo ao REMAR!\nPreparamos um wizard para apresentar a plataforma para você.\n" +
                             "                                    Vamos começar?")) {
-                introJs().setOption('showProgress', true).start();
-
-                    $.ajax({
-                        url: '/user/setFalseFirstAccess',
-                        type: 'POST',
-                        success: function () {
-                            console.log("Sucess!");
-                            //your success code
-                        },
-                        error: function (XMLHttpRequest,textStatus,errorThrown) {
-                            //your error code
-                            console.log(textStatus + "\n" + errorThrown);
-
-                        }
-                    });
-
-
+                introJs().setOption({'showProgress': true, 'showStepNumbers': 'false'}).start();
                 }
+
+                $.ajax({
+                    url: '/user/setFalseFirstAccess',
+                    type: 'POST',
+                    success: function () {
+                        console.log("Sucess!");
+                        //your success code
+                    },
+                    error: function (XMLHttpRequest,textStatus,errorThrown) {
+                        //your error code
+                        console.log(textStatus + "\n" + errorThrown);
+
+                    }
+                });
 
             }
 

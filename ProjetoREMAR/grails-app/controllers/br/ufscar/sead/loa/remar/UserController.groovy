@@ -382,4 +382,13 @@ class UserController {
         userInstance.save flush: true
     }
 
+    @Transactional
+    def setTrueFirstAccess(){
+        String username = session.user.username;
+        User userInstance = User.findByUsername(username)
+        userInstance.firstAccess = true;
+        session.user.firstAccess = true;
+        userInstance.save flush: true
+    }
+
 }

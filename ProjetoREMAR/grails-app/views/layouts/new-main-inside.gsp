@@ -78,6 +78,8 @@
                     <g:if test="${session.user.moodleHash == null}">
                         <li><a href="/moodle">Vincular minha conta ao Moodle</a></li>
                     </g:if>
+
+
                 </ul>
             </div>
 
@@ -149,6 +151,9 @@
                     %{--</ul>--}%
                     %{--</li>--}%
                     <!-- User Account: style can be found in dropdown.less -->
+
+                        <li><a onclick="wizard()"> Iniciar wizard </a></li>
+
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 
@@ -308,6 +313,24 @@
             });
         });
 
+        function wizard(){
+
+            $.ajax({
+                url: '/user/setTrueFirstAccess',
+                type: 'POST',
+                success: function () {
+                    console.log("Sucess!");
+                    //your success code
+                },
+                error: function (XMLHttpRequest,textStatus,errorThrown) {
+                    //your error code
+                    console.log(textStatus + "\n" + errorThrown);
+
+                }
+            });
+
+            window.location.href="/dashboard";
+        }
     </script>
 
 </div>
