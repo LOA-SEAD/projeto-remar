@@ -1,0 +1,29 @@
+.dark-brown {
+    background-color: #5d4037 !important;
+}
+
+.menu {
+    margin: 0px;
+    padding: 0 0.8rem;
+    width: 100%;
+}
+
+.logo, .logo:hover {
+    background-color: transparent;
+}
+
+.logo img {
+    width: 130px;
+    margin-top: 10px;
+}
+
+.logo-min {
+    width: 40px !important;
+    margin-right: 15px;
+}
+
+@media only screen and (max-width : 992px) {
+    .nav-wrapper {
+        left: 2rem;
+    }
+}
