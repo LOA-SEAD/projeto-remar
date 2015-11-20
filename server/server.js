@@ -1,5 +1,6 @@
 var loopback = require('loopback');
 var boot = require('loopback-boot');
+var i18n = require('i18n');
 
 var app = module.exports = loopback();
 
@@ -19,9 +20,6 @@ app.start = function() {
 /* Defining the views folder */
 app.set('view engine', 'jade');
 app.set('views', '../views');
-
-/* define the static folder (public) */
-app.use(loopback.static('../client'));
 
 // Bootstrap the application, configure models, datasources and middleware.
 // Sub-apps like REST API are mounted via boot scripts.
