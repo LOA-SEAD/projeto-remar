@@ -64,6 +64,20 @@
 }
 
 .my-side-nav {
-    top: 64px;
-    left: 0px;
+  top: 64px;
+  left: 0px;
+}
+
+ul.side-nav li {
+  padding: 0px !important;
+}
+
+#slide-out li a i {
+  line-height: inherit;
+  width: 2rem;
+  font-size: 1.6rem;
+  display: block;
+  float: left;
+  text-align: center;
+  margin-right: 1rem;
 }
