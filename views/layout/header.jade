@@ -1,17 +1,29 @@
 //
    Created by renerbaffa on 20/11/15.
+script
+    include ../../public/javascripts/menu.js
 
 header
     .navbar-fixed
         nav.dark-brown
             .container.menu
                 .nav-wrapper
+                    //menu for large displays
                     ul.left.hide-on-med-and-down
                         li.logo
                             a(href="/")
                                 img(src="/images/logo-remar-branco-transparente.png")
-                    ul.right.hide-on-large-only
-                        li.logo
-                            a(href="/")
+
+                    //menu for small and med display
+                    ul.hide-on-large-only
+                        li.logo.left
+                            a(data-activates="nav-mobile").button-collapse.menu-sidebar-collapse.my-btn
+                                i.mdi-navigation-menu
+                        li.logo.right
+                            a(href="/").padding-right
                                 img.logo-min(src="/images/favicon.png")
+
+
+
+
                     ul#top-nav-menu.right.hide-on-med-and-down

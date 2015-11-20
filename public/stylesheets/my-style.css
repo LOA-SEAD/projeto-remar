@@ -22,8 +22,48 @@
     margin-right: 15px;
 }
 
-@media only screen and (max-width : 992px) {
+@media only screen and (max-width: 992px) {
     .nav-wrapper {
         left: 2rem;
     }
+}
+
+.padding-right {
+    padding-right: 50px;
+}
+
+.margin-bottom {
+    margin-bottom: 30px;
+}
+
+.margin-top {
+    margin-top: 30px;
+}
+
+.my-btn {
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 992px) {
+    #main {
+        padding-left: 0px;
+    }
+}
+
+.logo-index {
+    width: 450px;
+    margin-bottom: 10px;
+}
+
+.justified {
+    text-align: justify;
+}
+
+.no-margin-top {
+    margin-top: 0px;
+}
+
+.my-side-nav {
+    top: 64px;
+    left: 0px;
 }
