@@ -21,7 +21,7 @@ app.set('view engine', 'jade');
 app.set('views', '../views');
 
 /* define the static folder (public) */
-app.use(loopback.static('../public'));
+app.use(loopback.static('../client'));
 
 // Bootstrap the application, configure models, datasources and middleware.
 // Sub-apps like REST API are mounted via boot scripts.
