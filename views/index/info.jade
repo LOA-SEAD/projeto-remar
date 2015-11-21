@@ -11,11 +11,56 @@ doctype html
 
 html
   head
-    include layout/head
-  body
-    include layout/header
+    meta(charset='utf-8')
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no")
+    link(rel="shortcut icon" href='/images/favicon.png')
+    link(rel='stylesheet', href='http://fonts.googleapis.com/icon?family=Material+Icons')
+    link(type='text/css' rel='stylesheet', href='/stylesheets/materialize.css' media='screen, projection')
+    link(type='text/css' rel='stylesheet', href='/stylesheets/my-style.css')
+    link(type='text/css' rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js')
+    script(src='/javascripts/materialize.js')
 
-    include layout/index-menu
+    title Projeto REMAR
+  body
+    script
+      include ../../client/javascripts/menu.js
+
+    header
+      .navbar-fixed
+        nav.dark-brown
+          .container.menu
+            .nav-wrapper
+              //menu for large displays
+              ul.left.hide-on-med-and-down
+                li.logo
+                  a(href="/")
+                    img(src="/images/logo/logo-remar-branco-transparente.png")
+
+              //menu for small and medium displays
+              ul.hide-on-large-only
+                li.logo.left
+                  a(data-activates="slide-out").button-collapse.menu-sidebar-collapse.my-btn
+                    i.mdi-navigation-menu
+                li.logo.right
+                  a(href="/").padding-right
+                    img.logo-min(src="/images/favicon.png")
+
+              //mixin to create the menu for small and medium displays
+              mixin mini-menu(href, name, icon)
+                li
+                  a.waves-effect(href=href)
+                    i.material-icons= icon
+                    = name
+
+    //menu for the index page
+    aside#left-sidebar-nav
+      ul#slide-out.side-nav.leftside-navigation.ps-container.ps-active-y
+        +mini-menu("/", "GT-REMAR", "help")
+        +mini-menu("/info", "Mais informações", "info")
+        +mini-menu("https://remar.readme.io/docs", "Documentação", "description")
+        +mini-menu("/login", "Entrar", "input")
 
     //start main
     #main
@@ -121,4 +166,6 @@ html
                   Email: remar@sead.ufscar.br
                   Endereço: Universidade Federal de São Carlos, At3 - Sala 54 - São Carlos - SP
 
-          include layout/footer
+          footer
+            .container.center-align.margin-top
+              p Copyright © REMAR 2015
