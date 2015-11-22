@@ -6,6 +6,7 @@
     "pretest": "jshint ."
   },
   "dependencies": {
+    "body-parser": "^1.14.1",
     "compression": "^1.0.3",
     "cors": "^2.5.2",
     "http-proxy": "^1.12.0",
