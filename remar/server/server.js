@@ -1,6 +1,7 @@
 var loopback = require('loopback');
 var boot = require('loopback-boot');
 var i18n = require('i18n');
+var bodyParser = require('body-parser');
 
 var app = module.exports = loopback();
 
@@ -16,6 +17,9 @@ app.start = function() {
     }
   });
 };
+
+app.middleware('parse', bodyParser.json());
+app.middleware('parse', bodyParser.urlencoded({extended: true}));
 
 /* Defining the views folder */
 app.set('view engine', 'jade');
