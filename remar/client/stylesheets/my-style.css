@@ -40,6 +40,10 @@
     margin-top: 30px;
 }
 
+.margin-center {
+  margin: 0 auto !important;
+}
+
 .my-btn {
     cursor: pointer;
 }
@@ -51,8 +55,8 @@
 }
 
 .logo-index {
-    width: 450px;
-    margin-bottom: 10px;
+    width: 450px !important;
+    margin-bottom: 10px !important;
 }
 
 .justified {
