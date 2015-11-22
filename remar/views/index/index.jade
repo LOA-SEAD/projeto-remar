@@ -24,29 +24,38 @@ html
     header
       .navbar-fixed
         nav.dark-brown
-          .container.menu
-            .nav-wrapper
-              //menu for large displays
-              ul.left.hide-on-med-and-down
-                li.logo
-                  a(href="/")
-                    img(src="/images/logo/logo-remar-branco-transparente.png")
+          .nav-wrapper
+            //menu for large displays
+            ul.left.hide-on-med-and-down
+              li.logo
+                a(href="/")
+                  img(src="/images/logo/logo-remar-branco-transparente.png")
 
-              //menu for small and medium displays
-              ul.hide-on-large-only
-                li.logo.left
-                  a(data-activates="slide-out").button-collapse.menu-sidebar-collapse.my-btn
-                    i.mdi-navigation-menu
-                li.logo.right
-                  a(href="/").padding-right
-                    img.logo-min(src="/images/favicon.png")
+            ul.right.hide-on-med-and-down
+              li
+                a(href="/") GT-REMAR
+              li
+                a(href="/info") Mais informações
+              li
+                a(href="https://remar.readme.io/docs") Documentação
+              li
+                a(href="/login") Entrar
 
-              //mixin to create the menu for small and medium displays
-              mixin mini-menu(href, name, icon)
-                li
-                  a.waves-effect(href=href)
-                    i.material-icons= icon
-                    = name
+            //menu for small and medium displays
+            ul.hide-on-large-only
+              li.logo.left
+                a(data-activates="slide-out").button-collapse.menu-sidebar-collapse.my-btn
+                  i.mdi-navigation-menu
+              li.logo.right
+                a(href="/").padding-right
+                  img.logo-min(src="/images/favicon.png")
+
+            //mixin to create the menu for small and medium displays
+            mixin mini-menu(href, name, icon)
+              li
+                a.waves-effect(href=href)
+                  i.material-icons= icon
+                  = name
 
     //menu for the index page
     aside#left-sidebar-nav
