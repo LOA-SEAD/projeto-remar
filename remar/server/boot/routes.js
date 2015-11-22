@@ -1,6 +1,7 @@
 module.exports = function(app) {
 
   // begin Static
+  var bcrypt = require('bcrypt');
 
   app.get('/', function (req, res) {
     res.render("index/index");
@@ -27,13 +28,14 @@ module.exports = function(app) {
   app.post('/confirmation', function(req, res){
     console.dir(req.body);
     res.send("Post feito!");
+
     //var Firstname = req.body.firstName;
     //console.log(Firstname);
-    app.models.user.create([{firstName:req.body.firstName,lastName:req.body.lastName,username:req.body.username,email: req.body.email,password:req.body.password,
-    gender:"male"}],function(err, users) {
+    app.models.user.create([{firstName:req.body.firstName,lastName:req.body.lastName,username:req.body.username,email: req.body.email,password:bcrypt.hashSync(req.body.password,10),
+    gender:"male"}],function(err, user) {
       if (err) throw err;
 
-      console.log('Users created:\n', users);
+      console.log('User created:\n', user);
     });
 
   });
