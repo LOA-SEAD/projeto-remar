@@ -17,10 +17,6 @@ app.start = function() {
   });
 };
 
-app.get("/user/create",function(req,res){
-  res.render("user/create");
-});
-
 /* Defining the views folder */
 app.set('view engine', 'jade');
 
