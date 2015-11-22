@@ -1,0 +1,88 @@
+doctype html
+html
+  head
+    include ../layout/head
+    title Registrar-se
+  head
+    body
+      include ../layout/header
+      .container
+        .row
+          .card.white.z-depth-2.col.s12.m8.l6.offset-m2.offset-l3
+            .card-content
+              .card-image
+                img(src="/assets/img/logo/logo-remar-preto-transparente.png")
+
+                form(action="/user/save" method="POST" enctype="multipart/form-data")
+                  .row
+                    .input-field.col.s12.m6
+                      i.material-icons.prefix person
+                      input(id="first-name" name="firstName" type="text")
+                      label(for="first-name") Nome
+
+                    .input-field.col.s12.m6
+                      i.material-icons.prefix person
+                      input(id="last-name" name="lastName" type="text")
+                      label(for="last-name") Sobrenome
+
+                    .input-field.col.s12
+                      i.material-icons.prefix email
+                      input(id="email" name="email" type="text")
+                      label(for="email") Email
+
+                    .input-field.col.s12.m6
+                      i.material-icons.prefix account_circle
+                      input(id="username" name="username" type="text")
+                      label(for="username") Nome de usuário
+
+
+                    //.input-field.col.s12.m6
+                    //  i.material-icons.prefix face
+                    //  select(id="select" name="gender") Sexo
+                    //    option(value="male") Masculino
+                    //    option(value="female") Feminino
+                    //  label(for="select") Sexo
+
+                    .input-field.col.s12.m6
+                      i.material-icons.prefix lock
+                      input(id="password" name="password" type="password")
+                      label(for="password") Senha
+
+                    .input-field.col.s12.m6
+                      i.class.material-icons.prefix lock
+                      input(id="confirm-password" name="confirm-password" type="password")
+                      label(for="confirm-password") Confirme sua senha
+
+                      button#submit.btn.waves-effect.waves-light.tooltipped(data-position="top" data-delay="50") Enviar
+
+
+                      //<div class="input-field file-field col s12">
+                      //<div class="col s3">
+                      //<img id="profile-picture" class="circle profile-picture" src="/images/avatars/male.png"/>
+                      //</div>
+                      //<div>
+                      //<input type="file" id="file" name="photo" accept="image/jpeg, image/png">
+                      //<div class="file-path-wrapper">
+                      //<input class="file-path" type="text" placeholder="Selecione uma foto (opicional)">
+                      //</div>
+                      //</div>
+                      //</div>
+                      //
+                      //<div class="input-field col s12">
+                      //<div class="g-recaptcha text-center" data-sitekey="6LdA8QkTAAAAANzRpkGUT__a9B2zHlU5Mnl6EDoJ"> </div>
+                      //</div>
+                      //<div class="clearfix"></div>
+                      //<div class="input-field center-align">
+                      //<button id="submit" class="btn waves-effect waves-light tooltipped" type="submit" data-position="top" data-delay="50" data-tooltip="Você é um robô?">Enviar</button>
+                      //</div>
+                      //</div>
+                      //</form>
+                      //</div> <!-- card-content -->
+                      //</div> <!-- card -->
+                      //</div> <!-- row -->
+                      //</div> <!-- container -->
+                      //<g:javascript src="jquery/jquery.validate.js"/>
+                      //<recaptcha:script/>
+                      //<g:javascript src="user/form.js"/>
+
+html
