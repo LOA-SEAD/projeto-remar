@@ -23,6 +23,20 @@ module.exports = function(app) {
     res.render("user/create");
   });
 
+
+  app.post('/confirmation', function(req, res){
+    console.dir(req.body);
+    res.send("Post feito!");
+    //var Firstname = req.body.firstName;
+    //console.log(Firstname);
+    app.models.user.create([{firstName:req.body.firstName,lastName:req.body.lastName,username:req.body.username,email: req.body.email,password:req.body.password,
+    gender:"male"}],function(err, users) {
+      if (err) throw err;
+
+      console.log('Users created:\n', users);
+    });
+
+  });
   // end User
 
 };

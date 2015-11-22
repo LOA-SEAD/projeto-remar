@@ -18,6 +18,10 @@ app.start = function() {
   });
 };
 
+//app.use(bodyParser.json()); // for parsing application/json
+//app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+//app.use(multer()); // for parsing multipart/form-data
+
 app.middleware('parse', bodyParser.json());
 app.middleware('parse', bodyParser.urlencoded({extended: true}));
 
