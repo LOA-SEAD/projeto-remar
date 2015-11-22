@@ -17,6 +17,8 @@
     "loopback-component-passport": "^1.6.0",
     "loopback-connector-mysql": "^2.2.0",
     "loopback-datasource-juggler": "^2.41.2",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "serve-favicon": "^2.0.1"
   },
   "devDependencies": {
