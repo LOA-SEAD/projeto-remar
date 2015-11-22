@@ -35,5 +35,9 @@
   "user": {
     "dataSource": "db",
     "public": false
+  },
+  "teste": {
+    "dataSource": "db",
+    "public": false
   }
 }

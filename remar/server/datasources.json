@@ -1,11 +1,10 @@
 {
   "db": {
-    "name": "db",
-    "connector": "mysql",
-    "username":"root",
-    "password":"root",
     "host": "localhost",
-    "database":"remar_node"
-
+    "database": "remar_node",
+    "username": "root",
+    "password": "root",
+    "name": "db",
+    "connector": "mysql"
   }
 }
