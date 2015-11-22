@@ -14,6 +14,7 @@
     "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "^2.1.0",
     "loopback-component-passport": "^1.6.0",
+    "loopback-connector-mysql": "^2.2.0",
     "loopback-datasource-juggler": "^2.41.2",
     "serve-favicon": "^2.0.1"
   },
