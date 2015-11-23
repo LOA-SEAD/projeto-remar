@@ -27,11 +27,11 @@ module.exports = function(app) {
 
   app.post('/confirmation', function(req, res){
     console.dir(req.body);
-    res.send("Post feito!");
+    res.render("user/confirmation");
 
     //var Firstname = req.body.firstName;
     //console.log(Firstname);
-    app.models.user.create([{firstName:req.body.firstName,lastName:req.body.lastName,username:req.body.username,email: req.body.email,password:bcrypt.hashSync(req.body.password,10),
+    app.models.user.create([{firstName:req.body.firstName,lastName:req.body.lastName,username:req.body.username,email: req.body.email,password:req.body.password,
     gender:"male"}],function(err, user) {
       if (err) throw err;
 
