@@ -5,7 +5,7 @@ module.exports = function(app) {
 
     user.create([
       {username: 'root', email: 'root@remar.com.br',
-        firstName: 'ROOT',lastName: "ROOT", password: "rootroot", gender:"male"}
+        firstName: 'ROOT',lastName: "ROOT", password: "rootroot", gender:"male", dev: true}
     ], function(err, users) {
       if (err) throw err;
 

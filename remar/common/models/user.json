@@ -30,6 +30,10 @@
     "gender": {
       "type": "string",
       "required": true
+    },
+    "dev" : {
+      "type": "boolean",
+      "required": false
     }
   },
   "validations": [],
