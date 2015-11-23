@@ -67,6 +67,10 @@
     margin-top: 0px;
 }
 
+.no-margin-bottom {
+  margin-bottom: 0px;
+}
+
 .my-side-nav {
   top: 64px;
   left: 0px;
@@ -84,4 +88,89 @@ ul.side-nav li {
   float: left;
   text-align: center;
   margin-right: 1rem;
+}
+
+li.user a img {
+  height: 40px !important;
+  margin-top: 10px;
+}
+
+.line-height-fixed {
+  line-height: 38px !important;
+}
+
+.fixed-height {
+  height: 64px !important;
+}
+
+.settings-menu {
+  background-color: #FFFFFF;
+  /*margin: 0;*/
+  display: none;
+  min-width: 305px;
+  min-height: 0;
+  overflow: hidden; /* Changed this from overflow-y:auto; to overflow:hidden; */
+  opacity: 0;
+  /*position: absolute;*/
+  white-space: nowrap;
+  z-index: 9999;
+  will-change: width, height;
+
+  width: auto;
+  right: auto;
+  position: static;
+  top: auto;
+  margin-top: 4rem;
+  margin-right: 0rem;
+}
+
+.user-menu {
+  background-color: #FFFFFF;
+  /*margin: 0;*/
+  display: none;
+  min-width: 330px;
+  min-height: 0;
+  overflow: hidden; /* Changed this from overflow-y:auto; to overflow:hidden; */
+  opacity: 0;
+  /*position: absolute;*/
+  white-space: nowrap;
+  z-index: 9999;
+  will-change: width, height;
+
+  width: auto;
+  right: auto;
+  position: static;
+  top: auto;
+  margin-top: 4rem;
+  margin-right: 0rem;
+}
+
+.collection-item {
+  color: #212121 !important;
+}
+
+.my-black {
+  color: #212121 !important;
+}
+
+.my-orange {
+  background-color: #FF5722 !important;
+}
+
+.setting-item {
+  line-height: 4.5rem;
+}
+
+.my-secondary {
+  color: #727272 !important;
+  font-size: 13px;
+}
+
+nav .nav-wrapper a.btn i {
+  line-height: 38px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
 }

@@ -6,26 +6,63 @@ script
 header
   .navbar-fixed
     nav.dark-brown
-      .container.menu
-        .nav-wrapper
-          //menu for large displays
-          ul.left.hide-on-med-and-down
-            li.logo
-              a(href="/")
-                img(src="/images/logo/logo-remar-branco-transparente.png")
+      .nav-wrapper
+        //menu for large displays
+        ul.left.hide-on-med-and-down
+          li.logo
+            a(href="/")
+              img(src="/images/logo/logo-remar-branco-transparente.png")
+        ul.right.hide-on-med-and-down
+          li
+            a(href="#" data-activates="settings-dropdown").dropdown-button
+              i.material-icons settings
 
-          //menu for small and medium displays
-          ul.hide-on-large-only
-            li.logo.left
-              a(data-activates="slide-out").button-collapse.menu-sidebar-collapse.my-btn
-                i.mdi-navigation-menu
-            li.logo.right
-              a(href="/").padding-right
-                img.logo-min(src="/images/favicon.png")
+            //settings dropdown
+            ul#settings-dropdown.collection.settings-menu
+              li.collection-item
+                a(href="#").my-black.setting-item
+                  i.material-icons.left code
+                  | Tornar-se um desenvolvedor
+              li.collection-item
+                a(href="#").my-black.setting-item
+                  i.material-icons.left school
+                  | Vincular conta ao Moodle
+          li.user
+            a(href="#" data-activates="user-dropdown").dropdown-button.fixed-height
+              img(src="http://demo.geekslabs.com/materialize/v2.1/layout01/images/avatar.jpg").circle.responsive-img
 
-          //mixin to create the menu for small and medium displays
-          mixin mini-menu(href, name, icon)
-            li
-              a.waves-effect(href=href)
-                i.material-icons= icon
-                = name
+            //user dropdown
+            ul#user-dropdown.collection.user-menu
+              li.collection-item
+                .row.valign-wrapper.no-margin-bottom
+                  .col.s8.center
+                    p.title Rener Baffa
+                    p.my-secondary renerbaffa@gmail.com
+                  .col.s4
+                    img(src="http://demo.geekslabs.com/materialize/v2.1/layout01/images/avatar.jpg").circle.responsive-img
+              li.collection-item.footer.right
+                a(href="#").btn-flat.waves-effect.my-orange.white-text
+                  i.material-icons.left.line-height-fixed power_settings_new
+                  | Sair
+
+
+        //menu for small and medium displays
+        ul.hide-on-large-only
+          li.logo.left
+            a(data-activates="slide-out").button-collapse.menu-sidebar-collapse.my-btn
+              i.mdi-navigation-menu
+          li.logo.right
+            a(href="/").padding-right
+              img.logo-min(src="/images/favicon.png")
+
+        //mixin to create the menu for small and medium displays
+        mixin mini-menu(href, name, icon)
+          li
+            a.waves-effect(href=href)
+              i.material-icons= icon
+              = name
+  //ul#nav-mobile.side-nav.leftside-navigation.ps-container.ps-active-y
+  aside#left-sidebar-nav
+    ul#slide-out.side-nav.leftside-navigation.ps-container.ps-active-y
+      +mini-menu("https://remar.readme.io/docs", "Documentação", "description")
+      +mini-menu("/login", "Entrar", "input")
