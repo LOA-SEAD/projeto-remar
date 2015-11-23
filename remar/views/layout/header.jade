@@ -44,6 +44,7 @@ header
                 a(href="#").btn-flat.waves-effect.my-orange.white-text
                   i.material-icons.left.line-height-fixed power_settings_new
                   | Sair
+        //end of menu for large displays
 
 
         //menu for small and medium displays
@@ -56,13 +57,24 @@ header
               img.logo-min(src="/images/favicon.png")
 
         //mixin to create the menu for small and medium displays
-        mixin mini-menu(href, name, icon)
+        mixin mini-menu-material(href, name, icon)
           li
             a.waves-effect(href=href)
               i.material-icons= icon
               = name
-  //ul#nav-mobile.side-nav.leftside-navigation.ps-container.ps-active-y
-  aside#left-sidebar-nav
-    ul#slide-out.side-nav.leftside-navigation.ps-container.ps-active-y
-      +mini-menu("https://remar.readme.io/docs", "Documentação", "description")
-      +mini-menu("/login", "Entrar", "input")
+
+        mixin mini-menu-font-awesome(href, name)
+          li
+            a.waves-effect(href=href)
+              i.fa(class!=attributes.class)
+              = name
+
+//start main
+#main
+  #wrapper
+    //left navbar
+    aside#left-sidebar-nav
+      ul#slide-out.side-nav.fixed.leftside-navigation
+        +mini-menu-material("/dashboard", "Home", "description")
+        +mini-menu-font-awesome("/login", "Entrar")(class="fa-sign-in")
+        +mini-menu-font-awesome("/logout", "Sair")(class="fa-sign-out")

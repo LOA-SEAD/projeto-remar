@@ -71,15 +71,6 @@
   margin-bottom: 0px;
 }
 
-.my-side-nav {
-  top: 64px;
-  left: 0px;
-}
-
-ul.side-nav li {
-  padding: 0px !important;
-}
-
 #slide-out li a i {
   line-height: inherit;
   width: 2rem;
@@ -173,4 +164,14 @@ nav .nav-wrapper a.btn i {
 .title {
   font-size: 18px;
   font-weight: bold;
+}
+
+.side-nav {
+  top: 64px !important;
+}
+
+@media only screen and (max-width: 992px) {
+  .side-nav {
+    top: 56px !important;
+  }
 }
