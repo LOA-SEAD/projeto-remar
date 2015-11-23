@@ -1,3 +1,6 @@
 {
-  "hello": "Hello!"
+  "hello": "Hello!",
+  "username_not_found": "Username not found",
+  "wrong_password": "Incorrect password"
+
 }
