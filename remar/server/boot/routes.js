@@ -3,18 +3,15 @@ module.exports = function(app) {
   // begin Static
   var bcrypt = require('bcrypt');
 
-  app.get('/', function (req, res) {
-    if (req.isAuthenticated()) {
-      console.log(req.user.username);
-    }
+  app.get('/', app.auth(null, "/dashboard"), function (req, res) {
     res.render("index/index");
   });
 
-  app.get('/dashboard', function (req, res) {
+  app.get('/dashboard', app.auth('login'), function (req, res) {
     res.render("dashboard", {title: "Dashboard - Projeto REMAR"});
   });
 
-  app.get('/info', function (req, res) {
+  app.get('/info', app.auth(null, "/dashboard"), function (req, res) {
     res.render("index/info");
   });
 
