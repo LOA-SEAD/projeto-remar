@@ -38,6 +38,11 @@ module.exports = function(app) {
   app.post("/login", passport.authenticate("local", {successRedirect: '/',
     failureRedirect: '/login'}));
 
+  app.get('/logout', function (req, res) {
+    req.logout();
+    res.redirect('/');
+  });
+
   passport.serializeUser(function(user, done) {
     done(null, user);
   });
