@@ -31,7 +31,7 @@ module.exports = function(app) {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.get("/login", function (req, res) {
+  app.get("/login", app.auth(null, "/dashboard"), function (req, res) {
     res.render("login");
   });
 
