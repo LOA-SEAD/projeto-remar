@@ -4,6 +4,9 @@ module.exports = function(app) {
   var bcrypt = require('bcrypt');
 
   app.get('/', function (req, res) {
+    if (req.isAuthenticated()) {
+      console.log(req.user.username);
+    }
     res.render("index/index");
   });
 
