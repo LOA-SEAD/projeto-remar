@@ -14,4 +14,15 @@ module.exports = function(User) {
     }
     next();
   });
+
+  User.observe('loaded', function (ctx, next) {
+    var instance = ctx.instance;
+    if (!instance) return next();
+
+    instance.roles = {};
+    instance.roles.admin = instance.username == 'root';
+    instance.roles.dev   = instance.dev;
+
+    next();
+  });
 };
