@@ -7,7 +7,7 @@ module.exports = function(app) {
     res.render("index/index");
   });
 
-  app.get('/dashboard', app.auth('login'), function (req, res) {
+  app.get('/dashboard', app.auth('login'), function (req, res) { // TODO: not static, remove from here
     res.render("dashboard", {title: "Dashboard - Projeto REMAR"});
   });
 
@@ -16,29 +16,4 @@ module.exports = function(app) {
   });
 
   // end Static
-
-
-  // begin User
-
-  app.get("/signup",function(req,res){
-    res.render("user/create");
-  });
-
-
-  app.post('/confirmation', function(req, res){
-    console.dir(req.body);
-    res.render("user/confirmation");
-
-    //var Firstname = req.body.firstName;
-    //console.log(Firstname);
-    app.models.user.create([{firstName:req.body.firstName,lastName:req.body.lastName,username:req.body.username,email: req.body.email,password:req.body.password,
-    gender:"male"}],function(err, user) {
-      if (err) throw err;
-
-      console.log('User created:\n', user);
-    });
-
-  });
-  // end User
-
 };

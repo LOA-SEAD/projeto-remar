@@ -25,4 +25,29 @@ module.exports = function(User) {
 
     next();
   });
+
+
+  User.getApp(function (err, app) {
+    app.get("/signup", function (req, res) {
+      res.render("user/create");
+    });
+
+    app.post('/signup', function (req, res) {
+      console.dir(req.body);
+      res.render("user/confirmation");
+
+      app.models.user.create([{
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
+        gender: "male"
+      }], function (err, user) {
+        if (err) throw err;
+
+        console.log('User created:\n', user);
+      });
+    });
+  });
 };
