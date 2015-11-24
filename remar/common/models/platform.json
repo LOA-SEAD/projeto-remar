@@ -1,0 +1,24 @@
+{
+  "name": "Platform",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "resources": {
+      "type": "hasMany",
+      "model": "Resource",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

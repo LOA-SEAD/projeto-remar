@@ -1,0 +1,36 @@
+{
+  "name": "Resource",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "active": {
+      "type": "boolean",
+      "required": true
+    },
+    "version": {
+      "type": "number",
+      "required": true
+    },
+    "uri": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "platform": {
+      "type": "belongsTo",
+      "model": "Platform",
+      "foreignKey": ""
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

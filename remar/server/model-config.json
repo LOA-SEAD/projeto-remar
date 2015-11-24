@@ -35,5 +35,13 @@
   "user": {
     "dataSource": "db",
     "public": false
+  },
+  "Resource": {
+    "dataSource": "db",
+    "public": false
+  },
+  "Platform": {
+    "dataSource": "db",
+    "public": false
   }
 }
