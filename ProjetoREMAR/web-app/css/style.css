@@ -16,6 +16,10 @@ body {
     padding-left: 10px;
 }
 
+.no-hover:hover {
+    background-color: transparent !important;
+}
+
 
 /*=================================================================================
     Navbar
@@ -24,8 +28,25 @@ body {
     navbar new styles
 ------------------------------------------*/
 
+.no-padding-left {
+    padding-left: 0px !important;
+}
+
+.logo-min {
+    width: 40px !important;
+    margin-right: 15px;
+}
+
 nav ul a.logo{
     padding: 0;
+}
+
+.my-btn {
+    cursor: pointer;
+}
+
+.no-margin-right {
+    margin-right: 0px !important;
 }
 
 li.logo img {
@@ -39,12 +60,17 @@ li.logo-icon img {
     margin-right: 15px;
 }
 
+li.logo a {
+    height: 64px;
+}
+
 li.logo {
-    margin-bottom: 32px !important;
+    height: 64px;
 }
 
 li.user a img{
     width: 40px !important;
+    height: 40px !important;
     margin-top: 10px;
 }
 
@@ -831,4 +857,23 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
 
 .card .card-action {
 
+}
+
+.dark-brown {
+    background-color: #5d4037 !important;
+}
+
+.content-index {
+    min-height: 250px;
+    padding: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: transparent;
+}
+
+.with-marker li {
+    list-style-type: disc;
+    margin-left: 30px;
 }

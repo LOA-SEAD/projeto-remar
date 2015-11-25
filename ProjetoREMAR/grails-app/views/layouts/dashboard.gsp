@@ -120,57 +120,28 @@
         <div class="wrapper">
             <!-- side-nav -->
             <aside id="left-sidebar-nav">
-                <ul id="side-nav" class="side-nav fixed  leftside-navigation " >
+                <ul id="side-nav" class="side-nav fixed leftside-navigation " >
 
-                    <li class="user-details user teal darken-1 hide-on-large-only">
-                        <div class="row li-margin">
-                            <div class="col col s4 m4 l4">
+                    <li class="user-details user hide-on-large-only no-hover">
+                        <div class="row li-margin valign-wrapper">
+                            <div class="col col s4 m4 l4 no-padding-left">
                                 <img src="../data/users/${session.user.username}/profile-picture"
                                      alt="${session.user.firstName}" class="circle"
                                      data-beloworigin="true">
                             </div>
                             <div class="col col s8 m8 l8">
-                                <!-- Dropdown -->
-                                <a id="profile-btn" class="btn-flat dropdown-button waves-effect waves-light white-text"
-                                   href="#" data-activates="profile-dropdown">
-                                    ${session.user.firstName}
-                                    <i class="right mdi-navigation-arrow-drop-down"></i>
-                                </a>
-                                <!-- Dropdown Structure -->
-                                <ul id="profile-dropdown" class="dropdown-content collection">
-                                    <li>
-                                        <a href="#">
-                                            <i class="material-icons left icon-button">perm_identity</i>
-                                            Perfil
-                                        </a>
-                                    </li>
-                                    <li class="divider">
-
-                                    </li>
-                                    <li>
-                                        <a href="/logout/index">
-                                            <i class="material-icons left">power_settings_new</i>
-                                            Sair
-                                        </a>
-                                    </li>
-                                </ul>
-                                <!-- Dropdown end --->
+                                ${session.user.firstName} ${session.user.lastName}
                             </div>
                         </div>
                     </li>
 
-                    <li class="hide-on-large-only">
-                        <a href="#" data-activates="" class=" dropdown-button waves-effect waves-block waves-light">
-                            <i class="mdi-social-notifications"></i>
-                            Notificações
+                    <li class="waves-effect waves-block waves-light hide-on-large-only">
+                        <a href="/logout">
+                            <i class="fa fa-sign-out"></i>
+                            Sair
                         </a>
                     </li>
-                    <li class="hide-on-large-only">
-                        <a href="#" data-activates="" class="dropdown-button waves-effect waves-block waves-light">
-                            <i class="material-icons">settings</i>
-                            Configurações
-                        </a>
-                    </li>
+
                     <li class="divider hide-on-large-only"></li>
 
                     <li class="waves-effect waves-block waves-light">
