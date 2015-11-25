@@ -47,7 +47,7 @@
                                         <div>
                                             <span class="setting-item">Nome da tarefa</span>
                                             <a href="/moodle" class="secondary-content">
-                                                <i class="material-icons">send</i>
+                                                <i class="material-icons left line-height-fixed">send</i>
                                             </a>
                                         </div>
                                     </li>
@@ -60,54 +60,52 @@
                                 </a>
 
                                 <!-- Dropdown Structure -->
-                                <ul id="dropdown-settings" class="collection-content collection">
+                                <ul id="dropdown-settings" class="settings-menu collection">
                                     <sec:ifNotGranted roles="ROLE_DEV">
                                         <li class="collection-item ">
-                                            <div>
-                                                <span class="setting-item"><i class="left material-icons">code</i>Tornar-se um desenvolvedor</span>
-                                                <a href="/resource/index" class="secondary-content">
-                                                    <i class="material-icons my-black-text">send</i>
-                                                </a>
-                                            </div>
+                                            <a href="/resource/index" class="setting-item my-black-text">
+                                                <i class="left material-icons">code</i>
+                                                Tornar-se um desenvolvedor
+                                            </a>
                                         </li>
                                     </sec:ifNotGranted>
                                     <g:if test="${session.user.moodleUsername == null}">
                                         <li class="collection-item ">
-                                            <div>
-                                                <span class="setting-item"><i class="left fa fa-graduation-cap"></i>Vincular conta ao moodle</span>
-                                                <a href="/moodle" class="secondary-content">
-                                                    <i class="material-icons my-black-text">send</i>
-                                                </a>
-                                            </div>
+                                            <a href="/resource/index" class="setting-item my-black-text">
+                                                <i class="left material-icons">code</i>
+                                                Vincular conta ao Moodle
+                                            </a>
                                         </li>
                                     </g:if>
                                 </ul>
                             </li>
                             <li class="user">
                                 <!-- Dropdown user -->
-                                <a class="dropdown-button" href='#' data-activates='dropdown-user'>
+                                <a class="dropdown-button fixed-height" href='#' data-activates='dropdown-user'>
                                     <img src="../data/users/${session.user.username}/profile-picture"
                                          alt="${session.user.firstName}" class="circle responsive-img z-depth-2"
                                          data-beloworigin="true">
                                 </a>
                                 <!-- Dropdown Structure -->
-                                <ul id="dropdown-user" class="collection-content collection">
+                                <ul id="dropdown-user" class="user-menu collection">
                                     <li class="collection-item">
-                                        <div class="user-info info center">
-                                            <p class="title my-black-text">${session.user.firstName} ${session.user.lastName}</p>
-                                            <p class="email my-secondary-color">${session.user.email} </p>
-                                            <p> </p>
-                                            <!--<a class="btn-flat my-orange"><i class="material-icons left icon-button">perm_identity</i>Perfil</a>-->
+                                        <div class="row valign-wrapper no-margin-bottom">
+                                            <div class="col s8 center">
+                                                <p class="title">${session.user.firstName} ${session.user.lastName}</p>
+                                                <p class="my-secondary-color">${session.user.email}</p>
+                                            </div>
+                                            <div class="col s4">
+                                                <img src="../data/users/${session.user.username}/profile-picture"
+                                                     alt="${session.user.firstName}" class="circle responsive-img"
+                                                     data-beloworigin="true">
+                                            </div>
                                         </div>
-                                        <div class="user-info center">
-                                            <img src="../data/users/${session.user.username}/profile-picture"
-                                                 alt="${session.user.firstName}" class="circle profile-image"
-                                                 data-beloworigin="true">
-                                        </div>
-
                                     </li>
-                                    <li class="collection-item footer">
-                                        <a href="/logout/index" h class="btn waves-effect waves-light my-orange"><i class="material-icons left">power_settings_new</i>Sair</a>
+                                    <li class="collection-item footer right">
+                                        <a href="/logout/index" class="btn-flat waves-effect my-orange white-text">
+                                            <i class="material-icons left line-height-fixed">power_settings_new</i>
+                                            Sair
+                                        </a>
                                     </li>
                                 </ul>
                             </li>

@@ -43,13 +43,8 @@ li.logo {
     margin-bottom: 32px !important;
 }
 
-li.logo:hover, li.logo-icon:hover, li.user:hover {
-    background-color: transparent;
-}
-
 li.user a img{
-    width: 40px;
-    height: 40px;
+    width: 40px !important;
     margin-top: 10px;
 }
 
@@ -58,6 +53,10 @@ li.user a img{
     li.logo{
         margin-right: 2.5rem;
     }
+}
+
+.fixed-height {
+    height: 64px !important;
 }
 
 /*=================================================================================
@@ -258,11 +257,53 @@ a.button-collapse.top-nav {
     Collection menu
 ------------------------------------------*/
 
+.user-menu {
+    background-color: #FFFFFF;
+    /*margin: 0;*/
+    display: none;
+    min-width: 330px;
+    min-height: 0;
+    overflow: hidden; /* Changed this from overflow-y:auto; to overflow:hidden; */
+    opacity: 0;
+    /*position: absolute;*/
+    white-space: nowrap;
+    z-index: 9999;
+    will-change: width, height;
+
+    width: auto;
+    right: auto;
+    position: static;
+    top: auto;
+    margin-top: 4rem;
+    margin-right: 0rem;
+}
+
+.settings-menu {
+    background-color: #FFFFFF;
+    /*margin: 0;*/
+    display: none;
+    min-width: 305px; /* Changed this to accomodate content width */
+    min-height: 0;
+    overflow: hidden; /* Changed this from overflow-y:auto; to overflow:hidden; */
+    opacity: 0;
+    /*position: absolute;*/
+    white-space: nowrap;
+    z-index: 9999;
+    will-change: width, height;
+
+    width: auto;
+    right: auto;
+    position: static;
+    top: auto;
+    margin-top: 4rem;
+    margin-right: 0rem;
+}
+
 .collection-content {
     background-color: #FFFFFF;
     /*margin: 0;*/
     display: none;
-    min-width: 400px; /* Changed this to accomodate content width */
+    min-width: 330px;
     min-height: 0;
     overflow: hidden; /* Changed this from overflow-y:auto; to overflow:hidden; */
     opacity: 0;
@@ -305,6 +346,10 @@ a.button-collapse.top-nav {
 .title{
     font-size: 18px;
     font-weight: bold;
+}
+
+.line-height-fixed {
+    line-height: 38px !important;
 }
 
 .email{
