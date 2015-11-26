@@ -6,11 +6,11 @@
     <title>Registrar-se</title>
 </head>
 <body>
-<div class="external-container">
+<div class="container">
     <div class="row">
         <div class="card white z-depth-2 col s12 m8 l6 offset-m2 offset-l3">
             <div class="card-content">
-                <div class="card-image padding-bottom">
+                <div class="card-image" style="padding-bottom: 20px;">
                     <img src="/assets/img/logo/logo-remar-preto-transparente.png">
                 </div> <!-- card-image -->
                 <form action="/user/save" method="POST" enctype="multipart/form-data">
@@ -74,7 +74,7 @@
                             </div>
                         </div>
 
-                        <div class="input-field col s12">
+                        <div class="input-field col s12 center">
                             <div class="g-recaptcha text-center" data-sitekey="6LdA8QkTAAAAANzRpkGUT__a9B2zHlU5Mnl6EDoJ"> </div>
                         </div>
                         <div class="clearfix"></div>

@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="dashboard">
+    <meta name="layout" content="materialize-layout">
 </head>
 <body>
 

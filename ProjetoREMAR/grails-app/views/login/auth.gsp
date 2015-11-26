@@ -3,13 +3,18 @@
 <head>
     <meta name="layout" content="base">
     <title>REMAR – Login</title>
+    <style>
+        body {
+            background-color: #F2F2F2;
+        }
+    </style>
 </head>
 <body>
-<div class="external-container">
+<div class="container">
     <div class="row">
-        <div class="card white z-depth-4 col s12 m6 l4 offset-m3 offset-l4 offset-vertical-2">
-            <div class="card-content no-padding-bottom">
-                <div class="card-image padding-bottom">
+        <div class="card white col s12 m6 l4 offset-m3 offset-l4 offset-vertical-2" style="margin-top: 30px;">
+            <div class="card-content">
+                <div class="card-image" style="padding-bottom: 20px;">
                     <img src="/assets/img/logo/logo-remar-preto-transparente.png">
                 </div> <!-- card-image -->
                 <form action="/j_spring_security_check" method="POST">
