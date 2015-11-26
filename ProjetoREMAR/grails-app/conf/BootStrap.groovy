@@ -22,20 +22,20 @@ class BootStrap {
 
         def allRoles = Role.findAll()
         def found = allRoles.findAll {it.authority == "ROLE_ADMIN"}
-        if (found == []) {
+        if (!found) {
             def adminRole = new Role(authority: "ROLE_ADMIN").save flush: true
             log.info "ROLE_ADMIN inserted"
         }
 
         found = allRoles.findAll {it.authority == "ROLE_DEV"}
-        if (found == []) {
+        if (!found) {
             def devRole = new Role(authority: "ROLE_DEV").save flush: true
             log.info "ROLE_DEV inserted"
         }
 
-        def adminUser = User.findByFirstName("admin")
+        def user = User.findByFirstName("admin")
 
-        if(adminUser == null) {
+        if (!user) {
             def userInstance = new User (
                 username: "admin",
                 password: "admin",
@@ -63,18 +63,18 @@ class BootStrap {
             userInstance.gender = "M"
 
             userInstance.save flush:true
-            
+
             UserRole.create(userInstance, Role.findByAuthority("ROLE_ADMIN"), true)
             UserRole.create(userInstance, Role.findByAuthority("ROLE_DEV"), true)
 
             log.info "admin user inserted"
         }
 
-        def guestUser = User.findByFirstName("guest")
+        user = User.findByFirstName("guest")
 
-        log.info "guestUser: " + guestUser
+        log.info "guestUser: " + user
 
-        if(guestUser == null) {
+        if (!user) {
             def guestUserInstance = new User (
                 username: "guest",
                 password: "guest",
@@ -110,7 +110,7 @@ class BootStrap {
 
         def platforms = Platform.findAll();
 
-        if (platforms == []) {
+        if (!platforms) {
             new Platform(name: "Android").save flush: true
             new Platform(name: "Linux").save flush: true
             new Platform(name: "Web").save flush: true
@@ -143,7 +143,6 @@ class BootStrap {
         new RequestMap(url: '/user/index', configAttribute: 'ROLE_ADMIN').save()
 
 //            new RequestMap(url: '', configAttribute: '').save()
-
 
         log.info "Bootstrap: done"
     }
