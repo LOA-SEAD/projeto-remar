@@ -122,9 +122,9 @@
             <aside id="left-sidebar-nav">
                 <ul id="side-nav" class="side-nav fixed leftside-navigation " >
 
-                    <li class="user-details user hide-on-large-only no-hover">
+                    <li class="user-details user hide-on-large-only">
                         <div class="row li-margin valign-wrapper">
-                            <div class="col col s4 m4 l4 no-padding-left">
+                            <div class="col col s4 m4 l4">
                                 <img src="../data/users/${session.user.username}/profile-picture"
                                      alt="${session.user.firstName}" class="circle"
                                      data-beloworigin="true">
@@ -137,8 +137,7 @@
 
                     <li class="waves-effect waves-block waves-light hide-on-large-only">
                         <a href="/logout">
-                            <i class="fa fa-sign-out"></i>
-                            Sair
+                            <i class=""></i>
                         </a>
                     </li>
 

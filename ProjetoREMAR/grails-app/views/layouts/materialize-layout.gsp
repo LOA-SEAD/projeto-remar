@@ -1,78 +1,90 @@
 <g:applyLayout name="base">
-    
-    <header id="header" class="page-topbar">
+    <script>
+        $(document).ready(function() {
+            //$('#button-collapse').sideNav();
+
+            $('.dropdown-button').dropdown({
+                alignment: 'left'
+            });
+        });
+    </script>
+
+    <header>
         <div class="navbar-fixed">
-            <nav class="cyan darken-2">
-                <div class="nav-wrapper">
+            <nav class="valign-wrapper">
+                <div class="hide-on-small-only remar-max-size center">
+                    <!-- Menu for large displays -->
                     <ul class="left">
                         <li>
-                            <h1 class="logo-wrapper">
-                                <a href="/dashboard" class="brand-logo darken-1">
-                                    <img src="/assets/img/logo/logo-remar-branco-transparente.png" alt="Logo do Remar" width="200" height="60" />
-                                </a>
-                            </h1>
+                            <a href="/" class="valign-wrapper">
+                                <img src="/images/logo/logo-remar-branco-transparente.png" class="logo" />
+                            </a>
                         </li>
                     </ul>
 
-                    <div class="header-search-wrapper hide-on-med-and-down">
-                        <i class="mdi-action-search active"></i>
-                        <input type="text" name="search" class="header-search-input z-depth-2" placeholder="Pesquise no REMAR">
-                    </div>
-
-                    <ul class="right hide-on-med-and-down">
-                        <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light"><i class="mdi-social-notifications"></i></a>
+                    <ul class="right">
+                        <li>
+                            <a href="#" data-activates="dropdown-settings" class="dropdown-button waves-effect">
+                                <i class="material-icons">settings</i>
+                            </a>
                         </li>
-                        <li><a href="#" data-activates="chat-out" class="waves-effect waves-block waves-light chat-collapse"><i class="mdi-communication-chat"></i></a>
+                        <!-- dropdown-settings -->
+                        <ul id="dropdown-settings" class="my-dropdown-menu collection">
+                            <li class="collection-item">
+                                <a href="/resource/index">
+                                    <i class="left material-icons">code</i>
+                                    Tornar-se um desenvolvedor
+                                </a>
+                            </li>
+                            <li class="collection-item">
+                                <div class="valign-wrapper">
+                                    <a href="/resource/index">
+                                        <i class="left material-icons">school</i>
+                                        Vincular conta ao Moodle
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                        <li>
+                            <a href="#" data-activates="dropdown-user" class="dropdown-button">
+                                <img src="../data/users/${session.user.username}/profile-picture"
+                                     alt="${session.user.firstName}" class="circle profile-pic"
+                                     data-beloworigin="true">
+                            </a>
                         </li>
+                        <ul id="dropdown-user" class="my-dropdown-menu collection">
+                            <li class="collection-item">
+                                <div class="row valign-wrapper no-margin-bottom">
+                                    <div class="col s8 center">
+                                        <p class="title">${session.user.firstName} ${session.user.lastName}</p>
+                                        <p class="secondary-color">${session.user.email}</p>
+                                    </div>
+                                    <div class="col s4">
+                                        <img src="../data/users/${session.user.username}/profile-picture"
+                                             alt="${session.user.firstName}" class="circle responsive-img" data-beloworigin="true">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="collection-item footer right">
+                                <a href="/logout/index" class="btn-flat waves-effect my-orange white-text">
+                                    <i class="material-icons left">power_settings_new</i>
+                                    Sair
+                                </a>
+                            </li>
+                        </ul>
                     </ul>
                 </div>
             </nav>
         </div>
     </header>
 
-    <div id="main">
-        <div class="wrapper">
-            <aside id="left-sidebar-nav">
-                <ul id="slide-out" class="side-nav fixed leftside-navigation ps-container ps-active-y" style="width: 240px;">
-                    <li class="user-details cyan darken-2">
-                        <div class="row">
-                            <div class="col col s4 m4 l4">
-                                <img src="/assets/img/inside/avatar.png" alt="Imagem do usuário" class="circle responsive-img valign profile-image" />
-                            </div>
-                            <div class="col col s8 m8 l8">
-                                <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown">
-                                    ${session.user.firstName}
-                                    <i class="mdi-navigation-arrow-drop-down right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="bold active">
-                        <a href="/dashboard" class="waves-effect waves-cyan">
-                            <i class="mdi-action-dashboard"></i>
-                            Dashboard
-                        </a>
-                    </li>
-                    <li class="bold">
-                        <a href="" class="waves-effect waves-cyan">
-                            <i class="mdi-action-swap-vert-circle"></i>
-                            Meus Processos
-                        </a>
-                    </li>
-                    <li class="bold">
-                        <a href="" class="waves-effect waves-cyan">
-                            <i class="mdi-editor-insert-comment"></i>
-                            Tarefas pendentes
-                        </a>
-                    </li>
-                </ul>
-            </aside>
+    <div class="remar-max-size center min-height-size margin-top">
+        <div id="left-menu" class="left-sidebar-nav left">
+            <g:applyLayout name="menu" />
+        </div>
 
-            <section id="content">
-                <div class="container">
-                    <g:layoutBody/>
-                </div>
-            </section>
+        <div class="content min-height-size right">
+            <g:layoutBody />
         </div>
     </div>
 
