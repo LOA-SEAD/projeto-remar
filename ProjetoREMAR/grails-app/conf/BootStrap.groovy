@@ -5,8 +5,6 @@ import br.ufscar.sead.loa.remar.UserRole
 import br.ufscar.sead.loa.remar.User
 import grails.util.Environment
 import org.camunda.bpm.engine.IdentityService
-import org.camunda.bpm.engine.identity.Group
-import org.codehaus.groovy.grails.io.support.GrailsResourceUtils
 
 import javax.servlet.http.HttpServletRequest
 
@@ -16,38 +14,38 @@ class BootStrap {
 
     def init = { servletContext ->
 
-        HttpServletRequest.metaClass.isXhr = {->
+        HttpServletRequest.metaClass.isXhr = { ->
             'XMLHttpRequest' == delegate.getHeader('X-Requested-With')
         }
 
         def allRoles = Role.findAll()
-        def found = allRoles.findAll {it.authority == "ROLE_ADMIN"}
-        if (found == []) {
+        def found = allRoles.findAll { it.authority == "ROLE_ADMIN" }
+        if (!found) {
             def adminRole = new Role(authority: "ROLE_ADMIN").save flush: true
             log.info "ROLE_ADMIN inserted"
         }
 
-        found = allRoles.findAll {it.authority == "ROLE_DEV"}
-        if (found == []) {
+        found = allRoles.findAll { it.authority == "ROLE_DEV" }
+        if (!found) {
             def devRole = new Role(authority: "ROLE_DEV").save flush: true
             log.info "ROLE_DEV inserted"
         }
 
-        def adminUser = User.findByFirstName("admin")
+        def user = User.findByFirstName("admin")
 
-        if(adminUser == null) {
-            def userInstance = new User (
-                username: "admin",
-                password: "admin",
-                email: "admin@gmail.com",
-                firstName: "Admin",
-                lastName: "User",
-                gender: 'male',
-                enabled: true,
-                camunda_id: "admin"
+        if (!user) {
+            def userInstance = new User(
+                    username: "admin",
+                    password: "admin",
+                    email: "admin@gmail.com",
+                    firstName: "Admin",
+                    lastName: "User",
+                    gender: 'male',
+                    enabled: true,
+                    camunda_id: "admin"
             )
 
-            if(Environment.current == Environment.PRODUCTION) {
+            if (Environment.current == Environment.PRODUCTION) {
                 userInstance.password = grailsApplication.config.root.password
             }
 
@@ -62,31 +60,31 @@ class BootStrap {
             userInstance.camunda_id = camundaUser.getId()
             userInstance.gender = "M"
 
-            userInstance.save flush:true
-            
+            userInstance.save flush: true
+
             UserRole.create(userInstance, Role.findByAuthority("ROLE_ADMIN"), true)
             UserRole.create(userInstance, Role.findByAuthority("ROLE_DEV"), true)
 
             log.info "admin user inserted"
         }
 
-        def guestUser = User.findByFirstName("guest")
+        user = User.findByFirstName("guest")
 
-        log.info "guestUser: " + guestUser
+        log.info "guestUser: " + user
 
-        if(guestUser == null) {
-            def guestUserInstance = new User (
-                username: "guest",
-                password: "guest",
-                email: "guest@gmail.com",
-                firstName: "Guest",
-                lastName: "User",
-                gender: 'female',
-                enabled: true,
-                camunda_id: "guest"
+        if (!user) {
+            def guestUserInstance = new User(
+                    username: "guest",
+                    password: "guest",
+                    email: "guest@gmail.com",
+                    firstName: "Guest",
+                    lastName: "User",
+                    gender: 'female',
+                    enabled: true,
+                    camunda_id: "guest"
             )
 
-            if(Environment.current == Environment.PRODUCTION) {
+            if (Environment.current == Environment.PRODUCTION) {
                 guestUserInstance.password = grailsApplication.config.root.password
             }
 
@@ -101,7 +99,7 @@ class BootStrap {
             guestUserInstance.camunda_id = camundaGuestUser.getId()
             guestUserInstance.gender = "M"
 
-            guestUserInstance.save flush:true
+            guestUserInstance.save flush: true
             UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_PROF"), true)
             UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_DEV"), true)
 
@@ -110,14 +108,14 @@ class BootStrap {
 
         def platforms = Platform.findAll();
 
-        if (platforms == []) {
+        if (!platforms) {
             new Platform(name: "Android").save flush: true
             new Platform(name: "Linux").save flush: true
             new Platform(name: "Web").save flush: true
             new Platform(name: "Moodle").save flush: true
         }
 
-        if (Environment.current ==  Environment.DEVELOPMENT) {
+        if (Environment.current == Environment.DEVELOPMENT) {
             RequestMap.findAll().each { it.delete flush: true }
         }
 
@@ -142,8 +140,7 @@ class BootStrap {
         new RequestMap(url: '/process/undeploy', configAttribute: 'ROLE_ADMIN').save()
         new RequestMap(url: '/user/index', configAttribute: 'ROLE_ADMIN').save()
 
-//            new RequestMap(url: '', configAttribute: '').save()
-
+        // new RequestMap(url: '', configAttribute: '').save()
 
         log.info "Bootstrap: done"
     }
