@@ -5,8 +5,6 @@ import br.ufscar.sead.loa.remar.UserRole
 import br.ufscar.sead.loa.remar.User
 import grails.util.Environment
 import org.camunda.bpm.engine.IdentityService
-import org.camunda.bpm.engine.identity.Group
-import org.codehaus.groovy.grails.io.support.GrailsResourceUtils
 
 import javax.servlet.http.HttpServletRequest
 
