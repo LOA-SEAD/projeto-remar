@@ -14,18 +14,18 @@ class BootStrap {
 
     def init = { servletContext ->
 
-        HttpServletRequest.metaClass.isXhr = {->
+        HttpServletRequest.metaClass.isXhr = { ->
             'XMLHttpRequest' == delegate.getHeader('X-Requested-With')
         }
 
         def allRoles = Role.findAll()
-        def found = allRoles.findAll {it.authority == "ROLE_ADMIN"}
+        def found = allRoles.findAll { it.authority == "ROLE_ADMIN" }
         if (!found) {
             def adminRole = new Role(authority: "ROLE_ADMIN").save flush: true
             log.info "ROLE_ADMIN inserted"
         }
 
-        found = allRoles.findAll {it.authority == "ROLE_DEV"}
+        found = allRoles.findAll { it.authority == "ROLE_DEV" }
         if (!found) {
             def devRole = new Role(authority: "ROLE_DEV").save flush: true
             log.info "ROLE_DEV inserted"
@@ -34,18 +34,18 @@ class BootStrap {
         def user = User.findByFirstName("admin")
 
         if (!user) {
-            def userInstance = new User (
-                username: "admin",
-                password: "admin",
-                email: "admin@gmail.com",
-                firstName: "Admin",
-                lastName: "User",
-                gender: 'male',
-                enabled: true,
-                camunda_id: "admin"
+            def userInstance = new User(
+                    username: "admin",
+                    password: "admin",
+                    email: "admin@gmail.com",
+                    firstName: "Admin",
+                    lastName: "User",
+                    gender: 'male',
+                    enabled: true,
+                    camunda_id: "admin"
             )
 
-            if(Environment.current == Environment.PRODUCTION) {
+            if (Environment.current == Environment.PRODUCTION) {
                 userInstance.password = grailsApplication.config.root.password
             }
 
@@ -60,7 +60,7 @@ class BootStrap {
             userInstance.camunda_id = camundaUser.getId()
             userInstance.gender = "M"
 
-            userInstance.save flush:true
+            userInstance.save flush: true
 
             UserRole.create(userInstance, Role.findByAuthority("ROLE_ADMIN"), true)
             UserRole.create(userInstance, Role.findByAuthority("ROLE_DEV"), true)
@@ -73,18 +73,18 @@ class BootStrap {
         log.info "guestUser: " + user
 
         if (!user) {
-            def guestUserInstance = new User (
-                username: "guest",
-                password: "guest",
-                email: "guest@gmail.com",
-                firstName: "Guest",
-                lastName: "User",
-                gender: 'female',
-                enabled: true,
-                camunda_id: "guest"
+            def guestUserInstance = new User(
+                    username: "guest",
+                    password: "guest",
+                    email: "guest@gmail.com",
+                    firstName: "Guest",
+                    lastName: "User",
+                    gender: 'female',
+                    enabled: true,
+                    camunda_id: "guest"
             )
 
-            if(Environment.current == Environment.PRODUCTION) {
+            if (Environment.current == Environment.PRODUCTION) {
                 guestUserInstance.password = grailsApplication.config.root.password
             }
 
@@ -99,7 +99,7 @@ class BootStrap {
             guestUserInstance.camunda_id = camundaGuestUser.getId()
             guestUserInstance.gender = "M"
 
-            guestUserInstance.save flush:true
+            guestUserInstance.save flush: true
             UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_PROF"), true)
             UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_DEV"), true)
 
@@ -115,7 +115,7 @@ class BootStrap {
             new Platform(name: "Moodle").save flush: true
         }
 
-        if (Environment.current ==  Environment.DEVELOPMENT) {
+        if (Environment.current == Environment.DEVELOPMENT) {
             RequestMap.findAll().each { it.delete flush: true }
         }
 
@@ -140,7 +140,7 @@ class BootStrap {
         new RequestMap(url: '/process/undeploy', configAttribute: 'ROLE_ADMIN').save()
         new RequestMap(url: '/user/index', configAttribute: 'ROLE_ADMIN').save()
 
-//            new RequestMap(url: '', configAttribute: '').save()
+        // new RequestMap(url: '', configAttribute: '').save()
 
         log.info "Bootstrap: done"
     }
