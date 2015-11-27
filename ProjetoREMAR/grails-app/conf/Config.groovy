@@ -16,25 +16,24 @@ grails.config.locations = ["classpath:env.properties"]
 // }
 
 
-
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 
 // The ACCEPT header will not be used for content negotiation for user agents containing the following strings (defaults to the 4 major rendering engines)
 grails.mime.disable.accept.header.userAgents = ['Gecko', 'WebKit', 'Presto', 'Trident']
 grails.mime.types = [ // the first one is the default format
-    all:           '*/*', // 'all' maps to '*' or the first available format in withFormat
-    atom:          'application/atom+xml',
-    css:           'text/css',
-    csv:           'text/csv',
-    form:          'application/x-www-form-urlencoded',
-    html:          ['text/html','application/xhtml+xml'],
-    js:            'text/javascript',
-    json:          ['application/json', 'text/json'],
-    multipartForm: 'multipart/form-data',
-    rss:           'application/rss+xml',
-    text:          'text/plain',
-    hal:           ['application/hal+json','application/hal+xml'],
-    xml:           ['text/xml', 'application/xml']
+                      all          : '*/*', // 'all' maps to '*' or the first available format in withFormat
+                      atom         : 'application/atom+xml',
+                      css          : 'text/css',
+                      csv          : 'text/csv',
+                      form         : 'application/x-www-form-urlencoded',
+                      html         : ['text/html', 'application/xhtml+xml'],
+                      js           : 'text/javascript',
+                      json         : ['application/json', 'text/json'],
+                      multipartForm: 'multipart/form-data',
+                      rss          : 'application/rss+xml',
+                      text         : 'text/plain',
+                      hal          : ['application/hal+json', 'application/hal+xml'],
+                      xml          : ['text/xml', 'application/xml']
 ]
 
 // URL Mapping Cache Max Size, defaults to 5000
@@ -67,10 +66,10 @@ grails {
 
 
 grails.converters.encoding = "UTF-8"
-grails.converters.json.default.deep=true
+grails.converters.json.default.deep = true
 // scaffolding templates configuration
 //grails.scaffolding.templates.domainSuffix = 'Instance'    
-grails.web.disable.multipart=true
+grails.web.disable.multipart = true
 // twitter bootstrap
 grails.plugins.twitterbootstrap.fixtaglib = true
 grails.plugins.twitterbootstrap.defaultBundle = 'false'
@@ -82,7 +81,7 @@ grails.enable.native2ascii = true
 // packages to include in Spring bean scanning
 grails.spring.bean.packages = []
 // whether to disable processing of multi part requests
-grails.web.disable.multipart=false
+grails.web.disable.multipart = false
 
 // request parameters to mask when logging exceptions
 grails.exceptionresolver.params.exclude = ['password']
@@ -108,8 +107,8 @@ environments {
             time = 5
             allowedNumberOfAttempts = 3
         }
-	camunda {
-        deployment.scenario = 'embedded'
+        camunda {
+            deployment.scenario = 'embedded'
             engine {
                 configuration {
                     databaseSchemaUpdate = true
@@ -125,10 +124,10 @@ environments {
                 port = 465
                 username = "loa.remar@gmail.com"
                 password = "L04_Remar!"
-                props = ["mail.smtp.auth":"true",
-                         "mail.smtp.socketFactory.port":"465",
-                         "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
-                         "mail.smtp.socketFactory.fallback":"false"]
+                props = ["mail.smtp.auth"                  : "true",
+                         "mail.smtp.socketFactory.port"    : "465",
+                         "mail.smtp.socketFactory.class"   : "javax.net.ssl.SSLSocketFactory",
+                         "mail.smtp.socketFactory.fallback": "false"]
 
             }
         }
@@ -169,10 +168,10 @@ environments {
                 port = 465
                 username = "loa.remar@gmail.com"
                 password = "L04_Remar!"
-                props = ["mail.smtp.auth":"true",
-                         "mail.smtp.socketFactory.port":"465",
-                         "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
-                         "mail.smtp.socketFactory.fallback":"false"]
+                props = ["mail.smtp.auth"                  : "true",
+                         "mail.smtp.socketFactory.port"    : "465",
+                         "mail.smtp.socketFactory.class"   : "javax.net.ssl.SSLSocketFactory",
+                         "mail.smtp.socketFactory.fallback": "false"]
 
             }
         }
@@ -184,29 +183,29 @@ log4j.main = {
     // Example of changing the log pattern for the default console appender:
     //
 
-appenders {
-appender new DailyRollingFileAppender(
-name: 'dailyAppender',
-datePattern: "'.'yyyy-MM-dd",  // See the API for all patterns.
-fileName: "logs/${grails.util.Metadata.current.'app.name'}.log",
-layout: pattern(conversionPattern:'%d [%t] %-5p %c{2} %x - %m%n'))
-}
+    appenders {
+        appender new DailyRollingFileAppender(
+                name: 'dailyAppender',
+                datePattern: "'.'yyyy-MM-dd",  // See the API for all patterns.
+                fileName: "logs/${grails.util.Metadata.current.'app.name'}.log",
+                layout: pattern(conversionPattern: '%d [%t] %-5p %c{2} %x - %m%n'))
+    }
 
-root {
-info 'dailyAppender'
-} 
+    root {
+        info 'dailyAppender'
+    }
 
-    error  'org.codehaus.groovy.grails.web.servlet',        // controllers
-           'org.codehaus.groovy.grails.web.pages',          // GSP
-           'org.codehaus.groovy.grails.web.sitemesh',       // layouts
-           'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
-           'org.codehaus.groovy.grails.web.mapping',        // URL mapping
-           'org.codehaus.groovy.grails.commons',            // core / classloading
-           'org.codehaus.groovy.grails.plugins',            // plugins
-           'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
-           'org.springframework',
-           'org.hibernate',
-           'net.sf.ehcache.hibernate'
+    error 'org.codehaus.groovy.grails.web.servlet',        // controllers
+            'org.codehaus.groovy.grails.web.pages',          // GSP
+            'org.codehaus.groovy.grails.web.sitemesh',       // layouts
+            'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
+            'org.codehaus.groovy.grails.web.mapping',        // URL mapping
+            'org.codehaus.groovy.grails.commons',            // core / classloading
+            'org.codehaus.groovy.grails.plugins',            // plugins
+            'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
+            'org.springframework',
+            'org.hibernate',
+            'net.sf.ehcache.hibernate'
 }
 
 // Added by the Spring Security Core plugin:
@@ -227,7 +226,7 @@ grails.plugin.springsecurity.onInteractiveAuthenticationSuccessEvent = { e, cont
 
 grails.plugin.springsecurity.interceptUrlMap = [
         "/j_spring_security_facebook_redirect": ["IS_AUTHENTICATED_ANONYMOUSLY"],
-        "/j_spring_security_facebook_check":    ["IS_AUTHENTICATED_ANONYMOUSLY"],
+        "/j_spring_security_facebook_check"   : ["IS_AUTHENTICATED_ANONYMOUSLY"],
 
 ]
 
@@ -236,22 +235,22 @@ grails {
     plugin {
         facebooksdk {
             app = [
-                    controller: 'facebook',
-                    id: 1621035434837394,
-                    permissions:  ['email','user_photos','public_profile'],
-                    secret: '0a70357ea42707a19d7fa38e080d20e1'
+                    controller : 'facebook',
+                    id         : 1621035434837394,
+                    permissions: ['email', 'user_photos', 'public_profile'],
+                    secret     : '0a70357ea42707a19d7fa38e080d20e1'
             ]
         }
     }
 }
 
-grails.plugin.springsecurity.facebook.autoCreate.enabled=true
-grails.plugin.springsecurity.facebook.autoCreate.roles=['ROLE_USER', 'ROLE_FACEBOOK','ROLE_STUD']
-grails.plugin.springsecurity.facebook.filter.type='redirect'
+grails.plugin.springsecurity.facebook.autoCreate.enabled = true
+grails.plugin.springsecurity.facebook.autoCreate.roles = ['ROLE_USER', 'ROLE_FACEBOOK', 'ROLE_STUD']
+grails.plugin.springsecurity.facebook.filter.type = 'redirect'
 
 
-facebook.applicationSecret='0a70357ea42707a19d7fa38e080d20e1'
-facebook.applicationId='1621035434837394'
+facebook.applicationSecret = '0a70357ea42707a19d7fa38e080d20e1'
+facebook.applicationId = '1621035434837394'
 //grails.plugin.springsecurity.facebook.domain.classname='br.ufscar.sead.loa.remar.FacebookUser'
 //grails.plugin.springsecurity.facebook.appId='1621035434837394'
 //grails.plugin.springsecurity.facebook.secret='0a70357ea42707a19d7fa38e080d20e1'
