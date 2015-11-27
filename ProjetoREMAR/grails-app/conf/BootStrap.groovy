@@ -4,12 +4,10 @@ import br.ufscar.sead.loa.remar.Role
 import br.ufscar.sead.loa.remar.UserRole
 import br.ufscar.sead.loa.remar.User
 import grails.util.Environment
-import org.camunda.bpm.engine.IdentityService
 
 import javax.servlet.http.HttpServletRequest
 
 class BootStrap {
-    IdentityService identityService
     def grailsApplication
 
     def init = { servletContext ->
@@ -18,23 +16,15 @@ class BootStrap {
             'XMLHttpRequest' == delegate.getHeader('X-Requested-With')
         }
 
-        def allRoles = Role.findAll()
-        def found = allRoles.findAll { it.authority == "ROLE_ADMIN" }
-        if (!found) {
-            def adminRole = new Role(authority: "ROLE_ADMIN").save flush: true
-            log.info "ROLE_ADMIN inserted"
+        if (!Role.list()) {
+            new Role(authority: "ROLE_ADMIN").save flush: true
+            new Role(authority: "ROLE_DEV").save flush: true
+            
+            log.debug "Roles: ok"
         }
 
-        found = allRoles.findAll { it.authority == "ROLE_DEV" }
-        if (!found) {
-            def devRole = new Role(authority: "ROLE_DEV").save flush: true
-            log.info "ROLE_DEV inserted"
-        }
-
-        def user = User.findByFirstName("admin")
-
-        if (!user) {
-            def userInstance = new User(
+        if (!User.list()) {
+            def admin = new User(
                     username: "admin",
                     password: "admin",
                     email: "admin@gmail.com",
@@ -45,35 +35,7 @@ class BootStrap {
                     camunda_id: "admin"
             )
 
-            if (Environment.current == Environment.PRODUCTION) {
-                userInstance.password = grailsApplication.config.root.password
-            }
-
-            org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
-
-            camundaUser.setEmail(userInstance.email)
-            camundaUser.setFirstName(userInstance.firstName)
-            camundaUser.setPassword(userInstance.password)
-            camundaUser.setId(userInstance.username)
-            identityService.saveUser(camundaUser)
-
-            userInstance.camunda_id = camundaUser.getId()
-            userInstance.gender = "M"
-
-            userInstance.save flush: true
-
-            UserRole.create(userInstance, Role.findByAuthority("ROLE_ADMIN"), true)
-            UserRole.create(userInstance, Role.findByAuthority("ROLE_DEV"), true)
-
-            log.info "admin user inserted"
-        }
-
-        user = User.findByFirstName("guest")
-
-        log.info "guestUser: " + user
-
-        if (!user) {
-            def guestUserInstance = new User(
+            def guest = new User(
                     username: "guest",
                     password: "guest",
                     email: "guest@gmail.com",
@@ -85,25 +47,17 @@ class BootStrap {
             )
 
             if (Environment.current == Environment.PRODUCTION) {
-                guestUserInstance.password = grailsApplication.config.root.password
+                admin.password = grailsApplication.config.root.password
+                guest.password = grailsApplication.config.root.password
             }
 
-            org.camunda.bpm.engine.identity.User camundaGuestUser = identityService.newUser(guestUserInstance.username)
+            admin.save flush: true
+            guest.save flush: true
 
-            camundaGuestUser.setEmail(guestUserInstance.email)
-            camundaGuestUser.setFirstName(guestUserInstance.firstName)
-            camundaGuestUser.setPassword(guestUserInstance.password)
-            camundaGuestUser.setId(guestUserInstance.username)
-            identityService.saveUser(camundaGuestUser)
+            UserRole.create admin, Role.findByAuthority("ROLE_ADMIN"), true
+            UserRole.create admin, Role.findByAuthority("ROLE_DEV"), true
 
-            guestUserInstance.camunda_id = camundaGuestUser.getId()
-            guestUserInstance.gender = "M"
-
-            guestUserInstance.save flush: true
-            UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_PROF"), true)
-            UserRole.create(guestUserInstance, Role.findByAuthority("ROLE_DEV"), true)
-
-            log.info "guest user inserted"
+            log.debug "Users: ok"
         }
 
         def platforms = Platform.findAll();
@@ -113,36 +67,45 @@ class BootStrap {
             new Platform(name: "Linux").save flush: true
             new Platform(name: "Web").save flush: true
             new Platform(name: "Moodle").save flush: true
+
+            log.debug "Platforms: ok"
         }
 
         if (Environment.current == Environment.DEVELOPMENT) {
             RequestMap.findAll().each { it.delete flush: true }
         }
 
-        for (url in [
-                '/', '/index', '/index/info', '/doc/**', '/assets/**', '/**/js/**', '/**/css/**', '/**/images/**',
-                '/**/favicon.ico', '/data/**', '/**/scss/**', '/**/less/**', '/**/fonts/**', '/**/font/**',
-                '/password/**', '/moodle/**', '/exportedGame/**', '/static/**', '/login/**', '/logout/**', '/signup/**', '/user/**',
-                '/facebook/**']) {
-            new RequestMap(url: url, configAttribute: 'permitAll').save()
+        if (!RequestMap.list()) { // will be true if env == dev or if first run in production
+            for (url in [
+                    '/', '/index', '/index/info', '/doc/**', '/assets/**', '/**/js/**', '/**/css/**', '/**/images/**',
+                    '/**/favicon.ico', '/data/**', '/**/scss/**', '/**/less/**', '/**/fonts/**', '/**/font/**',
+                    '/password/**', '/moodle/**', '/exportedGame/**', '/static/**', '/login/**', '/logout/**', '/signup/**', '/user/**',
+                    '/facebook/**']) {
+                new RequestMap(url: url, configAttribute: 'permitAll').save()
+            }
+
+            for (url in [
+                    '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/frame/**'
+            ]) {
+                new RequestMap(url: url, configAttribute: 'IS_AUTHENTICATED_FULLY').save()
+            }
+
+            for (url in [
+                    '/resource/edit', '/resource/review', '/process/deploy', '/process/undeploy',
+            ]) {
+                new RequestMap(url: url, configAttribute: 'ROLE_ADMIN').save()
+            }
+
+            for (url in [
+                    '/resource/**'
+            ]) {
+                new RequestMap(url: url, configAttribute: 'ROLE_DEV').save()
+            }
+
+            log.debug "RequestMaps: ok"
         }
 
-        for (url in [
-                '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/frame/**'
-        ]) {
-            new RequestMap(url: url, configAttribute: 'IS_AUTHENTICATED_FULLY').save()
-        }
-
-        new RequestMap(url: '/resource/**', configAttribute: 'ROLE_DEV').save()
-        new RequestMap(url: '/resource/edit', configAttribute: 'ROLE_ADMIN').save()
-        new RequestMap(url: '/resource/review', configAttribute: 'ROLE_ADMIN').save()
-        new RequestMap(url: '/process/deploy', configAttribute: 'ROLE_ADMIN').save()
-        new RequestMap(url: '/process/undeploy', configAttribute: 'ROLE_ADMIN').save()
-        new RequestMap(url: '/user/index', configAttribute: 'ROLE_ADMIN').save()
-
-        // new RequestMap(url: '', configAttribute: '').save()
-
-        log.info "Bootstrap: done"
+        log.debug "Bootstrap: done"
     }
     def destroy = {
     }
