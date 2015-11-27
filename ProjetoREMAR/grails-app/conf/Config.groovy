@@ -179,16 +179,14 @@ environments {
 }
 
 // log4j configuration
-log4j.main = {
-    // Example of changing the log pattern for the default console appender:
-    //
-
+log4j = { // TODO: different configs for dev & production
     appenders {
         appender new DailyRollingFileAppender(
                 name: 'dailyAppender',
                 datePattern: "'.'yyyy-MM-dd",  // See the API for all patterns.
                 fileName: "logs/${grails.util.Metadata.current.'app.name'}.log",
                 layout: pattern(conversionPattern: '%d [%t] %-5p %c{2} %x - %m%n'))
+        console name: "stdout" // TODO: define a pattern/layout
     }
 
     root {
@@ -206,6 +204,7 @@ log4j.main = {
             'org.springframework',
             'org.hibernate',
             'net.sf.ehcache.hibernate'
+    debug additivity: false, stdout: ['grails.app.controllers.br.ufscar', 'grails.app.conf', 'grails.app.domain']
 }
 
 // Added by the Spring Security Core plugin:
