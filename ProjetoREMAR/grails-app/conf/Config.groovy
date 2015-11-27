@@ -6,7 +6,7 @@ import org.apache.log4j.DailyRollingFileAppender
 // config files can be ConfigSlurper scripts, Java properties files, or classes
 // in the classpath in ConfigSlurper format
 
-// grails.config.locations = [ "classpath:${appName}-config.properties",
+grails.config.locations = ["classpath:env.properties"]
 //                             "classpath:${appName}-config.groovy",
 //                             "file:${userHome}/.grails/${appName}-config.properties",
 //                             "file:${userHome}/.grails/${appName}-config.groovy"]
@@ -101,7 +101,6 @@ grails.hibernate.osiv.readonly = false
 
 environments {
     development {
-        grails.config.locations = ["classpath:moodle.properties"]
         grails.logging.jul.usebridge = true
         //grails.serverURL = "http://myapp.dev:9090"
         grails.app.context = "/"
@@ -147,8 +146,6 @@ environments {
 //        }
     }
     production {
-
-        grails.config.locations = ["classpath:remar.properties", "classpath:moodle.properties"]
 
         grails.logging.jul.usebridge = false
 //        grails.serverURL = "http://localhost:8080"
