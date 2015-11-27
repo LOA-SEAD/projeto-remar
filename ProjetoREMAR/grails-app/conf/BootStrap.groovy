@@ -26,7 +26,7 @@ class BootStrap {
         if (!User.list()) {
             def admin = new User(
                     username: "admin",
-                    password: "admin",
+                    password: grailsApplication.config.password,
                     email: "admin@gmail.com",
                     firstName: "Admin",
                     lastName: "User",
@@ -37,7 +37,7 @@ class BootStrap {
 
             def guest = new User(
                     username: "guest",
-                    password: "guest",
+                    password: grailsApplication.config.password,
                     email: "guest@gmail.com",
                     firstName: "Guest",
                     lastName: "User",
@@ -45,11 +45,6 @@ class BootStrap {
                     enabled: true,
                     camunda_id: "guest"
             )
-
-            if (Environment.current == Environment.PRODUCTION) {
-                admin.password = grailsApplication.config.root.password
-                guest.password = grailsApplication.config.root.password
-            }
 
             admin.save flush: true
             guest.save flush: true

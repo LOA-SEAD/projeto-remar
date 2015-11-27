@@ -43,5 +43,6 @@ stacktrace.log
 /web-app/processes
 /web-app/published
 /web-app/wars
+/grails-app/conf/env.properties
 
 # end REMAR stuff
