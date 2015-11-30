@@ -160,10 +160,11 @@ class UserController {
         def userIP = request.getRemoteAddr()
         def recaptchaResponse = params.get("g-recaptcha-response")
         def rest = new RestBuilder()
-
         def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?" +
-                "secret=6LdA8QkTAAAAACHA9KoBPT1BXXBrJpQNJfCGTm9x&response=" + recaptchaResponse + "&remoteip=" + userIP)
-        if(resp.json.success){
+                "secret=6LdA8QkTAAAAACHA9KoBPT1BXXBrJpQNJfCGTm9x&response=${recaptchaResponse}&remoteip=${userIP}")
+        def test = params.email.contains('@remar') // bypass captcha & email validation
+
+        if(resp.json.success || test){
             if (instance == null) {
                 notFound()
                 return
@@ -171,7 +172,6 @@ class UserController {
 
             if (instance.hasErrors()) { // TODO
                 respond instance.errors, view:'create'
-                println instance.errors
                 return
             }
 
@@ -187,52 +187,14 @@ class UserController {
                 new AntBuilder().copy(file: "${root}images/avatars/${instance.gender}.png", tofile: destination)
             }
 
-            if (Environment.current == Environment.DEVELOPMENT) {
-                instance.accountExpired = false
-                instance.accountLocked = false
-                instance.enabled = true
-                instance.passwordExpired = false
+            instance.enabled = test
 
-                org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(instance.username)
-                camundaUser.setEmail(instance.email)
-                camundaUser.setFirstName(instance.firstName)
-                camundaUser.setLastName(instance.lastName)
-                camundaUser.setPassword(instance.password)
-                camundaUser.setId(instance.username)
-                identityService.saveUser(camundaUser)
-
-                instance.camunda_id = camundaUser.id
-                instance.save flush: true
-                sendConfirmationMail(instance.getEmail(), instance.getId())
-
-            } else {
-                instance.accountExpired = false
-                instance.accountLocked = true //Before user confirmation
-                instance.enabled = false        // Before user confirmation
-                instance.passwordExpired = false
-                instance.setGender(instance.gender) //teste
-
-                org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(instance.username)
-                camundaUser.setEmail(instance.email)
-                camundaUser.setFirstName(instance.firstName)
-                camundaUser.setLastName(instance.lastName)
-                camundaUser.setPassword(instance.password)
-                camundaUser.setId(instance.username)
-                identityService.saveUser(camundaUser)
-
-                instance.camunda_id = camundaUser.id
-                instance.save flush: true
-                sendConfirmationMail(instance.getEmail(), instance.getId())
-            }
+            instance.save flush: true
+            sendConfirmationMail(instance.getEmail(), instance.getId())
 
             redirect uri: "/signup/success/$instance.id"
-        }
-        else{
-//            flash.message = message(code: 'bla')
-//            //flash.message = message("Clique no recpatcha")
-//            redirect (controller: "user", action: "create")
-
-            //VALIDACAO SENDO FEITA NO CLIENTE
+        } else {
+            // TODO
         }
 
     }
