@@ -24,6 +24,7 @@ class UserController {
     def springSecurityService
     MailService mailService
 //    FacebookGraphService facebookGraphService
+    def grailsApplication
 
     IdentityService identityService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", filteredList: "POST"]
@@ -162,7 +163,7 @@ class UserController {
         def recaptchaResponse = params.get("g-recaptcha-response")
         def rest = new RestBuilder()
         def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?" +
-                "secret=6LdA8QkTAAAAACHA9KoBPT1BXXBrJpQNJfCGTm9x&response=${recaptchaResponse}&remoteip=${userIP}")
+                "secret${grailsApplication.config.recaptchaSecret}=&response=${recaptchaResponse}&remoteip=${userIP}")
         def test = params.email.contains('@remar') // bypass captcha & email validation
 
         if (resp.json.success || test) {
