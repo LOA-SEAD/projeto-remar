@@ -39,17 +39,17 @@ class UserController {
     }
 
     def create() {
-        respond new User(params), model:[admin: false, stud: false, dev: false, source: "create"]
+        respond new User(params), model: [admin: false, stud: false, dev: false, source: "create"]
     }
 
     def test() {
         render view: "test"
     }
 
-    @Transactional(readOnly=false)
+    @Transactional(readOnly = false)
     def confirmAccount() {
         def token = EmailToken.findByTokenAndValid(params.token, true)
-        if(token) {
+        if (token) {
             def user = User.findById(token.idOwner)
 
             user.accountLocked = false
@@ -81,12 +81,13 @@ class UserController {
                     "http://${request.serverName}:${request.serverPort}/user/account/confirm/${token.token}"
         }
     }
-    @Transactional(readOnly=false)
-    def newPassword(){
+
+    @Transactional(readOnly = false)
+    def newPassword() {
         // vai receber aqui a nova senha por post
 
 
-        if(params.newPassword == params.confirmPassword){
+        if (params.newPassword == params.confirmPassword) {
             def user = User.findById(params.userid)
 //            user.passwordExpired = false      NAO!
             user.password = params.confirmPassword
@@ -99,19 +100,19 @@ class UserController {
 
     }
 
-    @Transactional(readOnly=false)
-    def createPassword(){
-        if(PasswordToken.findByToken(params.Token)){
+    @Transactional(readOnly = false)
+    def createPassword() {
+        if (PasswordToken.findByToken(params.Token)) {
             def userToChange = User.findById(PasswordToken.findByToken(params.Token).idOwner)
             respond("", model: [user: userToChange.id])
 
-        }
-        else{
+        } else {
             // renderizar pagina de erro, token errado
             render "token errado ou expirado"
         }
     }
-    @Transactional(readOnly=false)
+
+    @Transactional(readOnly = false)
     def confirmEmail() {
         def userIP = request.getRemoteAddr()
 
@@ -164,14 +165,14 @@ class UserController {
                 "secret=6LdA8QkTAAAAACHA9KoBPT1BXXBrJpQNJfCGTm9x&response=${recaptchaResponse}&remoteip=${userIP}")
         def test = params.email.contains('@remar') // bypass captcha & email validation
 
-        if(resp.json.success || test){
+        if (resp.json.success || test) {
             if (instance == null) {
                 notFound()
                 return
             }
 
             if (instance.hasErrors()) { // TODO
-                respond instance.errors, view:'create'
+                respond instance.errors, view: 'create'
                 return
             }
 
@@ -181,7 +182,7 @@ class UserController {
             def destination = new File(f, "profile-picture")
             def photo = params.photo as CommonsMultipartFile
 
-            if(!photo.isEmpty()) {
+            if (!photo.isEmpty()) {
                 photo.transferTo(destination)
             } else {
                 new AntBuilder().copy(file: "${root}images/avatars/${instance.gender}.png", tofile: destination)
@@ -201,7 +202,7 @@ class UserController {
 
 
     def edit(User userInstance) {
-        respond userInstance, model:[admin: userInstance.isAdmin(), prof: userInstance.isProf(), stud: userInstance.isStud(), editor: userInstance.isEditor(), dev: userInstance.isDev(), source: "create", userInstance: userInstance]
+        respond userInstance, model: [admin: userInstance.isAdmin(), prof: userInstance.isProf(), stud: userInstance.isStud(), editor: userInstance.isEditor(), dev: userInstance.isDev(), source: "create", userInstance: userInstance]
     }
 
     @Transactional
@@ -212,7 +213,7 @@ class UserController {
         }
 
         if (userInstance.hasErrors()) {
-            respond userInstance.errors, view:'edit'
+            respond userInstance.errors, view: 'edit'
             return
         }
 
@@ -232,26 +233,26 @@ class UserController {
 
         userInstance.camunda_id = camundaUser.getId()
 
-        userInstance.save flush:true
+        userInstance.save flush: true
 
         //Reinsert all the user roles
-        if(params.ROLE_ADMIN) {
+        if (params.ROLE_ADMIN) {
             UserRole.create(userInstance, Role.findByAuthority("ROLE_ADMIN"), true)
         }
 
-        if(params.ROLE_PROF) {
+        if (params.ROLE_PROF) {
             UserRole.create(userInstance, Role.findByAuthority("ROLE_PROF"), true)
         }
 
-        if(params.ROLE_STUD) {
+        if (params.ROLE_STUD) {
             UserRole.create(userInstance, Role.findByAuthority("ROLE_STUD"), true)
         }
 
-        if(params.ROLE_EDITOR) {
+        if (params.ROLE_EDITOR) {
             UserRole.create(userInstance, Role.findByAuthority("ROLE_EDITOR"), true)
         }
 
-        if(params.ROLE_DESENVOLVEDOR) {
+        if (params.ROLE_DESENVOLVEDOR) {
             UserRole.create(userInstance, Role.findByAuthority("ROLE_DESENVOLVEDOR"), true)
         }
 
@@ -260,7 +261,7 @@ class UserController {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'User.label', default: 'User'), userInstance.id])
                 redirect userInstance
             }
-            '*'{ respond userInstance, [status: OK] }
+            '*' { respond userInstance, [status: OK] }
         }
     }
 
@@ -276,14 +277,14 @@ class UserController {
 
         identityService.deleteUser(userInstance.camunda_id)
 
-        userInstance.delete flush:true
+        userInstance.delete flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'User.label', default: 'User'), userInstance.id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -293,7 +294,7 @@ class UserController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 
@@ -302,10 +303,9 @@ class UserController {
         UserRole.create(springSecurityService.getCurrentUser() as User, Role.findByAuthority("ROLE_DEV"), true)
         log.debug("Deu Certo")
         log.debug(params.fullName)
-        render(view:"/static/newDeveloper")
+        render(view: "/static/newDeveloper")
 
     }
-
 
 
     @Transactional
@@ -313,22 +313,21 @@ class UserController {
         def query = "from User where camunda_id LIKE '%" + filter + "%' OR email LIKE '%" + filter + "%' OR username LIKE '%" + filter + "%' OR name LIKE '%" + filter + "%'"
         def list = User.executeQuery(query)
 
-        render(template: "grid", model:[userInstanceList: list])
+        render(template: "grid", model: [userInstanceList: list])
     }
 
     def filteredUserList(String filter) {
-        filter = "%"+filter+"%"
+        filter = "%" + filter + "%"
         def filteredUserList = User.findAllByFirstNameOrLastNameIlikeOrEmailIlikeOrUsernameIlike(filter, filter, filter, filter, null)
 
-        if(filteredUserList.isEmpty()) {
+        if (filteredUserList.isEmpty()) {
             render "Nenhum usuário encontrado.";
-        }
-        else {
+        } else {
             render template: 'filteredUsers', model: [filteredUserList: filteredUserList]
         }
     }
 
-    def usernameAvailable(){
+    def usernameAvailable() {
         println params.username
         render User.findByUsername(params.username) == null
     }
@@ -336,10 +335,10 @@ class UserController {
     def autocomplete() {
         List<User> allUsers = User.getAll();
         String autocompleteAlternatives = "";
-        if (params.autocomplete !="") {
+        if (params.autocomplete != "") {
             for (User users : allUsers) {
                 if (users.getUsername().contains(params.autocomplete)) {
-                    autocompleteAlternatives +=users.getUsername() + ",";
+                    autocompleteAlternatives += users.getUsername() + ",";
                 }
             }
             log.debug(autocompleteAlternatives)
@@ -347,7 +346,7 @@ class UserController {
         }
     }
 
-    def emailAvailable(){
+    def emailAvailable() {
         render User.findByEmail(params.email) == null
     }
 
@@ -365,7 +364,7 @@ class UserController {
         def h = Math.round(params.float('h'))
         BufferedImage img = ImageIO.read(destination)
         ImageIO.write(img.getSubimage(x, y, w, h),
-                      photo.contentType.contains('png')? 'png' : 'jpg', destination)
+                photo.contentType.contains('png') ? 'png' : 'jpg', destination)
         println destination.name
         render destination.name
     }
