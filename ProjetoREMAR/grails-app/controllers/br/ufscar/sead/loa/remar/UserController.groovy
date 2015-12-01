@@ -121,7 +121,7 @@ class UserController {
 
         def rest = new RestBuilder()
 
-        def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?secret=6LdA8QkTAAAAACHA9KoBPT1BXXBrJpQNJfCGTm9x&response=" + captcha + "&remoteip=" + userIP)
+        def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?secret=${grailsApplication.config.recaptchaSecret}&response=${captcha}&remoteip=${userIP}")
         println resp.json as JSON
         if (resp.json.success == true) {
             println params.email
