@@ -163,7 +163,7 @@ class UserController {
         def recaptchaResponse = params.get("g-recaptcha-response")
         def rest = new RestBuilder()
         def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?" +
-                "secret${grailsApplication.config.recaptchaSecret}=&response=${recaptchaResponse}&remoteip=${userIP}")
+                "secret=${grailsApplication.config.recaptchaSecret}&response=${recaptchaResponse}&remoteip=${userIP}")
         def test = params.email.contains('@remar') // bypass captcha & email validation
 
         if (resp.json.success || test) {
