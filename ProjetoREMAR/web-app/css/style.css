@@ -39,6 +39,13 @@
         left: 3.75rem;
         color: #F44335;
     }
+
+    .help-block {
+        display: block;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        color: #737373;
+    }
 /* end layout of login page */
 
 
@@ -108,7 +115,7 @@
         margin-bottom: 0px;
     }
 
-    .my-orange {
+    .my-orange, button:focus {
         background-color: #FF5722;
     }
 
