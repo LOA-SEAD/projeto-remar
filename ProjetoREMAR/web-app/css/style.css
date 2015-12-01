@@ -15,7 +15,30 @@
 /* end of layout for the index page (static) */
 
 /* layout of login page */
+    span.align-with-icon-tiny {
+        position: relative;
+        bottom: 0.4rem;
+    }
 
+    span.align-with-icon-small {
+        position: relative;
+        bottom: 0.5rem;
+    }
+
+    .suffix {
+        position: absolute;
+        pointer-events: none;
+        right: 0.5rem;
+        top: 0.75rem;
+    }
+
+    span.invalid-input {
+        font-size: 0.8rem;
+        position: absolute;
+        top: 3.1rem;
+        left: 3.75rem;
+        color: #F44335;
+    }
 /* end layout of login page */
 
 
