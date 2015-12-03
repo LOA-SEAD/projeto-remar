@@ -6,67 +6,62 @@
         <meta name="layout" content="main">
         <g:javascript src="scriptTheme.js"/>
         <!--<g:set var="entityName" value="${message(code: 'Theme.label', default: 'Theme')}" />-->
-        
     </head>
     <body>
-    <form name="formName">
-        <div class="page-header">
-            <h1> Meus Temas</h1>
-        </div>
-        <g:if test="${flash.message}">
-            <div class="message" role="status">${flash.message}</div>
-        </g:if>
-        <div class="main-content">
-            <div class="widget">
-                <div class="alert alert-danger">
-                    <i class="fa fa-info-circle"></i>
-                    <a href="/forca/data/samples/tema-forca-esr.zip">Download tema ESR</a>
-                </div>
-                <h3 class="section-title first-title"><i class="icon-table"></i> Visualização dos Meus Temas</h3>
-                <div class="widget-content-white glossed">
-                    <div class="padded">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover" id="table">
-                                <thead>
-                                    <tr>
-                                        <th>Selecionar</th>
-                                        <th>Ícone</th>
-                                        <th>Tela de Fundo</th>
-                                        <th>Tela de Abertura</th>
-                                        <th>Remover</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <g:each in="${themeInstanceList}" status="i" var="themeInstance">
-                                        <tr data-id="${fieldValue(bean: themeInstance, field: "id")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
-                                            <td align="center"><input type="radio" name="radio"
-                                                                      value="${fieldValue(bean: themeInstance, field: "id")}" ${i == 0 ? "checked" : ""}>
-                                            </td>
-                                            %{--<td align="center"> <g:submitButton  name="save" class="save btn btn-success" value="Escolher Tema"/> </td>--}%
 
-                                            <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/icon.png" class="img img-responsive max"/></td>
-                                            <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/papel.png" class="img-responsive max"/></td>
-                                            <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/inicio.png" class="img-responsive max"/></td>
-                                            <td align="center"><button class="btn btn-danger delete"> Remover</button></td>
-
-                                        </tr>
-                                    </g:each>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <fieldset class="buttons">
-                <div class="col-xs-12 center">
-                    <g:submitButton name="save" class="save btn btn-success btn-lg" value="Enviar"/>
-                    <g:link class="btn btn-success btn-lg" action="create">Novo tema</g:link>
-                    <div class="paginacao">
-                        <g:paginate total="${questionInstanceCount ?: 0}" />
-                    </div>
-                </div>
-            </fieldset>
+    <nav class="layout-top-nav">
+        <div class="nav-wrapper">
+            <h3 style="margin: 10px;">Meus Temas</h3>
         </div>
-        </form>
+    </nav>
+
+    <div class="row">
+    </div>
+
+    <div class="row">
+        <div>
+            %{--<p> Download tema ESR</p>--}%
+            <p style="margin-left: 10px;"> Download tema ESR <a class="btn-floating waves-effect waves-light" href="../data/samples/tema-forca-esr.zip"> <i class="material-icons">file_download</i> </a>
+        </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <h4 style="margin-left: 10px;">Visualização dos Meus Temas</h4>
+    </div>
+    <div class="row">
+        <form class="col s12" name="formName">
+    <table class="responsive-table" id="table">
+        <thead>
+        <tr>
+            <th>Selecionar</th>
+            <th>Ícone</th>
+            <th>Tela de Abertura</th>
+            <th>Tela de Fundo</th>
+            <th>Ação</th>
+        </tr>
+        </thead>
+        <tbody>
+            <g:each in="${themeInstanceList}" status="i" var="themeInstance">
+                <tr data-id="${fieldValue(bean: themeInstance, field: "id")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
+                    <td align="center"><input class="with-gap" name="radio" type="radio" id="theme${i}"
+                                          value="${fieldValue(bean: themeInstance, field: "id")}" ${i == 0 ? "checked" : ""}> <label for="theme${i}"></label>
+                    </td>
+                    <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/icon.png" class="" width="250"/></td>
+                    <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/inicio.png" class="" width="250"/></td>
+                    <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/papel.png" class="" width="250"/></td>
+                    <td align="center"><i id="deleteIcon${i}" style="color: #26A69A" class="material-icons delete">delete</i></td>
+                </tr>
+            </g:each>
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col s12">
+            <g:submitButton name="save" class="save btn btn-success btn-lg" value="Enviar"/>
+            <g:link class="btn btn-success btn-lg" action="create">Novo tema</g:link>
+        </div>
+    </div>
+    </form>
+    </div>
     </body>
 </html>

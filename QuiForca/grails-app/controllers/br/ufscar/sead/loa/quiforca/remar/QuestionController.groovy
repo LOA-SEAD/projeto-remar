@@ -63,7 +63,7 @@ class QuestionController {
         }
 
         if (questionInstance.hasErrors()) {
-             respond questionInstance.errors, view:'create' TODO
+             respond questionInstance.errors, view:'create' //TODO
             render questionInstance.errors;
             return
         }

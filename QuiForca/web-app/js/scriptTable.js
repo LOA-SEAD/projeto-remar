@@ -228,13 +228,14 @@ $( document ).ready(function() {
     $('#BtnUnCheckAll').hide();
     var author = document.getElementById("author");
     author.value = getUserName();
+    $('.modal-trigger').leanModal();
 });
 
 function check_all(){
     console.log("selecionar todas");
     var CheckAll = document.getElementById("BtnCheckAll");
     var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
-    $(".checkbox:visible").prop('checked', 'checked');
+    $(".filled-in:visible").prop('checked', 'checked');
 
 
     for (var i = 0; i < trs.length; i++) {
@@ -255,7 +256,7 @@ function uncheck_all(){
     console.log("selecionar todas");
     var UnCheckAll = document.getElementById("BtnUnCheckAll");
     var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
-    $(".checkbox:visible").prop('checked', false);
+    $(".filled-in:visible").prop('checked', false);
 
 
     for (var i = 0; i < trs.length; i++) {

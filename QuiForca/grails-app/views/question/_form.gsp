@@ -1,61 +1,19 @@
 <%@ page import="br.ufscar.sead.loa.quiforca.remar.Question" %>
-<div class="table-responsive">
-    <table class="table table-striped table-bordered table-hover" id="table">
-        <tr>
-            <td>
-                <label for="statement">
-                    <g:message code="question.statement.label" default="Pergunta" /><span style="color:red">*</span>
-                </label>
-            </td>
-            <td class="spaced_td">
-                <g:textField class="form-control" id="statement" name="statement" required="" value="${questionInstance?.statement}"/>
-            </td>
-        </tr>
 
-        <tr>
-            <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required spaced_tr">
-                <td>
-                    <label for="answer">
-                        <g:message code="question.answer.label" default="Resposta" /><span style="color:red">*</span>
-                    </label>
-                </td>
-                <td class="spaced_td">
-                    <g:textField class="form-control" id="answer" name="answer" required="" value="${questionInstance?.answer}"/>
-                </td>
-
-            </td>
-            </div>
-        </tr>
-
-        <tr>
-            <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required spaced_tr">
-                <td>
-                    <label for="category">
-                        <g:message code="question.category.label" default="Tema" /><span style="color:red">*</span>
-                    </label>
-                </td>
-                <td class="spaced_td">
-                    <g:textField class="form-control" id="category" name="category" required="" value="${questionInstance?.category}"/>
-                </td>
-
-            </td>
-            </div>
-        </tr>
-
-        <tr style="display: none">
-            <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'name', 'error')} required">
-                <td>
-                    <label for="author">
-                        <g:message code="question.author.label" default=" Autor" /><span style="color:red">*</span>
-                    </label>
-                </td>
-                <td  class="spaced_td">
-                    <g:textField  class="form-control" id="author" name="author" required="" readonly="readonly" value="${questionInstance?.author}"/>
-                </td>
-
-            </td>
-            </div>
-        </tr>
-    </table>
+<div class="input-field col s12">
+    <input id="statement" name="statement" required="" value="${questionInstance?.statement}" type="text" class="validate">
+    <label for="statement">Pergunta</label>
 </div>
-<br />
+<div class="input-field col s12">
+    <input id="answer" name="answer" required="" value="${questionInstance?.answer}" type="text" class="validate">
+    <label for="answer">Resposta</label>
+</div>
+<div class="input-field col s12">
+    <input id="category" name="category" required="" value="${questionInstance?.category}" type="text" class="validate">
+    <label for="category">Tema</label>
+</div>
+
+<div class="input-field col s12" style="display: none">
+    <input id="author" name="author" required="" readonly="readonly" value="${session.user.username}" type="text" class="validate">
+    <label for="category">Autor</label>
+</div>

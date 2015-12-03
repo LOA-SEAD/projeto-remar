@@ -9,45 +9,59 @@
 
 </head>
 <body>
-    <fieldset id="form">
-        <legend class="blue">Upload de Imagens</legend>
-        <div>
-            <g:uploadForm controller="design" action="ImagesManager">
-                <div class="col-xs-6">
-                    <div>
-                        <p>Escolha um icone para seu jogo:</p>
-                    </div>
-                    <div>
-                        <img id="iconePreview" style="width: 100px; height: 100px;" />
-                    </div>
-                    <br />
-                    <input data-image="true"  type="file" name="icone" id="icone" />
-                </div>
-                <div class="col-xs-6">
-                    <div>
-                        <p>Escolha uma imagem de abertura:</p>
-                    </div>
-                    <div>
-                        <img id="openingPreview" style="width: 100px; height: 100px;" />
-                    </div>
-                    <br />
-                    <input data-image="true"  type="file" name="opening" id="opening" />
-                </div>
-                <div class="col-xs-6">
-                    <div>
-                        <p> Escolha uma imagem de fundo:</p>
-                    </div>
-                    <div>
-                        <img  id="backgroundPreview" style="width: 100px; height: 100px;" />
-                    </div>
-                    <br />
-                    <input data-image="true" type="file" name="background" id="background"/>
-                </div>
+
+    <div class="row" id="form">
+        <div class="col s12">
+            <h4> Upload de Imagens</h4>
+        </div>
+    </div>
+    <g:uploadForm controller="design" action="ImagesManager">
+        <div class="row">
+            <div class="col s12">
+                <table class="responsive-table" id="tableNewTheme">
+                    <thead>
+                    <tr>
+                        <th>Ícone</th>
+                        <th>Tela de Abertura</th>
+                        <th>Tela de Fundo</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div class="row">
+                                <p>Escolha um icone para seu jogo:</p>
+                                <img class="" id="iconePreview" style="width: 250px;" />
+                            </div>
+                            <div class="row">
+                                <input data-image="true"  type="file" name="icone" id="icone" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <p>Escolha uma imagem de abertura:</p>
+                                <img class="" id="openingPreview" style="width: 250px;" />
+                            </div>
+                            <div class="row">
+                                <input data-image="true"  type="file" name="opening" id="opening" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <p> Escolha uma imagem de fundo:</p>
+                                <img class="" id="backgroundPreview" style="width: 250px;" />
+                            </div>
+                            <div class="row">
+                                <input data-image="true" type="file" name="background" id="background"/>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="clearfix"></div>
-            <br />
-            <br />
-        </g:uploadForm>
-            <input id="upload" type="submit" name="upload" class="btn btn-success" value="Criar"/>
-    </fieldset>
+        </div>
+    </g:uploadForm>
+
+    <input id="upload" type="submit" name="upload" class="btn btn-success" value="Criar"/>
+
 </body>
