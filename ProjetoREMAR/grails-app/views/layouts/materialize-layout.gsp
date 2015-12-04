@@ -1,7 +1,7 @@
 <g:applyLayout name="base">
     <script>
         $(document).ready(function() {
-            //$('#button-collapse').sideNav();
+            $(".button-collapse").sideNav();
 
             $('.dropdown-button').dropdown({
                 alignment: 'left'
@@ -12,7 +12,7 @@
     <header>
         <div class="navbar-fixed">
             <nav class="valign-wrapper">
-                <div class="hide-on-small-only remar-max-size center">
+                <div class="hide-on-med-and-down remar-max-size center">
                     <!-- Menu for large displays -->
                     <ul class="left">
                         <li>
@@ -48,7 +48,7 @@
                         <li>
                             <a href="#" data-activates="dropdown-user" class="dropdown-button">
                                 <img src="../data/users/${session.user.username}/profile-picture"
-                                     alt="${session.user.firstName}" class="circle profile-pic"
+                                     alt="${session.user.firstName}" class="circle profile-pic-menu"
                                      data-beloworigin="true">
                             </a>
                         </li>
@@ -74,12 +74,55 @@
                         </ul>
                     </ul>
                 </div>
+
+                <div class="hide-on-large-only remar-max-size">
+                    <ul class="left">
+                        <a id="button-collapse" href="#" data-activates="slide-out" class="button-collapse top-nav full hide-on-large-only">
+                            <i class="material-icons small">menu</i>
+                        </a>
+                    </ul>
+
+                    <ul class="right">
+                        <li class="logo-icon">
+                            <a href="/">
+                                <img src="/images/logo/logo-remar-branco-transparente.png" alt="Logo" class="small-logo" />
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </nav>
         </div>
     </header>
 
+    <ul id="slide-out" class="side-nav" style="text-align: left;">
+        <li>
+            <a href="/" class="waves-effect">
+                <i class="material-icons">help</i>
+                GT-REMAR
+            </a>
+        </li>
+        <li>
+            <a href="/index/info" class="waves-effect">
+                <i class="material-icons">info</i>
+                Mais informações
+            </a>
+        </li>
+        <li>
+            <a href="https://remar.readme.io/docs" class="waves-effect">
+                <i class="material-icons">description</i>
+                Documentação
+            </a>
+        </li>
+        <li>
+            <a href="/login" class="waves-effect">
+                <i class="fa fa-sign-in"></i>
+                Entrar
+            </a>
+        </li>
+    </ul>
+
     <div class="remar-max-size center min-height-size margin-top">
-        <div id="left-menu" class="left-sidebar-nav left">
+        <div class="left-sidebar-nav left hide-on-med-and-down">
             <g:applyLayout name="menu" />
         </div>
 

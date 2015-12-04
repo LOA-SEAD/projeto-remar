@@ -81,6 +81,10 @@
         width: 36px;
     }
 
+    .profile-pic-menu {
+        height: 64px;
+    }
+
     #profile-picture {
         max-width: 6rem;
         max-height: 6rem;
@@ -273,6 +277,10 @@
                     font-size: 1.6rem;
                     float: left;
                     margin-right: 1rem;
+                }
+
+                .content {
+                    width: 100%;
                 }
             }
         /* end small and medium displays */
