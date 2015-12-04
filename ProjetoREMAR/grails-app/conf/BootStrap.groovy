@@ -26,7 +26,7 @@ class BootStrap {
         if (!User.list()) {
             def admin = new User(
                     username: "admin",
-                    password: grailsApplication.config.password,
+                    password: grailsApplication.users.password,
                     email: "admin@gmail.com",
                     firstName: "Admin",
                     lastName: "User",
@@ -37,7 +37,7 @@ class BootStrap {
 
             def guest = new User(
                     username: "guest",
-                    password: grailsApplication.config.password,
+                    password: grailsApplication.users.password,
                     email: "guest@gmail.com",
                     firstName: "Guest",
                     lastName: "User",
