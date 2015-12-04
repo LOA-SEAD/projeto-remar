@@ -48,7 +48,7 @@
                         <li>
                             <a href="#" data-activates="dropdown-user" class="dropdown-button">
                                 <img src="../data/users/${session.user.username}/profile-picture"
-                                     alt="${session.user.firstName}" class="circle profile-pic-menu"
+                                     alt="${session.user.firstName}" class="circle profile-pic"
                                      data-beloworigin="true">
                             </a>
                         </li>
@@ -94,32 +94,9 @@
         </div>
     </header>
 
-    <ul id="slide-out" class="side-nav" style="text-align: left;">
-        <li>
-            <a href="/" class="waves-effect">
-                <i class="material-icons">help</i>
-                GT-REMAR
-            </a>
-        </li>
-        <li>
-            <a href="/index/info" class="waves-effect">
-                <i class="material-icons">info</i>
-                Mais informações
-            </a>
-        </li>
-        <li>
-            <a href="https://remar.readme.io/docs" class="waves-effect">
-                <i class="material-icons">description</i>
-                Documentação
-            </a>
-        </li>
-        <li>
-            <a href="/login" class="waves-effect">
-                <i class="fa fa-sign-in"></i>
-                Entrar
-            </a>
-        </li>
-    </ul>
+    <div id="slide-out" class="hide-on-large-only side-nav" style="text-align: left;">
+        <g:applyLayout name="menu" />
+    </div>
 
     <div class="remar-max-size center min-height-size margin-top">
         <div class="left-sidebar-nav left hide-on-med-and-down">
