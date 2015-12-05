@@ -38,7 +38,7 @@
                             </li>
                             <li class="collection-item">
                                 <div class="valign-wrapper">
-                                    <a href="/resource/index">
+                                    <a href="/moodle">
                                         <i class="left material-icons">school</i>
                                         Vincular conta ao Moodle
                                     </a>

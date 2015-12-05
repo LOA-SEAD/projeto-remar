@@ -204,7 +204,7 @@
         #side-nav li {
             margin: 5px;
             height: 42px;
-            padding: 0 15px;
+            padding: 0px;
         }
 
         #side-nav li a i {
