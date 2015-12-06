@@ -27,7 +27,7 @@
         <a href="/" class=""><i class=" medium mdi-action-dashboard"></i>Início</a>
     </li>
     <li class="waves-effect waves-block waves-light">
-        <a href="/" class=""><i class="medium material-icons">create</i>Criar novo R.E.As</a>
+        <a href="/" class=""><i class="medium material-icons">create</i>Criar novo R.E.A</a>
     </li>
     <li class="waves-effect waves-block waves-light">
         <a href="/" class=""><i class="medium material-icons">recent_actors</i>Meus R.E.As</a>

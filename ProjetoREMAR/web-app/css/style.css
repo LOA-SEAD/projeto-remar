@@ -49,6 +49,159 @@
 /* end layout of login page */
 
 
+/* dashboard page */
+
+    .cluster-header {
+        width: 100%;
+        font-size: 28px;
+    }
+
+    .card.small.square-cover {
+        height: 245px;
+        width: 160px;
+    }
+
+    .cluster .card {
+        float: left;
+    }
+
+    .card {
+        margin: 5px;
+    }
+
+    .card-content {
+        background: #fff !important;
+        height: 100% !important;
+        position: relative;
+        text-decoration: none;
+        vertical-align: top;
+        padding: 0px !important;
+    }
+
+    .card.small.square-cover .cover {
+        height: 160px;
+        width: 160px;
+    }
+
+    .card .cover {
+        border-radius: 2px 2px 0 0;
+        background-color: #f5f5f5;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .card .cover-image-container {
+        height: 110%;
+        left: -5%;
+        position: relative;
+        top: -5%;
+        width: 110%;
+    }
+
+    .card .cover-outer-align {
+        display: table;
+        height: 100%;
+        width: 100%;
+    }
+
+    .card .cover-inner-align {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .card.small.square-cover .cover-image {
+        max-height: 160px;
+        max-width: 160px;
+    }
+
+    .card-click-target {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .card.small .details {
+        max-height: 50px;
+    }
+
+    .card .details {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        display: block;
+        overflow: hidden;
+        padding: 7px 10px 0;
+        position: relative;
+    }
+
+    .card .title {
+        color: #212121;
+        display: block;
+        font-size: 16px;
+        line-height: 18px;
+        max-height: 36px;
+        min-height: 18px;
+        overflow: hidden;
+        text-decoration: none;
+        position: relative;
+        white-space: nowrap;
+        font-weight: normal !important;
+    }
+
+    .card .subtitle-container {
+        min-height: 22px;
+    }
+
+    .card .subtitle-container, .card .stars-container {
+        display: block;
+        position: relative;
+        width: 100%;
+    }
+
+    .card.small .subtitle {
+        width: 140px;
+    }
+
+    .card .subtitle {
+        color: #616161 !important;
+        display: inline-block;
+        font-size: 13px;
+        line-height: 16px;
+        margin: 1px 0;
+        max-width: 132px;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .card.small .reason-set {
+        max-height: 38px;
+    }
+
+    .card .reason-set {
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        background: #fff;
+        bottom: 0;
+        display: block;
+        padding: 0 10px;
+        position: absolute;
+        width: 100%;
+    }
+
+    .tiny-stars img {
+        margin-left: -6px;
+    }
+
+    .gray-color {
+        color: gray !important;
+    }
+/* end dashboard page */
+
+
 /* header for all pages */
     nav {
         background-color: #5D4037;
@@ -129,6 +282,10 @@
 
     .margin-top {
         margin-top: 10px;
+    }
+
+    .margin-bottom {
+        margin-bottom: 5px;
     }
 
     .input-field button:hover {
