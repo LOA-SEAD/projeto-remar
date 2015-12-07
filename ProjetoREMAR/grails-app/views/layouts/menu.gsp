@@ -45,8 +45,11 @@
         <li class="waves-effect waves-block waves-light">
             <a href="/" class=""><i class=" medium material-icons">code</i>Desenvolvedor</a>
         </li>
-        <li class="waves-effect waves-block waves-light">
-            <a href="/moodle" class=""><i class=" medium material-icons">school</i>Vincular ao Moodle</a>
-        </li>
+        <g:if test="${session.user.moodleUsername == null}">
+            <li class="waves-effect waves-block waves-light">
+                <a href="/moodle" class=""><i class=" medium material-icons">school</i>Vincular ao Moodle</a>
+            </li>
+        </g:if>
+
     </div>
 </ul>
