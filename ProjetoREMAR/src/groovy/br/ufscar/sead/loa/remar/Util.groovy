@@ -13,4 +13,10 @@ class Util {
         }
         new Thread(r).start()
     }
+
+    def static sendEmail(String recipient, String subject, String body) {
+        later {
+            println "later" // TODO: actually send the email
+        }
+    }
 }
