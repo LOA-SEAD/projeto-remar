@@ -43,7 +43,7 @@
         <div class="divider"></div>
 
         <li class="waves-effect waves-block waves-light">
-            <a href="/" class=""><i class=" medium material-icons">code</i>Desenvolvedor</a>
+            <a href="/developer/new" class=""><i class=" medium material-icons">code</i>Desenvolvedor</a>
         </li>
         <g:if test="${session.user.moodleUsername == null}">
             <li class="waves-effect waves-block waves-light">

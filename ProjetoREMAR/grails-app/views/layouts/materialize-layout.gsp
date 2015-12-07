@@ -31,19 +31,21 @@
                         <!-- dropdown-settings -->
                         <ul id="dropdown-settings" class="my-dropdown-menu collection">
                             <li class="collection-item">
-                                <a href="/resource/index">
+                                <a href="/developer/new">
                                     <i class="left material-icons">code</i>
                                     Tornar-se um desenvolvedor
                                 </a>
                             </li>
-                            <li class="collection-item">
-                                <div class="valign-wrapper">
-                                    <a href="/moodle">
-                                        <i class="left material-icons">school</i>
-                                        Vincular conta ao Moodle
-                                    </a>
-                                </div>
-                            </li>
+                            <g:if test="${session.user.moodleUsername == null}">
+                                <li class="collection-item">
+                                    <div class="valign-wrapper">
+                                        <a href="/moodle">
+                                            <i class="left material-icons">school</i>
+                                            Vincular conta ao Moodle
+                                        </a>
+                                    </div>
+                                </li>
+                            </g:if>
                         </ul>
                         <li>
                             <a href="#" data-activates="dropdown-user" class="dropdown-button">
