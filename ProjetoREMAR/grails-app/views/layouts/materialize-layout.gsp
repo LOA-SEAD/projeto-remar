@@ -30,12 +30,15 @@
                         </li>
                         <!-- dropdown-settings -->
                         <ul id="dropdown-settings" class="my-dropdown-menu collection">
-                            <li class="collection-item">
-                                <a href="/developer/new">
-                                    <i class="left material-icons">code</i>
-                                    Tornar-se um desenvolvedor
-                                </a>
-                            </li>
+                            <sec:ifNotGranted roles="ROLE_DEV">
+                                <li class="collection-item">
+                                    <a href="/developer/new">
+                                        <i class="left material-icons">code</i>
+                                        Tornar-se um desenvolvedor
+                                    </a>
+                                </li>
+                            </sec:ifNotGranted>
+
                             <g:if test="${session.user.moodleUsername == null}">
                                 <li class="collection-item">
                                     <div class="valign-wrapper">
