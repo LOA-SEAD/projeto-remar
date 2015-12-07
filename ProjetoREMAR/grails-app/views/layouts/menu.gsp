@@ -35,6 +35,12 @@
     <li class="waves-effect waves-block waves-light">
         <a href="/" class=""><i class="medium material-icons">public</i>R.E.As públicos</a>
     </li>
+    <sec:ifAllGranted roles="ROLE_DEV">
+        <li class="waves-effect waves-block waves-light">
+            <a href="/resource/index" class=""><i class="medium material-icons">code</i>Desenvolvedor</a>
+        </li>
+    </sec:ifAllGranted>
+
     <li class="waves-effect waves-block waves-light">
         <a href="/" class=""><i class="medium material-icons">live_help</i>Ajuda na navegação</a>
     </li>
@@ -42,9 +48,11 @@
     <div class="hide-on-large-only">
         <div class="divider"></div>
 
-        <li class="waves-effect waves-block waves-light">
-            <a href="/developer/new" class=""><i class=" medium material-icons">code</i>Desenvolvedor</a>
-        </li>
+        <sec:ifNotGranted roles="ROLE_DEV">
+            <li class="waves-effect waves-block waves-light">
+                <a href="/developer/new" class=""><i class=" medium material-icons">code</i>Desenvolvedor</a>
+            </li>
+        </sec:ifNotGranted>
         <g:if test="${session.user.moodleUsername == null}">
             <li class="waves-effect waves-block waves-light">
                 <a href="/moodle" class=""><i class=" medium material-icons">school</i>Vincular ao Moodle</a>

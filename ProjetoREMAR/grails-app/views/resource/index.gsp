@@ -1,12 +1,17 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: loa
+  Date: 25/06/15
+  Time: 11:04
+--%>
 
-<%@ page import="br.ufscar.sead.loa.remar.Resource" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="new-main-inside">
-    <title>Submeter R.E.A.</title>
-
-    <script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery.min.js')}"></script>
+    <meta name="layout" content="materialize-layout">
+</head>
+<body>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'game-index.js')}"></script>
     <script>
         $(document).on('change', '.btn-file :file', function() {
@@ -32,8 +37,8 @@
         });
     </script>
 
-</head>
-<body>
+
+
 <div class="content">
     <div class="row">
         <div class="col-md-12">

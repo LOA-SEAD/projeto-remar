@@ -253,6 +253,10 @@
         min-width: 330px;
         margin-top: 4rem;
     }
+    
+    .card-title {
+        font-size: 30px;
+    }
 
     #dropdown-settings .collection-item {
         width: 100% !important;
