@@ -57,7 +57,7 @@
     <div class="container">
         <div class="row">
             <div class="card white col s12 m6 l4 offset-m3 offset-l4 offset-vertical-2" style="margin-top: 30px;">
-                <div class="card-content">
+                <div class="card-content" style="padding: 20px !important;">
                     <div class="card-image" style="padding-bottom: 20px;">
                         <img src="/assets/img/logo/logo-remar-preto-transparente.png">
                     </div> <!-- card-image -->
