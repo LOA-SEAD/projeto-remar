@@ -34,181 +34,85 @@
                 }
 
             });
+
+            $('.tooltiped').tooltip({delay: 5});
+            $('.dropdown-button').dropdown({
+                alignment: 'left'
+            });
         });
     </script>
 
+    <p class="left-align margin-bottom" style="font-size: 24px;">
+        <i class="left small material-icons">work</i>Gerenciar R.E.As
+    </p>
+    <div class="divider"></div>
 
+    <br />
 
-<div class="content">
     <div class="row">
-        <div class="col-md-12">
-            <div class="box box-body box-info">
-                <div class="box-header with-border">
-                    <h3 class="box-title">
-                        <i class="fa fa-archive"></i>
-                        Submeter R.E.A.
-                    </h3>
-                </div><!-- /.box-header -->
-                <div class="box-body">
 
-                    <div class="row">
-                        <div class="direct-chat-messages page-size" >
-                            <div class="widget-content-white glossed">
-                                <div class="padded">
-                                    <div class="row">
+        <g:if test="${resourceInstanceList}">
+            <g:each in="${resourceInstanceList}" status="i" var="gameInstance">
+                <div class="col s4">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="https://lh3.googleusercontent.com/woc4V87mfN8LztxAI4pGvz33q6LKQHk9ULj1iEwjPM8u8hGUD4rmWsoh-Xo5kmkDdXDO5JHizw=w170-rw" alt="adsdasd" />
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title" style="color: black; font-weight: bold;">Escola Mágica</span>
 
-                                        <g:each in="${resourceInstanceList}" status="i" var="gameInstance">
-                                            %{--${gameInstance.status}--}%
-                                            <div class="col-md-3">
-                                                <g:if test="${gameInstance.status == 'pending'}">
-                                                    <div class="info-box bg-yellow-gradient">
-                                                </g:if>
-                                                <g:elseif test="${gameInstance.status == 'approved'}">
-                                                    <div class="info-box bg-green-gradient">
-                                                </g:elseif>
-                                                <g:elseif test="${gameInstance.status == 'rejected'}">
-                                                    <div class="info-box bg-red-gradient">
-                                                </g:elseif>
+                            <p class="left-align" style="padding: 0px 5px;">Review:</p>
 
-                                                <span class="info-box-icon">
-                                                    %{--<a href="/process/start/${gameInstance.bpmn}" target="_self">                                                           --}%
-                                                    %{--<i class="fa fa-magic"></i>--}%
-                                                    %{--</a>--}%
+                            <sec:ifAllGranted roles="ROLE_ADMIN">
+                                <textarea class="comment" placeholder="Comentário">Comentário</textarea> <!--data-id="$ {gameInstance.id}"-->
+                            </sec:ifAllGranted>
+                            <sec:ifNotGranted roles="ROLE_ADMIN">
+                                <p class="left-align" style="padding: 0px 5px;">Awaiting Review</p>
+                            </sec:ifNotGranted>
 
-                                                    <img src="/images/${gameInstance.uri}-banner.png"
-                                                         class="img img-responsive center-block"/>
-                                                </span>
 
-                                                <div class="info-box-content">
-                                                    <div class="pull-right">
-                                                        <div class="dropdown pointer text-center">
-                                                            <div class="dropdown-toggle" data-toggle="dropdown" style="min-width: 10px;">
-                                                                <i class="fa fa-ellipsis-v"></i>
-                                                            </div>
-                                                            <ul class="dropdown-menu">
-                                                                <sec:ifAllGranted roles="ROLE_ADMIN">
-                                                                    <li><a class="review" data-review="approve" data-id="${gameInstance.id}">Aprovar</a></li>
-                                                                    <li><a class="review" data-review="reject" data-id="${gameInstance.id}">Rejeitar</a></li>
-                                                                    <li class="divider"></li>
-                                                                </sec:ifAllGranted>
-                                                                <li><a class="delete" data-id="${gameInstance.id}">Excluir</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-
-                                                    <span class="info-box-text">${gameInstance.name.toUpperCase()}</span>
-                                                    <span id="development" class="info-box-number">
-                                                        <sec:ifAllGranted roles="ROLE_ADMIN">
-                                                            <input class="form-control comment" data-id="${gameInstance.id}" type="text" placeholder="Comment" value="${gameInstance.comment}">
-                                                        </sec:ifAllGranted>
-                                                        <sec:ifNotGranted roles="ROLE_ADMIN">
-                                                            ${gameInstance.comment}
-                                                        </sec:ifNotGranted>
-                                                    </span>
-
-                                                    <span class="progress-description">
-                                                        <div class="pull-right">
-                                                            <i class="fa fa-at"></i>
-                                                            <g:if test="${gameInstance.android}">
-                                                                <i class="fa fa-android"></i>
-                                                            </g:if>
-                                                            <g:if test="${gameInstance.linux}">
-                                                                <i class="fa fa-linux"></i>
-                                                            </g:if>
-                                                            <g:if test="${gameInstance.moodle}">
-                                                                <i class="fa fa-graduation-cap"></i>
-                                                            </g:if>
-                                                        </div>
-                                                    </span>
-                                                </div><!-- /.info-box-content -->
-                                                </div><!-- /.info-box -->
-                                            </div>
-
-                                        </g:each>
-                                        %{--<a href="/resource/create">--}%
-                                        <a href="" data-toggle="modal" data-target="#myModal">
-
-                                            <div class="col-md-3">
-                                                <div class="info-box bg-info" style="color: dimgray;">
-                                                    <span class="info-box-icon">
-                                                        <i class="fa fa-upload"></i>
-                                                    </span>
-
-                                                    <div class="info-box-content">
-                                                        <span class="info-box-text">Novo R.E.A.</span>
-                                                        <span id="development" class="info-box-number">
-                                                            <div style="height: 30px;"></div>
-                                                        </span>
-
-                                                        <span class="progress-description">
-                                                            <div class="pull-right">
-                                                                <i class="fa fa-at"></i>
-                                                                <i class="fa fa-android"></i>
-                                                                <i class="fa fa-linux"></i>
-                                                                <i class="fa fa-graduation-cap"></i>
-                                                            </div>
-                                                        </span>
-
-                                                    </div><!-- /.info-box-content -->
-                                                </div><!-- /.info-box -->
-                                            </div>
-                                        </a>
+                            <div class="row no-margin-bottom">
+                                <div class="col s6" style="padding-left: 5px;">
+                                    <div class="stars left-align">
+                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" style="margin-left: 0px;" />
+                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
+                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
+                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
+                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                     </div>
-                                    </div>
+                                </div>
+                                <div class="col s6">
+                                    <div class="pull-right gray-color">
+                                        <i class="tiny material-icons">public</i>
+                                        <i class="tiny material-icons">android</i>
+                                        <i class="tiny material-icons">school</i>
+                                        <i class="tiny fa fa-linux"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal" id="myModal" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">
-                        <i class="fa fa-upload"></i>
-                        Novo R.E.A.
-                    </h4>
-                </div>
-                <div class="modal-body">
-                    <g:form class="" url="[resource:gameInstance, action:'save']" enctype="multipart/form-data" useToken="true">
-
-                        <div class="form-group has-feedback" >
-                            <div class="input-group">
-                                <span class="input-group-btn">
-                                    <span class="btn btn-primary btn-file btn-flat">
-                                        Selecionar <input name="war" type="file"  multiple >
-                                    </span>
-                                </span>
-                                <input type="text" class="form-control" placeholder="WAR file..." readonly>
-                                <span class="input-group-btn">
-                                    <button name="create" class="btn btn-primary btn-file btn-flat" >
-                                        <i class="fa fa-upload"></i>
-                                    </button>
-                                </span>
+                        <div class="card-action valign-wrapper">
+                            <div class="center">
+                                <a href="" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Excluir" style="color: gray;"><i class="material-icons">delete</i></a>
+                                <a href="" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Rejeitar" style="color: red;"><i class="material-icons">block</i></a>
+                                <a href="" class="tooltipped" data-position="bottom" data-delay="5" data-tooltip="Aprovar" style="color: green;"><i class="material-icons">done</i></a>
                             </div>
                         </div>
-
-                    </g:form>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    %{--<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>--}%
-                </div>
-            </div>
+            </g:each>
+        </g:if>
+        <g:else>
+            <p>Não há recursos cadastrados, ainda. Envie um novo!  :)</p>
+        </g:else>
 
+        <div class="fixed-action-btn" style="bottom: 45px; right: 25px;">
+            <a class="btn-floating btn-large my-orange">
+                <i class="material-icons large">edit</i>
+            </a>
         </div>
+
     </div>
-
-
-</div>
 
 </body>
 </html>

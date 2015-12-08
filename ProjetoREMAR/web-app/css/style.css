@@ -51,6 +51,15 @@
 
 /* dashboard page */
 
+    .stars img {
+        margin-left: -5px;
+    }
+
+    .opt {
+        margin-top: 12px;
+    }
+
+
     .cluster-header {
         width: 100%;
         font-size: 28px;
@@ -351,6 +360,14 @@
     }
 
     /* left navbar */
+        .padding-10 {
+            padding: 10px;
+        }
+
+        .margin-10 {
+            margin: 10px;
+        }
+
         .left-sidebar-nav {
             padding-left: 0px;
             width: 200px;
@@ -459,7 +476,51 @@
         /* end medium displays only */
 
 /* end header for all pages */
-.clear {
+
+.btn.my-orange:hover {
+    background-color: #ff5722;
+}
+
+.margin-left {
+    margin-left: 10px !important;
+}
+
+
+.info-box-icon {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 2px;
+    display: block;
+    float: left;
+    height: 90px;
+    width: 90px;
+    text-align: center;
+    font-size: 45px;
+    line-height: 90px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.info-box-content {
+    padding: 5px 10px;
+    margin-left: 90px;
+    text-align: left;
+}
+
+.dropbown {
+    position: relative;
+}
+
+.info-box-text {
+    text-transform: uppercase;
+}
+
+.progress-description, .info-box-text {
+    font-size: 18px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}.clear {
     clear: both;
 }
 

@@ -21,12 +21,12 @@ window.onload = function(){
             url: url,
             success:function(data){
                 console.log(data);
-                var tr = $(_this).parents().eq(5);
-                $(tr).removeClass('bg-red-gradient bg-yellow-gradient bg-green-gradient');
+                var tr = $(_this).parents().eq(4);
+                $(tr).removeClass('red yellow darken-1 green');
                 if (status == 'approve') {
-                    $(tr).addClass('bg-green-gradient');
+                    $(tr).addClass('green');
                 } else {
-                    $(tr).addClass('bg-red-gradient');
+                    $(tr).addClass('red');
                 }
                 $(img).attr('src', imgSrc);
 
@@ -63,7 +63,7 @@ window.onload = function(){
             url: location.origin + '/resource/delete/' + id,
             success: function(data) {
                 console.log(data);
-                console.log($(el).parents().eq(6).remove());
+                console.log($(el).parents().eq(5).remove());
             },
             error: function(req, status, err) {
                 console.log(req.responseText);
