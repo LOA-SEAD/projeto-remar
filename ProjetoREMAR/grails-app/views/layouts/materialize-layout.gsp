@@ -6,6 +6,8 @@
             $('.dropdown-button').dropdown({
                 alignment: 'left'
             });
+
+            $('.slider').slider();
         });
     </script>
 
@@ -52,7 +54,7 @@
                         </ul>
                         <li>
                             <a href="#" data-activates="dropdown-user" class="dropdown-button">
-                                <img src="../data/users/${session.user.username}/profile-picture"
+                                <img src="/data/users/${session.user.username}/profile-picture"
                                      alt="${session.user.firstName}" class="circle profile-pic"
                                      data-beloworigin="true">
                             </a>
@@ -65,15 +67,15 @@
                                         <p class="secondary-color">${session.user.email}</p>
                                     </div>
                                     <div class="col s4">
-                                        <img src="../data/users/${session.user.username}/profile-picture"
+                                        <img src="/data/users/${session.user.username}/profile-picture"
                                              alt="${session.user.firstName}" class="circle responsive-img" data-beloworigin="true">
                                     </div>
                                 </div>
                             </li>
                             <li class="collection-item footer right">
-                                <a href="/logout/index" class="btn-flat waves-effect my-orange white-text">
-                                    <i class="material-icons left">power_settings_new</i>
-                                    Sair
+                                <a href="/logout/index" class="waves-effect waves-teal btn-flat">
+                                    <i class="material-icons right">power_settings_new</i>
+                                    %{--Sair--}%
                                 </a>
                             </li>
                         </ul>

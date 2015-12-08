@@ -277,7 +277,7 @@
     }
 
     .my-orange, button:focus {
-        background-color: #FF5722;
+        background-color: #FF5722 !important;
     }
 
     .btn-flat i {
@@ -389,7 +389,7 @@
         }
     /* end left navbar */
 
-    /* only in large displays */
+    /* only in medium and large displays */
         @media only screen and (min-width: 601px) {
             nav i {
                 font-size: 30px !important;
@@ -410,6 +410,10 @@
 
             .logo-icon {
                 height: 64px;
+            }
+
+            .card-content button{
+                margin-top: -63px !important;
             }
         }
         /* end only in large displays */
@@ -455,3 +459,86 @@
         /* end medium displays only */
 
 /* end header for all pages */
+.clear {
+    clear: both;
+}
+
+.card.show-personalize{
+    padding: 20px;
+}
+
+.card.show-personalize .card-content{
+   text-align: justify;
+}
+
+.card.show-personalize .chip-dev img{
+    width: 60px;
+    height: 60px;
+    float: left;
+    margin-right: 5px;
+
+}
+
+.card.show-personalize .chip-dev p{
+    /*background-color: transparent;*/
+    font-size: 1.0em;
+    color: rgba(0, 0, 0, 0.6);
+    /*margin-top: 15px;*/
+    padding-top: 10px;
+
+}
+
+.image{
+    float: left;
+    margin-right: 20px;
+}
+
+.category{
+    font-size: 14px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.6);
+    margin-top:10px;
+    margin-bottom: 10px;
+}
+
+.category p{
+    display: inline-block;
+}
+
+
+.category > .stars{
+    display: inline-block;
+    float: right;
+}
+
+.plataform{
+    font-size: 1.5em;
+    margin-top:20px;
+}
+
+.plataform div{
+    display: inline-block;
+}
+
+.card-content > .card-title{
+    font-size: 3em;
+}
+
+.card-content p{
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.card-content button{
+    margin-top: -42px;
+}
+
+.card.show-personalize .image img{
+    background-color: #FF5722;
+    width: 200px;
+    height: 200px;
+}
+
+.slider{
+    margin-top: 0px;
+}
+

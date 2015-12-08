@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <meta name="layout" content="materialize-layout">
+    <meta name="layout" content="dashboard">
     <title>Atribuição de tarefas</title>
 </head>
 <body>
