@@ -412,7 +412,7 @@
                 height: 64px;
             }
 
-            .card-content button{
+            .card.show-personalize > .card-content button{
                 margin-top: -63px !important;
             }
         }
@@ -528,7 +528,7 @@
     color: rgba(0, 0, 0, 0.6);
 }
 
-.card-content button{
+.card.show-personalize > .card-content button{
     margin-top: -42px;
 }
 
