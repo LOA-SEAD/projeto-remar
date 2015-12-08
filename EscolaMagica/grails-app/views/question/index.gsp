@@ -5,119 +5,177 @@
         <meta name="layout" content="main">
         <g:javascript src="questions.js" />
         <g:javascript src="../assets/js/jquery.min.js"/>
-        <g:javascript src="../assets/js/bootstrap.min.js"/>
-        <link rel="stylesheet" href="${resource(dir: 'css', file: 'stylesheet.css')}" />
-        <link rel="stylesheet" href="${resource(dir: 'assets/css', file: 'bootstrap.min.css')}" />
-        <link rel="stylesheet" href="${resource(dir: 'assets/css', file: 'modal.css')}" />
+        <g:javascript src="../js/materialize.min.js"/>
+
+
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="../css/materialize.css"  media="screen,projection"/>
+        %{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'stylesheet.css')}" />--}%
+        %{--<link rel="stylesheet" href="${resource(dir: 'assets/css', file: 'bootstrap.min.css')}" />--}%
+        %{--<link rel="stylesheet" href="${resource(dir: 'assets/css', file: 'modal.css')}" />--}%
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     </head>
     <body>
-        <div class="page-header">
-            <h1> Minhas Questões</h1>
+
+    <nav class="layout-top-nav">
+        <div class="nav-wrapper">
+            <h3 style="margin: 10px;">Tabela de Questões</h3>
         </div>
-        <div class="main-content">
-            <div class="widget">
-                <div class="widget-content-white glossed">
-                    <div class="padded">
-                        <div class="table-responsive">
+    </nav>
+
+    <div class="row">
+    </div>
+
+    <div class="row">
+        <div class="col s3 offset-s9">
+            <input  type="text" id="SearchLabel" placeholder="Buscar"/>
+        </div>
+    </div>
+
+    <table class="highlight" id="table" style="margin-top: -30px;">
+        <thead>
+        <tr>
+            <th>Selecionar %{--<div class="row">--}%
+                <div class="row" style="margin-bottom: -10px;">
+
+                    <button style="margin-left: 3px;" class="btn-floating" id="BtnCheckAll" onclick="check_all()"><i  class="material-icons">check_box_outline_blank</i></button>
+                    <button style="margin-left: 3px;" class="btn-floating" id="BtnUnCheckAll" onclick="uncheck_all()"><i  class="material-icons">done</i></button>
+                </div>
+            </th>
+            <th>Nível <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+            <th>Pergunta <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+            <th>Respostas <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+            <th>Alternativa Correta <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+            <th>Ações <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <g:each in="${questionInstanceList}" status="i" var="questionInstance">
+            <tr class="selectable_tr" style="cursor: pointer;"
+                data-id="${fieldValue(bean: questionInstance, field: "id")}" data-owner-id="${fieldValue(bean: questionInstance, field: "ownerId")}" data-level="${fieldValue(bean: questionInstance, field: "level")}"
+                data-checked="false"
+            >
+
+                <td class="_not_editable"> <input class="filled-in" type="checkbox"> <label></label></td>
+
+                <td class="level"  >${fieldValue(bean: questionInstance, field: "level")}</td>
+
+                <td  >${fieldValue(bean: questionInstance, field: "title")}</td>
+
+                <td >${fieldValue(bean: questionInstance, field: "answers")}</td>
+
+                <td  >${questionInstance.answers[questionInstance.correctAnswer]} (${questionInstance.correctAnswer + 1}ª Alternativa)</td>
+
+                <td> <i onclick="changeEditQuestion(${i})" style="color: #26A69A; margin-right:10px;" class="fa fa-pencil modal-trigger" data-target="editModal${i}" data-model="${questionInstance.id}"></i> <i style="color: #26A69A;" class="fa fa-trash-o" onclick="_delete($(this.closest('tr')))" ></i></td>
+
+                <!-- Modal Structure -->
+                <div id="editModal${i}" class="modal">
+                    <div class="modal-content">
+                        <h4>Editar Questão</h4>
+                        <div class="row">
                             <g:if test="${flash.message}">
                                 <div class="message" role="status">${flash.message}</div>
-                                <br />
                             </g:if>
-                            <div class="pull-left">
-                                <div class=" alert alert-info">
-                                <i class="fa fa-info-circle"></i> Temos algumas questões-exemplo. Você pode editá-las!
-                                Basta clicar sobre o ícone <i class="fa fa-pencil"></i><br>
-                                <i class="fa fa-info-circle"></i> Não se esqueça: para finalizar a tarefa, são necessárias pelo menos 5 questões para cada nível!</i><br>
-                            </div>
-                                <button class="btn btn-primary btn-md" style="margin-bottom: 10px;" id="BtnCheckAll" onclick="check_all()" > Selecionar todas</button>
-                                <button class="btn btn-primary  btn-md" style="margin-bottom: 10px; background-color: rgba(40, 96, 144, 0.76) "  id="BtnUnCheckAll" onclick="uncheck_all()" > Selecionar todas</button>
-                            </div>
-                            <div class="pull-right">
-                                <g:if test="${Question.validateQuestions("${session.user.id}")}">
-                                    <button class="btn btn-info btn-lg" id="submitButton" > Finalizar </button>
-                                </g:if>
-                                <g:else>
-                                    <button class="btn btn-warning btn-lg" id="noSubmitButton" data-toggle="tooltip" data-placement="right" title="Crie pelo menos 5 (cinco) questões de cada nível">Finalizar</button>
-                                </g:else>
-
-
-                                <button class="btn btn-success btn-lg" data-toggle="modal" href="create" data-target="#CreateModal">Nova Questão</button>
-                                <br>
-                                <br>
-
-                                <div class="pull-right" style="margin-bottom: 15px;">
-                                    <input  type="text" id="SearchLabel" placeholder="Buscar"/>
-                                </div>
-                            </div>
-                            <table class="table table-striped table-bordered table-hover" id="table">
-                                <thead>
-                                    <tr>
-                                        <th style="text-align: center; color: #337AB7">Selecionar </th>
-                                        <th style="text-align: center; color: #337AB7"> Nível </th>
-                                        <th style="text-align: center; color: #337AB7"> Pergunta </th>
-                                        <th style="text-align: center; color: #337AB7"> Respostas </th>
-                                        <th style="text-align: center; color: #337AB7"> Alternativa Correta </th>
-                                        <th style="text-align: center; color: #337AB7">Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <g:each in="${questionInstanceList}" status="i" var="questionInstance">
-                                        <tr class="selectable_tr" style="cursor: pointer;"
-                                            data-id="${fieldValue(bean: questionInstance, field: "id")}" data-owner-id="${fieldValue(bean: questionInstance, field: "ownerId")}" data-level="${fieldValue(bean: questionInstance, field: "level")}"
-                                            data-checked="false"
-                                        >
-
-                                            <td class="_not_editable" align="center" > <input class="checkbox" type="checkbox"/> </td>
-
-                                            <td class="level"  >${fieldValue(bean: questionInstance, field: "level")}</td>
-
-                                            <td  >${fieldValue(bean: questionInstance, field: "title")}</td>
-
-                                            <td >${fieldValue(bean: questionInstance, field: "answers")}</td>
-
-                                            <td  >${questionInstance.answers[questionInstance.correctAnswer]} (${questionInstance.correctAnswer + 1}ª Alternativa)</td>
-
-                                            <td style="text-align: center;"  ><i style="color: cornflowerblue; margin-right:10px;" class="fa fa-pencil" data-toggle="modal" data-target="#EditModal" href="edit/${questionInstance.id}"></i> <i style="color: cornflowerblue;" class="fa fa-trash-o" onclick="_delete($(this.closest('tr')))" ></i></td>
-
-                                        </tr>
-                                    </g:each>
-                                </tbody>
-                            </table>
+                            <g:if test="${flash.message}">
+                                <div class="message" role="status">${flash.message}</div>
+                            </g:if>
+                            <g:hasErrors bean="${questionInstance}">
+                                <ul class="errors" role="alert">
+                                    <g:eachError bean="${questionInstance}" var="error">
+                                        <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+                                    </g:eachError>
+                                </ul>
+                            </g:hasErrors>
+                            <g:form url="[resource:questionInstance, action:'update']" method="PUT" >
+                                <g:hiddenField name="version" value="${questionInstance?.version}" />
+                                <g:render template="form" model="[ questionInstance: questionInstance]"/>
+                                <g:actionSubmit class="save btn btn-success btn-lg" action="update" value="${message(code: 'default.button.update.label', default: 'Salvar')}"/>
+                            </g:form>
                         </div>
                     </div>
                 </div>
-            </div>
+
+            </tr>
+
+
+        </g:each>
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col s2">
+            <button class="btn waves-effect waves-light" type="submit" name="save" id="submitButton">Enviar
+                <i class="material-icons right">send</i>
+            </button>
         </div>
-    <!-- Create Question Modal -->
-    <div class="modal fade" id="CreateModal" role="dialog">
-        <div class="modal-dialog text-center">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                </div>
-                <div class="modal-body">
-                </div>
+        <div class="col s1 offset-s9">
+            <a data-target="createModal" name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger"><i class="material-icons">add</i></a>
+        </div>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="createModal" class="modal">
+        <div class="modal-content">
+            <h4>Criar Questão</h4>
+            <div class="row">
+                <g:if test="${flash.message}">
+                    <div class="message" role="status">${flash.message}</div>
+                </g:if>
+                <g:if test="${flash.message}">
+                    <div class="message" role="status">${flash.message}</div>
+                </g:if>
+                <g:hasErrors bean="${questionInstance}">
+                    <ul class="errors" role="alert">
+                        <g:eachError bean="${questionInstance}" var="error">
+                            <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+                        </g:eachError>
+                    </ul>
+                </g:hasErrors>
+                <g:form action="save" resource="${questionInstance}">
+
+                    <div class="input-field col s12">
+                        <input id="title" name="title" required="" value="${questionInstance?.title}" type="text" class="validate">
+                        <label for="title">Pergunta</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="answers[0]" name="answers[0]" required="" value="${questionInstance?.answers}" type="text" class="validate">
+                        <label for="answers[0]">Alternativa 1</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="answers[1]" name="answers[1]" required="" value="${questionInstance?.answers}" type="text" class="validate">
+                        <label for="answers[1]">Alternativa 2</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="answers[2]" name="answers[2]" required="" value="${questionInstance?.answers}" type="text" class="validate">
+                        <label for="answers[2]">Alternativa 3</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input id="answers[3]" name="answers[3]" required="" value="${questionInstance?.answers}" type="text" class="validate">
+                        <label for="answers[3]">Alternativa 4</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input id="level" name="level" required="" value="${questionInstance?.level}" type="text" class="validate">
+                        <label for="level">Nível</label>
+                    </div>
+
+                    <div class="input-field col s12">
+                        <input id="correctAnswer" name="correctAnswer" required="" value="${questionInstance?.correctAnswer}" type="text" class="validate">
+                        <label for="correctAnswer">Alternativa Correta</label>
+                    </div>
+
+                    <g:submitButton name="create" class="btn btn-success btn-lg" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+                </g:form>
             </div>
         </div>
     </div>
-    <!-- Edit Question Modal -->
-    <div class="modal fade" id="EditModal" role="dialog">
-        <div class="modal-dialog text-center ">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                </div>
-                <div class="modal-body">
-                </div>
-            </div>
-        </div>
-    </div>
+
+
+
 
     <script type="text/javascript">
-
-
-
             function _delete(tr) {
                 if(confirm("Você tem certeza que deseja excluir esta questão?")) {
                     var tds = $(tr).find("td");
@@ -145,7 +203,7 @@
                 console.log("selecionar todas");
                 var CheckAll = document.getElementById("BtnCheckAll");
                 var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
-                $(".checkbox:visible").prop('checked', 'checked');
+                $(".filled-in:visible").prop('checked', 'checked');
 
 
                 for (var i = 0; i < trs.length; i++) {
@@ -163,7 +221,7 @@
                 console.log("remover todas");
                 var UnCheckAll = document.getElementById("BtnUnCheckAll");
                 var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
-                $(".checkbox:visible").prop('checked', false);
+                $(".filled-in:visible").prop('checked', false);
 
 
                 for (var i = 0; i < trs.length; i++) {
@@ -174,6 +232,15 @@
 
                 $('#BtnUnCheckAll').hide();
                 $('#BtnCheckAll').show();
+
+            }
+
+            function changeEditQuestion(variable){
+                var editQuestion = document.getElementById("editQuestionLabel");
+                editQuestion.value=variable;
+
+                console.log(editQuestion.value);
+                //console.log(variable);
 
             }
 

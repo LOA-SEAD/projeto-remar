@@ -1,3 +1,10 @@
+$(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+    $('select').material_select();
+});
+
+
 window.onload = function() {
     $('#BtnUnCheckAll').hide();
 
@@ -12,6 +19,7 @@ window.onload = function() {
             $(tr).attr('data-checked', "true");
             $(':checkbox', this.closest('tr')).prop('checked', 'checked');
         }
+
 
     });
 
@@ -28,6 +36,8 @@ window.onload = function() {
         });
 
     });
+
+
 
     $(function(){
         $("#SearchLabel").keyup(function(){
@@ -71,7 +81,7 @@ window.onload = function() {
             $.ajax({
                 type: "POST",
                 traditional: true,
-                url: "${createLink(controller: 'question', action: 'createXML')}",
+                url: "createXML",
                 data: { list_id: list_id },
                 success: function(returndata) {
                     window.top.location.href = returndata;

@@ -30,28 +30,28 @@
                     <tr>
                         <td>
                             <div class="row">
-                                <p>Escolha um icone para seu jogo:</p>
+                                %{--<p>Escolha um icone para seu jogo:</p>--}%
                                 <img class="" id="iconePreview" style="width: 250px;" />
                             </div>
-                            <div class="row">
+                            <div class="file-path-wrapper">
                                 <input data-image="true"  type="file" name="icone" id="icone" />
                             </div>
                         </td>
                         <td>
                             <div class="row">
-                                <p>Escolha uma imagem de abertura:</p>
+                                %{--<p>Escolha uma imagem de abertura:</p>--}%
                                 <img class="" id="openingPreview" style="width: 250px;" />
                             </div>
-                            <div class="row">
+                            <div class="file-path-wrapper">
                                 <input data-image="true"  type="file" name="opening" id="opening" />
                             </div>
                         </td>
                         <td>
                             <div class="row">
-                                <p> Escolha uma imagem de fundo:</p>
+                                %{--<p> Escolha uma imagem de fundo:</p>--}%
                                 <img class="" id="backgroundPreview" style="width: 250px;" />
                             </div>
-                            <div class="row">
+                            <div class="file-path-wrapper">
                                 <input data-image="true" type="file" name="background" id="background"/>
                             </div>
                         </td>
