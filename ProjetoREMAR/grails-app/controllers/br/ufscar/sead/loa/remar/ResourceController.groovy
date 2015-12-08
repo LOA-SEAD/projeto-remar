@@ -355,13 +355,18 @@ class ResourceController {
     def delete(Resource resourceInstance) {
 
         if (resourceInstance == null) {
+            log.debug "Trying to delete a resource, but that was not found."
             response.status = 404
             render "Not found"
             return
         }
 
-        if (resourceInstance.owner == springSecurityService.currentUser) {
+        if (resourceInstance.owner == springSecurityService.currentUser || springSecurityService.currentUser == User.findByUsername('admin')) {
             resourceInstance.delete flush: true
+            log.debug "Resource Deleted"
+        }
+        else {
+            log.debug "Someone is trying to delete a resource that belongs to other user"
         }
 
         render "success"
