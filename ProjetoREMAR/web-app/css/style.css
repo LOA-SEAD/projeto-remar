@@ -464,6 +464,11 @@
                 .content {
                     width: 100%;
                 }
+
+                .my-position {
+                    right: 45px;
+                    bottom: 45px;
+                }
             }
         /* end small and medium displays */
 
@@ -471,6 +476,13 @@
         @media only screen and (max-width: 992px) and (min-width: 601px) {
             .logo-icon {
                 height: 64px;
+            }
+        }
+
+        @media only screen and (min-width: 992px) {
+            .my-position {
+                right: calc((100% - 992px)/2);
+                bottom: 45px;
             }
         }
         /* end medium displays only */
@@ -602,4 +614,3 @@
 .slider{
     margin-top: 0px;
 }
-

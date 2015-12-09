@@ -106,7 +106,7 @@
             <p>Não há recursos cadastrados, ainda. Envie um novo!  :)</p>
         </g:else>
 
-        <div class="fixed-action-btn" style="bottom: 45px; right: 25px;">
+        <div class="fixed-action-btn my-position">
             <a class="btn-floating btn-large my-orange">
                 <i class="material-icons large">edit</i>
             </a>
