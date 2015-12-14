@@ -108,7 +108,7 @@ function errorPlacement(err, el) {
 $('select').on('change', function() {
     var el = $('#profile-picture');
     if(this.value == "male") {
-        $(el).attr('src', '/images/avatars/male.png');
+        $(el).attr('src', '/images/avatars/profile-picture');
     } else {
         $(el).attr('src', '/images/avatars/female.png');
     }

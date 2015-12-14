@@ -1,24 +1,30 @@
 
 window.onload = function() {
+    //document.getElementById("img-1").onchange = function () {
+    //    Preview(this, document.getElementById("img1Preview"));
+    //    (verifyDimensions(this));
+    //    //  if(verifyDimensions(this)){
+    //
+    //    // }
+    //};
 
-    document.getElementById("img-1").onchange = function () {
+    document.getElementById("img-1").onblur = function (){
         Preview(this, document.getElementById("img1Preview"));
-        //  if(verifyDimensions(this)){
+        (verifyDimensions(this));
 
-        // }
-    }
+    };
 
 
     document.getElementById("img-2").onchange = function () {
         Preview(this, document.getElementById("img2Preview"));
         (verifyDimensions(this))
 
-    }
+    };
 
     document.getElementById("img-3").onchange = function () {
         Preview(this, document.getElementById("img3Preview"));
         (verifyDimensions(this))
-    }
+    };
 
 
 
@@ -32,7 +38,6 @@ window.onload = function() {
             image = new Image();
             image.src = window.URL.createObjectURL(file);
 
-            //console.log("antes de entrar no onload da imagem");
 
             image.onload = function () {
                 console.log("The image width is " + image.width + " and image height is " + image.height);
@@ -71,7 +76,10 @@ window.onload = function() {
     }
 
     function Preview(input, preview) {
+
         var oFReader = new FileReader();
+
+        if(input.files ==  null){console.log("campo vazio")}
 
         oFReader.readAsDataURL(input.files[0]);
 

@@ -11,6 +11,9 @@
         });
     </script>
 
+    %{--<script type="text/javascript" src="${resource(dir: 'js', file: "imgPreview.js")}"></script>--}%
+
+
     <header>
         <div class="navbar-fixed">
             <nav class="valign-wrapper">

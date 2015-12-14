@@ -611,6 +611,27 @@
     height: 200px;
 }
 
-.slider{
+.slider {
     margin-top: 0px;
+}
+
+.card-developer.approved{
+    border: 1px solid #7cb342;
+}
+
+.card-developer.pending{
+    border: 1px solid #ffeb3b;
+}
+
+.card-developer.pending{
+    border: 1px solid #d50000;
+}
+
+
+.card-developer  > .card-content > .card-action{
+    padding: 4px;
+}
+
+.row.card-info{
+    margin-bottom: 0px;
 }
