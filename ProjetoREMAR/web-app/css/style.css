@@ -399,6 +399,7 @@
             line-height: 42px;
             height: 42px;
             font-size: 14px;
+            display: block;
         }
 
         #side-nav li:hover {
