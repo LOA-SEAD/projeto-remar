@@ -50,8 +50,8 @@
                             </li>
                             <div class="row collection-item footer" style="margin-top: 115px;">
                                 <div class="col s6">
-                                    <a href="#" class="waves-effect btn-flat left">
-                                        <i class="material-icons">settings</i>
+                                    <a href="/my-profile" class="waves-effect btn-flat left">
+                                        <i class="material-icons">account_circle</i>
                                     </a>
                                 </div>
                                 <div class="col s6">

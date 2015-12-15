@@ -80,7 +80,7 @@ class BootStrap {
             }
 
             for (url in [
-                    '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/frame/**'
+                    '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/frame/**', '/my-profile'
             ]) {
                 new RequestMap(url: url, configAttribute: 'IS_AUTHENTICATED_FULLY').save()
             }

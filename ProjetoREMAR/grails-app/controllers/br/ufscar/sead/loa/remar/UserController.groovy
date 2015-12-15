@@ -197,11 +197,6 @@ class UserController {
 
     }
 
-
-    def edit(User userInstance) {
-        respond userInstance, model: [admin: userInstance.isAdmin(), prof: userInstance.isProf(), stud: userInstance.isStud(), editor: userInstance.isEditor(), dev: userInstance.isDev(), source: "create", userInstance: userInstance]
-    }
-
     @Transactional
     def update(User userInstance) {
         if (userInstance == null) {
@@ -298,10 +293,15 @@ class UserController {
     @Transactional
     def makeDeveloper() {
         UserRole.create(springSecurityService.getCurrentUser() as User, Role.findByAuthority("ROLE_DEV"), true)
-        log.debug("Deu Certo")
-        log.debug(params.fullName)
+        log.debug("Usuário " + springSecurityService.getCurrentUser().firstName + " adicionado como desenvolvedor.")
         render(view: "/static/newDeveloper")
+    }
 
+    @Transactional
+    def unmakeDeveloper() {
+        UserRole.remove(springSecurityService.getCurrentUser() as User, Role.findByAuthority("ROLE_DEV"), true)
+        log.debug("Usuário " + springSecurityService.getCurrentUser().firstName + " não é mais um desenvolvedor")
+        redirect(url: "/my-profile", params: [success: true])
     }
 
 

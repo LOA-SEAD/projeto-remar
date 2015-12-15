@@ -433,6 +433,10 @@
             .card.show-personalize > .card-content button{
                 margin-top: -63px !important;
             }
+
+            .my-left {
+                left: 215px;
+            }
         }
         /* end only in large displays */
 
@@ -470,11 +474,16 @@
                     right: 45px;
                     bottom: 45px;
                 }
-            }
-        /* end small and medium displays */
 
-        /* medium displays only */
-        @media only screen and (max-width: 992px) and (min-width: 601px) {
+                .my-left {
+                    left: 30%;
+                }
+            }
+
+        /* end small and medium displays */
+/* medium displays only */
+@media only screen and (max-width: 992px) and (min-width: 601px) {
+
             .logo-icon {
                 height: 64px;
             }

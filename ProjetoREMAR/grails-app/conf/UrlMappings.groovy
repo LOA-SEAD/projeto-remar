@@ -43,6 +43,8 @@ class UrlMappings {
         "/resource/review/$id/$status?"(controller:"resource", action:"review")
         // end Resource API endpoints
 
+        name myProfile: "/my-profile"(view: "user/edit")
+
         "500"(view:'/error')
 	}
 }
