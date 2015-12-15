@@ -70,7 +70,6 @@
                                         <p class="secondary-color">${session.user.email}</p>
                                     </div>
                                     <div class="col s4">
-                                        <g:if test="${session.user.username}"
                                         <img src="/data/users/${session.user.username}/profile-picture"
                                              alt="${session.user.firstName}" class="circle responsive-img" data-beloworigin="true">
                                     </div>
