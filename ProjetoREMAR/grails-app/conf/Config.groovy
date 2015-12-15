@@ -2,19 +2,7 @@ import grails.plugin.springsecurity.SecurityConfigType
 import org.springframework.web.context.request.RequestContextHolder
 import org.apache.log4j.DailyRollingFileAppender
 
-// locations to search for config files that get merged into the main config;
-// config files can be ConfigSlurper scripts, Java properties files, or classes
-// in the classpath in ConfigSlurper format
-
 grails.config.locations = ["classpath:env.properties"]
-//                             "classpath:${appName}-config.groovy",
-//                             "file:${userHome}/.grails/${appName}-config.properties",
-//                             "file:${userHome}/.grails/${appName}-config.groovy"]
-
-// if (System.properties["${appName}.config.location"]) {
-//    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
-// }
-
 
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 
@@ -95,13 +83,9 @@ grails.hibernate.pass.readonly = false
 // configure passing read-only to OSIV session by default, requires "singleSession = false" OSIV mode
 grails.hibernate.osiv.readonly = false
 
-
-
-
 environments {
     development {
         grails.logging.jul.usebridge = true
-        //grails.serverURL = "http://myapp.dev:9090"
         grails.app.context = "/"
         bruteforcedefender {
             time = 5
@@ -131,23 +115,19 @@ environments {
 
             }
         }
-//        grails{
-//            plugin{
-//                springsecurity{
-//                    facebook{
-//                        domain.classname = 'FacebookUser'
-//                        filter.types='redirect'
-//                        //filter.redirect.failureHandler='redirectFailureHandlerExample'
-//                        autoCreate.roles=['ROLE_USER', 'ROLE_FACEBOOK', 'ROLE_STUD']
-//                    }
-//                }
-//            }
-//        }
+
+        log4j = {
+            appenders {
+                console name: 'console',
+                        layout: pattern(conversionPattern: '%d [%p] %c{2} - %m%n')
+
+            }
+            error additivity: false, 'console'
+            all additivity: false, 'console': ['grails.app.controllers.br.ufscar.sead.loa.remar', 'grails.app.conf', 'grails.app.domain']
+        }
     }
     production {
-
         grails.logging.jul.usebridge = false
-//        grails.serverURL = "http://localhost:8080"
         grails.app.context = "/"
         camunda {
             deployment.autoreload = true
@@ -158,7 +138,6 @@ environments {
                     deploymentResources = ['classpath:/**/*.bpmn']
                     jobExecutorActivate = false
                     history = 'full'
-
                 }
             }
         }
@@ -175,36 +154,35 @@ environments {
 
             }
         }
-    }
-}
 
-// log4j configuration
-log4j = { // TODO: different configs for dev & production
-    appenders {
-        appender new DailyRollingFileAppender(
-                name: 'dailyAppender',
-                datePattern: "'.'yyyy-MM-dd",  // See the API for all patterns.
-                fileName: "logs/${grails.util.Metadata.current.'app.name'}.log",
-                layout: pattern(conversionPattern: '%d [%t] %-5p %c{2} %x - %m%n'))
-        console name: "stdout" // TODO: define a pattern/layout
-    }
+        log4j = {
+            appenders {
+                appender new DailyRollingFileAppender(
+                        name: 'dailyAppender',
+                        datePattern: "'.'yyyy-MM-dd",  // See the API for all patterns.
+                        fileName: "logs/${grails.util.Metadata.current.'app.name'}.log",
+                        layout: pattern(conversionPattern: '%d [%p] %c{2} - %m%n'))
+                console name: "stdout" // TODO: define a pattern/layout
+            }
 
-    root {
-        info 'dailyAppender'
-    }
+            root {
+                info 'dailyAppender'
+            }
 
-    error 'org.codehaus.groovy.grails.web.servlet',        // controllers
-            'org.codehaus.groovy.grails.web.pages',          // GSP
-            'org.codehaus.groovy.grails.web.sitemesh',       // layouts
-            'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
-            'org.codehaus.groovy.grails.web.mapping',        // URL mapping
-            'org.codehaus.groovy.grails.commons',            // core / classloading
-            'org.codehaus.groovy.grails.plugins',            // plugins
-            'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
-            'org.springframework',
-            'org.hibernate',
-            'net.sf.ehcache.hibernate'
-    debug additivity: false, stdout: ['grails.app.controllers.br.ufscar', 'grails.app.conf', 'grails.app.domain']
+            error 'org.codehaus.groovy.grails.web.servlet',        // controllers
+                    'org.codehaus.groovy.grails.web.pages',          // GSP
+                    'org.codehaus.groovy.grails.web.sitemesh',       // layouts
+                    'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
+                    'org.codehaus.groovy.grails.web.mapping',        // URL mapping
+                    'org.codehaus.groovy.grails.commons',            // core / classloading
+                    'org.codehaus.groovy.grails.plugins',            // plugins
+                    'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
+                    'org.springframework',
+                    'org.hibernate',
+                    'net.sf.ehcache.hibernate'
+            debug additivity: false, stdout: ['grails.app.controllers.br.ufscar.sead.loa.remar', 'grails.app.conf', 'grails.app.domain']
+        }
+    }
 }
 
 // Added by the Spring Security Core plugin:
@@ -222,36 +200,5 @@ grails.plugin.springsecurity.onInteractiveAuthenticationSuccessEvent = { e, cont
     def session = RequestContextHolder.currentRequestAttributes().getSession()
     session.user = context.getBean("springSecurityService").currentUser
 }
-
-grails.plugin.springsecurity.interceptUrlMap = [
-        "/j_spring_security_facebook_redirect": ["IS_AUTHENTICATED_ANONYMOUSLY"],
-        "/j_spring_security_facebook_check"   : ["IS_AUTHENTICATED_ANONYMOUSLY"],
-
-]
-
-
-grails {
-    plugin {
-        facebooksdk {
-            app = [
-                    controller : 'facebook',
-                    id         : 1621035434837394,
-                    permissions: ['email', 'user_photos', 'public_profile'],
-                    secret     : '0a70357ea42707a19d7fa38e080d20e1'
-            ]
-        }
-    }
-}
-
-grails.plugin.springsecurity.facebook.autoCreate.enabled = true
-grails.plugin.springsecurity.facebook.autoCreate.roles = ['ROLE_USER', 'ROLE_FACEBOOK', 'ROLE_STUD']
-grails.plugin.springsecurity.facebook.filter.type = 'redirect'
-
-
-facebook.applicationSecret = '0a70357ea42707a19d7fa38e080d20e1'
-facebook.applicationId = '1621035434837394'
-//grails.plugin.springsecurity.facebook.domain.classname='br.ufscar.sead.loa.remar.FacebookUser'
-//grails.plugin.springsecurity.facebook.appId='1621035434837394'
-//grails.plugin.springsecurity.facebook.secret='0a70357ea42707a19d7fa38e080d20e1'
 
 grails.web.url.converter = 'hyphenated'
