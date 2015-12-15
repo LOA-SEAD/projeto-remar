@@ -182,7 +182,7 @@ class UserController {
             if (!photo.isEmpty()) {
                 photo.transferTo(destination)
             } else {
-                new AntBuilder().copy(file: "${root}images/avatars/${instance.gender}.png", tofile: destination)
+                new AntBuilder().copy(file: "${root}images/avatars/default.png", tofile: destination)
             }
 
             instance.enabled = test

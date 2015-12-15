@@ -63,7 +63,7 @@
 
                         <div class="input-field file-field col s12">
                             <div class="col s3">
-                                <img id="profile-picture" class="circle profile-picture" src="/images/avatars/male.png"/>
+                                <img id="profile-picture" class="circle profile-picture" src="/images/avatars/default.png" />
                             </div>
                             <div>
                                 <input type="file" id="file" name="photo" accept="image/jpeg, image/png">

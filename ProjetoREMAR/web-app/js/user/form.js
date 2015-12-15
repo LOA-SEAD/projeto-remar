@@ -105,15 +105,6 @@ function errorPlacement(err, el) {
     err.insertAfter($(el).next());
 }
 
-$('select').on('change', function() {
-    var el = $('#profile-picture');
-    if(this.value == "male") {
-        $(el).attr('src', '/images/avatars/profile-picture');
-    } else {
-        $(el).attr('src', '/images/avatars/female.png');
-    }
-});
-
 var jcrop;
 
 $('#file').on('change', function() {
