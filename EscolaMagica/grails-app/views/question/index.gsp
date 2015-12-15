@@ -184,11 +184,23 @@
                     </div>
 
                     <div class="row">
-                        <div class="col s4">
-                            <label for="level">Nível</label>
-                            <g:select id="level" name="level" class="form-control" from="123" required="" value="${questionInstance?.level}" valueMessagePrefix="question.level"/>
+                        <div class="col s2 offset-s3">
+                            <input type="radio" id="level1" name="level" value="1" checked="${questionInstance?.level == 1}"/>
+                            <label for="level1">Nível 1</label>
+
+                        </div>
+
+                        <div class="col s2">
+                            <input type="radio" id="level2" name="level" value="2" checked="${questionInstance?.level == 2}"/>
+                            <label for="level2">Nível 2</label>
+                        </div>
+
+                        <div class="col s2">
+                            <input type="radio" id="level3" name="level" value="3" checked="${questionInstance?.level == 3}"/>
+                            <label for="level3">Nível 3</label>
                         </div>
                     </div>
+
 
                     <g:submitButton name="create" class="btn btn-success btn-lg" value="${message(code: 'default.button.create.label', default: 'Create')}" />
                 </g:form>

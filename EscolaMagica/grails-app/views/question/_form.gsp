@@ -53,8 +53,21 @@
 
 
 <div class="row">
-    <div class="col s12">
-        <input type="text" name="level" id="level" value="${questionInstance?.level}">
+    <div class="col s2 offset-s3">
+        <input type="radio" id="level1${count}" name="level" value="1" checked="${questionInstance?.level == 1}"/>
+        <label for="level1${count}">Nível 1</label>
+
+    </div>
+
+    <div class="col s2">
+        <input type="radio" id="level2${count}" name="level" value="2" checked="${questionInstance?.level == 2}"/>
+        <label for="level2${count}">Nível 2</label>
+    </div>
+
+    <div class="col s2">
+        <input type="radio" id="level3${count}" name="level" value="3" checked="${questionInstance?.level == 3}"/>
+        <label for="level3${count}">Nível 3</label>
+        %{--<input type="text" name="level" id="level" value="${questionInstance?.level}">--}%
         %{--<g:select id="level" name="level" from="${1..3}" value="${questionInstance?.level}"/>--}%
         %{--<label for="level${count}">Nível</label>--}%
         %{--<select name="level" id="level${count}">--}%
