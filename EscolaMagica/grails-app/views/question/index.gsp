@@ -90,7 +90,7 @@
                             </g:hasErrors>
                             <g:form url="[resource:questionInstance, action:'update']" method="PUT" >
                                 <g:hiddenField name="version" value="${questionInstance?.version}" />
-                                <g:render template="form" model="[ questionInstance: questionInstance]"/>
+                                <g:render template="form" model="[ questionInstance: questionInstance, count:i]"/>
                                 <g:actionSubmit class="save btn btn-success btn-lg" action="update" value="${message(code: 'default.button.update.label', default: 'Salvar')}"/>
                             </g:form>
                         </div>
@@ -135,35 +135,59 @@
                 </g:hasErrors>
                 <g:form action="save" resource="${questionInstance}">
 
-                    <div class="input-field col s12">
-                        <input id="title" name="title" required="" value="${questionInstance?.title}" type="text" class="validate">
-                        <label for="title">Pergunta</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <input id="answers[0]" name="answers[0]" required="" value="${questionInstance?.answers}" type="text" class="validate">
-                        <label for="answers[0]">Alternativa 1</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <input id="answers[1]" name="answers[1]" required="" value="${questionInstance?.answers}" type="text" class="validate">
-                        <label for="answers[1]">Alternativa 2</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <input id="answers[2]" name="answers[2]" required="" value="${questionInstance?.answers}" type="text" class="validate">
-                        <label for="answers[2]">Alternativa 3</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <input id="answers[3]" name="answers[3]" required="" value="${questionInstance?.answers}" type="text" class="validate">
-                        <label for="answers[3]">Alternativa 4</label>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <label for="title">Pergunta</label>
+                            <input id="title" name="title" required="" value="${questionInstance?.title}" type="text" class="validate">
+                        </div>
                     </div>
 
-                    <div class="input-field col s12">
-                        <input id="level" name="level" required="" value="${questionInstance?.level}" type="text" class="validate">
-                        <label for="level">Nível</label>
+                    <div class="row">
+                        <div class="input-field col s10">
+                            <label for="answers[0]">Alternativa 1</label>
+                            <input type="text" class="validate" id="answers[0]" name="answers[0]" required="" value="${questionInstance?.answers}"/>
+                        </div>
+                        <div class="col s2">
+                            <input type="radio" id="radio0" name="correctAnswer" value="0" checked="${questionInstance?.correctAnswer == 0}"/>
+                            <label for="radio0">Alternativa correta</label>
+                        </div>
                     </div>
 
-                    <div class="input-field col s12">
-                        <input id="correctAnswer" name="correctAnswer" required="" value="${questionInstance?.correctAnswer}" type="text" class="validate">
-                        <label for="correctAnswer">Alternativa Correta</label>
+                    <div class="row">
+                        <div class="input-field col s10">
+                            <label for="answers[1]">Alternativa 2</label>
+                            <input type="text" class="validate" id="answers[1]" name="answers[1]" required="" value="${questionInstance?.answers}"/>
+                        </div>
+                        <div class="col s2">
+                            <input type="radio" id="radio1" name="correctAnswer" value="1" checked="${questionInstance?.correctAnswer == 1}"/> <label for="radio1">Alternativa correta</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s10">
+                            <label for="answers[2]">Alternativa 3</label>
+                            <input type="text" class="validate" id="answers[2]" name="answers[2]" required="" value="${questionInstance?.answers}"/>
+                        </div>
+                        <div class="col s2">
+                            <input type="radio" id="radio2" name="correctAnswer" value="2" checked="${questionInstance?.correctAnswer == 2}"/> <label for="radio2">Alternativa correta</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s10">
+                            <label for="answers[3]">Alternativa 4</label>
+                            <input type="text" class="form-control" id="answers[3]" name="answers[3]" required="" value="${questionInstance?.answers}"/>
+                        </div>
+                        <div class="col s2">
+                            <input type="radio" id="radio3" name="correctAnswer" value="3" checked="${questionInstance?.correctAnswer == 3}"/> <label for="radio3">Alternativa correta</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col s4">
+                            <label for="level">Nível</label>
+                            <g:select id="level" name="level" class="form-control" from="123" required="" value="${questionInstance?.level}" valueMessagePrefix="question.level"/>
+                        </div>
                     </div>
 
                     <g:submitButton name="create" class="btn btn-success btn-lg" value="${message(code: 'default.button.create.label', default: 'Create')}" />

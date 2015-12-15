@@ -18,7 +18,7 @@
     <g:uploadForm controller="design" action="ImagesManager">
         <div class="row">
             <div class="col s12">
-                <table class="responsive-table" id="tableNewTheme">
+                <table class="responsive-table centered" id="tableNewTheme">
                     <thead>
                     <tr>
                         <th>Ícone</th>
@@ -33,17 +33,30 @@
                                 %{--<p>Escolha um icone para seu jogo:</p>--}%
                                 <img class="" id="iconePreview" style="width: 250px;" />
                             </div>
-                            <div class="file-path-wrapper">
-                                <input data-image="true"  type="file" name="icone" id="icone" />
+                            <div class="file-field input-field">
+                                    <input type="file" name="icone" id="icone">
+
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text" placeholder="Selecione um ícone">
+                                </div>
                             </div>
+                            %{--<div class="file-path-wrapper">--}%
+                                %{--<input data-image="true"  type="file" name="icone" id="icone" />--}%
+                            %{--</div>--}%
                         </td>
                         <td>
                             <div class="row">
                                 %{--<p>Escolha uma imagem de abertura:</p>--}%
                                 <img class="" id="openingPreview" style="width: 250px;" />
                             </div>
-                            <div class="file-path-wrapper">
-                                <input data-image="true"  type="file" name="opening" id="opening" />
+                            %{--<div class="file-path-wrapper">--}%
+                                %{--<input data-image="true"  type="file" name="opening" id="opening" />--}%
+                            %{--</div>--}%
+                            <div class="file-field input-field">
+                                    <input type="file" name="opening" id="opening">
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text" placeholder="Selecione uma tela de abertura">
+                                </div>
                             </div>
                         </td>
                         <td>
@@ -51,9 +64,16 @@
                                 %{--<p> Escolha uma imagem de fundo:</p>--}%
                                 <img class="" id="backgroundPreview" style="width: 250px;" />
                             </div>
-                            <div class="file-path-wrapper">
-                                <input data-image="true" type="file" name="background" id="background"/>
+                            <div class="file-field input-field">
+
+                                    <input type="file" name="background" id="background">
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text" placeholder="Selecione uma tela de fundo">
+                                </div>
                             </div>
+                            %{--<div class="file-path-wrapper">--}%
+                                %{--<input data-image="true" type="file" name="background" id="background"/>--}%
+                            %{--</div>--}%
                         </td>
                     </tr>
                     </tbody>
