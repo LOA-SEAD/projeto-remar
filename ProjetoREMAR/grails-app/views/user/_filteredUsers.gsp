@@ -3,7 +3,7 @@
         <div class="card white center">
             <div class="card-content">
                 <div class="row" style="margin-bottom: 0px;">
-                    <img class="circle profile-picture" src="/images/avatars/male.png"/>
+                    <img class="circle profile-picture" src="/images/avatars/default.png"/>
                 </div>
                 <div class="row" style="margin-bottom: 0px;">
                     ${user.firstName} ${user.lastName}

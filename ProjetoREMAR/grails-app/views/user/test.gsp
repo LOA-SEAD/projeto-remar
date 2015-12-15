@@ -133,7 +133,7 @@
                     <div class="col l6 center">
                         <p>Responsável:</p>
                         <a class="modal-trigger" href="#modal">
-                            <img class="circle profile-picture" src="/images/avatars/male.png"/>
+                            <img class="circle profile-picture" src="/images/avatars/default.png"/>
                         </a>
 
                         <br><p>Matheus</p>
@@ -154,7 +154,7 @@
                     <div class="col l6 center">
                         <p>Responsável:</p>
                         <a class="modal-trigger" href="#modal">
-                            <img class="circle profile-picture" src="/images/avatars/male.png"/>
+                            <img class="circle profile-picture" src="/images/avatars/default.png"/>
                         </a>
                         <br>Matheus
                     </div>
@@ -174,7 +174,7 @@
                     <div class="col l6 center">
                         <p>Responsável:</p>
                         <a class="modal-trigger" href="#modal">
-                            <img class="circle profile-picture" src="/images/avatars/male.png"/>
+                            <img class="circle profile-picture" src="/images/avatars/default.png"/>
                         </a>
                         <br>Matheus
                     </div>
