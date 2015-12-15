@@ -29,33 +29,6 @@
 
                     <ul class="right">
                         <li>
-                            <a href="#" data-activates="dropdown-settings" class="dropdown-button waves-effect">
-                                <i class="material-icons">settings</i>
-                            </a>
-                        </li>
-                        <!-- dropdown-settings -->
-                        <ul id="dropdown-settings" class="my-dropdown-menu collection">
-                            <sec:ifNotGranted roles="ROLE_DEV">
-                                <li class="collection-item">
-                                    <a href="/developer/new">
-                                        <i class="left material-icons">code</i>
-                                        Tornar-se um desenvolvedor
-                                    </a>
-                                </li>
-                            </sec:ifNotGranted>
-
-                            <g:if test="${session.user.moodleUsername == null}">
-                                <li class="collection-item">
-                                    <div class="valign-wrapper">
-                                        <a href="/moodle">
-                                            <i class="left material-icons">school</i>
-                                            Vincular conta ao Moodle
-                                        </a>
-                                    </div>
-                                </li>
-                            </g:if>
-                        </ul>
-                        <li>
                             <a href="#" data-activates="dropdown-user" class="dropdown-button">
                                 <img src="/data/users/${session.user.username}/profile-picture"
                                      alt="${session.user.firstName}" class="circle profile-pic"
@@ -63,7 +36,7 @@
                             </a>
                         </li>
                         <ul id="dropdown-user" class="my-dropdown-menu collection">
-                            <li class="collection-item">
+                            <li class="collection-item left">
                                 <div class="row valign-wrapper no-margin-bottom">
                                     <div class="col s8 center">
                                         <p class="title">${session.user.firstName} ${session.user.lastName}</p>
@@ -75,11 +48,18 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="collection-item footer right">
-                                <a href="/logout/index" class="waves-effect waves-teal btn-flat">
-                                    <i class="material-icons right">power_settings_new</i>
-                                    %{--Sair--}%
-                                </a>
+                            <div class="row collection-item footer" style="margin-top: 115px;">
+                                <div class="col s6">
+                                    <a href="#" class="waves-effect btn-flat left">
+                                        <i class="material-icons">settings</i>
+                                    </a>
+                                </div>
+                                <div class="col s6">
+                                    <a href="/logout/index" class="waves-effect btn-flat right">
+                                        <i class="material-icons">power_settings_new</i>
+                                        %{--Sair--}%
+                                    </a>
+                                </div>
                             </li>
                         </ul>
                     </ul>
