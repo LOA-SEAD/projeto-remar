@@ -25,7 +25,7 @@
 												<input type="file" name="war" id="war" accept=".war">
 											</div>
 											<div class="file-path-wrapper col s10">
-												<input class="file-path validate" type="text" name="create"  placeholder="Arquivo *.WAR..." readonly>
+												<input class="file-path validate" type="text" name="create"  placeholder="Selecione o arquivo do seu jogo (.war)" readonly>
 											</div>
 											<div class="col s12" >
 												<div id="preloader-wrapper" class="preloader-wrapper small active right">

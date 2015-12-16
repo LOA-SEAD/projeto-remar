@@ -12,14 +12,36 @@
     <meta name="layout" content="materialize-layout">
 </head>
 <body>
-    <div class="row">
-    %{-- TODO mudar controlador --}%
-        <g:form url="[action: 'update']" method="PUT" enctype="multipart/form-data">
-            <input type="hidden" name="id" value="${resourceInstance.id}" id="hidden">
-            <div class="col-s12" >
-                <g:render template="form"/>
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-body box-info">
+                    <p class="left-align margin-bottom" style="font-size: 24px;">
+                        <i class="left small material-icons">games</i>Editar informações
+                    </p>
+                    <div class="divider"></div>
+                    <br />
+                    <div class="box-body">
+                        <ul class="collapsible popout" data-collapsible="accordion">
+                            <li>
+                                <div class="collapsible-header active"><i class="material-icons">info_outline</i>Informações adicionais</div>
+                                <div class="collapsible-body">
+                                    <g:form url="[action: 'update']" method="PUT" enctype="multipart/form-data">
+                                        <input type="hidden" name="id" value="${resourceInstance.id}" id="hidden">
+                                        <div class="col-s12" >
+                                            <g:render template="form"/>
+                                        </div>
+                                    </g:form>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    </div>
+                </div>
             </div>
-        </g:form>
+        </div>
     </div>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'game-index.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'edit.js')}"></script>
