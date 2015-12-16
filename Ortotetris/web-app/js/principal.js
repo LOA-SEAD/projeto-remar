@@ -16,34 +16,31 @@ $(function(){
 });
 
 $(document).ready(function(){
-    $("#SearchLabel").hide();
-    $("#SearchButton").click(function(){
-        $("#SearchLabel").toggle();
-    });
 
-    $( "#SearchButton" ).hover(
-        function() {
-            $( this ).append( $( "<span> Buscar</span>" ).fadeIn(300) );
-        }, function() {
-            $( this ).find( "span:last" ).remove();
-        }
-    );
 
-    $( "#CreateWordButton" ).hover(
-        function() {
-            $( this ).append( $( "<span> Nova palavra</span>" ).fadeIn(300) );
-        }, function() {
-            $( this ).find( "span:last" ).remove();
-        }
-    );
-
-    $( "#SaveButton" ).hover(
-        function() {
-            $( this ).append( $( "<span> Salvar banco</span>").fadeIn(300) );
-        }, function() {
-            $( this ).find( "span:last" ).remove();
-        }
-    );
+    //$( "#SearchButton" ).hover(
+    //    function() {
+    //        $( this ).append( $( "<span> Buscar</span>" ).fadeIn(300) );
+    //    }, function() {
+    //        $( this ).find( "span:last" ).remove();
+    //    }
+    //);
+    //
+    //$( "#CreateWordButton" ).hover(
+    //    function() {
+    //        $( this ).append( $( "<span> Nova palavra</span>" ).fadeIn(300) );
+    //    }, function() {
+    //        $( this ).find( "span:last" ).remove();
+    //    }
+    //);
+    //
+    //$( "#SaveButton" ).hover(
+    //    function() {
+    //        $( this ).append( $( "<span> Salvar banco</span>").fadeIn(300) );
+    //    }, function() {
+    //        $( this ).find( "span:last" ).remove();
+    //    }
+    //);
 
 });
 
@@ -79,17 +76,17 @@ function ShowWord(word, answer,initial_position, id) {
     }
     node.innerHTML+= button_move_right
 }
-
-function createNewWord(){
-    var node = document.getElementById("ShowWord")
-    node.innerHTML = "<input class='resizedTextbox' type='text' id='NewWordLabel' value='Digite a nova palavra aqui' onfocus=\"(this.value == 'Digite a nova palavra aqui') && (this.value = '')\"onblur=\"(this.value == '') && (this.value = 'Digite a nova palavra aqui')\"> </input>"
-    node.innerHTML += " <input type=\"hidden\" name=\"word\" value=\"word\"/> "
-    node.innerHTML += " <input type=\"hidden\" name=\"initial_position\" value=\"0\"/> "
-    node.innerHTML+= " <button class='but-edit' onclick=\"SaveNewWord()\" >Salvar</button> "
-}
-
-function editWord(id, answer){
-    var node = document.getElementById("ShowWord")
-    node.innerHTML = "<input class='resizedTextbox' type='text' id='EditWordLabel' value='"+answer.toUpperCase()+"' onfocus=\"(this.value == '"+answer+"') && (this.value = '')\"onblur=\"(this.value == '') && (this.value = '"+answer+"')\"> </input>"
-    node.innerHTML+= " <button class='but-edit' onclick=\"UpdateWord("+id+")\" >Salvar</button> "
-}
+//
+////function createNewWord(){
+////    var node = document.getElementById("ShowWord")
+////    node.innerHTML = "<input class='resizedTextbox' type='text' id='NewWordLabel' value='Digite a nova palavra aqui' onfocus=\"(this.value == 'Digite a nova palavra aqui') && (this.value = '')\"onblur=\"(this.value == '') && (this.value = 'Digite a nova palavra aqui')\"> </input>"
+////    node.innerHTML += " <input type=\"hidden\" name=\"word\" value=\"word\"/> "
+////    node.innerHTML += " <input type=\"hidden\" name=\"initial_position\" value=\"0\"/> "
+////    node.innerHTML+= " <button class='but-edit' onclick=\"SaveNewWord()\" >Salvar</button> "
+////}
+//
+//function editWord(id, answer){
+//    var node = document.getElementById("ShowWord")
+//    node.innerHTML = "<input class='resizedTextbox' type='text' id='EditWordLabel' value='"+answer.toUpperCase()+"' onfocus=\"(this.value == '"+answer+"') && (this.value = '')\"onblur=\"(this.value == '') && (this.value = '"+answer+"')\"> </input>"
+//    node.innerHTML+= " <button class='but-edit' onclick=\"UpdateWord("+id+")\" >Salvar</button> "
+//}

@@ -1,0 +1,7 @@
+{
+ 	"c2array": true,
+	"size":[9,1,1],
+	"data":[
+		    [["CASAìììììì"]],[["CHAVEììììì"]],[["CHUVAììììì"]],[["PPPPìììììì"]],[["PPPPOLìììì"]],[["ANTANTICOì"]],[["DQADìììììì"]],[["DQADSDìììì"]],[["DIQADSDììì"]]
+	       ]
+}

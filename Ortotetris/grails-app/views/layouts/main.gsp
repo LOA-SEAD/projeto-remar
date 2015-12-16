@@ -12,12 +12,17 @@
 		<link rel="shortcut icon" href="${assetPath(src: 'favicon.ico')}" type="image/x-icon">
 		<link rel="apple-touch-icon" href="${assetPath(src: 'apple-touch-icon.png')}">
 		<link rel="apple-touch-icon" sizes="114x114" href="${assetPath(src: 'apple-touch-icon-retina.png')}">
-  		%{--<asset:stylesheet src="application.css"/>--}%
+     	<link rel="stylesheet" href="${resource(dir: 'css', file: 'materialize.css')}"	type="text/css" media="screen,projection">
+
 		<asset:javascript src="application.js"/>
 		%{--Scripts utilizados--}%
-		<script type="text/javascript" src="${resource(dir: 'js', file: 'principal.js')}"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	    <script type="text/javascript" src="${resource(dir: 'js', file: 'materialize.min.js')}"></script>
+     	<script type="text/javascript" src="${resource(dir: 'js', file: 'principal.js')}"></script>
 		<script type="text/javascript" src="${resource(dir: 'js', file: 'order.js')}"></script>
-	    %{----------------------}%
+	    <!--Import Google Icon Font-->
+	    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 	<g:layoutHead/>
 	</head>
 	<body>
