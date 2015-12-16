@@ -18,6 +18,7 @@ class Resource {
         height nullable: true
         moodleJson nullable: true
         description nullable: true, maxSize: 1000
+        pending nullable: true
     }
 
     String name
@@ -43,4 +44,5 @@ class Resource {
     String moodleJson
 
     String description
+    boolean pending
 }

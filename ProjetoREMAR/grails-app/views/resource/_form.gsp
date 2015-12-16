@@ -1,33 +1,46 @@
 <%@ page import="br.ufscar.sead.loa.remar.Deploy" %>
 
 <div class="fieldcontain ${hasErrors(bean: deployInstance, field: 'war', 'error')} required">
-
-	<div class="row">
 		<div class="row">
 			<div class="input-field col s12">
-				<input id="icon_prefix" type="text" class="validate" name="name">
-				<label for="icon_prefix">Nome do jogo</label>
+				<input id="name" type="text" class="validate" name="name">
+				<label for="name">Nome do jogo</label>
 			</div>
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
-				<textarea id="textarea1" class="materialize-textarea" length="250" name="description"></textarea>
-				<label for="textarea1">Textarea</label>
+				<textarea id="description" class="materialize-textarea" length="250" name="description"></textarea>
+				<label for="description">Textarea</label>
 			</div>
 		</div>
 
+		<div class="row">
+			<div class="col s12">
+				<div class="input-field">
+					<select class="icons-select">
+						<option value="" selected>Puzzle</option>
+						<option value="" data-icon="/assets/img/inside/avatar.png" class="left circle">Ação</option>
+						<option value="" data-icon="/assets/img/inside/avatar.png" class="left circle">Aventura</option>
+						<option value="" data-icon="/assets/img/inside/avatar.png" class="left circle">Educacional</option>
+					</select>
+					<label>Escolha uma categoria: </label>
+				</div>
+			</div>
+		</div>
+
+		<!-- Imagens -->
 		<div class="row">
 			<div class="col s2 img-preview">
-				<img id="img1Preview" style="width: 100px; height: 100px;" />
+				<img id="img1Preview" class="materialboxed" width="100" height="100" />
 			</div>
 			<div class="col s10">
 				<div class="file-field input-field">
 					<div class="btn waves-effect waves-light my-orange">
 						<span>File</span>
-						<input type="file">
+						<input type="file" data-image="true" id="img-1" name="img1" accept="image/jpeg, image/png">
 					</div>
 					<div class="file-path-wrapper">
-						<input data-image="true" id="img-1" name="img1" class="file-path validate" type="text" >
+						<input class="file-path validate" type="text" placeholder="Imagem 1" id="img-1-text" readonly >
 					</div>
 				</div>
 			</div>
@@ -35,16 +48,16 @@
 
 		<div class="row">
 			<div class="col s2 img-preview">
-				<img id="img2Preview" style="width: 100px; height: 100px;" />
+				<img id="img2Preview" class="materialboxed " width="100" height="100" />
 			</div>
 			<div class="col s10">
 				<div class="file-field input-field">
 					<div class="btn waves-effect waves-light my-orange">
 						<span>File</span>
-						<input type="file">
+						<input type="file" data-image="true" name="img2" id="img-2"  accept="image/jpeg, image/png">
 					</div>
 					<div class="file-path-wrapper">
-						<input data-image="true" name="img2" id="img-2" class="file-path validate" type="text" accept="image/jpeg, image/png">
+						<input class="file-path validate" type="text" placeholder="Imagem 2" id="img-2-text" readonly>
 					</div>
 				</div>
 			</div>
@@ -52,16 +65,16 @@
 
 		<div class="row">
 			<div class="col s2 img-preview">
-				<img id="img3Preview" style="width: 100px; height: 100px;" />
+				<img id="img3Preview" class="materialboxed" width="100" height="100" />
 			</div>
 			<div class="col s10">
 				<div class="file-field input-field">
 					<div class="btn waves-effect waves-light my-orange">
 						<span>File</span>
-						<input type="file">
+						<input type="file" data-image="true" name="img3" id="img-3"  accept="image/jpeg, image/png">
 					</div>
 					<div class="file-path-wrapper">
-						<input data-image="true" name="img3" id="img-3" class="file-path validate" type="text" accept="image/jpeg, image/png">
+						<input class="file-path validate" type="text" placeholder="Imagem 3" id="img-3-text" readonly>
 					</div>
 				</div>
 			</div>
@@ -103,13 +116,10 @@
 		</fieldset>
 	</div>
 	-->
-
-	<div class="form-group has-feedback" >
-		<div class="pull-right">
-			<button type="submit" class="btn waves-effect waves-light my-orange" id="upload" >
+		<div class="right">
+			<button type="submit" class="waves-effect waves-light btn-flat " id="upload" >
 				Enviar
 			</button>
 		</div>
-	</div>
-
+		<br class="clear" />
 </div>

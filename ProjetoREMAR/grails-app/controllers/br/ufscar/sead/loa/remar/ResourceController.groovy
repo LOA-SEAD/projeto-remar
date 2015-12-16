@@ -28,9 +28,6 @@ class ResourceController {
 
     }
 
-    def edit(Resource resourceInstance) {
-        render view: 'edit', model:[deployInstance: deployInstance]
-    }
 
     def create() {
         render view: "create", model: [id: params.id]
@@ -55,6 +52,11 @@ class ResourceController {
 
         file3 = new File(path, "description-3")
         img3.transferTo(file3)
+
+        instance.description = params.description
+        instance.name = params.name
+        instance.comment = "Em avaliação"
+        //TODO colocar a categoria
 
         instance.save flush: true
 
@@ -251,7 +253,7 @@ class ResourceController {
 
         resourceInstance.web = true //default
         resourceInstance.bpmn = manifest.bpmn
-        resourceInstance.comment = "Awaiting form"
+        resourceInstance.comment = "Esperando Formulário"
 
         new File(servletContext.getRealPath("/wars/${username}"), fileName + ".war")
                        .renameTo(servletContext.getRealPath("/wars/${username}") + "/" + manifest.uri + ".war")
@@ -268,7 +270,8 @@ class ResourceController {
                 fileset(dir: file)
             }
             flash.message = message(code: 'default.created.message', args: [message(code: 'deploy.label', default: 'Deploy'), resourceInstance.id])
-            redirect action: "create", params: [id: resourceInstance.id]
+//            redirect action: "create", params: [id: resourceInstance.id]
+            render resourceInstance as JSON
         }
 
     }
@@ -383,12 +386,21 @@ class ResourceController {
     }
 
     def show(Resource instance){
-
-        println instance.id + instance.name  + "<<<<<<<<<<"
-
-
         render view: "show", model: [resourceInstance : instance]
+    }
 
 
+    def edit(Resource resourceInstance) {
+
+        def resourceJson = resourceInstance as JSON
+
+        render view: 'edit', model:[resourceInstance: resourceInstance]
+    }
+
+    def getResourceInstance(long id){
+
+        def r = Resource.findById(id) as JSON
+
+        render r;
     }
 }

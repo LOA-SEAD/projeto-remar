@@ -1,18 +1,22 @@
 
 window.onload = function() {
-    //document.getElementById("img-1").onchange = function () {
-    //    Preview(this, document.getElementById("img1Preview"));
-    //    (verifyDimensions(this));
-    //    //  if(verifyDimensions(this)){
-    //
-    //    // }
-    //};
 
-    document.getElementById("img-1").onblur = function (){
+
+    document.getElementById("img-1").onchange = function (evt) {
+        var files = evt.target.files;
+        console.log(files);
         Preview(this, document.getElementById("img1Preview"));
         (verifyDimensions(this));
+        //  if(verifyDimensions(this)){
 
+        // }
     };
+
+    //document.getElementById("img-1").onblur = function (){
+    //    Preview(this, document.getElementById("img1Preview"));
+    //    (verifyDimensions(this));
+    //
+    //};
 
 
     document.getElementById("img-2").onchange = function () {

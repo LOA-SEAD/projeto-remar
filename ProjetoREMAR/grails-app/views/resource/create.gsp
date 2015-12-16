@@ -3,9 +3,6 @@
 	<head>
 		<meta name="layout" content="materialize-layout">
 		<title>Novo Jogo</title>
-
-
-
 	</head>
 	<body>
 		<div class="content">
@@ -18,57 +15,78 @@
 						<div class="divider"></div>
 						<br />
 						<div class="box-body">
-							<div class="direct-chat-messages page-size" >
-								<div class="widget-content-white glossed">
-									<div class="padded">
-										<div class="row">
-											<g:form class="" url="[resource:gameInstance, action:'save']" enctype="multipart/form-data" useToken="true">
-
-												<div class="form-group has-feedback" >
-													<div class="input-group">
-														<span class="input-group-btn">
-															<span class="btn btn-primary btn-file btn-flat">
-																Selecionar <input name="war" type="file"  multiple >
-															</span>
-														</span>
-														<input type="text" class="form-control" placeholder="WAR file..." readonly>
-														<span class="input-group-btn">
-															<button name="create" class="btn btn-primary btn-file btn-flat" >
-																<i class="fa fa-upload"></i>
-															</button>
-														</span>
+							<ul class="collapsible popout" data-collapsible="accordion">
+								<li>
+									<div class="collapsible-header active"><i class="material-icons">filter_drama</i>Upload War</div>
+									<div class="collapsible-body">
+										<div class="file-field input-field">
+											<div class="btn waves-effect waves-light my-orange col s2">
+												<span>File</span>
+												<input type="file" name="war" id="war" accept=".war">
+											</div>
+											<div class="file-path-wrapper col s10">
+												<input class="file-path validate" type="text" name="create"  placeholder="Arquivo *.WAR..." readonly>
+											</div>
+											<div class="col s12" >
+												<div id="preloader-wrapper" class="preloader-wrapper small active right">
+													<div class="spinner-layer spinner-red-only">
+														<div class="circle-clipper left">
+															<div class="circle"></div>
+														</div><div class="gap-patch">
+														<div class="circle"></div>
+													</div><div class="circle-clipper right">
+														<div class="circle"></div>
+													</div>
 													</div>
 												</div>
-
-											</g:form>
-
+												<div class="send-war right">
+													<a href="#!" data-position="bottom" data-delay="5" data-tooltip="Enviar" class="waves-effect waves-light btn-flat send">
+														Enviar <i class="material-icons send-icon" style="color: green;">done</i>
+													</a>
+												</div>
+											</div>
+											<br class="clear" />
 										</div>
-
-										<div class="row">
-											%{-- TODO mudar controlador --}%
+										%{--<div class="progress">--}%
+											%{--<div class="determinate" style="width: 0;"></div>--}%
+										%{--</div>--}%
+									</div>
+								</li>
+								<li>
+									<div id="info-add" class="collapsible-header"><i class="material-icons">info_outline</i>Informações adicionais</div>
+									<div class="collapsible-body">
+										%{--<p>Lorem ipsum dolor sit amet.</p>--}%
+										<div class="row loaded-form">
+										%{-- TODO mudar controlador --}%
 											<g:form url="[action: 'update']" method="PUT" enctype="multipart/form-data">
-												<input type="hidden" name="id" value="${id}">
-												<div class="col-xs-6" >
+												<input type="hidden" name="id" id="hidden">
+												<div class="col-s12" >
 													<g:render template="form"/>
 												</div>
 											</g:form>
-
 										</div>
 									</div>
-								</div>
-							</div>
+								</li>
+							</ul>
+							%{--<div class="direct-chat-messages page-size" >--}%
+								%{--<div class="widget-content-white glossed">--}%
+									%{--<div class="padded">--}%
+										%{--<div class="row">--}%
+											%{--<div class="form-group has-feedback" >--}%
+
+											%{--</div>--}%
+										%{--</div>--}%
+
+
+									%{--</div>--}%
+								%{--</div>--}%
+							%{--</div>--}%
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
+		<script type="text/javascript" src="${resource(dir: 'js', file: 'game-index.js')}"></script>
 		<script type="text/javascript" src="${resource(dir: 'js', file: "imgPreview.js")}"></script>
-		<script>
-			$(document).ready(function() {
-				$('textarea#textarea1').characterCounter();
-			});
-		</script>
-
 	</body>
 </html>

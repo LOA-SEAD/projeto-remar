@@ -305,9 +305,6 @@
         background-color: #FF5722;
     }
 
-    /*.input-field .prefix.active {
-        color: #FF5722;
-    }*/
 
     input[type=text]:focus:not([readonly]),
     input[type=password]:focus:not([readonly]),
@@ -625,18 +622,21 @@
     margin-top: 0px;
 }
 
+.card-developer{
+    width: 175px;
+}
+
 .card-developer.approved{
-    border: 1px solid #7cb342;
+    border: 2px solid #7cb342;
 }
 
 .card-developer.pending{
-    border: 1px solid #ffeb3b;
+    border: 2px solid #ffeb3b;
 }
 
-.card-developer.pending{
-    border: 1px solid #d50000;
+.card-developer.rejected{
+    border: 2px solid #d50000;
 }
-
 
 .card-developer  > .card-content > .card-action{
     padding: 4px;
@@ -644,4 +644,17 @@
 
 .row.card-info{
     margin-bottom: 0px;
+}
+
+/*.send-war a{*/
+    /*color: #FF5722;*/
+    /*font-size: 45px;*/
+/*}*/
+
+.collapsible-body{
+    padding: 10px;
+}
+
+.btn-flat:hover{
+    background-color: transparent !important;
 }

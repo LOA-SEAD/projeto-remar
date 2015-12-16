@@ -2,6 +2,85 @@
  * Created by matheus on 6/27/15.
  */
 
+$(function(){
+    /* carregar war, chamando o controlador e redirecionando para a mesma pagina*/
+
+    $('textarea#textarea1').characterCounter();
+    $('select').material_select();
+    $('.materialboxed').materialbox();
+    $('.loaded-form').hide();
+    $('#preloader-wrapper').hide();
+    $('.send-icon').hide();
+
+    $('.send').on('click', function() {
+        var file = $("#war").prop('files')[0];
+        var url = "/resource/save";
+        var formData = new FormData();
+        formData.append('war', file);
+
+        $('#preloader-wrapper').show('fast');
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: formData,
+            //xhr: function() {
+            //    var myXhr = $.ajaxSettings.xhr();
+            //    if(myXhr.upload){
+            //        myXhr.upload.addEventListener('progress',progress, false);
+            //    }
+            //    return myXhr;
+            //},
+            processData: false,
+            contentType: false,
+            success: function (data) {
+
+                $('#preloader-wrapper').hide();
+                $('.send-icon').show('fast');
+                $('#info-add').trigger('click');
+
+
+                $('.loaded-form').show("slideDown");
+
+                $("#name").val(data.name)
+                            .next().addClass("active");
+
+                $("#description").val(data.description);
+
+                //$(".icons-select select").val(data.category);
+                //$("#img-1").attr("src", "/data/resources/assets/"+data.uri+"/description-1");
+
+                $("#hidden").val(data.id);
+
+            },
+            error: function(req, res, err) {
+                console.log(req);
+                console.log(res);
+                console.log(err);
+            }
+        })
+
+    });
+
+    function progress(e){
+
+        if(e.lengthComputable){
+            var max = e.total;
+            var current = e.loaded;
+
+            var Percentage = (current * 100)/max;
+
+            $(".determinate").css("width",Percentage+"%");
+            console.log(Percentage);
+
+            if(Percentage >= 100)
+            {
+                $('.loaded-form').show("slideDown");
+            }
+        }
+    }
+});
+
 
 window.onload = function(){
     $('.review').on('click', function() {
@@ -22,11 +101,11 @@ window.onload = function(){
             success:function(data){
                 console.log(data);
                 var tr = $(_this).parents().eq(4);
-                $(tr).removeClass('red yellow darken-1 green');
+                $(tr).removeClass('pending approved rejected');
                 if (status == 'approve') {
-                    $(tr).addClass('green');
+                    $(tr).addClass('approved');
                 } else {
-                    $(tr).addClass('red');
+                    $(tr).addClass('rejected');
                 }
                 $(img).attr('src', imgSrc);
 
@@ -63,14 +142,12 @@ window.onload = function(){
             url: location.origin + '/resource/delete/' + id,
             success: function(data) {
                 console.log(data);
-                console.log($(el).parents().eq(5).remove());
+                console.log($(el).parents().eq(4).remove());
             },
             error: function(req, status, err) {
                 console.log(req.responseText);
             }
         })
     });
-
-
 };
 
