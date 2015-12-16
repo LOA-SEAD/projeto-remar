@@ -21,11 +21,11 @@ class UrlMappings {
         "/user/account/confirm/$token"(controller: 'user',action: 'confirmAccount')
         '/user/newpassword/confirm'(controller: 'user',action: 'createPassword')
         '/user/confirmation'(view: '/static/emailuser')
+        name resetPassword: "/user/password/reset"(controller: 'user', action: 'resetPassword')
         // end user mappings
 
         // begin password mappings
         //noinspection GroovyAssignabilityCheck
-        name resetPassword: "/password/reset"(view: "/static/forgottenPassword")
         //noinspection GroovyAssignabilityCheck
         name developerForm: "/developer/new"(view:"/static/formDeveloper")
         name infoPage: "/index/info" (view: "index/info")

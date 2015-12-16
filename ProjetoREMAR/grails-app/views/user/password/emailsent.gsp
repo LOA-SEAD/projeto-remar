@@ -11,10 +11,10 @@
     <div class="row">
             <div class="col-md-12">
                 <section>
-                    <p class="title-style">Recuperar sua conta</p>
+                    <p class="title-style">Redefinir senha</p>
                 </section>
                 <section>
-                    <p class="password-text-align">Um link para criar uma nova senha foi enviado para o email informado </p>
+                    <p class="password-text-align">Enviamos um email para ${email} :)</p>
                     <span class="footer-span" id="link-password"><g:link class="footer-span" controller="index" action="index">Home</g:link></span>
                 </section>
             </div>

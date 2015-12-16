@@ -2,7 +2,6 @@ package br.ufscar.sead.loa.remar
 
 //import com.daureos.facebook.FacebookGraphService
 import grails.plugin.mail.MailService
-import grails.util.Environment
 import org.apache.commons.lang.RandomStringUtils
 import org.camunda.bpm.engine.IdentityService
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -45,7 +44,7 @@ class UserController {
 
     @Transactional(readOnly = false)
     def confirmAccount() {
-        def token = EmailToken.findByTokenAndValid(params.token, true)
+        def token = Token.findByTokenAndExpiresAtLessThan(params.token, new Date())
         if (token) {
             def user = User.findById(token.idOwner)
 
@@ -65,8 +64,9 @@ class UserController {
         }
     }
 
+
     def sendConfirmationMail(userEmail, userId) {
-        def token = new EmailToken(token: RandomStringUtils.random(30, true, true), idOwner: userId, valid: true)
+        def token = new Token(token: RandomStringUtils.random(50, true, true), owner: User.get(userId), type: 'email_confirmation')
         token.save flush: true
 
         mailService.sendMail {
@@ -80,76 +80,56 @@ class UserController {
     }
 
     @Transactional(readOnly = false)
-    def newPassword() {
-        // vai receber aqui a nova senha por post
+    def resetPassword() {
+        if (request.method == 'GET') {
+            if (params.t) { // User is comming from an email with a token
+                def token = Token.findByTokenAndExpiresAtGreaterThan(params.t, new Date())
 
-
-        if (params.newPassword == params.confirmPassword) {
-            def user = User.findById(params.userid)
-//            user.passwordExpired = false      NAO!
-            user.password = params.confirmPassword
-            user.accountLocked = false
-            user.accountExpired = false
-            log.debug "password alterado"
-
-        }
-
-
-    }
-
-    @Transactional(readOnly = false)
-    def createPassword() {
-        if (PasswordToken.findByToken(params.Token)) {
-            def userToChange = User.findById(PasswordToken.findByToken(params.Token).idOwner)
-            respond("", model: [user: userToChange.id])
-
-        } else {
-            // renderizar pagina de erro, token errado
-            render "token errado ou expirado"
-        }
-    }
-
-    @Transactional(readOnly = false)
-    def confirmEmail() {
-        def userIP = request.getRemoteAddr()
-
-        def captcha = params.get("g-recaptcha-response")
-
-        def rest = new RestBuilder()
-
-        def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?secret=${grailsApplication.config.recaptchaSecret}&response=${captcha}&remoteip=${userIP}")
-        println resp.json as JSON
-        if (resp.json.success == true) {
-            println params.email
-            println User.findByEmail(params.email)
-            if (User.findByEmail(params.email)) {
-                log.debug User.findByEmail(params.email)
-                //User.findByEmail(params.email).passwordExpired = true  NAO!
-                String charset = (('A') + ('0'..'9').join())
-                Integer length = 9
-                String randomString = RandomStringUtils.random(length, charset.toCharArray())
-                def newToken = new PasswordToken(token: randomString, idOwner: User.findByEmail(params.email).getId())
-                newToken.save flush: true
-
-                mailService.sendMail {
-                    async true
-                    to params.email
-                    subject "Nova senha para o REMAR"
-                    html '<h3>Clique no link abaixo para fazer uma nova senha</h3> <br>' +
-                            '<br>' +
-                            "http://${request.serverName}:${request.serverPort}/user/newpassword/confirm?Token=${newToken.getToken()}"
-
+                if (!token) { // Token !exists or is older than 1 day
+                    render "Token expired or not found" // TODO
+                } else {
+                    render view: "createPassword", model: [user: token.owner, token: params.t]
                 }
-
-                render(view: "/static/emailsent")
-
-            } else {
-                // TODO EXIBIR FLASH MESSAGE DE EMAIL  NAO ENCONTRADO
-                flash.message = message(code: 'error.mail')
-                redirect(uri: '/password/reset')
+            } else { // User has clicked "forgot passowrd" link
+                render view: "/user/password/requestToken"
             }
 
+        } else if (request.method == 'POST') {
+            if (params.password) { // User has already defined the new password
+                // TODO: enhance security (recheck token expiration etc) & handle possible errors (password != password_confirmation etc)
+                def token = Token.findByToken(params.token)
+                token.owner.password = params.password
+                token.owner.save flush: true
+                token.delete flush: true
+                render "ok"
+            } else { // User has entered the email & captcha
+                def userIP = request.getRemoteAddr()
+                def captcha = params.get("g-recaptcha-response")
+                def rest = new RestBuilder()
+
+                def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?secret=${grailsApplication.config.recaptchaSecret}&response=${captcha}&remoteip=${userIP}")
+                if (resp.json.success == true) {
+                    def user = User.findByEmail(params.email)
+                    if (user) {
+                        def token = new Token(token: RandomStringUtils.random(50, true, true), owner: user, type: 'password_reset')
+                        token.save flush: true
+                        log.debug token.errors
+                        def url = "http://${request.serverName}:${request.serverPort}/user/password/reset?t=${token.token}"
+                        Util.sendEmail(user.email, "Recuperar senha",
+                                "<h3><a href=\"${url}\"> Clique aqui </a> para redefinir sua senha :)</h3> <br>")
+
+                        render view: "/user/password/emailSent", model: [email: user.email]
+
+                    } else {
+                        // TODO EXIBIR FLASH MESSAGE DE EMAIL NAO ENCONTRADO
+                        flash.message = message(code: 'error.mail')
+                        redirect(uri: '/password/reset')
+                    }
+
+                }
+            }
         }
+        response.status = 405 // TODO
     }
 
     @Transactional
