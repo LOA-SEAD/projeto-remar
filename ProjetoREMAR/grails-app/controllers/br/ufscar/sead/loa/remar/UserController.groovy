@@ -26,7 +26,7 @@ class UserController {
     def grailsApplication
 
     IdentityService identityService
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", filteredList: "POST"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", filteredList: "POST"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -179,7 +179,27 @@ class UserController {
 
     @Transactional
     def update(User userInstance) {
-        if (userInstance == null) {
+        def user = User.get(params.userId)
+        user.firstName = params.firstName
+        user.lastName = params.lastName
+        user.email = params.email
+        user.gender = params.gender
+
+        if(params.password != null && params.password == params.confirm_password) {
+            user.password = params.confirm_password
+        }
+
+        if(!params.photo.isEmpty()) {
+            def root = servletContext.getRealPath("/")
+            def f = new File("${root}data/users/${user.username}")
+            f.mkdirs()
+            def destination = new File(f, "profile-picture")
+            def photo = params.photo as CommonsMultipartFile
+
+            params.photo.transferTo(destination)
+        }
+
+        /*if (userInstance == null) {
             notFound()
             return
         }
@@ -234,7 +254,8 @@ class UserController {
                 redirect userInstance
             }
             '*' { respond userInstance, [status: OK] }
-        }
+        }*/
+        log.debug "User " + user.username + " successfully updated"
     }
 
     @Transactional
@@ -325,6 +346,10 @@ class UserController {
 
     def emailAvailable() {
         render User.findByEmail(params.email) == null
+    }
+
+    def updateEmailVerifier() {
+        render (User.get(params.userId).email == params.email || (User.findByEmail(params.email) == null))
     }
 
     def cropProfilePicture() {

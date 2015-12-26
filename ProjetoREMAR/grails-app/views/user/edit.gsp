@@ -34,6 +34,8 @@
         <div class="divider"></div>
 
         <form method="POST" action="/user/update" enctype="multipart/form-data">
+            <input id="userId" name="userId" type="hidden" value="${session.user.id}" />
+
             <div class="row" style="margin-top: 20px;">
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">person</i>
@@ -52,7 +54,8 @@
                 </div>
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">account_circle</i>
-                    <input id="username" name="username" type="text" value="${session.user.username}" />
+                    <input id="username" name="username" type="hidden" value="${session.user.username}" />
+                    <input type="text" value="${session.user.username}" disabled />
                     <label for="username">Nome de Usuário</label>
                 </div>
                 <div class="input-field col s12 m6">
@@ -73,18 +76,18 @@
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">lock</i>
                     <input id="password" name="password" type="password"/>
-                    <label for="password">Senha</label>
+                    <label for="password">Nova senha</label>
                 </div>
 
                 <div class="input-field col s12 m6">
                     <i class="material-icons prefix">lock</i>
                     <input id="confirm-password" name="confirm_password" type="password"/>
-                    <label for="confirm-password">Confirme sua senha</label>
+                    <label for="confirm-password">Confirme sua nova senha</label>
                 </div>
 
                 <div class="input-field file-field col s12">
                     <div class="col s3">
-                        <img id="profile-picture" class="circle profile-picture" src="/images/avatars/default.png" />
+                        <img id="profile-picture" class="circle profile-picture" src="/data/users/${session.user.username}/profile-picture" />
                     </div>
                     <div>
                         <input type="file" id="file" name="photo" accept="image/jpeg, image/png">
@@ -95,9 +98,6 @@
                     </div>
                 </div>
 
-                <div class="input-field col s12 center">
-                    <div class="g-recaptcha text-center" data-sitekey="6LdA8QkTAAAAANzRpkGUT__a9B2zHlU5Mnl6EDoJ"> </div>
-                </div>
                 <div class="clearfix"></div>
                 <div class="input-field center-align">
                     <button id="submit" class="btn waves-effect waves-light tooltiped my-orange" type="submit">Enviar</button>
@@ -127,8 +127,17 @@
         </div>
 	</div>
 
+    <div id="modal-profile-picture" class="modal">
+        <div class="modal-content center">
+            <img id="crop-preview" class="responsive-img">
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect btn-flat">Enviar</a>
+        </div>
+    </div>
+
     <g:javascript src="jquery/jquery.validate.js"/>
-    <g:javascript src="user/form.js"/>
+    <g:javascript src="user/update-validator.js"/>
     <g:javascript src="jquery/jquery.Jcrop.js"/>
 </body>
 </html>
