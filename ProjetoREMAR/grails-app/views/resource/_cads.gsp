@@ -5,6 +5,7 @@
         </g:if>
         <g:elseif test="${gameInstance.status == 'approved'}">
             <div class="card card-developer approved">
+            %{--<div class="card card-developer approved square-cover small">--}%
         </g:elseif>
         <g:elseif test="${gameInstance.status == 'rejected'}">
             <div class="card card-developer rejected">
@@ -14,7 +15,7 @@
                 <div class="cover-image-container">
                     <div class="cover-outer-align">
                         <div class="cover-inner-align">
-                            <img alt="A Head Full Of Dreams" class="cover-image img-responsive activator" src="https://lh3.googleusercontent.com/woc4V87mfN8LztxAI4pGvz33q6LKQHk9ULj1iEwjPM8u8hGUD4rmWsoh-Xo5kmkDdXDO5JHizw=w170-rw">
+                            <img alt="${gameInstance.name}" class="cover-image img-responsive image-bg "  src="/images/${gameInstance.uri}-banner.png">
                         </div>
                     </div>
                 </div>
@@ -22,7 +23,7 @@
             </div>
             <div class="details">
                 %{--<a class="card-click-target"  href="/resource/show/${gameInstance.id}" aria-hidden="true" tabindex="-1"></a>--}%
-                <a class="title" title=${gameInstance.name}" aria-hidden="true" tabindex="-1">${gameInstance.name}</a>
+                <a class="title" title="${gameInstance.name}" aria-hidden="true" tabindex="-1" >${gameInstance.name}</a>
                 <div class="subtitle-container">
                     <p class="subtitle">Feito por: REMAR</p>
                 </div>
@@ -38,11 +39,18 @@
                 %{--</div>--}%
                 %{--</div>--}%
                 <div class="col s12">
-                    <div class="right gray-color">
-                        <i class="tiny material-icons">public</i>
-                        <i class="tiny material-icons">android</i>
-                        <i class="tiny fa fa-linux"></i>
-                    </div>
+                    %{--<div class="right gray-color">--}%
+                        %{--<i class="fa fa-globe"></i>--}%
+                        %{--<g:if test="${gameInstance.android}">--}%
+                            %{--<i class="fa fa-android"></i>--}%
+                        %{--</g:if>--}%
+                        %{--<g:if test="${gameInstance.linux}">--}%
+                            %{--<i class="fa fa-linux"></i>--}%
+                        %{--</g:if>--}%
+                        %{--<g:if test="${gameInstance.moodle}">--}%
+                            %{--<i class="fa fa-graduation-cap"></i>--}%
+                        %{--</g:if>--}%
+                    %{--</div>--}%
                 </div>
             </div>
             <div class="card-action">

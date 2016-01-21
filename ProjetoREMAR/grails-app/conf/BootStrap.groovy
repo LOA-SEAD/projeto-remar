@@ -74,13 +74,13 @@ class BootStrap {
             for (url in [
                     '/', '/index', '/index/info', '/doc/**', '/assets/**', '/**/js/**', '/**/css/**', '/**/images/**',
                     '/**/favicon.ico', '/data/**', '/**/scss/**', '/**/less/**', '/**/fonts/**', '/**/font/**',
-                    '/password/**', '/moodle/**', '/exportedGame/**', '/static/**', '/login/**', '/logout/**', '/signup/**', '/user/**',
+                    '/password/**', '/moodle/**', '/exportedGame/**', '/static/**', '/login/**', '/logout/**', '/signup/**', '/menu/**', '/user/**',
                     '/facebook/**']) {
                 new RequestMap(url: url, configAttribute: 'permitAll').save()
             }
 
             for (url in [
-                    '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/frame/**', '/my-profile', '/user/update'
+                    '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/frame/**', '/my-profile', '/user/update', '/menu/**'
             ]) {
                 new RequestMap(url: url, configAttribute: 'IS_AUTHENTICATED_FULLY').save()
             }

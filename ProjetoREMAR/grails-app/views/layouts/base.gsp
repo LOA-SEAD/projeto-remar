@@ -13,16 +13,42 @@
         <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "materialize.css")}" media="screen,projection"/>
         <!-- Import custom styles -->
         <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "style.css")}"/>
-        <!-- jQuery -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        <!-- Materialize js -->
-        <g:javascript src="materialize.min.js"/>
+
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick.css"/>
+
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick-theme.css"/>
+
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+        <style>
+            .slick-prev:before,
+            .slick-next:before {
+                font-size: 20px;
+                line-height: 1;
+                opacity: .75;
+                color: black;
+            }
+            .slick-slide img {
+                display: inline-block;
+            }
+        </style>
+
+        <!-- js -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+        <g:javascript src="materialize.min.js"/>
+
         <title><g:layoutTitle default="REMAR"/></title>
         <g:layoutHead/>
     </head>
     <body>
         <g:layoutBody/>
+
+        <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick.min.js"></script>
+
+        <g:javascript src="layout/dashboard.js"/>
+
+
     </body>
 </html>

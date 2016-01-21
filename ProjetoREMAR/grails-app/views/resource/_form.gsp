@@ -1,5 +1,3 @@
-<%@ page import="br.ufscar.sead.loa.remar.Deploy" %>
-
 <div class="fieldcontain ${hasErrors(bean: deployInstance, field: 'war', 'error')} required">
 		<div class="row">
 			<div class="input-field col s12">

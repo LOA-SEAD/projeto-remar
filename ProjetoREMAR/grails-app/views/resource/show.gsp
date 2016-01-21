@@ -18,7 +18,7 @@
 </head>
 <body>
 <div class="content">
-	<div class="row">
+	<div class="row show">
 		<div class="col l12 m12 s12">
 			<form action="/process/start/${resourceInstance.bpmn}" method="POST">
 				<div class="card show-personalize">

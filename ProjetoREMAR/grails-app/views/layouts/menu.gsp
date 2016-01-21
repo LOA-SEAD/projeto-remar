@@ -43,13 +43,13 @@
         <a href="/" class=""><i class=" medium mdi-action-dashboard"></i>Início</a>
     </li>
     <li class="waves-effect waves-block waves-light">
-        <a href="/" class=""><i class="medium material-icons">create</i>Criar novo R.E.A</a>
+        <a href="/resource/customizableGames" class=""><i class="medium material-icons">create</i>Jogos customizáveis</a>
     </li>
     <li class="waves-effect waves-block waves-light">
-        <a href="/" class=""><i class="medium material-icons">recent_actors</i>Meus R.E.As</a>
+        <a href="/" class=""><i class="medium material-icons">public</i>Jogos públicos</a>
     </li>
     <li class="waves-effect waves-block waves-light">
-        <a href="/" class=""><i class="medium material-icons">public</i>R.E.As públicos</a>
+        <a href="/" class=""><i class="medium material-icons">recent_actors</i>Meus Jogos</a>
     </li>
     <sec:ifAllGranted roles="ROLE_DEV">
         <li class="waves-effect waves-block waves-light">

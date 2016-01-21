@@ -389,6 +389,14 @@ class ResourceController {
         render view: "show", model: [resourceInstance : instance]
     }
 
+    def customizableGames(){
+        def model = [:]
+
+        model.gameInstanceList = Resource.findAllByStatus('approved') // change to #findAllByActive?
+
+        render view: "custGames", model: model
+    }
+
 
     def edit(Resource resourceInstance) {
 

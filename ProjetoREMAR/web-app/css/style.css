@@ -89,7 +89,7 @@
 
     .card.small.square-cover .cover {
         height: 160px;
-        width: 160px;
+        width: 170px;
     }
 
     .card .cover {
@@ -100,11 +100,11 @@
     }
 
     .card .cover-image-container {
-        height: 110%;
-        left: -5%;
+        /*height: 110%;*/
+        /*left: -5%;*/
         position: relative;
-        top: -5%;
-        width: 110%;
+        /*top: -5%;*/
+        width: 100%;
     }
 
     .card .cover-outer-align {
@@ -209,6 +209,11 @@
         color: gray !important;
     }
 /* end dashboard page */
+
+
+footer.page-footer{
+    background-color: #5D4037;
+}
 
 
 /* header for all pages */
@@ -413,6 +418,7 @@
 
             .remar-max-size {
                 width: 992px;
+
             }
 
             .min-height-size {
@@ -638,6 +644,21 @@
     border: 2px solid #d50000;
 }
 
+.card .cover-image-container {
+    /*height: 110%;*/
+    /*left: -5%;*/
+    position: relative;
+    /*top: -5%;*/
+    /*width: 110%;*/
+}
+
+.card.card-developer .cover-image {
+    max-height: 160px;
+    max-width: 160px;
+}
+
+
+
 .card-developer  > .card-content > .card-action{
     padding: 4px;
 }
@@ -657,4 +678,69 @@
 
 .btn-flat:hover{
     background-color: transparent !important;
+}
+
+.image-bg{
+    margin-top: 3px;
+    background-color: #FF5722;
+}
+.dashboard-title{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+#slick {
+    width: 725px;
+    margin-left: 35px;
+}
+
+
+.card.square-cover .cover-image {
+    max-height: 160px;
+    max-width: 170px;
+}
+
+.search {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.row.show{
+    max-height: 1500px;
+    min-height: 960px;
+    margin: 0 auto;
+}
+
+.row.show.cards{
+    width: 700px;
+    min-height: 900px !important;
+}
+
+.row.show.developer{
+    width: 750px;
+}
+
+
+.pagination li.active{
+    background-color: #5D4037;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.social-button{
+    font-size:18px;
+}
+h6{
+    font-size: 25px;
+    font-weight: 100;
 }

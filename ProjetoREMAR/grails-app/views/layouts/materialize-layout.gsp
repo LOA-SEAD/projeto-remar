@@ -11,9 +11,6 @@
         });
     </script>
 
-    %{--<script type="text/javascript" src="${resource(dir: 'js', file: "imgPreview.js")}"></script>--}%
-
-
     <header>
         <div class="navbar-fixed">
             <nav class="valign-wrapper">
@@ -60,6 +57,7 @@
                                         %{--Sair--}%
                                     </a>
                                 </div>
+                            </div>
                             </li>
                         </ul>
                     </ul>
@@ -88,7 +86,7 @@
         <g:applyLayout name="menu" />
     </div>
 
-    <div class="remar-max-size center min-height-size margin-top">
+    <div class="remar-max-size center min-height-size margin-top main">
         <div class="left-sidebar-nav left hide-on-med-and-down">
             <g:applyLayout name="menu" />
         </div>
@@ -96,6 +94,9 @@
         <div class="content min-height-size right">
             <g:layoutBody />
         </div>
+
     </div>
+    <div class="clear"></div>
+    <g:applyLayout name="footer" />
 
 </g:applyLayout>

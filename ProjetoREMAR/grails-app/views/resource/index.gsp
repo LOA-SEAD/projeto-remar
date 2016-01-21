@@ -19,19 +19,19 @@
         <div class="divider"></div>
         <br />
         <div class="card-list two-cards">
-        <g:if test="${resourceInstanceList}">
-                <g:render template="cads" model="[resourceInstanceList:resourceInstanceList]" />
-        </g:if>
-        <g:else>
-                <p>Não há recursos cadastrados, ainda. Envie um novo!  :)</p>
-        </g:else>
-
-        <div class="fixed-action-btn my-position">
-            <a class="btn-floating btn-large my-orange" href="/resource/create">
-                <i class="material-icons large">add</i>
-            </a>
-        </div>
-
+            <div class="row show developer">
+                <g:if test="${resourceInstanceList}">
+                    <g:render template="cads" model="[resourceInstanceList:resourceInstanceList]" />
+                </g:if>
+                <g:else>
+                    <p>Não há recursos cadastrados, ainda. Envie um novo!  :)</p>
+                </g:else>
+                <div class="fixed-action-btn my-position">
+                    <a class="btn-floating btn-large my-orange" href="/resource/create">
+                        <i class="material-icons large">add</i>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'game-index.js')}"></script>

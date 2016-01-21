@@ -41,6 +41,9 @@ class UrlMappings {
 
         // begin Resource API endpoints
         "/resource/review/$id/$status?"(controller:"resource", action:"review")
+//        '/resource/customizable'(view: '/resource/custGames')
+        '/resource/customizable'(controller:"resource", action:"customizableGames")
+
         // end Resource API endpoints
 
         name myProfile: "/my-profile"(view: "user/edit")

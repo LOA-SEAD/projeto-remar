@@ -14,7 +14,8 @@
 						</p>
 						<div class="divider"></div>
 						<br />
-						<div class="box-body">
+						<div class="row show">
+							%{--<div class="row show"></div>--}%
 							<ul class="collapsible popout" data-collapsible="accordion">
 								<li>
 									<div class="collapsible-header active"><i class="material-icons">filter_drama</i>Upload War</div>
