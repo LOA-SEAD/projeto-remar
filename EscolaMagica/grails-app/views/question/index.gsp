@@ -73,26 +73,31 @@
                 <!-- Modal Structure -->
                 <div id="editModal${i}" class="modal">
                     <div class="modal-content">
-                        <h4>Editar Questão</h4>
                         <div class="row">
-                            <g:if test="${flash.message}">
-                                <div class="message" role="status">${flash.message}</div>
-                            </g:if>
-                            <g:if test="${flash.message}">
-                                <div class="message" role="status">${flash.message}</div>
-                            </g:if>
-                            <g:hasErrors bean="${questionInstance}">
-                                <ul class="errors" role="alert">
-                                    <g:eachError bean="${questionInstance}" var="error">
-                                        <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-                                    </g:eachError>
-                                </ul>
-                            </g:hasErrors>
-                            <g:form url="[resource:questionInstance, action:'update']" method="PUT" >
-                                <g:hiddenField name="version" value="${questionInstance?.version}" />
-                                <g:render template="form" model="[ questionInstance: questionInstance, count:i]"/>
-                                <g:actionSubmit class="save btn btn-success btn-lg" action="update" value="${message(code: 'default.button.update.label', default: 'Salvar')}"/>
-                            </g:form>
+                            <div class="col s12"></div>
+                                <h4>Editar Questão</h4>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <g:if test="${flash.message}">
+                                    <div class="message" role="status">${flash.message}</div>
+                                </g:if>
+                                <g:if test="${flash.message}">
+                                    <div class="message" role="status">${flash.message}</div>
+                                </g:if>
+                                <g:hasErrors bean="${questionInstance}">
+                                    <ul class="errors" role="alert">
+                                        <g:eachError bean="${questionInstance}" var="error">
+                                            <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+                                        </g:eachError>
+                                    </ul>
+                                </g:hasErrors>
+                                <g:form url="[resource:questionInstance, action:'update']" method="PUT" >
+                                    <g:hiddenField name="version" value="${questionInstance?.version}" />
+                                    <g:render template="form" model="[ questionInstance: questionInstance, count:i]"/>
+                                    <g:actionSubmit class="save btn btn-success btn-lg" action="update" value="${message(code: 'default.button.update.label', default: 'Salvar')}"/>
+                                </g:form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -143,60 +148,60 @@
                     </div>
 
                     <div class="row">
-                        <div class="input-field col s10">
+                        <div class="input-field col s9">
                             <label for="answers[0]">Alternativa 1</label>
                             <input type="text" class="validate" id="answers[0]" name="answers[0]" required="" value="${questionInstance?.answers}"/>
                         </div>
                         <div class="col s2">
-                            <input type="radio" id="radio0" name="correctAnswer" value="0" checked="${questionInstance?.correctAnswer == 0}"/>
+                            <input type="radio" id="radio0" name="correctAnswer" value="0" />
                             <label for="radio0">Alternativa correta</label>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="input-field col s10">
+                        <div class="input-field col s9">
                             <label for="answers[1]">Alternativa 2</label>
                             <input type="text" class="validate" id="answers[1]" name="answers[1]" required="" value="${questionInstance?.answers}"/>
                         </div>
                         <div class="col s2">
-                            <input type="radio" id="radio1" name="correctAnswer" value="1" checked="${questionInstance?.correctAnswer == 1}"/> <label for="radio1">Alternativa correta</label>
+                            <input type="radio" id="radio1" name="correctAnswer" value="1" /> <label for="radio1">Alternativa correta</label>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="input-field col s10">
+                        <div class="input-field col s9">
                             <label for="answers[2]">Alternativa 3</label>
                             <input type="text" class="validate" id="answers[2]" name="answers[2]" required="" value="${questionInstance?.answers}"/>
                         </div>
                         <div class="col s2">
-                            <input type="radio" id="radio2" name="correctAnswer" value="2" checked="${questionInstance?.correctAnswer == 2}"/> <label for="radio2">Alternativa correta</label>
+                            <input type="radio" id="radio2" name="correctAnswer" value="2" /> <label for="radio2">Alternativa correta</label>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="input-field col s10">
+                        <div class="input-field col s9">
                             <label for="answers[3]">Alternativa 4</label>
                             <input type="text" class="form-control" id="answers[3]" name="answers[3]" required="" value="${questionInstance?.answers}"/>
                         </div>
                         <div class="col s2">
-                            <input type="radio" id="radio3" name="correctAnswer" value="3" checked="${questionInstance?.correctAnswer == 3}"/> <label for="radio3">Alternativa correta</label>
+                            <input type="radio" id="radio3" name="correctAnswer" value="3" /> <label for="radio3">Alternativa correta</label>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col s2 offset-s3">
-                            <input type="radio" id="level1" name="level" value="1" checked="${questionInstance?.level == 1}"/>
+                            <input type="radio" id="level1" name="level" value="1" />
                             <label for="level1">Nível 1</label>
 
                         </div>
 
                         <div class="col s2">
-                            <input type="radio" id="level2" name="level" value="2" checked="${questionInstance?.level == 2}"/>
+                            <input type="radio" id="level2" name="level" value="2" />
                             <label for="level2">Nível 2</label>
                         </div>
 
                         <div class="col s2">
-                            <input type="radio" id="level3" name="level" value="3" checked="${questionInstance?.level == 3}"/>
+                            <input type="radio" id="level3" name="level" value="3" />
                             <label for="level3">Nível 3</label>
                         </div>
                     </div>
@@ -207,6 +212,22 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Modal Structure -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <div id="totalQuestion">
+                Este é o modal Informações
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn waves-effect waves-light modal-close">Entendi</button>
+        </div>
+    </div>
+
+
 
 
 
@@ -224,7 +245,8 @@
                                 url: url,
                                 success: function (data) {
                                     $(tr).remove();
-                                    window.location.reload();
+                                    //uncheck_all();
+                                    //window.location.reload();
                                 },
                                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                                 }

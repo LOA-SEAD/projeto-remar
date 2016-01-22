@@ -95,8 +95,16 @@ window.onload = function() {
         }
         else
         {
-            alert("Você deve selecionar no mínimo 5 (cinco) questões de cada nível.\nQuestões nível 1: " + questions_level1 +
-                "\nQuestões nível 2: " + questions_level2 + "\nQuestões nível 3: " + questions_level3);
+
+
+            $('#totalQuestion').empty();
+            $("#totalQuestion").append("<div> <p> Você deve selecionar no mínimo 5 (cinco) questões de cada nível. </p> </div>");
+            $("#totalQuestion").append("<div> <p> Questões nível 1: " + questions_level1 +" . </p> </div>");
+            $("#totalQuestion").append("<div> <p> Questões nível 2: " + questions_level2 +" . </p> </div>");
+            $("#totalQuestion").append("<div> <p> Questões nível 3: " + questions_level3 +" . </p> </div>");
+            $('#infoModal').openModal();
+
+
         }
 
     });
