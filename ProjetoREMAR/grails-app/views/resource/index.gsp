@@ -14,7 +14,7 @@
 <body>
     <div class="row cluster">
         <p class="left-align margin-bottom" style="font-size: 24px;">
-            <i class="left small material-icons">work</i>Gerenciar R.E.As
+            <i class="left small material-icons">work</i>Gerenciar jogos
         </p>
         <div class="divider"></div>
         <br />

@@ -394,7 +394,7 @@ class ResourceController {
 
         model.gameInstanceList = Resource.findAllByStatus('approved') // change to #findAllByActive?
 
-        render view: "custGames", model: model
+        render view: "customizableGames", model: model
     }
 
 

@@ -74,13 +74,13 @@ class BootStrap {
             for (url in [
                     '/', '/index', '/index/info', '/doc/**', '/assets/**', '/**/js/**', '/**/css/**', '/**/images/**',
                     '/**/favicon.ico', '/data/**', '/**/scss/**', '/**/less/**', '/**/fonts/**', '/**/font/**',
-                    '/password/**', '/moodle/**', '/exportedGame/**', '/static/**', '/login/**', '/logout/**', '/signup/**', '/menu/**', '/user/**',
+                    '/password/**', '/moodle/**', '/exportedGame/**', '/static/**', '/login/**', '/logout/**', '/signup/**', '/user/**',
                     '/facebook/**']) {
                 new RequestMap(url: url, configAttribute: 'permitAll').save()
             }
 
             for (url in [
-                    '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/frame/**', '/my-profile', '/user/update', '/menu/**'
+                    '/dashboard', '/process/**', '/developer/new', '/exportedResource/**', '/frame/**', '/my-profile', '/user/update', '/resource/customizableGames','/resource/show/**'
             ]) {
                 new RequestMap(url: url, configAttribute: 'IS_AUTHENTICATED_FULLY').save()
             }
@@ -92,7 +92,7 @@ class BootStrap {
             }
 
             for (url in [
-                    '/resource/**'
+                    '/resource/create/**', '/resource/edit/**', '/resource/index'
             ]) {
                 new RequestMap(url: url, configAttribute: 'ROLE_DEV').save()
             }

@@ -227,4 +227,22 @@ class ExportedResourceController {
         instance.save(flush: true)
         response.status = 200
     }
+
+    def publicGames(){
+        def model = [:]
+
+        model.publicExportedResourcesList = ExportedResource.findAllByType('public')
+
+        render view: "publicGames", model: model
+    }
+
+    def myGames(){
+        def model = [:]
+
+        model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id))
+
+        render view: "myGames", model: model
+    }
+
+
 }

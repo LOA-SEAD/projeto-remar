@@ -46,10 +46,10 @@
         <a href="/resource/customizableGames" class=""><i class="medium material-icons">create</i>Jogos customizáveis</a>
     </li>
     <li class="waves-effect waves-block waves-light">
-        <a href="/" class=""><i class="medium material-icons">public</i>Jogos públicos</a>
+        <a href="/exportedResource/publicGames" class=""><i class="medium material-icons">public</i>Jogos públicos</a>
     </li>
     <li class="waves-effect waves-block waves-light">
-        <a href="/" class=""><i class="medium material-icons">recent_actors</i>Meus Jogos</a>
+        <a href="/exportedResource/myGames" class=""><i class="medium material-icons">recent_actors</i>Meus Jogos</a>
     </li>
     <sec:ifAllGranted roles="ROLE_DEV">
         <li class="waves-effect waves-block waves-light">

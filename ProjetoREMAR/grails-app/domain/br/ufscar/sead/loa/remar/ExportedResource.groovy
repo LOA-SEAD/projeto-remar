@@ -13,6 +13,7 @@ class ExportedResource {
         moodleTableName nullable: true
     }
 
+
     String moodleUrl
     String linuxUrl
     String windowsUrl

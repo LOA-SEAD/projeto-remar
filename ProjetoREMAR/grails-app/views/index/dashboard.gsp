@@ -42,9 +42,9 @@
                                     </div>
                                     <div class="details">
                                         <a class="card-click-target"  href="/resource/show/${gameInstance.id}" aria-hidden="true" tabindex="-1"></a>
-                                        <a class="title"  href="/resource/show/${gameInstance.id}" title="${gameInstance.name}s" aria-hidden="true" tabindex="-1">${gameInstance.name}</a>
+                                        <a class="title truncate"  href="/resource/show/${gameInstance.id}" title="${gameInstance.name}s" aria-hidden="true" tabindex="-1">${gameInstance.name}</a>
                                         <div class="subtitle-container">
-                                            <p class="subtitle">Feito por: ${gameInstance.owner.firstName}</p>
+                                            <p class="subtitle truncate">Feito por: ${gameInstance.owner.firstName}</p>
                                         </div>
                                     </div>
                                     <div class="row no-margin margin-top">

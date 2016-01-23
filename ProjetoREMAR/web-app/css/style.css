@@ -744,3 +744,7 @@ h6{
     font-size: 25px;
     font-weight: 100;
 }
+
+h6 span{
+    font-weight: 300;
+}

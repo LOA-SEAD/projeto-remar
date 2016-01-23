@@ -36,8 +36,8 @@
                             <li class="collection-item left">
                                 <div class="row valign-wrapper no-margin-bottom">
                                     <div class="col s8 center">
-                                        <p class="title">${session.user.firstName} ${session.user.lastName}</p>
-                                        <p class="secondary-color">${session.user.email}</p>
+                                        <p class="title truncate">${session.user.firstName} ${session.user.lastName}</p>
+                                        <p class="secondary-color truncate" title="${session.user.email}">${session.user.email}</p>
                                     </div>
                                     <div class="col s4">
                                         <img src="/data/users/${session.user.username}/profile-picture"

@@ -42,7 +42,11 @@ class UrlMappings {
         // begin Resource API endpoints
         "/resource/review/$id/$status?"(controller:"resource", action:"review")
 //        '/resource/customizable'(view: '/resource/custGames')
-        '/resource/customizable'(controller:"resource", action:"customizableGames")
+        '/resource/customizableGames'(controller:"resource", action:"customizableGames")
+        "/resource/show/$id"(controller: "resource", action: "show")
+
+        '/exportedResource/publicGames'(controller:"exportedResource", action:"publicGames")
+        '/exportedResource/myGames'(controller:"exportedResource", action:"myGames")
 
         // end Resource API endpoints
 

@@ -2,7 +2,7 @@
     <div class="container remar-max-size">
         <div class="row">
             <div class="col l6 s12">
-                <h6 class="white-text ">Recursos Educacionais Multiplataforma e Abertos na Rede. </h6>
+                <h6 class="white-text "><span>R</span>ecursos <span>E</span>ducacionais <span>M</span>ultiplataforma e <span>A</span>bertos na <span>R</span>ede. </h6>
                 <p class="grey-text text-lighten-4">Para dúvidas, sugetões e criticas entre em contato conosco: <span class="orange-text">contato@remar.dc.ufscar.br</span>.</p>
             </div>
             <div class="col l4 offset-l2 hide-on-med-and-down social-button">
