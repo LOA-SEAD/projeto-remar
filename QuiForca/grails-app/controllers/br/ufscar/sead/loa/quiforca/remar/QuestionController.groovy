@@ -56,11 +56,58 @@ class QuestionController {
     }
 
     @Transactional
+    def newQuestion(Question questionInstance)
+    {
+        if(questionInstance.author==null)
+        {
+            def user = springSecurityService.currentUser.id
+            User currentUser = User.findById(user)
+            //println(currentUser.username.toString())
+            questionInstance.author = new String();
+            questionInstance.author = currentUser.username.toString()
+        }
+
+        Question newQuest = new Question();
+        newQuest.id=questionInstance.id
+        newQuest.statement = questionInstance.statement
+        newQuest.answer = questionInstance.answer
+        newQuest.author = questionInstance.author
+        newQuest.category = questionInstance.category
+        newQuest.processId = session.processId as long
+        newQuest.taskId    = session.taskId as long
+
+        if (newQuest.hasErrors()) {
+            respond newQuest.errors, view:'create' //TODO
+            render newQuest.errors;
+            return
+        }
+
+        newQuest.save flush:true
+
+        if (request.isXhr()) {
+            render(contentType: "application/json") {
+                JSON.parse("{\"id\":" + newQuest.getId() + "}")
+            }
+        } else {
+            // TODO
+        }
+
+        redirect(action: index())
+
+
+
+
+    }
+
+    @Transactional
     def save(Question questionInstance) {
         if (questionInstance == null) {
             notFound()
             return
         }
+
+
+
 
         if (questionInstance.hasErrors()) {
              respond questionInstance.errors, view:'create' //TODO
