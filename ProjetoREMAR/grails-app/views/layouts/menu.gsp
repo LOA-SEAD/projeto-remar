@@ -42,22 +42,29 @@
     <li class="waves-effect waves-block waves-light">
         <a href="/" class=""><i class=" medium mdi-action-dashboard"></i>Início</a>
     </li>
-    <li class="waves-effect waves-block waves-light">
+    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os jogos que são customizáveis." data-step="1">
         <a href="/resource/customizableGames" class=""><i class="medium material-icons">create</i>Jogos customizáveis</a>
     </li>
-    <li class="waves-effect waves-block waves-light">
+    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os jogos públicos que já foram publicados." data-step="2">
         <a href="/exportedResource/publicGames" class=""><i class="medium material-icons">public</i>Jogos públicos</a>
     </li>
-    <li class="waves-effect waves-block waves-light">
+    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os jogos que você publicou." data-step="3">
         <a href="/exportedResource/myGames" class=""><i class="medium material-icons">recent_actors</i>Meus Jogos</a>
     </li>
     <sec:ifAllGranted roles="ROLE_DEV">
-        <li class="waves-effect waves-block waves-light">
+        <li class="waves-effect waves-block waves-light" data-intro="No espaço do desenvolvedor você pode submeter um novo jogo para o REMAR." data-step="4">
             <a href="/resource/index" class=""><i class="medium material-icons">code</i>Desenvolvedor</a>
         </li>
     </sec:ifAllGranted>
 
-    <li class="waves-effect waves-block waves-light">
-        <a href="/" class=""><i class="medium material-icons">live_help</i>Ajuda na navegação</a>
+    <li class="waves-effect waves-block waves-light" data-intro="Para ver este rápido wizard novamente basta clicar aqui a qualquer momento." data-step="5">
+        <a  onclick="startWizard()" class=""><i class="medium material-icons">live_help</i>Ajuda na navegação</a>
     </li>
 </ul>
+
+<script>
+    function startWizard(){
+        introJs().start();
+        console.log("Wizard");
+    }
+</script>

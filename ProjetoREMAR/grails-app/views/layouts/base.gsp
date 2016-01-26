@@ -18,6 +18,8 @@
 
         <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick-theme.css"/>
 
+        <link rel="stylesheet" href="${resource(dir: 'css', file: 'introjs.min.css')}" />
+
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
@@ -37,6 +39,8 @@
         <!-- js -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
+        <script type="text/javascript" src="${resource(dir: 'js', file: 'intro.js')}"></script>
+
         <g:javascript src="materialize.min.js"/>
 
         <title><g:layoutTitle default="REMAR"/></title>
@@ -47,7 +51,7 @@
 
         <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick.min.js"></script>
 
-        <g:javascript src="layout/dashboard.js"/>
+        %{--<g:javascript src="layout/dashboard.js"/>--}%
 
 
     </body>
