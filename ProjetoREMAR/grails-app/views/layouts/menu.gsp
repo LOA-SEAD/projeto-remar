@@ -57,14 +57,15 @@
         </li>
     </sec:ifAllGranted>
 
-    <li class="waves-effect waves-block waves-light" data-intro="Para ver este rápido wizard novamente basta clicar aqui a qualquer momento." data-step="5">
+    <li class="waves-effect waves-block waves-light" data-intro="Para ver este wizard novamente basta clicar aqui." data-step="5">
         <a  onclick="startWizard()" class=""><i class="medium material-icons">live_help</i>Ajuda na navegação</a>
     </li>
 </ul>
 
 <script>
     function startWizard(){
-        introJs().start();
-        console.log("Wizard");
+        if(window.innerWidth > 992) { //desktop
+            introJs().start();
+        }
     }
 </script>

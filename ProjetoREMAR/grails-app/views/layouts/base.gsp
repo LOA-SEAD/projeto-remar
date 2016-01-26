@@ -51,7 +51,7 @@
 
         <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick.min.js"></script>
 
-        %{--<g:javascript src="layout/dashboard.js"/>--}%
+        <g:javascript src="layout/dashboard.js"/>
 
 
     </body>
