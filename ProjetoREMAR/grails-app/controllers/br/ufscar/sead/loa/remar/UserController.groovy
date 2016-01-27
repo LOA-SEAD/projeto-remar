@@ -44,22 +44,22 @@ class UserController {
 
     @Transactional(readOnly = false)
     def confirmAccount() {
-        def token = Token.findByTokenAndExpiresAtLessThan(params.token, new Date())
+        log.debug params.token
+        def token = Token.findByTokenAndExpiresAtGreaterThan(params.token, new Date())
         if (token) {
-            def user = User.findById(token.idOwner)
 
-            user.accountLocked = false
-            user.enabled = true
-            token.valid = false
-            user.save flush: true
+            token.owner.accountLocked = false
+            token.owner.enabled = true
+            token.owner.save flush: true
             token.save flush: true
 
-            SecurityContextHolder.context.authentication = new UsernamePasswordAuthenticationToken(user, null,
-                    user.authoritiesHashSet())
-            session.user = user
+            SecurityContextHolder.context.authentication = new UsernamePasswordAuthenticationToken(token.owner, null,
+                    token.owner.authoritiesHashSet())
+            session.user = token.owner
 
             render(view: '/static/welcome')
         } else {
+            render ":("
             response.status = 400 // TODO
         }
     }

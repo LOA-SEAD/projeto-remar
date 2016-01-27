@@ -12,5 +12,5 @@ function countdown() {
 }
 
 function redirect() {
-    window.location.href = "/dashboard";
+    window.location.href = "/";
 }
