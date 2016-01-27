@@ -64,21 +64,6 @@ class UserController {
         }
     }
 
-
-    def sendConfirmationMail(userEmail, userId) {
-        def token = new Token(token: RandomStringUtils.random(50, true, true), owner: User.get(userId), type: 'email_confirmation')
-        token.save flush: true
-
-        mailService.sendMail {
-            async true
-            to userEmail
-            subject "REMAR – Confirmação de cadastro"
-            html '<h3>Clique no link abaixo para confirmar seu cadastro</h3> <br>' +
-                    '<br>' +
-                    "http://${request.serverName}:${request.serverPort}/user/account/confirm/${token.token}"
-        }
-    }
-
     @Transactional(readOnly = false)
     def resetPassword() {
         if (request.method == 'GET') {
@@ -101,7 +86,7 @@ class UserController {
                 token.owner.password = params.password
                 token.owner.save flush: true
                 token.delete flush: true
-                render "ok"
+                render "ok" // TODO
             } else { // User has entered the email & captcha
                 def userIP = request.getRemoteAddr()
                 def captcha = params.get("g-recaptcha-response")
@@ -116,7 +101,7 @@ class UserController {
                         log.debug token.errors
                         def url = "http://${request.serverName}:${request.serverPort}/user/password/reset?t=${token.token}"
                         Util.sendEmail(user.email, "Recuperar senha",
-                                "<h3><a href=\"${url}\"> Clique aqui </a> para redefinir sua senha :)</h3> <br>")
+                                "<h3><a href=\"${url}\">Clique aqui</a> para redefinir sua senha :)</h3> <br>")
 
                         render view: "/user/password/emailSent", model: [email: user.email]
 
@@ -169,8 +154,15 @@ class UserController {
             instance.firstAccess = true
 
             instance.save flush: true
-            sendConfirmationMail(instance.getEmail(), instance.getId())
+            def token = new Token(token: RandomStringUtils.random(50, true, true), owner: instance, type: 'email_confirmation')
+            token.save flush: true
+            def link = "http://${request.serverName}:${request.serverPort}/user/account/confirm/${token.token}"
 
+            //noinspection GroovyAssignabilityCheck
+            Util.sendEmail(
+                    instance.email,
+                    "Confirme seu email",
+                    "<h3><a href=\"${link}\">Clique aqui</a> para confirmar seu email</h3>")
             redirect uri: "/signup/success/$instance.id"
         } else {
             // TODO

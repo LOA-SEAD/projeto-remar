@@ -302,16 +302,14 @@ class ProcessController implements JavaDelegate, ExecutionListener{
                     taskService.addUserIdentityLink(taskId, session.user.username as String, IdentityLinkType.OWNER)
                     taskService.delegateTask(taskId, username)
                     if (username != session.user.username) {
-                        mailService.sendMail {
-                            async true
-                            to user.getEmail()
-                            subject "Nova tarefa no REMAR – ${resourceName}"
-                            html '<h3>Você foi designado como responsável por uma tarefa no REMAR!</h3>' +
-                                    "Nome do processo: ${resourceName} " + "<br>" +
-                                    "Dono do processo: ${session.user.firstName}" + "<br>" +
-                                    "Nome da Tarefa: ${allTasks[i].name} " + "<br>" +
-                                    "<a href=http://${request.serverName}:${request.serverPort}/${uri}/${allTasks[i].taskDefinitionKey.replace('.', '/')}?p=${processId}&t=${allTasks[i].id}><b>Realizar tarefa<b>"
-                        }
+                        //noinspection GroovyAssignabilityCheck
+                        Util.sendEmail(user.email, "Nova tarefa no REMAR – ${resourceName}",
+                                '<h3>Você foi designado como responsável por uma tarefa no REMAR!</h3>' +
+                                "Nome do processo: ${resourceName} " + "<br>" +
+                                "Dono do processo: ${session.user.firstName}" + "<br>" +
+                                "Nome da Tarefa: ${allTasks[i].name} " + "<br>" +
+                                "<a href=http://${request.serverName}:${request.serverPort}/${uri}/${allTasks[i].taskDefinitionKey.replace('.', '/')}?p=${processId}&t=${allTasks[i].id}><b>Realizar tarefa<b>"
+                        )
                     }
 
                 } else {

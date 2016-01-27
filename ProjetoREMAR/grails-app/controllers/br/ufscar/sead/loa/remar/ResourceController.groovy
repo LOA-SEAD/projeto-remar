@@ -294,12 +294,10 @@ class ResourceController {
         if(!status) {
             resourceInstance.comment = comment
             if(resourceInstance.status == "rejected") {
-                mailService.sendMail {
-                    async true
-                    to resourceInstance.owner.email
-                    subject "REMAR – O seu WAR \"${resourceInstance.name}\" foi rejeitado!"
-                    html "<h3>O seu WAR \"${resourceInstance.name}\" foi rejeitado pois ${comment}</h3> <br> "
-                }
+                Util.sendEmail(resourceInstance.owner.email,
+                        "REMAR – O seu WAR \"${resourceInstance.name}\" foi rejeitado!",
+                        "<h3>O seu WAR \"${resourceInstance.name}\" foi rejeitado pois ${comment}</h3> <br> "
+                )
                 render 'success'
             }
         }
@@ -329,12 +327,11 @@ class ResourceController {
                 resourceInstance.version = 0
                 resourceInstance.save flush: true
 
-                mailService.sendMail {
-                    async true
-                    to resourceInstance.owner.email
-                    subject "REMAR – O seu WAR \"${resourceInstance.name}\" foi aprovado!"
-                    html '<h3>O seu WAR \"${resourceInstance.name}\" foi aprovado! :)</h3> <br>'
-                }
+                //noinspection GroovyAssignabilityCheck
+                Util.sendEmail(resourceInstance.owner.email,
+                        "REMAR – O seu WAR \"${resourceInstance.name}\" foi aprovado!",
+                        '<h3>O seu WAR \"${resourceInstance.name}\" foi aprovado! :)</h3> <br>'
+                )
 
                 redirect controller: "process", action: "deploy", id: resourceInstance.bpmn
             } else {
