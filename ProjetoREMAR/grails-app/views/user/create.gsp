@@ -55,6 +55,8 @@
                             <label for="password">Senha</label>
                         </div>
 
+                        <input id="firstAccess" name="firstAccess" type="hidden" value="true">
+
                         <div class="input-field col s12 m6">
                             <i class="material-icons prefix">lock</i>
                             <input id="confirm-password" name="confirm_password" type="password"/>

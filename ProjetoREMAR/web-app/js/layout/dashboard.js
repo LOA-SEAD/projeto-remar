@@ -108,3 +108,31 @@ $(document).ready(function() {
    //    }
    //);
 });
+
+function startWizard(){
+   if(window.innerWidth > 992) { //desktop
+      introJs().start();
+   }
+}
+
+window.onload = function(){
+   var firstAccess = document.getElementById("userFirstAccessLabel").value;
+   console.log(firstAccess);
+   if(firstAccess=="true") {
+
+      startWizard();
+
+      $.ajax({
+         url: '/user/setFalseFirstAccess',
+         type: 'POST',
+         success: function () {
+            console.log("Sucess!");
+            //your success code
+         },
+         error: function (XMLHttpRequest, textStatus, errorThrown) {
+            //your error code
+            console.log(textStatus + "\n" + errorThrown);
+         }
+      });
+   }
+}

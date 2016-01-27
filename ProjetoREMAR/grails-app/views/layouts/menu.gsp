@@ -62,10 +62,4 @@
     </li>
 </ul>
 
-<script>
-    function startWizard(){
-        if(window.innerWidth > 992) { //desktop
-            introJs().start();
-        }
-    }
-</script>
+<input id="userFirstAccessLabel" type="hidden" value="${session.user.firstAccess}" > <label for="userFirstAccessLabel"></label>

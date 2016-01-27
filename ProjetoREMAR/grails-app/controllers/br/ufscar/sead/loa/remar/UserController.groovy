@@ -166,6 +166,7 @@ class UserController {
             }
 
             instance.enabled = test
+            instance.firstAccess = true
 
             instance.save flush: true
             sendConfirmationMail(instance.getEmail(), instance.getId())
@@ -371,4 +372,22 @@ class UserController {
         render destination.name
     }
 
+    @Transactional
+    def setFalseFirstAccess(){
+        String username = session.user.username;
+        User userInstance = User.findByUsername(username)
+        println(userInstance.firstAccess)
+        userInstance.firstAccess = false;
+        session.user.firstAccess = false;
+        userInstance.save flush: true
+    }
+
+    @Transactional
+    def setTrueFirstAccess(){
+        String username = session.user.username;
+        User userInstance = User.findByUsername(username)
+        userInstance.firstAccess = true;
+        session.user.firstAccess = true;
+        userInstance.save flush: true
+    }
 }
