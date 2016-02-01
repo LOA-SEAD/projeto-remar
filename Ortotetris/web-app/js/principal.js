@@ -51,7 +51,7 @@ function AutoClickButton(id){
 
 function ShowWord(word, answer,initial_position, id) {
 
-    var node = document.getElementById("ShowWord");
+    var node = document.getElementById("showWordModal");
     var button_move_right = "<button class='myButton4' onclick=\"right('"+id+"')\" > <div style=\"align-content: center;left: 50%;\" class=\"arrowright\"></div></button>"
     var button_move_left = "<button class='myButton4' onclick=\"left('"+id+"')\" > <div style=\"align-content: center;left: 50%;\" class=\"arrowleft\"></div>  </button>"
 
@@ -76,17 +76,3 @@ function ShowWord(word, answer,initial_position, id) {
     }
     node.innerHTML+= button_move_right
 }
-//
-////function createNewWord(){
-////    var node = document.getElementById("ShowWord")
-////    node.innerHTML = "<input class='resizedTextbox' type='text' id='NewWordLabel' value='Digite a nova palavra aqui' onfocus=\"(this.value == 'Digite a nova palavra aqui') && (this.value = '')\"onblur=\"(this.value == '') && (this.value = 'Digite a nova palavra aqui')\"> </input>"
-////    node.innerHTML += " <input type=\"hidden\" name=\"word\" value=\"word\"/> "
-////    node.innerHTML += " <input type=\"hidden\" name=\"initial_position\" value=\"0\"/> "
-////    node.innerHTML+= " <button class='but-edit' onclick=\"SaveNewWord()\" >Salvar</button> "
-////}
-//
-//function editWord(id, answer){
-//    var node = document.getElementById("ShowWord")
-//    node.innerHTML = "<input class='resizedTextbox' type='text' id='EditWordLabel' value='"+answer.toUpperCase()+"' onfocus=\"(this.value == '"+answer+"') && (this.value = '')\"onblur=\"(this.value == '') && (this.value = '"+answer+"')\"> </input>"
-//    node.innerHTML+= " <button class='but-edit' onclick=\"UpdateWord("+id+")\" >Salvar</button> "
-//}

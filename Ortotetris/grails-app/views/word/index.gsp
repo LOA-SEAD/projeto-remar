@@ -1,33 +1,58 @@
-<%@ page import="br.ufscar.sead.loa.remar.Word" %>
-%{--<%@ page contentType="text/html;charset=UTF-8" %>--}%
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="layout" content="main"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="../css/materialize.css"  media="screen,projection"/>
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'layout.css')}"	type="text/css">
 
-    <link href='http://fonts.googleapis.com/css?family=Sniglet' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Ropa+Sans' rel='stylesheet'>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="stylesheet" href="${resource(dir: 'css', file: 'layout.css')}"	type="text/css">
-	<!--Import Google Icon Font-->
-	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<!--Import materialize.css-->
 
-	<!--Let browser know website is optimized for mobile-->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-	<link rel="stylesheet" href="${resource(dir: 'css', file: 'materialize.css')}"	type="text/css" media="screen,projection">
-	%{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'external-styles.css')}"	type="text/css">--}%
-	<!--Import jQuery before materialize.js-->
-	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-
-    <script type="text/javascript" src="${resource(dir: 'js', file: 'materialize.min.js')}"></script>
-
-    <script type="text/javascript" src="${resource(dir: 'js', file: 'principal.js')}"></script>
-	<script type="text/javascript" src="${resource(dir: 'js', file: 'order.js')}"></script>
-	<title>Ortotetris</title>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="layout" content="main"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Ortotetris</title>
 </head>
+
+<body>
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+%{--<script type="text/javascript" src="../js/materialize.min.js"></script>--}%
+<script type="text/javascript" src="${resource(dir: 'js', file: 'materialize.min.js')}"></script>
+<script type="text/javascript" src="${resource(dir: 'js', file: 'principal.js')}"></script>
+<script type="text/javascript" src="${resource(dir: 'js', file: 'order.js')}"></script>
+
+
+
+
+
+%{--<%@ page import="br.ufscar.sead.loa.remar.Word" %>--}%
+%{--<%@ page contentType="text/html;charset=UTF-8" %>--}%
+%{--<!DOCTYPE html>--}%
+%{--<html>--}%
+%{--<head>--}%
+	%{--<meta name="layout" content="main"/>--}%
+    %{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">--}%
+
+    %{--<link href='http://fonts.googleapis.com/css?family=Sniglet' rel='stylesheet' type='text/css'>--}%
+	%{--<link href='http://fonts.googleapis.com/css?family=Ropa+Sans' rel='stylesheet'>--}%
+	%{--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">--}%
+	%{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'layout.css')}"	type="text/css">--}%
+	%{--<!--Import Google Icon Font-->--}%
+	%{--<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">--}%
+	%{--<!--Import materialize.css-->--}%
+
+	%{--<!--Let browser know website is optimized for mobile-->--}%
+	%{--<meta name="viewport" content="width=device-width, initial-scale=1.0"/>--}%
+
+	%{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'materialize.css')}"	type="text/css" media="screen,projection">--}%
+	%{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'external-styles.css')}"	type="text/css">--}%
+	%{--<!--Import jQuery before materialize.js-->--}%
+	%{--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>--}%
+
+
+
+%{--</head>--}%
 
 <body>
 <div class="container">
@@ -72,13 +97,22 @@
                             <input type="hidden" value="0" name="initialPosition"> <label></label>
                         </div>
                     </div>
-                    <button name="create" onclick="SaveNewWord()" class="btn btn-success btn-lg">Criar</button>
+                    <button onclick="SaveNewWord()" class="btn btn-success btn-lg">Criar</button>
                 %{--</g:form>--}%
             </div>
         </div>
     </div>
 
+    <!-- Modal Structure -->
+    <div id="showModal" class="modal">
+        <div class="modal-content">
 
+            <div id="showWordModal">
+
+
+            </div>
+        </div>
+    </div>
 
     %{--<section id="ShowWord" style="height: 250px;">--}%
 
@@ -132,23 +166,23 @@
 
 
         function right(id){
-            var parameters = {"id": id}
+            var parameters = {"id": id};
             <g:remoteFunction action="move_to_right" params="parameters" update="TableWordList" onComplete="AutoClickButton(id)"/>
         }
 
         function left(id){
-            var parameters = {"id": id}
+            var parameters = {"id": id};
             <g:remoteFunction action="move_to_left" params="parameters" update="TableWordList" onComplete="AutoClickButton(id)"/>
 
         }
 
         function mark_letter(id,pos){
-            var parameters = {"id": id, "pos":pos}
+            var parameters = {"id": id, "pos":pos};
             <g:remoteFunction action="mark_letter" params="parameters" update="TableWordList" onComplete="AutoClickButton(id)"/>
         }
 
         function clear_letter(id,pos){
-            var parameters = {"id": id, "pos":pos}
+            var parameters = {"id": id, "pos":pos};
             <g:remoteFunction action="clear_position" params="parameters" update="TableWordList" onComplete="AutoClickButton(id)"/>
         }
 
@@ -158,21 +192,16 @@
         }
 
         function SaveNewWord(){
-            var ans = document.getElementById("NewWordLabel").value
-            var node = document.getElementById("ShowWord")
-            var parameters = {"answer": ans, "word": "none", "initial_position":0}
+            var ans = document.getElementById("NewWordLabel").value;
+            var node = document.getElementById("ShowWord");
+            var parameters = {"answer": ans, "word": "none", "initial_position":0};
             <g:remoteFunction action="save" params="parameters" update="TableWordList"/>
-        }
-
-        function UpdateWord(id, i){
-            var ans = document.getElementById("EditWordLabel"+i).value
-            var parameters = {"id":id, "new_answer": ans}
-            <g:remoteFunction action="editWord" params="parameters" update="TableWordList"/>
+            $('#createModal').closeModal();
         }
 
         function WordDelete(id){
             if(confirm("Você tem certeza?")){
-                var parameters = {"id":id}
+                var parameters = {"id":id};
                 <g:remoteFunction action="WordDelete" params="parameters" update="TableWordList"/>
             }
         }

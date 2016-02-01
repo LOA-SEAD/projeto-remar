@@ -17,7 +17,6 @@
 		<asset:javascript src="application.js"/>
 		%{--Scripts utilizados--}%
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	    <script type="text/javascript" src="${resource(dir: 'js', file: 'materialize.min.js')}"></script>
      	<script type="text/javascript" src="${resource(dir: 'js', file: 'principal.js')}"></script>
 		<script type="text/javascript" src="${resource(dir: 'js', file: 'order.js')}"></script>
 	    <!--Import Google Icon Font-->

@@ -19,7 +19,7 @@
                     %{--<td>${fieldValue(bean: wordInstance, field: "word")}</td>--}%
                     %{--<td>${fieldValue(bean: wordInstance, field: "initial_position")}</td>--}%
                     <td>
-                        <i class="material-icons" id="button${wordInstance.id}" onclick="ShowWord('${wordInstance.word}','${wordInstance.answer.toUpperCase()}',${wordInstance.initial_position}, ${wordInstance.id})">games</i>
+                        <i class="material-icons modal-trigger" data-target="showModal" id="button${wordInstance.id}" onclick="ShowWord('${wordInstance.word}','${wordInstance.answer.toUpperCase()}',${wordInstance.initial_position}, ${wordInstance.id})">games</i>
                         <i class="material-icons modal-trigger" data-target="editModal${i}" onclick="editWord(${wordInstance.id},'${wordInstance.answer}')">edit</i>
                         <i class="material-icons" onclick="WordDelete('${wordInstance.id}')">delete</i>
                     </td>
@@ -39,7 +39,7 @@
                                 </div>
                             </div>
                             %{--<g:submitButton name="update"> Salvar</g:submitButton>--}%
-                            <button name="edit" onclick="UpdateWord(${wordInstance?.id}, ${i})" class="btn btn-success btn-lg">Salvar</button>
+                            <button onclick="UpdateWord(${wordInstance?.id}, ${i})" class="btn btn-success btn-lg modal-close">Salvar</button>
                             %{--</g:form>--}%
                         </div>
                     </div>
@@ -49,5 +49,15 @@
         </tbody>
     </table>
 </section>
+
+<script>
+    function UpdateWord(id, i){
+        var ans = document.getElementById("EditWordLabel"+i).value;
+        var parameters = {"id":id, "new_answer": ans};
+        <g:remoteFunction action="editWord" params="parameters" update="TableWordList"/>
+
+    }
+
+</script>
 
 
