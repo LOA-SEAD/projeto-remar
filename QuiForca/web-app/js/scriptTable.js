@@ -53,8 +53,12 @@ window.onload = function(){
             params = params.substr(0, params.length -1);
             window.top.location.href = "toJson/" + params;
         }
-        else
-            alert("Selecione ao menos uma palavra antes de enviar.");
+        else{
+            $('#totalQuestion').empty();
+            $("#totalQuestion").append("<div> <p> Selecione ao menos uma palavra antes de enviar. </p> </div>");
+            $('#infoModal').openModal();
+        }
+
     });
 
 };

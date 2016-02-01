@@ -160,6 +160,19 @@
     </div>
 
 
+    <!-- Modal Structure -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <div id="totalQuestion">
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn waves-effect waves-light modal-close">Entendi</button>
+        </div>
+    </div>
+
+
 
 
 
