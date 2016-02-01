@@ -8,7 +8,7 @@ $(document).ready(function() {
    console.log(window.innerWidth);
 
    if(window.innerWidth > 992) { //desktop
-      $('#slick').slick({
+      $('.slick').slick({
          infinite: true,
          slidesToShow: 4,
          slidesToScroll: 1,
@@ -23,7 +23,7 @@ $(document).ready(function() {
 
 
    }else if(window.innerWidth <= 992 && window.innerWidth > 600){ //tablet
-      $('#slick').slick({
+      $('.slick').slick({
          infinite: true,
          slidesToShow: 3,
          slidesToScroll: 1,
@@ -36,7 +36,7 @@ $(document).ready(function() {
          mobileFirst: true
       }).css({"width":"550px", "margin": "0 auto"});
    }else{ //mobile
-      $('#slick').slick({
+      $('.slick').slick({
          infinite: true,
          slidesToShow: 2,
          slidesToScroll: 1,

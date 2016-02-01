@@ -44,7 +44,7 @@
                 </g:if>
                 <g:else>
                     <g:each in="${gameInstanceList}" var="gameInstance">
-                        <div class="card square-cover small">
+                        <div class="card square-cover small hoverable">
                             <div class="card-content">
                                 <div class="cover">
                                     <div class="cover-image-container">
@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="details">
                                     <a class="card-click-target"  href="/resource/show/${gameInstance.id}" aria-hidden="true" tabindex="-1"></a>
-                                    <a class="title card-name"  href="/resource/show/${gameInstance.id}" title="${gameInstance.name}s" aria-hidden="true" tabindex="-1">${gameInstance.name}</a>
+                                    <a class="title card-name"  href="/resource/show/${gameInstance.id}" title="${gameInstance.name}" aria-hidden="true" tabindex="-1">${gameInstance.name}</a>
                                     <div class="subtitle-container">
                                         <p class="subtitle">Feito por: ${gameInstance.owner.firstName}</p>
                                     </div>

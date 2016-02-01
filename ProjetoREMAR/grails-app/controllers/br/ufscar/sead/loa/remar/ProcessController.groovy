@@ -12,7 +12,6 @@ import org.camunda.bpm.engine.TaskService
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.camunda.bpm.engine.delegate.ExecutionListener
 import org.camunda.bpm.engine.delegate.JavaDelegate
-import org.camunda.bpm.engine.impl.identity.Authentication
 import org.camunda.bpm.engine.impl.repository.DeploymentBuilderImpl
 import org.camunda.bpm.engine.runtime.ProcessInstance
 import org.camunda.bpm.engine.task.DelegationState
@@ -145,14 +144,31 @@ class ProcessController implements JavaDelegate, ExecutionListener{
         def uri = runtimeService.getVariable(params.processId, "resourceUri")
 
         for (task in tasks) {
+            print "AKI !!!! -----"
+            print task.getDelegationState()
+            if(task.getDelegationState() == null){
+                taskService.addUserIdentityLink(task.id, session.user.username as String, IdentityLinkType.OWNER)
+                taskService.delegateTask(task.id, session.user.username)
+            }
+
+            print task.getDelegationState()
             task.taskDefinitionKey = "${task.taskDefinitionKey.replace('.', '/')}?p=${task.processInstanceId}&t=${task.id}"
             task.getDescription()
         }
 
+        taskService.createTaskQuery().processInstanceId(params.processId).list().clear()
+        taskService.createTaskQuery().processInstanceId(params.processId).list().addAll(tasks)
+
+        print tasks.get(0).getDelegationState()
+
         if (tasks.size() == 0) {
             render(view:'finishedProcess')
         } else {
-            render view: "chooseUsersTasks", model: [users: allUsers, tasks: tasks, uri: uri, processId: params.processId,
+//            redirect uri:"/process/tasks/delegate/"+params.processId
+//            render view: "chooseUsersTasks", model: [users: allUsers, tasks: tasks, uri: uri, processId: params.processId,
+//                                                     currentUser: session.user, dev: Environment.current == Environment.DEVELOPMENT]
+
+            render  view: "chooseUsersTasks", model: [users: allUsers, tasks: tasks, uri: uri, processId: params.processId, nameProcess:runtimeService.getVariable(params.processId, "resourceName"),
                                 currentUser: session.user, dev: Environment.current == Environment.DEVELOPMENT]
         }
 
@@ -162,19 +178,45 @@ class ProcessController implements JavaDelegate, ExecutionListener{
         String userId = springSecurityService.getCurrentUser().getId()
         List<ProcessInstance> processesList = runtimeService.createProcessInstanceQuery().list()
         def list = []
+
         for (processes in processesList) {
             def var = runtimeService.getVariable(processes.id, "ownerId")
             if (userId == var) {
                 def formattedProcesses = []
+//                def uri = runtimeService.getVariable(processes.id, "resourceUri")
+//                List<Task> tasks = taskService.createTaskQuery().processInstanceId(processes.id).list()
+//
+//                /*
+//                * Delega as tarefas e gera a key
+//                *
+//                * */
+//                for (task in tasks){
+//                    if(task.getDelegationState() == null){
+//                        taskService.addUserIdentityLink(task.id, session.user.username as String, IdentityLinkType.OWNER)
+//                        taskService.delegateTask(task.id, session.user.username)
+//                    }
+//                    task.taskDefinitionKey = "${task.taskDefinitionKey.replace('.', '/')}?p=${task.processInstanceId}&t=${task.id}"
+//                }
+
+                /*
+                * Reescreve a lista
+                *
+                * */
+//                taskService.createTaskQuery().processInstanceId(processes.id).list().clear()
+//                taskService.createTaskQuery().processInstanceId(processes.id).list().addAll(tasks)
+
                 formattedProcesses[0] = runtimeService.getVariable(processes.id, "resourceName")
                 formattedProcesses[1] = taskService.createTaskQuery().processInstanceId(processes.id).list().size()
                 formattedProcesses[2] = runtimeService.createProcessInstanceQuery().processInstanceId(processes.id).list()[0].suspended
                 formattedProcesses[3] = processes.id
+//                formattedProcesses[4] = tasks
+//                formattedProcesses[5] = uri
+
                 list.add(formattedProcesses)
             }
         }
         if(list){
-            log.debug list[0][3]
+//            log.debug list[0][1]
             render(view: "userProcesses", model:[processes: list])
         }
         else{
@@ -319,12 +361,14 @@ class ProcessController implements JavaDelegate, ExecutionListener{
                 i++
         }
 
+        render view: "chooseUsersTasks", model: [users: allUsers, tasks: tasks, uri: uri, processId: params.processId,
+                                                 currentUser: session.user, dev: Environment.current == Environment.DEVELOPMENT]
 
-        redirect uri:"/process/tasks/overview/$processId"
+//        redirect uri:"/process/tasks/overview/$processId"
         //log.debug params
-
-
     }
+
+
 
 
     @Override
@@ -334,6 +378,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
 
         if (delegateExecution.currentActivityId == 'start') {
             redirect uri: "/process/tasks/overview/${delegateExecution.processInstanceId}"
+//            redirect uri: "/process/user-processes"
         }
     }
 
@@ -440,8 +485,18 @@ class ProcessController implements JavaDelegate, ExecutionListener{
         springSecurityService.clearCachedRequestmaps()
     }
 
+    def getAllTasks(){
+        def model = [:]
+        String userId = springSecurityService.getCurrentUser().getId()
+        List<ProcessInstance> processesList = runtimeService.createProcessInstanceQuery().list()
+        for (processes in processesList) {
+            def var = runtimeService.getVariable(processes.id, "ownerId")
+            if (userId == var) {
+                def tasks  = taskService.createTaskQuery().processInstanceId(processes.id).list()
+                model.(processes.id) = tasks;
+            }
+        }
+        render model:model
+    }
 
 }
-
-
-

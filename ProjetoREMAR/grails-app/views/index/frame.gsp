@@ -8,7 +8,7 @@ Time: 09:55
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <meta name="layout" content="new-main-inside">
+    <meta name="layout" content="materialize-layout-frame">
     <script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery.min.js')}"></script>
     <g:javascript src="frame.js"/>
     <g:if test="${development}">
@@ -20,11 +20,9 @@ Time: 09:55
 
 
 <div class="content">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box box-body box-info">
-                <iframe id='frame' src="${uri}" frameBorder="0" class="col-lg-12 col-md-12 col-sm-12"></iframe>
-            </div>
+    <div class="row show">
+        <div class="col s12">
+            <iframe id='frame' src="${uri}" frameBorder="0" style="width: 992px; height: 950px;"></iframe>
         </div>
     </div>
 </div>

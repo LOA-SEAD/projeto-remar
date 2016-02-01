@@ -24,7 +24,7 @@
                     <g:render template="cads" model="[resourceInstanceList:resourceInstanceList]" />
                 </g:if>
                 <g:else>
-                    <p>Não há recursos cadastrados, ainda. Envie um novo!  :)</p>
+                    <p>Você ainda não submeteu nenhum jogo. Nos envie um agora mesmo!  :)</p>
                 </g:else>
                 <div class="fixed-action-btn my-position">
                     <a class="btn-floating btn-large my-orange" href="/resource/create">
@@ -34,6 +34,17 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="${resource(dir: 'js', file: 'game-index.js')}"></script>
+    <footer class="row">
+        <ul class="pagination">
+            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+            <li class="active"><a href="#!">1</a></li>
+            <li class="waves-effect"><a href="#!">2</a></li>
+            <li class="waves-effect"><a href="#!">3</a></li>
+            <li class="waves-effect"><a href="#!">4</a></li>
+            <li class="waves-effect"><a href="#!">5</a></li>
+            <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+        </ul>
+    </footer>
+    <g:javascript src="game-index.js"/>
 </body>
 </html>

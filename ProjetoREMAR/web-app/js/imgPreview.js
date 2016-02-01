@@ -1,5 +1,7 @@
 
-window.onload = function() {
+$(function() {
+
+    //console.log("imagenPreview carregada");
 
 
     document.getElementById("img-1").onchange = function (evt) {
@@ -93,6 +95,6 @@ window.onload = function() {
 
 
     }
-}
+});
 
 

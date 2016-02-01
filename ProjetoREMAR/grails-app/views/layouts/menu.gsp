@@ -51,6 +51,9 @@
     <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os jogos que você publicou." data-step="3">
         <a href="/exportedResource/myGames" class=""><i class="medium material-icons">recent_actors</i>Meus Jogos</a>
     </li>
+    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra os seus jogos em processo de customização." data-step="3">
+        <a href="/process/userProcesses" class=""><i class="medium material-icons">list</i>Minhas tarefas</a>
+    </li>
     <sec:ifAllGranted roles="ROLE_DEV">
         <li class="waves-effect waves-block waves-light" data-intro="No espaço do desenvolvedor você pode submeter um novo jogo para o REMAR." data-step="4">
             <a href="/resource/index" class=""><i class="medium material-icons">code</i>Desenvolvedor</a>

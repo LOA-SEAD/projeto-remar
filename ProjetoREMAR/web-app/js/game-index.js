@@ -5,6 +5,8 @@
 $(function(){
     /* carregar war, chamando o controlador e redirecionando para a mesma pagina*/
 
+    console.log("carregou game-index");
+
     $('textarea#textarea1').characterCounter();
     $('select').material_select();
     $('.materialboxed').materialbox();
@@ -58,7 +60,7 @@ $(function(){
                 console.log(res);
                 console.log(err);
             }
-        })
+        });
 
     });
 
@@ -79,10 +81,7 @@ $(function(){
             }
         }
     }
-});
 
-
-window.onload = function(){
     $('.review').on('click', function() {
         var id = $(this).data('id');
         var status = $(this).data('review');
@@ -125,9 +124,8 @@ window.onload = function(){
                 console.log(data);
             },
             error:function(XMLHttpRequest,textStatus,errorThrown){}});
-    });
 
-    $('.comment').keyup(function(e) {
+    }).keyup(function(e) {
         if (e.keyCode == 13) {
             $(this).blur();
         }
@@ -149,5 +147,5 @@ window.onload = function(){
             }
         })
     });
-};
 
+});

@@ -13,14 +13,18 @@ class IndexController {
         if (springSecurityService.isLoggedIn()) {
             def model = [:]
 
-            model.gameInstanceList = Resource.findAllByStatus('approved') // change to #findAllByActive?
+//            model.gameInstanceList = Resource.findAllByStatus('approved') // change to #findAllByActive?
+            model.gameInstanceList = Resource.findAll("from Resource as r where r.status = 'approved' order by r.id desc")
             model.userName = session.user.firstName
             model.userGender = User.findById(session.user.id).gender
-            model.publicExportedResourcesList = ExportedResource.findAllByType('public')
-            model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id))
-
+//            model.publicExportedResourcesList = ExportedResource.findAllByType('public')
+            model.publicExportedResourcesList = ExportedResource.findAll("from ExportedResource as e where e.type = 'public' order by e.id desc")
+//            model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id))
+            model.myExportedResourcesList = ExportedResource.findAll("from ExportedResource as e where e.type='public' and e.owner=:owner order by e.id desc",[owner: User.get(session.user.id)])
             log.debug model.userGender
             log.debug "RESULT: " + model.publicExportedResourcesList.size()
+
+//            ExportedResource.findA
 
             def instances = []
             runtimeService.createProcessInstanceQuery().variableValueEquals("ownerId", "1").list().each {instance ->

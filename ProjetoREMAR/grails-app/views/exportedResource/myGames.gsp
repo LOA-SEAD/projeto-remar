@@ -40,27 +40,27 @@
     <div class="row show cards">
         <article class="row">
             <g:if test="${myExportedResourcesList.size() == 0}">
-                <p>Você ainda não possui nenhum jogo!.</p>
+                <p>Você ainda não possui nenhum jogo!</p>
             </g:if>
             <g:else>
-                <g:each in="${myExportedResourcesList}" var="myExportedResource">
-                    <div class="card square-cover small">
+                <g:each in="${myExportedResourcesList}" var="myExportedResourceInstance">
+                    <div class="card square-cover small hoverable">
                         <div class="card-content">
                             <div class="cover">
                                 <div class="cover-image-container">
                                     <div class="cover-outer-align">
                                         <div class="cover-inner-align">
-                                            <img alt="${myExportedResource.name}" class="cover-image img-responsive image-bg "  src="/images/${myExportedResource.uri}-banner.png">
+                                            <img alt="${myExportedResourceInstance.name}" class="cover-image img-responsive image-bg "  src="/images/${myExportedResourceInstance.resource.uri}-banner.png">
                                         </div>
                                     </div>
                                 </div>
-                                <a class="card-click-target"  href="/resource/show/${myExportedResource.id}"></a>
+                                <a class="card-click-target"  href="/resource/show/${myExportedResourceInstance.id}"></a>
                             </div>
                             <div class="details">
-                                <a class="card-click-target"  href="/resource/show/${myExportedResource.id}" aria-hidden="true" tabindex="-1"></a>
-                                <a class="title card-name"  href="/resource/show/${myExportedResource.id}" title="${myExportedResource.name}s" aria-hidden="true" tabindex="-1">${myExportedResource.name}</a>
+                                <a class="card-click-target"  href="/resource/show/${myExportedResourceInstance.id}" aria-hidden="true" tabindex="-1"></a>
+                                <a class="title card-name"  href="/resource/show/${myExportedResourceInstance.id}" title="${myExportedResourceInstance.name}" aria-hidden="true" tabindex="-1">${myExportedResourceInstance.name}</a>
                                 <div class="subtitle-container">
-                                    <p class="subtitle">Feito por: ${myExportedResource.owner.firstName}</p>
+                                    <p class="subtitle">Feito por: ${myExportedResourceInstance.owner.firstName}</p>
                                 </div>
                             </div>
                             <div class="row no-margin margin-top">
@@ -75,15 +75,17 @@
                                 </div>
                                 <div class="col s6">
                                     <div class="pull-right gray-color">
-                                        <i class="fa fa-globe"></i>
-                                        <g:if test="${myExportedResource.android}">
-                                            <i class="fa fa-android"></i>
+                                        <g:if test="${myExportedResourceInstance.webUrl != null}">
+                                            <a href="${myExportedResourceInstance.webUrl}"><i class="fa fa-globe"></i></a>
+                                         </g:if>
+                                        <g:if test="${myExportedResourceInstance.androidUrl != null}">
+                                            <a href="${myExportedResourceInstance.androidUrl}"><i class="fa fa-android"></i></a>
                                         </g:if>
-                                        <g:if test="${myExportedResource.linux}">
-                                            <i class="fa fa-linux"></i>
+                                        <g:if test="${myExportedResourceInstance.linuxUrl != null}">
+                                            <a href="${myExportedResourceInstance.linuxUrl}"><i class="fa fa-linux"></i></a>
                                         </g:if>
-                                        <g:if test="${myExportedResource.moodle}">
-                                            <i class="fa fa-graduation-cap"></i>
+                                        <g:if test="${myExportedResourceInstance.moodleUrl != null}">
+                                            <a href="${myExportedResourceInstance.moodleUrl}"><i class="fa fa-graduation-cap"></i></a>
                                         </g:if>
                                     </div>
                                 </div>

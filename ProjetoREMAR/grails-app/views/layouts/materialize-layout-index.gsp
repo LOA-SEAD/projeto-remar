@@ -87,13 +87,6 @@
                 </a>
             </li>
         </ul>
-
         <g:layoutBody />
     </div>
-
-    <footer>
-        <div class="center margin-top">
-            %{--<p>Copyright &copy; REMAR 2015</p>--}%
-        </div>
-    </footer>
 </g:applyLayout>

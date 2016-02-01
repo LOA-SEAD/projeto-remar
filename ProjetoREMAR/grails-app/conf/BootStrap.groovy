@@ -80,7 +80,7 @@ class BootStrap {
             }
 
             for (url in [
-                    '/dashboard', '/process/**', '/developer/new', '/exportedResource/**', '/frame/**', '/my-profile', '/user/update', '/resource/customizableGames','/resource/show/**'
+                    '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/exportedResource/**', '/frame/**', '/my-profile', '/user/update', '/resource/customizableGames','/resource/show/**'
             ]) {
                 new RequestMap(url: url, configAttribute: 'IS_AUTHENTICATED_FULLY').save()
             }
@@ -92,7 +92,7 @@ class BootStrap {
             }
 
             for (url in [
-                    '/resource/create/**', '/resource/edit/**', '/resource/index'
+                    '/resource/**'
             ]) {
                 new RequestMap(url: url, configAttribute: 'ROLE_DEV').save()
             }

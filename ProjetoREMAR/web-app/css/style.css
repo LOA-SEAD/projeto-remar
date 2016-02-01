@@ -690,7 +690,7 @@ footer.page-footer{
 }
 
 
-#slick {
+.slick {
     width: 725px;
     margin-left: 35px;
 }
@@ -747,4 +747,37 @@ h6{
 
 h6 span{
     font-weight: 300;
+}
+.tasks-list ul > a li:hover{
+    background-color: #B6B6B6;
+}
+
+
+table .pending td{
+    /*background-color: #fffde7;*/
+}
+
+.collapsible-body p {
+     margin: 15px;
+     padding: 0;
+     text-align: left;
+}
+
+.collapsible-body p > label {
+   font-size: 25px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.collapsible-body p[class="title"]{
+    margin: 0;
+    padding: 0;
+
+}
+
+.subtitle{
+    font-size: 20px;
+}
+
+.subtitle.space{
+    margin-top: 30px;
 }

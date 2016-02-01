@@ -43,24 +43,24 @@
                 <p>Ainda não existe nenhum jogo disponível para ser jogado!.</p>
             </g:if>
             <g:else>
-                <g:each in="${publicExportedResourcesList}" var="publicExportedResource">
-                    <div class="card square-cover small">
+                <g:each in="${publicExportedResourcesList}" var="exportedResourceInstance">
+                    <div class="card square-cover small hoverable">
                         <div class="card-content">
                             <div class="cover">
                                 <div class="cover-image-container">
                                     <div class="cover-outer-align">
                                         <div class="cover-inner-align">
-                                            <img alt="${publicExportedResource.name}" class="cover-image img-responsive image-bg "  src="/images/${publicExportedResource.uri}-banner.png">
+                                            <img alt="${exportedResourceInstance.name}" class="cover-image img-responsive image-bg "  src="/images/${exportedResourceInstance.resource.uri}-banner.png">
                                         </div>
                                     </div>
                                 </div>
-                                <a class="card-click-target"  href="/resource/show/${publicExportedResource.id}"></a>
+                                <a class="card-click-target"  href="/resource/show/${exportedResourceInstance.id}"></a>
                             </div>
                             <div class="details">
-                                <a class="card-click-target"  href="/resource/show/${publicExportedResource.id}" aria-hidden="true" tabindex="-1"></a>
-                                <a class="title card-name"  href="/resource/show/${publicExportedResource.id}" title="${publicExportedResource.name}s" aria-hidden="true" tabindex="-1">${publicExportedResource.name}</a>
+                                <a class="card-click-target"  href="/resource/show/${exportedResourceInstance.id}" aria-hidden="true" tabindex="-1"></a>
+                                <a class="title card-name"  href="/resource/show/${exportedResourceInstance.id}" title="${exportedResourceInstance.name}" aria-hidden="true" tabindex="-1">${exportedResourceInstance.name}</a>
                                 <div class="subtitle-container">
-                                    <p class="subtitle">Feito por: ${publicExportedResource.owner.firstName}</p>
+                                    <p class="subtitle">Feito por: ${exportedResourceInstance.owner.firstName}</p>
                                 </div>
                             </div>
                             <div class="row no-margin margin-top">
@@ -75,15 +75,17 @@
                                 </div>
                                 <div class="col s6">
                                     <div class="pull-right gray-color">
-                                        <i class="fa fa-globe"></i>
-                                        <g:if test="${publicExportedResource.android}">
-                                            <i class="fa fa-android"></i>
+                                        <g:if test="${exportedResourceInstance.webUrl != null}">
+                                            <a href="${exportedResourceInstance.webUrl}" ><i class="fa fa-globe"></i></a>
                                         </g:if>
-                                        <g:if test="${publicExportedResource.linux}">
-                                            <i class="fa fa-linux"></i>
+                                        <g:if test="${exportedResourceInstance.androidUrl != null}">
+                                            <a href="${exportedResourceInstance.androidUrl}"><i class="fa fa-android"></i></a>
                                         </g:if>
-                                        <g:if test="${publicExportedResource.moodle}">
-                                            <i class="fa fa-graduation-cap"></i>
+                                        <g:if test="${exportedResourceInstance.linuxUrl != null}">
+                                            <a href="${exportedResourceInstance.linuxUrl}"><i class="fa fa-linux"></i></a>
+                                        </g:if>
+                                        <g:if test="${exportedResourceInstance.moodleUrl != null}">
+                                            <a href="${exportedResourceInstance.moodleUrl}"><i class="fa fa-graduation-cap"></i></a>
                                         </g:if>
                                     </div>
                                 </div>

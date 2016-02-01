@@ -44,6 +44,7 @@
         <g:javascript src="materialize.min.js"/>
 
         <title><g:layoutTitle default="REMAR"/></title>
+
         <g:layoutHead/>
     </head>
     <body>
@@ -52,7 +53,5 @@
         <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick.min.js"></script>
 
         <g:javascript src="layout/dashboard.js"/>
-
-
     </body>
 </html>

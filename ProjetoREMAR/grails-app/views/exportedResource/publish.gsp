@@ -1,4 +1,4 @@
-<%--
+    <%--
 Created by IntelliJ IDEA.
 User: loa
 Date: 10/06/15
@@ -8,7 +8,7 @@ Time: 09:55
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <meta name="layout" content="new-main-inside">
+    <meta name="layout" content="materialize-layout">
     <g:javascript src="platforms.js" />
     <title></title>
 </head>

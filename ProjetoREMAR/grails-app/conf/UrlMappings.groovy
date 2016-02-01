@@ -37,6 +37,7 @@ class UrlMappings {
         "/process/tasks/delegate/$processId"(controller:"process", action:"delegateTasks")
         "/process/tasks/overview/$processId"(controller:"process", action:"chooseUsersTasks")
         "/process/publishOptions/$processId"(controller:"process", action:"publishOptions")
+//        "/process/information/customization/$id"(controller: "process", action: "startCustomization")
         // end Process API endpoints
 
         // begin Resource API endpoints
@@ -45,8 +46,8 @@ class UrlMappings {
         '/resource/customizableGames'(controller:"resource", action:"customizableGames")
         "/resource/show/$id"(controller: "resource", action: "show")
 
-        '/exportedResource/publicGames'(controller:"exportedResource", action:"publicGames")
-        '/exportedResource/myGames'(controller:"exportedResource", action:"myGames")
+        '/exported-resource/publicGames'(controller:"exportedResource", action:"publicGames")
+        '/exported-resource/myGames'(controller:"exportedResource", action:"myGames")
 
         // end Resource API endpoints
 
