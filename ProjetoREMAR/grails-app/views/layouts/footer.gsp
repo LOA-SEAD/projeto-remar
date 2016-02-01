@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col l6 s12">
                 <h6 class="white-text "><span>R</span>ecursos <span>E</span>ducacionais <span>M</span>ultiplataforma e <span>A</span>bertos na <span>R</span>ede. </h6>
-                <p class="grey-text text-lighten-4">Para dúvidas, sugetões e criticas entre em contato conosco: <span class="orange-text">contato@remar.dc.ufscar.br</span>.</p>
+                <p class="grey-text text-lighten-4">Para dúvidas, sugetões e criticas entre em contato conosco: <a href="mailto:contato@remar.dc.ufscar.br" class="orange-text">contato@remar.dc.ufscar.br</a>.</p>
             </div>
             <div class="col l4 offset-l2 hide-on-med-and-down social-button">
                 %{--<h5 class="white-text">Links</h5>--}%
