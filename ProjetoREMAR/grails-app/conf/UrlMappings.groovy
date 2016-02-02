@@ -37,6 +37,11 @@ class UrlMappings {
         "/process/tasks/delegate/$processId"(controller:"process", action:"delegateTasks")
         "/process/tasks/overview/$processId"(controller:"process", action:"chooseUsersTasks")
         "/process/publishOptions/$processId"(controller:"process", action:"publishOptions")
+
+        //begin moodle mappings
+        "/moodle/confirm/$hash"(controller: "moodle", action: "confirm")
+        "/moodle/link/$moodleId"
+
 //        "/process/information/customization/$id"(controller: "process", action: "startCustomization")
         // end Process API endpoints
 
@@ -51,7 +56,7 @@ class UrlMappings {
 
         // end Resource API endpoints
 
-        name myProfile: "/my-profile"(view: "user/edit")
+        name myProfile: "/my-profile" (controller:"user", action:"myProfile")
 
         "500"(view:'/error')
 	}
