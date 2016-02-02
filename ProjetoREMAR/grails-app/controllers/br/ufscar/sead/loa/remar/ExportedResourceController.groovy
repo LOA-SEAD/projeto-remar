@@ -73,7 +73,7 @@ class ExportedResourceController {
                 def accName = params.find({it.key == "account"+splitted[1]}).value
                 def token = params.find({it.key == "token"+splitted[1]}).value
 
-                def account = MoodleAccount.find({accountName == accName && owner.domain == moo.domain})
+                //def account = MoodleAccount.find({accountName == accName && owner.domain == moo.domain})
 
                 /* check if the account already exists */
                 if (account == null) {

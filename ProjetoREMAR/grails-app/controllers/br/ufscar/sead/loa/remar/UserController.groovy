@@ -2,6 +2,7 @@ package br.ufscar.sead.loa.remar
 
 //import com.daureos.facebook.FacebookGraphService
 import grails.plugin.mail.MailService
+import groovy.json.JsonBuilder
 import org.apache.commons.lang.RandomStringUtils
 import org.camunda.bpm.engine.IdentityService
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -381,5 +382,27 @@ class UserController {
         userInstance.firstAccess = true;
         session.user.firstAccess = true;
         userInstance.save flush: true
+    }
+
+    def myProfile() {
+        def model = Moodle.findAll()
+
+        render view: "/user/edit.gsp", model: [moodleList: model]
+    }
+
+    def getMoodleAccount(int moodleId) {
+        def data = MoodleAccount.findByMoodle(Moodle.findById(moodleId))
+
+        if(data != null) {
+            if(data.owner.id == session.user.id) {
+                return data.accountName
+            }
+            else {
+                return ""
+            }
+        }
+        else {
+            return ""
+        }
     }
 }
