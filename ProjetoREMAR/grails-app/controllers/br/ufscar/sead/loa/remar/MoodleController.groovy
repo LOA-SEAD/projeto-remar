@@ -38,6 +38,16 @@ class MoodleController {
         redirect url: url
     }
 
+    def unlink() {
+        def moodleAccount = MoodleAccount.findByToken(params.id)
+        moodleAccount.delete flush:true
+
+        def url = moodleAccount.moodle.domain + "/mod/remarmoodle/unlink-remar-account.php?hash=" + moodleAccount.token
+        redirect url: url
+
+        log.debug moodleAccount
+    }
+
     def confirm() {
         if(params.hash && params.moodleId && params.username) {
             if(request.getHeader('referer').contains(Moodle.get(params.moodleId).domain)) {
@@ -50,7 +60,7 @@ class MoodleController {
                 moodleAccount.accountName = params.username
                 moodleAccount.save flush:true
 
-                log.debug moodleAccount.errors
+                redirect uri: "/my-profile"
             }
             else {
                 log.debug "The request source is not matching the moodle domain in the REMAR"

@@ -395,7 +395,7 @@ class UserController {
 
         if(data != null) {
             if(data.owner.id == session.user.id) {
-                return data.accountName
+                return data
             }
             else {
                 return ""

@@ -148,7 +148,7 @@
                                     <div class="col s10">
                                         <b>Moodle</b>: <a href="${moodleInstance.domain}">${moodleInstance.name}</a><br />
                                         <g:if test="${(new UserController()).getMoodleAccount((int) moodleInstance.id)}">
-                                            <b>Conta</b>: ${(new UserController()).getMoodleAccount((int) moodleInstance.id)} (<a href="#">X</a>)
+                                            <b>Conta</b>: ${(new UserController()).getMoodleAccount((int) moodleInstance.id).accountName} (<a href="/moodle/unlink/${(new UserController()).getMoodleAccount((int) moodleInstance.id).token}">X</a>)
                                         </g:if>
                                         <g:else>
                                             <b>Conta</b>: -
