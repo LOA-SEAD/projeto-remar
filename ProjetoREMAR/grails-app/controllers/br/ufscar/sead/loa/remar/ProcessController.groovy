@@ -1,7 +1,6 @@
 package br.ufscar.sead.loa.remar
 
 import grails.converters.JSON
-import grails.plugin.mail.MailService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.util.Environment
 import org.camunda.bpm.engine.IdentityService
@@ -27,7 +26,6 @@ class ProcessController implements JavaDelegate, ExecutionListener{
     TaskService taskService
     def springSecurityService
     RepositoryService repositoryService
-    MailService mailService
 
     def start() {
         log.debug params.id
