@@ -1,7 +1,6 @@
 package br.ufscar.sead.loa.remar
 
 import grails.converters.JSON
-import grails.plugin.mail.MailService
 import grails.util.Environment
 import groovyx.net.http.HTTPBuilder
 import org.codehaus.groovy.grails.io.support.GrailsIOUtils

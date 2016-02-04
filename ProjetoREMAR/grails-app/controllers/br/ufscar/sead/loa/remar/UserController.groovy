@@ -1,7 +1,6 @@
 package br.ufscar.sead.loa.remar
 
 //import com.daureos.facebook.FacebookGraphService
-import grails.plugin.mail.MailService
 import groovy.json.JsonBuilder
 import org.apache.commons.lang.RandomStringUtils
 import org.camunda.bpm.engine.IdentityService
