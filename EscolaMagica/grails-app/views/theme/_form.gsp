@@ -89,7 +89,7 @@
     </div>
 </g:uploadForm>
 
-<input id="upload" type="submit" name="upload" class="btn btn-success" value="Criar"/>
+<input id="upload" type="submit" name="upload" class="btn btn-success my-orange" value="Criar"/>
 
 </body>
 

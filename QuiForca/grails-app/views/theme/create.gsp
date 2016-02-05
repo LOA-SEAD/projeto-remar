@@ -7,11 +7,6 @@
     </head>
     <body>
 
-    <nav class="layout-top-nav">
-        <div class="nav-wrapper">
-            <h3 style="margin: 10px;">Criar novo Tema</h3>
-        </div>
-    </nav>
 
     <div class="row">
     </div>

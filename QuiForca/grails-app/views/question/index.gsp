@@ -30,14 +30,12 @@
 
     </head>
     <body>
-        <nav class="layout-top-nav">
-            <div class="nav-wrapper">
-                <h3 style="margin: 10px;">Tabela de Questões</h3>
-            </div>
-        </nav>
-
-    <div class="row">
+    <div class="cluster-header">
+        <p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
+            <i class="small material-icons left">grid_on</i>Tabela de Questões
+        </p>
     </div>
+
 
     <div class="row">
         <div class="col s3 offset-s9">
@@ -53,8 +51,8 @@
                 %{--<input class="filled-in" type="checkbox" id="BtnCheckAll" onclick="check_all()"> <label for="BtnCheckAll"></label>--}%
                 %{--<input class="filled-in" type="checkbox" id="BtnUnCheckAll" onclick="uncheck_all()"> <label for="BtnUnCheckAll"></label>--}%
 
-                <button style="margin-left: 3px;" class="btn-floating" id="BtnCheckAll" onclick="check_all()"><i  class="material-icons">check_box_outline_blank</i></button>
-                <button style="margin-left: 3px;" class="btn-floating" id="BtnUnCheckAll" onclick="uncheck_all()"><i  class="material-icons">done</i></button>
+                <button style="margin-left: 3px; background-color: #795548;" class="btn-floating" id="BtnCheckAll" onclick="check_all()"><i  class="material-icons">check_box_outline_blank</i></button>
+                <button style="margin-left: 3px; background-color: #795548;" class="btn-floating" id="BtnUnCheckAll" onclick="uncheck_all()"><i  class="material-icons">done</i></button>
             </div>
             </th>
             <th>Pergunta <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
@@ -83,7 +81,7 @@
 
                     <td>${fieldValue(bean: questionInstance, field: "author")}</td>
 
-                    <td> <i onclick="changeEditQuestion(${i})" style="color: #26A69A; margin-right:10px;" class="fa fa-pencil modal-trigger" data-target="editModal${i}" data-model="${questionInstance.id}"></i> <i style="color: #26A69A;" class="fa fa-trash-o" onclick="_delete($(this.closest('tr')))" ></i></td>
+                    <td> <i onclick="changeEditQuestion(${i})" style="color: #7d8fff; margin-right:10px;" class="fa fa-pencil modal-trigger" data-target="editModal${i}" data-model="${questionInstance.id}"></i> <i style="color: #7d8fff;" class="fa fa-trash-o" onclick="_delete($(this.closest('tr')))" ></i></td>
 
                     <!-- Modal Structure -->
                     <div id="editModal${i}" class="modal">
@@ -106,7 +104,7 @@
                                 <g:form url="[resource:questionInstance, action:'update']" method="PUT" >
                                     <g:hiddenField name="version" value="${questionInstance?.version}" />
                                     <g:render template="form" model="[ questionInstance: questionInstance]"/>
-                                    <g:actionSubmit class="save btn btn-success btn-lg" action="update" value="${message(code: 'default.button.update.label', default: 'Salvar')}"/>
+                                    <g:actionSubmit class="save btn btn-success btn-lg my-orange" action="update" value="${message(code: 'default.button.update.label', default: 'Salvar')}"/>
                                 </g:form>
                             </div>
                         </div>
@@ -124,7 +122,7 @@
 
                     <td >${fieldValue(bean: questionInstance, field: "author")}</td>
 
-                    <td > <i style="color: lightslategray; margin-right:10px;" class="fa fa-pencil"></i>  <i style="color: lightslategray;" class="fa fa-trash-o"></i> </td>
+                    <td > <i style="color: gray; margin-right:10px;" class="fa fa-pencil"></i>  <i style="color: gray;" class="fa fa-trash-o"></i> </td>
 
                 </g:else>
             </tr>
@@ -136,12 +134,12 @@
 
     <div class="row">
         <div class="col s2">
-            <button class="btn waves-effect waves-light" type="submit" name="save" id="save">Enviar
+            <button class="btn waves-effect waves-light my-orange" type="submit" name="save" id="save">Enviar
                 <i class="material-icons right">send</i>
             </button>
         </div>
         <div class="col s1 offset-s9">
-            <a data-target="createModal" name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger"><i class="material-icons">add</i></a>
+            <a data-target="createModal" name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange" ><i class="material-icons">add</i></a>
         </div>
     </div>
 
@@ -153,7 +151,7 @@
                     <g:form url="[resource:questionInstance, action:'newQuestion']" >
                             <g:render template="form"/>
                         <br />
-                            <g:submitButton name="create" class="btn btn-success btn-lg" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+                            <g:submitButton name="create" class="btn btn-success btn-lg my-orange" value="${message(code: 'default.button.create.label', default: 'Create')}" />
                     </g:form>
             </div>
         </div>
@@ -168,7 +166,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button class="btn waves-effect waves-light modal-close">Entendi</button>
+            <button class="btn waves-effect waves-light modal-close my-orange">Entendi</button>
         </div>
     </div>
 

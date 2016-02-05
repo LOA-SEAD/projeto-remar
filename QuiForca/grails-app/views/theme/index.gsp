@@ -9,11 +9,11 @@
     </head>
     <body>
 
-    <nav class="layout-top-nav">
-        <div class="nav-wrapper">
-            <h3 style="margin: 10px;">Meus Temas</h3>
-        </div>
-    </nav>
+    <div class="cluster-header">
+        <p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
+            <i class="small material-icons left"></i>Meus Temas
+        </p>
+    </div>
 
     <div class="row">
     </div>
@@ -21,14 +21,11 @@
     <div class="row">
         <div>
             %{--<p> Download tema ESR</p>--}%
-            <p style="margin-left: 10px;"> Download tema ESR <a class="btn-floating waves-effect waves-light" href="../data/samples/tema-forca-esr.zip"> <i class="material-icons">file_download</i> </a>
+            <p style="margin-left: 10px;"> Download tema ESR <a class="btn-floating waves-effect waves-light my-orange" href="../data/samples/tema-forca-esr.zip"> <i class="material-icons">file_download</i> </a>
         </p>
         </div>
     </div>
 
-    <div class="row">
-        <h4 style="margin-left: 10px;">Visualização dos Meus Temas</h4>
-    </div>
     <div class="row">
         <form class="col s12" name="formName">
     <table class="responsive-table" id="table">
@@ -50,15 +47,15 @@
                     <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/icon.png" class="" width="250"/></td>
                     <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/inicio.png" class="" width="250"/></td>
                     <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/papel.png" class="" width="250"/></td>
-                    <td align="center"><i id="deleteIcon${i}" style="color: #26A69A" class="material-icons delete">delete</i></td>
+                    <td align="center"><i id="deleteIcon${i}" style="color: #7d8fff" class="material-icons delete">delete</i></td>
                 </tr>
             </g:each>
         </tbody>
     </table>
     <div class="row">
         <div class="col s12">
-            <g:submitButton name="save" class="save btn btn-success btn-lg" value="Enviar"/>
-            <g:link class="btn btn-success btn-lg" action="create">Novo tema</g:link>
+            <g:submitButton name="save" class="save btn btn-success btn-lg my-orange" value="Enviar"/>
+            <g:link class="btn btn-success btn-lg my-orange" action="create">Novo tema</g:link>
         </div>
     </div>
     </form>

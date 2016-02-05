@@ -13,7 +13,7 @@
     <label for="category">Tema</label>
 </div>
 
-<div class="input-field col s12">
+<div class="input-field col s12" style="display: none;">
     <input id="author" name="author" required="" readonly="readonly" value="${questionInstance?.author}" type="text" class="validate">
     <label for="author">Autor</label>
 </div>

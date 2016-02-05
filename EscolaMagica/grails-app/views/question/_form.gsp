@@ -1,6 +1,4 @@
 <%@ page import="br.ufscar.sead.loa.escolamagica.remar.Question" %>
-
-
     <div class="row">
         <div class="input-field col s12">
             <label for="title">Pergunta</label>
@@ -113,17 +111,9 @@
         </g:else>
 
 
-
-
     </div>
 
-    <div class="row">
 
-    </div>
-
-    <div class="row">
-
-    </div>
 
 
 
