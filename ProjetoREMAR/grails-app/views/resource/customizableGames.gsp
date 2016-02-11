@@ -45,17 +45,11 @@
                 <g:else>
                     <g:each in="${gameInstanceList}" var="gameInstance">
                         <div class="card square-cover small hoverable">
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img alt="${gameInstance.name}" class="cover-image img-responsive image-bg "  src="/images/${gameInstance.uri}-banner.png">
+                                <a class="card-click-target"  href="/resource/show/${gameInstance.id}"></a>
+                            </div>
                             <div class="card-content">
-                                <div class="cover">
-                                    <div class="cover-image-container">
-                                        <div class="cover-outer-align">
-                                            <div class="cover-inner-align">
-                                                <img alt="${gameInstance.name}" class="cover-image img-responsive image-bg "  src="/images/${gameInstance.uri}-banner.png">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a class="card-click-target"  href="/resource/show/${gameInstance.id}"></a>
-                                </div>
                                 <div class="details">
                                     <a class="card-click-target"  href="/resource/show/${gameInstance.id}" aria-hidden="true" tabindex="-1"></a>
                                     <a class="title card-name"  href="/resource/show/${gameInstance.id}" title="${gameInstance.name}" aria-hidden="true" tabindex="-1">${gameInstance.name}</a>

@@ -15,7 +15,6 @@ class ResourceController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE"]
     def springSecurityService
-    MailService mailService
 
     def index(Integer max) {
 

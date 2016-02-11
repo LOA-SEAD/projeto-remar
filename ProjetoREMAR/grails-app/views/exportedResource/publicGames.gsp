@@ -45,20 +45,16 @@
             <g:else>
                 <g:each in="${publicExportedResourcesList}" var="exportedResourceInstance">
                     <div class="card square-cover small hoverable">
-                        <div class="card-content">
-                            <div class="cover">
-                                <div class="cover-image-container">
-                                    <div class="cover-outer-align">
-                                        <div class="cover-inner-align">
-                                            <img alt="${exportedResourceInstance.name}" class="cover-image img-responsive image-bg "  src="/images/${exportedResourceInstance.resource.uri}-banner.png">
-                                        </div>
-                                    </div>
-                                </div>
-                                <a class="card-click-target"  href="/resource/show/${exportedResourceInstance.id}"></a>
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <div class="cover-image-container">
+                                <img alt="${exportedResourceInstance.name}" class="cover-image img-responsive image-bg activator "  src="/images/${exportedResourceInstance.resource.uri}-banner.png">
                             </div>
+                            %{--<a class="card-click-target"  href="/resource/show/${exportedResourceInstance.id}"></a>--}%
+                        </div>
+                        <div class="card-content">
                             <div class="details">
-                                <a class="card-click-target"  href="/resource/show/${exportedResourceInstance.id}" aria-hidden="true" tabindex="-1"></a>
-                                <a class="title card-name"  href="/resource/show/${exportedResourceInstance.id}" title="${exportedResourceInstance.name}" aria-hidden="true" tabindex="-1">${exportedResourceInstance.name}</a>
+                                <p class="card-click-targ" aria-hidden="true" tabindex="-1"></p>
+                                <span class="title card-name activator" title="${exportedResourceInstance.name}" aria-hidden="true" tabindex="-1">${exportedResourceInstance.name}</span>
                                 <div class="subtitle-container">
                                     <p class="subtitle">Feito por: ${exportedResourceInstance.owner.firstName}</p>
                                 </div>
@@ -76,19 +72,37 @@
                                 <div class="col s6">
                                     <div class="pull-right gray-color">
                                         <g:if test="${exportedResourceInstance.webUrl != null}">
-                                            <a href="${exportedResourceInstance.webUrl}" ><i class="fa fa-globe"></i></a>
+                                            <i class="fa fa-globe"></i>
                                         </g:if>
                                         <g:if test="${exportedResourceInstance.androidUrl != null}">
-                                            <a href="${exportedResourceInstance.androidUrl}"><i class="fa fa-android"></i></a>
+                                           <i class="fa fa-android"></i>
                                         </g:if>
                                         <g:if test="${exportedResourceInstance.linuxUrl != null}">
-                                            <a href="${exportedResourceInstance.linuxUrl}"><i class="fa fa-linux"></i></a>
+                                            <i class="fa fa-linux"></i>
                                         </g:if>
                                         <g:if test="${exportedResourceInstance.moodleUrl != null}">
-                                            <a href="${exportedResourceInstance.moodleUrl}"><i class="fa fa-graduation-cap"></i></a>
+                                            <i class="fa fa-graduation-cap"></i>
                                         </g:if>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4"><small class="left">Jogar:</small><i class="material-icons right">close</i></span>
+                            <div class="clearfix"></div>
+                            <div class="plataform-card left-align">
+                                <g:if test="${exportedResourceInstance.webUrl != null}">
+                                    <a href="${exportedResourceInstance.webUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão web"><i class="fa fa-globe"></i></a>
+                                </g:if>
+                                <g:if test="${exportedResourceInstance.androidUrl != null}">
+                                    <a href="${exportedResourceInstance.androidUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão android"><i class="fa fa-android"></i></a>
+                                </g:if>
+                                <g:if test="${exportedResourceInstance.linuxUrl != null}">
+                                    <a href="${exportedResourceInstance.linuxUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão linux"><i class="fa fa-linux"></i></a>
+                                </g:if>
+                                <g:if test="${exportedResourceInstance.moodleUrl != null}">
+                                    <a href="${exportedResourceInstance.moodleUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão moodle"><i class="fa fa-graduation-cap"></i></a>
+                                </g:if>
                             </div>
                         </div>
                     </div>

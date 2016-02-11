@@ -21,7 +21,6 @@ import grails.converters.JSON
 @Transactional(readOnly = true)
 class UserController {
     def springSecurityService
-    MailService mailService
 //    FacebookGraphService facebookGraphService
     def grailsApplication
 

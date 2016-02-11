@@ -42,10 +42,11 @@
             </div>
             <div class="card-action">
                 %{--<div class="col s12">--}%
-                   <p style="margin-bottom: 10px;"> ${process[1]} atividade(s)</p>
-                    %{--<div class="">--}%
+                   <input type="text" class="comment" placeholder="Comentário"  value=" ${process[1]} atividade(s)" disabled>
+                   %{--<p style="margin-bottom: 10px;"></p>--}%
+                    <div class="">
                         <a class="right tooltipped" href="/process/delete/${process[3]}" data-position="right" data-delay="50" data-tooltip="Excluir"><i class="material-icons">delete</i></a>
-                    %{--</div>--}%
+                    </div>
                 %{--</div>--}%
             </div>
         </div>

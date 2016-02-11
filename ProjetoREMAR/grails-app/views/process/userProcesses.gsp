@@ -38,7 +38,7 @@
                     <g:render template="process" model="[processes:processes]" />
                 </g:if>
                 <g:else>
-                    <p>Você ainda não submeteu nenhum jogo. Nos envie um agora mesmo!  :)</p>
+                    <p>Você não possui nenhum jogo em customização. Customize um agora mesmo! :)</p>
                 </g:else>
                 %{--<ul class="collapsible popout" data-collapsible="accordion">--}%
                     %{--<g:each in="${processes}" var="process">--}%

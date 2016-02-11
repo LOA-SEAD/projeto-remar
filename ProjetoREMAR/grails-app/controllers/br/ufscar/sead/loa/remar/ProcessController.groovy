@@ -141,23 +141,26 @@ class ProcessController implements JavaDelegate, ExecutionListener{
 
         def uri = runtimeService.getVariable(params.processId, "resourceUri")
 
+        //delega as tarefas
         for (task in tasks) {
-            print "AKI !!!! -----"
-            print task.getDelegationState()
             if(task.getDelegationState() == null){
                 taskService.addUserIdentityLink(task.id, session.user.username as String, IdentityLinkType.OWNER)
                 taskService.delegateTask(task.id, session.user.username)
             }
+        }
 
-            print task.getDelegationState()
+        //gera url
+        tasks = taskService.createTaskQuery().processInstanceId(params.processId).list()
+        for (task in tasks){
             task.taskDefinitionKey = "${task.taskDefinitionKey.replace('.', '/')}?p=${task.processInstanceId}&t=${task.id}"
             task.getDescription()
         }
 
-        taskService.createTaskQuery().processInstanceId(params.processId).list().clear()
-        taskService.createTaskQuery().processInstanceId(params.processId).list().addAll(tasks)
+        def completed = params.completed
+        if(params.completed == null){
+            completed = false
+        }
 
-        print tasks.get(0).getDelegationState()
 
         if (tasks.size() == 0) {
             render(view:'finishedProcess')
@@ -165,9 +168,8 @@ class ProcessController implements JavaDelegate, ExecutionListener{
 //            redirect uri:"/process/tasks/delegate/"+params.processId
 //            render view: "chooseUsersTasks", model: [users: allUsers, tasks: tasks, uri: uri, processId: params.processId,
 //                                                     currentUser: session.user, dev: Environment.current == Environment.DEVELOPMENT]
-
             render  view: "chooseUsersTasks", model: [users: allUsers, tasks: tasks, uri: uri, processId: params.processId, nameProcess:runtimeService.getVariable(params.processId, "resourceName"),
-                                currentUser: session.user, dev: Environment.current == Environment.DEVELOPMENT]
+                                currentUser: session.user, dev: Environment.current == Environment.DEVELOPMENT, completedTask: completed]
         }
 
     }
@@ -218,7 +220,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
             render(view: "userProcesses", model:[processes: list])
         }
         else{
-            render(view: "noProcesses")
+            render(view: "userProcesses", model:[processes: null])
         }
     }
 
@@ -263,7 +265,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
                 if (task.owner == session.user.username) {
                     taskService.complete(params.taskId)
                     if(!session.processFinished) {
-                        redirect uri: "/process/tasks/overview/${task.processInstanceId}"
+                        redirect uri: "/process/tasks/overview/${task.processInstanceId}?completed="+true
                     } else {
                         session.processFinished = null
                     }
@@ -304,7 +306,8 @@ class ProcessController implements JavaDelegate, ExecutionListener{
                     }
                     taskService.resolveTask(params.taskId)
                     if (task.owner == session.user.username) {
-                        redirect uri: "/process/tasks/overview/${task.processInstanceId}"
+//                        redirect uri: "/process/tasks/overview/${task.processInstanceId}"
+                        redirect uri: "/process/task/complete/${task.id}"
                     } else {
                         redirect uri: '/process/pendingTasks'
                     }
@@ -418,6 +421,8 @@ class ProcessController implements JavaDelegate, ExecutionListener{
                 new AntBuilder().copy(file: "${resourceFolder}/${file}", tofile: "${instanceFolder}/web/${destinationFolder}/${file}", overwrite: true)
                 log.debug "each"
             }
+
+            exportedResourceInstance = ExportedResource.findById(exportedResourceInstance.id) //forçando o get do resorce no banco que foi salvo
 
             session.processFinished = true
             redirect uri:"/exported-resource/publish/${exportedResourceInstance.id}"

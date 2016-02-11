@@ -8,6 +8,10 @@
             });
 
             $('.slider').slider();
+
+            $('.collapsible').collapsible();
+
+            $('.tooltipped').tooltip({delay: 50});
         });
     </script>
 

@@ -12,213 +12,204 @@
     <meta name="layout" content="materialize-layout">
 </head>
 <body>
-    <div class="row cluster">
-        <div class="cluster-header">
-            <p class="text-teal text-darken-3 left-align margin-bottom center dashboard-title">
-                Olá ${session.user.firstName}, seja bem vindo ao REMAR!
-            </p>
-            <div class="divider"></div>
-        </div>
-        <div class="row show">
+<div class="row cluster">
+    <div class="cluster-header">
+        <p class="text-teal text-darken-3 left-align margin-bottom center dashboard-title">
+            Olá ${session.user.firstName}, seja bem vindo ao REMAR!
+        </p>
+        <div class="divider"></div>
+    </div>
+    <div class="row show">
 
+        <g:if test="${gameInstanceList.size() == 0}">
+            <div class="row description">
+                <p class="valign">Não há nenhum jogo disponível para ser customizado!</p>
+            </div>
+        </g:if>
+        <g:else>
             <div class="subtitle">
                 <p class="text-teal text-darken-3 left-align margin-bottom">
                     <i class="small material-icons left">new_releases</i>Confira os últimos jogos disponíveis para customização!
                 </p>
             </div>
-            <g:if test="${gameInstanceList.size() == 0}">
-                <div class="row">
-                      <p>Não há nenhum jogo disponível para ser customizado!</p>
-                </div>
-            </g:if>
-            <g:else>
-                <div class="row">
-                    <div class="center slick">
-                        <g:each in="${gameInstanceList}" var="gameInstance">
-                            <div class="card square-cover small">
-                                <div class="card-content">
-                                    <div class="cover">
-                                        <div class="cover-image-container">
-                                            <div class="cover-outer-align">
-                                                <div class="cover-inner-align">
-                                                    <img alt="${gameInstance.name}" class="cover-image img-responsive image-bg "  src="/images/${gameInstance.uri}-banner.png">
-                                                </div>
+            <div class="row">
+                <div class="center slick">
+                    <g:each in="${gameInstanceList}" var="gameInstance">
+                        <div class="card square-cover small">
+                            <div class="card-content">
+                                <div class="cover">
+                                    <div class="cover-image-container">
+                                        <div class="cover-outer-align">
+                                            <div class="cover-inner-align">
+                                                <img alt="${gameInstance.name}" class="cover-image img-responsive image-bg "  src="/images/${gameInstance.uri}-banner.png">
                                             </div>
-                                        </div>
-                                        <a class="card-click-target"  href="/resource/show/${gameInstance.id}"></a>
-                                    </div>
-                                    <div class="details">
-                                        <a class="card-click-target"  href="/resource/show/${gameInstance.id}" aria-hidden="true" tabindex="-1"></a>
-                                        <a class="title truncate"  href="/resource/show/${gameInstance.id}" title="${gameInstance.name}" aria-hidden="true" tabindex="-1">${gameInstance.name}</a>
-                                        <div class="subtitle-container">
-                                            <p class="subtitle truncate">Feito por: ${gameInstance.owner.firstName}</p>
                                         </div>
                                     </div>
-                                    <div class="row no-margin margin-top">
-                                        <div class="col s6">
-                                            <div class="pull-left tiny-stars">
-                                                <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                                <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                                <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                                <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                                <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                            </div>
+                                    <a class="card-click-target"  href="/resource/show/${gameInstance.id}"></a>
+                                </div>
+                                <div class="details">
+                                    <a class="card-click-target"  href="/resource/show/${gameInstance.id}" aria-hidden="true" tabindex="-1"></a>
+                                    <a class="title truncate"  href="/resource/show/${gameInstance.id}" title="${gameInstance.name}" aria-hidden="true" tabindex="-1">${gameInstance.name}</a>
+                                    <div class="subtitle-container">
+                                        <p class="subtitle truncate">Feito por: ${gameInstance.owner.firstName}</p>
+                                    </div>
+                                </div>
+                                <div class="row no-margin margin-top">
+                                    <div class="col s6">
+                                        <div class="pull-left tiny-stars">
+                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
+                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
+                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
+                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
+                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                         </div>
-                                        <div class="col s6">
-                                            <div class="pull-right gray-color">
-                                                <i class="fa fa-globe"></i>
-                                                <g:if test="${gameInstance.android}">
-                                                    <i class="fa fa-android"></i>
-                                                </g:if>
-                                                <g:if test="${gameInstance.linux}">
-                                                    <i class="fa fa-linux"></i>
-                                                </g:if>
-                                                <g:if test="${gameInstance.moodle}">
-                                                    <i class="fa fa-graduation-cap"></i>
-                                                </g:if>
-                                            %{--<i class="tiny material-icons">public</i>--}%
-                                            %{--<i class="tiny material-icons">android</i>--}%
-                                            %{--<i class="tiny fa fa-linux"></i>--}%
-                                            </div>
+                                    </div>
+                                    <div class="col s6">
+                                        <div class="pull-right gray-color">
+                                            <i class="fa fa-globe"></i>
+                                            <g:if test="${gameInstance.android}">
+                                                <i class="fa fa-android"></i>
+                                            </g:if>
+                                            <g:if test="${gameInstance.linux}">
+                                                <i class="fa fa-linux"></i>
+                                            </g:if>
+                                            <g:if test="${gameInstance.moodle}">
+                                                <i class="fa fa-graduation-cap"></i>
+                                            </g:if>
+                                        %{--<i class="tiny material-icons">public</i>--}%
+                                        %{--<i class="tiny material-icons">android</i>--}%
+                                        %{--<i class="tiny fa fa-linux"></i>--}%
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </g:each>
-                    </div>
+                        </div>
+                    </g:each>
                 </div>
-            </g:else>
+            </div>
+        </g:else>
 
+        <g:if test="${publicExportedResourcesList.size() > 0}">
             <div class="subtitle space">
                 <p class="text-teal text-darken-3 left-align margin-bottom">
                     <i class="small material-icons left">new_releases</i>Estes são alguns jogos publicos, jogue-os agora mesmo!
                 </p>
             </div>
-            <g:if test="${publicExportedResourcesList.size() == 0}">
-                <div class="row">
-                    <p>Ainda não existe nenhum jogo disponível para ser jogado!.</p>
-                </div>
-            </g:if>
-            <g:else>
-                <div class="center slick">
-                    <g:each in="${publicExportedResourcesList}" var="exportedResourceInstance">
-                        <div class="card square-cover small">
-                            <div class="card-content">
-                                <div class="cover">
-                                    <div class="cover-image-container">
-                                        <div class="cover-outer-align">
-                                            <div class="cover-inner-align">
-                                                <img alt="${exportedResourceInstance.name}" class="cover-image img-responsive image-bg "  src="/images/${exportedResourceInstance.resource.uri}-banner.png">
-                                            </div>
+            <div class="center slick">
+                <g:each in="${publicExportedResourcesList}" var="exportedResourceInstance">
+                    <div class="card square-cover small">
+                        <div class="card-content">
+                            <div class="cover">
+                                <div class="cover-image-container">
+                                    <div class="cover-outer-align">
+                                        <div class="cover-inner-align">
+                                            <img alt="${exportedResourceInstance.name}" class="cover-image img-responsive image-bg "  src="/images/${exportedResourceInstance.resource.uri}-banner.png">
                                         </div>
-                                    </div>
-                                    <a class="card-click-target"  href="/resource/show/${exportedResourceInstance.id}"></a>
-                                </div>
-                                <div class="details">
-                                    <a class="card-click-target"  href="/resource/show/${exportedResourceInstance.id}" aria-hidden="true" tabindex="-1"></a>
-                                    <a class="title card-name"  href="/resource/show/${exportedResourceInstance.id}" title="${exportedResourceInstance.name}" aria-hidden="true" tabindex="-1">${exportedResourceInstance.name}</a>
-                                    <div class="subtitle-container">
-                                        <p class="subtitle">Feito por: ${exportedResourceInstance.owner.firstName}</p>
                                     </div>
                                 </div>
-                                <div class="row no-margin margin-top">
-                                    <div class="col s6">
-                                        <div class="pull-left tiny-stars">
-                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                        </div>
+                                <a class="card-click-target"  href="/resource/show/${exportedResourceInstance.id}"></a>
+                            </div>
+                            <div class="details">
+                                <a class="card-click-target"  href="/resource/show/${exportedResourceInstance.id}" aria-hidden="true" tabindex="-1"></a>
+                                <a class="title card-name"  href="/resource/show/${exportedResourceInstance.id}" title="${exportedResourceInstance.name}" aria-hidden="true" tabindex="-1">${exportedResourceInstance.name}</a>
+                                <div class="subtitle-container">
+                                    <p class="subtitle">Feito por: ${exportedResourceInstance.owner.firstName}</p>
+                                </div>
+                            </div>
+                            <div class="row no-margin margin-top">
+                                <div class="col s6">
+                                    <div class="pull-left tiny-stars">
+                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
+                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
+                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
+                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
+                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                     </div>
-                                    <div class="col s6">
-                                        <div class="pull-right gray-color">
-                                            <g:if test="${exportedResourceInstance.webUrl != null}">
-                                                <a href="${exportedResourceInstance.webUrl}" ><i class="fa fa-globe"></i></a>
-                                            </g:if>
-                                            <g:if test="${exportedResourceInstance.androidUrl != null}">
-                                                <a href="${exportedResourceInstance.androidUrl}"><i class="fa fa-android"></i></a>
-                                            </g:if>
-                                            <g:if test="${exportedResourceInstance.linuxUrl != null}">
-                                                <a href="${exportedResourceInstance.linuxUrl}"><i class="fa fa-linux"></i></a>
-                                            </g:if>
-                                            <g:if test="${exportedResourceInstance.moodleUrl != null}">
-                                                <a href="${exportedResourceInstance.moodleUrl}"><i class="fa fa-graduation-cap"></i></a>
-                                            </g:if>
-                                        </div>
+                                </div>
+                                <div class="col s6">
+                                    <div class="pull-right gray-color">
+                                        <g:if test="${exportedResourceInstance.webUrl != null}">
+                                            <a href="${exportedResourceInstance.webUrl}" ><i class="fa fa-globe"></i></a>
+                                        </g:if>
+                                        <g:if test="${exportedResourceInstance.androidUrl != null}">
+                                            <a href="${exportedResourceInstance.androidUrl}"><i class="fa fa-android"></i></a>
+                                        </g:if>
+                                        <g:if test="${exportedResourceInstance.linuxUrl != null}">
+                                            <a href="${exportedResourceInstance.linuxUrl}"><i class="fa fa-linux"></i></a>
+                                        </g:if>
+                                        <g:if test="${exportedResourceInstance.moodleUrl != null}">
+                                            <a href="${exportedResourceInstance.moodleUrl}"><i class="fa fa-graduation-cap"></i></a>
+                                        </g:if>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </g:each>
-                </div>
-            </g:else>
+                    </div>
+                </g:each>
+            </div>
+        </g:if>
 
+
+        <g:if test="${myExportedResourcesList.size() > 0}">
             <div class="subtitle space">
                 <p class="text-teal text-darken-3 left-align margin-bottom">
                     <i class="small material-icons left">new_releases</i>Aqui estão alguns dos jogos que você mesmo customizou!
                 </p>
             </div>
-            <g:if test="${myExportedResourcesList.size() == 0}">
-                <div class="row">
-                    <p>Você ainda não possui nenhum jogo!</p>
-                </div>
-            </g:if>
-            <g:else>
-                <div class="center slick">
-                    <g:each in="${myExportedResourcesList}" var="myExportedResourceInstance">
-                        <div class="card square-cover small">
-                            <div class="card-content">
-                                <div class="cover">
-                                    <div class="cover-image-container">
-                                        <div class="cover-outer-align">
-                                            <div class="cover-inner-align">
-                                                <img alt="${myExportedResourceInstance.name}" class="cover-image img-responsive image-bg "  src="/images/${myExportedResourceInstance.resource.uri}-banner.png">
-                                            </div>
+            <div class="center slick">
+                <g:each in="${myExportedResourcesList}" var="myExportedResourceInstance">
+                    <div class="card square-cover small">
+                        <div class="card-content">
+                            <div class="cover">
+                                <div class="cover-image-container">
+                                    <div class="cover-outer-align">
+                                        <div class="cover-inner-align">
+                                            <img alt="${myExportedResourceInstance.name}" class="cover-image img-responsive image-bg "  src="/images/${myExportedResourceInstance.resource.uri}-banner.png">
                                         </div>
-                                    </div>
-                                    <a class="card-click-target"  href="/resource/show/${myExportedResourceInstance.id}"></a>
-                                </div>
-                                <div class="details">
-                                    <a class="card-click-target"  href="/resource/show/${myExportedResourceInstance.id}" aria-hidden="true" tabindex="-1"></a>
-                                    <a class="title card-name"  href="/resource/show/${myExportedResourceInstance.id}" title="${myExportedResourceInstance.name}" aria-hidden="true" tabindex="-1">${myExportedResourceInstance.name}</a>
-                                    <div class="subtitle-container">
-                                        <p class="subtitle">Feito por: ${myExportedResourceInstance.owner.firstName}</p>
                                     </div>
                                 </div>
-                                <div class="row no-margin margin-top">
-                                    <div class="col s6">
-                                        <div class="pull-left tiny-stars">
-                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                        </div>
+                                <a class="card-click-target"  href="/resource/show/${myExportedResourceInstance.id}"></a>
+                            </div>
+                            <div class="details">
+                                <a class="card-click-target"  href="/resource/show/${myExportedResourceInstance.id}" aria-hidden="true" tabindex="-1"></a>
+                                <a class="title card-name"  href="/resource/show/${myExportedResourceInstance.id}" title="${myExportedResourceInstance.name}" aria-hidden="true" tabindex="-1">${myExportedResourceInstance.name}</a>
+                                <div class="subtitle-container">
+                                    <p class="subtitle">Feito por: ${myExportedResourceInstance.owner.firstName}</p>
+                                </div>
+                            </div>
+                            <div class="row no-margin margin-top">
+                                <div class="col s6">
+                                    <div class="pull-left tiny-stars">
+                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
+                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
+                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
+                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
+                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                     </div>
-                                    <div class="col s6">
-                                        <div class="pull-right gray-color">
-                                            <g:if test="${myExportedResourceInstance.webUrl != null}">
-                                                <a href="${myExportedResourceInstance.webUrl}"><i class="fa fa-globe"></i></a>
-                                            </g:if>
-                                            <g:if test="${myExportedResourceInstance.androidUrl != null}">
-                                                <a href="${myExportedResourceInstance.androidUrl}"><i class="fa fa-android"></i></a>
-                                            </g:if>
-                                            <g:if test="${myExportedResourceInstance.linuxUrl != null}">
-                                                <a href="${myExportedResourceInstance.linuxUrl}"><i class="fa fa-linux"></i></a>
-                                            </g:if>
-                                            <g:if test="${myExportedResourceInstance.moodleUrl != null}">
-                                                <a href="${myExportedResourceInstance.moodleUrl}"><i class="fa fa-graduation-cap"></i></a>
-                                            </g:if>
-                                        </div>
+                                </div>
+                                <div class="col s6">
+                                    <div class="pull-right gray-color">
+                                        <g:if test="${myExportedResourceInstance.webUrl != null}">
+                                            <a href="${myExportedResourceInstance.webUrl}"><i class="fa fa-globe"></i></a>
+                                        </g:if>
+                                        <g:if test="${myExportedResourceInstance.androidUrl != null}">
+                                            <a href="${myExportedResourceInstance.androidUrl}"><i class="fa fa-android"></i></a>
+                                        </g:if>
+                                        <g:if test="${myExportedResourceInstance.linuxUrl != null}">
+                                            <a href="${myExportedResourceInstance.linuxUrl}"><i class="fa fa-linux"></i></a>
+                                        </g:if>
+                                        <g:if test="${myExportedResourceInstance.moodleUrl != null}">
+                                            <a href="${myExportedResourceInstance.moodleUrl}"><i class="fa fa-graduation-cap"></i></a>
+                                        </g:if>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </g:each>
-                </div>
-            </g:else>
-        </div>
+                    </div>
+                </g:each>
+            </div>
+        </g:if>
     </div>
+</div>
 </body>
 </html>

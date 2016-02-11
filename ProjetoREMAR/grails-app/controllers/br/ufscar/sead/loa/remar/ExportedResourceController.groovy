@@ -128,10 +128,11 @@ class ExportedResourceController {
         exportedResourceInstance.save flush: true
 
         render view:'publish', model: [resourceName: exportedResourceInstance.name, resourceId: exportedResourceInstance.id,
-                                       platforms: platforms]
+                                       platforms: platforms, resourceUri: exportedResourceInstance.resource.uri]
     }
 
     def web(ExportedResource exportedResourceInstance) {
+
         render exportedResourceInstance.webUrl
     }
 
@@ -226,6 +227,8 @@ class ExportedResourceController {
     def update(ExportedResource instance) {
         instance.save(flush: true)
         response.status = 200
+
+        render instance.webUrl
     }
 
     def publicGames(){

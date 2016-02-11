@@ -2,9 +2,6 @@
  * Created by matheus on 6/27/15.
  */
 $(function(){
-
-
-
     $.ajax({
         type: 'POST',
         url: location.origin + "/resource/getResourceInstance/"+$("#hidden").val(),

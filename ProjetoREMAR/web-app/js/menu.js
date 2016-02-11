@@ -11,9 +11,10 @@ $(document).ready(function() {
         $.each($(".card ").find(".card-name"), function() {
             //console.log($(this).text());
             if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) == -1)
-                $(this).closest('div[class^="card square-cover small"]').hide();
+                $(this).closest('div[class^="card square-cover small"]').hide(500);
             else
-                $(this).closest('div[class^="card square-cover small"]').show();
+                $(this).closest('div[class^="card square-cover small"]').show(500);
+                //Materialize.fadeInImage($(this).closest('div[class^="card square-cover small"]'));
         });
     });
 });

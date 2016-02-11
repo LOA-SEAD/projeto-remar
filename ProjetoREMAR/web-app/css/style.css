@@ -781,3 +781,27 @@ table .pending td{
 .subtitle.space{
     margin-top: 30px;
 }
+
+.row.space{
+    margin-top: 30px;
+}
+
+.social-button ul li a{
+    font-size: 30px;
+}
+.card.square-cover .card-reveal {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+.card-reveal span.card-title{
+    padding: 0;
+    margin: 0;
+}
+
+.card.square-cover .card-reveal a {
+    font-size: 30px;
+    color: #212121;
+}
+
+.plataform-card{
+    margin-top: 10px;
+}
