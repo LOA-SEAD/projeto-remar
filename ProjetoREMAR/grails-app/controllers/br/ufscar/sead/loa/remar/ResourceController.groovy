@@ -72,6 +72,30 @@ class ResourceController {
         resourceInstance.status      = "pending"
         resourceInstance.valid       = true
 
+
+
+        def bd = new File(servletContext.getRealPath("/wars/${username}/${fileName}/data/bd.json"))
+
+
+        if (!bd.exists()) {
+            resourceInstance.valid = false
+            resourceInstance.name = war.originalFilename
+            resourceInstance.uri = ""
+            resourceInstance.status  = "rejected"
+            resourceInstance.comment = "bd.json file not found"
+            resourceInstance.save flush: true
+            log.debug "moodleBD.json file not found"
+            redirect action: "index"
+            return
+        }
+        else {
+            def json = JSON.parse(bd)
+            log.debug json
+        }
+
+        return
+
+
         // move to wars folder
         def file = new File(servletContext.getRealPath("/wars/${username}"), fileName + ".war")
         file.mkdirs()
@@ -162,45 +186,10 @@ class ResourceController {
             resourceInstance.height   = manifest.height
         }
 
-        def moodleBD = new File(servletContext.getRealPath("/wars/${username}/${fileName}/data/moodleBD.json"))
 
-        if (resourceInstance.moodle) {
-            if (!moodleBD.exists()) {
-                resourceInstance.valid = false
-                resourceInstance.name = war.originalFilename
-                resourceInstance.uri = ""
-                resourceInstance.status  = "rejected"
-                resourceInstance.comment = "moodleBD.json file not found"
-                resourceInstance.save flush: true
-                redirect action: "index"
-                log.debug "moodleBD.json file not found"
-                return
-            }
-            else {
-                new AntBuilder().copy(file: servletContext.getRealPath("/wars/${username}/${fileName}/data/moodleBD.json"),
-                        tofile: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}/moodle/moodleBD.json"))
-            }
-        }
+        //******************************************************************************************************
+        //******************************************************************************************************
 
-        def moodleJS = new File(servletContext.getRealPath("/wars/${username}/${fileName}/data/moodle.js"))
-
-        if (resourceInstance.moodle) {
-            if (!moodleJS.exists()) {
-                resourceInstance.valid = false
-                resourceInstance.name = war.originalFilename
-                resourceInstance.uri = ""
-                resourceInstance.status  = "rejected"
-                resourceInstance.comment = "moodle.js file not found"
-                resourceInstance.save flush: true
-                redirect action: "index"
-                log.debug "moodle.js file not found!!!"
-                return
-            }
-            else {
-                new AntBuilder().copy(file: servletContext.getRealPath("/wars/${username}/${fileName}/data/moodle.js"),
-                        tofile: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}/moodle/moodle.js"))
-            }
-        }
 
         def cmd = servletContext.getRealPath("/scripts") + "/verify-banner.sh ${servletContext.getRealPath("/wars/${username}")}/${fileName} ${manifest.uri}-banner"
         def foundBanner = cmd.execute().text.toInteger()
