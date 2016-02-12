@@ -3,6 +3,7 @@ import br.ufscar.sead.loa.remar.RequestMap
 import br.ufscar.sead.loa.remar.Role
 import br.ufscar.sead.loa.remar.UserRole
 import br.ufscar.sead.loa.remar.User
+import br.ufscar.sead.loa.remar.MongoHelper
 import grails.util.Environment
 
 import javax.servlet.http.HttpServletRequest
@@ -11,6 +12,9 @@ class BootStrap {
     def grailsApplication
 
     def init = { servletContext ->
+
+        MongoHelper.instance.init()
+        MongoHelper.instance.insertTestData("test")
 
         HttpServletRequest.metaClass.isXhr = { ->
             'XMLHttpRequest' == delegate.getHeader('X-Requested-With')
