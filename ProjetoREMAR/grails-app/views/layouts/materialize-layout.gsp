@@ -12,6 +12,8 @@
             $('.collapsible').collapsible();
 
             $('.tooltipped').tooltip({delay: 50});
+
+            $('select').material_select();
         });
     </script>
 

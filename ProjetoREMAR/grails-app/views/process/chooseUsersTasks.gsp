@@ -36,28 +36,35 @@
                 </script>
             </g:if>
             <div class="subtitle space">
-                <h4 class="text-teal text-darken-3 center truncate" title="${nameProcess}">
-                    ${nameProcess} - c01
-                </h4>
+                <h3 class="text-teal text-darken-3 center truncate" title="${nameProcess}">
+                    ${nameProcess}
+                </h3>
+                <h5 class="center date">
+                    <i class="fa fa-clock-o"></i> Inializado em <g:formatDate format="dd-MM-yyyy HH:mm" date="${startedProcess}"/>
+                </h5>
             </div>
             <div class="row space">
-                <p> Abaixo estão listadas as tarefas que devem ser cumpridas para concluir a customização do seu jogo!</p>
+                <blockquote>
+                    Abaixo estão listadas as tarefas que devem ser cumpridas para concluir a customização do seu jogo!
+                </blockquote>
             </div>
 
             <table class="responsive-table bordered highlight centered">
                 <thead>
                 <tr>
-                    <th data-field="status">status</th>
                     <th data-field="id">Nome</th>
                     <th data-field="name">Ação</th>
+                    <th data-field="status">status</th>
+
                 </tr>
                 </thead>
                 <tbody>
                 <g:each in="${tasks}" var="task">
                     <tr class="pending">
-                        <td> <i class="small material-icons tooltipped" data-position="down" data-delay="50" data-tooltip="Pendente">warning</i></td>
                         <td>
-                           <span class="truncate tooltipped" data-position="down" data-delay="50" data-tooltip="${task.getName()}">${task.getName()} </span>
+                           <span class="">
+                               ${task.getName()}
+                           </span>
                             %{--${task.taskDefinitionKey}--}%
                         </td>
 
@@ -67,7 +74,9 @@
                         <g:if test="${task.getDelegationState().toString() == "PENDING"}">
                             <td><a href="/frame/${uri}/${task.taskDefinitionKey}" >REALIZAR</a></td>
                         </g:if>
-                    %{--<g:elseif test="${task.getDelegationState().toString() == "RESOLVED"}">--}%
+                        <td> <i class="small material-icons tooltipped" data-position="down" data-delay="50" data-tooltip="Pendente">warning</i></td>
+
+                        %{--<g:elseif test="${task.getDelegationState().toString() == "RESOLVED"}">--}%
                     %{--<td>Realizada – Aguardando aprovação – <g:link uri="/process/task/complete/${task.getId()}">APROVAR</g:link></td>--}%
                     %{--</g:elseif>--}%
                     %{--<g:elseif test="${task.getDelegationState().toString() == "null"}">--}%

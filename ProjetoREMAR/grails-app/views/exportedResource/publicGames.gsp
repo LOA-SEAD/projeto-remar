@@ -47,7 +47,8 @@
                     <div class="card square-cover small hoverable">
                         <div class="card-image waves-effect waves-block waves-light">
                             <div class="cover-image-container">
-                                <img alt="${exportedResourceInstance.name}" class="cover-image img-responsive image-bg activator "  src="/images/${exportedResourceInstance.resource.uri}-banner.png">
+                                <img alt="${exportedResourceInstance.name}" class="cover-image img-responsive image-bg activator "
+                                     src="${(exportedResourceInstance.webUrl).substring(0,exportedResourceInstance.webUrl.indexOf('w')-1)}/banner.png">
                             </div>
                             %{--<a class="card-click-target"  href="/resource/show/${exportedResourceInstance.id}"></a>--}%
                         </div>

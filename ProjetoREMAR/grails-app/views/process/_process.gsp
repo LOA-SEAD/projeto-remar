@@ -6,23 +6,16 @@
         <g:else>
             <div class="card card-developer approved">
         </g:else>
+        <div class="cover waves-effect waves-block waves-light">
+            <img alt="${process[0]}" class="cover-image img-responsive image-bg "  src="/images/${process[5]}-banner.png">
+            %{--<a class="activator" ></a>--}%
+        </div>
         <div class="card-content">
-            <div class="cover">
-                <div class="cover-image-container">
-                    <div class="cover-outer-align">
-                        <div class="cover-inner-align">
-                            %{--<img alt="${process[0]}" class="cover-image img-responsive image-bg "  src="/images/${process[0]}-banner.png">--}%
-                            <img alt="${process[0]}" class="cover-image img-responsive image-bg "  src="/images/escolamagica-banner.png">
-                        </div>
-                    </div>
-                </div>
-                <a class="activator" ></a>
-            </div>
             <div class="details">
                 <a class="title" title="${process[0]}" aria-hidden="true" tabindex="-1" >${process[0]}</a>
-                %{--<div class="subtitle-container">--}%
-                    %{--<p class="subtitle">Feito por: REMAR</p>--}%
-                %{--</div>--}%
+                <div class="subtitle-container">
+                    <p class="subtitle"><i class="fa fa-clock-o"></i> <g:formatDate format="dd-MM-yyyy HH:mm" date="${process[4]}"/></p>
+                </div>
             </div>
             <div class="row no-margin margin-top card-info">
                 <div class="col s12">
@@ -42,10 +35,20 @@
             </div>
             <div class="card-action">
                 %{--<div class="col s12">--}%
-                   <input type="text" class="comment" placeholder="Comentário"  value=" ${process[1]} atividade(s)" disabled>
+                   %{--<input type="text" class="comment" placeholder="Comentário"  value=" ${process[1]} tarefa(s)" disabled>--}%
                    %{--<p style="margin-bottom: 10px;"></p>--}%
                     <div class="">
-                        <a class="right tooltipped" href="/process/delete/${process[3]}" data-position="right" data-delay="50" data-tooltip="Excluir"><i class="material-icons">delete</i></a>
+                        <div class="col s6">
+                            <span class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="${process[1]} tarefas pendentes" style="color: gray;">
+                                %{--${process[1]}--}%
+                                <i class="material-icons" >warning</i>
+                            </span>
+                        </div>
+                        <div class="col s6">
+                            <a class="tooltipped delete" href="/process/delete/${process[3]}" data-position="bottom" data-delay="50" data-tooltip="Excluir" style="color: gray;">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        </div>
                     </div>
                 %{--</div>--}%
             </div>

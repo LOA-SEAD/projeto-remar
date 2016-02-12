@@ -667,10 +667,6 @@ footer.page-footer{
     margin-bottom: 0px;
 }
 
-/*.send-war a{*/
-    /*color: #FF5722;*/
-    /*font-size: 45px;*/
-/*}*/
 
 .collapsible-body{
     padding: 10px;
@@ -804,4 +800,17 @@ table .pending td{
 
 .plataform-card{
     margin-top: 10px;
+}
+
+.platforms p{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.subtitle .date{
+    margin-top: 15px;
+}
+
+.send-publish{
+    margin-top: 25px;
 }

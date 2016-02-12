@@ -54,6 +54,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
         runtimeService.setVariable(processId, "resourceName", resource.name as String)
         runtimeService.setVariable(processId, "resourceUri", resource.uri as String)
         runtimeService.setVariable(processId, "ownerUsername", session.user.username as String)
+        runtimeService.setVariable(processId, "startedProcess", new Date())
 
 
         identityService.setAuthenticatedUserId(session.user.camunda_id)
@@ -108,10 +109,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
 
         // log.debug session.processId;
 
-
         render "success"
-
-
     }
 
     def undeploy() {
@@ -169,7 +167,8 @@ class ProcessController implements JavaDelegate, ExecutionListener{
 //            render view: "chooseUsersTasks", model: [users: allUsers, tasks: tasks, uri: uri, processId: params.processId,
 //                                                     currentUser: session.user, dev: Environment.current == Environment.DEVELOPMENT]
             render  view: "chooseUsersTasks", model: [users: allUsers, tasks: tasks, uri: uri, processId: params.processId, nameProcess:runtimeService.getVariable(params.processId, "resourceName"),
-                                currentUser: session.user, dev: Environment.current == Environment.DEVELOPMENT, completedTask: completed]
+                                currentUser: session.user, dev: Environment.current == Environment.DEVELOPMENT, completedTask: completed,
+                                startedProcess:runtimeService.getVariable(params.processId, "startedProcess") ]
         }
 
     }
@@ -183,7 +182,6 @@ class ProcessController implements JavaDelegate, ExecutionListener{
             def var = runtimeService.getVariable(processes.id, "ownerId")
             if (userId == var) {
                 def formattedProcesses = []
-//                def uri = runtimeService.getVariable(processes.id, "resourceUri")
 //                List<Task> tasks = taskService.createTaskQuery().processInstanceId(processes.id).list()
 //
 //                /*
@@ -209,8 +207,9 @@ class ProcessController implements JavaDelegate, ExecutionListener{
                 formattedProcesses[1] = taskService.createTaskQuery().processInstanceId(processes.id).list().size()
                 formattedProcesses[2] = runtimeService.createProcessInstanceQuery().processInstanceId(processes.id).list()[0].suspended
                 formattedProcesses[3] = processes.id
+                formattedProcesses[4] = runtimeService.getVariable(processes.id,"startedProcess")
 //                formattedProcesses[4] = tasks
-//                formattedProcesses[5] = uri
+                formattedProcesses[5] = runtimeService.getVariable(processes.id, "resourceUri")
 
                 list.add(formattedProcesses)
             }
@@ -411,6 +410,11 @@ class ProcessController implements JavaDelegate, ExecutionListener{
             new AntBuilder().copy(todir: "${instanceFolder}/web") {
                 fileset(dir: servletContext.getRealPath("/data/resources/sources/${resource.uri}/base"))
             }
+
+            new AntBuilder().copy(file: "${servletContext.getRealPath("/images")}/" +
+                    "${exportedResourceInstance.resource.uri}-banner.png",
+                    tofile: "${instanceFolder}/banner.png", overwrite: true)
+
 
             def f = new File(instanceFolder, "/web${exportedResourceInstance.resource.moodleJson}moodle.json")
             def pw = new PrintWriter(f)

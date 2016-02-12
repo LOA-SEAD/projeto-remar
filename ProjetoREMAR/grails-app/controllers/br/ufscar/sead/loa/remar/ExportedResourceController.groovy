@@ -5,11 +5,12 @@ import grails.plugin.springsecurity.annotation.Secured
 import grails.util.Environment
 import groovy.json.JsonSlurper
 import groovyx.net.http.HTTPBuilder
+import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 @Secured(['ROLE_ADMIN'])
 class ExportedResourceController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "GET"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "GET"]
     def springSecurityService
 
     def save(ExportedResource exportedResourceInstance) {
@@ -125,10 +126,11 @@ class ExportedResourceController {
         springSecurityService.clearCachedRequestmaps()
 
         exportedResourceInstance.webUrl = url + "/web"
+        platforms[0] = "Web:"+ exportedResourceInstance.webUrl
         exportedResourceInstance.save flush: true
 
         render view:'publish', model: [resourceName: exportedResourceInstance.name, resourceId: exportedResourceInstance.id,
-                                       platforms: platforms, resourceUri: exportedResourceInstance.resource.uri]
+                                       platforms: platforms, resourceUri: exportedResourceInstance.resource.uri, resourceInstanceUrl: url ]
     }
 
     def web(ExportedResource exportedResourceInstance) {
@@ -225,8 +227,32 @@ class ExportedResourceController {
     }
 
     def update(ExportedResource instance) {
-        instance.save(flush: true)
-        response.status = 200
+        def time = instance.exportedAt.getTime() as String
+        def destination = new File("${servletContext.getRealPath("/published/${time.substring(0, time.length() - 4)}")}/banner.png")
+//        log.debug(params)
+        def photo = params.banner as CommonsMultipartFile
+        if (photo != null && !photo.isEmpty()) {
+            photo.transferTo(destination)
+        } else {
+            log.debug "gfhghgc"
+        }
+
+        def i = ExportedResource.findByName(params.name)
+        if(i) {
+            if(i == instance) {
+//                instance.name = params.name
+                instance.save(flush: true)
+                response.status = 200
+            } else {
+                response.status = 409 // conflited error
+            }
+        } else {
+            log.debug("ta aki")
+            log.debug(params.name)
+            instance.name = params.name
+            instance.save(flush: true)
+            response.status = 200
+        }
 
         render instance.webUrl
     }
@@ -235,6 +261,9 @@ class ExportedResourceController {
         def model = [:]
 
         model.publicExportedResourcesList = ExportedResource.findAllByType('public')
+        for (instance in model.publicExportedResourceList){
+        }
+
 
         render view: "publicGames", model: model
     }
