@@ -72,30 +72,6 @@ class ResourceController {
         resourceInstance.status      = "pending"
         resourceInstance.valid       = true
 
-
-
-        def bd = new File(servletContext.getRealPath("/wars/${username}/${fileName}/data/bd.json"))
-
-
-        if (!bd.exists()) {
-            resourceInstance.valid = false
-            resourceInstance.name = war.originalFilename
-            resourceInstance.uri = ""
-            resourceInstance.status  = "rejected"
-            resourceInstance.comment = "bd.json file not found"
-            resourceInstance.save flush: true
-            log.debug "moodleBD.json file not found"
-            redirect action: "index"
-            return
-        }
-        else {
-            def json = JSON.parse(bd)
-            log.debug json
-        }
-
-        return
-
-
         // move to wars folder
         def file = new File(servletContext.getRealPath("/wars/${username}"), fileName + ".war")
         file.mkdirs()
@@ -187,8 +163,27 @@ class ResourceController {
         }
 
 
-        //******************************************************************************************************
-        //******************************************************************************************************
+        //read the file that describes the game DB and creates a collection with the corresponding name
+        def bd = new File(servletContext.getRealPath("/wars/${username}/${fileName}/data/bd.json"))
+
+        if (!bd.exists()) {
+            resourceInstance.valid = false
+            resourceInstance.name = war.originalFilename
+            resourceInstance.uri = ""
+            resourceInstance.status  = "rejected"
+            resourceInstance.comment = "bd.json file not found"
+            resourceInstance.save flush: true
+            log.debug "moodleBD.json file not found"
+            redirect action: "index"
+            return
+        }
+        else {
+            new AntBuilder().copy(file: servletContext.getRealPath("/wars/${username}/${fileName}/data/bd.json"),
+                    tofile: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}/bd.json"))
+
+            def json = JSON.parse(bd.text)
+            MongoHelper.createCollection(json['collection_name'])
+        }
 
 
         def cmd = servletContext.getRealPath("/scripts") + "/verify-banner.sh ${servletContext.getRealPath("/wars/${username}")}/${fileName} ${manifest.uri}-banner"
