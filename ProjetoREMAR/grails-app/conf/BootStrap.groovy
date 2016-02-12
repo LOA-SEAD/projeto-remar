@@ -14,7 +14,6 @@ class BootStrap {
     def init = { servletContext ->
 
         MongoHelper.instance.init()
-        MongoHelper.instance.insertTestData("test")
 
         HttpServletRequest.metaClass.isXhr = { ->
             'XMLHttpRequest' == delegate.getHeader('X-Requested-With')

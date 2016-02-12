@@ -17,18 +17,8 @@ class MongoHelper {
         this.db = mongoClient.getDatabase(dbName)
     }
 
-    def insertTestData(String collection) {
-        db.getCollection(collection).insertOne(
-            new Document (
-                "address",
-                new Document()
-                    .append("street", "2 Avenue")
-                    .append("zipcode", "10075")
-                    .append("building", "1480")
-            )
-            .append("borough", "Manhattan")
-            .append("cuisine", "Italian")
-        )
+    def createCollection(String collectionName) {
+        db.createCollection(collectionName)
     }
 
     def insertData(String collection, Document data) {
