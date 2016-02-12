@@ -2,6 +2,26 @@
  * Created by matheus on 6/27/15.
  */
 
+
+function validateWar(){
+    var inputFile = document.getElementById("war");
+    var fileName = inputFile.value;
+
+    if(fileName.length>0){
+        var fileExtension = fileName.split('.').pop().toLowerCase();
+        if(fileExtension=="war"){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    else{
+        return false;
+    }
+}
+
+
 $(function(){
     /* carregar war, chamando o controlador e redirecionando para a mesma pagina*/
 
@@ -15,52 +35,64 @@ $(function(){
     $('.send-icon').hide();
 
     $('.send').on('click', function() {
-        var file = $("#war").prop('files')[0];
-        var url = "/resource/save";
-        var formData = new FormData();
-        formData.append('war', file);
-
-        $('#preloader-wrapper').show('fast');
-
-        $.ajax({
-            type: 'POST',
-            url: url,
-            data: formData,
-            //xhr: function() {
-            //    var myXhr = $.ajaxSettings.xhr();
-            //    if(myXhr.upload){
-            //        myXhr.upload.addEventListener('progress',progress, false);
-            //    }
-            //    return myXhr;
-            //},
-            processData: false,
-            contentType: false,
-            success: function (data) {
-
-                $('#preloader-wrapper').hide();
-                $('.send-icon').show('fast');
-                $('#info-add').trigger('click');
 
 
-                $('.loaded-form').show("slideDown");
+        if(validateWar()){
+            var file = $("#war").prop('files')[0];
+            console.log(file);
+            var url = "/resource/save";
+            var formData = new FormData();
+            formData.append('war', file);
 
-                $("#name").val(data.name)
-                            .next().addClass("active");
+            $('#preloader-wrapper').show('fast');
 
-                $("#description").val(data.description);
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: formData,
+                //xhr: function() {
+                //    var myXhr = $.ajaxSettings.xhr();
+                //    if(myXhr.upload){
+                //        myXhr.upload.addEventListener('progress',progress, false);
+                //    }
+                //    return myXhr;
+                //},
+                processData: false,
+                contentType: false,
+                success: function (data) {
 
-                //$(".icons-select select").val(data.category);
-                //$("#img-1").attr("src", "/data/resources/assets/"+data.uri+"/description-1");
+                    $('#preloader-wrapper').hide();
+                    $('.send-icon').show('fast');
+                    $('#info-add').trigger('click');
 
-                $("#hidden").val(data.id);
 
-            },
-            error: function(req, res, err) {
-                console.log(req);
-                console.log(res);
-                console.log(err);
-            }
-        });
+                    $('.loaded-form').show("slideDown");
+
+                    $("#name").val(data.name)
+                        .next().addClass("active");
+
+                    $("#description").val(data.description);
+
+                    //$(".icons-select select").val(data.category);
+                    //$("#img-1").attr("src", "/data/resources/assets/"+data.uri+"/description-1");
+
+                    $("#hidden").val(data.id);
+
+                },
+                error: function(req, res, err) {
+                    console.log(req);
+                    console.log(res);
+                    console.log(err);
+                }
+            });
+        }
+
+        else{
+            alert("Extensão do arquivo inválida. Por favor selecione um arquivo .war");
+        }
+
+
+
 
     });
 

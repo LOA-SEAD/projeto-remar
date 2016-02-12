@@ -23,10 +23,10 @@
 										<div class="file-field input-field">
 											<div class="btn waves-effect waves-light my-orange col s2">
 												<span>File</span>
-												<input type="file" name="war" id="war" accept=".war">
+												<input type="file" required name="war" id="war" accept=".war">
 											</div>
 											<div class="file-path-wrapper col s10">
-												<input class="file-path validate" type="text" name="create"  placeholder="Selecione o arquivo do seu jogo (.war)" readonly>
+												<input class="file-path validate" type="text" name="create" required placeholder="Selecione o arquivo do seu jogo (.war)" readonly>
 											</div>
 											<div class="col s12" >
 												<div id="preloader-wrapper" class="preloader-wrapper small active right">
@@ -59,12 +59,12 @@
 										%{--<p>Lorem ipsum dolor sit amet.</p>--}%
 										<div class="row loaded-form">
 										%{-- TODO mudar controlador --}%
-											<g:form url="[action: 'update']" method="PUT" enctype="multipart/form-data">
+											%{--<g:form url="[action: 'update']" enctype="multipart/form-data">--}%
 												<input type="hidden" name="id" id="hidden">
 												<div class="col-s12" >
 													<g:render template="form"/>
 												</div>
-											</g:form>
+											%{--</g:form>--}%
 										</div>
 									</div>
 								</li>
