@@ -91,3 +91,11 @@
 2016-02-12 15:08:45,404 [main] WARN  webxml.WebxmlGrailsPlugin  - Did not find application config file: WebXmlConfig
 2016-02-12 15:08:45,809 [main] INFO  webxml.WebxmlGrailsPlugin  - Loading default config file: class DefaultWebXmlConfig
 2016-02-12 15:08:45,811 [main] WARN  webxml.WebxmlGrailsPlugin  - Did not find application config file: WebXmlConfig
+2016-02-12 15:33:16,930 [main] INFO  webxml.WebxmlGrailsPlugin  - Loading default config file: class DefaultWebXmlConfig
+2016-02-12 15:33:16,942 [main] WARN  webxml.WebxmlGrailsPlugin  - Did not find application config file: WebXmlConfig
+2016-02-12 15:33:17,343 [main] INFO  webxml.WebxmlGrailsPlugin  - Loading default config file: class DefaultWebXmlConfig
+2016-02-12 15:33:17,346 [main] WARN  webxml.WebxmlGrailsPlugin  - Did not find application config file: WebXmlConfig
+2016-02-12 16:32:06,619 [Thread-18] INFO  webxml.WebxmlGrailsPlugin  - Loading default config file: class DefaultWebXmlConfig
+2016-02-12 16:32:06,624 [Thread-18] WARN  webxml.WebxmlGrailsPlugin  - Did not find application config file: WebXmlConfig
+2016-02-12 16:32:06,699 [Thread-18] INFO  webxml.WebxmlGrailsPlugin  - Loading default config file: class DefaultWebXmlConfig
+2016-02-12 16:32:06,702 [Thread-18] WARN  webxml.WebxmlGrailsPlugin  - Did not find application config file: WebXmlConfig

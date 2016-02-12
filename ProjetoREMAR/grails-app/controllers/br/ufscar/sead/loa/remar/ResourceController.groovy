@@ -182,7 +182,11 @@ class ResourceController {
                     tofile: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}/bd.json"))
 
             def json = JSON.parse(bd.text)
-            MongoHelper.createCollection(json['collection_name'])
+            def collectionName = json['collection_name'] as String
+            log.debug collectionName
+            //def mongodb = MongoHelper.instance.init()
+            MongoHelper.instance.createCollection(collectionName)
+            //
         }
 
 
