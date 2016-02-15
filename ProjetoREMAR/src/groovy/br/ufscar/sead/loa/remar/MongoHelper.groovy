@@ -18,7 +18,13 @@ class MongoHelper {
     }
 
     def createCollection(String collectionName) {
-        db.createCollection(collectionName)
+        if (collectionName in db.listCollectionNames()) {
+            println "Collection '${collectionName}' already exists."
+        }
+        else {
+            db.createCollection(collectionName)
+            println "COllection '${collectionName}' succssesfully created."
+        }
     }
 
     def insertData(String collection, Document data) {

@@ -123,6 +123,7 @@ class ResourceController {
             log.debug "invalid manifest"
             return
         }
+        log.debug "manifest is valid and it was read."
 
         resourceInstance.name       = manifest.name
         resourceInstance.uri        = manifest.uri
@@ -130,7 +131,6 @@ class ResourceController {
         resourceInstance.linux      = manifest.linux
         resourceInstance.moodle     = manifest.moodle
         resourceInstance.files      = manifest.files
-        resourceInstance.moodleJson = manifest.moodlejson
 
         if (!manifest.width) {
             resourceInstance.valid = false
@@ -140,11 +140,12 @@ class ResourceController {
             resourceInstance.comment = "Missing 'width' property in manifest.json."
             resourceInstance.save flush: true
             redirect action: "index"
-            log.debug "invalid manifest"
+            log.debug "invalid manifest. Missing 'width' property in manifest.json"
             return
         }
         else {
             resourceInstance.width   = manifest.width
+            log.debug "'width' property loaded."
         }
 
         if (!manifest.height) {
@@ -155,11 +156,12 @@ class ResourceController {
             resourceInstance.comment = "Missing 'height' property in manifest.json."
             resourceInstance.save flush: true
             redirect action: "index"
-            log.debug "invalid manifest"
+            log.debug "invalid manifest. Missing 'height' property in manifest.json"
             return
         }
         else {
             resourceInstance.height   = manifest.height
+            log.debug "'height' property loaded."
         }
 
 
@@ -173,7 +175,7 @@ class ResourceController {
             resourceInstance.status  = "rejected"
             resourceInstance.comment = "bd.json file not found"
             resourceInstance.save flush: true
-            log.debug "moodleBD.json file not found"
+            log.debug "ERROR: bd.json file not found"
             redirect action: "index"
             return
         }
@@ -186,7 +188,8 @@ class ResourceController {
             log.debug collectionName
             //def mongodb = MongoHelper.instance.init()
             MongoHelper.instance.createCollection(collectionName)
-            //
+
+            log.debug "Collection name '${collectionName}' successfully created."
         }
 
 
@@ -205,6 +208,7 @@ class ResourceController {
             log.debug "banner not found"
             return
         }
+        log.debug "Banner OK."
 
         // copy banner to /assets
 
@@ -224,6 +228,8 @@ class ResourceController {
             return
         }
 
+        log.debug "bpmn ok."
+
         file = new File(servletContext.getRealPath("/wars/${username}/${fileName}/data/source"))
         if (!file.exists()) { // source folder exists?
             resourceInstance.valid = false
@@ -232,8 +238,8 @@ class ResourceController {
             resourceInstance.status  = "rejected"
             resourceInstance.comment = "source folder not found"
             resourceInstance.save flush: true
+            log.debug "source folder not found or any problem in the copy of war"
             redirect action: "index"
-            log.debug "source folder not found"
             return
         }
 
@@ -243,11 +249,12 @@ class ResourceController {
 
         new File(servletContext.getRealPath("/wars/${username}"), fileName + ".war")
                        .renameTo(servletContext.getRealPath("/wars/${username}") + "/" + manifest.uri + ".war")
-
+        log.debug "War successfully copied."
         resourceInstance.save flush:true
 
 
         if(resourceInstance.hasErrors()) {
+            log.debug "ERROR!!"
             log.debug resourceInstance.errors
             respond resourceInstance.errors, view:"create"
         } else {

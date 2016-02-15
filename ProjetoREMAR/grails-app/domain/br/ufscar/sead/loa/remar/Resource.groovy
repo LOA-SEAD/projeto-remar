@@ -16,7 +16,6 @@ class Resource {
         files nullable: true
         width nullable: true
         height nullable: true
-        moodleJson nullable: true
         description nullable: true, maxSize: 1000
         pending nullable: true
     }
@@ -41,7 +40,6 @@ class Resource {
 
     int width
     int height
-    String moodleJson
 
     String description
     boolean pending

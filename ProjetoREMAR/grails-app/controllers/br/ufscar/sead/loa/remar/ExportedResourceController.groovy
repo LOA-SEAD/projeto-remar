@@ -39,10 +39,6 @@ class ExportedResourceController {
         redirect uri: "/"
     }
 
-    def _moodles() {
-
-    }
-
     /* to test the moodle list */
     def loadMoodleList() {
         def moodleList = Moodle.where {
@@ -265,6 +261,12 @@ class ExportedResourceController {
     def saveGameInfo() {
         log.debug "lol"
         log.debug params
-        //must auto fill/create the fields: user, game and timestamp
+
+        def gameData
+        gameData.user = session.user.id
+        gameData.game = params.remar_resource_id
+        gameData.timestamp = new Date().toTimestamp()
+        log.debug "----"
+        log.debug gameData
     }
 }
