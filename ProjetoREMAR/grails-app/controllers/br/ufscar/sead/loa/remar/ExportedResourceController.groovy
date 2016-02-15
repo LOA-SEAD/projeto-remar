@@ -262,5 +262,9 @@ class ExportedResourceController {
         render view: "myGames", model: model
     }
 
-
+    def saveGameInfo() {
+        log.debug "lol"
+        log.debug params
+        //must auto fill/create the fields: user, game and timestamp
+    }
 }
