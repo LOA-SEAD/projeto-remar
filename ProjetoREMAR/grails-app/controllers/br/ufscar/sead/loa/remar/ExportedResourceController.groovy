@@ -202,26 +202,12 @@ class ExportedResourceController {
     def moodle(ExportedResource exportedResourceInstance) {
 
         //pega os dados de como será a tabela no moodle
-        def file = new File(servletContext.getRealPath("/data/resources/sources/${exportedResourceInstance.resource.uri}/moodle/moodleBD.json"))
+        def file = new File(servletContext.getRealPath("/data/resources/sources/${exportedResourceInstance.resource.uri}/bd.json"))
         def inputJson = new JsonSlurper().parseText(file.text)
-
-        def http = new HTTPBuilder("http://remar.dc.ufscar.br:9090")
-
-        //Creates the table in the moodle
-        def resp = http.post(path: "/webservice/rest/server.php",
-                query: [wstoken: "647c093b186a187a0ac89884c8c79795",
-                        wsfunction: "mod_remarmoodle_create_table",
-                        json: file.text])
-        log.debug "Resp: " + resp
-
-        //Save the table name in the object
-        exportedResourceInstance.moodleTableName = inputJson.table_name
 
         //Save the moodleUrl (same as webWurl)
         exportedResourceInstance.moodleUrl = exportedResourceInstance.webUrl
         exportedResourceInstance.save flush: true
-
-        //Must handle the json and js files
 
         render "Vá ao moodle e adicione seu jogo como atividade"
     }
