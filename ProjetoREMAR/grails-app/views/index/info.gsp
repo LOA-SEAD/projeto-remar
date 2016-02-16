@@ -20,6 +20,16 @@
             <p class="center">Recursos Educacionais Multiplataforma Abertos na Rede</p>
             %{--<p>Note: You may need to adjust some CSS based on the size of your logo. The default logo size is 150x50 pixels.</p>--}%
 
+            <h3 style="text-align: left;">GT-REMAR</h3>
+            <p style="text-align: justify">
+                Este projeto encontra-se no contexto dos grupos de trabalho (GTs) Temáticos em EAD (sub-tema: Universidade Aberta OnLine) da RNP.
+                O GT-REMAR tem como objetivo facilitar e ampliar a construção e o reuso de recursos educacionais abertos (REA), por meio de um serviço,
+                na forma de uma plataforma web, que ofereça ferramentas que facilitem a construção e a customização de REA, seguindo diretrizes que favoreçam
+                o reuso, a disponibilização desses recursos em diferentes plataformas, bem como a integração com ambientes virtuais de aprendizagem. Espera-se obter
+                como resultados: (i) um conjunto de diretrizes para o desenvolvimento de REA reutilizáveis, adaptáveis, multiplataforma e acessíveis; (ii) um protótipo
+                da plataforma, que deverá ser testado e validado por meio do desenvolvimento e adaptação de REA pelo grupo proponente, em conjunto com instituições parceiras.
+            </p>
+
             <h3 id="architecture" style="text-align:left;">Arquitetura</h3>
             <p style="text-align: justify">
                 Um esboço da arquitetura da plataforma proposta é apresentado abaixo.
@@ -107,16 +117,24 @@
             <p>
             </p>
             <p style="text-align: justify">
-                Investimento
+                Financiamento
             </p>
             <div class="container-white" style="text-align: center">
                 <div class="container-custom">
                     <a href="http://www.rnp.br/" target="_blank" rel="prettyPhoto" title="Rede Nacional de Ensino e Pesquisa">
                         <img src="../images/partners/rnp.png" alt="RNP">
                     </a>
+                    <a href="http://www.rnp.br/" target="_blank" rel="prettyPhoto" title="Rede Nacional de Ensino e Pesquisa">
+                        <img src="../images/partners/capes.png" alt="CAPES">
+                    </a>
+                    <a href="http://www.rnp.br/" target="_blank" rel="prettyPhoto" title="Rede Nacional de Ensino e Pesquisa">
+                        <img src="../images/partners/ministerio.png" alt="MEC">
+                    </a>
+                    <a href="http://www.rnp.br/" target="_blank" rel="prettyPhoto" title="Rede Nacional de Ensino e Pesquisa">
+                        <img src="../images/partners/governo.png" alt="Governo Federal">
+                    </a>
                 </div>
             </div>
-
 
             <h3 id="contact" style="text-align:left;">Contato</h3>
             <p style="text-align: justify">
