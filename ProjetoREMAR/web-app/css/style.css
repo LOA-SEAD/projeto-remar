@@ -823,6 +823,6 @@ table .pending td{
     margin-top: 25px;
 }
 
-.card.small.square-cover{
-
+.description{
+    white-space: pre;
 }

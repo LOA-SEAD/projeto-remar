@@ -109,7 +109,9 @@
 							</ul>
 						</div>
 
-						<p class="">${resourceInstance.description}</p>
+						<p class="description">${resourceInstance.description}</p>
+
+						%{--${resourceInstance.description}--}%
 					</div>
 					%{--<div class="card-action">--}%
 						%{--<a href="#">This is a link</a>--}%
