@@ -140,7 +140,6 @@ class UserController {
             def root = servletContext.getRealPath("/")
             def f = new File("${root}data/users/${instance.username}")
             f.mkdirs()
-            println(params)
             def destination = new File(f, "profile-picture")
 
             //def photo = params.photo as CommonsMultipartFile

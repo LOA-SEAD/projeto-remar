@@ -65,7 +65,7 @@
 
                         <div class="input-field file-field col s12">
                             <div class="col s3">
-                                <input type="hidden" name="photo" value="" id="srcImage">
+                                <input type="hidden" name="photo" value="/images/avatars/default.png" id="srcImage">
                                 <img id="profile-picture"  class="circle profile-picture" src="/images/avatars/default.png" />
                             </div>
                             <div>
