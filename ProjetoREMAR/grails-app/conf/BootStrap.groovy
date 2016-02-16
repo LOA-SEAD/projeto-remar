@@ -84,7 +84,7 @@ class BootStrap {
 
             for (url in [
                     '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/exportedResource/**', '/frame/**', '/my-profile',
-                    '/user/update', '/resource/customizableGames','/resource/show/**', '/moodle/link/**', '/moodle/unlink/**'
+                    '/user/update', '/resource/customizableGames','/resource/show/**', '/moodle/link/**', '/moodle/unlink/**', '/published/**'
             ]) {
                 new RequestMap(url: url, configAttribute: 'IS_AUTHENTICATED_FULLY').save()
             }

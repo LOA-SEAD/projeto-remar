@@ -72,6 +72,7 @@ grails.project.dependency.resolution = {
         compile ":camunda:0.4.0"
         compile ":quartz:1.0.2"
        // compile ":spring-security-facebook:0.17"
+        compile ":mail:1.0.7"
         compile ":recaptcha:1.2.0"
         compile ":rest-client-builder:2.0.0"
         compile ":rest:0.8"

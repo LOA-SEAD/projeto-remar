@@ -44,26 +44,23 @@ class ResourceController {
 //        MultipartFile img2 = request.getFile('img2')
 //        MultipartFile img3 = request.getFile('img3')
 
-        def img1 = new File(servletContext.getRealPath("${params.img1}"))
-        def img2 = new File(servletContext.getRealPath("${params.img2}"))
-        def img3 = new File(servletContext.getRealPath("${params.img3}"))
+        log.debug(params)
 
+        if(params.img1 != null && params.img1 != ""){
+            log.debug("entrou img1" + params.img1)
+            def img1 = new File(servletContext.getRealPath("${params.img1}"))
+            img1.renameTo(new File(path,"description-1"))
+        }
 
-        img1.renameTo(new File(path,"description-1"))
-        img2.renameTo(new File(path,"description-2"))
-        img3.renameTo(new File(path,"description-3"))
+        if(params.img2 != null && params.img2 != ""){
+            def img2 = new File(servletContext.getRealPath("${params.img2}"))
+            img2.renameTo(new File(path,"description-2"))
+        }
 
-
-//       def file1, file2, file3
-
-//        file1 = new File(path, "description-1")
-//        img1.transferTo(file1)
-//
-//        file2 = new File(path, "description-2")
-//        img2.transferTo(file2)
-//
-//        file3 = new File(path, "description-3")
-//        img3.transferTo(file3)
+        if(params.img3 != null && params.img3 != ""){
+            def img3 = new File(servletContext.getRealPath("${params.img3}"))
+            img3.renameTo(new File(path,"description-3"))
+        }
 
         instance.description = params.description
         instance.name = params.name
@@ -72,7 +69,7 @@ class ResourceController {
 
         instance.save flush: true
 
-        redirect action: "index"
+        render true;
 //       redirect action: "index", params: [id: resourceInstance.id]
     }
 

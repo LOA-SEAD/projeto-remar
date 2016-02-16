@@ -25,6 +25,61 @@ function validateWar(){
 $(function(){
     /* carregar war, chamando o controlador e redirecionando para a mesma pagina*/
 
+    var name = $("#name");
+    var nameErr = $("#name-error");
+    var desc = $("#description");
+    var descErr = $("#desc-error");
+
+    $(name).prev().hide();
+    $(desc).prev().hide();
+    $(nameErr).hide();
+    $(descErr).hide();
+
+    //$(name).on("focus",function() {
+    //    $(name).prev().hide();
+    //    $(nameErr).hide();
+    //    $(name).removeClass();
+    //});
+    ////}).on('blur', function(){
+    ////        console.log($(name).attr('class'));
+    ////        if($(name).val() != ""){
+    ////            if($(name).attr('class').indexOf('invalid') == -1){
+    ////                $(name).prev().show(500);
+    ////            }
+    ////            //else if($(name).attr('class').indexOf('invalid') > -1){
+    ////            //    $(nameErr).show(500);
+    ////            //}
+    ////        }
+    ////});
+    //
+    //
+    //$(desc).on("focus",function() {
+    //    $(desc).prev().hide();
+    //    $(descErr).hide();
+    //    $(desc).removeClass().addClass("materialize-textarea");
+    //});
+    ////}).on('blur', function(){
+    ////    console.log($(desc).attr('class'));
+    ////    if($(desc).attr('class').indexOf('invalid') == -1){
+    ////        $(desc).prev().show(500);
+    ////    }
+    ////    else if($(desc).attr('class').indexOf('invalid') > -1){
+    ////        $(descErr).show(500);
+    ////    }
+    ////});
+
+    //console.log($(name).val());
+    if($(name).val() != null && $(name).val() != ""){
+        //console.log("entrou aki");
+        $(name).removeClass().addClass("valid");
+        $(name).prev().show(500);
+    }
+
+    if($(desc).val() != null && $(name).val() != ""){
+        $(desc).addClass("valid");
+        $(desc).prev().show(500);
+    }
+
     console.log("carregou game-index");
 
     $('textarea#textarea1').characterCounter();
@@ -90,10 +145,6 @@ $(function(){
         else{
             alert("Extensão do arquivo inválida. Por favor selecione um arquivo .war");
         }
-
-
-
-
     });
 
     function progress(e){
@@ -180,12 +231,9 @@ $(function(){
         })
     });
 
-});
-
-
-function cropPicture(target, updateImg){
-    var jcrop;
-    console.log(target.toString());
+    function cropPicture(target, updateImg){
+        var jcrop;
+        console.log(target.toString());
 
 
         var file = $(target).prop('files')[0];
@@ -215,8 +263,6 @@ function cropPicture(target, updateImg){
                         formData.append('h', coordinates.h);
 
                         saveCrop(formData, updateImg);
-
-
                     }
                 });
                 $(el).Jcrop({
@@ -230,40 +276,77 @@ function cropPicture(target, updateImg){
             }
         }
 
-}
+    }
 
-function saveCrop(FormData, updateImg)
-//FormData é o arquivo de imagem e as coordenadas para o corte
-//updateImg é a imagePreview que deve ser atualizada
-//Esta função salva a imagem em uma pasta temporária
-{
-    $.ajax({
-        type: 'POST',
-        url: "/resource/croppicture",
-        data: FormData,
-        processData: false,
-        contentType: false,
-        success: function (data) {
-            $(updateImg).attr("src", "/data/tmp/" + data);
-        },
-        error: function(req, res, err) {
-            console.log(req);
-            console.log(res);
-            console.log(err);
-        }
-    })
+    function saveCrop(FormData, updateImg)
+    //FormData é o arquivo de imagem e as coordenadas para o corte
+    //updateImg é a imagePreview que deve ser atualizada
+    //Esta função salva a imagem em uma pasta temporária
+    {
+        $.ajax({
+            type: 'POST',
+            url: "/resource/croppicture",
+            data: FormData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                $(updateImg).attr("src", "/data/tmp/" + data);
+            },
+            error: function(req, res, err) {
+                console.log(req);
+                console.log(res);
+                console.log(err);
+            }
+        })
 
-}
+    }
+
+    $('#img-1').on('change', function() {
+        cropPicture(this, "#img1Preview");
+    });
+
+    $('#img-2').on('change', function() {
+        cropPicture(this, "#img2Preview");
+    });
+
+    $('#img-3').on('change', function() {
+        cropPicture(this, "#img3Preview");
+    });
+
+    $(name).on("focus",function() {
+        $(name).prev().hide();
+        $(nameErr).hide();
+        $(name).removeClass();
+    });
+    //}).on('blur', function(){
+    //        console.log($(name).attr('class'));
+    //        if($(name).val() != ""){
+    //            if($(name).attr('class').indexOf('invalid') == -1){
+    //                $(name).prev().show(500);
+    //            }
+    //            //else if($(name).attr('class').indexOf('invalid') > -1){
+    //            //    $(nameErr).show(500);
+    //            //}
+    //        }
+    //});
 
 
-$('#img-1').on('change', function() {
-    cropPicture(this, "#img1Preview");
-});
+    $(desc).on("focus",function() {
+        $(desc).prev().hide();
+        $(descErr).hide();
+        $(desc).removeClass().addClass("materialize-textarea");
+    });
+    //}).on('blur', function(){
+    //    console.log($(desc).attr('class'));
+    //    if($(desc).attr('class').indexOf('invalid') == -1){
+    //        $(desc).prev().show(500);
+    //    }
+    //    else if($(desc).attr('class').indexOf('invalid') > -1){
+    //        $(descErr).show(500);
+    //    }
+    //});
 
-$('#img-2').on('change', function() {
-    cropPicture(this, "#img2Preview");
-});
-
-$('#img-3').on('change', function() {
-    cropPicture(this, "#img3Preview");
+    /*
+     * validação dos campos create/edit
+     * */
 });

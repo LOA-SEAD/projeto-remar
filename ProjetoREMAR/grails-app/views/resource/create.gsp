@@ -100,7 +100,5 @@
 		<script type="text/javascript" src="${resource(dir: 'js', file: 'game-index.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir: 'js', file: 'validate.js')}"></script>
         <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.Jcrop.js')}"></script>
-
-
     </body>
 </html>

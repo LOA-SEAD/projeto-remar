@@ -1,15 +1,38 @@
 function validateSubmit(){
-    var name = document.getElementById("name").value;
-    var description = document.getElementById("description").value;
+    var ok = 0;
+    var name = document.getElementById("name");
+    var description = document.getElementById("description");
 
-    if(name==null || name == "") {
-        alert("O campo Nome do Jogo é obrigatório.");
+    //var name = $("#name");
+    var nameErr = $("#name-error");
+    //var desc = $("#description");
+    var descErr = $("#desc-error");
+
+
+    //if(name==null || name == "") {
+    //    alert("O campo Nome do Jogo é obrigatório.");
+    //}
+    //else{
+    //    if(description==null || description==""){
+    //        alert("O campo Textarea é obrigatório.");
+    //    }
+    //    else{
+
+    if($(name).val()==null || $(name).val() == "") {
+        $(nameErr).show(500);
+        $(name).prev().hide();
+        $(name).removeClass().addClass('invalid');
+        ok = ok+1;
     }
-    else{
-        if(description==null || description==""){
-            alert("O campo Textarea é obrigatório.");
-        }
-        else{
+
+    if($(description).val()==null || $(description).val()==""){
+        $(descErr).show(500);
+        $(description).prev().hide();
+        $(description).removeClass('valid').addClass('invalid');
+        ok = ok+1;
+    }
+
+    if(ok == 0) {
             if(validateImageFile("img-1") && validateImageFile("img-2") && validateImageFile("img-3")){
                 var formData = new FormData();
                 var image1 = $("#img-1").prop('files')[0];
@@ -46,11 +69,7 @@ function validateSubmit(){
             else{
                 alert("Escolha arquivos de imagens válidos. Os arquivos devem ter extensão .jpeg ou .png");
             }
-        }
-
     }
-
-
 }
 
 function validateImageFile(File){

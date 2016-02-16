@@ -40,6 +40,14 @@
         color: #F44335;
     }
 
+    span.invalid-textarea {
+        font-size: 0.8rem;
+        position: absolute;
+        top: 8.1em;
+        left: 3.75rem;
+        color: #F44335;
+    }
+
     .help-block {
         display: block;
         margin-top: 5px;
