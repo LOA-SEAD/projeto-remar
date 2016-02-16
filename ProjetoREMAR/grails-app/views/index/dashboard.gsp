@@ -55,16 +55,16 @@
                                     </div>
                                 </div>
                                 <div class="row no-margin margin-top">
-                                    <div class="col s6">
+                                    <div class="col s5">
                                         <div class="pull-left tiny-stars">
                                             <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                             <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                             <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                             <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
+                                            %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
                                         </div>
                                     </div>
-                                    <div class="col s6">
+                                    <div class="col s7">
                                         <div class="pull-right gray-color">
                                             <i class="fa fa-globe"></i>
                                             <g:if test="${gameInstance.android}">
@@ -114,16 +114,16 @@
                                 </div>
                             </div>
                             <div class="row no-margin margin-top">
-                                <div class="col s6">
+                                <div class="col s5">
                                     <div class="pull-left tiny-stars">
                                         <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                         <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                         <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                         <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
+                                        %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
                                     </div>
                                 </div>
-                                <div class="col s6">
+                                <div class="col s7">
                                     <div class="pull-right gray-color">
                                         <g:if test="${exportedResourceInstance.webUrl != null}">
                                             <i class="fa fa-globe"></i>
@@ -193,16 +193,16 @@
                                 </div>
                             </div>
                             <div class="row no-margin margin-top">
-                                <div class="col s6">
+                                <div class="col s5">
                                     <div class="pull-left tiny-stars">
                                         <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                         <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                         <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                         <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
+                                        %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
                                     </div>
                                 </div>
-                                <div class="col s6">
+                                <div class="col s7">
                                     <div class="pull-right gray-color">
                                         <g:if test="${myExportedResourceInstance.webUrl != null}">
                                             <i class="fa fa-globe"></i>
