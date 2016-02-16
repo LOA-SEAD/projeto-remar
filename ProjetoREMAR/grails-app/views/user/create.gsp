@@ -65,10 +65,11 @@
 
                         <div class="input-field file-field col s12">
                             <div class="col s3">
-                                <img id="profile-picture" class="circle profile-picture" src="/images/avatars/default.png" />
+                                <input type="hidden" name="photo" value="" id="srcImage">
+                                <img id="profile-picture"  class="circle profile-picture" src="/images/avatars/default.png" />
                             </div>
                             <div>
-                                <input type="file" id="file" name="photo" accept="image/jpeg, image/png">
+                                <input type="file" id="file"  accept="image/jpeg, image/png">
                                 <div class="file-path-wrapper">
                                     <input class="file-path" type="text" placeholder="Selecione uma foto (opicional)">
                                     <span class="input-description">Outros usuários irão te identificar mais facilmente :)</span>

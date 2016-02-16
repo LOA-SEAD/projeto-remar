@@ -140,11 +140,15 @@ class UserController {
             def root = servletContext.getRealPath("/")
             def f = new File("${root}data/users/${instance.username}")
             f.mkdirs()
+            println(params)
             def destination = new File(f, "profile-picture")
-            def photo = params.photo as CommonsMultipartFile
 
-            if (!photo.isEmpty()) {
-                photo.transferTo(destination)
+            //def photo = params.photo as CommonsMultipartFile
+
+            if (!params.photo !="/images/avatars/default.png") {
+                def img1 = new File(servletContext.getRealPath("${params.photo}"))
+                img1.renameTo(new File(f,"profile-picture"))
+
             } else {
                 new AntBuilder().copy(file: "${root}images/avatars/default.png", tofile: destination)
             }

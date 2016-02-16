@@ -140,6 +140,7 @@ $('#file').on('change', function() {
                         contentType: false,
                         success: function (data) {
                             $('#profile-picture').attr("src", "/data/tmp/" + data);
+                            $('#srcImage').attr("value", "/data/tmp/" + data);
                         },
                         error: function(req, res, err) {
                             console.log(req);
