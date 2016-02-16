@@ -1,4 +1,7 @@
-<div class="fieldcontain ${hasErrors(bean: deployInstance, field: 'war', 'error')} required">
+<head>
+	<link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
+</head>
+<div id="formResource" class="fieldcontain ${hasErrors(bean: deployInstance, field: 'war', 'error')} required">
 		<div class="row">
 			<div class="input-field col s12">
 				<input id="name" type="text" class="validate" required name="name">

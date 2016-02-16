@@ -2,7 +2,6 @@
 <html>
 	<head>
 		<meta name="layout" content="materialize-layout">
-        <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
 		<title>Novo Jogo</title>
 	</head>
 	<body>
