@@ -27,12 +27,13 @@
         </script>
     </g:if>
 
-	<div class="row">
-		<p class="left-align margin-bottom" style="font-size: 24px;">
-            Meu perfil
-            <i class="left small material-icons">account_circle</i>
-        </p>
-        <div class="divider"></div>
+	<div class="row cluster">
+        <div class="cluster-header">
+            <p class="text-teal text-darken-3 left-align margin-bottom">
+                <i class="left small material-icons">account_circle</i>Meu perfil
+            </p>
+            <div class="divider"></div>
+        </div>
         <div class="row show">
             <form method="POST" action="/user/update" enctype="multipart/form-data">
                 <input id="userId" name="userId" type="hidden" value="${session.user.id}" />
@@ -168,9 +169,7 @@
                 </div>
             </div>
         </div>
-
-
-
+    </div>
     <g:javascript src="jquery/jquery.validate.js"/>
     <g:javascript src="user/update-validator.js"/>
     <g:javascript src="jquery/jquery.Jcrop.js"/>
