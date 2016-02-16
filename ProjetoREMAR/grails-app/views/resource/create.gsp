@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta name="layout" content="materialize-layout">
+        <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
 		<title>Novo Jogo</title>
 	</head>
 	<body>
@@ -87,9 +88,20 @@
 				</div>
 			</div>
 		</div>
+
+    <div id="modal-picture" class="modal">
+        <div class="modal-content center">
+            <img id="crop-preview" class="responsive-img">
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect btn-flat">Enviar</a>
+        </div>
+    </div>
 		<script type="text/javascript" src="${resource(dir: 'js', file: "imgPreview.js")}"></script>
 		<script type="text/javascript" src="${resource(dir: 'js', file: 'game-index.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir: 'js', file: 'validate.js')}"></script>
+        <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.Jcrop.js')}"></script>
 
-	</body>
+
+    </body>
 </html>

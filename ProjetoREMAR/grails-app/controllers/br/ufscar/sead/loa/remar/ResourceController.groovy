@@ -3,9 +3,13 @@ package br.ufscar.sead.loa.remar
 import grails.converters.JSON
 import grails.util.Environment
 import groovyx.net.http.HTTPBuilder
+import org.apache.commons.lang.RandomStringUtils
 import org.codehaus.groovy.grails.io.support.GrailsIOUtils
 import org.springframework.web.multipart.MultipartFile
+import org.springframework.web.multipart.commons.CommonsMultipartFile
 
+import javax.imageio.ImageIO
+import java.awt.image.BufferedImage
 import java.security.MessageDigest
 
 import static org.springframework.http.HttpStatus.*
@@ -401,4 +405,24 @@ class ResourceController {
 
         render r;
     }
+
+    def croppicture() {
+        def root = servletContext.getRealPath("/")
+        def f = new File("${root}data/tmp")
+        f.mkdirs()
+        def destination = new File(f, RandomStringUtils.random(50, true, true))
+        def photo = params.photo as CommonsMultipartFile
+        photo.transferTo(destination)
+
+        def x = Math.round(params.float('x'))
+        def y = Math.round(params.float('y'))
+        def w = Math.round(params.float('w'))
+        def h = Math.round(params.float('h'))
+        BufferedImage img = ImageIO.read(destination)
+        ImageIO.write(img.getSubimage(x, y, w, h),
+                photo.contentType.contains('png') ? 'png' : 'jpg', destination)
+        println destination.name
+        render destination.name
+    }
+
 }
