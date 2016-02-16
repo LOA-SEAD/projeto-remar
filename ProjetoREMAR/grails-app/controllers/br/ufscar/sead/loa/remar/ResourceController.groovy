@@ -40,20 +40,30 @@ class ResourceController {
         def path = new File(servletContext.getRealPath("/data/resources/assets/${instance.uri}"))
         path.mkdirs()
 
-        MultipartFile img1 = request.getFile('img1')
-        MultipartFile img2 = request.getFile('img2')
-        MultipartFile img3 = request.getFile('img3')
+//        MultipartFile img1 = request.getFile('img1')
+//        MultipartFile img2 = request.getFile('img2')
+//        MultipartFile img3 = request.getFile('img3')
 
-        def file1, file2, file3
+        def img1 = new File(servletContext.getRealPath("${params.img1}"))
+        def img2 = new File(servletContext.getRealPath("${params.img2}"))
+        def img3 = new File(servletContext.getRealPath("${params.img3}"))
 
-        file1 = new File(path, "description-1")
-        img1.transferTo(file1)
 
-        file2 = new File(path, "description-2")
-        img2.transferTo(file2)
+        img1.renameTo(new File(path,"description-1"))
+        img2.renameTo(new File(path,"description-2"))
+        img3.renameTo(new File(path,"description-3"))
 
-        file3 = new File(path, "description-3")
-        img3.transferTo(file3)
+
+//       def file1, file2, file3
+
+//        file1 = new File(path, "description-1")
+//        img1.transferTo(file1)
+//
+//        file2 = new File(path, "description-2")
+//        img2.transferTo(file2)
+//
+//        file3 = new File(path, "description-3")
+//        img3.transferTo(file3)
 
         instance.description = params.description
         instance.name = params.name

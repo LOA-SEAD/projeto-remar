@@ -20,11 +20,12 @@ function validateSubmit(){
                 console.log(image3);
                 console.log($(this).data('id'));
 
+
                 formData.append('name', document.getElementById("name").value);
                 formData.append('description', document.getElementById("description").value);
-                formData.append('img1',image1);
-                formData.append('img2',image2);
-                formData.append('img3',image3);
+                formData.append('img1',$("#img1Preview").attr("src"));
+                formData.append('img2',$("#img2Preview").attr("src"));
+                formData.append('img3',$("#img3Preview").attr("src"));
 
 
                 $.ajax({
