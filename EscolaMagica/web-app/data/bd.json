@@ -1,0 +1,12 @@
+{
+  "collection_name": "escola_magica",
+  "structure": [
+    "enunciado",
+    "alternativaa",
+    "alternativab",
+    "alternativac",
+    "alternativad",
+    "respostacerta",
+    "resposta"
+  ]
+}
