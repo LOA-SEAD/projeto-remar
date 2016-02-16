@@ -89,5 +89,7 @@
 		</div>
 		<script type="text/javascript" src="${resource(dir: 'js', file: "imgPreview.js")}"></script>
 		<script type="text/javascript" src="${resource(dir: 'js', file: 'game-index.js')}"></script>
+	    <script type="text/javascript" src="${resource(dir: 'js', file: 'validate.js')}"></script>
+
 	</body>
 </html>
