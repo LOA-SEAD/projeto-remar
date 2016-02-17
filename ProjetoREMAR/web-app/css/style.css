@@ -712,13 +712,13 @@ footer.page-footer{
 
 .row.show{
     max-height: 1500px;
-    min-height: 960px;
+    /*min-height: 960px;*/
     margin: 0 auto;
 }
 
 .row.show.cards{
     width: 700px;
-    min-height: 900px !important;
+    /*min-height: 900px !important;*/
 }
 
 .row.show.developer{
