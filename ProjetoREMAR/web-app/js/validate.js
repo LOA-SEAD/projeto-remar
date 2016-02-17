@@ -67,7 +67,7 @@ function validateSubmit(){
 
             }
             else{
-                alert("Escolha arquivos de imagens válidos. Os arquivos devem ter extensão .jpeg ou .png");
+                Materialize.toast("Escolha arquivos de imagens válidos. Os arquivos devem ter extensão .jpeg ou .png", 3000);
             }
     }
 }

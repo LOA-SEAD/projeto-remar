@@ -143,7 +143,7 @@ $(function(){
         }
 
         else{
-            alert("Extensão do arquivo inválida. Por favor selecione um arquivo .war");
+            Materialize.toast("Extensão do arquivo inválida. Por favor selecione um arquivo .war", 3000);
         }
     });
 
