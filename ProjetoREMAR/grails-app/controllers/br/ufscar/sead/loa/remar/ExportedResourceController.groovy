@@ -239,13 +239,24 @@ class ExportedResourceController {
         render instance.webUrl
     }
 
+    @SuppressWarnings("GroovyAssignabilityCheck")
     def publicGames(){
         def model = [:]
 
-        model.publicExportedResourcesList = ExportedResource.findAllByType('public')
-        for (instance in model.publicExportedResourceList){
-        }
+        def threshold = 8
 
+        params.max = params.max ? Integer.valueOf(params.max) : threshold
+        params.offset = params.offset ? Integer.valueOf(params.offset) : 0
+
+        model.max = params.max
+        model.threshold = threshold
+        model.publicExportedResourcesList = ExportedResource.findAllByType('public', params)
+        model.pageCount = Math.ceil(ExportedResource.count / params.max) as int
+        model.currentPage = (params.offset + threshold) / threshold
+        model.hasNextPage = params.offset + threshold < model.instanceCount
+        model.hasPreviousPage = params.offset > 0
+
+        println model.pageCount
 
         render view: "publicGames", model: model
     }
