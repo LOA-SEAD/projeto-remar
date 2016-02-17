@@ -826,3 +826,7 @@ table .pending td{
 .description{
     white-space: pre;
 }
+
+.pagination a li {
+    color: #444
+}
