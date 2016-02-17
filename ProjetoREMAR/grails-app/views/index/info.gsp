@@ -91,50 +91,27 @@
                 <li><a href="http://lattes.cnpq.br/3246940231681306" target="_blank">Valeria Sperduti Lima</a>, Secretaria de Educação a Distância, UNIFESP</li>
             </ul>
 
-            <h3 id="partners" style="text-align:left;">Parceiros</h3>
-            <p style="text-align: justify">
-                Instituições
-            </p>
+            <h3 id="partners" style="text-align:left;">Investimento</h3>
+
             <div class="container-white" style="text-align: center">
                 <div>
-                    <a style="padding: 2px;" href="http://www.ufscar.br" target="_blank" rel="prettyPhoto" title="Universidade Federal de São Carlos">
-                        <img src="../images/partners/ufscar.png" alt="UFSCar">
-                    </a>
-                    <a href="http://www.unicamp.br/unicamp/" target="_blank" rel="prettyPhoto" title="Universidade Estadual de Campinas">
-                        <img src="../images/partners/unicamp.png" alt="UNICAMP">
-                    </a>
-                    <a href="http://www.unifesp.br/" target="_blank" rel="prettyPhoto" title="Universidade Federal de São Paulo">
-                        <img src="../images/partners/unifesp.png" alt="UNIFESP">
-                    </a>
-                    <a href="http://ufsc.br/" target="_blank" rel="prettyPhoto" title="Universidade Federal de Santa Catarina">
-                        <img src="../images/partners/ufsc.png" alt="UFSC">
-                    </a>
-                    <a href="http://www.uneb.br/" target="_blank" rel="prettyPhoto" title="Universidade do Estado da Bahia">
-                        <img src="../images/partners/uneb.png" alt="UNEB">
-                    </a>
+                    <ul>
+                        <a href="http://www.rnp.br/" target="_blank" rel="prettyPhoto" title="Rede Nacional de Ensino e Pesquisa">
+                            <img src="../images/partners/rnp.png" alt="RNP" />
+                        </a>
+                        <a href="http://www.capes.gov.br/" target="_blank" rel="prettyPhoto" title="Coordenação de Aperfeiçoamento de Pessoal de Nível Superior">
+                            <img src="../images/partners/capes.png" alt="CAPES" />
+                        </a>
+                        <a href="http://www.mec.gov.br/" target="_blank" rel="prettyPhoto" title="Ministério da Educação">
+                            <img src="../images/partners/ministerio.png" alt="MEC" />
+                        </a>
+                        <a href="http://www.brasil.gov.br/" target="_blank" rel="prettyPhoto" title="Governo Federal">
+                            <img src="../images/partners/governo.png" alt="Governo Federal" />
+                        </a>
+                    </ul>
                 </div>
             </div>
-            <p>
-            </p>
-            <p style="text-align: justify">
-                Financiamento
-            </p>
-            <div class="container-white" style="text-align: center">
-                <div class="container-custom">
-                    <a href="http://www.rnp.br/" target="_blank" rel="prettyPhoto" title="Rede Nacional de Ensino e Pesquisa">
-                        <img src="../images/partners/rnp.png" alt="RNP">
-                    </a>
-                    <a href="http://www.rnp.br/" target="_blank" rel="prettyPhoto" title="Rede Nacional de Ensino e Pesquisa">
-                        <img src="../images/partners/capes.png" alt="CAPES">
-                    </a>
-                    <a href="http://www.rnp.br/" target="_blank" rel="prettyPhoto" title="Rede Nacional de Ensino e Pesquisa">
-                        <img src="../images/partners/ministerio.png" alt="MEC">
-                    </a>
-                    <a href="http://www.rnp.br/" target="_blank" rel="prettyPhoto" title="Rede Nacional de Ensino e Pesquisa">
-                        <img src="../images/partners/governo.png" alt="Governo Federal">
-                    </a>
-                </div>
-            </div>
+
 
             <h3 id="contact" style="text-align:left;">Contato</h3>
             <p style="text-align: justify">
