@@ -323,7 +323,7 @@ class ResourceController {
             def http = new HTTPBuilder("http://root:seadloaremar1!@localhost:8080")
             def resp = http.get(path: '/manager/text/deploy',
                     query: [path: "/${resourceInstance.uri}",
-                            war: servletContext.getRealPath("/wars/${springSecurityService.currentUser.username}/${resourceInstance.uri}.war") ])
+                            war: servletContext.getRealPath("/wars/${resourceInstance.owner.username}/${resourceInstance.uri}.war") ])
             resp = GrailsIOUtils.toString(resp)
             if(resp.indexOf('OK') != -1) {
                 resourceInstance.status  = "approved"
@@ -341,7 +341,6 @@ class ResourceController {
             } else {
                 response.status = 500
                 render resp
-
             }
             // probably we don't need this anymore because when the WAR is deployed the bpmn is deployed too
             // redirect controller: "process", action: "deploy", id: resourceInstance.bpmn
