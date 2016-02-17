@@ -8,7 +8,7 @@ class User {
 
     String username
     String password
-    boolean enabled = true
+    boolean enabled
     boolean accountExpired
     boolean accountLocked
     boolean passwordExpired
@@ -17,8 +17,9 @@ class User {
     String firstName
     String lastName
     String facebookId
-    String moodleHash
+    String moodleUsername
     String gender
+    boolean firstAccess
 
 
     static transients = ['springSecurityService']
@@ -31,8 +32,10 @@ class User {
         email blank: false, email: true, unique: true
         camunda_id nullable: true
         facebookId nullable: true
-        moodleHash nullable: true
+        moodleUsername nullable: true
         gender blank: false
+        firstAccess blank: true, nullable: true
+
     }
 
     static mapping = {
