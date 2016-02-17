@@ -144,7 +144,7 @@ class UserController {
 
             //def photo = params.photo as CommonsMultipartFile
 
-            if (!params.photo !="/images/avatars/default.png") {
+            if (params.photo !="/images/avatars/default.png") {
                 def img1 = new File(servletContext.getRealPath("${params.photo}"))
                 img1.renameTo(new File(f,"profile-picture"))
 
