@@ -416,10 +416,10 @@ class ProcessController implements JavaDelegate, ExecutionListener{
                     tofile: "${instanceFolder}/banner.png", overwrite: true)
 
 
-            def f = new File(instanceFolder, "/web${exportedResourceInstance.resource.moodleJson}moodle.json")
-            def pw = new PrintWriter(f)
-            pw.write("{\"remar_resource_id\": \"${exportedResourceInstance.id}\"}")
-            pw.close()
+//            def f = new File(instanceFolder, "/web${exportedResourceInstance.resource.moodleJson}moodle.json")
+//            def pw = new PrintWriter(f)
+//            pw.write("{\"remar_resource_id\": \"${exportedResourceInstance.id}\"}")
+//            pw.close()
 
             json.each {file, destinationFolder ->
                 new AntBuilder().copy(file: "${resourceFolder}/${file}", tofile: "${instanceFolder}/web/${destinationFolder}/${file}", overwrite: true)
