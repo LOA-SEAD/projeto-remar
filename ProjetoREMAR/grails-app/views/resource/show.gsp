@@ -1,70 +1,127 @@
-
-<%@ page import="br.ufscar.sead.loa.remar.Deploy" %>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'deploy.label', default: 'Deploy')}" />
-		<title><g:message code="default.show.label" args="[entityName]" /></title>
-	</head>
-	<body>
-		<a href="#show-deploy" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
+<head>
+	<meta name="layout" content="materialize-layout">
+	<title>${resourceInstance.name}</title>
+
+	<!-- jQuery 2.1.4 -->
+	<script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery.min.js')}"></script>
+	<script>
+//		$(function(){
+//			$('.slider').slider('start');
+//		});
+		$(document).ready(function(){
+			$('.slider').slider('start');
+		});
+	</script>
+
+</head>
+<body>
+<div class="content">
+	<div class="row show">
+		<div class="col l12 m12 s12">
+			<form action="/process/start/${resourceInstance.bpmn}" method="POST">
+				<div class="card show-personalize">
+					<div class="card-content ">
+						<div class="card-content " style="margin-bottom: 10px;">
+							<div class="image">
+								<img src="/images/${resourceInstance.uri}-banner.png" class="">
+							</div>
+							<span class="card-title black-text truncate">${resourceInstance.name}</span>
+							<div class="category">
+								<p> Ação</p>
+								<div class="stars">
+									<img src="/images/star.png" width="14" height="14" alt="Estrela">
+									<img src="/images/star.png" width="14" height="14" alt="Estrela">
+									<img src="/images/star.png" width="14" height="14" alt="Estrela">
+									<img src="/images/star.png" width="14" height="14" alt="Estrela">
+									<img src="/images/star.png" width="14" height="14" alt="Estrela">
+								</div>
+							</div>
+
+							<div class="chip-dev">
+								<img class="img-responsive" src="/data/users/${resourceInstance.owner.username}/profile-picture" alt="Contact Person">
+								<p>
+									${resourceInstance.owner.firstName} ${resourceInstance.owner.lastName} <br>
+									<span class="hide-on-small-only"> ${resourceInstance.owner.email} </span>
+
+									<div class="hide-on-med-and-up" style="color: rgba(0, 0, 0, 0.6);">
+										<i class="fa fa-globe"></i>
+										<g:if test="${resourceInstance.android}">
+											<i class="fa fa-android"></i>
+										</g:if>
+										<g:if test="${resourceInstance.linux}">
+											<i class="fa fa-linux"></i>
+										</g:if>
+										<g:if test="${resourceInstance.moodle}">
+											<i class="fa fa-graduation-cap"></i>
+										</g:if>
+									</div>
+								</p>
+							</div>
+
+							<div class="plataform gray-color">
+								<p class="hide-on-med-and-down" style="font-size: 16px; display: inline-block;"> Disponível para: </p>
+								<div class="hide-on-small-only">
+									<i class="fa fa-globe"></i>
+									<g:if test="${resourceInstance.android}">
+										<i class="fa fa-android"></i>
+									</g:if>
+									<g:if test="${resourceInstance.linux}">
+										<i class="fa fa-linux"></i>
+									</g:if>
+									<g:if test="${resourceInstance.moodle}">
+										<i class="fa fa-graduation-cap"></i>
+									</g:if>
+								</div>
+							</div>
+							%{--<div class="info"></div>--}%
+							<br class="clear" />
+							<button type="submit" class="btn waves-effect waves-light my-orange right">
+								Personalizar
+							</button>
+						</div>
+						<br class="clear" />
+						<div class="slider">
+							<ul class="slides">
+								<li>
+									<!-- tamanho ideal para imagem 500x250 -->
+									<img src="/data/resources/assets/${resourceInstance.uri}/description-1">
+									%{--<div class="caption center-align">--}%
+										%{--<h3>This is our big Tagline!</h3>--}%
+										%{--<h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>--}%
+									%{--</div>--}%
+								</li>
+								<li>
+									<img src="/data/resources/assets/${resourceInstance.uri}/description-2">
+									%{--<img src="/data/resources/assets/${resourceInstance.uri}/teste.jpg">--}%
+								</li>
+								<li>
+									<img src="/data/resources/assets/${resourceInstance.uri}/description-3">
+								%{--<img src="/data/resources/assets/${resourceInstance.uri}/teste.jpg">--}%
+								</li>
+								%{--<li>--}%
+									%{--<img src="/data/resources/assets/${resourceInstance.uri}/description-1">--}%
+								%{--</li>--}%
+								%{--<li>--}%
+									%{--<img src="/data/resources/assets/${resourceInstance.uri}/description-1">--}%
+								%{--</li>--}%
+							</ul>
+						</div>
+
+						<p class="description">${resourceInstance.description}</p>
+
+						%{--${resourceInstance.description}--}%
+					</div>
+					%{--<div class="card-action">--}%
+						%{--<a href="#">This is a link</a>--}%
+						%{--<a href="#">This is a link</a>--}%
+					%{--</div>--}%
+				</div>
+			</form>
 		</div>
-		<div id="show-deploy" class="content scaffold-show" role="main">
-			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
-			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
-			</g:if>
-			<ol class="property-list deploy">
-			
-				<g:if test="${deployInstance?.data_deploy}">
-				<li class="fieldcontain">
-					<span id="data_deploy-label" class="property-label"><g:message code="deploy.data_deploy.label" default="Datadeploy" /></span>
-					
-						<span class="property-value" aria-labelledby="data_deploy-label"><g:formatDate date="${deployInstance?.data_deploy}" /></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${deployInstance?.desenvolvedor}">
-				<li class="fieldcontain">
-					<span id="desenvolvedor-label" class="property-label"><g:message code="deploy.desenvolvedor.label" default="Desenvolvedor" /></span>
-					
-						<span class="property-value" aria-labelledby="desenvolvedor-label"><g:link controller="usuario" action="show" id="${deployInstance?.desenvolvedor?.id}">${deployInstance?.desenvolvedor?.name}</g:link></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${deployInstance?.id_deploy}">
-				<li class="fieldcontain">
-					<span id="id_deploy-label" class="property-label"><g:message code="deploy.id_deploy.label" default="Iddeploy" /></span>
-					
-						<span class="property-value" aria-labelledby="id_deploy-label"><g:fieldValue bean="${deployInstance}" field="id_deploy"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${deployInstance?.war_filename}">
-				<li class="fieldcontain">
-					<span id="war_filename-label" class="property-label"><g:message code="deploy.war_filename.label" default="Warfilename" /></span>
-					
-						<span class="property-value" aria-labelledby="war_filename-label"><g:fieldValue bean="${deployInstance}" field="war_filename"/></span>
-					
-				</li>
-				</g:if>
-			
-			</ol>
-			<g:form url="[resource:deployInstance, action:'delete']" method="DELETE">
-				<fieldset class="buttons">
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-				</fieldset>
-			</g:form>
-		</div>
-	</body>
+	</div>
+</div>
+
+</body>
 </html>

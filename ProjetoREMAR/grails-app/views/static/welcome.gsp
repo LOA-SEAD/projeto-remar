@@ -20,7 +20,7 @@
                 </div>
             </div> <!-- card-content -->
             <div class="card-action">
-                <a href="/dashboard">Home</a>
+                <a href="/">Home</a>
             </div> <!-- card-action -->
         </div> <!-- card -->
     </div> <!-- row -->

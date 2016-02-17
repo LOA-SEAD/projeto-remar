@@ -6,46 +6,44 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="new-main-inside">
-    <title>Moodle</title>
+    <meta name="layout" content="materialize-layout">
 </head>
-
 <body>
 
-<div class="content">
-    <div class="row">
-        <article class="row">
-            <div class="col-md-12" align="center">
-                <div class="box box-body box-info" style="width:40%;" align="center" >
-                    <div class="box-header with-border">
-                        <h3 class="box-title">
-                            <i class="fa fa-graduation-cap"></i>
-                            Vincular conta ao Moodle
-                        </h3>
-                    </div><!-- /.box-header -->
-                    <div class="box-body">
-                        <div class="direct-chat-messages page-size" style="text-align: left;"  >
+    <div class="row" style="margin-top: 15px;">
+        <h3 class="center">
+            Vincular conta ao Moodle
+        </h3>
+    </div>
 
-                            <form action="/moodle/link">
-                                <div class="form-group has-feedback" >
-                                     <label>Moodle:</label>
-                                     <g:select name="domain" from="${moodleInstanceList}" optionValue="name" optionKey="domain" class="form-control-remar" />
-                                </div>
-                                <div class="form-group has-feedback" align="center" >
-                                    <label></label>
-                                    <input type="submit" value="Enviar" class="btn btn-primary btn-block btn-flat" style="max-width: 30%;">
-                                </div>
-                            </form>
-
-                        </div>
+    <g:if test="${moodleInstanceList == []}" >
+        <p style="margin: 20px;" class="center">Nenhuma instância de Moodle instalada.</p>
+    </g:if>
+    <g:else>
+        <form action="/moodle/link" enctype="multipart/form-data" method="POST">
+            <div class="row" style="margin-top: 50px;">
+                <div class="valign-wrapper">
+                    <div class="input-field col s12 m6" style="margin: 0 auto !important;">
+                        <i class="material-icons prefix" style="left: 0px;">school</i>
+                        <g:select name="domain" from="${moodleInstanceList}" optionValue="name" optionKey="domain" class="form-control-remar" />
+                        <label>Moodle</label>
                     </div>
                 </div>
+                <div class="input-field col s12 center-align">
+                    <button id="submit" class="btn waves-effect waves-light tooltiped my-orange" type="submit">Enviar</button>
+                </div>
             </div>
-        </article>
-    </div>
-</div>
+        </form>
+    </g:else>
+
+    <script>
+        $(document).ready(function() {
+            $('select').material_select();
+        });
+    </script>
 
 </body>
 </html>

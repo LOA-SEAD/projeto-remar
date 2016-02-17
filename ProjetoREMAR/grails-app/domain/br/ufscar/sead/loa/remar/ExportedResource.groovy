@@ -10,8 +10,8 @@ class ExportedResource {
     	windowsUrl nullable: true
     	webUrl nullable: true
     	androidUrl nullable: true
-        moodleTableName nullable: true
     }
+
 
     String moodleUrl
     String linuxUrl
@@ -26,6 +26,4 @@ class ExportedResource {
     Date exportedAt
 
     String type //should be "public", "private" or "group"
-    String moodleTableName
-    //We should handle when professor wants to make the game available only for a group of students. How to do that?
 }

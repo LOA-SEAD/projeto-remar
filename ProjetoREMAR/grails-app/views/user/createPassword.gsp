@@ -5,8 +5,6 @@
     <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
     <title>Recuperar conta</title>
 
-    %{--<link href="${resource(dir: 'assets/css', file: 'external-styles.css')}" rel="stylesheet" >--}%
-    %{--<link href="${resource(dir: 'assets/css', file: 'external-styles.css')}" rel="stylesheet" >--}%
     <link href="${resource(dir: 'assets/css', file: 'icomoon.css')}" rel="stylesheet" >
     %{--<g:javascript src="recaptcha.js" />--}%
 
@@ -77,23 +75,23 @@
                     <div class='login_message'>${flash.message}</div>
                 </g:if>
 
-                <g:form action="newPassword" controller="user" method='POST' class='cssform' autocomplete='off'>
+                <form action="/user/password/reset" method='POST' class='cssform' autocomplete='off'>
                     <div class="form-group">
-                        <label for="newPassword">Nova senha:</label>
-                        <input type="password" class="form-control input-form" name="newPassword" id="newPassword" required=""/>
+                        <label for="password">Nova senha:</label>
+                        <input type="password" class="form-control input-form" name="password" id="password" required=""/>
                     </div>
                     <div class="form-group">
-                        <label for="confirmPassword">Confirme Nova Senha:</label>
-                        <input type="password" class="form-control input-form" name="confirmPassword" id="confirmPassword" required=""/>
+                        <label for="password-confirmation">Confirme Nova Senha:</label>
+                        <input type="password" class="form-control input-form" name="password_confirmation" id="password-confirmation" required=""/>
                     </div>
-                    <input type="hidden" name="userid" value="${user}" />
+                    <input type="hidden" name="token" value="${token}" />
                     <div>
                         <p>
                             <input type='submit' id="submitBtn" class="btn btn-primary btn-block btn-create" value="Enviar"/>
                             %{--value='${message(code: "springSecurity.login.button")}--}%
                         </p>
                     </div>
-                </g:form>
+                </form>
             </section>
         </div>
     </article>

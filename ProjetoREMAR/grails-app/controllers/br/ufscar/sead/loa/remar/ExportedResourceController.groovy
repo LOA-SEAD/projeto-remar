@@ -5,11 +5,12 @@ import grails.plugin.springsecurity.annotation.Secured
 import grails.util.Environment
 import groovy.json.JsonSlurper
 import groovyx.net.http.HTTPBuilder
+import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 @Secured(['ROLE_ADMIN'])
 class ExportedResourceController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "GET"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "GET"]
     def springSecurityService
 
     def save(ExportedResource exportedResourceInstance) {
@@ -36,10 +37,6 @@ class ExportedResourceController {
     def delete(ExportedResource instance) {
         instance.delete flush: true
         redirect uri: "/"
-    }
-
-    def _moodles() {
-
     }
 
     /* to test the moodle list */
@@ -73,7 +70,7 @@ class ExportedResourceController {
                 def accName = params.find({it.key == "account"+splitted[1]}).value
                 def token = params.find({it.key == "token"+splitted[1]}).value
 
-                def account = MoodleAccount.find({accountName == accName && owner.domain == moo.domain})
+                //def account = MoodleAccount.find({accountName == accName && owner.domain == moo.domain})
 
                 /* check if the account already exists */
                 if (account == null) {
@@ -125,10 +122,11 @@ class ExportedResourceController {
         springSecurityService.clearCachedRequestmaps()
 
         exportedResourceInstance.webUrl = url + "/web"
+        platforms[0] = "Web:"+ exportedResourceInstance.webUrl
         exportedResourceInstance.save flush: true
 
         render view:'publish', model: [resourceName: exportedResourceInstance.name, resourceId: exportedResourceInstance.id,
-                                       platforms: platforms]
+                                       platforms: platforms, resourceUri: exportedResourceInstance.resource.uri, resourceInstanceUrl: url ]
     }
 
     def web(ExportedResource exportedResourceInstance) {
@@ -234,13 +232,79 @@ class ExportedResourceController {
         exportedResourceInstance.moodleUrl = exportedResourceInstance.webUrl
         exportedResourceInstance.save flush: true
 
-        //Must handle the json and js files
-
         render "Vá ao moodle e adicione seu jogo como atividade"
     }
 
     def update(ExportedResource instance) {
-        instance.save(flush: true)
-        response.status = 200
+        def time = instance.exportedAt.getTime() as String
+        def destination = new File("${servletContext.getRealPath("/published/${time.substring(0, time.length() - 4)}")}/banner.png")
+//        log.debug(params)
+        def photo = params.banner as CommonsMultipartFile
+        if (photo != null && !photo.isEmpty()) {
+            photo.transferTo(destination)
+        } else {
+            log.debug "gfhghgc"
+        }
+
+        def i = ExportedResource.findByName(params.name)
+        if(i) {
+            if(i == instance) {
+//                instance.name = params.name
+                instance.save(flush: true)
+                response.status = 200
+            } else {
+                response.status = 409 // conflited error
+            }
+        } else {
+            log.debug("ta aki")
+            log.debug(params.name)
+            instance.name = params.name
+            instance.save(flush: true)
+            response.status = 200
+        }
+
+        render instance.webUrl
+    }
+
+    @SuppressWarnings("GroovyAssignabilityCheck")
+    def publicGames(){
+        def model = [:]
+
+        def threshold = 8
+
+        params.max = params.max ? Integer.valueOf(params.max) : threshold
+        params.offset = params.offset ? Integer.valueOf(params.offset) : 0
+
+        model.max = params.max
+        model.threshold = threshold
+        model.publicExportedResourcesList = ExportedResource.findAllByType('public', params)
+        model.pageCount = Math.ceil(ExportedResource.count / params.max) as int
+        model.currentPage = (params.offset + threshold) / threshold
+        model.hasNextPage = params.offset + threshold < model.instanceCount
+        model.hasPreviousPage = params.offset > 0
+
+        println model.pageCount
+
+        render view: "publicGames", model: model
+    }
+
+    def myGames(){
+        def model = [:]
+
+        model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id))
+
+        render view: "myGames", model: model
+    }
+
+    def saveGameInfo() {
+        log.debug "lol"
+        log.debug params
+
+        def gameData
+        gameData.user = session.user.id
+        gameData.game = params.remar_resource_id
+        gameData.timestamp = new Date().toTimestamp()
+        log.debug "----"
+        log.debug gameData
     }
 }

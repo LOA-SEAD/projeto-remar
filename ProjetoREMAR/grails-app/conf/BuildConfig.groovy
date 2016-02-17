@@ -55,6 +55,8 @@ grails.project.dependency.resolution = {
         // test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
         compile 'org.apache.ant:ant:1.9.6'
         compile 'org.apache.ant:ant-launcher:1.9.6'
+        compile 'org.mongodb:mongodb-driver:3.2.1'
+        compile 'org.mongodb:bson:3.0.4'
 
     }
 
@@ -82,7 +84,7 @@ grails.project.dependency.resolution = {
         runtime ":database-migration:1.4.0"
         runtime ':twitter-bootstrap:3.3.4' // current: 3.3.4
         runtime ":redis:1.6.5"
-        
+
         // Uncomment these to enable additional asset-pipeline capabilities
         //compile ":sass-asset-pipeline:1.9.0"
         //compile ":less-asset-pipeline:1.10.0"

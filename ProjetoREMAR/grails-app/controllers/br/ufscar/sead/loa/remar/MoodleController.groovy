@@ -6,17 +6,9 @@ import groovy.json.JsonBuilder
 import groovyx.net.http.HTTPBuilder
 import org.apache.commons.lang.RandomStringUtils
 
-import java.security.MessageDigest
-
 class MoodleController {
 
     static allowedMethods = [save: ["GET","POST"], update: "PUT", delete: "DELETE"]
-
-    def index() {
-        def model = [:]
-        model.moodleInstanceList = Moodle.findAllByActive(true)
-        render view: "index", model: model
-    }
 
     def save(Moodle instance) {
         if (!Moodle.findByDomain(params.domain)) {
@@ -36,31 +28,42 @@ class MoodleController {
 
     def link() {
         def hash = RandomStringUtils.random(30, true, true)
-
-        def url
-
-        if (Environment.current == Environment.DEVELOPMENT) {
-            url = params.domain + "/moodle/mod/remarmoodle/new-account-confirmation.php?hash=" + hash
-        }
-        else {
-            url = params.domain + "/mod/remarmoodle/new-account-confirmation.php?hash=" + hash
-        }
+        def url = Moodle.get(params.id).domain + "/mod/remarmoodle/new-account-confirmation.php?hash=" + hash + "&moodleId=" + params.id
 
         redirect url: url
     }
 
+    def unlink() {
+        def moodleAccount = MoodleAccount.findByToken(params.id)
+        moodleAccount.delete flush:true
+
+        def url = moodleAccount.moodle.domain + "/mod/remarmoodle/unlink-remar-account.php?hash=" + moodleAccount.token
+        redirect url: url
+
+        log.debug moodleAccount
+    }
+
     def confirm() {
-        if (params.hash) {
-            def user = User.get(session.user.id)
-            user.moodleHash = params.hash
-            user.save flush: true
-            session.user = user
+        if(params.hash && params.moodleId && params.username) {
+            if(request.getHeader('referer').contains(Moodle.get(params.moodleId).domain)) {
+                log.debug "user: " + session.user
 
-            render view: "confirmed", model: [username: params.username]
-        } else {
-            render "Ops. Algo deu errado :("
+                def moodleAccount = new MoodleAccount()
+                moodleAccount.owner = session.user
+                moodleAccount.moodle = Moodle.get(params.moodleId)
+                moodleAccount.token = params.hash
+                moodleAccount.accountName = params.username
+                moodleAccount.save flush:true
+
+                redirect uri: "/my-profile"
+            }
+            else {
+                log.debug "The request source is not matching the moodle domain in the REMAR"
+            }
         }
-
+        else {
+            log.debug "Missing the hash, the username or the moodleId parameter that should be automatically received"
+        }
     }
 
     def remove(String domain) {

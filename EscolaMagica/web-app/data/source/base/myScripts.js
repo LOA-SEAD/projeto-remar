@@ -13,24 +13,20 @@ function send(enunciado,correta,resp0,resp1,resp2,resp3,escolhida) {
         "resposta"         : escolhida
     }
 
-    $.ajax({
-        url: 'moodle.json',
-        dataType: "json",
-        async: false,
-        success: function(res) {
-            data.remar_resource_id = res.remar_resource_id;
-        }
-    })
+    data.remar_resource_id = res.remar_resource_id;
+
     console.log(data);
 
     $.ajax({
         type: 'POST',
         data: data,
-        url: '/moodle/send',
+        url: '/exported-resource/saveGameInfo',
         success: function(data) {
+            console.log ("Data stored.")
             console.log(data);
         },
         error: function(res) {
+            console.log("Error.")
             console.log(res);
         }
     });

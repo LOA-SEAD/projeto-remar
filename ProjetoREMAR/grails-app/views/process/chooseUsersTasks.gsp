@@ -1,4 +1,4 @@
-    <%--
+<%--
   Created by IntelliJ IDEA.
   User: loa
   Date: 10/06/15
@@ -8,140 +8,120 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <meta name="layout" content="new-main-inside">
-    <g:javascript src="help.js"/>
-    <g:if test="${dev}">
-        <script>window.dev = true</script>
-    </g:if>
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <style>
+    td a {
+        display:block;
+        width:100%;
+    }
+    </style>
+
+    <meta name="layout" content="materialize-layout">
+    <title>Customizando Jogo</title>
+
 </head>
 <body>
-
-
-<div class="content">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box box-body box-info">
-                <div class="box-header with-border">
-                    <h3 class="box-title">
-                        <i class="fa fa-tasks"></i>
-                       Atribuição de Tarefas
-                        %{--<div class="test">aaa</div>--}%
-                    </h3>
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                    <div class="direct-chat-messages page-size" >
-
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <div class="dataTables_wrapper">
-                                    <div id="tasks-table" class="dataTables_wrapper form-inline dt-boostrap no-footer">
-                                        <div class="col-sm-12">
-                                            <form action="/process/tasks/delegate/${processId}" method="post">
-                                                <table id="tasks-users" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="tasks-users-info" >
-                                                    <thead>
-                                                    <tr role="row">
-                                                        <th class="sorting col-md-2" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">Nome</th>
-                                                        <th class="sorting col-md-2" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">
-                                                            Usuario responsável
-                                                            <i class="fa fa-question-circle help" data-content="Por padrão, você será o responsável em realizar esta tarefa, porém, você pode pedir que outra pessoa faça-a por você  :)" rel="popover" data-placement="bottom" data-original-title="Ajuda" data-trigger="hover"></i>
-                                                        </th>
-                                                        <th class="sorting col-md-2" tabindex="0" aria-controls="tasks-users" rowspan="1" colspan="1"  aria-label="Rendering engine: activate to sort column descending">
-                                                            Status
-                                                            <i class="fa fa-question-circle help" data-content="Cada tarefa deve ser resolvida e depois aprovada. Futuramente você poderá ver o que foi feito antes de aprová-la :)" rel="popover" data-placement="bottom" data-original-title="Ajuda" data-trigger="hover"></i>
-                                                        </th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <g:each in="${alltasks}" status="i" var="task" >
-                                                        <tr role="row">
-                                                            <td>${task.getName()}</td>
-                                                            <td>
-                                                                <g:if test="${task.getDelegationState().toString() == "PENDING" && currentUser.username == task.getAssignee()}">
-                                                                    <input name="${task.getId()}"  id="userlabel" value="${task.getAssignee()}">
-                                                                </g:if>
-                                                                <g:else>
-                                                                    <input name="${task.getId()}"  id="userlabel" value="${currentUser.username}">
-                                                                </g:else>
-                                                                %{--<select name="${task.getId()}">--}%
-                                                                    %{--<g:if test="${task.getAssignee() == null}">--}%
-                                                                        %{--<option disabled selected>Selecione</option>--}%
-                                                                    %{--</g:if>--}%
-                                                                    %{--<g:each in="${allusers}" status="j" var="user">--}%
-                                                                        %{--<g:if test="${task.getAssignee() == user.id}">--}%
-                                                                            %{--<option selected value="${user.id}">${user.getFirstName()}</option>--}%
-                                                                        %{--</g:if>--}%
-                                                                        %{--<g:else>--}%
-                                                                            %{--<option value="${user.id}">${user.getFirstName()}</option>--}%
-                                                                        %{--</g:else>--}%
-                                                                    %{--</g:each>--}%
-                                                                %{--</select>--}%
-
-                                                            </td>
-
-
-                                                            <g:if test="${task.getDelegationState().toString() == "PENDING" && currentUser.username == task.getAssignee()}">
-                                                                %{--<td>Pendente – <g:link target="_blank" uri="/${uri}/${task.taskDefinitionKey}" id="${task.getId()}">REALIZAR</g:link></td>--}%
-                                                                <td>Pendente – <a href="/frame/${uri}/${task.taskDefinitionKey}" >REALIZAR</a></td>
-
-                                                            </g:if>
-                                                            <g:elseif test="${task.getDelegationState().toString() == "PENDING"}">
-                                                                <td>Pendente</td>
-                                                            </g:elseif>
-                                                            <g:elseif test="${task.getDelegationState().toString() == "RESOLVED"}">
-                                                                <td>Realizada – Aguardando aprovação – <g:link uri="/process/task/complete/${task.getId()}">APROVAR</g:link></td>
-                                                            </g:elseif>
-                                                            <g:elseif test="${task.getDelegationState().toString() == "null"}">
-                                                                <td>Sem usuário responsável</td>
-                                                            </g:elseif>
-                                                        </tr>
-                                                    </g:each>
-                                                    </tbody>
-                                                </table>
-                                                <div class="input-group">
-                                                    <input class="btn btn-sm btn-primary" type="submit" value="Enviar" />
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+<div class="row cluster">
+    <div class="cluster-header">
+        <p class="text-teal text-darken-3 left-align margin-bottom">
+            <i class="small material-icons left">list</i>Tarefas
+        </p>
+        <div class="divider"></div>
+    </div>
+    <div class="row show">
+        <article class="row">
+            <g:if test="${completedTask}">
+                <script>
+//                    console.log("tarefa completada");
+                    Materialize.toast('Tarefa completada com sucesso!', 3000, 'rounded');
+                </script>
+            </g:if>
+            <div class="subtitle space">
+                <h3 class="text-teal text-darken-3 center truncate" title="${nameProcess}">
+                    ${nameProcess}
+                </h3>
+                <h5 class="center date">
+                    <i class="fa fa-clock-o"></i> Inializado em <g:formatDate format="dd-MM-yyyy HH:mm" date="${startedProcess}"/>
+                </h5>
             </div>
-        </div>
+            <div class="row space">
+                <blockquote>
+                    Abaixo estão listadas as tarefas que devem ser cumpridas para concluir a customização do seu jogo!
+                </blockquote>
+            </div>
+
+            <table class="responsive-table bordered highlight centered">
+                <thead>
+                <tr>
+                    <th data-field="id">Nome</th>
+                    <th data-field="name">Ação</th>
+                    <th data-field="status">status</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <g:each in="${tasks}" var="task">
+                    <tr class="pending">
+                        <td>
+                           <span class="">
+                               ${task.getName()}
+                           </span>
+                            %{--${task.taskDefinitionKey}--}%
+                        </td>
+
+                    %{--<td> <i class="small material-icons right tooltipped" data-position="right" data-delay="50" data-tooltip="Pendente">warning</i></td>--}%
+
+                    %{--<g:if test="${task.getDelegationState().toString() == "PENDING" && currentUser.username == task.getAssignee()}">--}%
+                        <g:if test="${task.getDelegationState().toString() == "PENDING"}">
+                            <td><a href="/frame/${uri}/${task.taskDefinitionKey}" >REALIZAR</a></td>
+                        </g:if>
+                        <td> <i class="small material-icons tooltipped" data-position="down" data-delay="50" data-tooltip="Pendente">warning</i></td>
+
+                        %{--<g:elseif test="${task.getDelegationState().toString() == "RESOLVED"}">--}%
+                    %{--<td>Realizada – Aguardando aprovação – <g:link uri="/process/task/complete/${task.getId()}">APROVAR</g:link></td>--}%
+                    %{--</g:elseif>--}%
+                    %{--<g:elseif test="${task.getDelegationState().toString() == "null"}">--}%
+                    %{--<td>Sem usuário responsável</td>--}%
+                    %{--</g:elseif>--}%
+                    </tr>
+                %{--${task.getName()} <br>--}%
+                %{--<tr role="row">--}%
+                %{--<td>${task.getName()} </td>--}%
+                %{--<td>--}%
+                %{--<g:if test="${task.getDelegationState().toString() == "PENDING" && currentUser.username == task.getAssignee()}">--}%
+                %{--<input name="${task.getId()}"  id="userlabel" value="${task.getAssignee()}">--}%
+                %{--</g:if>--}%
+                %{--<g:else>--}%
+                %{--<input name="${task.getId()}"  id="userlabel" value="${currentUser.username}">--}%
+                %{--</g:else>--}%
+                %{--</td>--}%
+                </g:each>
+                </tbody>
+            </table>
+            %{--<ul class="collapsible popout" data-collapsible="expandable">--}%
+                %{--<li>--}%
+                    %{--<a href="/process/tasks/overview/${process[3]}">--}%
+                    %{--<div class="collapsible-header active"><i class="material-icons">list</i>Tarefas </div>--}%
+                    %{--<div class="collapsible-body">--}%
+
+                    %{--</div>--}%
+                %{--<!-- pensar um algum método para mostrar processo ativo ou desativado-->--}%
+                %{--<g:if test="${!process[2]}">--}%
+                %{--<td>Ativo</td>--}%
+                %{--</g:if>--}%
+                %{--</li>--}%
+            %{--</ul>--}%
+        </article>
     </div>
 </div>
-
+<g:javascript src="menu.js"/>
+<script type="text/javascript" src="${resource(dir: 'js', file: "imgPreview.js")}"></script>
 <script>
-    $("input").on('keyup', function () {
-    var url = location.origin + '/user/autocomplete';
-    var data = {autocomplete: $(this).val()};
-
-    $.ajax({
-        type: 'GET',
-        data: data,
-        url: url,
-        success: function (data) {
-
-            if (data != "") {
-
-                $("input").autocomplete({
-                    source: data.split(","),
-                    minLength: 3
-                });
-            }
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-        }
+    $(document).ready(function(){
+        $('.collapsible').collapsible({
+            accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+        });
+        $('.tooltipped').tooltip({delay: 50});
     });
-});
-
 </script>
-
-
 </body>
 </html>

@@ -10,7 +10,6 @@ class UrlMappings {
 
         // begin index mappings
         "/"(controller:'index')
-        "/dashboard"(controller: "index", action: "dashboard")
         "/frame$uri**"(controller: "index", action: "frame")
         // end index mappings
 
@@ -22,11 +21,11 @@ class UrlMappings {
         "/user/account/confirm/$token"(controller: 'user',action: 'confirmAccount')
         '/user/newpassword/confirm'(controller: 'user',action: 'createPassword')
         '/user/confirmation'(view: '/static/emailuser')
+        name resetPassword: "/user/password/reset"(controller: 'user', action: 'resetPassword')
         // end user mappings
 
         // begin password mappings
         //noinspection GroovyAssignabilityCheck
-        name resetPassword: "/password/reset"(view: "/static/forgottenPassword")
         //noinspection GroovyAssignabilityCheck
         name developerForm: "/developer/new"(view:"/static/formDeveloper")
         name infoPage: "/index/info" (view: "index/info")
@@ -38,15 +37,27 @@ class UrlMappings {
         "/process/tasks/delegate/$processId"(controller:"process", action:"delegateTasks")
         "/process/tasks/overview/$processId"(controller:"process", action:"chooseUsersTasks")
         "/process/publishOptions/$processId"(controller:"process", action:"publishOptions")
+
+        //begin moodle mappings
+        "/moodle/confirm/$hash"(controller: "moodle", action: "confirm")
+        "/moodle/link/$moodleId"(controller: "moodle", action: "link")
+        "/moodle/unlink/$token"(controller: "moodle", action: "unlink")
+
+//        "/process/information/customization/$id"(controller: "process", action: "startCustomization")
         // end Process API endpoints
 
         // begin Resource API endpoints
         "/resource/review/$id/$status?"(controller:"resource", action:"review")
+//        '/resource/customizable'(view: '/resource/custGames')
+        '/resource/customizableGames'(controller:"resource", action:"customizableGames")
+        "/resource/show/$id"(controller: "resource", action: "show")
+
+        '/exported-resource/publicGames'(controller:"exportedResource", action:"publicGames")
+        '/exported-resource/myGames'(controller:"exportedResource", action:"myGames")
+
         // end Resource API endpoints
 
-        //begin moodle mappings
-        "/moodle/confirm/$hash"(controller: "moodle", action: "confirm")
-        //end moodle mappings
+        name myProfile: "/my-profile" (controller:"user", action:"myProfile")
 
         "500"(view:'/error')
 	}

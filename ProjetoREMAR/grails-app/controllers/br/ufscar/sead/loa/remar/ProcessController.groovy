@@ -1,7 +1,6 @@
 package br.ufscar.sead.loa.remar
 
 import grails.converters.JSON
-import grails.plugin.mail.MailService
 import grails.plugin.springsecurity.SpringSecurityUtils
 import grails.util.Environment
 import org.camunda.bpm.engine.IdentityService
@@ -12,7 +11,6 @@ import org.camunda.bpm.engine.TaskService
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.camunda.bpm.engine.delegate.ExecutionListener
 import org.camunda.bpm.engine.delegate.JavaDelegate
-import org.camunda.bpm.engine.impl.identity.Authentication
 import org.camunda.bpm.engine.impl.repository.DeploymentBuilderImpl
 import org.camunda.bpm.engine.runtime.ProcessInstance
 import org.camunda.bpm.engine.task.DelegationState
@@ -28,7 +26,6 @@ class ProcessController implements JavaDelegate, ExecutionListener{
     TaskService taskService
     def springSecurityService
     RepositoryService repositoryService
-    MailService mailService
 
     def start() {
         log.debug params.id
@@ -57,6 +54,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
         runtimeService.setVariable(processId, "resourceName", resource.name as String)
         runtimeService.setVariable(processId, "resourceUri", resource.uri as String)
         runtimeService.setVariable(processId, "ownerUsername", session.user.username as String)
+        runtimeService.setVariable(processId, "startedProcess", new Date())
 
 
         identityService.setAuthenticatedUserId(session.user.camunda_id)
@@ -111,10 +109,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
 
         // log.debug session.processId;
 
-
         render "success"
-
-
     }
 
     def undeploy() {
@@ -144,15 +139,36 @@ class ProcessController implements JavaDelegate, ExecutionListener{
 
         def uri = runtimeService.getVariable(params.processId, "resourceUri")
 
+        //delega as tarefas
         for (task in tasks) {
-            task.taskDefinitionKey = "${task.taskDefinitionKey.replace('.', '/')}?p=${task.processInstanceId}&t=${task.id}"
+            if(task.getDelegationState() == null){
+                taskService.addUserIdentityLink(task.id, session.user.username as String, IdentityLinkType.OWNER)
+                taskService.delegateTask(task.id, session.user.username)
+            }
         }
+
+        //gera url
+        tasks = taskService.createTaskQuery().processInstanceId(params.processId).list()
+        for (task in tasks){
+            task.taskDefinitionKey = "${task.taskDefinitionKey.replace('.', '/')}?p=${task.processInstanceId}&t=${task.id}"
+            task.getDescription()
+        }
+
+        def completed = params.completed
+        if(params.completed == null){
+            completed = false
+        }
+
 
         if (tasks.size() == 0) {
             render(view:'finishedProcess')
         } else {
-            respond "", model: [allusers: allUsers, alltasks: tasks, uri: uri, processId: params.processId,
-                                currentUser: session.user, dev: Environment.current == Environment.DEVELOPMENT]
+//            redirect uri:"/process/tasks/delegate/"+params.processId
+//            render view: "chooseUsersTasks", model: [users: allUsers, tasks: tasks, uri: uri, processId: params.processId,
+//                                                     currentUser: session.user, dev: Environment.current == Environment.DEVELOPMENT]
+            render  view: "chooseUsersTasks", model: [users: allUsers, tasks: tasks, uri: uri, processId: params.processId, nameProcess:runtimeService.getVariable(params.processId, "resourceName"),
+                                currentUser: session.user, dev: Environment.current == Environment.DEVELOPMENT, completedTask: completed,
+                                startedProcess:runtimeService.getVariable(params.processId, "startedProcess") ]
         }
 
     }
@@ -161,23 +177,49 @@ class ProcessController implements JavaDelegate, ExecutionListener{
         String userId = springSecurityService.getCurrentUser().getId()
         List<ProcessInstance> processesList = runtimeService.createProcessInstanceQuery().list()
         def list = []
+
         for (processes in processesList) {
             def var = runtimeService.getVariable(processes.id, "ownerId")
             if (userId == var) {
                 def formattedProcesses = []
+//                List<Task> tasks = taskService.createTaskQuery().processInstanceId(processes.id).list()
+//
+//                /*
+//                * Delega as tarefas e gera a key
+//                *
+//                * */
+//                for (task in tasks){
+//                    if(task.getDelegationState() == null){
+//                        taskService.addUserIdentityLink(task.id, session.user.username as String, IdentityLinkType.OWNER)
+//                        taskService.delegateTask(task.id, session.user.username)
+//                    }
+//                    task.taskDefinitionKey = "${task.taskDefinitionKey.replace('.', '/')}?p=${task.processInstanceId}&t=${task.id}"
+//                }
+
+                /*
+                * Reescreve a lista
+                *
+                * */
+//                taskService.createTaskQuery().processInstanceId(processes.id).list().clear()
+//                taskService.createTaskQuery().processInstanceId(processes.id).list().addAll(tasks)
+
                 formattedProcesses[0] = runtimeService.getVariable(processes.id, "resourceName")
                 formattedProcesses[1] = taskService.createTaskQuery().processInstanceId(processes.id).list().size()
                 formattedProcesses[2] = runtimeService.createProcessInstanceQuery().processInstanceId(processes.id).list()[0].suspended
                 formattedProcesses[3] = processes.id
+                formattedProcesses[4] = runtimeService.getVariable(processes.id,"startedProcess")
+//                formattedProcesses[4] = tasks
+                formattedProcesses[5] = runtimeService.getVariable(processes.id, "resourceUri")
+
                 list.add(formattedProcesses)
             }
         }
         if(list){
-            log.debug list[0][3]
+//            log.debug list[0][1]
             render(view: "userProcesses", model:[processes: list])
         }
         else{
-            render(view: "noProcesses")
+            render(view: "userProcesses", model:[processes: null])
         }
     }
 
@@ -222,7 +264,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
                 if (task.owner == session.user.username) {
                     taskService.complete(params.taskId)
                     if(!session.processFinished) {
-                        redirect uri: "/process/tasks/overview/${task.processInstanceId}"
+                        redirect uri: "/process/tasks/overview/${task.processInstanceId}?completed="+true
                     } else {
                         session.processFinished = null
                     }
@@ -263,7 +305,8 @@ class ProcessController implements JavaDelegate, ExecutionListener{
                     }
                     taskService.resolveTask(params.taskId)
                     if (task.owner == session.user.username) {
-                        redirect uri: "/process/tasks/overview/${task.processInstanceId}"
+//                        redirect uri: "/process/tasks/overview/${task.processInstanceId}"
+                        redirect uri: "/process/task/complete/${task.id}"
                     } else {
                         redirect uri: '/process/pendingTasks'
                     }
@@ -301,16 +344,14 @@ class ProcessController implements JavaDelegate, ExecutionListener{
                     taskService.addUserIdentityLink(taskId, session.user.username as String, IdentityLinkType.OWNER)
                     taskService.delegateTask(taskId, username)
                     if (username != session.user.username) {
-                        mailService.sendMail {
-                            async true
-                            to user.getEmail()
-                            subject "Nova tarefa no REMAR – ${resourceName}"
-                            html '<h3>Você foi designado como responsável por uma tarefa no REMAR!</h3>' +
-                                    "Nome do processo: ${resourceName} " + "<br>" +
-                                    "Dono do processo: ${session.user.firstName}" + "<br>" +
-                                    "Nome da Tarefa: ${allTasks[i].name} " + "<br>" +
-                                    "<a href=http://${request.serverName}:${request.serverPort}/${uri}/${allTasks[i].taskDefinitionKey.replace('.', '/')}?p=${processId}&t=${allTasks[i].id}><b>Realizar tarefa<b>"
-                        }
+                        //noinspection GroovyAssignabilityCheck
+                        Util.sendEmail(user.email, "Nova tarefa no REMAR – ${resourceName}",
+                                '<h3>Você foi designado como responsável por uma tarefa no REMAR!</h3>' +
+                                "Nome do processo: ${resourceName} " + "<br>" +
+                                "Dono do processo: ${session.user.firstName}" + "<br>" +
+                                "Nome da Tarefa: ${allTasks[i].name} " + "<br>" +
+                                "<a href=http://${request.serverName}:${request.serverPort}/${uri}/${allTasks[i].taskDefinitionKey.replace('.', '/')}?p=${processId}&t=${allTasks[i].id}><b>Realizar tarefa<b>"
+                        )
                     }
 
                 } else {
@@ -320,12 +361,14 @@ class ProcessController implements JavaDelegate, ExecutionListener{
                 i++
         }
 
+        render view: "chooseUsersTasks", model: [users: allUsers, tasks: tasks, uri: uri, processId: params.processId,
+                                                 currentUser: session.user, dev: Environment.current == Environment.DEVELOPMENT]
 
-        redirect uri:"/process/tasks/overview/$processId"
+//        redirect uri:"/process/tasks/overview/$processId"
         //log.debug params
-
-
     }
+
+
 
 
     @Override
@@ -335,6 +378,7 @@ class ProcessController implements JavaDelegate, ExecutionListener{
 
         if (delegateExecution.currentActivityId == 'start') {
             redirect uri: "/process/tasks/overview/${delegateExecution.processInstanceId}"
+//            redirect uri: "/process/user-processes"
         }
     }
 
@@ -367,6 +411,11 @@ class ProcessController implements JavaDelegate, ExecutionListener{
                 fileset(dir: servletContext.getRealPath("/data/resources/sources/${resource.uri}/base"))
             }
 
+            new AntBuilder().copy(file: "${servletContext.getRealPath("/images")}/" +
+                    "${exportedResourceInstance.resource.uri}-banner.png",
+                    tofile: "${instanceFolder}/banner.png", overwrite: true)
+
+
             def f = new File(instanceFolder, "/web${exportedResourceInstance.resource.moodleJson}moodle.json")
             def pw = new PrintWriter(f)
             pw.write("{\"remar_resource_id\": \"${exportedResourceInstance.id}\"}")
@@ -376,6 +425,8 @@ class ProcessController implements JavaDelegate, ExecutionListener{
                 new AntBuilder().copy(file: "${resourceFolder}/${file}", tofile: "${instanceFolder}/web/${destinationFolder}/${file}", overwrite: true)
                 log.debug "each"
             }
+
+            exportedResourceInstance = ExportedResource.findById(exportedResourceInstance.id) //forçando o get do resorce no banco que foi salvo
 
             session.processFinished = true
             redirect uri:"/exported-resource/publish/${exportedResourceInstance.id}"
@@ -441,8 +492,18 @@ class ProcessController implements JavaDelegate, ExecutionListener{
         springSecurityService.clearCachedRequestmaps()
     }
 
+    def getAllTasks(){
+        def model = [:]
+        String userId = springSecurityService.getCurrentUser().getId()
+        List<ProcessInstance> processesList = runtimeService.createProcessInstanceQuery().list()
+        for (processes in processesList) {
+            def var = runtimeService.getVariable(processes.id, "ownerId")
+            if (userId == var) {
+                def tasks  = taskService.createTaskQuery().processInstanceId(processes.id).list()
+                model.(processes.id) = tasks;
+            }
+        }
+        render model:model
+    }
 
 }
-
-
-
