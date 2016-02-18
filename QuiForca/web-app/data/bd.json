@@ -1,25 +1,12 @@
 {
-  "table_name": "forca",
-  "structure": {
-    "field1": {
-      "name": "pergunta",
-      "type": "TEXT",
-      "length": "big"
-    },
-    "field2": {
-      "name": "resposta",
-      "type": "TEXT",
-      "length": "big"
-    },
-    "field7": {
-      "name": "letra_escolhida",
-      "type": "CHAR",
-      "length": 1
-    },
-    "field4": {
-      "name": "timestamp",
-      "type": "INTEGER",
-      "length": 10
-    }
-  }
+  "collection_name": "forca",
+  "structure": [
+    "enunciado",
+    "alternativaa",
+    "alternativab",
+    "alternativac",
+    "alternativad",
+    "respostacerta",
+    "resposta"
+  ]
 }
