@@ -96,10 +96,11 @@ $(function(){
         $("input[type='checkbox']").each(function() {
             if (this.checked && this.id != "web") {
             //if (this.checked) {
-                console.log("chega aki!");
+            //    console.log("chega aki!");
 
                 $(this).removeClass('checkbox-platform');
                 var id = this.id;
+                this.disabled = true;
                 var el = $('label[for="' + id + '"]');
                 var originalText = $(el).html();
                 var intervalId = setInterval(function() {etc(el)}, 500);

@@ -712,8 +712,9 @@ footer.page-footer{
 
 .row.show{
     max-height: 1500px;
-    /*min-height: 960px;*/
+    min-height: 100vh;
     margin: 0 auto;
+    flex: 1 0 auto;
 }
 
 .row.show.cards{
@@ -734,7 +735,6 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-
 }
 
 main {
@@ -829,4 +829,8 @@ table .pending td{
 
 .pagination a li {
     color: #444
+}
+
+.checkbox-label{
+    font-size: 1.2em !important;
 }

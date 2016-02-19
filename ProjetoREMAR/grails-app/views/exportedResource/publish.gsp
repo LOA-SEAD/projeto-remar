@@ -95,7 +95,45 @@ Time: 09:55
                                     %{--<div class="divider"></div>--}%
 
                                     %{--<g:set var="link" value="null" scope="page" />--}%
-
+                                    <g:each in="${platforms}" var="platform">
+                                        <g:if test="${platform.contains(':')}">
+                                            <p>
+                                                <input type="checkbox" id="web" checked="checked" class="checkbox-platform"  disabled />
+                                                <label for="web" class="checkbox-label" data-position="right" data-delay="50" data-tooltip="Web">
+                                                    ${platform.substring(0, platform.indexOf(':'))}
+                                                    <span class="chip center">
+                                                        <a target="_blank" href="${platform.substring(platform.indexOf(':') + 1)}"> Acessar </a>
+                                                        <i class="fa fa-link"></i>
+                                                    </span>
+                                                    %{--<g:set var="link" value="${platform.substring(platform.indexOf(':') + 1)}" scope="page" />--}%
+                                                </label>
+                                            </p>
+                                        </g:if>
+                                        <g:else>
+                                            <g:if test="${platform.toLowerCase() != 'web' && platform.toLowerCase() != 'android' && platform.toLowerCase() != 'linux'}">
+                                                <p>
+                                                    <input type="checkbox" name="${platform.toLowerCase()}" id="${platform.toLowerCase()}" class="checkbox-platform" disabled/>
+                                                    <label for="${platform.toLowerCase()}"  class="checkbox-label" data-position="right" data-delay="50" data-tooltip="${platform.toLowerCase()}">
+                                                        ${platform.toLowerCase()}
+                                                        <span class="chip center">
+                                                            Em breve
+                                                            <i class="material-icons">close</i>
+                                                        </span>
+                                                    </label>
+                                                </p>
+                                            </g:if>
+                                            <g:else>
+                                                <p>
+                                                    <input type="checkbox" name="${platform.toLowerCase()}" id="${platform.toLowerCase()}" class="checkbox-platform"/>
+                                                    <label for="${platform.toLowerCase()}" data-resource-id="${resourceId}" class="checkbox-label"" data-position="right" data-delay="50" data-tooltip="${platform.toLowerCase()}">
+                                                        ${platform}
+                                                    </label>
+                                                </p>
+                                            </g:else>
+                                        </g:else>
+                                        <br>
+                                    </g:each>
+                                    <!--
                                     <g:each in="${platforms}" var="platform">
                                         <g:if test="${platform.contains(':')}">
                                             <p>
@@ -167,6 +205,7 @@ Time: 09:55
                                             </g:else>
                                         </g:else>
                                     </g:each>
+                                    -->
                                     %{--<p>--}%
                                         %{--<input type="checkbox" name="windows" id="windows" class="checkbox-platform" disabled readonly/>--}%
                                         %{--<label for="windows"  class="tooltipped" data-position="right" data-delay="50" data-tooltip="Windows">--}%
