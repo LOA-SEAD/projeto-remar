@@ -1,3 +1,4 @@
+import br.ufscar.sead.loa.propeller.Propeller
 import br.ufscar.sead.loa.remar.Platform
 import br.ufscar.sead.loa.remar.RequestMap
 import br.ufscar.sead.loa.remar.Role
@@ -14,6 +15,8 @@ class BootStrap {
     def init = { servletContext ->
 
         MongoHelper.instance.init()
+
+        Propeller.instance.init([dbName: 'remar-propeller', wipeDb: true])
 
         HttpServletRequest.metaClass.isXhr = { ->
             'XMLHttpRequest' == delegate.getHeader('X-Requested-With')
