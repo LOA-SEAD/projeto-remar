@@ -240,7 +240,7 @@ class ResourceController {
                 return
             }
 
-            def http = new HTTPBuilder("http://root:seadloaremar1!@localhost:8080")
+            def http = new HTTPBuilder("http://root:${grailsApplication.config.users.password}@localhost:8080")
             def resp = http.get(path: '/manager/text/deploy',
                     query: [path: "/${resourceInstance.uri}",
                             war: servletContext.getRealPath("/wars/${resourceInstance.owner.username}/${resourceInstance.uri}.war") ])
