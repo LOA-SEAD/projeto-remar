@@ -75,46 +75,49 @@ class ResourceController {
 
     @Transactional
     def save(Resource resourceInstance) { // saves and verifies WAR file
-        def username = springSecurityService.currentUser.username
-        MultipartFile war = params.war
-        def fileName = MessageDigest.getInstance("MD5").digest(war.bytes).encodeHex().toString()
+        String username = session.user.username
+        MultipartFile submitedWar = params.war
+        String fileName = MessageDigest.getInstance("MD5").digest(submitedWar.bytes).encodeHex().toString()
+        File savedWar = new File(servletContext.getRealPath("/wars/${username}"), fileName + ".war")
+        String expandedWarPath = savedWar.parent + "/" + fileName
+        File tmp
+        AntBuilder ant = new AntBuilder()
+
         resourceInstance.submittedAt = new Date()
         resourceInstance.owner       = springSecurityService.currentUser as User
         resourceInstance.status      = "pending"
         resourceInstance.valid       = true
 
-        // move to wars folder
-        def file = new File(servletContext.getRealPath("/wars/${username}"), fileName + ".war")
-        file.mkdirs()
-        war.transferTo(file)
-
-        // unzip
-        "chmod -R a+x ${servletContext.getRealPath('/scripts')}".execute().waitFor()
-        def unzip = "${servletContext.getRealPath("/scripts")}/unzip.sh ${servletContext.getRealPath("/wars/${username}")} ${fileName}"
-        unzip.execute().waitFor()
-
-        file = new File(servletContext.getRealPath("/wars/${username}/${fileName}/WEB-INF"))
-        if (!file.exists()) { // file is not a WAR
-            resourceInstance.name = war.originalFilename
+        // Move .war to /wars and unzip it
+        savedWar.mkdirs()
+        submitedWar.transferTo(savedWar)
+        ant.mkdir(dir: expandedWarPath)
+        ant.unzip(src: savedWar.path, dest: expandedWarPath, overwrite: true)
+        println "done"
+        println expandedWarPath
+        tmp = new File(expandedWarPath + "/WEB-INF")
+        println tmp
+        if (!tmp.exists()) { // file is not a WAR
+            resourceInstance.name = submitedWar.originalFilename
             this.rejectWar(resourceInstance, "File is not a WAR")
             redirect action: "index"
             return
         }
 
-        file = new File(servletContext.getRealPath("/wars/${username}/${fileName}/data/manifest.json"))
-        if (!file.exists()) { // manifest.json not found
-            resourceInstance.name = war.originalFilename
+        tmp = new File(expandedWarPath + "/remar/manifest.json")
+        if (!tmp.exists()) { // manifest.json not found
+            resourceInstance.name = submitedWar.originalFilename
             this.rejectWar(resourceInstance, 'manifest.json not found')
             redirect action: "index"
             return
         }
 
-        def manifest = JSON.parse(file.getText('UTF-8'))
+        def manifest = JSON.parse(tmp.getText('UTF-8'))
 
         // manifest is valid?
         if (manifest.name  == null || manifest.android  == null || manifest.linux  == null || manifest.moodle  == null
             || manifest.bpmn  == null || manifest.uri == null || manifest.width == null || manifest.height == null) {
-            resourceInstance.name = war.originalFilename
+            resourceInstance.name = submitedWar.originalFilename
             this.rejectWar(resourceInstance, 'Invalid manifest.json')
             redirect action: "index"
             return
@@ -128,9 +131,10 @@ class ResourceController {
         resourceInstance.files   = manifest.files
         resourceInstance.width   = manifest.width
         resourceInstance.height  = manifest.height
+        resourceInstance.bpmn = manifest.bpmn
 
         //read the file that describes the game DB and creates a collection with the corresponding name
-        def bd = new File(servletContext.getRealPath("/wars/${username}/${fileName}/data/bd.json"))
+        def bd = new File(expandedWarPath + "/remar/bd.json")
 
         if (!bd.exists()) {
             this.rejectWar(resourceInstance, 'bd.json not found')
@@ -138,65 +142,59 @@ class ResourceController {
             return
         }
 
-        new AntBuilder().copy(file: servletContext.getRealPath("/wars/${username}/${fileName}/data/bd.json"),
+        new AntBuilder().copy(file: expandedWarPath + "/remar/bd.json",
                 tofile: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}/bd.json"))
 
         def json = JSON.parse(bd.text)
         def collectionName = json['collection_name'] as String
-        log.debug collectionName
-        //def mongodb = MongoHelper.instance.init()
         MongoHelper.instance.createCollection(collectionName)
 
-        log.debug "Collection name '${collectionName}' successfully created."
+        log.debug "Collection '${collectionName}' successfully created."
 
-        def cmd = servletContext.getRealPath("/scripts") + "/verify-banner.sh ${servletContext.getRealPath("/wars/${username}")}/${fileName} ${manifest.uri}-banner"
-        def foundBanner = cmd.execute().text.toInteger()
-
-        // has banner?
-        if (!foundBanner) {
+        tmp = new File("${expandedWarPath}/remar/images/${resourceInstance.uri}-banner.png")
+        if (!tmp.exists()) { // {uri}-banner.png not found
             this.rejectWar(resourceInstance, 'banner not found')
             redirect action: "index"
             return
+        } else {
+            ant.copy(file: tmp, todir: servletContext.getRealPath("/images"))
         }
 
-        // copy banner to /assets
-        cmd = servletContext.getRealPath("/scripts") + "/verify-bpmn.sh ${servletContext.getRealPath("/wars/${username}")}/${fileName} ${manifest.bpmn}"
-        def foundBpmn = cmd.execute().text.toInteger()
-
-        // has bpmn?
-        if (!foundBpmn) {
+        tmp = new File("${expandedWarPath}/remar/${manifest.bpmn}.bpmn")
+        if (!tmp.exists()) { // bmpn not found
             this.rejectWar(resourceInstance, 'bpmn not found')
             redirect action: "index"
             return
+        } else {
+            ant.copy(file: tmp, todir: servletContext.getRealPath("/processes"))
         }
 
-        file = new File(servletContext.getRealPath("/wars/${username}/${fileName}/data/source"))
-        if (!file.exists()) { // source folder exists?
+        tmp = new File("${expandedWarPath}/remar/source")
+        if (!tmp.exists()) { // source folder exists?
             this.rejectWar(resourceInstance, "game's source folder not found")
             redirect action: "index"
             return
+        } else {
+            ant.copy(todir: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}")) {
+                fileset(dir: tmp)
+            }
         }
 
         resourceInstance.web = true //default
-        resourceInstance.bpmn = manifest.bpmn
         resourceInstance.comment = "Esperando Formulário"
 
-        new File(servletContext.getRealPath("/wars/${username}"), fileName + ".war")
-                       .renameTo(servletContext.getRealPath("/wars/${username}") + "/" + manifest.uri + ".war")
-        log.debug "War successfully copied."
+        // rename war to a human readable name – instead of a MD5 name
+        savedWar.renameTo(servletContext.getRealPath("/wars/${username}") + "/${resourceInstance.uri}.war")
+
         resourceInstance.save flush:true
 
-
         if(resourceInstance.hasErrors()) {
-            log.debug "ERROR!!"
-            log.debug resourceInstance.errors
+            log.error "War submited by " + session.user.username + " rejected by Grails. Reason:"
+            log.error resourceInstance.errors
+
             respond resourceInstance.errors, view:"create"
         } else {
-            new AntBuilder().copy(todir: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}")) {
-                fileset(dir: file)
-            }
             flash.message = message(code: 'default.created.message', args: [message(code: 'deploy.label', default: 'Deploy'), resourceInstance.id])
-//            redirect action: "create", params: [id: resourceInstance.id]
             render resourceInstance as JSON
         }
 
