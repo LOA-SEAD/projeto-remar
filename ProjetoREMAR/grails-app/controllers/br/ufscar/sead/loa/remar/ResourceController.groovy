@@ -94,28 +94,18 @@ class ResourceController {
         unzip.execute().waitFor()
 
         file = new File(servletContext.getRealPath("/wars/${username}/${fileName}/WEB-INF"))
-        if (!file.exists()) { // file is a WAR?
-            resourceInstance.valid = false
+        if (!file.exists()) { // file is not a WAR
             resourceInstance.name = war.originalFilename
-            resourceInstance.uri = ""
-            resourceInstance.status  = "rejected"
-            resourceInstance.comment = war.originalFilename + " isn't a war!"
-            resourceInstance.save flush: true
+            this.rejectWar(resourceInstance, "File is not a WAR")
             redirect action: "index"
-            log.debug "not war"
             return
         }
 
         file = new File(servletContext.getRealPath("/wars/${username}/${fileName}/data/manifest.json"))
-        if (!file.exists()) { // WAR has a manifest.json?
-            resourceInstance.valid = false
+        if (!file.exists()) { // manifest.json not found
             resourceInstance.name = war.originalFilename
-            resourceInstance.uri = ""
-            resourceInstance.status  = "rejected"
-            resourceInstance.comment = war.originalFilename + " doesn't contain a manifest.json."
-            resourceInstance.save flush: true
+            this.rejectWar(resourceInstance, 'manifest.json not found')
             redirect action: "index"
-            log.debug "missng manifest"
             return
         }
 
@@ -123,133 +113,66 @@ class ResourceController {
 
         // manifest is valid?
         if (manifest.name  == null || manifest.android  == null || manifest.linux  == null || manifest.moodle  == null
-            || manifest.bpmn  == null || manifest.uri == null) {
-            resourceInstance.valid = false
+            || manifest.bpmn  == null || manifest.uri == null || manifest.width == null || manifest.height == null) {
             resourceInstance.name = war.originalFilename
-            resourceInstance.uri = ""
-            resourceInstance.status = "rejected"
-            resourceInstance.comment = war.originalFilename + " doesn't contain a valid manifest.json."
-            resourceInstance.save flush: true
+            this.rejectWar(resourceInstance, 'Invalid manifest.json')
             redirect action: "index"
-            log.debug "invalid manifest"
             return
         }
-        log.debug "manifest is valid and it was read."
 
-        resourceInstance.name       = manifest.name
-        resourceInstance.uri        = manifest.uri
-        resourceInstance.android    = manifest.android
-        resourceInstance.linux      = manifest.linux
-        resourceInstance.moodle     = manifest.moodle
-        resourceInstance.files      = manifest.files
-
-        if (!manifest.width) {
-            resourceInstance.valid = false
-            resourceInstance.name = war.originalFilename
-            resourceInstance.uri = ""
-            resourceInstance.status = "rejected"
-            resourceInstance.comment = "Missing 'width' property in manifest.json."
-            resourceInstance.save flush: true
-            redirect action: "index"
-            log.debug "invalid manifest. Missing 'width' property in manifest.json"
-            return
-        }
-        else {
-            resourceInstance.width   = manifest.width
-            log.debug "'width' property loaded."
-        }
-
-        if (!manifest.height) {
-            resourceInstance.valid = false
-            resourceInstance.name = war.originalFilename
-            resourceInstance.uri = ""
-            resourceInstance.status = "rejected"
-            resourceInstance.comment = "Missing 'height' property in manifest.json."
-            resourceInstance.save flush: true
-            redirect action: "index"
-            log.debug "invalid manifest. Missing 'height' property in manifest.json"
-            return
-        }
-        else {
-            resourceInstance.height   = manifest.height
-            log.debug "'height' property loaded."
-        }
-
+        resourceInstance.name    = manifest.name
+        resourceInstance.uri     = manifest.uri
+        resourceInstance.android = manifest.android
+        resourceInstance.linux   = manifest.linux
+        resourceInstance.moodle  = manifest.moodle
+        resourceInstance.files   = manifest.files
+        resourceInstance.width   = manifest.width
+        resourceInstance.height  = manifest.height
 
         //read the file that describes the game DB and creates a collection with the corresponding name
         def bd = new File(servletContext.getRealPath("/wars/${username}/${fileName}/data/bd.json"))
 
         if (!bd.exists()) {
-            resourceInstance.valid = false
-            resourceInstance.name = war.originalFilename
-            resourceInstance.uri = ""
-            resourceInstance.status  = "rejected"
-            resourceInstance.comment = "bd.json file not found"
-            resourceInstance.save flush: true
-            log.debug "ERROR: bd.json file not found"
+            this.rejectWar(resourceInstance, 'bd.json not found')
             redirect action: "index"
             return
         }
-        else {
-            new AntBuilder().copy(file: servletContext.getRealPath("/wars/${username}/${fileName}/data/bd.json"),
-                    tofile: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}/bd.json"))
 
-            def json = JSON.parse(bd.text)
-            def collectionName = json['collection_name'] as String
-            log.debug collectionName
-            //def mongodb = MongoHelper.instance.init()
-            MongoHelper.instance.createCollection(collectionName)
+        new AntBuilder().copy(file: servletContext.getRealPath("/wars/${username}/${fileName}/data/bd.json"),
+                tofile: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}/bd.json"))
 
-            log.debug "Collection name '${collectionName}' successfully created."
-        }
+        def json = JSON.parse(bd.text)
+        def collectionName = json['collection_name'] as String
+        log.debug collectionName
+        //def mongodb = MongoHelper.instance.init()
+        MongoHelper.instance.createCollection(collectionName)
 
+        log.debug "Collection name '${collectionName}' successfully created."
 
         def cmd = servletContext.getRealPath("/scripts") + "/verify-banner.sh ${servletContext.getRealPath("/wars/${username}")}/${fileName} ${manifest.uri}-banner"
         def foundBanner = cmd.execute().text.toInteger()
 
         // has banner?
         if (!foundBanner) {
-            resourceInstance.valid = false
-            resourceInstance.name = war.originalFilename
-            resourceInstance.uri = ""
-            resourceInstance.status  = "rejected"
-            resourceInstance.comment = "${manifest.uri}-banner.png not found!"
-            resourceInstance.save flush: true
+            this.rejectWar(resourceInstance, 'banner not found')
             redirect action: "index"
-            log.debug "banner not found"
             return
         }
-        log.debug "Banner OK."
 
         // copy banner to /assets
-
         cmd = servletContext.getRealPath("/scripts") + "/verify-bpmn.sh ${servletContext.getRealPath("/wars/${username}")}/${fileName} ${manifest.bpmn}"
         def foundBpmn = cmd.execute().text.toInteger()
 
         // has bpmn?
         if (!foundBpmn) {
-            resourceInstance.valid = false
-            resourceInstance.name = war.originalFilename
-            resourceInstance.uri = ""
-            resourceInstance.status  = "rejected"
-            resourceInstance.comment = "${manifest.bpmn}.bpmn not found!"
-            resourceInstance.save flush: true
+            this.rejectWar(resourceInstance, 'bpmn not found')
             redirect action: "index"
-            log.debug "bpmn not found"
             return
         }
 
-        log.debug "bpmn ok."
-
         file = new File(servletContext.getRealPath("/wars/${username}/${fileName}/data/source"))
         if (!file.exists()) { // source folder exists?
-            resourceInstance.valid = false
-            resourceInstance.name = war.originalFilename
-            resourceInstance.uri = ""
-            resourceInstance.status  = "rejected"
-            resourceInstance.comment = "source folder not found"
-            resourceInstance.save flush: true
-            log.debug "source folder not found or any problem in the copy of war"
+            this.rejectWar(resourceInstance, "game's source folder not found")
             redirect action: "index"
             return
         }
@@ -269,7 +192,6 @@ class ResourceController {
             log.debug resourceInstance.errors
             respond resourceInstance.errors, view:"create"
         } else {
-
             new AntBuilder().copy(todir: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}")) {
                 fileset(dir: file)
             }
@@ -431,4 +353,12 @@ class ResourceController {
         render destination.name
     }
 
-}
+    def rejectWar(Resource instance, String reason) {
+        instance.valid = false
+        instance.uri = ""
+        instance.status  = "rejected"
+        instance.comment = reason
+        instance.save flush: true
+        log.debug "War submited by " + session.user.username + " rejected. Reason: " + reason
+    }
+ }
