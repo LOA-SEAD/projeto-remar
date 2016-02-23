@@ -7,6 +7,7 @@ import org.apache.commons.lang.RandomStringUtils
 import org.codehaus.groovy.grails.io.support.GrailsIOUtils
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.commons.CommonsMultipartFile
+import br.ufscar.sead.loa.remar.Category
 
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
@@ -32,7 +33,7 @@ class ResourceController {
 
 
     def create() {
-        render view: "create", model: [id: params.id]
+        render view: "create", model: [id: params.id, categories: Category.list(sort:"name"), defaultCategory: Category.findByName('Aventura')]
     }
 
     @Transactional
@@ -40,11 +41,14 @@ class ResourceController {
         def path = new File(servletContext.getRealPath("/data/resources/assets/${instance.uri}"))
         path.mkdirs()
 
+        def newInstance = Resource.get(instance.id) //get data in database
+
 //        MultipartFile img1 = request.getFile('img1')
 //        MultipartFile img2 = request.getFile('img2')
 //        MultipartFile img3 = request.getFile('img3')
 
         log.debug(params)
+        log.debug(instance)
 
         if(params.img1 != null && params.img1 != ""){
             log.debug("entrou img1" + params.img1)
@@ -62,12 +66,31 @@ class ResourceController {
             img3.renameTo(new File(path,"description-3"))
         }
 
-        instance.description = params.description
-        instance.name = params.name
-        instance.comment = "Em avaliação"
+        newInstance.description = params.description
+        newInstance.name = params.name
+        newInstance.comment = "Em avaliação"
         //TODO colocar a categoria
 
-        instance.save flush: true
+        log.debug(instance)
+        log.debug(newInstance)
+        log.debug(params)
+        log.debug(instance.category)
+        log.debug(Category.findByName(params.category))
+
+        if(Category.findByName(params.category)){
+            println Category.findByName(params.category)
+            newInstance.setCategory(Category.findByName(params.category))
+        }else{
+            log.debug("CATEGORY IS NOT EXIST!")
+        }
+
+        log.debug(newInstance.category)
+
+        newInstance.save flush: true
+
+        println newInstance.errors
+
+        log.debug(Resource.read(instance.id))
 
         render true;
 //       redirect action: "index", params: [id: resourceInstance.id]
@@ -261,6 +284,13 @@ class ResourceController {
         new File(servletContext.getRealPath("/wars/${username}"), fileName + ".war")
                        .renameTo(servletContext.getRealPath("/wars/${username}") + "/" + manifest.uri + ".war")
         log.debug "War successfully copied."
+
+
+        //load pattern category with adventure
+        resourceInstance.category = Category.findByName("Aventura")
+
+        log.debug("category successfully loaded")
+
         resourceInstance.save flush:true
 
 
@@ -402,7 +432,8 @@ class ResourceController {
 
         def resourceJson = resourceInstance as JSON
 
-        render view: 'edit', model:[resourceInstance: resourceInstance]
+        render view: 'edit', model:[resourceInstance: resourceInstance, categories: Category.list(sort:"name"),
+                                    defaultCategory: resourceInstance.category]
     }
 
     def getResourceInstance(long id){

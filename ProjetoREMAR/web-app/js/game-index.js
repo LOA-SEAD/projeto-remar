@@ -131,6 +131,7 @@ $(function(){
                     //$(".icons-select select").val(data.category);
                     //$("#img-1").attr("src", "/data/resources/assets/"+data.uri+"/description-1");
 
+                    //set hidden id
                     $("#hidden").val(data.id);
 
                 },

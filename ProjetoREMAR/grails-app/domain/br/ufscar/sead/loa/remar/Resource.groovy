@@ -1,8 +1,10 @@
 package br.ufscar.sead.loa.remar
 
+import br.ufscar.sead.loa.remar.Category
+
 class Resource {
 
-    static belongsTo = [owner: User]
+    static belongsTo = [owner: User, category: Category]
 
     static constraints = {
         submittedAt blank: false
