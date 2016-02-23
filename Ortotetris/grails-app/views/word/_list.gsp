@@ -1,61 +1,118 @@
 <%@ page import="br.ufscar.sead.loa.remar.Word" %>
 <script type="text/javascript" src="${resource(dir: 'js', file: 'order.js')}"></script>
-
+<script type="text/javascript" src="${resource(dir: 'js', file: 'principal.js')}"></script>
 <section id="table">
-
-    <table  id="ListTable" class="highlight centered">
-       <thead>
+    <table id="ListTable" class="highlight centered">
+        <thead>
         <tr>
-            <th id="AnswerLabel" >Palavra</th>
-            %{--<th>Word</th>--}%
-            %{--<th>Initial Position</th>--}%
+            <th>Selecionar
+                <div class="row" style="margin-bottom: -10px;">
+                    <button style="margin-left: -15px; background-color: #795548" class="btn-floating " id="BtnCheckAll"
+                            onclick="check_all()"><i class="material-icons">check_box_outline_blank</i></button>
+                    <button style="margin-left: -15px; background-color: #795548" class="btn-floating "
+                            id="BtnUnCheckAll" onclick="uncheck_all()"><i class="material-icons">done</i></button>
+                </div>
+            </th>
+            <th id="AnswerLabel">Palavra</th>
             <th>Ações</th>
         </tr>
-       </thead>
+        </thead>
         <tbody>
-            <g:each in="${wordInstanceList}" status="i" var="wordInstance">
-                <tr style="height: 50px; top: -10px; ">
-                    <td>${wordInstance.answer.toUpperCase()}</td>
-                    %{--<td>${fieldValue(bean: wordInstance, field: "word")}</td>--}%
-                    %{--<td>${fieldValue(bean: wordInstance, field: "initial_position")}</td>--}%
-                    <td>
-                        <i class="material-icons modal-trigger" data-target="showModal" id="button${wordInstance.id}" onclick="ShowWord('${wordInstance.word}','${wordInstance.answer.toUpperCase()}',${wordInstance.initial_position}, ${wordInstance.id})">games</i>
-                        <i class="material-icons modal-trigger" data-target="editModal${i}" onclick="editWord(${wordInstance.id},'${wordInstance.answer}')">edit</i>
-                        <i class="material-icons" onclick="WordDelete('${wordInstance.id}')">delete</i>
-                    </td>
-                </tr>
+        <g:each in="${wordInstanceList}" status="i" var="wordInstance">
+            <tr class="selectable_tr" style="cursor: pointer;"
+                data-id="${fieldValue(bean: wordInstance, field: "id")}" data-checked="false">
+                <td class="_not_editable"><input style="background-color: #727272" id="checklabel${i}" class="filled-in"
+                                                 type="checkbox"> <label for="checklabel${i}"></label></td>
 
-                <!-- Modal Structure -->
-                <div id="editModal${i}" class="modal">
-                    <div class="modal-content">
-                        <h4>Editar Palavra</h4>
-                        <div class="row">
-                            %{--<g:form url="[resource:wordInstance, action:'save']" >--}%
-                            <div class="row">
-                                <div class="input-field col s6 offset-s3">
-                                    <input id="EditWordLabel${i}" value="${wordInstance?.answer}"  type="text" name="answer"> <label for="EditWordLabel${i}">Digite uma nova palavra</label>
-                                    <input type="hidden" value="none" name="word"> <label></label>
-                                    <input type="hidden" value="0" name="initialPosition"> <label></label>
-                                </div>
-                            </div>
-                            %{--<g:submitButton name="update"> Salvar</g:submitButton>--}%
-                            <button onclick="UpdateWord(${wordInstance?.id}, ${i})" class="btn btn-success btn-lg modal-close">Salvar</button>
-                            %{--</g:form>--}%
-                        </div>
-                    </div>
-                </div>
-
-            </g:each>
+                <td>${wordInstance.answer.toUpperCase()}</td>
+                <td>
+                    <i class="material-icons modal-trigger" data-target="showModal" id="button${wordInstance.id}"
+                       onclick="ShowWord('${wordInstance.word}', '${wordInstance.answer.toUpperCase()}', ${wordInstance.initial_position}, ${wordInstance.id})">games</i>
+                    <i class="material-icons"
+                       onclick="EditWord('${wordInstance.answer.toUpperCase()}', ${wordInstance.id})">edit</i>
+                    <i class="material-icons" onclick="WordDelete('${wordInstance.id}')">delete</i>
+                </td>
+            </tr>
+        </g:each>
         </tbody>
     </table>
 </section>
 
-<script>
-    function UpdateWord(id, i){
-        var ans = document.getElementById("EditWordLabel"+i).value;
-        var parameters = {"id":id, "new_answer": ans};
-        <g:remoteFunction action="editWord" params="parameters" update="TableWordList"/>
 
+<!-- Modal Structure -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <h4>Editar Palavra</h4>
+
+        <div class="row">
+            <div class="row">
+                <div class="input-field col s6 offset-s3" id="editDiv">
+                    <input id="EditWordLabel" type="text" name="answer"> <label for="EditWordLabel"></label>
+                    <input id="wordId" type="hidden" name="id"> <label></label>
+                    <input type="hidden" value="none" name="word"> <label></label>
+                    <input type="hidden" value="0" name="initialPosition"> <label></label>
+                </div>
+            </div>
+            <button onclick="UpdateWord()"
+                    class="btn btn-success btn-lg modal-close my-orange">Salvar</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Structure -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <h4>Excluir Palavra</h4>
+
+        <div class="row">
+            <div class="row">
+                <div style="text-align: center;" id="warningLabel">
+                    <input id="wordIdDelete" type="hidden" name="id"> <label></label>
+                </div>
+            </div>
+
+            <div class="col offset-s8">
+                <button class="btn grey waves-effect waves-light modal-close">Não</button>
+                <button id="deleteButton" class="btn waves-effect waves-light modal-close my-orange"
+                        onclick="Delete()">Sim</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    function EditWord(answer, id) {
+        $("#editDiv").empty();
+        $("#editDiv").append("<input id='EditWordLabel' value='" + answer + "' type='text' name='answer'> <label for='EditWordLabel'></label>");
+        $("#editDiv").append("<input id='wordId' type='hidden' value='" + id + "' name='id'> <label></label>");
+        $("#editDiv").append("<input type='hidden' value='none' name='word'> <label></label>");
+        $("#editDiv").append("<input type='hidden' value='0' name='initialPosition'> <label></label>");
+        $('#editModal').openModal();
+    }
+
+    function UpdateWord() {
+        var ans = document.getElementById("EditWordLabel").value;
+        var id = document.getElementById("wordId").value;
+        var parameters = {"id": id, "new_answer": ans};
+        <g:remoteFunction action="editWord" params="parameters" update="TableWordList"/>
+    }
+
+    function WordDelete(id) {
+        $('#warningLabel').empty();
+        $("#warningLabel").append("<div> <p> Você tem certeza ?  </p> </div>");
+        $("#warningLabel").append("<input id='wordIdDelete' value='" + id + "' type='hidden' name='id'> <label></label>");
+        $('#deleteModal').openModal();
+    }
+
+    function Delete() {
+        var deleteID = document.getElementById("wordIdDelete").value;
+        var parameters = {"id": deleteID};
+        <g:remoteFunction action="WordDelete" params="parameters" update="TableWordList"/>
     }
 
 </script>

@@ -3,6 +3,9 @@
  */
 
 $(function(){
+
+    $('#BtnUnCheckAll').hide();
+
     $("#SearchLabel").keyup(function(){
         _this = this;
         $.each($("#ListTable tbody").find("tr"), function() {
@@ -13,36 +16,10 @@ $(function(){
                 $(this).show();
         });
     });
+
+
 });
 
-$(document).ready(function(){
-
-
-    //$( "#SearchButton" ).hover(
-    //    function() {
-    //        $( this ).append( $( "<span> Buscar</span>" ).fadeIn(300) );
-    //    }, function() {
-    //        $( this ).find( "span:last" ).remove();
-    //    }
-    //);
-    //
-    //$( "#CreateWordButton" ).hover(
-    //    function() {
-    //        $( this ).append( $( "<span> Nova palavra</span>" ).fadeIn(300) );
-    //    }, function() {
-    //        $( this ).find( "span:last" ).remove();
-    //    }
-    //);
-    //
-    //$( "#SaveButton" ).hover(
-    //    function() {
-    //        $( this ).append( $( "<span> Salvar banco</span>").fadeIn(300) );
-    //    }, function() {
-    //        $( this ).find( "span:last" ).remove();
-    //    }
-    //);
-
-});
 
 function AutoClickButton(id){
     var button = "#button"+id
@@ -75,4 +52,40 @@ function ShowWord(word, answer,initial_position, id) {
         }
     }
     node.innerHTML+= button_move_right
+}
+
+function check_all(){
+    console.log("selecionar todas");
+    var CheckAll = document.getElementById("BtnCheckAll");
+    var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
+    $(".filled-in:visible").prop('checked', 'checked');
+
+
+    for (var i = 0; i < trs.length; i++) {
+        if($(trs[i]).is(':visible')) {
+            $(trs[i]).attr('data-checked', "true");
+        }
+    }
+
+    $('#BtnCheckAll').hide();
+    $('#BtnUnCheckAll').show();
+
+}
+
+function uncheck_all(){
+    console.log("remover todas");
+    var UnCheckAll = document.getElementById("BtnUnCheckAll");
+    var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
+    $(".filled-in:visible").prop('checked', false);
+
+
+    for (var i = 0; i < trs.length; i++) {
+        if($(trs[i]).is(':visible')) {
+            $(trs[i]).attr('data-checked', "false");
+        }
+    }
+
+    $('#BtnUnCheckAll').hide();
+    $('#BtnCheckAll').show();
+
 }

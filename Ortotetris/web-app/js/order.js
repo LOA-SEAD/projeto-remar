@@ -2,7 +2,6 @@
  * Created by marcus on 18/08/15.
  */
 $(document).ready(function() {
-    $("#MessageDivTemplate").delay(1000).fadeOut(500);
     var table = $("#AnswerLabel").parents('table').eq(0)
     var rows = table.find('tr:gt(0)').toArray().sort(compare($("#AnswerLabel").index()))
     $("#AnswerLabel").asc = !$("#AnswerLabel").asc
