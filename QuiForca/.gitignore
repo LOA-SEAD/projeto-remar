@@ -1,3 +1,7 @@
+######################
+# begin Grails stuff #
+######################
+
 *.iws
 *Db.properties
 *Db.script
@@ -16,11 +20,23 @@ stacktrace.log
 /.link_to_grails_plugins/
 /target-eclipse/
 *.iml
+/logs
+.classpath
+.project
 
+# end Grails stuff
 
-/web-app/data/*
-!/web-app/data/source
-!/web-app/data/ForcaProcess.bpmn
-!/web-app/data/manifest.json
-!/web-app/data/moodleDB.json
-!/web-app/data/moodle.js
+##########################################
+# begin IntelliJ/IDEs/Text editors stuff #
+##########################################
+.idea
+
+# end IntelliJ/IDEs/Text editors
+
+#####################
+# begin REMAR stuff #
+#####################
+
+/web-app/data
+
+# end REMAR stuff
