@@ -26,10 +26,10 @@
 						<g:if test="${categories.size() > 0}">
 							<g:each in="${categories}" var="category">
 								<g:if test="${category.id == defaultCategory.id}">
-									<option class="option" value="${category.name}" selected>${category.name}</option>
+									<option class="option" value="${category.id}" selected>${category.name}</option>
 								</g:if>
 								<g:else>
-									<option class="option" value="${category.name}">${category.name}</option>
+									<option class="option" value="${category.id}">${category.name}</option>
 								</g:else>
 							</g:each>
 						</g:if>

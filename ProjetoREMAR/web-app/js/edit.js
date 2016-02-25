@@ -59,7 +59,7 @@ $(function(){
         formData.append('img1',$("#img1Preview").attr("src"));
         formData.append('img2',$("#img2Preview").attr("src"));
         formData.append('img3',$("#img3Preview").attr("src"));
-        formData.append('category', $("select").find(":selected").text());
+        formData.append('category', $("select").val());
 
 
         if($(name).val()==null || $(name).val() == "") {
