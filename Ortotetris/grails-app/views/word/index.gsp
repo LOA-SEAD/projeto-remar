@@ -105,15 +105,21 @@
 <!-- Modal Structure -->
 <div id="showModal" class="modal">
     <div class="modal-content">
-        <div id="showWordModal">
+        <div class="row"></div>
+        <div class="row"></div>
+
+        <div class="row"  id="showWordModal">
+
 
         </div>
+
+    </div>
+    <div class="modal-footer">
     </div>
 </div>
 
 <script type="text/javascript" defer="defer">
     $(document).ready(function () {
-
 
         $('.modal-trigger').leanModal({
             ready: function () {
@@ -161,8 +167,6 @@
         $('#NewWordLabel').val("");
         $('#createModal').closeModal();
     }
-
-
 
 
 </script>
