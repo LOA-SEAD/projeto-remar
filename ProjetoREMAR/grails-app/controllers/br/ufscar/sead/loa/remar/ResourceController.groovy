@@ -37,18 +37,13 @@ class ResourceController {
     }
 
     @Transactional
-    def update(Resource instance){
+    def update(Resource instance) {
         def path = new File(servletContext.getRealPath("/data/resources/assets/${instance.uri}"))
         path.mkdirs()
-
-        def newInstance = Resource.get(instance.id) //get data in database
 
 //        MultipartFile img1 = request.getFile('img1')
 //        MultipartFile img2 = request.getFile('img2')
 //        MultipartFile img3 = request.getFile('img3')
-
-        log.debug(params)
-        log.debug(instance)
 
         if(params.img1 != null && params.img1 != ""){
             log.debug("entrou img1" + params.img1)
@@ -66,34 +61,9 @@ class ResourceController {
             img3.renameTo(new File(path,"description-3"))
         }
 
-        newInstance.description = params.description
-        newInstance.name = params.name
-        newInstance.comment = "Em avaliação"
-        //TODO colocar a categoria
-
-        log.debug(instance)
-        log.debug(newInstance)
-        log.debug(params)
-        log.debug(instance.category)
-        log.debug(Category.findByName(params.category))
-
-        if(Category.findByName(params.category)){
-            println Category.findByName(params.category)
-            newInstance.setCategory(Category.findByName(params.category))
-        }else{
-            log.debug("CATEGORY IS NOT EXIST!")
-        }
-
-        log.debug(newInstance.category)
-
-        newInstance.save flush: true
-
-        println newInstance.errors
-
-        log.debug(Resource.read(instance.id))
+        instance.save flush: true
 
         render true;
-//       redirect action: "index", params: [id: resourceInstance.id]
     }
 
     @Transactional
@@ -433,7 +403,7 @@ class ResourceController {
         def resourceJson = resourceInstance as JSON
 
         render view: 'edit', model:[resourceInstance: resourceInstance, categories: Category.list(sort:"name"),
-                                    defaultCategory: resourceInstance.category]
+                                    defaultCategory: resourceInstance.category ]
     }
 
     def getResourceInstance(long id){
