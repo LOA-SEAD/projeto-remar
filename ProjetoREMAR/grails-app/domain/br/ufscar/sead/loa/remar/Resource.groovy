@@ -1,6 +1,6 @@
 package br.ufscar.sead.loa.remar
 
-import br.ufscar.sead.loa.remar.Category
+
 
 class Resource {
 
