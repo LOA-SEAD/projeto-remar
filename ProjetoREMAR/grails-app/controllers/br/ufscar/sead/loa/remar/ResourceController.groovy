@@ -160,13 +160,14 @@ class ResourceController {
             ant.copy(file: tmp, todir: servletContext.getRealPath("/images"))
         }
 
-        tmp = new File("${expandedWarPath}/remar/${manifest.bpmn}.bpmn")
+        tmp = new File("${expandedWarPath}/remar/process.json")
         if (!tmp.exists()) { // bmpn not found
             this.rejectWar(resourceInstance, 'bpmn not found')
             redirect action: "index"
             return
         } else {
-            ant.copy(file: tmp, todir: servletContext.getRealPath("/processes"))
+            ant.mkdir(dir: servletContext.getRealPath("/propeller"))
+            ant.copy(file: tmp, todir: servletContext.getRealPath("/propeller/${resourceInstance.uri}"))
         }
 
         tmp = new File("${expandedWarPath}/remar/source")
