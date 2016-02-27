@@ -16,7 +16,7 @@ class BootStrap {
 
         MongoHelper.instance.init()
 
-        Propeller.instance.init([dbName: 'remar-propeller', wipeDb: true])
+        Propeller.instance.init([dbName: 'remar-propeller', wipeDb: false])
 
         HttpServletRequest.metaClass.isXhr = { ->
             'XMLHttpRequest' == delegate.getHeader('X-Requested-With')
