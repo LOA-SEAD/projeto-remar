@@ -2,6 +2,7 @@ package br.ufscar.sead.loa.remar
 
 import com.mongodb.client.MongoDatabase
 import com.mongodb.MongoClient
+import com.mongodb.util.JSON
 import org.bson.Document
 
 
@@ -18,13 +19,20 @@ class MongoHelper {
     }
 
     def createCollection(String collectionName) {
-        if (collectionName in db.listCollectionNames()) {
-            println "Collection '${collectionName}' already exists."
+        def dbExists = false;
+
+        db.listCollectionNames().each {
+            if (it.equals(collectionName)) {
+                dbExists = true
+            }
         }
-        else {
+
+        if (!dbExists) {
             db.createCollection(collectionName)
-            println "COllection '${collectionName}' succssesfully created."
+            return false
         }
+
+        return true
     }
 
     def insertData(String collection, Document data) {
