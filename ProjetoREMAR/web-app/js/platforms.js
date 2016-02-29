@@ -119,10 +119,10 @@ $(function(){
                 loader.hide(500);
                 if (endpoint == "moodle" ) {
                     clearInterval(intervalId);
-                    $(el).html(originalText +" <span class='chip center'>"+
-                                                "Vincule sua conta ao Moodle"+
-                                                "<i class='material-icons'>close</i>"+
-                                              "</span>");
+                    $(el).html(originalText +
+                            " <span class='chip center'>"+
+                            "Utilize o jogo no seu Moodle."+
+                            "</span>");
                     return
                 }
                 clearInterval(intervalId);

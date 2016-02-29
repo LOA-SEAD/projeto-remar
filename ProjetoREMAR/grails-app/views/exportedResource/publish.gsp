@@ -115,10 +115,6 @@ Time: 09:55
                                                     <input type="checkbox" name="${platform.toLowerCase()}" id="${platform.toLowerCase()}" class="checkbox-platform" />
                                                     <label for="${platform.toLowerCase()}" data-resource-id="${resourceId}" class="checkbox-label" data-position="right" data-delay="50" data-tooltip="${platform.toLowerCase()}">
                                                         ${platform.toLowerCase()}
-                                                        <span class="chip center">
-                                                            Em breve
-                                                            <i class="material-icons">close</i>
-                                                        </span>
                                                     </label>
                                                 </p>
                                             </g:if>

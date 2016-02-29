@@ -191,9 +191,13 @@ class ResourceController {
             def collectionName = json['collection_name'] as String
             log.debug collectionName
             //def mongodb = MongoHelper.instance.init()
-            MongoHelper.instance.createCollection(collectionName)
+            if (MongoHelper.instance.createCollection(collectionName)) {
+                log.debug "Collection name '${collectionName}' successfully created."
+            }
+            else {
+                log.debug "Collection '${collectionName}' already exists."
+            }
 
-            log.debug "Collection name '${collectionName}' successfully created."
         }
 
 

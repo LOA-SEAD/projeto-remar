@@ -197,36 +197,8 @@ class ExportedResourceController {
     def moodle(ExportedResource exportedResourceInstance) {
 
         //pega os dados de como será a tabela no moodle
-        def file = new File(servletContext.getRealPath("/data/resources/sources/${exportedResourceInstance.resource.uri}/moodle/moodleBD.json"))
+        def file = new File(servletContext.getRealPath("/data/resources/sources/${exportedResourceInstance.resource.uri}/bd.json"))
         def inputJson = new JsonSlurper().parseText(file.text)
-
-        //it needs to change to a dynamic method
-        def token = Moodle.findAll().first().token
-
-        def http, path
-
-        if(Environment.current == Environment.DEVELOPMENT) {
-            http = new HTTPBuilder("http://localhost")
-            path = "/moodle/webservice/rest/server.php"
-        }
-        else {
-            http = new HTTPBuilder("http://remar.dc.ufscar.br:9090")
-            path = "/webservice/rest/server.php"
-        }
-
-        log.debug "Token: " + token
-        log.debug "Path: " + path
-
-        //Creates the table in the moodle
-        def resp = http.post(path: path,
-                query: [wstoken: token,
-                        wsfunction: "mod_remarmoodle_create_table",
-                        json: file.text])
-        println resp
-        log.debug "Resp: " + resp
-
-        //Save the table name in the object
-        exportedResourceInstance.moodleTableName = inputJson.table_name
 
         //Save the moodleUrl (same as webWurl)
         exportedResourceInstance.moodleUrl = exportedResourceInstance.webUrl
@@ -256,7 +228,6 @@ class ExportedResourceController {
                 response.status = 409 // conflited error
             }
         } else {
-            log.debug("ta aki")
             log.debug(params.name)
             instance.name = params.name
             instance.save(flush: true)

@@ -1,4 +1,35 @@
-2016-02-23 10:59:28,346 [main] INFO  webxml.WebxmlGrailsPlugin  - Loading default config file: class DefaultWebXmlConfig
-2016-02-23 10:59:28,356 [main] WARN  webxml.WebxmlGrailsPlugin  - Did not find application config file: WebXmlConfig
-2016-02-23 10:59:29,005 [main] INFO  webxml.WebxmlGrailsPlugin  - Loading default config file: class DefaultWebXmlConfig
-2016-02-23 10:59:29,007 [main] WARN  webxml.WebxmlGrailsPlugin  - Did not find application config file: WebXmlConfig
+2016-02-29 09:14:44,435 [main] INFO  webxml.WebxmlGrailsPlugin  - Loading default config file: class DefaultWebXmlConfig
+2016-02-29 09:14:44,444 [main] WARN  webxml.WebxmlGrailsPlugin  - Did not find application config file: WebXmlConfig
+2016-02-29 09:14:45,006 [main] INFO  webxml.WebxmlGrailsPlugin  - Loading default config file: class DefaultWebXmlConfig
+2016-02-29 09:14:45,008 [main] WARN  webxml.WebxmlGrailsPlugin  - Did not find application config file: WebXmlConfig
+2016-02-29 09:14:49,080 [localhost-startStop-1] INFO  [localhost].[/escolamagica]  - Initializing Spring root WebApplicationContext
+2016-02-29 09:14:52,298 [localhost-startStop-1] INFO  hibernate4.HibernatePluginSupport  - Set db generation strategy to 'update' for datasource DEFAULT
+2016-02-29 09:14:52,345 [localhost-startStop-1] INFO  hibernate4.HibernatePluginSupport  - Set db generation strategy to 'update' for datasource remar
+2016-02-29 09:14:53,196 [localhost-startStop-1] INFO  cache.CacheBeanPostProcessor  - postProcessBeanDefinitionRegistry start
+2016-02-29 09:14:53,205 [localhost-startStop-1] INFO  cache.CacheBeanPostProcessor  - postProcessBeanFactory
+2016-02-29 09:14:54,157 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [ownerId] of domain class br.ufscar.sead.loa.escolamagica.remar.Theme has type [long] and doesn't support constraint [blank]. This constraint will not be checked during validation.
+2016-02-29 09:14:54,158 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [ownerId] of domain class br.ufscar.sead.loa.escolamagica.remar.Theme has type [long] and doesn't support constraint [nullable]. This constraint will not be checked during validation.
+2016-02-29 09:14:54,158 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [processId] of domain class br.ufscar.sead.loa.escolamagica.remar.Theme has type [long] and doesn't support constraint [nullable]. This constraint will not be checked during validation.
+2016-02-29 09:14:54,158 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [taskId] of domain class br.ufscar.sead.loa.escolamagica.remar.Theme has type [long] and doesn't support constraint [nullable]. This constraint will not be checked during validation.
+2016-02-29 09:14:54,864 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [firstAccess] of domain class br.ufscar.sead.loa.remar.User has type [boolean] and doesn't support constraint [blank]. This constraint will not be checked during validation.
+2016-02-29 09:14:54,864 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [firstAccess] of domain class br.ufscar.sead.loa.remar.User has type [boolean] and doesn't support constraint [nullable]. This constraint will not be checked during validation.
+2016-02-29 09:14:56,215 [localhost-startStop-1] INFO  scaffolding.AbstractGrailsTemplateGenerator  - Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@4d04dd5d: startup date [Mon Feb 29 09:14:52 BRT 2016]; parent: Root WebApplicationContext]
+2016-02-29 09:14:58,564 [localhost-startStop-1] WARN  intercept.AnnotationFilterInvocationDefinition  - replaced rule for '/theme/index' with tokens [permitAll] with tokens [permitAll]
+2016-02-29 09:14:58,564 [localhost-startStop-1] WARN  intercept.AnnotationFilterInvocationDefinition  - replaced rule for '/theme/index.*' with tokens [permitAll] with tokens [permitAll]
+2016-02-29 09:14:58,564 [localhost-startStop-1] WARN  intercept.AnnotationFilterInvocationDefinition  - replaced rule for '/theme/index/**' with tokens [permitAll] with tokens [permitAll]
+2016-02-29 09:14:58,564 [localhost-startStop-1] WARN  intercept.AnnotationFilterInvocationDefinition  - replaced rule for '/question/index' with tokens [permitAll] with tokens [permitAll]
+2016-02-29 09:14:58,564 [localhost-startStop-1] WARN  intercept.AnnotationFilterInvocationDefinition  - replaced rule for '/question/index.*' with tokens [permitAll] with tokens [permitAll]
+2016-02-29 09:14:58,564 [localhost-startStop-1] WARN  intercept.AnnotationFilterInvocationDefinition  - replaced rule for '/question/index/**' with tokens [permitAll] with tokens [permitAll]
+2016-02-29 09:14:59,490 [localhost-startStop-1] INFO  databasemigration.MigrationRunner  - updateOnStart disabled for dataSource_remar; not running migrations
+2016-02-29 09:14:59,490 [localhost-startStop-1] INFO  databasemigration.MigrationRunner  - updateOnStart disabled for dataSource; not running migrations
+2016-02-29 09:14:59,521 [localhost-startStop-1] INFO  ScaffoldingGrailsPlugin  - configuring scaffolding...
+2016-02-29 09:14:59,523 [localhost-startStop-1] INFO  ScaffoldingGrailsPlugin  - done configuring scaffolding.
+2016-02-29 09:14:59,596 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [ownerId] of domain class br.ufscar.sead.loa.escolamagica.remar.Theme has type [long] and doesn't support constraint [blank]. This constraint will not be checked during validation.
+2016-02-29 09:14:59,596 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [ownerId] of domain class br.ufscar.sead.loa.escolamagica.remar.Theme has type [long] and doesn't support constraint [nullable]. This constraint will not be checked during validation.
+2016-02-29 09:14:59,596 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [processId] of domain class br.ufscar.sead.loa.escolamagica.remar.Theme has type [long] and doesn't support constraint [nullable]. This constraint will not be checked during validation.
+2016-02-29 09:14:59,596 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [taskId] of domain class br.ufscar.sead.loa.escolamagica.remar.Theme has type [long] and doesn't support constraint [nullable]. This constraint will not be checked during validation.
+2016-02-29 09:14:59,596 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [firstAccess] of domain class br.ufscar.sead.loa.remar.User has type [boolean] and doesn't support constraint [blank]. This constraint will not be checked during validation.
+2016-02-29 09:14:59,597 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [firstAccess] of domain class br.ufscar.sead.loa.remar.User has type [boolean] and doesn't support constraint [nullable]. This constraint will not be checked during validation.
+2016-02-29 09:14:59,597 [localhost-startStop-1] INFO  context.GrailsConfigUtils  - [GrailsContextLoader] Grails application loaded.
+2016-02-29 09:14:59,693 [localhost-startStop-1] INFO  [localhost].[/escolamagica]  - Initializing Spring FrameworkServlet 'grails'
+2016-02-29 09:14:59,818 [main] INFO  http11.Http11Protocol  - Starting ProtocolHandler ["http-bio-7070"]
