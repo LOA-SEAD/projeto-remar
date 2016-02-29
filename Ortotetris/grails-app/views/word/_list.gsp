@@ -14,9 +14,9 @@
                 </div>
             </th>
             <th id="AnswerLabel">Palavra</th>
-            <th> Word</th>
-            <th> Posição Inicial</th>
-            <th> ID</th>
+            %{--<th> Word</th>--}%
+            %{--<th> Posição Inicial</th>--}%
+            %{--<th> ID</th>--}%
             <th>Ações</th>
         </tr>
         </thead>
@@ -24,26 +24,26 @@
         <g:each in="${wordInstanceList}" status="i" var="wordInstance">
             <tr class="selectable_tr" style="cursor: pointer;"
                 data-id="${fieldValue(bean: wordInstance, field: "id")}" data-checked="false">
-                <td class="_not_editable"><input style="background-color: #727272" id="checklabel${i}" class="filled-in"
-                                                 type="checkbox"> <label for="checklabel${i}"></label></td>
+            <td class="_not_editable"><input style="background-color: #727272" id="checklabel${i}" class="filled-in"
+                                             type="checkbox"> <label for="checklabel${i}"></label></td>
 
-                <td >${wordInstance.answer.toUpperCase()}
+            <td>${wordInstance.answer.toUpperCase()}
                 <input type="hidden" value="${wordInstance.answer.toUpperCase()}" id="answerNew${wordInstance.id}">
-                </td>
-                <td >
-                <input type="hidden" value="${wordInstance.word}" id="wordNew${wordInstance.id}">
-                </td>
-                <td >${wordInstance.initial_position}
-                <input id="position${wordInstance.id}" value="${wordInstance.initial_position}" type="hidden" >
-                </td>
-                <td>${wordInstance.id}</td>
-                <td>
-                    <i class="material-icons"  id="button${wordInstance.id}"
-                       onclick="ShowWord('${wordInstance.word}', '${wordInstance.answer.toUpperCase()}', ${wordInstance.initial_position}, ${wordInstance.id})">games</i>
-                    <i class="material-icons"
-                       onclick="EditWord('${wordInstance.answer.toUpperCase()}', ${wordInstance.id})">edit</i>
-                    <i class="material-icons" onclick="WordDelete('${wordInstance.id}')">delete</i>
-                </td>
+            </td>
+        %{--<td > ${wordInstance.word.toUpperCase()}--}%
+            <input type="hidden" value="${wordInstance.word}" id="wordNew${wordInstance.id}">
+            </td>
+        %{--<td >${wordInstance.initial_position}--}%
+            <input id="position${wordInstance.id}" value="${wordInstance.initial_position}" type="hidden">
+            </td>
+        %{--<td>${wordInstance.id}</td>--}%
+            <td>
+                <i class="material-icons" id="button${wordInstance.id}"
+                   onclick="ShowWord('${wordInstance.word}', '${wordInstance.answer.toUpperCase()}', ${wordInstance.initial_position}, ${wordInstance.id})">games</i>
+                <i class="material-icons"
+                   onclick="EditWord('${wordInstance.answer.toUpperCase()}', ${wordInstance.id})">edit</i>
+                <i class="material-icons" onclick="WordDelete('${wordInstance.id}')">delete</i>
+            </td>
             </tr>
         </g:each>
         </tbody>
@@ -76,12 +76,14 @@
 <div id="deleteModal" class="modal">
     <div class="modal-content">
         <h4>Excluir Palavra</h4>
+
         <div class="row">
             <div class="row">
                 <div style="text-align: center;" id="warningLabel">
                     <input id="wordIdDelete" type="hidden" name="id"> <label></label>
                 </div>
             </div>
+
             <div class="col offset-s8">
                 <button class="btn grey waves-effect waves-light modal-close">Não</button>
                 <button id="deleteButton" class="btn waves-effect waves-light modal-close my-orange"

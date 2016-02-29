@@ -17,6 +17,19 @@ $(function(){
         });
     });
 
+    $('#ListTable tr td:not(:last-child)').click(function (event) {
+        var tr = this.closest('tr');
+        if($(tr).attr('data-checked') == "true") {
+            $(tr).attr('data-checked', "false");
+            $(':checkbox', this.closest('tr')).prop('checked', false);
+        }
+        else {
+            $(tr).attr('data-checked', "true");
+            $(':checkbox', this.closest('tr')).prop('checked', 'checked');
+        }
+
+    });
+
 
 });
 
@@ -136,3 +149,4 @@ function uncheck_all(){
     $('#BtnCheckAll').show();
 
 }
+

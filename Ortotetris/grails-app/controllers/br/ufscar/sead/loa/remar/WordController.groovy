@@ -205,12 +205,18 @@ class WordController {
 
     }
 
-    def toJsonAnswer() {
-        def list = Word.getAll();
+    def toJson() {
+        def list = Word.getAll(params.ids.split(',').toList())
         def fileName = "gabaritos.txt"
+        def fileName2 = "palavras.txt"
 
         int count = 0;
+        int count2= 0;
+
+
         File file = new File("$fileName");
+        File file2 = new File("$fileName2");
+
         PrintWriter pw = new PrintWriter(file);
         pw.write("{\n \t\"c2array\": true,\n\t\"size\":[" + list.size() +",1,1],\n\t\"data\":[\n\t\t    ")
         for(int i=0;i<list.size()-1;i++) {
@@ -225,29 +231,21 @@ class WordController {
         pw.write("[[\""+list[list.size()-1].getAnswer().toUpperCase()+"\"]]\n\t       ]")
         pw.write("\n}")
         pw.close();
-        render template: 'message', model: [WordMessage: "Banco atualizado"]
-    }
 
-    def toJsonWord() {
-        def list = Word.getAll();
-        def fileName = "palavras.txt"
-        int count=0;
-        File file = new File("$fileName");
-        PrintWriter pw = new PrintWriter(file);
-        pw.write("{\n \t\"c2array\": true,\n\t\"size\":[" + list.size() +",1,1],\n\t\"data\":[\n\t\t    ")
+        PrintWriter pw2 = new PrintWriter(file2);
+        pw2.write("{\n \t\"c2array\": true,\n\t\"size\":[" + list.size() +",1,1],\n\t\"data\":[\n\t\t    ")
         for(int i=0;i<list.size()-1;i++) {
-            pw.write("[[\"" + list[i].getWord() + "\"]],")
-            count++
-            if(count==14)
+            pw2.write("[[\"" + list[i].getWord() + "\"]],")
+            count2++
+            if(count2==14)
             {
-                count=0;
-                pw.write("\n            ")
+                count2=0;
+                pw2.write("\n            ")
             }
         }
-        pw.write("[[\""+list[list.size()-1].getWord()+"\"]]\n\t       ]")
-        pw.write("\n}")
-        pw.close();
-        render template: 'message', model: [WordMessage: "Banco atualizado"]
+        pw2.write("[[\""+list[list.size()-1].getWord()+"\"]]\n\t       ]")
+        pw2.write("\n}")
+        pw2.close();
 
     }
 

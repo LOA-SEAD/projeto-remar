@@ -141,7 +141,8 @@ grails.plugin.springsecurity.authority.className = 'br.ufscar.sead.loa.remar.Rol
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                              ['permitAll'],
 	'/index':                         ['permitAll'],
-	'/index.gsp':                     ['permitAll'],
+    '/toJson/**':                     ['permitAll'],
+    '/index.gsp':                     ['permitAll'],
 	'/assets/**':                     ['permitAll'],
 	'/**/js/**':                      ['permitAll'],
 	'/**/css/**':                     ['permitAll'],

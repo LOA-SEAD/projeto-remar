@@ -87,7 +87,6 @@
         <h4>Criar Palavra</h4>
 
         <div class="row">
-            %{--<g:form url="[resource:wordInstance, action:'save']" >--}%
             <div class="row" id="buttonDiv">
                 <div class="input-field col s6 offset-s3" id="parametersNewWord">
                     <input id="NewWordLabel" type="text" name="answer"> <label
@@ -97,7 +96,7 @@
                 </div>
             </div>
             <button onclick="SaveNewWord()" class="btn btn-success btn-lg my-orange">Criar</button>
-            %{--</g:form>--}%
+
         </div>
     </div>
 </div>
@@ -155,8 +154,17 @@
     }
 
     function SaveToJson() {
-        <g:remoteFunction action="toJsonAnswer" update="MessageDiv"/>
-        <g:remoteFunction action="toJsonWord" update="MessageDiv" />
+        var list="";
+        var trs = document.getElementById('ListTable').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
+        console.log(trs.length);
+        for (var i = 0; i < trs.length; i++) {
+            if ($(trs[i]).attr('data-checked') == "true") {
+                list += $(trs[i]).attr('data-id') + ',';
+            }
+        }
+
+        var parameters = {"ids": list }
+        <g:remoteFunction action="toJson" params="parameters" />
     }
 
     function SaveNewWord() {
