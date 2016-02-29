@@ -29,10 +29,12 @@
             </div>
             <div class="input-field col s6">
                 <select>
-                    <option value="1" selected>Todas</option>
-                    <option value="2">Ação</option>
-                    <option value="3">Aventura</option>
-                    <option value="4">Educacional</option>
+                    <option class="option" value="-1" selected>Todas</option>
+                    <g:if test="${categories.size() > 0}">
+                        <g:each in="${categories}" var="category">
+                            <option class="option" value="${category.id}">${category.name}</option>
+                        </g:each>
+                    </g:if>
                 </select>
                 <label>Categoria</label>
             </div>
@@ -52,7 +54,8 @@
                             <div class="card-content">
                                 <div class="details">
                                     <a class="card-click-target"  href="/resource/show/${gameInstance.id}" aria-hidden="true" tabindex="-1"></a>
-                                    <a class="title card-name"  href="/resource/show/${gameInstance.id}" title="${gameInstance.name}" aria-hidden="true" tabindex="-1">${gameInstance.name}</a>
+                                    <a class="title card-name" data-category="${gameInstance.category.id}" href="/resource/show/${gameInstance.id}" title="${gameInstance.name}" aria-hidden="true" tabindex="-1">${gameInstance.name}</a>
+                                    <var></var>
                                     <div class="subtitle-container">
                                         <p class="subtitle">Feito por: ${gameInstance.owner.firstName}</p>
                                     </div>

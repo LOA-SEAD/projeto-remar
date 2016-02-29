@@ -254,6 +254,8 @@ class ExportedResourceController {
         model.hasNextPage = params.offset + threshold < model.instanceCount
         model.hasPreviousPage = params.offset > 0
 
+        model.categories = Category.list(sort:"name")
+
         println model.pageCount
 
         render view: "publicGames", model: model
@@ -263,6 +265,7 @@ class ExportedResourceController {
         def model = [:]
 
         model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id))
+        model.categories = Category.list(sort:"name")
 
         render view: "myGames", model: model
     }

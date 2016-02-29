@@ -29,10 +29,12 @@
         </div>
         <div class="input-field col s6">
             <select>
-                <option value="1" selected>Todas</option>
-                <option value="2">Ação</option>
-                <option value="3">Aventura</option>
-                <option value="4">Educacional</option>
+                <option class="option" value="-1" selected>Todas</option>
+                <g:if test="${categories.size() > 0}">
+                    <g:each in="${categories}" var="category">
+                        <option class="option" value="${category.id}">${category.name}</option>
+                    </g:each>
+                </g:if>
             </select>
             <label>Categoria</label>
         </div>
@@ -55,7 +57,7 @@
                         <div class="card-content">
                             <div class="details">
                                 <p class="card-click-targ" aria-hidden="true" tabindex="-1"></p>
-                                <span class="title card-name activator" title="${myExportedResourceInstance.name}" aria-hidden="true" tabindex="-1">${myExportedResourceInstance.name}</span>
+                                <span class="title card-name activator" data-category="${myExportedResourceInstance.resource.category.id}" title="${myExportedResourceInstance.name}" aria-hidden="true" tabindex="-1">${myExportedResourceInstance.name}</span>
                                 <div class="subtitle-container">
                                     <p class="subtitle">Feito por: ${myExportedResourceInstance.owner.firstName}</p>
                                 </div>

@@ -60,6 +60,7 @@ class ResourceController {
             def img3 = new File(servletContext.getRealPath("${params.img3}"))
             img3.renameTo(new File(path,"description-3"))
         }
+        instance.comment = "Em avaliação"
 
         instance.save flush: true
 
@@ -397,6 +398,7 @@ class ResourceController {
         def model = [:]
 
         model.gameInstanceList = Resource.findAllByStatus('approved') // change to #findAllByActive?
+        model.categories = Category.list(sort:"name")
 
         render view: "customizableGames", model: model
     }
