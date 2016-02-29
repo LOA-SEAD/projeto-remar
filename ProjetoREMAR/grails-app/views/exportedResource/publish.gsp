@@ -112,8 +112,8 @@ Time: 09:55
                                         <g:else>
                                             <g:if test="${platform.toLowerCase() != 'web' && platform.toLowerCase() != 'android' && platform.toLowerCase() != 'linux'}">
                                                 <p>
-                                                    <input type="checkbox" name="${platform.toLowerCase()}" id="${platform.toLowerCase()}" class="checkbox-platform" disabled/>
-                                                    <label for="${platform.toLowerCase()}"  class="checkbox-label" data-position="right" data-delay="50" data-tooltip="${platform.toLowerCase()}">
+                                                    <input type="checkbox" name="${platform.toLowerCase()}" id="${platform.toLowerCase()}" class="checkbox-platform" />
+                                                    <label for="${platform.toLowerCase()}" data-resource-id="${resourceId}" class="checkbox-label" data-position="right" data-delay="50" data-tooltip="${platform.toLowerCase()}">
                                                         ${platform.toLowerCase()}
                                                         <span class="chip center">
                                                             Em breve
@@ -125,7 +125,7 @@ Time: 09:55
                                             <g:else>
                                                 <p>
                                                     <input type="checkbox" name="${platform.toLowerCase()}" id="${platform.toLowerCase()}" class="checkbox-platform"/>
-                                                    <label for="${platform.toLowerCase()}" data-resource-id="${resourceId}" class="checkbox-label"" data-position="right" data-delay="50" data-tooltip="${platform.toLowerCase()}">
+                                                    <label for="${platform.toLowerCase()}" data-resource-id="${resourceId}" class="checkbox-label" data-position="right" data-delay="50" data-tooltip="${platform.toLowerCase()}">
                                                         ${platform}
                                                     </label>
                                                 </p>
@@ -133,86 +133,7 @@ Time: 09:55
                                         </g:else>
                                         <br>
                                     </g:each>
-                                    <!--
-                                    <g:each in="${platforms}" var="platform">
-                                        <g:if test="${platform.contains(':')}">
-                                            <p>
-                                                <input type="checkbox" id="web" checked="checked" class="checkbox-platform"  disabled />
-                                                <label for="web" class="tooltipped" data-position="right" data-delay="50" data-tooltip="Web">
-                                                    <i class="fa fa-globe" ></i>
-                                                    <span class="chip center">
-                                                        <a target="_blank" href="${platform.substring(platform.indexOf(':') + 1)}"> Acessar </a>
-                                                        <i class="fa fa-link"></i>
-                                                    </span>
-                                                    %{--<g:set var="link" value="${platform.substring(platform.indexOf(':') + 1)}" scope="page" />--}%
-                                                </label>
-                                            </p>
-                                        </g:if>
-                                        <g:else>
-                                            <g:if test="${platform.toLowerCase() == 'windows'}">
-                                                <p>
-                                                    <input type="checkbox" name="${platform.toLowerCase()}" id="${platform.toLowerCase()}" class="checkbox-platform" disabled readonly/>
-                                                    <label for="${platform.toLowerCase()}" data-resource-id="${resourceId}" class="tooltipped" data-position="right" data-delay="50" data-tooltip="Windows">
-                                                        <i class="fa fa-windows"></i>
-                                                        <span class="label label-warning">Em breve</span>
-                                                    </label>
-                                                </p>
-                                            </g:if>
-                                            <g:else>
-                                                <g:if test="${platform.toLowerCase() == 'moodle'}">
-                                                    <g:if test="${session.user.moodleUsername == null}">
-                                                        <p>
-                                                            <input type="checkbox" name="${platform.toLowerCase()}" id="${platform.toLowerCase()}" class="checkbox-platform" disabled readonly/>
-                                                            <label for="${platform.toLowerCase()}" data-resource-id="${resourceId}" class="tooltipped" data-position="right" data-delay="50" data-tooltip="Moodle">
-                                                                <i class="fa fa-graduation-cap"></i>
-                                                                <span class="chip center">
-                                                                    Vincule sua conta ao Moodle
-                                                                    <i class="material-icons">close</i>
-                                                                </span>
-                                                            </label>
-                                                        </p>
-                                                    </g:if>
-                                                    <g:else>
-                                                        <p>
-                                                            <input type="checkbox" name="${platform.toLowerCase()}" id="${platform.toLowerCase()}" class="checkbox-platform"/>
-                                                            <label for="${platform.toLowerCase()}" data-resource-id="${resourceId}" class="tooltipped" data-position="right" data-delay="50" data-tooltip="Moodle">
-                                                                <i class="fa fa-graduation-cap"></i>
-                                                            </label>
-                                                        </p>
-                                                    </g:else>
-                                                </g:if>
-                                                <g:else>
-                                                    <g:if test="${platform.toLowerCase() == 'android'}">
-                                                        <p>
-                                                            <input type="checkbox" name="${platform.toLowerCase()}" id="${platform.toLowerCase()}" class="checkbox-platform" disabled readonly/>
-                                                            <label for="${platform.toLowerCase()}" data-resource-id="${resourceId}" class="tooltipped" data-position="right" data-delay="50" data-tooltip="Android">
-                                                                <i class="fa fa-android"></i>
-                                                                %{--<a target="_blank" href="${platform.substring(platform.indexOf(':') + 1)}"> Acessar </a>--}%
-                                                            </label>
-                                                        </p>
-                                                    </g:if>
-                                                    <g:else>
-                                                        <g:if test="${platform.toLowerCase() == 'android'}">
-                                                            <p>
-                                                                <input type="checkbox" name="${platform.toLowerCase()}" id="${platform.toLowerCase()}" class="checkbox-platform"/>
-                                                                <label for="${platform.toLowerCase()}" data-resource-id="${resourceId}" class="tooltipped" data-position="right" data-delay="50" data-tooltip="Linux">
-                                                                    <i class="fa fa-linux"></i>
-                                                                </label>
-                                                            </p>
-                                                        </g:if>
-                                                    </g:else>
-                                                </g:else>
-                                            </g:else>
-                                        </g:else>
-                                    </g:each>
-                                    -->
-                                    %{--<p>--}%
-                                        %{--<input type="checkbox" name="windows" id="windows" class="checkbox-platform" disabled readonly/>--}%
-                                        %{--<label for="windows"  class="tooltipped" data-position="right" data-delay="50" data-tooltip="Windows">--}%
-                                            %{--<i class="fa fa-windows"></i>--}%
-                                            %{--<a target="_blank" href="${platform.substring(platform.indexOf(':') + 1)}"> Acessar </a>--}%
-                                        %{--</label>--}%
-                                    %{--</p>--}%
+
                             </div>
                             <div class="row">
                                 <div class="col s12" >

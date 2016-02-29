@@ -94,10 +94,7 @@ $(function(){
         }
 
         $("input[type='checkbox']").each(function() {
-            if (this.checked && this.id != "web") {
-            //if (this.checked) {
-            //    console.log("chega aki!");
-
+            if (this.checked && !this.disabled) {
                 $(this).removeClass('checkbox-platform');
                 var id = this.id;
                 this.disabled = true;
