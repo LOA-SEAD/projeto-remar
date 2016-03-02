@@ -26,4 +26,5 @@ class ExportedResource {
     Date exportedAt
 
     String type //should be "public", "private" or "group"
+    String processId
 }
