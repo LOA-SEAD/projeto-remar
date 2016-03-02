@@ -24,12 +24,6 @@ class IndexController {
             model.myExportedResourcesList = ExportedResource.findAll("from ExportedResource as e where e.type='public' and e.owner=:owner order by e.id desc",[owner: User.get(session.user.id)])
 //            model.myExportedResourcesList = ExportedResource.findByTypeAndOwner('public',User.get(session.user.id))
 
-
-
-            log.debug model
-            log.debug "RESULT: " + model.publicExportedResourcesList.size()
-
-
             def instances = []
             runtimeService.createProcessInstanceQuery().variableValueEquals("ownerId", "1").list().each {instance ->
                 def i = []
