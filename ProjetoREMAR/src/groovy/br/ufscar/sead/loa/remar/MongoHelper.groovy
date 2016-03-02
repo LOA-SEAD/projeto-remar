@@ -3,6 +3,7 @@ package br.ufscar.sead.loa.remar
 import com.mongodb.client.MongoDatabase
 import com.mongodb.MongoClient
 import org.bson.Document
+import org.bson.types.ObjectId
 
 
 @Singleton
@@ -31,4 +32,15 @@ class MongoHelper {
         db.getCollection(collection).insertOne(data)
     }
 
+    String[] getFilePaths(String... ids) {
+        def paths = []
+        def collection = this.db.getCollection('file')
+
+        for (id in ids) {
+            def entry = collection.find(new Document('_id', new ObjectId(id))).first()
+            paths << entry.getString('path')
+        }
+
+        return paths
+    }
 }
