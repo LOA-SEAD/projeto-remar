@@ -74,11 +74,11 @@
             <br />
             <br />
             <br />
-            <fieldset class="buttons">
-                <g:submitButton id="save-and-new" name="create" class="btn btn-success btn-large" value="Salvar e criar novo nível" />
-                <g:submitButton id="save-and-finish" name="save" class="btn btn-info btn-large" value="Salvar e finalizar jogo"/>
+            <div class="row">
+                <g:submitButton id="save-and-new" name="create" class="btn btn-success btn-large my-orange" value="Salvar e criar novo nível" />
+                <g:submitButton id="save-and-finish" name="save" class="btn btn-info btn-large my-orange" value="Salvar e finalizar jogo"/>
                 %{--<g:submitButton  name="delete" class="delete" value="Remover questões selecionadas"/>--}%
-            </fieldset>
+            </div>
         </div>
     </div>
 </div>
@@ -125,6 +125,7 @@
 
         $(".latex").on("click", function () {
             $("#mquill").mathquill("write", $(this).attr("data-latex"));
+            console.log($(this).attr("data-latex"));
         });
 
         $("#mquill").on('keyup', function () {
@@ -173,9 +174,9 @@
             $(this).removeClass("selected");
         });
         $(el).addClass("selected");
+        $jq("#editableModal").openModal();
         $("#mquill").mathquill("latex", $(el).attr("data-latex"));
         console.log($(el).attr("data-latex"));
-        $jq("#editableModal").openModal();
 
 
     }
