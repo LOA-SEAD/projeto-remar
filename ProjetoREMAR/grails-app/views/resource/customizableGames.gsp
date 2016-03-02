@@ -55,33 +55,30 @@
                                 <div class="details">
                                     <a class="card-click-target"  href="/resource/show/${gameInstance.id}" aria-hidden="true" tabindex="-1"></a>
                                     <a class="title card-name" data-category="${gameInstance.category.id}" href="/resource/show/${gameInstance.id}" title="${gameInstance.name}" aria-hidden="true" tabindex="-1">${gameInstance.name}</a>
-                                    <var></var>
                                     <div class="subtitle-container">
                                         <p class="subtitle">Feito por: ${gameInstance.owner.firstName}</p>
                                     </div>
+                                    <div class="gray-color subtitle-container">
+                                        <i class="fa fa-globe"></i>
+                                        <g:if test="${gameInstance.android}">
+                                            <i class="fa fa-android"></i>
+                                        </g:if>
+                                        <g:if test="${gameInstance.linux}">
+                                            <i class="fa fa-linux"></i>
+                                        </g:if>
+                                        <g:if test="${gameInstance.moodle}">
+                                            <i class="fa fa-graduation-cap"></i>
+                                        </g:if>
+                                    </div>
                                 </div>
                                 <div class="row no-margin margin-top">
-                                    <div class="col s5">
+                                    <div class="col s12">
                                         <div class="pull-left tiny-stars">
                                             <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                             <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                             <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                             <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                            %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
-                                        </div>
-                                    </div>
-                                    <div class="col s7">
-                                        <div class="pull-right gray-color">
-                                            <i class="fa fa-globe"></i>
-                                            <g:if test="${gameInstance.android}">
-                                                <i class="fa fa-android"></i>
-                                            </g:if>
-                                            <g:if test="${gameInstance.linux}">
-                                                <i class="fa fa-linux"></i>
-                                            </g:if>
-                                            <g:if test="${gameInstance.moodle}">
-                                                <i class="fa fa-graduation-cap"></i>
-                                            </g:if>
+                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                         </div>
                                     </div>
                                 </div>

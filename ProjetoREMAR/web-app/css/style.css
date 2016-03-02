@@ -141,7 +141,7 @@
     }
 
     .card.small .details {
-        max-height: 50px;
+        max-height: 64px;
     }
 
     .card .details {
@@ -156,10 +156,10 @@
     .card .title {
         color: #212121;
         display: block;
-        font-size: 16px;
+        font-size: 20px;
         line-height: 18px;
         max-height: 36px;
-        min-height: 18px;
+        min-height: 20px;
         overflow: hidden;
         text-decoration: none;
         position: relative;
@@ -168,7 +168,7 @@
     }
 
     .card .subtitle-container {
-        min-height: 22px;
+        height: 19px;
     }
 
     .card .subtitle-container, .card .stars-container {
@@ -619,7 +619,7 @@ footer.page-footer{
 }
 
 .card-content p{
-    color: rgba(0, 0, 0, 0.6);
+    color: rgba(0, 0, 0, 0.6) !important;
 }
 
 .card.show-personalize > .card-content button{
@@ -825,6 +825,7 @@ table .pending td{
 
 .description{
     white-space: pre;
+    margin-bottom: 20px !important;
 }
 
 .pagination a li {
@@ -835,6 +836,26 @@ table .pending td{
     font-size: 1.2em !important;
 }
 
-var{
-    visibility: hidden;
+.collection .collection-item.avatar .title {
+    font-size: 16px;
+}
+
+#comment-btn{
+    background-color: white;
+    color: rgba(0, 0, 0, 0.6);
+    margin: 0;
+}
+
+.collection.rating{
+    border: 0;
+    margin-top: 20px;
+}
+
+.game-owner{
+    margin-top: 0;
+    width: 30px;
+}
+
+.card.small.square-cover.dashboard {
+    height: 252px;
 }

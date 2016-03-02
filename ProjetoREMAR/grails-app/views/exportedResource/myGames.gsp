@@ -58,34 +58,49 @@
                             <div class="details">
                                 <p class="card-click-targ" aria-hidden="true" tabindex="-1"></p>
                                 <span class="title card-name activator" data-category="${myExportedResourceInstance.resource.category.id}" title="${myExportedResourceInstance.name}" aria-hidden="true" tabindex="-1">${myExportedResourceInstance.name}</span>
+                                %{--<div class="col s3">--}%
+                                    %{--<img src="/data/users/${myExportedResourceInstance.resource.owner.username}/profile-picture"--}%
+                                         %{--alt="${myExportedResourceInstance.resource.owner.firstName}" class="circle game-owner"--}%
+                                         %{--data-beloworigin="true">--}%
+                                %{--</div>--}%
                                 <div class="subtitle-container">
                                     <p class="subtitle">Feito por: ${myExportedResourceInstance.owner.firstName}</p>
                                 </div>
+                                <div class="gray-color subtitle-container">
+                                    <g:if test="${myExportedResourceInstance.webUrl != null}">
+                                        <i class="fa fa-globe"></i>
+                                    </g:if>
+                                    <g:if test="${myExportedResourceInstance.androidUrl != null}">
+                                        <i class="fa fa-android"></i>
+                                    </g:if>
+                                    <g:if test="${myExportedResourceInstance.linuxUrl != null}">
+                                        <i class="fa fa-linux"></i>
+                                    </g:if>
+                                    <g:if test="${myExportedResourceInstance.moodleUrl != null}">
+                                        <i class="fa fa-graduation-cap"></i>
+                                    </g:if>
+                                </div>
                             </div>
                             <div class="row no-margin margin-top">
-                                <div class="col s5">
+                                <div class="col s6">
                                     <div class="pull-left tiny-stars">
                                         <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                         <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                         <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                         <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                        %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
+                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                     </div>
                                 </div>
-                                <div class="col s7">
+                                <div class="col s6">
                                     <div class="pull-right gray-color">
-                                        <g:if test="${myExportedResourceInstance.webUrl != null}">
-                                            <i class="fa fa-globe"></i>
-                                        </g:if>
-                                        <g:if test="${myExportedResourceInstance.androidUrl != null}">
-                                            <i class="fa fa-android"></i>
-                                        </g:if>
-                                        <g:if test="${myExportedResourceInstance.linuxUrl != null}">
-                                            <i class="fa fa-linux"></i>
-                                        </g:if>
-                                        <g:if test="${myExportedResourceInstance.moodleUrl != null}">
-                                            <i class="fa fa-graduation-cap"></i>
-                                        </g:if>
+                                        <a href="/exported-resource/publish/${myExportedResourceInstance.id}"
+                                           class="tooltipped"  data-position="bottom" data-delay="50" data-tooltip="Editar">
+                                            <i class="fa fa-pencil" ></i>
+                                        </a>
+                                        <a href="/exported-resource/delete/${myExportedResourceInstance.id}"
+                                           class="tooltipped"  data-position="bottom" data-delay="50" data-tooltip="Excluir">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -95,18 +110,19 @@
                             <div class="clearfix"></div>
                             <div class="plataform-card left-align">
                                 <g:if test="${myExportedResourceInstance.webUrl != null}">
-                                    <a href="${myExportedResourceInstance.webUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão web"><i class="fa fa-globe"></i></a>
+                                    <a href="${myExportedResourceInstance.webUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão web"><i class="fa fa-globe"></i></a> <br>
                                 </g:if>
                                 <g:if test="${myExportedResourceInstance.androidUrl != null}">
-                                    <a href="${myExportedResourceInstance.androidUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão android"><i class="fa fa-android"></i></a>
+                                    <a href="${myExportedResourceInstance.androidUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão android"><i class="fa fa-android"></i></a> <br>
                                 </g:if>
                                 <g:if test="${myExportedResourceInstance.linuxUrl != null}">
-                                    <a href="${myExportedResourceInstance.linuxUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão linux"><i class="fa fa-linux"></i></a>
+                                    <a href="${myExportedResourceInstance.linuxUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão linux"><i class="fa fa-linux"></i></a> <br>
                                 </g:if>
                                 <g:if test="${myExportedResourceInstance.moodleUrl != null}">
                                     <a href="${myExportedResourceInstance.moodleUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão moodle"><i class="fa fa-graduation-cap"></i></a>
                                 </g:if>
                             </div>
+
                         </div>
                     </div>
                 </g:each>
