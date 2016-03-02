@@ -2,8 +2,8 @@ package br.ufscar.sead.loa.remar
 
 import com.mongodb.client.MongoDatabase
 import com.mongodb.MongoClient
-import com.mongodb.util.JSON
 import org.bson.Document
+import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 
 
 @Singleton
@@ -35,8 +35,16 @@ class MongoHelper {
         return true
     }
 
-    def insertData(String collection, Document data) {
-        db.getCollection(collection).insertOne(data)
+    def insertData(String collection, Object data) {
+
+        Document doc = new Document(data)
+
+        println "Doc: "
+        println doc
+        println "Doc Type: "
+        println doc.getClass()
+
+        db.getCollection(collection).insertOne(doc)
     }
 
 }

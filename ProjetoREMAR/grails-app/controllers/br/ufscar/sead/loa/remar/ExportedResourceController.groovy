@@ -271,14 +271,21 @@ class ExportedResourceController {
     }
 
     def saveGameInfo() {
-        log.debug "lol"
-        log.debug params
+        def data = request.JSON
 
-        def gameData
-        gameData.user = session.user.id
-        gameData.game = params.remar_resource_id
-        gameData.timestamp = new Date().toTimestamp()
-        log.debug "----"
-        log.debug gameData
+        println data.class
+
+        println "--------"
+
+
+        /* auto generate required data */
+        data.user = session.user.id
+        data.game = ExportedResource.findByMoodleUrl(data.moodle_url).resourceId
+        data.timestamp = new Date().toTimestamp()
+
+        println data
+
+        def json = JSON.parse(new File(servletContext.getRealPath("/data/resources/sources/${Resource.findById(data.game).uri}/bd.json")).text)
+        MongoHelper.instance.insertData(json['collection_name'] as String, data)
     }
 }
