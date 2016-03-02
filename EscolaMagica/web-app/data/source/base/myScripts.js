@@ -14,18 +14,13 @@ function send(enunciado,correta,resp0,resp1,resp2,resp3,escolhida) {
     }
 
     var splittedUrl = window.location.href.split("/");
-    console.log("...");
 
     data.moodle_url = "/published/" + splittedUrl[4] + "/web";
-
-    console.log("sending data:");
-    console.log(data);
 
     $.ajax({
         type: 'POST',
         data: JSON.stringify(data),
         contentType: 'application/json; charset=utf-8',
-        dataType: "json",
         url: '/exported-resource/saveGameInfo',
         success: function(data) {
             console.log("Game data stored.");
