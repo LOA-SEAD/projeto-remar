@@ -48,10 +48,10 @@ class IndexController {
         model.uri += "?" + params.collect { k,v -> "$k=$v" }.join('&')
 
         if (model.development) {
-            if (model.uri.indexOf('escola') != -1) {
-                model.uri = "http://localhost:7070${model.uri}"
-            } else if (model.uri.indexOf('forca') != -1) {
-                model.uri = "http://localhost:8080${model.uri}"
+            if (model.uri.indexOf('forca') != -1) {
+                model.uri = "http://localhost:8081${model.uri}"
+            } else if (model.uri.indexOf('escola') != -1) {
+                model.uri = "http://localhost:8082${model.uri}"
             }
         }
 
