@@ -35,7 +35,7 @@ class UrlMappings {
         "/process/task/complete/$taskId"(controller:"process", action:"completeTask")
         "/process/task/resolve/$taskId"(controller:"process", action:"resolveTask")
         "/process/tasks/delegate/$processId"(controller:"process", action:"delegateTasks")
-        "/process/tasks/overview/$processId"(controller:"process", action:"chooseUsersTasks")
+        "/process/overview/$id"(controller:"process", action:"overview")
         "/process/publishOptions/$processId"(controller:"process", action:"publishOptions")
 
         //begin moodle mappings
