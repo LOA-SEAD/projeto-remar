@@ -28,7 +28,7 @@ class MoodleController {
 
     def link() {
         def hash = RandomStringUtils.random(30, true, true)
-        def url = Moodle.get(params.id).domain + "/mod/remarmoodle/new-account-confirmation.php?hash=" + hash + "&moodleId=" + params.id
+        def url = Moodle.get(params.moodleId as Integer).domain + "/mod/remarmoodle/new-account-confirmation.php?hash=" + hash + "&moodleId=" + params.moodleId
 
         redirect url: url
     }
@@ -83,14 +83,15 @@ class MoodleController {
         render 'Moodle "'+domain+'" successfully deleted.'
     }
 
-    def resources_list(String domain) {
-        //def moodle = Moodle.findByDomain(domain).Where(active)
-        def moodle = Moodle.findAllByActiveAndDomain(true, domain)
+    def resources_list() {
+        //getting the user based on the hash received
+        log.debug MoodleAccount.findByToken(params.hash as String)
+
+        /*def moodle = Moodle.findAllByActiveAndDomain(true, domain)
 
         log.debug moodle
 
         if (moodle != []) {
-            /* list of games published only for moodle */
             def list = ExportedResource.findAll()
 
             Iterator i = list.iterator();
@@ -120,7 +121,7 @@ class MoodleController {
                                 "accountName": a.accountName,
                                 "id": a.id
                             ]
-                        }*/
+                        }
                     ]
                 }
             )
@@ -129,7 +130,7 @@ class MoodleController {
         }
         else {
             render 'O moodle "'+domain+'" foi desinstalado ou não existe.'
-        }
+        }*/
     }
 
     def send() {
