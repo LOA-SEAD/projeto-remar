@@ -20,7 +20,6 @@ class ExportedResource {
     String androidUrl
 
     String name
-    String image
     int width
     int height
     Date exportedAt
