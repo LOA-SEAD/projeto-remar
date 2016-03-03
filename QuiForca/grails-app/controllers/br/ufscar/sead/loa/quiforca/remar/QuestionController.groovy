@@ -1,8 +1,10 @@
 package br.ufscar.sead.loa.quiforca.remar
 
 import br.ufscar.sead.loa.remar.User
+import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import grails.util.Environment
 import grails.util.Holders
 import groovy.json.JsonBuilder
 import groovyx.net.http.HTTPBuilder
@@ -28,22 +30,18 @@ class QuestionController {
 //        params.max = Math.min(max ?: 10, 100)
         params.max = 100 // TODO
 
-        if (params.p && params.t && params.h) {
-            session.processId = params.p
+        if (params.t && params.h) {
             session.taskId = params.t
 
             def u = User.findByUsername(new String(params.h.decodeBase64()))
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.test()))
 
-            redirect controller: "question"
+            redirect controller: "question" // redirect to hide params.h
             return
         }
 
-        log.debug session.processId
-        log.debug session.taskId
-
         def list = Question.list()
-        render view:"index", model:[questionInstanceList: list, questionInstanceCount: Question.count(), userName: user.getUsername(), userId: user.getId()]
+        render view: "index", model: [questionInstanceList: list, questionInstanceCount: Question.count(), userName: user.getUsername(), userId: user.getId()]
 
     }
 
@@ -68,13 +66,12 @@ class QuestionController {
         }
 
         Question newQuest = new Question();
-        newQuest.id=questionInstance.id
+        newQuest.id = questionInstance.id
         newQuest.statement = questionInstance.statement
         newQuest.answer = questionInstance.answer
         newQuest.author = questionInstance.author
         newQuest.category = questionInstance.category
-        newQuest.processId = session.processId as long
-        newQuest.taskId    = session.taskId as long
+        newQuest.taskId    = session.taskId as String
 
         if (newQuest.hasErrors()) {
             respond newQuest.errors, view:'create' //TODO
@@ -240,33 +237,13 @@ class QuestionController {
         pw.write(builder.toString());
         pw.close();
 
-        json = builder(
-                "files": [
-                        file.absolutePath
-                ]
+        String id = MongoHelper.putFile(file.absolutePath)
 
-        )
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
 
-        log.debug builder.toString()
-        file = new File("${file.parentFile}/files.json")
-        pw = new PrintWriter(file);
-        pw.write(builder.toString());
-        pw.close();
-
-        redirect uri: "http://${request.serverName}:${request.serverPort}/process/task/resolve/${session.taskId}", params: [json: file]
-    }
-
-    def test() {
-
-        def builder = new JsonBuilder()
-        def files = []
-        files.add("123")
-        files.add("456")
-        files.add("789")
-        def json = builder(
-                files: ["123", "123333", "1343443"]
-        )
-
-        log.debug builder.toString()
+        redirect uri: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}", params: [files: id]
     }
 }

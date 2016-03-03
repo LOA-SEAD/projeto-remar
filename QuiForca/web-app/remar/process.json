@@ -1,0 +1,51 @@
+{
+  "name": "Forca",
+  "uri": "forca",
+  "version": 1,
+  "tasks": [
+    {
+      "name": "Banco de Questões",
+      "uri": "question",
+      "description": "Criar/editar/selecionar um banco de questões para o jogo.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "palavras.json",
+          "type": "json",
+          "path": "json"
+        }
+      ]
+    },
+    {
+      "name": "Tema",
+      "uri": "theme",
+      "description": "Criar/editar/selecionar um tema para o jogo.",
+      "type": "image_collection",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "inicio.png",
+          "type": "image",
+          "path": "imgs"
+        },
+        {
+          "name": "papel.png",
+          "type": "image",
+          "path": "imgs"
+        },
+        {
+          "name": "icon.png",
+          "type": "image",
+          "path": "imgs"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    "web",
+    "android",
+    "linux",
+    "moodle"
+  ]
+}

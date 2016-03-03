@@ -1,6 +1,8 @@
 package br.ufscar.sead.loa.quiforca.remar
 
 import br.ufscar.sead.loa.remar.User
+import br.ufscar.sead.loa.remar.api.MongoHelper
+import grails.util.Environment
 import groovy.json.JsonBuilder
 import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.imgscalr.Scalr
@@ -22,8 +24,7 @@ class ThemeController {
     def springSecurityService
 
     def index(Integer max) {
-        if (params.p && params.t && params.h) {
-            session.processId = params.p
+        if (params.t && params.h) {
             session.taskId = params.t
 
             def u = User.findByUsername(new String(params.h.decodeBase64()))
@@ -215,23 +216,19 @@ class ThemeController {
     }
 
     def choose(Theme instance) {
-        def list = []
-        list.add(servletContext.getRealPath("/data/${instance.ownerId}/themes/${params.id}/inicio.png"))
-        list.add(servletContext.getRealPath("/data/${instance.ownerId}/themes/${params.id}/papel.png"))
-        list.add(servletContext.getRealPath("/data/${instance.ownerId}/themes/${params.id}/icon.png"))
+        def ids = []
+        def folder = servletContext.getRealPath("/data/${instance.ownerId}/themes/${params.id}")
 
-        def builder = new JsonBuilder()
-        def json = builder(
-                "files": list
-        )
+        ids << MongoHelper.putFile(folder + '/inicio.png')
+        ids << MongoHelper.putFile(folder + '/papel.png')
+        ids << MongoHelper.putFile(folder + '/icon.png')
 
-        def file = new File(servletContext.getRealPath("/data/${session.user.id}/${session.taskId}"))
-        file.mkdirs()
-        file = new File("${file}/files.json")
-        def pw = new PrintWriter(file);
-        pw.write(builder.toString());
-        pw.close();
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
 
-        redirect uri: "http://${request.serverName}:${request.serverPort}/process/task/resolve/${session.taskId}", params: [json: file]
+        redirect uri: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
+                "?files=${ids[0]}&files=${ids[1]}&files=${ids[2]}"
     }
 }
