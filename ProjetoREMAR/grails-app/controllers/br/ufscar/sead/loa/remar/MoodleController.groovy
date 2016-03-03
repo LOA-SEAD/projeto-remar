@@ -84,53 +84,36 @@ class MoodleController {
     }
 
     def resources_list() {
-        //getting the user based on the hash received
-        log.debug MoodleAccount.findByToken(params.hash as String)
+        def moodleAccount = MoodleAccount.findByToken(params.hash as String)
 
-        /*def moodle = Moodle.findAllByActiveAndDomain(true, domain)
+        //if the moodle account is not found
+        if (moodleAccount == [] || moodleAccount == null) {
+            log.debug "Moodle account not found"
+            render "Moodle account not found."
+        }
+        else {
+            //getting the user based on the hash received
+            def user = moodleAccount.owner
 
-        log.debug moodle
-
-        if (moodle != []) {
-            def list = ExportedResource.findAll()
-
-            Iterator i = list.iterator();
-            while (i.hasNext()) {
-                def n = i.next()
-
-                if (!n.moodleUrl) {
-                    i.remove()
-                    log.debug "removed."
-                }
-            }
+            def exportedResources = ExportedResource.findAllByOwner(user)
 
             def builder = new JsonBuilder()
 
             def json = builder (
-                "resources": list.collect {p ->
+                "resources": exportedResources.collect { element ->
                     [
-                        "id": p.id,
-                        "height": p.height,
-                        "width": p.width,
-                        "image": p.image,
-                        "moodleUrl": p.moodleUrl,
-                        "name": p.name,
-                        "moodleHash": User.get(p.ownerId).moodleHash
-                        /*"accounts": p.accounts.collect {a ->
-                            [
-                                "accountName": a.accountName,
-                                "id": a.id
-                            ]
-                        }
+                        "id": element.id,
+                        "height": element.height,
+                        "width": element.width,
+                        "image": element.image,
+                        "moodleUrl": element.moodleUrl,
+                        "name": element.name
                     ]
                 }
             )
 
             render json as JSON
         }
-        else {
-            render 'O moodle "'+domain+'" foi desinstalado ou não existe.'
-        }*/
     }
 
     def send() {
