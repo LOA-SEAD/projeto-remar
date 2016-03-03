@@ -237,7 +237,7 @@ class ResourceController {
                 resourceInstance.version = 0
                 resourceInstance.save flush: true
 
-                redirect controller: "process", action: "deploy", id: resourceInstance.bpmn
+                redirect controller: "process", action: "deploy", id: resourceInstance.uri
                 return
             }
 
@@ -258,7 +258,7 @@ class ResourceController {
                         '<h3>O seu WAR \"${resourceInstance.name}\" foi aprovado! :)</h3> <br>'
                 )
 
-                redirect controller: "process", action: "deploy", id: resourceInstance.bpmn
+                redirect controller: "process", action: "deploy", id: resourceInstance.uri
             } else {
                 response.status = 500
                 render resp

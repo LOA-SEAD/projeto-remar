@@ -1,249 +1,109 @@
 package br.ufscar.sead.loa.remar
 
-import grails.converters.JSON
-import grails.plugin.springsecurity.SpringSecurityUtils
-import grails.util.Environment
-import org.camunda.bpm.engine.IdentityService
-import org.camunda.bpm.engine.ProcessEngineException
-import org.camunda.bpm.engine.RepositoryService
-import org.camunda.bpm.engine.RuntimeService
-import org.camunda.bpm.engine.TaskService
-import org.camunda.bpm.engine.delegate.DelegateExecution
-import org.camunda.bpm.engine.delegate.ExecutionListener
-import org.camunda.bpm.engine.delegate.JavaDelegate
-import org.camunda.bpm.engine.impl.repository.DeploymentBuilderImpl
-import org.camunda.bpm.engine.runtime.ProcessInstance
-import org.camunda.bpm.engine.task.DelegationState
-import org.camunda.bpm.engine.task.IdentityLinkType
-import org.camunda.bpm.engine.task.Task
-import org.camunda.bpm.model.bpmn.Bpmn
-import org.camunda.bpm.engine.identity.User
-import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl
+import br.ufscar.sead.loa.propeller.Propeller
+import br.ufscar.sead.loa.propeller.domain.ProcessInstance
+import br.ufscar.sead.loa.propeller.domain.TaskInstance
 
-class ProcessController implements JavaDelegate, ExecutionListener{
-    IdentityService identityService
-    RuntimeService runtimeService
-    TaskService taskService
-    def springSecurityService
-    RepositoryService repositoryService
-
+class ProcessController {
     def start() {
-        log.debug params.id
-        def processId
-        try {
-            processId = runtimeService.startProcessInstanceByKey(params.id).getId()
-        } catch (ProcessEngineException ignored) {
-            response.status = 404
-            render 'The process ' + params.id + ' doesn\'t exists!'
-            return
-        }
+        def process
+        params.uri = params.id
+        def logMsg = "pi-${session.user.username}"
+        log.debug "${logMsg} STARTED; uri: ${params.uri}"
 
-        if(!Resource.findByBpmn(params.id)) {
-            response.status = 404
-            render 'The process ' + params.id + ' doesn\'t exists!'
-            return
-        }
+        process = Propeller.instance.instantiate(params.uri, session.user.id)
 
-        session.user = springSecurityService.getCurrentUser()
-
-        def resource = Resource.findByBpmn(params.id)
-
-        runtimeService.setVariable(processId, "ownerId", session.user.id as String)
-        runtimeService.setVariable(processId, "ownerName", session.user.firstName as String)
-        runtimeService.setVariable(processId, "resourceId", resource.id as String)
-        runtimeService.setVariable(processId, "resourceName", resource.name as String)
-        runtimeService.setVariable(processId, "resourceUri", resource.uri as String)
-        runtimeService.setVariable(processId, "ownerUsername", session.user.username as String)
-        runtimeService.setVariable(processId, "startedProcess", new Date())
-
-
-        identityService.setAuthenticatedUserId(session.user.camunda_id)
-
-        //redirect(action: "tasksOverview")
-        /*
-            if(activeTasks.first().assignee==currentUser){
-                def parsedURI = parseBpmn(activeTasks[i])
-                redirect(uri: "http://localhost:8080/"+parsedURI) // REDIRECT PARA O JOGO (ÚNICO)
-            }
-            else{
-                redirect(uri: "http://localhost:8080/")
-            }
-        */
-
-    }
-
-    def delete() {
-        runtimeService.deleteProcessInstance(params.id, "")
-        redirect action: "userProcesses"
-    }
-//
-
-    def deploy() {
-        def rootPath = servletContext.getRealPath("/")
-        def name = params.id
-        def deployment = repositoryService.createDeploymentQuery().deploymentName(name).list()
-        Date date
-        if (deployment) {
-            repositoryService.deleteDeployment(deployment[0].id, true)
-        }
-
-        BpmnModelInstanceImpl bmi = Bpmn.readModelFromFile(new File("$rootPath/processes/$name" + ".bpmn"));
-
-        DeploymentBuilderImpl db = repositoryService.createDeployment();
-        db.addModelInstance("${name}.bpmn", bmi);
-        db.name(name)
-
-        db.deploy();
-        db.activateProcessDefinitionsOn(date)
-
-        //log.debug repositoryService.getProcessDefinition(params.id)
-
-        //repositoryService.getProcessDefinition("ForceProcess")
-
-        //ProcessBuilder pB = Bpmn.createProcess(b.getDefinitions().getId());
-
-        //DeploymentBuilder dB = RepositoryService.createDeployment()
-        //dB.addModelInstance("ArrozProcess", b);
-
-        //session.processId =  runtimeService.startProcessInstanceByKey("ArrozProcess").getId()
-
-        // log.debug session.processId;
-
-        render "success"
-    }
-
-    def undeploy() {
-        log.debug params.id
-        repositoryService.deleteDeployment(params.id, true)
-
-        render "ok"
-    }
-
-    private String parseBpmn(Task task) {
-
-        def toParseURI = task.taskDefinitionKey
-        String parsedURI = toParseURI.replace(".", "/")
-        return parsedURI
-
-    }
-
-    def chooseUsersTasks() {
-        if (runtimeService.getVariable(params.processId, 'ownerId') as int != springSecurityService.currentUser.id && !SpringSecurityUtils.ifAllGranted('ROLE_ADMIN')) {
-            response.status = 404
-            render "You shouldn't be here"
-            return
-        }
-
-        List<User> allUsers = identityService.createUserQuery().list()
-        List<Task> tasks = taskService.createTaskQuery().processInstanceId(params.processId).list()
-
-        def uri = runtimeService.getVariable(params.processId, "resourceUri")
-
-        //delega as tarefas
-        for (task in tasks) {
-            if(task.getDelegationState() == null){
-                taskService.addUserIdentityLink(task.id, session.user.username as String, IdentityLinkType.OWNER)
-                taskService.delegateTask(task.id, session.user.username)
-            }
-        }
-
-        //gera url
-        tasks = taskService.createTaskQuery().processInstanceId(params.processId).list()
-        for (task in tasks){
-            task.taskDefinitionKey = "${task.taskDefinitionKey.replace('.', '/')}?p=${task.processInstanceId}&t=${task.id}"
-            task.getDescription()
-        }
-
-        def completed = params.completed
-        if(params.completed == null){
-            completed = false
-        }
-
-
-        if (tasks.size() == 0) {
-            render(view:'finishedProcess')
+        if (process == Propeller.Errors.PROCESS_NOT_FOUND) {
+            log.debug "${logMsg} ENDED; process with uri '${params.uri}' not found"
+            render 404
+            return response.status = 404
         } else {
-//            redirect uri:"/process/tasks/delegate/"+params.processId
-//            render view: "chooseUsersTasks", model: [users: allUsers, tasks: tasks, uri: uri, processId: params.processId,
-//                                                     currentUser: session.user, dev: Environment.current == Environment.DEVELOPMENT]
-            render  view: "chooseUsersTasks", model: [users: allUsers, tasks: tasks, uri: uri, processId: params.processId, nameProcess:runtimeService.getVariable(params.processId, "resourceName"),
-                                currentUser: session.user, dev: Environment.current == Environment.DEVELOPMENT, completedTask: completed,
-                                startedProcess:runtimeService.getVariable(params.processId, "startedProcess") ]
+            process = process as ProcessInstance
         }
 
+        def resource = Resource.findByUri(params.uri)
+
+        process.putVariable("resourceId", resource.id as String, true)
+
+        redirect uri: "/process/overview/${process.id}"
+        log.debug "${logMsg} ENDED; success – redirecting to overview"
     }
 
-    def userProcesses() {
-        String userId = springSecurityService.getCurrentUser().getId()
-        List<ProcessInstance> processesList = runtimeService.createProcessInstanceQuery().list()
-        def list = []
+    // Can be called with resource id or name
+    def deploy(Resource resource) {
+        def file
+        def logMsg = "pd-${session.user.username}"
+        log.debug "${logMsg} STARTED; id/uri: ${params.id}"
 
-        for (processes in processesList) {
-            def var = runtimeService.getVariable(processes.id, "ownerId")
-            if (userId == var) {
-                def formattedProcesses = []
-//                List<Task> tasks = taskService.createTaskQuery().processInstanceId(processes.id).list()
-//
-//                /*
-//                * Delega as tarefas e gera a key
-//                *
-//                * */
-//                for (task in tasks){
-//                    if(task.getDelegationState() == null){
-//                        taskService.addUserIdentityLink(task.id, session.user.username as String, IdentityLinkType.OWNER)
-//                        taskService.delegateTask(task.id, session.user.username)
-//                    }
-//                    task.taskDefinitionKey = "${task.taskDefinitionKey.replace('.', '/')}?p=${task.processInstanceId}&t=${task.id}"
-//                }
+        if (!resource) {
+            resource = Resource.findByUri(params.id)
 
-                /*
-                * Reescreve a lista
-                *
-                * */
-//                taskService.createTaskQuery().processInstanceId(processes.id).list().clear()
-//                taskService.createTaskQuery().processInstanceId(processes.id).list().addAll(tasks)
-
-                formattedProcesses[0] = runtimeService.getVariable(processes.id, "resourceName")
-                formattedProcesses[1] = taskService.createTaskQuery().processInstanceId(processes.id).list().size()
-                formattedProcesses[2] = runtimeService.createProcessInstanceQuery().processInstanceId(processes.id).list()[0].suspended
-                formattedProcesses[3] = processes.id
-                formattedProcesses[4] = runtimeService.getVariable(processes.id,"startedProcess")
-//                formattedProcesses[4] = tasks
-                formattedProcesses[5] = runtimeService.getVariable(processes.id, "resourceUri")
-
-                list.add(formattedProcesses)
+            if (!resource) {
+                render 404
+                log.debug "${logMsg} ENDED: resource not found either by id or uri"
+                return response.status = 404
             }
         }
-        if(list){
-//            log.debug list[0][1]
-            render(view: "userProcesses", model:[processes: list])
+
+        file = new File("${servletContext.getRealPath('propeller')}/${resource.uri}/process.json")
+
+        if (!file.exists()) {
+            render 404
+            log.debug "${logMsg} ENDED: propeller/${resource.uri}/process.json not found"
+            return response.status = 404
         }
-        else{
-            render(view: "userProcesses", model:[processes: null])
+
+        def process = Propeller.instance.deploy(file, resource.owner.id)
+
+        if (process.deployed) {
+            log.debug "${logMsg} ENDED: success – 201"
+            response.status = 201
+            render 201
+        } else {
+            log.debug "${logMsg} ENDED: error – 409: a process with '${resource.uri}' as uri already exists"
+            response.status = 409
+            render 409
         }
     }
 
-    def pendingTasks() {
-        def user = springSecurityService.currentUser as br.ufscar.sead.loa.remar.User
-        def tasks = taskService.createTaskQuery().taskAssignee(user.username).list()
-        def list = []
-        for (task in tasks) {
-            def formattedTask = []
-            formattedTask[0] = runtimeService.getVariable(task.processInstanceId, 'resourceName')
-            formattedTask[1] = task.getName()
-            formattedTask[2] = runtimeService.getVariable(task.processInstanceId, 'ownerName')
-            formattedTask[3] = '/' + runtimeService.getVariable(task.processInstanceId, 'resourceUri')
-            formattedTask[3] += "/${task.taskDefinitionKey.replace('.', '/')}?p=${task.processInstanceId}&t=${task.id}"
-            list.add(formattedTask)
+    def undeploy(Resource resource) {
+        if (!resource) {
+            resource = Resource.findByUri(params.id)
+
+            if (!resource) {
+                render 404
+                return response.status = 404
+            }
         }
-        if (list) {
-            render(view: "pendingTasks", model: [tasks: list])
-        }
-        else {
-            render(view: "noTasks")
-        }
+
+        Propeller.instance.undeploy(resource.uri)
+
+        render 205
+        response.status = 205
     }
 
+    def overview() {
+        def process
+        try {
+            process = Propeller.instance.getProcessInstanceById(params.id as String, session.user.id as long)
+        } catch (IllegalArgumentException ignored) { // invalid processId
+            render 400
+            return response.status = 400
+        }
+
+        if (!process) { // process not found or session.user != process.owner
+            render 404
+            return response.status = 404
+        }
+
+        render view: "overview", model: [process: process]
+    }
+
+    def list() {
+        def processes = Propeller.instance.getProcessInstancesByOwner(session.user.id as long)
+
+        render(view: "list", model: [processes: processes])
+    }
 
     def finishedProcess() {
         log.debug Resource.findByWeb(true)
@@ -252,258 +112,81 @@ class ProcessController implements JavaDelegate, ExecutionListener{
     }
 
     def completeTask() {
-//        log.debug params.taskId
-//        def processId = taskService.createTaskQuery().taskId(params.taskId).singleResult().processInstanceId
-//
-//        taskService.complete(params.taskId)
-//        redirect(uri: "/process/tasks/overview/${processId}")
-        def task = taskService.createTaskQuery().taskId(params.taskId).singleResult()
+        def task
 
-        if (task) {
-            if (task.delegationState == DelegationState.RESOLVED) {
-                if (task.owner == session.user.username) {
-                    taskService.complete(params.taskId)
-                    if(!session.processFinished) {
-                        redirect uri: "/process/tasks/overview/${task.processInstanceId}?completed="+true
-                    } else {
-                        session.processFinished = null
-                    }
-
-                } else {
-                    render "user != owner"
-                }
-            } else {
-                render "delegation state != resolved"
-            }
-        } else {
-            render "task doesn't exists"
-        }
-
-
-
-    }
-
-    def resolveTask() {
-        def json
         try {
-            json = JSON.parse(new File(params.json).text)
-        } catch (Exception ignored) {
-            json = JSON.parse("{files:[]}")
+            task = Propeller.instance.getTaskInstance(params.taskId as String, session.user.id as long)
+        } catch (IllegalArgumentException ignored) { // invalid taskId
+            render 404
+            return response.status = 404
         }
 
-        log.debug json
-        def task = taskService.createTaskQuery().taskId(params.taskId).singleResult()
-        if (task) {
-            if (task.delegationState == DelegationState.PENDING) {
-                if (task.assignee == session.user.username) {
-                    def destination = servletContext.getRealPath("/data/users/${task.owner}/${task.processInstanceId}")
-                    json.files.each { file ->
-                        file = file as String
-                        log.debug file
-                        def fileName =  file.substring(file.lastIndexOf('/') + 1, file.length())
-                        new AntBuilder().copy(file: file, tofile: destination + "/" + fileName)
-                    }
-                    taskService.resolveTask(params.taskId)
-                    if (task.owner == session.user.username) {
-//                        redirect uri: "/process/tasks/overview/${task.processInstanceId}"
-                        redirect uri: "/process/task/complete/${task.id}"
-                    } else {
-                        redirect uri: '/process/pendingTasks'
-                    }
-                } else {
-                    render "user != assignee"
-                }
+        if (!task) { // task not found or task.process.owner != session.user
+            render 404
+            return response.status = 404
+        }
+
+        if (task.status != TaskInstance.STATUS_PENDING) {
+            render 400
+            return response.status = 400
+        }
+
+        def paths = MongoHelper.instance.getFilePaths(params.files)
+
+        if (task.complete(paths)) {
+            if (task.process.status == ProcessInstance.STATUS_ALL_TASKS_COMPLETED) {
+                finish(task.process)
             } else {
-                render "delegation state != pending"
+                redirect uri: "/process/overview/${task.process.id}?toast=1"
             }
 
         } else {
-            render "task doesn't exists"
+            render "500 – ${params.taskId}"
+            response.status = 500
         }
     }
 
-    def delegateTasks() {
-        def processId = params.processId
-        def uri = runtimeService.getVariable(processId, "resourceUri")
-        List<Task> allTasks = taskService.createTaskQuery().processInstanceId(processId).list()
-        log.debug params
-        params.remove("action")
-        params.remove("format")
-        params.remove("controller")
-        params.remove("processId")
-        log.debug params
-        def resourceName = runtimeService.getVariable(processId, "resourceName")
-        int i = 0;
+    private void finish(ProcessInstance process) {
+        def resource = Resource.get(process.getVariable('resourceId'))
+        def now = new Date()
+        def exportedResourceInstance = new ExportedResource()
+        def instanceFolder = servletContext.getRealPath("/published/${process.id}")
+        def ant = new AntBuilder()
 
-        params.each {
-            taskId, username ->
-                taskId   = taskId as String
-                username = username as String
-                def user = br.ufscar.sead.loa.remar.User.findByUsername(username)
-                if (user) {
-                    taskService.addUserIdentityLink(taskId, session.user.username as String, IdentityLinkType.OWNER)
-                    taskService.delegateTask(taskId, username)
-                    if (username != session.user.username) {
-                        //noinspection GroovyAssignabilityCheck
-                        Util.sendEmail(user.email, "Nova tarefa no REMAR – ${resourceName}",
-                                '<h3>Você foi designado como responsável por uma tarefa no REMAR!</h3>' +
-                                "Nome do processo: ${resourceName} " + "<br>" +
-                                "Dono do processo: ${session.user.firstName}" + "<br>" +
-                                "Nome da Tarefa: ${allTasks[i].name} " + "<br>" +
-                                "<a href=http://${request.serverName}:${request.serverPort}/${uri}/${allTasks[i].taskDefinitionKey.replace('.', '/')}?p=${processId}&t=${allTasks[i].id}><b>Realizar tarefa<b>"
-                        )
-                    }
+        exportedResourceInstance.owner = session.user
+        exportedResourceInstance.resource = resource
+        exportedResourceInstance.exportedAt = now
+        exportedResourceInstance.type = 'public' // TODO
+        exportedResourceInstance.name = resource.name
+        exportedResourceInstance.width = resource.width
+        exportedResourceInstance.height = resource.height
+        exportedResourceInstance.processId = process.id
+        exportedResourceInstance.save flush: true
 
-                } else {
-                    //TODO
-                    log.debug "else uehauhea!!!"
-                }
-                i++
+        if (exportedResourceInstance.hasErrors()) {
+            render exportedResourceInstance.errors
+            return
         }
 
-        render view: "chooseUsersTasks", model: [users: allUsers, tasks: tasks, uri: uri, processId: params.processId,
-                                                 currentUser: session.user, dev: Environment.current == Environment.DEVELOPMENT]
-
-//        redirect uri:"/process/tasks/overview/$processId"
-        //log.debug params
-    }
-
-
-
-
-    @Override
-    void notify(DelegateExecution delegateExecution) throws Exception {
-        log.debug "notify"
-        log.debug delegateExecution.processInstanceId
-
-        if (delegateExecution.currentActivityId == 'start') {
-            redirect uri: "/process/tasks/overview/${delegateExecution.processInstanceId}"
-//            redirect uri: "/process/user-processes"
-        }
-    }
-
-    @Override
-    void execute(DelegateExecution delegateExecution) throws Exception {
-        if (delegateExecution.currentActivityId == 'resource_reuse') {
-            def resource = Resource.get(runtimeService.getVariable(delegateExecution.processInstanceId, 'resourceId') as String)
-            def ownerUsername = runtimeService.getVariable(delegateExecution.processInstanceId, 'ownerUsername') as String
-
-            def exportedResourceInstance = new ExportedResource()
-            exportedResourceInstance.owner = br.ufscar.sead.loa.remar.User.get(runtimeService.getVariable(delegateExecution.processInstanceId, 'ownerId') as int)
-            exportedResourceInstance.resource = resource
-            exportedResourceInstance.exportedAt = new Date()
-            exportedResourceInstance.type = 'public' // TODO
-            exportedResourceInstance.image = resource.uri + '-banner.png'
-            exportedResourceInstance.name = resource.name
-            exportedResourceInstance.width = resource.width
-            exportedResourceInstance.height = resource.height
-            exportedResourceInstance.save flush:true
-
-            def time = exportedResourceInstance.exportedAt.getTime() as String
-
-            def resourceFolder = new File(servletContext.getRealPath("/data/users/${ownerUsername}/${delegateExecution.processInstanceId}"))
-            def instanceFolder = new File(servletContext.getRealPath("/published/${time.substring(0, time.length() - 4)}"))
-            log.debug "instanceFolder: " + instanceFolder
-            def json = JSON.parse(Resource.get(runtimeService.getVariable(delegateExecution.processInstanceId, 'resourceId') as String).files)
-            log.debug json
-
-            new AntBuilder().copy(todir: "${instanceFolder}/web") {
-                fileset(dir: servletContext.getRealPath("/data/resources/sources/${resource.uri}/base"))
-            }
-
-            new AntBuilder().copy(file: "${servletContext.getRealPath("/images")}/" +
-                    "${exportedResourceInstance.resource.uri}-banner.png",
-                    tofile: "${instanceFolder}/banner.png", overwrite: true)
-
-
-//            def f = new File(instanceFolder, "/web${exportedResourceInstance.resource.moodleJson}moodle.json")
-//            def pw = new PrintWriter(f)
-//            pw.write("{\"remar_resource_id\": \"${exportedResourceInstance.id}\"}")
-//            pw.close()
-
-            json.each {file, destinationFolder ->
-                new AntBuilder().copy(file: "${resourceFolder}/${file}", tofile: "${instanceFolder}/web/${destinationFolder}/${file}", overwrite: true)
-                log.debug "each"
-            }
-
-            exportedResourceInstance = ExportedResource.findById(exportedResourceInstance.id) //forçando o get do resorce no banco que foi salvo
-
-            session.processFinished = true
-            redirect uri:"/exported-resource/publish/${exportedResourceInstance.id}"
-        }
-    }
-
-
-    def abc() {
-        render "euaheuahea!!!!!!!!"
-    }
-
-    @Deprecated
-    def publishGame() {
-        ExportedResource newResource = new ExportedResource()
-        newResource.owner = br.ufscar.sead.loa.remar.User.findById(springSecurityService.getCurrentUser().getId())
-        newResource.exportedAt = new Date()
-        newResource.type = 'public'
-        newResource.image = params.resourceImage
-        newResource.name = params.resourceName
-        log.debug params.resourceWidth.toInteger()
-        newResource.width = params.int('resourceWidth')
-        newResource.height = params.int('resourceHeight')
-
-        if(params.Web) {
-            def ownerUsername = runtimeService.getVariable(params.processId, 'ownerUsername') as String
-            def resource = Resource.get(runtimeService.getVariable(params.processId, 'resourceId') as String)
-            def instanceFolder = servletContext.getRealPath("/data/users/${ownerUsername}/${params.processId}")
-            newResource.webUrl = "${instanceFolder}/${resource.uri}"  //Need some tests!
-            newResource.addToPlatforms(Platform.findByName("Web"))
-        }
-        if(params.Linux) {
-            newResource.linuxUrl = "linuxUrl"
-            newResource.addToPlatforms(Platform.findByName("Linux"))
-        }
-        if(params.Moodle) {
-            newResource.moodleUrl = "moodleUrl"
-            newResource.addToPlatforms(Platform.findByName("Moodle"))
-        }
-        if(params.Android) {
-            newResource.androidUrl = "androidUrl"
-            newResource.addToPlatforms(Platform.findByName("Android"))
+        ant.copy(todir: "${instanceFolder}/web") {
+            fileset(dir: servletContext.getRealPath("/data/resources/sources/${resource.uri}/base"))
         }
 
-        newResource.save flush:true
+        ant.copy(file: "${servletContext.getRealPath("/images")}/" +
+                "${exportedResourceInstance.resource.uri}-banner.png",
+                tofile: "${instanceFolder}/banner.png", overwrite: true)
 
-        if(params.Moodle) {
-            redirect controller: "ExportedGame", action: "accountConfig", id: newResource.id
-        }
-        else {
-            redirect(uri: "/dashboard")
-        }
-    }
-
-    def example() {
-        def file = new File(servletContext.getRealPath("/perguntas.xml"))
-        def file2 = new File(servletContext.getRealPath("/perguntas2.xml"))
-        taskService.setVariable(params.id, "files", [file, file2])
-        redirect uri:"/process/task/resolve/${params.id}"
-    }
-
-    def test() {
-        new RequestMap(url: '/data/users/admin/851/escolamagica', configAttribute: 'IS_AUTHENTICATED_FULLY').save flush: true
-        springSecurityService.clearCachedRequestmaps()
-    }
-
-    def getAllTasks(){
-        def model = [:]
-        String userId = springSecurityService.getCurrentUser().getId()
-        List<ProcessInstance> processesList = runtimeService.createProcessInstanceQuery().list()
-        for (processes in processesList) {
-            def var = runtimeService.getVariable(processes.id, "ownerId")
-            if (userId == var) {
-                def tasks  = taskService.createTaskQuery().processInstanceId(processes.id).list()
-                model.(processes.id) = tasks;
+        process.completedTasks.outputs.each { outputs ->
+            outputs.each { output ->
+                println output.path
+                ant.copy(
+                        file: output.path,
+                        tofile: "${instanceFolder}/web/${output.definition.path}/${output.definition.name}",
+                        overwrite: true
+                )
             }
         }
-        render model:model
-    }
 
+        redirect uri: "/exported-resource/publish/${exportedResourceInstance.id}"
+    }
 }

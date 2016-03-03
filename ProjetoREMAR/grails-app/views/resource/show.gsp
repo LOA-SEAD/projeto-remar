@@ -20,7 +20,7 @@
 <div class="content">
 	<div class="row show">
 		<div class="col l12 m12 s12">
-			<form action="/process/start/${resourceInstance.bpmn}" method="POST">
+			<form action="/process/start/${resourceInstance.uri}" method="POST">
 				<div class="card show-personalize">
 					<div class="card-content ">
 						<div class="card-content " style="margin-bottom: 10px;">
