@@ -77,10 +77,10 @@
 
             <h6 align="left">Ex-integrantes</h6>
             <ul class="with-marker">
-                <li><a href="http://lattes.cnpq.br/8675003419316612" target="_blank">Alex Roberto Guido</a>, Pós-Graduando em Ciência da Computação, UFSCar</li>
-                <li>Denis Cappelini, Graduando em Ciência da Computação, UFSCar</li>
-                <li><a href="http://lattes.cnpq.br/9470649292364278" target="_blank">Pablo Bizzi Mahmud</a>, Pós-Graduando em Ciência da Computação, UFSCar</li>
-                <li><a href="http://lattes.cnpq.br/3111439904701090" target="_blank">Rogerio Augusto Bordini</a>, Pós-Graduando em Educação, UFSCar</li>
+                <li>Alex Roberto Guido - Desenvolvimento</li>
+                <li>Denis Cappelini - Desenvolvimento</li>
+                <li>Pablo Bizzi Mahmud - Desenvolvimento</li>
+                <li>Rogerio Augusto Bordini - Desenvolvimento</li>
             </ul>
 
             <h6 align="left">Pesquisadores Colaboradores</h6>
