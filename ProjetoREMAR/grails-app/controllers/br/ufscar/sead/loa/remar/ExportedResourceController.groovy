@@ -104,6 +104,8 @@ class ExportedResourceController {
 
         RequestMap.findOrSaveWhere(url: "${baseUrl}/**", configAttribute: 'permitAll')
 
+        instance.webUrl = baseUrl + "/web"
+
         render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, urls: urls, baseUrl: baseUrl]
     }
 
