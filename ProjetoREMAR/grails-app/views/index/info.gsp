@@ -60,16 +60,22 @@
                 <li><a href="http://lattes.cnpq.br/8235968002513082" target="_blank">Joice Lee Otsuka</a>, Departamento de Computação, UFSCar</li>
             </ul>
 
-            <h6 align="left">Equipe de Desenvolvimento</h6>
+            <h6 align="left">Equipe de Execução</h6>
             <ul class="with-marker">
-                <li>Lucas Fernando Bocanegra, Graduando em Ciência da Computação, UFSCar</li>
-                <li>Marcus Marangon Mourão, Graduando em Ciência da Computação, UFSCar</li>
-                <li>Matheus Vieira Fernandes, Graduando em Ciência da Computação, UFSCar</li>
-                <li><a href="http://lattes.cnpq.br/3936850286110811" target="_blank">Rener Baffa da Silva</a>, Mestrando em Ciência da Computação, UFSCar</li>
+                <li>Ana Esther Camargo – Game Design</li>
+                <li>Catarine Ohnuma – Ilustração</li>
+                <li>Daniel Santiago - Trilha sonora</li>
+                <li>Lucas Fernando Bocanegra - Desenvolvimento</li>
+                <li>Luiz Valério Neto – Prototipação</li>
+                <li>Marcelo Lopes Lotufo - Desenvolvimento</li>
+                <li>Marcos Tsuda - Testes e Avaliação</li>
+                <li>Marcus Marangon Mourão - Desenvolvimento</li>
+                <li>Matheus Vieira Fernandes - Desenvolvimento</li>
+                <li>Rener Baffa da Silva - Desenvolvimento</li>
+                <li>Rogério Bordini – Game Design e Edição de Som</li>
             </ul>
 
-
-            <h6 align="left">Ex-desenvolvedores:</h6>
+            <h6 align="left">Ex-integrantes</h6>
             <ul class="with-marker">
                 <li><a href="http://lattes.cnpq.br/8675003419316612" target="_blank">Alex Roberto Guido</a>, Pós-Graduando em Ciência da Computação, UFSCar</li>
                 <li>Denis Cappelini, Graduando em Ciência da Computação, UFSCar</li>
@@ -77,7 +83,7 @@
                 <li><a href="http://lattes.cnpq.br/3111439904701090" target="_blank">Rogerio Augusto Bordini</a>, Pós-Graduando em Educação, UFSCar</li>
             </ul>
 
-            <h6 align="left">Pesquisadores Colaboradores<h6>
+            <h6 align="left">Pesquisadores Colaboradores</h6>
             <ul class="with-marker">
                 <li><a href="http://lattes.cnpq.br/1515286597269486" target="_blank">Daniel Ribeiro Silva Mill</a>, Departamento de Educação, UFSCar</li>
                 <li><a href="http://lattes.cnpq.br/1543348404865052" target="_blank">Dulce Márcia Cruz</a>, Departamento Metodologia de Ensino (MEN), UFSC</li>
@@ -91,7 +97,7 @@
                 <li><a href="http://lattes.cnpq.br/3246940231681306" target="_blank">Valeria Sperduti Lima</a>, Secretaria de Educação a Distância, UNIFESP</li>
             </ul>
 
-            <h3 id="partners" style="text-align:left;">Investimento</h3>
+            <h3 id="partners" style="text-align:left;">Financiamento</h3>
 
             <div class="container-white" style="text-align: center">
                 <div>
