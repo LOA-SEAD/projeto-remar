@@ -116,62 +116,24 @@ class MoodleController {
         }
     }
 
-    def send() {
-        log.debug "PARAMS: "
-        log.debug params
+    def getLogFromResource() {
+        if(params.resourceId) {
+            def data = MongoHelper.instance.getData("escola_magica", params.resourceId as Integer)
+            if (data.first() != null) {
+                def builder = new JsonBuilder()
 
-        println "params: "
-        println params
+                def json = builder (
+                    "data": data.collect { it }
+                )
 
-        params.remove("controller")
-        params.remove("format")
-        params.remove("action")
-        params.hash = User.get(session.user.id).moodleHash
-        params.cm      = 27
-        def time = new Date().time as String
-
-        def token = Moodle.findAll().first().token
-
-        params.timestamp = time.substring(0, time.length() - 3)
-
-        //def table = ExportedResource.get(params.remar_resource_id).moodleTableName
-
-        def q = [alternativaa: params.alternativaa,
-                 alternativab: params.alternativab,
-                 alternativac: params.alternativac,
-                 alternativad: params.alternativad,
-                 respostacerta: params.respostacerta,
-                 resposta: params.resposta,
-                 timestamp: params.timestamp,
-                 hash: params.hash,
-                 enunciado: params.enunciado,
-                 remar_resource_id: params.remar_resource_id,
-                 table_name: "escola_magica",
-                 wstoken: token,
-                 wsfunction: "mod_remarmoodle_insert_record"]
-
-
-
-        log.debug "~~~~~~~"
-        log.debug q
-        log.debug "~~~~~~~"
-        def http, path
-        if (Environment.current == Environment.DEVELOPMENT) {
-            http = new HTTPBuilder("http://localhost")
-            path = "/moodle/webservice/rest/server.php"
+                render json as JSON
+            }
+            else {
+                render "no information found in our records."
+            }
         }
         else {
-            http = new HTTPBuilder("http://remar.dc.ufscar.br:9090")
-            path = "/webservice/rest/server.php"
+            render "no information found in our records."
         }
-
-
-        def resp = http.post(path: path,
-                query: q) as String
-
-        println resp
-        return
-        //def resp = JSON.parse(http.post(path: "/moodle/webservice/rest/server.php",
-          //      query: params) as String)
     }
 }

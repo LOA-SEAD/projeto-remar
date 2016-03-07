@@ -42,6 +42,7 @@ class UrlMappings {
         "/moodle/confirm/$hash"(controller: "moodle", action: "confirm")
         "/moodle/link/$moodleId"(controller: "moodle", action: "link")
         "/moodle/unlink/$token"(controller: "moodle", action: "unlink")
+        "/moodle/getLogFromResource/$resourceId"(controller: "moodle", action: "getLogFromResource")
 
 //        "/process/information/customization/$id"(controller: "process", action: "startCustomization")
         // end Process API endpoints

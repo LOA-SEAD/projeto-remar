@@ -47,4 +47,9 @@ class MongoHelper {
         db.getCollection(collection).insertOne(doc)
     }
 
+    def getData(String collection, int resourceId) {
+        println resourceId
+        return db.getCollection(collection).find(new Document("game", resourceId))
+    }
+
 }
