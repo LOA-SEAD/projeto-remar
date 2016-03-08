@@ -112,26 +112,25 @@ class ResourceController {
             return
         }
 
-        def manifest = JSON.parse(tmp.getText('UTF-8'))
-
-        // manifest is valid?
-        if (manifest.name  == null || manifest.android  == null || manifest.linux  == null || manifest.moodle  == null
-            || manifest.bpmn  == null || manifest.uri == null || manifest.width == null || manifest.height == null) {
-            resourceInstance.name = submitedWar.originalFilename
-            this.rejectWar(resourceInstance, 'Invalid manifest.json')
+        tmp = new File("${expandedWarPath}/remar/process.json")
+        if (!tmp.exists()) { // process.json not found
+            this.rejectWar(resourceInstance, 'process.json not found')
             redirect action: "index"
             return
-        }
+        } else {
+            def json = JSON.parse(tmp.getText('UTF-8'))
 
-        resourceInstance.name    = manifest.name
-        resourceInstance.uri     = manifest.uri
-        resourceInstance.android = manifest.android
-        resourceInstance.linux   = manifest.linux
-        resourceInstance.moodle  = manifest.moodle
-        resourceInstance.files   = manifest.files
-        resourceInstance.width   = manifest.width
-        resourceInstance.height  = manifest.height
-        resourceInstance.bpmn = manifest.bpmn
+            resourceInstance.name = json.name
+            resourceInstance.uri = json.uri
+            resourceInstance.android = 'android' in json.outputs
+            resourceInstance.linux = 'linux' in json.outputs
+            resourceInstance.moodle = 'moodle' in json.outputs
+            resourceInstance.width = json.vars.width
+            resourceInstance.height = json.vars.height
+
+            ant.mkdir(dir: servletContext.getRealPath("/propeller"))
+            ant.copy(file: tmp, todir: servletContext.getRealPath("/propeller/${resourceInstance.uri}"))
+        }
 
         //read the file that describes the game DB and creates a collection with the corresponding name
         def bd = new File(expandedWarPath + "/remar/bd.json")
@@ -149,8 +148,6 @@ class ResourceController {
         def collectionName = json['collection_name'] as String
         MongoHelper.instance.createCollection(collectionName)
 
-        log.debug "Collection '${collectionName}' successfully created."
-
         tmp = new File("${expandedWarPath}/remar/images/${resourceInstance.uri}-banner.png")
         if (!tmp.exists()) { // {uri}-banner.png not found
             this.rejectWar(resourceInstance, 'banner not found')
@@ -158,16 +155,6 @@ class ResourceController {
             return
         } else {
             ant.copy(file: tmp, todir: servletContext.getRealPath("/images"))
-        }
-
-        tmp = new File("${expandedWarPath}/remar/process.json")
-        if (!tmp.exists()) { // bmpn not found
-            this.rejectWar(resourceInstance, 'bpmn not found')
-            redirect action: "index"
-            return
-        } else {
-            ant.mkdir(dir: servletContext.getRealPath("/propeller"))
-            ant.copy(file: tmp, todir: servletContext.getRealPath("/propeller/${resourceInstance.uri}"))
         }
 
         tmp = new File("${expandedWarPath}/remar/source")
@@ -181,7 +168,6 @@ class ResourceController {
             }
         }
 
-        resourceInstance.web = true //default
         resourceInstance.comment = "Esperando Formulário"
 
         // rename war to a human readable name – instead of a MD5 name
