@@ -8,12 +8,9 @@ class Resource {
         submittedAt blank: false
         name blank: false
         comment nullable: true, blank: true
-        bpmn nullable: true
         moodle defaultValue: false
         android defaultValue: false
-        web defaultValue: true
         linux defaultValue: false
-        files nullable: true
         width nullable: true
         height nullable: true
         description nullable: true, maxSize: 1000
@@ -25,18 +22,15 @@ class Resource {
     int version
     String uri
 
-    boolean web
     boolean android
     boolean linux
     boolean moodle
-    String files
 
     // deploy
     Date submittedAt
     String status
     String comment
     boolean valid
-    String bpmn
 
     int width
     int height
