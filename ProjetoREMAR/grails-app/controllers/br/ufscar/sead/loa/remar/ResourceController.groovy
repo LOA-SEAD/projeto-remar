@@ -102,14 +102,6 @@ class ResourceController {
             return
         }
 
-        tmp = new File(expandedWarPath + "/remar/manifest.json")
-        if (!tmp.exists()) { // manifest.json not found
-            resourceInstance.name = submitedWar.originalFilename
-            this.rejectWar(resourceInstance, 'manifest.json not found')
-            redirect action: "index"
-            return
-        }
-
         tmp = new File("${expandedWarPath}/remar/process.json")
         if (!tmp.exists()) { // process.json not found
             this.rejectWar(resourceInstance, 'process.json not found')
