@@ -7,6 +7,7 @@
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="../css/materialize.css"  media="screen,projection"/>
+        <link rel="stylesheet" type="text/css" href="../css/style.css">
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -14,13 +15,9 @@
         <meta charset="utf-8">
         <g:javascript src="editableTable.js"/>
         <g:javascript src="scriptTable.js"/>
-        %{--<g:javascript src="../assets/js/jquery.min.js"/>--}%
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
-        %{--<g:javascript src="../assets/js/bootstrap.min.js"/>--}%
-        %{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'stylesheet.css')}" />--}%
-        %{--<link rel="stylesheet" href="${resource(dir: 'assets/css', file: 'bootstrap.min.css')}" />--}%
-        %{--<link rel="stylesheet" href="${resource(dir: 'assets/css', file: 'modal.css')}" />--}%
+
         <meta property="user-name" content="${userName}"/>
         <meta property="user-id" content="${userId}"/>
 
