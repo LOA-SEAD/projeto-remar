@@ -21,13 +21,11 @@ class ResourceController {
     def springSecurityService
 
     def index(Integer max) {
-
         if (request.isUserInRole("ROLE_ADMIN")) {
-            render view: 'index', model:[resourceInstanceList: Resource.list(), resourceInstanceCount: Resource.count()]
+            render view: 'index', model: [resourceInstanceList: Resource.list(), resourceInstanceCount: Resource.count()]
         } else {
-            render view: 'index', model:[resourceInstanceList: Resource.findAllByOwner(springSecurityService.currentUser as User), resourceInstanceCount: Resource.count()]
+            render view: 'index', model: [resourceInstanceList: Resource.findAllByOwner(springSecurityService.currentUser as User), resourceInstanceCount: Resource.count()]
         }
-
     }
 
 
@@ -36,7 +34,7 @@ class ResourceController {
     }
 
     @Transactional
-    def update(Resource instance){
+    def update(Resource instance) {
         def path = new File(servletContext.getRealPath("/data/resources/assets/${instance.uri}"))
         path.mkdirs()
 
@@ -46,20 +44,20 @@ class ResourceController {
 
         log.debug(params)
 
-        if(params.img1 != null && params.img1 != ""){
+        if (params.img1 != null && params.img1 != "") {
             log.debug("entrou img1" + params.img1)
             def img1 = new File(servletContext.getRealPath("${params.img1}"))
-            img1.renameTo(new File(path,"description-1"))
+            img1.renameTo(new File(path, "description-1"))
         }
 
-        if(params.img2 != null && params.img2 != ""){
+        if (params.img2 != null && params.img2 != "") {
             def img2 = new File(servletContext.getRealPath("${params.img2}"))
-            img2.renameTo(new File(path,"description-2"))
+            img2.renameTo(new File(path, "description-2"))
         }
 
-        if(params.img3 != null && params.img3 != ""){
+        if (params.img3 != null && params.img3 != "") {
             def img3 = new File(servletContext.getRealPath("${params.img3}"))
-            img3.renameTo(new File(path,"description-3"))
+            img3.renameTo(new File(path, "description-3"))
         }
 
         instance.description = params.description
@@ -84,9 +82,9 @@ class ResourceController {
         AntBuilder ant = new AntBuilder()
 
         resourceInstance.submittedAt = new Date()
-        resourceInstance.owner       = springSecurityService.currentUser as User
-        resourceInstance.status      = "pending"
-        resourceInstance.valid       = true
+        resourceInstance.owner = springSecurityService.currentUser as User
+        resourceInstance.status = "pending"
+        resourceInstance.valid = true
 
         // Move .war to /wars and unzip it
         savedWar.mkdirs()
@@ -173,13 +171,13 @@ class ResourceController {
         // rename war to a human readable name – instead of a MD5 name
         savedWar.renameTo(servletContext.getRealPath("/wars/${username}") + "/${resourceInstance.uri}.war")
 
-        resourceInstance.save flush:true
+        resourceInstance.save flush: true
 
-        if(resourceInstance.hasErrors()) {
+        if (resourceInstance.hasErrors()) {
             log.error "War submited by " + session.user.username + " rejected by Grails. Reason:"
             log.error resourceInstance.errors
 
-            respond resourceInstance.errors, view:"create"
+            respond resourceInstance.errors, view: "create"
         } else {
             flash.message = message(code: 'default.created.message', args: [message(code: 'deploy.label', default: 'Deploy'), resourceInstance.id])
             render resourceInstance as JSON
@@ -187,24 +185,16 @@ class ResourceController {
 
     }
 
-    def test() {
-        "chmod a+x ${servletContext.getRealPath("/scripts/test.sh")}".execute().waitFor()
-        render "${servletContext.getRealPath("/scripts/test.sh")}".execute().text
-    }
-
-    def newDeveloper(){
-
-
-    }
+    def newDeveloper() {}
 
     def review() {
         def resourceInstance = Resource.findById(params.id)
-        String status  = params.status
+        String status = params.status
         String comment = params.comment
 
-        if(!status) {
+        if (!status) {
             resourceInstance.comment = comment
-            if(resourceInstance.status == "rejected") {
+            if (resourceInstance.status == "rejected") {
                 Util.sendEmail(resourceInstance.owner.email,
                         "REMAR – O seu WAR \"${resourceInstance.name}\" foi rejeitado!",
                         "<h3>O seu WAR \"${resourceInstance.name}\" foi rejeitado pois ${comment}</h3> <br> "
@@ -218,7 +208,7 @@ class ResourceController {
             "${servletContext.getRealPath("/scripts/db.sh")} ${resourceInstance.uri}".execute().waitFor()
 
             if (Environment.current == Environment.DEVELOPMENT) {
-                resourceInstance.status  = "approved"
+                resourceInstance.status = "approved"
                 resourceInstance.active = true
                 resourceInstance.version = 0
                 resourceInstance.save flush: true
@@ -230,10 +220,10 @@ class ResourceController {
             def http = new HTTPBuilder("http://root:${grailsApplication.config.users.password}@localhost:8080")
             def resp = http.get(path: '/manager/text/deploy',
                     query: [path: "/${resourceInstance.uri}",
-                            war: servletContext.getRealPath("/wars/${resourceInstance.owner.username}/${resourceInstance.uri}.war") ])
+                            war : servletContext.getRealPath("/wars/${resourceInstance.owner.username}/${resourceInstance.uri}.war")])
             resp = GrailsIOUtils.toString(resp)
-            if(resp.indexOf('OK') != -1) {
-                resourceInstance.status  = "approved"
+            if (resp.indexOf('OK') != -1) {
+                resourceInstance.status = "approved"
                 resourceInstance.active = true
                 resourceInstance.version = 0
                 resourceInstance.save flush: true
@@ -252,7 +242,7 @@ class ResourceController {
             // probably we don't need this anymore because when the WAR is deployed the bpmn is deployed too
             // redirect controller: "process", action: "deploy", id: resourceInstance.bpmn
         } else if (status == "reject" && resourceInstance.status != "rejected") {
-            resourceInstance.status  = "rejected"
+            resourceInstance.status = "rejected"
 
             render "success"
         }
@@ -263,7 +253,6 @@ class ResourceController {
 
     @Transactional
     def delete(Resource resourceInstance) {
-
         if (resourceInstance == null) {
             log.debug "Trying to delete a resource, but that was not found."
             response.status = 404
@@ -274,8 +263,7 @@ class ResourceController {
         if (resourceInstance.owner == springSecurityService.currentUser || springSecurityService.currentUser == User.findByUsername('admin')) {
             resourceInstance.delete flush: true
             log.debug "Resource Deleted"
-        }
-        else {
+        } else {
             log.debug "Someone is trying to delete a resource that belongs to other user"
         }
 
@@ -288,15 +276,15 @@ class ResourceController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'deploy.label', default: 'Deploy'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 
-    def show(Resource instance){
-        render view: "show", model: [resourceInstance : instance]
+    def show(Resource instance) {
+        render view: "show", model: [resourceInstance: instance]
     }
 
-    def customizableGames(){
+    def customizableGames() {
         def model = [:]
 
         model.gameInstanceList = Resource.findAllByStatus('approved') // change to #findAllByActive?
@@ -306,13 +294,12 @@ class ResourceController {
 
 
     def edit(Resource resourceInstance) {
-
         def resourceJson = resourceInstance as JSON
 
-        render view: 'edit', model:[resourceInstance: resourceInstance]
+        render view: 'edit', model: [resourceInstance: resourceInstance]
     }
 
-    def getResourceInstance(long id){
+    def getResourceInstance(long id) {
 
         def r = Resource.findById(id) as JSON
 
@@ -341,9 +328,9 @@ class ResourceController {
     def rejectWar(Resource instance, String reason) {
         instance.valid = false
         instance.uri = ""
-        instance.status  = "rejected"
+        instance.status = "rejected"
         instance.comment = reason
         instance.save flush: true
         log.debug "War submited by " + session.user.username + " rejected. Reason: " + reason
     }
- }
+}
