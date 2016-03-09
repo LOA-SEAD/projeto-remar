@@ -1,7 +1,9 @@
 package br.ufscar.sead.loa.escolamagica.remar
 
 import br.ufscar.sead.loa.remar.User
+import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.transaction.Transactional
+import grails.util.Environment
 import groovy.json.JsonBuilder
 
 //import org.imgscalr.Scalr
@@ -23,28 +25,21 @@ class ThemeController {
 
     @Secured(['permitAll'])
     def index(Integer max) {
-        if (params.p && params.t && params.h) {
-            session.processId = params.p
+        if (params.t && params.h) {
             session.taskId = params.t
 
             def u = User.findByUsername(new String(params.h.decodeBase64()))
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.test()))
+
             redirect controller: "theme"
             return
         } else {
             session.user = springSecurityService.currentUser
         }
 
-        session.user = springSecurityService.currentUser
-
-        if (params.review) {
-            respond Theme.findAllByProcessIdAndTaskId(session.processId, session.taskId), model:[themeInstanceCount: Theme.count()]
-
-        }
-
         if (!Theme.findAllByOwnerId(session.user.id)) {
             def id = new Theme(ownerId: session.user.id).save(flush: true).id
-            def samples = servletContext.getRealPath("/data/samples/tema-escola-magica-remar")
+            def samples = servletContext.getRealPath("/samples/tema-escola-magica-remar")
             def dir = servletContext.getRealPath("/data/${session.user.id}/themes/${id}")
             def ant = new AntBuilder()
             ant.sequential() {
@@ -246,23 +241,18 @@ class ThemeController {
     }
 
     def choose() {
-        def list = []
-        for (name in ["portaa-sheet0", "portaa-sheet1", "portab-sheet0", "portab-sheet1", "portac-sheet0", "portac-sheet1"]) {
-            list.add(servletContext.getRealPath("/data/${Theme.get(params.id).ownerId}/themes/${params.id}/${name}.png"))
+        def files
+        def folder = servletContext.getRealPath("/data/${Theme.get(params.id).ownerId}/themes/${params.id}")
+        files = "?files=" + MongoHelper.putFile("${folder}/portaa-sheet0.png")
+        for (name in ["portaa-sheet1", "portab-sheet0", "portab-sheet1", "portac-sheet0", "portac-sheet1"]) {
+            files += "&files=" + MongoHelper.putFile("${folder}/${name}.png")
         }
 
-        def builder = new JsonBuilder()
-        def json = builder(
-                "files": list
-        )
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
 
-        def file = new File(servletContext.getRealPath("/data/${session.user.id}/${session.taskId}"))
-        file.mkdirs()
-        file = new File("${file}/files.json")
-        def pw = new PrintWriter(file);
-        pw.write(builder.toString());
-        pw.close();
-
-        redirect uri: "http://${request.serverName}:${request.serverPort}/process/task/resolve/${session.taskId}", params: [json: file]
+        redirect uri: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}${files}"
     }
 }

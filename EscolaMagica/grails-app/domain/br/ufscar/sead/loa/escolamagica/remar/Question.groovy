@@ -8,9 +8,7 @@ class Question {
     String level
     long ownerId
 
-
-    long processId
-    long taskId
+    String taskId
 
     static boolean validateQuestions(String ownerId) {
 
