@@ -47,5 +47,10 @@
     "android",
     "linux",
     "moodle"
-  ]
+  ],
+
+  "vars": {
+    "width": 800,
+    "height": 600
+  }
 }
