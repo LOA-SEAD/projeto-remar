@@ -9,6 +9,7 @@ import groovyx.net.http.HTTPBuilder
 import org.codehaus.groovy.grails.io.support.GrailsIOUtils
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.web.multipart.MultipartFile
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -43,7 +44,7 @@ class QuestionController {
         log.debug session.taskId
 
         def list = Question.list()
-        render view:"index", model:[questionInstanceList: list, questionInstanceCount: Question.count(), userName: user.getUsername(), userId: user.getId()]
+        render view: "index", model: [questionInstanceList: list, questionInstanceCount: Question.count(), userName: user.getUsername(), userId: user.getId()]
 
     }
 
@@ -56,10 +57,8 @@ class QuestionController {
     }
 
     @Transactional
-    def newQuestion(Question questionInstance)
-    {
-        if(questionInstance.author==null)
-        {
+    def newQuestion(Question questionInstance) {
+        if (questionInstance.author == null) {
             def user = springSecurityService.currentUser.id
             User currentUser = User.findById(user)
             //println(currentUser.username.toString())
@@ -68,21 +67,21 @@ class QuestionController {
         }
 
         Question newQuest = new Question();
-        newQuest.id=questionInstance.id
+        newQuest.id = questionInstance.id
         newQuest.statement = questionInstance.statement
         newQuest.answer = questionInstance.answer
         newQuest.author = questionInstance.author
         newQuest.category = questionInstance.category
         newQuest.processId = session.processId as long
-        newQuest.taskId    = session.taskId as long
+        newQuest.taskId = session.taskId as long
 
         if (newQuest.hasErrors()) {
-            respond newQuest.errors, view:'create' //TODO
+            respond newQuest.errors, view: 'create' //TODO
             render newQuest.errors;
             return
         }
 
-        newQuest.save flush:true
+        newQuest.save flush: true
 
         if (request.isXhr()) {
             render(contentType: "application/json") {
@@ -93,8 +92,6 @@ class QuestionController {
         }
 
         redirect(action: index())
-
-
 
 
     }
@@ -110,15 +107,15 @@ class QuestionController {
 
 
         if (questionInstance.hasErrors()) {
-             respond questionInstance.errors, view:'create' //TODO
+            respond questionInstance.errors, view: 'create' //TODO
             render questionInstance.errors;
             return
         }
 
         questionInstance.processId = session.processId as long
-        questionInstance.taskId    = session.taskId as long
+        questionInstance.taskId = session.taskId as long
 
-        questionInstance.save flush:true
+        questionInstance.save flush: true
 
         if (request.isXhr()) {
             render(contentType: "application/json") {
@@ -130,13 +127,13 @@ class QuestionController {
 
         redirect(action: index())
 
-       /* request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'question.label', default: 'Question'), questionInstance.id])
-                redirect questionInstance
-            }
-            '*' { respond questionInstance, [status: CREATED] }
-        }*/
+        /* request.withFormat {
+             form multipartForm {
+                 flash.message = message(code: 'default.created.message', args: [message(code: 'question.label', default: 'Question'), questionInstance.id])
+                 redirect questionInstance
+             }
+             '*' { respond questionInstance, [status: CREATED] }
+         }*/
     }
 
     def edit(Question questionInstance) {
@@ -155,7 +152,7 @@ class QuestionController {
             return
         }
 
-        questionInstance.save flush:true
+        questionInstance.save flush: true
 
         if (request.isXhr()) {
             render(contentType: "application/json") {
@@ -183,7 +180,7 @@ class QuestionController {
             return
         }
 
-        questionInstance.delete flush:true
+        questionInstance.delete flush: true
 
         if (request.isXhr()) {
             render(contentType: "application/json") {
@@ -208,7 +205,7 @@ class QuestionController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'question.label', default: 'Question'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 
@@ -268,5 +265,34 @@ class QuestionController {
         )
 
         log.debug builder.toString()
+    }
+
+    @Transactional
+    def generateQuestions() {
+        MultipartFile csv = params.csv
+
+
+        csv.inputStream.eachCsvLine { row ->
+
+
+            Question questionInstance = new Question()
+            questionInstance.statement = row[0] ?: "NA";
+            questionInstance.answer = row[1] ?: "NA";
+            questionInstance.category = row[2] ?: "NA";
+            questionInstance.author = row[3] ?: "NA";
+            questionInstance.processId = session.processId as long
+            questionInstance.taskId = session.taskId as long
+
+            if (questionInstance.hasErrors()) {
+
+            }
+            else{
+                questionInstance.save flush: true
+            }
+
+        }
+
+        redirect(action: index())
+
     }
 }
