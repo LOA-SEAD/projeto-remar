@@ -53,6 +53,8 @@ grails.project.dependency.resolution = {
         compile 'org.apache.ant:ant:1.9.6'
         // runtime 'org.postgresql:postgresql:9.3-1101-jdbc41'
         //test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
+        compile 'org.mongodb:mongodb-driver:3.2.1'
+        compile 'org.mongodb:bson:3.0.4'
     }
 
     plugins {
