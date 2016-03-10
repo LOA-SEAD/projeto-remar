@@ -38,8 +38,7 @@ class BootStrap {
                     firstName: "Admin",
                     lastName: "User",
                     gender: 'male',
-                    enabled: true,
-                    camunda_id: "admin"
+                    enabled: true
             )
 
             def guest = new User(
@@ -50,7 +49,6 @@ class BootStrap {
                     lastName: "User",
                     gender: 'female',
                     enabled: true,
-                    camunda_id: "guest"
             )
 
             admin.save flush: true

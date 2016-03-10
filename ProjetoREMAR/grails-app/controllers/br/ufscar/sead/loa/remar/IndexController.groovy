@@ -1,13 +1,11 @@
 package br.ufscar.sead.loa.remar
 
 import grails.util.Environment
-import org.camunda.bpm.engine.RuntimeService
 
 class IndexController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
     def springSecurityService
-    RuntimeService runtimeService
 
     def index() {
         if (springSecurityService.isLoggedIn()) {
@@ -24,12 +22,12 @@ class IndexController {
             model.myExportedResourcesList = ExportedResource.findAll("from ExportedResource as e where e.type='public' and e.owner=:owner order by e.id desc",[owner: User.get(session.user.id)])
 //            model.myExportedResourcesList = ExportedResource.findByTypeAndOwner('public',User.get(session.user.id))
 
-            def instances = []
-            runtimeService.createProcessInstanceQuery().variableValueEquals("ownerId", "1").list().each {instance ->
-                def i = []
-                i.push(runtimeService.getVariable(instance.processInstanceId, "gameName"))
+//            def instances = []
+//            runtimeService.createProcessInstanceQuery().variableValueEquals("ownerId", "1").list().each {instance ->
+//                def i = []
+//                i.push(runtimeService.getVariable(instance.processInstanceId, "gameName"))
 
-            }
+//            }
             render view: "dashboard", model: model
         } else {
             render view: "index"

@@ -3,7 +3,6 @@ package br.ufscar.sead.loa.remar
 //import com.daureos.facebook.FacebookGraphService
 import groovy.json.JsonBuilder
 import org.apache.commons.lang.RandomStringUtils
-import org.camunda.bpm.engine.IdentityService
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.multipart.commons.CommonsMultipartFile
@@ -24,7 +23,6 @@ class UserController {
 //    FacebookGraphService facebookGraphService
     def grailsApplication
 
-    IdentityService identityService
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", filteredList: "POST"]
 
     def index(Integer max) {
@@ -263,7 +261,6 @@ class UserController {
 
         UserRole.removeAll(userInstance, true)
 
-        identityService.deleteUser(userInstance.camunda_id)
 
         userInstance.delete flush: true
 
@@ -298,26 +295,6 @@ class UserController {
         UserRole.remove(springSecurityService.getCurrentUser() as User, Role.findByAuthority("ROLE_DEV"), true)
         log.debug("Usuário " + springSecurityService.getCurrentUser().firstName + " não é mais um desenvolvedor")
         redirect(url: "/my-profile", params: [success: true])
-    }
-
-
-    @Transactional
-    def filteredList(String filter) {
-        def query = "from User where camunda_id LIKE '%" + filter + "%' OR email LIKE '%" + filter + "%' OR username LIKE '%" + filter + "%' OR name LIKE '%" + filter + "%'"
-        def list = User.executeQuery(query)
-
-        render(template: "grid", model: [userInstanceList: list])
-    }
-
-    def filteredUserList(String filter) {
-        filter = "%" + filter + "%"
-        def filteredUserList = User.findAllByFirstNameOrLastNameIlikeOrEmailIlikeOrUsernameIlike(filter, filter, filter, filter, null)
-
-        if (filteredUserList.isEmpty()) {
-            render "Nenhum usuário encontrado.";
-        } else {
-            render template: 'filteredUsers', model: [filteredUserList: filteredUserList]
-        }
     }
 
     def usernameAvailable() {

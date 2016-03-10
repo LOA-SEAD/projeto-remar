@@ -91,17 +91,6 @@ environments {
             time = 5
             allowedNumberOfAttempts = 3
         }
-        camunda {
-            deployment.scenario = 'embedded'
-            engine {
-                configuration {
-                    databaseSchemaUpdate = true
-                    jobExecutorActivate = false
-                    deploymentResources = ['classpath:/**/*.bpmn']
-                    history = 'full'
-                }
-            }
-        }
         grails {
             mail {
                 host = "smtp.gmail.com"
@@ -129,18 +118,6 @@ environments {
     production {
         grails.logging.jul.usebridge = false
         grails.app.context = "/"
-        camunda {
-            deployment.autoreload = true
-            deployment.scenario = 'embedded'
-            engine {
-                configuration {
-                    databaseSchemaUpdate = true
-                    deploymentResources = ['classpath:/**/*.bpmn']
-                    jobExecutorActivate = false
-                    history = 'full'
-                }
-            }
-        }
         grails {
             mail {
                 host = "smtp.gmail.com"

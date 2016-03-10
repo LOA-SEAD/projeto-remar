@@ -13,7 +13,6 @@ class User {
 	boolean accountLocked
 	boolean passwordExpired
 	String email
-	String camunda_id
 	String firstName
 	String lastName
     String facebookId
@@ -30,7 +29,6 @@ class User {
 		firstName blank: false
 		lastName blank: true
 		email blank: false, email: true, unique: true
-		camunda_id nullable: true
         facebookId nullable: true
         moodleUsername nullable: true
 		gender blank: false
