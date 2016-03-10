@@ -46,7 +46,6 @@ class ResourceController {
         log.debug(params)
 
         if (params.img1 != null && params.img1 != "") {
-        if(params.img1 != null && params.img1 != ""){
             log.debug("entrou img1" + params.img1)
             def img1 = new File(servletContext.getRealPath("${params.img1}"))
             img1.renameTo(new File(path, "description-1"))
@@ -288,7 +287,6 @@ class ResourceController {
     def edit(Resource resourceInstance) {
         def resourceJson = resourceInstance as JSON
 
-        render view: 'edit', model: [resourceInstance: resourceInstance]
         render view: 'edit', model:[resourceInstance: resourceInstance, categories: Category.list(sort:"name"),
                                     defaultCategory: resourceInstance.category ]
     }
