@@ -24,12 +24,6 @@ class IndexController {
             model.myExportedResourcesList = ExportedResource.findAll("from ExportedResource as e where e.type='public' and e.owner=:owner order by e.id desc",[owner: User.get(session.user.id)])
 //            model.myExportedResourcesList = ExportedResource.findByTypeAndOwner('public',User.get(session.user.id))
 
-
-
-            log.debug model
-            log.debug "RESULT: " + model.publicExportedResourcesList.size()
-
-
             def instances = []
             runtimeService.createProcessInstanceQuery().variableValueEquals("ownerId", "1").list().each {instance ->
                 def i = []
@@ -54,10 +48,10 @@ class IndexController {
         model.uri += "?" + params.collect { k,v -> "$k=$v" }.join('&')
 
         if (model.development) {
-            if (model.uri.indexOf('escola') != -1) {
-                model.uri = "http://localhost:7070${model.uri}"
-            } else if (model.uri.indexOf('forca') != -1) {
-                model.uri = "http://localhost:8080${model.uri}"
+            if (model.uri.indexOf('forca') != -1) {
+                model.uri = "http://localhost:8081${model.uri}"
+            } else if (model.uri.indexOf('escola') != -1) {
+                model.uri = "http://localhost:8082${model.uri}"
             }
         }
 

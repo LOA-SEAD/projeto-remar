@@ -1,0 +1,68 @@
+{
+  "name": "Escola Mágica",
+  "uri": "escolamagica",
+  "version": 1,
+  "tasks": [
+    {
+      "name": "Banco de Questões",
+      "uri": "question",
+      "description": "Criar/editar/selecionar um banco de questões para o jogo.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "perguntas.xml",
+          "type": "xml",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "name": "Tema",
+      "uri": "theme",
+      "description": "Criar/editar/selecionar um tema para o jogo.",
+      "type": "image_collection",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "portaa-sheet0.png",
+          "type": "image",
+          "path": "images"
+        },
+        {
+          "name": "portaa-sheet1.png",
+          "type": "image",
+          "path": "images"
+        },
+        {
+          "name": "portab-sheet0.png",
+          "type": "image",
+          "path": "images"
+        },
+        {
+          "name": "portab-sheet1.png",
+          "type": "image",
+          "path": "images"
+        },
+        {
+          "name": "portac-sheet0.png",
+          "type": "image",
+          "path": "images"
+        },
+        {
+          "name": "portac-sheet1.png",
+          "type": "image",
+          "path": "images"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    "web",
+    "moodle"
+  ],
+  "vars": {
+    "width": 816,
+    "height": 616
+  }
+}

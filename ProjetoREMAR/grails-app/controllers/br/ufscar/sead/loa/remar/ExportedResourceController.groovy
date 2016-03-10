@@ -89,57 +89,37 @@ class ExportedResourceController {
         redirect uri: "/exported-resource/moodle/${exportedResourceInstance.id}"
     }
 
-    def publish(ExportedResource exportedResourceInstance) {
-        def resource = exportedResourceInstance.resource
-        def platforms = []
+    def publish(ExportedResource instance) {
+        def exportsTo = [:]
+        def urls = [:]
+        exportsTo.linux = instance.resource.linux
+        exportsTo.android = instance.resource.android
+        exportsTo.moodle = instance.resource.moodle
 
-        if(exportedResourceInstance.webUrl) {
-            platforms << 'Web:' +  exportedResourceInstance.webUrl
-        } else if(resource.web) {
-            platforms << 'Web'
-        }
-        if(exportedResourceInstance.androidUrl) {
-            platforms << 'Android:' +  exportedResourceInstance.androidUrl
-        } else if(resource.android) {
-            platforms << 'Android'
-        }
-        if(exportedResourceInstance.linuxUrl) {
-            platforms << 'Linux:' +  exportedResourceInstance.linuxUrl
-        } else if(resource.linux) {
-            platforms << 'Linux'
-        }
-        if(exportedResourceInstance.moodleUrl) {
-            platforms << 'Moodle:' +  exportedResourceInstance.moodleUrl
-        } else if(resource.moodle) {
-            platforms << 'Moodle'
-        }
+        urls.linux = instance.linuxUrl
+        urls.android = instance.androidUrl
+        urls.moodle = instance.moodleUrl
 
-        def time = exportedResourceInstance.exportedAt.getTime() as String
-        def url = "/published/${time.substring(0, time.length() - 4)}"
-        log.debug "Url: " + url
+        def baseUrl = "/published/${instance.processId}"
 
-        new RequestMap(url: url + '/**', configAttribute: 'permitAll').save flush: true
-        springSecurityService.clearCachedRequestmaps()
+        RequestMap.findOrSaveWhere(url: "${baseUrl}/**", configAttribute: 'permitAll')
 
-        exportedResourceInstance.webUrl = url + "/web"
-        platforms[0] = "Web:"+ exportedResourceInstance.webUrl
-        exportedResourceInstance.save flush: true
+        instance.webUrl = baseUrl + "/web"
+        instance.save flush: true
 
-        render view:'publish', model: [resourceName: exportedResourceInstance.name, resourceId: exportedResourceInstance.id,
-                                       platforms: platforms, resourceUri: exportedResourceInstance.resource.uri, resourceInstanceUrl: url ]
+        render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, urls: urls, baseUrl: baseUrl]
     }
 
     def web(ExportedResource exportedResourceInstance) {
         render exportedResourceInstance.webUrl
     }
 
-    def android(ExportedResource exportedResourceInstance) {
+    def android(ExportedResource instance) {
         def root = servletContext.getRealPath("/")
         root = root.substring(0, root.length() -1)
 
-        def time = exportedResourceInstance.exportedAt.getTime() as String
-        def dir = servletContext.getRealPath("/published/${time.substring(0, time.length() - 4)}/android")
-        def resourceDir = servletContext.getRealPath("/data/resources/sources/${exportedResourceInstance.resource.uri}")
+        def dir = servletContext.getRealPath("/published/${instance.processId}/android")
+        def resourceDir = servletContext.getRealPath("/data/resources/sources/${instance.resource.uri}")
         def ant = new AntBuilder()
         ant.sequential {
             mkdir(dir: dir + '/tmp')
@@ -151,25 +131,27 @@ class ExportedResourceController {
             chmod(file: "${root}/scripts/publish_android.sh", perm: "+x")
             exec(executable: "${root}/scripts/publish_android.sh") {
                 arg(value: root)
-                arg(value: "br.ufscar.sead.loa.${exportedResourceInstance.resource.uri}")
+                arg(value: "br.ufscar.sead.loa.${instance.resource.uri}")
                 arg(value: dir + '/tmp/manifest.json')
                 arg(value: dir)
             }
+            move(file: "${dir}/apks.zip",
+                    tofile: "${dir}/../android.zip")
+            delete(dir: dir)
         }
 
-        exportedResourceInstance.androidUrl = "/published/${time.substring(0, time.length() - 4)}/android/apks.zip"
-        exportedResourceInstance.save flush: true
+        instance.androidUrl = "/published/${instance.processId}/android.zip"
+        instance.save flush: true
 
-        render exportedResourceInstance.androidUrl
+        render instance.androidUrl
     }
 
-    def linux(ExportedResource exportedResourceInstance) {
+    def linux(ExportedResource instance) {
         def root = servletContext.getRealPath("/")
         root = root.substring(0, root.length() -1)
 
-        def time = exportedResourceInstance.exportedAt.getTime() as String
-        def dir = servletContext.getRealPath("/published/${time.substring(0, time.length() - 4)}/linux")
-        def resourceDir = servletContext.getRealPath("/data/resources/sources/${exportedResourceInstance.resource.uri}")
+        def dir = servletContext.getRealPath("/published/${instance.processId}/linux")
+        def resourceDir = servletContext.getRealPath("/data/resources/sources/${instance.resource.uri}")
         def ant = new AntBuilder()
         ant.sequential {
             mkdir(dir: dir + '/tmp')
@@ -186,12 +168,15 @@ class ExportedResourceController {
                 arg(value: dir + '/tmp')
                 arg(value: dir + '/bin')
             }
+            move(file: "${dir}/bin/resource.zip",
+                    tofile: "${dir}/../linux.zip")
+            delete(dir: dir)
         }
 
-        exportedResourceInstance.linuxUrl = "/published/${time.substring(0, time.length() - 4)}/linux/bin/resource.zip"
-        exportedResourceInstance.save flush: true
+        instance.linuxUrl = "/published/${instance.processId}/linux.zip"
+        instance.save flush: true
 
-        render exportedResourceInstance.linuxUrl
+        render instance.linuxUrl
     }
 
     def moodle(ExportedResource exportedResourceInstance) {
@@ -214,8 +199,6 @@ class ExportedResourceController {
         def photo = params.banner as CommonsMultipartFile
         if (photo != null && !photo.isEmpty()) {
             photo.transferTo(destination)
-        } else {
-            log.debug "gfhghgc"
         }
 
         def i = ExportedResource.findByName(params.name)

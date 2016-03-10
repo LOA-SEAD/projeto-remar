@@ -1,7 +1,9 @@
 package br.ufscar.sead.loa.escolamagica.remar
 
 import br.ufscar.sead.loa.remar.User
+import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.plugin.springsecurity.annotation.Secured
+import grails.util.Environment
 import grails.web.JSONBuilder
 import groovy.json.JsonBuilder
 import groovy.xml.MarkupBuilder
@@ -25,8 +27,7 @@ class QuestionController {
 
     @Secured(['permitAll'])
     def index(Integer max) {
-        if (params.p && params.t && params.h) {
-            session.processId = params.p
+        if (params.t && params.h) {
             session.taskId = params.t
 
             def u = User.findByUsername(new String(params.h.decodeBase64()))
@@ -42,37 +43,37 @@ class QuestionController {
 
         if(!list) {
             new Question(title: 'Questão 1 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 1, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
+                    correctAnswer: 0, level: 1, taskId: session.taskId, ownerId: session.user.id)
             new Question(title: 'Questão 2 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 1, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
+                    correctAnswer: 0, level: 1, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 3 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 1, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
+                    correctAnswer: 0, level: 1, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 4 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 1, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
+                    correctAnswer: 0, level: 1, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 5 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 1, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
+                    correctAnswer: 0, level: 1, taskId: session.taskId, ownerId: session.user.id).save flush: true
 
             new Question(title: 'Questão 1 – Nível 2', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 2, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
+                    correctAnswer: 0, level: 2, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 2 – Nível 2', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 2, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
+                    correctAnswer: 0, level: 2, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 3 – Nível 2', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 2, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
+                    correctAnswer: 0, level: 2, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 4 – Nível 2', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 2, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
+                    correctAnswer: 0, level: 2, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 5 – Nível 2', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 2, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
+                    correctAnswer: 0, level: 2, taskId: session.taskId, ownerId: session.user.id).save flush: true
 
             new Question(title: 'Questão 1 – Nível 3', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 3, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
+                    correctAnswer: 0, level: 3, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 2 – Nível 3', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 3, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
+                    correctAnswer: 0, level: 3, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 3 – Nível 3', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 3, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
+                    correctAnswer: 0, level: 3, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 4 – Nível 3', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 3, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
+                    correctAnswer: 0, level: 3, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 5 – Nível 3', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 3, processId: session.processId, taskId: session.taskId, ownerId: session.user.id).save flush: true
+                    correctAnswer: 0, level: 3, taskId: session.taskId, ownerId: session.user.id).save flush: true
         }
 
         respond Question.findAllByOwnerId(session.user.id), model: [questionInstanceCount: Question.count()]
@@ -145,18 +146,14 @@ class QuestionController {
 
         }
 
-        def builder = new JsonBuilder()
-        def json = builder(
-                "files": [
-                        "${instancePath}/perguntas.xml"
-                ]
-        )
+        String id = MongoHelper.putFile("${instancePath}/perguntas.xml")
 
-        def file = new File("${instancePath}/files.json")
-        def pw = new PrintWriter(file);
-        pw.write(builder.toString());
-        pw.close();
-        render "http://${request.serverName}:${request.serverPort}/process/task/resolve/${session.taskId}?json=${file}"
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
+
+        render "http://${request.serverName}:${port}/process/task/complete/${session.taskId}?files=${id}"
     }
 
     @Transactional
@@ -170,7 +167,6 @@ class QuestionController {
         log.debug session.user.id
         log.debug "=="
 
-        questionInstance.processId = session.processId as long
         questionInstance.taskId = session.taskId as long
         questionInstance.ownerId = session.user.id as long
 

@@ -20,10 +20,10 @@ class ExportedResource {
     String androidUrl
 
     String name
-    String image
     int width
     int height
     Date exportedAt
 
     String type //should be "public", "private" or "group"
+    String processId
 }

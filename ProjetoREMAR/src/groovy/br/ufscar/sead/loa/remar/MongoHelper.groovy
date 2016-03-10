@@ -4,6 +4,7 @@ import com.mongodb.client.MongoDatabase
 import com.mongodb.MongoClient
 import org.bson.Document
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
+import org.bson.types.ObjectId
 
 
 @Singleton
@@ -52,4 +53,15 @@ class MongoHelper {
         return db.getCollection(collection).find(new Document("game", resourceId))
     }
 
+    String[] getFilePaths(String... ids) {
+        def paths = []
+        def collection = this.db.getCollection('file')
+
+        for (id in ids) {
+            def entry = collection.find(new Document('_id', new ObjectId(id))).first()
+            paths << entry.getString('path')
+        }
+
+        return paths
+    }
 }
