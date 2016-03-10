@@ -107,7 +107,8 @@ class MoodleController {
                         "width": element.width,
                         "image": element.image,
                         "moodleUrl": element.moodleUrl,
-                        "name": element.name
+                        "name": element.name,
+                        "resourceId": element.resourceId
                     ]
                 }
             )
