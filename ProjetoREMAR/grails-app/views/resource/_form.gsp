@@ -22,13 +22,22 @@
 		<div class="row">
 			<div class="col s12">
 				<div class="input-field">
-					<select class="icons-select">
-						<option value="" selected>Puzzle</option>
-						<option value="" data-icon="/assets/img/inside/avatar.png" class="left circle">Ação</option>
-						<option value="" data-icon="/assets/img/inside/avatar.png" class="left circle">Aventura</option>
-						<option value="" data-icon="/assets/img/inside/avatar.png" class="left circle">Educacional</option>
+					<select id="select" class="icons-select">
+						<g:if test="${categories.size() > 0}">
+							<g:each in="${categories}" var="category">
+								<g:if test="${category.id == defaultCategory.id}">
+									<option class="option" value="${category.id}" selected>${category.name}</option>
+								</g:if>
+								<g:else>
+									<option class="option" value="${category.id}">${category.name}</option>
+								</g:else>
+							</g:each>
+						</g:if>
+						%{--<option value="" data-icon="/assets/img/inside/avatar.png" class="left circle">Ação</option>--}%
+						%{--<option value="" data-icon="/assets/img/inside/avatar.png" class="left circle">Aventura</option>--}%
+						%{--<option value="" data-icon="/assets/img/inside/avatar.png" class="left circle">Educacional</option>--}%
 					</select>
-					<label>Escolha uma categoria: </label>
+					<label for="select">Escolha uma categoria: </label>
 				</div>
 			</div>
 		</div>

@@ -40,7 +40,7 @@
                     ${nameProcess}
                 </h3>
                 <h5 class="center date">
-                    <i class="fa fa-clock-o"></i> Inializado em <g:formatDate format="dd-MM-yyyy HH:mm" date="${startedProcess}"/>
+                    <i class="fa fa-clock-o"></i> Inicializado em <g:formatDate format="dd-MM-yyyy HH:mm" date="${startedProcess}"/>
                 </h5>
             </div>
             <div class="row space">

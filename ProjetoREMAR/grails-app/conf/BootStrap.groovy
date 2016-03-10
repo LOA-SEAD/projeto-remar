@@ -5,6 +5,7 @@ import br.ufscar.sead.loa.remar.UserRole
 import br.ufscar.sead.loa.remar.User
 import br.ufscar.sead.loa.remar.MongoHelper
 import grails.util.Environment
+import br.ufscar.sead.loa.remar.Category
 
 import javax.servlet.http.HttpServletRequest
 
@@ -67,6 +68,18 @@ class BootStrap {
             new Platform(name: "Moodle").save flush: true
 
             log.debug "Platforms: ok"
+        }
+
+        def category = Category.findAll();
+
+        if(!category){
+            new Category(name: "Ação",description:  "jogos de ação").save flush: true
+            new Category(name: "Aventura", description: "jogos de aventura").save flush: true
+            new Category(name: "Educacional", description: "jogos educacionais").save flush: true
+            new Category(name: "Puzzle", description: "jogos de estratégia").save flush: true
+            new Category(name: "Corrida", description: "jogos de corrida").save flush: true
+
+            log.debug "Category: ok"
         }
 
         if (Environment.current == Environment.DEVELOPMENT) {

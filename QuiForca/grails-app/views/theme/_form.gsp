@@ -18,7 +18,7 @@
     <g:uploadForm controller="design" action="ImagesManager">
         <div class="row">
             <div class="col s12">
-                <table class="responsive-table centered" id="tableNewTheme">
+                <table class="centered" id="tableNewTheme">
                     <thead>
                     <tr>
                         <th>Ícone</th>

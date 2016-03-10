@@ -7,6 +7,7 @@ import org.apache.commons.lang.RandomStringUtils
 import org.codehaus.groovy.grails.io.support.GrailsIOUtils
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.commons.CommonsMultipartFile
+import br.ufscar.sead.loa.remar.Category
 
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
@@ -32,19 +33,17 @@ class ResourceController {
 
 
     def create() {
-        render view: "create", model: [id: params.id]
+        render view: "create", model: [id: params.id, categories: Category.list(sort:"name"), defaultCategory: Category.findByName('Aventura')]
     }
 
     @Transactional
-    def update(Resource instance){
+    def update(Resource instance) {
         def path = new File(servletContext.getRealPath("/data/resources/assets/${instance.uri}"))
         path.mkdirs()
 
 //        MultipartFile img1 = request.getFile('img1')
 //        MultipartFile img2 = request.getFile('img2')
 //        MultipartFile img3 = request.getFile('img3')
-
-        log.debug(params)
 
         if(params.img1 != null && params.img1 != ""){
             log.debug("entrou img1" + params.img1)
@@ -61,16 +60,11 @@ class ResourceController {
             def img3 = new File(servletContext.getRealPath("${params.img3}"))
             img3.renameTo(new File(path,"description-3"))
         }
-
-        instance.description = params.description
-        instance.name = params.name
         instance.comment = "Em avaliação"
-        //TODO colocar a categoria
 
         instance.save flush: true
 
         render true;
-//       redirect action: "index", params: [id: resourceInstance.id]
     }
 
     @Transactional
@@ -198,9 +192,13 @@ class ResourceController {
             def collectionName = json['collection_name'] as String
             log.debug collectionName
             //def mongodb = MongoHelper.instance.init()
-            MongoHelper.instance.createCollection(collectionName)
+            if (MongoHelper.instance.createCollection(collectionName)) {
+                log.debug "Collection name '${collectionName}' successfully created."
+            }
+            else {
+                log.debug "Collection '${collectionName}' already exists."
+            }
 
-            log.debug "Collection name '${collectionName}' successfully created."
         }
 
 
@@ -261,6 +259,13 @@ class ResourceController {
         new File(servletContext.getRealPath("/wars/${username}"), fileName + ".war")
                        .renameTo(servletContext.getRealPath("/wars/${username}") + "/" + manifest.uri + ".war")
         log.debug "War successfully copied."
+
+
+        //load pattern category with adventure
+        resourceInstance.category = Category.findByName("Aventura")
+
+        log.debug("category successfully loaded")
+
         resourceInstance.save flush:true
 
 
@@ -393,6 +398,7 @@ class ResourceController {
         def model = [:]
 
         model.gameInstanceList = Resource.findAllByStatus('approved') // change to #findAllByActive?
+        model.categories = Category.list(sort:"name")
 
         render view: "customizableGames", model: model
     }
@@ -402,7 +408,8 @@ class ResourceController {
 
         def resourceJson = resourceInstance as JSON
 
-        render view: 'edit', model:[resourceInstance: resourceInstance]
+        render view: 'edit', model:[resourceInstance: resourceInstance, categories: Category.list(sort:"name"),
+                                    defaultCategory: resourceInstance.category ]
     }
 
     def getResourceInstance(long id){

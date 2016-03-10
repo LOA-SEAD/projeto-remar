@@ -13,21 +13,20 @@ function send(enunciado,correta,resp0,resp1,resp2,resp3,escolhida) {
         "resposta"         : escolhida
     }
 
-    data.remar_resource_id = res.remar_resource_id;
+    var splittedUrl = window.location.href.split("/");
 
-    console.log(data);
+    data.moodle_url = "/published/" + splittedUrl[4] + "/web";
 
     $.ajax({
         type: 'POST',
-        data: data,
+        data: JSON.stringify(data),
+        contentType: 'application/json; charset=utf-8',
         url: '/exported-resource/saveGameInfo',
         success: function(data) {
-            console.log ("Data stored.")
-            console.log(data);
+            console.log("Game data stored.");
         },
         error: function(res) {
-            console.log("Error.")
-            console.log(res);
+            console.log("Error in stroring the game data.");
         }
     });
 }

@@ -28,7 +28,7 @@ class MoodleController {
 
     def link() {
         def hash = RandomStringUtils.random(30, true, true)
-        def url = Moodle.get(params.id).domain + "/mod/remarmoodle/new-account-confirmation.php?hash=" + hash + "&moodleId=" + params.id
+        def url = Moodle.get(params.moodleId as Integer).domain + "/mod/remarmoodle/new-account-confirmation.php?hash=" + hash + "&moodleId=" + params.moodleId
 
         redirect url: url
     }
@@ -83,111 +83,58 @@ class MoodleController {
         render 'Moodle "'+domain+'" successfully deleted.'
     }
 
-    def resources_list(String domain) {
-        //def moodle = Moodle.findByDomain(domain).Where(active)
-        def moodle = Moodle.findAllByActiveAndDomain(true, domain)
+    def resources_list() {
+        def moodleAccount = MoodleAccount.findByToken(params.hash as String)
 
-        log.debug moodle
+        //if the moodle account is not found
+        if (moodleAccount == [] || moodleAccount == null) {
+            log.debug "Moodle account not found"
+            render "Moodle account not found."
+        }
+        else {
+            //getting the user based on the hash received
+            def user = moodleAccount.owner
 
-        if (moodle != []) {
-            /* list of games published only for moodle */
-            def list = ExportedResource.findAll()
-
-            Iterator i = list.iterator();
-            while (i.hasNext()) {
-                def n = i.next()
-
-                if (!n.moodleUrl) {
-                    i.remove()
-                    log.debug "removed."
-                }
-            }
+            def exportedResources = ExportedResource.findAllByOwner(user)
 
             def builder = new JsonBuilder()
 
             def json = builder (
-                "resources": list.collect {p ->
+                "resources": exportedResources.collect { element ->
                     [
-                        "id": p.id,
-                        "height": p.height,
-                        "width": p.width,
-                        "image": p.image,
-                        "moodleUrl": p.moodleUrl,
-                        "name": p.name,
-                        "moodleHash": User.get(p.ownerId).moodleHash
-                        /*"accounts": p.accounts.collect {a ->
-                            [
-                                "accountName": a.accountName,
-                                "id": a.id
-                            ]
-                        }*/
+                        "id": element.id,
+                        "height": element.height,
+                        "width": element.width,
+                        "image": element.image,
+                        "moodleUrl": element.moodleUrl,
+                        "name": element.name,
+                        "resourceId": element.resourceId
                     ]
                 }
             )
 
             render json as JSON
         }
-        else {
-            render 'O moodle "'+domain+'" foi desinstalado ou não existe.'
-        }
     }
 
-    def send() {
-        log.debug "PARAMS: "
-        log.debug params
+    def getLogFromResource() {
+        if(params.resourceId) {
+            def data = MongoHelper.instance.getData("escola_magica", params.resourceId as Integer)
+            if (data.first() != null) {
+                def builder = new JsonBuilder()
 
-        println "params: "
-        println params
+                def json = builder (
+                    "data": data.collect { it }
+                )
 
-        params.remove("controller")
-        params.remove("format")
-        params.remove("action")
-        params.hash = User.get(session.user.id).moodleHash
-        params.cm      = 27
-        def time = new Date().time as String
-
-        def token = Moodle.findAll().first().token
-
-        params.timestamp = time.substring(0, time.length() - 3)
-
-        //def table = ExportedResource.get(params.remar_resource_id).moodleTableName
-
-        def q = [alternativaa: params.alternativaa,
-                 alternativab: params.alternativab,
-                 alternativac: params.alternativac,
-                 alternativad: params.alternativad,
-                 respostacerta: params.respostacerta,
-                 resposta: params.resposta,
-                 timestamp: params.timestamp,
-                 hash: params.hash,
-                 enunciado: params.enunciado,
-                 remar_resource_id: params.remar_resource_id,
-                 table_name: "escola_magica",
-                 wstoken: token,
-                 wsfunction: "mod_remarmoodle_insert_record"]
-
-
-
-        log.debug "~~~~~~~"
-        log.debug q
-        log.debug "~~~~~~~"
-        def http, path
-        if (Environment.current == Environment.DEVELOPMENT) {
-            http = new HTTPBuilder("http://localhost")
-            path = "/moodle/webservice/rest/server.php"
+                render json as JSON
+            }
+            else {
+                render "no information found in our records."
+            }
         }
         else {
-            http = new HTTPBuilder("http://remar.dc.ufscar.br:9090")
-            path = "/webservice/rest/server.php"
+            render "no information found in our records."
         }
-
-
-        def resp = http.post(path: path,
-                query: q) as String
-
-        println resp
-        return
-        //def resp = JSON.parse(http.post(path: "/moodle/webservice/rest/server.php",
-          //      query: params) as String)
     }
 }

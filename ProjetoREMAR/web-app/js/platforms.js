@@ -94,10 +94,7 @@ $(function(){
         }
 
         $("input[type='checkbox']").each(function() {
-            if (this.checked && this.id != "web") {
-            //if (this.checked) {
-            //    console.log("chega aki!");
-
+            if (this.checked && !this.disabled) {
                 $(this).removeClass('checkbox-platform');
                 var id = this.id;
                 this.disabled = true;
@@ -122,10 +119,10 @@ $(function(){
                 loader.hide(500);
                 if (endpoint == "moodle" ) {
                     clearInterval(intervalId);
-                    $(el).html(originalText +" <span class='chip center'>"+
-                                                "Vincule sua conta ao Moodle"+
-                                                "<i class='material-icons'>close</i>"+
-                                              "</span>");
+                    $(el).html(originalText +
+                            " <span class='chip center'>"+
+                            "Utilize o jogo no seu Moodle."+
+                            "</span>");
                     return
                 }
                 clearInterval(intervalId);

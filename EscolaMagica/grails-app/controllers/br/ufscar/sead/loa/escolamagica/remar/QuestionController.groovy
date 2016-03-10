@@ -7,6 +7,7 @@ import groovy.json.JsonBuilder
 import groovy.xml.MarkupBuilder
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.web.multipart.MultipartFile
 
 //import org.camunda.bpm.engine.RuntimeService
 //import org.codehaus.groovy.grails.web.context.ServletContextHolder
@@ -238,5 +239,29 @@ class QuestionController {
             }
             '*' { render status: NOT_FOUND }
         }
+    }
+
+    @Transactional
+    def generateQuestions(){
+        MultipartFile csv = params.csv
+
+        csv.inputStream.eachCsvLine { row ->
+            Question questionInstance = new Question()
+            questionInstance.level = row[0] ?: "NA";
+            questionInstance.title = row[1] ?: "NA";
+            questionInstance.answers[0] = row[2] ?: "NA";
+            questionInstance.answers[1] = row[3] ?: "NA";
+            questionInstance.answers[2] = row[4] ?: "NA";
+            questionInstance.answers[3] = row[5] ?: "NA";
+            String correct = row[6] ?: "NA";
+            questionInstance.correctAnswer =  correct.toInteger()
+            questionInstance.ownerId = session.user.id
+            if(questionInstance.hasErrors()){
+
+            }
+            else
+                questionInstance.save flush: true
+        }
+        redirect(action: index())
     }
 }

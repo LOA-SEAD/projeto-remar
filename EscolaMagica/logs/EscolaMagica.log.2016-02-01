@@ -1,4 +1,0 @@
-2016-02-01 16:08:20,304 [main] INFO  webxml.WebxmlGrailsPlugin  - Loading default config file: class DefaultWebXmlConfig
-2016-02-01 16:08:20,317 [main] WARN  webxml.WebxmlGrailsPlugin  - Did not find application config file: WebXmlConfig
-2016-02-01 16:08:20,822 [main] INFO  webxml.WebxmlGrailsPlugin  - Loading default config file: class DefaultWebXmlConfig
-2016-02-01 16:08:20,825 [main] WARN  webxml.WebxmlGrailsPlugin  - Did not find application config file: WebXmlConfig

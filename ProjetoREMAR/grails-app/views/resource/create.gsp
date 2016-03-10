@@ -60,7 +60,7 @@
 										<div class="row loaded-form">
 										%{-- TODO mudar controlador --}%
 											%{--<g:form url="[action: 'update']" enctype="multipart/form-data">--}%
-												<input type="hidden" name="id" id="hidden">
+												<input type="hidden" name="id" id="hidden" value="">
 												<div class="col-s12" >
 													<g:render template="form"/>
 												</div>

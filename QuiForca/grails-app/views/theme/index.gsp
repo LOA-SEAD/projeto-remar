@@ -28,7 +28,7 @@
 
     <div class="row">
         <form class="col s12" name="formName">
-    <table class="responsive-table" id="table">
+    <table class="" id="table">
         <thead>
         <tr>
             <th>Selecionar</th>

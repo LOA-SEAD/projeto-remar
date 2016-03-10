@@ -29,7 +29,7 @@
 							</div>
 							<span class="card-title black-text truncate">${resourceInstance.name}</span>
 							<div class="category">
-								<p> Ação</p>
+								<p> ${resourceInstance.category.name}</p>
 								<div class="stars">
 									<img src="/images/star.png" width="14" height="14" alt="Estrela">
 									<img src="/images/star.png" width="14" height="14" alt="Estrela">

@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="center slick">
                     <g:each in="${gameInstanceList}" var="gameInstance">
-                        <div class="card square-cover small">
+                        <div class="card square-cover small dashboard">
                             <div class="card-content">
                                 <div class="cover">
                                     <div class="cover-image-container">
@@ -49,33 +49,31 @@
                                 </div>
                                 <div class="details">
                                     <a class="card-click-target"  href="/resource/show/${gameInstance.id}" aria-hidden="true" tabindex="-1"></a>
-                                    <a class="title card-name"  href="/resource/show/${gameInstance.id}" title="${gameInstance.name}" aria-hidden="true" tabindex="-1">${gameInstance.name}</a>
+                                    <a class="title card-name" data-category="${gameInstance.category.id}" href="/resource/show/${gameInstance.id}" title="${gameInstance.name}" aria-hidden="true" tabindex="-1">${gameInstance.name}</a>
                                     <div class="subtitle-container">
                                         <p class="subtitle">Feito por: ${gameInstance.owner.firstName}</p>
                                     </div>
+                                    <div class="gray-color subtitle-container">
+                                        <i class="fa fa-globe"></i>
+                                        <g:if test="${gameInstance.android}">
+                                            <i class="fa fa-android"></i>
+                                        </g:if>
+                                        <g:if test="${gameInstance.linux}">
+                                            <i class="fa fa-linux"></i>
+                                        </g:if>
+                                        <g:if test="${gameInstance.moodle}">
+                                            <i class="fa fa-graduation-cap"></i>
+                                        </g:if>
+                                    </div>
                                 </div>
                                 <div class="row no-margin margin-top">
-                                    <div class="col s5">
+                                    <div class="col s12">
                                         <div class="pull-left tiny-stars">
                                             <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                             <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                             <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                             <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                            %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
-                                        </div>
-                                    </div>
-                                    <div class="col s7">
-                                        <div class="pull-right gray-color">
-                                            <i class="fa fa-globe"></i>
-                                            <g:if test="${gameInstance.android}">
-                                                <i class="fa fa-android"></i>
-                                            </g:if>
-                                            <g:if test="${gameInstance.linux}">
-                                                <i class="fa fa-linux"></i>
-                                            </g:if>
-                                            <g:if test="${gameInstance.moodle}">
-                                                <i class="fa fa-graduation-cap"></i>
-                                            </g:if>
+                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                         </div>
                                     </div>
                                 </div>
@@ -94,7 +92,7 @@
             </div>
             <div class="center slick">
                 <g:each in="${publicExportedResourcesList}" var="exportedResourceInstance">
-                    <div class="card square-cover small">
+                    <div class="card square-cover small dashboard">
                         <div class="card-content">
                             <div class="cover">
                                 <div class="cover-image-container">
@@ -108,35 +106,33 @@
                             </div>
                             <div class="details">
                                 <p class="card-click-targ" aria-hidden="true" tabindex="-1"></p>
-                                <span class="title card-name activator" title="${exportedResourceInstance.name}" aria-hidden="true" tabindex="-1">${exportedResourceInstance.name}</span>
+                                <span class="title card-name activator" data-category="${exportedResourceInstance.resource.category.id}" title="${exportedResourceInstance.name}" aria-hidden="true" tabindex="-1">${exportedResourceInstance.name}</span>
                                 <div class="subtitle-container">
                                     <p class="subtitle">Feito por: ${exportedResourceInstance.owner.firstName}</p>
                                 </div>
+                                <div class="gray-color subtitle-container">
+                                    <g:if test="${exportedResourceInstance.webUrl != null}">
+                                        <i class="fa fa-globe"></i>
+                                    </g:if>
+                                    <g:if test="${exportedResourceInstance.androidUrl != null}">
+                                        <i class="fa fa-android"></i>
+                                    </g:if>
+                                    <g:if test="${exportedResourceInstance.linuxUrl != null}">
+                                        <i class="fa fa-linux"></i>
+                                    </g:if>
+                                    <g:if test="${exportedResourceInstance.moodleUrl != null}">
+                                        <i class="fa fa-graduation-cap"></i>
+                                    </g:if>
+                                </div>
                             </div>
                             <div class="row no-margin margin-top">
-                                <div class="col s5">
+                                <div class="col s12">
                                     <div class="pull-left tiny-stars">
                                         <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                         <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                         <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                         <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                        %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
-                                    </div>
-                                </div>
-                                <div class="col s7">
-                                    <div class="pull-right gray-color">
-                                        <g:if test="${exportedResourceInstance.webUrl != null}">
-                                            <i class="fa fa-globe"></i>
-                                        </g:if>
-                                        <g:if test="${exportedResourceInstance.androidUrl != null}">
-                                            <i class="fa fa-android"></i>
-                                        </g:if>
-                                        <g:if test="${exportedResourceInstance.linuxUrl != null}">
-                                            <i class="fa fa-linux"></i>
-                                        </g:if>
-                                        <g:if test="${exportedResourceInstance.moodleUrl != null}">
-                                            <i class="fa fa-graduation-cap"></i>
-                                        </g:if>
+                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                     </div>
                                 </div>
                             </div>
@@ -173,7 +169,7 @@
             </div>
             <div class="center slick">
                 <g:each in="${myExportedResourcesList}" var="myExportedResourceInstance">
-                    <div class="card square-cover small">
+                    <div class="card square-cover small dashboard">
                         <div class="card-content">
                             <div class="cover">
                                 <div class="cover-image-container">
@@ -187,35 +183,33 @@
                             </div>
                             <div class="details">
                                 <p class="card-click-targ" aria-hidden="true" tabindex="-1"></p>
-                                <span class="title card-name activator" title="${myExportedResourceInstance.name}" aria-hidden="true" tabindex="-1">${myExportedResourceInstance.name}</span>
+                                <span class="title card-name activator" data-category="${myExportedResourceInstance.resource.category.id}" title="${myExportedResourceInstance.name}" aria-hidden="true" tabindex="-1">${myExportedResourceInstance.name}</span>
                                 <div class="subtitle-container">
                                     <p class="subtitle">Feito por: ${myExportedResourceInstance.owner.firstName}</p>
                                 </div>
+                                <div class="gray-color subtitle-container">
+                                    <g:if test="${myExportedResourceInstance.webUrl != null}">
+                                        <i class="fa fa-globe"></i>
+                                    </g:if>
+                                    <g:if test="${myExportedResourceInstance.androidUrl != null}">
+                                        <i class="fa fa-android"></i>
+                                    </g:if>
+                                    <g:if test="${myExportedResourceInstance.linuxUrl != null}">
+                                        <i class="fa fa-linux"></i>
+                                    </g:if>
+                                    <g:if test="${myExportedResourceInstance.moodleUrl != null}">
+                                        <i class="fa fa-graduation-cap"></i>
+                                    </g:if>
+                                </div>
                             </div>
                             <div class="row no-margin margin-top">
-                                <div class="col s5">
+                                <div class="col s12">
                                     <div class="pull-left tiny-stars">
                                         <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                         <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                         <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                         <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                        %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
-                                    </div>
-                                </div>
-                                <div class="col s7">
-                                    <div class="pull-right gray-color">
-                                        <g:if test="${myExportedResourceInstance.webUrl != null}">
-                                            <i class="fa fa-globe"></i>
-                                        </g:if>
-                                        <g:if test="${myExportedResourceInstance.androidUrl != null}">
-                                            <i class="fa fa-android"></i>
-                                        </g:if>
-                                        <g:if test="${myExportedResourceInstance.linuxUrl != null}">
-                                            <i class="fa fa-linux"></i>
-                                        </g:if>
-                                        <g:if test="${myExportedResourceInstance.moodleUrl != null}">
-                                            <i class="fa fa-graduation-cap"></i>
-                                        </g:if>
+                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
                                     </div>
                                 </div>
                             </div>

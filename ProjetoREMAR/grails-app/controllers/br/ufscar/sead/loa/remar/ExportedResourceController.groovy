@@ -197,36 +197,8 @@ class ExportedResourceController {
     def moodle(ExportedResource exportedResourceInstance) {
 
         //pega os dados de como será a tabela no moodle
-        def file = new File(servletContext.getRealPath("/data/resources/sources/${exportedResourceInstance.resource.uri}/moodle/moodleBD.json"))
+        def file = new File(servletContext.getRealPath("/data/resources/sources/${exportedResourceInstance.resource.uri}/bd.json"))
         def inputJson = new JsonSlurper().parseText(file.text)
-
-        //it needs to change to a dynamic method
-        def token = Moodle.findAll().first().token
-
-        def http, path
-
-        if(Environment.current == Environment.DEVELOPMENT) {
-            http = new HTTPBuilder("http://localhost")
-            path = "/moodle/webservice/rest/server.php"
-        }
-        else {
-            http = new HTTPBuilder("http://remar.dc.ufscar.br:9090")
-            path = "/webservice/rest/server.php"
-        }
-
-        log.debug "Token: " + token
-        log.debug "Path: " + path
-
-        //Creates the table in the moodle
-        def resp = http.post(path: path,
-                query: [wstoken: token,
-                        wsfunction: "mod_remarmoodle_create_table",
-                        json: file.text])
-        println resp
-        log.debug "Resp: " + resp
-
-        //Save the table name in the object
-        exportedResourceInstance.moodleTableName = inputJson.table_name
 
         //Save the moodleUrl (same as webWurl)
         exportedResourceInstance.moodleUrl = exportedResourceInstance.webUrl
@@ -256,7 +228,6 @@ class ExportedResourceController {
                 response.status = 409 // conflited error
             }
         } else {
-            log.debug("ta aki")
             log.debug(params.name)
             instance.name = params.name
             instance.save(flush: true)
@@ -283,6 +254,8 @@ class ExportedResourceController {
         model.hasNextPage = params.offset + threshold < model.instanceCount
         model.hasPreviousPage = params.offset > 0
 
+        model.categories = Category.list(sort:"name")
+
         println model.pageCount
 
         render view: "publicGames", model: model
@@ -292,19 +265,25 @@ class ExportedResourceController {
         def model = [:]
 
         model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id))
+        model.categories = Category.list(sort:"name")
 
         render view: "myGames", model: model
     }
 
     def saveGameInfo() {
-        log.debug "lol"
-        log.debug params
+        def data = request.JSON
 
-        def gameData
-        gameData.user = session.user.id
-        gameData.game = params.remar_resource_id
-        gameData.timestamp = new Date().toTimestamp()
+        /* auto generate required data */
+        data.user = session.user.id
+        def exportedResource = ExportedResource.findByMoodleUrl(data.moodle_url)
+        data.game = exportedResource.id
+        data.timestamp = new Date().toTimestamp()
+
         log.debug "----"
-        log.debug gameData
+        log.debug data
+        log.debug "----"
+
+        def json = JSON.parse(new File(servletContext.getRealPath("/data/resources/sources/${Resource.findById(exportedResource.resourceId).uri}/bd.json")).text)
+        MongoHelper.instance.insertData(json['collection_name'] as String, data)
     }
 }

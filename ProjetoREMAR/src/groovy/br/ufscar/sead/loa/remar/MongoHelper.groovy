@@ -3,6 +3,7 @@ package br.ufscar.sead.loa.remar
 import com.mongodb.client.MongoDatabase
 import com.mongodb.MongoClient
 import org.bson.Document
+import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 
 
 @Singleton
@@ -18,17 +19,37 @@ class MongoHelper {
     }
 
     def createCollection(String collectionName) {
-        if (collectionName in db.listCollectionNames()) {
-            println "Collection '${collectionName}' already exists."
+        def dbExists = false;
+
+        db.listCollectionNames().each {
+            if (it.equals(collectionName)) {
+                dbExists = true
+            }
         }
-        else {
+
+        if (!dbExists) {
             db.createCollection(collectionName)
-            println "COllection '${collectionName}' succssesfully created."
+            return false
         }
+
+        return true
     }
 
-    def insertData(String collection, Document data) {
-        db.getCollection(collection).insertOne(data)
+    def insertData(String collection, Object data) {
+
+        Document doc = new Document(data)
+
+        println "Doc: "
+        println doc
+        println "Doc Type: "
+        println doc.getClass()
+
+        db.getCollection(collection).insertOne(doc)
+    }
+
+    def getData(String collection, int resourceId) {
+        println resourceId
+        return db.getCollection(collection).find(new Document("game", resourceId))
     }
 
 }
