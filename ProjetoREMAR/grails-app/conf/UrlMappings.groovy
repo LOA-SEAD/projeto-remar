@@ -52,6 +52,7 @@ class UrlMappings {
 //        '/resource/customizable'(view: '/resource/custGames')
         '/resource/customizableGames'(controller:"resource", action:"customizableGames")
         "/resource/show/$id"(controller: "resource", action: "show")
+        "/resource/saveRating/$id"(controller: "resource", action: "saveRating")
 
         '/exported-resource/publicGames'(controller:"exportedResource", action:"publicGames")
         '/exported-resource/myGames'(controller:"exportedResource", action:"myGames")

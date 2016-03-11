@@ -11,7 +11,6 @@
 <head>
     <title>Jogos Customizávies</title>
     <meta name="layout" content="materialize-layout">
-
 </head>
 
 <body>
@@ -72,18 +71,16 @@
                                     </div>
                                 </div>
                                 <div class="row no-margin margin-top">
-                                    <div class="col s12">
-                                        <div class="pull-left tiny-stars">
-                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                            <img src="/images/star.png" width="14" height="14" alt="Estrela" />
+                                    <div class="col s12 no-padding">
+                                        <div class="left">
+                                            <div class="rating-card"
+                                                    data-stars="${gameInstance.sumStars / gameInstance.sumUser}"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </g:each>
                 </g:else>
             </article>
@@ -100,6 +97,8 @@
             </ul>
         </footer>
     </div>
+    %{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.css">--}%
+    %{--<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.js"></script>--}%
     <g:javascript src="menu.js"/>
 </body>
 </html>

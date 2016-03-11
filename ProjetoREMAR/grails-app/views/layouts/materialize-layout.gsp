@@ -1,23 +1,5 @@
 <g:applyLayout name="base">
-    <script>
-        $(document).ready(function() {
-            $(".button-collapse").sideNav();
-
-            $('.dropdown-button').dropdown({
-                alignment: 'left'
-            });
-
-            $('.slider').slider();
-
-            $('.collapsible').collapsible();
-
-            $('.tooltipped').tooltip({delay: 50});
-
-            $('select').material_select();
-        });
-    </script>
-
-    <header>
+      <header>
         <div class="navbar-fixed">
             <nav class="valign-wrapper">
                 <div class="hide-on-med-and-down remar-max-size center">

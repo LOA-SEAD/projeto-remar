@@ -10,6 +10,7 @@ Time: 09:55
 <head>
     <meta name="layout" content="materialize-layout">
     <title></title>
+
 </head>
 <body>
 
@@ -28,20 +29,11 @@ Time: 09:55
                     <div class="collapsible-header active"> <i class="material-icons">info_outline</i>Informações básicas</div>
                     <div class="collapsible-body">
                         <div class="row">
-                            <div class="input-field col s6">
+                            <div class="input-field col s12">
                                 <i class="material-icons suffix green-text active">done</i>
                                 <input value="${resourceName}" id="name" type="text" class="validate" data-resource-id="${resourceId}">
                                 <label class="active" for="name" data-error="" data-success="">Nome do jogo</label>
                                 <span id="name-error" class="invalid-input" style="left: 0.75rem">Já existe um jogo com esse nome!</span>
-                            </div>
-                            <div class="input-field col s6">
-                                <select>
-                                    <option value="1" selected>Todas</option>
-                                    <option value="2">Ação</option>
-                                    <option value="3">Aventura</option>
-                                    <option value="4">Educacional</option>
-                                </select>
-                                <label>Escolha uma categoria</label>
                             </div>
                         </div>
                         <div class="row">

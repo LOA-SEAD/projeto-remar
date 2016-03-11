@@ -13,21 +13,23 @@ class IndexController {
         if (springSecurityService.isLoggedIn()) {
             def model = [:]
 
-            model.gameInstanceList = Resource.findAll("from Resource as r where r.status = 'approved' order by r.id desc")
-//            model.gameInstanceList = Resource.findByStatus('approved')
+//            model.gameInstanceList = Resource.findAll("from Resource as r where r.status = 'approved' order by r.id desc")
+            model.gameInstanceList = Resource.findAllByStatus('approved',[max:8, sort: "id", order: "desc"])
+
             model.userName = session.user.firstName
+
             model.userGender = User.findById(session.user.id).gender
-            model.publicExportedResourcesList = ExportedResource.findAll("from ExportedResource as e where e.type = 'public' order by e.id desc")
-//            model.publicExportedResourcesList = ExportedResource.findByType('public')
 
-//            model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id))
-            model.myExportedResourcesList = ExportedResource.findAll("from ExportedResource as e where e.type='public' and e.owner=:owner order by e.id desc",[owner: User.get(session.user.id)])
-//            model.myExportedResourcesList = ExportedResource.findByTypeAndOwner('public',User.get(session.user.id))
+//            model.publicExportedResourcesList = ExportedResource.findAll("from ExportedResource as e where e.type = 'public' order by e.id desc")
+            model.publicExportedResourcesList = ExportedResource.findAllByType('public',[max:8, sort: "id", order: "desc"])
 
+//            model.myExportedResourcesList = ExportedResource.findAll("from ExportedResource as e where e.type='public' and e.owner=:owner order by e.id desc",[owner: User.get(session.user.id)])
+            model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public',User.get(session.user.id),[max:8, sort: "id", order: "desc"])
 
-
-            log.debug model
-            log.debug "RESULT: " + model.publicExportedResourcesList.size()
+//
+//
+//            log.debug model
+//            log.debug "RESULT: " + model.publicExportedResourcesList.size()
 
 
             def instances = []
