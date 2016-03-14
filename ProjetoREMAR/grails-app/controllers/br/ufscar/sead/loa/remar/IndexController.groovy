@@ -47,9 +47,9 @@ class IndexController {
 
         if (model.development) {
             if (model.uri.indexOf('forca') != -1) {
-                model.uri = "http://localhost:8081${model.uri}"
+                model.uri = "http://localhost:8010${model.uri}"
             } else if (model.uri.indexOf('escola') != -1) {
-                model.uri = "http://localhost:8082${model.uri}"
+                model.uri = "http://localhost:8020${model.uri}"
             }
         }
 
