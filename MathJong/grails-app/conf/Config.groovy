@@ -90,25 +90,11 @@ environments {
         grails.logging.jul.usebridge = true
 //        grails.serverURL = "http://localhost:8080/mathjong"
         grails.app.context = "/mathjong"
-        camunda {
-            engine {
-                configuration {
-                    history = 'full'
-                }
-            }
-        }
     }
     production {
         grails.logging.jul.usebridge = false
 //        grails.serverURL = "http://localhost:8080/mathjong"
         grails.app.context = "/mathjong"
-        camunda {
-            engine {
-                configuration {
-                    history = 'full'
-                }
-            }
-        }
     }
 }
 

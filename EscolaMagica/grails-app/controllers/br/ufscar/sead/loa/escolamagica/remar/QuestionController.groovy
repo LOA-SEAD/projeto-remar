@@ -10,11 +10,6 @@ import groovy.xml.MarkupBuilder
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.multipart.MultipartFile
-
-//import org.camunda.bpm.engine.RuntimeService
-//import org.codehaus.groovy.grails.web.context.ServletContextHolder
-//import org.springframework.web.context.request.RequestContextHolder
-
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 

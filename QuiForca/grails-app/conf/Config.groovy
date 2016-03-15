@@ -93,25 +93,11 @@ environments {
         // grails.serverURL = "http://myapp.dev:8080"
         grails.app.context = "/forca"
         grails.logging.jul.usebridge = true
-        camunda {
-            engine {
-                configuration {
-                    history = 'full'
-                }
-            }
-        }
     }
     production {
         grails.logging.jul.usebridge = false
         // grails.serverURL = "http://myapp.dev:8080"
         grails.app.context = "/forca"
-        camunda {
-            engine {
-                configuration {
-                    history = 'full'
-                }
-            }
-        }
     }
 }
 
