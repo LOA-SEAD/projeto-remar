@@ -6,6 +6,7 @@
         <link rel="shortcut icon" href="${assetPath(src: 'favicon.png')}">
         <!-- Let browser know website is optimized for mobile -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <meta name="theme-color" content="#5D4037">
         <!-- Import Google Icon Font -->
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -36,10 +37,10 @@
             }
         </style>
 
-        <!-- js -->
+        %{--<!-- js -->--}%
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
-        <script type="text/javascript" src="${resource(dir: 'js', file: 'intro.js')}"></script>
+        %{--<script type="text/javascript" src="${resource(dir: 'js', file: 'intro.js')}"></script>--}%
 
         <g:javascript src="materialize.min.js"/>
 
@@ -49,9 +50,32 @@
     </head>
     <body>
         <g:layoutBody/>
+        %{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>--}%
 
-        <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick.min.js"></script>
+        <script type="text/javascript" src="${resource(dir: 'js', file: 'intro.js')}"></script>
 
-        <g:javascript src="layout/dashboard.js"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.css">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                $(".button-collapse").sideNav();
+
+                $('.dropdown-button').dropdown({
+                    alignment: 'left'
+                });
+
+                $('.slider').slider();
+
+                $('.collapsible').collapsible();
+
+                $('.tooltipped').tooltip({delay: 50});
+
+                $('select').material_select();
+
+            });
+        </script>
+
     </body>
 </html>

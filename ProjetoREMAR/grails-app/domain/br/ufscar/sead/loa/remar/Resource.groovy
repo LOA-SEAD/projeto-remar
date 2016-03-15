@@ -6,6 +6,8 @@ class Resource {
 
     static belongsTo = [owner: User, category: Category]
 
+    static hasMany = [ratings: Rating]
+
     static constraints = {
         submittedAt blank: false
         name blank: false
@@ -17,6 +19,8 @@ class Resource {
         height nullable: true
         description nullable: true, maxSize: 1000
         pending nullable: true
+        sumStars nullable: false
+        sumUser nullable: false
     }
 
     String name
@@ -39,4 +43,7 @@ class Resource {
 
     String description
     boolean pending
+
+    float sumStars //total de estrelas
+    int   sumUser  //total de usuários que comentaram o jogo
 }

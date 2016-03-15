@@ -1,4 +1,3 @@
-import br.ufscar.sead.loa.propeller.Propeller
 import br.ufscar.sead.loa.remar.Platform
 import br.ufscar.sead.loa.remar.RequestMap
 import br.ufscar.sead.loa.remar.Role
@@ -98,7 +97,7 @@ class BootStrap {
 
             for (url in [
                     '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/exportedResource/**', '/frame/**', '/my-profile',
-                    '/user/update', '/resource/customizableGames','/resource/show/**', '/moodle/link/**', '/moodle/unlink/**'
+                    '/user/update', '/resource/customizableGames','/resource/show/**', '/moodle/link/**', '/moodle/unlink/**', '/resource/saveRating/**'
             ]) {
                 new RequestMap(url: url, configAttribute: 'IS_AUTHENTICATED_FULLY').save()
             }

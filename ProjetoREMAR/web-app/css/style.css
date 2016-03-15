@@ -96,8 +96,8 @@
     }
 
     .card.small.square-cover .cover {
-        height: 160px;
-        width: 170px;
+        height: 155px;
+        /*width: 170px;*/
     }
 
     .card .cover {
@@ -364,7 +364,7 @@ footer.page-footer{
 
     span.input-description {
         font-size: 0.8rem;
-        position: absolute;
+        /*position: absolute;*/
         top: 3.1rem;
         color: #9e9e9e;
     }
@@ -783,7 +783,7 @@ table .pending td{
 }
 
 .subtitle.space{
-    margin-top: 30px;
+    margin-top: 80px;
 }
 
 .row.space{
@@ -857,5 +857,16 @@ table .pending td{
 }
 
 .card.small.square-cover.dashboard {
-    height: 252px;
+    height: 247px;
+    width: 160px !important;
+}
+
+.comment-text{
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.modal h4{
+    border-bottom: 1px solid #e0e0e0;
 }

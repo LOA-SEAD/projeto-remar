@@ -82,16 +82,16 @@
                                 </div>
                             </div>
                             <div class="row no-margin margin-top">
-                                <div class="col s6">
-                                    <div class="pull-left tiny-stars">
-                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                    </div>
-                                </div>
-                                <div class="col s6">
+                                %{--<div class="col s6">--}%
+                                    %{--<div class="pull-left tiny-stars">--}%
+                                        %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
+                                        %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
+                                        %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
+                                        %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
+                                        %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
+                                    %{--</div>--}%
+                                %{--</div>--}%
+                                <div class="col s6 offset-s6">
                                     <div class="pull-right gray-color">
                                         <a href="/exported-resource/publish/${myExportedResourceInstance.id}"
                                            class="tooltipped"  data-position="bottom" data-delay="50" data-tooltip="Editar">

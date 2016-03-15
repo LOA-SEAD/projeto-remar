@@ -2,6 +2,7 @@ package br.ufscar.sead.loa.remar
 
 import grails.converters.JSON
 import grails.util.Environment
+import groovy.json.JsonBuilder
 import groovyx.net.http.HTTPBuilder
 import org.apache.commons.lang.RandomStringUtils
 import org.codehaus.groovy.grails.io.support.GrailsIOUtils
@@ -10,6 +11,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile
 import br.ufscar.sead.loa.remar.Category
 
 import javax.imageio.ImageIO
+import javax.swing.JScrollBar
 import java.awt.image.BufferedImage
 import java.security.MessageDigest
 
@@ -161,6 +163,10 @@ class ResourceController {
 
         resourceInstance.category = Category.findByName("Aventura")
 
+        // set ratings variables
+        resourceInstance.sumUser = 0
+        resourceInstance.sumStars = 0
+
         resourceInstance.save flush: true
 
         if (resourceInstance.hasErrors()) {
@@ -271,7 +277,7 @@ class ResourceController {
     }
 
     def show(Resource instance) {
-        render view: "show", model: [resourceInstance: instance]
+        render view: "show", model: [resourceInstance: instance, today: new Date()]
     }
 
     def customizableGames() {
@@ -296,6 +302,40 @@ class ResourceController {
         def r = Resource.findById(id) as JSON
 
         render r;
+    }
+
+    def saveRating(Resource instance){
+        log.debug(params)
+
+        Rating r = new Rating(user: session.user, stars: params.stars, comment: params.comment, date: new Date())
+        instance.addToRatings(r)
+        instance.sumStars +=  r.stars;
+        instance.sumUser++
+
+        instance.save flush: true
+
+        def builder = new JsonBuilder()
+
+        def json = builder(
+                "rating": r.collect() { element ->
+                    [
+                            id: r.id,
+                            comment: r.comment,
+                            stars: r.stars,
+                            date: r.date,
+                            user: r.user.collect()  { u ->
+                                [
+                                        id: r.user.id,
+                                        username: r.user.username,
+                                        firstName: r.user.firstName
+                                ]},
+                            mediumStars: (instance.sumStars / instance.sumUser)
+                    ]
+                }
+        )
+
+//        render r as JSON;
+        render json as JSON;
     }
 
     def croppicture() {

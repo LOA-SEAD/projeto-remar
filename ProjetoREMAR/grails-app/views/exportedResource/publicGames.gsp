@@ -76,17 +76,17 @@
                                     </g:if>
                                 </div>
                             </div>
-                            <div class="row no-margin margin-top">
-                                <div class="col s12">
-                                    <div class="pull-left tiny-stars">
-                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                        <img src="/images/star.png" width="14" height="14" alt="Estrela" />
-                                    </div>
-                                </div>
-                            </div>
+                            %{--<div class="row no-margin margin-top">--}%
+                                %{--<div class="col s12">--}%
+                                    %{--<div class="pull-left tiny-stars">--}%
+                                        %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
+                                        %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
+                                        %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
+                                        %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
+                                        %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
+                                    %{--</div>--}%
+                                %{--</div>--}%
+                            %{--</div>--}%
                         </div>
                         <div class="card-reveal">
                             <span class="card-title grey-text text-darken-4"><small class="left">Jogar:</small><i class="material-icons right">close</i></span>

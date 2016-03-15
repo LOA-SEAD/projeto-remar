@@ -37,7 +37,15 @@ $(document).ready(function() {
             }
             //Materialize.fadeInImage($(this).closest('div[class^="card square-cover small"]'));
         });
+    });
 
-
+    $('.rating-card').each(function() {
+        $(this).rateYo({
+            readOnly: true,
+            precision: 0,
+            maxValue: 100,
+            starWidth: "13px",
+            rating: Number($(this).attr("data-stars"))
+        });
     });
 });
