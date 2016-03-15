@@ -162,7 +162,7 @@ class QuestionController {
         log.debug session.user.id
         log.debug "=="
 
-        questionInstance.taskId = session.taskId as long
+        questionInstance.taskId = session.taskId as String
         questionInstance.ownerId = session.user.id as long
 
         log.debug "=="

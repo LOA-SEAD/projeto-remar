@@ -110,7 +110,7 @@ class QuestionController {
         }
 
         questionInstance.processId = session.processId as long
-        questionInstance.taskId = session.taskId as long
+        questionInstance.taskId = session.taskId as String
 
         questionInstance.save flush: true
 
@@ -258,7 +258,7 @@ class QuestionController {
             questionInstance.category = row[2] ?: "NA";
             questionInstance.author = row[3] ?: "NA";
             questionInstance.processId = session.processId as long
-            questionInstance.taskId = session.taskId as long
+            questionInstance.taskId = session.taskId as String
 
             if (questionInstance.hasErrors()) {
 

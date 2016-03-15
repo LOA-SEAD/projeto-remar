@@ -102,8 +102,7 @@ class ThemeController {
             return
         }
 
-        themeInstance.processId = session.processId as long
-        themeInstance.taskId    = session.taskId as long
+        themeInstance.taskId = session.taskId as String
 
         themeInstance.save flush:true
 
