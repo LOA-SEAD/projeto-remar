@@ -1,3 +1,4 @@
+import br.ufscar.sead.loa.propeller.Propeller
 import br.ufscar.sead.loa.remar.Platform
 import br.ufscar.sead.loa.remar.RequestMap
 import br.ufscar.sead.loa.remar.Role
