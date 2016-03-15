@@ -117,7 +117,25 @@ Time: 09:55
                                         </p>
                                     </g:if>
                                     <g:if test="${exportsTo.moodle}">
-                                        moodle
+                                        <p>
+                                            <g:if test="${urls.moodle}">
+                                                <input type="checkbox" id="moodle" checked="checked" disabled>
+                                                <label for="moodle" class="checkbox-label">Moodle</label>
+                                                <span class="chip center">Jogo disponível no Moodle</span>
+                                            </g:if>
+                                            <g:else>
+                                                <g:if test="${session.user.moodleUsername == null}">
+                                                    <input type="checkbox" id="moodle" disabled>
+                                                    <label for="moodle" class="checkbox-label">Moodle</label>
+                                                    <span>Vincule sua conta ao Moodle</span>
+                                                </g:if>
+                                                <g:else>
+                                                    <input type="checkbox" id="moodle" class="checkbox-platform">
+                                                    <label for="moodle" class="checkbox-label" data-id="${resourceInstance.id}">Moodle</label>
+                                                </g:else>
+                                            </g:else>
+
+                                        </p>
                                     </g:if>
                             </div>
                             <div class="row">

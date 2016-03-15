@@ -192,7 +192,7 @@ class ExportedResourceController {
         exportedResourceInstance.moodleUrl = exportedResourceInstance.webUrl
         exportedResourceInstance.save flush: true
 
-        render "Vá ao moodle e adicione seu jogo como atividade"
+        render true
     }
 
     def update(ExportedResource instance) {

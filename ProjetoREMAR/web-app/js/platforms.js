@@ -112,8 +112,7 @@ $(function () {
                 }
                 if (endpoint == "moodle") {
                     $(label).after(" <span class='chip center'>" +
-                        "Vincule sua conta ao Moodle" +
-                        "<i class='material-icons'>close</i>" +
+                        "Jogo disponível no Moodle" +
                         "</span>");
                 } else {
                     $(label).after(" <span class='chip center'>" +
