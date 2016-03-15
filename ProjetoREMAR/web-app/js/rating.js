@@ -7,7 +7,7 @@ $(document).ready(function(){
     var r = 0;
     var mainStars = $('#rateYo-main');
 
-    $('.slider').slider('start');
+    $('.slider').slider();
     $('.modal-trigger').leanModal();
 
     $("#rateYo").rateYo({

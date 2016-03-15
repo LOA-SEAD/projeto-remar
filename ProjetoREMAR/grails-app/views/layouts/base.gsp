@@ -66,8 +66,6 @@
                     alignment: 'left'
                 });
 
-                $('.slider').slider();
-
                 $('.collapsible').collapsible();
 
                 $('.tooltipped').tooltip({delay: 50});
