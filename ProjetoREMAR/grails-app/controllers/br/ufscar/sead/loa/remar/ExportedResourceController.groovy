@@ -140,8 +140,11 @@ class ExportedResourceController {
             delete(dir: dir)
         }
 
-        instance.androidUrl = "/published/${instance.processId}/android.zip"
-        instance.save flush: true
+        ExportedResource.withNewSession {
+            instance = ExportedResource.get(instance.id)
+            instance.androidUrl = "/published/${instance.processId}/android.zip"
+            instance.save flush: true
+        }
 
         render instance.androidUrl
     }
