@@ -91,6 +91,7 @@ $(function () {
         $(".checkbox-platform").each(function () {
             if (this.checked) {
                 $(this).removeClass('checkbox-platform');
+                $(this).addClass('compiling');
                 var id = this.id;
                 this.disabled = true;
                 var label = $('label[for="' + id + '"]');
@@ -101,12 +102,14 @@ $(function () {
     });
 
     function ajax(endpoint, label) {
-        console.log('/exported-resource/' + endpoint + "?id=" + $(label).data("id"));
         $.ajax({
             type: 'GET',
             url: location.origin + '/exported-resource/' + endpoint + "?id=" + $(label).data("id") + "&type=" + $("input[name=type]:checked").val(),
             success: function (data) {
-                loader.hide();
+                $("#" + endpoint).removeClass('compiling');
+                if ($('.compiling').length == 0) {
+                    loader.hide();
+                }
                 if (endpoint == "moodle") {
                     $(label).after(" <span class='chip center'>" +
                         "Vincule sua conta ao Moodle" +
@@ -123,7 +126,10 @@ $(function () {
                 $(label).next().effect("pulsate", {}, 3000);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                loader.hide();
+                $("#" + endpoint).removeClass('compiling');
+                if ($('.compiling').length == 0) {
+                    loader.hide();
+                }
             }
         });
     }
