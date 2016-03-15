@@ -46,7 +46,7 @@ $(function () {
                                 nameErr.hide(500);
                                 $(name).removeClass().addClass("valid");
                                 $(name).prev().show(500);
-                                Materialize.toast('Informações salva com sucesso!', 3000, 'rounded');
+                                Materialize.toast('Informações salvas com sucesso!', 3000, 'rounded');
 
                                 $(imgFile).removeClass().addClass("valid");
                                 $(imgFile).prev().show(500);
@@ -76,7 +76,7 @@ $(function () {
                         nameErr.hide(500);
                         $(name).removeClass().addClass("valid");
                         $(name).prev().show(500);
-                        Materialize.toast('Informações salva com sucesso!', 3000, 'rounded');
+                        Materialize.toast('Informações salvas com sucesso!', 3000, 'rounded');
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         nameErr.show(500);

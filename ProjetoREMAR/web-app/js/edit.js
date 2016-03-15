@@ -85,7 +85,7 @@ $(function(){
                 contentType: false,
                 success: function (response) {
                     //window.location.href = "../index";
-                    Materialize.toast('Informações salva com sucesso!', 3000, 'rounded');
+                    Materialize.toast('Informações salvas com sucesso!', 3000, 'rounded');
 
                     $(name).removeClass().addClass("valid");
                     $(name).prev().show(500);
