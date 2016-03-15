@@ -38,7 +38,7 @@ class QuestionController {
 
         if(!list) {
             new Question(title: 'Questão 1 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
-                    correctAnswer: 0, level: 1, taskId: session.taskId, ownerId: session.user.id)
+                    correctAnswer: 0, level: 1, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 2 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
                     correctAnswer: 0, level: 1, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 3 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
