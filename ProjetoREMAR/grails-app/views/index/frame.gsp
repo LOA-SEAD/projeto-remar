@@ -13,9 +13,8 @@ Time: 09:55
     <g:javascript src="frame.js"/>
     <title></title>
 </head>
+
 <body>
-
-
 <div class="content">
     <div class="row show">
         <div class="col s12">
@@ -23,6 +22,5 @@ Time: 09:55
         </div>
     </div>
 </div>
-
 </body>
 </html>
