@@ -169,13 +169,12 @@ class QuestionController {
         log.debug questionInstance.ownerId;
         log.debug "=="
 
+        questionInstance.save flush: true
+
         if (questionInstance.hasErrors()) {
             respond questionInstance.errors, view: 'create'
             return
         }
-
-
-        questionInstance.save flush: true
 
 
         request.withFormat {
