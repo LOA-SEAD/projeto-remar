@@ -51,10 +51,12 @@
         <g:each in="${questionInstanceList}" status="i" var="questionInstance">
             <tr class="selectable_tr" style="cursor: pointer;"
                 data-id="${fieldValue(bean: questionInstance, field: "id")}" data-owner-id="${fieldValue(bean: questionInstance, field: "ownerId")}" data-level="${fieldValue(bean: questionInstance, field: "level")}"
-                data-checked="false"
-            >
+                data-checked="false">
 
-                <td class="_not_editable"> <input style="background-color: #727272" id="checklabel" class="filled-in" type="checkbox"> <label for="checklabel"></label></td>
+                <td class="_not_editable">
+                    <input style="background-color: #727272" id="checkbox-${questionInstance.id}" class="filled-in" type="checkbox">
+                    <label for="checkbox-${questionInstance.id}"></label>
+                </td>
 
                 <td class="level"  >${fieldValue(bean: questionInstance, field: "level")}</td>
 

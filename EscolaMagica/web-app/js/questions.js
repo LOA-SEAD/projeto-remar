@@ -8,22 +8,6 @@ $(document).ready(function(){
 window.onload = function() {
     $('#BtnUnCheckAll').hide();
 
-
-    $('#table tr td:not(:last-child)').click(function (event) {
-        var tr = this.closest('tr');
-        if ($(tr).attr('data-checked') == "true") {
-            $(tr).attr('data-checked', "false");
-            $(':checkbox', this.closest('tr')).prop('checked', false);
-        }
-        else {
-            $(tr).attr('data-checked', "true");
-            $(':checkbox', this.closest('tr')).prop('checked', 'checked');
-        }
-
-
-    });
-
-
     var x = document.getElementsByName("question_label");
     $(document).on("click", ".selectable_tr", function () {
         var myNameId = $(this).data('id')
@@ -57,24 +41,22 @@ window.onload = function() {
         var questions_level1 = 0;
         var questions_level2 = 0;
         var questions_level3 = 0;
-        var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
-        for (var i = 0; i < trs.length; i++) {
-            if ($(trs[i]).attr('data-checked') == "true") {
+        $.each($("input[type=checkbox]:checked"), function(ignored, el) {
+            var tr = $(el).parents().eq(1);
+            switch ($(tr).attr('data-level')) {
+                case "1":
+                    questions_level1++;
+                    break;
+                case "2":
+                    questions_level2++;
+                    break;
+                default:
+                    questions_level3++;
+                    break;
 
-                switch ($(trs[i]).attr('data-level')){
-                    case "1":
-                        questions_level1 += 1;
-                        break;
-                    case "2":
-                        questions_level2 += 1;
-                        break;
-                    default :
-                        questions_level3 += 1;
-                }
-
-                list_id.push(  $(trs[i]).attr('data-id') );
             }
-        }
+            list_id.push($(tr).attr('data-id'));
+        });
 
 
         if(questions_level1 >= 5 && questions_level2 >= 5 && questions_level3 >= 5){
