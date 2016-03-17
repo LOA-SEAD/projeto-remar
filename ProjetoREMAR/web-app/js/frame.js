@@ -3,5 +3,5 @@
  */
 
 window.addEventListener("load", function() {
-    $('#frame').iFrameResize();
+    $('#frame').iFrameResize({log:true, heightCalculationMethod: 'grow'});
 });
