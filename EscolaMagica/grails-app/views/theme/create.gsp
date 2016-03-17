@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
+    <g:javascript src="iframeResizer.contentWindow.min.js"/>
     <g:set var="entityName" value="${message(code: 'theme.label', default: 'theme')}" />
 
 </head>
