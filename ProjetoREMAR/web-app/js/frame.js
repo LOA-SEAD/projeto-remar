@@ -3,9 +3,5 @@
  */
 
 window.addEventListener("load", function() {
-    var frame = $("#frame");
-
-    $(frame).load(function() {
-        $(this).height($(this).contents().find('html').height());
-    });
+    $('#frame').iFrameResize();
 });
