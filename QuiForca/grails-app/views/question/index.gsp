@@ -22,6 +22,7 @@
 
     <g:set var="entityName" value="${message(code: 'question.label', default: 'Question')}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <g:javascript src="iframeResizer.contentWindow.min.js"/>
 
 </head>
 

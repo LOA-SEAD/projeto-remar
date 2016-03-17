@@ -5,6 +5,7 @@
 <head>
     <meta name="layout" content="main">
     <g:javascript src="scriptTheme.js"/>
+    <g:javascript src="iframeResizer.contentWindow.min.js"/>
     <!--<g:set var="entityName" value="${message(code: 'Theme.label', default: 'Theme')}" />-->
 
 </head>

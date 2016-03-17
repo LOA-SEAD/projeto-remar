@@ -6,6 +6,7 @@
         <g:javascript src="questions.js" />
         <g:javascript src="../assets/js/jquery.min.js"/>
         <g:javascript src="../js/materialize.min.js"/>
+        <g:javascript src="iframeResizer.contentWindow.min.js"/>
 
 
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">

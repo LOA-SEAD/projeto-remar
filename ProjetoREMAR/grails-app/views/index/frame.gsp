@@ -10,6 +10,7 @@ Time: 09:55
 <head>
     <meta name="layout" content="materialize-layout-frame">
     <script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery.min.js')}"></script>
+    <g:javascript src="iframe-resizer.js"/>
     <g:javascript src="frame.js"/>
     <title></title>
 </head>
