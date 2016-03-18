@@ -30,10 +30,17 @@
             <div class="card-action">
                 <div class="">
                     <div class="col s6">
+                        <g:if test="${process.pendingTasks.size() > 0}">
                         <span class="tooltipped" data-position="bottom" data-delay="50"
                               data-tooltip="${process.pendingTasks.size()} tarefas pendentes" style="color: gray;">
                             <i class="material-icons">warning</i>
                         </span>
+                        </g:if>
+                        <g:else>
+                            <span class="tooltipped" data-position="bottom" data-delay="50"
+                              data-tooltip="${process.pendingTasks.size()} tarefas pendentes" style="color: gray;">
+                            <i class="material-icons">done_all</i>
+                        </g:else>
                     </div>
 
                     <div class="col s6">
