@@ -3,12 +3,10 @@ package br.ufscar.sead.loa.escolamagica.remar
 class Theme {
 
     long ownerId
-    long processId
-    long taskId
+    String taskId
 
     static constraints = {
         ownerId blank: false, nullable: false
-        processId nullable: true
         taskId nullable: true
     }
 }
