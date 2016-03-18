@@ -194,8 +194,9 @@ class ThemeController {
     @Transactional
     def ImagesManager() { // TODO: fix var names + optimize
         def userId = springSecurityService.getCurrentUser().getId()
-
+        println session.taskId
         def theme = new Theme(ownerId: userId, taskId: session.taskId).save flush: true
+        println theme
 
         def dataPath = servletContext.getRealPath("/data")
         def userPath = new File(dataPath, "/" + userId + "/themes/" + theme.getId())
