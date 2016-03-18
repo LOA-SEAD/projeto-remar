@@ -20,8 +20,15 @@
 							<div class="category">
 								<p> ${resourceInstance.category.name}</p>
 								<div class="stars">
-									<div id="rateYo-main" style="display: inline-block;"
-										 data-stars="${resourceInstance.sumStars/resourceInstance.sumUser}"></div>
+									<g:if test="${resourceInstance.sumUser == 0}">
+										<div id="rateYo-main" style="display: inline-block;"
+											 data-stars="0"></div>
+									</g:if>
+									<g:else>
+										<div id="rateYo-main" style="display: inline-block;"
+											 data-stars="${resourceInstance.sumStars/resourceInstance.sumUser}"></div>
+									</g:else>
+
 									<span id="users">(${resourceInstance.sumUser})</span>
 									<i class="fa fa-users"></i>
 								</div>

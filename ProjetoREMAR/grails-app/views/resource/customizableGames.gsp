@@ -73,8 +73,14 @@
                                 <div class="row no-margin margin-top">
                                     <div class="col s12 no-padding">
                                         <div class="left">
+                                        <g:if test="${gameInstance.sumUser == 0}">
+                                            <div id="rateYo-main" style="display: inline-block;"
+                                                 data-stars="0"></div>
+                                        </g:if>
+                                        <g:else>
                                             <div class="rating-card"
                                                     data-stars="${gameInstance.sumStars / gameInstance.sumUser}"></div>
+                                        </g:else>
                                         </div>
                                     </div>
                                 </div>

@@ -47,7 +47,7 @@ $(document).ready(function(){
                  response.rating = response.rating[0];
                  response.rating.user = response.rating.user[0];
 
-                 console.log(response.rating);
+                 console.log(response);
                  console.log($("#comment").val());
 
                   $(".collection.rating").prepend(
@@ -75,6 +75,8 @@ $(document).ready(function(){
 
                 $("#comment-area").val("");
                 $("#rateYo").rateYo("option","rating",0).next().text("0");
+
+                $("#users").text("("+response.rating.sumUsers+")");
 
                 $("#not-comment").hide();
             },

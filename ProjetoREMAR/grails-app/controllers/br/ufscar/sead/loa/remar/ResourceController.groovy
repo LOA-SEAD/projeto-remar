@@ -329,7 +329,8 @@ class ResourceController {
                                         username: r.user.username,
                                         firstName: r.user.firstName
                                 ]},
-                            mediumStars: (instance.sumStars / instance.sumUser)
+                            mediumStars: (instance.sumStars / instance.sumUser),
+                            sumUsers: instance.sumUser
                     ]
                 }
         )
