@@ -22,7 +22,7 @@
     <div class="row cluster">
         <div class="cluster-header">
             <p class="text-teal text-darken-3 left-align margin-bottom">
-                <i class="small material-icons left">list</i>Minhas tarefas
+                <i class="small material-icons left">list</i>Meus processos
             </p>
             <div class="divider"></div>
         </div>
