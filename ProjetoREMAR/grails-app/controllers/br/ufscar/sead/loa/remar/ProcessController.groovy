@@ -29,6 +29,31 @@ class ProcessController {
         log.debug "${logMsg} ENDED; success – redirecting to overview"
     }
 
+    def delete() {
+        def process
+
+        if (!params.id) {
+            render 400
+            return response.status = 400
+        }
+
+        try {
+            process = Propeller.instance.getProcessInstanceById(params.id, session.user.id)
+        } catch (IllegalArgumentException ignored) {
+            render 400
+            return response.status = 400
+        }
+
+        if (!process) {
+            render 404
+            return response.status = 404
+        }
+
+        process.putVariable('inactive', "1", true) // TEMPORARY
+
+        redirect uri: '/process/list' // TEMPORARY
+    }
+
     // Can be called with resource id or name
     def deploy(Resource resource) {
         def file
@@ -101,8 +126,15 @@ class ProcessController {
 
     def list() {
         def processes = Propeller.instance.getProcessInstancesByOwner(session.user.id as long)
+        def temporary = []
 
-        render(view: "list", model: [processes: processes])
+        for (process in processes) {
+            if (process.getVariable('inactive') != "1") {
+                temporary.add(process)
+            }
+        }
+
+        render(view: "list", model: [processes: temporary])
     }
 
     def finishedProcess() {
