@@ -1,5 +1,10 @@
 <g:each in="${processes}" var="process">
-    <a href="/process/overview/${process.id}">
+    <g:if test="${process.pendingTasks.size() > 0}">
+        <a href="/process/overview/${process.id}">
+    </g:if>
+    <g:else>
+        <a href="/exported-resource/publish/${process.getVariable('exportedResourceId')}">
+    </g:else>
         <g:if test="${process.pendingTasks.size() > 0}">
             <div class="card card-developer pending">
         </g:if>

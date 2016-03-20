@@ -195,6 +195,8 @@ class ProcessController {
         exportedResourceInstance.processId = process.id
         exportedResourceInstance.save flush: true
 
+        process.putVariable('exportedResourceId', exportedResourceInstance.id as String, true)
+
         if (exportedResourceInstance.hasErrors()) {
             render exportedResourceInstance.errors
             return
