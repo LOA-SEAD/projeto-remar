@@ -23,7 +23,7 @@
 <div class="row">
     <div>
         %{--<p> Download tema ESR</p>--}%
-        <p style="margin-left: 10px;"> Download tema ESR <a class="btn-floating waves-effect waves-light my-orange" href="../data/samples/tema-escola-magica-esr.zip"> <i class="material-icons">file_download</i> </a>
+        <p style="margin-left: 10px;">Portas modelo <a class="btn-floating waves-effect waves-light my-orange" href="../samples/portas-escola-magica.zip"> <i class="material-icons">file_download</i> </a>
         </p>
     </div>
 </div>
