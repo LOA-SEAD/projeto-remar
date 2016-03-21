@@ -196,9 +196,8 @@ class ExportedResourceController {
     }
 
     def update(ExportedResource instance) {
-        def time = instance.exportedAt.getTime() as String
-        def destination = new File("${servletContext.getRealPath("/published/${time.substring(0, time.length() - 4)}")}/banner.png")
-//        log.debug(params)
+        def destination = new File("${servletContext.getRealPath("/published/${instance.processId}")}/banner.png")
+
         def photo = params.banner as CommonsMultipartFile
         if (photo != null && !photo.isEmpty()) {
             photo.transferTo(destination)

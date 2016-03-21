@@ -35,7 +35,8 @@ Time: 09:55
                                 <span id="name-error" class="invalid-input" style="left: 0.75rem">Já existe um jogo com esse nome!</span>
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- mudar aki depois -->
+                        <div class="row" style="display: none;">
                             <div class="col s2 img-preview">
                                 <img id="img1Preview" class="materialboxed" width="100" height="100" src="${baseUrl}/banner.png" />
                             </div>

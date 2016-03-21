@@ -26,21 +26,18 @@
             </p>
             <div class="divider"></div>
         </div>
-        <div class="row search">
-            <div class="input-field col s6">
-                <input id="search" type="text" class="validate">
-                <label for="search"><i class="fa fa-search"></i></label>
+        <br>
+        <div class="card-list two-cards">
+            <div class="row show developer">
+                <article class="row">
+                    <g:if test="${processes}">
+                        <g:render template="process" model="[processes:processes]" />
+                    </g:if>
+                    <g:else>
+                        <p>Você não possui nenhum jogo em customização. Customize um agora mesmo! :)</p>
+                    </g:else>
+                </article>
             </div>
-        </div>
-        <div class="row show developer">
-            <article class="row">
-                <g:if test="${processes}">
-                    <g:render template="process" model="[processes:processes]" />
-                </g:if>
-                <g:else>
-                    <p>Você não possui nenhum jogo em customização. Customize um agora mesmo! :)</p>
-                </g:else>
-            </article>
         </div>
         <footer class="row">
             <ul class="pagination">
