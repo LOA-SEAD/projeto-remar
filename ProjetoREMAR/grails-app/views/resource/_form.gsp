@@ -14,7 +14,7 @@
 			<div class="input-field col s12">
 				<i class="material-icons suffix green-text active">done</i>
 				<textarea id="description" class="materialize-textarea" length="250" name="description" required ></textarea>
-				<label for="description">Textarea</label>
+				<label for="description">Descrição</label>
 				<span id="desc-error" class="invalid-textarea" style="left: 0.75rem">Este campo não pode ser vazio!</span>
 			</div>
 		</div>

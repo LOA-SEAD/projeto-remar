@@ -10,7 +10,7 @@
     <div class="hide-on-large-only">
         <div class="row no-margin-bottom valign-wrapper">
             <div class="col s4">
-                <img src="../data/users/${session.user.username}/profile-picture"
+                <img src="/data/users/${session.user.username}/profile-picture"
                      alt="${session.user.firstName}" class="circle responsive-img"
                      data-beloworigin="true">
             </div>

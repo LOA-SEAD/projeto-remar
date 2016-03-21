@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="layout" content="base">
+	<meta name="layout" content="materialize-layout">
 	<title>REMAR</title>
 </head>
 <body>

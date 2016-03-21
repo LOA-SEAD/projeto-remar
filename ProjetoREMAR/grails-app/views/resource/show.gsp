@@ -19,7 +19,7 @@
 							<input type="hidden" name="id" value="${resourceInstance.id}" id="hidden">
 							<div class="category">
 								<p> ${resourceInstance.category.name}</p>
-								<div class="stars">
+								<div class="stars hide-on-small-only">
 									<g:if test="${resourceInstance.sumUser == 0}">
 										<div id="rateYo-main" style="display: inline-block;"
 											 data-stars="0"></div>

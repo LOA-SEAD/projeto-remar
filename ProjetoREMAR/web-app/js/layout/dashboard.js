@@ -15,51 +15,51 @@ $(document).ready(function() {
       });
    });
 
-
-   if(window.innerWidth > 992) { //desktop
-      $('.slick').slick({
-         infinite: true,
-         slidesToShow: 4,
-         slidesToScroll: 1,
-         autoplay: true,
-         autoplaySpeed: 2500,
-         dots: true,
-         //centerMode: true,
-         adaptiveHeight: true,
-         focusOnSelect: true,
-         mobileFirst: true,
-         outline: none
-      }).css({"width":"725px", "margin-left": "35px"});
-
-
-   }else if(window.innerWidth <= 992 && window.innerWidth > 600){ //tablet
-      $('.slick').slick({
-         infinite: true,
-         slidesToShow: 3,
-         slidesToScroll: 1,
-         autoplay: true,
-         autoplaySpeed: 2500,
-         dots: true,
-         //centerMode: true,
-         adaptiveHeight: true,
-         focusOnSelect: true,
-         mobileFirst: true,
-         outline: none
-      }).css({"width":"550px", "margin": "0 auto"});
-   }else{ //mobile
-      $('.slick').slick({
-         infinite: true,
-         slidesToShow: 2,
-         slidesToScroll: 1,
-         autoplay: true,
-         autoplaySpeed: 2500,
-         dots: true,
-         adaptiveHeight: true,
-         focusOnSelect: true,
-         mobileFirst: true,
-         outline: none
-      }).css({"width":"350px", "margin": "0 auto"});
-   }
+   //
+   //if(window.innerWidth > 992) { //desktop
+   //   $('.slick').slick({
+   //      infinite: true,
+   //      slidesToShow: 4,
+   //      slidesToScroll: 1,
+   //      autoplay: true,
+   //      autoplaySpeed: 2500,
+   //      dots: true,
+   //      //centerMode: true,
+   //      adaptiveHeight: true,
+   //      focusOnSelect: true,
+   //      mobileFirst: true,
+   //      outline: none
+   //   }).css({"width":"725px", "margin-left": "35px"});
+   //
+   //
+   //}else if(window.innerWidth <= 992 && window.innerWidth > 600){ //tablet
+   //   $('.slick').slick({
+   //      infinite: true,
+   //      slidesToShow: 3,
+   //      slidesToScroll: 1,
+   //      autoplay: true,
+   //      autoplaySpeed: 2500,
+   //      dots: true,
+   //      //centerMode: true,
+   //      adaptiveHeight: true,
+   //      focusOnSelect: true,
+   //      mobileFirst: true,
+   //      outline: none
+   //   }).css({"width":"550px", "margin": "0 auto"});
+   //}else{ //mobile
+   //   $('.slick').slick({
+   //      infinite: true,
+   //      slidesToShow: 2,
+   //      slidesToScroll: 1,
+   //      autoplay: true,
+   //      autoplaySpeed: 2500,
+   //      dots: true,
+   //      adaptiveHeight: true,
+   //      focusOnSelect: true,
+   //      mobileFirst: true,
+   //      outline: none
+   //   }).css({"width":"350px", "margin": "0 auto"});
+   //}
 
 
 

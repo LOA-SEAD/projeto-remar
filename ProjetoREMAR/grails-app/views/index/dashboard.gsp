@@ -74,7 +74,7 @@
                                         <div class="left">
                                             <g:if test="${gameInstance.sumUser == 0}">
                                                 <div class="rating-dashboard"
-                                                     data-stars="0}"></div>
+                                                     data-stars="0"></div>
                                             </g:if>
                                             <g:else>
                                                 <div class="rating-dashboard"
@@ -170,7 +170,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick.min.js"></script>
+%{--<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.9/slick.min.js"></script>--}%
 
 <g:javascript src="layout/dashboard.js"/>
 
