@@ -105,7 +105,6 @@ class MoodleController {
                         "id": element.id,
                         "height": element.height,
                         "width": element.width,
-                        "image": element.image,
                         "moodleUrl": element.moodleUrl,
                         "name": element.name,
                         "resourceId": element.resourceId

@@ -107,7 +107,12 @@ class ExportedResourceController {
         instance.webUrl = baseUrl + "/web"
         instance.save flush: true
 
-        render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, urls: urls, baseUrl: baseUrl]
+        def moodleExport = false
+        if (MoodleAccount.findByOwner(session.user)) {
+            moodleExport = true
+        }
+
+        render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, urls: urls, baseUrl: baseUrl, moodleExport: moodleExport]
     }
 
     def web(ExportedResource exportedResourceInstance) {
