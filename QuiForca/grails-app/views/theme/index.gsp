@@ -22,7 +22,7 @@
     <div class="row">
         <div>
             %{--<p> Download tema ESR</p>--}%
-            <p style="margin-left: 10px;"> Download tema ESR <a class="btn-floating waves-effect waves-light my-orange" href="../data/samples/tema-forca-esr.zip"> <i class="material-icons">file_download</i> </a>
+            <p style="margin-left: 10px;">Tema modelo <a class="btn-floating waves-effect waves-light my-orange" href="../samples/tema-forca.zip"> <i class="material-icons">file_download</i> </a>
         </p>
         </div>
     </div>
