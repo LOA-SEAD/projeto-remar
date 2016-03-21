@@ -128,7 +128,7 @@ class MoodleController {
 
                 data.collect {
                     it.collect { k, v ->
-                        if(k != "_id") {
+                        if(k != "_id" && k != "moodle_url") {
                             data3[k] = v
                         }
                         if(k == "user") {
