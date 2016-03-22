@@ -73,6 +73,12 @@
                 $('select').material_select();
 
             });
+
+            function startWizard(){
+                if(window.innerWidth > 992) { //desktop
+                    introJs().start();
+                }
+            }
         </script>
 
     </body>

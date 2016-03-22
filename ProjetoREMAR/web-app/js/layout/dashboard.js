@@ -66,12 +66,6 @@ $(document).ready(function() {
 
 });
 
-function startWizard(){
-   if(window.innerWidth > 992) { //desktop
-      introJs().start();
-   }
-}
-
 window.onload = function(){
    var firstAccess = document.getElementById("userFirstAccessLabel").value;
    console.log(firstAccess);

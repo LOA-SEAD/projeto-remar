@@ -51,16 +51,16 @@
     <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os jogos que você publicou." data-step="3">
         <a href="/exportedResource/myGames" class=""><i class="medium material-icons">recent_actors</i>Meus Jogos</a>
     </li>
-    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra os seus jogos em processo de customização." data-step="3">
+    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra os seus jogos em processo de customização." data-step="4">
         <a href="/process/list" class=""><i class="medium material-icons">list</i>Meus processos</a>
     </li>
     <sec:ifAllGranted roles="ROLE_DEV">
-        <li class="waves-effect waves-block waves-light" data-intro="No espaço do desenvolvedor você pode submeter um novo jogo para o REMAR." data-step="4">
+        <li class="waves-effect waves-block waves-light" data-intro="No espaço do desenvolvedor você pode submeter um novo jogo para o REMAR." data-step="5">
             <a href="/resource/index" class=""><i class="medium material-icons">code</i>Desenvolvedor</a>
         </li>
     </sec:ifAllGranted>
 
-    <li class="waves-effect waves-block waves-light" data-intro="Para ver este wizard novamente basta clicar aqui." data-step="5">
+    <li class="waves-effect waves-block waves-light" data-intro="Para ver este wizard novamente basta clicar aqui." data-step="6">
         <a  onclick="startWizard()" class=""><i class="medium material-icons">live_help</i>Ajuda na navegação</a>
     </li>
 </ul>
