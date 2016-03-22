@@ -127,6 +127,7 @@ class MoodleController {
                 def data3 = [:]
 
                 data.collect {
+                    data3 = [:]
                     it.collect { k, v ->
                         if(k != "_id" && k != "moodle_url") {
                             data3[k] = v
@@ -135,7 +136,6 @@ class MoodleController {
                             data3[k] = MoodleAccount.findByOwner(User.get(v)).token
                         }
                     }
-                    println data3
                     data2[count] = data3
                     count++
                 }
