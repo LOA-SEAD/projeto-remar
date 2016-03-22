@@ -160,15 +160,16 @@
 				<div class="row">
 					<div class="input-field center">
 						<i class="material-icons prefix">input</i>
-						<textarea id="comment-area" class="materialize-textarea"></textarea>
+						<textarea required id="comment-area" class="materialize-textarea"></textarea>
 						<label for="comment-area">Comentário</label>
+						<span id="comment-error" class="invalid-textarea" style="display: block;">Este campo não pode ser vazio!</span>
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
 	<div class="modal-footer">
-		<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Enviar</a>
+		<a href="#!" class="modal-action waves-effect waves-green btn-flat ">Enviar</a>
 	</div>
 </div>
 
