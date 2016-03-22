@@ -105,7 +105,6 @@ class MoodleController {
                         "id": element.id,
                         "height": element.height,
                         "width": element.width,
-                        "image": element.image,
                         "moodleUrl": element.moodleUrl,
                         "name": element.name,
                         "resourceId": element.resourceId
@@ -123,8 +122,26 @@ class MoodleController {
             if (data.first() != null) {
                 def builder = new JsonBuilder()
 
+                def count = 0
+                def data2 = [:]
+                def data3 = [:]
+
+                data.collect {
+                    data3 = [:]
+                    it.collect { k, v ->
+                        if(k != "_id" && k != "moodle_url") {
+                            data3[k] = v
+                        }
+                        if(k == "user") {
+                            data3[k] = MoodleAccount.findByOwner(User.get(v)).token
+                        }
+                    }
+                    data2[count] = data3
+                    count++
+                }
+
                 def json = builder (
-                    "data": data.collect { it }
+                    "data": data2
                 )
 
                 render json as JSON

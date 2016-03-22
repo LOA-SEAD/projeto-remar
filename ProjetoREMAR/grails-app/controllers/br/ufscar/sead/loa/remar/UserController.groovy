@@ -369,15 +369,10 @@ class UserController {
     }
 
     def getMoodleAccount(int moodleId) {
-        def data = MoodleAccount.findByMoodle(Moodle.findById(moodleId))
+        def data = MoodleAccount.findByMoodleAndOwner(Moodle.findById(moodleId), User.findById(session.user.id))
 
         if(data != null) {
-            if(data.owner.id == session.user.id) {
-                return data
-            }
-            else {
-                return ""
-            }
+            return data
         }
         else {
             return ""

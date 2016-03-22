@@ -117,7 +117,7 @@ Time: 09:55
                                                 <span class="chip center">Jogo disponível no Moodle</span>
                                             </g:if>
                                             <g:else>
-                                                <g:if test="${session.user.moodleUsername == null}">
+                                                <g:if test="${!moodleExport}">
                                                     <input type="checkbox" id="moodle" disabled>
                                                     <label for="moodle" class="checkbox-label">Moodle</label>
                                                     <span>Vincule sua conta ao Moodle</span>
