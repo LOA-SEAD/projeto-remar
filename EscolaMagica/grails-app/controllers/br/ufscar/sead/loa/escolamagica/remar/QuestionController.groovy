@@ -244,13 +244,11 @@ class QuestionController {
             questionInstance.answers[2] = row[4] ?: "NA";
             questionInstance.answers[3] = row[5] ?: "NA";
             String correct = row[6] ?: "NA";
-            questionInstance.correctAnswer =  correct.toInteger()
-            questionInstance.ownerId = session.user.id
-            if(questionInstance.hasErrors()){
+            questionInstance.correctAnswer =  (correct.toInteger() -1)
+            questionInstance.taskId = session.taskId as String
+            questionInstance.ownerId = session.user.id as long
+            questionInstance.save flush: true
 
-            }
-            else
-                questionInstance.save flush: true
         }
         redirect(action: index())
     }

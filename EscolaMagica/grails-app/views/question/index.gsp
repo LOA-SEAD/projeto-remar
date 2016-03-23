@@ -115,10 +115,10 @@
             </button>
         </div>
         <div class="col s1 offset-s8">
-            <a data-target="createModal" name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange"><i class="material-icons">add</i></a>
+            <a data-target="createModal" name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"><i class="material-icons">add</i></a>
         </div>
         <div class="col s1">
-            <a data-target="uploadModal" class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger"><i
+            <a data-target="uploadModal" class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped" data-tooltip="Upload arquivo .csv"><i
                     class="material-icons">file_upload</i></a>
         </div>
     </div>
@@ -251,7 +251,65 @@
                     </div>
                 </g:uploadForm>
             </div>
-        </div>
+
+            <blockquote>Formatação do arquivo .csv</blockquote>
+            <div class="row">
+                <div class="col s12">
+                    <ol>
+                        <li>O separador do arquivo .csv deve ser <b> ',' (vírgula)</b>  </li>
+                        <li>O arquivo deve ser composto apenas por <b>dados</b></li>
+                        <li>O arquivo deve representar a estrutura da tabela de exemplo</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <table class="center" style="font-size: 12px;">
+                        <thead>
+                        <tr>
+                            <th>Nível</th>
+                            <th>Pergunta</th>
+                            <th>Resposta1</th>
+                            <th>Resposta2</th>
+                            <th>Resposta3</th>
+                            <th>Resposta4</th>
+                            <th>Alternativa Correta</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Pergunta 1</td>
+                            <td>Aternativa 1 (correta)</td>
+                            <td>Aternativa 2</td>
+                            <td>Aternativa 3</td>
+                            <td>Aternativa 4</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Pergunta 2</td>
+                            <td>Aternativa 1</td>
+                            <td>Aternativa 2</td>
+                            <td>Aternativa 3 (correta)</td>
+                            <td>Aternativa 4</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Pergunta 3</td>
+                            <td>Aternativa 1</td>
+                            <td>Aternativa 2</td>
+                            <td>Aternativa 3</td>
+                            <td>Aternativa 4 (correta)</td>
+                            <td>4</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
     </div>
 
 
