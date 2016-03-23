@@ -246,6 +246,10 @@ class QuestionController {
     @Transactional
     def generateQuestions() {
         MultipartFile csv = params.csv
+        def user = springSecurityService.getCurrentUser()
+        def userId = user.toString().split(':').toList()
+        String username = User.findById(userId[1].toInteger()).username
+
 
 
         csv.inputStream.eachCsvLine { row ->
@@ -255,7 +259,7 @@ class QuestionController {
             questionInstance.statement = row[0] ?: "NA";
             questionInstance.answer = row[1] ?: "NA";
             questionInstance.category = row[2] ?: "NA";
-            questionInstance.author = row[3] ?: "NA";
+            questionInstance.author = username
             questionInstance.taskId = session.taskId as String
 
             if (questionInstance.hasErrors()) {

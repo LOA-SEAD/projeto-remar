@@ -156,12 +156,12 @@
 
     <div class="col s1 offset-s8">
         <a data-target="createModal" name="create"
-           class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange"><i
+           class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"><i
                 class="material-icons">add</i></a>
     </div>
 
     <div class="col s1">
-        <a data-target="uploadModal" class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger"><i
+        <a data-target="uploadModal"  class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped" data-tooltip="Upload de arquivo .csv"><i
                 class="material-icons">file_upload</i></a>
     </div>
 </div>
@@ -201,7 +201,7 @@
 <div id="uploadModal" class="modal">
     <div class="modal-content">
         <h4>Enviar arquivo .csv</h4>
-
+        <br>
         <div class="row">
             <g:uploadForm action="generateQuestions">
 
@@ -221,6 +221,46 @@
                     </div>
                 </div>
             </g:uploadForm>
+        </div>
+
+        <blockquote>Formatação do arquivo .csv</blockquote>
+        <div class="row">
+            <div class="col s6">
+                <ol>
+                    <li>O separador do arquivo .csv deve ser <b> ',' (vírgula)</b>  </li>
+                    <li>O arquivo deve ser composto apenas por <b>dados</b></li>
+                    <li>O arquivo deve representar a estrutura da tabela ao lado</li>
+                </ol>
+            </div>
+            <div class="col s6">
+                <table class="center">
+                    <thead>
+                    <tr>
+                        <th>Pergunta</th>
+                        <th>Resposta</th>
+                        <th>Tema</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Pergunta 1</td>
+                        <td>Resposta 1</td>
+                        <td>Exemplo</td>
+                    </tr>
+                    <tr>
+                        <td>Pergunta 2</td>
+                        <td>Resposta 2</td>
+                        <td>Exemplo</td>
+                    </tr>
+                    <tr>
+                        <td>Pergunta 3</td>
+                        <td>Resposta 3</td>
+                        <td>Exemplo</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
         </div>
     </div>
 </div>
