@@ -44,6 +44,7 @@ $(document).ready(function(){
         if($("#comment-area").val()==""){
             var fildComment = document.getElementById('comment-area');
             $("#comment-error").show();
+            $("#comment-area").addClass("invalid");
 
         }
         else{
@@ -70,7 +71,7 @@ $(document).ready(function(){
                         '<li class="collection-item avatar">'+
                         '<img src="/data/users/'+response.rating.user.username+'/profile-picture" alt="'+response.rating.user.firstName+'" class="circle">'+
                         '<p class="title">'+response.rating.user.firstName+'<small> - '+ new Date(response.rating.date).getHours()+':'+ new Date(response.rating.date).getMinutes() +'</small></p>'+
-                        '<p>'+response.rating.comment+'</p>'+
+                        '<p class="rating-desc">'+response.rating.comment+'</p>'+
                             //'<p class="secondary-content">'+
                         '<div id="rateYo'+response.rating.id+'" class="secondary-content" style="display: inline-block;"></div>'+
                             //'</p>'+

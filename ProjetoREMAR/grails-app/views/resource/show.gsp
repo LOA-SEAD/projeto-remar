@@ -122,7 +122,7 @@
 										<g:else>
 											<p class="title">${rating.user.firstName} <small>- <g:formatDate format="HH:mm" date="${rating.date}"/></small></p>
 										</g:else>
-										<p>${rating.comment}</p>
+										<p class="rating-desc">${rating.comment}</p>
 										<div id="rateYo${rating.id}" class="secondary-content rating-stars" style="display: inline-block;" data-stars="${rating.stars}">
 										</div>
 									</li>
@@ -162,7 +162,7 @@
 						<i class="material-icons prefix">input</i>
 						<textarea required id="comment-area" class="materialize-textarea"></textarea>
 						<label for="comment-area">Comentário</label>
-						<span id="comment-error" class="invalid-textarea" style="display: block;">Este campo não pode ser vazio!</span>
+						<span id="comment-error" class="invalid-textarea" style="display: block; left: 2.75rem;">Este campo não pode ser vazio!</span>
 					</div>
 				</div>
 			</form>
