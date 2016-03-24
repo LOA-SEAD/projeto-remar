@@ -12,7 +12,7 @@
     <meta name="layout" content="materialize-layout">
 </head>
 <body>
-
+<div class="row show cards">
     <div class="row">
         <p class="left-align margin-bottom" style="font-size: 24px;">
             Tornar-se um desenvolvedor
@@ -20,7 +20,7 @@
         </p>
         <div class="divider"></div>
 
-        <div class="col s12" style="margin-top: 20px;">
+        <artigle class="col s12" style="margin-top: 20px;">
             <form action="/user/makeDeveloper" method="POST">
                 <div class="row">
                     <div class="input-field col s12">
@@ -58,6 +58,7 @@
                     </div>
                 </div>
             </form>
-        </div>
+        </artigle>
     </div>
+</div>
 </body>

@@ -12,7 +12,7 @@
     <meta name="layout" content="materialize-layout">
 </head>
 <body>
-
+<div class="row show cards">
     <div class="row" style="margin-top: 15px;">
         <h3 class="center">
             Obrigado pelas informações!
@@ -22,6 +22,6 @@
     <div class="row" style="margin-top: 30px;">
         <p>Agora você é um desenvolvedor do REMAR. Para efetivar as mudanças saia do sistema e faça login novamente.</p>
     </div>
-
+</div>
 </body>
 </html>
