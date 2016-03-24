@@ -137,8 +137,3 @@
 		</div>
 		<br class="clear" />
 </div>
-
-<script>
-
-
-</script>

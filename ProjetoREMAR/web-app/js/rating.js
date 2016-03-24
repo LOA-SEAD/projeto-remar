@@ -16,7 +16,9 @@ $(document).ready(function(){
     var mainStars = $('#rateYo-main');
 
     $('.slider').slider();
-    $('.modal-trigger').leanModal();
+    $('.modal-trigger').leanModal({
+        complete: function() { $(".lean-overlay").remove(); }
+    });
 
     $("#rateYo").rateYo({
         precision: 0,
@@ -93,14 +95,18 @@ $(document).ready(function(){
                     $("#users").text("("+response.rating.sumUsers+")");
 
                     $("#not-comment").hide();
+                    $("#modal-comment").closeModal();
+                    $(".lean-overlay").remove();
                 },
                 error: function () {
                     alert("error");
                 }
+
+
             });
         }
 
-        $("#modal-comment").close();
+
 
 
     });
