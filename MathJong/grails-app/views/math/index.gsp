@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'mathquill.css')}" />
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'mathjong.css')}" />
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="../js/materialize.min.js"></script>
+    <script type="text/javascript" src="/mathjong/js/materialize.min.js"></script>
 </head>
 <body>
 <div class="container">
