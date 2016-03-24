@@ -231,6 +231,9 @@
                     <li>O arquivo deve ser composto apenas por <b>dados</b></li>
                     <li>O arquivo deve representar a estrutura da tabela ao lado</li>
                 </ol>
+                <ul>
+                    <li><a href="../samples/exemploForca.csv" >Download do arquivo exemplo</a></li>
+                </ul>
             </div>
             <div class="col s6">
                 <table class="center">

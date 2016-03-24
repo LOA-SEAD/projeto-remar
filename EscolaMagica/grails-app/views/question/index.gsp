@@ -260,6 +260,9 @@
                         <li>O arquivo deve ser composto apenas por <b>dados</b></li>
                         <li>O arquivo deve representar a estrutura da tabela de exemplo</li>
                     </ol>
+                    <ul>
+                        <li><a href="../samples/exemploEscolaMagica.csv">Download do arquivo exemplo</a></li>
+                    </ul>
                 </div>
             </div>
             <div class="row">
@@ -280,28 +283,28 @@
                         <tr>
                             <td>1</td>
                             <td>Pergunta 1</td>
-                            <td>Aternativa 1 (correta)</td>
-                            <td>Aternativa 2</td>
-                            <td>Aternativa 3</td>
-                            <td>Aternativa 4</td>
+                            <td>Alternativa 1</td>
+                            <td>Alternativa 2</td>
+                            <td>Alternativa 3</td>
+                            <td>Alternativa 4</td>
                             <td>1</td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td>Pergunta 2</td>
-                            <td>Aternativa 1</td>
-                            <td>Aternativa 2</td>
-                            <td>Aternativa 3 (correta)</td>
-                            <td>Aternativa 4</td>
+                            <td>Alternativa 1</td>
+                            <td>Alternativa 2</td>
+                            <td>Alternativa 3</td>
+                            <td>Alternativa 4</td>
                             <td>3</td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td>Pergunta 3</td>
-                            <td>Aternativa 1</td>
-                            <td>Aternativa 2</td>
-                            <td>Aternativa 3</td>
-                            <td>Aternativa 4 (correta)</td>
+                            <td>Alternativa 1</td>
+                            <td>Alternativa 2</td>
+                            <td>Alternativa 3</td>
+                            <td>Alternativa 4</td>
                             <td>4</td>
                         </tr>
                         </tbody>
