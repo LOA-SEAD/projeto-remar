@@ -449,6 +449,7 @@ body {
     position: absolute;
     background: black;
     border-radius: 1px;
+    display: none;
 }
 
 .linha-vertical {
