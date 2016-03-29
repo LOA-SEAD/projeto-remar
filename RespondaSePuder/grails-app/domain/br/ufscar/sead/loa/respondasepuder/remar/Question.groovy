@@ -6,6 +6,7 @@ class Question {
     String[] answer = new String[4]
     int correctAnswer
     String tip
+    int level
 
     long ownerId
 

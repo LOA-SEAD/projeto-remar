@@ -1,3 +1,5 @@
+import br.ufscar.sead.loa.respondasepuder.remar.Question
+
 class UrlMappings {
 
 	static mappings = {
@@ -7,7 +9,9 @@ class UrlMappings {
             }
         }
 
-        "/"(view:"/index")
+        "/" {controller = "Question"
+             action = "index"
+        }
         "500"(view:'/error')
 	}
 }
