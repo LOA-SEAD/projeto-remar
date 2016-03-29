@@ -4,6 +4,16 @@
 
 $(document).ready(function(){
 
+    $(".dropdown-button").dropdown({
+        inDuration: 300,
+        outDuration: 0,
+        constrain_width: true, // Does not change width of dropdown to that of the activator
+        hover: false, // Activate on hover
+        gutter: 0, // Spacing from edge
+        belowOrigin: true, // Displays dropdown below the button
+        alignment: 'left' // Displays dropdown with edge aligned to the left of button
+    });
+
     $("#comment-error").hide();
     $(".counter").text(0);
 
@@ -23,13 +33,13 @@ $(document).ready(function(){
     $("#rateYo").rateYo({
         precision: 0,
         maxValue: 100,
+        halfStar: true,
         onChange: function (rating, rateYoInstance) {
 
-            $(this).next().text(rating);
-            r = rating
+            $(this).next().text(rating / 10);
+            r = rating /10
         }
     });
-
 
     $(mainStars).rateYo({
         readOnly: true,
@@ -39,7 +49,7 @@ $(document).ready(function(){
         rating: $(mainStars).attr("data-stars")
     });
 
-    $(".modal-action").on("click", function(){
+    $("#create-rating").on("click", function(){
 
         if($("#comment-area").val()==""){
             var fildComment = document.getElementById('comment-area');
@@ -49,10 +59,8 @@ $(document).ready(function(){
         }
         else{
             var formData = new FormData();
-            formData.append('stars',$(".counter").text());
+            formData.append('stars',Number($(".counter").text())*10);
             formData.append('comment', $("#comment-area").val());
-
-            console.log('stars',$("#comment-area").val());
 
             $.ajax({
                 url: "/resource/saveRating/" + $("#hidden").val(),
@@ -61,39 +69,34 @@ $(document).ready(function(){
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    response.rating = response.rating[0];
-                    response.rating.user = response.rating.user[0];
 
-                    console.log(response);
-                    console.log($("#comment").val());
+                    $(".collection.rating").prepend(response);
 
-                    $(".collection.rating").prepend(
-                        '<li class="collection-item avatar">'+
-                        '<img src="/data/users/'+response.rating.user.username+'/profile-picture" alt="'+response.rating.user.firstName+'" class="circle">'+
-                        '<p class="title">'+response.rating.user.firstName+'<small> - '+ new Date(response.rating.date).getHours()+':'+ new Date(response.rating.date).getMinutes() +'</small></p>'+
-                        '<p class="rating-desc">'+response.rating.comment+'</p>'+
-                            //'<p class="secondary-content">'+
-                        '<div id="rateYo'+response.rating.id+'" class="secondary-content" style="display: inline-block;"></div>'+
-                            //'</p>'+
-                        '</li>'
-                    );
+                    var rating = $(response).find(".rating-stars");
 
-                    $('#rateYo'+response.rating.id).rateYo({
+                    $('#rateYo'+rating.attr("data-rating-id")).rateYo({
                         readOnly: true,
                         precision: 0,
                         maxValue: 100,
                         starWidth: "15px",
-                        rating: Number(response.rating.stars)
+                        rating: Number(rating.attr("data-stars"))
                     });
 
-                    //var medium = (Number($(mainStars).attr("data-stars")) + Number(response.stars))/( Number($("#users").text()) + 1);
-                    //console.log(Number(medium));
-                    $(mainStars).rateYo("option","rating",response.rating.mediumStars);
+                    $(mainStars).rateYo("option","rating",rating.attr("data-medium-stars"));
 
                     $("#comment-area").val("");
                     $("#rateYo").rateYo("option","rating",0).next().text("0");
 
-                    $("#users").text("("+response.rating.sumUsers+")");
+                    $("#users").text("("+rating.attr("data-sum-users")+")");
+
+
+
+
+
+                    $(".dropdown-button").dropdown();
+                    console.log( $(response).find(".edit-rating"));
+                    $(".edit-rating").on('click',setListenerEdit);
+                    $(".delete-rating").on('click',setListenerDelete,false);
 
                     $("#not-comment").hide();
                     $("#modal-comment").closeModal();
@@ -102,14 +105,8 @@ $(document).ready(function(){
                 error: function () {
                     alert("error");
                 }
-
-
             });
         }
-
-
-
-
     });
 
     $('.rating-stars').each(function() {
@@ -118,8 +115,44 @@ $(document).ready(function(){
             precision: 0,
             maxValue: 100,
             starWidth: "15px",
+            halfStar: true,
             rating: Number($(this).attr("data-stars"))
         });
+
+        $(this).next(".stars-font").text("("+($(this).attr("data-stars")/10)+")");
     });
 
+    //classe nos botões edit e delete rating
+    $(".edit-rating").on("click",setListenerEdit);
+
+    //botão do modal de editar
+    $("#edit-rating").on("click",function(){
+
+        $('#modal1').closeModal();
+        $("#create-rating").show();
+        $('#edit-rating').hide();
+
+        $("#comment-area").val("").next().removeClass("active").before().removeClass("active");
+        $("#rateYo").rateYo("option","rating",0).next().text(0);
+
+    }).hide();
 });
+
+
+function setListenerEdit(){
+    var parent = $(this).parents().eq(2);
+    var stars = Number(parent.find(".rating-stars").attr("data-stars"));
+
+    //console.log( st);
+    $('#modal-comment').openModal();
+
+    $("#create-rating").hide();
+    $('#edit-rating').show();
+
+    $("#comment-area").val(parent.find(".rating-desc").text()).next().addClass("active").before().addClass("active");
+    $("#rateYo").rateYo("option","rating",stars).next().text(stars / 10);
+}
+
+function setListenerDelete(){
+
+}

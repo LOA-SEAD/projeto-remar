@@ -314,29 +314,12 @@ class ResourceController {
 
         instance.save flush: true
 
-        def builder = new JsonBuilder()
+        render view: "_comment", model: [rating: r,  mediumStars: (instance.sumStars / instance.sumUser),
+                                                     sumUsers: instance.sumUser,  today: new Date() ]
+    }
 
-        def json = builder(
-                "rating": r.collect() { element ->
-                    [
-                            id: r.id,
-                            comment: r.comment,
-                            stars: r.stars,
-                            date: r.date,
-                            user: r.user.collect()  { u ->
-                                [
-                                        id: r.user.id,
-                                        username: r.user.username,
-                                        firstName: r.user.firstName
-                                ]},
-                            mediumStars: (instance.sumStars / instance.sumUser),
-                            sumUsers: instance.sumUser
-                    ]
-                }
-        )
+    def updateRating(Resource instance){
 
-//        render r as JSON;
-        render json as JSON;
     }
 
     def croppicture() {
