@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="new-main-external">
-    <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
-    <title>Recuperar conta</title>
-
-    <link href="${resource(dir: 'assets/css', file: 'external-styles.css')}" rel="stylesheet" >
+    <meta name="layout" content="base">
+    <title>REMAR</title>
 </head>
 <body>
+<div class="container">
     <div class="row">
-            <div class="col-md-12">
-                <section>
-                    <p class="title-style">Redefinir senha</p>
-                </section>
-                <section>
-                    <p class="password-text-align">Enviamos um email para ${email} :)</p>
-                    <span class="footer-span" id="link-password"><g:link class="footer-span" controller="index" action="index">Home</g:link></span>
-                </section>
-            </div>
-
-    </div>
+        <div class="card white z-depth-2 col s12 m6 l4 offset-m3 offset-l4 offset-vertical-15">
+            <div class="card-content" style="padding: 20px !important;">
+                <div class="card-image">
+                    <img src="/assets/img/logo/logo-remar-preto-transparente.png">
+                </div> <!-- card-image -->
+                <div class="center">
+                    <span class="card-title black-text">Verifique sua caixa de entrada</span>
+                    <p>Verifique seu email – enviamos um link para você cadastrar uma nova senha :)</p>
+                </div>
+            </div> <!-- card-content -->
+        </div> <!-- card -->
+    </div> <!-- row -->
+</div> <!-- container -->
 </body>
 </html>
