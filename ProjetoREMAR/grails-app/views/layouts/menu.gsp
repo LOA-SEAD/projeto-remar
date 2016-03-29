@@ -42,8 +42,8 @@
     <li class="waves-effect waves-block waves-light">
         <a href="/" class=""><i class=" medium mdi-action-dashboard"></i>Início</a>
     </li>
-    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os modelos de jogos que são customizáveis." data-step="1">
-        <a href="/resource/customizableGames" class=""><i class="medium material-icons">create</i>Modelos customizáveis</a>
+    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os jogos que são customizáveis." data-step="1">
+        <a href="/resource/customizableGames" class=""><i class="medium material-icons">create</i>Jogos customizáveis</a>
     </li>
     <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os jogos públicos que você pode acessar." data-step="2">
         <a href="/exportedResource/publicGames" class=""><i class="medium material-icons">public</i>Jogos públicos</a>
