@@ -85,11 +85,19 @@
     .card {
         margin: 5px;
     }
+    .my-card {
+        display: table;
+    }
+
+    .card-div{
+        max-width: 160px;
+    }
+
 
     .card-content {
         background: #fff !important;
         height: 100% !important;
-        position: relative;
+        /*position: relative;*/
         text-decoration: none;
         vertical-align: top;
         padding: 0px !important;
@@ -275,7 +283,7 @@ footer.page-footer{
         min-width: 330px;
         margin-top: 4rem;
     }
-    
+
     .card-title {
         font-size: 30px;
     }
@@ -464,7 +472,7 @@ footer.page-footer{
                 .logo-icon {
                     height: 56px;
                 }
-                
+
                 .side-nav {
                     width: 215px;
                 }
