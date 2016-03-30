@@ -192,62 +192,6 @@ class UserController {
             params.photo.transferTo(destination)
         }
 
-        /*if (userInstance == null) {
-            notFound()
-            return
-        }
-
-        if (userInstance.hasErrors()) {
-            respond userInstance.errors, view: 'edit'
-            return
-        }
-
-        //Remove user from camunda to insert it again
-        identityService.deleteUser(userInstance.camunda_id)
-
-        //Remove user roles to insert it again
-        UserRole.removeAll(userInstance, true)
-
-        //reinsert the user in the camunda BD
-        org.camunda.bpm.engine.identity.User camundaUser = identityService.newUser(userInstance.username)
-        camundaUser.setEmail(userInstance.email)
-        camundaUser.setFirstName(userInstance.firstName)
-        camundaUser.setLastName(userInstance.lastName)
-        camundaUser.setPassword(userInstance.password)
-        identityService.saveUser(camundaUser)
-
-        userInstance.camunda_id = camundaUser.getId()
-
-        userInstance.save flush: true
-
-        //Reinsert all the user roles
-        if (params.ROLE_ADMIN) {
-            UserRole.create(userInstance, Role.findByAuthority("ROLE_ADMIN"), true)
-        }
-
-        if (params.ROLE_PROF) {
-            UserRole.create(userInstance, Role.findByAuthority("ROLE_PROF"), true)
-        }
-
-        if (params.ROLE_STUD) {
-            UserRole.create(userInstance, Role.findByAuthority("ROLE_STUD"), true)
-        }
-
-        if (params.ROLE_EDITOR) {
-            UserRole.create(userInstance, Role.findByAuthority("ROLE_EDITOR"), true)
-        }
-
-        if (params.ROLE_DESENVOLVEDOR) {
-            UserRole.create(userInstance, Role.findByAuthority("ROLE_DESENVOLVEDOR"), true)
-        }
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'User.label', default: 'User'), userInstance.id])
-                redirect userInstance
-            }
-            '*' { respond userInstance, [status: OK] }
-        }*/
         log.debug "User " + user.username + " successfully updated"
     }
 
