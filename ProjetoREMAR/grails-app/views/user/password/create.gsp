@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="new-main-external">
-    <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
+    <meta name="layout" content="base">
+    <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}"/>
     <title>Recuperar conta</title>
 
-    <link href="${resource(dir: 'assets/css', file: 'icomoon.css')}" rel="stylesheet" >
-
-    <g:javascript src="../assets/js/jquery.min.js" />
-    <g:javascript src="../assets/js/jquery.validate.js" />
+    <g:javascript src="jquery/jquery.validate.js"/>
 
     <script>
-        $(function() {
+        $(function () {
             var existUser = false;
             var existEmail = false;
             $('form').validate({
@@ -57,43 +54,41 @@
     </script>
 
 </head>
-<body>
-<div class="row">
-    %{--</header>--}%
-    <article class="row">
-        <div class="col-md-12">
-            <section>
-                <h3 class="">Redefinir senha</h3>
-            </section>
-            <section>
-                <g:if test='${flash.message}'>
-                    <div class='login_message'>${flash.message}</div>
-                </g:if>
 
-                <form action="/user/password/reset" method='POST' class='cssform' autocomplete='off'>
-                    <div class="form-group">
-                        <label for="password">Nova senha:</label>
-                        <input type="password" class="form-control input-form" name="password" id="password" required=""/>
-                    </div>
-                    <div class="form-group">
-                        <label for="password-confirmation">Confirme Nova Senha:</label>
-                        <input type="password" class="form-control input-form" name="password_confirmation" id="password-confirmation" required=""/>
-                    </div>
-                    <input type="hidden" name="token" value="${token}" />
-                    <div>
-                        <p>
-                            <input type='submit' id="submitBtn" class="btn btn-primary btn-block btn-create" value="Enviar"/>
-                            %{--value='${message(code: "springSecurity.login.button")}--}%
-                        </p>
-                    </div>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="card white z-depth-2 col s12 m6 l4 offset-m2 offset-l4">
+            <div class="card-content" style="padding: 20px !important;">
+                <div class="card-image" style="padding-bottom: 20px;">
+                    <img src="/assets/img/logo/logo-remar-preto-transparente.png">
+                </div> <!-- card-image -->
+                <form action="/user/password/reset" method="POST">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">lock</i>
+                            <input id="password" name="password" type="password"/>
+                            <label for="password">Senha</label>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">lock</i>
+                            <input id="password-confirmation" name="password_confirmation" type="password"/>
+                            <label for="password-confirmation">Confirme sua senha</label>
+                        </div>
+
+                        <input type="hidden" name="token" value="${token}"/>
+
+                        <div class="clearfix"></div>
+                        <div class="input-field center-align">
+                            <button id="submit" class="btn waves-effect waves-light tooltiped my-orange"
+                                    type="submit">Enviar</button>
+                        </div>
+                    </div> <!-- row -->
                 </form>
-            </section>
-        </div>
-    </article>
-    <footer class="row">
-        <div class="col-md-12">
-        </div>
-    </footer>
-</div>
+            </div> <!-- card-content -->
+        </div> <!-- card -->
+    </div> <!-- row -->
+</div> <!-- container -->
 </body>
 </html>
