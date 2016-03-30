@@ -83,7 +83,7 @@ class UserController {
                 token.owner.password = params.password
                 token.owner.save flush: true
                 token.delete flush: true
-                render "ok" // TODO
+                render view: "/user/password/done"
             } else { // User has entered the email & captcha
                 def userIP = request.getRemoteAddr()
                 def captcha = params.get("g-recaptcha-response")
@@ -101,11 +101,9 @@ class UserController {
                                 "<h3><a href=\"${url}\">Clique aqui</a> para redefinir sua senha :)</h3> <br>")
 
                         render view: "/user/password/emailSent", model: [email: user.email]
-
                     } else {
-                        // TODO EXIBIR FLASH MESSAGE DE EMAIL NAO ENCONTRADO
-                        flash.message = message(code: 'error.mail')
-                        redirect(uri: '/password/reset')
+                        flash.message = 'email not found'
+                        render view: "/user/password/requestToken"
                     }
 
                 }
