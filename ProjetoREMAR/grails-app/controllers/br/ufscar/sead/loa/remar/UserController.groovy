@@ -70,7 +70,7 @@ class UserController {
                 if (!token) { // Token !exists or is older than 1 day
                     render "Token expired or not found" // TODO
                 } else {
-                    render view: "createPassword", model: [user: token.owner, token: params.t]
+                    render view: "/user/password/create", model: [user: token.owner, token: params.t]
                 }
             } else { // User has clicked "forgot passowrd" link
                 render view: "/user/password/requestToken"
