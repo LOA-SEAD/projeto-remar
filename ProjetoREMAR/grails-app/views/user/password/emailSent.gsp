@@ -13,7 +13,7 @@
                     <img src="/assets/img/logo/logo-remar-preto-transparente.png">
                 </div> <!-- card-image -->
                 <div class="center">
-                    <span class="card-title black-text">Verifique sua caixa de entrada</span>
+                    <span class="card-title black-text">Verifique seu email</span>
                     <p>Verifique seu email – enviamos um link para você cadastrar uma nova senha :)</p>
                 </div>
             </div> <!-- card-content -->
