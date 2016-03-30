@@ -1,7 +1,5 @@
 package br.ufscar.sead.loa.remar
 
-//import com.daureos.facebook.FacebookGraphService
-import groovy.json.JsonBuilder
 import org.apache.commons.lang.RandomStringUtils
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
@@ -14,13 +12,11 @@ import static org.springframework.http.HttpStatus.*
 
 import grails.transaction.Transactional
 import grails.plugins.rest.client.RestBuilder
-import grails.converters.JSON
 
 
 @Transactional(readOnly = true)
 class UserController {
     def springSecurityService
-//    FacebookGraphService facebookGraphService
     def grailsApplication
 
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", filteredList: "POST"]
