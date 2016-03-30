@@ -19,13 +19,10 @@ class UrlMappings {
 
         // begin user mappings
         "/user/account/confirm/$token"(controller: 'user',action: 'confirmAccount')
-        '/user/newpassword/confirm'(controller: 'user',action: 'createPassword')
-        '/user/confirmation'(view: '/static/emailuser')
         name resetPassword: "/user/password/reset"(controller: 'user', action: 'resetPassword')
         // end user mappings
 
         // begin password mappings
-        //noinspection GroovyAssignabilityCheck
         //noinspection GroovyAssignabilityCheck
         name developerForm: "/developer/new"(view:"/static/formDeveloper")
         name infoPage: "/index/info" (view: "index/info")
@@ -43,13 +40,10 @@ class UrlMappings {
         "/moodle/link/$moodleId"(controller: "moodle", action: "link")
         "/moodle/unlink/$token"(controller: "moodle", action: "unlink")
         "/moodle/getLogFromResource/$resourceId"(controller: "moodle", action: "getLogFromResource")
-
-//        "/process/information/customization/$id"(controller: "process", action: "startCustomization")
         // end Process API endpoints
 
         // begin Resource API endpoints
         "/resource/review/$id/$status?"(controller:"resource", action:"review")
-//        '/resource/customizable'(view: '/resource/custGames')
         '/resource/customizableGames'(controller:"resource", action:"customizableGames")
         "/resource/show/$id"(controller: "resource", action: "show")
         "/resource/saveRating/$id"(controller: "resource", action: "saveRating")
