@@ -7,10 +7,10 @@
         <g:message code="question.answer.label" default="Answer"/>
         <span class="required-indicator">*</span>
     </label>
-    <g:field name="answer1" type="text" value="${questionInstance.answer[0]}" required=""/>
-    <g:field name="answer2" type="text" value="${questionInstance.answer[1]}" required=""/>
-    <g:field name="answer3" type="text" value="${questionInstance.answer[2]}" required=""/>
-    <g:field name="answer4" type="text" value="${questionInstance.answer[3]}" required=""/>
+    <g:field name="answers1" type="text" value="${questionInstance.answers[0]}" required=""/>
+    <g:field name="answers2" type="text" value="${questionInstance.answers[1]}" required=""/>
+    <g:field name="answers3" type="text" value="${questionInstance.answers[2]}" required=""/>
+    <g:field name="answers4" type="text" value="${questionInstance.answers[3]}" required=""/>
 
 </div>
 

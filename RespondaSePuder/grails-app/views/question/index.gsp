@@ -37,6 +37,7 @@
         <th>Pergunta <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
         <th>Respostas <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
         <th>Alternativa Correta <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+        <th>Dica<div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
         <th>Ações <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
     </tr>
     </thead>
@@ -56,11 +57,14 @@
 
             <td  >${fieldValue(bean: questionInstance, field: "title")}</td>
 
-            <td >${fieldValue(bean: questionInstance, field: "answer")}</td>
+            <td >${fieldValue(bean: questionInstance, field: "answers")}</td>
 
             <td  >${questionInstance.correctAnswer}</td>
 
-            <td> <i onclick="changeEditQuestion(${i})" style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil modal-trigger" data-target="editModal${i}" data-model="${questionInstance.id}"></i> <i style="color: #7d8fff " class="fa fa-trash-o" onclick="_delete($(this.closest('tr')))" > </i></td>
+            <td  >${questionInstance.tip}</td>
+
+
+            <td> <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil " ></i> <i style="color: #7d8fff " class="fa fa-trash-o" onclick="_delete($(this.closest('tr')))" > </i></td>
 
 
 
@@ -86,70 +90,97 @@
     </div>
 </div>
 
-<!-- Modal Structure -->
+<div id="createModal" class="modal">
+    <div class="modal-content">
+        <h4>Criar Questão</h4>
+        <div class="row">
+          <g:form action="save" resource="${questionInstance}">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label for="title">Pergunta</label>
+                        <input id="title" name="title" required=""  type="text" class="validate">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s9">
+                        <label for="answers[0]">Alternativa 1</label>
+                        <input type="text" class="validate" id="answers[0]" name="answers1" required="" />
+                    </div>
+                    <div class="col s2">
+                        <input type="radio" id="radio0" name="correctAnswer" value="0" />
+                        <label for="radio0">Alternativa correta</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s9">
+                        <label for="answers[1]">Alternativa 2</label>
+                        <input type="text" class="validate" id="answers[1]" name="answers2" required="" />
+                    </div>
+                    <div class="col s2">
+                        <input type="radio" id="radio1" name="correctAnswer" value="1" /> <label for="radio1">Alternativa correta</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s9">
+                        <label for="answers[2]">Alternativa 3</label>
+                        <input type="text" class="validate" id="answers[2]" name="answers3" required=""/>
+                    </div>
+                    <div class="col s2">
+                        <input type="radio" id="radio2" name="correctAnswer" value="2" /> <label for="radio2">Alternativa correta</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s9">
+                        <label for="answers[3]">Alternativa 4</label>
+                        <input type="text" class="form-control" id="answers[3]" name="answers4" required="" />
+                    </div>
+                    <div class="col s2">
+                        <input type="radio" id="radio3" name="correctAnswer" value="3" /> <label for="radio3">Alternativa correta</label>
+                    </div>
+                </div>
+
+              <div class="row">
+                  <div class="input-field col s12">
+                      <input type="text" name="tip" id="tip" required />
+                      <label for="tip">Dica</label>
+                  </div>
+              </div>
+
+                <div class="row">
+                    <div class="col s2 offset-s3">
+                        <input type="radio" id="level1" name="level" value="1" />
+                        <label for="level1">Nível Fácil</label>
+
+                    </div>
+
+                    <div class="col s2">
+                        <input type="radio" id="level2" name="level" value="2" />
+                        <label for="level2">Nível Médio</label>
+                    </div>
+
+                    <input type="hidden" name="ownerId"  value="2" >
+                    <input type="hidden" name="taskId"  value="2" >
 
 
-<!-- Modal Structure -->
 
+                    <div class="col s2">
+                        <input type="radio" id="level3" name="level" value="3" />
+                        <label for="level3">Nível Difícil</label>
+                    </div>
+                </div>
+
+
+                <g:submitButton name="create" class="btn btn-success btn-lg my-orange" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+            </g:form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../js/questions.js"></script>
 </body>
 </html>
 
-%{--<html>--}%
-%{--<head>--}%
-    %{--<meta name="layout" content="main">--}%
-    %{--<title>Responda Se Puder</title>--}%
-%{--</head>--}%
-
-%{--<body>--}%
-     %{--<div class="container">--}%
-         %{--<table>--}%
-             %{--<thead>--}%
-             %{--<tr>--}%
-                 %{--<g:sortableColumn property="title" title="${message(code: 'question.title.label', default: 'Title')}"/>--}%
-
-                 %{--<g:sortableColumn property="answer" title="${message(code: 'question.answer.label', default: 'Answer')}"/>--}%
-
-                 %{--<g:sortableColumn property="correctAnswer"--}%
-                                   %{--title="${message(code: 'question.correctAnswer.label', default: 'Correct Answer')}"/>--}%
-
-                 %{--<g:sortableColumn property="tip" title="${message(code: 'question.tip.label', default: 'Tip')}"/>--}%
-
-
-                 %{--<g:sortableColumn property="ownerId"--}%
-                                   %{--title="${message(code: 'question.ownerId.label', default: 'Owner Id')}"/>--}%
-
-                 %{--<g:sortableColumn property="taskId" title="${message(code: 'question.taskId.label', default: 'Task Id')}"/>--}%
-
-
-
-             %{--</tr>--}%
-             %{--</thead>--}%
-             %{--<tbody>--}%
-             %{--<g:each in="${questionInstanceList}" status="i" var="questionInstance">--}%
-                 %{--<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">--}%
-
-                     %{--<td>${fieldValue(bean: questionInstance, field: "title")}</td>--}%
-
-
-                     %{--<td><g:link action="show"--}%
-                                 %{--id="${questionInstance.id}">${fieldValue(bean: questionInstance, field: "answer")}</g:link></td>--}%
-
-                     %{--<td>${fieldValue(bean: questionInstance, field: "correctAnswer")}</td>--}%
-
-                     %{--<td>${fieldValue(bean: questionInstance, field: "tip")}</td>--}%
-
-                     %{--<td>${fieldValue(bean: questionInstance, field: "ownerId")}</td>--}%
-
-                     %{--<td>${fieldValue(bean: questionInstance, field: "taskId")}</td>--}%
-
-
-
-                 %{--</tr>--}%
-             %{--</g:each>--}%
-             %{--</tbody>--}%
-         %{--</table>--}%
-    %{--</div>--}%
-
-
-%{--</body>--}%
-%{--</html>--}%

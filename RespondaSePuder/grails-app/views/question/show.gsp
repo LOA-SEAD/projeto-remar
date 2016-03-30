@@ -27,9 +27,9 @@
     </g:if>
     <ol class="property-list question">
 
-        <g:if test="${questionInstance?.answer}">
+        <g:if test="${questionInstance?.answers}">
             <li class="fieldcontain">
-                <span id="answer-label" class="property-label"><g:message code="question.answer.label"
+                <span id="answer-label" class="property-label"><g:message code="question.answers.label"
                                                                           default="Answer"/></span>
 
             </li>

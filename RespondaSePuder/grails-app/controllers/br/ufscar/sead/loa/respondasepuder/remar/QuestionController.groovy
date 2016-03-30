@@ -35,21 +35,26 @@ class QuestionController {
             return
         }
 
-        questionInstance.answer[0]= params.answer1
-        questionInstance.answer[1]= params.answer2
-        questionInstance.answer[2]= params.answer3
-        questionInstance.answer[3]= params.answer4
+        questionInstance.answers[0]= params.answers1
+        questionInstance.answers[1]= params.answers2
+        questionInstance.answers[2]= params.answers3
+        questionInstance.answers[3]= params.answers4
+
+        questionInstance.taskId = 1
+        questionInstance.ownerId = 1
 
 
         questionInstance.save flush:true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'question.label', default: 'Question'), questionInstance.id])
-                redirect questionInstance
-            }
-            '*' { respond questionInstance, [status: CREATED] }
-        }
+        redirect(action: "index")
+
+//        request.withFormat {
+//            form multipartForm {
+//                flash.message = message(code: 'default.created.message', args: [message(code: 'question.label', default: 'Question'), questionInstance.id])
+//                redirect questionInstance
+//            }
+//            '*' { respond questionInstance, [status: CREATED] }
+//        }
     }
 
     def edit(Question questionInstance) {
