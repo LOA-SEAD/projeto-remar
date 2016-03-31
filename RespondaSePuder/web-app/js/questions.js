@@ -18,6 +18,65 @@ window.onload = function(){
 
 };
 
+
+function submit(){
+    var list_id_level1 = [];
+    var list_id_level2 = [];
+    var list_id_level3 = [];
+
+    var questions_level1 = 0;
+    var questions_level2 = 0;
+    var questions_level3 = 0;
+    $.each($("input[type=checkbox]:checked"), function (ignored, el) {
+        var tr = $(el).parents().eq(1);
+        switch ($(tr).attr('data-level')) {
+            case "1":
+                questions_level1++;
+                list_id_level1.push($(tr).attr('data-id'));
+                break;
+            case "2":
+                questions_level2++;
+                list_id_level2.push($(tr).attr('data-id'));
+                break;
+            default:
+                questions_level3++;
+                list_id_level3.push($(tr).attr('data-id'));
+                break;
+
+        }
+    });
+    if(questions_level1 >= 5 && questions_level2 >= 5 && questions_level3 >= 5){
+        //Chama controlador para salvar questões em arquivos.json
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            url: "exportQuestions",
+            data: { list_id_level1: list_id_level1, list_id_level2: list_id_level2, list_id_level3: list_id_level3 },
+            success: function(returndata) {
+                //window.top.location.href = returndata;
+            },
+            error: function(returndata) {
+                alert("Error:\n" + returndata.responseText);
+
+
+            }
+        });
+    }
+    else
+    {
+
+        $('#totalQuestion').empty();
+        $("#totalQuestion").append("<div> <p> Você deve selecionar no mínimo 5 (cinco) questões de cada nível. </p> </div>");
+        $("#totalQuestion").append("<div> <p> Questões nível 1: " + questions_level1 +" . </p> </div>");
+        $("#totalQuestion").append("<div> <p> Questões nível 2: " + questions_level2 +" . </p> </div>");
+        $("#totalQuestion").append("<div> <p> Questões nível 3: " + questions_level3 +" . </p> </div>");
+        $('#infoModal').openModal();
+
+    }
+
+
+}
+
 function _edit(tr){
     var url = location.origin + '/RespondaSePuder/question/returnInstance/' + $(tr).attr('data-id');
     var data = {_method: 'GET'};

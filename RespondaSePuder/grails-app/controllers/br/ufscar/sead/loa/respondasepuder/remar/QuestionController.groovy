@@ -10,9 +10,8 @@ class QuestionController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", returnInstance: ["GET","POST"]]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond Question.list(params), model:[questionInstanceCount: Question.count()]
+    def index() {
+        respond Question.list(), model:[questionInstanceCount: Question.count()]
     }
 
     def show(Question questionInstance) {
@@ -80,28 +79,6 @@ class QuestionController {
 
     }
 
-    def returnInstance(Question questionInstance){
-
-        if (questionInstance == null) {
-            notFound()
-        }
-        else{
-            render questionInstance.level + "%@!" +
-                   questionInstance.title + "%@!" +
-                   questionInstance.answers[0] + "%@!" +
-                   questionInstance.answers[1] + "%@!" +
-                   questionInstance.answers[2] + "%@!" +
-                   questionInstance.answers[3] + "%@!" +
-                   questionInstance.correctAnswer + "%@!" +
-                   questionInstance.tip + "%@!" +
-                   questionInstance.id
-
-
-        }
-
-    }
-
-
     @Transactional
     def delete(Question questionInstance) {
 
@@ -126,4 +103,116 @@ class QuestionController {
             '*'{ render status: NOT_FOUND }
         }
     }
+
+    def returnInstance(Question questionInstance){
+
+        if (questionInstance == null) {
+            notFound()
+        }
+        else{
+            render questionInstance.level + "%@!" +
+                    questionInstance.title + "%@!" +
+                    questionInstance.answers[0] + "%@!" +
+                    questionInstance.answers[1] + "%@!" +
+                    questionInstance.answers[2] + "%@!" +
+                    questionInstance.answers[3] + "%@!" +
+                    questionInstance.correctAnswer + "%@!" +
+                    questionInstance.tip + "%@!" +
+                    questionInstance.id
+
+
+        }
+
+    }
+
+    @Transactional
+    def exportQuestions(){
+
+        //Criando lista de questões do level 1
+        ArrayList<Integer> list_questionId_level1 = new ArrayList<Integer>() ;
+        ArrayList<Question> questionList_level1 = new ArrayList<Question>();
+        list_questionId_level1.addAll(params.list_id_level1);
+        for (int i=0; i<list_questionId_level1.size();i++){
+            questionList_level1.add(Question.findById(list_questionId_level1[i]));
+
+        }
+
+        //Criando lista de questões do level 2
+        ArrayList<Integer> list_questionId_level2 = new ArrayList<Integer>() ;
+        ArrayList<Question> questionList_level2 = new ArrayList<Question>();
+        list_questionId_level2.addAll(params.list_id_level2);
+        for (int i=0; i<list_questionId_level2.size();i++){
+            questionList_level2.add(Question.findById(list_questionId_level2[i]));
+
+        }
+
+        //Criando lista de questões do level 3
+        ArrayList<Integer> list_questionId_level3 = new ArrayList<Integer>() ;
+        ArrayList<Question> questionList_level3 = new ArrayList<Question>();
+        list_questionId_level3.addAll(params.list_id_level3);
+        for (int i=0; i<list_questionId_level3.size();i++){
+            questionList_level3.add(Question.findById(list_questionId_level3[i]));
+
+        }
+
+        createJsonFile("pergFacil.json",questionList_level1)
+        createJsonFile("pergMedio.json",questionList_level2)
+        createJsonFile("pergDificl.json",questionList_level3)
+
+        render "Questões exportadas com sucesso"
+
+
+    }
+
+    void createJsonFile(String fileName, ArrayList<Question> questionList ){
+        int i = 0
+        File file = new File(fileName);
+        PrintWriter pw = new PrintWriter(file);
+        pw.write("{\n ");
+        pw.write("\"numero\":[\"" + questionList.size()+ "\",\"4\"],\n")
+        for(i=0; i<(questionList.size()-1);i++){
+            pw.write("\"" + (i+1) + "\": [\"" + questionList.getAt(i).title + "\", ")
+            switch(questionList.getAt(i).correctAnswer){
+                case 0:
+                    pw.write("\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
+                    break;
+                case 1:
+                    pw.write("\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
+                    break;
+                case 2:
+                    pw.write("\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
+                    break;
+                case 3:
+                    pw.write("\""+ questionList.getAt(i).answers[3] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " )
+                    break;
+                default:
+                    println("Erro! Alternativa correta inválida")
+            }
+            pw.write("\""+ questionList.getAt(i).tip +"\"],\n")
+
+        }
+
+        pw.write("\"" + (i+1) + "\": [\"" + questionList.getAt(i).title + "\", ")
+        switch(questionList.getAt(i).correctAnswer){
+            case 0:
+                pw.write("\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
+                break;
+            case 1:
+                pw.write("\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
+                break;
+            case 2:
+                pw.write("\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
+                break;
+            case 3:
+                pw.write("\""+ questionList.getAt(i).answers[3] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " )
+                break;
+            default:
+                println("Erro! Alternativa correta inválida")
+        }
+        pw.write("\""+ questionList.getAt(i).tip +"\"]\n")
+        pw.write("\n}");
+        pw.close();
+
+    }
+
 }

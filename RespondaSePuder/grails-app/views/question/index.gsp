@@ -77,7 +77,7 @@
 
 <div class="row">
     <div class="col s2">
-        <button class="btn waves-effect waves-light my-orange" type="submit" name="save" id="submitButton">Enviar
+        <button class="btn waves-effect waves-light my-orange" type="submit" name="save" id="submitButton" onclick="submit()">Enviar
             <i class="material-icons">send</i>
         </button>
     </div>
@@ -264,6 +264,19 @@
                 <g:submitButton name="create" class="btn btn-success btn-lg my-orange" value="Criar" />
             </g:form>
         </div>
+    </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="infoModal" class="modal">
+    <div class="modal-content">
+        <div id="totalQuestion">
+            Este é o modal Informações
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn waves-effect waves-light modal-close my-orange">Entendi</button>
     </div>
 </div>
 
