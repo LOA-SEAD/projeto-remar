@@ -18,13 +18,88 @@ window.onload = function(){
 
 };
 
+function _edit(tr){
+    var url = location.origin + '/RespondaSePuder/question/returnInstance/' + $(tr).attr('data-id');
+    var data = {_method: 'GET'};
+
+    $.ajax({
+            type: 'GET',
+            data: data,
+            url: url,
+            success: function (returndata) {
+                var questionInstance = returndata.split("%@!");
+                //questionInstance é um vetor com os atributos da classe Question na seguinte ordem:
+                // Level - Title - Answer[0] - Answer[1] - Answer[2] - Answer[3] - correctAnswer - Tip(hint) - ID
+                console.log("Sucesso?");
+                console.log(questionInstance);
+                switch(questionInstance[0]){
+                    case '1':
+                        $("#editLevel1").attr('checked', 'checked');
+                        break;
+                    case '2':
+                        $("#editLevel2").attr('checked', 'checked');
+                        break;
+                    case '3' :
+                        $("#editLevel3").attr('checked', 'checked');
+                        break;
+                    default :
+                        console.log("Nível inválido");
+                }
+
+                switch(questionInstance[6]){
+                    case '0':
+                        $("#editRadio0").attr("checked","checked");
+                        break;
+                    case '1':
+                        $("#editRadio1").attr("checked","checked");
+                        break;
+                    case '2':
+                        $("#editRadio2").attr("checked","checked");
+                        break;
+                    case '3':
+                        $("#editRadio3").attr("checked","checked");
+                        break;
+                    default :
+                        console.log("Alternativa correta inválida");
+                }
+                $("#editTitle").attr("value",questionInstance[1]);
+                $("#labelTitle").attr("class","active");
+                $("#labelAnswer1").attr("class","active");
+                $("#labelAnswer2").attr("class","active");
+                $("#labelAnswer3").attr("class","active");
+                $("#labelAnswer4").attr("class","active");
+                $("#labelTip").attr("class","active");
+                $("#editAnswers0").attr("value",questionInstance[2]);
+                $("#editAnswers1").attr("value",questionInstance[3]);
+                $("#editAnswers2").attr("value",questionInstance[4]);
+                $("#editAnswers3").attr("value",questionInstance[5]);
+                $("#editTip").attr("value",questionInstance[7]);
+                $("#questionID").attr("value",questionInstance[8]);
+
+
+                $("#editModal").openModal();
+
+
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log("Error, não retornou a instância");
+            }
+        }
+    );
+
+
+
+
+
+
+}
+
 function _delete(tr) {
     if(confirm("Você tem certeza que deseja excluir esta questão?")) {
         var tds = $(tr).find("td");
         var url = location.origin + '/RespondaSePuder/question/delete/' + $(tr).attr('data-id');
         var data = {_method: 'DELETE'};
-        console.log(tds[1].textContent);
-        console.log(url);
 
         $.ajax({
                 type: 'DELETE',

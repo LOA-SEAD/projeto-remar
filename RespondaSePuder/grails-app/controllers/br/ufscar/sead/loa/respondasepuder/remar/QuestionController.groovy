@@ -8,7 +8,7 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class QuestionController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", returnInstance: ["GET","POST"]]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -59,26 +59,46 @@ class QuestionController {
     }
 
     @Transactional
-    def update(Question questionInstance) {
-        if (questionInstance == null) {
-            notFound()
-            return
-        }
+    def update() {
 
-        if (questionInstance.hasErrors()) {
-            respond questionInstance.errors, view:'edit'
-            return
-        }
+        Question questionInstance = Question.findById(Integer.parseInt(params.questionID))
+
+        questionInstance.level = Integer.parseInt(params.level)
+        questionInstance.title = params.title
+        questionInstance.answers[0] = params.answers1
+        questionInstance.answers[1] = params.answers2
+        questionInstance.answers[2] = params.answers3
+        questionInstance.answers[3] = params.answers4
+        questionInstance.correctAnswer = Integer.parseInt(params.correctAnswer)
+        questionInstance.tip = params.tip
+
+
 
         questionInstance.save flush:true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'Question.label', default: 'Question'), questionInstance.id])
-                redirect questionInstance
-            }
-            '*'{ respond questionInstance, [status: OK] }
+        redirect action: "index"
+
+    }
+
+    def returnInstance(Question questionInstance){
+
+        if (questionInstance == null) {
+            notFound()
         }
+        else{
+            render questionInstance.level + "%@!" +
+                   questionInstance.title + "%@!" +
+                   questionInstance.answers[0] + "%@!" +
+                   questionInstance.answers[1] + "%@!" +
+                   questionInstance.answers[2] + "%@!" +
+                   questionInstance.answers[3] + "%@!" +
+                   questionInstance.correctAnswer + "%@!" +
+                   questionInstance.tip + "%@!" +
+                   questionInstance.id
+
+
+        }
+
     }
 
 

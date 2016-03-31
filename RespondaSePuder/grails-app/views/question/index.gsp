@@ -64,7 +64,7 @@
             <td  >${questionInstance.tip}</td>
 
 
-            <td> <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil " ></i> <i style="color: #7d8fff " class="fa fa-trash-o" onclick="_delete($(this.closest('tr')))" > </i></td>
+            <td> <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil " onclick="_edit($(this.closest('tr')))" ></i> <i style="color: #7d8fff " class="fa fa-trash-o" onclick="_delete($(this.closest('tr')))" > </i></td>
 
 
 
@@ -90,11 +90,100 @@
     </div>
 </div>
 
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <h4>Editar Questão</h4>
+        <div class="row">
+          <g:form method="post"  action="update" resource="${questionInstance}">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label id="labelTitle" class="active" for="editTitle">Pergunta</label>
+                        <input id="editTitle" name="title" required=""  type="text" class="validate">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s9">
+                        <label id="labelAnswer1" class="active" for="editAnswers0">Alternativa 1</label>
+                        <input type="text" class="validate" id="editAnswers0" name="answers1" required="" />
+                    </div>
+                    <div class="col s2">
+                        <input type="radio" id="editRadio0" name="correctAnswer" value="0" />
+                        <label for="editRadio0">Alternativa correta</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s9">
+                        <label id="labelAnswer2" class="active" for="editAnswers1">Alternativa 2</label>
+                        <input type="text" class="validate" id="editAnswers1" name="answers2" required="" />
+                    </div>
+                    <div class="col s2">
+                        <input type="radio" id="editRadio1" name="correctAnswer" value="1" /> <label for="editRadio1">Alternativa correta</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s9">
+                        <label id="labelAnswer3" class="active" for="editAnswers2">Alternativa 3</label>
+                        <input type="text" class="validate" id="editAnswers2" name="answers3" required=""/>
+                    </div>
+                    <div class="col s2">
+                        <input type="radio" id="editRadio2" name="correctAnswer" value="2" /> <label for="editRadio2">Alternativa correta</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s9">
+                        <label id="labelAnswer4" class="active" for="editAnswers3">Alternativa 4</label>
+                        <input type="text" class="form-control" id="editAnswers3" name="answers4" required="" />
+                    </div>
+                    <div class="col s2">
+                        <input type="radio" id="editRadio3" name="correctAnswer" value="3" /> <label for="editRadio3">Alternativa correta</label>
+                    </div>
+                </div>
+
+              <div class="row">
+                  <div class="input-field col s12">
+                      <input class="active" type="text" name="tip" id="editTip" required />
+                      <label id="labelTip" for="editTip">Dica</label>
+                  </div>
+              </div>
+
+                <div class="row" id="levelRow">
+                    <div class="col s2 offset-s3">
+                        <input type="radio" id="editLevel1" name="level" value="1"  />
+                        <label for="editLevel1">Nível Fácil</label>
+
+                    </div>
+
+                    <div class="col s2">
+                        <input type="radio" id="editLevel2" name="level" value="2" />
+                        <label for="editLevel2">Nível Médio</label>
+                    </div>
+
+                    <input type="hidden" name="ownerId"  value="2" >
+                    <input type="hidden" name="taskId"  value="2" >
+                    <input type="hidden" id="questionID" name="questionID">
+
+
+                    <div class="col s2">
+                        <input type="radio" id="editLevel3" name="level" value="3" />
+                        <label for="editLevel3">Nível Difícil</label>
+                    </div>
+                </div>
+
+                <g:submitButton name="update" class="btn btn-success btn-lg my-orange" value="Salvar" />
+            </g:form>
+        </div>
+    </div>
+</div>
+
 <div id="createModal" class="modal">
     <div class="modal-content">
         <h4>Criar Questão</h4>
         <div class="row">
-          <g:form action="save" resource="${questionInstance}">
+            <g:form action="save" resource="${questionInstance}">
                 <div class="row">
                     <div class="input-field col s12">
                         <label for="title">Pergunta</label>
@@ -143,12 +232,12 @@
                     </div>
                 </div>
 
-              <div class="row">
-                  <div class="input-field col s12">
-                      <input type="text" name="tip" id="tip" required />
-                      <label for="tip">Dica</label>
-                  </div>
-              </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" name="tip" id="tip" required />
+                        <label for="tip">Dica</label>
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col s2 offset-s3">
@@ -172,11 +261,12 @@
                     </div>
                 </div>
 
-                <g:submitButton name="create" class="btn btn-success btn-lg my-orange" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+                <g:submitButton name="create" class="btn btn-success btn-lg my-orange" value="Criar" />
             </g:form>
         </div>
     </div>
 </div>
+
 
 
 <script type="text/javascript" src="../js/questions.js"></script>
