@@ -59,7 +59,7 @@
 
             <td >${fieldValue(bean: questionInstance, field: "answers")}</td>
 
-            <td  >${questionInstance.correctAnswer}</td>
+            <td  >${questionInstance.answers[questionInstance.correctAnswer]} (Alternativa ${questionInstance.correctAnswer + 1})</td>
 
             <td  >${questionInstance.tip}</td>
 
@@ -166,19 +166,18 @@
                     <input type="hidden" name="taskId"  value="2" >
 
 
-
                     <div class="col s2">
                         <input type="radio" id="level3" name="level" value="3" />
                         <label for="level3">Nível Difícil</label>
                     </div>
                 </div>
 
-
                 <g:submitButton name="create" class="btn btn-success btn-lg my-orange" value="${message(code: 'default.button.create.label', default: 'Create')}" />
             </g:form>
         </div>
     </div>
 </div>
+
 
 <script type="text/javascript" src="../js/questions.js"></script>
 </body>

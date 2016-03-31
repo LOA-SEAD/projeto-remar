@@ -40,9 +40,6 @@ class QuestionController {
         questionInstance.answers[2]= params.answers3
         questionInstance.answers[3]= params.answers4
 
-        questionInstance.taskId = 1
-        questionInstance.ownerId = 1
-
 
         questionInstance.save flush:true
 
@@ -84,23 +81,20 @@ class QuestionController {
         }
     }
 
+
     @Transactional
     def delete(Question questionInstance) {
+
 
         if (questionInstance == null) {
             notFound()
             return
         }
 
-        questionInstance.delete flush:true
+        questionInstance.delete flush: true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Question.label', default: 'Question'), questionInstance.id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
+        redirect action: "index"
+
     }
 
     protected void notFound() {

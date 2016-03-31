@@ -18,7 +18,31 @@ window.onload = function(){
 
 };
 
+function _delete(tr) {
+    if(confirm("Você tem certeza que deseja excluir esta questão?")) {
+        var tds = $(tr).find("td");
+        var url = location.origin + '/RespondaSePuder/question/delete/' + $(tr).attr('data-id');
+        var data = {_method: 'DELETE'};
+        console.log(tds[1].textContent);
+        console.log(url);
 
+        $.ajax({
+                type: 'DELETE',
+                data: data,
+                url: url,
+                success: function (data) {
+                    $(tr).remove();
+                    //uncheck_all();
+                    //window.location.reload();
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                }
+            }
+        );
+
+
+    }
+}
 
 function check_all(){
     console.log("selecionar todas");
