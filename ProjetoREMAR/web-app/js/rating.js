@@ -125,7 +125,6 @@ $(document).ready(function(){
 
     //botão do modal de editar
     $("#edit-rating").on("click",function(){
-        console.log("current rating: "+$(current_rating).attr("id-rating"));
 
         var parent = $(current_rating).parents().eq(2);
         var stars = Number(parent.find(".rating-stars").attr("data-stars"));
@@ -212,7 +211,6 @@ $(document).ready(function(){
     }
 
     function setListenerDelete(){
-        console.log("editado");
         var parent = $(this).parents().eq(2);
         var idRating = Number(parent.find(".rating-stars").attr("data-rating-id"));
 
@@ -221,9 +219,6 @@ $(document).ready(function(){
             type: 'GET',
             data: null,
             success: function (response) {
-                console.log(response);
-                console.log(response.sumStars);
-                console.log(response.sumUser);
                 parent.remove();
 
                 //set medium stars and amount users of resource
