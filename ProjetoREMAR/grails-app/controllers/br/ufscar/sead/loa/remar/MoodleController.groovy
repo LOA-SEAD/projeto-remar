@@ -34,7 +34,7 @@ class MoodleController {
     }
 
     def unlink() {
-        def moodleAccount = MoodleAccount.findByToken(params.id)
+        def moodleAccount = MoodleAccount.findByToken(params.token)
         moodleAccount.delete flush:true
 
         def url = moodleAccount.moodle.domain + "/mod/remarmoodle/unlink-remar-account.php?hash=" + moodleAccount.token
