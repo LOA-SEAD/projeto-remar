@@ -318,8 +318,47 @@ class ResourceController {
                                                      sumUsers: instance.sumUser,  today: new Date() ]
     }
 
-    def updateRating(Resource instance){
+    def updateRating(Rating rating){
 
+        def old_stars = rating.getPersistentValue("stars")
+
+        print(rating.getPersistentValue("comment"))
+        print(old_stars)
+        print(rating)
+        print(params)
+
+        //atualiza a data do rating
+        rating.date = new Date()
+
+        //retira da soma de estrelas a quantidade de estrelas anterior do rating
+        rating.resource.sumStars -= old_stars
+
+        //soma a nova quantidade de estrelas a soma de estrelas do rating
+        rating.resource.sumStars += rating.stars
+
+        rating.save flush:true
+
+        render view: "_comment", model: [rating: rating,  mediumStars: (rating.resource.sumStars / rating.resource.sumUser),
+                                         sumUsers: rating.resource.sumUser,  today: new Date() ]
+
+    }
+
+    def deleteRating(Rating rating){
+
+        def old_stars = rating.getPersistentValue("stars")
+
+        //retira da soma de estrelas a quantidade de estrelas anterior do rating
+        rating.resource.sumStars -= old_stars
+        rating.resource.sumUser -=1
+
+        rating.delete flush: true;
+        //alterar a media e a soma dos usuarios
+
+
+//        render model: [mediumStars: (rating.resource.sumStars / rating.resource.sumUser),
+//                       sumUsers: rating.resource.sumUser]
+
+        render rating.resource as JSON
     }
 
     def croppicture() {
