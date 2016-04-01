@@ -276,4 +276,13 @@ class ExportedResourceController {
         def json = JSON.parse(new File(servletContext.getRealPath("/data/resources/sources/${Resource.findById(exportedResource.resourceId).uri}/bd.json")).text)
         MongoHelper.instance.insertData(json['collection_name'] as String, data)
     }
+
+    def stats() {
+        def model = [:]
+
+        def myMoodleGames = ExportedResource.findAllByOwnerAndMoodleUrlIsNotNull(session.user)
+        println myMoodleGames
+
+        render view: "stats", model: model
+    }
 }
