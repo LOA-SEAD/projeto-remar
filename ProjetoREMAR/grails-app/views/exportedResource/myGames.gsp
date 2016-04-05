@@ -97,7 +97,7 @@
                                     %{--</div>--}%
                                     %{--</div>--}%
                                     <div class="col s1 offset-s9">
-                                        <a class="dropdown-button" data-activates='dropdown${myExportedResourceInstance.id}'><i class="material-icons">more_vert</i></a>
+                                        <a class="dropdown-button" data-activates='dropdown${myExportedResourceInstance.id}'><i class="material-icons" style="color: black;">more_vert</i></a>
                                         <!-- Dropdown Structure -->
                                         <ul id='dropdown${myExportedResourceInstance.id}' class='dropdown-content'>
                                             <li style="text-align: center;">
