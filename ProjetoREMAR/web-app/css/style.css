@@ -87,6 +87,7 @@
     }
     .my-card {
         display: table;
+        overflow: visible;
     }
 
     .card-div{
