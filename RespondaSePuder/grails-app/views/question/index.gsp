@@ -6,6 +6,8 @@
     <title>Responda Se Puder</title>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <g:javascript src="iframeResizer.contentWindow.min.js"/>
+
 
 </head>
 <body>
@@ -162,8 +164,7 @@
                         <label for="editLevel2">Nível Médio</label>
                     </div>
 
-                    <input type="hidden" name="ownerId"  value="2" >
-                    <input type="hidden" name="taskId"  value="2" >
+                    <input type="hidden" name="taskId"  value="1" >
                     <input type="hidden" id="questionID" name="questionID">
 
 
@@ -251,7 +252,7 @@
                         <label for="level2">Nível Médio</label>
                     </div>
 
-                    <input type="hidden" name="ownerId"  value="2" >
+
                     <input type="hidden" name="taskId"  value="2" >
 
 

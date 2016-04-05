@@ -1,6 +1,11 @@
 package br.ufscar.sead.loa.respondasepuder.remar
 
+import br.ufscar.sead.loa.remar.User
+import br.ufscar.sead.load.remar.api.MongoHelper
+import grails.util.Environment
 import grails.plugin.springsecurity.annotation.Secured
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.multipart.MultipartFile
 
 import static org.springframework.http.HttpStatus.*
@@ -12,8 +17,22 @@ class QuestionController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", returnInstance: ["GET","POST"]]
 
+    @Secured(['permitAll'])
     def index() {
-        respond Question.list(), model:[questionInstanceCount: Question.count()]
+        if (params.t && params.h) {
+            session.taskId = params.t
+
+            def u = User.findByUsername(new String(params.h.decodeBase64()))
+            println(u)
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.test()))
+
+            redirect controller: "question"
+            return
+        } else {
+            session.user = springSecurityService.currentUser
+        }
+
+        respond Question.findAllByOwnerId(session.user.id), model: [questionInstanceCount: Question.count()]
     }
 
     def show(Question questionInstance) {
@@ -40,6 +59,10 @@ class QuestionController {
         questionInstance.answers[1]= params.answers2
         questionInstance.answers[2]= params.answers3
         questionInstance.answers[3]= params.answers4
+        questionInstance.ownerId = session.user.id as long
+        questionInstance.taskId = session.taskId as String
+
+
 
 
         questionInstance.save flush:true
@@ -72,6 +95,10 @@ class QuestionController {
         questionInstance.answers[3] = params.answers4
         questionInstance.correctAnswer = Integer.parseInt(params.correctAnswer)
         questionInstance.hint = params.hint
+        questionInstance.ownerId = session.user.id as long
+        questionInstance.taskId = session.taskId as String
+
+
 
 
 
@@ -159,16 +186,35 @@ class QuestionController {
 
         createJsonFile("pergFacil.json",questionList_level1)
         createJsonFile("pergMedio.json",questionList_level2)
-        createJsonFile("pergDificl.json",questionList_level3)
+        createJsonFile("pergDificil.json",questionList_level3)
 
-        render "Questões exportadas com sucesso"
+        def ids = []
+        def folder = servletContext.getRealPath("/data/${session.user.id}/${session.taskId}")
+
+        ids << MongoHelper.putFile(folder + '/pergFacil.json')
+        ids << MongoHelper.putFile(folder + '/pergMedio.json')
+        ids << MongoHelper.putFile(folder + '/pergDificil.json')
+
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
+
+        render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
+                "?files=${ids[0]}&files=${ids[1]}&files=${ids[2]}"
 
 
     }
 
     void createJsonFile(String fileName, ArrayList<Question> questionList ){
         int i = 0
-        File file = new File(fileName);
+        def dataPath = servletContext.getRealPath("/data")
+        def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
+        instancePath.mkdirs()
+
+
+
+        File file = new File("$instancePath/"+fileName);
         PrintWriter pw = new PrintWriter(file);
         pw.write("{\n ");
         pw.write("\"numero\":[\"" + questionList.size()+ "\",\"4\"],\n")
@@ -212,7 +258,7 @@ class QuestionController {
                 println("Erro! Alternativa correta inválida")
         }
         pw.write("\""+ questionList.getAt(i).hint +"\"]\n")
-        pw.write("\n}");
+        pw.write("}");
         pw.close();
 
     }
@@ -234,8 +280,8 @@ class QuestionController {
             String correct = row[6] ?: "NA";
             questionInstance.correctAnswer =  (correct.toInteger() -1)
             questionInstance.hint = row[7] ?: "NA";
-            questionInstance.taskId = "1"
-            questionInstance.ownerId = 1
+            questionInstance.taskId = session.taskId as String
+            questionInstance.ownerId = session.user.id as long
             questionInstance.save flush: true
 
         }

@@ -46,14 +46,14 @@ function submit(){
         }
     });
     if(questions_level1 >= 5 && questions_level2 >= 5 && questions_level3 >= 5){
-        //Chama controlador para salvar questões em arquivos.json
+        //Chaama controlador para salvar questões em arquivos.json
         $.ajax({
             type: "POST",
             traditional: true,
             url: "exportQuestions",
             data: { list_id_level1: list_id_level1, list_id_level2: list_id_level2, list_id_level3: list_id_level3 },
             success: function(returndata) {
-                //window.top.location.href = returndata;
+                window.top.location.href = returndata;
             },
             error: function(returndata) {
                 alert("Error:\n" + returndata.responseText);

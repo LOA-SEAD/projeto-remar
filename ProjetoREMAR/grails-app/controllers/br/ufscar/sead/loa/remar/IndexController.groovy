@@ -39,6 +39,8 @@ class IndexController {
                 model.uri = "http://localhost:8010${model.uri}"
             } else if (model.uri.indexOf('escola') != -1) {
                 model.uri = "http://localhost:8020${model.uri}"
+            } else if (model.uri.indexOf('responda') != -1) {
+                model.uri = "http://localhost:8040${model.uri}"
             }
         }
 

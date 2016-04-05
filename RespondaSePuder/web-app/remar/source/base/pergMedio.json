@@ -1,0 +1,8 @@
+﻿{
+	"numero": ["5", "4"],
+	"1": ["Luiz Eduardo comprou várias galinhas campeãs em pôr ovos. Ao testar a eficiência das galinhas, ele observou que de minuto em minuto o número de ovos na cesta duplicava. Às duas horas, a cesta estava cheia. A que horas a cesta estava pela metade?", "1h59min", "1h", "1h05min", "1h20min", "Pense sobre o que acontece exatamente nos minutos anteriores às 2 horas."],
+	"2": ["Quantos meses do ano possuem 30 dias?", "11", "4", "6", "5", "Comece observando os meses que têm 31 dias."],
+	"3": ["A quantidade de números entre 0 e 130, terminados em 3, é:", "13", "23", "20", "10", "De 0 a 10, pense nos números terminados em 3."],
+	"4": ["O avesso de uma blusa preta é branco. O avesso de uma calça preta é azul. O avesso de uma bermuda preta é branco. O avesso do avesso das três peças de roupa é:", "Preto", "Preto e branco", "Branco", "Azul", "Preste atenção ao 'avesso dos avessos'."],
+	"5": ["O professor Epaminondas, no primeiro dia de aula, apostou que, entre os alunos daquela classe, pelo menos dois fariam aniversário no mesmo dia de qualquer mês. O professor tinha certeza de que ganharia a aposta, pois naquela classe o número de alunos era maior ou igual a:", "32", "15", "31", "30", "Pense nas quantidades possíveis de dias de um mês. Agora pense na quantidade máxima dentre as possíveis. Se existem mais alunos que a quantidade máxima possível de dias em qualquer mês ('dias de um mês + 1', pelo menos), então, pelo menos em um dia, desconsiderando que mês seja, haverá mais de um aluno fazendo aniversário."]
+}

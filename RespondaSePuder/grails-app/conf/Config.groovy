@@ -93,10 +93,11 @@ logout.afterLogoutUrl = "/"
 environments {
     development {
         grails.logging.jul.usebridge = true
+        grails.app.context = "/respondasepuder"
     }
     production {
         grails.logging.jul.usebridge = false
-        // TODO: grails.serverURL = "http://www.changeme.com"
+        grails.app.context = "/respondasepuder"
     }
 }
 
@@ -135,6 +136,8 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**/css/**':       ['permitAll'],
 	'/**/images/**':    ['permitAll'],
 	'/**/favicon.ico':  ['permitAll'],
+    '/**/fonts/**'   :  ['permitAll'],
+    '/**/font/**'    :  ['permitAll'],
     '/samples/**':      ['permitAll']
 ]
 

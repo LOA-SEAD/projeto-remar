@@ -1,0 +1,13 @@
+{
+  "collection_name": "responda_se_puder",
+  "structure": [
+    "enunciado",
+    "alternativaa",
+    "alternativab",
+    "alternativac",
+    "alternativad",
+    "respostacerta",
+    "resposta",
+    "dica"
+  ]
+}
