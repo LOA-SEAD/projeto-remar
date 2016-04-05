@@ -78,7 +78,7 @@ function submit(){
 }
 
 function _edit(tr){
-    var url = location.origin + '/RespondaSePuder/question/returnInstance/' + $(tr).attr('data-id');
+    var url = location.origin + '/respondasepuder/question/returnInstance/' + $(tr).attr('data-id');
     var data = {_method: 'GET'};
 
     $.ajax({
@@ -157,7 +157,7 @@ function _edit(tr){
 function _delete(tr) {
     if(confirm("Você tem certeza que deseja excluir esta questão?")) {
         var tds = $(tr).find("td");
-        var url = location.origin + '/RespondaSePuder/question/delete/' + $(tr).attr('data-id');
+        var url = location.origin + '/respondasepuder/question/delete/' + $(tr).attr('data-id');
         var data = {_method: 'DELETE'};
 
         $.ajax({

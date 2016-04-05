@@ -23,7 +23,6 @@ class QuestionController {
             session.taskId = params.t
 
             def u = User.findByUsername(new String(params.h.decodeBase64()))
-            println(u)
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.test()))
 
             redirect controller: "question"
