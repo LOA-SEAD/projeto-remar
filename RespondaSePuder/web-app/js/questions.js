@@ -127,12 +127,12 @@ function _edit(tr){
                 $("#labelAnswer2").attr("class","active");
                 $("#labelAnswer3").attr("class","active");
                 $("#labelAnswer4").attr("class","active");
-                $("#labelTip").attr("class","active");
+                $("#labelHint").attr("class","active");
                 $("#editAnswers0").attr("value",questionInstance[2]);
                 $("#editAnswers1").attr("value",questionInstance[3]);
                 $("#editAnswers2").attr("value",questionInstance[4]);
                 $("#editAnswers3").attr("value",questionInstance[5]);
-                $("#editTip").attr("value",questionInstance[7]);
+                $("#editHint").attr("value",questionInstance[7]);
                 $("#questionID").attr("value",questionInstance[8]);
 
 

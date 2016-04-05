@@ -61,7 +61,7 @@
 
             <td  >${questionInstance.answers[questionInstance.correctAnswer]} (Alternativa ${questionInstance.correctAnswer + 1})</td>
 
-            <td  >${questionInstance.tip}</td>
+            <td  >${questionInstance.hint}</td>
 
 
             <td> <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil " onclick="_edit($(this.closest('tr')))" ></i> <i style="color: #7d8fff " class="fa fa-trash-o" onclick="_delete($(this.closest('tr')))" > </i></td>
@@ -145,8 +145,8 @@
 
               <div class="row">
                   <div class="input-field col s12">
-                      <input class="active" type="text" name="tip" id="editTip" required />
-                      <label id="labelTip" for="editTip">Dica</label>
+                      <input class="active" type="text" name="hint" id="editHint" required />
+                      <label id="labelHint" for="editHint">Dica</label>
                   </div>
               </div>
 
@@ -234,8 +234,8 @@
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <input type="text" name="tip" id="tip" required />
-                        <label for="tip">Dica</label>
+                        <input type="text" name="hint" id="hint" required />
+                        <label for="hint">Dica</label>
                     </div>
                 </div>
 

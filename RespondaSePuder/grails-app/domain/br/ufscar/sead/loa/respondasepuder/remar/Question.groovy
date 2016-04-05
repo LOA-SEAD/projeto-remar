@@ -5,7 +5,7 @@ class Question {
     String title
     String[] answers = new String[4]
     int correctAnswer
-    String tip
+    String hint
     int level
 
     long ownerId

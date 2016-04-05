@@ -69,7 +69,7 @@ class QuestionController {
         questionInstance.answers[2] = params.answers3
         questionInstance.answers[3] = params.answers4
         questionInstance.correctAnswer = Integer.parseInt(params.correctAnswer)
-        questionInstance.tip = params.tip
+        questionInstance.hint = params.hint
 
 
 
@@ -117,7 +117,7 @@ class QuestionController {
                     questionInstance.answers[2] + "%@!" +
                     questionInstance.answers[3] + "%@!" +
                     questionInstance.correctAnswer + "%@!" +
-                    questionInstance.tip + "%@!" +
+                    questionInstance.hint + "%@!" +
                     questionInstance.id
 
 
@@ -188,7 +188,7 @@ class QuestionController {
                 default:
                     println("Erro! Alternativa correta inválida")
             }
-            pw.write("\""+ questionList.getAt(i).tip +"\"],\n")
+            pw.write("\""+ questionList.getAt(i).hint +"\"],\n")
 
         }
 
@@ -209,7 +209,7 @@ class QuestionController {
             default:
                 println("Erro! Alternativa correta inválida")
         }
-        pw.write("\""+ questionList.getAt(i).tip +"\"]\n")
+        pw.write("\""+ questionList.getAt(i).hint +"\"]\n")
         pw.write("\n}");
         pw.close();
 
