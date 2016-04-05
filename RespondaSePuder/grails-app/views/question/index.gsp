@@ -280,6 +280,94 @@
     </div>
 </div>
 
+<div id="uploadModal" class="modal">
+    <div class="modal-content">
+        <h4>Enviar arquivo .csv</h4>
+        <div class="row">
+            <g:uploadForm action="generateQuestions">
+                <div class="file-field input-field">
+                    <div class="btn my-orange">
+                        <span>File</span>
+                        <input type="file" accept="text/csv" id="csv" name="csv">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s1 offset-s10">
+                        <g:submitButton class="btn my-orange" name="csv" value="Enviar"/>
+                    </div>
+                </div>
+            </g:uploadForm>
+        </div>
+
+        <blockquote>Formatação do arquivo .csv</blockquote>
+        <div class="row">
+            <div class="col s12">
+                <ol>
+                    <li>O separador do arquivo .csv deve ser <b> ',' (vírgula)</b>  </li>
+                    <li>O arquivo deve ser composto apenas por <b>dados</b></li>
+                    <li>O arquivo deve representar a estrutura da tabela de exemplo</li>
+                </ol>
+                <ul>
+                    <li><a href="../samples/exemploRespondaSePuder.csv">Download do arquivo exemplo</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <table class="center" style="font-size: 12px;">
+                    <thead>
+                    <tr>
+                        <th>Nível</th>
+                        <th>Pergunta</th>
+                        <th>Resposta1</th>
+                        <th>Resposta2</th>
+                        <th>Resposta3</th>
+                        <th>Resposta4</th>
+                        <th>Alternativa Correta</th>
+                        <th>Dica</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Pergunta 1</td>
+                        <td>Alternativa 1</td>
+                        <td>Alternativa 2</td>
+                        <td>Alternativa 3</td>
+                        <td>Alternativa 4</td>
+                        <td>1</td>
+                        <td>Dica</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Pergunta 2</td>
+                        <td>Alternativa 1</td>
+                        <td>Alternativa 2</td>
+                        <td>Alternativa 3</td>
+                        <td>Alternativa 4</td>
+                        <td>3</td>
+                        <td>Dica</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Pergunta 3</td>
+                        <td>Alternativa 1</td>
+                        <td>Alternativa 2</td>
+                        <td>Alternativa 3</td>
+                        <td>Alternativa 4</td>
+                        <td>4</td>
+                        <td>Dica</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <script type="text/javascript" src="../js/questions.js"></script>

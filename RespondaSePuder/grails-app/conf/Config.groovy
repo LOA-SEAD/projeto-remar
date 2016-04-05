@@ -85,6 +85,11 @@ grails.hibernate.pass.readonly = false
 // configure passing read-only to OSIV session by default, requires "singleSession = false" OSIV mode
 grails.hibernate.osiv.readonly = false
 
+grails.plugin.springsecurity.logout.postOnly = false
+logout.afterLogoutUrl = "/"
+
+
+
 environments {
     development {
         grails.logging.jul.usebridge = true
@@ -115,3 +120,21 @@ log4j.main = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'br.ufscar.sead.loa.remar.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'br.ufscar.sead.loa.remar.UserRole'
+grails.plugin.springsecurity.authority.className = 'br.ufscar.sead.loa.remar.Role'
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+	'/':                ['permitAll'],
+	'/index':           ['permitAll'],
+	'/index.gsp':       ['permitAll'],
+	'/assets/**':       ['permitAll'],
+	'/**/js/**':        ['permitAll'],
+	'/**/css/**':       ['permitAll'],
+	'/**/images/**':    ['permitAll'],
+	'/**/favicon.ico':  ['permitAll'],
+    '/samples/**':      ['permitAll']
+]
+

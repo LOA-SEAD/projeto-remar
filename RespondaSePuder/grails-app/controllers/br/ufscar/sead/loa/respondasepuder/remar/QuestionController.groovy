@@ -1,12 +1,14 @@
 package br.ufscar.sead.loa.respondasepuder.remar
 
-
+import grails.plugin.springsecurity.annotation.Secured
+import org.springframework.web.multipart.MultipartFile
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Transactional(readOnly = true)
+@Secured(["IS_AUTHENTICATED_FULLY"])
 class QuestionController {
+    def springSecurityService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", returnInstance: ["GET","POST"]]
 
@@ -212,6 +214,32 @@ class QuestionController {
         pw.write("\""+ questionList.getAt(i).hint +"\"]\n")
         pw.write("\n}");
         pw.close();
+
+    }
+
+    @Transactional
+    def generateQuestions(){
+        MultipartFile csv = params.csv
+
+
+        csv.inputStream.eachCsvLine { row ->
+            Question questionInstance = new Question()
+            String levelQuestion = row[0] ?: "NA";
+            questionInstance.level = levelQuestion.toInteger()
+            questionInstance.title = row[1] ?: "NA";
+            questionInstance.answers[0] = row[2] ?: "NA";
+            questionInstance.answers[1] = row[3] ?: "NA";
+            questionInstance.answers[2] = row[4] ?: "NA";
+            questionInstance.answers[3] = row[5] ?: "NA";
+            String correct = row[6] ?: "NA";
+            questionInstance.correctAnswer =  (correct.toInteger() -1)
+            questionInstance.hint = row[7] ?: "NA";
+            questionInstance.taskId = "1"
+            questionInstance.ownerId = 1
+            questionInstance.save flush: true
+
+        }
+        redirect action: "index"
 
     }
 
