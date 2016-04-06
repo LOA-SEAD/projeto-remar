@@ -41,12 +41,6 @@ class ResourceController {
         def path = new File(servletContext.getRealPath("/data/resources/assets/${instance.uri}"))
         path.mkdirs()
 
-//        MultipartFile img1 = request.getFile('img1')
-//        MultipartFile img2 = request.getFile('img2')
-//        MultipartFile img3 = request.getFile('img3')
-
-        log.debug(params)
-
         if (params.img1 != null && params.img1 != "") {
             log.debug("entrou img1" + params.img1)
             def img1 = new File(servletContext.getRealPath("${params.img1}"))

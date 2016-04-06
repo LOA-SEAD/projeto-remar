@@ -10,7 +10,6 @@ Time: 09:55
 <head>
     <meta name="layout" content="materialize-layout">
     <title></title>
-
 </head>
 <body>
 
@@ -35,13 +34,13 @@ Time: 09:55
                                 <span id="name-error" class="invalid-input" style="left: 0.75rem">Já existe um jogo com esse nome!</span>
                             </div>
                         </div>
-                        <!-- mudar aki depois -->
-                        <div class="row" style="display: none;">
+                        <div class="row">
                             <div class="col s2 img-preview">
                                 <img id="img1Preview" class="materialboxed" width="100" height="100" src="${baseUrl}/banner.png" />
                             </div>
                             <div class="col s10">
                                 <div class="file-field input-field">
+                                    %{--<input type="hidden" name="photo" value="${baseUrl}/banner.png" id="srcImage">--}%
                                     <div class="btn waves-effect waves-light my-orange">
                                         <span>File</span>
                                         <input type="file" data-image="true" id="img-1" name="img1" accept="image/jpeg, image/png"  >
@@ -120,7 +119,10 @@ Time: 09:55
                                                 <g:if test="${!moodleExport}">
                                                     <input type="checkbox" id="moodle" disabled>
                                                     <label for="moodle" class="checkbox-label">Moodle</label>
-                                                    <span>Vincule sua conta ao Moodle</span>
+                                                    <span class="chip center">
+                                                        <span>Vincule sua conta ao Moodle</span>
+                                                        <i class="material-icons">warning</i>
+                                                    </span>
                                                 </g:if>
                                                 <g:else>
                                                     <input type="checkbox" id="moodle" class="checkbox-platform">
@@ -165,9 +167,21 @@ Time: 09:55
 
     </div>
 </div>
+
+<div id="modal-picture" class="modal">
+    <div class="modal-content center">
+        <img id="crop-preview" class="responsive-img">
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect btn-flat">Enviar</a>
+    </div>
+</div>
+
+<link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
 <g:javascript src="platforms.js"/>
 <g:javascript src="imgPreview.js"/>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<g:javascript src="jquery/jquery.Jcrop.js"/>
+%{--<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">--}%
+%{--<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>--}%
 </body>
 </html>

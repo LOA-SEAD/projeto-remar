@@ -2,10 +2,15 @@ package br.ufscar.sead.loa.remar
 
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import grails.transaction.Transactional
 import grails.util.Environment
 import groovy.json.JsonSlurper
 import groovyx.net.http.HTTPBuilder
+import org.apache.commons.lang.RandomStringUtils
 import org.springframework.web.multipart.commons.CommonsMultipartFile
+
+import javax.imageio.ImageIO
+import java.awt.image.BufferedImage
 
 @Secured(['ROLE_ADMIN'])
 class ExportedResourceController {
@@ -201,17 +206,28 @@ class ExportedResourceController {
     }
 
     def update(ExportedResource instance) {
-        def destination = new File("${servletContext.getRealPath("/published/${instance.processId}")}/banner.png")
+        def path = new File("${servletContext.getRealPath("/published/${instance.processId}")}/")
+        println(params)
+//        log.debug(params)
 
-        def photo = params.banner as CommonsMultipartFile
-        if (photo != null && !photo.isEmpty()) {
-            photo.transferTo(destination)
+
+        if (params.img1 != null && params.img1 != "") {
+            println("alterou a imagem")
+            println(params.img1)
+            def img1 = new File(servletContext.getRealPath("${params.img1}"))
+            img1.renameTo(new File(path, "banner.png"))
         }
+
+//        def destination = new File("${servletContext.getRealPath("/published/${instance.processId}")}/banner.png")
+//
+//        def photo = params.banner as CommonsMultipartFile
+//        if (photo != null && !photo.isEmpty()) {
+//            photo.transferTo(destination)
+//        }
 
         def i = ExportedResource.findByName(params.name)
         if(i) {
             if(i == instance) {
-//                instance.name = params.name
                 instance.save(flush: true)
                 response.status = 200
             } else {
@@ -275,5 +291,28 @@ class ExportedResourceController {
 
         def json = JSON.parse(new File(servletContext.getRealPath("/data/resources/sources/${Resource.findById(exportedResource.resourceId).uri}/bd.json")).text)
         MongoHelper.instance.insertData(json['collection_name'] as String, data)
+    }
+
+    @Transactional
+    def croppicture() {
+
+        def root = servletContext.getRealPath("/")
+        def f = new File("${root}data/tmp")
+        f.mkdirs()
+        def destination = new File(f, RandomStringUtils.random(50, true, true))
+        def photo = params.photo as CommonsMultipartFile
+        photo.transferTo(destination)
+
+        def x = Math.round(params.float('x'))
+        def y = Math.round(params.float('y'))
+        def w = Math.round(params.float('w'))
+        def h = Math.round(params.float('h'))
+        BufferedImage img = ImageIO.read(destination)
+        ImageIO.write(img.getSubimage(x, y, w, h),
+                photo.contentType.contains('png') ? 'png' : 'jpg', destination)
+
+        println destination.name
+
+        render destination.name
     }
 }

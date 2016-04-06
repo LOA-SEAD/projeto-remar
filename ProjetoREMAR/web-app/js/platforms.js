@@ -34,6 +34,7 @@ $(function () {
                         var formData = new FormData();
                         formData.append('banner', file);
                         formData.append('name', $(name).val());
+                        formData.append('img1',$("#img1Preview").attr("src"));
 
                         $.ajax({
                             type: 'POST',
@@ -132,6 +133,81 @@ $(function () {
             }
         });
     }
+
+    function cropPicture(target, updateImg){
+        var jcrop;
+        console.log(target.toString());
+
+
+        var file = $(target).prop('files')[0];
+        var fr = new FileReader();
+
+        fr.readAsDataURL(file);
+        fr.onload = function(event) {
+            var image = new Image();
+            image.src = event.target.result;
+            image.onload = function() {
+                var el = $('#crop-preview');
+                $(el).attr('src', event.target.result);
+                $("#modal-picture").openModal({
+                    dismissible: true,
+                    complete: function () {
+                        jcrop.destroy();
+                        $(".jcrop-holder").remove();
+                        $(el).removeAttr("style");
+
+                        var formData = new FormData();
+                        var coordinates = jcrop.tellSelect();
+                        formData.append('photo', file);
+                        formData.append('x', coordinates.x);
+                        formData.append('y', coordinates.y);
+                        formData.append('w', coordinates.w);
+                        formData.append('h', coordinates.h);
+
+                        saveCrop(formData, updateImg);
+                    }
+                });
+                $(el).Jcrop({
+                    aspectRatio: 1,
+                    setSelect: [0, 0, Math.max(this.width, this.height), Math.max(this.width, this.height)],
+                    boxHeight: 280,
+                    trueSize: [this.width, this.height]
+                }, function () {
+                    jcrop = this;
+                });
+            }
+        }
+
+    }
+
+    function saveCrop(FormData, updateImg)
+    //FormData é o arquivo de imagem e as coordenadas para o corte
+    //updateImg é a imagePreview que deve ser atualizada
+    //Esta função salva a imagem em uma pasta temporária
+    {
+        $.ajax({
+            type: 'POST',
+            url: location.origin + "/exported-resource/croppicture",
+            data: FormData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                $(updateImg).attr("src", "/data/tmp/" + data);
+            },
+            error: function(req, res, err) {
+                console.log(req);
+                console.log(res);
+                console.log(err);
+            }
+        })
+
+    }
+
+    $('#img-1').on('change', function() {
+        cropPicture(this, "#img1Preview");
+    });
+
+
 });
 
 

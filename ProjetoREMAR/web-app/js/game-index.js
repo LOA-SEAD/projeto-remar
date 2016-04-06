@@ -35,39 +35,6 @@ $(function(){
     $(nameErr).hide();
     $(descErr).hide();
 
-    //$(name).on("focus",function() {
-    //    $(name).prev().hide();
-    //    $(nameErr).hide();
-    //    $(name).removeClass();
-    //});
-    ////}).on('blur', function(){
-    ////        console.log($(name).attr('class'));
-    ////        if($(name).val() != ""){
-    ////            if($(name).attr('class').indexOf('invalid') == -1){
-    ////                $(name).prev().show(500);
-    ////            }
-    ////            //else if($(name).attr('class').indexOf('invalid') > -1){
-    ////            //    $(nameErr).show(500);
-    ////            //}
-    ////        }
-    ////});
-    //
-    //
-    //$(desc).on("focus",function() {
-    //    $(desc).prev().hide();
-    //    $(descErr).hide();
-    //    $(desc).removeClass().addClass("materialize-textarea");
-    //});
-    ////}).on('blur', function(){
-    ////    console.log($(desc).attr('class'));
-    ////    if($(desc).attr('class').indexOf('invalid') == -1){
-    ////        $(desc).prev().show(500);
-    ////    }
-    ////    else if($(desc).attr('class').indexOf('invalid') > -1){
-    ////        $(descErr).show(500);
-    ////    }
-    ////});
-
     //console.log($(name).val());
     if($(name).val() != null && $(name).val() != ""){
         //console.log("entrou aki");
@@ -299,7 +266,6 @@ $(function(){
                 console.log(err);
             }
         })
-
     }
 
     $('#img-1').on('change', function() {
@@ -319,35 +285,11 @@ $(function(){
         $(nameErr).hide();
         $(name).removeClass();
     });
-    //}).on('blur', function(){
-    //        console.log($(name).attr('class'));
-    //        if($(name).val() != ""){
-    //            if($(name).attr('class').indexOf('invalid') == -1){
-    //                $(name).prev().show(500);
-    //            }
-    //            //else if($(name).attr('class').indexOf('invalid') > -1){
-    //            //    $(nameErr).show(500);
-    //            //}
-    //        }
-    //});
-
 
     $(desc).on("focus",function() {
         $(desc).prev().hide();
         $(descErr).hide();
         $(desc).removeClass().addClass("materialize-textarea");
     });
-    //}).on('blur', function(){
-    //    console.log($(desc).attr('class'));
-    //    if($(desc).attr('class').indexOf('invalid') == -1){
-    //        $(desc).prev().show(500);
-    //    }
-    //    else if($(desc).attr('class').indexOf('invalid') > -1){
-    //        $(descErr).show(500);
-    //    }
-    //});
 
-    /*
-     * validação dos campos create/edit
-     * */
 });
