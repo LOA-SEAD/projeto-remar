@@ -93,22 +93,22 @@
                             <div class="clearfix"></div>
                             <div class="plataform-card left-align">
                                 <g:if test="${exportedResourceInstance.webUrl != null}">
-                                    <a href="${exportedResourceInstance.webUrl}" class="tooltipped"
+                                    <a target="_blank" href="${exportedResourceInstance.webUrl}" class="tooltipped"
                                        data-position="right" data-delay="50" data-tooltip="Versão web"><i
                                             class="fa fa-globe"></i></a>
                                 </g:if>
                                 <g:if test="${exportedResourceInstance.androidUrl != null}">
-                                    <a href="${exportedResourceInstance.androidUrl}" class="tooltipped"
+                                    <a target="_blank" href="${exportedResourceInstance.androidUrl}" class="tooltipped"
                                        data-position="right" data-delay="50" data-tooltip="Versão android"><i
                                             class="fa fa-android"></i></a>
                                 </g:if>
                                 <g:if test="${exportedResourceInstance.linuxUrl != null}">
-                                    <a href="${exportedResourceInstance.linuxUrl}" class="tooltipped"
+                                    <a target="_blank" href="${exportedResourceInstance.linuxUrl}" class="tooltipped"
                                        data-position="right" data-delay="50" data-tooltip="Versão linux"><i
                                             class="fa fa-linux"></i></a>
                                 </g:if>
                                 <g:if test="${exportedResourceInstance.moodleUrl != null}">
-                                    <a href="${exportedResourceInstance.moodleUrl}" class="tooltipped"
+                                    <a target="_blank" href="${exportedResourceInstance.moodleUrl}" class="tooltipped"
                                        data-position="right" data-delay="50" data-tooltip="Versão moodle"><i
                                             class="fa fa-graduation-cap"></i></a>
                                 </g:if>

@@ -123,16 +123,16 @@
                             <div class="clearfix"></div>
                             <div class="plataform-card left-align">
                                 <g:if test="${myExportedResourceInstance.webUrl != null}">
-                                    <a href="${myExportedResourceInstance.webUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão web"><i class="fa fa-globe"></i></a> <br>
+                                    <a target="_blank" href="${myExportedResourceInstance.webUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão web"><i class="fa fa-globe"></i></a> <br>
                                 </g:if>
                                 <g:if test="${myExportedResourceInstance.androidUrl != null}">
-                                    <a href="${myExportedResourceInstance.androidUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão android"><i class="fa fa-android"></i></a> <br>
+                                    <a target="_blank" href="${myExportedResourceInstance.androidUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão android"><i class="fa fa-android"></i></a> <br>
                                 </g:if>
                                 <g:if test="${myExportedResourceInstance.linuxUrl != null}">
-                                    <a href="${myExportedResourceInstance.linuxUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão linux"><i class="fa fa-linux"></i></a> <br>
+                                    <a target="_blank" href="${myExportedResourceInstance.linuxUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão linux"><i class="fa fa-linux"></i></a> <br>
                                 </g:if>
                                 <g:if test="${myExportedResourceInstance.moodleUrl != null}">
-                                    <a href="${myExportedResourceInstance.moodleUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão moodle"><i class="fa fa-graduation-cap"></i></a>
+                                    <a target="_blank" href="${myExportedResourceInstance.moodleUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão moodle"><i class="fa fa-graduation-cap"></i></a>
                                 </g:if>
                             </div>
 
