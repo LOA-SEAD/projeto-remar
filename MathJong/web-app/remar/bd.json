@@ -1,0 +1,12 @@
+{
+  "collection_name": "mathjong",
+  "structure": [
+    "enunciado",
+    "alternativaa",
+    "alternativab",
+    "alternativac",
+    "alternativad",
+    "respostacerta",
+    "resposta"
+  ]
+}

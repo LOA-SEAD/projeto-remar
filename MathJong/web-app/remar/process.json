@@ -1,0 +1,29 @@
+{
+  "name": "MathJong",
+  "uri": "mathjong",
+  "version": 1,
+  "tasks": [
+    {
+      "name": "Banco de expressões matemáticas",
+      "uri": "math",
+      "description": "Criar/editar/selecionar um banco de expressões matemáticas para o jogo.",
+      "type": "latex_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "fases.json",
+          "type": "json",
+          "path": "json"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    "web"
+  ],
+
+  "vars": {
+    "width": 800,
+    "height": 600
+  }
+}

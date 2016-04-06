@@ -7,13 +7,18 @@
         <script type="text/x-mathjax-config">
             MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
         </script>
-        <script type="text/javascript" src="MathJong/scripts/libs/jquery-1.8.1.js"></script>
-        <script type="text/javascript"
-                src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        <script type="text/javascript" async
+                src="MathJong/scripts/libs/MathJax/MathJax.js?config=TeX-AMS-MML_SVG">
         </script>
-
+	<script>
+            if (window.require) {
+                window.lerolero = window.require;
+                delete window.require;
+            }
+        </script>
+        <script data-main="MathJong/scripts/main" src="MathJong/scripts/libs/require.js"></script>
     </head>
     <body>
-        <script data-main="MathJong/scripts/main" src="MathJong/scripts/libs/require.js"></script>
+        
     </body>
 </html>

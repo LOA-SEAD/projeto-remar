@@ -1,21 +1,39 @@
 package br.ufscar.sead.loa.mathjong.remar
 
+import br.ufscar.sead.loa.remar.User
+import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.plugin.springsecurity.annotation.Secured
+import grails.util.Environment
 import groovy.json.JsonBuilder
-import groovy.json.JsonSlurper
-import org.codehaus.groovy.grails.web.json.JSONArray
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.context.SecurityContextHolder
 
 @Secured(["IS_AUTHENTICATED_FULLY"])
 class MathController {
 
     def springSecurityService
 
-    def index() {
+    @Secured(["permitAll"])
+    def index(Integer max) {
+        session.user = springSecurityService.currentUser
 
+        // params.max = Math.min(max ?: 10, 100)
+        params.max = 100 // TODO
+
+        if (params.t && params.h) {
+            session.taskId = params.t
+
+            def u = User.findByUsername(new String(params.h.decodeBase64()))
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.test()))
+
+            redirect controller: "math" // redirect to hide params.h
+            return
+        }
+
+        render view: "index"
     }
 
     def save() {
-
         def nCols = params.int "nCols"
         def nLines = params.int "nLines"
         def _time = nCols * nLines * 15
@@ -34,7 +52,6 @@ class MathController {
             _data.add line
         }
 
-
         builder {
             linha nLines
             coluna nCols
@@ -42,44 +59,37 @@ class MathController {
             data _data
         }
 
-        render builder.toString()
-        println builder.toString()
-
-
-        def dataPath = servletContext.getRealPath("/data")
-        def userPath = new File(dataPath, "/" + springSecurityService.getCurrentUser().getId())
-        userPath.mkdirs()
+        def folder = new File(servletContext.getRealPath("/data/${session.user.id}/${session.taskId}"))
+        folder.mkdirs()
 
         def fileName = "fases.json"
-        def file = new File("$userPath/$fileName")
-        def finished = new File("$dataPath/${springSecurityService.getCurrentUser().getId()}/finished.txt")
+        def file = new File("${folder}/${fileName}")
 
-        if(finished.exists()) { // if there's a finished fases.json
-            println "finished"
-            file.delete()
+        if (!file.exists()) {
             file.createNewFile()
-            file.append("[")
-            session.newLevel = false
-            finished.delete()
-        } else if(file.createNewFile()) { // if !there's a fases.json
-            println "new"
-            file.append("[")
+            file.append('[')
         }
 
         file.append(builder.toString() + ",")
+
+        render 200
+        response.status = 200
     }
 
     def finish() {
-        def dataPath = servletContext.getRealPath("/data")
-        def file = new File("$dataPath/${springSecurityService.getCurrentUser().getId()}/fases.json")
+        def file = new File(servletContext.getRealPath("/data/${session.user.id}/${session.taskId}/fases.json"))
         def json = file.text
-        json = json.substring(0, json.length() -1)
+        json = json.substring(0, json.length() - 1)
         json += "]"
         file.write(json)
 
-        def finished = new File("$dataPath/${springSecurityService.getCurrentUser().getId()}/finished.txt")
-        finished.createNewFile()
+        String id = MongoHelper.putFile(file.absolutePath)
 
-        forward controller: "process", action: "complete", id: "math"
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
+
+        redirect uri: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}", params: [files: id]
     }
 }
