@@ -18,7 +18,7 @@
 <div class="row cluster">
     <div class="cluster-header">
         <p class="text-teal text-darken-3 left-align margin-bottom">
-            <i class="small material-icons left">public</i>Jogos públicos
+            <i class="small material-icons left">public</i>Jogos
         </p>
 
         <div class="divider"></div>
