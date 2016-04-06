@@ -3,14 +3,17 @@ var pai = document.getElementById("ancora").parentNode;
 var jogo = {};
 
 $.ajax({
-    url: "json/palavras.json",
+    url: "json/configuracao.json",
     dataType: "text",
     mimeType: "application/json",
     async: false,
     success: function (data) {
-        jogo.bd = $.parseJSON(data);
+        jogo.bd = $.parseJSON(data).palavras;
+        jogo.nome = $.parseJSON(data).nome;
     }
 });
+
+console.log(jogo.nome);
 
 /*var css = document.createElement("link");
 css.setAttribute("rel", "stylesheet");

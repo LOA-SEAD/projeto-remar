@@ -91,9 +91,9 @@ body
 #botoes
 {
 	position: relative;
-	top: 62%;
-	left: 34%;
-	width: 480px;
+	top: 65%;
+	left: 40%;
+	width: 400px;
 	text-align: right;
 }
 
@@ -104,9 +104,7 @@ body
 	height: 43px;
 	float: left;
 	background-image: url(../imgs/botaoJogo.png);
-	cursor: pointer;
-        margin-top: 13px;
-        margin-right: 8px;
+	cursor: pointer;	
 }
 
 .linha
@@ -119,13 +117,13 @@ body
 #linha2
 {
 	margin-left: 20px;
-	//margin-top: -20px;
+	margin-top: -20px;
 }
 
 #linha3
 {
 	margin-left: 35px;
-	//margin-top: -20px;
+	margin-top: -20px;
 }
 
 .letraTeclado
@@ -144,7 +142,7 @@ body
 p
 { 
     font-family:"Fonte","Tahoma";
-	font-size: 26px;
+	font-size: 24px;
 }
 
 /*Parte dos botoes fora do jogo*/
@@ -162,7 +160,7 @@ p
 	position: relative;
 	width: 500px;
 	height: 120px;
-	left: 47%;
+	left: 30%;
 	top: 65%;
 }
 
@@ -180,6 +178,13 @@ p
 	background-image: url("../imgs/btnCreditos.png")
 }
 
+#btnRanking
+{
+	width: 117px;
+	height: 65px;
+	background-image: url("../imgs/btnRanking.png")
+}
+
 #btnVoltar
 {
 	position: absolute;
@@ -194,7 +199,7 @@ p
 {
 	position: absolute;
 	top: 37%;
-	width: 270px;
+	width: 317px;
 	height: 382px;
 	background: url(../imgs/personagem.png);
 	background-position: 0px 0px;
@@ -231,8 +236,4 @@ border: 0 !important;
 height: 1px !important;
 width: 1px !important;
 overflow: hidden;
-}
-
-#falador{
-    color: transparent;
 }
