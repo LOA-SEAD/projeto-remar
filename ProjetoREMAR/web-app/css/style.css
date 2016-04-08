@@ -508,13 +508,13 @@ footer.page-footer{
             }
         }
 
-        @media only screen and (min-width: 992px) {
-            .my-position {
-                right: calc((100% - 992px)/2);
-                bottom: 45px;
-            }
-        }
-        /* end medium displays only */
+@media only screen and (min-width: 992px) {
+    .my-position {
+        right: calc((100% - 992px)/2);
+        bottom: 45px;
+    }
+}
+/* end medium displays only */
 
 /* end header for all pages */
 
@@ -926,3 +926,93 @@ table .pending td{
     /*height: inherit;*/
     /*line-height: inherit; }*/
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+This is the visible area of you carousel.
+Set a width here to define how much items are visible.
+The width can be either fixed in px or flexible in %.
+Position must be relative!*/
+.carousel-wrapper {
+    float: left;
+    border: 10px solid white;
+    height: 170px;
+    margin-top: 10px;
+    margin-left: 8px;
+    margin-right: 10px;
+
+    webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    -webkit-box-shadow: 0 0 2px #999;
+    -moz-box-shadow: 0 0 2px #999;
+    box-shadow: 0 0 2px #999;
+}
+
+/* medium displays only */
+@media only screen and (max-width: 992px) and (min-width: 601px) {
+
+    .carousel-wrapper {
+        width: 86%;
+    }
+}
+
+/* large display only */
+@media only screen and (min-width: 992px) {
+    .carousel-wrapper {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .carousel-wrapper {
+        width: 78%;
+    }
+}
+
+.swiper-container {
+    width: 100%;
+    height: 150px;
+}
+
+.swiper-slide {
+    width: 150px !important;
+}
+
+.swiper-button-prev, .swiper-button-next {
+    float: left !important;
+    width: 30px !important;
+    height: 30px !important;
+    margin-top: 80px !important;
+    text-align: center !important;
+    /*background-image: none !important;*/
+    background: #5d4037 !important;
+    color: white !important;
+    text-decoration: none !important;
+    text-shadow: 0 0 1px #000 !important;
+    font: 24px/27px Arial, sans-serif !important;
+    position: relative !important;
+    left: 0px !important;
+
+    -webkit-border-radius: 30px !important;
+    -moz-border-radius: 30px !important;
+    border-radius: 30px !important;
+
+    -webkit-box-shadow: 0 0 2px #999 !important;
+    -moz-box-shadow: 0 0 2px #999 !important;
+    box-shadow: 0 0 2px #999 !important;
+}
