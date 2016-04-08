@@ -36,7 +36,7 @@ Time: 09:55
                         </div>
                         <div class="row">
                             <div class="col s2 img-preview">
-                                <img id="img1Preview" class="materialboxed" width="100" height="100" src="${baseUrl}/banner.png" />
+                                <img id="img1Preview" class="materialboxed my-orange" width="100" height="100" src="${baseUrl}/banner.png" />
                             </div>
                             <div class="col s10">
                                 <div class="file-field input-field">
@@ -59,14 +59,7 @@ Time: 09:55
                     <div class="collapsible-header active"><i class="material-icons">view_column</i>Informações adicionais</div>
                         <div class="collapsible-body">
                             <div class="row" style="margin: 0;">
-                                <div class="col s6">
-                                        <p class="title">Tipo: </p>
-                                        <p>
-                                            <input type="radio" name="type" value="public" checked/>
-                                            <label>Público</label>
-                                        </p>
-                                </div>
-                                <div class="col s6 platforms">
+                                <div class="col s12 platforms">
                                     <p class="title">Plataformas: </p>
                                     <p>
                                         <input type="checkbox" id="web" checked="checked" disabled/>
@@ -148,7 +141,7 @@ Time: 09:55
                                             </div>
                                         </div>
                                         <a href="#!" class="waves-effect waves-light btn-flat send" id="send" name="send" >
-                                            Enviar
+                                            salvar
                                         </a>
                                     </div>
                                 </div>
