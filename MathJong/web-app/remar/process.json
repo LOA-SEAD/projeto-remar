@@ -13,7 +13,7 @@
         {
           "name": "fases.json",
           "type": "json",
-          "path": "json"
+          "path": "MathJong/json"
         }
       ]
     }
