@@ -52,105 +52,76 @@ Time: 09:55
                                 </div>
                             </div>
                         </div>
-
+                        <div class="right">
+                            <a href="#!" class="waves-effect waves-light btn-flat send" id="send" name="send" >
+                                salvar
+                            </a>
+                        </div>
+                        <div class="clearfix"></div>
                     </div>
                 </li>
                 <li>
-                    <div class="collapsible-header active"><i class="material-icons">view_column</i>Informações adicionais</div>
-                        <div class="collapsible-body">
-                            <div class="row" style="margin: 0;">
-                                <div class="col s12 platforms">
-                                    <p class="title">Plataformas: </p>
-                                    <p>
-                                        <input type="checkbox" id="web" checked="checked" disabled/>
-                                        <label for="web" class="checkbox-label">Web</label>
-                                        <span class="chip center">
-                                            <a target="_blank" href="${baseUrl}/web">Acessar</a>
-                                            <i class="fa fa-link"></i>
-                                        </span>
-                                    </p>
-                                    <g:if test="${exportsTo.linux}">
-                                        <p>
-                                        <g:if test="${urls.linux}">
-                                            <input type="checkbox" id="linux" checked="checked" disabled/>
-                                            <label for="linux" class="checkbox-label">Linux</label>
-                                            <span class="chip center">
-                                                <a target="_blank" href="${baseUrl}/linux.zip">Baixar</a>
-                                                <i class="fa fa-link"></i>
-                                            </span>
-                                        </g:if>
-                                        <g:else>
-                                            <input type="checkbox" id="linux" class="checkbox-platform"/>
-                                            <label for="linux" class="checkbox-label" data-id="${resourceInstance.id}">Linux</label>
-                                        </g:else>
-                                        </p>
-                                    </g:if>
-                                    <g:if test="${exportsTo.android}">
-                                        <p>
-                                            <g:if test="${urls.android}">
-                                                <input type="checkbox" id="android" checked="checked" disabled/>
-                                                <label for="android" class="checkbox-label" data-position="right" data-delay="50" data-tooltip="Android">Android</label>
-                                                <span class="chip center">
-                                                    <a target="_blank" href="${baseUrl}/android.zip">Baixar</a>
-                                                    <i class="fa fa-link"></i>
-                                                </span>
-                                            </g:if>
-                                            <g:else>
-                                                <input type="checkbox" id="android" class="checkbox-platform"/>
-                                                <label for="android" class="checkbox-label" data-id="${resourceInstance.id}">Android</label>
-                                            </g:else>
-                                        </p>
-                                    </g:if>
-                                    <g:if test="${exportsTo.moodle}">
-                                        <p>
-                                            <g:if test="${urls.moodle}">
-                                                <input type="checkbox" id="moodle" checked="checked" disabled>
-                                                <label for="moodle" class="checkbox-label">Moodle</label>
-                                                <span class="chip center">Jogo disponível no Moodle</span>
-                                            </g:if>
-                                            <g:else>
-                                                <g:if test="${!moodleExport}">
-                                                    <input type="checkbox" id="moodle" disabled>
-                                                    <label for="moodle" class="checkbox-label">Moodle</label>
-                                                    <span class="chip center">
-                                                        <span>Vincule sua conta ao Moodle</span>
-                                                        <i class="material-icons">warning</i>
-                                                    </span>
-                                                </g:if>
-                                                <g:else>
-                                                    <input type="checkbox" id="moodle" class="checkbox-platform">
-                                                    <label for="moodle" class="checkbox-label" data-id="${resourceInstance.id}">Moodle</label>
-                                                </g:else>
-                                            </g:else>
-
-                                        </p>
-                                    </g:if>
-                            </div>
-                            <div class="row">
-                                <div class="col s12" >
-                                    <div class="send-publish right">
-                                        <div id="preloader-wrapper" class="preloader-wrapper small active right">
-                                            <div class="spinner-layer spinner-red-only">
-                                                <div class="circle-clipper left">
-                                                    <div class="circle"></div>
-                                                </div><div class="gap-patch">
-                                                <div class="circle"></div>
-                                            </div><div class="circle-clipper right">
-                                                <div class="circle"></div>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        <a href="#!" class="waves-effect waves-light btn-flat send" id="send" name="send" >
-                                            salvar
-                                        </a>
-                                    </div>
+                    <div class="collapsible-header active"><i class="material-icons">view_column</i>Plataformas</div>
+                    <div class="collapsible-body">
+                        <div class="row" style="margin: 0;">
+                            <div class="col s6 m2">
+                                <div class="row no-margin-bottom">
+                                    <i class="fa fa-globe big-platform-logo"></i>
                                 </div>
-                                <br class="clear" />
+                                <div class="row">
+                                    Web
+                                </div>
+                            </div>
+                            %{--<g:if test="${exportsTo.linux}">--}%
+                            <div class="col s6 m2">
+                                <div class="row no-margin-bottom">
+                                    <i class="fa fa-linux big-platform-logo"></i>
+                                </div>
+                                <div class="row">
+                                    Linux (64 bits)
+                                </div>
+                            </div>
+
+                            <div class="col s6 m2">
+                                <div class="row no-margin-bottom">
+                                    <i class="fa fa-windows big-platform-logo"></i>
+                                </div>
+                                <div class="row">
+                                    Windows
+                                </div>
+                            </div>
+
+                            <div class="col s6 m2">
+                                <div class="row no-margin-bottom">
+                                    <i class="fa fa-apple big-platform-logo"></i>
+                                </div>
+                                <div class="row">
+                                    OS-X
+                                </div>
+                            </div>
+
+                            <div class="col s6 m2">
+                                <div class="row no-margin-bottom">
+                                    <i class="fa fa-android big-platform-logo"></i>
+                                </div>
+                                <div class="row">
+                                    Android
+                                </div>
+                            </div>
+
+                            <div class="col s6 m2">
+                                <div class="row no-margin-bottom">
+                                    <i class="fa fa-graduation-cap big-platform-logo"></i>
+                                </div>
+                                <div class="row">
+                                    Moodle
+                                </div>
                             </div>
 
                         </div>
                     </div>
-                </li>
+        </div>
+    </li>
             </ul>
         </div>
         <span class="chip center">

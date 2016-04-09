@@ -927,3 +927,11 @@ table .pending td{
     /*height: inherit;*/
     /*line-height: inherit; }*/
 
+.big-platform-logo {
+    font-size: 5em !important;
+}
+
+.collapsible.popout > li {
+    width: 97% !important;
+    margin: 16px auto !important;
+}
