@@ -5,6 +5,8 @@ APK_2=$3-x86.apk
 ZIPALIGN_PARENT=$1/scripts/crosswalk
 KEYSTORE=${ZIPALIGN_PARENT}/keystore
 
+chmod +x ${ZIPALIGN_PARENT}/zipalign
+
 cd $2
 
 find assets -type f | xargs zip ${APK_1}
