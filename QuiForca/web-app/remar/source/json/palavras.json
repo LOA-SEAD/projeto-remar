@@ -1,5 +1,5 @@
-{ "palavras" : [
-{
+{ "nome" : "Forca",
+"palavras" : [{
     "palavra": "GRAVIDADE",
     "dica": "Força resultante da distorção do espaço-tempo?",
     "contribuicao": "0"

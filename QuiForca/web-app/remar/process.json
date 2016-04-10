@@ -45,8 +45,7 @@
   "outputs": [
     "web",
     "android",
-    "linux",
-    "moodle"
+    "desktop"
   ],
 
   "vars": {

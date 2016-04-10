@@ -230,7 +230,7 @@ class QuestionController {
 
         File file = new File("$userPath/$fileName");
         PrintWriter pw = new PrintWriter(file);
-        pw.write(builder.toString());
+        pw.write('{ "nome" : "Forca","palavras":' + builder.toString() + '}');
         pw.close();
 
         String id = MongoHelper.putFile(file.absolutePath)
