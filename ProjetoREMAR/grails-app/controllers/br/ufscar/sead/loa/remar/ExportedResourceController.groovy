@@ -141,11 +141,11 @@ class ExportedResourceController {
             ant.sequential {
                 mkdir(dir: desktopFolder)
                 mkdir(dir: mobileFolder)
-                copy(file: "${sourceFolder}/windows.zip", tofile: "${desktopFolder}/windows.zip")
-                copy(file: "${sourceFolder}/linux.zip", tofile: "${desktopFolder}/linux.zip")
-                copy(file: "${sourceFolder}/mac.zip", tofile: "${desktopFolder}/mac.zip")
-                copy(file: "${sourceFolder}/android/${resourceName}-arm.apk", tofile: "${mobileFolder}/${resourceName}-arm.apk")
-                copy(file: "${sourceFolder}/android/${resourceName}-x86.apk", tofile: "${mobileFolder}/${resourceName}-x86.apk")
+                copy(file: "${sourceFolder}/windows.zip", tofile: "${desktopFolder}/windows.zip", failonerror: false)
+                copy(file: "${sourceFolder}/linux.zip", tofile: "${desktopFolder}/linux.zip", failonerror: false)
+                copy(file: "${sourceFolder}/mac.zip", tofile: "${desktopFolder}/mac.zip", failonerror: false)
+                copy(file: "${sourceFolder}/android/${resourceName}-arm.apk", tofile: "${mobileFolder}/${resourceName}-arm.apk", failonerror: false)
+                copy(file: "${sourceFolder}/android/${resourceName}-x86.apk", tofile: "${mobileFolder}/${resourceName}-x86.apk", failonerror: false)
 
                 mkdir(dir: folders[0])
                 mkdir(dir: folders[1])
@@ -194,6 +194,10 @@ class ExportedResourceController {
                         arg(value: resourceName)
                     }
                 }
+            }
+
+            if (instance.resource.moodle) {
+                instance.moodleUrl = urls.web
             }
 
             instance.exported = true

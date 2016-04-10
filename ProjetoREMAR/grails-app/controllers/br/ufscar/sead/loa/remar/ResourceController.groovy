@@ -202,18 +202,25 @@ class ResourceController {
 
             "${servletContext.getRealPath("/scripts/db.sh")} ${resourceInstance.uri}".execute().waitFor()
 
-            ant.sequential {
-                chmod(perm: "+x", file: scriptElectron)
-                chmod(perm: "+x", file: scriptCrosswalk)
-                exec(executable: scriptElectron) {
-                    arg(value: rootPath)
-                    arg(value: resourceInstance.uri)
-                    arg(value: resourceInstance.name)
+            if (resourceInstance.desktop) {
+                ant.sequential {
+                    chmod(perm: "+x", file: scriptElectron)
+                    exec(executable: scriptElectron) {
+                        arg(value: rootPath)
+                        arg(value: resourceInstance.uri)
+                        arg(value: resourceInstance.name)
+                    }
                 }
-                exec(executable: scriptCrosswalk) {
-                    arg(value: rootPath)
-                    arg(value: resourceInstance.uri)
-                    arg(value: resourceInstance.name)
+            }
+
+            if (resourceInstance.android) {
+                ant.sequential {
+                    chmod(perm: "+x", file: scriptCrosswalk)
+                    exec(executable: scriptCrosswalk) {
+                        arg(value: rootPath)
+                        arg(value: resourceInstance.uri)
+                        arg(value: resourceInstance.name)
+                    }
                 }
             }
 
