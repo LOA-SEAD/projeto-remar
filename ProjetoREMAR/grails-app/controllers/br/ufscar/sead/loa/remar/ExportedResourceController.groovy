@@ -196,12 +196,14 @@ class ExportedResourceController {
                 }
             }
 
-            if (instance.resource.moodle) {
-                instance.moodleUrl = urls.web
-            }
+            ExportedResource.withNewSession {
+                if (instance.resource.moodle) {
+                    instance.moodleUrl = urls.web
+                }
 
-            instance.exported = true
-            instance.save flush: true
+                instance.exported = true
+                instance.save flush: true
+            }
         }
 
         render urls as JSON
