@@ -105,7 +105,7 @@ class ResourceController {
             resourceInstance.name = json.name
             resourceInstance.uri = json.uri
             resourceInstance.android = 'android' in json.outputs
-            resourceInstance.linux = 'linux' in json.outputs
+            resourceInstance.desktop = 'desktop' in json.outputs
             resourceInstance.moodle = 'moodle' in json.outputs
             resourceInstance.width = json.vars.width
             resourceInstance.height = json.vars.height
@@ -145,7 +145,7 @@ class ResourceController {
             redirect action: "index"
             return
         } else {
-            ant.copy(todir: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}")) {
+            ant.copy(todir: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}/base")) {
                 fileset(dir: tmp)
             }
         }
@@ -177,6 +177,7 @@ class ResourceController {
 
     def newDeveloper() {}
 
+    @SuppressWarnings("GroovyUnreachableStatement")
     def review() {
         def resourceInstance = Resource.findById(params.id)
         String status = params.status
@@ -194,8 +195,27 @@ class ResourceController {
         }
 
         if (status == "approve" && resourceInstance.status != "approved") {
+            def ant = new AntBuilder()
+            def rootPath = servletContext.getRealPath('/')
+            def scriptElectron = "${rootPath}/scripts/electron/build.sh"
+            def scriptCrosswalk = "${rootPath}/scripts/crosswalk/build.sh"
 
             "${servletContext.getRealPath("/scripts/db.sh")} ${resourceInstance.uri}".execute().waitFor()
+
+            ant.sequential {
+                chmod(perm: "+x", file: scriptElectron)
+                chmod(perm: "+x", file: scriptCrosswalk)
+                exec(executable: scriptElectron) {
+                    arg(value: rootPath)
+                    arg(value: resourceInstance.uri)
+                    arg(value: resourceInstance.name)
+                }
+                exec(executable: scriptCrosswalk) {
+                    arg(value: rootPath)
+                    arg(value: resourceInstance.uri)
+                    arg(value: resourceInstance.name)
+                }
+            }
 
             if (Environment.current == Environment.DEVELOPMENT) {
                 resourceInstance.status = "approved"

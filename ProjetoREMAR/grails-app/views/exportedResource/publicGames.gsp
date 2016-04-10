@@ -49,13 +49,13 @@
                 <p>Ainda não existe nenhum jogo disponível para ser jogado!.</p>
             </g:if>
             <g:else>
-                <g:each in="${publicExportedResourcesList}" var="exportedResourceInstance">
+                <g:each in="${publicExportedResourcesList}" var="instance">
                     <div class="card square-cover small hoverable">
                         <div class="card-image waves-effect waves-block waves-light">
                             <div class="cover-image-container">
-                                <img alt="${exportedResourceInstance.name}"
+                                <img alt="${instance.name}"
                                      class="cover-image img-responsive image-bg activator "
-                                     src="${(exportedResourceInstance.webUrl).substring(0, exportedResourceInstance.webUrl.indexOf('w') - 1)}/banner.png">
+                                     src="/published/${instance.processId}/banner.png">
                             </div>
                         </div>
 
@@ -63,25 +63,23 @@
                             <div class="details">
                                 <p class="card-click-targ" aria-hidden="true" tabindex="-1"></p>
                                 <span class="title card-name activator"
-                                      data-category="${exportedResourceInstance.resource.category.id}"
-                                      title="${exportedResourceInstance.name}" aria-hidden="true"
-                                      tabindex="-1">${exportedResourceInstance.name}</span>
+                                      data-category="${instance.resource.category.id}"
+                                      title="${instance.name}" aria-hidden="true"
+                                      tabindex="-1">${instance.name}</span>
 
                                 <div class="subtitle-container">
-                                    <p class="subtitle">Feito por: ${exportedResourceInstance.owner.firstName}</p>
+                                    <p class="subtitle">Feito por: ${instance.owner.firstName}</p>
                                 </div>
 
                                 <div class="gray-color subtitle-container">
-                                    <g:if test="${exportedResourceInstance.webUrl != null}">
-                                        <i class="fa fa-globe"></i>
-                                    </g:if>
-                                    <g:if test="${exportedResourceInstance.androidUrl != null}">
+                                    <i class="fa fa-globe"></i>
+                                    <g:if test="${instance.resource.android}">
                                         <i class="fa fa-android"></i>
                                     </g:if>
-                                    <g:if test="${exportedResourceInstance.linuxUrl != null}">
-                                        <i class="fa fa-linux"></i>
+                                    <g:if test="${instance.resource.desktop}">
+                                        <i class="fa fa-desktop"></i>
                                     </g:if>
-                                    <g:if test="${exportedResourceInstance.moodleUrl != null}">
+                                    <g:if test="${instance.resource.moodle}">
                                         <i class="fa fa-graduation-cap"></i>
                                     </g:if>
                                 </div>
@@ -92,26 +90,23 @@
                                     class="material-icons right">close</i></span>
                             <div class="clearfix"></div>
                             <div class="plataform-card left-align">
-                                <g:if test="${exportedResourceInstance.webUrl != null}">
-                                    <a target="_blank" href="${exportedResourceInstance.webUrl}" class="tooltipped"
-                                       data-position="right" data-delay="50" data-tooltip="Versão web"><i
-                                            class="fa fa-globe"></i></a>
-                                </g:if>
-                                <g:if test="${exportedResourceInstance.androidUrl != null}">
-                                    <a target="_blank" href="${exportedResourceInstance.androidUrl}" class="tooltipped"
-                                       data-position="right" data-delay="50" data-tooltip="Versão android"><i
-                                            class="fa fa-android"></i></a>
-                                </g:if>
-                                <g:if test="${exportedResourceInstance.linuxUrl != null}">
-                                    <a target="_blank" href="${exportedResourceInstance.linuxUrl}" class="tooltipped"
-                                       data-position="right" data-delay="50" data-tooltip="Versão linux"><i
-                                            class="fa fa-linux"></i></a>
-                                </g:if>
-                                <g:if test="${exportedResourceInstance.moodleUrl != null}">
-                                    <a target="_blank" href="${exportedResourceInstance.moodleUrl}" class="tooltipped"
-                                       data-position="right" data-delay="50" data-tooltip="Versão moodle"><i
-                                            class="fa fa-graduation-cap"></i></a>
-                                </g:if>
+                                <div class="col s6">
+                                    <a target="_blank" href="/published/${instance.processId}/web" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Web"><i class="fa fa-globe"></i></a> <br>
+                                    <g:if test="${instance.resource.desktop}">
+                                        <a target="_blank" href="/published/${instance.processId}/desktop/${instance.resource.name}-linux.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Linux"><i class="fa fa-linux"></i></a> <br>
+                                        <a target="_blank" href="/published/${instance.processId}/desktop/${instance.resource.name}-windows.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Windows"><i class="fa fa-windows"></i></a> <br>
+                                        <a target="_blank" href="/published/${instance.processId}/desktop/${instance.resource.name}-mac.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Mac"><i class="fa fa-apple"></i></a> <br>
+                                    </g:if>
+                                </div>
+                                <div class="col s6">
+                                    <g:if test="${instance.resource.android}">
+                                        <a target="_blank" href="/published/${instance.processId}/mobile/${instance.resource.name}-android.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Android"><i class="fa fa-android"></i></a> <br>
+                                    </g:if>
+
+                                    <g:if test="${instance.resource.moodle}">
+                                        <a class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Disponível no Moodle"><i class="fa fa-graduation-cap"></i></a>
+                                    </g:if>
+                                </div>
                             </div>
                         </div>
                     </div>

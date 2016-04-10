@@ -45,8 +45,8 @@
 										<g:if test="${resourceInstance.android}">
 											<i class="fa fa-android"></i>
 										</g:if>
-										<g:if test="${resourceInstance.linux}">
-											<i class="fa fa-linux"></i>
+										<g:if test="${resourceInstance.desktop}">
+											<i class="fa fa-desktop"></i>
 										</g:if>
 										<g:if test="${resourceInstance.moodle}">
 											<i class="fa fa-graduation-cap"></i>
@@ -62,8 +62,8 @@
 									<g:if test="${resourceInstance.android}">
 										<i class="fa fa-android"></i>
 									</g:if>
-									<g:if test="${resourceInstance.linux}">
-										<i class="fa fa-linux"></i>
+									<g:if test="${resourceInstance.desktop}">
+										<i class="fa fa-desktop"></i>
 									</g:if>
 									<g:if test="${resourceInstance.moodle}">
 										<i class="fa fa-graduation-cap"></i>

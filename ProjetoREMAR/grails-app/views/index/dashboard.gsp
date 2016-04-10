@@ -19,7 +19,7 @@
             <div class="subtitle">
                 <p class="text-teal text-darken-3 left-align margin-bottom">
                      <blockquote>
-                        <i class="material-icons left">create</i> Confira os últimos modelos disponíveis para customização!
+                        <i class="material-icons left">create</i> Confira os modelos disponíveis para customização!
                      </blockquote>
                 </p>
             </div>
@@ -49,8 +49,8 @@
                                         <g:if test="${gameInstance.android}">
                                             <i class="fa fa-android"></i>
                                         </g:if>
-                                        <g:if test="${gameInstance.linux}">
-                                            <i class="fa fa-linux"></i>
+                                        <g:if test="${gameInstance.desktop}">
+                                            <i class="fa fa-desktop"></i>
                                         </g:if>
                                         <g:if test="${gameInstance.moodle}">
                                             <i class="fa fa-graduation-cap"></i>

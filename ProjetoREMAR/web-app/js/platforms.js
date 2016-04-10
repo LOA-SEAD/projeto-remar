@@ -89,50 +89,54 @@ $(function () {
             }
         }
 
-        $(".checkbox-platform").each(function () {
-            if (this.checked) {
-                $(this).removeClass('checkbox-platform');
-                $(this).addClass('compiling');
-                var id = this.id;
-                this.disabled = true;
-                var label = $('label[for="' + id + '"]');
-                ajax(id, label);
-                loader.show();
-            }
-        });
+
     });
 
-    function ajax(endpoint, label) {
-        $.ajax({
-            type: 'GET',
-            url: location.origin + '/exported-resource/' + endpoint + "?id=" + $(label).data("id") + "&type=" + $("input[name=type]:checked").val(),
-            success: function (data) {
-                $("#" + endpoint).removeClass('compiling');
-                if ($('.compiling').length == 0) {
-                    loader.hide();
-                }
-                if (endpoint == "moodle") {
-                    $(label).after(" <span class='chip center'>" +
-                        "Jogo disponível no Moodle" +
-                        "</span>");
-                } else {
-                    $(label).after(" <span class='chip center'>" +
-                        "<a target='_blank' href='" + data + "'>Acessar </a>" +
-                        "<i class='fa fa-link'></i>" +
-                        "</span>");
-                }
+    var platforms = $('.platform');
+    var web = $('#web');
+    var moodle = $('#moodle');
 
-                $(label).effect("pulsate", {}, 3000);
-                $(label).next().effect("pulsate", {}, 3000);
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                $("#" + endpoint).removeClass('compiling');
-                if ($('.compiling').length == 0) {
-                    loader.hide();
-                }
-            }
-        });
-    }
+    $(web).css('cursor', 'wait');
+    $(platforms).css('cursor', 'wait');
+    $(moodle).css('cursor', 'wait');
+
+
+    $.ajax({
+        type: 'GET',
+        url: location.origin + '/exported-resource/export/' + $(name).data("resource-id"),
+        success: function (data) {
+
+            $('.progress').hide();
+            $(web).css('cursor', '');
+            $(platforms).css('cursor', '');
+            $(moodle).css('cursor', '');
+
+            $(web).parent().attr('href', data['web']);
+
+            $(web).hover(function () {
+                $(this).children().eq(1).text('Acessar');
+            }, function () {
+                $(this).children().eq(1).text('Web');
+            });
+
+            $(moodle).children().eq(1).text('Disponível no Moodle');
+
+            $(platforms).each(function () {
+                $(this).parent().attr('href', data[$(this).data('name')]);
+
+                $(this).hover(function () {
+                   $(this).children().eq(1).text('Baixar');
+                }, function () {
+                   $(this).children().eq(1).text($(this).data('text'));
+                });
+            });
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log(':(');
+        }
+    });
+
 
     function cropPicture(target, updateImg){
         var jcrop;

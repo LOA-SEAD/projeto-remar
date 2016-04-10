@@ -6,18 +6,12 @@ class ExportedResource {
 
     static constraints = {
     	moodleUrl nullable: true
-    	linuxUrl nullable: true
-    	windowsUrl nullable: true
-    	webUrl nullable: true
-    	androidUrl nullable: true
+        exported nullable: true
     }
 
 
     String moodleUrl
-    String linuxUrl
-    String windowsUrl
-    String webUrl
-    String androidUrl
+    boolean exported
 
     String name
     int width

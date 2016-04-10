@@ -49,39 +49,37 @@
                 <p>Você ainda não possui nenhum jogo!</p>
             </g:if>
             <g:else>
-                <g:each in="${myExportedResourcesList}" var="myExportedResourceInstance">
+                <g:each in="${myExportedResourcesList}" var="instance">
                     <div class="card square-cover small hoverable my-card">
                         <div class="card-image waves-effect waves-block waves-light">
                             <div class="cover-image-container">
-                                <img alt="${myExportedResourceInstance.name}" class="cover-image img-responsive image-bg activator "
-                                     src="${(myExportedResourceInstance.webUrl).substring(0,myExportedResourceInstance.webUrl.indexOf('w')-1)}/banner.png">
+                                <img alt="${instance.name}" class="cover-image img-responsive image-bg activator "
+                                     src="/published/${instance.processId}/banner.png">
                             </div>
-                            %{--<a class="card-click-target"  href="/resource/show/${myExportedResourceInstance.id}"></a>--}%
+                            %{--<a class="card-click-target"  href="/resource/show/${instance.id}"></a>--}%
                         </div>
                         <div class="card-div">
                             <div class="card-content">
                                 <div class="details">
                                     <p class="card-click-targ" aria-hidden="true" tabindex="-1"></p>
-                                    <span class="title card-name activator" data-category="${myExportedResourceInstance.resource.category.id}" title="${myExportedResourceInstance.name}" aria-hidden="true" tabindex="-1">${myExportedResourceInstance.name}</span>
+                                    <span class="title card-name activator" data-category="${instance.resource.category.id}" title="${instance.name}" aria-hidden="true" tabindex="-1">${instance.name}</span>
                                     %{--<div class="col s3">--}%
-                                    %{--<img src="/data/users/${myExportedResourceInstance.resource.owner.username}/profile-picture"--}%
-                                    %{--alt="${myExportedResourceInstance.resource.owner.firstName}" class="circle game-owner"--}%
+                                    %{--<img src="/data/users/${instance.resource.owner.username}/profile-picture"--}%
+                                    %{--alt="${instance.resource.owner.firstName}" class="circle game-owner"--}%
                                     %{--data-beloworigin="true">--}%
                                     %{--</div>--}%
                                     <div class="subtitle-container">
-                                        <p class="subtitle">Feito por: ${myExportedResourceInstance.owner.firstName}</p>
+                                        <p class="subtitle">Feito por: ${instance.owner.firstName}</p>
                                     </div>
                                     <div class="gray-color subtitle-container">
-                                        <g:if test="${myExportedResourceInstance.webUrl != null}">
-                                            <i class="fa fa-globe"></i>
-                                        </g:if>
-                                        <g:if test="${myExportedResourceInstance.androidUrl != null}">
+                                        <i class="fa fa-globe"></i>
+                                        <g:if test="${instance.resource.android}">
                                             <i class="fa fa-android"></i>
                                         </g:if>
-                                        <g:if test="${myExportedResourceInstance.linuxUrl != null}">
-                                            <i class="fa fa-linux"></i>
+                                        <g:if test="${instance.resource.desktop}">
+                                            <i class="fa fa-desktop"></i>
                                         </g:if>
-                                        <g:if test="${myExportedResourceInstance.moodleUrl != null}">
+                                        <g:if test="${instance.resource.moodle}">
                                             <i class="fa fa-graduation-cap"></i>
                                         </g:if>
                                     </div>
@@ -97,17 +95,17 @@
                                     %{--</div>--}%
                                     %{--</div>--}%
                                     <div class="col s1 offset-s9">
-                                        <a class="dropdown-button" data-activates='dropdown${myExportedResourceInstance.id}'><i class="material-icons" style="color: black;">more_vert</i></a>
+                                        <a class="dropdown-button" data-activates='dropdown${instance.id}'><i class="material-icons" style="color: black;">more_vert</i></a>
                                         <!-- Dropdown Structure -->
-                                        <ul id='dropdown${myExportedResourceInstance.id}' class='dropdown-content'>
+                                        <ul id='dropdown${instance.id}' class='dropdown-content'>
                                             <li style="text-align: center;">
-                                                <a href="/exported-resource/publish/${myExportedResourceInstance.id}"
+                                                <a href="/exported-resource/publish/${instance.id}"
                                                    class="tooltipped"  data-position="bottom" data-delay="50" data-tooltip="Editar">
                                                 <i class="fa fa-pencil" style="color: #FF5722;" ></i>
                                                 </a>
                                             </li>
                                             <li style="text-align: center;">
-                                                <a href="/exported-resource/delete/${myExportedResourceInstance.id}"
+                                                <a href="/exported-resource/delete/${instance.id}"
                                                    class="tooltipped"  data-position="bottom" data-delay="50" data-tooltip="Excluir">
                                                 <i class="fa fa-trash" style="color: #FF5722;"></i>
                                                 </a>
@@ -122,18 +120,23 @@
                             <span class="card-title grey-text text-darken-4"><small class="left">Jogar:</small><i class="material-icons right">close</i></span>
                             <div class="clearfix"></div>
                             <div class="plataform-card left-align">
-                                <g:if test="${myExportedResourceInstance.webUrl != null}">
-                                    <a target="_blank" href="${myExportedResourceInstance.webUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão web"><i class="fa fa-globe"></i></a> <br>
+                                <div class="col s6">
+                                <a target="_blank" href="/published/${instance.processId}/web" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Web"><i class="fa fa-globe"></i></a> <br>
+                                <g:if test="${instance.resource.desktop}">
+                                    <a target="_blank" href="/published/${instance.processId}/desktop/${instance.resource.name}-linux.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Linux"><i class="fa fa-linux"></i></a> <br>
+                                    <a target="_blank" href="/published/${instance.processId}/desktop/${instance.resource.name}-windows.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Windows"><i class="fa fa-windows"></i></a> <br>
+                                    <a target="_blank" href="/published/${instance.processId}/desktop/${instance.resource.name}-mac.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Mac"><i class="fa fa-apple"></i></a> <br>
                                 </g:if>
-                                <g:if test="${myExportedResourceInstance.androidUrl != null}">
-                                    <a target="_blank" href="${myExportedResourceInstance.androidUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão android"><i class="fa fa-android"></i></a> <br>
+                                </div>
+                                <div class="col s6">
+                                <g:if test="${instance.resource.android}">
+                                    <a target="_blank" href="/published/${instance.processId}/mobile/${instance.resource.name}-android.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Android"><i class="fa fa-android"></i></a> <br>
                                 </g:if>
-                                <g:if test="${myExportedResourceInstance.linuxUrl != null}">
-                                    <a target="_blank" href="${myExportedResourceInstance.linuxUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão linux"><i class="fa fa-linux"></i></a> <br>
+
+                                <g:if test="${instance.resource.moodle}">
+                                    <a class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Disponível no Moodle"><i class="fa fa-graduation-cap"></i></a>
                                 </g:if>
-                                <g:if test="${myExportedResourceInstance.moodleUrl != null}">
-                                    <a target="_blank" href="${myExportedResourceInstance.moodleUrl}" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Versão moodle"><i class="fa fa-graduation-cap"></i></a>
-                                </g:if>
+                                </div>
                             </div>
 
                         </div>

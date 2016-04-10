@@ -1,11 +1,10 @@
 package br.ufscar.sead.loa.remar
 
+import br.ufscar.sead.loa.propeller.Propeller
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
-import grails.util.Environment
 import groovy.json.JsonSlurper
-import groovyx.net.http.HTTPBuilder
 import org.apache.commons.lang.RandomStringUtils
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 
@@ -96,100 +95,112 @@ class ExportedResourceController {
 
     def publish(ExportedResource instance) {
         def exportsTo = [:]
-        def urls = [:]
-        exportsTo.linux = instance.resource.linux
+        exportsTo.desktop = instance.resource.desktop
         exportsTo.android = instance.resource.android
         exportsTo.moodle = instance.resource.moodle
-
-        urls.linux = instance.linuxUrl
-        urls.android = instance.androidUrl
-        urls.moodle = instance.moodleUrl
 
         def baseUrl = "/published/${instance.processId}"
 
         RequestMap.findOrSaveWhere(url: "${baseUrl}/**", configAttribute: 'permitAll')
 
-        instance.webUrl = baseUrl + "/web"
-        instance.save flush: true
-
-        def moodleExport = false
-        if (MoodleAccount.findByOwner(session.user)) {
-            moodleExport = true
-        }
-
-        render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, urls: urls, baseUrl: baseUrl, moodleExport: moodleExport]
+        render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl]
     }
 
-    def web(ExportedResource exportedResourceInstance) {
-        render exportedResourceInstance.webUrl
-    }
+    def export(ExportedResource instance) {
+        def urls = [:]
+        def resourceName = instance.resource.name
+        def desktop = instance.resource.desktop
+        def android = instance.resource.android
 
-    def android(ExportedResource instance) {
-        def root = servletContext.getRealPath("/")
-        root = root.substring(0, root.length() -1)
-
-        def dir = servletContext.getRealPath("/published/${instance.processId}/android")
-        def resourceDir = servletContext.getRealPath("/data/resources/sources/${instance.resource.uri}")
-        def ant = new AntBuilder()
-        ant.sequential {
-            mkdir(dir: dir + '/tmp')
-            mkdir(dir: dir + '/apk')
-            copy(todir: dir + '/tmp') {
-                fileset dir: dir + "/../web"
-            }
-            copy(file: resourceDir + "/android/manifest.json", tofile: dir + '/tmp/manifest.json')
-            chmod(file: "${root}/scripts/publish_android.sh", perm: "+x")
-            exec(executable: "${root}/scripts/publish_android.sh") {
-                arg(value: root)
-                arg(value: "br.ufscar.sead.loa.${instance.resource.uri}")
-                arg(value: dir + '/tmp/manifest.json')
-                arg(value: dir)
-            }
-            move(file: "${dir}/apks.zip",
-                    tofile: "${dir}/../android.zip")
-            delete(dir: dir)
+        urls.web = "/published/${instance.processId}/web"
+        if (desktop) {
+            urls.windows = "/published/${instance.processId}/desktop/${resourceName}-windows.zip"
+            urls.linux = "/published/${instance.processId}/desktop/${resourceName}-linux.zip"
+            urls.mac = "/published/${instance.processId}/desktop/${resourceName}-mac.zip"
+        }
+        if (android) {
+            urls.android = "/published/${instance.processId}/mobile/${resourceName}-android.zip"
         }
 
-        ExportedResource.withNewSession {
-            instance = ExportedResource.get(instance.id)
-            instance.androidUrl = "/published/${instance.processId}/android.zip"
+        if (!instance.exported) {
+            def root = servletContext.getRealPath("/")
+            def sourceFolder = "${root}/data/resources/sources/${instance.resource.uri}/"
+            def desktopFolder = "${root}/published/${instance.processId}/desktop"
+            def mobileFolder = "${root}/published/${instance.processId}/mobile"
+            def ant = new AntBuilder()
+            def process = Propeller.instance.getProcessInstanceById(instance.processId, session.user.id as long)
+            def folders = []
+            def scriptUpdateElectron = "${root}/scripts/electron/update.sh"
+            def scriptUpdateCrosswalk = "${root}/scripts/crosswalk/update.sh"
+
+            folders << "${desktopFolder}/windows/resources/app"
+            folders << "${desktopFolder}/linux/resources/app"
+            folders << "${desktopFolder}/mac/${resourceName}.app/Contents/Resources/app"
+            folders << "${mobileFolder}/assets/www"
+
+            ant.sequential {
+                mkdir(dir: desktopFolder)
+                mkdir(dir: mobileFolder)
+                copy(file: "${sourceFolder}/windows.zip", tofile: "${desktopFolder}/windows.zip")
+                copy(file: "${sourceFolder}/linux.zip", tofile: "${desktopFolder}/linux.zip")
+                copy(file: "${sourceFolder}/mac.zip", tofile: "${desktopFolder}/mac.zip")
+                copy(file: "${sourceFolder}/android/${resourceName}-arm.apk", tofile: "${mobileFolder}/${resourceName}-arm.apk")
+                copy(file: "${sourceFolder}/android/${resourceName}-x86.apk", tofile: "${mobileFolder}/${resourceName}-x86.apk")
+
+                mkdir(dir: folders[0])
+                mkdir(dir: folders[1])
+                mkdir(dir: folders[2])
+                mkdir(dir: folders[3])
+            }
+
+            process.completedTasks.outputs.each { outputs ->
+                outputs.each { output ->
+                    ant.sequential {
+                        copy(
+                                file: output.path,
+                                tofile: "${folders[0]}/${output.definition.path}/${output.definition.name}",
+                        )
+                        copy(
+                                file: output.path,
+                                tofile: "${folders[1]}/${output.definition.path}/${output.definition.name}"
+                        )
+                        copy(
+                                file: output.path,
+                                tofile: "${folders[2]}/${output.definition.path}/${output.definition.name}",
+                        )
+                        copy(
+                                file: output.path,
+                                tofile: "${folders[3]}/${output.definition.path}/${output.definition.name}",
+                        )
+                    }
+                }
+            }
+            if (desktop) {
+                ant.sequential {
+                    chmod(perm: "+x", file: scriptUpdateElectron)
+                    exec(executable: scriptUpdateElectron) {
+                        arg(value: desktopFolder)
+                        arg(value: resourceName)
+                    }
+                }
+            }
+
+            if (android) {
+                ant.sequential {
+                    chmod(perm: "+x", file: scriptUpdateCrosswalk)
+                    exec(executable: scriptUpdateCrosswalk) {
+                        arg(value: root)
+                        arg(value: mobileFolder)
+                        arg(value: resourceName)
+                    }
+                }
+            }
+
+            instance.exported = true
             instance.save flush: true
         }
 
-        render instance.androidUrl
-    }
-
-    def linux(ExportedResource instance) {
-        def root = servletContext.getRealPath("/")
-        root = root.substring(0, root.length() -1)
-
-        def dir = servletContext.getRealPath("/published/${instance.processId}/linux")
-        def resourceDir = servletContext.getRealPath("/data/resources/sources/${instance.resource.uri}")
-        def ant = new AntBuilder()
-        ant.sequential {
-            mkdir(dir: dir + '/tmp')
-            mkdir(dir: dir + '/bin')
-            mkdir(dir: dir + '/tmp/Resources')
-            copy(todir: dir +  "/tmp/Resources") {
-                fileset dir: dir + "/../web"
-            }
-            copy(file: resourceDir + "/linux/manifest", tofile: dir + '/tmp/manifest')
-            copy(file: resourceDir + "/linux/tiapp.xml", tofile: dir + '/tmp/tiapp.xml')
-            chmod(file: "${root}/scripts/publish_linux.sh", perm: "+x")
-            exec(executable: "${root}/scripts/publish_linux.sh") {
-                arg(value: root)
-                arg(value: dir + '/tmp')
-                arg(value: dir + '/bin')
-            }
-            move(file: "${dir}/bin/resource.zip",
-                    tofile: "${dir}/../linux.zip")
-            delete(dir: dir)
-        }
-
-        instance.linuxUrl = "/published/${instance.processId}/linux.zip"
-        instance.save flush: true
-
-        render instance.linuxUrl
+        render urls as JSON
     }
 
     def moodle(ExportedResource exportedResourceInstance) {
