@@ -10,11 +10,6 @@ cd $2
 find assets -type f | xargs zip ${APK_1}
 find assets -type f | xargs zip ${APK_2}
 
-
-# $1: APK(s) parent directory
-# $2: zipalign parent directory
-# $3: keystore path
-
 zip -d ${APK_1} META-INF/\*
 jarsigner -sigalg SHA1withRSA -digestalg SHA1 -keystore ${KEYSTORE} -storepass android ${APK_1} androiddebugkey
 ${ZIPALIGN_PARENT}/zipalign 4 ${APK_1} ${APK_1}-tmp
