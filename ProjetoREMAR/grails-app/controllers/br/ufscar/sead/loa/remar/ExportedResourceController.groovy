@@ -256,8 +256,6 @@ class ExportedResourceController {
             instance.save(flush: true)
             response.status = 200
         }
-
-        render instance.webUrl
     }
 
     @SuppressWarnings("GroovyAssignabilityCheck")
