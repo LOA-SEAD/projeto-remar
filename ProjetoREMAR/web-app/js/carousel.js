@@ -22,5 +22,5 @@ var mySwiper = new Swiper ('.swiper-container', {
 });
 
 $(document).ready(function(){
-    $('.tooltipped').tooltip({delay: 50});
+    $('.tooltipped').tooltip({delay: 35});
 });
