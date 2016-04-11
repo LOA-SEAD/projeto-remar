@@ -49,11 +49,20 @@
             </div>
         </div>
         <a href="#" class="jcarousel-control next swiper-button-next" data-jcarouselcontrol="true">›</a>
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="game-stat">
+
+            </div>
+        </div>
     </div>
 
 </div>
 
 <g:javascript src="carousel.js"/>
+<g:javascript src="game-info.js"/>
 
 </body>
 </html>

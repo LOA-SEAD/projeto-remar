@@ -3,7 +3,6 @@ package br.ufscar.sead.loa.remar
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.util.Environment
-import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 import groovyx.net.http.HTTPBuilder
 import org.springframework.web.multipart.commons.CommonsMultipartFile
@@ -299,8 +298,6 @@ class ExportedResourceController {
         if(params.resourceId) {
             def data = MongoHelper.instance.getData("escola_magica", params.resourceId as Integer)
             if (data.first() != null) {
-                def builder = new JsonBuilder()
-
                 def userCount = 0
                 def users = [:]
                 def data3 = [:]
@@ -319,7 +316,6 @@ class ExportedResourceController {
                         users[currentUser] = userModel
                     }
 
-                    println it
                     if(it.resposta == it.respostacerta) {
                         users[currentUser]["hits"]++
                     }
@@ -328,11 +324,7 @@ class ExportedResourceController {
                     }
                 }
 
-                def json = builder (
-                        "data": users
-                )
-
-                render json as JSON
+                render view: "_table", model: [users: users]
             }
             else {
                 render "no information found in our records."
