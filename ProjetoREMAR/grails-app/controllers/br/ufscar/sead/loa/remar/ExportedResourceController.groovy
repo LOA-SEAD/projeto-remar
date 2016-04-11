@@ -278,11 +278,19 @@ class ExportedResourceController {
     }
 
     def stats() {
-        def model = [:]
+        def myMoodleGames = []
 
-        def myMoodleGames = ExportedResource.findAllByOwnerAndMoodleUrlIsNotNull(session.user)
+        ExportedResource.findAllByOwnerAndMoodleUrlIsNotNull(session.user).each { exportedResource ->
+            def model = [:]
+
+            model.name = exportedResource.name
+            model.image = "${exportedResource.processId}/banner.png"
+
+            myMoodleGames.add(model)
+        }
+
         println myMoodleGames
 
-        render view: "stats", model: model
+        render view: "stats", model: [moodleList: myMoodleGames]
     }
 }

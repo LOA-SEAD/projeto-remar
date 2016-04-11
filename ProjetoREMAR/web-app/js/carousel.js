@@ -20,3 +20,7 @@ var mySwiper = new Swiper ('.swiper-container', {
 
     hashnav: true,
 });
+
+$(document).ready(function(){
+    $('.tooltipped').tooltip({delay: 50});
+});

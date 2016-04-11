@@ -306,6 +306,10 @@ footer.page-footer{
         margin-bottom: 0px;
     }
 
+    .no-margin-top {
+        margin-top: 0px !important;
+    }
+
     .my-orange, button:focus {
         background-color: #FF5722 !important;
     }
@@ -949,10 +953,11 @@ Position must be relative!*/
 .carousel-wrapper {
     float: left;
     border: 10px solid white;
-    height: 170px;
+    height: 220px;
     margin-top: 10px;
     margin-left: 8px;
     margin-right: 10px;
+    border: 0;
 
     webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -986,7 +991,7 @@ Position must be relative!*/
 
 .swiper-container {
     width: 100%;
-    height: 150px;
+    height: 210px;
 }
 
 .swiper-slide {
@@ -997,7 +1002,7 @@ Position must be relative!*/
     float: left !important;
     width: 30px !important;
     height: 30px !important;
-    margin-top: 80px !important;
+    margin-top: 100px !important;
     text-align: center !important;
     /*background-image: none !important;*/
     background: #5d4037 !important;
@@ -1015,4 +1020,17 @@ Position must be relative!*/
     -webkit-box-shadow: 0 0 2px #999 !important;
     -moz-box-shadow: 0 0 2px #999 !important;
     box-shadow: 0 0 2px #999 !important;
+}
+
+.swiper-wrapper {
+    height: 96% !important;
+}
+
+.big-platform-logo {
+    font-size: 5em !important;
+}
+
+.collapsible.popout > li {
+    width: 97% !important;
+    margin: 16px auto !important;
 }
