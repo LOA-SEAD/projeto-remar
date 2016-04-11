@@ -265,7 +265,7 @@ class ExportedResourceController {
 
         /* auto generate required data */
         data.user = session.user.id
-        def exportedResource = ExportedResource.findByMoodleUrl(data.moodle_url)
+        def exportedResource = ExportedResource.findByWebUrl(data.moodle_url)
         data.game = exportedResource.id
         data.timestamp = new Date().toTimestamp()
 
