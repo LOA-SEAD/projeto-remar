@@ -3,6 +3,7 @@ package br.ufscar.sead.loa.remar
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.util.Environment
+import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 import groovyx.net.http.HTTPBuilder
 import org.springframework.web.multipart.commons.CommonsMultipartFile
@@ -292,5 +293,53 @@ class ExportedResourceController {
         println myMoodleGames
 
         render view: "stats", model: [moodleList: myMoodleGames]
+    }
+
+    def _table() {
+        if(params.resourceId) {
+            def data = MongoHelper.instance.getData("escola_magica", params.resourceId as Integer)
+            if (data.first() != null) {
+                def builder = new JsonBuilder()
+
+                def userCount = 0
+                def users = [:]
+                def data3 = [:]
+
+                data.collect {
+                    def currentUser = it.user
+
+                    if(users[currentUser] == null) {
+                        def userModel = [:]
+                        def user = User.get(currentUser)
+
+                        userModel['name'] = user.firstName + " " + user.lastName
+                        userModel['hits'] = 0
+                        userModel['errors'] = 0
+
+                        users[currentUser] = userModel
+                    }
+
+                    println it
+                    if(it.resposta == it.respostacerta) {
+                        users[currentUser]["hits"]++
+                    }
+                    else {
+                        users[currentUser]['errors']++
+                    }
+                }
+
+                def json = builder (
+                        "data": users
+                )
+
+                render json as JSON
+            }
+            else {
+                render "no information found in our records."
+            }
+        }
+        else {
+            render "no information found in our records."
+        }
     }
 }

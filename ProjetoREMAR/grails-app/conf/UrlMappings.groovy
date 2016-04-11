@@ -51,6 +51,7 @@ class UrlMappings {
         '/exported-resource/publicGames'(controller:"exportedResource", action:"publicGames")
         '/exported-resource/myGames'(controller:"exportedResource", action:"myGames")
         '/exported-resource/stats'(controller:"exportedResource", action:"stats")
+        "/exported-resource/_table/$resourceId"(controller: "moodle", action: "_table")
 
         // end Resource API endpoints
 
