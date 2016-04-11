@@ -196,14 +196,14 @@ class ExportedResourceController {
                 }
             }
 
-            ExportedResource.withNewSession {
-                if (instance.resource.moodle) {
-                    instance.moodleUrl = urls.web
-                }
 
-                instance.exported = true
-                instance.save flush: true
+            if (instance.resource.moodle) {
+                instance.moodleUrl = urls.web
             }
+
+            instance.exported = true
+            instance.save flush: true
+
         }
 
         render urls as JSON
@@ -256,6 +256,8 @@ class ExportedResourceController {
             instance.save(flush: true)
             response.status = 200
         }
+
+        render ' '
     }
 
     @SuppressWarnings("GroovyAssignabilityCheck")
