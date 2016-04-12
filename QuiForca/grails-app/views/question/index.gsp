@@ -250,17 +250,17 @@
                     <tr>
                         <td>Pergunta 1</td>
                         <td>Resposta 1</td>
-                        <td>Exemplo</td>
+                        <td>Tema 1</td>
                     </tr>
                     <tr>
                         <td>Pergunta 2</td>
                         <td>Resposta 2</td>
-                        <td>Exemplo</td>
+                        <td>Tema 2</td>
                     </tr>
                     <tr>
                         <td>Pergunta 3</td>
                         <td>Resposta 3</td>
-                        <td>Exemplo</td>
+                        <td>Tema 3</td>
                     </tr>
                     </tbody>
                 </table>
