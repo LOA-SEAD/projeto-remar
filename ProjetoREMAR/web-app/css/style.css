@@ -1034,3 +1034,8 @@ Position must be relative!*/
     width: 97% !important;
     margin: 16px auto !important;
 }
+
+.my-div {
+    float: left;
+    width: 25%;
+}

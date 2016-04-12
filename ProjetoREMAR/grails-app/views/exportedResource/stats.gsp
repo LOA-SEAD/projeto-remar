@@ -53,6 +53,9 @@
         <div class="clearfix"></div>
 
         <div class="row">
+            <br />
+            <h5>Dados</h5>
+
             <div class="game-stat">
 
             </div>
