@@ -72,13 +72,6 @@ $(function(){
                 type: 'POST',
                 url: url,
                 data: formData,
-                //xhr: function() {
-                //    var myXhr = $.ajaxSettings.xhr();
-                //    if(myXhr.upload){
-                //        myXhr.upload.addEventListener('progress',progress, false);
-                //    }
-                //    return myXhr;
-                //},
                 processData: false,
                 contentType: false,
                 success: function (data) {
@@ -167,7 +160,7 @@ $(function(){
     });
 
     $('.comment').on('focusout', function() {
-        var url = location.origin + '/resource/review/' + $(this).data('id') + "?comment=" + encodeURIComponent($(this).val());
+        var url = location.origin + '/resource/review/' + $(this).attr('data-id') + "?comment=" + encodeURIComponent($(this).val());
         $.ajax({
             type:'POST',
             url: url,

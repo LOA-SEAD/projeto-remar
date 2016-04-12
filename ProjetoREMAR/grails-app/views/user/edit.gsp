@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta name="layout" content="materialize-layout">
-    <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
+
 	<title>Meu perfil</title>
 </head>
 <body>
@@ -170,6 +170,7 @@
             </div>
         </div>
     </div>
+    <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
     <g:javascript src="jquery/jquery.validate.js"/>
     <g:javascript src="user/update-validator.js"/>
     <g:javascript src="jquery/jquery.Jcrop.js"/>

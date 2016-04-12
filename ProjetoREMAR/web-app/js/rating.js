@@ -60,7 +60,7 @@ $(document).ready(function(){
         else{
             var formData = new FormData();
             formData.append('stars',Number($(".counter").text())*10);
-            formData.append('comment', $("#comment-area").val());
+            formData.append('commentRating', $("#comment-area").val());
 
             $.ajax({
                 url: "/resource/saveRating/" + $("#hidden").val(),

@@ -33,9 +33,6 @@
 								</g:else>
 							</g:each>
 						</g:if>
-						%{--<option value="" data-icon="/assets/img/inside/avatar.png" class="left circle">Ação</option>--}%
-						%{--<option value="" data-icon="/assets/img/inside/avatar.png" class="left circle">Aventura</option>--}%
-						%{--<option value="" data-icon="/assets/img/inside/avatar.png" class="left circle">Educacional</option>--}%
 					</select>
 					<label for="select">Escolha uma categoria: </label>
 				</div>

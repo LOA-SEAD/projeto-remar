@@ -82,25 +82,17 @@
 								<li>
 									<!-- tamanho ideal para imagem 500x250 -->
 									<img src="/data/resources/assets/${resourceInstance.uri}/description-1">
-									%{--<div class="caption center-align">--}%
-										%{--<h3>This is our big Tagline!</h3>--}%
-										%{--<h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>--}%
-									%{--</div>--}%
 								</li>
 								<li>
 									<img src="/data/resources/assets/${resourceInstance.uri}/description-2">
-									%{--<img src="/data/resources/assets/${resourceInstance.uri}/teste.jpg">--}%
 								</li>
 								<li>
 									<img src="/data/resources/assets/${resourceInstance.uri}/description-3">
-								%{--<img src="/data/resources/assets/${resourceInstance.uri}/teste.jpg">--}%
 								</li>
 							</ul>
 						</div>
 
 						<p class="description">${resourceInstance.description}</p>
-
-						%{--${resourceInstance.description}--}%
 					</div>
 					<div class="card-action">
 						<p class="left comment-text">Comentários</p>

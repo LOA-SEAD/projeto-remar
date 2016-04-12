@@ -263,9 +263,7 @@ class ResourceController {
 
             render "success"
         }
-
         resourceInstance.save flush: true
-
     }
 
     @Transactional
@@ -328,7 +326,7 @@ class ResourceController {
     def saveRating(Resource instance){
         log.debug(params)
 
-        Rating r = new Rating(user: session.user, stars: params.stars, comment: params.comment, date: new Date())
+        Rating r = new Rating(user: session.user, stars: params.stars, comment: params.commentRating, date: new Date())
         instance.addToRatings(r)
         instance.sumStars +=  r.stars;
         instance.sumUser++
@@ -373,11 +371,6 @@ class ResourceController {
         rating.resource.sumUser -=1
 
         rating.delete flush: true;
-        //alterar a media e a soma dos usuarios
-
-
-//        render model: [mediumStars: (rating.resource.sumStars / rating.resource.sumUser),
-//                       sumUsers: rating.resource.sumUser]
 
         render rating.resource as JSON
     }
