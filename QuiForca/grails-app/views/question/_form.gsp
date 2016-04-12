@@ -1,5 +1,6 @@
 <%@ page import="br.ufscar.sead.loa.quiforca.remar.Question" %>
 
+
 <div class="input-field col s12">
     <input id="statement" name="statement" required="" value="${questionInstance?.statement}" type="text" class="validate" maxlength="150">
     <label for="statement">Pergunta</label>

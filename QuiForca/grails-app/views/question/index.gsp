@@ -171,7 +171,9 @@
 <!-- Modal Structure -->
 <div id="createModal" class="modal">
     <div class="modal-content">
-        <h4>Criar Questão</h4>
+
+                <h4>Criar Questão <i class="material-icons tooltipped" data-position="right" data-delay="30" data-tooltip="Respostas não devem possuir números nem caracteres especiais.">info</i></h4>
+
 
         <div class="row">
             <g:form url="[resource: questionInstance, action: 'newQuestion']">

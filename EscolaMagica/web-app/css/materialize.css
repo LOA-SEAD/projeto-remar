@@ -8,6 +8,10 @@
   font-size: 28px;
 }
 
+.justify-text{
+    text-align: justify;
+}
+
 .my-orange{
   background-color: #FF5722 !important;
 }
