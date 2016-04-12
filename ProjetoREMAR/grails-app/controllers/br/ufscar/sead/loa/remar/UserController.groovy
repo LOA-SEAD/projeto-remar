@@ -93,8 +93,8 @@ class UserController {
                         token.save flush: true
                         log.debug token.errors
                         def url = "http://${request.serverName}:${request.serverPort}/user/password/reset?t=${token.token}"
-                        Util.sendEmail(user.email, "Recuperar senha",
-                                "<h3><a href=\"${url}\">Clique aqui</a> para redefinir sua senha :)</h3> <br>")
+                        def mensagem = "<h3>Username:" + user.username + "</h3> <br> <h3><a href=\"${url}\">Clique aqui</a> para redefinir sua senha :)</h3> <br>"
+                        Util.sendEmail(user.email, "Recuperar senha", mensagem)
 
                         render view: "/user/password/emailSent", model: [email: user.email]
                     } else {
