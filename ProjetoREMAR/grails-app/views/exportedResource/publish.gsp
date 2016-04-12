@@ -139,6 +139,8 @@ Time: 09:55
 
                         </div>
                     </div>
+                </li>
+            </ul>
         </div>
     </li>
             </ul>
@@ -164,7 +166,5 @@ Time: 09:55
 <g:javascript src="platforms.js"/>
 <g:javascript src="imgPreview.js"/>
 <g:javascript src="jquery/jquery.Jcrop.js"/>
-%{--<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">--}%
-%{--<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>--}%
 </body>
 </html>

@@ -224,23 +224,11 @@ class ExportedResourceController {
 
     def update(ExportedResource instance) {
         def path = new File("${servletContext.getRealPath("/published/${instance.processId}")}/")
-        println(params)
-//        log.debug(params)
-
 
         if (params.img1 != null && params.img1 != "") {
-            println("alterou a imagem")
-            println(params.img1)
             def img1 = new File(servletContext.getRealPath("${params.img1}"))
             img1.renameTo(new File(path, "banner.png"))
         }
-
-//        def destination = new File("${servletContext.getRealPath("/published/${instance.processId}")}/banner.png")
-//
-//        def photo = params.banner as CommonsMultipartFile
-//        if (photo != null && !photo.isEmpty()) {
-//            photo.transferTo(destination)
-//        }
 
         def i = ExportedResource.findByName(params.name)
         if(i) {

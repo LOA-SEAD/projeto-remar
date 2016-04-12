@@ -18,7 +18,7 @@
 <div class="row cluster">
     <div class="cluster-header">
         <p class="text-teal text-darken-3 left-align margin-bottom">
-            <i class="small material-icons left">public</i>Jogos
+            <i class="small material-icons left">videogame_asset</i>Jogos
         </p>
 
         <div class="divider"></div>
@@ -55,7 +55,7 @@
                             <div class="cover-image-container">
                                 <img alt="${instance.name}"
                                      class="cover-image img-responsive image-bg activator "
-                                     src="/published/${instance.processId}/banner.png">
+                                     src="/published/${instance.processId}/banner.png?=${new Date()}">
                             </div>
                         </div>
 

@@ -20,6 +20,8 @@ class UrlMappings {
         // begin user mappings
         "/user/account/confirm/$token"(controller: 'user',action: 'confirmAccount')
         name resetPassword: "/user/password/reset"(controller: 'user', action: 'resetPassword')
+        name update: "/user/update"(controller: 'user', action: 'update')
+
         // end user mappings
 
         // begin password mappings

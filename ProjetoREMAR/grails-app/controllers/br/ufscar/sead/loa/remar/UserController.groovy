@@ -165,28 +165,28 @@ class UserController {
     }
 
     @Transactional
-    def update(User userInstance) {
-        def user = User.get(params.userId)
-        user.firstName = params.firstName
-        user.lastName = params.lastName
-        user.email = params.email
-        user.gender = params.gender
+    def update(User user) {
 
-        if(params.password != null && params.password == params.confirm_password) {
+        if( params.password != "" && params.password == params.confirm_password) {
             user.password = params.confirm_password
+        }else{
+            user.password = user.getPersistentValue("password")
         }
 
-        if(!params.photo.isEmpty()) {
-            def root = servletContext.getRealPath("/")
-            def f = new File("${root}data/users/${user.username}")
-            f.mkdirs()
-            def destination = new File(f, "profile-picture")
-            def photo = params.photo as CommonsMultipartFile
+        def root = servletContext.getRealPath("/")
+        def f = new File("${root}data/users/${user.username}")
+        f.mkdirs()
 
-            params.photo.transferTo(destination)
+        if (params.photo != "/images/avatars/default.png") {
+            def img1 = new File(servletContext.getRealPath("${params.photo}"))
+            img1.renameTo(new File(f,"profile-picture"))
+
         }
+        user.save flush: true
 
-        log.debug "User " + user.username + " successfully updated"
+        println(user.errors)
+
+        redirect uri: "/user/updateUser";
     }
 
     @Transactional
@@ -226,6 +226,11 @@ class UserController {
         UserRole.create(springSecurityService.getCurrentUser() as User, Role.findByAuthority("ROLE_DEV"), true)
         log.debug("Usuário " + springSecurityService.getCurrentUser().firstName + " adicionado como desenvolvedor.")
         render(view: "/static/newDeveloper")
+    }
+
+    @Transactional
+    def updateUser() {
+        render(view: "/static/updateUser")
     }
 
     @Transactional

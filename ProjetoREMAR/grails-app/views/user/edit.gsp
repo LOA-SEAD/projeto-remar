@@ -35,9 +35,7 @@
             <div class="divider"></div>
         </div>
         <div class="row show">
-            <form method="POST" action="/user/update" enctype="multipart/form-data">
-                <input id="userId" name="userId" type="hidden" value="${session.user.id}" />
-
+            <form method="POST" action="/user/update?id=${session.user.id}" enctype="multipart/form-data" data-user-id="${session.user.id}">
                 <div class="row" style="margin-top: 20px;">
                     <div class="input-field col s12 m6">
                         <i class="material-icons prefix">person</i>
@@ -54,25 +52,11 @@
                         <input id="email" name="email" type="email" value="${session.user.email}" />
                         <label for="email">Email</label>
                     </div>
-                    <div class="input-field col s12 m6">
+                    <div class="input-field col s12 m12">
                         <i class="material-icons prefix">account_circle</i>
                         <input id="username" name="username" type="hidden" value="${session.user.username}" />
                         <input type="text" value="${session.user.username}" disabled />
                         <label for="username">Nome de Usuário</label>
-                    </div>
-                    <div class="input-field col s12 m6">
-                        <i class="material-icons prefix" style="color: #FF5722; left: 10px;">face</i>
-                        <select id="select" name="gender">
-                            <g:if test="${session.user.gender == "male"}">
-                                <option value="male" selected>Masculino</option>
-                                <option value="female">Feminino</option>
-                            </g:if>
-                            <g:else>
-                                <option value="male">Masculino</option>
-                                <option value="female" selected>Feminino</option>
-                            </g:else>
-                        </select>
-                        <label for="select">Sexo</label>
                     </div>
 
                     <div class="input-field col s12 m6">
@@ -89,10 +73,11 @@
 
                     <div class="input-field file-field col s12">
                         <div class="col s3">
+                            <input type="hidden" name="photo" value="/images/avatars/default.png" id="srcImage">
                             <img id="profile-picture" class="circle profile-picture" src="/data/users/${session.user.username}/profile-picture" />
                         </div>
                         <div>
-                            <input type="file" id="file" name="photo" accept="image/jpeg, image/png">
+                            <input type="file" id="file" accept="image/jpeg, image/png">
                             <div class="file-path-wrapper">
                                 <input class="file-path" type="text" placeholder="Selecione uma foto (opicional)">
                                 <span class="input-description my-left">Outros usuários irão te identificar mais facilmente :)</span>
@@ -102,7 +87,7 @@
 
                     <div class="clearfix"></div>
                     <div class="input-field center-align">
-                        <button id="submit" class="btn waves-effect waves-light tooltiped my-orange" type="submit">Enviar</button>
+                        <button class="btn waves-effect waves-light tooltiped my-orange" type="submit">Enviar</button>
                     </div>
                 </div>
             </form>

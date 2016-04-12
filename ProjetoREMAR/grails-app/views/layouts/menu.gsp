@@ -36,7 +36,7 @@
         <a href="/resource/customizableGames" class=""><i class="medium material-icons">create</i>Modelos</a>
     </li>
     <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os jogos públicos que você pode acessar." data-step="2">
-        <a href="/exportedResource/publicGames" class=""><i class="medium material-icons">public</i>Jogos</a>
+        <a href="/exportedResource/publicGames" class=""><i class="medium material-icons">videogame_asset</i>Jogos</a>
     </li>
     <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os jogos que você publicou." data-step="3">
         <a href="/exportedResource/myGames" class=""><i class="medium material-icons">recent_actors</i>Meus Jogos</a>
