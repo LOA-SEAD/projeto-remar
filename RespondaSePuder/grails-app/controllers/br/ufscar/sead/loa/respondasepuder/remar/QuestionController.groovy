@@ -31,6 +31,33 @@ class QuestionController {
             session.user = springSecurityService.currentUser
         }
 
+        def list = Question.findAllByOwnerId(session.user.id)
+
+        if(list.size()==0){
+
+            new Question(title: "Questão 1 - Nível 1", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 1, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 2 - Nível 1", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 1, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 3 - Nível 1", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 1, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 4 - Nível 1", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 1, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 5 - Nível 1", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 1, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+
+            new Question(title: "Questão 1 - Nível 2", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 2, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 2 - Nível 2", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 2, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 3 - Nível 2", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 2, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 4 - Nível 2", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 2, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 5 - Nível 2", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 2, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+
+            new Question(title: "Questão 1 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 2 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 3 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 4 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 5 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+
+        }
+
+
+
+
         respond Question.findAllByOwnerId(session.user.id), model: [questionInstanceCount: Question.count()]
     }
 
