@@ -3,6 +3,10 @@
  */
 
 $(document).ready(function() {
+    $('.collapsible').collapsible({
+        accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
+
     //$('#game-stat')
     fillTable(2);
 
@@ -19,7 +23,9 @@ $(document).ready(function() {
             },
             error: function(data) {
                 console.log("error.");
+                console.log(data)
             }
         });
     }
+
 });

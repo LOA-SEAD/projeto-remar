@@ -312,6 +312,7 @@ class ExportedResourceController {
                         userModel['name'] = user.firstName + " " + user.lastName
                         userModel['hits'] = 0
                         userModel['errors'] = 0
+                        userModel['id'] = currentUser
 
                         users[currentUser] = userModel
                     }
