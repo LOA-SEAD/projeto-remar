@@ -3,16 +3,16 @@ dataSource {
     jmxExport = true
     driverClassName = "com.mysql.jdbc.Driver"
     dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
-    username = "root"
-    password = "root"
+    username = "respondasepuder"
+    password = "respondasepuder"
 }
 dataSource_remar {
     pooled = true
     jmxExport = true
     driverClassName = "com.mysql.jdbc.Driver"
     dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
-    username = "root"
-    password = "root"
+    username = "respondasepuder"
+    password = "respondasepuder"
 }
 
 
