@@ -16,7 +16,6 @@
                         <li>
                             <a href="#" data-activates="dropdown-user" class="dropdown-button">
                                 <img src="/data/users/${session.user.username}/profile-picture"
-                                <img src="/data/users/${session.user.username}/profile-picture"
                                      alt="${session.user.firstName}" class="circle profile-pic"
                                      data-beloworigin="true">
                             </a>

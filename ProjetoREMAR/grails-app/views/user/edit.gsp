@@ -122,7 +122,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row" id="moodle">
                 <div class="col s12 left-align">
                     <ul class="collection with-header">
                         <li class="collection-header">
