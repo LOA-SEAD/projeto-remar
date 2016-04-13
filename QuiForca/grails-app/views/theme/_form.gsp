@@ -26,47 +26,68 @@
                             <table class="centered" id="tableNewTheme">
                                 <thead>
                                 <tr>
-                                    <th>Ícone</th>
-                                    <th>Tela de Abertura</th>
-                                    <th>Tela de Fundo</th>
+                                    <th>Nome da Imagem</th>
+                                    <th>Preview da Imagem</th>
+                                    <th>Arquivo</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
+                                    <td>Ícone</td>
                                     <td>
                                         <div class="row">
-                                            <img class="" id="iconePreview" style="width: 250px;" />
+                                              <img class="" id="iconePreview" style="width: 200px;" />
                                         </div>
-                                        <div class="file-field input-field">
-                                            <input type="file" name="icone" id="icone">
+                                    </td>
+                                    <td>
 
+                                        <div class="file-field input-field">
+                                            <div class="btn right">
+                                                <span>File</span>
+                                                <input type="file" name="icone" id="icone" multiple>
+                                            </div>
                                             <div class="file-path-wrapper">
                                                 <input class="file-path validate" type="text" placeholder="Selecione um ícone">
                                             </div>
                                         </div>
 
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td>Tela de Abertura</td>
                                     <td>
                                         <div class="row">
-                                            <img class="" id="openingPreview" style="width: 250px;" />
-                                        </div>
-
-                                        <div class="file-field input-field">
-                                            <input type="file" name="opening" id="opening">
-                                            <div class="file-path-wrapper">
-                                                <input class="file-path validate" type="text" placeholder="Selecione uma tela de abertura">
-                                            </div>
+                                            <img class="" id="openingPreview" style="width: 200px;" />
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="row">
-                                            <img class="" id="backgroundPreview" style="width: 250px;" />
-                                        </div>
                                         <div class="file-field input-field">
-
-                                            <input type="file" name="background" id="background">
+                                            <div class="btn right">
+                                                <span>File</span>
+                                                <input type="file" name="opening" id="opening" multiple>
+                                            </div>
                                             <div class="file-path-wrapper">
-                                                <input class="file-path validate" type="text" placeholder="Selecione uma tela de fundo">
+                                                <input class="file-path validate" type="text" placeholder="Selecione um ícone">
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tela de Fundo</td>
+                                    <td>
+                                        <div class="row">
+                                            <img class="" id="backgroundPreview" style="width: 200px;" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="file-field input-field">
+                                            <div class="btn right">
+                                                <span>File</span>
+                                                <input type="file" name="background" id="background" multiple>
+                                            </div>
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text" placeholder="Selecione um ícone">
                                             </div>
                                         </div>
 
@@ -119,7 +140,6 @@
 
     <input id="upload" type="submit" name="upload" class="btn btn-success my-orange" value="Criar"/>
 
-    <g:javascript src="imagePreview.js"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
     <script>
         $(document).ready(function(){
@@ -127,5 +147,6 @@
                 accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
             });
         });
+
     </script>
 </body>
