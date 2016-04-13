@@ -34,19 +34,10 @@
                             <label for="email">Email</label>
                         </div>
 
-                        <div class="input-field col s12 m6">
+                        <div class="input-field col s12 m12">
                             <i class="material-icons prefix">account_circle</i>
                             <input id="username" name="username" type="text"/>
                             <label for="username">Nome de usuário</label>
-                        </div>
-
-                        <div class="input-field col s12 m6">
-                            <i class="material-icons prefix" style="color: #FF5722;">face</i>
-                            <select id="select" name="gender">
-                                <option value="male">Masculino</option>
-                                <option value="female">Feminino</option>
-                            </select>
-                            <label for="select">Sexo</label>
                         </div>
 
                         <div class="input-field col s12 m6">
