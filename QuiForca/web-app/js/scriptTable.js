@@ -170,6 +170,48 @@ function update(tr) {
         error:function(XMLHttpRequest,textStatus,errorThrown){}});
 }
 
+
+function _edit(tr){
+    var url = location.origin + '/forca/question/returnInstance/' + $(tr).attr('data-id');
+    var data = {_method: 'GET'};
+
+    $.ajax({
+            type: 'GET',
+            data: data,
+            url: url,
+            success: function (returndata) {
+                var questionInstance = returndata.split("%@!");
+                //questionInstance é um vetor com os atributos da classe Question na seguinte ordem:
+                // Statement - Answer - author - Category - Version - ownerId - taskId - ID
+                //console.log("Sucesso?");
+                //console.log(questionInstance);
+                $("#editStatement").attr("value",questionInstance[0]);
+                $("#statementLabel").attr("class","active");
+                $("#answerLabel").attr("class","active");
+                $("#authorLabel").attr("class","active");
+                $("#categoryLabel").attr("class","active");
+
+                $("#editAnswer").attr("value",questionInstance[1]);
+                $("#editAuthor").attr("value",questionInstance[2]);
+                $("#editCategory").attr("value",questionInstance[3]);
+                $("#editVersion").attr("value",questionInstance[4]);
+                $("#questionID").attr("value",questionInstance[7]);
+
+
+                $("#editModal").openModal(
+
+                );
+
+
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log("Error, não retornou a instância");
+            }
+        }
+    );
+}
+
 function _delete(tr) {
 
     if(confirm("Você tem certeza que deseja excluir esta questão?")) {

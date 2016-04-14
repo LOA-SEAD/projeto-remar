@@ -87,40 +87,11 @@
 
                 <td>${fieldValue(bean: questionInstance, field: "author")}</td>
 
-                <td><i onclick="changeEditQuestion(${i})" style="color: #7d8fff; margin-right:10px;"
-                       class="fa fa-pencil modal-trigger" data-target="editModal${i}"
-                       data-model="${questionInstance.id}"></i> <i style="color: #7d8fff;" class="fa fa-trash-o"
+                <td><i onclick="_edit($(this.closest('tr')))" style="color: #7d8fff; margin-right:10px;"
+                       class="fa fa-pencil"
+                       ></i> <i style="color: #7d8fff;" class="fa fa-trash-o"
                                                                    onclick="_delete($(this.closest('tr')))"></i></td>
 
-                <!-- Modal Structure -->
-                <div id="editModal${i}" class="modal">
-                    <div class="modal-content">
-                        <h4>Editar Questão</h4>
-
-                        <div class="row">
-                            <g:if test="${flash.message}">
-                                <div class="message" role="status">${flash.message}</div>
-                            </g:if>
-                            <g:if test="${flash.message}">
-                                <div class="message" role="status">${flash.message}</div>
-                            </g:if>
-                            <g:hasErrors bean="${questionInstance}">
-                                <ul class="errors" role="alert">
-                                    <g:eachError bean="${questionInstance}" var="error">
-                                        <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message
-                                                error="${error}"/></li>
-                                    </g:eachError>
-                                </ul>
-                            </g:hasErrors>
-                            <g:form url="[resource: questionInstance, action: 'update']" method="PUT">
-                                <g:hiddenField name="version" value="${questionInstance?.version}"/>
-                                <g:render template="form" model="[questionInstance: questionInstance]"/>
-                                <g:actionSubmit class="save btn btn-success btn-lg my-orange" action="update"
-                                                value="${message(code: 'default.button.update.label', default: 'Salvar')}"/>
-                            </g:form>
-                        </div>
-                    </div>
-                </div>
 
             </g:if>
             <g:else>
@@ -183,6 +154,40 @@
                                 value="${message(code: 'default.button.create.label', default: 'Create')}"/>
             </g:form>
         </div>
+    </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <h4>Editar Questão</h4>
+        <g:form url="[resource: questionInstance, action: 'update']" method="PUT">
+
+                <input id="editVersion" name="version" required="" value="" type="hidden">
+                <input type="hidden" id="questionID" name="questionID">
+
+
+            <div class="input-field col s12">
+                <input id="editStatement" name="statement" required="" value="" type="text" class="validate" maxlength="150">
+                <label id="statementLabel" for="editStatement">Pergunta</label>
+            </div>
+            <div class="input-field col s12">
+                <input id="editAnswer" name="answer" required="" value="" type="text" class="validate"  onkeypress="validate(event)" maxlength="48">
+                <label id="answerLabel" for="editAnswer">Resposta</label>
+            </div>
+            <div class="input-field col s12">
+                <input id="editCategory" name="category" required="" value="" type="text" class="validate">
+                <label id="categoryLabel" for="editCategory">Tema</label>
+            </div>
+
+            <div class="input-field col s12" style="display: none;">
+                <input id="editAuthor" name="author" required="" readonly="readonly" value="" type="text" class="validate">
+                <label id="authorLabel" for="editAuthor">Autor</label>
+            </div>
+
+            <g:actionSubmit class="save btn btn-success btn-lg my-orange" action="update"
+                            value="${message(code: 'default.button.update.label', default: 'Salvar')}"/>
+        </g:form>
     </div>
 </div>
 
