@@ -25,6 +25,8 @@ class ThemeController {
 
     @Secured(['permitAll'])
     def index(Integer max) {
+        def user = springSecurityService.getCurrentUser()
+
         if (params.t && params.h) {
             session.taskId = params.t
 
@@ -50,7 +52,10 @@ class ThemeController {
             }
         }
 
-        respond Theme.findAllByOwnerId(session.user.id) , model:[themeInstanceCount: Theme.count()]
+        def list = Theme.findAllByOwnerId(user.getId())
+        def listPublic = Theme.findAll() - list
+
+        render view: "index", model: [themeInstanceListMy: list,  themeInstanceListPublic: listPublic]
     }
 
     def show(Theme themeInstance) {

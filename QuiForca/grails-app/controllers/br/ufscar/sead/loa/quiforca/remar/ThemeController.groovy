@@ -42,16 +42,9 @@ class ThemeController {
         def List = Theme.findAll()
         def publicList = List - Mylist
 
-//        if (params.review) {
-//            respond Theme.findAllByProcessIdAndTaskId(session.processId, session.taskId), model:[themeInstanceCount: Theme.count(), userName: user.getUsername(), userId: user.getId()]
-//
-//        }
-//        respond Theme.list(), model:[themeInstanceCount: Theme.count()]
-//        render view: "index", model: [MyThemeList: Mylist, publicList: publicList , themeInstanceCount: Theme.count(), userName: user.getUsername(), userId: user.getId()]
         def list = Theme.findAllByOwnerId(user.getId())
         def listPublic = Theme.findAll() - list
-//        render view: "index", model: [themeInstanceList: Mylist, themeInstanceCount: Theme.count(), userName: user.getUsername(), userId: user.getId()]
-//        respond Theme.findAllByOwnerId(user.getId()), model: [themeInstanceCount: Theme.count()]
+
         render view: "index", model: [themeInstanceListMy: list,  themeInstanceListPublic: listPublic]
 
 

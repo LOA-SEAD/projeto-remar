@@ -2,8 +2,23 @@
  * Created by matheus on 4/29/15.
  */
 
+$(document).ready(function(){
+    $('.collapsible').collapsible({
+        accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
+});
+
+
 window.onload = function(){
     console.log("ok");
+
+    var checkboxes = document.getElementsByTagName('input');
+
+    for (var i=0; i<checkboxes.length; i++)  {
+        if (checkboxes[i].type == 'radio')   {
+            checkboxes[i].checked = false;
+        }
+    }
 
     $(".save").click(function() {
         //var id = $(this).parent().parent().attr("data-id");
@@ -26,7 +41,11 @@ window.onload = function(){
                 success: function (data) {
                     console.log(data);
                     $(tr).hide();
-                    $(tr).remove();
+                    $(tr).remove()
+                    var myThemes = document.getElementsByClassName("myTheme");
+                    if(myThemes.length==0){
+                        window.location.reload();
+                    }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                 }

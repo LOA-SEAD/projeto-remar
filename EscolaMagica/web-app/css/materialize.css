@@ -8,6 +8,11 @@
   font-size: 28px;
 }
 
+.simpleTable{
+  font-weight: normal;
+  text-align: center;
+}
+
 .justify-text{
     text-align: justify;
 }
