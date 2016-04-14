@@ -77,7 +77,9 @@
                                         <i class="fa fa-android"></i>
                                     </g:if>
                                     <g:if test="${instance.resource.desktop}">
-                                        <i class="fa fa-desktop"></i>
+                                        <i class="fa fa-windows"></i>
+                                        <i class="fa fa-linux"></i>
+                                        <i class="fa fa-apple"></i>
                                     </g:if>
                                     <g:if test="${instance.resource.moodle}">
                                         <i class="fa fa-graduation-cap"></i>

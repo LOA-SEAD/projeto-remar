@@ -50,7 +50,9 @@
                                             <i class="fa fa-android"></i>
                                         </g:if>
                                         <g:if test="${gameInstance.desktop}">
-                                            <i class="fa fa-desktop"></i>
+                                            <i class="fa fa-windows"></i>
+                                            <i class="fa fa-linux"></i>
+                                            <i class="fa fa-apple"></i>
                                         </g:if>
                                         <g:if test="${gameInstance.moodle}">
                                             <i class="fa fa-graduation-cap"></i>

@@ -77,7 +77,9 @@
                                             <i class="fa fa-android"></i>
                                         </g:if>
                                         <g:if test="${instance.resource.desktop}">
-                                            <i class="fa fa-desktop"></i>
+                                            <i class="fa fa-windows"></i>
+                                            <i class="fa fa-linux"></i>
+                                            <i class="fa fa-apple"></i>
                                         </g:if>
                                         <g:if test="${instance.resource.moodle}">
                                             <i class="fa fa-graduation-cap"></i>
@@ -85,15 +87,6 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    %{--<div class="col s6">--}%
-                                    %{--<div class="pull-left tiny-stars">--}%
-                                    %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
-                                    %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
-                                    %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
-                                    %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
-                                    %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
-                                    %{--</div>--}%
-                                    %{--</div>--}%
                                     <div class="col s1 offset-s9">
                                         <a class="dropdown-button" data-activates='dropdown${instance.id}'><i class="material-icons" style="color: black;">more_vert</i></a>
                                         <!-- Dropdown Structure -->
