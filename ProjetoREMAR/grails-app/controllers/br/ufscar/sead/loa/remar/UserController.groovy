@@ -184,9 +184,9 @@ class UserController {
         }
         user.save flush: true
 
-        println(user.errors)
+        session.user = user
 
-        redirect uri: "/user/updateUser";
+        redirect uri: "/my-profile?profileUpdated=t";
     }
 
     @Transactional
