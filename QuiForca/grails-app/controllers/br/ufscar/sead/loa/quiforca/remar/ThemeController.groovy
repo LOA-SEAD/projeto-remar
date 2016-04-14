@@ -24,6 +24,8 @@ class ThemeController {
     def springSecurityService
 
     def index(Integer max) {
+
+        def user = springSecurityService.getCurrentUser()
         if (params.t && params.h) {
             session.taskId = params.t
 
@@ -36,11 +38,23 @@ class ThemeController {
 
         session.user = springSecurityService.currentUser
 
-        if (params.review) {
-            respond Theme.findAllByProcessIdAndTaskId(session.processId, session.taskId), model:[themeInstanceCount: Theme.count()]
+        def Mylist = Theme.findAllByOwnerId(user.getId()).toList()
+        def List = Theme.findAll()
+        def publicList = List - Mylist
 
-        }
-        respond Theme.list(), model:[themeInstanceCount: Theme.count()]
+//        if (params.review) {
+//            respond Theme.findAllByProcessIdAndTaskId(session.processId, session.taskId), model:[themeInstanceCount: Theme.count(), userName: user.getUsername(), userId: user.getId()]
+//
+//        }
+//        respond Theme.list(), model:[themeInstanceCount: Theme.count()]
+//        render view: "index", model: [MyThemeList: Mylist, publicList: publicList , themeInstanceCount: Theme.count(), userName: user.getUsername(), userId: user.getId()]
+        def list = Theme.findAllByOwnerId(user.getId())
+        def listPublic = Theme.findAll() - list
+//        render view: "index", model: [themeInstanceList: Mylist, themeInstanceCount: Theme.count(), userName: user.getUsername(), userId: user.getId()]
+//        respond Theme.findAllByOwnerId(user.getId()), model: [themeInstanceCount: Theme.count()]
+        render view: "index", model: [themeInstanceListMy: list,  themeInstanceListPublic: listPublic]
+
+
     }
 
     def show(Theme themeInstance) {

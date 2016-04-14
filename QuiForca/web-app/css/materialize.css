@@ -3,6 +3,12 @@
  * Copyright 2014-2015 Materialize
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
  */
+
+.simpleTable{
+  font-weight: normal;
+  text-align: center;
+}
+
 .cluster-header {
   width: 100%;
   font-size: 28px;
