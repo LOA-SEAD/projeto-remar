@@ -18,7 +18,7 @@ class QuestionController {
 
     def springSecurityService
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "GET" ]
+    static allowedMethods = [save: "POST", update: "POST", delete: "GET" ]
 
     @Secured(['permitAll'])
     def index(Integer max) {
@@ -192,18 +192,19 @@ class QuestionController {
     }
 
     @Transactional
-    def update(Question questionInstance) {
-        if (questionInstance == null) {
-            notFound()
-            return
-        }
+    def update() {
+        Question questionInstance = Question.findById(Integer.parseInt(params.questionID))
 
-        if (questionInstance.hasErrors()) {
-            respond questionInstance.errors, view: 'edit'
-            return
-        }
-
-        questionInstance.save flush: true
+        questionInstance.level = Integer.parseInt(params.level)
+        questionInstance.title = params.title
+        questionInstance.answers[0] = params.answers1
+        questionInstance.answers[1] = params.answers2
+        questionInstance.answers[2] = params.answers3
+        questionInstance.answers[3] = params.answers4
+        questionInstance.correctAnswer = Integer.parseInt(params.correctAnswer)
+        questionInstance.ownerId = session.user.id as long
+        questionInstance.taskId = session.taskId as String
+        questionInstance.save flush:true
 
         redirect action: "index"
     }
@@ -228,6 +229,23 @@ class QuestionController {
                 redirect action: "index", method: "GET"
             }
             '*' { render status: NOT_FOUND }
+        }
+    }
+
+    def returnInstance(Question questionInstance){
+
+        if (questionInstance == null) {
+            notFound()
+        }
+        else{
+            render questionInstance.level + "%@!" +
+                    questionInstance.title + "%@!" +
+                    questionInstance.answers[0] + "%@!" +
+                    questionInstance.answers[1] + "%@!" +
+                    questionInstance.answers[2] + "%@!" +
+                    questionInstance.answers[3] + "%@!" +
+                    questionInstance.correctAnswer + "%@!" +
+                    questionInstance.id
         }
     }
 

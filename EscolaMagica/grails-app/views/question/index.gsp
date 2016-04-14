@@ -67,39 +67,7 @@
 
                 <td  >${questionInstance.answers[questionInstance.correctAnswer]} (${questionInstance.correctAnswer + 1}ª Alternativa)</td>
 
-                <td> <i onclick="changeEditQuestion(${i})" style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil modal-trigger" data-target="editModal${i}" data-model="${questionInstance.id}"></i> <i style="color: #7d8fff " class="fa fa-trash-o" onclick="_delete($(this.closest('tr')))" > </i></td>
-
-                <!-- Modal Structure -->
-                <div id="editModal${i}" class="modal">
-                    <div class="modal-content">
-                        <div class="row">
-                            <div class="col s12"></div>
-                                <h4>Editar Questão</h4>
-                        </div>
-                        <div class="row">
-                            <div class="col s12">
-                                <g:if test="${flash.message}">
-                                    <div class="message" role="status">${flash.message}</div>
-                                </g:if>
-                                <g:if test="${flash.message}">
-                                    <div class="message" role="status">${flash.message}</div>
-                                </g:if>
-                                <g:hasErrors bean="${questionInstance}">
-                                    <ul class="errors" role="alert">
-                                        <g:eachError bean="${questionInstance}" var="error">
-                                            <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
-                                        </g:eachError>
-                                    </ul>
-                                </g:hasErrors>
-                                <g:form url="[resource:questionInstance, action:'update']" method="PUT" >
-                                    <g:hiddenField name="version" value="${questionInstance?.version}" />
-                                    <g:render template="form" model="[ questionInstance: questionInstance, count:i]"/>
-                                    <g:actionSubmit class="save btn btn-success btn-lg my-orange" action="update" value="${message(code: 'default.button.update.label', default: 'Salvar')}"/>
-                                </g:form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <td> <i onclick="_edit($(this.closest('tr')))" style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil" ></i> <i style="color: #7d8fff " class="fa fa-trash-o" onclick="_delete($(this.closest('tr')))" > </i></td>
 
             </tr>
 
@@ -216,6 +184,94 @@
         </div>
     </div>
 
+    <!-- Modal Structure -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="row">
+                <div class="col s12"></div>
+                <h4>Editar Questão</h4>
+            </div>
+            <div class="row">
+                <div class="col s12">
+
+                    <g:form method="post"  action="update" resource="${questionInstance}">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label id="labelTitle" class="active" for="editTitle">Pergunta</label>
+                                <input id="editTitle" name="title" required=""  type="text" class="validate">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <label id="labelAnswer1" class="active" for="editAnswers0">Alternativa 1</label>
+                                <input type="text" class="validate" id="editAnswers0" name="answers1" required="" />
+                            </div>
+                            <div class="col s2">
+                                <input type="radio" id="editRadio0" name="correctAnswer" value="0" />
+                                <label for="editRadio0">Alternativa correta</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <label id="labelAnswer2" class="active" for="editAnswers1">Alternativa 2</label>
+                                <input type="text" class="validate" id="editAnswers1" name="answers2" required="" />
+                            </div>
+                            <div class="col s2">
+                                <input type="radio" id="editRadio1" name="correctAnswer" value="1" /> <label for="editRadio1">Alternativa correta</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <label id="labelAnswer3" class="active" for="editAnswers2">Alternativa 3</label>
+                                <input type="text" class="validate" id="editAnswers2" name="answers3" required=""/>
+                            </div>
+                            <div class="col s2">
+                                <input type="radio" id="editRadio2" name="correctAnswer" value="2" /> <label for="editRadio2">Alternativa correta</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <label id="labelAnswer4" class="active" for="editAnswers3">Alternativa 4</label>
+                                <input type="text" class="form-control" id="editAnswers3" name="answers4" required="" />
+                            </div>
+                            <div class="col s2">
+                                <input type="radio" id="editRadio3" name="correctAnswer" value="3" /> <label for="editRadio3">Alternativa correta</label>
+                            </div>
+                        </div>
+
+                        <div class="row" id="levelRow">
+                            <div class="col s2 offset-s3">
+                                <input type="radio" id="editLevel1" name="level" value="1"  />
+                                <label for="editLevel1">Nível 1</label>
+
+                            </div>
+
+                            <div class="col s2">
+                                <input type="radio" id="editLevel2" name="level" value="2" />
+                                <label for="editLevel2">Nível 2</label>
+                            </div>
+
+                            <input type="hidden" name="taskId"  value="1" >
+                            <input type="hidden" id="questionID" name="questionID">
+
+
+                            <div class="col s2">
+                                <input type="radio" id="editLevel3" name="level" value="3" />
+                                <label for="editLevel3">Nível 3</label>
+                            </div>
+                        </div>
+
+                        <g:submitButton name="update" class="btn btn-success btn-lg my-orange" value="Salvar" />
+
+                    </g:form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal Structure -->
     <div id="infoModal" class="modal">
@@ -314,82 +370,6 @@
         </div>
     </div>
 
-
-
-
-
-
-    <script type="text/javascript">
-            function _delete(tr) {
-                if(confirm("Você tem certeza que deseja excluir esta questão?")) {
-                    var tds = $(tr).find("td");
-                    var url = location.origin + '/escolamagica/question/delete/' + $(tr).attr('data-id');
-                    var data = {_method: 'DELETE'};
-
-                    $.ajax({
-                                type: 'GET',
-                                data: data,
-                                url: url,
-                                success: function (data) {
-                                    $(tr).remove();
-                                    //uncheck_all();
-                                    //window.location.reload();
-                                },
-                                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                }
-                            }
-                    );
-
-
-                }
-            }
-
-            function check_all(){
-                console.log("selecionar todas");
-                var CheckAll = document.getElementById("BtnCheckAll");
-                var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
-                $(".filled-in:visible").prop('checked', 'checked');
-
-
-                for (var i = 0; i < trs.length; i++) {
-                    if($(trs[i]).is(':visible')) {
-                        $(trs[i]).attr('data-checked', "true");
-                    }
-                }
-
-                $('#BtnCheckAll').hide();
-                $('#BtnUnCheckAll').show();
-
-            }
-
-            function uncheck_all(){
-                console.log("remover todas");
-                var UnCheckAll = document.getElementById("BtnUnCheckAll");
-                var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
-                $(".filled-in:visible").prop('checked', false);
-
-
-                for (var i = 0; i < trs.length; i++) {
-                    if($(trs[i]).is(':visible')) {
-                        $(trs[i]).attr('data-checked', "false");
-                    }
-                }
-
-                $('#BtnUnCheckAll').hide();
-                $('#BtnCheckAll').show();
-
-            }
-
-            function changeEditQuestion(variable){
-                var editQuestion = document.getElementById("editQuestionLabel");
-                editQuestion.value=variable;
-
-                console.log(editQuestion.value);
-                //console.log(variable);
-
-            }
-
-    </script>
 
     </body>
 </html>
