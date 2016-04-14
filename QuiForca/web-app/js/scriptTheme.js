@@ -33,6 +33,10 @@ window.onload = function(){
                 console.log(data);
                 $(tr).hide();
                 $(tr).remove();
+                var myThemes = document.getElementsByClassName("myTheme");
+                if(myThemes.length==0){
+                    window.location.reload();
+                }
             },
             error:function(XMLHttpRequest,textStatus,errorThrown){}});}
     });
