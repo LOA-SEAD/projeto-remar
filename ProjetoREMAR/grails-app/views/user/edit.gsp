@@ -1,4 +1,4 @@
-<%@ page import="br.ufscar.sead.loa.remar.UserController" %>
+<%@ page import="br.ufscar.sead.loa.remar.User; br.ufscar.sead.loa.remar.UserController" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,6 +24,12 @@
             $(document).ready(function() {
                $("#modal").openModal();
             });
+        </script>
+    </g:if>
+
+    <g:if test="${params.profileUpdated}">
+        <script type="text/javascript">
+            Materialize.toast('Perfil atualizado!', 3000, 'rounded') // 'rounded' is the class I'm applying to the toast
         </script>
     </g:if>
 
@@ -74,7 +80,7 @@
                     <div class="input-field file-field col s12">
                         <div class="col s3">
                             <input type="hidden" name="photo" value="/images/avatars/default.png" id="srcImage">
-                            <img id="profile-picture" class="circle profile-picture" src="/data/users/${session.user.username}/profile-picture" />
+                            <img id="profile-picture" class="circle profile-picture" src="/data/users/${session.user.username}/profile-picture?${new Date()}" />
                         </div>
                         <div>
                             <input type="file" id="file" accept="image/jpeg, image/png">
@@ -97,7 +103,7 @@
                     <img id="crop-preview" class="responsive-img">
                 </div>
                 <div class="modal-footer">
-                    <a href="#!" class="modal-action modal-close waves-effect btn-flat">Enviar</a>
+                    <a id="toHide" href="#!" class="modal-action modal-close waves-effect btn-flat">Enviar</a>
                 </div>
             </div>
 
@@ -107,12 +113,12 @@
                         <li class="collection-item">
                             <sec:ifNotGranted roles="ROLE_DEV">
                                 <div>
-                                    <p>Você ainda não é um desenvolvedor do REMAR. Se deseja tornar-se um desenvolvedor, <a href="/developer/new">clique aqui</a>.</p>
+                                    <p><u>Você ainda não é um desenvolvedor do REMAR</u>. Se deseja tornar-se um desenvolvedor, <a href="/developer/new">clique aqui</a>.</p>
                                 </div>
                             </sec:ifNotGranted>
                             <sec:ifAnyGranted roles="ROLE_DEV">
                                 <div>
-                                    <p align="left">Você já é um desenvolvedor no REMAR.</p>
+                                    <p align="left"><u>Você já é um desenvolvedor no REMAR</u>.</p>
                                     <p align="left" style="margin-left: 20px;">Para enviar novos jogos, clique no menu <a href="/resource/index">"Desenvolvedor"</a>.</p>
                                     <p align="left" style="margin-left: 20px;">Se não deseja mais ser um desenvolvedor, <a href="/user/unmakeDeveloper">clique aqui</a>.</p>
                                 </div>
@@ -155,6 +161,14 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $('#toHide').click(function() {
+            console.log(this);
+            $(this).hide();
+        });
+    </script>
+
     <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
     <g:javascript src="jquery/jquery.validate.js"/>
     <g:javascript src="user/update-validator.js"/>
