@@ -39,18 +39,18 @@ class ThemeController {
             session.user = springSecurityService.currentUser
         }
 
-        if (!Theme.findAllByOwnerId(session.user.id)) {
-            def id = new Theme(ownerId: session.user.id).save(flush: true).id
-            def samples = servletContext.getRealPath("/samples/tema-escola-magica-remar")
-            def dir = servletContext.getRealPath("/data/${session.user.id}/themes/${id}")
-            def ant = new AntBuilder()
-            ant.sequential() {
-                mkdir(dir: dir)
-                copy(todir: dir) {
-                    fileset(dir: samples)
-                }
-            }
-        }
+//        if (!Theme.findAllByOwnerId(session.user.id)) {
+//            def id = new Theme(ownerId: session.user.id).save(flush: true).id
+//            def samples = servletContext.getRealPath("/samples/tema-escola-magica-remar")
+//            def dir = servletContext.getRealPath("/data/${session.user.id}/themes/${id}")
+//            def ant = new AntBuilder()
+//            ant.sequential() {
+//                mkdir(dir: dir)
+//                copy(todir: dir) {
+//                    fileset(dir: samples)
+//                }
+//            }
+//        }
 
         def list = Theme.findAllByOwnerId(user.getId())
         def listPublic = Theme.findAll() - list
