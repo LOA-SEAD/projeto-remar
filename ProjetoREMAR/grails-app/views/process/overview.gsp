@@ -35,7 +35,7 @@
                     ${process.definition.name}
                 </h3>
                 <h5 class="center date">
-                    <i class="fa fa-clock-o"></i> Inializado em <g:formatDate format="dd/MM/yy HH:mm"
+                    <i class="fa fa-clock-o"></i> Iniciado em <g:formatDate format="dd/MM/yy HH:mm"
                                                                               date="${process.createdAt}"/>
                 </h5>
             </div>
