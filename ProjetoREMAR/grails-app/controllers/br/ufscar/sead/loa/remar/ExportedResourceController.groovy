@@ -245,6 +245,9 @@ class ExportedResourceController {
             response.status = 200
         }
 
+
+        //TODO faltou gerar o jogo para as plataformas com o novo nome e a "nova foto"
+
         render ' '
     }
 

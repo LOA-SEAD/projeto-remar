@@ -7,11 +7,13 @@ $(function () {
     var loader = $("#preloader-wrapper");
     var name = $("#name");
     var imgFile = $("#img-1-text");
+    var plataforms = $("#plataforms");
 
     $(name).prev().hide();
     $(imgFile).prev().hide();
     nameErr.hide();
     loader.hide();
+    plataforms.hide();
 
     $(name).on("focus", function () {
         $(this).prev().hide();
@@ -100,13 +102,13 @@ $(function () {
     $(platforms).css('cursor', 'wait');
     $(moodle).css('cursor', 'wait');
 
-
     $.ajax({
         type: 'GET',
         url: location.origin + '/exported-resource/export/' + $(name).data("resource-id"),
         success: function (data) {
 
-            $('.progress').hide();
+            $('.plataforms-progress').hide();
+            plataforms.show(500);
             $(web).css('cursor', '');
             $(platforms).css('cursor', '');
             $(moodle).css('cursor', '');
@@ -114,9 +116,9 @@ $(function () {
             $(web).parent().attr('href', data['web']);
 
             $(web).hover(function () {
-                $(this).children().eq(1).text('Acessar');
+                $(this).children().eq(1).text('Acessar ').append('<i class="fa fa-link"></i>').addClass('plataforms-link');
             }, function () {
-                $(this).children().eq(1).text('Web');
+                $(this).children().eq(1).text('Web').removeClass('plataforms-link');
             });
 
             $(moodle).children().eq(1).text('Disponível no Moodle');
@@ -125,9 +127,9 @@ $(function () {
                 $(this).parent().attr('href', data[$(this).data('name')]);
 
                 $(this).hover(function () {
-                   $(this).children().eq(1).text('Baixar');
+                   $(this).children().eq(1).text('Baixar ').append('<i class="fa fa-arrow-circle-down" aria-hidden="true"></i>').addClass('plataforms-link');
                 }, function () {
-                   $(this).children().eq(1).text($(this).data('text'));
+                   $(this).children().eq(1).text($(this).data('text')).removeClass('plataforms-link');
                 });
             });
 

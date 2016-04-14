@@ -935,3 +935,7 @@ table .pending td{
     width: 97% !important;
     margin: 16px auto !important;
 }
+
+.plataforms-link{
+    color: #039be5 !important;
+}
