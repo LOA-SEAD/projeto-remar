@@ -42,7 +42,7 @@ Time: 09:55
                                 <div class="file-field input-field">
                                     %{--<input type="hidden" name="photo" value="${baseUrl}/banner.png" id="srcImage">--}%
                                     <div class="btn waves-effect waves-light my-orange">
-                                        <span>File</span>
+                                        <span>Arquivo</span>
                                         <input type="file" data-image="true" id="img-1" name="img1" accept="image/jpeg, image/png"  >
                                     </div>
                                     <div class="file-path-wrapper">
