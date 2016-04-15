@@ -214,7 +214,7 @@
 
                 <div class="file-field input-field">
                     <div class="btn my-orange">
-                        <span>File</span>
+                        <span>Arquivo</span>
                         <input type="file" accept="text/csv" id="csv" name="csv">
                     </div>
 
