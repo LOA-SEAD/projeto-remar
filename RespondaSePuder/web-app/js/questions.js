@@ -68,7 +68,7 @@ function submit(){
         {
 
             $('#totalQuestion').empty();
-            $("#totalQuestion").append("<div> <p> Você deve selecionar no mínimo "+ randonQuestion + " questão(ões) de cada nível. </p> </div>");
+            $("#totalQuestion").append("<div> <p> Você deve selecionar no mínimo "+ randomQuestion + " questão(ões) de cada nível. </p> </div>");
             $("#totalQuestion").append("<div> <p> Questões nível 1: " + questions_level1 +" . </p> </div>");
             $("#totalQuestion").append("<div> <p> Questões nível 2: " + questions_level2 +" . </p> </div>");
             $("#totalQuestion").append("<div> <p> Questões nível 3: " + questions_level3 +" . </p> </div>");

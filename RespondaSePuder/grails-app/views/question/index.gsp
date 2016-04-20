@@ -14,7 +14,7 @@
 
 <div class="cluster-header">
     <p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-        <i class="small material-icons left">grid_on</i>Tabela de Questões
+        <i class="small material-icons left">grid_on</i> Banco de Questões
     </p>
 </div>
 
@@ -23,7 +23,7 @@
     <div class="col s12">
         <ul class="tabs">
             <li class="tab col s6"><a href="#chooseQuestion">Escolher Questões</a></li>
-            <li class="tab col s6"><a class="active" href="#defineMaxQuestion">Definir número de questões por nível</a></li>
+            <li class="tab col s6"><a href="#defineMaxQuestion">Definir número de questões por nível</a></li>
         </ul>
     </div>
     <div id="chooseQuestion" class="col s12">
