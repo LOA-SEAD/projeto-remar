@@ -183,6 +183,7 @@ class QuestionController {
     @Transactional
     def exportQuestions(){
 
+        int randomQuestion = Integer.parseInt(params.randomQuestion)
         //Criando lista de questões do level 1
         ArrayList<Integer> list_questionId_level1 = new ArrayList<Integer>() ;
         ArrayList<Question> questionList_level1 = new ArrayList<Question>();
@@ -210,9 +211,9 @@ class QuestionController {
 
         }
 
-        createJsonFile("pergFacil.json",questionList_level1)
-        createJsonFile("pergMedio.json",questionList_level2)
-        createJsonFile("pergDificil.json",questionList_level3)
+        createJsonFile("pergFacil.json",questionList_level1, randomQuestion)
+        createJsonFile("pergMedio.json",questionList_level2, randomQuestion)
+        createJsonFile("pergDificil.json",questionList_level3, randomQuestion)
 
         def ids = []
         def folder = servletContext.getRealPath("/data/${session.user.id}/${session.taskId}")
@@ -232,7 +233,7 @@ class QuestionController {
 
     }
 
-    void createJsonFile(String fileName, ArrayList<Question> questionList ){
+    void createJsonFile(String fileName, ArrayList<Question> questionList, int randomQuestion ){
         int i = 0
         def dataPath = servletContext.getRealPath("/data")
         def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
@@ -243,7 +244,7 @@ class QuestionController {
         File file = new File("$instancePath/"+fileName);
         PrintWriter pw = new PrintWriter(file);
         pw.write("{\n ");
-        pw.write("\"numero\":[\"" + questionList.size()+ "\",\"4\"],\n")
+        pw.write("\"numero\":[\"" + questionList.size()+ "\",\""+ randomQuestion +"\"],\n")
         for(i=0; i<(questionList.size()-1);i++){
             pw.write("\"" + (i+1) + "\": [\"" + questionList.getAt(i).title + "\", ")
             switch(questionList.getAt(i).correctAnswer){
