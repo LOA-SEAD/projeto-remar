@@ -47,8 +47,6 @@ $(function(){
         $(desc).prev().show(500);
     }
 
-    console.log("carregou game-index");
-
     $('textarea#textarea1').characterCounter();
     $('select').material_select();
     $('.materialboxed').materialbox();
