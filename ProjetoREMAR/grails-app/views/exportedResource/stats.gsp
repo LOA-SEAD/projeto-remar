@@ -31,7 +31,7 @@
                 <div class="swiper-wrapper">
                     <!-- Slides -->
                     <g:each in="${moodleList}" var="moodleInstance">
-                        <div class="swiper-slide card">
+                        <div class="swiper-slide card" data-hash="${moodleInstance.id}">
                             <div class="card-content">
                                 <img alt="${moodleInstance.name}" height="150" class="cover-image img-responsive image-bg no-margin-top"  src="/published/${moodleInstance.image}">
                                 <div>

@@ -285,11 +285,10 @@ class ExportedResourceController {
 
             model.name = exportedResource.name
             model.image = "${exportedResource.processId}/banner.png"
+            model.id = exportedResource.id
 
             myMoodleGames.add(model)
         }
-
-        println myMoodleGames
 
         render view: "stats", model: [moodleList: myMoodleGames]
     }
@@ -313,6 +312,7 @@ class ExportedResourceController {
                         userModel['hits'] = 0
                         userModel['errors'] = 0
                         userModel['id'] = currentUser
+                        userModel['resourceId'] = params.resourceId
 
                         users[currentUser] = userModel
                     }
@@ -334,5 +334,9 @@ class ExportedResourceController {
         else {
             render "no information found in our records."
         }
+    }
+
+    def _data() {
+
     }
 }

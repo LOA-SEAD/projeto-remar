@@ -52,6 +52,7 @@ class UrlMappings {
         '/exported-resource/myGames'(controller:"exportedResource", action:"myGames")
         '/exported-resource/stats'(controller:"exportedResource", action:"stats")
         "/exported-resource/_table/$resourceId"(controller: "exportedResource", action: "_table")
+        "/exported-resource/_table"(controller: "exportedResource", action: "_data")
 
         // end Resource API endpoints
 
