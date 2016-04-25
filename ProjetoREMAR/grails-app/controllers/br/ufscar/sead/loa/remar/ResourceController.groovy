@@ -123,7 +123,7 @@ class ResourceController {
             return
         }
 
-        new AntBuilder().copy(file: expandedWarPath + "/remar/bd.json",
+        ant.copy(file: expandedWarPath + "/remar/bd.json",
                 tofile: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}/bd.json"))
 
         def json = JSON.parse(bd.text)
