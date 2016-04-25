@@ -190,8 +190,9 @@ class ResourceController {
                         "REMAR – O seu WAR \"${resourceInstance.name}\" foi rejeitado!",
                         "<h3>O seu WAR \"${resourceInstance.name}\" foi rejeitado pois ${comment}</h3> <br> "
                 )
-                render 'success'
             }
+            response.status = 204
+            render 204
         }
 
         if (status == "approve" && resourceInstance.status != "approved") {

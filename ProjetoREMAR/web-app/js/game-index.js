@@ -162,9 +162,7 @@ $(function(){
         $.ajax({
             type:'POST',
             url: url,
-            success:function(data){
-                console.log(data);
-            },
+            success:function(data) {},
             error:function(XMLHttpRequest,textStatus,errorThrown){}});
 
     }).keyup(function(e) {
