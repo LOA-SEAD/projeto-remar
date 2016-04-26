@@ -1,17 +1,15 @@
 package br.ufscar.sead.loa.remar
 
+import br.ufscar.sead.loa.propeller.Propeller
 import grails.converters.JSON
 import grails.util.Environment
-import groovy.json.JsonBuilder
 import groovyx.net.http.HTTPBuilder
 import org.apache.commons.lang.RandomStringUtils
 import org.codehaus.groovy.grails.io.support.GrailsIOUtils
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.commons.CommonsMultipartFile
-import br.ufscar.sead.loa.remar.Category
 
 import javax.imageio.ImageIO
-import javax.swing.JScrollBar
 import java.awt.image.BufferedImage
 import java.security.MessageDigest
 
@@ -33,7 +31,7 @@ class ResourceController {
 
 
     def create() {
-        render view: "create", model: [id: params.id, categories: Category.list(sort:"name"), defaultCategory: Category.findByName('Aventura')]
+        render view: "create", model: [id: params.id, categories: Category.list(sort: "name"), defaultCategory: Category.findByName('Aventura')]
     }
 
     @Transactional
@@ -203,7 +201,7 @@ class ResourceController {
 
             "${servletContext.getRealPath("/scripts/db.sh")} ${resourceInstance.uri}".execute().waitFor()
 
-            if (resourceInstance.desktop  && resourceInstance.comment != "test") {
+            if (resourceInstance.desktop && resourceInstance.comment != "test") {
                 ant.sequential {
                     chmod(perm: "+x", file: scriptElectron)
                     exec(executable: scriptElectron) {
@@ -276,14 +274,20 @@ class ResourceController {
             return
         }
 
-        if (resourceInstance.owner == springSecurityService.currentUser || springSecurityService.currentUser == User.findByUsername('admin')) {
+        if (resourceInstance.owner == session.user || session.user.username == 'admin') {
             resourceInstance.delete flush: true
-            log.debug "Resource Deleted"
+
+            new AntBuilder().sequential {
+                delete(dir: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}"))
+                delete(dir: servletContext.getRealPath("/propeller/${resourceInstance.uri}"))
+            }
+
+            Propeller.instance.undeploy(resourceInstance.uri)
+            response.status = 205
+            render 205
         } else {
             log.debug "Someone is trying to delete a resource that belongs to other user"
         }
-
-        render "success"
     }
 
     protected void notFound() {
@@ -304,7 +308,7 @@ class ResourceController {
         def model = [:]
 
         model.gameInstanceList = Resource.findAllByStatus('approved') // change to #findAllByActive?
-        model.categories = Category.list(sort:"name")
+        model.categories = Category.list(sort: "name")
 
         render view: "customizableGames", model: model
     }
@@ -313,8 +317,8 @@ class ResourceController {
     def edit(Resource resourceInstance) {
         def resourceJson = resourceInstance as JSON
 
-        render view: 'edit', model:[resourceInstance: resourceInstance, categories: Category.list(sort:"name"),
-                                    defaultCategory: resourceInstance.category ]
+        render view: 'edit', model: [resourceInstance: resourceInstance, categories: Category.list(sort: "name"),
+                                     defaultCategory : resourceInstance.category]
     }
 
     def getResourceInstance(long id) {
@@ -324,21 +328,21 @@ class ResourceController {
         render r;
     }
 
-    def saveRating(Resource instance){
+    def saveRating(Resource instance) {
         log.debug(params)
 
         Rating r = new Rating(user: session.user, stars: params.stars, comment: params.commentRating, date: new Date())
         instance.addToRatings(r)
-        instance.sumStars +=  r.stars;
+        instance.sumStars += r.stars;
         instance.sumUser++
 
         instance.save flush: true
 
-        render view: "_comment", model: [rating: r,  mediumStars: (instance.sumStars / instance.sumUser),
-                                                     sumUsers: instance.sumUser,  today: new Date() ]
+        render view: "_comment", model: [rating  : r, mediumStars: (instance.sumStars / instance.sumUser),
+                                         sumUsers: instance.sumUser, today: new Date()]
     }
 
-    def updateRating(Rating rating){
+    def updateRating(Rating rating) {
 
         def old_stars = rating.getPersistentValue("stars")
 
@@ -356,20 +360,20 @@ class ResourceController {
         //soma a nova quantidade de estrelas a soma de estrelas do rating
         rating.resource.sumStars += rating.stars
 
-        rating.save flush:true
+        rating.save flush: true
 
-        render view: "_comment", model: [rating: rating,  mediumStars: (rating.resource.sumStars / rating.resource.sumUser),
-                                         sumUsers: rating.resource.sumUser,  today: new Date() ]
+        render view: "_comment", model: [rating  : rating, mediumStars: (rating.resource.sumStars / rating.resource.sumUser),
+                                         sumUsers: rating.resource.sumUser, today: new Date()]
 
     }
 
-    def deleteRating(Rating rating){
+    def deleteRating(Rating rating) {
 
         def old_stars = rating.getPersistentValue("stars")
 
         //retira da soma de estrelas a quantidade de estrelas anterior do rating
         rating.resource.sumStars -= old_stars
-        rating.resource.sumUser -=1
+        rating.resource.sumUser -= 1
 
         rating.delete flush: true;
 
