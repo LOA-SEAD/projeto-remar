@@ -107,6 +107,7 @@ Time: 09:55
                                </div>
                                </div>
                            </div>
+                           Gerando o jogos para diferentes plataformas...
                        </aside>
 
                         <div id="plataforms" class="row" style="margin: 0;">

@@ -255,7 +255,7 @@ class ExportedResourceController {
     def publicGames(){
         def model = [:]
 
-        def threshold = 8
+        def threshold = 12
 
         params.max = params.max ? Integer.valueOf(params.max) : threshold
         params.offset = params.offset ? Integer.valueOf(params.offset) : 0
@@ -322,5 +322,53 @@ class ExportedResourceController {
         println destination.name
 
         render destination.name
+    }
+
+    @SuppressWarnings("GroovyAssignabilityCheck")
+    def searchGame(){
+        def model = [:]
+
+        def threshold = 12
+        def maxInstances = 0
+
+        params.max = params.max ? Integer.valueOf(params.max) : threshold
+        params.offset = params.offset ? Integer.valueOf(params.offset) : 0
+
+        model.max = params.max
+        model.threshold = threshold
+
+        log.debug("type: " + params.typeSearch)
+        log.debug("text: " +params.text)
+
+        model.publicExportedResourcesList = null
+
+        if(params.typeSearch.equals("name")){ //busca pelo nome
+            model.publicExportedResourcesList = ExportedResource.findAllByTypeAndNameIlike('public', "%${params.text}%",params)
+            maxInstances = ExportedResource.findAllByTypeAndNameIlike('public', "%${params.text}%").size()
+
+        }else{
+            if(params.typeSearch.equals("category")){                 //busca pela categoria
+
+                if(params.text.equals("-1")){// exibe os jogos de todas as categorias
+                    model.publicExportedResourcesList = ExportedResource.findAllByType('public', params)
+                    maxInstances = ExportedResource.findAllByType('public').size()
+
+                }else{
+                    Category c = Category.findById(params.text)
+                    Resource r = Resource.findByCategory(c)
+                    model.publicExportedResourcesList = ExportedResource.findAllByTypeAndResource('public',r, params)
+                    maxInstances = ExportedResource.findAllByTypeAndResource('public',r).size()
+                }
+            }
+        }
+
+        model.pageCount = Math.ceil(maxInstances / params.max) as int
+        model.currentPage = (params.offset + threshold) / threshold
+        model.hasNextPage = params.offset + threshold < model.instanceCount
+        model.hasPreviousPage = params.offset > 0
+
+        log.debug(model.publicExportedResourcesList.size())
+
+        render view: "_cardGames", model: model
     }
 }

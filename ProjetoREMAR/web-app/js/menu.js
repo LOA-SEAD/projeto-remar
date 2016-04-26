@@ -7,35 +7,63 @@ $(document).ready(function() {
 
     $(select).material_select();
 
-    $("#search").keyup(function(){
-        _this = this;
+    $("#search").on("keyup",function(){
+        var formData = new FormData();
+        formData.append('typeSearch','name');
+        formData.append('text', $(this).val());
 
-        $.each($(".card ").find(".card-name"), function() {
-            //console.log($(this).text());
-            if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) == -1)
-                $(this).closest('div[class^="card square-cover small"]').hide(500);
-            else
-                $(this).closest('div[class^="card square-cover small"]').show(500);
-                //Materialize.fadeInImage($(this).closest('div[class^="card square-cover small"]'));
+        console.log($(this).val());
+
+        $.ajax({
+            url: "/exported-resource/searchGame",
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+
+                $(".cardGames").remove();
+                $(".show.cards").append(response);
+
+                $(".next-page").each(function() {
+                    $(this).on("click",listerNextPage)
+                });
+            },
+            error: function () {
+                alert("error");
+            }
         });
     });
 
     $(select).change(function(){
         //console.log($(".card ").find(".card-name").attr('data-category'));
         var catSelected = $(select).val();
+        $("#search").val("");
 
-        $.each($(".card ").find(".card-name"), function() {
-            //console.log($(this).text());
-            console.log($(this).attr('data-category'));
+        var formData = new FormData();
+        formData.append('typeSearch','category');
+        formData.append('text', catSelected);
 
-            if(catSelected == -1){
-                $(this).closest('div[class^="card square-cover small"]').show(500);
-            }else if($(this).attr('data-category') != catSelected){
-                        $(this).closest('div[class^="card square-cover small"]').hide(500);
-            }else {
-                $(this).closest('div[class^="card square-cover small"]').show(500);
+        console.log($(this).val());
+
+        $.ajax({
+            url: "/exported-resource/searchGame",
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+
+                $(".cardGames").remove();
+                $(".show.cards").append(response);
+
+                $(".next-page").each(function() {
+                    $(this).on("click",listerNextPage)
+                });
+            },
+            error: function () {
+                alert("error");
             }
-            //Materialize.fadeInImage($(this).closest('div[class^="card square-cover small"]'));
         });
     });
 
@@ -48,10 +76,54 @@ $(document).ready(function() {
             rating: Number($(this).attr("data-stars"))
         });
     });
+
+
+    $(".next-page").click(listerNextPage);
+
 });
 
 function deleteResource(id){
     if(confirm("Deseja mesmo excluir este jogo?")){
         window.location.href = " /exported-resource/delete/"+id;
     }
+}
+
+function listerNextPage(){
+    var formData = new FormData();
+    formData.append('typeSearch','name');
+    formData.append('text', $("#search").val());
+
+    console.log("max="+$(this).attr("data-max"));
+    console.log("offset="+$(this).attr("data-offset"));
+
+    $.ajax({
+        url: "/exported-resource/searchGame?max="+$(this).attr("data-max")+"&offset="+$(this).attr("data-offset"),
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            $(".cardGames").remove();
+            $(".show.cards").append(response);
+
+            $(".next-page").each(function() {
+                $(this).on("click",listerNextPage)
+            });
+
+            goToByScroll("title-page");
+        },
+        error: function () {
+            alert("error");
+        }
+    });
+}
+
+// This is a functions that scrolls to #{blah}link
+function goToByScroll(id){
+    // Remove "link" from the ID
+    id = id.replace("link", "");
+    // Scroll
+    $('html,body').animate({
+            scrollTop: $("#"+id).offset().top},
+        'slow');
 }

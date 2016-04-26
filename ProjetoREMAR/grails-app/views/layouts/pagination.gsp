@@ -10,7 +10,11 @@
     <g:if test="${pageCount > 0}">
 
         <g:if test="${currentPage != 1}">
-            <li class="waves-effect"><a href="?max=${max}&offset=${threshold * (currentPage - 2)}"><i class="material-icons">chevron_left</i></a></li>
+            <li class="waves-effect">
+                <a class="next-page" data-max="${max}" data-offset="${threshold * (currentPage - 2)}" href="#!">
+                    <i class="material-icons">chevron_left</i>
+                </a>
+            </li>
         </g:if>
         <g:else>
             <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
@@ -21,12 +25,18 @@
                 <li class="active"><a href="#!">${page}</a></li>
             </g:if>
             <g:else>
-                <a href="?max=${max}&offset=${threshold * (page - 1)}"><li class="waves-effect">${page}</li></a>
+                <a class="next-page" data-max="${max}" data-offset="${threshold * (page - 1)}" href="#!">
+                    <li class="waves-effect">${page}</li>
+                </a>
             </g:else>
         </g:each>
 
         <g:if test="${currentPage != pageCount}">
-            <li class="waves-effect"><a href="?max=${max}&offset=${threshold * (currentPage)}"><i class="material-icons">chevron_right</i></a></li>
+            <li class="waves-effect">
+                <a class="next-page" data-max="${max}" data-offset="${threshold * (currentPage)}" href="#!">
+                    <i class="material-icons">chevron_right</i>
+                </a>
+            </li>
         </g:if>
         <g:else>
             <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>

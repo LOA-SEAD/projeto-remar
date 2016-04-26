@@ -63,7 +63,9 @@
 										<i class="fa fa-android tooltipped" data-position="bottom" data-delay="30" data-tooltip="Android"></i>
 									</g:if>
 									<g:if test="${resourceInstance.desktop}">
-										<i class="fa fa-desktop tooltipped" data-position="bottom" data-delay="30" data-tooltip="Moodle"></i>
+										<i class="fa fa-windows tooltipped" data-position="bottom" data-delay="30" data-tooltip="Windows"></i>
+										<i class="fa fa-linux tooltipped" data-position="bottom" data-delay="30" data-tooltip="Linux"></i>
+										<i class="fa fa-apple tooltipped" data-position="bottom" data-delay="30" data-tooltip="Mac"></i>
 									</g:if>
 									<g:if test="${resourceInstance.moodle}">
 										<i class="fa fa-graduation-cap tooltipped" data-position="bottom" data-delay="30" data-tooltip="Moodle"></i>
