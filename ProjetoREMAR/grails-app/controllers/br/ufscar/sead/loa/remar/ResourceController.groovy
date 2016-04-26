@@ -203,7 +203,7 @@ class ResourceController {
 
             "${servletContext.getRealPath("/scripts/db.sh")} ${resourceInstance.uri}".execute().waitFor()
 
-            if (resourceInstance.desktop) {
+            if (resourceInstance.desktop  && resourceInstance.comment != "test") {
                 ant.sequential {
                     chmod(perm: "+x", file: scriptElectron)
                     exec(executable: scriptElectron) {
@@ -214,7 +214,7 @@ class ResourceController {
                 }
             }
 
-            if (resourceInstance.android) {
+            if (resourceInstance.android && resourceInstance.comment != "test") {
                 ant.sequential {
                     chmod(perm: "+x", file: scriptCrosswalk)
                     exec(executable: scriptCrosswalk) {
