@@ -49,7 +49,7 @@
                     </div>
 
                     <div class="col s6">
-                        <a class="tooltipped delete" href="/process/delete/${process.id}" data-position="bottom"
+                        <a class="tooltipped delete" onclick=" if(confirm('Deseja mesmo excluir este processo?')){ href='/process/delete/${process.id}'}" data-position="bottom"
                            data-delay="50" data-tooltip="Excluir" style="color: gray;">
                             <i class="material-icons">delete</i>
                         </a>
