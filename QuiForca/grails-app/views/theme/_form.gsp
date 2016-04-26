@@ -4,7 +4,8 @@
 
 
 <head xmlns="http://www.w3.org/1999/html">
-
+    <g:javascript src="iframeResizer.contentWindow.min.js"/>
+    <g:javascript src="../assets/js/jquery.min.js"/>
 
 </head>
 <body>
@@ -36,7 +37,7 @@
                                     <td>Ícone</td>
                                     <td>
                                         <div class="row">
-                                              <img class="" id="iconePreview" style="width: 200px;" />
+                                              <img class="" id="iconePreview" style="width: 250px;" />
                                         </div>
                                     </td>
                                     <td>
@@ -57,7 +58,7 @@
                                     <td>Tela de Abertura</td>
                                     <td>
                                         <div class="row">
-                                            <img class="" id="openingPreview" style="width: 200px;" />
+                                            <img class="" id="openingPreview" style="width: 250px;" />
                                         </div>
                                     </td>
                                     <td>
@@ -77,7 +78,7 @@
                                     <td>Tela de Fundo</td>
                                     <td>
                                         <div class="row">
-                                            <img class="" id="backgroundPreview" style="width: 200px;" />
+                                            <img class="" id="backgroundPreview" style="width: 250px;" />
                                         </div>
                                     </td>
                                     <td>

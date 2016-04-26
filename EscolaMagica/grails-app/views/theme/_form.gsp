@@ -6,6 +6,9 @@
 <head xmlns="http://www.w3.org/1999/html">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <g:javascript src="imagePreview.js"/>
+    <g:javascript src="iframeResizer.contentWindow.min.js"/>
+    <g:javascript src="../assets/js/jquery.min.js"/>
+
 
 </head>
 <body>
@@ -34,8 +37,8 @@
                             <tr>
                                 <td>Porta Nível 1</td>
                                 <td>
-                                    <div class="row" style="height: 120px;">
-                                        <img id="a-preview" class="door" height="158" />
+                                    <div class="row" style="height: 200px;">
+                                        <img id="a-preview" class="door" height="200" />
                                     </div>
                                 </td>
                                 <td>
@@ -62,8 +65,8 @@
                             <tr>
                                 <td>Porta Nível 2</td>
                                 <td>
-                                    <div class="row" style="height: 120px;">
-                                        <img id="b-preview" class="door" height="158"/>
+                                    <div class="row" style="height: 200px;">
+                                        <img id="b-preview" class="door" height="200"/>
                                     </div>
                                 </td>
                                 <td>
@@ -90,8 +93,8 @@
                             <tr>
                                 <td>Porta Nível 3</td>
                                 <td>
-                                    <div class="row" style="height: 120px;">
-                                        <img id="c-preview" class="door" height="158"/>
+                                    <div class="row" style="height: 200px;">
+                                        <img id="c-preview" class="door" height="200"/>
                                     </div>
                                 </td>
                                 <td>
