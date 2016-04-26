@@ -1039,3 +1039,7 @@ Position must be relative!*/
     float: left;
     width: 25%;
 }
+
+.collapsible-header {
+    border-top: 1.2px solid black;
+}
