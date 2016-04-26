@@ -262,7 +262,7 @@ class ExportedResourceController {
 
         model.max = params.max
         model.threshold = threshold
-        model.publicExportedResourcesList = ExportedResource.findAllByType('public', params)
+        model.publicExportedResourcesList = ExportedResource.findAllByType('public', params).reverse()
         model.pageCount = Math.ceil(ExportedResource.count / params.max) as int
         model.currentPage = (params.offset + threshold) / threshold
         model.hasNextPage = params.offset + threshold < model.instanceCount
