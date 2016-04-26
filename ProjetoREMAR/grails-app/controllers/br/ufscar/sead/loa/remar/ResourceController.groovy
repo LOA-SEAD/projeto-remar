@@ -3,16 +3,13 @@ package br.ufscar.sead.loa.remar
 import br.ufscar.sead.loa.propeller.Propeller
 import grails.converters.JSON
 import grails.util.Environment
-import groovy.json.JsonBuilder
 import groovyx.net.http.HTTPBuilder
 import org.apache.commons.lang.RandomStringUtils
 import org.codehaus.groovy.grails.io.support.GrailsIOUtils
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.commons.CommonsMultipartFile
-import br.ufscar.sead.loa.remar.Category
 
 import javax.imageio.ImageIO
-import javax.swing.JScrollBar
 import java.awt.image.BufferedImage
 import java.security.MessageDigest
 
