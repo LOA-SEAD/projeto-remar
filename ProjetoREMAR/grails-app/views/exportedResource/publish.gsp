@@ -67,6 +67,7 @@ Time: 09:55
                     <div class="collapsible-body">
                        <aside class="plataforms-progress center">
                            <div class="center">
+
                                <p>Gerando o jogo para diferentes plataformas... </p>
                            </div>
                            <div class="preloader-wrapper big active">
