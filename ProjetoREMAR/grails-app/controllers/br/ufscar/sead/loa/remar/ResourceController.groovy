@@ -31,7 +31,7 @@ class ResourceController {
 
 
     def create() {
-        render view: "create", model: [id: params.id, categories: Category.list(sort:"name"), defaultCategory: Category.findByName('Aventura')]
+        render view: "create", model: [id: params.id, categories: Category.list(sort: "name"), defaultCategory: Category.findByName('Aventura')]
     }
 
     @Transactional
@@ -201,7 +201,7 @@ class ResourceController {
 
             "${servletContext.getRealPath("/scripts/db.sh")} ${resourceInstance.uri}".execute().waitFor()
 
-            if (resourceInstance.desktop  && resourceInstance.comment != "test") {
+            if (resourceInstance.desktop && resourceInstance.comment != "test") {
                 ant.sequential {
                     chmod(perm: "+x", file: scriptElectron)
                     exec(executable: scriptElectron) {
@@ -308,7 +308,7 @@ class ResourceController {
         def model = [:]
 
         model.gameInstanceList = Resource.findAllByStatus('approved') // change to #findAllByActive?
-        model.categories = Category.list(sort:"name")
+        model.categories = Category.list(sort: "name")
 
         render view: "customizableGames", model: model
     }
@@ -317,8 +317,8 @@ class ResourceController {
     def edit(Resource resourceInstance) {
         def resourceJson = resourceInstance as JSON
 
-        render view: 'edit', model:[resourceInstance: resourceInstance, categories: Category.list(sort:"name"),
-                                    defaultCategory: resourceInstance.category ]
+        render view: 'edit', model: [resourceInstance: resourceInstance, categories: Category.list(sort: "name"),
+                                     defaultCategory : resourceInstance.category]
     }
 
     def getResourceInstance(long id) {
@@ -328,21 +328,21 @@ class ResourceController {
         render r;
     }
 
-    def saveRating(Resource instance){
+    def saveRating(Resource instance) {
         log.debug(params)
 
         Rating r = new Rating(user: session.user, stars: params.stars, comment: params.commentRating, date: new Date())
         instance.addToRatings(r)
-        instance.sumStars +=  r.stars;
+        instance.sumStars += r.stars;
         instance.sumUser++
 
         instance.save flush: true
 
-        render view: "_comment", model: [rating: r,  mediumStars: (instance.sumStars / instance.sumUser),
-                                                     sumUsers: instance.sumUser,  today: new Date() ]
+        render view: "_comment", model: [rating  : r, mediumStars: (instance.sumStars / instance.sumUser),
+                                         sumUsers: instance.sumUser, today: new Date()]
     }
 
-    def updateRating(Rating rating){
+    def updateRating(Rating rating) {
 
         def old_stars = rating.getPersistentValue("stars")
 
@@ -360,20 +360,20 @@ class ResourceController {
         //soma a nova quantidade de estrelas a soma de estrelas do rating
         rating.resource.sumStars += rating.stars
 
-        rating.save flush:true
+        rating.save flush: true
 
-        render view: "_comment", model: [rating: rating,  mediumStars: (rating.resource.sumStars / rating.resource.sumUser),
-                                         sumUsers: rating.resource.sumUser,  today: new Date() ]
+        render view: "_comment", model: [rating  : rating, mediumStars: (rating.resource.sumStars / rating.resource.sumUser),
+                                         sumUsers: rating.resource.sumUser, today: new Date()]
 
     }
 
-    def deleteRating(Rating rating){
+    def deleteRating(Rating rating) {
 
         def old_stars = rating.getPersistentValue("stars")
 
         //retira da soma de estrelas a quantidade de estrelas anterior do rating
         rating.resource.sumStars -= old_stars
-        rating.resource.sumUser -=1
+        rating.resource.sumUser -= 1
 
         rating.delete flush: true;
 
