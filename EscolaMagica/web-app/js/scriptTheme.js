@@ -41,7 +41,7 @@ window.onload = function(){
                 success: function (data) {
                     console.log(data);
                     $(tr).hide();
-                    $(tr).remove()
+                    $(tr).remove();
 
                     var myThemes = document.getElementsByClassName("myTheme");
                     if(myThemes.length==0){

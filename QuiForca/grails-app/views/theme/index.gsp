@@ -53,8 +53,8 @@
                                 <tbody>
                                 <g:each in="${themeInstanceListMy}" status="i" var="themeInstance">
                                     <tr data-id="${fieldValue(bean: themeInstance, field: "id")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
-                                        <td class="simpleTable myTheme" align="center"><input class="with-gap" name="radio" type="radio" id="theme${i}"
-                                                                                      value="${fieldValue(bean: themeInstance, field: "id")}" ${i == 0 ? "checked" : ""}> <label for="theme${i}"></label>
+                                        <td class="simpleTable myTheme" align="center"><input class="with-gap" name="radio" type="radio" id="myTheme${i}"
+                                                                                      value="${fieldValue(bean: themeInstance, field: "id")}" ${i == 0 ? "checked" : ""}> <label for="myTheme${i}"></label>
                                         </td>
                                         <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/icon.png" class="" width="200"/></td>
                                         <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/inicio.png" class="" width="200"/></td>
@@ -84,8 +84,8 @@
                             <tbody>
                             <g:each in="${themeInstanceListPublic}" status="i" var="themeInstance">
                                 <tr data-id="${fieldValue(bean: themeInstance, field: "id")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
-                                    <td class="simpleTable" align="center"><input class="with-gap" name="radio" type="radio" id="theme${i}"
-                                                              value="${fieldValue(bean: themeInstance, field: "id")}" ${i == 0 ? "checked" : ""}> <label for="theme${i}"></label>
+                                    <td class="simpleTable" align="center"><input class="with-gap" name="radio" type="radio" id="publicTheme${i}"
+                                                              value="${fieldValue(bean: themeInstance, field: "id")}" ${i == 0 ? "checked" : ""}> <label for="publicTheme${i}"></label>
                                     </td>
                                     <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/icon.png" class="" width="200"/></td>
                                     <td align="center"><img src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/inicio.png" class="" width="200"/></td>

@@ -48,8 +48,8 @@
                             <tbody>
                             <g:each in="${themeInstanceListMy}" status="i" var="themeInstance">
                                 <tr data-id="${fieldValue(bean: themeInstance, field: "id")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
-                                    <td class="myTheme simpleTable" align="center "><input class="with-gap " name="radio" type="radio" id="theme${i}"
-                                                                               value="${fieldValue(bean: themeInstance, field: "id")}" ${i == 0 ? "checked" : ""}> <label for="theme${i}"></label>
+                                    <td class="myTheme simpleTable" align="center "><input class="with-gap " name="radio" type="radio" id="myTheme${i}"
+                                                                               value="${fieldValue(bean: themeInstance, field: "id")}" > <label for="myTheme${i}"></label>
                                     </td>
                                     <td align="center"><img
                                             src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portaa-sheet1.png"
@@ -60,7 +60,7 @@
                                     <td align="center"><img
                                             src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portac-sheet1.png"
                                             class="img-responsive max door"/></td>
-                                    <td align="center"><i id="deleteIcon${i}" style="color: #7d8fff" class="material-icons delete">delete</i></td>
+                                    <td align="center"><i id="MydeleteIcon${i}" style="color: #7d8fff" class="material-icons delete">delete</i></td>
                                 </tr>
                             </g:each>
                             </tbody>
@@ -83,8 +83,8 @@
                         <tbody>
                         <g:each in="${themeInstanceListPublic}" status="i" var="themeInstance">
                             <tr data-id="${fieldValue(bean: themeInstance, field: "id")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
-                                <td class="myTheme simpleTable" align="center "><input class="with-gap" name="radio" type="radio" id="theme${i} "
-                                                                           value="${fieldValue(bean: themeInstance, field: "id")}" ${i == 0 ? "checked" : ""}> <label for="theme${i}"></label>
+                                <td class="simpleTable" align="center "><input class="with-gap " name="radio" type="radio" id="pTheme${i}"
+                                                                                       value="${fieldValue(bean: themeInstance, field: "id")}" > <label for="pTheme${i}"></label>
                                 </td>
                                 <td align="center"><img
                                         src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portaa-sheet1.png"
@@ -101,41 +101,7 @@
                     </table>
                 </div>
             </li>
-
             </ul>
-
-
-
-        %{--<table class="" id="table">--}%
-            %{--<thead>--}%
-            %{--<tr>--}%
-                %{--<th>Selecionar</th>--}%
-                %{--<th>Porta nível 1</th>--}%
-                %{--<th>Porta nível 2</th>--}%
-                %{--<th>Porta nível 3</th>--}%
-                %{--<th>Ação</th>--}%
-            %{--</tr>--}%
-            %{--</thead>--}%
-            %{--<tbody>--}%
-            %{--<g:each in="${themeInstanceListMy}" status="i" var="themeInstance">--}%
-                %{--<tr data-id="${fieldValue(bean: themeInstance, field: "id")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">--}%
-                    %{--<td align="center"><input class="with-gap" name="radio" type="radio" id="theme${i}"--}%
-                                              %{--value="${fieldValue(bean: themeInstance, field: "id")}" ${i == 0 ? "checked" : ""}> <label for="theme${i}"></label>--}%
-                    %{--</td>--}%
-                    %{--<td align="center"><img--}%
-                            %{--src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portaa-sheet1.png"--}%
-                            %{--class="img-responsive max door"/></td>--}%
-                    %{--<td align="center"><img--}%
-                            %{--src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portab-sheet1.png"--}%
-                            %{--class="img-responsive max door"/></td>--}%
-                    %{--<td align="center"><img--}%
-                            %{--src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portac-sheet1.png"--}%
-                            %{--class="img-responsive max door"/></td>--}%
-                    %{--<td align="center"><i id="deleteIcon${i}" style="color: #7d8fff" class="material-icons delete">delete</i></td>--}%
-                %{--</tr>--}%
-            %{--</g:each>--}%
-            %{--</tbody>--}%
-        %{--</table>--}%
         <div class="row">
             <div class="col s12">
                 <g:submitButton name="save" class="save btn btn-success btn-lg my-orange" value="Enviar"/>
