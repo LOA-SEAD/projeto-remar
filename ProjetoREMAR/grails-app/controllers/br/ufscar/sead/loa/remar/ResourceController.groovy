@@ -1,5 +1,6 @@
 package br.ufscar.sead.loa.remar
 
+import br.ufscar.sead.loa.propeller.Propeller
 import grails.converters.JSON
 import grails.util.Environment
 import groovy.json.JsonBuilder
@@ -276,14 +277,20 @@ class ResourceController {
             return
         }
 
-        if (resourceInstance.owner == springSecurityService.currentUser || springSecurityService.currentUser == User.findByUsername('admin')) {
+        if (resourceInstance.owner == session.user || session.user.username == 'admin') {
             resourceInstance.delete flush: true
-            log.debug "Resource Deleted"
+
+            new AntBuilder().sequential {
+                delete(dir: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}"))
+                delete(dir: servletContext.getRealPath("/propeller/${resourceInstance.uri}"))
+            }
+
+            Propeller.instance.undeploy(resourceInstance.uri)
+            response.status = 205
+            render 205
         } else {
             log.debug "Someone is trying to delete a resource that belongs to other user"
         }
-
-        render "success"
     }
 
     protected void notFound() {
