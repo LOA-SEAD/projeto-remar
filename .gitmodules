@@ -1,0 +1,3 @@
+[submodule "QuiForca/web-app/remar/source"]
+	path = QuiForca/web-app/remar/source
+	url = https://github.com/LOA-SEAD/quiforca
