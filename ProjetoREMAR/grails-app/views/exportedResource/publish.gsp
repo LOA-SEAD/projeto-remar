@@ -65,7 +65,10 @@ Time: 09:55
                         <i class="material-icons">view_column</i>Plataformas
                     </div>
                     <div class="collapsible-body">
-                       <aside class="plataforms-progress">
+                       <aside class="plataforms-progress center">
+                           <div class="center">
+                               <p>Gerando o jogo para diferentes plataformas... </p>
+                           </div>
                            <div class="preloader-wrapper big active">
                                <div class="spinner-layer spinner-blue">
                                    <div class="circle-clipper left">
@@ -107,7 +110,7 @@ Time: 09:55
                                </div>
                                </div>
                            </div>
-                           Gerando o jogos para diferentes plataformas...
+
                        </aside>
 
                         <div id="plataforms" class="row" style="margin: 0;">
