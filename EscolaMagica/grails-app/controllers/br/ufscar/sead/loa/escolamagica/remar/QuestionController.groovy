@@ -253,7 +253,7 @@ class QuestionController {
     def generateQuestions(){
         MultipartFile csv = params.csv
 
-        csv.inputStream.eachCsvLine { row ->
+        csv.inputStream.toCsvReader([ 'separatorChar': ';']).eachLine { row ->
             Question questionInstance = new Question()
             questionInstance.level = row[0] ?: "NA";
             questionInstance.title = row[1] ?: "NA";

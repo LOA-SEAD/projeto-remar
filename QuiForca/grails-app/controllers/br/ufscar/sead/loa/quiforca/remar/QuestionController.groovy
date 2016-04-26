@@ -252,7 +252,7 @@ class QuestionController {
 
 
 
-        csv.inputStream.eachCsvLine { row ->
+        csv.inputStream.toCsvReader(['separatorChar': ';']).eachLine { row ->
 
 
             Question questionInstance = new Question()

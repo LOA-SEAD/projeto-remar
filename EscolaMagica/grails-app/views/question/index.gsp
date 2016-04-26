@@ -312,7 +312,7 @@
             <div class="row">
                 <div class="col s12">
                     <ol>
-                        <li>O separador do arquivo .csv deve ser <b> ',' (vírgula)</b>  </li>
+                        <li>O separador do arquivo .csv deve ser <b> ';' (ponto e vírgula)</b>  </li>
                         <li>O arquivo deve ser composto apenas por <b>dados</b></li>
                         <li>O arquivo deve representar a estrutura da tabela de exemplo</li>
                     </ol>

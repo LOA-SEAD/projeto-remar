@@ -295,7 +295,7 @@ class QuestionController {
         MultipartFile csv = params.csv
 
 
-        csv.inputStream.eachCsvLine { row ->
+        csv.inputStream.toCsvReader(['separatorChar': ';']).eachLine { row ->
             Question questionInstance = new Question()
             String levelQuestion = row[0] ?: "NA";
             questionInstance.level = levelQuestion.toInteger()
