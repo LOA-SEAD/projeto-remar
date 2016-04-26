@@ -49,3 +49,9 @@ $(document).ready(function() {
         });
     });
 });
+
+function deleteResource(id){
+    if(confirm("Deseja mesmo excluir este jogo?")){
+        window.location.href = " /exported-resource/delete/"+id;
+    }
+}

@@ -98,7 +98,7 @@
                                                 </a>
                                             </li>
                                             <li style="text-align: center;">
-                                                <a href="/exported-resource/delete/${instance.id}"
+                                                <a onclick="deleteResource(${instance.id})"
                                                    class="tooltipped"  data-position="bottom" data-delay="50" data-tooltip="Excluir">
                                                 <i class="fa fa-trash" style="color: #FF5722;"></i>
                                                 </a>
