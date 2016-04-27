@@ -995,7 +995,7 @@ Position must be relative!*/
 }
 
 .swiper-slide {
-    width: 150px !important;
+
 }
 
 .swiper-button-prev, .swiper-button-next {
@@ -1041,5 +1041,24 @@ Position must be relative!*/
 }
 
 .collapsible-header {
-    border-top: 1.2px solid black;
+    border-top: 1.2px solid darkgray;
+}
+
+.c .collapsible-header {
+    border-top: none;
+}
+
+
+
+.data-container {
+    border: 1px solid lightgray;
+    border-radius: 2px;
+}
+
+.data-right {
+    background-color: #82daca;
+}
+
+.data-wrong {
+    background-color: #eb6379;
 }

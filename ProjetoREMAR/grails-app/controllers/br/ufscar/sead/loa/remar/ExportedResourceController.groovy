@@ -337,6 +337,18 @@ class ExportedResourceController {
     }
 
     def _data() {
+        def data = MongoHelper.instance.getData("escola_magica", params.exportedResourceId as Integer, params.userId as Integer)
 
+        if (data.first() != null) {
+
+            data.collect {
+                println it
+            }
+
+            render view: "_data", model: [userId: params.userId, dataCollection: data]
+        }
+        else {
+            render "no information found in our records."
+        }
     }
 }

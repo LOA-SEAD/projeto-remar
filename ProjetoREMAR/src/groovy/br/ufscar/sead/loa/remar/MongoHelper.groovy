@@ -52,6 +52,10 @@ class MongoHelper {
         return db.getCollection(collection).find(new Document("game", resourceId))
     }
 
+    def getData(String collection, int resourceId, int userId) {
+        return db.getCollection(collection).find(new Document ("game", resourceId).append("user", userId))
+    }
+
     String[] getFilePaths(String... ids) {
         def paths = []
         def collection = this.db.getCollection('file')

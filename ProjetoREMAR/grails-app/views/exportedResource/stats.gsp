@@ -24,14 +24,14 @@
     </div>
 
     <div class="row show">
-        <a href="#" class="swiper-button-prev" data-jcarouselcontrol="true">‹</a>
+        <a href="#" class="swiper-button-prev" >‹</a>
         <div class="carousel-wrapper">
             <div class="swiper-container">
                 <!-- Additional required wrapper -->
-                <div class="swiper-wrapper">
+                <div class="swiper-wrapper" id="mainSwiper">
                     <!-- Slides -->
                     <g:each in="${moodleList}" var="moodleInstance">
-                        <div class="swiper-slide card" data-hash="${moodleInstance.id}">
+                        <div class="swiper-slide card" data-hash="${moodleInstance.id}" style="width: 150px;">
                             <div class="card-content">
                                 <img alt="${moodleInstance.name}" height="150" class="cover-image img-responsive image-bg no-margin-top"  src="/published/${moodleInstance.image}">
                                 <div>
@@ -48,7 +48,7 @@
                 </div>
             </div>
         </div>
-        <a href="#" class="jcarousel-control next swiper-button-next" data-jcarouselcontrol="true">›</a>
+        <a href="#" class="jcarousel-control next swiper-button-next">›</a>
 
         <div class="clearfix"></div>
 
@@ -64,7 +64,6 @@
 
 </div>
 
-<g:javascript src="carousel.js"/>
 <g:javascript src="game-info.js"/>
 
 </body>

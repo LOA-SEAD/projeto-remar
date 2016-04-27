@@ -1,4 +1,4 @@
-<ul class="collapsible" data-collapsible="expandable">
+<ul class="collapsible" data-collapsible="expandable" id="collapsible-to-change-css">
     <li class="c">
         <div class="collapsible-header">
             <div class="my-div centered"><b>Usuário</b></div>
@@ -49,7 +49,7 @@
         $.ajax({
             url: '/exported-resource/_data.gsp',
             type: 'POST',
-            data: { userId: userId, exportedResourceId: exportedResourceId },
+            data: { userId: userId, exportedResourceId: $('#mainSwiper').find('.swiper-slide-active').attr('data-hash') },
             success: function(data, status) {
                 $('#'+userId+'-data').html(data);
             },
