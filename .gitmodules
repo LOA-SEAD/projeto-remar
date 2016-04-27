@@ -8,3 +8,7 @@
 	path = EscolaMagica/web-app/remar/source
 	url = https://github.com/LOA-SEAD/escola_magica
 	branch = exported
+[submodule "RespondaSePuder/web-app/remar/source"]
+	path = RespondaSePuder/web-app/remar/source
+	url = https://github.com/LOA-SEAD/responda_se_puder
+	branch = exported
