@@ -1,8 +1,0 @@
-﻿{
-	"numero": ["5", "4"],
-	"1": ["Se um gato faminto come um rato gordo em um minuto, 6 gatos famintos comem 6 ratos gordos em quantos minutos?", "1min", "6min", "36min", "2min", "Pense um pouco no tempo de todos eles juntos. Tente desenhar os gatos e os ratos e visualizar melhor o problema."],
-	"2": ["Qual é o resultado de 2 + 4 × 8 − 4 ÷ 2 ?", "32", "9", "12", "22", "Lembre-se da ordem das operações fundamentais."],
-	"3": ["Num quarto quadrado existem quatro gatos sentados, um em cada canto. Em frente a cada gato estão 3 gatos. Quantos gatos estão no quarto?", "4", "3", "12", "16", "Imagine-se sendo um dos gatos, e pense no que o gato estaria vendo."],
-	"4": ["Assinale a alternativa que completa a seguinte série: 9, 16, 25, 36, …", "49", "45", "61", "63", "Há diferentes formas de resolver este problema. Uma delas é pensar em x², ou seja, o quadrado de um número qualquer. Outra, é pensar na diferença entre um termo da sequência, e o seu sucessor, e fazer isso para todos os membros da sequência cujo antecessor é conhecido, e assim, observar um padrão que funciona para todos os termos."],
-	"5": ["Quantos noves existem entre 0 e 100?", "20", "19", "10", "15", "Pense nos números de 90 a 100 que obedecem a esta condição e não se esqueça deles no hora de somar."]
-}
