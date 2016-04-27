@@ -159,14 +159,60 @@
                     </ul>
                 </div>
             </div>
+
+            <div class="row" id="desableAccount">
+                <div class="col s12 left-align">
+                    <ul class="collection with-header">
+                        <h5>Desativar minha conta</h5>
+
+                        <a onclick="disableUser()" >Desabilitar minha conta</a>
+                        <br>
+                        <a onclick="deleteUser()" >Excluir minha conta</a>
+
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
+
+<!-- Modal Structure -->
+<div id="confirmModal" class="modal">
+    <div class="modal-content" id="modalContent">
+
+    </div>
+    <div class="modal-footer" id="modalFooter">
+
+    </div>
+</div>
 
     <script>
         $('#toHide').click(function() {
             console.log(this);
             $(this).hide();
         });
+
+        function disableUser(){
+            $("#modalContent").empty();
+            $("#modalFooter").empty();
+            $("#modalContent").append("<p> Ao desabilitar sua conta você não conseguirá mais acessar a plataforma" +
+                    ", porém você pode resgatar sua conta à qualquer momento através da opção \"link\" </p>");
+            $("#modalFooter").append("<a href='user/disableAccount' class='btn btn-large modal-close'>Desativar minha conta</button>");
+            $("#modalFooter").append("<a class='btn btn-large modal-close disabled'>Cancelar</a>");
+            $("#confirmModal").openModal({
+                dismissible:false
+            });
+        }
+
+        function deleteUser(){
+            $("#modalContent").empty();
+            $("#modalFooter").empty();
+            $("#modalContent").append("<p> Ao excluir sua conta, todos os seus dados serão deletados permanentemente (usuário, modelos e jogos customizados) e você não poderá recuperar sua conta posteriormente</p>");
+            $("#modalFooter").append("<a href='user/deleteAccount' class='btn btn-large modal-close'>Excluir minha conta</button>");
+            $("#modalFooter").append("<a class='btn btn-large modal-close disabled'>Cancelar</a>");
+            $("#confirmModal").openModal({
+                dismissible:false
+            });
+        }
     </script>
 
     <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>

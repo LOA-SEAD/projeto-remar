@@ -199,16 +199,22 @@ class UserController {
 
         UserRole.removeAll(userInstance, true)
 
+        List<Token> list = Token.findAllByOwner(userInstance)
+        for(int i=0; i<list.size();i++)
+            list.get(i).delete()
+
+        List<Resource> myResources = Resource.findAllByOwner(userInstance)
+        for(int i=0; i<myResources.size();i++)
+            myResources.get(i).delete()
+
+        List<ExportedResource> myExportedResources = ExportedResource.findAllByOwner(userInstance)
+        for(int i=0; i< myExportedResources.size();i++)
+            myExportedResources.get(i).delete()
+
 
         userInstance.delete flush: true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'User.label', default: 'User'), userInstance.id])
-                redirect action: "index", method: "GET"
-            }
-            '*' { render status: NO_CONTENT }
-        }
+        render view: "/index/index.gsp"
     }
 
     protected void notFound() {
@@ -310,6 +316,22 @@ class UserController {
 
         render view: "/user/edit.gsp", model: [moodleList: model]
     }
+
+    @Transactional
+    def disableAccount(){
+        User userInstance = springSecurityService.getCurrentUser()
+        userInstance.enabled = false
+        userInstance.save flush: true
+        render view: "/index/index.gsp"
+    }
+
+    @Transactional
+    def deleteAccount(){
+        User userInstance = springSecurityService.getCurrentUser()
+        delete(userInstance)
+    }
+
+
 
     def getMoodleAccount(int moodleId) {
         def data = MoodleAccount.findByMoodleAndOwner(Moodle.findById(moodleId), User.findById(session.user.id))
