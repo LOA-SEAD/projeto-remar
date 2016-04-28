@@ -19,6 +19,13 @@ class ProcessController {
             return response.status = 404
         } else {
             process = process as ProcessInstance
+
+            //salva uma imagem para o processo
+            def path = new File("${servletContext.getRealPath("/processes/${process.id}")}/")
+            path.mkdirs()
+
+            def img1 = new File(servletContext.getRealPath("/images/${params.uri}-banner.png"))
+            img1.renameTo(new File(path, "banner.png"))
         }
 
         def resource = Resource.findByUri(params.uri)
@@ -124,6 +131,45 @@ class ProcessController {
         render view: "overview", model: [process: process]
     }
 
+
+    def update() {
+
+        def process = Propeller.instance.getProcessInstanceById(params.id as String, session.user.id as long)
+
+        def path = new File("${servletContext.getRealPath("/processes/${process.id}")}/")
+
+        //se a imagem foi atualizada
+        if (params.img1 != null && params.img1 != "") {
+            def img1 = new File(servletContext.getRealPath("${params.img1}"))
+            img1.renameTo(new File(path, "banner.png"))
+        }
+
+        response.status = 200
+
+//        def lp = Propeller.instance.getProcessInstanceByName(params.name)
+//        if(lp) {
+//            if(lp == process) {
+//                process.save(flush: true)
+//                response.status = 200
+//            } else {
+//                response.status = 409 // conflited error
+//            }
+//        } else {
+//            log.debug(params.name)
+//            process.name = params.name
+//            process.save(flush: true)
+//            response.status = 200
+//        }
+
+        /*TODO => o nome só poderá ser alterado enquanto o processo existir,
+         *          depois que o processo for finalizado e o exported-resource criado
+         *          (gerado nas diferentes plataformas) não poderá alterar o nome do jogo
+         */
+
+        //TODO faltou gerar o jogo para as plataformas com o novo nome e a "nova foto"
+        render 'true'
+    }
+
     def list() {
         def processes = Propeller.instance.getProcessInstancesByOwner(session.user.id as long)
         def temporary = []
@@ -179,6 +225,7 @@ class ProcessController {
     }
 
     private void finish(ProcessInstance process) {
+        def exportsTo = [:]
         def resource = Resource.get(process.getVariable('resourceId'))
         def now = new Date()
         def exportedResourceInstance = new ExportedResource()
@@ -220,6 +267,10 @@ class ProcessController {
                 )
             }
         }
+
+        exportsTo.desktop = exportedResourceInstance.resource.desktop
+        exportsTo.android = exportedResourceInstance.resource.android
+        exportsTo.moodle = exportedResourceInstance.resource.moodle
 
         redirect uri: "/exported-resource/publish/${exportedResourceInstance.id}"
     }

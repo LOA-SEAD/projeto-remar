@@ -36,14 +36,17 @@
         <a href="/resource/customizableGames" class=""><i class="medium material-icons">create</i>Modelos</a>
     </li>
     <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os jogos disponíveis para jogar." data-step="2">
-        <a href="/exportedResource/publicGames" class=""><i class="medium material-icons">videogame_asset</i>Jogos</a>
+        <a href="/exportedResource/publicGames" class=""><i class="medium material-icons">videogame_asset</i>Jogos publicados</a>
     </li>
+    <div class="divider"></div>
+
+
     <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os jogos que você já customizou." data-step="3">
         <a href="/exportedResource/myGames" class=""><i class="medium material-icons">recent_actors</i>Meus Jogos</a>
     </li>
-    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra os seus jogos em processo de customização." data-step="4">
-        <a href="/process/list" class=""><i class="medium material-icons">list</i>Meus processos</a>
-    </li>
+    %{--<li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra os seus jogos em processo de customização." data-step="4">--}%
+    %{--<a href="/process/list" class=""><i class="medium material-icons">list</i>Meus processos</a>--}%
+    %{--</li>--}%
     <li class="waves-effect waves-block waves-light hide-on-med-and-down" data-intro="Aqui você encontra e gerencia as informações do seu perfil." data-step="5">
         <a href="/my-profile"><i class="medium material-icons">account_circle</i>Meu perfil</a>
     </li>
@@ -55,6 +58,9 @@
             <a href="/resource/index" class=""><i class="medium material-icons">code</i>Desenvolvedor</a>
         </li>
     </sec:ifAllGranted>
+
+    <div class="divider"></div>
+    %{--<p><i class="medium material-icons">help_outline</i> Ajuda</p>--}%
 
     <li class="waves-effect waves-block waves-light" data-intro="Para ver este wizard novamente basta clicar aqui." data-step="8">
         <a onclick="startWizard()" class=""><i class="medium material-icons">live_help</i>Ajuda na navegação</a>

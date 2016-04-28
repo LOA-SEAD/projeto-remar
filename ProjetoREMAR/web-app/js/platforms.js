@@ -8,12 +8,14 @@ $(function () {
     var name = $("#name");
     var imgFile = $("#img-1-text");
     var plataforms = $("#plataforms");
+    var tasks= $("#tasks");
 
     $(name).prev().hide();
     $(imgFile).prev().hide();
     nameErr.hide();
     loader.hide();
     plataforms.hide();
+    tasks.hide();
 
     $(name).on("focus", function () {
         $(this).prev().hide();
@@ -38,9 +40,11 @@ $(function () {
                         formData.append('name', $(name).val());
                         formData.append('img1',$("#img1Preview").attr("src"));
 
+                        console.log($(name).data("process-id"));
+
                         $.ajax({
                             type: 'POST',
-                            url: location.origin + '/exported-resource/update/' + $(name).data("resource-id"),
+                            url: location.origin + '/process/update/' + $(name).data("process-id"),
                             data: formData,
                             processData: false,
                             contentType: false,
@@ -53,6 +57,11 @@ $(function () {
 
                                 $(imgFile).removeClass().addClass("valid");
                                 $(imgFile).prev().show(500);
+
+                                tasks.show();
+                                $("#tasks-header").trigger('click');
+                                goToByScroll("tasks-header");
+
                             },
                             error: function (req, status, err) {
                                 //alert("Esse nome já existe!");
@@ -71,7 +80,7 @@ $(function () {
 
                 $.ajax({
                     type: 'POST',
-                    url: location.origin + '/exported-resource/update/' + $(name).data("resource-id"),
+                    url: location.origin + '/process/update/' + $(name).data("process-id"),
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -79,7 +88,10 @@ $(function () {
                         nameErr.hide(500);
                         $(name).removeClass().addClass("valid");
                         $(name).prev().show(500);
-                        Materialize.toast('Informações salvas com sucesso!', 3000, 'rounded');
+
+                        tasks.show();
+                        $("#tasks-header").trigger('click');
+                        goToByScroll("tasks-header");
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         nameErr.show(500);
@@ -102,42 +114,42 @@ $(function () {
     $(platforms).css('cursor', 'wait');
     $(moodle).css('cursor', 'wait');
 
-    $.ajax({
-        type: 'GET',
-        url: location.origin + '/exported-resource/export/' + $(name).data("resource-id"),
-        success: function (data) {
-
-            $('.plataforms-progress').hide();
-            plataforms.show(500);
-            $(web).css('cursor', '');
-            $(platforms).css('cursor', '');
-            $(moodle).css('cursor', '');
-
-            $(web).parent().attr('href', data['web']);
-
-            $(web).hover(function () {
-                $(this).children().eq(1).text('Acessar ').append('<i class="fa fa-link"></i>').addClass('plataforms-link');
-            }, function () {
-                $(this).children().eq(1).text('Web').removeClass('plataforms-link');
-            });
-
-            $(moodle).children().eq(1).text('Disponível no Moodle');
-
-            $(platforms).each(function () {
-                $(this).parent().attr('href', data[$(this).data('name')]);
-
-                $(this).hover(function () {
-                   $(this).children().eq(1).text('Baixar ').append('<i class="fa fa-arrow-circle-down" aria-hidden="true"></i>').addClass('plataforms-link');
-                }, function () {
-                   $(this).children().eq(1).text($(this).data('text')).removeClass('plataforms-link');
-                });
-            });
-
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            console.log(':(');
-        }
-    });
+    //$.ajax({
+    //    type: 'GET',
+    //    url: location.origin + '/exported-resource/export/' + $(name).data("resource-id"),
+    //    success: function (data) {
+    //
+    //        $('.plataforms-progress').hide();
+    //        plataforms.show(500);
+    //        $(web).css('cursor', '');
+    //        $(platforms).css('cursor', '');
+    //        $(moodle).css('cursor', '');
+    //
+    //        $(web).parent().attr('href', data['web']);
+    //
+    //        $(web).hover(function () {
+    //            $(this).children().eq(1).text('Acessar ').append('<i class="fa fa-link"></i>').addClass('plataforms-link');
+    //        }, function () {
+    //            $(this).children().eq(1).text('Web').removeClass('plataforms-link');
+    //        });
+    //
+    //        $(moodle).children().eq(1).text('Disponível no Moodle');
+    //
+    //        $(platforms).each(function () {
+    //            $(this).parent().attr('href', data[$(this).data('name')]);
+    //
+    //            $(this).hover(function () {
+    //               $(this).children().eq(1).text('Baixar ').append('<i class="fa fa-arrow-circle-down" aria-hidden="true"></i>').addClass('plataforms-link');
+    //            }, function () {
+    //               $(this).children().eq(1).text($(this).data('text')).removeClass('plataforms-link');
+    //            });
+    //        });
+    //
+    //    },
+    //    error: function (XMLHttpRequest, textStatus, errorThrown) {
+    //        console.log(':(');
+    //    }
+    //});
 
 
     function cropPicture(target, updateImg){
@@ -213,6 +225,15 @@ $(function () {
         cropPicture(this, "#img1Preview");
     });
 
+    // This is a functions that scrolls to #{blah}link
+    function goToByScroll(id){
+        // Remove "link" from the ID
+        id = id.replace("link", "");
+        // Scroll
+        $('html,body').animate({
+                scrollTop: $("#"+id).offset().top},
+            'slow');
+    }
 
 });
 

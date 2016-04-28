@@ -103,6 +103,7 @@ class ExportedResourceController {
 
         RequestMap.findOrSaveWhere(url: "${baseUrl}/**", configAttribute: 'permitAll')
 
+//        render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl]
         render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl]
     }
 
@@ -278,8 +279,18 @@ class ExportedResourceController {
     def myGames(){
         def model = [:]
 
+        def processes = Propeller.instance.getProcessInstancesByOwner(session.user.id as long)
+        def temporary = []
+
+        for (process in processes) {
+            if (process.getVariable('inactive') != "1") {
+                temporary.add(process)
+            }
+        }
+
         model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id))
         model.categories = Category.list(sort:"name")
+        model.processes =  temporary
 
         render view: "myGames", model: model
     }
