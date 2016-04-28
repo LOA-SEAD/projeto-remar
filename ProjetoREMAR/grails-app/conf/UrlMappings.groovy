@@ -28,6 +28,7 @@ class UrlMappings {
         //noinspection GroovyAssignabilityCheck
         name developerForm: "/developer/new"(view:"/static/formDeveloper")
         name infoPage: "/index/info" (view: "index/info")
+        name recoverAccount: "/user/accountRecover" (view: "user/accountRecover")
         // end password mappings
 
         // begin Process API endpoints

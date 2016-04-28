@@ -214,7 +214,7 @@ class UserController {
 
         userInstance.delete flush: true
 
-        render view: "/index/index.gsp"
+        redirect view: "/index/index.gsp"
     }
 
     protected void notFound() {
@@ -322,7 +322,7 @@ class UserController {
         User userInstance = springSecurityService.getCurrentUser()
         userInstance.enabled = false
         userInstance.save flush: true
-        render view: "/index/index.gsp"
+        redirect view: "/index/index.gsp"
     }
 
     @Transactional
@@ -331,6 +331,19 @@ class UserController {
         delete(userInstance)
     }
 
+    @Transactional
+    def recoverUserAccount(String email){
+        User userInstance = User.findByEmail(email)
+
+        if(userInstance!=null){
+            userInstance.enabled = true
+            userInstance.save flush: true
+            render view: "../user/accountRecovered"
+
+        }
+        else
+            render "E-mail inválido"
+    }
 
 
     def getMoodleAccount(int moodleId) {
