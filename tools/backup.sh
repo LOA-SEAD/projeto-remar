@@ -4,13 +4,13 @@
 APP_DIR="/srv/production/tomcat/webapps/ROOT"
 
 function dir_not_supplied {
-	echo "Directory not supplied: assuming '.'"
-	BACKUP_DIR="./backup-folders"
+	echo "Directory not supplied: assuming './backup/folders'"
+	BACKUP_DIR="./backup/folders"
 }
 
 function backup {
 	rm -rf $BACKUP_DIR
-	mkdir $BACKUP_DIR
+	mkdir -p $BACKUP_DIR
 	mkdir $BACKUP_DIR/images
 	mkdir $BACKUP_DIR/forca
 	mkdir $BACKUP_DIR/escolamagica

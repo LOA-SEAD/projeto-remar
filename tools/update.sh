@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-./backup-folders.sh
+./backup.sh
 cd source
 git pull
 cd ProjetoREMAR
