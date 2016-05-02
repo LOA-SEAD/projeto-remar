@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ./backup.sh
-cd source
+cd /srv/production/source
 git pull
 cd ProjetoREMAR
 grails war

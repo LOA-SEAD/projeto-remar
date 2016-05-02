@@ -4,8 +4,8 @@
 APP_DIR="/srv/production/tomcat/webapps/ROOT"
 
 function dir_not_supplied {
-	echo "Directory not supplied: assuming './backup/folders'"
-	BACKUP_DIR="./backup/folders"
+	echo "Directory not supplied: assuming '/srv/backups/folders'"
+	BACKUP_DIR="/srv/backups/folders"
 }
 
 function backup {
