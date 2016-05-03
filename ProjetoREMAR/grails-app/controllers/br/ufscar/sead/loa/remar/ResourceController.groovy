@@ -199,8 +199,6 @@ class ResourceController {
             def scriptElectron = "${rootPath}/scripts/electron/build.sh"
             def scriptCrosswalk = "${rootPath}/scripts/crosswalk/build.sh"
 
-            "${servletContext.getRealPath("/scripts/db.sh")} ${resourceInstance.uri}".execute().waitFor()
-
             if (resourceInstance.desktop && resourceInstance.comment != "test") {
                 ant.sequential {
                     chmod(perm: "+x", file: scriptElectron)
