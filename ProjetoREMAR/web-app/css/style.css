@@ -994,10 +994,6 @@ Position must be relative!*/
     height: 210px;
 }
 
-.swiper-slide {
-
-}
-
 .swiper-button-prev, .swiper-button-next {
     float: left !important;
     width: 30px !important;
@@ -1026,6 +1022,10 @@ Position must be relative!*/
     height: 96% !important;
 }
 
+.my-max-height {
+    height: 250px !important;
+}
+
 .big-platform-logo {
     font-size: 5em !important;
 }
@@ -1048,17 +1048,43 @@ Position must be relative!*/
     border-top: none;
 }
 
-
-
 .data-container {
     border: 1px solid lightgray;
     border-radius: 2px;
 }
 
-.data-right {
+.colored {
+    height: 60px !important;
+    overflow: hidden !important;
+}
+
+.data-right .colored {
     background-color: #82daca;
 }
 
-.data-wrong {
+.data-wrong .colored {
     background-color: #eb6379;
+}
+
+.data-item {
+    text-align: left;
+    padding: 5px;
+    padding-left: 24px !important;
+}
+
+.data-item i {
+    position: absolute;
+    left: 0;
+}
+
+.data-wrong .data-item i {
+    color: red;
+}
+
+.data-right .data-item i {
+    color: green;
+}
+
+.green-bordered {
+    border: 1px dotted green;
 }
