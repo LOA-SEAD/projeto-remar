@@ -34,6 +34,9 @@
                                 <a href="https://remar.readme.io/docs">Documentação</a>
                             </li>
                             <li>
+                                <a href="/exportedResource/publicGames">Jogos Públicos</a>
+                            </li>
+                            <li>
                                 <a href="/login">Entrar</a>
                             </li>
                         </ul>
@@ -78,6 +81,12 @@
                 <a href="https://remar.readme.io/docs" class="waves-effect">
                     <i class="material-icons">description</i>
                     Documentação
+                </a>
+            </li>
+            <li>
+                <a href="/exportedResource/publicGames">
+                    <i class="material-icons">videogame_asset</i>
+                    Jogos Públicos
                 </a>
             </li>
             <li>

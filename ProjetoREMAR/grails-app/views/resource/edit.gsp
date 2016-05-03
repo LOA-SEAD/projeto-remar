@@ -58,7 +58,6 @@
     <script type="text/javascript" src="${resource(dir: 'js', file: 'game-index.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'edit.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: "imgPreview.js")}"></script>
-    %{--<script type="text/javascript" src="${resource(dir: 'js', file: "crop-picture-war.js")}"></script>--}%
     <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.Jcrop.js')}"></script>
 
 </body>

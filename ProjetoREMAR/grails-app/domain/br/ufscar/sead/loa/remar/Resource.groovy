@@ -14,7 +14,7 @@ class Resource {
         comment nullable: true, blank: true
         moodle defaultValue: false
         android defaultValue: false
-        linux defaultValue: false
+        desktop defaultValue: false
         width nullable: true
         height nullable: true
         description nullable: true, maxSize: 1000
@@ -29,7 +29,7 @@ class Resource {
     String uri
 
     boolean android
-    boolean linux
+    boolean desktop
     boolean moodle
 
     // deploy

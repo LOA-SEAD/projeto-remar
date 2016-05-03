@@ -4,77 +4,78 @@ import org.springframework.security.core.GrantedAuthority
 
 class User {
 
-    transient springSecurityService
+	transient springSecurityService
 
-    String username
-    String password
-    boolean enabled
-    boolean accountExpired
-    boolean accountLocked
-    boolean passwordExpired
-    String email
-    String firstName
-    String lastName
+	String username
+	String password
+	boolean enabled
+	boolean accountExpired
+	boolean accountLocked
+	boolean passwordExpired
+	String email
+	String firstName
+	String lastName
     String facebookId
     String moodleUsername
-    String gender
-    boolean firstAccess
+//	String gender
+	boolean firstAccess
 
 
-    static transients = ['springSecurityService']
+	static transients = ['springSecurityService']
 
-    static constraints = {
-        username blank: false, unique: true, nullable: false
-        password blank: false, nullable: false
-        firstName blank: false
-        lastName blank: true
-        email blank: false, email: true, unique: true
+	static constraints = {
+		username blank: false, unique: true, nullable: false
+		password blank: false, nullable: false
+		firstName blank: false
+		lastName blank: true
+		email blank: false, email: true, unique: true
         facebookId nullable: true
         moodleUsername nullable: true
-        gender blank: false
-        firstAccess blank: true, nullable: true
+//		gender blank: false
+		firstAccess blank: true, nullable: true
 
-    }
+	}
 
-    static mapping = {
-        password column: '`password`'
-        datasource 'remar'
-        tablePerHierarchy false
-    }
+	static mapping = {
+		password column: '`password`'
+		datasource 'remar'
 
-    Set<Role> getAuthorities() {
-        UserRole.findAllByUser(this).collect { it.role }
-    }
+		tablePerHierarchy false
+	}
 
-    def beforeInsert() {
-        encodePassword()
-    }
+	Set<Role> getAuthorities() {
+		UserRole.findAllByUser(this).collect { it.role }
+	}
 
-    def beforeUpdate() {
-        if (isDirty('password')) {
-            encodePassword()
-        }
-    }
+	def beforeInsert() {
+		encodePassword()
+	}
 
-    protected void encodePassword() {
-        password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
-    }
+	def beforeUpdate() {
+		if (isDirty('password')) {
+			encodePassword()
+		}
+	}
 
-    HashSet<GrantedAuthority> test() {
-        def roles = UserRole.findAllByUser(this).collect { it.role }
-        def auths = new HashSet<GrantedAuthority>()
-        roles.each { role ->
-            def auth = new GrantedAuthority() {
+	protected void encodePassword() {
+		password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
+	}
 
-                @Override
-                String getAuthority() {
-                    return role.authority
-                }
-            }
-            auths.add(auth)
+	HashSet<GrantedAuthority> authoritiesHashSet() {
+		def roles = UserRole.findAllByUser(this).collect { it.role }
+		def auths = new HashSet<GrantedAuthority>()
+		roles.each { role ->
+			def auth = new GrantedAuthority() {
 
-        } as Set<Role>
-        return auths
-    }
+				@Override
+				String getAuthority() {
+					return role.authority
+				}
+			}
+			auths.add(auth)
+
+		} as Set<Role>
+		return auths
+	}
 
 }

@@ -34,19 +34,10 @@
                             <label for="email">Email</label>
                         </div>
 
-                        <div class="input-field col s12 m6">
+                        <div class="input-field col s12 m12">
                             <i class="material-icons prefix">account_circle</i>
                             <input id="username" name="username" type="text"/>
                             <label for="username">Nome de usuário</label>
-                        </div>
-
-                        <div class="input-field col s12 m6">
-                            <i class="material-icons prefix" style="color: #FF5722;">face</i>
-                            <select id="select" name="gender">
-                                <option value="male">Masculino</option>
-                                <option value="female">Feminino</option>
-                            </select>
-                            <label for="select">Sexo</label>
                         </div>
 
                         <div class="input-field col s12 m6">
@@ -72,7 +63,6 @@
                                 <input type="file" id="file"  accept="image/jpeg, image/png">
                                 <div class="file-path-wrapper">
                                     <input class="file-path" type="text" placeholder="Selecione uma foto (opicional)" style="margin-bottom: 0;">
-                                    <span class="input-description">Outros usuários irão te identificar mais facilmente :)</span>
                                 </div>
                             </div>
                         </div>

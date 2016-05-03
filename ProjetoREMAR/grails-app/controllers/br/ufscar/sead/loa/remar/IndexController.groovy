@@ -13,7 +13,7 @@ class IndexController {
 
             model.gameInstanceList = Resource.findAllByStatus('approved',[max:8, sort: "id", order: "desc"])
             model.userName = session.user.firstName
-            model.userGender = User.findById(session.user.id).gender
+//            model.userGender = User.findById(session.user.id).gender
             model.publicExportedResourcesList = ExportedResource.findAllByType('public',[max:8, sort: "id", order: "desc"])
             model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public',User.get(session.user.id),[max:8, sort: "id", order: "desc"])
 
@@ -39,6 +39,10 @@ class IndexController {
                 model.uri = "http://localhost:8010${model.uri}"
             } else if (model.uri.indexOf('escola') != -1) {
                 model.uri = "http://localhost:8020${model.uri}"
+            } else if (model.uri.indexOf('mathjong') != -1) {
+                model.uri = "http://localhost:8030${model.uri}"
+            } else if (model.uri.indexOf('responda') != -1) {
+                model.uri = "http://localhost:8040${model.uri}"
             }
         }
 

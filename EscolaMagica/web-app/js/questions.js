@@ -94,7 +94,132 @@ window.onload = function() {
     $('#noSubmitButton').click(function () {
         alert("Você deve criar no mínimo 5 (cinco) questões de cada nível.");
     })
-
-
-
 };
+
+function _edit(tr) {
+    var url = location.origin + '/escolamagica/question/returnInstance/' + $(tr).attr('data-id');
+    var data = {_method: 'GET'};
+
+    $.ajax({
+            type: 'GET',
+            data: data,
+            url: url,
+            success: function (returndata) {
+                var questionInstance = returndata.split("%@!");
+                //questionInstance é um vetor com os atributos da classe Question na seguinte ordem:
+                // Level - Title - Answer[0] - Answer[1] - Answer[2] - Answer[3] - correctAnswer -  ID
+                console.log("Sucesso?");
+                console.log(questionInstance);
+                switch (questionInstance[0]) {
+                    case '1':
+                        $("#editLevel1").attr('checked', 'checked');
+                        break;
+                    case '2':
+                        $("#editLevel2").attr('checked', 'checked');
+                        break;
+                    case '3' :
+                        $("#editLevel3").attr('checked', 'checked');
+                        break;
+                    default :
+                        console.log("Nível inválido");
+                }
+
+                switch (questionInstance[6]) {
+                    case '0':
+                        $("#editRadio0").attr("checked", "checked");
+                        break;
+                    case '1':
+                        $("#editRadio1").attr("checked", "checked");
+                        break;
+                    case '2':
+                        $("#editRadio2").attr("checked", "checked");
+                        break;
+                    case '3':
+                        $("#editRadio3").attr("checked", "checked");
+                        break;
+                    default :
+                        console.log("Alternativa correta inválida");
+                }
+                $("#editTitle").attr("value", questionInstance[1]);
+                $("#labelTitle").attr("class", "active");
+                $("#labelAnswer1").attr("class", "active");
+                $("#labelAnswer2").attr("class", "active");
+                $("#labelAnswer3").attr("class", "active");
+                $("#labelAnswer4").attr("class", "active");
+                $("#editAnswers0").attr("value", questionInstance[2]);
+                $("#editAnswers1").attr("value", questionInstance[3]);
+                $("#editAnswers2").attr("value", questionInstance[4]);
+                $("#editAnswers3").attr("value", questionInstance[5]);
+                $("#questionID").attr("value", questionInstance[7]);
+
+
+                $("#editModal").openModal();
+
+
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.log("Error, não retornou a instância");
+            }
+        }
+    );
+}
+
+function _delete(tr) {
+    if(confirm("Você tem certeza que deseja excluir esta questão?")) {
+        var tds = $(tr).find("td");
+        var url = location.origin + '/escolamagica/question/delete/' + $(tr).attr('data-id');
+        var data = {_method: 'DELETE'};
+
+        $.ajax({
+                type: 'GET',
+                data: data,
+                url: url,
+                success: function (data) {
+                    $(tr).remove();
+                    //uncheck_all();
+                    //window.location.reload();
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                }
+            }
+        );
+
+
+    }
+}
+
+function check_all(){
+    console.log("selecionar todas");
+    var CheckAll = document.getElementById("BtnCheckAll");
+    var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
+    $(".filled-in:visible").prop('checked', 'checked');
+
+
+    for (var i = 0; i < trs.length; i++) {
+        if($(trs[i]).is(':visible')) {
+            $(trs[i]).attr('data-checked', "true");
+        }
+    }
+
+    $('#BtnCheckAll').hide();
+    $('#BtnUnCheckAll').show();
+
+}
+
+function uncheck_all(){
+    console.log("remover todas");
+    var UnCheckAll = document.getElementById("BtnUnCheckAll");
+    var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
+    $(".filled-in:visible").prop('checked', false);
+
+
+    for (var i = 0; i < trs.length; i++) {
+        if($(trs[i]).is(':visible')) {
+            $(trs[i]).attr('data-checked', "false");
+        }
+    }
+
+    $('#BtnUnCheckAll').hide();
+    $('#BtnCheckAll').show();
+
+}

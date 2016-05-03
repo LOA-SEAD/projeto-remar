@@ -20,7 +20,7 @@ $(document).ready(function() {
                         email: function() {
                             return $('#email').val();
                         },
-                        userId: $("#userId").val()
+                        userId: $("form").attr("data-user-id")
                     }
                 }
             },
@@ -126,6 +126,7 @@ $('#file').on('change', function() {
                         contentType: false,
                         success: function (data) {
                             $('#profile-picture').attr("src", "/data/tmp/" + data);
+                            $('#srcImage').attr("value", "/data/tmp/" + data);
                         },
                         error: function(req, res, err) {
                             console.log(req);
@@ -133,8 +134,6 @@ $('#file').on('change', function() {
                             console.log(err);
                         }
                     })
-
-
                 }
             });
             $(el).Jcrop({
@@ -147,8 +146,4 @@ $('#file').on('change', function() {
             });
         }
     }
-});
-
-$('#submit').on('click', function() {
-    $('form').validate();
 });

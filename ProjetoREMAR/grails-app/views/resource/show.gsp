@@ -41,15 +41,15 @@
 									<span class="hide-on-small-only"> ${resourceInstance.owner.email} </span>
 
 									<div class="hide-on-med-and-up" style="color: rgba(0, 0, 0, 0.6);">
-										<i class="fa fa-globe"></i>
+										<i class="fa fa-globe tooltipped" data-position="bottom" data-delay="30" data-tooltip="Web"></i>
 										<g:if test="${resourceInstance.android}">
-											<i class="fa fa-android"></i>
+											<i class="fa fa-android tooltipped" data-position="bottom" data-delay="30" data-tooltip="Android"></i>
 										</g:if>
-										<g:if test="${resourceInstance.linux}">
-											<i class="fa fa-linux"></i>
+										<g:if test="${resourceInstance.desktop}">
+											<i class="fa fa-desktop tooltipped" data-position="bottom" data-delay="30" data-tooltip="Moodle"></i>
 										</g:if>
 										<g:if test="${resourceInstance.moodle}">
-											<i class="fa fa-graduation-cap"></i>
+											<i class="fa fa-graduation-cap tooltipped" data-position="bottom" data-delay="30" data-tooltip="Moodle"></i>
 										</g:if>
 									</div>
 								</p>
@@ -58,15 +58,17 @@
 							<div class="plataform gray-color">
 								<p class="hide-on-med-and-down" style="font-size: 16px; display: inline-block;"> Disponível para: </p>
 								<div class="hide-on-small-only">
-									<i class="fa fa-globe"></i>
+									<i class="fa fa-globe tooltipped" data-position="bottom" data-delay="30" data-tooltip="Web"></i>
 									<g:if test="${resourceInstance.android}">
-										<i class="fa fa-android"></i>
+										<i class="fa fa-android tooltipped" data-position="bottom" data-delay="30" data-tooltip="Android"></i>
 									</g:if>
-									<g:if test="${resourceInstance.linux}">
-										<i class="fa fa-linux"></i>
+									<g:if test="${resourceInstance.desktop}">
+										<i class="fa fa-windows tooltipped" data-position="bottom" data-delay="30" data-tooltip="Windows"></i>
+										<i class="fa fa-linux tooltipped" data-position="bottom" data-delay="30" data-tooltip="Linux"></i>
+										<i class="fa fa-apple tooltipped" data-position="bottom" data-delay="30" data-tooltip="Mac"></i>
 									</g:if>
 									<g:if test="${resourceInstance.moodle}">
-										<i class="fa fa-graduation-cap"></i>
+										<i class="fa fa-graduation-cap tooltipped" data-position="bottom" data-delay="30" data-tooltip="Moodle"></i>
 									</g:if>
 								</div>
 							</div>
@@ -82,25 +84,17 @@
 								<li>
 									<!-- tamanho ideal para imagem 500x250 -->
 									<img src="/data/resources/assets/${resourceInstance.uri}/description-1">
-									%{--<div class="caption center-align">--}%
-										%{--<h3>This is our big Tagline!</h3>--}%
-										%{--<h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>--}%
-									%{--</div>--}%
 								</li>
 								<li>
 									<img src="/data/resources/assets/${resourceInstance.uri}/description-2">
-									%{--<img src="/data/resources/assets/${resourceInstance.uri}/teste.jpg">--}%
 								</li>
 								<li>
 									<img src="/data/resources/assets/${resourceInstance.uri}/description-3">
-								%{--<img src="/data/resources/assets/${resourceInstance.uri}/teste.jpg">--}%
 								</li>
 							</ul>
 						</div>
 
 						<p class="description">${resourceInstance.description}</p>
-
-						%{--${resourceInstance.description}--}%
 					</div>
 					<div class="card-action">
 						<p class="left comment-text">Comentários</p>
@@ -143,7 +137,8 @@
 											<p class="title">${rating.user.firstName} <small>- <g:formatDate format="HH:mm" date="${rating.date}"/></small></p>
 										</g:else>
 										<p class="rating-desc">${rating.comment}</p>
-										<div id="rateYo${rating.id}" class="left rating-stars" style="display: inline-block;" data-stars="${rating.stars}">
+										<div id="rateYo${rating.id}" class="left rating-stars" style="display: inline-block;" data-stars="${rating.stars}"
+											 data-rating-id="${rating.id}" data-medium-stars="" data-sum-users="">
 										</div>
 										<p class="stars-font">(0)</p>
 										<div class="clearfix"></div>
@@ -199,6 +194,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.js"></script>
 <g:javascript src="rating.js" />
+<g:javascript src="tooltip.js" />
 </body>
 </html>
 

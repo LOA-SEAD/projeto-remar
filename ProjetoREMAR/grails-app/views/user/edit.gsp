@@ -1,9 +1,9 @@
-<%@ page import="br.ufscar.sead.loa.remar.UserController" %>
+<%@ page import="br.ufscar.sead.loa.remar.User; br.ufscar.sead.loa.remar.UserController" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta name="layout" content="materialize-layout">
-    <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
+
 	<title>Meu perfil</title>
 </head>
 <body>
@@ -27,6 +27,12 @@
         </script>
     </g:if>
 
+    <g:if test="${params.profileUpdated}">
+        <script type="text/javascript">
+            Materialize.toast('Perfil atualizado!', 3000, 'rounded') // 'rounded' is the class I'm applying to the toast
+        </script>
+    </g:if>
+
 	<div class="row cluster">
         <div class="cluster-header">
             <p class="text-teal text-darken-3 left-align margin-bottom">
@@ -35,9 +41,7 @@
             <div class="divider"></div>
         </div>
         <div class="row show">
-            <form method="POST" action="/user/update" enctype="multipart/form-data">
-                <input id="userId" name="userId" type="hidden" value="${session.user.id}" />
-
+            <form method="POST" action="/user/update?id=${session.user.id}" enctype="multipart/form-data" data-user-id="${session.user.id}">
                 <div class="row" style="margin-top: 20px;">
                     <div class="input-field col s12 m6">
                         <i class="material-icons prefix">person</i>
@@ -54,25 +58,11 @@
                         <input id="email" name="email" type="email" value="${session.user.email}" />
                         <label for="email">Email</label>
                     </div>
-                    <div class="input-field col s12 m6">
+                    <div class="input-field col s12 m12">
                         <i class="material-icons prefix">account_circle</i>
                         <input id="username" name="username" type="hidden" value="${session.user.username}" />
                         <input type="text" value="${session.user.username}" disabled />
                         <label for="username">Nome de Usuário</label>
-                    </div>
-                    <div class="input-field col s12 m6">
-                        <i class="material-icons prefix" style="color: #FF5722; left: 10px;">face</i>
-                        <select id="select" name="gender">
-                            <g:if test="${session.user.gender == "male"}">
-                                <option value="male" selected>Masculino</option>
-                                <option value="female">Feminino</option>
-                            </g:if>
-                            <g:else>
-                                <option value="male">Masculino</option>
-                                <option value="female" selected>Feminino</option>
-                            </g:else>
-                        </select>
-                        <label for="select">Sexo</label>
                     </div>
 
                     <div class="input-field col s12 m6">
@@ -89,10 +79,11 @@
 
                     <div class="input-field file-field col s12">
                         <div class="col s3">
-                            <img id="profile-picture" class="circle profile-picture" src="/data/users/${session.user.username}/profile-picture" />
+                            <input type="hidden" name="photo" value="/images/avatars/default.png" id="srcImage">
+                            <img id="profile-picture" class="circle profile-picture" src="/data/users/${session.user.username}/profile-picture?${new Date()}" />
                         </div>
                         <div>
-                            <input type="file" id="file" name="photo" accept="image/jpeg, image/png">
+                            <input type="file" id="file" accept="image/jpeg, image/png">
                             <div class="file-path-wrapper">
                                 <input class="file-path" type="text" placeholder="Selecione uma foto (opicional)">
                                 <span class="input-description my-left">Outros usuários irão te identificar mais facilmente :)</span>
@@ -102,7 +93,7 @@
 
                     <div class="clearfix"></div>
                     <div class="input-field center-align">
-                        <button id="submit" class="btn waves-effect waves-light tooltiped my-orange" type="submit">Enviar</button>
+                        <button class="btn waves-effect waves-light tooltiped my-orange" type="submit">Enviar</button>
                     </div>
                 </div>
             </form>
@@ -112,7 +103,7 @@
                     <img id="crop-preview" class="responsive-img">
                 </div>
                 <div class="modal-footer">
-                    <a href="#!" class="modal-action modal-close waves-effect btn-flat">Enviar</a>
+                    <a id="toHide" href="#!" class="modal-action modal-close waves-effect btn-flat">Enviar</a>
                 </div>
             </div>
 
@@ -122,12 +113,12 @@
                         <li class="collection-item">
                             <sec:ifNotGranted roles="ROLE_DEV">
                                 <div>
-                                    <p>Você ainda não é um desenvolvedor do REMAR. Se deseja tornar-se um desenvolvedor, <a href="/developer/new">clique aqui</a>.</p>
+                                    <p><u>Você ainda não é um desenvolvedor do REMAR</u>. Se deseja tornar-se um desenvolvedor, <a href="/developer/new">clique aqui</a>.</p>
                                 </div>
                             </sec:ifNotGranted>
                             <sec:ifAnyGranted roles="ROLE_DEV">
                                 <div>
-                                    <p align="left">Você já é um desenvolvedor no REMAR.</p>
+                                    <p align="left"><u>Você já é um desenvolvedor no REMAR</u>.</p>
                                     <p align="left" style="margin-left: 20px;">Para enviar novos jogos, clique no menu <a href="/resource/index">"Desenvolvedor"</a>.</p>
                                     <p align="left" style="margin-left: 20px;">Se não deseja mais ser um desenvolvedor, <a href="/user/unmakeDeveloper">clique aqui</a>.</p>
                                 </div>
@@ -137,7 +128,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row" id="moodle">
                 <div class="col s12 left-align">
                     <ul class="collection with-header">
                         <li class="collection-header">
@@ -168,8 +159,63 @@
                     </ul>
                 </div>
             </div>
+
+            <div class="row" id="desableAccount">
+                <div class="col s12 left-align">
+                    <ul class="collection with-header">
+                        <h5>Desativar minha conta</h5>
+
+                        <a onclick="disableUser()" >Desabilitar minha conta</a>
+                        <br>
+                        %{--<a onclick="deleteUser()" >Excluir minha conta</a>--}%
+
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
+
+<!-- Modal Structure -->
+<div id="confirmModal" class="modal">
+    <div class="modal-content" id="modalContent">
+
+    </div>
+    <div class="modal-footer" id="modalFooter">
+
+    </div>
+</div>
+
+    <script>
+        $('#toHide').click(function() {
+            console.log(this);
+            $(this).hide();
+        });
+
+        function disableUser(){
+            $("#modalContent").empty();
+            $("#modalFooter").empty();
+            $("#modalContent").append("<p> Ao desabilitar sua conta você não conseguirá mais acessar a plataforma" +
+                    ", porém você pode resgatar sua conta à qualquer momento através da opção \"link\" </p>");
+            $("#modalFooter").append("<a href='user/disableAccount' class='btn btn-large modal-close'>Desativar minha conta</button>");
+            $("#modalFooter").append("<a class='btn btn-large modal-close disabled'>Cancelar</a>");
+            $("#confirmModal").openModal({
+                dismissible:false
+            });
+        }
+
+        function deleteUser(){
+            $("#modalContent").empty();
+            $("#modalFooter").empty();
+            $("#modalContent").append("<p> Ao excluir sua conta, todos os seus dados serão deletados permanentemente (usuário, modelos e jogos customizados) e você não poderá recuperar sua conta posteriormente</p>");
+            $("#modalFooter").append("<a href='user/deleteAccount' class='btn btn-large modal-close'>Excluir minha conta</button>");
+            $("#modalFooter").append("<a class='btn btn-large modal-close disabled'>Cancelar</a>");
+            $("#confirmModal").openModal({
+                dismissible:false
+            });
+        }
+    </script>
+
+    <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
     <g:javascript src="jquery/jquery.validate.js"/>
     <g:javascript src="user/update-validator.js"/>
     <g:javascript src="jquery/jquery.Jcrop.js"/>

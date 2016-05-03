@@ -24,11 +24,13 @@ class ThemeController {
     def springSecurityService
 
     def index(Integer max) {
+
+        def user = springSecurityService.getCurrentUser()
         if (params.t && params.h) {
             session.taskId = params.t
 
             def u = User.findByUsername(new String(params.h.decodeBase64()))
-            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.test()))
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.authoritiesHashSet()))
 
             redirect controller: "theme"
             return
@@ -36,11 +38,16 @@ class ThemeController {
 
         session.user = springSecurityService.currentUser
 
-        if (params.review) {
-            respond Theme.findAllByProcessIdAndTaskId(session.processId, session.taskId), model:[themeInstanceCount: Theme.count()]
+        def Mylist = Theme.findAllByOwnerId(user.getId()).toList()
+        def List = Theme.findAll()
+        def publicList = List - Mylist
 
-        }
-        respond Theme.list(), model:[themeInstanceCount: Theme.count()]
+        def list = Theme.findAllByOwnerId(user.getId())
+        def listPublic = Theme.findAll() - list
+
+        render view: "index", model: [themeInstanceListMy: list,  themeInstanceListPublic: listPublic]
+
+
     }
 
     def show(Theme themeInstance) {

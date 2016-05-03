@@ -18,7 +18,7 @@ class QuestionController {
 
     def springSecurityService
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "GET" ]
+    static allowedMethods = [save: "POST", update: "POST", delete: "GET" ]
 
     @Secured(['permitAll'])
     def index(Integer max) {
@@ -26,7 +26,7 @@ class QuestionController {
             session.taskId = params.t
 
             def u = User.findByUsername(new String(params.h.decodeBase64()))
-            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.test()))
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.authoritiesHashSet()))
 
             redirect controller: "question"
             return
@@ -192,18 +192,19 @@ class QuestionController {
     }
 
     @Transactional
-    def update(Question questionInstance) {
-        if (questionInstance == null) {
-            notFound()
-            return
-        }
+    def update() {
+        Question questionInstance = Question.findById(Integer.parseInt(params.questionID))
 
-        if (questionInstance.hasErrors()) {
-            respond questionInstance.errors, view: 'edit'
-            return
-        }
-
-        questionInstance.save flush: true
+        questionInstance.level = Integer.parseInt(params.level)
+        questionInstance.title = params.title
+        questionInstance.answers[0] = params.answers1
+        questionInstance.answers[1] = params.answers2
+        questionInstance.answers[2] = params.answers3
+        questionInstance.answers[3] = params.answers4
+        questionInstance.correctAnswer = Integer.parseInt(params.correctAnswer)
+        questionInstance.ownerId = session.user.id as long
+        questionInstance.taskId = session.taskId as String
+        questionInstance.save flush:true
 
         redirect action: "index"
     }
@@ -231,11 +232,28 @@ class QuestionController {
         }
     }
 
+    def returnInstance(Question questionInstance){
+
+        if (questionInstance == null) {
+            notFound()
+        }
+        else{
+            render questionInstance.level + "%@!" +
+                    questionInstance.title + "%@!" +
+                    questionInstance.answers[0] + "%@!" +
+                    questionInstance.answers[1] + "%@!" +
+                    questionInstance.answers[2] + "%@!" +
+                    questionInstance.answers[3] + "%@!" +
+                    questionInstance.correctAnswer + "%@!" +
+                    questionInstance.id
+        }
+    }
+
     @Transactional
     def generateQuestions(){
         MultipartFile csv = params.csv
 
-        csv.inputStream.eachCsvLine { row ->
+        csv.inputStream.toCsvReader([ 'separatorChar': ';']).eachLine { row ->
             Question questionInstance = new Question()
             questionInstance.level = row[0] ?: "NA";
             questionInstance.title = row[1] ?: "NA";

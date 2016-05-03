@@ -75,6 +75,7 @@ grails.project.dependency.resolution = {
 
         compile ":rest:0.8"
         compile ":csv:0.3.1"
+        compile "org.grails.plugins:csv:0.3.1"
         // Uncomment these to enable additional asset-pipeline capabilities
         //compile ":sass-asset-pipeline:1.9.0"
         //compile ":less-asset-pipeline:1.10.0"

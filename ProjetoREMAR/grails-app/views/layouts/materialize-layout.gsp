@@ -16,7 +16,6 @@
                         <li>
                             <a href="#" data-activates="dropdown-user" class="dropdown-button">
                                 <img src="/data/users/${session.user.username}/profile-picture"
-                                <img src="/data/users/${session.user.username}/profile-picture"
                                      alt="${session.user.firstName}" class="circle profile-pic"
                                      data-beloworigin="true">
                             </a>
@@ -36,14 +35,13 @@
                             </li>
                             <div class="row collection-item footer" style="margin-top: 115px;">
                                 <div class="col s6">
-                                    <a href="/my-profile" class="waves-effect btn-flat left tooltipped" data-position="bottom" data-delay="50" data-tooltip="Perfil">
-                                        <i class="material-icons">account_circle</i>
+                                    <a href="/my-profile" class="waves-effect btn-flat left">
+                                        Meu perfil
                                     </a>
                                 </div>
                                 <div class="col s6">
-                                    <a href="/logout/index" class="waves-effect btn-flat right tooltipped" data-position="bottom" data-delay="50" data-tooltip="Sair">
-                                        <i class="material-icons">power_settings_new</i>
-                                        %{--Sair--}%
+                                    <a href="/logout/index" class="waves-effect btn-flat right">
+                                        Sair
                                     </a>
                                 </div>
                             </div>

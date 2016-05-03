@@ -4,6 +4,10 @@
 
 $(document).ready(function(){
 
+    var current_rating = null;
+    var r = 0;
+    var mainStars = $('#rateYo-main');
+
     $(".dropdown-button").dropdown({
         inDuration: 300,
         outDuration: 0,
@@ -20,10 +24,6 @@ $(document).ready(function(){
     $("#comment-area").focus(function(){
         $("#comment-error").hide();
     });
-
-
-    var r = 0;
-    var mainStars = $('#rateYo-main');
 
     $('.slider').slider();
     $('.modal-trigger').leanModal({
@@ -60,7 +60,7 @@ $(document).ready(function(){
         else{
             var formData = new FormData();
             formData.append('stars',Number($(".counter").text())*10);
-            formData.append('comment', $("#comment-area").val());
+            formData.append('commentRating', $("#comment-area").val());
 
             $.ajax({
                 url: "/resource/saveRating/" + $("#hidden").val(),
@@ -89,14 +89,9 @@ $(document).ready(function(){
 
                     $("#users").text("("+rating.attr("data-sum-users")+")");
 
-
-
-
-
                     $(".dropdown-button").dropdown();
-                    console.log( $(response).find(".edit-rating"));
                     $(".edit-rating").on('click',setListenerEdit);
-                    $(".delete-rating").on('click',setListenerDelete,false);
+                    $(".delete-rating").on('click',setListenerDelete);
 
                     $("#not-comment").hide();
                     $("#modal-comment").closeModal();
@@ -125,34 +120,120 @@ $(document).ready(function(){
     //classe nos botões edit e delete rating
     $(".edit-rating").on("click",setListenerEdit);
 
+    $(".delete-rating").on("click",setListenerDelete);
+
+
     //botão do modal de editar
     $("#edit-rating").on("click",function(){
 
-        $('#modal1').closeModal();
-        $("#create-rating").show();
-        $('#edit-rating').hide();
+        var parent = $(current_rating).parents().eq(2);
+        var stars = Number(parent.find(".rating-stars").attr("data-stars"));
+        var commentArea = $("#comment-area");
 
-        $("#comment-area").val("").next().removeClass("active").before().removeClass("active");
-        $("#rateYo").rateYo("option","rating",0).next().text(0);
+        if($(commentArea).val()==""){
+            var fildComment = document.getElementById('comment-area');
+            $("#comment-error").show();
+            $(commentArea).addClass("invalid");
+        }
+        else{
+            var formData = new FormData();
+            formData.append('stars',Number($(".counter").text())*10);
+            formData.append('comment', $(commentArea).val());
 
+            $.ajax({
+                url: "/resource/updateRating/" + $(current_rating).attr("id-rating"),
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    $('#modal1').closeModal();
+                    $("#create-rating").show();
+                    $('#edit-rating').hide();
+
+                    parent.remove();
+
+                    $(".collection.rating").prepend(response);
+
+                    var rating = $(response).find(".rating-stars");
+
+                    $('#rateYo'+rating.attr("data-rating-id")).rateYo({
+                        readOnly: true,
+                        precision: 0,
+                        maxValue: 100,
+                        starWidth: "15px",
+                        rating: Number(rating.attr("data-stars"))
+                    });
+
+                    //set medium stars and amount users of resource
+                    $(mainStars).rateYo("option","rating",rating.attr("data-medium-stars"));
+                    $("#users").text("("+rating.attr("data-sum-users")+")");
+
+                    //start field (zero) of modal
+                    $(commentArea).val("").next().removeClass("active").before().removeClass("active");
+                    $("#rateYo").rateYo("option","rating",0).next().text(0);
+
+                    $(".dropdown-button").dropdown();
+                    $(".edit-rating").on('click',setListenerEdit);
+                    $(".delete-rating").on('click',setListenerDelete);
+
+                    $("#not-comment").hide();
+                    $("#modal-comment").closeModal();
+                    $(".lean-overlay").remove();
+
+                    current_rating = null; //reset current rating
+
+                    Materialize.toast('Comentário editado!', 3000, 'rounded');
+
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+        }
     }).hide();
+
+
+    function setListenerEdit(){
+        var parent = $(this).parents().eq(2);
+        var stars = Number(parent.find(".rating-stars").attr("data-stars"));
+        var commentArea = $("#comment-area");
+
+        $('#modal-comment').openModal();
+
+        $("#create-rating").hide();
+        $('#edit-rating').show();
+
+        $(commentArea).val(parent.find(".rating-desc").text()).next().addClass("active").before().addClass("active");
+        $("#rateYo").rateYo("option","rating",stars).next().text(stars / 10);
+
+        current_rating = $(this); //set current rating clicked
+    }
+
+    function setListenerDelete(){
+        var parent = $(this).parents().eq(2);
+        var idRating = Number(parent.find(".rating-stars").attr("data-rating-id"));
+
+        $.ajax({
+            url: "/resource/deleteRating/" + idRating,
+            type: 'GET',
+            data: null,
+            success: function (response) {
+                parent.remove();
+
+                //set medium stars and amount users of resource
+                var n = Number(response.sumStars) / Number(response.sumUser);
+                $(mainStars).rateYo("option","rating",n);
+                $("#users").text("("+response.sumUser+")");
+
+                Materialize.toast('Comentário excluído!', 3000, 'rounded');
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+    }
+
 });
 
 
-function setListenerEdit(){
-    var parent = $(this).parents().eq(2);
-    var stars = Number(parent.find(".rating-stars").attr("data-stars"));
-
-    //console.log( st);
-    $('#modal-comment').openModal();
-
-    $("#create-rating").hide();
-    $('#edit-rating').show();
-
-    $("#comment-area").val(parent.find(".rating-desc").text()).next().addClass("active").before().addClass("active");
-    $("#rateYo").rateYo("option","rating",stars).next().text(stars / 10);
-}
-
-function setListenerDelete(){
-
-}

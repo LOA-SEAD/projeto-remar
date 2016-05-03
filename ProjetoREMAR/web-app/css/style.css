@@ -87,6 +87,7 @@
     }
     .my-card {
         display: table;
+        overflow: visible;
     }
 
     .card-div{
@@ -280,7 +281,7 @@ footer.page-footer{
     .my-dropdown-menu {
         background-color: #FFFFFF;
         display: none;
-        min-width: 330px;
+        min-width: 373px;
         margin-top: 4rem;
     }
 
@@ -1087,4 +1088,15 @@ Position must be relative!*/
 
 .green-bordered {
     border: 1px dotted green;
+}.big-platform-logo {
+    font-size: 5em !important;
+}
+
+.collapsible.popout > li {
+    width: 97% !important;
+    margin: 16px auto !important;
+}
+
+.plataforms-link{
+    color: #039be5 !important;
 }

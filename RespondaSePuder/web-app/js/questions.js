@@ -27,58 +27,68 @@ function submit(){
     var questions_level1 = 0;
     var questions_level2 = 0;
     var questions_level3 = 0;
-    $.each($("input[type=checkbox]:checked"), function (ignored, el) {
-        var tr = $(el).parents().eq(1);
-        switch ($(tr).attr('data-level')) {
-            case "1":
-                questions_level1++;
-                list_id_level1.push($(tr).attr('data-id'));
-                break;
-            case "2":
-                questions_level2++;
-                list_id_level2.push($(tr).attr('data-id'));
-                break;
-            default:
-                questions_level3++;
-                list_id_level3.push($(tr).attr('data-id'));
-                break;
-
-        }
-    });
-    if(questions_level1 >= 5 && questions_level2 >= 5 && questions_level3 >= 5){
-        //Chama controlador para salvar questões em arquivos.json
-        $.ajax({
-            type: "POST",
-            traditional: true,
-            url: "exportQuestions",
-            data: { list_id_level1: list_id_level1, list_id_level2: list_id_level2, list_id_level3: list_id_level3 },
-            success: function(returndata) {
-                //window.top.location.href = returndata;
-            },
-            error: function(returndata) {
-                alert("Error:\n" + returndata.responseText);
-
+    var randomQuestion = document.getElementById("randomQuestion").value;
+    if(randomQuestion>0){
+        $.each($("input[type=checkbox]:checked"), function (ignored, el) {
+            var tr = $(el).parents().eq(1);
+            switch ($(tr).attr('data-level')) {
+                case "1":
+                    questions_level1++;
+                    list_id_level1.push($(tr).attr('data-id'));
+                    break;
+                case "2":
+                    questions_level2++;
+                    list_id_level2.push($(tr).attr('data-id'));
+                    break;
+                default:
+                    questions_level3++;
+                    list_id_level3.push($(tr).attr('data-id'));
+                    break;
 
             }
         });
-    }
-    else
-    {
+        if(questions_level1 >= randomQuestion && questions_level2 >= randomQuestion && questions_level3 >= randomQuestion){
+            //Chaama controlador para salvar questões em arquivos.json
+            $.ajax({
+                type: "POST",
+                traditional: true,
+                url: "exportQuestions",
+                data: { list_id_level1: list_id_level1, list_id_level2: list_id_level2, list_id_level3: list_id_level3, randomQuestion: randomQuestion },
+                success: function(returndata) {
+                    window.top.location.href = returndata;
+                },
+                error: function(returndata) {
+                    alert("Error:\n" + returndata.responseText);
 
+
+                }
+            });
+        }
+        else
+        {
+
+            $('#totalQuestion').empty();
+            $("#totalQuestion").append("<div> <p> Você deve selecionar no mínimo "+ randomQuestion + " questão(ões) de cada nível. </p> </div>");
+            $("#totalQuestion").append("<div> <p> Questões nível 1: " + questions_level1 +" . </p> </div>");
+            $("#totalQuestion").append("<div> <p> Questões nível 2: " + questions_level2 +" . </p> </div>");
+            $("#totalQuestion").append("<div> <p> Questões nível 3: " + questions_level3 +" . </p> </div>");
+            $('#infoModal').openModal();
+
+        }
+    }
+    else{
         $('#totalQuestion').empty();
-        $("#totalQuestion").append("<div> <p> Você deve selecionar no mínimo 5 (cinco) questões de cada nível. </p> </div>");
-        $("#totalQuestion").append("<div> <p> Questões nível 1: " + questions_level1 +" . </p> </div>");
-        $("#totalQuestion").append("<div> <p> Questões nível 2: " + questions_level2 +" . </p> </div>");
-        $("#totalQuestion").append("<div> <p> Questões nível 3: " + questions_level3 +" . </p> </div>");
+        $("#totalQuestion").append("<div> <p> Você ainda precisa definir o número de questões que o jogo exibirá por nível." +
+            " Utilize a aba \"Definir número de questões por nível\"  para concluir essa ação.</p> </div>");
         $('#infoModal').openModal();
-
     }
+
 
 
 }
 
 function _edit(tr){
-    var url = location.origin + '/RespondaSePuder/question/returnInstance/' + $(tr).attr('data-id');
+    var url = location.origin + '/respondasepuder/question/returnInstance/' + $(tr).attr('data-id');
     var data = {_method: 'GET'};
 
     $.ajax({
@@ -127,12 +137,12 @@ function _edit(tr){
                 $("#labelAnswer2").attr("class","active");
                 $("#labelAnswer3").attr("class","active");
                 $("#labelAnswer4").attr("class","active");
-                $("#labelTip").attr("class","active");
+                $("#labelHint").attr("class","active");
                 $("#editAnswers0").attr("value",questionInstance[2]);
                 $("#editAnswers1").attr("value",questionInstance[3]);
                 $("#editAnswers2").attr("value",questionInstance[4]);
                 $("#editAnswers3").attr("value",questionInstance[5]);
-                $("#editTip").attr("value",questionInstance[7]);
+                $("#editHint").attr("value",questionInstance[7]);
                 $("#questionID").attr("value",questionInstance[8]);
 
 
@@ -157,7 +167,7 @@ function _edit(tr){
 function _delete(tr) {
     if(confirm("Você tem certeza que deseja excluir esta questão?")) {
         var tds = $(tr).find("td");
-        var url = location.origin + '/RespondaSePuder/question/delete/' + $(tr).attr('data-id');
+        var url = location.origin + '/respondasepuder/question/delete/' + $(tr).attr('data-id');
         var data = {_method: 'DELETE'};
 
         $.ajax({

@@ -3,6 +3,7 @@
 <head>
     <meta name="layout" content="main">
     <g:javascript src="iframeResizer.contentWindow.min.js"/>
+    <g:javascript src="../assets/js/jquery.min.js"/>
     <g:set var="entityName" value="${message(code: 'theme.label', default: 'theme')}" />
 
 </head>
@@ -10,7 +11,6 @@
 
 <div class="cluster-header">
     <p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-        <i class="small material-icons left"></i>Criar novo Tema
     </p>
 </div>
 

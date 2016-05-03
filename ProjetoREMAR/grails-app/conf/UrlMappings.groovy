@@ -20,12 +20,15 @@ class UrlMappings {
         // begin user mappings
         "/user/account/confirm/$token"(controller: 'user',action: 'confirmAccount')
         name resetPassword: "/user/password/reset"(controller: 'user', action: 'resetPassword')
+        name update: "/user/update"(controller: 'user', action: 'update')
+
         // end user mappings
 
         // begin password mappings
         //noinspection GroovyAssignabilityCheck
         name developerForm: "/developer/new"(view:"/static/formDeveloper")
         name infoPage: "/index/info" (view: "index/info")
+        name recoverAccount: "/user/accountRecover" (view: "user/accountRecover")
         // end password mappings
 
         // begin Process API endpoints
@@ -47,6 +50,8 @@ class UrlMappings {
         '/resource/customizableGames'(controller:"resource", action:"customizableGames")
         "/resource/show/$id"(controller: "resource", action: "show")
         "/resource/saveRating/$id"(controller: "resource", action: "saveRating")
+        "/resource/deleteRating/$id"(controller: "resource", action: "deleteRating")
+        "/resource/updateRating/$id"(controller: "resource", action: "updateRating")
 
         '/exported-resource/publicGames'(controller:"exportedResource", action:"publicGames")
         '/exported-resource/myGames'(controller:"exportedResource", action:"myGames")

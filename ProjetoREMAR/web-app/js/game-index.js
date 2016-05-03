@@ -35,39 +35,6 @@ $(function(){
     $(nameErr).hide();
     $(descErr).hide();
 
-    //$(name).on("focus",function() {
-    //    $(name).prev().hide();
-    //    $(nameErr).hide();
-    //    $(name).removeClass();
-    //});
-    ////}).on('blur', function(){
-    ////        console.log($(name).attr('class'));
-    ////        if($(name).val() != ""){
-    ////            if($(name).attr('class').indexOf('invalid') == -1){
-    ////                $(name).prev().show(500);
-    ////            }
-    ////            //else if($(name).attr('class').indexOf('invalid') > -1){
-    ////            //    $(nameErr).show(500);
-    ////            //}
-    ////        }
-    ////});
-    //
-    //
-    //$(desc).on("focus",function() {
-    //    $(desc).prev().hide();
-    //    $(descErr).hide();
-    //    $(desc).removeClass().addClass("materialize-textarea");
-    //});
-    ////}).on('blur', function(){
-    ////    console.log($(desc).attr('class'));
-    ////    if($(desc).attr('class').indexOf('invalid') == -1){
-    ////        $(desc).prev().show(500);
-    ////    }
-    ////    else if($(desc).attr('class').indexOf('invalid') > -1){
-    ////        $(descErr).show(500);
-    ////    }
-    ////});
-
     //console.log($(name).val());
     if($(name).val() != null && $(name).val() != ""){
         //console.log("entrou aki");
@@ -79,8 +46,6 @@ $(function(){
         $(desc).addClass("valid");
         $(desc).prev().show(500);
     }
-
-    console.log("carregou game-index");
 
     $('textarea#textarea1').characterCounter();
     $('select').material_select();
@@ -105,13 +70,6 @@ $(function(){
                 type: 'POST',
                 url: url,
                 data: formData,
-                //xhr: function() {
-                //    var myXhr = $.ajaxSettings.xhr();
-                //    if(myXhr.upload){
-                //        myXhr.upload.addEventListener('progress',progress, false);
-                //    }
-                //    return myXhr;
-                //},
                 processData: false,
                 contentType: false,
                 success: function (data) {
@@ -200,13 +158,11 @@ $(function(){
     });
 
     $('.comment').on('focusout', function() {
-        var url = location.origin + '/resource/review/' + $(this).data('id') + "?comment=" + encodeURIComponent($(this).val());
+        var url = location.origin + '/resource/review/' + $(this).attr('data-id') + "?comment=" + encodeURIComponent($(this).val());
         $.ajax({
             type:'POST',
             url: url,
-            success:function(data){
-                console.log(data);
-            },
+            success:function(data) {},
             error:function(XMLHttpRequest,textStatus,errorThrown){}});
 
     }).keyup(function(e) {
@@ -299,7 +255,6 @@ $(function(){
                 console.log(err);
             }
         })
-
     }
 
     $('#img-1').on('change', function() {
@@ -319,35 +274,11 @@ $(function(){
         $(nameErr).hide();
         $(name).removeClass();
     });
-    //}).on('blur', function(){
-    //        console.log($(name).attr('class'));
-    //        if($(name).val() != ""){
-    //            if($(name).attr('class').indexOf('invalid') == -1){
-    //                $(name).prev().show(500);
-    //            }
-    //            //else if($(name).attr('class').indexOf('invalid') > -1){
-    //            //    $(nameErr).show(500);
-    //            //}
-    //        }
-    //});
-
 
     $(desc).on("focus",function() {
         $(desc).prev().hide();
         $(descErr).hide();
         $(desc).removeClass().addClass("materialize-textarea");
     });
-    //}).on('blur', function(){
-    //    console.log($(desc).attr('class'));
-    //    if($(desc).attr('class').indexOf('invalid') == -1){
-    //        $(desc).prev().show(500);
-    //    }
-    //    else if($(desc).attr('class').indexOf('invalid') > -1){
-    //        $(descErr).show(500);
-    //    }
-    //});
 
-    /*
-     * validação dos campos create/edit
-     * */
 });

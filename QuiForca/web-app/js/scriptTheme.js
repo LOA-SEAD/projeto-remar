@@ -2,6 +2,12 @@
  * Created by matheus on 4/29/15.
  */
 
+$(document).ready(function(){
+    $('.collapsible').collapsible({
+        accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
+});
+
 window.onload = function(){
     console.log("ok");
 
@@ -27,6 +33,10 @@ window.onload = function(){
                 console.log(data);
                 $(tr).hide();
                 $(tr).remove();
+                var myThemes = document.getElementsByClassName("myTheme");
+                if(myThemes.length==0){
+                    window.location.reload();
+                }
             },
             error:function(XMLHttpRequest,textStatus,errorThrown){}});}
     });

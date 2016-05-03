@@ -7,11 +7,13 @@ $(function () {
     var loader = $("#preloader-wrapper");
     var name = $("#name");
     var imgFile = $("#img-1-text");
+    var plataforms = $("#plataforms");
 
     $(name).prev().hide();
     $(imgFile).prev().hide();
     nameErr.hide();
     loader.hide();
+    plataforms.hide();
 
     $(name).on("focus", function () {
         $(this).prev().hide();
@@ -34,6 +36,7 @@ $(function () {
                         var formData = new FormData();
                         formData.append('banner', file);
                         formData.append('name', $(name).val());
+                        formData.append('img1',$("#img1Preview").attr("src"));
 
                         $.ajax({
                             type: 'POST',
@@ -88,50 +91,129 @@ $(function () {
             }
         }
 
-        $(".checkbox-platform").each(function () {
-            if (this.checked) {
-                $(this).removeClass('checkbox-platform');
-                $(this).addClass('compiling');
-                var id = this.id;
-                this.disabled = true;
-                var label = $('label[for="' + id + '"]');
-                ajax(id, label);
-                loader.show();
-            }
-        });
+
     });
 
-    function ajax(endpoint, label) {
-        $.ajax({
-            type: 'GET',
-            url: location.origin + '/exported-resource/' + endpoint + "?id=" + $(label).data("id") + "&type=" + $("input[name=type]:checked").val(),
-            success: function (data) {
-                $("#" + endpoint).removeClass('compiling');
-                if ($('.compiling').length == 0) {
-                    loader.hide();
-                }
-                if (endpoint == "moodle") {
-                    $(label).after(" <span class='chip center'>" +
-                        "Jogo disponível no Moodle" +
-                        "</span>");
-                } else {
-                    $(label).after(" <span class='chip center'>" +
-                        "<a target='_blank' href='" + data + "'>Acessar </a>" +
-                        "<i class='fa fa-link'></i>" +
-                        "</span>");
-                }
+    var platforms = $('.platform');
+    var web = $('#web');
+    var moodle = $('#moodle');
 
-                $(label).effect("pulsate", {}, 3000);
-                $(label).next().effect("pulsate", {}, 3000);
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                $("#" + endpoint).removeClass('compiling');
-                if ($('.compiling').length == 0) {
-                    loader.hide();
-                }
+    $(web).css('cursor', 'wait');
+    $(platforms).css('cursor', 'wait');
+    $(moodle).css('cursor', 'wait');
+
+    $.ajax({
+        type: 'GET',
+        url: location.origin + '/exported-resource/export/' + $(name).data("resource-id"),
+        success: function (data) {
+
+            $('.plataforms-progress').hide();
+            plataforms.show(500);
+            $(web).css('cursor', '');
+            $(platforms).css('cursor', '');
+            $(moodle).css('cursor', '');
+
+            $(web).parent().attr('href', data['web']);
+
+            $(web).hover(function () {
+                $(this).children().eq(1).text('Acessar ').append('<i class="fa fa-link"></i>').addClass('plataforms-link');
+            }, function () {
+                $(this).children().eq(1).text('Web').removeClass('plataforms-link');
+            });
+
+            $(moodle).children().eq(1).text('Disponível no Moodle');
+
+            $(platforms).each(function () {
+                $(this).parent().attr('href', data[$(this).data('name')]);
+
+                $(this).hover(function () {
+                   $(this).children().eq(1).text('Baixar ').append('<i class="fa fa-arrow-circle-down" aria-hidden="true"></i>').addClass('plataforms-link');
+                }, function () {
+                   $(this).children().eq(1).text($(this).data('text')).removeClass('plataforms-link');
+                });
+            });
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log(':(');
+        }
+    });
+
+
+    function cropPicture(target, updateImg){
+        var jcrop;
+        console.log(target.toString());
+
+
+        var file = $(target).prop('files')[0];
+        var fr = new FileReader();
+
+        fr.readAsDataURL(file);
+        fr.onload = function(event) {
+            var image = new Image();
+            image.src = event.target.result;
+            image.onload = function() {
+                var el = $('#crop-preview');
+                $(el).attr('src', event.target.result);
+                $("#modal-picture").openModal({
+                    dismissible: true,
+                    complete: function () {
+                        jcrop.destroy();
+                        $(".jcrop-holder").remove();
+                        $(el).removeAttr("style");
+
+                        var formData = new FormData();
+                        var coordinates = jcrop.tellSelect();
+                        formData.append('photo', file);
+                        formData.append('x', coordinates.x);
+                        formData.append('y', coordinates.y);
+                        formData.append('w', coordinates.w);
+                        formData.append('h', coordinates.h);
+
+                        saveCrop(formData, updateImg);
+                    }
+                });
+                $(el).Jcrop({
+                    aspectRatio: 1,
+                    setSelect: [0, 0, Math.max(this.width, this.height), Math.max(this.width, this.height)],
+                    boxHeight: 280,
+                    trueSize: [this.width, this.height]
+                }, function () {
+                    jcrop = this;
+                });
             }
-        });
+        }
+
     }
+
+    function saveCrop(FormData, updateImg)
+    //FormData é o arquivo de imagem e as coordenadas para o corte
+    //updateImg é a imagePreview que deve ser atualizada
+    //Esta função salva a imagem em uma pasta temporária
+    {
+        $.ajax({
+            type: 'POST',
+            url: location.origin + "/exported-resource/croppicture",
+            data: FormData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                $(updateImg).attr("src", "/data/tmp/" + data);
+            },
+            error: function(req, res, err) {
+                console.log(req);
+                console.log(res);
+                console.log(err);
+            }
+        })
+
+    }
+
+    $('#img-1').on('change', function() {
+        cropPicture(this, "#img1Preview");
+    });
+
+
 });
 
 

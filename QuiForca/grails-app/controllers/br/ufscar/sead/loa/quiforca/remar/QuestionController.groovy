@@ -35,7 +35,7 @@ class QuestionController {
             session.taskId = params.t
 
             def u = User.findByUsername(new String(params.h.decodeBase64()))
-            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.test()))
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.authoritiesHashSet()))
 
             redirect controller: "question" // redirect to hide params.h
             return
@@ -137,36 +137,19 @@ class QuestionController {
     }
 
     @Transactional
-    def update(Question questionInstance) {
-        if (questionInstance == null) {
-            notFound()
-            return
-        }
+    def update() {
 
-        if (questionInstance.hasErrors()) {
-            // respond questionInstance.errors, view:'edit' TODO
-            return
-        }
+        Question questionInstance = Question.findById(Integer.parseInt(params.questionID))
 
-        questionInstance.save flush: true
+        questionInstance.statement = params.statement
+        questionInstance.answer = params.answer
+        questionInstance.author = params.author
+        questionInstance.category = params.category
+        questionInstance.ownerId = session.user.id as long
+        questionInstance.taskId = session.taskId as String
+        questionInstance.save flush:true
 
-        if (request.isXhr()) {
-            render(contentType: "application/json") {
-                JSON.parse("{\"id\":" + questionInstance.getId() + "}")
-            }
-        } else {
-            // TODO
-        }
-
-        redirect(action: index())
-
-        /*request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'Question.label', default: 'Question'), questionInstance.id])
-                redirect questionInstance
-            }
-            '*'{ respond questionInstance, [status: OK] }
-        }*/
+        redirect action: "index"
     }
 
     @Transactional
@@ -230,7 +213,7 @@ class QuestionController {
 
         File file = new File("$userPath/$fileName");
         PrintWriter pw = new PrintWriter(file);
-        pw.write(builder.toString());
+        pw.write('{ "nome" : "Forca","palavras":' + builder.toString() + '}');
         pw.close();
 
         String id = MongoHelper.putFile(file.absolutePath)
@@ -243,6 +226,23 @@ class QuestionController {
         redirect uri: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}", params: [files: id]
     }
 
+    def returnInstance(Question questionInstance){
+
+        if (questionInstance == null) {
+            notFound()
+        }
+        else{
+            render questionInstance.statement + "%@!" +
+                    questionInstance.answer + "%@!" +
+                    questionInstance.author + "%@!" +
+                    questionInstance.category + "%@!" +
+                    questionInstance.version + "%@!" +
+                    questionInstance.ownerId + "%@!" +
+                    questionInstance.taskId + "%@!" +
+                    questionInstance.id
+        }
+    }
+
     @Transactional
     def generateQuestions() {
         MultipartFile csv = params.csv
@@ -252,7 +252,7 @@ class QuestionController {
 
 
 
-        csv.inputStream.eachCsvLine { row ->
+        csv.inputStream.toCsvReader(['separatorChar': ';']).eachLine { row ->
 
 
             Question questionInstance = new Question()

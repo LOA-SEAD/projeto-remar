@@ -17,7 +17,7 @@
     <div class="row cluster">
         <div class="cluster-header">
             <p class="text-teal text-darken-3 left-align margin-bottom">
-                <i class="small material-icons left">create</i>Jogos customizáveis
+                <i class="small material-icons left">create</i>Modelos customizáveis
             </p>
             <div class="divider"></div>
         </div>
@@ -41,7 +41,7 @@
         <div class="row show cards">
             <article class="row">
                 <g:if test="${gameInstanceList.size() == 0}">
-                    <p>Ainda não existe nenhum jogo disponível para ser customizado!.</p>
+                    <p>Ainda não existe nenhum modelo disponível para ser customizado!.</p>
                 </g:if>
                 <g:else>
                     <g:each in="${gameInstanceList}" var="gameInstance">
@@ -62,8 +62,10 @@
                                         <g:if test="${gameInstance.android}">
                                             <i class="fa fa-android"></i>
                                         </g:if>
-                                        <g:if test="${gameInstance.linux}">
+                                        <g:if test="${gameInstance.desktop}">
+                                            <i class="fa fa-windows"></i>
                                             <i class="fa fa-linux"></i>
+                                            <i class="fa fa-apple"></i>
                                         </g:if>
                                         <g:if test="${gameInstance.moodle}">
                                             <i class="fa fa-graduation-cap"></i>

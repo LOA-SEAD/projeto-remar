@@ -6,74 +6,109 @@
     <title>Responda Se Puder</title>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <g:javascript src="iframeResizer.contentWindow.min.js"/>
+
 
 </head>
 <body>
 
 <div class="cluster-header">
     <p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-        <i class="small material-icons left">grid_on</i>Tabela de Questões
+        <i class="small material-icons left">grid_on</i> Banco de Questões
     </p>
 </div>
 
 
 <div class="row">
-    <div class="col s3 offset-s9">
-        <input  type="text" id="SearchLabel" placeholder="Buscar"/>
+    <div class="col s12">
+        <ul class="tabs">
+            <li class="tab col s6"><a href="#chooseQuestion">Escolher Questões</a></li>
+            <li class="tab col s6"><a href="#defineMaxQuestion">Definir número de questões por nível</a></li>
+        </ul>
+    </div>
+    <div id="chooseQuestion" class="col s12">
+        <br>
+        <br>
+        <div class="row">
+            <div class="col s3 offset-s9">
+                <input  type="text" id="SearchLabel" placeholder="Buscar"/>
+            </div>
+        </div>
+
+        <table class="highlight" id="table" style="margin-top: -30px;">
+            <thead>
+            <tr>
+                <th>Selecionar
+                    <div class="row" style="margin-bottom: -10px;">
+
+                        <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnCheckAll" onclick="check_all()"><i  class="material-icons">check_box_outline_blank</i></button>
+                        <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnUnCheckAll" onclick="uncheck_all()"><i  class="material-icons">done</i></button>
+                    </div>
+                </th>
+                <th>Nível <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+                <th>Pergunta <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+                <th>Respostas <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+                <th>Alternativa Correta <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+                <th>Dica<div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+                <th>Ações <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <g:each in="${questionInstanceList}" status="i" var="questionInstance">
+                <tr class="selectable_tr" style="cursor: pointer;"
+                    data-id="${fieldValue(bean: questionInstance, field: "id")}" data-owner-id="${fieldValue(bean: questionInstance, field: "ownerId")}" data-level="${fieldValue(bean: questionInstance, field: "level")}"
+                    data-checked="false">
+
+                    <td class="_not_editable">
+                        <input style="background-color: #727272" id="checkbox-${questionInstance.id}" class="filled-in" type="checkbox">
+                        <label for="checkbox-${questionInstance.id}"></label>
+                    </td>
+
+                    <td class="level"  >${fieldValue(bean: questionInstance, field: "level")}</td>
+
+                    <td  >${fieldValue(bean: questionInstance, field: "title")}</td>
+
+                    <td >${fieldValue(bean: questionInstance, field: "answers")}</td>
+
+                    <td  >${questionInstance.answers[questionInstance.correctAnswer]}</td>
+
+                    <td  >${questionInstance.hint}</td>
+
+                    <td> <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil " onclick="_edit($(this.closest('tr')))" ></i> <i style="color: #7d8fff " class="fa fa-trash-o" onclick="_delete($(this.closest('tr')))" > </i></td>
+
+                </tr>
+
+
+            </g:each>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col s1 offset-s10">
+                <a data-target="createModal" name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"><i class="material-icons">add</i></a>
+            </div>
+            <div class="col s1">
+                <a data-target="uploadModal" class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped" data-tooltip="Upload arquivo .csv"><i
+                        class="material-icons">file_upload</i></a>
+            </div>
+        </div>
+    </div>
+    <div id="defineMaxQuestion" class="col s12">
+        <div class="row">
+            <div class="col s12">
+                <p>Escolha o número de questões que serão exibidas a cada nível.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s4">
+                <input type="number" min="1" max="10" step="1" value="0" name="randomQuestion" id="randomQuestion" />
+                <label for="randomQuestion">O valor mínimo deste campo é 1 (um).</label>
+            </div>
+        </div>
+
+
     </div>
 </div>
-
-<table class="highlight" id="table" style="margin-top: -30px;">
-    <thead>
-    <tr>
-        <th>Selecionar
-            <div class="row" style="margin-bottom: -10px;">
-
-                <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnCheckAll" onclick="check_all()"><i  class="material-icons">check_box_outline_blank</i></button>
-                <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnUnCheckAll" onclick="uncheck_all()"><i  class="material-icons">done</i></button>
-            </div>
-        </th>
-        <th>Nível <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
-        <th>Pergunta <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
-        <th>Respostas <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
-        <th>Alternativa Correta <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
-        <th>Dica<div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
-        <th>Ações <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
-    </tr>
-    </thead>
-
-    <tbody>
-    <g:each in="${questionInstanceList}" status="i" var="questionInstance">
-        <tr class="selectable_tr" style="cursor: pointer;"
-            data-id="${fieldValue(bean: questionInstance, field: "id")}" data-owner-id="${fieldValue(bean: questionInstance, field: "ownerId")}" data-level="${fieldValue(bean: questionInstance, field: "level")}"
-            data-checked="false">
-
-            <td class="_not_editable">
-                <input style="background-color: #727272" id="checkbox-${questionInstance.id}" class="filled-in" type="checkbox">
-                <label for="checkbox-${questionInstance.id}"></label>
-            </td>
-
-            <td class="level"  >${fieldValue(bean: questionInstance, field: "level")}</td>
-
-            <td  >${fieldValue(bean: questionInstance, field: "title")}</td>
-
-            <td >${fieldValue(bean: questionInstance, field: "answers")}</td>
-
-            <td  >${questionInstance.answers[questionInstance.correctAnswer]} (Alternativa ${questionInstance.correctAnswer + 1})</td>
-
-            <td  >${questionInstance.tip}</td>
-
-
-            <td> <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil " onclick="_edit($(this.closest('tr')))" ></i> <i style="color: #7d8fff " class="fa fa-trash-o" onclick="_delete($(this.closest('tr')))" > </i></td>
-
-
-
-        </tr>
-
-
-    </g:each>
-    </tbody>
-</table>
 
 <div class="row">
     <div class="col s2">
@@ -81,14 +116,9 @@
             <i class="material-icons">send</i>
         </button>
     </div>
-    <div class="col s1 offset-s8">
-        <a data-target="createModal" name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"><i class="material-icons">add</i></a>
-    </div>
-    <div class="col s1">
-        <a data-target="uploadModal" class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped" data-tooltip="Upload arquivo .csv"><i
-                class="material-icons">file_upload</i></a>
-    </div>
+
 </div>
+
 
 <div id="editModal" class="modal">
     <div class="modal-content">
@@ -145,8 +175,8 @@
 
               <div class="row">
                   <div class="input-field col s12">
-                      <input class="active" type="text" name="tip" id="editTip" required />
-                      <label id="labelTip" for="editTip">Dica</label>
+                      <input class="active" type="text" name="hint" id="editHint" required />
+                      <label id="labelHint" for="editHint">Dica</label>
                   </div>
               </div>
 
@@ -162,8 +192,7 @@
                         <label for="editLevel2">Nível Médio</label>
                     </div>
 
-                    <input type="hidden" name="ownerId"  value="2" >
-                    <input type="hidden" name="taskId"  value="2" >
+                    <input type="hidden" name="taskId"  value="1" >
                     <input type="hidden" id="questionID" name="questionID">
 
 
@@ -234,8 +263,8 @@
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <input type="text" name="tip" id="tip" required />
-                        <label for="tip">Dica</label>
+                        <input type="text" name="hint" id="hint" required />
+                        <label for="hint">Dica</label>
                     </div>
                 </div>
 
@@ -251,7 +280,7 @@
                         <label for="level2">Nível Médio</label>
                     </div>
 
-                    <input type="hidden" name="ownerId"  value="2" >
+
                     <input type="hidden" name="taskId"  value="2" >
 
 
@@ -277,6 +306,94 @@
     </div>
     <div class="modal-footer">
         <button class="btn waves-effect waves-light modal-close my-orange">Entendi</button>
+    </div>
+</div>
+
+<div id="uploadModal" class="modal">
+    <div class="modal-content">
+        <h4>Enviar arquivo .csv</h4>
+        <div class="row">
+            <g:uploadForm action="generateQuestions">
+                <div class="file-field input-field">
+                    <div class="btn my-orange">
+                        <span>File</span>
+                        <input type="file" accept="text/csv" id="csv" name="csv">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s1 offset-s10">
+                        <g:submitButton class="btn my-orange" name="csv" value="Enviar"/>
+                    </div>
+                </div>
+            </g:uploadForm>
+        </div>
+
+        <blockquote>Formatação do arquivo .csv</blockquote>
+        <div class="row">
+            <div class="col s12">
+                <ol>
+                    <li>O separador do arquivo .csv deve ser <b> ';' (ponto e vírgula)</b>  </li>
+                    <li>O arquivo deve ser composto apenas por <b>dados</b></li>
+                    <li>O arquivo deve representar a estrutura da tabela de exemplo</li>
+                </ol>
+                <ul>
+                    <li><a href="../samples/exemploRespondaSePuder.csv">Download do arquivo exemplo</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <table class="center" style="font-size: 12px;">
+                    <thead>
+                    <tr>
+                        <th>Nível</th>
+                        <th>Pergunta</th>
+                        <th>Resposta1</th>
+                        <th>Resposta2</th>
+                        <th>Resposta3</th>
+                        <th>Resposta4</th>
+                        <th>Alternativa Correta</th>
+                        <th>Dica</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Pergunta 1</td>
+                        <td>Alternativa 1</td>
+                        <td>Alternativa 2</td>
+                        <td>Alternativa 3</td>
+                        <td>Alternativa 4</td>
+                        <td>1</td>
+                        <td>Dica</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Pergunta 2</td>
+                        <td>Alternativa 1</td>
+                        <td>Alternativa 2</td>
+                        <td>Alternativa 3</td>
+                        <td>Alternativa 4</td>
+                        <td>3</td>
+                        <td>Dica</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Pergunta 3</td>
+                        <td>Alternativa 1</td>
+                        <td>Alternativa 2</td>
+                        <td>Alternativa 3</td>
+                        <td>Alternativa 4</td>
+                        <td>4</td>
+                        <td>Dica</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 

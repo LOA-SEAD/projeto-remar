@@ -1,5 +1,5 @@
 <g:each in="${resourceInstanceList}" status="i" var="gameInstance">
-    <a class=""  href="/resource/edit/${gameInstance.id}">
+    <a class=""  href="/resource/edit/${gameInstance.id}" >
         <g:if test="${gameInstance.status == 'pending'}">
             <div class="card card-developer pending">
         </g:if>
@@ -28,38 +28,13 @@
                     <p class="subtitle">Feito por: REMAR</p>
                 </div>
             </div>
-            <div class="row no-margin margin-top card-info">
-                %{--<div class="col s6">--}%
-                %{--<div class="pull-left tiny-stars">--}%
-                %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
-                %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
-                %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
-                %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
-                %{--<img src="/images/star.png" width="14" height="14" alt="Estrela" />--}%
-                %{--</div>--}%
-                %{--</div>--}%
-                <div class="col s12">
-                    %{--<div class="right gray-color">--}%
-                        %{--<i class="fa fa-globe"></i>--}%
-                        %{--<g:if test="${gameInstance.android}">--}%
-                            %{--<i class="fa fa-android"></i>--}%
-                        %{--</g:if>--}%
-                        %{--<g:if test="${gameInstance.linux}">--}%
-                            %{--<i class="fa fa-linux"></i>--}%
-                        %{--</g:if>--}%
-                        %{--<g:if test="${gameInstance.moodle}">--}%
-                            %{--<i class="fa fa-graduation-cap"></i>--}%
-                        %{--</g:if>--}%
-                    %{--</div>--}%
-                </div>
-            </div>
             <div class="card-action">
                 <div class="col s12">
                     <sec:ifAllGranted roles="ROLE_ADMIN">
-                        <input type="text" class="comment" placeholder="Comentário"  value="${gameInstance.comment}">
+                        <input type="text" class="comment" placeholder="Comentário"  value="${gameInstance.comment}" data-id="${gameInstance.id}">
                     </sec:ifAllGranted>
                     <sec:ifNotGranted roles="ROLE_ADMIN">
-                        <input type="text" value="${gameInstance.comment}" class="comment" disabled>
+                        <input type="text" value="${gameInstance.comment}" class="comment" data-id="${gameInstance.id}" disabled>
                     </sec:ifNotGranted>
                     <div class="">
                         <sec:ifAllGranted roles="ROLE_ADMIN">

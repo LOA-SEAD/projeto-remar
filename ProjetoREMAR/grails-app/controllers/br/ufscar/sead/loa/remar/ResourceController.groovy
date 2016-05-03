@@ -1,17 +1,15 @@
 package br.ufscar.sead.loa.remar
 
+import br.ufscar.sead.loa.propeller.Propeller
 import grails.converters.JSON
 import grails.util.Environment
-import groovy.json.JsonBuilder
 import groovyx.net.http.HTTPBuilder
 import org.apache.commons.lang.RandomStringUtils
 import org.codehaus.groovy.grails.io.support.GrailsIOUtils
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.multipart.commons.CommonsMultipartFile
-import br.ufscar.sead.loa.remar.Category
 
 import javax.imageio.ImageIO
-import javax.swing.JScrollBar
 import java.awt.image.BufferedImage
 import java.security.MessageDigest
 
@@ -33,19 +31,13 @@ class ResourceController {
 
 
     def create() {
-        render view: "create", model: [id: params.id, categories: Category.list(sort:"name"), defaultCategory: Category.findByName('Aventura')]
+        render view: "create", model: [id: params.id, categories: Category.list(sort: "name"), defaultCategory: Category.findByName('Aventura')]
     }
 
     @Transactional
     def update(Resource instance) {
         def path = new File(servletContext.getRealPath("/data/resources/assets/${instance.uri}"))
         path.mkdirs()
-
-//        MultipartFile img1 = request.getFile('img1')
-//        MultipartFile img2 = request.getFile('img2')
-//        MultipartFile img3 = request.getFile('img3')
-
-        log.debug(params)
 
         if (params.img1 != null && params.img1 != "") {
             log.debug("entrou img1" + params.img1)
@@ -111,7 +103,7 @@ class ResourceController {
             resourceInstance.name = json.name
             resourceInstance.uri = json.uri
             resourceInstance.android = 'android' in json.outputs
-            resourceInstance.linux = 'linux' in json.outputs
+            resourceInstance.desktop = 'desktop' in json.outputs
             resourceInstance.moodle = 'moodle' in json.outputs
             resourceInstance.width = json.vars.width
             resourceInstance.height = json.vars.height
@@ -129,7 +121,7 @@ class ResourceController {
             return
         }
 
-        new AntBuilder().copy(file: expandedWarPath + "/remar/bd.json",
+        ant.copy(file: expandedWarPath + "/remar/bd.json",
                 tofile: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}/bd.json"))
 
         def json = JSON.parse(bd.text)
@@ -151,7 +143,7 @@ class ResourceController {
             redirect action: "index"
             return
         } else {
-            ant.copy(todir: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}")) {
+            ant.copy(todir: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}/base")) {
                 fileset(dir: tmp)
             }
         }
@@ -183,6 +175,7 @@ class ResourceController {
 
     def newDeveloper() {}
 
+    @SuppressWarnings("GroovyUnreachableStatement")
     def review() {
         def resourceInstance = Resource.findById(params.id)
         String status = params.status
@@ -195,13 +188,38 @@ class ResourceController {
                         "REMAR – O seu WAR \"${resourceInstance.name}\" foi rejeitado!",
                         "<h3>O seu WAR \"${resourceInstance.name}\" foi rejeitado pois ${comment}</h3> <br> "
                 )
-                render 'success'
             }
+            response.status = 204
+            render 204
         }
 
         if (status == "approve" && resourceInstance.status != "approved") {
+            def ant = new AntBuilder()
+            def rootPath = servletContext.getRealPath('/')
+            def scriptElectron = "${rootPath}/scripts/electron/build.sh"
+            def scriptCrosswalk = "${rootPath}/scripts/crosswalk/build.sh"
 
-            "${servletContext.getRealPath("/scripts/db.sh")} ${resourceInstance.uri}".execute().waitFor()
+            if (resourceInstance.desktop && resourceInstance.comment != "test") {
+                ant.sequential {
+                    chmod(perm: "+x", file: scriptElectron)
+                    exec(executable: scriptElectron) {
+                        arg(value: rootPath)
+                        arg(value: resourceInstance.uri)
+                        arg(value: resourceInstance.name)
+                    }
+                }
+            }
+
+            if (resourceInstance.android && resourceInstance.comment != "test") {
+                ant.sequential {
+                    chmod(perm: "+x", file: scriptCrosswalk)
+                    exec(executable: scriptCrosswalk) {
+                        arg(value: rootPath)
+                        arg(value: resourceInstance.uri)
+                        arg(value: resourceInstance.name)
+                    }
+                }
+            }
 
             if (Environment.current == Environment.DEVELOPMENT) {
                 resourceInstance.status = "approved"
@@ -242,9 +260,7 @@ class ResourceController {
 
             render "success"
         }
-
         resourceInstance.save flush: true
-
     }
 
     @Transactional
@@ -256,14 +272,20 @@ class ResourceController {
             return
         }
 
-        if (resourceInstance.owner == springSecurityService.currentUser || springSecurityService.currentUser == User.findByUsername('admin')) {
+        if (resourceInstance.owner == session.user || session.user.username == 'admin') {
             resourceInstance.delete flush: true
-            log.debug "Resource Deleted"
+
+            new AntBuilder().sequential {
+                delete(dir: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}"))
+                delete(dir: servletContext.getRealPath("/propeller/${resourceInstance.uri}"))
+            }
+
+            Propeller.instance.undeploy(resourceInstance.uri)
+            response.status = 205
+            render 205
         } else {
             log.debug "Someone is trying to delete a resource that belongs to other user"
         }
-
-        render "success"
     }
 
     protected void notFound() {
@@ -284,7 +306,7 @@ class ResourceController {
         def model = [:]
 
         model.gameInstanceList = Resource.findAllByStatus('approved') // change to #findAllByActive?
-        model.categories = Category.list(sort:"name")
+        model.categories = Category.list(sort: "name")
 
         render view: "customizableGames", model: model
     }
@@ -293,8 +315,8 @@ class ResourceController {
     def edit(Resource resourceInstance) {
         def resourceJson = resourceInstance as JSON
 
-        render view: 'edit', model:[resourceInstance: resourceInstance, categories: Category.list(sort:"name"),
-                                    defaultCategory: resourceInstance.category ]
+        render view: 'edit', model: [resourceInstance: resourceInstance, categories: Category.list(sort: "name"),
+                                     defaultCategory : resourceInstance.category]
     }
 
     def getResourceInstance(long id) {
@@ -304,22 +326,56 @@ class ResourceController {
         render r;
     }
 
-    def saveRating(Resource instance){
+    def saveRating(Resource instance) {
         log.debug(params)
 
-        Rating r = new Rating(user: session.user, stars: params.stars, comment: params.comment, date: new Date())
+        Rating r = new Rating(user: session.user, stars: params.stars, comment: params.commentRating, date: new Date())
         instance.addToRatings(r)
-        instance.sumStars +=  r.stars;
+        instance.sumStars += r.stars;
         instance.sumUser++
 
         instance.save flush: true
 
-        render view: "_comment", model: [rating: r,  mediumStars: (instance.sumStars / instance.sumUser),
-                                                     sumUsers: instance.sumUser,  today: new Date() ]
+        render view: "_comment", model: [rating  : r, mediumStars: (instance.sumStars / instance.sumUser),
+                                         sumUsers: instance.sumUser, today: new Date()]
     }
 
-    def updateRating(Resource instance){
+    def updateRating(Rating rating) {
 
+        def old_stars = rating.getPersistentValue("stars")
+
+        print(rating.getPersistentValue("comment"))
+        print(old_stars)
+        print(rating)
+        print(params)
+
+        //atualiza a data do rating
+        rating.date = new Date()
+
+        //retira da soma de estrelas a quantidade de estrelas anterior do rating
+        rating.resource.sumStars -= old_stars
+
+        //soma a nova quantidade de estrelas a soma de estrelas do rating
+        rating.resource.sumStars += rating.stars
+
+        rating.save flush: true
+
+        render view: "_comment", model: [rating  : rating, mediumStars: (rating.resource.sumStars / rating.resource.sumUser),
+                                         sumUsers: rating.resource.sumUser, today: new Date()]
+
+    }
+
+    def deleteRating(Rating rating) {
+
+        def old_stars = rating.getPersistentValue("stars")
+
+        //retira da soma de estrelas a quantidade de estrelas anterior do rating
+        rating.resource.sumStars -= old_stars
+        rating.resource.sumUser -= 1
+
+        rating.delete flush: true;
+
+        render rating.resource as JSON
     }
 
     def croppicture() {

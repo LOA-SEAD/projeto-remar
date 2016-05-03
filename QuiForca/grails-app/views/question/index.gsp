@@ -14,8 +14,8 @@
     <meta charset="utf-8">
     <g:javascript src="editableTable.js"/>
     <g:javascript src="scriptTable.js"/>
+    <g:javascript src="validate.js"/>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-
 
     <meta property="user-name" content="${userName}"/>
     <meta property="user-id" content="${userId}"/>
@@ -87,40 +87,11 @@
 
                 <td>${fieldValue(bean: questionInstance, field: "author")}</td>
 
-                <td><i onclick="changeEditQuestion(${i})" style="color: #7d8fff; margin-right:10px;"
-                       class="fa fa-pencil modal-trigger" data-target="editModal${i}"
-                       data-model="${questionInstance.id}"></i> <i style="color: #7d8fff;" class="fa fa-trash-o"
+                <td><i onclick="_edit($(this.closest('tr')))" style="color: #7d8fff; margin-right:10px;"
+                       class="fa fa-pencil"
+                       ></i> <i style="color: #7d8fff;" class="fa fa-trash-o"
                                                                    onclick="_delete($(this.closest('tr')))"></i></td>
 
-                <!-- Modal Structure -->
-                <div id="editModal${i}" class="modal">
-                    <div class="modal-content">
-                        <h4>Editar Questão</h4>
-
-                        <div class="row">
-                            <g:if test="${flash.message}">
-                                <div class="message" role="status">${flash.message}</div>
-                            </g:if>
-                            <g:if test="${flash.message}">
-                                <div class="message" role="status">${flash.message}</div>
-                            </g:if>
-                            <g:hasErrors bean="${questionInstance}">
-                                <ul class="errors" role="alert">
-                                    <g:eachError bean="${questionInstance}" var="error">
-                                        <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message
-                                                error="${error}"/></li>
-                                    </g:eachError>
-                                </ul>
-                            </g:hasErrors>
-                            <g:form url="[resource: questionInstance, action: 'update']" method="PUT">
-                                <g:hiddenField name="version" value="${questionInstance?.version}"/>
-                                <g:render template="form" model="[questionInstance: questionInstance]"/>
-                                <g:actionSubmit class="save btn btn-success btn-lg my-orange" action="update"
-                                                value="${message(code: 'default.button.update.label', default: 'Salvar')}"/>
-                            </g:form>
-                        </div>
-                    </div>
-                </div>
 
             </g:if>
             <g:else>
@@ -171,7 +142,9 @@
 <!-- Modal Structure -->
 <div id="createModal" class="modal">
     <div class="modal-content">
-        <h4>Criar Questão</h4>
+
+                <h4>Criar Questão <i class="material-icons tooltipped" data-position="right" data-delay="30" data-tooltip="Respostas não devem possuir números nem caracteres especiais.">info</i></h4>
+
 
         <div class="row">
             <g:form url="[resource: questionInstance, action: 'newQuestion']">
@@ -181,6 +154,40 @@
                                 value="${message(code: 'default.button.create.label', default: 'Create')}"/>
             </g:form>
         </div>
+    </div>
+</div>
+
+<!-- Modal Structure -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <h4>Editar Questão</h4>
+        <g:form url="[resource: questionInstance, action: 'update']" method="PUT">
+
+                <input id="editVersion" name="version" required="" value="" type="hidden">
+                <input type="hidden" id="questionID" name="questionID">
+
+
+            <div class="input-field col s12">
+                <input id="editStatement" name="statement" required="" value="" type="text" class="validate" maxlength="150">
+                <label id="statementLabel" for="editStatement">Pergunta</label>
+            </div>
+            <div class="input-field col s12">
+                <input id="editAnswer" name="answer" required="" value="" type="text" class="validate"  onkeypress="validate(event)" maxlength="48">
+                <label id="answerLabel" for="editAnswer">Resposta</label>
+            </div>
+            <div class="input-field col s12">
+                <input id="editCategory" name="category" required="" value="" type="text" class="validate">
+                <label id="categoryLabel" for="editCategory">Tema</label>
+            </div>
+
+            <div class="input-field col s12" style="display: none;">
+                <input id="editAuthor" name="author" required="" readonly="readonly" value="" type="text" class="validate">
+                <label id="authorLabel" for="editAuthor">Autor</label>
+            </div>
+
+            <g:actionSubmit class="save btn btn-success btn-lg my-orange" action="update"
+                            value="${message(code: 'default.button.update.label', default: 'Salvar')}"/>
+        </g:form>
     </div>
 </div>
 
@@ -207,7 +214,7 @@
 
                 <div class="file-field input-field">
                     <div class="btn my-orange">
-                        <span>File</span>
+                        <span>Arquivo</span>
                         <input type="file" accept="text/csv" id="csv" name="csv">
                     </div>
 
@@ -227,7 +234,7 @@
         <div class="row">
             <div class="col s6">
                 <ol>
-                    <li>O separador do arquivo .csv deve ser <b> ',' (vírgula)</b>  </li>
+                    <li>O separador do arquivo .csv deve ser <b> ';' (ponto e vírgula)</b>  </li>
                     <li>O arquivo deve ser composto apenas por <b>dados</b></li>
                     <li>O arquivo deve representar a estrutura da tabela ao lado</li>
                 </ol>
@@ -248,17 +255,17 @@
                     <tr>
                         <td>Pergunta 1</td>
                         <td>Resposta 1</td>
-                        <td>Exemplo</td>
+                        <td>Tema 1</td>
                     </tr>
                     <tr>
                         <td>Pergunta 2</td>
                         <td>Resposta 2</td>
-                        <td>Exemplo</td>
+                        <td>Tema 2</td>
                     </tr>
                     <tr>
                         <td>Pergunta 3</td>
                         <td>Resposta 3</td>
-                        <td>Exemplo</td>
+                        <td>Tema 3</td>
                     </tr>
                     </tbody>
                 </table>
@@ -275,14 +282,12 @@
 <script type="text/javascript" src="../js/materialize.min.js"></script>
 <script type="text/javascript">
 
-
     function changeEditQuestion(variable) {
         var editQuestion = document.getElementById("editQuestionLabel");
         editQuestion.value = variable;
 
         console.log(editQuestion.value);
         //console.log(variable);
-
     }
 
 </script>

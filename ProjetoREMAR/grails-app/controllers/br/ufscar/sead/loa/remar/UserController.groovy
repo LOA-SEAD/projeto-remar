@@ -93,8 +93,8 @@ class UserController {
                         token.save flush: true
                         log.debug token.errors
                         def url = "http://${request.serverName}:${request.serverPort}/user/password/reset?t=${token.token}"
-                        Util.sendEmail(user.email, "Recuperar senha",
-                                "<h3><a href=\"${url}\">Clique aqui</a> para redefinir sua senha :)</h3> <br>")
+                        def mensagem = "<h3>Username:" + user.username + "</h3> <br> <h3><a href=\"${url}\">Clique aqui</a> para redefinir sua senha :)</h3> <br>"
+                        Util.sendEmail(user.email, "Recuperar senha", mensagem)
 
                         render view: "/user/password/emailSent", model: [email: user.email]
                     } else {
@@ -165,28 +165,28 @@ class UserController {
     }
 
     @Transactional
-    def update(User userInstance) {
-        def user = User.get(params.userId)
-        user.firstName = params.firstName
-        user.lastName = params.lastName
-        user.email = params.email
-        user.gender = params.gender
+    def update(User user) {
 
-        if(params.password != null && params.password == params.confirm_password) {
+        if( params.password != "" && params.password == params.confirm_password) {
             user.password = params.confirm_password
+        }else{
+            user.password = user.getPersistentValue("password")
         }
 
-        if(!params.photo.isEmpty()) {
-            def root = servletContext.getRealPath("/")
-            def f = new File("${root}data/users/${user.username}")
-            f.mkdirs()
-            def destination = new File(f, "profile-picture")
-            def photo = params.photo as CommonsMultipartFile
+        def root = servletContext.getRealPath("/")
+        def f = new File("${root}data/users/${user.username}")
+        f.mkdirs()
 
-            params.photo.transferTo(destination)
+        if (params.photo != "/images/avatars/default.png") {
+            def img1 = new File(servletContext.getRealPath("${params.photo}"))
+            img1.renameTo(new File(f,"profile-picture"))
+
         }
+        user.save flush: true
 
-        log.debug "User " + user.username + " successfully updated"
+        session.user = user
+
+        redirect uri: "/my-profile?profileUpdated=t";
     }
 
     @Transactional
@@ -199,16 +199,22 @@ class UserController {
 
         UserRole.removeAll(userInstance, true)
 
+        List<Token> list = Token.findAllByOwner(userInstance)
+        for(int i=0; i<list.size();i++)
+            list.get(i).delete()
+
+        List<Resource> myResources = Resource.findAllByOwner(userInstance)
+        for(int i=0; i<myResources.size();i++)
+            myResources.get(i).delete()
+
+        List<ExportedResource> myExportedResources = ExportedResource.findAllByOwner(userInstance)
+        for(int i=0; i< myExportedResources.size();i++)
+            myExportedResources.get(i).delete()
+
 
         userInstance.delete flush: true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'User.label', default: 'User'), userInstance.id])
-                redirect action: "index", method: "GET"
-            }
-            '*' { render status: NO_CONTENT }
-        }
+        redirect view: "/index/index.gsp"
     }
 
     protected void notFound() {
@@ -226,6 +232,11 @@ class UserController {
         UserRole.create(springSecurityService.getCurrentUser() as User, Role.findByAuthority("ROLE_DEV"), true)
         log.debug("Usuário " + springSecurityService.getCurrentUser().firstName + " adicionado como desenvolvedor.")
         render(view: "/static/newDeveloper")
+    }
+
+    @Transactional
+    def updateUser() {
+        render(view: "/static/updateUser")
     }
 
     @Transactional
@@ -305,6 +316,35 @@ class UserController {
 
         render view: "/user/edit.gsp", model: [moodleList: model]
     }
+
+    @Transactional
+    def disableAccount(){
+        User userInstance = springSecurityService.getCurrentUser()
+        userInstance.enabled = false
+        userInstance.save flush: true
+        redirect view: "/index/index.gsp"
+    }
+
+    @Transactional
+    def deleteAccount(){
+        User userInstance = springSecurityService.getCurrentUser()
+        delete(userInstance)
+    }
+
+    @Transactional
+    def recoverUserAccount(String email){
+        User userInstance = User.findByEmail(email)
+
+        if(userInstance!=null){
+            userInstance.enabled = true
+            userInstance.save flush: true
+            render view: "../user/accountRecovered"
+
+        }
+        else
+            render "E-mail inválido"
+    }
+
 
     def getMoodleAccount(int moodleId) {
         def data = MoodleAccount.findByMoodleAndOwner(Moodle.findById(moodleId), User.findById(session.user.id))

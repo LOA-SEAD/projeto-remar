@@ -25,11 +25,13 @@ class ThemeController {
 
     @Secured(['permitAll'])
     def index(Integer max) {
+        def user = springSecurityService.getCurrentUser()
+
         if (params.t && params.h) {
             session.taskId = params.t
 
             def u = User.findByUsername(new String(params.h.decodeBase64()))
-            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.test()))
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.authoritiesHashSet()))
 
             redirect controller: "theme"
             return
@@ -37,20 +39,23 @@ class ThemeController {
             session.user = springSecurityService.currentUser
         }
 
-        if (!Theme.findAllByOwnerId(session.user.id)) {
-            def id = new Theme(ownerId: session.user.id).save(flush: true).id
-            def samples = servletContext.getRealPath("/samples/tema-escola-magica-remar")
-            def dir = servletContext.getRealPath("/data/${session.user.id}/themes/${id}")
-            def ant = new AntBuilder()
-            ant.sequential() {
-                mkdir(dir: dir)
-                copy(todir: dir) {
-                    fileset(dir: samples)
-                }
-            }
-        }
+//        if (!Theme.findAllByOwnerId(session.user.id)) {
+//            def id = new Theme(ownerId: session.user.id).save(flush: true).id
+//            def samples = servletContext.getRealPath("/samples/tema-escola-magica-remar")
+//            def dir = servletContext.getRealPath("/data/${session.user.id}/themes/${id}")
+//            def ant = new AntBuilder()
+//            ant.sequential() {
+//                mkdir(dir: dir)
+//                copy(todir: dir) {
+//                    fileset(dir: samples)
+//                }
+//            }
+//        }
 
-        respond Theme.findAllByOwnerId(session.user.id) , model:[themeInstanceCount: Theme.count()]
+        def list = Theme.findAllByOwnerId(user.getId())
+        def listPublic = Theme.findAll() - list
+
+        render view: "index", model: [themeInstanceListMy: list,  themeInstanceListPublic: listPublic]
     }
 
     def show(Theme themeInstance) {
