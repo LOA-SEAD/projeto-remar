@@ -253,6 +253,7 @@ class ExportedResourceController {
 
     @SuppressWarnings("GroovyAssignabilityCheck")
     def publicGames(){
+        def user = springSecurityService.getCurrentUser()
         def model = [:]
 
         def threshold = 12
@@ -272,7 +273,12 @@ class ExportedResourceController {
 
         println model.pageCount
 
-        render view: "publicGames", model: model
+        if(user == null)
+            render view: "games", model: model
+        else
+            render view: "publicGames", model: model
+
+
     }
 
     def myGames(){

@@ -89,20 +89,22 @@ class BootStrap {
 
         if (!RequestMap.list()) { // will be true if env == dev or if first run in production
             for (url in [
-                    '/', '/index', '/index/info', '/doc/**', '/assets/**', '/**/js/**', '/**/css/**', '/**/images/**',
-                    '/**/favicon.ico', '/data/**', '/**/scss/**', '/**/less/**', '/**/fonts/**', '/**/font/**',
-                    '/password/**', '/moodle/**', '/exportedGame/**', '/static/**', '/login/**', '/logout/**', '/signup/**', '/user/**',
-                    '/facebook/**', '/published/**']) {
-                new RequestMap(url: url, configAttribute: 'permitAll').save()
-            }
-
-            for (url in [
                     '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/exportedResource/**', '/frame/**', '/my-profile',
                     '/user/update', '/resource/customizableGames','/resource/show/**', '/moodle/link/**', '/moodle/unlink/**', '/resource/saveRating/**',
                     '/resource/updateRating/**',  '/resource/deleteRating/**'
             ]) {
                 new RequestMap(url: url, configAttribute: 'IS_AUTHENTICATED_FULLY').save()
             }
+
+            for (url in [
+                    '/', '/index', '/index/info', '/doc/**', '/assets/**', '/exportedResource/publicGames' , '/exported-resource/searchGame', '/**/js/**', '/**/css/**', '/**/images/**',
+                    '/**/favicon.ico', '/data/**', '/**/scss/**', '/**/less/**', '/**/fonts/**', '/**/font/**',
+                    '/password/**', '/moodle/**', '/exportedGame/**', '/static/**', '/login/**', '/logout/**', '/signup/**', '/user/**',
+                    '/facebook/**', '/published/**']) {
+                new RequestMap(url: url, configAttribute: 'permitAll').save()
+            }
+
+
 
         new RequestMap(url: '/resource/**', configAttribute: 'ROLE_DEV').save()
         new RequestMap(url: '/resource/edit', configAttribute: 'ROLE_ADMIN').save()
