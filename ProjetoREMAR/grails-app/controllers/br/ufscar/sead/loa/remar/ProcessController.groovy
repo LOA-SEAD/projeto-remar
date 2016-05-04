@@ -7,6 +7,8 @@ import br.ufscar.sead.loa.propeller.domain.TaskInstance
 class ProcessController {
     def start() {
         def process
+        def ant = new AntBuilder()
+
         params.uri = params.id
         def logMsg = "pi-${session.user.username}"
         log.debug "${logMsg} STARTED; uri: ${params.uri}"
@@ -21,11 +23,14 @@ class ProcessController {
             process = process as ProcessInstance
 
             //salva uma imagem para o processo
-            def path = new File("${servletContext.getRealPath("/processes/${process.id}")}/")
+            def path = new File("${servletContext.getRealPath("/data/processes/${process.id}")}/")
             path.mkdirs()
 
-            def img1 = new File(servletContext.getRealPath("/images/${params.uri}-banner.png"))
-            img1.renameTo(new File(path, "banner.png"))
+            ant.copy(file: servletContext.getRealPath("/images/${params.uri}-banner.png"),
+                    tofile: "${path}/banner.png", overwrite: true)
+//
+//            def img1 = new File(servletContext.getRealPath("/images/${params.uri}-banner.png"))
+//            img1.renameTo(new File(path, "banner.png"))
         }
 
         def resource = Resource.findByUri(params.uri)
@@ -128,7 +133,17 @@ class ProcessController {
             return response.status = 404
         }
 
-        render view: "overview", model: [process: process]
+//        ExportedResource exportedResource = null
+//        def exportsTo = [:]
+//        if (process.status == ProcessInstance.STATUS_ALL_TASKS_COMPLETED) {
+//            exportedResource = ExportedResource.get(process.getVariable('exportedResourceId'))
+//
+//            exportsTo.desktop = exportedResource.resource.desktop
+//            exportsTo.android = exportedResource.resource.android
+//            exportsTo.moodle = exportedResource.resource.moodle
+//        }
+
+        render view: "overview", model: [process: process, tasks: process.completedTasks + process.pendingTasks]
     }
 
 
@@ -136,7 +151,7 @@ class ProcessController {
 
         def process = Propeller.instance.getProcessInstanceById(params.id as String, session.user.id as long)
 
-        def path = new File("${servletContext.getRealPath("/processes/${process.id}")}/")
+        def path = new File("${servletContext.getRealPath("/data/processes/${process.id}")}/")
 
         //se a imagem foi atualizada
         if (params.img1 != null && params.img1 != "") {
@@ -167,7 +182,10 @@ class ProcessController {
          */
 
         //TODO faltou gerar o jogo para as plataformas com o novo nome e a "nova foto"
-        render 'true'
+
+        process.putVariable("updated","true", true)
+
+        redirect controller: "process", action: "overview"
     }
 
     def list() {
@@ -212,11 +230,8 @@ class ProcessController {
         def paths = MongoHelper.instance.getFilePaths(params.files)
 
         if (task.complete(paths)) {
-            if (task.process.status == ProcessInstance.STATUS_ALL_TASKS_COMPLETED) {
-                finish(task.process)
-            } else {
-                redirect uri: "/process/overview/${task.process.id}?toast=1"
-            }
+
+            redirect uri: "/process/overview/${task.process.id}?toast=1"
 
         } else {
             render "500 – ${params.taskId}"
@@ -224,8 +239,15 @@ class ProcessController {
         }
     }
 
-    private void finish(ProcessInstance process) {
+    def finish() {
         def exportsTo = [:]
+        log.debug("ID DO PROCESSO --->"+params.id)
+        def process = Propeller.instance.getProcessInstanceById(params.id, session.user.id as long)
+
+
+        log.debug(process.getVariable("resourceId"))
+        log.debug(" ------  process ------"+process)
+
         def resource = Resource.get(process.getVariable('resourceId'))
         def now = new Date()
         def exportedResourceInstance = new ExportedResource()
@@ -272,6 +294,7 @@ class ProcessController {
         exportsTo.android = exportedResourceInstance.resource.android
         exportsTo.moodle = exportedResourceInstance.resource.moodle
 
-        redirect uri: "/exported-resource/publish/${exportedResourceInstance.id}"
+        redirect uri: "/exported-resource/publish/${exportedResourceInstance.id}?"
     }
+
 }

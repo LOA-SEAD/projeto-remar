@@ -7,15 +7,14 @@ $(function () {
     var loader = $("#preloader-wrapper");
     var name = $("#name");
     var imgFile = $("#img-1-text");
-    var plataforms = $("#plataforms");
-    var tasks= $("#tasks");
+    var publish = $("#publish");
+    var tasks = $("#tasks");
 
     $(name).prev().hide();
     $(imgFile).prev().hide();
     nameErr.hide();
     loader.hide();
-    plataforms.hide();
-    tasks.hide();
+    publish.addClass("disabled");
 
     $(name).on("focus", function () {
         $(this).prev().hide();
@@ -51,15 +50,13 @@ $(function () {
                             success: function (data) {
                                 //console.log("resource name updated");
                                 nameErr.hide(500);
+                                location.reload();
+
                                 $(name).removeClass().addClass("valid");
                                 $(name).prev().show(500);
-                                Materialize.toast('Informações salvas com sucesso!', 3000, 'rounded');
 
                                 $(imgFile).removeClass().addClass("valid");
                                 $(imgFile).prev().show(500);
-
-                                tasks.show();
-                                $("#tasks-header").trigger('click');
                                 goToByScroll("tasks-header");
 
                             },
@@ -86,11 +83,10 @@ $(function () {
                     contentType: false,
                     success: function (data) {
                         nameErr.hide(500);
+                        location.reload();
+
                         $(name).removeClass().addClass("valid");
                         $(name).prev().show(500);
-
-                        tasks.show();
-                        $("#tasks-header").trigger('click');
                         goToByScroll("tasks-header");
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -102,54 +98,7 @@ $(function () {
                 });
             }
         }
-
-
     });
-
-    var platforms = $('.platform');
-    var web = $('#web');
-    var moodle = $('#moodle');
-
-    $(web).css('cursor', 'wait');
-    $(platforms).css('cursor', 'wait');
-    $(moodle).css('cursor', 'wait');
-
-    //$.ajax({
-    //    type: 'GET',
-    //    url: location.origin + '/exported-resource/export/' + $(name).data("resource-id"),
-    //    success: function (data) {
-    //
-    //        $('.plataforms-progress').hide();
-    //        plataforms.show(500);
-    //        $(web).css('cursor', '');
-    //        $(platforms).css('cursor', '');
-    //        $(moodle).css('cursor', '');
-    //
-    //        $(web).parent().attr('href', data['web']);
-    //
-    //        $(web).hover(function () {
-    //            $(this).children().eq(1).text('Acessar ').append('<i class="fa fa-link"></i>').addClass('plataforms-link');
-    //        }, function () {
-    //            $(this).children().eq(1).text('Web').removeClass('plataforms-link');
-    //        });
-    //
-    //        $(moodle).children().eq(1).text('Disponível no Moodle');
-    //
-    //        $(platforms).each(function () {
-    //            $(this).parent().attr('href', data[$(this).data('name')]);
-    //
-    //            $(this).hover(function () {
-    //               $(this).children().eq(1).text('Baixar ').append('<i class="fa fa-arrow-circle-down" aria-hidden="true"></i>').addClass('plataforms-link');
-    //            }, function () {
-    //               $(this).children().eq(1).text($(this).data('text')).removeClass('plataforms-link');
-    //            });
-    //        });
-    //
-    //    },
-    //    error: function (XMLHttpRequest, textStatus, errorThrown) {
-    //        console.log(':(');
-    //    }
-    //});
 
 
     function cropPicture(target, updateImg){
@@ -234,6 +183,18 @@ $(function () {
                 scrollTop: $("#"+id).offset().top},
             'slow');
     }
+
+    if(tasks.data("all-tasks-completed") != null &&
+        tasks.data("all-tasks-completed").toString() == "true"){
+
+        console.log("removendo disabled button");
+        publish.removeClass("disabled");
+    }
+
+    publish.on("click",function(){
+        console.log("Bora publica o jogo!");
+    });
+
 
 });
 

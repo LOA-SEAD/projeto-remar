@@ -100,11 +100,13 @@ class ExportedResourceController {
         exportsTo.moodle = instance.resource.moodle
 
         def baseUrl = "/published/${instance.processId}"
+        def process = Propeller.instance.getProcessInstanceById(instance.processId as String, session.user.id as long)
+
+        instance.name = process.name
 
         RequestMap.findOrSaveWhere(url: "${baseUrl}/**", configAttribute: 'permitAll')
 
-//        render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl]
-        render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl]
+        render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl, nameGame: instance.name]
     }
 
     def export(ExportedResource instance) {

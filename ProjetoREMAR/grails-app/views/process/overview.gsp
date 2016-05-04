@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="br.ufscar.sead.loa.propeller.domain.ProcessInstance" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <style>
@@ -42,215 +42,110 @@
 
             <div class="row space">
                 <blockquote>
-                    Abaixo estão listadas as tarefas que devem ser cumpridas para concluir a customização do seu jogo!
+                    Abaixo estão as etapas para customizar o seu jogo!
                 </blockquote>
             </div>
 
             <ul class="collapsible popout" data-collapsible="expandable">
                 <!-- 1 Etapa - informações básicas -->
                 <li>
-                    <div class="collapsible-header active"> <i class="material-icons">info_outline</i>Informações básicas</div>
-                    <div class="collapsible-body">
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <i class="material-icons suffix green-text active">done</i>
-                                <input value="${process.definition.name}" id="name" type="text" class="validate" data-process-id="${process.id}">
-                                <label class="active" for="name" data-error="" data-success="">Nome do jogo</label>
-                                <span id="name-error" class="invalid-input" style="left: 0.75rem">Já existe um jogo com esse nome!</span>
+                    <div class="collapsible-header active"> <i class="material-icons">feedback</i>Informações básicas</div>
+                        <div class="collapsible-body"
+                             data-basic-info="">
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <i class="material-icons suffix green-text active">done</i>
+                                    <input value="${process.definition.name}" id="name" type="text"
+                                           class="validate" data-resource-id="${process.getVariable("resourceId")}" data-process-id="${process.id}">
+                                    <label class="active" for="name" data-error="" data-success="">Nome do jogo</label>
+                                    <span id="name-error" class="invalid-input" style="left: 0.75rem">Já existe um jogo com esse nome!</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col s2 img-preview">
-                                <img id="img1Preview" class="materialboxed my-orange" width="100" height="100" src="/processes/${process.id}/banner.png" />
-                            </div>
-                            <div class="col s10">
-                                <div class="file-field input-field">
-                                    %{--<input type="hidden" name="photo" value="${baseUrl}/banner.png" id="srcImage">--}%
-                                    <div class="btn waves-effect waves-light my-orange">
-                                        <span>Arquivo</span>
-                                        <input type="file" data-image="true" id="img-1" name="img1" accept="image/jpeg, image/png"  >
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <i class="material-icons suffix green-text active">done</i>
-                                        <input class="file-path validate" type="text" id="img-1-text"  placeholder="Envie um ícone para o jogo (opicional)" readonly>
+                            <div class="row">
+                                <div class="col s2 img-preview">
+                                    <img id="img1Preview" class="materialboxed my-orange" width="100" height="100" src="/data/processes/${process.id}/banner.png" />
+                                </div>
+                                <div class="col s10">
+                                    <div class="file-field input-field">
+                                        %{--<input type="hidden" name="photo" value="${baseUrl}/banner.png" id="srcImage">--}%
+                                        <div class="btn waves-effect waves-light my-orange">
+                                            <span>Arquivo</span>
+                                            <input type="file" data-image="true" id="img-1" name="img1" accept="image/jpeg, image/png"  >
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <i class="material-icons suffix green-text active">done</i>
+                                            <input class="file-path validate" type="text" id="img-1-text"  placeholder="Envie um ícone para o jogo (opicional)" readonly>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="right">
+                                <a href="#!" class="waves-effect waves-light btn-flat send" id="send" name="send" >
+                                    salvar
+                                </a>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="right">
-                            <a href="#!" class="waves-effect waves-light btn-flat send" id="send" name="send" >
-                                salvar
-                            </a>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
                 </li>
                 <!-- Fim 1 Etapa - informações básicas -->
                 <!-- 2 Etapa - tarefas -->
                 <li>
-                    <div id="tasks-header" class="collapsible-header">
-                        <i class="material-icons">done_all</i>Tarefas
-                    </div>
-                    <div class="collapsible-body">
-                        <main id="tasks">
-                            <table class="responsive-table bordered highlight centered">
-                                <thead>
-                                <tr>
-                                    <th data-field="id">Nome</th>
-                                    <th data-field="name">Ação</th>
-                                    <th data-field="status">Status</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <g:each in="${process.pendingTasks}" var="task">
-                                    <tr class="pending">
-                                        <td>
-                                            <span class="">
-                                                ${task.definition.name}
-                                            </span>
-                                        </td>
-                                        <td><a href="/frame/${process.definition.uri}/${task.definition.uri}?t=${task.id}">REALIZAR</a>
-                                        </td>
-
-                                        <td>Pendente</td>
+                    <g:if test="${process.getVariable("showTasks")}">
+                        <div id="tasks-header" class="collapsible-header active">
+                            <i class="material-icons">linear_scale</i>Tarefas
+                        </div>
+                        <div class="collapsible-body">
+                            <main id="tasks"
+                                  data-all-tasks-completed="${process.status == br.ufscar.sead.loa.propeller.domain.ProcessInstance.STATUS_ALL_TASKS_COMPLETED}">
+                                <table class="responsive-table bordered highlight centered">
+                                    <thead>
+                                    <tr>
+                                        <th data-field="id">Nome</th>
+                                        <th data-field="name">Status</th>
+                                        <th data-field="status"></th>
                                     </tr>
-                                </g:each>
-                                </tbody>
-                            </table>
-                        </main>
-                    </div>
+                                    </thead>
+                                    <tbody>
+                                    <g:each in="${tasks}" var="task">
+                                        <tr class="pending">
+                                            <td>
+                                                <span class="">
+                                                    ${task.definition.name}
+                                                </span>
+                                            </td>
+                                            <g:if test="${task.status == 1}">
+                                                <td>
+                                                    <a href="/frame/${process.definition.uri}/${task.definition.uri}?t=${task.id}">REALIZAR</a>
+                                                </td>
+                                                <td>
+                                                </td>
+                                            </g:if>
+                                            <g:else>
+                                                <td>
+                                                    <i class="material-icons" style="color:green;">check</i>
+                                                </td>
+                                                <td>
+                                                </td>
+                                            </g:else>
+                                        </tr>
+                                    </g:each>
+                                    </tbody>
+                                </table>
+                            </main>
+                        </div>
+                    </g:if>
+                    <g:else>
+                        <div id="tasks-header" class="collapsible-header">
+                            <i class="material-icons">linear_scale</i>Tarefas
+                        </div>
+                    </g:else>
                 </li>
                 <!-- Fim 2 Etapa - tarefas -->
-                <!-- 3 Etapa - plataformas -->
-                <li>
-                    <div class="collapsible-header">
-                        <i class="material-icons">view_column</i>Plataformas
-                    </div>
-                    <div class="collapsible-body">
-                        <main id="plataforms">
-                            <aside class="plataforms-progress center">
-                                <div class="center">
-
-                                    <p>Gerando o jogo para diferentes plataformas... </p>
-                                </div>
-                                <div class="preloader-wrapper big active">
-                                    <div class="spinner-layer spinner-blue">
-                                        <div class="circle-clipper left">
-                                            <div class="circle"></div>
-                                        </div><div class="gap-patch">
-                                        <div class="circle"></div>
-                                    </div><div class="circle-clipper right">
-                                        <div class="circle"></div>
-                                    </div>
-                                    </div>
-
-                                    <div class="spinner-layer spinner-red">
-                                        <div class="circle-clipper left">
-                                            <div class="circle"></div>
-                                        </div><div class="gap-patch">
-                                        <div class="circle"></div>
-                                    </div><div class="circle-clipper right">
-                                        <div class="circle"></div>
-                                    </div>
-                                    </div>
-
-                                    <div class="spinner-layer spinner-yellow">
-                                        <div class="circle-clipper left">
-                                            <div class="circle"></div>
-                                        </div><div class="gap-patch">
-                                        <div class="circle"></div>
-                                    </div><div class="circle-clipper right">
-                                        <div class="circle"></div>
-                                    </div>
-                                    </div>
-
-                                    <div class="spinner-layer spinner-green">
-                                        <div class="circle-clipper left">
-                                            <div class="circle"></div>
-                                        </div><div class="gap-patch">
-                                        <div class="circle"></div>
-                                    </div><div class="circle-clipper right">
-                                        <div class="circle"></div>
-                                    </div>
-                                    </div>
-                                </div>
-                            </aside>
-                            %{--<div id="plataforms-icons" class="row" style="margin: 0;">--}%
-                            %{--<div class="col s12">--}%
-                            %{--<a style="color: inherit" target="_blank">--}%
-                            %{--<div id="web" class="col s6 m2">--}%
-                            %{--<div class="row no-margin-bottom">--}%
-                            %{--<i class="fa fa-globe big-platform-logo"></i>--}%
-                            %{--</div>--}%
-                            %{--<div class="row">--}%
-                            %{--Web--}%
-                            %{--</div>--}%
-                            %{--</div>--}%
-                            %{--</a>--}%
-                            %{--<g:if test="${exportsTo.desktop}">--}%
-                            %{--<a style="color: inherit">--}%
-                            %{--<div class="col s6 m2 platform" data-text="Windows" data-name="windows">--}%
-                            %{--<div class="row no-margin-bottom">--}%
-                            %{--<i class="fa fa-windows big-platform-logo"></i>--}%
-                            %{--</div>--}%
-                            %{--<div class="row">--}%
-                            %{--Windows--}%
-                            %{--</div>--}%
-                            %{--</div>--}%
-                            %{--</a>--}%
-                            %{--<a style="color: inherit">--}%
-                            %{--<div class="col s6 m2 platform" data-text="Linux (64 bits)"  data-name="linux">--}%
-                            %{--<div class="row no-margin-bottom">--}%
-                            %{--<i class="fa fa-linux big-platform-logo"></i>--}%
-                            %{--</div>--}%
-                            %{--<div class="row">--}%
-                            %{--Linux (64 bits)--}%
-                            %{--</div>--}%
-                            %{--</div>--}%
-                            %{--</a>--}%
-
-                            %{--<a style="color: inherit">--}%
-                            %{--<div class="col s6 m2 platform" data-text="OS X" data-name="mac">--}%
-                            %{--<div class="row no-margin-bottom">--}%
-                            %{--<i class="fa fa-apple big-platform-logo"></i>--}%
-                            %{--</div>--}%
-                            %{--<div class="row">--}%
-                            %{--OS X--}%
-                            %{--</div>--}%
-                            %{--</div>--}%
-                            %{--</a>--}%
-                            %{--</g:if>--}%
-
-                            %{--<g:if test="${exportsTo.android}">--}%
-                            %{--<a style="color: inherit">--}%
-                            %{--<div class="col s6 m2 platform" data-text="Android" data-name="android">--}%
-                            %{--<div class="row no-margin-bottom">--}%
-                            %{--<i class="fa fa-android big-platform-logo"></i>--}%
-                            %{--</div>--}%
-                            %{--<div class="row">--}%
-                            %{--Android--}%
-                            %{--</div>--}%
-                            %{--</div>--}%
-                            %{--</a>--}%
-                            %{--</g:if>--}%
-
-                            %{--<g:if test="${exportsTo.moodle}">--}%
-                            %{--<div id="moodle" class="col s6 m2">--}%
-                            %{--<div class="row no-margin-bottom">--}%
-                            %{--<i class="fa fa-graduation-cap big-platform-logo"></i>--}%
-                            %{--</div>--}%
-                            %{--<div class="row">--}%
-                            %{--Moodle--}%
-                            %{--</div>--}%
-                            %{--</div>--}%
-                            %{--</g:if>--}%
-                            %{--</div>--}%
-                            %{--</div>--}%
-                        </main>
-                    </div>
-                </li>
-                <!-- Fim 3 Etapa - plataformas -->
             </ul>
+            <a href="/process/finish?id=${process.id}" id="publish" type="submit" class="btn waves-effect waves-light my-orange right">
+                Publicar
+            </a>
         </article>
     </div>
 </div>
@@ -266,7 +161,7 @@
 
 
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
-<g:javascript src="menu.js"/>
+%{--<g:javascript src="menu.js"/>--}%
 <g:javascript src="platforms.js"/>
 <g:javascript src="imgPreview.js"/>
 <g:javascript src="jquery/jquery.Jcrop.js"/>
