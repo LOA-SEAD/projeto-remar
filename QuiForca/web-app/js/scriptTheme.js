@@ -11,10 +11,35 @@ $(document).ready(function(){
 window.onload = function(){
     console.log("ok");
 
+
+    var checkboxes = document.getElementsByTagName('input');
+
+    for (var i=0; i<checkboxes.length; i++)  {
+        if (checkboxes[i].type == 'radio')   {
+            checkboxes[i].checked = false;
+        }
+    }
+
+
+
     $(".save").click(function() {
+        var select = false;
+        var checkboxes = document.getElementsByTagName('input');
+        var i =0;
+        while(select==false && i<checkboxes.length){
+            if ((checkboxes[i].type == 'radio') && (checkboxes[i].checked==true)){
+                select=true;
+            }
+            i++;
+        }
         //var id = $(this).parent().parent().attr("data-id");
-        var id = document.forms["formName"].elements["radio"].value
-        window.top.location.href = "choose/" + id;
+        var id = document.forms["formName"].elements["radio"].value;
+        if(select==false){
+            alert("Você deve selecionar um tema antes de enviar.");
+        }
+        else{
+            window.top.location.href = "choose/" + id;
+        }
     });
 
 

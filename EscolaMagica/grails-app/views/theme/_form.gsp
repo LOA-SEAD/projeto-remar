@@ -123,7 +123,7 @@
                     </div>
                 </li>
                 <li>
-                    <div class="collapsible-header"><i class="material-icons">info</i>Propriedades das Imagens</div>
+                    <div class="collapsible-header"><i class="material-icons">info</i>Informações sobre as Imagens</div>
                     <div class="collapsible-body">
                         <p class="justify-text">Para um melhor desempenho as imagens devem possuir as propriedades descritas na tabela abaixo.</p>
                         <table class="centered">
