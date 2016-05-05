@@ -13,7 +13,7 @@ class IndexController {
 
             model.gameInstanceList = Resource.findAllByStatus('approved',[max:8, sort: "id", order: "desc"])
             model.userName = session.user.firstName
-//            model.userGender = User.findById(session.user.id).gender
+//          model.userGender = User.findById(session.user.id).gender
             model.publicExportedResourcesList = ExportedResource.findAllByType('public',[max:8, sort: "id", order: "desc"])
             model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public',User.get(session.user.id),[max:8, sort: "id", order: "desc"])
 
@@ -21,6 +21,10 @@ class IndexController {
         } else {
             render view: "index"
         }
+    }
+
+    def project(){
+        render view: "index"
     }
 
     def frame() {
