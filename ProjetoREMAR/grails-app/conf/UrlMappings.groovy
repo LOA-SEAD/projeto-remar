@@ -13,7 +13,7 @@ class UrlMappings {
         "/frame$uri**"(controller: "index", action: "frame")
         // end index mappings
 
-        name login: "/login"(view: "login/auth")
+        name login: "/login"( controller: "index", action: "login")
         name signup: "/signup"(controller: "user", action: "create")
         "/signup/success/$id"(controller: "user", action: "signUpSuccess")
 

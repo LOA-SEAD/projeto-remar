@@ -23,6 +23,15 @@ class IndexController {
         }
     }
 
+    def login(){
+        if (springSecurityService.isLoggedIn()) {
+            index()
+        }
+        else{
+            render view: "../login/auth"
+        }
+    }
+
     def project(){
         render view: "index"
     }
