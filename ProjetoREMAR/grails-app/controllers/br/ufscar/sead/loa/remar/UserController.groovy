@@ -322,7 +322,7 @@ class UserController {
         User userInstance = springSecurityService.getCurrentUser()
         userInstance.enabled = false
         userInstance.save flush: true
-        redirect view: "/index/index.gsp"
+        redirect uri: "/logout/index"
     }
 
     @Transactional
