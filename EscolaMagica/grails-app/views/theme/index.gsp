@@ -51,13 +51,13 @@
                                     <td class="myTheme simpleTable" align="center "><input class="with-gap " name="radio" type="radio" id="myTheme${i}"
                                                                                value="${fieldValue(bean: themeInstance, field: "id")}" > <label for="myTheme${i}"></label>
                                     </td>
-                                    <td align="center"><img
+                                    <td align="center"><img width="142"
                                             src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portaa-sheet1.png"
                                             class="img-responsive max door"/></td>
-                                    <td align="center"><img
+                                    <td align="center"><img width="142"
                                             src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portab-sheet1.png"
                                             class="img-responsive max door"/></td>
-                                    <td align="center"><img
+                                    <td align="center"><img width="142"
                                             src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portac-sheet1.png"
                                             class="img-responsive max door"/></td>
                                     <td align="center"><i id="MydeleteIcon${i}" style="color: #7d8fff" class="material-icons delete">delete</i></td>
@@ -86,13 +86,13 @@
                                 <td class="simpleTable" align="center "><input class="with-gap " name="radio" type="radio" id="pTheme${i}"
                                                                                        value="${fieldValue(bean: themeInstance, field: "id")}" > <label for="pTheme${i}"></label>
                                 </td>
-                                <td align="center"><img
+                                <td align="center"><img width="142"
                                         src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portaa-sheet1.png"
                                         class="img-responsive max door"/></td>
-                                <td align="center"><img
+                                <td align="center"><img width="142"
                                         src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portab-sheet1.png"
                                         class="img-responsive max door"/></td>
-                                <td align="center"><img
+                                <td align="center"><img width="142"
                                         src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portac-sheet1.png"
                                         class="img-responsive max door"/></td>
                             </tr>
