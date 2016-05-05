@@ -138,7 +138,7 @@ function save(finish) {
     var tds = $(".preview");
     var nCols = (tds.length) / nLines;
 
-    var url = location.origin + '/mathjong/math/save';
+    var url = location.origin + '/mahjong/math/save';
     console.log(url);
     var data = {
         nLines: nLines,
@@ -160,9 +160,9 @@ function save(finish) {
         success: function (data) {
             console.log(data);
             if (!finish) {
-                window.location.href = location.origin + "/mathjong/math";
+                window.location.href = location.origin + "/mahjong/math";
             } else {
-                window.top.location.href = location.origin + '/mathjong/math/finish';
+                window.top.location.href = location.origin + '/mahjong/math/finish';
             }
 
         },

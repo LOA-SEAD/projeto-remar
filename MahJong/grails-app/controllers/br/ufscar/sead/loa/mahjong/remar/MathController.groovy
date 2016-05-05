@@ -1,4 +1,4 @@
-package br.ufscar.sead.loa.mathjong.remar
+package br.ufscar.sead.loa.mahjong.remar
 
 import br.ufscar.sead.loa.remar.User
 import br.ufscar.sead.loa.remar.api.MongoHelper

@@ -1,4 +1,4 @@
-package br.ufscar.sead.loa.mathjong.remar
+package br.ufscar.sead.loa.mahjong.remar
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification

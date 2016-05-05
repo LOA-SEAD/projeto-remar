@@ -3,8 +3,8 @@ dataSource {
     jmxExport = true
     driverClassName = "com.mysql.jdbc.Driver"
     dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
-    username = "mathjong"
-    password = "mathjong"
+    username = "mahjong"
+    password = "mahjong"
 }
 
 dataSource_remar {
@@ -12,8 +12,8 @@ dataSource_remar {
     jmxExport = true
     driverClassName = "com.mysql.jdbc.Driver"
     dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
-    username = "mathjong"
-    password = "mathjong"
+    username = "mahjong"
+    password = "mahjong"
 }
 
 // environment specific settings
@@ -22,7 +22,7 @@ environments {
 
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mysql://localhost/mathjong"
+            url = "jdbc:mysql://localhost/mahjong"
         }
         dataSource_remar {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
@@ -32,7 +32,7 @@ environments {
     test {
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mysql://localhost/mathjong"
+            url = "jdbc:mysql://localhost/mahjong"
         }
         dataSource_remar {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
@@ -42,7 +42,7 @@ environments {
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:mysql://localhost/mathjong"
+            url = "jdbc:mysql://localhost/mahjong"
             properties {
                 // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                 jmxEnabled = true

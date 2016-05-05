@@ -88,13 +88,13 @@ grails.hibernate.osiv.readonly = false
 environments {
     development {
         grails.logging.jul.usebridge = true
-//        grails.serverURL = "http://localhost:8080/mathjong"
-        grails.app.context = "/mathjong"
+//        grails.serverURL = "http://localhost:8080/mahjong"
+        grails.app.context = "/mahjong"
     }
     production {
         grails.logging.jul.usebridge = false
-//        grails.serverURL = "http://localhost:8080/mathjong"
-        grails.app.context = "/mathjong"
+//        grails.serverURL = "http://localhost:8080/mahjong"
+        grails.app.context = "/mahjong"
     }
 }
 

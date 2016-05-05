@@ -44,7 +44,7 @@
     <div class="login-box-body">
         <div class="login-logo">
         <g:link controller="index" action="index">
-            <img src="/mathjong/assets/img/logo/logo-remar-preto-transparente.png"
+            <img src="/mahjong/assets/img/logo/logo-remar-preto-transparente.png"
                              class="img-rounded" width="250" height="100"/> </g:link>
         </div>
         <g:layoutBody/>

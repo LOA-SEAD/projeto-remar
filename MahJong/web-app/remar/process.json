@@ -1,6 +1,6 @@
 {
-  "name": "MathJong",
-  "uri": "mathjong",
+  "name": "MahJong",
+  "uri": "mahjong",
   "version": 1,
   "tasks": [
     {
@@ -13,7 +13,7 @@
         {
           "name": "fases.json",
           "type": "json",
-          "path": "MathJong/json"
+          "path": "MahJong/json"
         }
       ]
     }

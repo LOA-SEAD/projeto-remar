@@ -3257,7 +3257,7 @@ table.text-center th {
 .register-page {
   /*background: #d2d6de;*/
   min-height: 100%;
-  background-image: url("/mathjong/assets/img/bg/bg.png");
+  background-image: url("/mahjong/assets/img/bg/bg.png");
   background-repeat: repeat;
   /*background-color: #ffffff;*/
   z-index: 800;
