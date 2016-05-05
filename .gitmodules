@@ -1,8 +1,8 @@
 [submodule "QuiForca/web-app/remar/source"]
 	path = QuiForca/web-app/remar/source
 	url = https://github.com/LOA-SEAD/quiforca
-[submodule "MathJong/web-app/remar/source"]
-	path = MathJong/web-app/remar/source
+[submodule "MahJong/web-app/remar/source"]
+	path = MahJong/web-app/remar/source
 	url = https://github.com/LOA-SEAD/mathjong
 [submodule "EscolaMagica/web-app/remar/source"]
 	path = EscolaMagica/web-app/remar/source
