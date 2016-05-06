@@ -939,3 +939,7 @@ table .pending td{
 .plataforms-link{
     color: #039be5 !important;
 }
+
+.bold{
+    font-weight: bold;
+}

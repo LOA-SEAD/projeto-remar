@@ -52,9 +52,7 @@
                     <div class="collapsible-header active"> <i class="material-icons">feedback</i>Informações básicas</div>
                         <div id="info" class="collapsible-body"
                              data-basic-info="${process.getVariable("updated")}">
-
                             ${process.putVariable("updated","false",true)}
-
                             <div class="row">
                                 <div class="input-field col s12">
                                     <i class="material-icons suffix green-text active">done</i>

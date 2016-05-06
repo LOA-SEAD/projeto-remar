@@ -106,7 +106,8 @@ class ExportedResourceController {
 
         RequestMap.findOrSaveWhere(url: "${baseUrl}/**", configAttribute: 'permitAll')
 
-        render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl, nameGame: instance.name]
+        render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl,
+                                            exportedResourceInstance: instance,createdAt: process.createdAt]
     }
 
     def export(ExportedResource instance) {

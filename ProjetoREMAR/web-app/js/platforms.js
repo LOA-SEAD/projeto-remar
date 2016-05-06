@@ -194,7 +194,6 @@ $(function () {
         info.data("basic-info").toString() == "true") {
 
         $(name).removeClass().addClass("valid");
-        name.prop("readonly",true);
 
         //se a imagem de preview foi alterada
         if(imgFile.text() != "" && imgFile.text() != null){

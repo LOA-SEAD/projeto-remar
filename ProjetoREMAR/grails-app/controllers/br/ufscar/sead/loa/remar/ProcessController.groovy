@@ -176,17 +176,17 @@ class ProcessController {
 //            response.status = 200
 //        }
 
-        /*TODO => o nome só poderá ser alterado enquanto o processo existir,
-         *          depois que o processo for finalizado e o exported-resource criado
-         *          (gerado nas diferentes plataformas) não poderá alterar o nome do jogo
-         */
+        def i = ExportedResource.findByName(params.name)
+        if(i) {
+            response.status = 409 // conflited error
+        }else {
+            process.name = params.name
 
-        process.name = params.name
+            process.putVariable("updated", "true", true)
+            process.putVariable("showTasks", "true", true)
 
-        process.putVariable("updated","true", true)
-        process.putVariable("showTasks","true", true)
-
-        redirect controller: "process", action: "overview"
+            redirect controller: "process", action: "overview"
+        }
     }
 
     def list() {
@@ -261,6 +261,7 @@ class ProcessController {
         exportedResourceInstance.width = resource.width
         exportedResourceInstance.height = resource.height
         exportedResourceInstance.processId = process.id
+
         exportedResourceInstance.save flush: true
 
         process.putVariable('exportedResourceId', exportedResourceInstance.id as String, true)
@@ -294,7 +295,7 @@ class ProcessController {
         exportsTo.android = exportedResourceInstance.resource.android
         exportsTo.moodle = exportedResourceInstance.resource.moodle
 
-        redirect uri: "/exported-resource/publish/${exportedResourceInstance.id}?"
+        redirect uri: "/exported-resource/publish/${exportedResourceInstance.id}?toast=1"
     }
 
 }

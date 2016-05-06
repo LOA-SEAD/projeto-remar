@@ -5,7 +5,7 @@ Date: 10/06/15
 Time: 09:55
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="br.ufscar.sead.loa.propeller.Propeller" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="materialize-layout">
@@ -16,20 +16,51 @@ Time: 09:55
 <div class="row cluster">
     <div class="cluster-header">
         <p class="text-teal text-darken-3 left-align margin-bottom">
-            <i class="small material-icons left">games</i>${nameGame}
+            <i class="small material-icons left">games</i>${exportedResourceInstance.name}
         </p>
         <div class="divider"></div>
     </div>
     <div class="row space">
-        <blockquote>
-           O seu jogo foi publicado com sucesso! Agora ele já esta disponível no menu <a href="/exported-resource/publicGames">Jogos publicados</a>.
-        </blockquote>
+        <g:if test="${params.toast}">
+            <blockquote>
+                O seu jogo foi publicado com <span class="bold">sucesso</span>! Agora ele já esta disponível no menu
+                <span class="chip">
+                    <a class="center" href="/exported-resource/publicGames">Jogos publicados</a>
+                    <i class="medium material-icons">videogame_asset</i>
+                </span>
+            </blockquote>
+        </g:if>
     </div>
     <div class="row show">
         <div class="row">
             <input type="hidden" name="id" id="resource-id" value="${resourceInstance.id}">
 
             <ul class="collapsible popout" data-collapsible="expandable">
+                <li>
+                    <div class="collapsible-header active"> <i class="material-icons">feedback</i>Informações</div>
+                    <div id="info" class="collapsible-body">
+                        <div class="row">
+                            <img id="img1Preview" class="my-orange right" width="100" height="100"
+                                 src="/published/${exportedResourceInstance.processId}/banner.png" />
+
+                            <p><span class="bold">Nome do jogo: </span>${exportedResourceInstance.name}</p>
+
+                            <p><span class="bold">Categoria: </span>${exportedResourceInstance.resource.category.name}</p>
+
+                            <p><span class="bold">Autor: </span>${exportedResourceInstance.owner.username}</p>
+
+                            <p><span class="bold">Customizado em:</span>
+                                <g:formatDate format="dd/MM/yyyy HH:mm"
+                                              date="${createdAt}"/></p>
+
+                            <p><span class="bold">Baseado no modelo: </span>${exportedResourceInstance.resource.name}</p>
+
+                            %{--<p><span class="bold">Licenciado: </span>${exportedResourceInstance.name}</p>--}%
+
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </li>
                 <li>
                     <div id="plataforms" class="collapsible-header active" data-exported="true">
                         <i class="material-icons">view_column</i>Plataformas
@@ -160,10 +191,6 @@ Time: 09:55
         </div>
     </li>
     </ul>
-        <span class="chip center">
-            <a class="center" href="/">Ir para o inicio</a>
-            <i class="mdi-action-dashboard"></i>
-        </span>
     </div>
 </div>
 </div>
