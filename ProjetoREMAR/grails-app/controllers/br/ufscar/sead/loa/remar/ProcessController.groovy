@@ -181,9 +181,10 @@ class ProcessController {
          *          (gerado nas diferentes plataformas) não poderá alterar o nome do jogo
          */
 
-        //TODO faltou gerar o jogo para as plataformas com o novo nome e a "nova foto"
+        process.name = params.name
 
         process.putVariable("updated","true", true)
+        process.putVariable("showTasks","true", true)
 
         redirect controller: "process", action: "overview"
     }
@@ -243,10 +244,8 @@ class ProcessController {
         def exportsTo = [:]
         log.debug("ID DO PROCESSO --->"+params.id)
         def process = Propeller.instance.getProcessInstanceById(params.id, session.user.id as long)
-
-
+        log.debug("NOME DO PROCESSO --->"+process.name)
         log.debug(process.getVariable("resourceId"))
-        log.debug(" ------  process ------"+process)
 
         def resource = Resource.get(process.getVariable('resourceId'))
         def now = new Date()
@@ -258,7 +257,7 @@ class ProcessController {
         exportedResourceInstance.resource = resource
         exportedResourceInstance.exportedAt = now
         exportedResourceInstance.type = 'public' // TODO
-        exportedResourceInstance.name = resource.name
+        exportedResourceInstance.name = process.name // o jogo recebe o nome do processo
         exportedResourceInstance.width = resource.width
         exportedResourceInstance.height = resource.height
         exportedResourceInstance.processId = process.id
@@ -275,8 +274,9 @@ class ProcessController {
             fileset(dir: servletContext.getRealPath("/data/resources/sources/${resource.uri}/base"))
         }
 
-        ant.copy(file: "${servletContext.getRealPath("/images")}/" +
-                "${exportedResourceInstance.resource.uri}-banner.png",
+        def pathImgPrev = servletContext.getRealPath("/data/processes/${process.id}")
+
+        ant.copy(file: pathImgPrev + "/banner.png",
                 tofile: "${instanceFolder}/banner.png", overwrite: true)
 
         process.completedTasks.outputs.each { outputs ->

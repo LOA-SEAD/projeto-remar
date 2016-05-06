@@ -16,7 +16,7 @@
 <body>
 <div class="row cluster">
     <div class="cluster-header">
-        <p class="text-teal text-darken-3 left-align margin-bottom">
+        <p id="start" class="text-teal text-darken-3 left-align margin-bottom">
             <i class="small material-icons left">list</i>Etapas de customização
         </p>
 
@@ -50,13 +50,15 @@
                 <!-- 1 Etapa - informações básicas -->
                 <li>
                     <div class="collapsible-header active"> <i class="material-icons">feedback</i>Informações básicas</div>
-                        <div class="collapsible-body"
-                             data-basic-info="">
+                        <div id="info" class="collapsible-body"
+                             data-basic-info="${process.getVariable("updated")}">
+
+                            ${process.putVariable("updated","false",true)}
 
                             <div class="row">
                                 <div class="input-field col s12">
                                     <i class="material-icons suffix green-text active">done</i>
-                                    <input value="${process.definition.name}" id="name" type="text"
+                                    <input value="${process.name}" id="name" type="text"
                                            class="validate" data-resource-id="${process.getVariable("resourceId")}" data-process-id="${process.id}">
                                     <label class="active" for="name" data-error="" data-success="">Nome do jogo</label>
                                     <span id="name-error" class="invalid-input" style="left: 0.75rem">Já existe um jogo com esse nome!</span>
@@ -64,12 +66,12 @@
                             </div>
                             <div class="row">
                                 <div class="col s2 img-preview">
-                                    <img id="img1Preview" class="materialboxed my-orange" width="100" height="100" src="/data/processes/${process.id}/banner.png" />
+                                    <img id="img1Preview" class="materialboxed my-orange" width="100" height="100" src="/data/processes/${process.id}/banner.png?${new java.util.Date()}" />
                                 </div>
                                 <div class="col s10">
                                     <div class="file-field input-field">
                                         %{--<input type="hidden" name="photo" value="${baseUrl}/banner.png" id="srcImage">--}%
-                                        <div class="btn waves-effect waves-light my-orange">
+                                        <div id="file" class="btn waves-effect waves-light my-orange">
                                             <span>Arquivo</span>
                                             <input type="file" data-image="true" id="img-1" name="img1" accept="image/jpeg, image/png"  >
                                         </div>
@@ -82,7 +84,7 @@
                             </div>
                             <div class="right">
                                 <a href="#!" class="waves-effect waves-light btn-flat send" id="send" name="send" >
-                                    salvar
+                                    Enviar
                                 </a>
                             </div>
                             <div class="clearfix"></div>
@@ -122,7 +124,7 @@
                                                 </td>
                                             </g:if>
                                             <g:else>
-                                                <td>
+                                                <td onload="Materialize.toast('Informações salva com sucesso!', 3000, 'rounded') ">
                                                     <i class="material-icons" style="color:green;">check</i>
                                                 </td>
                                                 <td>

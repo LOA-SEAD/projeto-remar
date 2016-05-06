@@ -9,6 +9,7 @@ $(function () {
     var imgFile = $("#img-1-text");
     var publish = $("#publish");
     var tasks = $("#tasks");
+    var info = $("#info");
 
     $(name).prev().hide();
     $(imgFile).prev().hide();
@@ -21,9 +22,12 @@ $(function () {
     });
 
     $("#send").on("click", function () {
+
+        goToByScroll("start");
+
         if ($(name).val()) {
             var file = $("#img-1").prop('files')[0];
-            if (file != null) {
+            if (file != null) { //se a imagem de preview foi mudada
                 var fr = new FileReader();
                 fr.readAsDataURL(file);
                 fr.onload = function (event) {
@@ -39,8 +43,6 @@ $(function () {
                         formData.append('name', $(name).val());
                         formData.append('img1',$("#img1Preview").attr("src"));
 
-                        console.log($(name).data("process-id"));
-
                         $.ajax({
                             type: 'POST',
                             url: location.origin + '/process/update/' + $(name).data("process-id"),
@@ -50,14 +52,9 @@ $(function () {
                             success: function (data) {
                                 //console.log("resource name updated");
                                 nameErr.hide(500);
-                                location.reload();
+                                window.location = location.pathname.split("?")[0];
+                                window.location.pathname.reload();
 
-                                $(name).removeClass().addClass("valid");
-                                $(name).prev().show(500);
-
-                                $(imgFile).removeClass().addClass("valid");
-                                $(imgFile).prev().show(500);
-                                goToByScroll("tasks-header");
 
                             },
                             error: function (req, status, err) {
@@ -83,7 +80,8 @@ $(function () {
                     contentType: false,
                     success: function (data) {
                         nameErr.hide(500);
-                        location.reload();
+                        window.location = location.pathname.split("?")[0];
+                        window.location.pathname.reload();
 
                         $(name).removeClass().addClass("valid");
                         $(name).prev().show(500);
@@ -98,6 +96,7 @@ $(function () {
                 });
             }
         }
+
     });
 
 
@@ -191,11 +190,20 @@ $(function () {
         publish.removeClass("disabled");
     }
 
-    publish.on("click",function(){
-        console.log("Bora publica o jogo!");
-    });
+    if(info.data("basic-info") != null &&
+        info.data("basic-info").toString() == "true") {
 
+        $(name).removeClass().addClass("valid");
+        name.prop("readonly",true);
 
+        //se a imagem de preview foi alterada
+        if(imgFile.text() != "" && imgFile.text() != null){
+            $(imgFile).removeClass().addClass("valid");
+        }
+
+        Materialize.toast('Informações básicas salva com sucesso!', 3000, 'rounded')
+    }
 });
+
 
 
