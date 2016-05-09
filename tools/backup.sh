@@ -33,6 +33,15 @@ function backup {
 	cp -r $APP_DIR/../escolamagica/data $BACKUP_DIR/escolamagica
 	echo '/escolamagica/data backuped'
 
+	cp -r $APP_DIR/../mahjong/data $BACKUP_DIR/mahjong
+	echo '/mahjong/data backuped'
+
+	cp -r $APP_DIR/../respondasepuder/data $BACKUP_DIR/respondasepuder
+	echo '/respondasepuder/data backuped'
+
+	echo "Backing up MySQL tables (user, user_role and role):"
+	mysqldump -uroot -p remar user user_role role > $BACKUP_DIR/../backup.sql
+
 	echo 'DONE'
 }
 
@@ -62,6 +71,15 @@ function restore {
 
 	cp -r $BACKUP_DIR/escolamagica/data $APP_DIR/../escolamagica
 	echo '/escolamagica/data restored'
+
+	cp -r $BACKUP_DIR/mahjong/data $APP_DIR/../mahjong
+	echo '/mahjong/data restored'
+
+	cp -r $BACKUP_DIR/respondasepuder/data $APP_DIR/../respondasepuder
+	echo '/respondasepuder/data restored'
+
+	echo "Restoring MySQL tables (user, user_role and role):"
+	mysql -uroot -p remar < $BACKUP_DIR/../backup.sql
 
 	echo 'DONE'
 }
