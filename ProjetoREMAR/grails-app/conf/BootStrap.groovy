@@ -74,11 +74,15 @@ class BootStrap {
         def category = Category.findAll();
 
         if(!category){
-            new Category(name: "Ação",description:  "jogos de ação").save flush: true
-            new Category(name: "Aventura", description: "jogos de aventura").save flush: true
-            new Category(name: "Educacional", description: "jogos educacionais").save flush: true
-            new Category(name: "Puzzle", description: "jogos de estratégia").save flush: true
-            new Category(name: "Corrida", description: "jogos de corrida").save flush: true
+            new Category(name: "Ação/Aventura",description:  "jogos de ação e aventura").save flush: true
+            new Category(name: "Estratégia", description: "jogos de estratégia").save flush: true
+            new Category(name: "Saúde", description: "jogos da area de saúde").save flush: true
+            new Category(name: "RPG", description: "jogos de RPG").save flush: true
+            new Category(name: "Esporte", description: "jogos de esporte").save flush: true
+            new Category(name: "Simulação", description: "jogos de simulação").save flush: true
+            new Category(name: "Puzzle", description: "jogos de puzzle").save flush: true
+            new Category(name: "Clássicos", description: "jogos clássicos").save flush: true
+
 
             log.debug "Category: ok"
         }
