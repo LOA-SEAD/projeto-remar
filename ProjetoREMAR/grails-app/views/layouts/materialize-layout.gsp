@@ -15,7 +15,7 @@
                     <ul class="right">
                         <li>
                             <a href="#" data-activates="dropdown-user" class="dropdown-button">
-                                <img src="/data/users/${session.user.username}/profile-picture"
+                                <img src="/data/users/${session.user.username}/profile-picture?${new Date()}"
                                      alt="${session.user.firstName}" class="circle profile-pic"
                                      data-beloworigin="true">
                             </a>
@@ -28,7 +28,7 @@
                                         <p class="secondary-color truncate" title="${session.user.email}">${session.user.email}</p>
                                     </div>
                                     <div class="col s4">
-                                        <img src="/data/users/${session.user.username}/profile-picture"
+                                        <img src="/data/users/${session.user.username}/profile-picture?${new Date()}"
                                              alt="${session.user.firstName}" class="circle responsive-img" data-beloworigin="true">
                                     </div>
                                 </div>
