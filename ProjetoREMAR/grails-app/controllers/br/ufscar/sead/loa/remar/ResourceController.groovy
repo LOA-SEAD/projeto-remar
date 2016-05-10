@@ -153,7 +153,7 @@ class ResourceController {
         // rename war to a human readable name – instead of a MD5 name
         savedWar.renameTo(servletContext.getRealPath("/wars/${username}") + "/${resourceInstance.uri}.war")
 
-        resourceInstance.category = Category.findByName("Aventura")
+        resourceInstance.category = Category.findByName("Clássicos")
 
         // set ratings variables
         resourceInstance.sumUser = 0
