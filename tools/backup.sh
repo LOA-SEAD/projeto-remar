@@ -14,6 +14,8 @@ function backup {
 	mkdir $BACKUP_DIR/images
 	mkdir $BACKUP_DIR/forca
 	mkdir $BACKUP_DIR/escolamagica
+	mkdir $BACKUP_DIR/mahjong
+	mkdir $BACKUP_DIR/respondasepuder
 
 	cp -r $APP_DIR/data $BACKUP_DIR
 	echo '/data backuped'
