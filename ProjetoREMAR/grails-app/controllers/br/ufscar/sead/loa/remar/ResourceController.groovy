@@ -31,7 +31,7 @@ class ResourceController {
 
 
     def create() {
-        render view: "create", model: [id: params.id, categories: Category.list(sort: "name"), defaultCategory: Category.findByName('Aventura')]
+        render view: "create", model: [id: params.id, categories: Category.list(sort: "name"), defaultCategory: Category.findByName('Clássicos')]
     }
 
     @Transactional
