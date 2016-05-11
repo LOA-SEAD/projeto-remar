@@ -143,7 +143,7 @@
                 </li>
                 <!-- Fim 2 Etapa - tarefas -->
             </ul>
-            <a href="/process/finish?id=${process.id}" id="publish" type="submit" class="btn waves-effect waves-light my-orange right">
+            <a href="#!" data-process-id="${process.id}" id="publish" type="submit" class="btn waves-effect waves-light my-orange right">
                 Publicar
             </a>
         </article>

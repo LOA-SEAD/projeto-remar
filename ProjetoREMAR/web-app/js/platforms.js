@@ -188,6 +188,7 @@ $(function () {
 
         console.log("removendo disabled button");
         publish.removeClass("disabled");
+        publish.attr("href","/process/finish?id="+publish.data("process-id"))
     }
 
     if(info.data("basic-info") != null &&

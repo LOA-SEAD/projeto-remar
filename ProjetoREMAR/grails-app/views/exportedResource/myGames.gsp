@@ -54,9 +54,26 @@
 
         </section>
         <section id="test2" class="col s12">
+            <div class="row search">
+                <div class="input-field col s6">
+                    <input id="search-processes" type="text" class="validate">
+                    <label for="search"><i class="fa fa-search"></i></label>
+                </div>
+                <div class="input-field col s6">
+                    <select>
+                        <option class="option" value="-1" selected>Todas</option>
+                        <g:if test="${categories.size() > 0}">
+                            <g:each in="${categories}" var="category">
+                                <option class="option" value="${category.id}">${category.name}</option>
+                            </g:each>
+                        </g:if>
+                    </select>
+                    <label>Categoria</label>
+                </div>
+            </div>
             <div class="row show cards">
                 <article class="row">
-                        <g:render template="/process/process" model="[processes:processes]" />
+                    <g:render template="/process/process" model="[processes:processes]" />
                 </article>
             </div>
         </section>

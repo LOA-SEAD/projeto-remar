@@ -266,7 +266,9 @@ class ExportedResourceController {
 
         model.max = params.max
         model.threshold = threshold
-        model.publicExportedResourcesList = ExportedResource.findAllByType('public', params).reverse()
+        params.order = "desc"
+        params.sort = "id"
+        model.publicExportedResourcesList = ExportedResource.findAllByType('public', params)
         model.pageCount = Math.ceil(ExportedResource.count / params.max) as int
         model.currentPage = (params.offset + threshold) / threshold
         model.hasNextPage = params.offset + threshold < model.instanceCount
@@ -275,6 +277,12 @@ class ExportedResourceController {
         model.categories = Category.list(sort:"name")
 
         println model.pageCount
+
+//        println("lista de exp-resource");
+//        model.publicExportedResourcesList.each{
+//            println("id: ${it.id}");
+//        }
+
 
         render view: "publicGames", model: model
     }
@@ -345,6 +353,8 @@ class ExportedResourceController {
         def threshold = 12
         def maxInstances = 0
 
+        params.order = "desc"
+        params.sort = "id"
         params.max = params.max ? Integer.valueOf(params.max) : threshold
         params.offset = params.offset ? Integer.valueOf(params.offset) : 0
 

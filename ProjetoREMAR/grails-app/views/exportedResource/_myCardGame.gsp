@@ -18,12 +18,13 @@
                         <div class="card-content">
                             <div class="details">
                                 <p class="card-click-targ" aria-hidden="true" tabindex="-1"></p>
-                                <span class="title card-name activator" data-category="${instance.resource.category.id}" title="${instance.name}" aria-hidden="true" tabindex="-1">${instance.name}</span>
+                                <span class="title card-name activator truncate" data-category="${instance.resource.category.id}" title="${instance.name}" aria-hidden="true" tabindex="-1">${instance.name}</span>
                                 %{--<div class="col s3">--}%
                                 %{--<img src="/data/users/${instance.resource.owner.username}/profile-picture"--}%
                                 %{--alt="${instance.resource.owner.firstName}" class="circle game-owner"--}%
                                 %{--data-beloworigin="true">--}%
                                 %{--</div>--}%
+
                                 <div class="subtitle-container">
                                     <p class="subtitle">Feito por: ${instance.owner.firstName}</p>
                                 </div>
