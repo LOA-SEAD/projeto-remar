@@ -68,11 +68,7 @@
                     <label>Categoria</label>
                 </div>
             </div>
-            <div class="row show cards">
-                <article class="row">
-                    <g:render template="/process/process" model="[processes:processes]" />
-                </article>
-            </div>
+            <g:render template="/process/process" model="[processes:processes]" />
         </section>
     </div>
 </div>

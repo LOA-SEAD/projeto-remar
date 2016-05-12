@@ -290,27 +290,38 @@ class ExportedResourceController {
     def myGames(){
         def model = [:]
 
+        def threshold = 12
+
+        params.max = params.max ? Integer.valueOf(params.max) : threshold
+        params.offset = params.offset ? Integer.valueOf(params.offset) : 0
+
+        model.max = params.max
+        model.threshold = threshold
+        params.order = "desc"
+        params.sort = "id"
+
+        //retorna os jogos do usuario corrente exportados exportados
+        model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id),params)
+
+        model.pageCount = Math.ceil(ExportedResource.count / params.max) as int
+        model.currentPage = (params.offset + threshold) / threshold
+        model.hasNextPage = params.offset + threshold < model.instanceCount
+        model.hasPreviousPage = params.offset > 0
+
+        model.categories = Category.list(sort:"name")
+
+        println model.pageCount
+
+
+        //retorna o processo
         def processes = Propeller.instance.getProcessInstancesByOwner(session.user.id as long)
         def temporary = []
-
-        println("ANTES")
-        for (process in processes){
-            println(process.name)
-        }
 
         for(def i = processes.size()-1;i>=0;i--){
             if (processes.get(i).getVariable('inactive') != "1") {
                 temporary.add(processes.get(i))
             }
         }
-
-        println("DEPOIS")
-        for (process in temporary){
-            println(process.name)
-        }
-
-        model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id))
-        model.categories = Category.list(sort:"name")
         model.processes =  temporary
 
         render view: "myGames", model: model
