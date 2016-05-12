@@ -271,8 +271,6 @@ class ExportedResourceController {
 
         model.categories = Category.list(sort:"name")
 
-        println model.pageCount
-
         if(user == null)
             render view: "games", model: model
         else
