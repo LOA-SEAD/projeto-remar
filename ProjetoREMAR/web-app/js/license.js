@@ -29,7 +29,7 @@ function showLicense(){
 }
 
 function checkAsLike(){
-    $("#shareYesAsLike").attr("checked", "checked");
+    $("#shareYesAsLike").prop("checked", true);
 }
 
 function bloqCheck(){
