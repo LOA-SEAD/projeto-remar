@@ -41,8 +41,20 @@
 													</div>
 												</div>
 												<div class="row">
-													<div class="col s12">
-														<p> Permitir o uso comercial de seu trabalho?</p>
+													<div class="col s12 m12 l12">
+															<p> <i class="material-icons" onclick="openThisModal('modalShareAsLike')">info</i> Permitir que adaptações do seu trabalho sejam compartilhadas?</p>
+															<input onclick="checkAsLike()" onchange="bloqCheck()" readonly="readonly"  class="with-gap" name="shareLicense" type="radio" id="shareYes"/>
+															<label for="shareYes">Sim</label>
+															<input onclick="checkAsLike()" onchange="bloqCheck()" readonly="readonly" class="with-gap" name="shareLicense" type="radio" id="shareNo"/>
+															<label for="shareNo">Não</label>
+															<br>
+														<input readonly class="with-gap" checked="checked" name="shareLicense" type="radio" id="shareYesAsLike"/>
+														<label for="shareYesAsLike">Sim, desde que outros compartilhem igual </label>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col s12 m12 l12">
+														<p><i class="material-icons" onclick="openThisModal('modalComercial')">info</i> Permitir usos comerciais do seu trabalho?</p>
 														<input onchange="showLicense()"  class="with-gap" name="comercialLicense" type="radio" id="comercialYes"/>
 														<label for="comercialYes">Sim</label>
 														<input onchange="showLicense()" class="with-gap" name="comercialLicense" type="radio" id="comercialNo"/>
@@ -105,6 +117,54 @@
 				</div>
 			</div>
 		</div>
+	<!-- Modal Structure -->
+	<div id="modalComercial" class="modal">
+		<div class="modal-content">
+			<h4>Permitir usos comerciais do seu trabalho?</h4>
+			<div class="row">
+				<div class="col s6 m6 l6 license">
+					<h5>Sim</h5>
+					<p align="justify">O licenciante autoriza que outros copiem, distribuam, exibam e executem o trabalho, inclusive para fins comerciais.</p>
+				</div>
+				<div class="col s6 m6 l6 license">
+					<h5>Não</h5>
+					<p align="justify">O licenciante autoriza que outros copiem, distribuam, exibam e executem o trabalho somente para fins não comerciais.</p>
+				</div>
+			</div>
+
+ 		</div>
+		<div class="modal-footer">
+			<a href="#!" class="  btn btn-large modal-close my-orange">Entendi</a>
+		</div>
+	</div>
+
+	<!-- Modal Structure -->
+	<div id="modalShareAsLike" class="modal">
+		<div class="modal-content">
+			<h4>Permitir que adaptações do seu trabalho sejam compartilhadas?</h4>
+			<div class="row">
+				<div class="col s6 m6 l6 license">
+					<h5>Sim</h5>
+					<p align="justify">O licenciante autoriza que outros copiem, distribuam, exibam e executem o trabalho, bem como façam e distribuam trabalhos derivados baseados nele.</p>
+				</div>
+				<div class="col s6 m6 l6 license">
+					<h5>Não</h5>
+					<p align="justify">O licenciante autoriza que outros copiem, distribuam, exibam e executem o trabalho, mas não que distribuam trabalhos derivados baseados nele.</p>
+				</div>
+
+			</div>
+			<div class="row">
+				<div class="col s12 m12 l12 license">
+					<h5 align="left">Sim, desde que os outros compartilhem igual</h5>
+					<p align="justify">O licenciante autoriza que outros criem e distribuam trabalhos derivados, mas apenas ao abrigo da mesma licença ou de uma licença <a target="_blank" href="https://creativecommons.org/compatiblelicenses/">compatível</a>.</p>
+				</div>
+			</div>
+
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class=" btn btn-large modal-close my-orange">Entendi</a>
+		</div>
+	</div>
 
     <div id="modal-picture" class="modal">
         <div class="modal-content center">

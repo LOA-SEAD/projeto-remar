@@ -2,6 +2,13 @@
  * Created by matheus on 6/27/15.
  */
 
+function openThisModal(modalName){
+    name = "#"+modalName;
+    $(name).openModal({
+        dismissible: false
+    });
+
+}
 
 function validateWar(){
     var inputFile = document.getElementById("war");
@@ -241,6 +248,8 @@ $(function(){
         }
 
     }
+
+
 
     function saveCrop(FormData, updateImg)
     //FormData é o arquivo de imagem e as coordenadas para o corte

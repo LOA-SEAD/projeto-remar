@@ -28,6 +28,16 @@ function showLicense(){
     }
 }
 
+function checkAsLike(){
+    $("#shareYesAsLike").attr("checked", "checked");
+}
+
+function bloqCheck(){
+    $("#shareYes").attr("checked", false);
+    $("#shareNo").attr("checked", false);
+    checkAsLike();
+}
+
 function validateLicense(){
     if( ($("#comercialYes").is(":checked")) || ($("#comercialNo").is(":checked")) ){
         return true;
