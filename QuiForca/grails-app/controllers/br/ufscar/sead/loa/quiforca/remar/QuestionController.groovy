@@ -143,10 +143,7 @@ class QuestionController {
 
         questionInstance.statement = params.statement
         questionInstance.answer = params.answer
-        questionInstance.author = params.author
         questionInstance.category = params.category
-        questionInstance.ownerId = session.user.id as long
-        questionInstance.taskId = session.taskId as String
         questionInstance.save flush:true
 
         redirect action: "index"
