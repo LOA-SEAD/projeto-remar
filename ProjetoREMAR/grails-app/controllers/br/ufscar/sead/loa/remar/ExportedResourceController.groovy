@@ -40,7 +40,7 @@ class ExportedResourceController {
 
     def delete(ExportedResource instance) {
         instance.delete flush: true
-        redirect uri: "/"
+        myGames()
     }
 
     /* to test the moodle list */
