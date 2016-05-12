@@ -52,6 +52,12 @@ Time: 09:55
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" id="licenseValue" value="${resourceInstance.license}">
+                        <div class="card-content row">
+                            <div class="col s12 m12 l12 license" id="licenseInfo">
+
+                            </div>
+                        </div>
                         <div class="right">
                             <a href="#!" class="waves-effect waves-light btn-flat send" id="send" name="send" >
                                 salvar
@@ -210,6 +216,7 @@ Time: 09:55
 
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
 <g:javascript src="platforms.js"/>
+<g:javascript src="licenseShow.js"/>
 <g:javascript src="imgPreview.js"/>
 <g:javascript src="jquery/jquery.Jcrop.js"/>
 </body>

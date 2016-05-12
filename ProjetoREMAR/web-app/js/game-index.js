@@ -58,47 +58,54 @@ $(function(){
 
 
         if(validateWar()){
-            var file = $("#war").prop('files')[0];
-            console.log(file);
-            var url = "/resource/save";
-            var formData = new FormData();
-            formData.append('war', file);
+            if(validateLicense()){
+                var file = $("#war").prop('files')[0];
+                var license = document.getElementById("licenseValue").value;
+                console.log(file);
+                var url = "/resource/save";
+                var formData = new FormData();
+                formData.append('war', file);
+                formData.append('license',license);
 
-            $('#preloader-wrapper').show('fast');
+                $('#preloader-wrapper').show('fast');
 
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (data) {
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
 
-                    $('#preloader-wrapper').hide();
-                    $('.send-icon').show('fast');
-                    $('#info-add').trigger('click');
+                        $('#preloader-wrapper').hide();
+                        $('.send-icon').show('fast');
+                        $('#info-add').trigger('click');
 
 
-                    $('.loaded-form').show("slideDown");
+                        $('.loaded-form').show("slideDown");
 
-                    $("#name").val(data.name)
-                        .next().addClass("active");
+                        $("#name").val(data.name)
+                            .next().addClass("active");
 
-                    $("#description").val(data.description);
+                        $("#description").val(data.description);
 
-                    //$(".icons-select select").val(data.category);
-                    //$("#img-1").attr("src", "/data/resources/assets/"+data.uri+"/description-1");
+                        //$(".icons-select select").val(data.category);
+                        //$("#img-1").attr("src", "/data/resources/assets/"+data.uri+"/description-1");
 
-                    //set hidden id
-                    $("#hidden").val(data.id);
+                        //set hidden id
+                        $("#hidden").val(data.id);
 
-                },
-                error: function(req, res, err) {
-                    console.log(req);
-                    console.log(res);
-                    console.log(err);
-                }
-            });
+                    },
+                    error: function(req, res, err) {
+                        console.log(req);
+                        console.log(res);
+                        console.log(err);
+                    }
+                });
+            }
+            else{
+                Materialize.toast("Selecione uma licença para o seu modelo.", 3000);
+            }
         }
 
         else{

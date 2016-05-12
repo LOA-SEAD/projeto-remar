@@ -40,6 +40,24 @@
 													</div>
 													</div>
 												</div>
+												<div class="row">
+													<div class="col s12">
+														<p> Permitir o uso comercial de seu trabalho?</p>
+														<input onchange="showLicense()"  class="with-gap" name="comercialLicense" type="radio" id="comercialYes"/>
+														<label for="comercialYes">Sim</label>
+														<input onchange="showLicense()" class="with-gap" name="comercialLicense" type="radio" id="comercialNo"/>
+														<label for="comercialNo">Não</label>
+													</div>
+												</div>
+												<br>
+												<input type="hidden" name="license" value="cc-by" id="licenseValue" >
+												<div class="row">
+													<div class="col s12" id="licenseImage">
+
+													</div>
+												</div>
+
+												<br>
 												<div class="send-war right">
 													<a href="#!" data-position="bottom" data-delay="5" data-tooltip="Enviar" class="waves-effect waves-light btn-flat send">
 														Enviar <i class="material-icons send-icon" style="color: green;">done</i>
@@ -99,6 +117,7 @@
 		<script type="text/javascript" src="${resource(dir: 'js', file: "imgPreview.js")}"></script>
 		<script type="text/javascript" src="${resource(dir: 'js', file: 'game-index.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir: 'js', file: 'validate.js')}"></script>
-        <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.Jcrop.js')}"></script>
+    	<script type="text/javascript" src="${resource(dir: 'js', file: 'license.js')}"></script>
+	    <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.Jcrop.js')}"></script>
     </body>
 </html>
