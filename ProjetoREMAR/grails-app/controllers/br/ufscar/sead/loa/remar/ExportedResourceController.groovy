@@ -284,7 +284,17 @@ class ExportedResourceController {
     def myGames(){
         def model = [:]
 
-        model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id))
+        def user = User.get(session.user.id)
+
+        if(user.username.equals("admin")){
+            model.myExportedResourcesList = ExportedResource.list()
+
+        }
+        else{
+            model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', user)
+
+        }
+
         model.categories = Category.list(sort:"name")
 
         render view: "myGames", model: model
