@@ -24,34 +24,39 @@
                                 %{--alt="${instance.resource.owner.firstName}" class="circle game-owner"--}%
                                 %{--data-beloworigin="true">--}%
                                 %{--</div>--}%
+                                <div class="info-card">
+                                    <div class="subtitle-container">
+                                        <p class="subtitle">${instance.resource.category.name}</p>
+                                    </div>
+                                    <div class="subtitle-container">
+                                        <p class="subtitle">Feito por: ${instance.owner.firstName}</p>
+                                    </div>
+                                    <div class="gray-color subtitle-container bold">
+                                        <i class="fa fa-globe"></i>
+                                        <g:if test="${instance.resource.android}">
+                                            <i class="fa fa-android"></i>
+                                        </g:if>
+                                        <g:if test="${instance.resource.desktop}">
+                                            <i class="fa fa-windows"></i>
+                                            <i class="fa fa-linux"></i>
+                                            <i class="fa fa-apple"></i>
+                                        </g:if>
+                                        <g:if test="${instance.resource.moodle}">
+                                            <i class="fa fa-graduation-cap"></i>
+                                        </g:if>
+                                    </div>
+                                </div>
 
-                                <div class="subtitle-container">
-                                    <p class="subtitle">Feito por: ${instance.owner.firstName}</p>
-                                </div>
-                                <div class="gray-color subtitle-container">
-                                    <i class="fa fa-globe"></i>
-                                    <g:if test="${instance.resource.android}">
-                                        <i class="fa fa-android"></i>
-                                    </g:if>
-                                    <g:if test="${instance.resource.desktop}">
-                                        <i class="fa fa-windows"></i>
-                                        <i class="fa fa-linux"></i>
-                                        <i class="fa fa-apple"></i>
-                                    </g:if>
-                                    <g:if test="${instance.resource.moodle}">
-                                        <i class="fa fa-graduation-cap"></i>
-                                    </g:if>
-                                </div>
                             </div>
-                            <div class="row">
+                            <div class="row no-margin-bottom">
                                 <div class="col s1 offset-s9">
                                     <a class="dropdown-button" data-activates='dropdown${instance.id}'><i class="material-icons" style="color: black;">more_vert</i></a>
                                     <!-- Dropdown Structure -->
                                     <ul id='dropdown${instance.id}' class='dropdown-content'>
                                         <li style="text-align: center;">
                                             <a href="/exported-resource/publish/${instance.id}"
-                                               class="tooltipped"  data-position="bottom" data-delay="50" data-tooltip="Editar">
-                                                <i class="fa fa-pencil" style="color: #FF5722;" ></i>
+                                               class="tooltipped"  data-position="bottom" data-delay="50" data-tooltip="Mais informações">
+                                                <i class="fa fa-info-circle" style="color: #FF5722;"></i>
                                             </a>
                                         </li>
                                         <li style="text-align: center;">

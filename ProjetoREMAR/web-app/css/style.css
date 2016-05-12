@@ -150,7 +150,9 @@
     }
 
     .card.small .details {
-        max-height: 64px;
+        /*max-height: 64px;*/
+        max-height: 90px;
+
     }
 
     .card .details {
@@ -942,4 +944,15 @@ table .pending td{
 
 .bold{
     font-weight: bold;
+}
+
+.no-margin-bottom{
+    margin-bottom: 0 !important;
+}
+
+.info-card{
+    margin-top: 3px;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    border-radius: 5px;
 }

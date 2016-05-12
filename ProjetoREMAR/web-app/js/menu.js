@@ -36,7 +36,6 @@ $(document).ready(function() {
     });
 
     $(select).change(function(){
-        //console.log($(".card ").find(".card-name").attr('data-category'));
         var catSelected = $(select).val();
         $("#search").val("");
 
@@ -83,6 +82,7 @@ $(document).ready(function() {
 });
 
 function deleteResource(id){
+    console.log(id);
     if(confirm("Deseja mesmo excluir este jogo?")){
         window.location.href = " /exported-resource/delete/"+id;
     }

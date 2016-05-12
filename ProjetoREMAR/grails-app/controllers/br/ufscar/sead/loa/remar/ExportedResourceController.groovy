@@ -293,10 +293,20 @@ class ExportedResourceController {
         def processes = Propeller.instance.getProcessInstancesByOwner(session.user.id as long)
         def temporary = []
 
-        for (process in processes) {
-            if (process.getVariable('inactive') != "1") {
-                temporary.add(process)
+        println("ANTES")
+        for (process in processes){
+            println(process.name)
+        }
+
+        for(def i = processes.size()-1;i>=0;i--){
+            if (processes.get(i).getVariable('inactive') != "1") {
+                temporary.add(processes.get(i))
             }
+        }
+
+        println("DEPOIS")
+        for (process in temporary){
+            println(process.name)
         }
 
         model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id))

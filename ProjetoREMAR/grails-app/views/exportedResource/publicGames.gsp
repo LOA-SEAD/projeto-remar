@@ -11,7 +11,6 @@
 <head>
     <title>Jogos Públicos</title>
     <meta name="layout" content="materialize-layout">
-
 </head>
 
 <body>

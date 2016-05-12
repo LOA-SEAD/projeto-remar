@@ -63,7 +63,7 @@ class ProcessController {
 
         process.putVariable('inactive', "1", true) // TEMPORARY
 
-        redirect uri: '/process/list' // TEMPORARY
+        redirect uri: '/exported-resource/myGames' // TEMPORARY
     }
 
     // Can be called with resource id or name
