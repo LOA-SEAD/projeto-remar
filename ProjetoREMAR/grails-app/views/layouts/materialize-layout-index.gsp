@@ -30,15 +30,15 @@
                             <li>
                                 <a href="/index/info">Mais informações</a>
                             </li>
-                            <li>
+                            <!--li>
                                 <a target="_blank" href="https://remar.readme.io/docs">Documentação</a>
-                            </li>
+                            </li-->
                             <li>
                                 <a target="_blank" href="http://www.loa.sead.ufscar.br/publicacoes.php">Publicações</a>
                             </li>
-                            <li>
+                            <!--li>
                                 <a href="/exportedResource/publicGames">Jogos Públicos</a>
-                            </li>
+                            </li-->
                             <li>
                                 <a href="/login">Entrar</a>
                             </li>
@@ -80,24 +80,24 @@
                     Mais informações
                 </a>
             </li>
-            <li>
+            <!--li>
                 <a href="https://remar.readme.io/docs" target="_blank" class="waves-effect">
                     <i class="material-icons">description</i>
                     Documentação
                 </a>
-            </li>
+            </li-->
             <li>
                 <a href="http://www.loa.sead.ufscar.br/publicacoes.php" target="_blank" class="waves-effect">
                     <i class="material-icons">library_books</i>
                     Publicações
                 </a>
             </li>
-            <li>
+            <!--li>
                 <a href="/exportedResource/publicGames">
                     <i class="material-icons">videogame_asset</i>
                     Jogos Públicos
                 </a>
-            </li>
+            </li-->
             <li>
                 <a href="/login" class="waves-effect">
                     <i class="fa fa-sign-in"></i>
