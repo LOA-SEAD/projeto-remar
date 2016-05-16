@@ -30,6 +30,7 @@
                             <li>
                                 <a href="/index/info">Mais informações</a>
                             </li>
+                            <li>
                                 <a target="_blank" href="http://www.loa.sead.ufscar.br/publicacoes.php">Publicações</a>
                             </li>
                             <li>
