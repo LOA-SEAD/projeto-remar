@@ -31,10 +31,6 @@ class IndexController {
         }
     }
 
-    def project(){
-        render view: "index"
-    }
-
     def frame() {
         def model = [:]
         model.development = Environment.current == Environment.DEVELOPMENT
