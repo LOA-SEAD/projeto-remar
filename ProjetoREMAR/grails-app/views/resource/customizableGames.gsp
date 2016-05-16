@@ -105,8 +105,6 @@
             </ul>
         </footer>
     </div>
-    %{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.css">--}%
-    %{--<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.js"></script>--}%
     <g:javascript src="menu.js"/>
 </body>
 </html>

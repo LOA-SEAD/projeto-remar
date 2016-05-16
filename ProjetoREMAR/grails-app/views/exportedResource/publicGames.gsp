@@ -44,7 +44,6 @@
     </div>
 
     <div class="row show cards">
-        %{--<g:applyLayout name="cardGame"/>--}%
         <g:render template="cardGames" model="${pageScope.variables}" />
     </div>
 </div>

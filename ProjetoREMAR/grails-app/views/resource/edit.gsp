@@ -26,12 +26,10 @@
                             <li>
                                 <div class="collapsible-header active"><i class="material-icons">info_outline</i>Informações adicionais</div>
                                 <div class="collapsible-body">
-                                    %{--<g:form url="[action: 'update']" method="PUT" enctype="multipart/form-data">--}%
                                         <input type="hidden" name="id" value="${resourceInstance.id}" id="hidden">
                                         <div class="col-s12" >
                                             <g:render template="form"/>
                                         </div>
-                                    %{--</g:form>--}%
                                 </div>
                             </li>
                         </ul>

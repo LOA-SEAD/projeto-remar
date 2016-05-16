@@ -19,7 +19,6 @@
     <recaptcha:script/>
     <g:javascript src="recaptcha.js"/>
     <g:javascript src="../assets/js/jquery.min.js" />
-    %{--<g:javascript src="../assets/js/jquery.validate.js" />--}%
     <style>
     body {
         background-color: #F2F2F2;

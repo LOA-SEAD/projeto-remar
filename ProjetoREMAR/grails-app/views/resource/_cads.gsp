@@ -5,7 +5,6 @@
         </g:if>
         <g:elseif test="${gameInstance.status == 'approved'}">
             <div class="card card-developer approved">
-            %{--<div class="card card-developer approved square-cover small">--}%
         </g:elseif>
         <g:elseif test="${gameInstance.status == 'rejected'}">
             <div class="card card-developer rejected">
@@ -22,7 +21,6 @@
                 <a class="activator" ></a>
             </div>
             <div class="details">
-                %{--<a class="card-click-target"  href="/resource/show/${gameInstance.id}" aria-hidden="true" tabindex="-1"></a>--}%
                 <a class="title" title="${gameInstance.name}" aria-hidden="true" tabindex="-1" >${gameInstance.name}</a>
                 <div class="subtitle-container">
                     <p class="subtitle">Feito por: REMAR</p>

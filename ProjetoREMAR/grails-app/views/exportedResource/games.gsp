@@ -17,11 +17,6 @@
 <body>
 <div class="row cluster">
     <div class="cluster-header">
-        %{--<p id="title-page" class="text-teal text-darken-3 left-align margin-bottom">--}%
-            %{--<i class="small material-icons left">videogame_asset</i>Jogos--}%
-        %{--</p>--}%
-
-        %{--<div class="divider"></div>--}%
     </div>
 
     <div class="row search">

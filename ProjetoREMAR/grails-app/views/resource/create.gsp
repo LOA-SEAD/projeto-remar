@@ -15,7 +15,6 @@
 						<div class="divider"></div>
 						<br />
 						<div class="row show">
-							%{--<div class="row show"></div>--}%
 							<ul class="collapsible popout" data-collapsible="accordion">
 								<li>
 									<div class="collapsible-header active"><i class="material-icons">filter_drama</i>Upload War</div>
@@ -48,40 +47,21 @@
 											</div>
 											<br class="clear" />
 										</div>
-										%{--<div class="progress">--}%
-											%{--<div class="determinate" style="width: 0;"></div>--}%
-										%{--</div>--}%
 									</div>
 								</li>
 								<li>
 									<div id="info-add" class="collapsible-header"><i class="material-icons">info_outline</i>Informações adicionais</div>
 									<div class="collapsible-body">
-										%{--<p>Lorem ipsum dolor sit amet.</p>--}%
 										<div class="row loaded-form">
 										%{-- TODO mudar controlador --}%
-											%{--<g:form url="[action: 'update']" enctype="multipart/form-data">--}%
 												<input type="hidden" name="id" id="hidden" value="">
 												<div class="col-s12" >
 													<g:render template="form"/>
 												</div>
-											%{--</g:form>--}%
 										</div>
 									</div>
 								</li>
 							</ul>
-							%{--<div class="direct-chat-messages page-size" >--}%
-								%{--<div class="widget-content-white glossed">--}%
-									%{--<div class="padded">--}%
-										%{--<div class="row">--}%
-											%{--<div class="form-group has-feedback" >--}%
-
-											%{--</div>--}%
-										%{--</div>--}%
-
-
-									%{--</div>--}%
-								%{--</div>--}%
-							%{--</div>--}%
 						</div>
 					</div>
 				</div>

@@ -18,16 +18,6 @@ class ExportedResourceController {
     def springSecurityService
 
     def save(ExportedResource exportedResourceInstance) {
-        /*if (exportedResourceInstance.hasErrors()) {
-            log.debug("Someone tried to register a new moodlegame but it doesn't worked:")
-            log.debug(exportedResourceInstance.errors)
-        }
-        else {
-            log.debug exportedResourceInstance as JSON
-            //moodlegame.save flush:true
-            //redirect controller: "MoodleGame", action: "accountPublishConfig", id: moodlegame.id
-        }*/
-
         //need to improve that
         exportedResourceInstance.owner = User.findById(springSecurityService.getCurrentUser().getId())
         exportedResourceInstance.exportedAt = new Date()
@@ -73,8 +63,6 @@ class ExportedResourceController {
 
                 def accName = params.find({it.key == "account"+splitted[1]}).value
                 def token = params.find({it.key == "token"+splitted[1]}).value
-
-                //def account = MoodleAccount.find({accountName == accName && owner.domain == moo.domain})
 
                 /* check if the account already exists */
                 if (account == null) {

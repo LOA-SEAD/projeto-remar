@@ -18,7 +18,6 @@
             </div>
 
             <p class="center">Recursos Educacionais Multiplataforma Abertos na Rede</p>
-            %{--<p>Note: You may need to adjust some CSS based on the size of your logo. The default logo size is 150x50 pixels.</p>--}%
 
             <h3 style="text-align: left;">GT-REMAR</h3>
             <p style="text-align: justify">
