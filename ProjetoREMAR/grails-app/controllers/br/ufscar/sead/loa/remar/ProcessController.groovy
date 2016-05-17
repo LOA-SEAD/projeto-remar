@@ -193,6 +193,7 @@ class ProcessController {
         exportedResourceInstance.width = resource.width
         exportedResourceInstance.height = resource.height
         exportedResourceInstance.processId = process.id
+        exportedResourceInstance.license = resource.license
         exportedResourceInstance.save flush: true
 
         process.putVariable('exportedResourceId', exportedResourceInstance.id as String, true)

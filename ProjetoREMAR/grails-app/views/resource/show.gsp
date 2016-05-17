@@ -35,12 +35,13 @@
 							</div>
 
 							<div class="chip-dev">
+
 								<img class="img-responsive" src="/data/users/${resourceInstance.owner.username}/profile-picture" alt="Contact Person">
 								<p>
 									${resourceInstance.owner.firstName} ${resourceInstance.owner.lastName} <br>
 									<span class="hide-on-small-only"> ${resourceInstance.owner.email} </span>
 
-									<div class="hide-on-med-and-up" style="color: rgba(0, 0, 0, 0.6);">
+								<div class="hide-on-med-and-up" style="color: rgba(0, 0, 0, 0.6);">
 										<i class="fa fa-globe tooltipped" data-position="bottom" data-delay="30" data-tooltip="Web"></i>
 										<g:if test="${resourceInstance.android}">
 											<i class="fa fa-android tooltipped" data-position="bottom" data-delay="30" data-tooltip="Android"></i>
@@ -53,6 +54,7 @@
 										</g:if>
 									</div>
 								</p>
+
 							</div>
 
 							<div class="plataform gray-color">
@@ -70,13 +72,23 @@
 									<g:if test="${resourceInstance.moodle}">
 										<i class="fa fa-graduation-cap tooltipped" data-position="bottom" data-delay="30" data-tooltip="Moodle"></i>
 									</g:if>
+
 								</div>
 							</div>
+
 							%{--<div class="info"></div>--}%
 							<br class="clear" />
+
 							<button type="submit" class="btn waves-effect waves-light my-orange right">
 								Customizar
 							</button>
+						</div>
+						<input type="hidden" id="licenseValue" value="${resourceInstance.license}">
+
+						<div class="row">
+							<div class="col s12 m12 l12 license" id="licenseInfo">
+
+							</div>
 						</div>
 						<br class="clear" />
 						<div class="slider">
@@ -193,6 +205,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.js"></script>
+<g:javascript src="licenseShow.js"/>
 <g:javascript src="rating.js" />
 <g:javascript src="tooltip.js" />
 </body>

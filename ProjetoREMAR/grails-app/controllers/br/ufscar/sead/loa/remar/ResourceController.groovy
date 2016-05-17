@@ -75,6 +75,7 @@ class ResourceController {
         resourceInstance.owner = springSecurityService.currentUser as User
         resourceInstance.status = "pending"
         resourceInstance.valid = true
+        resourceInstance.license = params.license
 
         // Move .war to /wars and unzip it
         savedWar.mkdirs()
