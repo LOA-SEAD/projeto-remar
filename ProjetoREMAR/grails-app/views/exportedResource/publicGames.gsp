@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Jogos Públicos</title>
+    <title>Jogos Públicados</title>
     <meta name="layout" content="materialize-layout">
 </head>
 
@@ -17,7 +17,7 @@
 <div class="row cluster">
     <div class="cluster-header">
         <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom">
-            <i class="small material-icons left">videogame_asset</i>Jogos
+            <i class="small material-icons left">videogame_asset</i>Jogos publicados
         </p>
 
         <div class="divider"></div>
@@ -43,10 +43,10 @@
     </div>
 
     <div class="row show cards">
-        %{--<g:applyLayout name="cardGame"/>--}%
         <g:render template="cardGames" model="${pageScope.variables}" />
     </div>
 </div>
 <g:javascript src="menu.js"/>
+<g:javascript src="utility/utility-public-game.js"/>
 </body>
 </html>

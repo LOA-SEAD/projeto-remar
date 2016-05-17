@@ -15,9 +15,8 @@
 
 <body>
 <div class="row cluster">
-
     <div class="cluster-header">
-        <p class="text-teal text-darken-3 left-align margin-bottom">
+        <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom">
             <i class="small material-icons left">recent_actors</i>Meus jogos
         </p>
         <div class="divider"></div>
@@ -32,8 +31,8 @@
         <section id="test1" class="col s12">
             <div class="row search">
                 <div class="input-field col s6">
-                    <input id="search" type="text" class="validate">
-                    <label for="search"><i class="fa fa-search"></i></label>
+                    <input id="search-game" type="text" class="validate">
+                    <label for="search-game"><i class="fa fa-search"></i></label>
                 </div>
                 <div class="input-field col s6">
                     <select>
@@ -47,8 +46,11 @@
                     <label>Categoria</label>
                 </div>
             </div>
-            <g:render template="myCardGame" model="[myExportedResourcesList:myExportedResourcesList]" />
-
+            <div class="row show cards game">
+                <article class="row">
+                    <g:render template="myCardGame" model="[myExportedResourcesList:myExportedResourcesList]" />
+                </article>
+            </div>
         </section>
         <section id="test2" class="col s12">
             <div class="row search">
@@ -68,11 +70,16 @@
                     <label>Categoria</label>
                 </div>
             </div>
-            <g:render template="/process/process" model="[processes:processes]" />
+            <div class="row show cards processes">
+                <article class="row">
+                    <g:render template="/process/process" model="[processes:processes]" />
+                </article>
+            </div>
         </section>
     </div>
 </div>
 <g:javascript src="menu.js"/>
+<g:javascript src="utility/utility-my-game.js"/>
 %{--<link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "tabs.css")}"/>--}%
 %{--<g:javascript src="prefixfree.min.js"/>--}%
 

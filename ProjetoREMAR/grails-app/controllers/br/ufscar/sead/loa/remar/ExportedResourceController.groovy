@@ -416,4 +416,56 @@ class ExportedResourceController {
 
         render view: "_cardGames", model: model
     }
+
+
+    def searchMyGame(){
+        def model = [:]
+
+        def threshold = 12
+        def maxInstances = 0
+
+        params.order = "desc"
+        params.sort = "id"
+        params.max = params.max ? Integer.valueOf(params.max) : threshold
+        params.offset = params.offset ? Integer.valueOf(params.offset) : 0
+
+        model.max = params.max
+        model.threshold = threshold
+
+        log.debug("type: " + params.typeSearch)
+        log.debug("text: " +params.text)
+
+        model.myExportedResourcesList = null
+
+        if(params.typeSearch.equals("name")){//busca pelo nome
+            model.myExportedResourcesList =
+                    ExportedResource.findAllByTypeAndNameIlikeAndOwner('public', "%${params.text}%",User.get(session.user.id),params)
+
+            maxInstances = ExportedResource.findAllByTypeAndNameIlikeAndOwner('public', "%${params.text}%",User.get(session.user.id)).size()
+
+        }else{
+            if(params.typeSearch.equals("category")){//busca pela categoria
+
+                if(params.text.equals("-1")){// exibe os jogos de todas as categorias
+                    model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public',User.get(session.user.id), params)
+                    maxInstances = ExportedResource.findAllByTypeAndOwner('public',User.get(session.user.id)).size()
+
+                }else{
+                    Category c = Category.findById(params.text)
+                    Resource r = Resource.findByCategory(c)
+                    model.myExportedResourcesList = ExportedResource.findAllByTypeAndResourceAndOwner('public',r,User.get(session.user.id), params)
+                    maxInstances = ExportedResource.findAllByTypeAndResourceAndOwner('public',r,User.get(session.user.id)).size()
+                }
+            }
+        }
+
+        model.pageCount = Math.ceil(maxInstances / params.max) as int
+        model.currentPage = (params.offset + threshold) / threshold
+        model.hasNextPage = params.offset + threshold < model.instanceCount
+        model.hasPreviousPage = params.offset > 0
+
+        log.debug(model.myExportedResourcesList.size())
+
+        render view: "_myCardGame", model: model
+    }
 }

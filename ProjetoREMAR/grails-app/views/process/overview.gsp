@@ -161,7 +161,6 @@
 
 
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
-%{--<g:javascript src="menu.js"/>--}%
 <g:javascript src="platforms.js"/>
 <g:javascript src="imgPreview.js"/>
 <g:javascript src="jquery/jquery.Jcrop.js"/>
