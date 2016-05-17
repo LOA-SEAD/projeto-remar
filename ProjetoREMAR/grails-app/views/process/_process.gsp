@@ -35,21 +35,19 @@
             <div class="card-action">
                 <div class="">
                     <div class="col s6">
-                        <g:if test="${process.pendingTasks.size() > 0}">
-                        <span class="tooltipped" data-position="bottom" data-delay="50"
+                        <span style="cursor: help;" class="tooltipped" data-position="bottom" data-delay="50"
                               data-tooltip="${process.pendingTasks.size()} tarefas pendentes" style="color: gray;">
-                            <i class="material-icons">warning</i>
+                            <g:if test="${process.pendingTasks.size() > 0}">
+                                <i class="material-icons">warning</i>
+                            </g:if>
+                            <g:else>
+                                <i class="material-icons">done_all</i>
+                            </g:else>
                         </span>
-                        </g:if>
-                        <g:else>
-                            <span class="tooltipped" data-position="bottom" data-delay="50"
-                              data-tooltip="${process.pendingTasks.size()} tarefas pendentes" style="color: gray;">
-                            <i class="material-icons">done_all</i>
-                        </g:else>
                     </div>
 
                     <div class="col s6">
-                        <a class="tooltipped delete" onclick=" if(confirm('Deseja mesmo excluir este processo?')){ href='/process/delete/${process.id}'}" data-position="bottom"
+                        <a style="cursor: pointer;" class="tooltipped delete" onclick=" if(confirm('Deseja mesmo excluir este processo?')){ href='/process/delete/${process.id}'}" data-position="bottom"
                            data-delay="50" data-tooltip="Excluir" style="color: gray;">
                             <i class="material-icons">delete</i>
                         </a>
