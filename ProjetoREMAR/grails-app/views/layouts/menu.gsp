@@ -4,8 +4,7 @@
   Date: 26/11/15
   Time: 10:32
 --%>
-
-<ul id="side-nav">
+<ul class="sidenav" id="side-nav">
 
     <div class="hide-on-large-only">
         <div class="row no-margin-bottom valign-wrapper">
@@ -30,13 +29,13 @@
     </div>
 
     <li class="waves-effect waves-block waves-light">
-        <a href="/" class=""><i class=" medium mdi-action-dashboard"></i>Início</a>
+        <a href="/" class=""><i class="medium mdi-action-dashboard"></i>Início</a>
     </li>
     <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os modelos de jogos que são customizáveis." data-step="2">
         <a href="/resource/customizableGames" class=""><i class="medium material-icons">create</i>Modelos</a>
     </li>
     <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra a documentação dos modelos." data-step="3">
-        <a href="https://remar.readme.io/docs" target="_blank" class=""><i class="medium material-icons">description</i>Documentação</a>
+        <a href="https://remar.readme.io/docs" target="_blank"><i class="medium material-icons">description</i>Documentação</a>
     </li>
     <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os jogos disponíveis para jogar." data-step="4">
         <a href="/exportedResource/publicGames" class=""><i class="medium material-icons">videogame_asset</i>Jogos</a>
@@ -59,3 +58,7 @@
 </ul>
 
 <input id="userFirstAccessLabel" type="hidden" value="${session.user.firstAccess}" > <label for="userFirstAccessLabel"></label>
+
+<script>
+    $(".sidenav li a[href='" + window.location.pathname + "']").parent().addClass('active')
+</script>

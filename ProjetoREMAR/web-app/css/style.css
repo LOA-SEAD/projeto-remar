@@ -1,5 +1,10 @@
 /* layout for the index page (static) */
 
+    .sidenav li.active{
+        background-color: lightgrey;
+
+    }
+
     ul.side-nav.leftside-navigation {
         top: 64px;
     }
