@@ -6,7 +6,6 @@
 --%>
 
 <ul class="pagination">
-
     <g:if test="${pageCount > 0}">
 
         <g:if test="${currentPage != 1}">

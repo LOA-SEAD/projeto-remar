@@ -324,6 +324,13 @@ class ExportedResourceController {
         }
         model.processes =  temporary
 
+        model.processVariable = [:]
+
+        model.processVariable.pageCount = Math.ceil(processes.size() / params.max) as int
+        model.processVariable.currentPage = (params.offset + threshold) / threshold
+        model.processVariable.hasNextPage = params.offset + threshold < model.instanceCount
+        model.processVariable.hasPreviousPage = params.offset > 0
+
         render view: "myGames", model: model
     }
 

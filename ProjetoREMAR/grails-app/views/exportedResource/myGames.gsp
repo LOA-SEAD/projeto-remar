@@ -54,20 +54,9 @@
         </section>
         <section id="test2" class="col s12">
             <div class="row search">
-                <div class="input-field col s6">
+                <div class="input-field col s12">
                     <input id="search-processes" type="text" class="validate">
-                    <label for="search"><i class="fa fa-search"></i></label>
-                </div>
-                <div class="input-field col s6">
-                    <select>
-                        <option class="option" value="-1" selected>Todas</option>
-                        <g:if test="${categories.size() > 0}">
-                            <g:each in="${categories}" var="category">
-                                <option class="option" value="${category.id}">${category.name}</option>
-                            </g:each>
-                        </g:if>
-                    </select>
-                    <label>Categoria</label>
+                    <label for="search-processes"><i class="fa fa-search"></i></label>
                 </div>
             </div>
             <div class="row show cards processes">
@@ -80,8 +69,6 @@
 </div>
 <g:javascript src="menu.js"/>
 <g:javascript src="utility/utility-my-game.js"/>
-%{--<link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "tabs.css")}"/>--}%
-%{--<g:javascript src="prefixfree.min.js"/>--}%
 
 </body>
 </html>
