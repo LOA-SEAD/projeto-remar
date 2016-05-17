@@ -19,7 +19,7 @@
             <div class="subtitle">
                 <p class="text-teal text-darken-3 left-align margin-bottom">
                      <h5>
-                        <i class="material-icons left">create</i> Confira os modelos disponíveis para customização!
+                        Confira os modelos disponíveis para customização!
                      </h5>
                 </p>
             </div>
