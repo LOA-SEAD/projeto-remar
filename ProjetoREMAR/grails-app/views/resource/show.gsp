@@ -41,6 +41,7 @@
 									${resourceInstance.owner.firstName} ${resourceInstance.owner.lastName} <br>
 									<span class="hide-on-small-only"> ${resourceInstance.owner.email} </span>
 
+
 								<div class="hide-on-med-and-up" style="color: rgba(0, 0, 0, 0.6);">
 										<i class="fa fa-globe tooltipped" data-position="bottom" data-delay="30" data-tooltip="Web"></i>
 										<g:if test="${resourceInstance.android}">
@@ -85,6 +86,11 @@
 						</div>
 						<input type="hidden" id="licenseValue" value="${resourceInstance.license}">
 
+						<div class="row">
+							<div class="col s6 m6 l6" id="documentation">
+								<p>Documentação do modelo: <a target="_blank" href="${resourceInstance.documentation}">${resourceInstance.name}</a> </p>
+							</div>
+						</div>
 						<div class="row">
 							<div class="col s12 m12 l12 license" id="licenseInfo">
 
