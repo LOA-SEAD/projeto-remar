@@ -20,10 +20,14 @@ $(function(){
         contentType: false,
         success: function (data) {
            // console.log(data);
+            console.log(data);
             $("#name").val(data.name)
                 .next().addClass("active");
 
             $("#description").val(data.description)
+                .next().addClass("active");
+
+            $("#documentation").val(data.documentation)
                 .next().addClass("active");
 
             $("#img1Preview").attr("src", "/data/resources/assets/"+data.uri+"/description-1");
@@ -94,6 +98,9 @@ $(function(){
 
                     $(description).addClass("valid");
                     $(description).prev().show(500);
+
+                    $(documentation).prev().show(500);
+
                 },
                 error: function () {
 

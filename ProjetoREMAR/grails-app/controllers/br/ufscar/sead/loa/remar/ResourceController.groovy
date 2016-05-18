@@ -324,6 +324,7 @@ class ResourceController {
 
         def r = Resource.findById(id) as JSON
 
+        println(r)
         render r;
     }
 

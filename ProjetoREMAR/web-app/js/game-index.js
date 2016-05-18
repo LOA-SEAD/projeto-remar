@@ -35,12 +35,16 @@ $(function(){
     var name = $("#name");
     var nameErr = $("#name-error");
     var desc = $("#description");
+    var documentation = $("#documentation");
+
     var descErr = $("#desc-error");
 
     $(name).prev().hide();
+    $(documentation).prev().hide();
     $(desc).prev().hide();
     $(nameErr).hide();
     $(descErr).hide();
+    $("#documentation-error").hide();
 
     //console.log($(name).val());
     if($(name).val() != null && $(name).val() != ""){
