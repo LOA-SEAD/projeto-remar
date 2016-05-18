@@ -14,17 +14,19 @@ class GroupController {
     def create(){
         println params
         def groupInstance = new Group()
-        ArrayList<User> owners = new ArrayList<>()
 
-        owners.add(session.user)
+        groupInstance.addToOwners(session.user)
         groupInstance.name = params.groupname
         groupInstance.privacy = params.privacy
 
-        groupInstance.owners = owners
-
         groupInstance.save flush: true
 
+    }
 
+    def show(){
+        def group = Group.findById(params.id)
+
+        render(view: "show", model: [group: group])
     }
 
 
