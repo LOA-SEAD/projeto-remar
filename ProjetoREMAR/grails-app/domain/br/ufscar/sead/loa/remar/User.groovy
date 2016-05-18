@@ -4,6 +4,9 @@ import org.springframework.security.core.GrantedAuthority
 
 class User {
 
+	static hasMany = [userGroups: UserGroup]
+
+
 	transient springSecurityService
 
 	String username

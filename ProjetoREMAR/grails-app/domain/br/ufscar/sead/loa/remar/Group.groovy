@@ -5,8 +5,14 @@ package br.ufscar.sead.loa.remar
  */
 class Group {
 
-    String name;
-    String owner;
+    static hasMany = [userGroups: UserGroup]
+//    static belongsTo = User
+
+//    User owner;
+//    User owner
+    ArrayList<User> owners
+    String name
+    String privacy
 
     static mapping = {
         table "group_"
@@ -14,6 +20,5 @@ class Group {
 
     static constraints = {
         name blank: false
-        owner blank: false
     }
 }
