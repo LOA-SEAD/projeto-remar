@@ -10,6 +10,14 @@
 				<span id="name-error" class="invalid-input" style="left: 0.75rem">Este campo não pode ser vazio!</span>
 			</div>
 		</div>
+	    <div class="row">
+		    <div class="input-field col s12">
+			    <i class="material-icons suffix green-text active">done</i>
+			    <input id="documentation" type="text" class="validate" required name="documentation">
+			    <label for="documentation">Documentação</label>
+			    <span id="documentation-error" class="invalid-input" style="left: 0.75rem">Este campo não pode ser vazio!</span>
+		    </div>
+	    </div>
 		<div class="row">
 			<div class="input-field col s12">
 				<i class="material-icons suffix green-text active">done</i>

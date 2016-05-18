@@ -18,6 +18,7 @@ class Resource {
         width nullable: true
         height nullable: true
         description nullable: true, maxSize: 1000
+        documentation nullable: true
         pending nullable: true
         sumStars nullable: false
         sumUser nullable: false
@@ -46,6 +47,7 @@ class Resource {
     String description
     boolean pending
     String license
+    String documentation
 
     float sumStars //total de estrelas
     int   sumUser  //total de usuários que comentaram o jogo

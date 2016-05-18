@@ -56,6 +56,8 @@ $(function(){
 
         formData.append('name', document.getElementById("name").value);
         formData.append('description', document.getElementById("description").value);
+        formData.append('documentation', document.getElementById("documentation").value);
+
         formData.append('img1',$("#img1Preview").attr("src"));
         formData.append('img2',$("#img2Preview").attr("src"));
         formData.append('img3',$("#img3Preview").attr("src"));
