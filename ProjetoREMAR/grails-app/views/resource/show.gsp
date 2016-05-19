@@ -87,8 +87,8 @@
 						<input type="hidden" id="licenseValue" value="${resourceInstance.license}">
 
 						<div class="row">
-							<div class="col s6 m6 l6" id="documentation">
-								<p>Documentação do modelo: <a target="_blank" href="${resourceInstance.documentation}">${resourceInstance.name}</a> </p>
+							<div class="col s12 m12 l12" id="documentation">
+								<p>Documentação do modelo: <a target="_blank" href="${resourceInstance.documentation}">${resourceInstance.documentation}</a> </p>
 							</div>
 						</div>
 						<div class="row">

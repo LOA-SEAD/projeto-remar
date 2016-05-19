@@ -70,6 +70,8 @@ $(function(){
 
         if(validateWar()){
             if(validateLicense()){
+
+                //TODO adicionar confirmação de escolha de licença aqui
                 var file = $("#war").prop('files')[0];
                 var license = document.getElementById("licenseValue").value;
                 console.log(file);
