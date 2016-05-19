@@ -246,9 +246,9 @@ $(function(){
                     }
                 });
                 $(el).Jcrop({
-                    aspectRatio: 2,
+                    aspectRatio: 1.8,
                     setSelect: [0, 0, Math.max(this.width, this.height), Math.max(this.width, this.height)],
-                    boxHeight: 500,
+                    boxHeight: 400,
                     trueSize: [this.width, this.height]
                 }, function () {
                     jcrop = this;
