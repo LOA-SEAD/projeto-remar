@@ -41,19 +41,19 @@
 												</div>
 												<div class="row">
 													<div class="col s12 m12 l12">
-															<p> <i class="material-icons" onclick="openThisModal('modalShareAsLike')">info</i> Permitir que adaptações do seu trabalho sejam compartilhadas?</p>
+															<p> <i  class="material-icons tooltipped cursor-pointer" data-tooltip="Mais informações" onclick="openThisModal('modalShareAsLike')">info</i> Permitir que adaptações do seu trabalho sejam compartilhadas?</p>
 															<input onclick="checkAsLike()" onchange="bloqCheck()" readonly="readonly"  class="with-gap" name="shareLicense" type="radio" id="shareYes"/>
 															<label for="shareYes">Sim</label>
 															<input onclick="checkAsLike()" onchange="bloqCheck()" readonly="readonly" class="with-gap" name="shareLicense" type="radio" id="shareNo"/>
 															<label for="shareNo">Não</label>
 															<br>
 														<input readonly class="with-gap" checked="checked" name="shareLicense" type="radio" id="shareYesAsLike"/>
-														<label for="shareYesAsLike">Sim, desde que outros compartilhem igual </label>
+														<label for="shareYesAsLike">Sim, desde que outros compartilhem igual  <a style="color: red;">*</a> </label>
 													</div>
 												</div>
 												<div class="row">
 													<div class="col s12 m12 l12">
-														<p><i class="material-icons" onclick="openThisModal('modalComercial')">info</i> Permitir usos comerciais do seu trabalho?</p>
+														<p><i class="material-icons tooltipped cursor-pointer" data-tooltip="Mais informações" onclick="openThisModal('modalComercial')">info</i> Permitir usos comerciais do seu trabalho?</p>
 														<input onchange="showLicense()"  class="with-gap" name="comercialLicense" type="radio" id="comercialYes"/>
 														<label for="comercialYes">Sim</label>
 														<input onchange="showLicense()" class="with-gap" name="comercialLicense" type="radio" id="comercialNo"/>

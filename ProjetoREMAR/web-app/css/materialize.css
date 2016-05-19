@@ -3,6 +3,12 @@
  * Copyright 2014-2015 Materialize
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
  */
+
+
+.cursor-pointer{
+  cursor: pointer;
+}
+
 .license{
 
   border: 2px solid #e5e5e5;
