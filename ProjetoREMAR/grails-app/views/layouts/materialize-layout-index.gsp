@@ -34,6 +34,9 @@
                                 <a target="_blank" href="http://www.loa.sead.ufscar.br/publicacoes.php">Publicações</a>
                             </li>
                             <li>
+                                <a target="_blank" href="https://remar.readme.io/docs">Documentação</a>
+                            </li>
+                            <li>
                                 <a href="/login">Entrar</a>
                             </li>
                         </ul>
@@ -78,6 +81,12 @@
                 <a href="http://www.loa.sead.ufscar.br/publicacoes.php" target="_blank" class="waves-effect">
                     <i class="material-icons">library_books</i>
                     Publicações
+                </a>
+            </li>
+            <li>
+                <a href="https://remar.readme.io/docs" target="_blank" class="waves-effect">
+                    <i class="material-icons">description</i>
+                    Documentação
                 </a>
             </li>
             <li>
