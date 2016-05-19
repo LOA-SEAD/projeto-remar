@@ -23,6 +23,7 @@ window.addEventListener("load", function () {
 
     $("#new-td").on("click", function () {
         onClickNewTd(this);
+        onClickNewTd(this);
     });
 
     $('#new-tr').on('click', function () {
