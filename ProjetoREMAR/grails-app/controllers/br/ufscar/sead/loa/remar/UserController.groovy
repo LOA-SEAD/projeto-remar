@@ -1,5 +1,7 @@
 package br.ufscar.sead.loa.remar
 
+import com.mongodb.util.JSON
+import grails.converters.JSON
 import org.apache.commons.lang.RandomStringUtils
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
@@ -252,16 +254,16 @@ class UserController {
     }
 
     def autocomplete() {
-        List<User> allUsers = User.getAll();
-        String autocompleteAlternatives = "";
-        if (params.autocomplete != "") {
-            for (User users : allUsers) {
-                if (users.getUsername().contains(params.autocomplete)) {
-                    autocompleteAlternatives += users.getUsername() + ",";
-                }
+        if (params.query != "") {
+            def allUsers = User.findAllByFirstNameOrLastNameRlike(params.query,params.query)
+
+            def users = [:]
+            allUsers.each {
+                users.put("${it.id}","${it.firstName}" + " " + "${it.lastName}")
             }
-            log.debug(autocompleteAlternatives)
-            render autocompleteAlternatives
+            println users
+            render users as JSON
+
         }
     }
 
