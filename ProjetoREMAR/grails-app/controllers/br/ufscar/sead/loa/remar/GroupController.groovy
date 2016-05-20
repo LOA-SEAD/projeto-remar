@@ -25,9 +25,25 @@ class GroupController {
 
     def show(){
         def group = Group.findById(params.id)
+        def groupUsers = UserGroup.findAllByGroup(group)
 
-        render(view: "show", model: [group: group])
+        render(view: "show", model: [group: group, groupUsers: groupUsers])
     }
+
+    def addUser(){
+        println params
+
+        def userGroup = new UserGroup()
+        userGroup.group = Group.findById(params.groupid)
+        userGroup.user = User.findById(params.userid)
+
+        userGroup.save flush: true
+
+
+        redirect(action: "show", id: params.groupid)
+    }
+
+
 
 
 
