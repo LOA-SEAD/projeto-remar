@@ -59,27 +59,30 @@
                 <li><a href="http://lattes.cnpq.br/8235968002513082" target="_blank">Joice Lee Otsuka</a>, Departamento de Computação, UFSCar</li>
             </ul>
 
-            <h6 align="left">Equipe de Execução</h6>
+            <h6 align="left">Equipe de Desenvolvimento da Plataforma</h6>
             <ul class="with-marker">
-                <li>Ana Esther Camargo – Game Design</li>
-                <li>Catarine Ohnuma – Ilustração</li>
-                <li>Daniel Santiago - Trilha sonora</li>
+                <li>Denis Cappelini - Desenvolvimento</li>
                 <li>Lucas Fernando Bocanegra - Desenvolvimento</li>
-                <li>Luiz Valério Neto – Prototipação</li>
-                <li>Marcelo Lopes Lotufo - Desenvolvimento</li>
                 <li>Marcos Tsuda - Testes e Avaliação</li>
                 <li>Marcus Marangon Mourão - Desenvolvimento</li>
                 <li>Matheus Vieira Fernandes - Desenvolvimento</li>
-                <li>Rener Baffa da Silva - Desenvolvimento</li>
+            </ul>
+
+            <h6 align="left">Equipe de Desenvolvimento de Jogos</h6>
+            <ul class="with-marker">
+                <li>Ana Esther Camargo – Game Design</li>
+                <li>Catarine Ohnuma – Ilustração</li>
+                <li>Douglas Barbino - Desenvolvimento</li>
+                <li>Luiz Valério Neto – Desenvolvimento</li>
+                <li>Marcos Tsuda - Testes e Avaliação</li>
                 <li>Rogério Bordini – Game Design e Edição de Som</li>
             </ul>
 
             <h6 align="left">Ex-integrantes</h6>
             <ul class="with-marker">
                 <li>Alex Roberto Guido - Desenvolvimento</li>
-                <li>Denis Cappelini - Desenvolvimento</li>
                 <li>Pablo Bizzi Mahmud - Desenvolvimento</li>
-                <li>Rogerio Augusto Bordini - Desenvolvimento</li>
+                <li>Rener Baffa da Silva - Desenvolvimento</li>
             </ul>
 
             <h6 align="left">Pesquisadores Colaboradores</h6>
