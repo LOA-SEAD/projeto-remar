@@ -13,7 +13,7 @@
 
     <body>
         <div class="row">
-            <div class="col l10 offset-l1">
+            <div class="col l10">
                 <g:if test="${groups.empty}">
                     <h5>Você ainda não possui nenhum grupo criado :(</h5>
                 </g:if>
