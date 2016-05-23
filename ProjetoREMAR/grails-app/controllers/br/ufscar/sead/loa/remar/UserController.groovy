@@ -2,6 +2,7 @@ package br.ufscar.sead.loa.remar
 
 import com.mongodb.util.JSON
 import grails.converters.JSON
+import groovy.json.JsonBuilder
 import org.apache.commons.lang.RandomStringUtils
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
@@ -255,16 +256,24 @@ class UserController {
 
     def autocomplete() {
         if (params.query != "") {
-            def allUsers = User.findAllByFirstNameOrLastNameRlike(params.query,params.query)
+            println params
+            //TODO check if user is already in that group and if it is the owner
+            def allUsers = User.findAllByFirstNameRlikeOrLastNameRlike(params.query,params.query)
+            def group = Group.findById(params.group)
+            def ownersList = group.owners.toList()
 
-            def users = [:]
-            allUsers.each {
-                users.put("${it.id}","${it.firstName}" + " " + "${it.lastName}")
-            }
-            println users
-            render users as JSON
+            def list = allUsers.collect {[
+                    label: "${it.firstName} ${it.lastName}",
+                    value: it.id
+            ]}
 
+            println list
+            render list as JSON
+
+        }else{
+//            TODO
         }
+
     }
 
     def emailAvailable() {
