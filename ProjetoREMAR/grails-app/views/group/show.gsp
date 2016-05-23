@@ -13,10 +13,29 @@
 
 <body>
 <div class="cluster-header">
-    <p class="text-teal text-darken-3 center-align margin-bottom">
-      ${group.name}
-    </p>
+    <div class="row">
+        <div class="text-teal text-darken-3 left-align margin-bottom col l6 s8 offset-s3">
+          ${group.name}
+        </div>
+        <div class="">
+        <g:form controller="group" action="addUser">
+            <div class="input-field col l3">
+                <input name="term" id="search-user" type="text" required>
+                <label for="search-user"><i class="fa fa-search"></i></label>
+                <input type="hidden" value="${group.id}" name="groupid">
+                <input type="hidden" value="" id="user-id" name="userid">
+            </div>
+            <div class="col l3">
+                <button style="font-size: 0.5em; top: 1.2em; position:relative;" class="btn waves-effect waves-light" type="submit" name="action">Adicionar
+                    <i class="material-icons right">group_add</i>
+                </button>
+            </div>
+        </g:form>
+        </div>
+    </div>
+
     <div class="divider"></div>
+
     <div class="center-align">
         <p align="center" style="font-size: 0.6em;">Dono(s):
             <g:each var="owner" in="${group.owners}">
@@ -29,26 +48,46 @@
     </div>
 </div>
 <div class="row">
-    <div class="col l10">
-        <g:form controller="group" action="addUser">
-            <div class="input-field col l6">
-                <input placeholder="Procure pelo usuário para adicioná-lo" name="term" id="search-user" type="text">
-                <label for="search-user"><i class="fa fa-search"></i></label>
-                <input type="hidden" value="${group.id}" name="groupid">
-                <input type="hidden" value="" id="user-id" name="userid">
-            </div>
-            <div class="col 10">
-                <button class="btn waves-effect waves-light" type="submit" name="action">Adicionar
-                    <i class="material-icons right">group_add</i>
-                </button>
-            </div>
-        </g:form>
-
+    <div class="col l3 offset-l11 s4">
+        <h5>Membros</h5>
     </div>
+    <div class="row">
+        <g:each var="groupUser" in="${groupUsers.user}">
+            <div style="overflow: visible !important;" class="card white col l3 s5 offset-l10">
+                <div class="card-image">
+                    <div class="col l4 s4 left-align">
+                        <img src="/data/users/${groupUser.username}/profile-picture" class="circle responsive-img">
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div>
+                        <p class="left-align" style="top: 0.4em; position: relative;">${groupUser.firstName + " " + groupUser.lastName}</p>
+                    </div>
+                    <div class="col l1 s1 offset-l6 offset-s10">
+                        <a class="dropdown-button" id="drop" href="#" data-activates="dropdown-user-${groupUser.id}" style="color: black"><span class="material-icons">more_vert</span></a>
+                    </div>
+                    <ul style="font-size: 0.4em" id="dropdown-user-${groupUser.id}" class="dropdown-content">
+                        <li><a href="/group/delete/${groupUser.id}">Excluir</a></li>
+                        <li><a href="">Tornar Dono(a)</a></li>
+                    </ul>
+                </div>
+            </div>
+        </g:each>
+    </div>
+
 </div>
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
 <script>
+    $('.dropdown-button').dropdown({
+                inDuration: 300,
+                outDuration: 225,
+                constrain_width: false, // Does not change width of dropdown to that of the activator
+                gutter: 0, // Spacing from edge
+                belowOrigin: true, // Displays dropdown below the button
+                alignment: 'left' // Displays dropdown with edge aligned to the left of button
+            }
+    );
 
     $("#search-user").autocomplete({
         source: function(request,response){
@@ -56,18 +95,22 @@
                 type:'GET',
                 url:"/user/autocomplete",
                 data: {
-                    query: request.term
+                    query: request.term,
+                    group: ${group.id}
                 },
                 success: function(data) {
-                    console.log(data);
-                    let id = (Object.keys(data));
-                    $("#user-id").prop("value",id);
                     response(data);
                 }
             })
         },
         select: function(event, ui) {
-            console.log(ui.item.label);
+            event.preventDefault();
+            $("#user-id").val(ui.item.value);
+
+        },
+        focus: function(event, ui) {
+            event.preventDefault();
+            $(this).val(ui.item.label);
         },
         messages: {
             noResults: '',
