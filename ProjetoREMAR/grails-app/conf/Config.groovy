@@ -2,6 +2,8 @@ import grails.plugin.springsecurity.SecurityConfigType
 import org.springframework.web.context.request.RequestContextHolder
 import org.apache.log4j.DailyRollingFileAppender
 
+import java.util.concurrent.TimeUnit
+
 grails.config.locations = ["classpath:env.properties"]
 
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
@@ -172,6 +174,8 @@ grails.plugin.springsecurity.userLookup.userDomainClassName = 'br.ufscar.sead.lo
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'br.ufscar.sead.loa.remar.UserRole'
 grails.plugin.springsecurity.authority.className = 'br.ufscar.sead.loa.remar.Role'
 grails.plugin.springsecurity.useSecurityEventListener = true
+grails.plugin.springsecurity.rememberMe.tokenValiditySeconds = TimeUnit.DAYS.toSeconds(1)
+grails.plugin.springsecurity.rememberMe.alwaysRemember = true
 
 grails.plugin.springsecurity.onInteractiveAuthenticationSuccessEvent = { e, context ->
     def session = RequestContextHolder.currentRequestAttributes().getSession()
