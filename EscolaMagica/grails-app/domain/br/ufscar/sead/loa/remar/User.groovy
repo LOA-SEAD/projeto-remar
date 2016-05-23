@@ -15,9 +15,8 @@ class User {
 	String email
 	String firstName
 	String lastName
-    String facebookId
-    String moodleUsername
-//	String gender
+	String facebookId
+	String moodleUsername
 	boolean firstAccess
 
 
@@ -29,9 +28,8 @@ class User {
 		firstName blank: false
 		lastName blank: true
 		email blank: false, email: true, unique: true
-        facebookId nullable: true
-        moodleUsername nullable: true
-//		gender blank: false
+		facebookId nullable: true
+		moodleUsername nullable: true
 		firstAccess blank: true, nullable: true
 
 	}
@@ -39,7 +37,7 @@ class User {
 	static mapping = {
 		password column: '`password`'
 		datasource 'remar'
-
+		cache false
 		tablePerHierarchy false
 	}
 

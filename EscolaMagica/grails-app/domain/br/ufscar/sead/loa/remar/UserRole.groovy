@@ -1,5 +1,6 @@
 package br.ufscar.sead.loa.remar
 
+import com.lowagie.text.List
 import org.apache.commons.lang.builder.HashCodeBuilder
 
 class UserRole implements Serializable {
@@ -68,14 +69,10 @@ class UserRole implements Serializable {
         if (flush) { UserRole.withSession { it.flush() } }
     }
 
-    static void removeAll(Role r, boolean flush = false) {
-        if (r == null) return
-
-        UserRole.where {
-            role == Role.load(r.id)
-        }.deleteAll()
-
-        if (flush) { UserRole.withSession { it.flush() } }
+    static Role[] getUserRoles(User u) {
+        def users = UserRole.findAllByUser(u).role
+        println users
+        return users
     }
 
     static constraints = {
@@ -94,6 +91,7 @@ class UserRole implements Serializable {
     static mapping = {
         id composite: ['role', 'user']
         version false
+        cache false
         datasource 'remar'
     }
 }
