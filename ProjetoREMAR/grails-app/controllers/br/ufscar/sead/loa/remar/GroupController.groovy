@@ -39,8 +39,21 @@ class GroupController {
 
         userGroup.save flush: true
 
+        redirect(action: "show", id: userGroup.groupId)
+    }
 
-        redirect(action: "show", id: params.groupid)
+    def delete(){
+        def userGroup = UserGroup.findByUser(User.findById(params.id))
+        def groupId = userGroup.group.id
+
+        if(userGroup){
+            userGroup.delete flush: true
+            redirect(action: "show", id: groupId, message: true )
+        }else{
+            redirect(action: "show", id: groupId , message: false )
+        }
+
+
     }
 
 
