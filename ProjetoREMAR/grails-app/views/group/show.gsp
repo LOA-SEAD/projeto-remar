@@ -77,6 +77,7 @@
 
 </div>
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 <script>
     $('.dropdown-button').dropdown({
