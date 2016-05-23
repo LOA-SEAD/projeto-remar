@@ -164,8 +164,6 @@ environments {
     }
 }
 
-// Added by the Spring Security Core plugin:
-
 grails.plugin.springsecurity.securityConfigType = SecurityConfigType.Requestmap
 grails.plugin.springsecurity.requestMap.className = 'br.ufscar.sead.loa.remar.RequestMap'
 
@@ -174,7 +172,7 @@ grails.plugin.springsecurity.userLookup.userDomainClassName = 'br.ufscar.sead.lo
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'br.ufscar.sead.loa.remar.UserRole'
 grails.plugin.springsecurity.authority.className = 'br.ufscar.sead.loa.remar.Role'
 grails.plugin.springsecurity.useSecurityEventListener = true
-grails.plugin.springsecurity.rememberMe.tokenValiditySeconds = TimeUnit.DAYS.toSeconds(1)
+grails.plugin.springsecurity.rememberMe.tokenValiditySeconds = TimeUnit.HOURS.toSeconds(8)
 grails.plugin.springsecurity.rememberMe.alwaysRemember = true
 
 grails.plugin.springsecurity.onInteractiveAuthenticationSuccessEvent = { e, context ->
