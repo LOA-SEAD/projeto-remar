@@ -63,7 +63,7 @@ window.onload = function() {
             $.ajax({
                 type: "POST",
                 traditional: true,
-                url: "createXML",
+                url: "/escolamagica/question/createXML",
                 data: { list_id: list_id },
                 success: function(returndata) {
                     window.top.location.href = returndata;
