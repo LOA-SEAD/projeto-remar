@@ -1,14 +1,9 @@
 package br.ufscar.sead.loa.escolamagica.remar
 
-import br.ufscar.sead.loa.remar.User
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.plugin.springsecurity.annotation.Secured
 import grails.util.Environment
-import grails.web.JSONBuilder
-import groovy.json.JsonBuilder
 import groovy.xml.MarkupBuilder
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.multipart.MultipartFile
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional

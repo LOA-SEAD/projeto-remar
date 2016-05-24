@@ -1,19 +1,9 @@
 package br.ufscar.sead.loa.escolamagica.remar
 
-import br.ufscar.sead.loa.remar.User
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.transaction.Transactional
 import grails.util.Environment
-import groovy.json.JsonBuilder
-
-//import org.imgscalr.Scalr
 import org.springframework.security.access.annotation.Secured
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.context.SecurityContextHolder
-
-//import javax.imageio.ImageIO
-//import java.awt.image.BufferedImage
-
 import static org.springframework.http.HttpStatus.*
 
 @Secured(['isAuthenticated()'])
