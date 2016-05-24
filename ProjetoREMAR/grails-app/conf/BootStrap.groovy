@@ -73,12 +73,14 @@ class BootStrap {
         Category.findOrSaveByName("Clássicos")
 
         for (url in [
-                '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/exportedResource/**', '/frame/**', '/my-profile',
+                '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/exportedResource/**', '/my-profile',
                 '/user/update', '/resource/customizableGames', '/resource/show/**', '/moodle/link/**', '/moodle/unlink/**', '/resource/saveRating/**',
                 '/resource/updateRating/**', '/resource/deleteRating/**'
         ]) {
-            RequestMap.findOrSaveByUrlAndConfigAttribute(url, 'IS_AUTHENTICATED_FULLY')
+            RequestMap.findOrSaveByUrlAndConfigAttribute(url, 'isAuthenticated()')
         }
+
+        RequestMap.findOrSaveByUrlAndConfigAttribute('/frame/**', 'IS_AUTHENTICATED_FULLY')
 
         for (url in [
                 '/', '/index', '/index/project', '/index/info', '/doc/**', '/assets/**',
