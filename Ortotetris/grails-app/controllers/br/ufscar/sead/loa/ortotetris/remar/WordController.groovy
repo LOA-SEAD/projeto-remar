@@ -33,7 +33,7 @@ class WordController {
             session.user = springSecurityService.currentUser
         }
 
-        def list = Word.findAll()
+        def list = Word.findAllByOwnerId(session.user.id)
 
 
         respond list, model:[wordInstanceCount: Word.count()]
@@ -59,12 +59,12 @@ class WordController {
             wordInstance.setWord(aux)
             wordInstance.setInitial_position(wordInstance.getInitial_position() - 1)
             wordInstance.save flush:true
-            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
 
         }
         else {
             render template: 'message', model: [WordMessage: "Não foi possível realizar a operação"]
-            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
 
     }//move word para a esquerda
@@ -78,11 +78,11 @@ class WordController {
             wordInstance.setWord(aux)
             wordInstance.setInitial_position(wordInstance.getInitial_position() + 1)
             wordInstance.save flush:true
-            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
         else {
             render template: 'message', model: [WordMessage: "Não foi possível realizar a operação"]
-            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
     }//move word para a direita
 
@@ -108,7 +108,7 @@ class WordController {
                     }
                     else{
                         render template: 'message', model: [WordMessage: "Escolha um caracter válido"]
-                        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+                        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
                         return ;
                     }
                 }
@@ -117,16 +117,16 @@ class WordController {
                 wordInstance.setWord(aux)
                 wordInstance.save flush: true
                 render template: 'message', model: [WordMessage: "Caracter oculto com sucesso"]
-                render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName: "Word"]
+                render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName: "Word"]
             }
             else {
                 render template: 'message', model: [WordMessage: "Escolha um caracter válido"]
-                render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+                render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
             }
         }
         else {
             render template: 'message', model: [WordMessage: "Escolha uma posição válida"]
-            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
 
 
@@ -157,11 +157,11 @@ class WordController {
             wordInstance.setWord(aux)
             wordInstance.save flush:true
             render template: 'message', model: [WordMessage: "Operação realizada com sucesso"]
-            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
         else {
             render template: 'message', model: [WordMessage: "Escolha uma posição válida"]
-            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
 
 
@@ -176,16 +176,16 @@ class WordController {
             initialize_word(wordInstance)
             wordInstance.save flush: true
             render template: 'message', model: [WordMessage: "Palavra atualizada com sucesso"]
-            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName: "Word"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName: "Word"]
             }
             else{
                 render template: 'message', model: [WordMessage: "A palavra possui um número de caracteres inválidos"]
-                render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+                render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
             }
         }
         else {
             render template: 'message', model: [WordMessage: "A palavra já está no banco"]
-            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
 
     }
@@ -195,7 +195,7 @@ class WordController {
         Word wordInstance = Word.findById(params.id)
         wordInstance.delete flush: true
         render template: 'message', model: [WordMessage: "Palavra deletada com sucesso"]
-        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll()]
+        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id)]
 
     }
 
@@ -296,7 +296,7 @@ class WordController {
 
         if (wordInstance.hasErrors()) {
             render template: 'message', model: [WordMessage: "A palavra possui erros"]
-            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
 
             return
         }
@@ -306,7 +306,7 @@ class WordController {
 
         wordInstance.save flush:true
         render template: 'message', model: [WordMessage: "Palavra criada com sucesso"]
-        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
 
 //        request.withFormat {
 //            form multipartForm {
