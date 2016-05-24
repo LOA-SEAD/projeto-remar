@@ -28,7 +28,7 @@
                 <li class="tab col s3"><a href="#test1">Publicados</a></li>
             </ul>
         </div>
-        <section id="test1" class="col s12">
+        <section id="test1" class="col s12"> <!-- start my published games -->
             <div class="row search">
                 <div class="input-field col s6">
                     <input id="search-game" type="text" class="validate">
@@ -51,8 +51,9 @@
                     <g:render template="myCardGame" model="[myExportedResourcesList:myExportedResourcesList]" />
                 </article>
             </div>
-        </section>
-        <section id="test2" class="col s12">
+        </section> <!-- finished my published games-->
+
+        <section id="test2" class="col s12"> <!-- start processes-->
             <div class="row search">
                 <div class="input-field col s12">
                     <input id="search-processes" type="text" class="validate">
@@ -64,7 +65,7 @@
                     <g:render template="/process/process" model="[processes:processes]" />
                 </article>
             </div>
-        </section>
+        </section> <!-- finished processes-->
     </div>
 </div>
 <g:javascript src="menu.js"/>

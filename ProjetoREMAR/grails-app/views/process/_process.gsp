@@ -1,7 +1,7 @@
     <main class="cardProcess">
         <article class="row">
             <g:each in="${processes}" var="process">
-                <g:if test="${process.pendingTasks.size() > 0}">
+                %{--<g:if test="${process.pendingTasks.size() > 0}">--}%
                     <a href="/process/overview/${process.id}">
                         <div class="card square-cover small hoverable my-card">
                             <div class="card-image waves-effect waves-block waves-light">
@@ -45,9 +45,9 @@
                             </div>
                         </div>
                     </a>
-                </g:if>
+                %{--</g:if>--}%
             </g:each>
         </article>
-        <g:applyLayout name="pagination" params="${processVariables}"/>
+        <g:applyLayout name="tab-pagination"/>
     </main>
 

@@ -291,14 +291,14 @@ class ExportedResourceController {
         def model = [:]
 
         def threshold = 12
+        params.order = "desc"
+        params.sort = "id"
 
         params.max = params.max ? Integer.valueOf(params.max) : threshold
         params.offset = params.offset ? Integer.valueOf(params.offset) : 0
 
         model.max = params.max
         model.threshold = threshold
-        params.order = "desc"
-        params.sort = "id"
 
         //retorna os jogos do usuario corrente exportados exportados
         model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id),params)
@@ -310,26 +310,35 @@ class ExportedResourceController {
 
         model.categories = Category.list(sort:"name")
 
-        println model.pageCount
+         //retorna o processo
+        params.tMax = params.tMax ? Integer.valueOf(params.tMax) : threshold
+        params.tOffset = params.tOffset ? Integer.valueOf(params.tOffset) : 0
 
-
-        //retorna o processo
         def processes = Propeller.instance.getProcessInstancesByOwner(session.user.id as long)
         def temporary = []
 
         for(def i = processes.size()-1;i>=0;i--){
-            if (processes.get(i).getVariable('inactive') != "1") {
+            //se o processo do usuário corrente estiver ativo e existir tarefas pendentes
+            if (processes.get(i).getVariable('inactive') != "1"
+                    && (processes.get(i).getVariable("exportedResourceId") == null)) {
                 temporary.add(processes.get(i))
             }
         }
+
+        println("processes: "+processes.size())
+        println("temporary: "+temporary.size())
+        println(temporary)
+
+        model.tMax = params.tMax
+        model.tThreshold = threshold
+
         model.processes =  temporary
+        model.tPageCount = Math.ceil(temporary.size() / params.tMax) as int
+        model.tCurrentPage = (params.tOffset + threshold) / threshold
+        model.tHasNextPage = params.tOffset + threshold < model.instanceCount
+        model.tHasPreviousPage = params.tOoffset > 0
 
-        model.processVariable = [:]
-
-        model.processVariable.pageCount = Math.ceil(processes.size() / params.max) as int
-        model.processVariable.currentPage = (params.offset + threshold) / threshold
-        model.processVariable.hasNextPage = params.offset + threshold < model.instanceCount
-        model.processVariable.hasPreviousPage = params.offset > 0
+        println model.tPageCount
 
         render view: "myGames", model: model
     }
@@ -424,6 +433,51 @@ class ExportedResourceController {
         render view: "_cardGames", model: model
     }
 
+    @SuppressWarnings("GroovyAssignabilityCheck")
+    def searchProcesses(){
+        def model = [:]
+
+        def threshold = 12
+        def maxInstances = 0
+
+        params.order = "desc"
+        params.sort = "id"
+
+        params.tMax = params.tMax ? Integer.valueOf(params.tMax) : threshold
+        params.tOffset = params.tOffset ? Integer.valueOf(params.tOffset) : 0
+
+        log.debug("type: " + params.typeSearch)
+        log.debug("text: " +params.text)
+
+        model.processes = null
+
+        def processes = Propeller.instance.getProcessInstancesByOwner(session.user.id as long)
+        def temporary = []
+
+        for(def i = processes.size()-1;i>=0;i--){
+            //se o processo do usuário corrente estiver ativo e existir tarefas pendentes
+            if (processes.get(i).getVariable('inactive') != "1"
+                    && (processes.get(i).getVariable("exportedResourceId") == null)
+                    && processes.get(i).name.toLowerCase().contains(params.text.toString().toLowerCase())) {
+
+                temporary.add(processes.get(i))
+                maxInstances++
+            }
+        }
+
+        model.tMax = params.tMax
+        model.tThreshold = threshold
+
+        model.processes =  temporary
+        model.tPageCount = Math.ceil(temporary.size() / params.tMax) as int
+        model.tCurrentPage = (params.tOffset + threshold) / threshold
+        model.tHasNextPage = params.tOffset + threshold < model.instanceCount
+        model.tHasPreviousPage = params.tOoffset > 0
+
+        log.debug("amount process: "+model.processes.size())
+
+        render view: "/process/_process", model: model
+    }
 
     def searchMyGame(){
         def model = [:]

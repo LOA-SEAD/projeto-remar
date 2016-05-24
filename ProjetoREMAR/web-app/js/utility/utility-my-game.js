@@ -7,7 +7,6 @@
  * */
 
 $(function(){
-
     var select = $("select");
     $(select).material_select();
 
@@ -37,6 +36,36 @@ $(function(){
             },
             error: function () {
                 alert("error");
+            }
+        });
+    });
+
+    $("#search-processes").on("keyup",function(){
+        var formData = new FormData();
+        formData.append('typeSearch','processes');
+        formData.append('text', $(this).val());
+
+        console.log($(this).val());
+
+        $.ajax({
+            url: "/exported-resource/searchProcesses",
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+
+                $(".cardProcess").remove();
+                $(".show.cards.processes").append(response);
+
+                $(".tab-next-page").each(function() {
+                    $(this).on("click",listerTabNextPage);
+                });
+
+                addMaterializeDepedences();
+            },
+            error: function () {
+                console.log("Error on search processes");
             }
         });
     });
@@ -76,6 +105,8 @@ $(function(){
 
     $(".next-page").click(listerNextPage);
 
+    $(".tab-next-page").click(listerTabNextPage);
+
     function listerNextPage(){
         var formData = new FormData();
         formData.append('typeSearch','name');
@@ -96,6 +127,40 @@ $(function(){
 
                 $(".next-page").each(function() {
                     $(this).on("click",listerNextPage)
+                });
+
+                //inicializa componentes materialize
+                addMaterializeDepedences();
+
+                goToByScroll("title-page");
+            },
+            error: function () {
+                alert("error");
+            }
+        });
+    }
+
+
+    function listerTabNextPage(){
+        var formData = new FormData();
+        formData.append('typeSearch','name');
+        formData.append('text', $("#search-game").val());
+
+        console.log("tMax="+$(this).attr("data-max"));
+        console.log("tOffset="+$(this).attr("data-offset"));
+
+        $.ajax({
+            url: "/exported-resource/searchMyGame?max="+$(this).attr("data-max")+"&offset="+$(this).attr("data-offset"),
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                $(".cardProcesses").remove();
+                $(".show.cards.processes").append(response);
+
+                $(".tab-next-page").each(function() {
+                    $(this).on("click",listerTabNextPage)
                 });
 
                 //inicializa componentes materialize
