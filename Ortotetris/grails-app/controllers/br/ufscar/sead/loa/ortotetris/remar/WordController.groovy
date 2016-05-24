@@ -1,17 +1,43 @@
-package br.ufscar.sead.loa.remar
+package br.ufscar.sead.loa.ortotetris.remar
 
+import br.ufscar.sead.loa.remar.User
+import grails.plugin.springsecurity.SpringSecurityService
+import grails.util.Environment
 import grails.plugin.springsecurity.annotation.Secured
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.web.multipart.MultipartFile
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
-import grails.converters.JSON
-import groovy.json.JsonBuilder
-@Secured(["ROLE_USER","ROLE_ADMIN","ROLE_FACEBOOK"])
 
-@Transactional(readOnly = true)
+@Secured(["IS_AUTHENTICATED_FULLY"])
 class WordController {
+    def springSecurityService
+
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+
+    @Secured(['IS_AUTHENTICATED_FULLY'])
+    def index() {
+
+        if (params.t && params.h) {
+            session.taskId = params.t
+
+            def u = User.findByUsername(new String(params.h.decodeBase64()))
+            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.authoritiesHashSet()))
+
+            redirect controller: "word"
+            return
+        } else {
+            session.user = springSecurityService.currentUser
+        }
+
+        def list = Word.findAll()
+
+
+        respond list, model:[wordInstanceCount: Word.count()]
+    }
 
     /* Funções que manipulam word e answer */
     def initialize_word(Word wordInstance){
@@ -250,10 +276,7 @@ class WordController {
     }
 
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 255, 1000)
-        respond Word.list(params), model:[wordInstanceCount: Word.count()]
-    }
+
 
     def show(Word wordInstance) {
 
@@ -279,6 +302,7 @@ class WordController {
         }
 
         initialize_word(wordInstance) //inicializa a word conforme a answer passada como parâmetro
+        wordInstance.ownerId = session.user.id
 
         wordInstance.save flush:true
         render template: 'message', model: [WordMessage: "Palavra criada com sucesso"]

@@ -38,7 +38,7 @@ class User {
 
 	static mapping = {
 		password column: '`password`'
-
+		datasource 'remar'
 		tablePerHierarchy false
 	}
 

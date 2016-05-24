@@ -1,4 +1,4 @@
-<%@ page import="br.ufscar.sead.loa.remar.Word" %>
+<%@ page import="br.ufscar.sead.loa.ortotetris.remar.Word" %>
 
 <g:if test="${WordMessage}">
     <div id="MessageDivTemplate" align="center" class="message">${WordMessage}</div>
