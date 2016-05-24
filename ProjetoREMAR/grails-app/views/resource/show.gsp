@@ -99,16 +99,10 @@
 						<br class="clear" />
 						<div class="slider">
 							<ul class="slides">
-								<li>
-									<!-- tamanho ideal para imagem 500x250 -->
-									<img src="/data/resources/assets/${resourceInstance.uri}/description-1" width="auto" height="400px;">
-								</li>
-								<li>
-									<img src="/data/resources/assets/${resourceInstance.uri}/description-2" width="auto" height="400px;">
-								</li>
-								<li>
-									<img src="/data/resources/assets/${resourceInstance.uri}/description-3" width="auto" height="400px;">
-								</li>
+								%{--Imagens devem ter 720x400 pixels --}%
+							    <li><img src="/data/resources/assets/${resourceInstance.uri}/description-1" width="auto" height="400px"></li>
+								<li><img src="/data/resources/assets/${resourceInstance.uri}/description-2" width="auto" height="400px;"></li>
+								<li><img src="/data/resources/assets/${resourceInstance.uri}/description-3" width="auto" height="400px;"></li>
 							</ul>
 						</div>
 
