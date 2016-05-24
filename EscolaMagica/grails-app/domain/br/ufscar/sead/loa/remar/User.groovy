@@ -15,10 +15,8 @@ class User {
 	String email
 	String firstName
 	String lastName
-	String facebookId
 	String moodleUsername
 	boolean firstAccess
-
 
 	static transients = ['springSecurityService']
 
@@ -28,7 +26,6 @@ class User {
 		firstName blank: false
 		lastName blank: true
 		email blank: false, email: true, unique: true
-		facebookId nullable: true
 		moodleUsername nullable: true
 		firstAccess blank: true, nullable: true
 
@@ -75,5 +72,4 @@ class User {
 		} as Set<Role>
 		return auths
 	}
-
 }
