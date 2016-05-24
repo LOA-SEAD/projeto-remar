@@ -32,6 +32,8 @@ $(function(){
                 $(".next-page").each(function() {
                     $(this).on("click",listerNextPage)
                 });
+
+                addMaterializeDepedences();
             },
             error: function () {
                 alert("error");
@@ -63,6 +65,8 @@ $(function(){
                 $(".next-page").each(function() {
                     $(this).on("click",listerNextPage)
                 });
+
+                addMaterializeDepedences();
             },
             error: function () {
                 alert("error");
@@ -94,6 +98,8 @@ $(function(){
                     $(this).on("click",listerNextPage)
                 });
 
+                addMaterializeDepedences();
+
                 goToByScroll("title-page");
             },
             error: function () {
@@ -103,3 +109,9 @@ $(function(){
     }
 });
 
+function addMaterializeDepedences(){
+
+    //inicializa componentes bootstrap
+    $('.dropdown-button').dropdown();
+    $('.tooltipped').tooltip({delay: 50});
+}
