@@ -79,8 +79,6 @@ class QuestionController {
         //  def storagePath = servletContext.getRealPath("/")
         //   log.debug storagePath
 
-        println session.user.username
-
         ArrayList<Integer> list_questionId = new ArrayList<Integer>() ;
         ArrayList<Question> questionList = new ArrayList<Question>();
         list_questionId.addAll(params.list_id);

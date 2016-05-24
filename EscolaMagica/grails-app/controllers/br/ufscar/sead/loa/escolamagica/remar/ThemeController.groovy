@@ -18,10 +18,6 @@ class ThemeController {
             session.taskId = params.t
         }
         session.user = springSecurityService.currentUser
-        println "-"
-        println session.taskId
-        println params.t
-        println "-"
 
         def list = Theme.findAllByOwnerId(session.user.id)
         def listPublic = Theme.findAll() - list
