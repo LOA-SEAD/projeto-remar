@@ -32,8 +32,8 @@
                                 </div>
                                 <div class="card-content">
                                     <a href="/group/show/${group.id}"><p>Nome: ${group.name}</p></a>
-                                    <g:each var="owner" in="${group.owners}">
-                                        <p>Dono(s): ${owner.firstName +' '+ owner.lastName} </p>
+                                    <g:each var="owner" in="${group.owner}">
+                                        <p>Dono: ${owner.firstName +' '+ owner.lastName} </p>
                                     </g:each>
                                 </div>
 
@@ -47,7 +47,7 @@
 
         <div class="row">
             <div class="col l3 offset-l4">
-                <a style="position: relative; left: 28em; bottom: 10.3em;" data-tooltip="Novo grupo" href="/group/new" class="btn-floating btn-large my-orange tooltipped   "><i  class="material-icons large">add</i></a>
+                <a style="position: relative; left: 28em; bottom: 2.3em;" data-tooltip="Novo grupo" href="/group/new" class="btn-floating btn-large my-orange tooltipped   "><i  class="material-icons large">add</i></a>
             </div>
         </div>
 

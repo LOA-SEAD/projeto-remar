@@ -38,22 +38,30 @@
 
     <div class="center-align">
         <p align="center" style="font-size: 0.6em;">Dono(s):
-            <g:each var="owner" in="${group.owners}">
-                %{--<g:if test="${owner.id == session.user.id}">--}%
-                    %{--Você--}%
-                %{--</g:if>--}%
-                ${owner.firstName +' '+ owner.lastName}
-            </g:each>
+                <g:if test="${group.owner.id == session.user.id}">
+                    Você
+                </g:if><br>
+                <g:if test="${group.admins.size() > 0}">
+                    Admin(s):
+                    <g:each status="i" var="admin" in="${group.admins}">
+                            ${admin.firstName +" "+ admin.lastName}
+                        <g:if test="${!(i == group.admins.size()-1)}">
+                            /
+                        </g:if>
+                    </g:each>
+                </g:if>
+                %{--${owner.firstName +' '+ owner.lastName}--}%
         </p>
     </div>
 </div>
 <div class="row">
-    <div class="col l3 offset-l11 s4">
+    <div class="col l3 offset-l10 s4 offset-s6">
         <h5>Membros</h5>
     </div>
-    <div class="row">
-        <g:each var="groupUser" in="${groupUsers.user}">
-            <div style="overflow: visible !important;" class="card white col l3 s5 offset-l10">
+</div>
+<div class="row">
+        <g:each var="groupUser" in="${groupUsers.user}" status="i">
+            <div style="overflow: visible !important; position: relative; left:9em;" class="card white col l3 offset-l8 s6">
                 <div class="card-image">
                     <div class="col l4 s4 left-align">
                         <img src="/data/users/${groupUser.username}/profile-picture" class="circle responsive-img">
@@ -64,18 +72,23 @@
                         <p class="left-align" style="top: 0.4em; position: relative;">${groupUser.firstName + " " + groupUser.lastName}</p>
                     </div>
                     <div class="col l1 s1 offset-l6 offset-s10">
-                        <a class="dropdown-button" id="drop" href="#" data-activates="dropdown-user-${groupUser.id}" style="color: black"><span class="material-icons">more_vert</span></a>
+                        <a class="dropdown-button"  id="drop" href="#" data-activates="dropdown-user-${groupUser.id}" style="color: black"><span class="material-icons">more_vert</span></a>
                     </div>
-                    <ul style="font-size: 0.4em" id="dropdown-user-${groupUser.id}" class="dropdown-content">
+                    <ul id="dropdown-user-${groupUser.id}" class="dropdown-content">
                         <li><a href="/group/delete/${groupUser.id}">Excluir</a></li>
-                        <li><a href="">Tornar Dono(a)</a></li>
+                        %{--TODO excluir tb da lista de admins, se for--}%
+                            <g:if test="${!group.admins.toList().contains(groupUser)}">
+                                <li><a href="/group/makeAdmin/${groupUser.id}">Tornar admin</a></li>
+                            </g:if>
+                            <g:else>
+                                <li><a href="/group/removeAdmin/${groupUser.id}">Remover admin</a></li>
+                            </g:else>
                     </ul>
                 </div>
             </div>
         </g:each>
     </div>
 
-</div>
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
