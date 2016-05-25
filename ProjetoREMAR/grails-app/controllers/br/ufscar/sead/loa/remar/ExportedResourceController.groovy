@@ -269,21 +269,35 @@ class ExportedResourceController {
 
     def myGames(){
         def model = [:]
+        def myExportedResourcesList
+        User user = session.user
 
-        def user = User.get(session.user.id)
+//        def groups = Group.findAllByOwnerOrAdminsInList(user,[user].asList())
+
+            def groups = Group.withCriteria {
+                eq("owner",user)
+//     TODO
+//                   and{
+//                    admins {
+//                        eq("id",user.id)
+//                    }
+//                }
+            }
+
+        println groups
 
         if(user.username.equals("admin")){
-            model.myExportedResourcesList = ExportedResource.list()
+            myExportedResourcesList = ExportedResource.list()
 
         }
         else{
-            model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', user)
+            myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', user)
 
         }
 
-        model.categories = Category.list(sort:"name")
+        def categories = Category.list(sort:"name")
 
-        render view: "myGames", model: model
+        render (view: "myGames", model: [model:model, groups: groups, categories: categories, myExportedResourcesList: myExportedResourcesList])
     }
 
     def saveGameInfo() {
