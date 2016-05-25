@@ -1,15 +1,14 @@
 package br.ufscar.sead.loa.remar
 
-/**
- * Created by deniscapp on 5/17/16.
- */
+
 class Group {
 
-    static hasMany = [userGroups: UserGroup, owners: User]
-//    static belongsTo = User
+    static hasMany = [userGroups: UserGroup, admins: User, groupExportedResources :GroupExportedResources]
+//    static belongsTo = ExportedResource
 
     String name
     String privacy
+    User owner
 
     static mapping = {
         table "group_"
