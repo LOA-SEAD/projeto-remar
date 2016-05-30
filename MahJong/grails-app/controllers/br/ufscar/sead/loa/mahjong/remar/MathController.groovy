@@ -1,34 +1,20 @@
 package br.ufscar.sead.loa.mahjong.remar
 
-import br.ufscar.sead.loa.remar.User
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.plugin.springsecurity.annotation.Secured
 import grails.util.Environment
 import groovy.json.JsonBuilder
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.context.SecurityContextHolder
 
-@Secured(["IS_AUTHENTICATED_FULLY"])
+@Secured(["isAuthenticated()"])
 class MathController {
 
     def springSecurityService
 
-    @Secured(["permitAll"])
     def index(Integer max) {
-        session.user = springSecurityService.currentUser
-
-        // params.max = Math.min(max ?: 10, 100)
-        params.max = 100 // TODO
-
-        if (params.t && params.h) {
+        if (params.t) {
             session.taskId = params.t
-
-            def u = User.findByUsername(new String(params.h.decodeBase64()))
-            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.authoritiesHashSet()))
-
-            redirect controller: "math" // redirect to hide params.h
-            return
         }
+        session.user = springSecurityService.currentUser
 
         render view: "index"
     }
