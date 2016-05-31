@@ -6,9 +6,12 @@ class GroupController {
     def springSecurityService
 
     def list() {
-        def groups = Group.findAllByOwner(session.user)
+        def model = [:]
 
-        render(view: "list", model: [groups: groups])
+        model.groupsIOwn = Group.findAllByOwner(session.user)
+        model.groupsIBelong = UserGroup.findAllByUser(session.user).group
+
+        render view: "list", model: model
     }
 
     def create(){
