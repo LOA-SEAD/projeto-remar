@@ -65,7 +65,7 @@
     <div class="row">
         <div class="col s2">
             <button class="btn waves-effect waves-light my-orange" type="submit" name="save" id="save"
-                    onclick="SaveToJson()">Enviar
+                    onclick="submit()">Enviar
                 <i class="material-icons right">send</i>
             </button>
         </div>
@@ -164,7 +164,7 @@
         }
 
         var parameters = {"ids": list }
-        <g:remoteFunction action="toJson" params="parameters" />
+        <g:remoteFunction action="toJson" params="parameters"  />
     }
 
     function SaveNewWord() {

@@ -13,12 +13,12 @@
         {
           "name": "palavras.txt",
           "type": "text",
-          "path": ""
+          "path": "Deploy"
         },
         {
           "name": "gabaritos.txt",
           "type": "text",
-          "path": ""
+          "path": "Deploy"
         }
       ]
     }

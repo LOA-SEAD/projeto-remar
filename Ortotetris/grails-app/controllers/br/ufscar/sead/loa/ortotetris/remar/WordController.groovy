@@ -17,7 +17,7 @@ class WordController {
     def springSecurityService
 
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", toJson: "GET"]
 
     def index() {
 
@@ -225,6 +225,9 @@ class WordController {
     }
 
     def toJson() {
+        def dataPath = servletContext.getRealPath("/data")
+        def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
+        instancePath.mkdirs()
         def list = Word.getAll(params.ids.split(',').toList())
         def fileName = "gabaritos.txt"
         def fileName2 = "palavras.txt"
@@ -233,8 +236,8 @@ class WordController {
         int count2= 0;
 
 
-        File file = new File("$fileName");
-        File file2 = new File("$fileName2");
+        File file = new File("$instancePath/$fileName");
+        File file2 = new File("$instancePath/$fileName2");
 
         PrintWriter pw = new PrintWriter(file);
         pw.write("{\n \t\"c2array\": true,\n\t\"size\":[" + list.size() +",1,1],\n\t\"data\":[\n\t\t    ")

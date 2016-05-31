@@ -150,3 +150,33 @@ function uncheck_all(){
 
 }
 
+function submit(){
+    var list="";
+    var trs = document.getElementById('ListTable').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
+    console.log(trs.length);
+    for (var i = 0; i < trs.length; i++) {
+        if ($(trs[i]).attr('data-checked') == "true") {
+            list += $(trs[i]).attr('data-id') + ',';
+        }
+    }
+
+
+    var url = location.origin + '/ortotetris/word/toJson';
+    var data = {"ids": list };
+
+    $.ajax({
+            type: 'GET',
+            data: data,
+            url: url,
+            success: function (returnData) {
+                window.top.location.href=returnData;
+                //uncheck_all();
+                //window.location.reload();
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+            }
+        }
+    );
+
+}
+
