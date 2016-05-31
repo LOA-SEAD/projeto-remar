@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
-@Secured(['IS_AUTHENTICATED_FULLY'])
+@Secured(['isAuthenticated()'])
 @Transactional(readOnly = true)
 class ThemeController {
 
@@ -24,25 +24,12 @@ class ThemeController {
     def springSecurityService
 
     def index(Integer max) {
-
-        def user = springSecurityService.getCurrentUser()
-        if (params.t && params.h) {
+        if (params.t) {
             session.taskId = params.t
-
-            def u = User.findByUsername(new String(params.h.decodeBase64()))
-            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.authoritiesHashSet()))
-
-            redirect controller: "theme"
-            return
         }
-
         session.user = springSecurityService.currentUser
 
-        def Mylist = Theme.findAllByOwnerId(user.getId()).toList()
-        def List = Theme.findAll()
-        def publicList = List - Mylist
-
-        def list = Theme.findAllByOwnerId(user.getId())
+        def list = Theme.findAllByOwnerId(session.user.id)
         def listPublic = Theme.findAll() - list
 
         render view: "index", model: [themeInstanceListMy: list,  themeInstanceListPublic: listPublic]

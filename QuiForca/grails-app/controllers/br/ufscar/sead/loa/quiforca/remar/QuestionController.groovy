@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Secured(["IS_AUTHENTICATED_FULLY"])
+@Secured(["isAuthenticated()"])
 @Transactional(readOnly = true)
 class QuestionController {
 
@@ -25,24 +25,18 @@ class QuestionController {
     def springSecurityService
     def grailsApplication
 
-    @Secured(["permitAll"])
-    def index(Integer max) { // TODO: change to ModelAndView
-        def user = springSecurityService.getCurrentUser()
-//        params.max = Math.min(max ?: 10, 100)
-        params.max = 100 // TODO
-
-        if (params.t && params.h) {
+    def index(Integer max) {
+        if (params.t) {
             session.taskId = params.t
-
-            def u = User.findByUsername(new String(params.h.decodeBase64()))
-            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.authoritiesHashSet()))
-
-            redirect controller: "question" // redirect to hide params.h
-            return
         }
+        session.user = springSecurityService.currentUser
+
+        println session.user.username
 
         def list = Question.list()
-        render view: "index", model: [questionInstanceList: list, questionInstanceCount: Question.count(), userName: user.getUsername(), userId: user.getId()]
+
+        render view: "index", model: [questionInstanceList: list, questionInstanceCount: Question.count(),
+                                      userName: session.user.username, userId: session.user.id]
 
     }
 
