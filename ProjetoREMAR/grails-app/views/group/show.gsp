@@ -32,15 +32,41 @@
             </div>
         </g:form>
         </div>
+
     </div>
 
     <div class="divider"></div>
-
+    <div>
+        <a href="#modal-users" class="modal-trigger"><h5 class="right">Ver membros</h5></a>
+    </div>
+    <!-- Modal Structure -->
+    <div id="modal-users" class="modal bottom-sheet">
+        <div class="modal-content">
+            <h4 class="left-align">Membros do grupo</h4>
+            %{--<p>A bunch of text</p>--}%
+            <ul class="collection">
+                <g:each var="userGroup" in="${group.userGroups}">
+                    <li class="collection-item avatar left-align">
+                        <img alt src="/data/users/${userGroup.user.username}/profile-picture" class="circle">
+                        <span class="title">${userGroup.user.firstName + " " + userGroup.user.lastName}</span>
+                        <p class="" style="font-size: 0.6em;">Username: ${userGroup.user.username}</p>
+                    </li>
+                </g:each>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            %{--<a href="" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>--}%
+        </div>
+    </div>
+    <!-- Modal Structure -->
     <div class="center-align">
-        <p align="center" style="font-size: 0.6em;">Dono(s):
+        <p align="left" style="font-size: 0.6em;">Dono:
                 <g:if test="${group.owner.id == session.user.id}">
                     Você
-                </g:if><br>
+                </g:if>
+                <g:else>
+                    ${group.owner.firstName + " " + group.owner.lastName}
+                </g:else><br>
                 <g:if test="${group.admins.size() > 0}">
                     Admin(s):
                     <g:each status="i" var="admin" in="${group.admins}">
@@ -50,45 +76,44 @@
                         </g:if>
                     </g:each>
                 </g:if>
-                %{--${owner.firstName +' '+ owner.lastName}--}%
         </p>
     </div>
+
 </div>
 
 
 <div class="row">
         <div class="col l12">
-                <h5 class="right-align">Membros</h5>
-                <g:each var="groupUser" in="${group.userGroups.toList()}" status="i">
-                    <div id="user-card${groupUser.id}" style="overflow: visible !important; position: relative; left:7em;" class="card white col l3 offset-l8 s6">
-                        <div class="card-image">
-                            <div class="col l4 s4 left-align">
-                                <img src="/data/users/${groupUser.user.username}/profile-picture" class="circle responsive-img">
-                            </div>
-                        </div>
-                        <div class="card-content">
-                            <div>
-                                <p class="left-align truncate" style="top: 0.4em; position: relative;">${groupUser.user.firstName + " " + groupUser.user.lastName}</p>
-                            </div>
-                            <div class="col l1 s1 offset-l6 offset-s10">
-                                <a class="dropdown-button"  id="drop" href="#" data-activates="dropdown-user-${groupUser.id}" style="color: black"><span class="material-icons">more_vert</span></a>
-                            </div>
-                            <ul id="dropdown-user-${groupUser.id}" class="dropdown-content">
-                                <input id="user-group-id" type="hidden" value="${groupUser.id}" name="usergroupid">
+                %{--<g:each var="groupUser" in="${group.userGroups.toList()}" status="i">--}%
+                    %{--<div id="user-card${groupUser.id}" style="overflow: visible !important; position: relative; left:7em;" class="card white col l3 offset-l8 s6">--}%
+                        %{--<div class="card-image">--}%
+                            %{--<div class="col l4 s4 left-align">--}%
+                                %{--<img src="/data/users/${groupUser.user.username}/profile-picture" class="circle responsive-img">--}%
+                            %{--</div>--}%
+                        %{--</div>--}%
+                        %{--<div class="card-content">--}%
+                            %{--<div>--}%
+                                %{--<p class="left-align truncate" style="top: 0.4em; position: relative;">${groupUser.user.firstName + " " + groupUser.user.lastName}</p>--}%
+                            %{--</div>--}%
+                            %{--<div class="col l1 s1 offset-l6 offset-s10">--}%
+                                %{--<a class="dropdown-button"  id="drop" href="#" data-activates="dropdown-user-${groupUser.id}" style="color: black"><span class="material-icons">more_vert</span></a>--}%
+                            %{--</div>--}%
+                            %{--<ul id="dropdown-user-${groupUser.id}" class="dropdown-content">--}%
+                                %{--<input id="user-group-id" type="hidden" value="${groupUser.id}" name="usergroupid">--}%
 
-                                <li><a onclick="deleteGroupUser();">Excluir</a></li>
+                                %{--<li><a onclick="deleteGroupUser();">Excluir</a></li>--}%
 
-                                <g:if test="${!group.admins.toList().contains(groupUser.user)}">
+                                %{--<g:if test="${!group.admins.toList().contains(groupUser.user)}">--}%
                                                 %{--<li><a onclick="document.getElementById('user-admin').submit();  return false;">Tornar admin</a></li>--}%
-                                    <li><a id="make-admin" onclick="manageAdmin(this.id);" >Tornar admin</a></li>
-                                </g:if>
-                                <g:else>
-                                    <li><a id="remove-admin" onclick="manageAdmin(this.id);">Remover admin</a></li>
-                                </g:else>
-                            </ul>
-                        </div>
-                    </div>
-                </g:each>
+                                    %{--<li><a id="make-admin" onclick="manageAdmin(this.id);" >Tornar admin</a></li>--}%
+                                %{--</g:if>--}%
+                                %{--<g:else>--}%
+                                    %{--<li><a id="remove-admin" onclick="manageAdmin(this.id);">Remover admin</a></li>--}%
+                                %{--</g:else>--}%
+                            %{--</ul>--}%
+                        %{--</div>--}%
+                    %{--</div>--}%
+                %{--</g:each>--}%
             <g:each var="groupExportedResources" in="${group.groupExportedResources}">
                 <div class="card white col l3 pull-l4 hoverable">
                     <div class="card-image">
@@ -109,6 +134,10 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 <script>
+    $(document).ready(function(){
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal-trigger').leanModal();
+    });
     function deleteGroupUser(){
         $.ajax({
             type:'POST',
