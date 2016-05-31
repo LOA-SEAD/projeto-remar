@@ -1,14 +1,9 @@
 package br.ufscar.sead.loa.quiforca.remar
 
-import br.ufscar.sead.loa.remar.User
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.util.Environment
-import groovy.json.JsonBuilder
-import org.codehaus.groovy.grails.web.context.ServletContextHolder
 import org.imgscalr.Scalr
 import org.springframework.security.access.annotation.Secured
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.context.SecurityContextHolder
 
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
@@ -33,8 +28,6 @@ class ThemeController {
         def listPublic = Theme.findAll() - list
 
         render view: "index", model: [themeInstanceListMy: list,  themeInstanceListPublic: listPublic]
-
-
     }
 
     def show(Theme themeInstance) {

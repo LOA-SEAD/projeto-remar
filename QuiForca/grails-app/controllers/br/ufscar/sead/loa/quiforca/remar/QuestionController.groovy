@@ -5,12 +5,7 @@ import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.util.Environment
-import grails.util.Holders
 import groovy.json.JsonBuilder
-import groovyx.net.http.HTTPBuilder
-import org.codehaus.groovy.grails.io.support.GrailsIOUtils
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.multipart.MultipartFile
 
 import static org.springframework.http.HttpStatus.*
@@ -23,7 +18,6 @@ class QuestionController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def springSecurityService
-    def grailsApplication
 
     def index(Integer max) {
         if (params.t) {
@@ -39,10 +33,6 @@ class QuestionController {
                                       userName: session.user.username, userId: session.user.id]
 
     }
-
-    /*def show(Question questionInstance) {
-        respond questionInstance
-    }*/
 
     def create() {
         respond new Question(params)
@@ -112,14 +102,6 @@ class QuestionController {
         }
 
         redirect(action: index())
-
-       /* request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'question.label', default: 'Question'), questionInstance.id])
-                redirect questionInstance
-            }
-            '*' { respond questionInstance, [status: CREATED] }
-        }*/
     }
 
     def edit(Question questionInstance) {
@@ -155,14 +137,6 @@ class QuestionController {
         } else {
             // TODO
         }
-
-        /*request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Question.label', default: 'Question'), questionInstance.id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }*/
     }
 
     protected void notFound() {
