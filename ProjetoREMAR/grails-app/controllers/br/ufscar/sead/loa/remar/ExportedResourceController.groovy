@@ -552,7 +552,7 @@ class ExportedResourceController {
         log.debug("type: " + params.typeSearch)
         log.debug("text: " +params.text)
 
-        model.myExportedResourcesList = null
+        //model.myExportedResourcesList = null
 
         if(params.typeSearch.equals("name")){//busca pelo nome
             model.myExportedResourcesList =
@@ -569,15 +569,18 @@ class ExportedResourceController {
 
                 }else{
                     Category c = Category.findById(params.text)
-                    model.myExportedResourcesList = [:]
-                    for (r in Resource.findAllByCategory(c)){ //get all resources belong
+                    model.myExportedResourcesList = []
+                    maxInstances = 0
+
+                    for (r in Resource.findAllByCategory(c)) { //get all resources belong
                         model.myExportedResourcesList.addAll(
                                 ExportedResource.findAllByTypeAndResourceAndOwner('public',
-                                                                                    r,
-                                                                                    User.get(session.user.id),
-                                                                                    params))
+                                        r,
+                                        User.get(session.user.id),
+                                        params))
+                        maxInstances += ExportedResource.findAllByTypeAndResourceAndOwner('public',r,User.get(session.user.id)).size()
                     }
-                    maxInstances = ExportedResource.findAllByTypeAndResourceAndOwner('public',r,User.get(session.user.id)).size()
+
                 }
             }
         }
