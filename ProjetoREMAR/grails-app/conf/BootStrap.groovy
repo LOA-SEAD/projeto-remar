@@ -85,7 +85,7 @@ class BootStrap {
                 '/exportedResource/publicGames', '/exported-resource/searchGame', '/**/js/**', '/**/css/**',
                 '/**/images/**', '/**/favicon.ico', '/data/**', '/**/scss/**', '/**/less/**', '/**/fonts/**',
                 '/**/font/**', '/password/**', '/moodle/**', '/exportedGame/**', '/static/**', '/login/**',
-                '/logout/**', '/signup/**', '/user/**', '/facebook/**', '/published/**','/group/**', '/group-exported-resources/**'
+                '/logout/**', '/signup/**', '/user/**', '/facebook/**', '/published/**','/group/**','/user-group/**', '/group-exported-resources/**'
         ]) {
             RequestMap.findOrSaveByUrlAndConfigAttribute(url, 'permitAll')
         }
