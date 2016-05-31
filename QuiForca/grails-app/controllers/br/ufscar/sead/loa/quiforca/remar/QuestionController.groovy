@@ -51,11 +51,7 @@ class QuestionController {
     @Transactional
     def newQuestion(Question questionInstance) {
         if (questionInstance.author == null) {
-            def user = springSecurityService.currentUser.id
-            User currentUser = User.findById(user)
-            //println(currentUser.username.toString())
-            questionInstance.author = new String();
-            questionInstance.author = currentUser.username.toString()
+            questionInstance.author = session.user.username
         }
 
         Question newQuest = new Question();
