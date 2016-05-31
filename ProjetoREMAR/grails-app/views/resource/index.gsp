@@ -21,7 +21,7 @@
         <div class="card-list two-cards">
             <div class="row show developer">
                 <g:if test="${resourceInstanceList}">
-                    <g:render template="cads" model="[resourceInstanceList:resourceInstanceList]" />
+                    <g:render template="developerCads" model="[resourceInstanceList:resourceInstanceList]" />
                 </g:if>
                 <g:else>
                     <p>Você ainda não submeteu nenhum jogo. Nos envie um agora mesmo!  :)</p>

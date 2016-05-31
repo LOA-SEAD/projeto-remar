@@ -6,11 +6,11 @@
 --%>
 
 <ul class="pagination">
-    <g:if test="${pageCount > 0}">
+    <g:if test="${tPageCount > 0}">
 
-        <g:if test="${currentPage != 1}">
+        <g:if test="${tCurrentPage != 1}">
             <li class="waves-effect">
-                <a class="next-page" data-max="${max}" data-offset="${threshold * (currentPage - 2)}" href="#!">
+                <a class="t-next-page" data-max="${tMax}" data-offset="${tThreshold * (tCurrentPage - 2)}" href="#!">
                     <i class="material-icons">chevron_left</i>
                 </a>
             </li>
@@ -19,20 +19,20 @@
             <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
         </g:else>
 
-        <g:each in="${1..pageCount}" var="page">
-            <g:if test="${page == currentPage}">
+        <g:each in="${1..tPageCount}" var="page">
+            <g:if test="${page == tCurrentPage}">
                 <li class="active"><a href="#!">${page}</a></li>
             </g:if>
             <g:else>
-                <a class="next-page" data-max="${max}" data-offset="${threshold * (page - 1)}" href="#!">
+                <a class="tab-next-page" data-max="${tMax}" data-offset="${tThreshold * (page - 1)}" href="#!">
                     <li class="waves-effect">${page}</li>
                 </a>
             </g:else>
         </g:each>
 
-        <g:if test="${currentPage != pageCount}">
+        <g:if test="${tCurrentPage != tPageCount}">
             <li class="waves-effect">
-                <a class="next-page" data-max="${max}" data-offset="${threshold * (currentPage)}" href="#!">
+                <a class="tab-next-page" data-max="${tMax}" data-offset="${tThreshold * (tCurrentPage)}" href="#!">
                     <i class="material-icons">chevron_right</i>
                 </a>
             </li>
