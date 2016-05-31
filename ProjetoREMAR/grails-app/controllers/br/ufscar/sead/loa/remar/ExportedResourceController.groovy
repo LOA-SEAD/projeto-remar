@@ -300,7 +300,7 @@ class ExportedResourceController {
         model.max = params.max
         model.threshold = threshold
 
-        //retorna os jogos do usuario corrente exportados exportados
+        //Retorna os jogos do usuario corrente exportados exportados
         model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id),params)
 
         model.pageCount = Math.ceil(ExportedResource.count / params.max) as int
@@ -310,7 +310,7 @@ class ExportedResourceController {
 
         model.categories = Category.list(sort:"name")
 
-         //retorna o processo
+        //Retorna o processo
         params.tMax = params.tMax ? Integer.valueOf(params.tMax) : threshold
         params.tOffset = params.tOffset ? Integer.valueOf(params.tOffset) : 0
 
@@ -416,7 +416,7 @@ class ExportedResourceController {
 
                 }else{
                     Category c = Category.findById(params.text)
-                    Resource r = Resource.findByCategory(c)
+                    Resource r = Resource.findAllByCategory(c)
                     model.publicExportedResourcesList = ExportedResource.findAllByTypeAndResource('public',r, params)
                     maxInstances = ExportedResource.findAllByTypeAndResource('public',r).size()
                 }
@@ -513,8 +513,14 @@ class ExportedResourceController {
 
                 }else{
                     Category c = Category.findById(params.text)
-                    Resource r = Resource.findByCategory(c)
-                    model.myExportedResourcesList = ExportedResource.findAllByTypeAndResourceAndOwner('public',r,User.get(session.user.id), params)
+                    model.myExportedResourcesList = [:]
+                    for (r in Resource.findAllByCategory(c)){ //get all resources belong
+                        model.myExportedResourcesList.addAll(
+                                ExportedResource.findAllByTypeAndResourceAndOwner('public',
+                                                                                    r,
+                                                                                    User.get(session.user.id),
+                                                                                    params))
+                    }
                     maxInstances = ExportedResource.findAllByTypeAndResourceAndOwner('public',r,User.get(session.user.id)).size()
                 }
             }

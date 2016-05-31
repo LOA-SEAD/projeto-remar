@@ -16,10 +16,8 @@ $(function(){
         formData.append('typeSearch','name');
         formData.append('text', $(this).val());
 
-        console.log($(this).val());
-
         $.ajax({
-            url: "/exported-resource/searchGame",
+            url: "/resource/searchResource",
             type: 'POST',
             data: formData,
             processData: false,
@@ -34,6 +32,8 @@ $(function(){
                 });
 
                 addMaterializeDepedences();
+
+                initStars();
             },
             error: function () {
                 alert("error");
@@ -49,10 +49,8 @@ $(function(){
         formData.append('typeSearch','category');
         formData.append('text', catSelected);
 
-        console.log($(this).val());
-
         $.ajax({
-            url: "/exported-resource/searchGame",
+            url: "/resource/searchResource",
             type: 'POST',
             data: formData,
             processData: false,
@@ -67,6 +65,8 @@ $(function(){
                 });
 
                 addMaterializeDepedences();
+
+                initStars();
             },
             error: function () {
                 alert("error");
@@ -114,4 +114,17 @@ function addMaterializeDepedences(){
     //inicializa componentes bootstrap
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});
+}
+
+
+function initStars(){
+    $('.rating-card').each(function() {
+        $(this).rateYo({
+            readOnly: true,
+            precision: 0,
+            maxValue: 100,
+            starWidth: "13px",
+            rating: Number($(this).attr("data-stars"))
+        });
+    });
 }
