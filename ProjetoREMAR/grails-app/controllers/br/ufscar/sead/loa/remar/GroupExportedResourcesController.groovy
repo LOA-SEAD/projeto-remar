@@ -4,13 +4,27 @@ class GroupExportedResourcesController {
 
     def index() {}
 
-    def addExportedResources(){
-        println params
-//        println params.expor
+    def deleteall(){
+        GroupExportedResources.deleteAll()
+    }
+
+    def addGroupExportedResources(){
+
+        def exportedResource = ExportedResource.findById(params.exportedresource)
+        params.groupsid.each{
+            def groupExportedResource = new GroupExportedResources()
+
+            groupExportedResource.group = Group.findById("${it}")
+            groupExportedResource.exportedResource = exportedResource
+            println groupExportedResource.group
+            println groupExportedResource.exportedResource
+
+            groupExportedResource.save flush: true
+        }
+
 
 
         redirect(action: "myGames", controller: "exportedResource")
-
 
     }
 }
