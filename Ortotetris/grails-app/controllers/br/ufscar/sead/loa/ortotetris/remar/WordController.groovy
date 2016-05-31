@@ -1,6 +1,7 @@
 package br.ufscar.sead.loa.ortotetris.remar
 
 import br.ufscar.sead.loa.remar.User
+import br.ufscar.sead.load.remar.api.MongoHelper
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.util.Environment
 import grails.plugin.springsecurity.annotation.Secured
@@ -11,27 +12,19 @@ import org.springframework.web.multipart.MultipartFile
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Secured(["IS_AUTHENTICATED_FULLY"])
+@Secured(["isAuthenticated()"])
 class WordController {
     def springSecurityService
 
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    @Secured(['IS_AUTHENTICATED_FULLY'])
     def index() {
 
-        if (params.t && params.h) {
+        if (params.t) {
             session.taskId = params.t
-
-            def u = User.findByUsername(new String(params.h.decodeBase64()))
-            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.authoritiesHashSet()))
-
-            redirect controller: "word"
-            return
-        } else {
-            session.user = springSecurityService.currentUser
         }
+        session.user = springSecurityService.currentUser
 
         def list = Word.findAllByOwnerId(session.user.id)
 
@@ -272,6 +265,21 @@ class WordController {
         pw2.write("[[\""+list[list.size()-1].getWord()+"\"]]\n\t       ]")
         pw2.write("\n}")
         pw2.close();
+
+
+        def ids = []
+        def folder = servletContext.getRealPath("/data/${session.user.id}/${session.taskId}")
+
+        ids << MongoHelper.putFile(folder + '/palavras.txt')
+        ids << MongoHelper.putFile(folder + '/gabaritos.txt')
+
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
+
+        render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
+                "?files=${ids[0]}&files=${ids[1]}"
 
     }
 

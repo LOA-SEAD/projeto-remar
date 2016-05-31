@@ -1,0 +1,34 @@
+{
+  "name": "Ortotetris",
+  "uri": "ortotetris",
+  "version": 1,
+  "tasks": [
+    {
+      "name": "Banco de Palavras",
+      "uri": "word",
+      "description": "Criar/editar/selecionar um banco de palavras para o jogo.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "palavras.txt",
+          "type": "text",
+          "path": ""
+        },
+        {
+          "name": "gabaritos.txt",
+          "type": "text",
+          "path": ""
+        }
+      ]
+    }
+
+  ],
+  "outputs": [
+    "web"
+  ],
+  "vars": {
+    "width": 800,
+    "height": 600
+  }
+}

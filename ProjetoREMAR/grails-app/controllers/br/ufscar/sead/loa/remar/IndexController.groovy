@@ -50,6 +50,8 @@ class IndexController {
                 model.uri = "http://localhost:8030${model.uri}"
             } else if (model.uri.indexOf('responda') != -1) {
                 model.uri = "http://localhost:8040${model.uri}"
+            } else if (model.uri.indexOf('ortotetris') != -1) {
+                model.uri = "http://localhost:8050${model.uri}"
             }
         }
 
