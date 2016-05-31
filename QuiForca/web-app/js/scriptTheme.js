@@ -53,7 +53,7 @@ window.onload = function(){
         $.ajax({
             type:'POST',
             data: data,
-            url: "delete/" + id,
+            url: "/forca/theme/delete/" + id,
             success:function(data){
                 console.log(data);
                 $(tr).hide();
