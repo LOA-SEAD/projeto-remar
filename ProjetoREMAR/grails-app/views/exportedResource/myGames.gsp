@@ -119,7 +119,7 @@
                                 <div class="modal-content">
                                     <ul class="collection with-header">
                                         <li class="collection-header"><h4>Grupos disponíveis</h4></li>
-                                        <g:form method="post" controller="groupExportedResources" action="addExportedResources">
+                                        <g:form method="post" controller="groupExportedResources" action="addGroupExportedResources">
                                             <g:each var="group" in="${groups}">
                                                 <li class="collection-item">
                                                     <div>
@@ -128,8 +128,8 @@
                                                             Dono: ${group.owner.firstName + " " + group.owner.lastName}<br>
                                                         </p>
                                                     </div>
-                                                    <input name="group${group.id}" id="group-${group.id}" value="${group.id}" type="checkbox">
-                                                    <label style="position:relative; bottom: 2em;" for="group-${group.id}" class="secondary-content"></label>
+                                                    <input name="groupsid" id="groups-${group.id}" value="${group.id}" type="checkbox">
+                                                    <label style="position:relative; bottom: 2em;" for="groups-${group.id}" class="secondary-content"></label>
                                                 </li>
                                             </g:each>
                                             <input type="hidden" name="exportedresource" value="${instance.id}">
