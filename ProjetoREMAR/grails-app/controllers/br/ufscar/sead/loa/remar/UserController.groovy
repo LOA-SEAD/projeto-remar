@@ -256,11 +256,9 @@ class UserController {
 
     def autocomplete() {
         if (params.query != "") {
-            println params
-            //TODO check if user is already in that group and if it is the owner
-            def allUsers = User.findAllByFirstNameRlikeOrLastNameRlike(params.query,params.query)
+            def allUsers = []
             def group = Group.findById(params.group)
-            def ownersList = group.owners.toList()
+            allUsers = User.findAllByFirstNameRlikeOrLastNameRlike(params.query, params.query)
 
             def list = allUsers.collect {[
                     label: "${it.firstName} ${it.lastName}",
