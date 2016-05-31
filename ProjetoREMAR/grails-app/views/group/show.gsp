@@ -54,54 +54,96 @@
         </p>
     </div>
 </div>
+
+
 <div class="row">
-    <div class="col l3 offset-l10 s4 offset-s6">
-        <h5>Membros</h5>
-    </div>
+        <div class="col l12">
+                <h5 class="right-align">Membros</h5>
+                <g:each var="groupUser" in="${group.userGroups.toList()}" status="i">
+                    <div id="user-card${groupUser.id}" style="overflow: visible !important; position: relative; left:7em;" class="card white col l3 offset-l8 s6">
+                        <div class="card-image">
+                            <div class="col l4 s4 left-align">
+                                <img src="/data/users/${groupUser.user.username}/profile-picture" class="circle responsive-img">
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div>
+                                <p class="left-align truncate" style="top: 0.4em; position: relative;">${groupUser.user.firstName + " " + groupUser.user.lastName}</p>
+                            </div>
+                            <div class="col l1 s1 offset-l6 offset-s10">
+                                <a class="dropdown-button"  id="drop" href="#" data-activates="dropdown-user-${groupUser.id}" style="color: black"><span class="material-icons">more_vert</span></a>
+                            </div>
+                            <ul id="dropdown-user-${groupUser.id}" class="dropdown-content">
+                                <input id="user-group-id" type="hidden" value="${groupUser.id}" name="usergroupid">
+
+                                <li><a onclick="deleteGroupUser();">Excluir</a></li>
+
+                                <g:if test="${!group.admins.toList().contains(groupUser.user)}">
+                                                %{--<li><a onclick="document.getElementById('user-admin').submit();  return false;">Tornar admin</a></li>--}%
+                                    <li><a id="make-admin" onclick="manageAdmin(this.id);" >Tornar admin</a></li>
+                                </g:if>
+                                <g:else>
+                                    <li><a id="remove-admin" onclick="manageAdmin(this.id);">Remover admin</a></li>
+                                </g:else>
+                            </ul>
+                        </div>
+                    </div>
+                </g:each>
+            <g:each var="groupExportedResources" in="${group.groupExportedResources}">
+                <div class="card white col l3 pull-l4 hoverable">
+                    <div class="card-image">
+                        <img alt="${groupExportedResources.exportedResource.name}" src="/published/${groupExportedResources.exportedResource.processId}/banner.png">
+                    </div>
+                    <div class="card-content">
+                        dasd
+                    </div>
+                </div>
+            </g:each>
+
+        </div>
+
 </div>
-<div class="row">
-        <g:each var="groupUser" in="${groupUsers.user}" status="i">
-            <div style="overflow: visible !important; position: relative; left:9em;" class="card white col l3 offset-l8 s6">
-                <div class="card-image">
-                    <div class="col l4 s4 left-align">
-                        <img src="/data/users/${groupUser.username}/profile-picture" class="circle responsive-img">
-                    </div>
-                </div>
-                <div class="card-content">
-                    <div>
-                        <p class="left-align" style="top: 0.4em; position: relative;">${groupUser.firstName + " " + groupUser.lastName}</p>
-                    </div>
-                    <div class="col l1 s1 offset-l6 offset-s10">
-                        <a class="dropdown-button"  id="drop" href="#" data-activates="dropdown-user-${groupUser.id}" style="color: black"><span class="material-icons">more_vert</span></a>
-                    </div>
-                    <ul id="dropdown-user-${groupUser.id}" class="dropdown-content">
-                        <li><a href="/group/delete/${groupUser.id}">Excluir</a></li>
-                        %{--TODO excluir tb da lista de admins, se for--}%
-                            <g:if test="${!group.admins.toList().contains(groupUser)}">
-                                <li><a href="/group/makeAdmin/${groupUser.id}">Tornar admin</a></li>
-                            </g:if>
-                            <g:else>
-                                <li><a href="/group/removeAdmin/${groupUser.id}">Remover admin</a></li>
-                            </g:else>
-                    </ul>
-                </div>
-            </div>
-        </g:each>
-    </div>
+
 
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 <script>
-    $('.dropdown-button').dropdown({
-                inDuration: 300,
-                outDuration: 225,
-                constrain_width: false, // Does not change width of dropdown to that of the activator
-                gutter: 0, // Spacing from edge
-                belowOrigin: true, // Displays dropdown below the button
-                alignment: 'left' // Displays dropdown with edge aligned to the left of button
+    function deleteGroupUser(){
+        $.ajax({
+            type:'POST',
+            url:"/user-group/delete",
+            data: {
+                userGroupId: $("#user-group-id").val()
+            },
+            success: function(data) {
+                console.log(data);
+                console.log("success");
+                window.location.reload();
             }
-    );
+        })
+    }
+
+    function manageAdmin(option){
+        $.ajax({
+            type:'POST',
+            url:"/user-group/manageAdmin",
+            data: {
+                userGroupId: $("#user-group-id").val(),
+                option: option
+            },
+            success: function(data) {
+                console.log(data);
+                console.log("success");
+                window.location.reload();
+            }
+        })
+    }
+
+
+</script>
+
+<script>
 
     $("#search-user").autocomplete({
         source: function(request,response){
