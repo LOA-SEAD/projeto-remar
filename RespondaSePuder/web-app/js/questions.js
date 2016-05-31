@@ -52,7 +52,7 @@ function submit(){
             $.ajax({
                 type: "POST",
                 traditional: true,
-                url: "exportQuestions",
+                url: "/respondasepuder/question/exportQuestions",
                 data: { list_id_level1: list_id_level1, list_id_level2: list_id_level2, list_id_level3: list_id_level3, randomQuestion: randomQuestion },
                 success: function(returndata) {
                     window.top.location.href = returndata;
