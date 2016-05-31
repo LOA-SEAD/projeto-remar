@@ -24,7 +24,7 @@ class ExportedResourceController {
         exportedResourceInstance.type = 'public'
         exportedResourceInstance.addToPlatforms(Platform.findByName("Moodle"))
 
-        exportedResourceInstance.save flush:true
+        exportedResourceInstance.save flush: true
         redirect controller: "ExportedResource", action: "accountConfig", id: exportedResourceInstance.id
     }
 
@@ -34,6 +34,7 @@ class ExportedResourceController {
     }
 
     /* to test the moodle list */
+
     def loadMoodleList() {
         def moodleList = Moodle.where {
             active == true
@@ -44,25 +45,25 @@ class ExportedResourceController {
     def accountConfig(ExportedResource exportedResource) {
         Moodle m = Moodle.findWhere(id: Long.parseLong("1"))
 
-        render(view:"accountConfig", model:['exportedResourceInstance': exportedResource]);
+        render(view: "accountConfig", model: ['exportedResourceInstance': exportedResource]);
     }
 
     def accountSave() {
         def arr = []
 
-        def exportedResourceId = Long.parseLong(params.find({it.key == "exportedResourceId"}).value)
+        def exportedResourceId = Long.parseLong(params.find({ it.key == "exportedResourceId" }).value)
 
         ExportedResource exportedResourceInstance = ExportedResource.findById(exportedResourceId)
 
-        params?.each{
+        params?.each {
             def name = it.key
             if (name.startsWith("moodlename")) {
                 def splitted = name.split("moodlename")
                 def id = Long.parseLong(it.value)
                 def moo = Moodle.findWhere(id: id)
 
-                def accName = params.find({it.key == "account"+splitted[1]}).value
-                def token = params.find({it.key == "token"+splitted[1]}).value
+                def accName = params.find({ it.key == "account" + splitted[1] }).value
+                def token = params.find({ it.key == "token" + splitted[1] }).value
 
                 /* check if the account already exists */
                 if (account == null) {
@@ -70,11 +71,11 @@ class ExportedResourceController {
                     account.accountName = accName
                     account.owner = moo
                     account.token = token
-                    account.save flush:true
+                    account.save flush: true
                 }
 
                 exportedResourceInstance.addToAccounts(account)
-                exportedResourceInstance.save flush:true
+                exportedResourceInstance.save flush: true
             }
         }
 
@@ -219,8 +220,8 @@ class ExportedResourceController {
         }
 
         def i = ExportedResource.findByName(params.name)
-        if(i) {
-            if(i == instance) {
+        if (i) {
+            if (i == instance) {
                 instance.save(flush: true)
                 response.status = 200
             } else {
@@ -233,14 +234,13 @@ class ExportedResourceController {
             response.status = 200
         }
 
-
         //TODO faltou gerar o jogo para as plataformas com o novo nome e a "nova foto"
 
         render ' '
     }
 
     @SuppressWarnings("GroovyAssignabilityCheck")
-    def publicGames(){
+    def publicGames() {
         def user = springSecurityService.getCurrentUser()
         def model = [:]
 
@@ -257,9 +257,9 @@ class ExportedResourceController {
         model.hasNextPage = params.offset + threshold < model.instanceCount
         model.hasPreviousPage = params.offset > 0
 
-        model.categories = Category.list(sort:"name")
+        model.categories = Category.list(sort: "name")
 
-        if(user == null)
+        if (user == null)
             render view: "games", model: model
         else
             render view: "publicGames", model: model
@@ -267,21 +267,20 @@ class ExportedResourceController {
 
     }
 
-    def myGames(){
+    def myGames() {
         def model = [:]
 
         def user = User.get(session.user.id)
 
-        if(user.username.equals("admin")){
+        if (user.username.equals("admin")) {
             model.myExportedResourcesList = ExportedResource.list()
 
-        }
-        else{
+        } else {
             model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', user)
 
         }
 
-        model.categories = Category.list(sort:"name")
+        model.categories = Category.list(sort: "name")
 
         render view: "myGames", model: model
     }
@@ -320,7 +319,7 @@ class ExportedResourceController {
     }
 
     def _table() {
-        if(params.resourceId) {
+        if (params.resourceId) {
             def data = MongoHelper.instance.getData("escola_magica", params.resourceId as Integer)
             if (data.first() != null) {
                 def userCount = 0
@@ -330,7 +329,7 @@ class ExportedResourceController {
                 data.collect {
                     def currentUser = it.user
 
-                    if(users[currentUser] == null) {
+                    if (users[currentUser] == null) {
                         def userModel = [:]
                         def user = User.get(currentUser)
 
@@ -343,21 +342,18 @@ class ExportedResourceController {
                         users[currentUser] = userModel
                     }
 
-                    if(it.resposta == it.respostacerta) {
+                    if (it.resposta == it.respostacerta) {
                         users[currentUser]["hits"]++
-                    }
-                    else {
+                    } else {
                         users[currentUser]['errors']++
                     }
                 }
 
                 render view: "_table", model: [users: users]
-            }
-            else {
+            } else {
                 render "no information found in our records."
             }
-        }
-        else {
+        } else {
             render "no information found in our records."
         }
     }
@@ -372,8 +368,7 @@ class ExportedResourceController {
             }
 
             render view: "_data", model: [userId: params.userId, dataCollection: data]
-        }
-        else {
+        } else {
             render "no information found in our records."
         }
     }
@@ -402,7 +397,7 @@ class ExportedResourceController {
     }
 
     @SuppressWarnings("GroovyAssignabilityCheck")
-    def searchGame(){
+    def searchGame() {
         def model = [:]
 
         def threshold = 12
@@ -415,26 +410,26 @@ class ExportedResourceController {
         model.threshold = threshold
 
         log.debug("type: " + params.typeSearch)
-        log.debug("text: " +params.text)
+        log.debug("text: " + params.text)
 
         model.publicExportedResourcesList = null
 
-        if(params.typeSearch.equals("name")){ //busca pelo nome
-            model.publicExportedResourcesList = ExportedResource.findAllByTypeAndNameIlike('public', "%${params.text}%",params)
+        if (params.typeSearch.equals("name")) { //busca pelo nome
+            model.publicExportedResourcesList = ExportedResource.findAllByTypeAndNameIlike('public', "%${params.text}%", params)
             maxInstances = ExportedResource.findAllByTypeAndNameIlike('public', "%${params.text}%").size()
 
-        }else{
-            if(params.typeSearch.equals("category")){                 //busca pela categoria
+        } else {
+            if (params.typeSearch.equals("category")) {                 //busca pela categoria
 
-                if(params.text.equals("-1")){// exibe os jogos de todas as categorias
+                if (params.text.equals("-1")) {// exibe os jogos de todas as categorias
                     model.publicExportedResourcesList = ExportedResource.findAllByType('public', params)
                     maxInstances = ExportedResource.findAllByType('public').size()
 
-                }else{
+                } else {
                     Category c = Category.findById(params.text)
                     Resource r = Resource.findByCategory(c)
-                    model.publicExportedResourcesList = ExportedResource.findAllByTypeAndResource('public',r, params)
-                    maxInstances = ExportedResource.findAllByTypeAndResource('public',r).size()
+                    model.publicExportedResourcesList = ExportedResource.findAllByTypeAndResource('public', r, params)
+                    maxInstances = ExportedResource.findAllByTypeAndResource('public', r).size()
                 }
             }
         }
