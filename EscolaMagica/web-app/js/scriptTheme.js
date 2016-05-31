@@ -35,7 +35,7 @@ window.onload = function(){
         }
         else{
             var id = document.forms["formName"].elements["radio"].value
-            window.top.location.href = "choose/" + id;
+            window.top.location.href = "/escolamagica/theme/choose/" + id;
         }
     });
 

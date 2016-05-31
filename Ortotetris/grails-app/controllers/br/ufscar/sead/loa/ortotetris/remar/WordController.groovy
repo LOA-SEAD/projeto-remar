@@ -1,17 +1,36 @@
-package br.ufscar.sead.loa.remar
+package br.ufscar.sead.loa.ortotetris.remar
 
+import br.ufscar.sead.loa.remar.User
+import br.ufscar.sead.load.remar.api.MongoHelper
+import grails.plugin.springsecurity.SpringSecurityService
+import grails.util.Environment
 import grails.plugin.springsecurity.annotation.Secured
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.web.multipart.MultipartFile
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
-import grails.converters.JSON
-import groovy.json.JsonBuilder
-@Secured(["ROLE_USER","ROLE_ADMIN","ROLE_FACEBOOK"])
 
-@Transactional(readOnly = true)
+@Secured(["isAuthenticated()"])
 class WordController {
+    def springSecurityService
+
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+
+    def index() {
+
+        if (params.t) {
+            session.taskId = params.t
+        }
+        session.user = springSecurityService.currentUser
+
+        def list = Word.findAllByOwnerId(session.user.id)
+
+
+        respond list, model:[wordInstanceCount: Word.count()]
+    }
 
     /* Funções que manipulam word e answer */
     def initialize_word(Word wordInstance){
@@ -33,12 +52,12 @@ class WordController {
             wordInstance.setWord(aux)
             wordInstance.setInitial_position(wordInstance.getInitial_position() - 1)
             wordInstance.save flush:true
-            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
 
         }
         else {
             render template: 'message', model: [WordMessage: "Não foi possível realizar a operação"]
-            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
 
     }//move word para a esquerda
@@ -52,11 +71,11 @@ class WordController {
             wordInstance.setWord(aux)
             wordInstance.setInitial_position(wordInstance.getInitial_position() + 1)
             wordInstance.save flush:true
-            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
         else {
             render template: 'message', model: [WordMessage: "Não foi possível realizar a operação"]
-            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
     }//move word para a direita
 
@@ -82,7 +101,7 @@ class WordController {
                     }
                     else{
                         render template: 'message', model: [WordMessage: "Escolha um caracter válido"]
-                        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+                        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
                         return ;
                     }
                 }
@@ -91,16 +110,16 @@ class WordController {
                 wordInstance.setWord(aux)
                 wordInstance.save flush: true
                 render template: 'message', model: [WordMessage: "Caracter oculto com sucesso"]
-                render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName: "Word"]
+                render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName: "Word"]
             }
             else {
                 render template: 'message', model: [WordMessage: "Escolha um caracter válido"]
-                render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+                render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
             }
         }
         else {
             render template: 'message', model: [WordMessage: "Escolha uma posição válida"]
-            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
 
 
@@ -131,11 +150,11 @@ class WordController {
             wordInstance.setWord(aux)
             wordInstance.save flush:true
             render template: 'message', model: [WordMessage: "Operação realizada com sucesso"]
-            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
         else {
             render template: 'message', model: [WordMessage: "Escolha uma posição válida"]
-            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
 
 
@@ -150,16 +169,16 @@ class WordController {
             initialize_word(wordInstance)
             wordInstance.save flush: true
             render template: 'message', model: [WordMessage: "Palavra atualizada com sucesso"]
-            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName: "Word"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName: "Word"]
             }
             else{
                 render template: 'message', model: [WordMessage: "A palavra possui um número de caracteres inválidos"]
-                render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+                render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
             }
         }
         else {
             render template: 'message', model: [WordMessage: "A palavra já está no banco"]
-            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
 
     }
@@ -169,7 +188,7 @@ class WordController {
         Word wordInstance = Word.findById(params.id)
         wordInstance.delete flush: true
         render template: 'message', model: [WordMessage: "Palavra deletada com sucesso"]
-        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll()]
+        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id)]
 
     }
 
@@ -247,13 +266,25 @@ class WordController {
         pw2.write("\n}")
         pw2.close();
 
+
+        def ids = []
+        def folder = servletContext.getRealPath("/data/${session.user.id}/${session.taskId}")
+
+        ids << MongoHelper.putFile(folder + '/palavras.txt')
+        ids << MongoHelper.putFile(folder + '/gabaritos.txt')
+
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
+
+        render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
+                "?files=${ids[0]}&files=${ids[1]}"
+
     }
 
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 255, 1000)
-        respond Word.list(params), model:[wordInstanceCount: Word.count()]
-    }
+
 
     def show(Word wordInstance) {
 
@@ -273,16 +304,17 @@ class WordController {
 
         if (wordInstance.hasErrors()) {
             render template: 'message', model: [WordMessage: "A palavra possui erros"]
-            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+            render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
 
             return
         }
 
         initialize_word(wordInstance) //inicializa a word conforme a answer passada como parâmetro
+        wordInstance.ownerId = session.user.id
 
         wordInstance.save flush:true
         render template: 'message', model: [WordMessage: "Palavra criada com sucesso"]
-        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.getAll(), entityName:"Word"]
+        render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
 
 //        request.withFormat {
 //            form multipartForm {

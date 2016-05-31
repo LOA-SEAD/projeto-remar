@@ -7,6 +7,8 @@ import br.ufscar.sead.loa.propeller.domain.TaskInstance
 class ProcessController {
     def start() {
         def process
+        def ant = new AntBuilder()
+
         params.uri = params.id
         def logMsg = "pi-${session.user.username}"
         log.debug "${logMsg} STARTED; uri: ${params.uri}"
@@ -19,6 +21,13 @@ class ProcessController {
             return response.status = 404
         } else {
             process = process as ProcessInstance
+
+            //salva uma imagem para o processo
+            def path = new File("${servletContext.getRealPath("/data/processes/${process.id}")}/")
+            path.mkdirs()
+
+            ant.copy(file: servletContext.getRealPath("/images/${params.uri}-banner.png"),
+                    tofile: "${path}/banner.png", overwrite: true)
         }
 
         def resource = Resource.findByUri(params.uri)
@@ -51,7 +60,7 @@ class ProcessController {
 
         process.putVariable('inactive', "1", true) // TEMPORARY
 
-        redirect uri: '/process/list' // TEMPORARY
+        redirect uri: '/exported-resource/myGames'
     }
 
     // Can be called with resource id or name
@@ -121,7 +130,35 @@ class ProcessController {
             return response.status = 404
         }
 
-        render view: "overview", model: [process: process]
+        render view: "overview", model: [process: process, tasks: process.completedTasks + process.pendingTasks]
+    }
+
+
+    def update() {
+
+        def process = Propeller.instance.getProcessInstanceById(params.id as String, session.user.id as long)
+
+        def path = new File("${servletContext.getRealPath("/data/processes/${process.id}")}/")
+
+        //se a imagem foi atualizada
+        if (params.img1 != null && params.img1 != "") {
+            def img1 = new File(servletContext.getRealPath("${params.img1}"))
+            img1.renameTo(new File(path, "banner.png"))
+        }
+
+        response.status = 200
+
+        def i = ExportedResource.findByName(params.name)
+        if(i) {
+            response.status = 409 // conflited error
+        }else {
+            process.name = params.name
+
+            process.putVariable("updated", "true", true)
+            process.putVariable("showTasks", "true", true)
+
+            redirect controller: "process", action: "overview"
+        }
     }
 
     def list() {
@@ -166,11 +203,8 @@ class ProcessController {
         def paths = MongoHelper.instance.getFilePaths(params.files)
 
         if (task.complete(paths)) {
-            if (task.process.status == ProcessInstance.STATUS_ALL_TASKS_COMPLETED) {
-                finish(task.process)
-            } else {
-                redirect uri: "/process/overview/${task.process.id}?toast=1"
-            }
+
+            redirect uri: "/process/overview/${task.process.id}?toast=1"
 
         } else {
             render "500 – ${params.taskId}"
@@ -178,7 +212,13 @@ class ProcessController {
         }
     }
 
-    private void finish(ProcessInstance process) {
+    def finish() {
+        def exportsTo = [:]
+        log.debug("ID DO PROCESSO --->"+params.id)
+        def process = Propeller.instance.getProcessInstanceById(params.id, session.user.id as long)
+        log.debug("NOME DO PROCESSO --->"+process.name)
+        log.debug(process.getVariable("resourceId"))
+
         def resource = Resource.get(process.getVariable('resourceId'))
         def now = new Date()
         def exportedResourceInstance = new ExportedResource()
@@ -189,11 +229,12 @@ class ProcessController {
         exportedResourceInstance.resource = resource
         exportedResourceInstance.exportedAt = now
         exportedResourceInstance.type = 'public' // TODO
-        exportedResourceInstance.name = resource.name
+        exportedResourceInstance.name = process.name // o jogo recebe o nome do processo
         exportedResourceInstance.width = resource.width
         exportedResourceInstance.height = resource.height
         exportedResourceInstance.processId = process.id
         exportedResourceInstance.license = resource.license
+
         exportedResourceInstance.save flush: true
 
         process.putVariable('exportedResourceId', exportedResourceInstance.id as String, true)
@@ -207,8 +248,9 @@ class ProcessController {
             fileset(dir: servletContext.getRealPath("/data/resources/sources/${resource.uri}/base"))
         }
 
-        ant.copy(file: "${servletContext.getRealPath("/images")}/" +
-                "${exportedResourceInstance.resource.uri}-banner.png",
+        def pathImgPrev = servletContext.getRealPath("/data/processes/${process.id}")
+
+        ant.copy(file: pathImgPrev + "/banner.png",
                 tofile: "${instanceFolder}/banner.png", overwrite: true)
 
         process.completedTasks.outputs.each { outputs ->
@@ -222,6 +264,10 @@ class ProcessController {
             }
         }
 
-        redirect uri: "/exported-resource/publish/${exportedResourceInstance.id}"
+        exportsTo.desktop = exportedResourceInstance.resource.desktop
+        exportsTo.android = exportedResourceInstance.resource.android
+        exportsTo.moodle = exportedResourceInstance.resource.moodle
+
+        redirect uri: "/exported-resource/publish/${exportedResourceInstance.id}?toast=1"
     }
 }

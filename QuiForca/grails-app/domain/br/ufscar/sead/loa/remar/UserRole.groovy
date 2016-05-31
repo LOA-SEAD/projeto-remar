@@ -15,7 +15,7 @@ class UserRole implements Serializable {
 		}
 
 		other.user?.id == user?.id &&
-		other.role?.id == role?.id
+				other.role?.id == role?.id
 	}
 
 	int hashCode() {
@@ -28,14 +28,14 @@ class UserRole implements Serializable {
 	static UserRole get(long userId, long roleId) {
 		UserRole.where {
 			user == User.load(userId) &&
-			role == Role.load(roleId)
+					role == Role.load(roleId)
 		}.get()
 	}
 
 	static boolean exists(long userId, long roleId) {
 		UserRole.where {
 			user == User.load(userId) &&
-			role == Role.load(roleId)
+					role == Role.load(roleId)
 		}.count() > 0
 	}
 
@@ -50,10 +50,12 @@ class UserRole implements Serializable {
 
 		int rowCount = UserRole.where {
 			user == User.load(u.id) &&
-			role == Role.load(r.id)
+					role == Role.load(r.id)
 		}.deleteAll()
 
-		if (flush) { UserRole.withSession { it.flush() } }
+		if (flush) {
+			UserRole.withSession { it.flush() }
+		}
 
 		rowCount > 0
 	}
@@ -65,17 +67,14 @@ class UserRole implements Serializable {
 			user == User.load(u.id)
 		}.deleteAll()
 
-		if (flush) { UserRole.withSession { it.flush() } }
+		if (flush) {
+			UserRole.withSession { it.flush() }
+		}
 	}
 
-	static void removeAll(Role r, boolean flush = false) {
-		if (r == null) return
-
-		UserRole.where {
-			role == Role.load(r.id)
-		}.deleteAll()
-
-		if (flush) { UserRole.withSession { it.flush() } }
+	static Role[] getUserRoles(User u) {
+		def users = UserRole.findAllByUser(u).role
+		return users
 	}
 
 	static constraints = {
@@ -94,6 +93,7 @@ class UserRole implements Serializable {
 	static mapping = {
 		id composite: ['role', 'user']
 		version false
-        datasource 'remar'
+		cache false
+		datasource 'remar'
 	}
 }

@@ -7,22 +7,27 @@ $(function () {
     var loader = $("#preloader-wrapper");
     var name = $("#name");
     var imgFile = $("#img-1-text");
-    var plataforms = $("#plataforms");
+    var publish = $("#publish");
+    var tasks = $("#tasks");
+    var info = $("#info");
 
     $(name).prev().hide();
     $(imgFile).prev().hide();
     nameErr.hide();
     loader.hide();
-    plataforms.hide();
+    publish.addClass("disabled");
 
     $(name).on("focus", function () {
         $(this).prev().hide();
     });
 
     $("#send").on("click", function () {
+
+        goToByScroll("start");
+
         if ($(name).val()) {
             var file = $("#img-1").prop('files')[0];
-            if (file != null) {
+            if (file != null) { //se a imagem de preview foi mudada
                 var fr = new FileReader();
                 fr.readAsDataURL(file);
                 fr.onload = function (event) {
@@ -40,19 +45,17 @@ $(function () {
 
                         $.ajax({
                             type: 'POST',
-                            url: location.origin + '/exported-resource/update/' + $(name).data("resource-id"),
+                            url: location.origin + '/process/update/' + $(name).data("process-id"),
                             data: formData,
                             processData: false,
                             contentType: false,
                             success: function (data) {
                                 //console.log("resource name updated");
                                 nameErr.hide(500);
-                                $(name).removeClass().addClass("valid");
-                                $(name).prev().show(500);
-                                Materialize.toast('Informações salvas com sucesso!', 3000, 'rounded');
+                                window.location = location.pathname.split("?")[0];
+                                window.location.pathname.reload();
 
-                                $(imgFile).removeClass().addClass("valid");
-                                $(imgFile).prev().show(500);
+
                             },
                             error: function (req, status, err) {
                                 //alert("Esse nome já existe!");
@@ -71,15 +74,18 @@ $(function () {
 
                 $.ajax({
                     type: 'POST',
-                    url: location.origin + '/exported-resource/update/' + $(name).data("resource-id"),
+                    url: location.origin + '/process/update/' + $(name).data("process-id"),
                     data: formData,
                     processData: false,
                     contentType: false,
                     success: function (data) {
                         nameErr.hide(500);
+                        window.location = location.pathname.split("?")[0];
+                        window.location.pathname.reload();
+
                         $(name).removeClass().addClass("valid");
                         $(name).prev().show(500);
-                        Materialize.toast('Informações salvas com sucesso!', 3000, 'rounded');
+                        goToByScroll("tasks-header");
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
                         nameErr.show(500);
@@ -91,52 +97,6 @@ $(function () {
             }
         }
 
-
-    });
-
-    var platforms = $('.platform');
-    var web = $('#web');
-    var moodle = $('#moodle');
-
-    $(web).css('cursor', 'wait');
-    $(platforms).css('cursor', 'wait');
-    $(moodle).css('cursor', 'wait');
-
-    $.ajax({
-        type: 'GET',
-        url: location.origin + '/exported-resource/export/' + $(name).data("resource-id"),
-        success: function (data) {
-
-            $('.plataforms-progress').hide();
-            plataforms.show(500);
-            $(web).css('cursor', '');
-            $(platforms).css('cursor', '');
-            $(moodle).css('cursor', '');
-
-            $(web).parent().attr('href', data['web']);
-
-            $(web).hover(function () {
-                $(this).children().eq(1).text('Acessar ').append('<i class="fa fa-link"></i>').addClass('plataforms-link');
-            }, function () {
-                $(this).children().eq(1).text('Web').removeClass('plataforms-link');
-            });
-
-            $(moodle).children().eq(1).text('Disponível no Moodle');
-
-            $(platforms).each(function () {
-                $(this).parent().attr('href', data[$(this).data('name')]);
-
-                $(this).hover(function () {
-                   $(this).children().eq(1).text('Baixar ').append('<i class="fa fa-arrow-circle-down" aria-hidden="true"></i>').addClass('plataforms-link');
-                }, function () {
-                   $(this).children().eq(1).text($(this).data('text')).removeClass('plataforms-link');
-                });
-            });
-
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            console.log(':(');
-        }
     });
 
 
@@ -213,7 +173,37 @@ $(function () {
         cropPicture(this, "#img1Preview");
     });
 
+    // This is a functions that scrolls to #{blah}link
+    function goToByScroll(id){
+        // Remove "link" from the ID
+        id = id.replace("link", "");
+        // Scroll
+        $('html,body').animate({
+                scrollTop: $("#"+id).offset().top},
+            'slow');
+    }
 
+    if(tasks.data("all-tasks-completed") != null &&
+        tasks.data("all-tasks-completed").toString() == "true"){
+
+        console.log("removendo disabled button");
+        publish.removeClass("disabled");
+        publish.attr("href","/process/finish?id="+publish.data("process-id"))
+    }
+
+    if(info.data("basic-info") != null &&
+        info.data("basic-info").toString() == "true") {
+
+        $(name).removeClass().addClass("valid");
+
+        //se a imagem de preview foi alterada
+        if(imgFile.text() != "" && imgFile.text() != null){
+            $(imgFile).removeClass().addClass("valid");
+        }
+
+        Materialize.toast('Informações básicas salvas com sucesso!', 3000, 'rounded')
+    }
 });
+
 
 

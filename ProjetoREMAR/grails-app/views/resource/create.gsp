@@ -41,19 +41,19 @@
 												</div>
 												<div class="row">
 													<div class="col s12 m12 l12">
-															<p> <i class="material-icons" onclick="openThisModal('modalShareAsLike')">info</i> Permitir que adaptações do seu trabalho sejam compartilhadas?</p>
+															<p> <i  class="material-icons tooltipped cursor-pointer" data-tooltip="Mais informações" onclick="openThisModal('modalShareAsLike')">info</i> Permitir que adaptações do seu trabalho sejam compartilhadas?</p>
 															<input onclick="checkAsLike()" onchange="bloqCheck()" readonly="readonly"  class="with-gap" name="shareLicense" type="radio" id="shareYes"/>
 															<label for="shareYes">Sim</label>
 															<input onclick="checkAsLike()" onchange="bloqCheck()" readonly="readonly" class="with-gap" name="shareLicense" type="radio" id="shareNo"/>
 															<label for="shareNo">Não</label>
 															<br>
 														<input readonly class="with-gap" checked="checked" name="shareLicense" type="radio" id="shareYesAsLike"/>
-														<label for="shareYesAsLike">Sim, desde que outros compartilhem igual </label>
+														<label for="shareYesAsLike">Sim, desde que outros compartilhem igual  <a style="color: red;">*</a> </label>
 													</div>
 												</div>
 												<div class="row">
 													<div class="col s12 m12 l12">
-														<p><i class="material-icons" onclick="openThisModal('modalComercial')">info</i> Permitir usos comerciais do seu trabalho?</p>
+														<p><i class="material-icons tooltipped cursor-pointer" data-tooltip="Mais informações" onclick="openThisModal('modalComercial')">info</i> Permitir usos comerciais do seu trabalho?</p>
 														<input onchange="showLicense()"  class="with-gap" name="comercialLicense" type="radio" id="comercialYes"/>
 														<label for="comercialYes">Sim</label>
 														<input onchange="showLicense()" class="with-gap" name="comercialLicense" type="radio" id="comercialNo"/>
@@ -70,7 +70,7 @@
 
 												<br>
 												<div class="send-war right">
-													<a href="#!" data-position="bottom" data-delay="5" data-tooltip="Enviar" class="waves-effect waves-light btn-flat send">
+													<a href="#!" data-position="bottom" data-delay="5" data-tooltip="Enviar" class="waves-effect waves-light btn-flat send" onclick="confirmLicense()">
 														Enviar <i class="material-icons send-icon" style="color: green;">done</i>
 													</a>
 												</div>
@@ -146,6 +146,23 @@
 		</div>
 	</div>
 
+	<!-- Modal Structure -->
+	<div id="modalConfirmLicense" class="modal">
+		<div class="modal-content">
+			<h4>Você tem certeza que deseja escolher esta licença?</h4>
+			<div class="row">
+				<div class="col s12 m12 l12">
+					<p align="justify">Após escolher a licença do seu modelo, você não poderá alterá-la posteriormente.</p>
+				</div>
+			</div>
+
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class=" btn btn-large modal-close my-orange" onclick="submit()">Sim, tenho certeza</a>
+			<a href="#!" class=" btn btn-large modal-close disabled" onclick="return false;">Não</a>
+		</div>
+	</div>
+
     <div id="modal-picture" class="modal">
         <div class="modal-content center">
             <img id="crop-preview" class="responsive-img">
@@ -154,6 +171,7 @@
             <a href="#!" class="modal-action modal-close waves-effect btn-flat">Enviar</a>
         </div>
     </div>
+
 		<script type="text/javascript" src="${resource(dir: 'js', file: "imgPreview.js")}"></script>
 		<script type="text/javascript" src="${resource(dir: 'js', file: 'game-index.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir: 'js', file: 'validate.js')}"></script>

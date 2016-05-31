@@ -41,6 +41,7 @@
 									${resourceInstance.owner.firstName} ${resourceInstance.owner.lastName} <br>
 									<span class="hide-on-small-only"> ${resourceInstance.owner.email} </span>
 
+
 								<div class="hide-on-med-and-up" style="color: rgba(0, 0, 0, 0.6);">
 										<i class="fa fa-globe tooltipped" data-position="bottom" data-delay="30" data-tooltip="Web"></i>
 										<g:if test="${resourceInstance.android}">
@@ -86,6 +87,11 @@
 						<input type="hidden" id="licenseValue" value="${resourceInstance.license}">
 
 						<div class="row">
+							<div class="col s12 m12 l12" id="documentation">
+								<p>Documentação do modelo: <a target="_blank" href="${resourceInstance.documentation}">${resourceInstance.documentation}</a> </p>
+							</div>
+						</div>
+						<div class="row">
 							<div class="col s12 m12 l12 license" id="licenseInfo">
 
 							</div>
@@ -93,16 +99,10 @@
 						<br class="clear" />
 						<div class="slider">
 							<ul class="slides">
-								<li>
-									<!-- tamanho ideal para imagem 500x250 -->
-									<img src="/data/resources/assets/${resourceInstance.uri}/description-1">
-								</li>
-								<li>
-									<img src="/data/resources/assets/${resourceInstance.uri}/description-2">
-								</li>
-								<li>
-									<img src="/data/resources/assets/${resourceInstance.uri}/description-3">
-								</li>
+								%{--Imagens devem ter 720x400 pixels --}%
+							    <li><img src="/data/resources/assets/${resourceInstance.uri}/description-1" width="auto" height="400px"></li>
+								<li><img src="/data/resources/assets/${resourceInstance.uri}/description-2" width="auto" height="400px;"></li>
+								<li><img src="/data/resources/assets/${resourceInstance.uri}/description-3" width="auto" height="400px;"></li>
 							</ul>
 						</div>
 

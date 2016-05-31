@@ -24,7 +24,7 @@ class ExportedResourceController {
         exportedResourceInstance.type = 'public'
         exportedResourceInstance.addToPlatforms(Platform.findByName("Moodle"))
 
-        exportedResourceInstance.save flush:true
+        exportedResourceInstance.save flush: true
         redirect controller: "ExportedResource", action: "accountConfig", id: exportedResourceInstance.id
     }
 
@@ -44,25 +44,25 @@ class ExportedResourceController {
     def accountConfig(ExportedResource exportedResource) {
         Moodle m = Moodle.findWhere(id: Long.parseLong("1"))
 
-        render(view:"accountConfig", model:['exportedResourceInstance': exportedResource]);
+        render(view: "accountConfig", model: ['exportedResourceInstance': exportedResource]);
     }
 
     def accountSave() {
         def arr = []
 
-        def exportedResourceId = Long.parseLong(params.find({it.key == "exportedResourceId"}).value)
+        def exportedResourceId = Long.parseLong(params.find({ it.key == "exportedResourceId" }).value)
 
         ExportedResource exportedResourceInstance = ExportedResource.findById(exportedResourceId)
 
-        params?.each{
+        params?.each {
             def name = it.key
             if (name.startsWith("moodlename")) {
                 def splitted = name.split("moodlename")
                 def id = Long.parseLong(it.value)
                 def moo = Moodle.findWhere(id: id)
 
-                def accName = params.find({it.key == "account"+splitted[1]}).value
-                def token = params.find({it.key == "token"+splitted[1]}).value
+                def accName = params.find({ it.key == "account" + splitted[1] }).value
+                def token = params.find({ it.key == "token" + splitted[1] }).value
 
                 /* check if the account already exists */
                 if (account == null) {
@@ -70,11 +70,11 @@ class ExportedResourceController {
                     account.accountName = accName
                     account.owner = moo
                     account.token = token
-                    account.save flush:true
+                    account.save flush: true
                 }
 
                 exportedResourceInstance.addToAccounts(account)
-                exportedResourceInstance.save flush:true
+                exportedResourceInstance.save flush: true
             }
         }
 
@@ -88,10 +88,14 @@ class ExportedResourceController {
         exportsTo.moodle = instance.resource.moodle
 
         def baseUrl = "/published/${instance.processId}"
+        def process = Propeller.instance.getProcessInstanceById(instance.processId as String, session.user.id as long)
+
+        instance.name = process.name
 
         RequestMap.findOrSaveWhere(url: "${baseUrl}/**", configAttribute: 'permitAll')
 
-        render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl]
+        render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl,
+                                            exportedResourceInstance: instance,createdAt: process.createdAt]
     }
 
     def export(ExportedResource instance) {
@@ -219,8 +223,8 @@ class ExportedResourceController {
         }
 
         def i = ExportedResource.findByName(params.name)
-        if(i) {
-            if(i == instance) {
+        if (i) {
+            if (i == instance) {
                 instance.save(flush: true)
                 response.status = 200
             } else {
@@ -232,15 +236,14 @@ class ExportedResourceController {
             instance.save(flush: true)
             response.status = 200
         }
-
-
+        
         //TODO faltou gerar o jogo para as plataformas com o novo nome e a "nova foto"
 
         render ' '
     }
 
     @SuppressWarnings("GroovyAssignabilityCheck")
-    def publicGames(){
+    def publicGames() {
         def user = springSecurityService.getCurrentUser()
         def model = [:]
 
@@ -251,7 +254,52 @@ class ExportedResourceController {
 
         model.max = params.max
         model.threshold = threshold
-        model.publicExportedResourcesList = ExportedResource.findAllByType('public', params).reverse()
+        params.order = "desc"
+        params.sort = "id"
+        model.publicExportedResourcesList = ExportedResource.findAllByType('public', params)
+        model.pageCount = Math.ceil(ExportedResource.count / params.max) as int
+        model.currentPage = (params.offset + threshold) / threshold
+        model.hasNextPage = params.offset + threshold < model.instanceCount
+        model.hasPreviousPage = params.offset > 0
+
+        model.categories = Category.list(sort: "name")
+
+        render view: "publicGames", model: model
+    }
+
+    def myGames() {
+        def model = [:]
+        def myExportedResourcesList
+        User user = session.user
+
+        model.groups = Group.withCriteria {
+            eq("owner",user)
+//     TODO
+//                   and{
+//                    admins {
+//                        eq("id",user.id)
+//                    }
+//                }
+        }
+        
+        if (session.user.username.equals("admin")) {
+            model.myExportedResourcesList = ExportedResource.list()
+
+        } else {
+            model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', session.user)
+
+        }
+
+        def threshold = 12
+        params.order = "desc"
+        params.sort = "id"
+
+        params.max = params.max ? Integer.valueOf(params.max) : threshold
+        params.offset = params.offset ? Integer.valueOf(params.offset) : 0
+
+        model.max = params.max
+        model.threshold = threshold
+
         model.pageCount = Math.ceil(ExportedResource.count / params.max) as int
         model.currentPage = (params.offset + threshold) / threshold
         model.hasNextPage = params.offset + threshold < model.instanceCount
@@ -259,45 +307,37 @@ class ExportedResourceController {
 
         model.categories = Category.list(sort:"name")
 
-        if(user == null)
-            render view: "games", model: model
-        else
-            render view: "publicGames", model: model
+        //Retorna o processo
+        params.tMax = params.tMax ? Integer.valueOf(params.tMax) : threshold
+        params.tOffset = params.tOffset ? Integer.valueOf(params.tOffset) : 0
 
+        def processes = Propeller.instance.getProcessInstancesByOwner(session.user.id as long)
+        def temporary = []
 
-    }
-
-    def myGames(){
-        def model = [:]
-        def myExportedResourcesList
-        User user = session.user
-
-//        def groups = Group.findAllByOwnerOrAdminsInList(user,[user].asList())
-
-            def groups = Group.withCriteria {
-                eq("owner",user)
-//     TODO
-//                   and{
-//                    admins {
-//                        eq("id",user.id)
-//                    }
-//                }
+        for(def i = processes.size()-1;i>=0;i--){
+            //se o processo do usuário corrente estiver ativo e existir tarefas pendentes
+            if (processes.get(i).getVariable('inactive') != "1"
+                    && (processes.get(i).getVariable("exportedResourceId") == null)) {
+                temporary.add(processes.get(i))
             }
-
-        println groups
-
-        if(user.username.equals("admin")){
-            myExportedResourcesList = ExportedResource.list()
-
-        }
-        else{
-            myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', user)
-
         }
 
-        def categories = Category.list(sort:"name")
+        println("processes: "+processes.size())
+        println("temporary: "+temporary.size())
+        println(temporary)
 
-        render (view: "myGames", model: [model:model, groups: groups, categories: categories, myExportedResourcesList: myExportedResourcesList])
+        model.tMax = params.tMax
+        model.tThreshold = threshold
+
+        model.processes =  temporary
+        model.tPageCount = Math.ceil(temporary.size() / params.tMax) as int
+        model.tCurrentPage = (params.tOffset + threshold) / threshold
+        model.tHasNextPage = params.tOffset + threshold < model.instanceCount
+        model.tHasPreviousPage = params.tOoffset > 0
+
+        println model.tPageCount
+
+        render view: "myGames", model: model
     }
 
     def saveGameInfo() {
@@ -334,7 +374,7 @@ class ExportedResourceController {
     }
 
     def _table() {
-        if(params.resourceId) {
+        if (params.resourceId) {
             def data = MongoHelper.instance.getData("escola_magica", params.resourceId as Integer)
             if (data.first() != null) {
                 def userCount = 0
@@ -344,7 +384,7 @@ class ExportedResourceController {
                 data.collect {
                     def currentUser = it.user
 
-                    if(users[currentUser] == null) {
+                    if (users[currentUser] == null) {
                         def userModel = [:]
                         def user = User.get(currentUser)
 
@@ -357,21 +397,18 @@ class ExportedResourceController {
                         users[currentUser] = userModel
                     }
 
-                    if(it.resposta == it.respostacerta) {
+                    if (it.resposta == it.respostacerta) {
                         users[currentUser]["hits"]++
-                    }
-                    else {
+                    } else {
                         users[currentUser]['errors']++
                     }
                 }
 
                 render view: "_table", model: [users: users]
-            }
-            else {
+            } else {
                 render "no information found in our records."
             }
-        }
-        else {
+        } else {
             render "no information found in our records."
         }
     }
@@ -386,8 +423,7 @@ class ExportedResourceController {
             }
 
             render view: "_data", model: [userId: params.userId, dataCollection: data]
-        }
-        else {
+        } else {
             render "no information found in our records."
         }
     }
@@ -416,12 +452,14 @@ class ExportedResourceController {
     }
 
     @SuppressWarnings("GroovyAssignabilityCheck")
-    def searchGame(){
+    def searchGame() {
         def model = [:]
 
         def threshold = 12
         def maxInstances = 0
 
+        params.order = "desc"
+        params.sort = "id"
         params.max = params.max ? Integer.valueOf(params.max) : threshold
         params.offset = params.offset ? Integer.valueOf(params.offset) : 0
 
@@ -429,24 +467,24 @@ class ExportedResourceController {
         model.threshold = threshold
 
         log.debug("type: " + params.typeSearch)
-        log.debug("text: " +params.text)
+        log.debug("text: " + params.text)
 
         model.publicExportedResourcesList = null
 
-        if(params.typeSearch.equals("name")){ //busca pelo nome
-            model.publicExportedResourcesList = ExportedResource.findAllByTypeAndNameIlike('public', "%${params.text}%",params)
+        if (params.typeSearch.equals("name")) {
+            model.publicExportedResourcesList = ExportedResource.findAllByTypeAndNameIlike('public', "%${params.text}%", params)
             maxInstances = ExportedResource.findAllByTypeAndNameIlike('public', "%${params.text}%").size()
 
-        }else{
-            if(params.typeSearch.equals("category")){                 //busca pela categoria
+        } else {
+            if (params.typeSearch.equals("category")) { //busca pela categoria
 
-                if(params.text.equals("-1")){// exibe os jogos de todas as categorias
+                if (params.text.equals("-1")) {// exibe os jogos de todas as categorias
                     model.publicExportedResourcesList = ExportedResource.findAllByType('public', params)
                     maxInstances = ExportedResource.findAllByType('public').size()
 
-                }else{
+                } else {
                     Category c = Category.findById(params.text)
-                    Resource r = Resource.findByCategory(c)
+                    Resource r = Resource.findAllByCategory(c)
                     model.publicExportedResourcesList = ExportedResource.findAllByTypeAndResource('public',r, params)
                     maxInstances = ExportedResource.findAllByTypeAndResource('public',r).size()
                 }
@@ -461,5 +499,108 @@ class ExportedResourceController {
         log.debug(model.publicExportedResourcesList.size())
 
         render view: "_cardGames", model: model
+    }
+
+    @SuppressWarnings("GroovyAssignabilityCheck")
+    def searchProcesses(){
+        def model = [:]
+
+        def threshold = 12
+        def maxInstances = 0
+
+        params.order = "desc"
+        params.sort = "id"
+
+        params.tMax = params.tMax ? Integer.valueOf(params.tMax) : threshold
+        params.tOffset = params.tOffset ? Integer.valueOf(params.tOffset) : 0
+
+        log.debug("type: " + params.typeSearch)
+        log.debug("text: " +params.text)
+
+        model.processes = null
+
+        def processes = Propeller.instance.getProcessInstancesByOwner(session.user.id as long)
+        def temporary = []
+
+        for(def i = processes.size()-1;i>=0;i--){
+            //se o processo do usuário corrente estiver ativo e existir tarefas pendentes
+            if (processes.get(i).getVariable('inactive') != "1"
+                    && (processes.get(i).getVariable("exportedResourceId") == null)
+                    && processes.get(i).name.toLowerCase().contains(params.text.toString().toLowerCase())) {
+
+                temporary.add(processes.get(i))
+                maxInstances++
+            }
+        }
+
+        model.tMax = params.tMax
+        model.tThreshold = threshold
+
+        model.processes =  temporary
+        model.tPageCount = Math.ceil(temporary.size() / params.tMax) as int
+        model.tCurrentPage = (params.tOffset + threshold) / threshold
+        model.tHasNextPage = params.tOffset + threshold < model.instanceCount
+        model.tHasPreviousPage = params.tOoffset > 0
+
+        log.debug("amount process: "+model.processes.size())
+
+        render view: "/process/_process", model: model
+    }
+
+    def searchMyGame(){
+        def model = [:]
+
+        def threshold = 12
+        def maxInstances = 0
+
+        params.order = "desc"
+        params.sort = "id"
+        params.max = params.max ? Integer.valueOf(params.max) : threshold
+        params.offset = params.offset ? Integer.valueOf(params.offset) : 0
+
+        model.max = params.max
+        model.threshold = threshold
+
+        log.debug("type: " + params.typeSearch)
+        log.debug("text: " +params.text)
+
+        model.myExportedResourcesList = null
+
+        if(params.typeSearch.equals("name")){//busca pelo nome
+            model.myExportedResourcesList =
+                    ExportedResource.findAllByTypeAndNameIlikeAndOwner('public', "%${params.text}%",User.get(session.user.id),params)
+
+            maxInstances = ExportedResource.findAllByTypeAndNameIlikeAndOwner('public', "%${params.text}%",User.get(session.user.id)).size()
+
+        }else{
+            if(params.typeSearch.equals("category")){//busca pela categoria
+
+                if(params.text.equals("-1")){// exibe os jogos de todas as categorias
+                    model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public',User.get(session.user.id), params)
+                    maxInstances = ExportedResource.findAllByTypeAndOwner('public',User.get(session.user.id)).size()
+
+                }else{
+                    Category c = Category.findById(params.text)
+                    model.myExportedResourcesList = [:]
+                    for (r in Resource.findAllByCategory(c)){ //get all resources belong
+                        model.myExportedResourcesList.addAll(
+                                ExportedResource.findAllByTypeAndResourceAndOwner('public',
+                                                                                    r,
+                                                                                    User.get(session.user.id),
+                                                                                    params))
+                    }
+                    maxInstances = ExportedResource.findAllByTypeAndResourceAndOwner('public',r,User.get(session.user.id)).size()
+                }
+            }
+        }
+
+        model.pageCount = Math.ceil(maxInstances / params.max) as int
+        model.currentPage = (params.offset + threshold) / threshold
+        model.hasNextPage = params.offset + threshold < model.instanceCount
+        model.hasPreviousPage = params.offset > 0
+
+        log.debug(model.myExportedResourcesList.size())
+
+        render view: "_myCardGame", model: model
     }
 }

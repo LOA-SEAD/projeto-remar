@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Secured(["IS_AUTHENTICATED_FULLY"])
+@Secured(["isAuthenticated()"])
 class QuestionController {
     def springSecurityService
 
@@ -19,17 +19,11 @@ class QuestionController {
 
     @Secured(['permitAll'])
     def index() {
-        if (params.t && params.h) {
+        if (params.t) {
             session.taskId = params.t
-
-            def u = User.findByUsername(new String(params.h.decodeBase64()))
-            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.authoritiesHashSet()))
-
-            redirect controller: "question"
-            return
-        } else {
-            session.user = springSecurityService.currentUser
         }
+        session.user = springSecurityService.currentUser
+
 
         def list = Question.findAllByOwnerId(session.user.id)
 

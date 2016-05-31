@@ -399,7 +399,7 @@
 
 
 
-<script type="text/javascript" src="../js/questions.js"></script>
+<script type="text/javascript" src="/respondasepuder/js/questions.js"></script>
 </body>
 </html>
 

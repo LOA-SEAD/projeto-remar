@@ -1,4 +1,6 @@
-package br.ufscar.sead.loa.remar
+package br.ufscar.sead.loa.ortotetris.remar
+
+import br.ufscar.sead.loa.remar.User
 
 class Word {
 
@@ -11,5 +13,6 @@ class Word {
     String answer
     String word = "none"
     int initial_position = 0
+    long ownerId
 }
 

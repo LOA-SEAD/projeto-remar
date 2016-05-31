@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'mahjong.css')}"/>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="/mahjong/js/materialize.min.js"></script>
+    <g:javascript src="iframeResizer.contentWindow.min.js"/>
     <g:javascript src="mahjong.js"/>
 </head>
 

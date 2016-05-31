@@ -305,11 +305,78 @@ class ResourceController {
 
     def customizableGames() {
         def model = [:]
+        def threshold = 12
 
-        model.gameInstanceList = Resource.findAllByStatus('approved') // change to #findAllByActive?
-        model.categories = Category.list(sort: "name")
+        params.order = "desc"
+        params.sort = "id"
+
+        params.max = params.max ? Integer.valueOf(params.max) : threshold
+        params.offset = params.offset ? Integer.valueOf(params.offset) : 0
+
+        model.max = params.max
+        model.threshold = threshold
+
+        model.gameInstanceList = Resource.findAllByStatus('approved',params) // change to #findAllByActive?
+
+        model.pageCount = Math.ceil(model.gameInstanceList.size() / params.max) as int
+        model.currentPage = (params.offset + threshold) / threshold
+        model.hasNextPage = params.offset + threshold < model.instanceCount
+        model.hasPreviousPage = params.offset > 0
+
+        model.categories = Category.list(sort:"name")
+
+        log.debug(model.gameInstanceList.size())
 
         render view: "customizableGames", model: model
+    }
+
+    @SuppressWarnings("GroovyAssignabilityCheck")
+    def searchResource(){
+        def model = [:]
+
+        def threshold = 12
+        def maxInstances = 0
+
+        params.order = "desc"
+        params.sort = "id"
+        params.max = params.max ? Integer.valueOf(params.max) : threshold
+        params.offset = params.offset ? Integer.valueOf(params.offset) : 0
+
+        model.max = params.max
+        model.threshold = threshold
+
+        log.debug("type: " + params.typeSearch)
+        log.debug("text: " +params.text)
+
+        model.gameInstanceList = null
+
+        if(params.typeSearch.equals("name")){ //busca pelo nome
+            model.gameInstanceList = Resource.findAllByStatusAndNameIlike('approved', "%${params.text}%",params)
+            maxInstances = Resource.findAllByStatusAndNameIlike('approved', "%${params.text}%").size()
+
+        }else{
+            if(params.typeSearch.equals("category")){//busca pela categoria
+
+                if(params.text.equals("-1")){// exibe os jogos de todas as categorias
+                    model.gameInstanceList = Resource.findAllByStatus('approved',params) // change to #findAllByActive?
+                    maxInstances = Resource.findAllByStatus('approved').size()
+
+                }else{
+                    Category c = Category.findById(params.text)
+                    model.gameInstanceList = Resource.findAllByCategory(c,params)
+                    maxInstances = Resource.findAllByCategory(c).size()
+                }
+            }
+        }
+
+        model.pageCount = Math.ceil(maxInstances / params.max) as int
+        model.currentPage = (params.offset + threshold) / threshold
+        model.hasNextPage = params.offset + threshold < model.instanceCount
+        model.hasPreviousPage = params.offset > 0
+
+        log.debug(model.gameInstanceList.size())
+
+        render view: "_custCards", model: model
     }
 
 
@@ -406,4 +473,7 @@ class ResourceController {
         instance.save flush: true
         log.debug "War submited by " + session.user.username + " rejected. Reason: " + reason
     }
+
+
+
 }

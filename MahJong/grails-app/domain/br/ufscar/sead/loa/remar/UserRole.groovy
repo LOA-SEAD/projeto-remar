@@ -53,7 +53,9 @@ class UserRole implements Serializable {
                     role == Role.load(r.id)
         }.deleteAll()
 
-        if (flush) { UserRole.withSession { it.flush() } }
+        if (flush) {
+            UserRole.withSession { it.flush() }
+        }
 
         rowCount > 0
     }
@@ -65,17 +67,14 @@ class UserRole implements Serializable {
             user == User.load(u.id)
         }.deleteAll()
 
-        if (flush) { UserRole.withSession { it.flush() } }
+        if (flush) {
+            UserRole.withSession { it.flush() }
+        }
     }
 
-    static void removeAll(Role r, boolean flush = false) {
-        if (r == null) return
-
-        UserRole.where {
-            role == Role.load(r.id)
-        }.deleteAll()
-
-        if (flush) { UserRole.withSession { it.flush() } }
+    static Role[] getUserRoles(User u) {
+        def users = UserRole.findAllByUser(u).role
+        return users
     }
 
     static constraints = {
@@ -94,6 +93,7 @@ class UserRole implements Serializable {
     static mapping = {
         id composite: ['role', 'user']
         version false
+        cache false
         datasource 'remar'
     }
 }

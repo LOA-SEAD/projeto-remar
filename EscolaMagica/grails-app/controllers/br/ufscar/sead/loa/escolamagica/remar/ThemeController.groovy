@@ -1,58 +1,25 @@
 package br.ufscar.sead.loa.escolamagica.remar
 
-import br.ufscar.sead.loa.remar.User
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.transaction.Transactional
 import grails.util.Environment
-import groovy.json.JsonBuilder
-
-//import org.imgscalr.Scalr
 import org.springframework.security.access.annotation.Secured
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.context.SecurityContextHolder
-
-//import javax.imageio.ImageIO
-//import java.awt.image.BufferedImage
-
 import static org.springframework.http.HttpStatus.*
 
-@Secured(['IS_AUTHENTICATED_FULLY'])
+@Secured(['isAuthenticated()'])
 class ThemeController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def springSecurityService
 
-    @Secured(['permitAll'])
     def index(Integer max) {
-        def user = springSecurityService.getCurrentUser()
-
-        if (params.t && params.h) {
+        if (params.t) {
             session.taskId = params.t
-
-            def u = User.findByUsername(new String(params.h.decodeBase64()))
-            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.authoritiesHashSet()))
-
-            redirect controller: "theme"
-            return
-        } else {
-            session.user = springSecurityService.currentUser
         }
+        session.user = springSecurityService.currentUser
 
-//        if (!Theme.findAllByOwnerId(session.user.id)) {
-//            def id = new Theme(ownerId: session.user.id).save(flush: true).id
-//            def samples = servletContext.getRealPath("/samples/tema-escola-magica-remar")
-//            def dir = servletContext.getRealPath("/data/${session.user.id}/themes/${id}")
-//            def ant = new AntBuilder()
-//            ant.sequential() {
-//                mkdir(dir: dir)
-//                copy(todir: dir) {
-//                    fileset(dir: samples)
-//                }
-//            }
-//        }
-
-        def list = Theme.findAllByOwnerId(user.getId())
+        def list = Theme.findAllByOwnerId(session.user.id)
         def listPublic = Theme.findAll() - list
 
         render view: "index", model: [themeInstanceListMy: list,  themeInstanceListPublic: listPublic]
@@ -199,9 +166,7 @@ class ThemeController {
     @Transactional
     def ImagesManager() { // TODO: fix var names + optimize
         def userId = springSecurityService.getCurrentUser().getId()
-        println session.taskId
         def theme = new Theme(ownerId: userId, taskId: session.taskId).save flush: true
-        println theme
 
         def dataPath = servletContext.getRealPath("/data")
         def userPath = new File(dataPath, "/" + userId + "/themes/" + theme.getId())

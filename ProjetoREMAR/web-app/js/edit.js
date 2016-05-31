@@ -20,10 +20,14 @@ $(function(){
         contentType: false,
         success: function (data) {
            // console.log(data);
+            console.log(data);
             $("#name").val(data.name)
                 .next().addClass("active");
 
             $("#description").val(data.description)
+                .next().addClass("active");
+
+            $("#documentation").val(data.documentation)
                 .next().addClass("active");
 
             $("#img1Preview").attr("src", "/data/resources/assets/"+data.uri+"/description-1");
@@ -56,6 +60,8 @@ $(function(){
 
         formData.append('name', document.getElementById("name").value);
         formData.append('description', document.getElementById("description").value);
+        formData.append('documentation', document.getElementById("documentation").value);
+
         formData.append('img1',$("#img1Preview").attr("src"));
         formData.append('img2',$("#img2Preview").attr("src"));
         formData.append('img3',$("#img3Preview").attr("src"));
@@ -92,6 +98,9 @@ $(function(){
 
                     $(description).addClass("valid");
                     $(description).prev().show(500);
+
+                    $(documentation).prev().show(500);
+
                 },
                 error: function () {
 

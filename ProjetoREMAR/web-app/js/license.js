@@ -1,11 +1,6 @@
 /**
  * Created by marcus on 11/05/16.
  */
-$(function() {
-    $("#comercialYes").attr("checked", false);
-    $("#comercialNo").attr("checked", true);
-});
-
 function showLicense(){
     if( $("#comercialYes").is(":checked")){
         $("#licenseImage").empty();

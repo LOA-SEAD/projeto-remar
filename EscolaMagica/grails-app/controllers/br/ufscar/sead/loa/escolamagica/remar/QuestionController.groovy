@@ -1,41 +1,27 @@
 package br.ufscar.sead.loa.escolamagica.remar
 
-import br.ufscar.sead.loa.remar.User
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.plugin.springsecurity.annotation.Secured
 import grails.util.Environment
-import grails.web.JSONBuilder
-import groovy.json.JsonBuilder
 import groovy.xml.MarkupBuilder
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.multipart.MultipartFile
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Secured(["IS_AUTHENTICATED_FULLY"])
+@Secured(["isAuthenticated()"])
 class QuestionController {
 
     def springSecurityService
 
     static allowedMethods = [save: "POST", update: "POST", delete: "GET" ]
 
-    @Secured(['permitAll'])
     def index(Integer max) {
-        if (params.t && params.h) {
+        if (params.t) {
             session.taskId = params.t
-
-            def u = User.findByUsername(new String(params.h.decodeBase64()))
-            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.authoritiesHashSet()))
-
-            redirect controller: "question"
-            return
-        } else {
-            session.user = springSecurityService.currentUser
         }
+        session.user = springSecurityService.currentUser
 
         def list = Question.findAllByOwnerId(session.user.id)
-
         if(!list) {
             new Question(title: 'Questão 1 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
                     correctAnswer: 0, level: 1, taskId: session.taskId, ownerId: session.user.id).save flush: true

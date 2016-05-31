@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Jogos Customizávies</title>
+    <title>Modelos</title>
     <meta name="layout" content="materialize-layout">
 </head>
 
@@ -17,7 +17,7 @@
     <div class="row cluster">
         <div class="cluster-header">
             <p class="text-teal text-darken-3 left-align margin-bottom">
-                <i class="small material-icons left">create</i>Modelos customizáveis
+                <i class="small material-icons left">create</i>Modelos
             </p>
             <div class="divider"></div>
         </div>
@@ -39,72 +39,11 @@
             </div>
         </div>
         <div class="row show cards">
-            <article class="row">
-                <g:if test="${gameInstanceList.size() == 0}">
-                    <p>Ainda não existe nenhum modelo disponível para ser customizado!.</p>
-                </g:if>
-                <g:else>
-                    <g:each in="${gameInstanceList}" var="gameInstance">
-                        <div class="card square-cover small hoverable">
-                            <div class="card-image waves-effect waves-block waves-light">
-                                <img alt="${gameInstance.name}" class="cover-image img-responsive image-bg "  src="/images/${gameInstance.uri}-banner.png">
-                                <a class="card-click-target"  href="/resource/show/${gameInstance.id}"></a>
-                            </div>
-                            <div class="card-content">
-                                <div class="details">
-                                    <a class="card-click-target"  href="/resource/show/${gameInstance.id}" aria-hidden="true" tabindex="-1"></a>
-                                    <a class="title card-name" data-category="${gameInstance.category.id}" href="/resource/show/${gameInstance.id}" title="${gameInstance.name}" aria-hidden="true" tabindex="-1">${gameInstance.name}</a>
-                                    <div class="subtitle-container">
-                                        <p class="subtitle">Feito por: ${gameInstance.owner.firstName}</p>
-                                    </div>
-                                    <div class="gray-color subtitle-container">
-                                        <i class="fa fa-globe"></i>
-                                        <g:if test="${gameInstance.android}">
-                                            <i class="fa fa-android"></i>
-                                        </g:if>
-                                        <g:if test="${gameInstance.desktop}">
-                                            <i class="fa fa-windows"></i>
-                                            <i class="fa fa-linux"></i>
-                                            <i class="fa fa-apple"></i>
-                                        </g:if>
-                                        <g:if test="${gameInstance.moodle}">
-                                            <i class="fa fa-graduation-cap"></i>
-                                        </g:if>
-                                    </div>
-                                </div>
-                                <div class="row no-margin margin-top">
-                                    <div class="col s12 no-padding">
-                                        <div class="left">
-                                        <g:if test="${gameInstance.sumUser == 0}">
-                                            <div id="rateYo-main" style="display: inline-block;"
-                                                 data-stars="0"></div>
-                                        </g:if>
-                                        <g:else>
-                                            <div class="rating-card"
-                                                    data-stars="${gameInstance.sumStars / gameInstance.sumUser}"></div>
-                                        </g:else>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </g:each>
-                </g:else>
-            </article>
+            <g:render template="custCards" model="${pageScope.variables}" />
         </div>
-        <footer class="row">
-            <ul class="pagination">
-                <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                <li class="active"><a href="#!">1</a></li>
-                <li class="waves-effect"><a href="#!">2</a></li>
-                <li class="waves-effect"><a href="#!">3</a></li>
-                <li class="waves-effect"><a href="#!">4</a></li>
-                <li class="waves-effect"><a href="#!">5</a></li>
-                <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-            </ul>
-        </footer>
     </div>
+
     <g:javascript src="menu.js"/>
+    <g:javascript src="/utility/utility-customizable-game.js"/>
 </body>
 </html>

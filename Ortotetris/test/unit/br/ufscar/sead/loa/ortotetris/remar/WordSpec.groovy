@@ -1,4 +1,4 @@
-package br.ufscar.sead.loa.remar
+package br.ufscar.sead.loa.ortotetris.remar
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification

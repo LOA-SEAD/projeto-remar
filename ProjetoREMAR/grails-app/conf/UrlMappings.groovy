@@ -38,6 +38,7 @@ class UrlMappings {
         "/process/tasks/delegate/$processId"(controller:"process", action:"delegateTasks")
         "/process/overview/$id"(controller:"process", action:"overview")
         "/process/publishOptions/$processId"(controller:"process", action:"publishOptions")
+        "/process/finish/$processId"(controller:"process", action:"finish")
 
         //begin moodle mappings
         "/moodle/confirm/$hash"(controller: "moodle", action: "confirm")
