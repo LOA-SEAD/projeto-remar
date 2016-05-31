@@ -4,8 +4,7 @@
   Date: 26/11/15
   Time: 10:32
 --%>
-
-<ul id="side-nav">
+<ul class="sidenav" id="side-nav">
 
     <div class="hide-on-large-only">
         <div class="row no-margin-bottom valign-wrapper">
@@ -30,7 +29,7 @@
     </div>
 
     <li class="waves-effect waves-block waves-light">
-        <a href="/" class=""><i class=" medium mdi-action-dashboard"></i>Início</a>
+        <a href="/" class=""><i class="medium mdi-action-dashboard"></i>Início</a>
     </li>
     <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os modelos de jogos que são customizáveis." data-step="1">
         <a href="/resource/customizableGames" class=""><i class="medium material-icons">create</i>Modelos</a>
@@ -38,33 +37,31 @@
     <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os jogos disponíveis para jogar." data-step="2">
         <a href="/exportedResource/publicGames" class=""><i class="medium material-icons">videogame_asset</i>Jogos publicados</a>
     </li>
-    <div class="divider"></div>
 
+    <div class="divider"></div>
 
     <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os jogos que você já customizou." data-step="3">
         <a href="/exportedResource/myGames" class=""><i class="medium material-icons">recent_actors</i>Meus Jogos</a>
     </li>
-    %{--<li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra os seus jogos em processo de customização." data-step="4">--}%
-    %{--<a href="/process/list" class=""><i class="medium material-icons">list</i>Meus processos</a>--}%
-    %{--</li>--}%
-    <li class="waves-effect waves-block waves-light hide-on-med-and-down" data-intro="Aqui você encontra e gerencia as informações do seu perfil." data-step="5">
-        <a href="/my-profile"><i class="medium material-icons">account_circle</i>Meu perfil</a>
-    </li>
-    <li class="waves-effect waves-block waves-light" data-intro="Aqui você se conecta com as diferentes instâncias do Moodle e gerencia suas contas." data-step="6">
-        <a href="/my-profile#moodle" class=""><i class="fa fa-graduation-cap medium"></i>Contas do Moodle</a>
-    </li>
     <sec:ifAllGranted roles="ROLE_DEV">
-        <li class="waves-effect waves-block waves-light" data-intro="No espaço do desenvolvedor você pode submeter um novo jogo para o REMAR." data-step="7">
+        <li class="waves-effect waves-block waves-light" data-intro="No espaço do desenvolvedor você pode submeter um novo jogo para o REMAR." data-step="4">
             <a href="/resource/index" class=""><i class="medium material-icons">code</i>Desenvolvedor</a>
         </li>
     </sec:ifAllGranted>
 
     <div class="divider"></div>
-    %{--<p><i class="medium material-icons">help_outline</i> Ajuda</p>--}%
 
-    <li class="waves-effect waves-block waves-light" data-intro="Para ver este wizard novamente basta clicar aqui." data-step="8">
+
+    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra a documentação dos modelos." data-step="5">
+        <a href="https://remar.readme.io/docs" target="_blank"><i class="medium material-icons">description</i>Documentação</a>
+
+    <li class="waves-effect waves-block waves-light" data-intro="Para ver este wizard novamente basta clicar aqui." data-step="6">
         <a onclick="startWizard()" class=""><i class="medium material-icons">live_help</i>Ajuda na navegação</a>
     </li>
 </ul>
 
 <input id="userFirstAccessLabel" type="hidden" value="${session.user.firstAccess}" > <label for="userFirstAccessLabel"></label>
+
+<script>
+    $(".sidenav li a[href='" + window.location.pathname + "']").parent().addClass('active')
+</script>

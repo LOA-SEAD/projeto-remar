@@ -18,9 +18,9 @@
     <div class="row show">
             <div class="subtitle">
                 <p class="text-teal text-darken-3 left-align margin-bottom">
-                     <blockquote>
-                        <i class="material-icons left">create</i> Confira os modelos disponíveis para customização!
-                     </blockquote>
+                     <h5>
+                        Confira os modelos disponíveis para customização!
+                     </h5>
                 </p>
             </div>
             <div class="row">

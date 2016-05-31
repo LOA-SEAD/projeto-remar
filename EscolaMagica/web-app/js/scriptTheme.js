@@ -21,9 +21,22 @@ window.onload = function(){
     }
 
     $(".save").click(function() {
-        //var id = $(this).parent().parent().attr("data-id");
-        var id = document.forms["formName"].elements["radio"].value
-        window.top.location.href = "choose/" + id;
+        var select = false;
+        var checkboxes = document.getElementsByTagName('input');
+        var i =0;
+        while(select==false && i<checkboxes.length){
+            if ((checkboxes[i].type == 'radio') && (checkboxes[i].checked==true)){
+                select=true;
+            }
+            i++;
+        }
+        if(select==false){
+            alert("Você deve selecionar um tema antes de enviar.");
+        }
+        else{
+            var id = document.forms["formName"].elements["radio"].value
+            window.top.location.href = "/escolamagica/theme/choose/" + id;
+        }
     });
 
 

@@ -1,4 +1,4 @@
-<%@ page import="br.ufscar.sead.loa.remar.Word" %>
+<%@ page import="br.ufscar.sead.loa.ortotetris.remar.Word" %>
 <script type="text/javascript" src="${resource(dir: 'js', file: 'order.js')}"></script>
 <script type="text/javascript" src="${resource(dir: 'js', file: 'principal.js')}"></script>
 <section id="table">

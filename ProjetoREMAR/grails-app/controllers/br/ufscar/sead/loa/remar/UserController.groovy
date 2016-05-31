@@ -136,9 +136,9 @@ class UserController {
 
             //def photo = params.photo as CommonsMultipartFile
 
-            if (params.photo !="/images/avatars/default.png") {
+            if (params.photo != "/images/avatars/default.png") {
                 def img1 = new File(servletContext.getRealPath("${params.photo}"))
-                img1.renameTo(new File(f,"profile-picture"))
+                img1.renameTo(new File(f, "profile-picture"))
 
             } else {
                 new AntBuilder().copy(file: "${root}images/avatars/default.png", tofile: destination)
@@ -167,9 +167,9 @@ class UserController {
     @Transactional
     def update(User user) {
 
-        if( params.password != "" && params.password == params.confirm_password) {
+        if (params.password != "" && params.password == params.confirm_password) {
             user.password = params.confirm_password
-        }else{
+        } else {
             user.password = user.getPersistentValue("password")
         }
 
@@ -179,7 +179,7 @@ class UserController {
 
         if (params.photo != "/images/avatars/default.png") {
             def img1 = new File(servletContext.getRealPath("${params.photo}"))
-            img1.renameTo(new File(f,"profile-picture"))
+            img1.renameTo(new File(f, "profile-picture"))
 
         }
         user.save flush: true
@@ -200,15 +200,15 @@ class UserController {
         UserRole.removeAll(userInstance, true)
 
         List<Token> list = Token.findAllByOwner(userInstance)
-        for(int i=0; i<list.size();i++)
+        for (int i = 0; i < list.size(); i++)
             list.get(i).delete()
 
         List<Resource> myResources = Resource.findAllByOwner(userInstance)
-        for(int i=0; i<myResources.size();i++)
+        for (int i = 0; i < myResources.size(); i++)
             myResources.get(i).delete()
 
         List<ExportedResource> myExportedResources = ExportedResource.findAllByOwner(userInstance)
-        for(int i=0; i< myExportedResources.size();i++)
+        for (int i = 0; i < myExportedResources.size(); i++)
             myExportedResources.get(i).delete()
 
 
@@ -270,7 +270,7 @@ class UserController {
     }
 
     def updateEmailVerifier() {
-        render (User.get(params.userId).email == params.email || (User.findByEmail(params.email) == null))
+        render(User.get(params.userId).email == params.email || (User.findByEmail(params.email) == null))
     }
 
     def cropProfilePicture() {
@@ -293,7 +293,7 @@ class UserController {
     }
 
     @Transactional
-    def setFalseFirstAccess(){
+    def setFalseFirstAccess() {
         String username = session.user.username;
         User userInstance = User.findByUsername(username)
         println(userInstance.firstAccess)
@@ -303,7 +303,7 @@ class UserController {
     }
 
     @Transactional
-    def setTrueFirstAccess(){
+    def setTrueFirstAccess() {
         String username = session.user.username;
         User userInstance = User.findByUsername(username)
         userInstance.firstAccess = true;
@@ -318,30 +318,29 @@ class UserController {
     }
 
     @Transactional
-    def disableAccount(){
+    def disableAccount() {
         User userInstance = springSecurityService.getCurrentUser()
         userInstance.enabled = false
         userInstance.save flush: true
-        redirect view: "/index/index.gsp"
+        redirect uri: "/logout/index"
     }
 
     @Transactional
-    def deleteAccount(){
+    def deleteAccount() {
         User userInstance = springSecurityService.getCurrentUser()
         delete(userInstance)
     }
 
     @Transactional
-    def recoverUserAccount(String email){
+    def recoverUserAccount(String email) {
         User userInstance = User.findByEmail(email)
 
-        if(userInstance!=null){
+        if (userInstance != null) {
             userInstance.enabled = true
             userInstance.save flush: true
             render view: "../user/accountRecovered"
 
-        }
-        else
+        } else
             render "E-mail inválido"
     }
 
@@ -349,10 +348,9 @@ class UserController {
     def getMoodleAccount(int moodleId) {
         def data = MoodleAccount.findByMoodleAndOwner(Moodle.findById(moodleId), User.findById(session.user.id))
 
-        if(data != null) {
+        if (data != null) {
             return data
-        }
-        else {
+        } else {
             return ""
         }
     }

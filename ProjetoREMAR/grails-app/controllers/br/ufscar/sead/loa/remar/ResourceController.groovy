@@ -31,7 +31,7 @@ class ResourceController {
 
 
     def create() {
-        render view: "create", model: [id: params.id, categories: Category.list(sort: "name"), defaultCategory: Category.findByName('Aventura')]
+        render view: "create", model: [id: params.id, categories: Category.list(sort: "name"), defaultCategory: Category.findByName('Clássicos')]
     }
 
     @Transactional
@@ -75,6 +75,7 @@ class ResourceController {
         resourceInstance.owner = springSecurityService.currentUser as User
         resourceInstance.status = "pending"
         resourceInstance.valid = true
+        resourceInstance.license = params.license
 
         // Move .war to /wars and unzip it
         savedWar.mkdirs()
@@ -153,7 +154,7 @@ class ResourceController {
         // rename war to a human readable name – instead of a MD5 name
         savedWar.renameTo(servletContext.getRealPath("/wars/${username}") + "/${resourceInstance.uri}.war")
 
-        resourceInstance.category = Category.findByName("Aventura")
+        resourceInstance.category = Category.findByName("Clássicos")
 
         // set ratings variables
         resourceInstance.sumUser = 0
@@ -198,8 +199,6 @@ class ResourceController {
             def rootPath = servletContext.getRealPath('/')
             def scriptElectron = "${rootPath}/scripts/electron/build.sh"
             def scriptCrosswalk = "${rootPath}/scripts/crosswalk/build.sh"
-
-            "${servletContext.getRealPath("/scripts/db.sh")} ${resourceInstance.uri}".execute().waitFor()
 
             if (resourceInstance.desktop && resourceInstance.comment != "test") {
                 ant.sequential {

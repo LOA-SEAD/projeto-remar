@@ -11,8 +11,8 @@
 
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
-        <link type="text/css" rel="stylesheet" href="../css/materialize.css"  media="screen,projection"/>
-        <link rel="stylesheet" type="text/css" href="../css/style.css" >
+        <link type="text/css" rel="stylesheet" href="/escolamagica/css/materialize.css"  media="screen,projection"/>
+        <link rel="stylesheet" type="text/css" href="/escolamagica/css/style.css" >
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     </head>
     <body>

@@ -28,9 +28,6 @@ class ProcessController {
 
             ant.copy(file: servletContext.getRealPath("/images/${params.uri}-banner.png"),
                     tofile: "${path}/banner.png", overwrite: true)
-//
-//            def img1 = new File(servletContext.getRealPath("/images/${params.uri}-banner.png"))
-//            img1.renameTo(new File(path, "banner.png"))
         }
 
         def resource = Resource.findByUri(params.uri)
@@ -63,7 +60,7 @@ class ProcessController {
 
         process.putVariable('inactive', "1", true) // TEMPORARY
 
-        redirect uri: '/exported-resource/myGames' // TEMPORARY
+        redirect uri: '/exported-resource/myGames'
     }
 
     // Can be called with resource id or name
@@ -133,16 +130,6 @@ class ProcessController {
             return response.status = 404
         }
 
-//        ExportedResource exportedResource = null
-//        def exportsTo = [:]
-//        if (process.status == ProcessInstance.STATUS_ALL_TASKS_COMPLETED) {
-//            exportedResource = ExportedResource.get(process.getVariable('exportedResourceId'))
-//
-//            exportsTo.desktop = exportedResource.resource.desktop
-//            exportsTo.android = exportedResource.resource.android
-//            exportsTo.moodle = exportedResource.resource.moodle
-//        }
-
         render view: "overview", model: [process: process, tasks: process.completedTasks + process.pendingTasks]
     }
 
@@ -160,21 +147,6 @@ class ProcessController {
         }
 
         response.status = 200
-
-//        def lp = Propeller.instance.getProcessInstanceByName(params.name)
-//        if(lp) {
-//            if(lp == process) {
-//                process.save(flush: true)
-//                response.status = 200
-//            } else {
-//                response.status = 409 // conflited error
-//            }
-//        } else {
-//            log.debug(params.name)
-//            process.name = params.name
-//            process.save(flush: true)
-//            response.status = 200
-//        }
 
         def i = ExportedResource.findByName(params.name)
         if(i) {
@@ -261,6 +233,7 @@ class ProcessController {
         exportedResourceInstance.width = resource.width
         exportedResourceInstance.height = resource.height
         exportedResourceInstance.processId = process.id
+        exportedResourceInstance.license = resource.license
 
         exportedResourceInstance.save flush: true
 
@@ -297,5 +270,4 @@ class ProcessController {
 
         redirect uri: "/exported-resource/publish/${exportedResourceInstance.id}?toast=1"
     }
-
 }

@@ -24,11 +24,6 @@
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <div class="direct-chat-messages page-size" >
-                            %{--<div class="row">--}%
-                                %{--<div class="col-lg-12">--}%
-                                    %{--<h1 class="page-header-blue"> Publicar R.E.A.</h1>--}%
-                                %{--</div>--}%
-                            %{--</div>--}%
                             <div class="row">
                                 <form action="/process/publishGame" method="POST">
                                     <fieldset>

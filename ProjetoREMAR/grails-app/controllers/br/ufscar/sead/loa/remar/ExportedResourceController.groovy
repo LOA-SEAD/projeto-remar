@@ -18,29 +18,19 @@ class ExportedResourceController {
     def springSecurityService
 
     def save(ExportedResource exportedResourceInstance) {
-        /*if (exportedResourceInstance.hasErrors()) {
-            log.debug("Someone tried to register a new moodlegame but it doesn't worked:")
-            log.debug(exportedResourceInstance.errors)
-        }
-        else {
-            log.debug exportedResourceInstance as JSON
-            //moodlegame.save flush:true
-            //redirect controller: "MoodleGame", action: "accountPublishConfig", id: moodlegame.id
-        }*/
-
         //need to improve that
         exportedResourceInstance.owner = User.findById(springSecurityService.getCurrentUser().getId())
         exportedResourceInstance.exportedAt = new Date()
         exportedResourceInstance.type = 'public'
         exportedResourceInstance.addToPlatforms(Platform.findByName("Moodle"))
 
-        exportedResourceInstance.save flush:true
+        exportedResourceInstance.save flush: true
         redirect controller: "ExportedResource", action: "accountConfig", id: exportedResourceInstance.id
     }
 
     def delete(ExportedResource instance) {
         instance.delete flush: true
-        redirect uri: "/"
+        myGames()
     }
 
     /* to test the moodle list */
@@ -54,27 +44,25 @@ class ExportedResourceController {
     def accountConfig(ExportedResource exportedResource) {
         Moodle m = Moodle.findWhere(id: Long.parseLong("1"))
 
-        render(view:"accountConfig", model:['exportedResourceInstance': exportedResource]);
+        render(view: "accountConfig", model: ['exportedResourceInstance': exportedResource]);
     }
 
     def accountSave() {
         def arr = []
 
-        def exportedResourceId = Long.parseLong(params.find({it.key == "exportedResourceId"}).value)
+        def exportedResourceId = Long.parseLong(params.find({ it.key == "exportedResourceId" }).value)
 
         ExportedResource exportedResourceInstance = ExportedResource.findById(exportedResourceId)
 
-        params?.each{
+        params?.each {
             def name = it.key
             if (name.startsWith("moodlename")) {
                 def splitted = name.split("moodlename")
                 def id = Long.parseLong(it.value)
                 def moo = Moodle.findWhere(id: id)
 
-                def accName = params.find({it.key == "account"+splitted[1]}).value
-                def token = params.find({it.key == "token"+splitted[1]}).value
-
-                //def account = MoodleAccount.find({accountName == accName && owner.domain == moo.domain})
+                def accName = params.find({ it.key == "account" + splitted[1] }).value
+                def token = params.find({ it.key == "token" + splitted[1] }).value
 
                 /* check if the account already exists */
                 if (account == null) {
@@ -82,11 +70,11 @@ class ExportedResourceController {
                     account.accountName = accName
                     account.owner = moo
                     account.token = token
-                    account.save flush:true
+                    account.save flush: true
                 }
 
                 exportedResourceInstance.addToAccounts(account)
-                exportedResourceInstance.save flush:true
+                exportedResourceInstance.save flush: true
             }
         }
 
@@ -235,8 +223,8 @@ class ExportedResourceController {
         }
 
         def i = ExportedResource.findByName(params.name)
-        if(i) {
-            if(i == instance) {
+        if (i) {
+            if (i == instance) {
                 instance.save(flush: true)
                 response.status = 200
             } else {
@@ -249,14 +237,14 @@ class ExportedResourceController {
             response.status = 200
         }
 
-
         //TODO faltou gerar o jogo para as plataformas com o novo nome e a "nova foto"
 
         render ' '
     }
 
     @SuppressWarnings("GroovyAssignabilityCheck")
-    def publicGames(){
+    def publicGames() {
+        def user = springSecurityService.getCurrentUser()
         def model = [:]
 
         def threshold = 12
@@ -274,21 +262,21 @@ class ExportedResourceController {
         model.hasNextPage = params.offset + threshold < model.instanceCount
         model.hasPreviousPage = params.offset > 0
 
-        model.categories = Category.list(sort:"name")
-
-        println model.pageCount
-
-//        println("lista de exp-resource");
-//        model.publicExportedResourcesList.each{
-//            println("id: ${it.id}");
-//        }
-
+        model.categories = Category.list(sort: "name")
 
         render view: "publicGames", model: model
     }
 
-    def myGames(){
+    def myGames() {
         def model = [:]
+
+        if (session.user.username.equals("admin")) {
+            model.myExportedResourcesList = ExportedResource.list()
+
+        } else {
+            model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', session.user)
+
+        }
 
         def threshold = 12
         params.order = "desc"
@@ -299,9 +287,6 @@ class ExportedResourceController {
 
         model.max = params.max
         model.threshold = threshold
-
-        //Retorna os jogos do usuario corrente exportados exportados
-        model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id),params)
 
         model.pageCount = Math.ceil(ExportedResource.count / params.max) as int
         model.currentPage = (params.offset + threshold) / threshold
@@ -348,7 +333,7 @@ class ExportedResourceController {
 
         /* auto generate required data */
         data.user = session.user.id
-        def exportedResource = ExportedResource.findByMoodleUrl(data.moodle_url)
+        def exportedResource = ExportedResource.findByWebUrl(data.moodle_url)
         data.game = exportedResource.id
         data.timestamp = new Date().toTimestamp()
 
@@ -358,6 +343,77 @@ class ExportedResourceController {
 
         def json = JSON.parse(new File(servletContext.getRealPath("/data/resources/sources/${Resource.findById(exportedResource.resourceId).uri}/bd.json")).text)
         MongoHelper.instance.insertData(json['collection_name'] as String, data)
+    }
+
+    def stats() {
+        def myMoodleGames = []
+
+        ExportedResource.findAllByOwnerAndMoodleUrlIsNotNull(session.user).each { exportedResource ->
+            def model = [:]
+
+            model.name = exportedResource.name
+            model.image = "${exportedResource.processId}/banner.png"
+            model.id = exportedResource.id
+
+            myMoodleGames.add(model)
+        }
+
+        render view: "stats", model: [moodleList: myMoodleGames]
+    }
+
+    def _table() {
+        if (params.resourceId) {
+            def data = MongoHelper.instance.getData("escola_magica", params.resourceId as Integer)
+            if (data.first() != null) {
+                def userCount = 0
+                def users = [:]
+                def data3 = [:]
+
+                data.collect {
+                    def currentUser = it.user
+
+                    if (users[currentUser] == null) {
+                        def userModel = [:]
+                        def user = User.get(currentUser)
+
+                        userModel['name'] = user.firstName + " " + user.lastName
+                        userModel['hits'] = 0
+                        userModel['errors'] = 0
+                        userModel['id'] = currentUser
+                        userModel['resourceId'] = params.resourceId
+
+                        users[currentUser] = userModel
+                    }
+
+                    if (it.resposta == it.respostacerta) {
+                        users[currentUser]["hits"]++
+                    } else {
+                        users[currentUser]['errors']++
+                    }
+                }
+
+                render view: "_table", model: [users: users]
+            } else {
+                render "no information found in our records."
+            }
+        } else {
+            render "no information found in our records."
+        }
+    }
+
+    def _data() {
+        def data = MongoHelper.instance.getData("escola_magica", params.exportedResourceId as Integer, params.userId as Integer)
+
+        if (data.first() != null) {
+
+            data.collect {
+                println it
+            }
+
+            render view: "_data", model: [userId: params.userId, dataCollection: data]
+        } else {
+            render "no information found in our records."
+        }
     }
 
     @Transactional
@@ -384,7 +440,7 @@ class ExportedResourceController {
     }
 
     @SuppressWarnings("GroovyAssignabilityCheck")
-    def searchGame(){
+    def searchGame() {
         def model = [:]
 
         def threshold = 12
@@ -399,22 +455,22 @@ class ExportedResourceController {
         model.threshold = threshold
 
         log.debug("type: " + params.typeSearch)
-        log.debug("text: " +params.text)
+        log.debug("text: " + params.text)
 
         model.publicExportedResourcesList = null
 
-        if(params.typeSearch.equals("name")){ //busca pelo nome
-            model.publicExportedResourcesList = ExportedResource.findAllByTypeAndNameIlike('public', "%${params.text}%",params)
+        if (params.typeSearch.equals("name")) {
+            model.publicExportedResourcesList = ExportedResource.findAllByTypeAndNameIlike('public', "%${params.text}%", params)
             maxInstances = ExportedResource.findAllByTypeAndNameIlike('public', "%${params.text}%").size()
 
-        }else{
-            if(params.typeSearch.equals("category")){                 //busca pela categoria
+        } else {
+            if (params.typeSearch.equals("category")) { //busca pela categoria
 
-                if(params.text.equals("-1")){// exibe os jogos de todas as categorias
+                if (params.text.equals("-1")) {// exibe os jogos de todas as categorias
                     model.publicExportedResourcesList = ExportedResource.findAllByType('public', params)
                     maxInstances = ExportedResource.findAllByType('public').size()
 
-                }else{
+                } else {
                     Category c = Category.findById(params.text)
                     Resource r = Resource.findAllByCategory(c)
                     model.publicExportedResourcesList = ExportedResource.findAllByTypeAndResource('public',r, params)

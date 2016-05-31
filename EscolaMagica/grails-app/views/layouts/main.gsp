@@ -8,7 +8,7 @@
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href=../css/materialize.css  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href=/escolamagica/css/materialize.css  media="screen,projection"/>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">

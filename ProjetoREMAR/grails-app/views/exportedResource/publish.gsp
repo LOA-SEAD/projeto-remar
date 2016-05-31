@@ -5,7 +5,7 @@ Date: 10/06/15
 Time: 09:55
 --%>
 
-<%@ page import="br.ufscar.sead.loa.propeller.Propeller" contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="materialize-layout">
@@ -206,6 +206,7 @@ Time: 09:55
 
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
 <g:javascript src="exported-plataforms.js"/>
+<g:javascript src="licenseShow.js"/>
 <g:javascript src="imgPreview.js"/>
 <g:javascript src="jquery/jquery.Jcrop.js"/>
 </body>

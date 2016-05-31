@@ -7,6 +7,7 @@ class ExportedResource {
     static constraints = {
     	moodleUrl nullable: true
         exported nullable: true
+        license nullable: false
     }
 
 
@@ -20,4 +21,5 @@ class ExportedResource {
 
     String type //should be "public", "private" or "group"
     String processId
+    String license
 }

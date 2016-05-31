@@ -1,5 +1,10 @@
 /* layout for the index page (static) */
 
+    .sidenav li.active{
+        background-color: lightgrey;
+
+    }
+
     ul.side-nav.leftside-navigation {
         top: 64px;
     }
@@ -311,6 +316,10 @@ footer.page-footer{
         margin-bottom: 0px;
     }
 
+    .no-margin-top {
+        margin-top: 0px !important;
+    }
+
     .my-orange, button:focus {
         background-color: #FF5722 !important;
     }
@@ -513,13 +522,13 @@ footer.page-footer{
             }
         }
 
-        @media only screen and (min-width: 992px) {
-            .my-position {
-                right: calc((100% - 992px)/2);
-                bottom: 45px;
-            }
-        }
-        /* end medium displays only */
+@media only screen and (min-width: 992px) {
+    .my-position {
+        right: calc((100% - 992px)/2);
+        bottom: 45px;
+    }
+}
+/* end medium displays only */
 
 /* end header for all pages */
 
@@ -931,7 +940,164 @@ table .pending td{
     /*height: inherit;*/
     /*line-height: inherit; }*/
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+This is the visible area of you carousel.
+Set a width here to define how much items are visible.
+The width can be either fixed in px or flexible in %.
+Position must be relative!*/
+.carousel-wrapper {
+    float: left;
+    border: 10px solid white;
+    height: 220px;
+    margin-top: 10px;
+    margin-left: 8px;
+    margin-right: 10px;
+    border: 0;
+
+    webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    -webkit-box-shadow: 0 0 2px #999;
+    -moz-box-shadow: 0 0 2px #999;
+    box-shadow: 0 0 2px #999;
+}
+
+/* medium displays only */
+@media only screen and (max-width: 992px) and (min-width: 601px) {
+
+    .carousel-wrapper {
+        width: 86%;
+    }
+}
+
+/* large display only */
+@media only screen and (min-width: 992px) {
+    .carousel-wrapper {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .carousel-wrapper {
+        width: 78%;
+    }
+}
+
+.swiper-container {
+    width: 100%;
+    height: 210px;
+}
+
+.swiper-button-prev, .swiper-button-next {
+    float: left !important;
+    width: 30px !important;
+    height: 30px !important;
+    margin-top: 100px !important;
+    text-align: center !important;
+    /*background-image: none !important;*/
+    background: #5d4037 !important;
+    color: white !important;
+    text-decoration: none !important;
+    text-shadow: 0 0 1px #000 !important;
+    font: 24px/27px Arial, sans-serif !important;
+    position: relative !important;
+    left: 0px !important;
+
+    -webkit-border-radius: 30px !important;
+    -moz-border-radius: 30px !important;
+    border-radius: 30px !important;
+
+    -webkit-box-shadow: 0 0 2px #999 !important;
+    -moz-box-shadow: 0 0 2px #999 !important;
+    box-shadow: 0 0 2px #999 !important;
+}
+
+.swiper-wrapper {
+    height: 96% !important;
+}
+
+.my-max-height {
+    height: 250px !important;
+}
+
 .big-platform-logo {
+    font-size: 5em !important;
+}
+
+.collapsible.popout > li {
+    width: 97% !important;
+    margin: 16px auto !important;
+}
+
+.my-div {
+    float: left;
+    width: 25%;
+}
+
+.collapsible-header {
+    border-top: 1.2px solid darkgray;
+}
+
+.c .collapsible-header {
+    border-top: none;
+}
+
+.data-container {
+    border: 1px solid lightgray;
+    border-radius: 2px;
+}
+
+.colored {
+    height: 60px !important;
+    overflow: hidden !important;
+}
+
+.data-right .colored {
+    background-color: #82daca;
+}
+
+.data-wrong .colored {
+    background-color: #eb6379;
+}
+
+.data-item {
+    text-align: left;
+    padding: 5px;
+    padding-left: 24px !important;
+}
+
+.data-item i {
+    position: absolute;
+    left: 0;
+}
+
+.data-wrong .data-item i {
+    color: red;
+}
+
+.data-right .data-item i {
+    color: green;
+}
+
+.green-bordered {
+    border: 1px dotted green;
+}.big-platform-logo {
     font-size: 5em !important;
 }
 

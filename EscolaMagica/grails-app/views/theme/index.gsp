@@ -20,7 +20,7 @@
 <div class="row">
     <div>
         %{--<p> Download tema ESR</p>--}%
-        <p style="margin-left: 10px;">Download do tema modelo <a class="btn-floating waves-effect waves-light my-orange" href="../samples/portas-escola-magica.zip"> <i class="material-icons">file_download</i> </a>
+        <p style="margin-left: 10px;">Download do tema modelo <a class="btn-floating waves-effect waves-light my-orange" href="/escolamagica/samples/portas-escola-magica.zip"> <i class="material-icons">file_download</i> </a>
         </p>
     </div>
 </div>
@@ -51,14 +51,14 @@
                                     <td class="myTheme simpleTable" align="center "><input class="with-gap " name="radio" type="radio" id="myTheme${i}"
                                                                                value="${fieldValue(bean: themeInstance, field: "id")}" > <label for="myTheme${i}"></label>
                                     </td>
-                                    <td align="center"><img
-                                            src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portaa-sheet1.png"
+                                    <td align="center"><img width="142"
+                                            src="/escolamagica/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portaa-sheet1.png"
                                             class="img-responsive max door"/></td>
-                                    <td align="center"><img
-                                            src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portab-sheet1.png"
+                                    <td align="center"><img width="142"
+                                            src="/escolamagica/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portab-sheet1.png"
                                             class="img-responsive max door"/></td>
-                                    <td align="center"><img
-                                            src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portac-sheet1.png"
+                                    <td align="center"><img width="142"
+                                            src="/escolamagica/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portac-sheet1.png"
                                             class="img-responsive max door"/></td>
                                     <td align="center"><i id="MydeleteIcon${i}" style="color: #7d8fff" class="material-icons delete">delete</i></td>
                                 </tr>
@@ -86,14 +86,14 @@
                                 <td class="simpleTable" align="center "><input class="with-gap " name="radio" type="radio" id="pTheme${i}"
                                                                                        value="${fieldValue(bean: themeInstance, field: "id")}" > <label for="pTheme${i}"></label>
                                 </td>
-                                <td align="center"><img
-                                        src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portaa-sheet1.png"
+                                <td align="center"><img width="142"
+                                        src="/escolamagica/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portaa-sheet1.png"
                                         class="img-responsive max door"/></td>
-                                <td align="center"><img
-                                        src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portab-sheet1.png"
+                                <td align="center"><img width="142"
+                                        src="/escolamagica/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portab-sheet1.png"
                                         class="img-responsive max door"/></td>
-                                <td align="center"><img
-                                        src="../data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portac-sheet1.png"
+                                <td align="center"><img width="142"
+                                        src="/escolamagica/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portac-sheet1.png"
                                         class="img-responsive max door"/></td>
                             </tr>
                         </g:each>

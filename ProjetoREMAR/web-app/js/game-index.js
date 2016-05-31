@@ -2,6 +2,13 @@
  * Created by matheus on 6/27/15.
  */
 
+function openThisModal(modalName){
+    name = "#"+modalName;
+    $(name).openModal({
+        dismissible: false
+    });
+
+}
 
 function validateWar(){
     var inputFile = document.getElementById("war");
@@ -21,6 +28,69 @@ function validateWar(){
     }
 }
 
+function confirmLicense(){
+    if(validateWar()){
+        if(validateLicense()){
+            openThisModal("modalConfirmLicense");
+            //submit();
+        }
+        else{
+            Materialize.toast("Selecione uma licença para o seu modelo.", 3000);
+        }
+    }
+
+    else{
+        Materialize.toast("Extensão do arquivo inválida. Por favor selecione um arquivo .war", 3000);
+    }
+
+}
+
+function submit(){
+    var file = $("#war").prop('files')[0];
+    var license = document.getElementById("licenseValue").value;
+    console.log(file);
+    var url = "/resource/save";
+    var formData = new FormData();
+    formData.append('war', file);
+    formData.append('license',license);
+
+    $('#preloader-wrapper').show('fast');
+
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+
+            $('#preloader-wrapper').hide();
+            $('.send-icon').show('fast');
+            $('#info-add').trigger('click');
+
+
+            $('.loaded-form').show("slideDown");
+
+            $("#name").val(data.name)
+                .next().addClass("active");
+
+            $("#description").val(data.description);
+
+            //$(".icons-select select").val(data.category);
+            //$("#img-1").attr("src", "/data/resources/assets/"+data.uri+"/description-1");
+
+            //set hidden id
+            $("#hidden").val(data.id);
+
+        },
+        error: function(req, res, err) {
+            console.log(req);
+            console.log(res);
+            console.log(err);
+        }
+    });
+}
+
 
 $(function(){
     /* carregar war, chamando o controlador e redirecionando para a mesma pagina*/
@@ -28,12 +98,16 @@ $(function(){
     var name = $("#name");
     var nameErr = $("#name-error");
     var desc = $("#description");
+    var documentation = $("#documentation");
+
     var descErr = $("#desc-error");
 
     $(name).prev().hide();
+    $(documentation).prev().hide();
     $(desc).prev().hide();
     $(nameErr).hide();
     $(descErr).hide();
+    $("#documentation-error").hide();
 
     //console.log($(name).val());
     if($(name).val() != null && $(name).val() != ""){
@@ -54,57 +128,6 @@ $(function(){
     $('#preloader-wrapper').hide();
     $('.send-icon').hide();
 
-    $('.send').on('click', function() {
-
-
-        if(validateWar()){
-            var file = $("#war").prop('files')[0];
-            console.log(file);
-            var url = "/resource/save";
-            var formData = new FormData();
-            formData.append('war', file);
-
-            $('#preloader-wrapper').show('fast');
-
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (data) {
-
-                    $('#preloader-wrapper').hide();
-                    $('.send-icon').show('fast');
-                    $('#info-add').trigger('click');
-
-
-                    $('.loaded-form').show("slideDown");
-
-                    $("#name").val(data.name)
-                        .next().addClass("active");
-
-                    $("#description").val(data.description);
-
-                    //$(".icons-select select").val(data.category);
-                    //$("#img-1").attr("src", "/data/resources/assets/"+data.uri+"/description-1");
-
-                    //set hidden id
-                    $("#hidden").val(data.id);
-
-                },
-                error: function(req, res, err) {
-                    console.log(req);
-                    console.log(res);
-                    console.log(err);
-                }
-            });
-        }
-
-        else{
-            Materialize.toast("Extensão do arquivo inválida. Por favor selecione um arquivo .war", 3000);
-        }
-    });
 
     function progress(e){
 
@@ -223,9 +246,9 @@ $(function(){
                     }
                 });
                 $(el).Jcrop({
-                    aspectRatio: 2,
+                    aspectRatio: 1.8,
                     setSelect: [0, 0, Math.max(this.width, this.height), Math.max(this.width, this.height)],
-                    boxHeight: 500,
+                    boxHeight: 400,
                     trueSize: [this.width, this.height]
                 }, function () {
                     jcrop = this;
@@ -234,6 +257,8 @@ $(function(){
         }
 
     }
+
+
 
     function saveCrop(FormData, updateImg)
     //FormData é o arquivo de imagem e as coordenadas para o corte

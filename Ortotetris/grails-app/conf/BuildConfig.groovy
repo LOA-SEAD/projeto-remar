@@ -5,6 +5,8 @@ grails.project.test.reports.dir = "target/test-reports"
 grails.project.work.dir = "target/work"
 grails.project.target.level = 1.6
 grails.project.source.level = 1.6
+grails.server.port.http = 8050
+
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 
 grails.project.fork = [
@@ -51,6 +53,8 @@ grails.project.dependency.resolution = {
          runtime 'mysql:mysql-connector-java:5.1.29'
         // runtime 'org.postgresql:postgresql:9.3-1101-jdbc41'
         test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
+        compile 'org.mongodb:mongodb-driver:3.2.1'
+        compile 'org.mongodb:bson:3.0.4'
     }
 
     plugins {
@@ -62,7 +66,7 @@ grails.project.dependency.resolution = {
         compile ':cache:1.1.8'
         compile ":asset-pipeline:1.9.9"
         compile ":jquery:1.11.1"
-        compile ":spring-security-core:2.0-RC4"
+        compile ':spring-security-core:2.0-RC5'
         compile ":camunda:0.4.0"
 
 

@@ -13,7 +13,7 @@ class UrlMappings {
         "/frame$uri**"(controller: "index", action: "frame")
         // end index mappings
 
-        name login: "/login"(view: "login/auth")
+        name login: "/login"( controller: "index", action: "login")
         name signup: "/signup"(controller: "user", action: "create")
         "/signup/success/$id"(controller: "user", action: "signUpSuccess")
 
@@ -56,6 +56,9 @@ class UrlMappings {
 
         '/exported-resource/publicGames'(controller:"exportedResource", action:"publicGames")
         '/exported-resource/myGames'(controller:"exportedResource", action:"myGames")
+        '/exported-resource/stats'(controller:"exportedResource", action:"stats")
+        "/exported-resource/_table/$resourceId"(controller: "exportedResource", action: "_table")
+        "/exported-resource/_table"(controller: "exportedResource", action: "_data")
 
         // end Resource API endpoints
 

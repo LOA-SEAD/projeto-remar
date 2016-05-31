@@ -45,6 +45,9 @@
 
         <g:javascript src="materialize.min.js"/>
 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/css/swiper.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.js"></script>
+
         <title><g:layoutTitle default="REMAR"/></title>
 
         <g:layoutHead/>

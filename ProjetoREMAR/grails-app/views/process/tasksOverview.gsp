@@ -18,10 +18,6 @@
             <div class="col-md-12">
                 <div class="box box-body box-info">
                     <div class="box-header with-border">
-                        %{--<h3 class="box-title">--}%
-                            %{--<i class="fa fa-list-alt"></i>--}%
-                            %{--Tarefas pendentes--}%
-                        %{--</h3>--}%
                     </div><!-- /.box-header -->
                     <div class="box-body">
                         <div class="direct-chat-messages page-size" >

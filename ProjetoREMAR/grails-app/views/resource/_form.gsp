@@ -10,6 +10,14 @@
 				<span id="name-error" class="invalid-input" style="left: 0.75rem">Este campo não pode ser vazio!</span>
 			</div>
 		</div>
+	    <div class="row">
+		    <div class="input-field col s12">
+			    <i class="material-icons suffix green-text active">done</i>
+			    <input id="documentation" type="text" class="validate" required name="documentation">
+			    <label for="documentation">Documentação</label>
+			    <span id="documentation-error" class="invalid-input" style="left: 0.75rem">Este campo não pode ser vazio!</span>
+		    </div>
+	    </div>
 		<div class="row">
 			<div class="input-field col s12">
 				<i class="material-icons suffix green-text active">done</i>
@@ -41,10 +49,10 @@
 
 		<!-- Imagens -->
 		<div class="row">
-			<div class="col s2 img-preview">
-				<img id="img1Preview" class="materialboxed" width="100" height="100" />
+			<div class="col s4 m4 l4 img-preview">
+				<img id="img1Preview" class="materialboxed" width="180px" height="100px"/>
 			</div>
-			<div class="col s10">
+			<div class="col s8 m8 l8">
 				<div class="file-field input-field">
 					<div class="btn waves-effect waves-light my-orange">
 						<span>File</span>
@@ -58,10 +66,10 @@
 		</div>
 
 		<div class="row">
-			<div class="col s2 img-preview">
-				<img id="img2Preview" class="materialboxed " width="100" height="100" />
+			<div class="col s4 m4 l4 img-preview">
+				<img id="img2Preview" class="materialboxed " width="180px" height="100px" />
 			</div>
-			<div class="col s10">
+			<div class="col s8 m8 l8" >
 				<div class="file-field input-field">
 					<div class="btn waves-effect waves-light my-orange">
 						<span>File</span>
@@ -75,10 +83,10 @@
 		</div>
 
 		<div class="row">
-			<div class="col s2 img-preview">
-				<img id="img3Preview" class="materialboxed" width="100" height="100" />
+			<div class="col s4 m4 l4 img-preview">
+				<img id="img3Preview" class="materialboxed" width="180px" height="100px" />
 			</div>
-			<div class="col s10">
+			<div class="col s8 m8 l8">
 				<div class="file-field input-field">
 					<div class="btn waves-effect waves-light my-orange">
 						<span>File</span>

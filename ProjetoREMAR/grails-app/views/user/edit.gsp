@@ -195,7 +195,7 @@
             $("#modalContent").empty();
             $("#modalFooter").empty();
             $("#modalContent").append("<p> Ao desabilitar sua conta você não conseguirá mais acessar a plataforma" +
-                    ", porém você pode resgatar sua conta à qualquer momento através da opção \"link\" </p>");
+                    ", porém você pode resgatar sua conta à qualquer momento. </p>");
             $("#modalFooter").append("<a href='user/disableAccount' class='btn btn-large modal-close'>Desativar minha conta</button>");
             $("#modalFooter").append("<a class='btn btn-large modal-close disabled'>Cancelar</a>");
             $("#confirmModal").openModal({

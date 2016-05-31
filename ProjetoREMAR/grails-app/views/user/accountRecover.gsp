@@ -19,7 +19,6 @@
     <recaptcha:script/>
     <g:javascript src="recaptcha.js"/>
     <g:javascript src="../assets/js/jquery.min.js" />
-    %{--<g:javascript src="../assets/js/jquery.validate.js" />--}%
     <style>
     body {
         background-color: #F2F2F2;
@@ -64,7 +63,7 @@
 <body>
 <div class="container">
     <div class="row">
-        <div class="card white col s12 m6 l4 offset-m3 offset-l4 offset-vertical-2" style="margin-top: 30px;">
+        <div class="card white col s12 m6 l6 offset-m3 offset-l3 offset-vertical-2" style="margin-top: 30px;">
             <div class="card-content" style="padding: 20px !important;">
                 <div class="card-image" style="padding-bottom: 20px;">
                     <img src="/assets/img/logo/logo-remar-preto-transparente.png">
