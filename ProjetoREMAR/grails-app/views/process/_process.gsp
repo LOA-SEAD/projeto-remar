@@ -48,6 +48,6 @@
                 %{--</g:if>--}%
             </g:each>
         </article>
-        <g:applyLayout name="tab-pagination"/>
+        %{--<g:applyLayout name="tab-pagination"/>--}%
     </main>
 

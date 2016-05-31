@@ -290,7 +290,7 @@ class ExportedResourceController {
 
         model.pageCount = Math.ceil(ExportedResource.count / params.max) as int
         model.currentPage = (params.offset + threshold) / threshold
-        model.hasNextPage = params.offset + threshold < model.instanceCount
+        model.hasNextPage = params.offset + threshold < ExportedResource.count
         model.hasPreviousPage = params.offset > 0
 
         model.categories = Category.list(sort:"name")
@@ -302,17 +302,25 @@ class ExportedResourceController {
         def processes = Propeller.instance.getProcessInstancesByOwner(session.user.id as long)
         def temporary = []
 
+        /* TODO: busca com problema, considerar os params na busca
+        *  solução:  não fazer o pagination em processos ... raramente alguém terá muitos jogos sendo customizados
+        *  ao mesmo tempo.
+        *
+        * se o processo do usuário corrente estiver ativo e existir tarefas pendentes
+        * params.order = "desc"
+        * params.sort = "id"
+        * params.offset
+        * params.max
+        *
+        */
         for(def i = processes.size()-1;i>=0;i--){
-            //se o processo do usuário corrente estiver ativo e existir tarefas pendentes
+           //lista todos os processos que estiver ativo e existir tarefas pendentes
             if (processes.get(i).getVariable('inactive') != "1"
                     && (processes.get(i).getVariable("exportedResourceId") == null)) {
+
                 temporary.add(processes.get(i))
             }
         }
-
-        println("processes: "+processes.size())
-        println("temporary: "+temporary.size())
-        println(temporary)
 
         model.tMax = params.tMax
         model.tThreshold = threshold
@@ -320,7 +328,7 @@ class ExportedResourceController {
         model.processes =  temporary
         model.tPageCount = Math.ceil(temporary.size() / params.tMax) as int
         model.tCurrentPage = (params.tOffset + threshold) / threshold
-        model.tHasNextPage = params.tOffset + threshold < model.instanceCount
+        model.tHasNextPage = params.tOffset + threshold < temporary.size()
         model.tHasPreviousPage = params.tOoffset > 0
 
         println model.tPageCount
@@ -472,9 +480,14 @@ class ExportedResourceController {
 
                 } else {
                     Category c = Category.findById(params.text)
-                    Resource r = Resource.findAllByCategory(c)
-                    model.publicExportedResourcesList = ExportedResource.findAllByTypeAndResource('public',r, params)
-                    maxInstances = ExportedResource.findAllByTypeAndResource('public',r).size()
+                    model.publicExportedResourcesList  = []
+                    maxInstances = 0
+
+                    for (r in Resource.findAllByCategory(c)) { //get all resources belong
+                        model.publicExportedResourcesList.addAll(
+                                ExportedResource.findAllByTypeAndResource('public',r, params))
+                        maxInstances += ExportedResource.findAllByTypeAndResource('public',r).size()
+                    }
                 }
             }
         }
