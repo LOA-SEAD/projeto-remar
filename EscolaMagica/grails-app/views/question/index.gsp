@@ -82,12 +82,16 @@
                 <i class="material-icons">send</i>
             </button>
         </div>
-        <div class="col s1 offset-s8">
+        <div class="col s1 offset-s7">
             <a data-target="createModal" name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"><i class="material-icons">add</i></a>
         </div>
         <div class="col s1">
             <a data-target="uploadModal" class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped" data-tooltip="Upload arquivo .csv"><i
                     class="material-icons">file_upload</i></a>
+        </div>
+        <div class="col s1">
+            <a class="btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exportar questões para .csv"><i
+                    class="material-icons" onclick="exportQuestions()">file_download</i></a>
         </div>
     </div>
 

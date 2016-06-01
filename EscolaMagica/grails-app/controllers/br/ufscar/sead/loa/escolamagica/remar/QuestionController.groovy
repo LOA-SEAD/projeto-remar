@@ -235,6 +235,33 @@ class QuestionController {
         }
     }
 
+    def exportCSV(){
+
+        ArrayList<Integer> list_questionId = new ArrayList<Integer>() ;
+        ArrayList<Question> questionList = new ArrayList<Question>();
+        list_questionId.addAll(params.list_id);
+        for (int i=0; i<list_questionId.size();i++){
+            questionList.add(Question.findById(list_questionId[i]));
+
+        }
+
+        println(questionList)
+        def dataPath = servletContext.getRealPath("/data")
+        def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
+        instancePath.mkdirs()
+        log.debug instancePath
+
+        def fw = new FileWriter("$instancePath/exportQuestions.csv")
+        for(int i=0; i<questionList.size();i++){
+            fw.write(questionList.getAt(i).level + ";" + questionList.getAt(i).title + ";" + questionList.getAt(i).answers[0] + ";" + questionList.getAt(i).answers[1] + ";" +
+                     questionList.getAt(i).answers[2] + ";" + questionList.getAt(i).answers[3] + ";" + questionList.getAt(i).correctAnswer + ";\n" )
+        }
+        fw.close()
+
+        render "Deu certo"
+
+    }
+
     @Transactional
     def generateQuestions(){
         MultipartFile csv = params.csv
@@ -252,6 +279,10 @@ class QuestionController {
             questionInstance.taskId = session.taskId as String
             questionInstance.ownerId = session.user.id as long
             questionInstance.save flush: true
+            println(questionInstance.taskId)
+            println(questionInstance)
+            println(questionInstance.errors)
+
 
         }
         redirect(action: index())

@@ -223,3 +223,28 @@ function uncheck_all(){
     $('#BtnCheckAll').show();
 
 }
+
+function exportQuestions(){
+    var list_id = [];
+
+    $.each($("input[type=checkbox]:checked"), function(ignored, el) {
+        var tr = $(el).parents().eq(1);
+        list_id.push($(tr).attr('data-id'));
+    });
+
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            url: "/escolamagica/question/exportCSV",
+            data: { list_id: list_id },
+            success: function(returndata) {
+                //window.top.location.href = returndata;
+            },
+            error: function(returndata) {
+                alert("Error:\n" + returndata.responseText);
+
+
+            }
+        });
+
+}
