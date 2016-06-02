@@ -268,8 +268,8 @@ class QuestionController {
         }
 
         //println(questionList)
-        def dataPath = servletContext.getRealPath("/data")
-        def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
+        def dataPath = servletContext.getRealPath("/samples")
+        def instancePath = new File("${dataPath}/export")
         instancePath.mkdirs()
         log.debug instancePath
 
@@ -280,7 +280,13 @@ class QuestionController {
         }
         fw.close()
 
-        render "" + instancePath + "exportQuestions.csv"
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
+
+        render "http://localhost:${port}/frame/forca/samples/export/exportQuestions.csv"
+
 
     }
 

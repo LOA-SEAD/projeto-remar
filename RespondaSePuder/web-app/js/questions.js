@@ -243,8 +243,8 @@ function exportQuestions(){
         url: "/respondasepuder/question/exportCSV",
         data: { list_id: list_id },
         success: function(returndata) {
-            //console.log(returndata);
-            //window.top.location.href = returndata;
+            console.log(returndata);
+            window.open(returndata, '_blank');
         },
         error: function(returndata) {
             alert("Error:\n" + returndata.responseText);
