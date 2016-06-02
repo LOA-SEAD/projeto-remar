@@ -360,6 +360,29 @@ class WordController {
     }
 
     @Transactional
+    def generateQuestions() {
+        MultipartFile csv = params.csv
+
+        csv.inputStream.toCsvReader(['separatorChar': ';']).eachLine { row ->
+
+            Word wordInstance = new Word()
+            wordInstance.answer = row[0] ?: "NA";
+            initialize_word(wordInstance)
+            wordInstance.ownerId = session.user.id
+            if(wordInstance.hasErrors())
+            {
+                println(wordInstance.errors)
+            }
+            else
+                wordInstance.save flush:true
+
+        }
+
+        redirect(action: index())
+
+    }
+
+    @Transactional
     def delete(Word wordInstance) {
 
         if (wordInstance == null) {
