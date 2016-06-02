@@ -58,11 +58,43 @@
                                                     <i class="fa fa-trash" style="color: #FF5722;"></i>
                                                 </a>
                                             </li>
+                                            <li style="text-align: center;">
+                                                <a href="#modal-groups" class="tooltipped modal-trigger" data-position="bottom" data-delay="50" data-tooltip="Adicionar a grupo">
+                                                    <i class="fa fa-users" style="color: #FF5722;"></i>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
+                            <div id="modal-groups" class="modal col l6 offset-l3 s6">
+                                <div class="modal-content">
+                                    <ul class="collection with-header">
+                                        <li class="collection-header"><h4>Grupos disponíveis</h4></li>
+                                        <g:form method="post" controller="groupExportedResources" action="addGroupExportedResources">
+                                            <g:each var="group" in="${groups}">
+                                                <li class="collection-item">
+                                                    <div>
+                                                        <p>${group.name}</p>
+                                                        <p>
+                                                            Dono: ${group.owner.firstName + " " + group.owner.lastName}<br>
+                                                        </p>
+                                                    </div>
+                                                    <input name="groupsid" id="groups-${group.id}" value="${group.id}" type="checkbox">
+                                                    <label style="position:relative; bottom: 2em;" for="groups-${group.id}" class="secondary-content"></label>
+                                                </li>
+                                            </g:each>
+                                            <input type="hidden" name="exportedresource" value="${instance.id}">
+                                            <div class="row">
+                                                <button onclick="$('#modal-groups').closeModal();" style=" top: 0.8em; position:relative;" class="btn waves-effect waves-light" type="submit" name="action">Adicionar
+                                                    <i class="material-icons right">send</i>
+                                                </button>
+                                            </div>
+                                        </g:form>
 
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-reveal">
                             <span class="card-title grey-text text-darken-4"><small class="left">Jogar:</small><i class="material-icons right">close</i></span>
