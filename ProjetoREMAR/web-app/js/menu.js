@@ -15,10 +15,11 @@ $(document).ready(function() {
     });
 });
 
-function deleteResource(id){
+function deleteResource(id, processID){
     console.log(id);
+    console.log(processID);
     if(confirm("Deseja mesmo excluir este jogo?")){
-        window.location.href = " /exported-resource/delete/"+id;
+        window.location.href = " /exported-resource/delete?id="+id+"&processId="+processID;
     }
 }
 

@@ -53,7 +53,7 @@
                                                 </a>
                                             </li>
                                             <li style="text-align: center;">
-                                                <a onclick="deleteResource(${instance.id})"
+                                                <a onclick="deleteResource(${instance.id}, '${instance.processId}')"
                                                    class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Excluir">
                                                     <i class="fa fa-trash" style="color: #FF5722;"></i>
                                                 </a>

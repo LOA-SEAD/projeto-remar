@@ -28,8 +28,10 @@ class ExportedResourceController {
         redirect controller: "ExportedResource", action: "accountConfig", id: exportedResourceInstance.id
     }
 
-    def delete(ExportedResource instance) {
+    def delete(int id, String processId) {
+        ExportedResource instance = ExportedResource.findById(id)
         instance.delete flush: true
+        println(processId)
         myGames()
     }
 
