@@ -60,27 +60,32 @@ class UserController {
     @Transactional(readOnly = false)
     def resetPassword() {
         if (request.method == 'GET') {
-            if (params.t) { // User is comming from an email with a token
+            if (params.t) {
+                // User is comming from an email with a token
                 def token = Token.findByTokenAndExpiresAtGreaterThan(params.t, new Date())
 
-                if (!token) { // Token !exists or is older than 1 day
+                if (!token) {
+                    // Token !exists or is older than 1 day
                     render "Token expired or not found" // TODO
                 } else {
                     render view: "/user/password/create", model: [user: token.owner, token: params.t]
                 }
-            } else { // User has clicked "forgot passowrd" link
+            } else {
+                // User has clicked "forgot passowrd" link
                 render view: "/user/password/requestToken"
             }
 
         } else if (request.method == 'POST') {
-            if (params.password) { // User has already defined the new password
+            if (params.password) {
+                // User has already defined the new password
                 // TODO: enhance security (recheck token expiration etc) & handle possible errors (password != password_confirmation etc)
                 def token = Token.findByToken(params.token)
                 token.owner.password = params.password
                 token.owner.save flush: true
                 token.delete flush: true
                 render view: "/user/password/done"
-            } else { // User has entered the email & captcha
+            } else {
+                // User has entered the email & captcha
                 def userIP = request.getRemoteAddr()
                 def captcha = params.get("g-recaptcha-response")
                 def rest = new RestBuilder()
@@ -116,7 +121,8 @@ class UserController {
         def rest = new RestBuilder()
         def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?" +
                 "secret=${grailsApplication.config.recaptchaSecret}&response=${recaptchaResponse}&remoteip=${userIP}")
-        def test = params.email.contains('@remar') // bypass captcha & email validation
+        def test = params.email.contains('@remar')
+        // bypass captcha & email validation
 
         if (resp.json.success || test) {
             if (instance == null) {
@@ -124,7 +130,8 @@ class UserController {
                 return
             }
 
-            if (instance.hasErrors()) { // TODO
+            if (instance.hasErrors()) {
+                // TODO
                 respond instance.errors, view: 'create'
                 return
             }
@@ -134,7 +141,7 @@ class UserController {
             f.mkdirs()
             def destination = new File(f, "profile-picture")
 
-            //def photo = params.photo as CommonsMultipartFile
+            // ef photo = params.photo as CommonsMultipartFile
 
             if (params.photo != "/images/avatars/default.png") {
                 def img1 = new File(servletContext.getRealPath("${params.photo}"))
@@ -152,7 +159,7 @@ class UserController {
             token.save flush: true
             def link = "http://${request.serverName}:${request.serverPort}/user/account/confirm/${token.token}"
 
-            //noinspection GroovyAssignabilityCheck
+            // oinspection GroovyAssignabilityCheck
             Util.sendEmail(
                     instance.email,
                     "Confirme seu email",
