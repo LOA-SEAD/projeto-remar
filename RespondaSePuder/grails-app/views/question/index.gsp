@@ -344,7 +344,7 @@
                     <li>O arquivo deve representar a estrutura da tabela de exemplo</li>
                 </ol>
                 <ul>
-                    <li><a href="../samples/exemploRespondaSePuder.csv">Download do arquivo exemplo</a></li>
+                    <li><a href="/respondasepuder/samples/exemploRespondaSePuder.csv">Download do arquivo exemplo</a></li>
                 </ul>
             </div>
         </div>
