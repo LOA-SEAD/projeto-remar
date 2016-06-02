@@ -269,7 +269,7 @@ class QuestionController {
             port = 8080
         }
 
-        render "http://localhost:${port}/frame/forca/samples/export/exportQuestions.csv"
+        render "http://localhost:${port}/frame/escolamagica/samples/export/exportQuestions.csv"
 
     }
 
