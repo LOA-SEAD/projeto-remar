@@ -28,10 +28,17 @@ class GroupController {
 
     def show(){
         def group = Group.findById(params.id)
-        def admins = group.admins.toList()
-        def groupExportedResources = group.groupExportedResources.toList()
-//        def groupUsers = UserGroup.findAllByGroup(group)
-        render(view: "show", model: [group: group, groupExportedResources: groupExportedResources])
+        def userGroup = UserGroup.findByUserAndGroup(session.user,group)
+
+        if( group.owner.id == session.user.id ||  userGroup){
+            def groupExportedResources = group.groupExportedResources.toList()
+            render(view: "show", model: [group: group, groupExportedResources: groupExportedResources])
+            response.status = 200
+        }else{
+            response.status = 401
+            render (status: 401, view: "401")
+        }
+
     }
 
     def addUser(){
@@ -44,13 +51,6 @@ class GroupController {
 
         redirect(action: "show", id: userGroup.groupId)
     }
-
-
-
-
-
-
-
 
 
 }

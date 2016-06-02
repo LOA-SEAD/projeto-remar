@@ -14,44 +14,57 @@
 <body>
 <div class="cluster-header">
     <div class="row">
-        <div class="text-teal text-darken-3 left-align margin-bottom col l6 s8 offset-s3">
+        <div class="text-teal text-darken-3 left-align margin-bottom col l6 s8">
           ${group.name}
         </div>
         <div class="">
-        <g:form controller="group" action="addUser">
-            <div class="input-field col l3">
-                <input name="term" id="search-user" type="text" required>
-                <label for="search-user"><i class="fa fa-search"></i></label>
-                <input type="hidden" value="${group.id}" name="groupid">
-                <input type="hidden" value="" id="user-id" name="userid">
-            </div>
-            <div class="col l3">
-                <button style="font-size: 0.5em; top: 1.2em; position:relative;" class="btn waves-effect waves-light" type="submit" name="action">Adicionar
-                    <i class="material-icons right">group_add</i>
-                </button>
-            </div>
-        </g:form>
+            <g:if test="${group.owner.id == session.user.id || group.admins.find { it.id == session.user.id}}">
+                <g:form controller="group" action="addUser">
+                    <div class="input-field col l3">
+                        <input name="term" id="search-user" type="text" required>
+                        <label for="search-user"><i class="fa fa-search"></i></label>
+                        <input type="hidden" value="${group.id}" name="groupid">
+                        <input type="hidden" value="" id="user-id" name="userid">
+                    </div>
+                    <div class="col l3">
+                        <button style="font-size: 0.5em; top: 1.2em; position:relative;" class="btn waves-effect waves-light" type="submit" name="action">Adicionar
+                            <i class="material-icons right">group_add</i>
+                        </button>
+                    </div>
+                </g:form>
+            </g:if>
         </div>
-
     </div>
 
-    <div class="divider"></div>
-    <div>
-        <a href="#modal-users" class="modal-trigger"><h5 class="right">Ver membros</h5></a>
-    </div>
     <!-- Modal Structure -->
     <div id="modal-users" class="modal bottom-sheet">
         <div class="modal-content">
             <h4 class="left-align">Membros do grupo</h4>
             %{--<p>A bunch of text</p>--}%
             <ul class="collection">
-                <g:each var="userGroup" in="${group.userGroups}">
-                    <li class="collection-item avatar left-align">
-                        <img alt src="/data/users/${userGroup.user.username}/profile-picture" class="circle">
-                        <span class="title">${userGroup.user.firstName + " " + userGroup.user.lastName}</span>
-                        <p class="" style="font-size: 0.6em;">Username: ${userGroup.user.username}</p>
-                    </li>
-                </g:each>
+                <g:if test="${group.userGroups.size()==0}">
+                    <li class="collection-item">Nenhum usuário foi adicionado à este grupo.</li>
+                </g:if>
+                <g:else>
+                    <g:each var="userGroup" in="${group.userGroups}">
+                        <li class="collection-item avatar left-align">
+                            <img alt src="/data/users/${userGroup.user.username}/profile-picture" class="circle">
+                            <span class="title">${userGroup.user.firstName + " " + userGroup.user.lastName}</span>
+                            <p class="" style="font-size: 0.6em;">Usuário: ${userGroup.user.username}</p>
+                            <input id="user-group-id" type="hidden" value="${userGroup.id}" name="usergroupid">
+                            <g:if test="${group.owner.id == session.user.id}">
+                                <a  onclick="deleteGroupUser();" href=""  style="position: relative; top: -1.48em; left: -1em;" class="secondary-content"><i class="material-icons">delete</i></a>
+                                <g:if test="${!group.admins.toList().contains(userGroup.user)}">
+                                    <a onclick="manageAdmin(this.id);" id="make-admin" href="" class="secondary-content"><i class="material-icons">star_border</i></a>
+                                </g:if>
+                                <g:else>
+                                    <a onclick="manageAdmin(this.id);" id="remove-admin" href="" class="secondary-content"><i class="material-icons">star</i></a>
+                                </g:else>
+                            </g:if>
+
+                        </li>
+                    </g:each>
+                </g:else>
             </ul>
         </div>
         <div class="modal-footer">
@@ -59,7 +72,10 @@
         </div>
     </div>
     <!-- Modal Structure -->
-    <div class="center-align">
+    <div class="divider"></div>
+    <div style="left: 0.6em; position: relative">
+        <a href="#modal-users" class="modal-trigger"><h5 class="right">Ver membros (${group.userGroups.size()})</h5></a>
+
         <p align="left" style="font-size: 0.6em;">Dono:
                 <g:if test="${group.owner.id == session.user.id}">
                     Você
@@ -79,55 +95,10 @@
         </p>
     </div>
 
-</div>
-
-
-<div class="row">
-        <div class="col l12">
-                %{--<g:each var="groupUser" in="${group.userGroups.toList()}" status="i">--}%
-                    %{--<div id="user-card${groupUser.id}" style="overflow: visible !important; position: relative; left:7em;" class="card white col l3 offset-l8 s6">--}%
-                        %{--<div class="card-image">--}%
-                            %{--<div class="col l4 s4 left-align">--}%
-                                %{--<img src="/data/users/${groupUser.user.username}/profile-picture" class="circle responsive-img">--}%
-                            %{--</div>--}%
-                        %{--</div>--}%
-                        %{--<div class="card-content">--}%
-                            %{--<div>--}%
-                                %{--<p class="left-align truncate" style="top: 0.4em; position: relative;">${groupUser.user.firstName + " " + groupUser.user.lastName}</p>--}%
-                            %{--</div>--}%
-                            %{--<div class="col l1 s1 offset-l6 offset-s10">--}%
-                                %{--<a class="dropdown-button"  id="drop" href="#" data-activates="dropdown-user-${groupUser.id}" style="color: black"><span class="material-icons">more_vert</span></a>--}%
-                            %{--</div>--}%
-                            %{--<ul id="dropdown-user-${groupUser.id}" class="dropdown-content">--}%
-                                %{--<input id="user-group-id" type="hidden" value="${groupUser.id}" name="usergroupid">--}%
-
-                                %{--<li><a onclick="deleteGroupUser();">Excluir</a></li>--}%
-
-                                %{--<g:if test="${!group.admins.toList().contains(groupUser.user)}">--}%
-                                                %{--<li><a onclick="document.getElementById('user-admin').submit();  return false;">Tornar admin</a></li>--}%
-                                    %{--<li><a id="make-admin" onclick="manageAdmin(this.id);" >Tornar admin</a></li>--}%
-                                %{--</g:if>--}%
-                                %{--<g:else>--}%
-                                    %{--<li><a id="remove-admin" onclick="manageAdmin(this.id);">Remover admin</a></li>--}%
-                                %{--</g:else>--}%
-                            %{--</ul>--}%
-                        %{--</div>--}%
-                    %{--</div>--}%
-                %{--</g:each>--}%
-            <g:each var="groupExportedResources" in="${group.groupExportedResources}">
-                <div class="card white col l3 pull-l4 hoverable">
-                    <div class="card-image">
-                        <img alt="${groupExportedResources.exportedResource.name}" src="/published/${groupExportedResources.exportedResource.processId}/banner.png">
-                    </div>
-                    <div class="card-content">
-                        dasd
-                    </div>
-                </div>
-            </g:each>
-
-        </div>
 
 </div>
+
+
 
 
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
@@ -148,7 +119,7 @@
             success: function(data) {
                 console.log(data);
                 console.log("success");
-                window.location.reload();
+//                window.location.reload();
             }
         })
     }
@@ -163,8 +134,8 @@
             },
             success: function(data) {
                 console.log(data);
-                console.log("success");
-                window.location.reload();
+//                console.log("success");
+//                window.location.reload();
             }
         })
     }
