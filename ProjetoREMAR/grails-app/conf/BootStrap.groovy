@@ -5,7 +5,6 @@ import br.ufscar.sead.loa.remar.Role
 import br.ufscar.sead.loa.remar.UserRole
 import br.ufscar.sead.loa.remar.User
 import br.ufscar.sead.loa.remar.MongoHelper
-import grails.util.Environment
 import br.ufscar.sead.loa.remar.Category
 
 import javax.servlet.http.HttpServletRequest
