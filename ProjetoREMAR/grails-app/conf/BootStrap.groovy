@@ -35,8 +35,8 @@ class BootStrap {
                     username: "admin",
                     password: grailsApplication.config.users.password,
                     email: "admin@remar.dc.ufscar.br",
-                    firstName: "Admin",
-                    lastName: "User",
+                    firstName: "Equipe LOA",
+                    lastName: "– REMAR",
                     enabled: true
             )
 
