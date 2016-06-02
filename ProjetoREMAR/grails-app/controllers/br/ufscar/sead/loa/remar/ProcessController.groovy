@@ -120,14 +120,12 @@ class ProcessController {
         def process
         try {
             process = Propeller.instance.getProcessInstanceById(params.id as String, session.user.id as long)
-        } catch (IllegalArgumentException ignored) {
-            // invalid processId
+        } catch (IllegalArgumentException ignored) { // invalid processId
             render 400
             return response.status = 400
         }
 
-        if (!process) {
-            // process not found or session.user != process.owner
+        if (!process) { // process not found or session.user != process.owner
             render 404
             return response.status = 404
         }
@@ -187,14 +185,12 @@ class ProcessController {
 
         try {
             task = Propeller.instance.getTaskInstance(params.taskId as String, session.user.id as long)
-        } catch (IllegalArgumentException ignored) {
-            // invalid taskId
+        } catch (IllegalArgumentException ignored) { // invalid taskId
             render 404
             return response.status = 404
         }
 
-        if (!task) {
-            // task not found or task.process.owner != session.user
+        if (!task) { // task not found or task.process.owner != session.user
             render 404
             return response.status = 404
         }
