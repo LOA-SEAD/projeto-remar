@@ -217,9 +217,23 @@ class QuestionController {
 
 
             Question questionInstance = new Question()
-            questionInstance.statement = row[0] ?: "NA";
-            questionInstance.answer = row[1] ?: "NA";
-            questionInstance.category = row[2] ?: "NA";
+
+
+
+            try{
+                String correct = row[6] ?: "NA";
+                int correctAnswer = (correct.toInteger() -1)
+                questionInstance.statement = row[1] ?: "NA";
+                questionInstance.answer = row[(2 + correctAnswer)] ?: "NA";
+                questionInstance.category = row[8] ?: "NA";
+            }
+            catch (ArrayIndexOutOfBoundsException exception){
+                //println("Not default .csv - Model: Title-Answer-Category")
+                questionInstance.statement = row[0] ?: "NA";
+                questionInstance.answer = row[1] ?: "NA";
+                questionInstance.category = row[2] ?: "NA";
+            }
+
             questionInstance.author = username
             questionInstance.taskId = session.taskId as String
 
