@@ -28,14 +28,7 @@
                             <label for="group-name">Nome do Grupo</label>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col l6 offset-l3">
-                            <p>
-                                <input type="checkbox" name="privacy" id="privacy" />
-                                <label for="privacy">Deseja tornar o grupo privado?</label>
-                            </p>
-                        </div>
-                    </div>
+
                     <div class="row">
                         <div>
                             <button class="btn waves-effect waves-light" type="submit" name="action">Submit
