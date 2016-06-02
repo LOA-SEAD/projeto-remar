@@ -232,6 +232,10 @@ function exportQuestions(){
         list_id.push($(tr).attr('data-id'));
     });
 
+    if(list_id.length<=0){
+        alert("Você deve selecionar ao menos uma questão antes de exportar seu banco de questões");
+    }
+    else{
         $.ajax({
             type: "POST",
             traditional: true,
@@ -247,5 +251,7 @@ function exportQuestions(){
 
             }
         });
+
+    }
 
 }

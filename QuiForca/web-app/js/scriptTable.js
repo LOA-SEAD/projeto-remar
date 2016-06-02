@@ -324,20 +324,25 @@ function exportQuestions(){
         list_id.push($(tr).attr('data-id'));
     });
 
-    $.ajax({
-        type: "POST",
-        traditional: true,
-        url: "/forca/question/exportCSV",
-        data: { list_id: list_id },
-        success: function(returndata) {
-            console.log(returndata);
-            window.open(returndata, '_blank');
-        },
-        error: function(returndata) {
-            alert("Error:\n" + returndata.responseText);
+    if(list_id.length<=0){
+        alert("Você deve selecionar ao menos uma questão antes de exportar seu banco de questões");
+    }
+    else{
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            url: "/forca/question/exportCSV",
+            data: { list_id: list_id },
+            success: function(returndata) {
+                console.log(returndata);
+                window.open(returndata, '_blank');
+            },
+            error: function(returndata) {
+                alert("Error:\n" + returndata.responseText);
 
 
-        }
-    });
+            }
+        });
+    }
 
 }
