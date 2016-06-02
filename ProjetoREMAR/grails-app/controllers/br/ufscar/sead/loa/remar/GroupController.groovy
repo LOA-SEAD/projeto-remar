@@ -49,10 +49,19 @@ class GroupController {
 
     }
 
+    def delete(){
+        def group = Group.findById(params.id)
+        if(group.owner.id == session.user.id){
+            group.delete flush: true
+            redirect(action: "list")
+        }else{
+            render (status: 401, view: "401")
+        }
+    }
+
     def addUser(){
-        println params
         def userGroup = new UserGroup()
-        if(params.token){
+        if(params.token != ""){
             println params.token
             def group = Group.findByToken(params.token)
             if(group) {

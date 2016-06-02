@@ -15,7 +15,8 @@
 <div class="cluster-header">
     <div class="row">
         <div class="text-teal text-darken-3 left-align margin-bottom col l6 s8">
-          ${group.name}
+          ${group.name}<g:if test="${group.owner.id == session.user.id}"> <a href="/group/delete/${group.id}" data-position="right" data-tooltip="Deletar grupo" class="tooltipped" style="color: black"><i style="position:relative; top: 0.145em;" class="material-icons">delete</i></a>  </g:if><br>
+            <span style="font-size: 0.6em;">Senha de acesso: ${group.token}</span><br>
         </div>
         <div class="">
             <g:if test="${group.owner.id == session.user.id || group.admins.find { it.id == session.user.id}}">
@@ -108,6 +109,7 @@
     $(document).ready(function(){
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('.modal-trigger').leanModal();
+
     });
     function deleteGroupUser(){
         $.ajax({
