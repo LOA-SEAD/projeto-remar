@@ -30,6 +30,7 @@ class UrlMappings {
         name infoPage: "/index/info" (view: "index/info")
         name recoverAccount: "/user/accountRecover" (view: "user/accountRecover")
         name newGroup: "/group/new" (view: "group/new")
+        name "401": "/group/401" (view: "group/401")
         // end password mappings
 
         // begin Process API endpoints
