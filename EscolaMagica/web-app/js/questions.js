@@ -238,6 +238,7 @@ function exportQuestions(){
             url: "/escolamagica/question/exportCSV",
             data: { list_id: list_id },
             success: function(returndata) {
+                //console.log(returndata);
                 //window.top.location.href = returndata;
             },
             error: function(returndata) {

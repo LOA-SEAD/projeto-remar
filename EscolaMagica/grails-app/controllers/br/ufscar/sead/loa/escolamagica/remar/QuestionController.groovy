@@ -236,6 +236,13 @@ class QuestionController {
     }
 
     def exportCSV(){
+        /* Função que exporta as questões selecionadas para um arquivo .csv genérico.
+           O arquivo .csv gerado será compatível com os modelos Escola Mágica, Forca e Responda Se Puder.
+           O arquivo gerado possui os seguintes campos na ordem correspondente:
+           Nível, Pergunta, Alternativa1, Alternativa2, Alternativa3, Alternativa4, Alternativa Correta, Dica, Tema.
+           O campo Dica é correspondente ao modelo Responda Se Puder e o campo Tema ao modelo Forca.
+           O separador do arquivo .csv gerado é o ";" (ponto e vírgula)
+        */
 
         ArrayList<Integer> list_questionId = new ArrayList<Integer>() ;
         ArrayList<Question> questionList = new ArrayList<Question>();
@@ -245,7 +252,7 @@ class QuestionController {
 
         }
 
-        println(questionList)
+        //println(questionList)
         def dataPath = servletContext.getRealPath("/data")
         def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
         instancePath.mkdirs()
@@ -254,11 +261,11 @@ class QuestionController {
         def fw = new FileWriter("$instancePath/exportQuestions.csv")
         for(int i=0; i<questionList.size();i++){
             fw.write(questionList.getAt(i).level + ";" + questionList.getAt(i).title + ";" + questionList.getAt(i).answers[0] + ";" + questionList.getAt(i).answers[1] + ";" +
-                     questionList.getAt(i).answers[2] + ";" + questionList.getAt(i).answers[3] + ";" + questionList.getAt(i).correctAnswer + ";\n" )
+                     questionList.getAt(i).answers[2] + ";" + questionList.getAt(i).answers[3] + ";" + (questionList.getAt(i).correctAnswer +1) + ";dica;tema" +";\n" )
         }
         fw.close()
 
-        render "Deu certo"
+        render "" + instancePath + "exportQuestions.csv"
 
     }
 
