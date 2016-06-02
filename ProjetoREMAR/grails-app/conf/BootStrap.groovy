@@ -39,17 +39,7 @@ class BootStrap {
                     enabled: true
             )
 
-            def guest = new User(
-                    username: "guest",
-                    password: grailsApplication.config.users.password,
-                    email: "admin@remar.dc.ufscar.br",
-                    firstName: "Guest",
-                    lastName: "User",
-                    enabled: true,
-            )
-
             admin.save flush: true
-            guest.save flush: true
 
             UserRole.create admin, Role.findByAuthority("ROLE_ADMIN"), true
             UserRole.create admin, Role.findByAuthority("ROLE_DEV"), true
