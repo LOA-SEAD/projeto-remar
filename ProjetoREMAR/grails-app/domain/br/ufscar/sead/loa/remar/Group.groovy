@@ -7,7 +7,7 @@ class Group {
 //    static belongsTo = ExportedResource
 
     String name
-    String privacy
+    String token
     User owner
 
     static mapping = {
@@ -17,6 +17,6 @@ class Group {
 
     static constraints = {
         name blank: false
-        privacy blank: false
+        token unique: true
     }
 }
