@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col l12 s11">
             <ul class="tabs">
-                <li class="tab"><a href="#my-groups">Meus grupos</a></li>
+                <li class="tab"><a href="#my-groups">Grupos que sou dono</a></li>
                 <li class="tab"><a href="#others-groups">Grupos que sou membro</a></li>
             </ul>
         </div>
@@ -56,14 +56,22 @@
         </div>
     </div>
 
-    %{--<div class="row">--}%
-            %{--<div class="col l3 offset-l4">--}%
-                %{--<a style="position: relative; left: 28em; bottom: 2.3em;" data-tooltip="Novo grupo" href="/group/new" class="btn-floating btn-large my-orange tooltipped   "><i  class="material-icons large">add</i></a>--}%
-            %{--</div>--}%
-        %{--</div>--}%
+    <div id="others-groups">
+        <div class="row">
+            <div class="input-field col l3 offset-l3">
+                <input name="membertoken" id="member-token" type="text" placeholder="Senha de acesso" required>
+                <label for="member-token"><i class="fa fa-search"></i></label>
+                %{--<input type="hidden" value="${group.id}" name="groupid">--}%
+                %{--<input type="hidden" value="" id="user-id" name="userid">--}%
+            </div>
+            <div class="col l3">
+                <button onclick="enterGroup()" style="font-size: 0.8em; top: 1.4em; position:relative;"  class="btn waves-effect waves-light">Entrar
+                    <i class="material-icons right">group_add</i>
+                </button>
+            </div>
+        </div>
+         <div style="position: relative; left: 1em" class="row">
 
-    <div style="position: relative; left: 1em" class="row">
-        <div id="others-groups">
             <g:if test="${groupsIBelong.empty}">
                 <h5>Você ainda não pertence a um grupo :(</h5>
             </g:if>
@@ -82,13 +90,31 @@
                     </a>
                 </g:each>
             </g:else>
+
         </div>
+
     </div>
-    </body>
     <script>
         $(document).ready(function(){
             $('ul.tabs').tabs();
         });
+
+        function enterGroup(){
+            $.ajax({
+                type:'POST',
+                url:"/group/addUser",
+                data: {
+                    token: $("#member-token").val()
+                },
+                success: function(data) {
+                    console.log(data);
+                    console.log("success");
+//                window.location.reload();
+                }
+            })
+        }
     </script>
+    </body>
+
 
 </html>

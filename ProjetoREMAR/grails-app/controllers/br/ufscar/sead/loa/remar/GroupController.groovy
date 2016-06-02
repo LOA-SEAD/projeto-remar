@@ -1,5 +1,8 @@
 package br.ufscar.sead.loa.remar
 
+import org.apache.commons.lang.RandomStringUtils
+import org.grails.datastore.mapping.validation.ValidationException
+
 
 class GroupController {
 
@@ -20,9 +23,14 @@ class GroupController {
 
         groupInstance.owner = session.user
         groupInstance.name = params.groupname
-        groupInstance.privacy = params.privacy
 
-        groupInstance.save flush: true
+        try {
+            groupInstance.token = RandomStringUtils.random(10, true, true)
+            groupInstance.save flush: true, failOnError: true
+
+        }catch(ValidationException e){
+            //TODO
+        }
 
     }
 
@@ -42,14 +50,30 @@ class GroupController {
     }
 
     def addUser(){
-
+        println params
         def userGroup = new UserGroup()
-        userGroup.group = Group.findById(params.groupid)
-        userGroup.user = User.findById(params.userid)
-        //TODO filtrar usuarios ja adicionados
-        userGroup.save flush: true
+        if(params.token){
+            println params.token
+            def group = Group.findByToken(params.token)
+            if(group) {
+                userGroup.group = group
+                userGroup.user = User.findById(session.user.id)
+                userGroup.save flush: true
 
-        redirect(action: "show", id: userGroup.groupId)
+                render status: 200
+            }else{
+                render status: 400
+
+            }
+        }else {
+            userGroup.group = Group.findById(params.groupid)
+            userGroup.user = User.findById(params.userid)
+            //TODO filtrar usuarios ja adicionados
+            userGroup.save flush: true
+            render status: 200
+
+            redirect(action: "show", id: userGroup.groupId)
+        }
     }
 
 
