@@ -55,21 +55,21 @@ class GroupController {
             group.delete flush: true
             redirect(action: "list")
         }else{
-            render (status: 401, view: "401")
+
         }
     }
 
     def addUser(){
         def userGroup = new UserGroup()
-        if(params.token != ""){
+        if(params.membertoken != ""){
             println params.token
-            def group = Group.findByToken(params.token)
+            def group = Group.findByToken(params.membertoken)
             if(group) {
                 userGroup.group = group
                 userGroup.user = User.findById(session.user.id)
                 userGroup.save flush: true
-
-                render status: 200
+                println "salvou"
+                redirect(status: 200, action: "show", id: userGroup.groupId)
             }else{
                 render status: 400
 
@@ -79,9 +79,9 @@ class GroupController {
             userGroup.user = User.findById(params.userid)
             //TODO filtrar usuarios ja adicionados
             userGroup.save flush: true
-            render status: 200
+//            render status: 200
 
-            redirect(action: "show", id: userGroup.groupId)
+            redirect(status:200,action: "show", id: userGroup.groupId)
         }
     }
 
