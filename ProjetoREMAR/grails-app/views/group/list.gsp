@@ -58,17 +58,19 @@
 
     <div id="others-groups">
         <div class="row">
-            <div class="input-field col l3 offset-l3">
-                <input name="membertoken" id="member-token" type="text" placeholder="Senha de acesso" required>
-                <label for="member-token"><i class="fa fa-search"></i></label>
-                %{--<input type="hidden" value="${group.id}" name="groupid">--}%
-                %{--<input type="hidden" value="" id="user-id" name="userid">--}%
-            </div>
-            <div class="col l3">
-                <button onclick="enterGroup()" style="font-size: 0.8em; top: 1.4em; position:relative;"  class="btn waves-effect waves-light">Entrar
-                    <i class="material-icons right">group_add</i>
-                </button>
-            </div>
+            <g:form action="addUser" method="post">
+                <div class="input-field col l3 offset-l3">
+                    <input name="membertoken" id="member-token" type="text" placeholder="Senha de acesso" required>
+                    <label for="member-token"><i class="fa fa-search"></i></label>
+                    %{--<input type="hidden" value="${group.id}" name="groupid">--}%
+                    %{--<input type="hidden" value="" id="user-id" name="userid">--}%
+                </div>
+                <div class="col l3">
+                    <button type="submit" style="font-size: 0.8em; top: 1.4em; position:relative;"  class="btn waves-effect waves-light">Entrar
+                        <i class="material-icons right">group_add</i>
+                    </button>
+                </div>
+            </g:form>
         </div>
          <div style="position: relative; left: 1em" class="row">
 
@@ -98,21 +100,6 @@
         $(document).ready(function(){
             $('ul.tabs').tabs();
         });
-
-        function enterGroup(){
-            $.ajax({
-                type:'POST',
-                url:"/group/addUser",
-                data: {
-                    token: $("#member-token").val()
-                },
-                success: function(data) {
-                    console.log(data);
-                    console.log("success");
-//                window.location.reload();
-                }
-            })
-        }
     </script>
     </body>
 
