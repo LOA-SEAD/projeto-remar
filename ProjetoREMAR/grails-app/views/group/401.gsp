@@ -8,7 +8,7 @@
 <body>
     <div class="row">
         <div class="col l12">
-            <h5>Desculpe, mas você não possui autorização para visualizar este grupo</h5>
+            <h5>Desculpe, mas você não possui autorização para esta ação</h5>
         </div>
 
     </div>
