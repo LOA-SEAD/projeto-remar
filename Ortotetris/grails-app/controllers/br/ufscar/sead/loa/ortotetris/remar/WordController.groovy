@@ -33,7 +33,7 @@ class WordController {
     }
 
     /* Funções que manipulam word e answer */
-    def initialize_word(Word wordInstance){
+    def initializeWord(Word wordInstance){
         String aux = ""+wordInstance.getAnswer().toUpperCase()
         if (wordInstance.getAnswer().length() < 10) {
             for (int i = (10 - wordInstance.getAnswer().length()); i > 0; i--)
@@ -44,7 +44,7 @@ class WordController {
     } //copia answer para word e completa word com 'ì' caso answer.lenght()<10
 
     @Transactional
-    def move_to_left() {
+    def moveToLeft() {
         Word wordInstance = Word.findById(params.id)
         if (wordInstance.getWord().charAt(0) == 'ì') {
             String aux = wordInstance.getWord().substring(1, 10)
@@ -62,7 +62,7 @@ class WordController {
     }//move word para a esquerda
 
     @Transactional
-    def move_to_right() {
+    def moveToRight() {
         Word wordInstance = Word.findById(params.id)
         if (wordInstance.getWord().charAt(9) == 'ì') {
             String aux = "ì"
@@ -78,13 +78,13 @@ class WordController {
     }//move word para a direita
 
     @Transactional
-    def mark_letter(int id, int pos) {
+    def markLetter(int id, int pos) {
         Word wordInstance = Word.findById(id)
         String position_text = pos
         int position = position_text.toInteger()
         if ((position-1 >= wordInstance.getInitial_position()) && (position-1 <= wordInstance.getInitial_position() + wordInstance.getAnswer().length()-1) ) {
             String h_char = "" + wordInstance.getWord().charAt(position-1);
-            if(validate_hide_letter(h_char)) {
+            if(validateHideLetter(h_char)) {
                 String aux
                 if(h_char=="H" && wordInstance.getWord().charAt(position-2).toUpperCase()=='C') //caso a letra escondida seja "H" é necessário esconder a letra "C" que a antecede
                 {
@@ -121,7 +121,7 @@ class WordController {
     }//marca o caractere como '0' (esconde o caractere)
 
     @Transactional
-    def clear_position() {
+    def clearPosition() {
         Word wordInstance = Word.findById(params.id)
         String position_text = params.pos
         int position = position_text.toInteger()
@@ -157,9 +157,9 @@ class WordController {
     def editWord(){
         Word wordInstance = Word.findById(params.id)
         if(Word.findByAnswer(params.new_answer)==null){
-            if(validate_form_answer(params.new_answer)){
+            if(validateFormAnswer(params.new_answer)){
             wordInstance.setAnswer(params.new_answer)
-            initialize_word(wordInstance)
+            initializeWord(wordInstance)
             wordInstance.save flush: true
             render template: 'message', model: [WordMessage: "Palavra atualizada com sucesso"]
             render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName: "Word"]
@@ -185,7 +185,7 @@ class WordController {
 
     }
 
-    def validate_form_answer(String new_answer) {
+    def validateFormAnswer(String new_answer) {
         if (new_answer.length()>10 || new_answer.length()<1)
             return false
         else
@@ -193,7 +193,7 @@ class WordController {
 
     }
 
-    def validate_hide_letter(String hide_letter){
+    def validateHideLetter(String hide_letter){
         String test_letter=hide_letter.toUpperCase();
 
         switch (test_letter){
@@ -305,7 +305,7 @@ class WordController {
             return
         }
 
-        initialize_word(wordInstance) //inicializa a word conforme a answer passada como parâmetro
+        initializeWord(wordInstance) //inicializa a word conforme a answer passada como parâmetro
         wordInstance.ownerId = session.user.id
 
         wordInstance.save flush:true
@@ -338,7 +338,7 @@ class WordController {
         }
 
         if(edited)
-            initialize_word(wordInstance)
+            initializeWord(wordInstance)
         wordInstance.save flush:true
 
         request.withFormat {
@@ -360,7 +360,7 @@ class WordController {
 
             Word wordInstance = new Word()
             wordInstance.answer = row[0] ?: "NA";
-            initialize_word(wordInstance)
+            initializeWord(wordInstance)
             wordInstance.ownerId = session.user.id
             if(wordInstance.hasErrors())
             {
