@@ -56,7 +56,6 @@ class WordController {
 
         }
         else {
-            render template: 'message', model: [WordMessage: "Não foi possível realizar a operação"]
             render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
 
@@ -74,7 +73,6 @@ class WordController {
             render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
         else {
-            render template: 'message', model: [WordMessage: "Não foi possível realizar a operação"]
             render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
     }//move word para a direita
@@ -109,16 +107,13 @@ class WordController {
                 aux += (wordInstance.getWord().substring(position, 10))
                 wordInstance.setWord(aux)
                 wordInstance.save flush: true
-                render template: 'message', model: [WordMessage: "Caracter oculto com sucesso"]
                 render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName: "Word"]
             }
             else {
-                render template: 'message', model: [WordMessage: "Escolha um caracter válido"]
                 render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
             }
         }
         else {
-            render template: 'message', model: [WordMessage: "Escolha uma posição válida"]
             render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
 
@@ -149,11 +144,9 @@ class WordController {
 
             wordInstance.setWord(aux)
             wordInstance.save flush:true
-            render template: 'message', model: [WordMessage: "Operação realizada com sucesso"]
             render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
         else {
-            render template: 'message', model: [WordMessage: "Escolha uma posição válida"]
             render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
 
