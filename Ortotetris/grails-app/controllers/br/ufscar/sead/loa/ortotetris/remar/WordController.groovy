@@ -17,7 +17,7 @@ class WordController {
     def springSecurityService
 
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", toJson: "GET"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", toJson: "GET", getWord: ["GET","POST"]]
 
     def index() {
 
@@ -42,6 +42,14 @@ class WordController {
         wordInstance.setWord(aux)
         wordInstance.setInitial_position(0)
     } //copia answer para word e completa word com 'ì' caso answer.lenght()<10
+
+    def getWord(int id){
+
+        Word wordInstance = Word.findById(id)
+        String attr = "" + wordInstance.word + "#@&" + wordInstance.answer + "#@&" + wordInstance.initial_position + "#@&" + wordInstance.id
+        println(attr)
+        render attr;
+    }
 
     @Transactional
     def moveToLeft() {
