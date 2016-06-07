@@ -83,6 +83,7 @@ class ExportedResourceController {
 
     def publish(ExportedResource instance) {
         def exportsTo = [:]
+        def groups = Group.findAllByOwner(session.user)
         exportsTo.desktop = instance.resource.desktop
         exportsTo.android = instance.resource.android
         exportsTo.moodle = instance.resource.moodle
@@ -95,7 +96,7 @@ class ExportedResourceController {
         RequestMap.findOrSaveWhere(url: "${baseUrl}/**", configAttribute: 'permitAll')
 
         render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl,
-                                            exportedResourceInstance: instance,createdAt: process.createdAt]
+                                            exportedResourceInstance: instance,createdAt: process.createdAt, groups: groups]
     }
 
     def export(ExportedResource instance) {
