@@ -209,7 +209,23 @@
             url: "word/moveToRight",
             data: parameters,
             success: function (data) {
-                console.log(data);
+                $.ajax({
+                    type: 'GET',
+                    url: "word/getWord",
+                    data: parameters,
+                    success: function (data) {
+                        var atributos = data.split("#@&");
+                        console.log(atributos);
+                        ShowWord(atributos[0], atributos[1], atributos[2], atributos[3])
+
+                    },
+                    error: function(req, res, err, data) {
+                        console.log(req);
+                        console.log(res);
+                        console.log(err);
+                        console.log("data: " + data);
+                    }
+                });
 
             },
             error: function(req, res, err) {
@@ -229,6 +245,23 @@
             data: parameters,
             success: function (data) {
                 console.log(data);
+                $.ajax({
+                    type: 'GET',
+                    url: "word/getWord",
+                    data: parameters,
+                    success: function (data) {
+                        var atributos = data.split("#@&");
+                        console.log(atributos);
+                        ShowWord(atributos[0], atributos[1], atributos[2], atributos[3])
+
+                    },
+                    error: function(req, res, err, data) {
+                        console.log(req);
+                        console.log(res);
+                        console.log(err);
+                        console.log("data: " + data);
+                    }
+                });
 
             },
             error: function(req, res, err) {
@@ -249,6 +282,23 @@
             data: parameters,
             success: function (data) {
                 console.log(data);
+                $.ajax({
+                    type: 'GET',
+                    url: "word/getWord",
+                    data: parameters,
+                    success: function (data) {
+                        var atributos = data.split("#@&");
+                        console.log(atributos);
+                        ShowWord(atributos[0], atributos[1], atributos[2], atributos[3])
+
+                    },
+                    error: function(req, res, err, data) {
+                        console.log(req);
+                        console.log(res);
+                        console.log(err);
+                        console.log("data: " + data);
+                    }
+                });
 
             },
             error: function(req, res, err) {
@@ -268,6 +318,23 @@
             data: parameters,
             success: function (data) {
                 console.log(data);
+                $.ajax({
+                    type: 'GET',
+                    url: "word/getWord",
+                    data: parameters,
+                    success: function (data) {
+                        var atributos = data.split("#@&");
+                        console.log(atributos);
+                        ShowWord(atributos[0], atributos[1], atributos[2], atributos[3])
+
+                    },
+                    error: function(req, res, err, data) {
+                        console.log(req);
+                        console.log(res);
+                        console.log(err);
+                        console.log("data: " + data);
+                    }
+                });
 
             },
             error: function(req, res, err) {
@@ -316,8 +383,7 @@
             url: "word/save",
             data: parameters,
             success: function (data) {
-                console.log(data);
-
+                window.location.reload();
             },
             error: function(req, res, err) {
                 console.log(req);
