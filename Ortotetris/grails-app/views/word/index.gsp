@@ -203,23 +203,80 @@
 
     function right(id) {
         var parameters = {"id": id};
-        <g:remoteFunction action="move_to_right" params="parameters" update="TableWordList" onComplete="AutoClickButton(id)"/>
+
+        $.ajax({
+            type: 'POST',
+            url: "word/moveToRight",
+            data: parameters,
+            success: function (data) {
+                console.log(data);
+
+            },
+            error: function(req, res, err) {
+                console.log(req);
+                console.log(res);
+                console.log(err);
+            }
+        });
+        %{--<g:remoteFunction action="move_to_right" params="parameters" update="TableWordList" onComplete="AutoClickButton(id)"/>--}%
     }
 
     function left(id) {
         var parameters = {"id": id};
-        <g:remoteFunction action="move_to_left" params="parameters" update="TableWordList" onComplete="AutoClickButton(id)"/>
+        $.ajax({
+            type: 'POST',
+            url: "word/moveToLeft",
+            data: parameters,
+            success: function (data) {
+                console.log(data);
+
+            },
+            error: function(req, res, err) {
+                console.log(req);
+                console.log(res);
+                console.log(err);
+            }
+        });
+        %{--<g:remoteFunction action="move_to_left" params="parameters" update="TableWordList" onComplete="AutoClickButton(id)"/>--}%
 
     }
 
     function mark_letter(id, pos) {
         var parameters = {"id": id, "pos": pos};
-        <g:remoteFunction action="mark_letter" params="parameters" update="TableWordList" onComplete="AutoClickButton(id)"/>
+        $.ajax({
+            type: 'POST',
+            url: "word/markLetter",
+            data: parameters,
+            success: function (data) {
+                console.log(data);
+
+            },
+            error: function(req, res, err) {
+                console.log(req);
+                console.log(res);
+                console.log(err);
+            }
+        });
+        %{--<g:remoteFunction action="mark_letter" params="parameters" update="TableWordList" onComplete="AutoClickButton(id)"/>--}%
     }
 
     function clear_letter(id, pos) {
         var parameters = {"id": id, "pos": pos};
-        <g:remoteFunction action="clear_position" params="parameters" update="TableWordList" onComplete="AutoClickButton(id)"/>
+        $.ajax({
+            type: 'POST',
+            url: "word/clearPosition",
+            data: parameters,
+            success: function (data) {
+                console.log(data);
+
+            },
+            error: function(req, res, err) {
+                console.log(req);
+                console.log(res);
+                console.log(err);
+            }
+        });
+        %{--<g:remoteFunction action="clear_position" params="parameters" update="TableWordList" onComplete="AutoClickButton(id)"/>--}%
     }
 
     function SaveToJson() {
@@ -233,14 +290,42 @@
         }
 
         var parameters = {"ids": list }
-        <g:remoteFunction action="toJson" params="parameters"  />
+        $.ajax({
+            type: 'POST',
+            url: "word/toJson",
+            data: parameters,
+            success: function (data) {
+                console.log(data);
+
+            },
+            error: function(req, res, err) {
+                console.log(req);
+                console.log(res);
+                console.log(err);
+            }
+        });
+        %{--<g:remoteFunction action="toJson" params="parameters"  />--}%
     }
 
     function SaveNewWord() {
         var ans = document.getElementById("NewWordLabel").value;
         var node = document.getElementById("ShowWord");
         var parameters = {"answer": ans, "word": "none", "initial_position": 0};
-        <g:remoteFunction action="save" params="parameters" update="TableWordList"/>
+        $.ajax({
+            type: 'POST',
+            url: "word/save",
+            data: parameters,
+            success: function (data) {
+                console.log(data);
+
+            },
+            error: function(req, res, err) {
+                console.log(req);
+                console.log(res);
+                console.log(err);
+            }
+        });
+        %{--<g:remoteFunction action="save" params="parameters" update="TableWordList"/>--}%
         $('#NewWordLabel').val("");
         $('#createModal').closeModal();
     }
