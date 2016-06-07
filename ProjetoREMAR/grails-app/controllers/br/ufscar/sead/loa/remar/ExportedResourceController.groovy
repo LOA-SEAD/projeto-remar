@@ -23,15 +23,17 @@ class ExportedResourceController {
         exportedResourceInstance.exportedAt = new Date()
         exportedResourceInstance.type = 'public'
         exportedResourceInstance.addToPlatforms(Platform.findByName("Moodle"))
-
         exportedResourceInstance.save flush: true
         redirect controller: "ExportedResource", action: "accountConfig", id: exportedResourceInstance.id
     }
 
     def delete(int id, String processId) {
+        //Deleta a instância do Exported Resource e o diretório criado também
         ExportedResource instance = ExportedResource.findById(id)
         instance.delete flush: true
-        println(processId)
+        def root = servletContext.getRealPath("/")
+        def ant = new AntBuilder()
+        ant.delete(dir: root + '/published/' + processId,failonerror:false)
         myGames()
     }
 
