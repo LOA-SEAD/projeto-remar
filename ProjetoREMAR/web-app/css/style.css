@@ -1050,9 +1050,9 @@ Position must be relative!*/
     width: 25%;
 }
 
-.collapsible-header {
-    border-top: 1.2px solid darkgray;
-}
+/*.collapsible-header {*/
+    /*border-top: 1.2px solid darkgray;*/
+/*}*/
 
 .c .collapsible-header {
     border-top: none;

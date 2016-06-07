@@ -60,6 +60,11 @@ class UrlMappings {
         "/exported-resource/_table/$resourceId"(controller: "exportedResource", action: "_table")
         "/exported-resource/_table"(controller: "exportedResource", action: "_data")
 
+
+        "/category/save"(controller: "category", action: "save")
+        "/category/update/$categoryId"(controller: "category", action: "update")
+        "/category/delete/$categoryId"(controller: "category", action: "delete")
+
         // end Resource API endpoints
 
         name myProfile: "/my-profile" (controller:"user", action:"myProfile")
