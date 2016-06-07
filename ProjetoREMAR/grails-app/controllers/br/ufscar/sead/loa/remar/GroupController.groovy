@@ -59,9 +59,32 @@ class GroupController {
         }
     }
 
+    def leaveGroup(){
+        User user = session.user
+        def group = Group.findById(params.id)
+        def userGroup = UserGroup.findByUserAndGroup(user,group)
+        userGroup.delete flush: true
+        redirect(action: "list")
+    }
+
+    def addUserAutocomplete(){
+
+        def group = Group.findById(params.groupid)
+        if(group.owner.id == session.user.id) {
+            println "entrou"
+            def userGroup = new UserGroup()
+            userGroup.group = Group.findById(params.groupid)
+            userGroup.user = User.findById(params.userid)
+            userGroup.save flush: true
+
+            redirect(status: 200, action: "show", id: userGroup.groupId)
+        }
+    }
+
     def addUser(){
-        def userGroup = new UserGroup()
         if(params.membertoken != ""){
+            def userGroup = new UserGroup()
+
             println params.token
             def group = Group.findByToken(params.membertoken)
             if(group) {
@@ -75,13 +98,7 @@ class GroupController {
 
             }
         }else {
-            userGroup.group = Group.findById(params.groupid)
-            userGroup.user = User.findById(params.userid)
-            //TODO filtrar usuarios ja adicionados
-            userGroup.save flush: true
-//            render status: 200
-
-            redirect(status:200,action: "show", id: userGroup.groupId)
+//TODO
         }
     }
 
