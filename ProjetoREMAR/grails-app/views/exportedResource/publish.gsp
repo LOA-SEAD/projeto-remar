@@ -22,13 +22,13 @@ Time: 09:55
     </div>
     <div class="row space">
         <g:if test="${params.toast}">
-            <blockquote>
+            <p>
                 O seu jogo foi publicado com <span class="bold">sucesso</span>! Agora ele já esta disponível no menu
                 <span class="chip">
                     <a class="center" href="/exported-resource/publicGames">Jogos publicados</a>
                     <i class="medium material-icons">videogame_asset</i>
                 </span>
-            </blockquote>
+            </p>
         </g:if>
     </div>
     <div class="row show">
@@ -187,6 +187,30 @@ Time: 09:55
                         </div>
                     </div>
                 </li>
+                <li id="groups">
+                    <div class="collapsible-header active"><i class="material-icons">group_add</i>Grupos </div>
+
+                    <div class="collapsible-body">
+                        <ul class="collection with-header">
+                            <g:each var="group" in="${groups}">
+                                <li class="collection-item">
+                                    <div class="left-align">
+                                        <p>${group.name}</p>
+                                    </div>
+                                    <input name="groupsid" class="selected-groups" id="groups-${group.id}" value="${group.id}" type="checkbox">
+                                    <label style="position:relative; bottom: 2em;" for="groups-${group.id}" class="secondary-content"></label>
+                                </li>
+                            </g:each>
+                        %{--<input type="hidden" name="exportedresource" value="${instance.id}">--}%
+                            <div class="row">
+                                <button onclick="addToGroups()" style="left:2em; top: 0.8em; position:relative;" class="btn waves-effect waves-light" type="submit" name="action">Adicionar
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </div>
+                        </ul>
+                    </div>
+
+                </li>
             </ul>
         </div>
     </li>
@@ -203,7 +227,17 @@ Time: 09:55
         <a href="#!" class="modal-action modal-close waves-effect btn-flat">Enviar</a>
     </div>
 </div>
+<script>
+    function addToGroups(){
+        var groupsArray = $(".selected-groups").val();
+        console.log(groupsArray);
 
+        $.ajax({
+
+
+        })
+    }
+</script>
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
 <g:javascript src="exported-plataforms.js"/>
 <g:javascript src="licenseShow.js"/>
