@@ -95,7 +95,7 @@
         <div class="row">
             <div class="row" id="buttonDiv">
                 <div class="input-field col s6 offset-s3" id="parametersNewWord">
-                    <input id="NewWordLabel" type="text" name="answer"> <label
+                    <input id="NewWordLabel" maxlength="10" type="text" name="answer"> <label
                         for="NewWordLabel">Digite uma nova palavra</label>
                     <input type="hidden" value="none" name="word"> <label></label>
                     <input type="hidden" value="0" name="initialPosition"> <label></label>
