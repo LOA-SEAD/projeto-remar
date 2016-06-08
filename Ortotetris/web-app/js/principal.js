@@ -69,7 +69,7 @@ function showWord(wordP, answerP, initial_positionP, idP){
 
 }
 
-function showWordAndModal(wordP, answerP,initial_positionP, idP) {
+function showWordAndModal(wordP, answerP,initial_positionP, idP){
     showWord(wordP, answerP,initial_positionP, idP);
     $("#showModal").openModal({
         complete: function(){
@@ -354,4 +354,12 @@ function SaveNewWord() {
     });
     $('#NewWordLabel').val("");
     $('#createModal').closeModal();
+}
+
+function openModal(modalName){
+    $("#" + modalName + "").openModal({
+        complete: function(){
+            $(".lean-overlay").remove();
+        }
+    });
 }

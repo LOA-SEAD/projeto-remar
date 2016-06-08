@@ -92,12 +92,12 @@
                 </div>
 
                 <div class="col s1 m1 l1 offset-s5 offset-m8 offset-l8">
-                    <a data-target="createModal" name="create"
-                       class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar nova palavra"><i
+                    <a name="create" onclick="openModal('createModal')"
+                       class="btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Criar nova palavra"><i
                             class="material-icons">add</i></a>
                 </div>
                 <div class="col s1 offset-s1 m1 l1">
-                    <a data-target="uploadModal"  class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped" data-tooltip="Upload de arquivo .csv"><i
+                    <a onclick="openModal('uploadModal')" class="btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Upload de arquivo .csv"><i
                             class="material-icons">file_upload</i></a>
                 </div>
             </div>
@@ -132,12 +132,8 @@
                 <div class="modal-content">
                     <div class="row"></div>
                     <div class="row"></div>
-
                     <div class="row"  id="showWordModal">
-
-
                     </div>
-
                 </div>
                 <div class="modal-footer">
                 </div>
@@ -207,12 +203,6 @@
             </div>
         </div>
     </div>
-
 </div>
-
-
-
-
-
 </body>
 </html>

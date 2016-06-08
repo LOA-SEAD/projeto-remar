@@ -80,7 +80,11 @@
 <!-- Modal Structure -->
 <div id="deleteModal" class="modal">
     <div class="modal-content">
-        <h4>Excluir Palavra</h4>
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <h4>Excluir Palavra</h4>
+            </div>
+        </div>
 
         <div class="row">
             <div class="row">
@@ -89,10 +93,13 @@
                 </div>
             </div>
 
-            <div class="col offset-s8">
-                <button class="btn grey waves-effect waves-light modal-close">Não</button>
-                <button id="deleteButton" class="btn waves-effect waves-light modal-close my-orange"
-                        onclick="Delete()">Sim</button>
+
+            <div class="col s4 offset-s2">
+                <a class="btn grey waves-effect waves-light modal-close">Não</a>
+            </div>
+            <div class="col s4">
+                <a id="deleteButton" class="btn waves-effect waves-light modal-close my-orange"
+                   onclick="Delete()">Sim</a>
             </div>
 
         </div>
@@ -121,7 +128,7 @@
 
     function WordDelete(id) {
         $('#warningLabel').empty();
-        $("#warningLabel").append("<div> <p> Você tem certeza ?  </p> </div>");
+        $("#warningLabel").append("<div class='col s12 m12 l12 center'> <p> Você tem certeza ?  </p> </div>");
         $("#warningLabel").append("<input id='wordIdDelete' value='" + id + "' type='hidden' name='id'> <label></label>");
         $('#deleteModal').openModal();
     }
