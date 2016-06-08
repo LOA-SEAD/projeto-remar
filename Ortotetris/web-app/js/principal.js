@@ -146,3 +146,203 @@ function submit(){
 
 }
 
+$(document).ready(function () {
+
+    $('.modal-trigger').leanModal({
+        ready: function () {
+        },
+        complete: function () {
+
+        }
+    });
+
+
+});
+
+
+function right(id) {
+    var parameters = {"id": id};
+
+    $.ajax({
+        type: 'POST',
+        url: "word/moveToRight",
+        data: parameters,
+        success: function (data) {
+            $.ajax({
+                type: 'GET',
+                url: "word/getWord",
+                data: parameters,
+                success: function (data) {
+                    var atributos = data.split("#@&");
+                    console.log(atributos);
+                    showWord(atributos[0], atributos[1], atributos[2], atributos[3])
+
+                },
+                error: function(req, res, err, data) {
+                    console.log(req);
+                    console.log(res);
+                    console.log(err);
+                    console.log("data: " + data);
+                }
+            });
+
+        },
+        error: function(req, res, err) {
+            console.log(req);
+            console.log(res);
+            console.log(err);
+        }
+    });
+}
+
+function left(id) {
+    var parameters = {"id": id};
+    $.ajax({
+        type: 'POST',
+        url: "word/moveToLeft",
+        data: parameters,
+        success: function (data) {
+            console.log(data);
+            $.ajax({
+                type: 'GET',
+                url: "word/getWord",
+                data: parameters,
+                success: function (data) {
+                    var atributos = data.split("#@&");
+                    console.log(atributos);
+                    showWord(atributos[0], atributos[1], atributos[2], atributos[3])
+
+                },
+                error: function(req, res, err, data) {
+                    console.log(req);
+                    console.log(res);
+                    console.log(err);
+                    console.log("data: " + data);
+                }
+            });
+
+        },
+        error: function(req, res, err) {
+            console.log(req);
+            console.log(res);
+            console.log(err);
+        }
+    });
+}
+
+function mark_letter(id, pos) {
+    var parameters = {"id": id, "pos": pos};
+    $.ajax({
+        type: 'POST',
+        url: "word/markLetter",
+        data: parameters,
+        success: function (data) {
+            console.log(data);
+            $.ajax({
+                type: 'GET',
+                url: "word/getWord",
+                data: parameters,
+                success: function (data) {
+                    var atributos = data.split("#@&");
+                    console.log(atributos);
+                    showWord(atributos[0], atributos[1], atributos[2], atributos[3])
+
+                },
+                error: function(req, res, err, data) {
+                    console.log(req);
+                    console.log(res);
+                    console.log(err);
+                    console.log("data: " + data);
+                }
+            });
+
+        },
+        error: function(req, res, err) {
+            console.log(req);
+            console.log(res);
+            console.log(err);
+        }
+    });
+}
+
+function clear_letter(id, pos) {
+    var parameters = {"id": id, "pos": pos};
+    $.ajax({
+        type: 'POST',
+        url: "word/clearPosition",
+        data: parameters,
+        success: function (data) {
+            console.log(data);
+            $.ajax({
+                type: 'GET',
+                url: "word/getWord",
+                data: parameters,
+                success: function (data) {
+                    var atributos = data.split("#@&");
+                    console.log(atributos);
+                    showWord(atributos[0], atributos[1], atributos[2], atributos[3])
+
+                },
+                error: function(req, res, err, data) {
+                    console.log(req);
+                    console.log(res);
+                    console.log(err);
+                    console.log("data: " + data);
+                }
+            });
+
+        },
+        error: function(req, res, err) {
+            console.log(req);
+            console.log(res);
+            console.log(err);
+        }
+    });
+}
+
+function SaveToJson() {
+    var list="";
+    var trs = document.getElementById('ListTable').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
+    console.log(trs.length);
+    for (var i = 0; i < trs.length; i++) {
+        if ($(trs[i]).attr('data-checked') == "true") {
+            list += $(trs[i]).attr('data-id') + ',';
+        }
+    }
+
+    var parameters = {"ids": list }
+    $.ajax({
+        type: 'POST',
+        url: "word/toJson",
+        data: parameters,
+        success: function (data) {
+            console.log(data);
+
+        },
+        error: function(req, res, err) {
+            console.log(req);
+            console.log(res);
+            console.log(err);
+        }
+    });
+}
+
+function SaveNewWord() {
+    var ans = document.getElementById("NewWordLabel").value;
+    var parameters = {"answer": ans, "word": "none", "initial_position": 0};
+    $.ajax({
+        type: 'POST',
+        url: "word/save",
+        data: parameters,
+        success: function (data) {
+            window.location.reload();
+        },
+        error: function(req, res, err) {
+            console.log(req);
+            console.log(res);
+            console.log(err);
+        }
+    });
+    $('#NewWordLabel').val("");
+    $('#createModal').closeModal();
+}
