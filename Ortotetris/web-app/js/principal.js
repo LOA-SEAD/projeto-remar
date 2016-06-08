@@ -159,9 +159,11 @@ $(document).ready(function () {
         ready: function () {
         },
         complete: function () {
+            $(".lean-overlay").remove();
 
         }
     });
+    $('ul.tabs').tabs();
 
 
 });

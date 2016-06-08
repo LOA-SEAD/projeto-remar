@@ -54,21 +54,27 @@
 <!-- Modal Structure -->
 <div id="editModal" class="modal">
     <div class="modal-content">
-        <h4>Editar Palavra</h4>
         <div class="row">
-            <div class="row">
-                <div class="input-field col s6 offset-s3" id="editDiv">
-                    <input id="EditWordLabel" maxlength="10" type="text" name="answer"> <label for="EditWordLabel"></label>
+            <div class="col s12 m12 l12">
+                <h4>Criar Palavra</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m6 offset-m3 l6 offset-l3">
+                <div class="input-field" id="editDiv">
+                    <input id="EditWordLabel"  maxlength="10" type="text" name="answer"> <label for="EditWordLabel"></label>
                     <input id="wordId" type="hidden" name="id"> <label></label>
                     <input type="hidden" value="none" name="word"> <label></label>
                     <input type="hidden" value="0" name="initialPosition"> <label></label>
                 </div>
+                <div class=" center-align s12 m3 l3">
+                    <a onclick="UpdateWord()" class="btn btn-success btn-lg modal-close my-orange">Salvar</a>
+                </div>
             </div>
-            <button onclick="UpdateWord()"
-                    class="btn btn-success btn-lg modal-close my-orange">Salvar</button>
         </div>
     </div>
 </div>
+
 
 
 <!-- Modal Structure -->
@@ -99,7 +105,7 @@
 
     function EditWord(answer, id) {
         $("#editDiv").empty();
-        $("#editDiv").append("<input maxlength='10' id='EditWordLabel' value='" + answer + "' type='text' name='answer'> <label for='EditWordLabel'></label>");
+        $("#editDiv").append("<input class='center' maxlength='10' id='EditWordLabel' value='" + answer + "' type='text' name='answer'> <label for='EditWordLabel'></label>");
         $("#editDiv").append("<input id='wordId' type='hidden' value='" + id + "' name='id'> <label></label>");
         $("#editDiv").append("<input type='hidden' value='none' name='word'> <label></label>");
         $("#editDiv").append("<input type='hidden' value='0' name='initialPosition'> <label></label>");
