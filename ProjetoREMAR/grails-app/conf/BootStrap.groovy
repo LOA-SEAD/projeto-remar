@@ -14,9 +14,13 @@ class BootStrap {
 
     def init = { servletContext ->
 
-        MongoHelper.instance.init()
+        MongoHelper.instance.init([username: grailsApplication.config.dataSource.username,
+                                   password:  grailsApplication.config.dataSource.password])
 
-        Propeller.instance.init([dbName: 'remar-propeller', wipeDb: false])
+        Propeller.instance.init([dbName: 'remar-propeller', wipeDb: false,
+                                 username: grailsApplication.config.dataSource.username,
+                                 authDb: 'admin',
+                                 password: grailsApplication.config.dataSource.password])
 
         HttpServletRequest.metaClass.isXhr = { ->
             'XMLHttpRequest' == delegate.getHeader('X-Requested-With')
