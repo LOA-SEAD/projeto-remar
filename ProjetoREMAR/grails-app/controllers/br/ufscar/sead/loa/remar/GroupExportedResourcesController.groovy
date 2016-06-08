@@ -22,17 +22,20 @@ class GroupExportedResourcesController {
         def exportedResource = ExportedResource.findById(params.exportedresource)
         params.groupsid.each{
             def groupExportedResource = new GroupExportedResources()
+            def group = Group.findById("${it}")
 
-            groupExportedResource.group = Group.findById("${it}")
-            groupExportedResource.exportedResource = exportedResource
+            if(GroupExportedResources.findByGroupAndExportedResource(group,exportedResource)){
+                println "ja tem"
+            }else{
+                groupExportedResource.group = group
+                groupExportedResource.exportedResource = exportedResource
 
-            println groupExportedResource.group
-            println groupExportedResource.exportedResource
+                groupExportedResource.save flush: true
 
-            groupExportedResource.save flush: true
+            }
+
+
         }
-
-
 
         redirect(action: "myGames", controller: "exportedResource")
 
