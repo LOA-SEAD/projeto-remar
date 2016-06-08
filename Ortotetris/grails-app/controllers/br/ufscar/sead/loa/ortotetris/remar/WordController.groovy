@@ -47,7 +47,6 @@ class WordController {
 
         Word wordInstance = Word.findById(id)
         String attr = "" + wordInstance.word + "#@&" + wordInstance.answer + "#@&" + wordInstance.initial_position + "#@&" + wordInstance.id
-        println(attr)
         render attr;
     }
 

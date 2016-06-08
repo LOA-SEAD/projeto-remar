@@ -216,7 +216,7 @@
                     success: function (data) {
                         var atributos = data.split("#@&");
                         console.log(atributos);
-                        ShowWord(atributos[0], atributos[1], atributos[2], atributos[3])
+                        showWord(atributos[0], atributos[1], atributos[2], atributos[3])
 
                     },
                     error: function(req, res, err, data) {
@@ -252,7 +252,7 @@
                     success: function (data) {
                         var atributos = data.split("#@&");
                         console.log(atributos);
-                        ShowWord(atributos[0], atributos[1], atributos[2], atributos[3])
+                        showWord(atributos[0], atributos[1], atributos[2], atributos[3])
 
                     },
                     error: function(req, res, err, data) {
@@ -289,7 +289,7 @@
                     success: function (data) {
                         var atributos = data.split("#@&");
                         console.log(atributos);
-                        ShowWord(atributos[0], atributos[1], atributos[2], atributos[3])
+                        showWord(atributos[0], atributos[1], atributos[2], atributos[3])
 
                     },
                     error: function(req, res, err, data) {
@@ -325,7 +325,7 @@
                     success: function (data) {
                         var atributos = data.split("#@&");
                         console.log(atributos);
-                        ShowWord(atributos[0], atributos[1], atributos[2], atributos[3])
+                        showWord(atributos[0], atributos[1], atributos[2], atributos[3])
 
                     },
                     error: function(req, res, err, data) {

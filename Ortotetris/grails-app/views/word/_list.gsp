@@ -39,7 +39,7 @@
         %{--<td>${wordInstance.id}</td>--}%
             <td>
                 <i class="material-icons" id="button${wordInstance.id}"
-                   onclick="ShowWord('${wordInstance.word}', '${wordInstance.answer.toUpperCase()}', ${wordInstance.initial_position}, ${wordInstance.id})">games</i>
+                   onclick="showWordAndModal('${wordInstance.word}', '${wordInstance.answer.toUpperCase()}', ${wordInstance.initial_position}, ${wordInstance.id})">games</i>
                 <i class="material-icons"
                    onclick="EditWord('${wordInstance.answer.toUpperCase()}', ${wordInstance.id})">edit</i>
                 <i class="material-icons" onclick="WordDelete('${wordInstance.id}')">delete</i>
