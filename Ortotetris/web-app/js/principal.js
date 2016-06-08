@@ -74,6 +74,7 @@ function showWordAndModal(wordP, answerP,initial_positionP, idP) {
     $("#showModal").openModal({
         complete: function(){
             $(".lean-overlay").remove();
+            window.location.reload();
         }
     });
 

@@ -105,7 +105,6 @@ class WordController {
                         aux += ("0")
                     }
                     else{
-                        render template: 'message', model: [WordMessage: "Escolha um caracter válido"]
                         render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
                         return ;
                     }
