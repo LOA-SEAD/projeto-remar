@@ -1,4 +1,5 @@
-    <main class="cardGames">
+<%@ page import="br.ufscar.sead.loa.remar.GroupExportedResources" %>
+<main class="cardGames">
         <div class="row">
             <g:if test="${myExportedResourcesList.size() == 0}">
                 %{--<p>Você ainda não possui nenhum jogo!</p>--}%
@@ -81,7 +82,12 @@
                                                             Dono: ${group.owner.firstName + " " + group.owner.lastName}<br>
                                                         </p>
                                                     </div>
-                                                    <input name="groupsid" id="groups-${group.id}-instance-${instance.id}" value="${group.id}" type="checkbox">
+                                                    <g:if test="${!br.ufscar.sead.loa.remar.GroupExportedResources.findByGroupAndExportedResource(group,instance)}">
+                                                        <input name="groupsid" id="groups-${group.id}-instance-${instance.id}" value="${group.id}" type="checkbox">
+                                                    </g:if>
+                                                    <g:else>
+                                                        <input name="groupsid" id="groups-${group.id}-instance-${instance.id}" value="${group.id}" checked="checked" disabled="disabled" type="checkbox">
+                                                    </g:else>
                                                     <label style="position:relative; bottom: 2em;" for="groups-${group.id}-instance-${instance.id}" class="secondary-content"></label>
                                                 </li>
                                             </g:each>
@@ -123,6 +129,8 @@
                 </g:each>
             </g:else>
         </div>
+        <script>
+        </script>
         <g:applyLayout name="pagination"/>
     </main>
 
