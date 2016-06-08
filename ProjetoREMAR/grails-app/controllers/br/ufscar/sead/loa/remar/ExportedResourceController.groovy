@@ -323,10 +323,6 @@ class ExportedResourceController {
             }
         }
 
-        println("processes: "+processes.size())
-        println("temporary: "+temporary.size())
-        println(temporary)
-
         model.tMax = params.tMax
         model.tThreshold = threshold
 
@@ -335,8 +331,6 @@ class ExportedResourceController {
         model.tCurrentPage = (params.tOffset + threshold) / threshold
         model.tHasNextPage = params.tOffset + threshold < model.instanceCount
         model.tHasPreviousPage = params.tOoffset > 0
-
-        println model.tPageCount
 
         render view: "myGames", model: model
     }

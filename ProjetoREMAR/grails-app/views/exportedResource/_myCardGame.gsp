@@ -1,5 +1,5 @@
     <main class="cardGames">
-        <article class="row">
+        <div class="row">
             <g:if test="${myExportedResourcesList.size() == 0}">
                 %{--<p>Você ainda não possui nenhum jogo!</p>--}%
             </g:if>
@@ -37,6 +37,7 @@
                                             <g:if test="${instance.resource.moodle}">
                                                 <i class="fa fa-graduation-cap"></i>
                                             </g:if>
+                                            ${instance.id}
                                         </div>
                                     </div>
 
@@ -59,7 +60,7 @@
                                                 </a>
                                             </li>
                                             <li style="text-align: center;">
-                                                <a href="#modal-groups" class="tooltipped modal-trigger" data-position="bottom" data-delay="50" data-tooltip="Adicionar a grupo">
+                                                <a href="#modal-group-${instance.id}" class="tooltipped modal-trigger" data-position="right" data-delay="50" data-tooltip="Adicionar a grupo">
                                                     <i class="fa fa-users" style="color: #FF5722;"></i>
                                                 </a>
                                             </li>
@@ -67,7 +68,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="modal-groups" class="modal col l6 offset-l3 s6">
+                            <div id="modal-group-${instance.id}" class="modal col l6 offset-l3 s6">
                                 <div class="modal-content">
                                     <ul class="collection with-header">
                                         <li class="collection-header"><h4>Grupos disponíveis</h4></li>
@@ -80,18 +81,17 @@
                                                             Dono: ${group.owner.firstName + " " + group.owner.lastName}<br>
                                                         </p>
                                                     </div>
-                                                    <input name="groupsid" id="groups-${group.id}" value="${group.id}" type="checkbox">
-                                                    <label style="position:relative; bottom: 2em;" for="groups-${group.id}" class="secondary-content"></label>
+                                                    <input name="groupsid" id="groups-${group.id}-instance-${instance.id}" value="${group.id}" type="checkbox">
+                                                    <label style="position:relative; bottom: 2em;" for="groups-${group.id}-instance-${instance.id}" class="secondary-content"></label>
                                                 </li>
                                             </g:each>
                                             <input type="hidden" name="exportedresource" value="${instance.id}">
                                             <div class="row">
-                                                <button onclick="$('#modal-groups').closeModal();" style=" top: 0.8em; position:relative;" class="btn waves-effect waves-light" type="submit" name="action">Adicionar
+                                                <button style=" top: 0.8em; position:relative;" class="btn waves-effect waves-light" type="submit" name="action">Adicionar
                                                     <i class="material-icons right">send</i>
                                                 </button>
                                             </div>
                                         </g:form>
-
                                     </ul>
                                 </div>
                             </div>
@@ -122,7 +122,7 @@
                     </div>
                 </g:each>
             </g:else>
-        </article>
+        </div>
         <g:applyLayout name="pagination"/>
     </main>
 

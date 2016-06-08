@@ -19,8 +19,6 @@ class GroupExportedResourcesController {
     }
 
     def addGroupExportedResources(){
-        println params.exportedresource
-        println params.groupsid
         def exportedResource = ExportedResource.findById(params.exportedresource)
         params.groupsid.each{
             def groupExportedResource = new GroupExportedResources()
