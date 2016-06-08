@@ -29,11 +29,10 @@
 					</thead>
 					<tbody>
 						<g:each in="${categoryList}" status="i" var="category">
-							<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-
-								<td>${fieldValue(bean: category, field: "name")}</td>
+							<tr class="action">
+								<td class="category-name">${fieldValue(bean: category, field: "name")}</td>
 								<td>
-									<a href="#edit" id="edit" data-category-id="${category.id}" class="modal-trigger"><i class="material-icons">mode_edit</i></a>
+									<a href="#!" data-category-id="${category.id}" class="edit"><i class="material-icons">mode_edit</i></a>
 									<a href="#!" class="delete" data-category-id="${category.id}"><i class="material-icons">delete_forever</i></a>
 								</td>
 							</tr>
@@ -64,18 +63,18 @@
 		</div>
 
 		<!-- Modal Structure edit -->
-		%{--<div id="edit" class="modal">--}%
-			%{--<div class="modal-content">--}%
-				%{--<h4>Editar categoria</h4>--}%
-				%{--<div class="input-field col s12">--}%
-					%{--<input id="edit-name" name="name" type="text" class="validate" autocomplete="off">--}%
-					%{--<label for="edit-name">Nome</label>--}%
-				%{--</div>--}%
-			%{--</div>--}%
-			%{--<div class="modal-footer">--}%
-				%{--<a id="edit-save" href="#!" data-category-id="" class=" modal-action modal-close waves-effect waves-green btn-flat">Salvar</a>--}%
-			%{--</div>--}%
-		%{--</div>--}%
+		<div id="edit-modal" class="modal">
+			<div class="modal-content">
+				<h4>Editar categoria</h4>
+				<div class="input-field col s12">
+					<input id="edit-name" name="name" type="text" class="validate" autocomplete="off" data-category-id="">
+					<label for="edit-name">Nome</label>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<a id="edit-save" href="#!" data-category-id="" class=" modal-action modal-close waves-effect waves-green btn-flat">Salvar</a>
+			</div>
+		</div>
 
 		<g:javascript src="category.js"/>
 	</body>

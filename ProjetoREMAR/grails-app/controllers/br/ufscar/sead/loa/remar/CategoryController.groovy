@@ -8,7 +8,7 @@ import grails.converters.JSON
 
 class CategoryController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE"]
 
     def index(Integer max) {
         respond Category.list(), model:[categoryCount: Category.count()]
@@ -55,6 +55,10 @@ class CategoryController {
 
     @Transactional
     def update(Category category) {
+
+        log.debug(category.name)
+
+
         if (category == null) {
             notFound()
             return
@@ -67,13 +71,7 @@ class CategoryController {
 
         category.save flush:true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'Category.label', default: 'Category'), category.id])
-                redirect category
-            }
-            '*'{ respond category, [status: OK] }
-        }
+        render true
     }
 
     @Transactional

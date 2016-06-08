@@ -62,8 +62,8 @@ class UrlMappings {
 
 
         "/category/save"(controller: "category", action: "save")
-        "/category/update/$categoryId"(controller: "category", action: "update")
-        "/category/delete/$categoryId"(controller: "category", action: "delete")
+        "/category/update/$id"(controller: "category", action: "update")
+        "/category/delete/$id"(controller: "category", action: "delete")
 
         // end Resource API endpoints
 
