@@ -118,31 +118,38 @@ function uncheck_all(){
 
 function submit(){
     var list="";
+    var count = 0;
     var trs = document.getElementById('ListTable').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
     console.log(trs.length);
     for (var i = 0; i < trs.length; i++) {
         if ($(trs[i]).attr('data-checked') == "true") {
             list += $(trs[i]).attr('data-id') + ',';
+            count = count +1;
         }
     }
 
+    if(count>0){
+        var url = location.origin + '/ortotetris/word/toJson';
+        var data = {"ids": list };
 
-    var url = location.origin + '/ortotetris/word/toJson';
-    var data = {"ids": list };
-
-    $.ajax({
-            type: 'GET',
-            data: data,
-            url: url,
-            success: function (returnData) {
-                window.top.location.href=returnData;
-                //uncheck_all();
-                //window.location.reload();
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
+        $.ajax({
+                type: 'GET',
+                data: data,
+                url: url,
+                success: function (returnData) {
+                    window.top.location.href=returnData;
+                    //uncheck_all();
+                    //window.location.reload();
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                }
             }
-        }
-    );
+        );
+    }
+    else{
+        alert("Você deve selecionar ao menos uma palavra antes de enviar");
+    }
+
 
 }
 

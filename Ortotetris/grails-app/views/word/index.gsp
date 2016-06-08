@@ -66,7 +66,7 @@
 
     <div class="row">
         <div class="col s2">
-            <button class="btn waves-effect waves-light my-orange" type="submit" name="save" id="save"
+            <button class="btn waves-effect waves-light my-orange tooltipped" data-tooltip="Enviar" type="submit" name="save" id="save"
                     onclick="submit()">Enviar
                 <i class="material-icons right">send</i>
             </button>
@@ -74,7 +74,7 @@
 
         <div class="col s1 offset-s8">
             <a data-target="createModal" name="create"
-               class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip=""><i
+               class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar nova palavra"><i
                     class="material-icons">add</i></a>
         </div>
         <div class="col s1">
