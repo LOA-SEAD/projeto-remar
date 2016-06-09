@@ -46,11 +46,49 @@
                 <li class="tab col s6"><a class="active" href="#wordsTable">Escolher Palavras</a></li>
             </ul>
         </div>
-        <div id="instructions" class="col s12">
-            <h3>Instruções</h3>
+        <div id="instructions" class="col s12 m12 l12">
+            <h4>Instruções</h4>
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Botão</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a name="create" class="btn-floating btn-large waves-effect waves-light my-orange"><i class="material-icons">add</i></a></td>
+                                <td>Criar nova questão</td>
+                            </tr>
+                            <tr>
+                                <td><a class="btn-floating btn-large waves-effect waves-light my-orange"><i class="material-icons">file_upload</i></a></td>
+                                <td>Enviar arquivo .csv</td>
+                            </tr>
+                        <tr>
+                            <td><a class='btn myButton4'> <div style="margin-top: 20px;" class="arrowleft"></div></a></td>
+                            <td>Mover palavra para esquerda</td>
+                        </tr>
+                        <tr>
+                            <td><a class='btn myButton4'> <div style="margin-top: 20px;" class="arrowright"></div></a></td>
+                            <td>Mover palavra para direita</td>
+                        </tr>
+                        <tr>
+                            <td><a class="myButton3"> X </a></td>
+                            <td>Esconder letra. É possível esconder as letras [C, H, S, X, Z, Ç]</td>
+                        </tr>
+                        <tr>
+                            <td><a class="myButton"> X </a></td>
+                            <td>Exibir letra. É possível exibir as letras [C, H, S, X, Z, Ç], desde que elas estejam escondidas</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
-        <div id="wordsTable" class="col s12">
+        <div id="wordsTable" class="col s12 m12 l12">
 
             <div class="row">
                 <div class="col s3 offset-s9">
