@@ -20,10 +20,7 @@ class GroupExportedResourcesController {
 
     def addGroupExportedResources(){
         def groupsId
-        if(request.xhr)
-            groupsId = params.groupsid.split(",")
-        else
-            groupsId = params.groupsid
+        groupsId = params.groupsid.split(",")
 
         def exportedResource = ExportedResource.findById(params.exportedresource)
 
@@ -33,6 +30,7 @@ class GroupExportedResourcesController {
 
             if(GroupExportedResources.findByGroupAndExportedResource(group,exportedResource)){
                 println "ja tem"
+                //TODO
             }else{
                 groupExportedResource.group = group
                 groupExportedResource.exportedResource = exportedResource
