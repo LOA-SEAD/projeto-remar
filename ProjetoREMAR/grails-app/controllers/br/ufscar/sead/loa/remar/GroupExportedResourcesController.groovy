@@ -19,8 +19,15 @@ class GroupExportedResourcesController {
     }
 
     def addGroupExportedResources(){
+        def groupsId
+        if(request.xhr)
+            groupsId = params.groupsid.split(",")
+        else
+            groupsId = params.groupsid
+
         def exportedResource = ExportedResource.findById(params.exportedresource)
-        params.groupsid.each{
+
+        groupsId.each{
             def groupExportedResource = new GroupExportedResources()
             def group = Group.findById("${it}")
 
@@ -31,13 +38,13 @@ class GroupExportedResourcesController {
                 groupExportedResource.exportedResource = exportedResource
 
                 groupExportedResource.save flush: true
-
+                render status: 200
             }
 
 
         }
 
-        redirect(action: "myGames", controller: "exportedResource")
+//        redirect(action: "myGames", controller: "exportedResource")
 
     }
 }

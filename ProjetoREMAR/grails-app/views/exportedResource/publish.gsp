@@ -188,7 +188,7 @@ Time: 09:55
                     </div>
                 </li>
                 <li id="groups">
-                    <div class="collapsible-header active"><i class="material-icons">group_add</i>Grupos </div>
+                    <div class="collapsible-header active"><i class="material-icons">group_add</i>Compartilhar em grupos </div>
 
                     <div class="collapsible-body">
                         <ul class="collection with-header">
@@ -197,14 +197,19 @@ Time: 09:55
                                     <div class="left-align">
                                         <p>${group.name}</p>
                                     </div>
-                                    <input name="groupsid" class="selected-groups" id="groups-${group.id}" value="${group.id}" type="checkbox">
-                                    <label style="position:relative; bottom: 2em;" for="groups-${group.id}" class="secondary-content"></label>
+                                    <g:if test="${!br.ufscar.sead.loa.remar.GroupExportedResources.findByGroupAndExportedResource(group,exportedResourceInstance)}">
+                                        <input name="groupsid" class="group-input" id="groups-${group.id}-instance-${exportedResourceInstance.id}" value="${group.id}" type="checkbox">
+                                    </g:if>
+                                    <g:else>
+                                        <input name="groupsid2" id="groups-${group.id}-instance-${exportedResourceInstance.id}" checked="checked" disabled="disabled" type="checkbox">
+                                    </g:else>
+                                    <label style="position:relative; bottom: 2em;" for="groups-${group.id}-instance-${exportedResourceInstance.id}" class="secondary-content"></label>
                                 </li>
                             </g:each>
                         %{--<input type="hidden" name="exportedresource" value="${instance.id}">--}%
                             <div class="row">
-                                <button onclick="addToGroups()" style="left:2em; top: 0.8em; position:relative;" class="btn waves-effect waves-light" type="submit" name="action">Adicionar
-                                    <i class="material-icons right">send</i>
+                                <button onclick="addToGroups()" style="left:2em; top: 0.8em; position:relative;" class="btn waves-effect waves-light" type="submit" name="action">Compartilhar
+                                    <i class="material-icons rigt">send</i>
                                 </button>
                             </div>
                         </ul>
@@ -229,12 +234,25 @@ Time: 09:55
 </div>
 <script>
     function addToGroups(){
-        var groupsArray = $(".selected-groups").val();
-        console.log(groupsArray);
+        var arr = $.map($("input[name='groupsid']:checked"), function(e,i) {
+            return +e.value;
+        });
 
+
+        console.log(arr);
         $.ajax({
-
-
+            type:'POST',
+            url:"/group-exported-resources/addGroupExportedResources",
+            data: {
+                exportedresource: ${exportedResourceInstance.id},
+                groupsid: arr.toString()
+            },
+            success: function(data,textStatus) {
+                if(textStatus == "success"){
+                    $("input[name='groupsid']:checked").prop("disabled","disabled");
+                    Materialize.toast("Compartilhado com sucesso! :)",5000, "rounded");
+                }
+            }
         })
     }
 </script>
