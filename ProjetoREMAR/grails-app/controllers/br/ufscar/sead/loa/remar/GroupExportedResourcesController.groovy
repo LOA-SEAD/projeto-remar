@@ -12,7 +12,7 @@ class GroupExportedResourcesController {
         if(session.user.id == group.owner.id) {
             println "entrou"
             groupExportedResource.delete flush: true
-            redirect(action: "show", id: group.id,  controller: "group")
+            render status: 200
         }else{
             render(view: "../401", status: 401)
         }

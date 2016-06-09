@@ -91,7 +91,7 @@
                                             </g:each>
                                             <input type="hidden" name="exportedresource" value="${instance.id}">
                                             <div class="row">
-                                                <button data-instance-id="${instance.id}" style=" top: 0.8em; position:relative;" class="btn waves-effect waves-light" type="submit" name="action">Compartilhar
+                                                <button data-instance-id="${instance.id}" style=" top: 0.8em; right: -2.4em; position:relative;" class="btn waves-effect waves-light" type="submit" name="action">Compartilhar
                                                     <i class="material-icons right">send</i>
                                                 </button>
                                             </div>

@@ -208,8 +208,8 @@ Time: 09:55
                             </g:each>
                         %{--<input type="hidden" name="exportedresource" value="${instance.id}">--}%
                             <div class="row">
-                                <button onclick="addToGroups()" style="left:2em; top: 0.8em; position:relative;" class="btn waves-effect waves-light" type="submit" name="action">Compartilhar
-                                    <i class="material-icons rigt">send</i>
+                                <button data-instance-id="${exportedResourceInstance.id}" style="left:2em; top: 0.8em; position:relative;" class="btn waves-effect waves-light" type="submit" name="action">Compartilhar
+                                    <i class="material-icons">send</i>
                                 </button>
                             </div>
                         </ul>
@@ -232,32 +232,9 @@ Time: 09:55
         <a href="#!" class="modal-action modal-close waves-effect btn-flat">Enviar</a>
     </div>
 </div>
-<script>
-    function addToGroups(){
-        var arr = $.map($("input[name='groupsid']:checked"), function(e,i) {
-            return +e.value;
-        });
-
-
-        console.log(arr);
-        $.ajax({
-            type:'POST',
-            url:"/group-exported-resources/addGroupExportedResources",
-            data: {
-                exportedresource: ${exportedResourceInstance.id},
-                groupsid: arr.toString()
-            },
-            success: function(data,textStatus) {
-                if(textStatus == "success"){
-                    $("input[name='groupsid']:checked").prop("disabled","disabled");
-                    Materialize.toast("Compartilhado com sucesso! :)",5000, "rounded");
-                }
-            }
-        })
-    }
-</script>
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
 <g:javascript src="exported-plataforms.js"/>
+<g:javascript src="add-to-group.js"/>
 <g:javascript src="licenseShow.js"/>
 <g:javascript src="imgPreview.js"/>
 <g:javascript src="jquery/jquery.Jcrop.js"/>
