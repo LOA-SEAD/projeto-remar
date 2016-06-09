@@ -94,10 +94,10 @@
             </div>
 
 
-            <div class="col s4 offset-s2">
+            <div class="col s4 offset-s2 m2 offset-m8 l2 offset-l8">
                 <a class="btn grey waves-effect waves-light modal-close">Não</a>
             </div>
-            <div class="col s4">
+            <div class="col s4 m2 l2">
                 <a id="deleteButton" class="btn waves-effect waves-light modal-close my-orange"
                    onclick="Delete()">Sim</a>
             </div>

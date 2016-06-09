@@ -142,32 +142,40 @@
             <!-- Modal Structure -->
             <div id="uploadModal" class="modal">
                 <div class="modal-content">
-                    <h4>Enviar arquivo .csv</h4>
-                    <br>
                     <div class="row">
-                        <g:uploadForm action="generateQuestions">
-
-                            <div class="file-field input-field">
-                                <div class="btn my-orange">
-                                    <span>Arquivo</span>
-                                    <input type="file" accept="text/csv" id="csv" name="csv">
-                                </div>
-
-                                <div class="file-path-wrapper">
-                                    <input class="file-path validate" type="text">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s1 offset-s10">
-                                    <g:submitButton class="btn my-orange" name="csv" value="Enviar"/>
-                                </div>
-                            </div>
-                        </g:uploadForm>
+                        <div class="col s12 m12 l12">
+                            <h4>Enviar arquivo .csv</h4>
+                        </div>
                     </div>
 
-                    <blockquote>Formatação do arquivo .csv</blockquote>
+                    <g:uploadForm action="generateQuestions">
+                        <div class="row">
+                            <div class="col s12 m12 l12">
+                                <div class="file-field input-field">
+                                    <div class="btn my-orange">
+                                        <span>Arquivo</span>
+                                        <input type="file" accept="text/csv" id="csv" name="csv">
+                                    </div>
+
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s5 offset-s7 m2 offset-m10 l2 offset-l10">
+                                <g:submitButton class="btn my-orange" name="csv" value="Enviar"/>
+                            </div>
+                        </div>
+                    </g:uploadForm>
                     <div class="row">
-                        <div class="col s6">
+                        <div class="col s12 m12 l12">
+                            <blockquote>Formatação do arquivo .csv</blockquote>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s6 m6 l6">
                             <ol>
                                 <li>O separador do arquivo .csv deve ser <b> ';' (ponto e vírgula)</b>  </li>
                                 <li>O arquivo deve ser composto apenas por <b>dados</b></li>
@@ -177,7 +185,7 @@
                                 <li><a href="/forca/samples/exemploForca.csv" >Download do arquivo exemplo</a></li>
                             </ul>
                         </div>
-                        <div class="col s6">
+                        <div class="col s6 m6 l6">
                             <table class="center centered">
                                 <thead>
                                 <tr>
@@ -196,7 +204,6 @@
                                 </tr>
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                 </div>
