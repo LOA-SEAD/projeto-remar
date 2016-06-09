@@ -15,12 +15,13 @@
 <div class="cluster-header">
     <div class="row">
         <div class="text-teal text-darken-3 left-align margin-bottom col l6 s8">
-          ${group.name}<g:if test="${group.owner.id == session.user.id}"> <a href="/group/delete/${group.id}" data-position="right" data-tooltip="Deletar grupo" class="tooltipped" style="color: black"><i style="position:relative; top: 0.145em;" class="material-icons">delete</i></a>  </g:if><br>
+          ${group.name} <g:if test="${group.owner.id == session.user.id}"> <a href="/group/delete/${group.id}" data-position="right" data-tooltip="Deletar grupo" class="tooltipped" style="color: black"><i style="position:relative; top: 0.145em;" class="material-icons">delete</i></a> </g:if>
+            <g:else><a class="tooltipped" data-tooltip="Sair do grupo" style=" color: black;" href="/group/leave-group/${group.id}"><i class="fa fa-sign-out fa-1x" aria-hidden="true"></i></a></g:else><br>
             <span style="font-size: 0.6em;">Senha de acesso: ${group.token}</span><br>
         </div>
         <div class="">
             <g:if test="${group.owner.id == session.user.id || group.admins.find { it.id == session.user.id}}">
-                <g:form controller="group" action="addUser">
+                <g:form controller="group" action="addUserAutocomplete">
                     <div class="input-field col l3">
                         <input name="term" id="search-user" type="text" required>
                         <label for="search-user"><i class="fa fa-search"></i></label>
@@ -55,7 +56,7 @@
                             <p class="">Usuário: ${userGroup.user.username}</p>
                             <input id="user-group-id" type="hidden" value="${userGroup.id}" name="usergroupid">
                             <g:if test="${group.owner.id == session.user.id}">
-                                <a  onclick="deleteGroupUser();" href=""  style="position: relative; top: -1.48em; left: -1em;" class="secondary-content"><i class="material-icons">delete</i></a>
+                                <a  onclick="deleteGroupUser();" href=""  style="position: relative; top: -2.5em; left: -1.6em;" class="secondary-content"><i class="material-icons">delete</i></a>
                                 <g:if test="${!group.admins.toList().contains(userGroup.user)}">
                                     <a onclick="manageAdmin(this.id);" id="make-admin" href="" class="secondary-content"><i class="material-icons">star_border</i></a>
                                 </g:if>
@@ -125,11 +126,12 @@
                     </span>
                 </div>
                 <div class="right-align">
-                    <a class="dropdown-button" data-activates='dropdown${exportedResources.id}'><i class="material-icons" style="color: black;">more_vert</i></a>
+                    <g:if test="${group.owner.id == session.user.id}">
+                        <a class="dropdown-button" data-activates='dropdown${exportedResources.id}'><i class="material-icons" style="color: black;">more_vert</i></a>
                     <!-- Dropdown Structure -->
                     <ul id='dropdown${exportedResources.id}' class='dropdown-content'>
                         <li style="text-align: center;">
-                            <a href="/group-exported-resource/delete/${exportedResources.id}"
+                            <a href="/group-exported-resources/delete/${exportedResources.id}"
                                class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Remover do grupo">
                                 <i class="material-icons" style="color: #FF5722;">delete</i>
 
@@ -137,10 +139,10 @@
                                 %{--TODO ver estatisticas aqui nas opcoes?--}%
                             </a>
                         </li>
+                    </g:if>
                     </ul>
                 </div>
             </div>
-
         </g:each>
     </div>
 </div>
