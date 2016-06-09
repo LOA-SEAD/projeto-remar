@@ -5,26 +5,29 @@ $(window).load(function() {
 
     $("button").click(function(){
         addToGroups(this);
-
     });
     function addToGroups(_this) {
         var arr = $.map($("input[name='groupsid']:checked"), function (e, i) {
             return +e.value;
         });
-        $.ajax({
-            type: 'POST',
-            url: "/group-exported-resources/addGroupExportedResources",
-            data: {
-                exportedresource: $(_this).attr("data-instance-id"),
-                groupsid: arr.toString()
-            },
-            success: function (data, textStatus) {
-                if (textStatus == "success") {
+        if(arr.length > 0) {
+            var instanceId = $(_this).attr("data-instance-id");
+            $.ajax({
+                type: 'POST',
+                url: "/group-exported-resources/addGroupExportedResources",
+                data: {
+                    exportedresource: instanceId,
+                    groupsid: arr.toString()
+                },
+                success: function (data, textStatus) {
                     $("input[name='groupsid']:checked").prop("disabled", "disabled");
+                    $('#modal-group-'+instanceId).closeModal();
+                    $(".lean-overlay").remove();
                     Materialize.toast("Compartilhado com sucesso! :)", 5000, "rounded");
+                    arr.length = 0;
                 }
-            }
-        })
+            })
+        }
     }
 
     $('.modal-trigger').leanModal({
@@ -34,7 +37,6 @@ $(window).load(function() {
             out_duration: 200, // Transition out duration
             ready: function() {  }, // Callback for Modal open
             complete: function() {
-                console.log("??");
                 $(".lean-overlay").remove();
                 $("input[name='groupsid']:checked").removeAttr('checked');
             } // Callback for Modal close
