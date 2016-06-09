@@ -100,39 +100,39 @@
 
 <div class="row">
     <div style="position: relative; left: 1em">
-        <g:each var="exportedResources" in="${groupExportedResources}">
-            <div style="overflow: visible !important;" class="card white col l3 s4">
+        <g:each var="groupExportedResource" in="${groupExportedResources}">
+            <div id="card-group-exported-resource-${groupExportedResource.id}" style="overflow: visible !important;" class="card white col l3 s4">
                 <div class="card-image">
-                    <img src="/published/${exportedResources.exportedResource.processId}/banner.png">
+                    <img src="/published/${groupExportedResource.exportedResource.processId}/banner.png">
                 </div>
                 <div class="card-content">
-                    <span class="title">${exportedResources.exportedResource.name}</span>
+                    <span class="title">${groupExportedResource.exportedResource.name}</span>
                     <div class="divider"></div>
-                    <span style="color: dimgrey; font-size: 0.9em" class="center">${exportedResources.exportedResource.resource.category.name}</span>
-                    <span style="color: dimgrey; font-size: 0.9em" class="center truncate">Feito por: ${exportedResources.exportedResource.owner.username}</span>
+                    <span style="color: dimgrey; font-size: 0.9em" class="center">${groupExportedResource.exportedResource.resource.category.name}</span>
+                    <span style="color: dimgrey; font-size: 0.9em" class="center truncate">Feito por: ${groupExportedResource.exportedResource.owner.username}</span>
                     <span style="color: dimgrey;" class="center">
                         <i class="fa fa-globe"></i>
-                        <g:if test="${exportedResources.exportedResource.resource.android}">
+                        <g:if test="${groupExportedResource.exportedResource.resource.android}">
                             <i class="fa fa-android"></i>
                         </g:if>
-                        <g:if test="${exportedResources.exportedResource.resource.desktop}">
+                        <g:if test="${groupExportedResource.exportedResource.resource.desktop}">
                             <i class="fa fa-windows"></i>
                             <i class="fa fa-linux"></i>
                             <i class="fa fa-apple"></i>
                         </g:if>
-                        <g:if test="${exportedResources.exportedResource.resource.moodle}">
+                        <g:if test="${groupExportedResource.exportedResource.resource.moodle}">
                             <i class="fa fa-graduation-cap"></i>
                         </g:if>
                     </span>
                 </div>
                 <div class="right-align">
                     <g:if test="${group.owner.id == session.user.id}">
-                        <a class="dropdown-button" data-activates='dropdown${exportedResources.id}'><i class="material-icons" style="color: black;">more_vert</i></a>
+
+                        <a class="dropdown-button" data-activates='dropdown${groupExportedResource.id}'><i class="material-icons" style="color: black;">more_vert</i></a>
                     <!-- Dropdown Structure -->
-                    <ul id='dropdown${exportedResources.id}' class='dropdown-content'>
+                    <ul id='dropdown${groupExportedResource.id}' class='dropdown-content'>
                         <li style="text-align: center;">
-                            <a href="/group-exported-resources/delete/${exportedResources.id}"
-                               class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Remover do grupo">
+                            <a class="tooltipped remove-resource" id="delete-resource-${groupExportedResource.id}" data-resource-id="${groupExportedResource.id}" data-position="right" data-delay="50" data-tooltip="Remover do grupo">
                                 <i class="material-icons" style="color: #FF5722;">delete</i>
 
                                 %{--TODO remover jogo de grupo apenas--}%
@@ -147,7 +147,7 @@
     </div>
 </div>
 
-
+<g:javascript src="delete-group-resources.js" />
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
@@ -155,7 +155,7 @@
     $(document).ready(function(){
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('.modal-trigger').leanModal();
-
+            $('.tooltipped').tooltip({delay: 50});
     });
     function deleteGroupUser(){
         $.ajax({
