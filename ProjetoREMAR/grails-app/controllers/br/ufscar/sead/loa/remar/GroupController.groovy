@@ -44,7 +44,7 @@ class GroupController {
             response.status = 200
         }else{
             response.status = 401
-            render (status: 401, view: "401")
+            render (status: 401, view: "/401")
         }
 
     }
@@ -75,6 +75,7 @@ class GroupController {
             def userGroup = new UserGroup()
             userGroup.group = Group.findById(params.groupid)
             userGroup.user = User.findById(params.userid)
+            userGroup.admin = false;
             userGroup.save flush: true
 
             redirect(status: 200, action: "show", id: userGroup.groupId)
@@ -90,6 +91,7 @@ class GroupController {
             if(group) {
                 userGroup.group = group
                 userGroup.user = User.findById(session.user.id)
+                userGroup.admin = false;
                 userGroup.save flush: true
                 println "salvou"
                 redirect(status: 200, action: "show", id: userGroup.groupId)
