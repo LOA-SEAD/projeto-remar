@@ -31,10 +31,13 @@ $(window).load(function(){
                 if(option == "make-admin") {
                     $(icon).html("star");
                     _this.id = "remove-admin-"+userGroupId
+                    Materialize.toast("Administrador adicionado!", 1500, "rounded");
                 }
                 else if(option == "remove-admin") {
                     $(icon).html("star_border");
                     _this.id = "make-admin-"+userGroupId
+                    Materialize.toast("Administrador removido!", 1500, "rounded");
+
 
                 }
             }
