@@ -3,7 +3,7 @@ package br.ufscar.sead.loa.remar
 
 class Group {
 
-    static hasMany = [userGroups: UserGroup, admins: User, groupExportedResources :GroupExportedResources]
+    static hasMany = [userGroups: UserGroup, groupExportedResources :GroupExportedResources]
 //    static belongsTo = ExportedResource
 
     String name
