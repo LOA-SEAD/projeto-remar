@@ -5,7 +5,7 @@
   Time: 5:24 PM
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="br.ufscar.sead.loa.remar.UserGroup" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="materialize-layout">
@@ -50,18 +50,17 @@
                 </g:if>
                 <g:else>
                     <g:each var="userGroup" in="${group.userGroups}">
-                        <li class="collection-item avatar left-align">
+                        <li id="user-group-card-${userGroup.id}" class="collection-item avatar left-align">
                             <img alt src="/data/users/${userGroup.user.username}/profile-picture" class="circle">
                             <span class="title">${userGroup.user.firstName + " " + userGroup.user.lastName}</span>
                             <p class="">Usuário: ${userGroup.user.username}</p>
-                            <input id="user-group-id" type="hidden" value="${userGroup.id}" name="usergroupid">
                             <g:if test="${group.owner.id == session.user.id}">
-                                <a  onclick="deleteGroupUser();" href=""  style="position: relative; top: -2.5em; left: -1.6em;" class="secondary-content"><i class="material-icons">delete</i></a>
-                                <g:if test="${!group.admins.toList().contains(userGroup.user)}">
-                                    <a onclick="manageAdmin(this.id);" id="make-admin" href="" class="secondary-content"><i class="material-icons">star_border</i></a>
+                                <a href="#" id="user-group-id-${userGroup.id}" data-user-group-id="${userGroup.id}" style="position: relative; top: -2.5em; left: -1.6em;" class="secondary-content delete-user"><i class="material-icons">delete</i></a>
+                                <g:if test="${!userGroup.admin}">
+                                    <a id="make-admin-${userGroup.id}"  data-user-group-id="${userGroup.id}" href="#" class="secondary-content manage-user"><i id="admin-${userGroup.id}" class="material-icons">star_border</i></a>
                                 </g:if>
                                 <g:else>
-                                    <a onclick="manageAdmin(this.id);" id="remove-admin" href="" class="secondary-content"><i class="material-icons">star</i></a>
+                                    <a id="remove-admin-${userGroup.id}" data-user-group-id="${userGroup.id}" href="#" class="secondary-content manage-user"><i id="admin-star-${userGroup.id}" class="material-icons">star</i></a>
                                 </g:else>
                             </g:if>
 
@@ -76,7 +75,7 @@
     <div class="divider"></div>
 
     <div style="left: 1.0em; position: relative">
-        <a href="#modal-users" class="modal-trigger"><h5 class="right">Ver membros (${group.userGroups.size()})</h5></a>
+        <a href="#modal-users" class="modal-trigger"><h5 class="right group-size" data-group-size="${group.userGroups.size()}">Ver membros (${group.userGroups.size()})</h5></a>
 
         <p align="left" style="font-size: 1.2em;">Dono:
                 <g:if test="${group.owner.id == session.user.id}">
@@ -85,15 +84,6 @@
                 <g:else>
                     ${group.owner.firstName + " " + group.owner.lastName}
                 </g:else><br>
-                <g:if test="${group.admins.size() > 0}">
-                    Admin(s):
-                    <g:each status="i" var="admin" in="${group.admins}">
-                            ${admin.firstName +" "+ admin.lastName}
-                        <g:if test="${!(i == group.admins.size()-1)}">
-                            /
-                        </g:if>
-                    </g:each>
-                </g:if>
         </p>
 
     </div>
@@ -147,49 +137,10 @@
     </div>
 </div>
 
-<g:javascript src="delete-group-resources.js" />
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
-<script>
-    $(document).ready(function(){
-        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-        $('.modal-trigger').leanModal();
-            $('.tooltipped').tooltip({delay: 50});
-    });
-    function deleteGroupUser(){
-        $.ajax({
-            type:'POST',
-            url:"/user-group/delete",
-            data: {
-                userGroupId: $("#user-group-id").val()
-            },
-            success: function(data) {
-                console.log(data);
-                console.log("success");
-//                window.location.reload();
-            }
-        })
-    }
-
-    function manageAdmin(option){
-        $.ajax({
-            type:'POST',
-            url:"/user-group/manageAdmin",
-            data: {
-                userGroupId: $("#user-group-id").val(),
-                option: option
-            },
-            success: function(data) {
-                console.log(data);
-//                console.log("success");
-//                window.location.reload();
-            }
-        })
-    }
-
-
-</script>
+<g:javascript src="delete-group-resources.js" />
+<g:javascript src="manage-user-group.js" />
 
 <script>
 
