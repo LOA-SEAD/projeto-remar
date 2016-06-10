@@ -5,39 +5,40 @@
   Time: 5:24 PM
 --%>
 
-<%@ page import="br.ufscar.sead.loa.remar.UserGroup" contentType="text/html;charset=UTF-8" %>
+<%@ page import="br.ufscar.sead.loa.remar.Group; br.ufscar.sead.loa.remar.UserGroup" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="materialize-layout">
 </head>
 
 <body>
-<div class="cluster-header">
     <div class="row">
-        <div class="text-teal text-darken-3 left-align margin-bottom col l6 s8">
-          ${group.name} <g:if test="${group.owner.id == session.user.id}"> <a href="/group/delete/${group.id}" data-position="right" data-tooltip="Deletar grupo" class="tooltipped" style="color: black"><i style="position:relative; top: 0.145em;" class="material-icons">delete</i></a> </g:if>
-            <g:else><a class="tooltipped" data-tooltip="Sair do grupo" style=" color: black;" href="/group/leave-group/${group.id}"><i class="fa fa-sign-out fa-1x" aria-hidden="true"></i></a></g:else><br>
-            <span style="font-size: 0.6em;">Senha de acesso: ${group.token}</span><br>
+        <div class="col l4 s6 m5">
+          <h5 class="left-align trucate">${group.name}  <g:if test="${group.owner.id == session.user.id}"> <a href="/group/delete/${group.id}" data-position="right" data-tooltip="Deletar grupo" class="tooltipped" style="color: black"><i style="position:relative; top: 0.145em;" class="material-icons">delete</i></a> </g:if>
+              <g:else><a class="tooltipped" data-tooltip="Sair do grupo" style=" color: black;" href="/group/leave-group/${group.id}"><i class="fa fa-sign-out fa-1x" aria-hidden="true"></i></a></g:else><br>
+              <g:if test="${group.owner.id == session.user.id}">
+                  <span style="font-size: 0.6em;" class="left-align">Senha de acesso: ${group.token}</span><br>
+              </g:if>
+          </h5>
         </div>
-        <div class="">
-            <g:if test="${group.owner.id == session.user.id || group.admins.find { it.id == session.user.id}}">
+            <g:if test="${group.owner.id == session.user.id || UserGroup.findByUserAndAdmin(session.user,true)}">
                 <g:form controller="group" action="addUserAutocomplete">
-                    <div class="input-field col l3">
+                    <div class="input-field col l3 offset-l2 m4">
                         <input name="term" id="search-user" type="text" required>
                         <label for="search-user"><i class="fa fa-search"></i></label>
                         <input type="hidden" value="${group.id}" name="groupid">
                         <input type="hidden" value="" id="user-id" name="userid">
                     </div>
                     <div class="col l3">
-                        <button style="font-size: 0.5em; top: 1.2em; position:relative;" class="btn waves-effect waves-light" type="submit" name="action">Adicionar
+                        <button style="font-size: 0.8em; top: 1.2em; position:relative;" class="btn waves-effect waves-light" type="submit" name="action">Adicionar
                             <i class="material-icons right">group_add</i>
                         </button>
                     </div>
                 </g:form>
             </g:if>
-        </div>
+
+
     </div>
-</div>
 
     <!-- Modal Structure -->
     <div id="modal-users" class="modal bottom-sheet">
@@ -57,10 +58,10 @@
                             <g:if test="${group.owner.id == session.user.id}">
                                 <a href="#" id="user-group-id-${userGroup.id}" data-user-group-id="${userGroup.id}" style="position: relative; top: -2.5em; left: -1.6em;" class="secondary-content delete-user"><i class="material-icons">delete</i></a>
                                 <g:if test="${!userGroup.admin}">
-                                    <a id="make-admin-${userGroup.id}"  data-user-group-id="${userGroup.id}" href="#" class="secondary-content manage-user"><i id="admin-${userGroup.id}" class="material-icons">star_border</i></a>
+                                    <a id="make-admin-${userGroup.id}"  data-user-group-id="${userGroup.id}" href="#" data-position="left" data-tooltip="Tornar admin" class="secondary-content manage-user tooltipped"><i id="admin-${userGroup.id}" class="material-icons">star_border</i></a>
                                 </g:if>
                                 <g:else>
-                                    <a id="remove-admin-${userGroup.id}" data-user-group-id="${userGroup.id}" href="#" class="secondary-content manage-user"><i id="admin-star-${userGroup.id}" class="material-icons">star</i></a>
+                                    <a id="remove-admin-${userGroup.id}" data-user-group-id="${userGroup.id}" href="#" class="secondary-content manage-user tooltipped"><i id="admin-star-${userGroup.id}" class="material-icons">star</i></a>
                                 </g:else>
                             </g:if>
 
@@ -74,8 +75,8 @@
 
     <div class="divider"></div>
 
-    <div style="left: 1.0em; position: relative">
-        <a href="#modal-users" class="modal-trigger"><h5 class="right group-size" data-group-size="${group.userGroups.size()}">Ver membros (${group.userGroups.size()})</h5></a>
+    <div>
+        <a href="#modal-users" class="modal-trigger" style="font-size: 1.2em; left: -2.8em; position: relative"><span class="right group-size" data-group-size="${group.userGroups.size()}">Ver membros (${group.userGroups.size()})</span></a>
 
         <p align="left" style="font-size: 1.2em;">Dono:
                 <g:if test="${group.owner.id == session.user.id}">
@@ -141,6 +142,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <g:javascript src="delete-group-resources.js" />
 <g:javascript src="manage-user-group.js" />
+<g:javascript src="tooltip.js" />
 
 <script>
 

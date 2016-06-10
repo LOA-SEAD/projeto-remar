@@ -13,10 +13,10 @@
 
     <body>
     <div class="row">
-        <div class="col l12 s11">
+        <div class="col l12 s12 m12">
             <ul class="tabs">
-                <li class="tab"><a href="#my-groups">Grupos que sou dono</a></li>
-                <li class="tab"><a href="#others-groups">Grupos que sou membro</a></li>
+                <li class="tab"><a href="#my-groups">Sou dono</a></li>
+                <li class="tab"><a href="#others-groups">Sou membro</a></li>
             </ul>
         </div>
     </div>
@@ -59,23 +59,25 @@
     <div id="others-groups">
         <div class="row">
             <g:form action="addUser" method="post">
-                <div class="input-field col l3 offset-l3">
+                <div class="col offset-l4 offset-s2 offset-m3">
+                <div class="input-field col l6 s6">
                     <input name="membertoken" id="member-token" type="text" placeholder="Senha de acesso" required>
                     <label for="member-token"><i class="fa fa-search"></i></label>
                     %{--<input type="hidden" value="${group.id}" name="groupid">--}%
                     %{--<input type="hidden" value="" id="user-id" name="userid">--}%
                 </div>
-                <div class="col l3">
+                <div class="col l6 s4 m6">
                     <button type="submit" style="font-size: 0.8em; top: 1.4em; position:relative;"  class="btn waves-effect waves-light">Entrar
                         <i class="material-icons right">group_add</i>
                     </button>
                 </div>
+                </div>
             </g:form>
         </div>
-         <div style="position: relative; left: 1em" class="row">
+         <div class="row">
 
             <g:if test="${groupsIBelong.empty}">
-                <h5>Você ainda não pertence a um grupo :(</h5>
+                <h5 class="center-align">Você ainda não pertence a um grupo :(</h5>
             </g:if>
             <g:else>
                 <g:each var="group" in="${groupsIBelong}">
