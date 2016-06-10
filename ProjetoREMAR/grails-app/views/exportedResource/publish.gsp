@@ -234,7 +234,7 @@ Time: 09:55
 </div>
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
 <g:javascript src="exported-plataforms.js"/>
-<g:javascript src="add-to-group.js"/>
+<g:javascript src="add-resource-to-group.js"/>
 <g:javascript src="licenseShow.js"/>
 <g:javascript src="imgPreview.js"/>
 <g:javascript src="jquery/jquery.Jcrop.js"/>

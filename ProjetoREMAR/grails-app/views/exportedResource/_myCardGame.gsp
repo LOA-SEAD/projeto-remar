@@ -126,7 +126,7 @@
                 </g:each>
             </g:else>
         </div>
-        <g:javascript src="add-to-group.js" />
+        <g:javascript src="add-resource-to-group.js" />
         <g:applyLayout name="pagination"/>
     </main>
 
