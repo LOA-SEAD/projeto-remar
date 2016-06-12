@@ -83,10 +83,12 @@ class ExportedResourceController {
 
     def publish(ExportedResource instance) {
         def exportsTo = [:]
-        def groups = Group.findAllByOwner(session.user)
+        def groupsIOwn = Group.findAllByOwner(session.user)
         exportsTo.desktop = instance.resource.desktop
         exportsTo.android = instance.resource.android
         exportsTo.moodle = instance.resource.moodle
+        def groupsIAdmin = UserGroup.findAllByUserAndAdmin(session.user,true).group
+
 
         def baseUrl = "/published/${instance.processId}"
         def process = Propeller.instance.getProcessInstanceById(instance.processId as String, session.user.id as long)
@@ -95,8 +97,8 @@ class ExportedResourceController {
 
         RequestMap.findOrSaveWhere(url: "${baseUrl}/**", configAttribute: 'permitAll')
 
-        render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl,
-                                            exportedResourceInstance: instance,createdAt: process.createdAt, groups: groups]
+        render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl, groupsIAdmin: groupsIAdmin,
+                                            exportedResourceInstance: instance,createdAt: process.createdAt, groupsIOwn: groupsIOwn]
     }
 
     def export(ExportedResource instance) {
@@ -273,15 +275,17 @@ class ExportedResourceController {
         def myExportedResourcesList
         User user = session.user
 
-        model.groups = Group.withCriteria {
-            eq("owner",user)
-//     TODO
-//                   and{
-//                    admins {
-//                        eq("id",user.id)
-//                    }
-//                }
-        }
+        model.myGroups = Group.findAllByOwner(user)
+        model.groupsIAdmin = UserGroup.findAllByUserAndAdmin(user,true).group
+//        model.groups = Group.withCriteria {
+//            eq("owner",user)
+////     TODO
+////                   and{
+////                    admins {
+////                        eq("id",user.id)
+////                    }
+////                }
+//        }
         
         if (session.user.username.equals("admin")) {
             model.myExportedResourcesList = ExportedResource.list()
