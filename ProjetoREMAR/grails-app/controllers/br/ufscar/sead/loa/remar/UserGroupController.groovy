@@ -26,12 +26,12 @@ class UserGroupController {
         def group = userGroup.group
 
         if(params.option == "make-admin"){
-            userGroup.admin = true
-            group.save flush: true
+            userGroup.setAdmin(true)
+            userGroup.save flush: true
             render status: 200
         }else if(params.option == "remove-admin"){
-            userGroup.admin = false
-            group.save flush: true
+            userGroup.setAdmin(false)
+            userGroup.save flush: true
             render status: 200
         }else{
             render status: 400
