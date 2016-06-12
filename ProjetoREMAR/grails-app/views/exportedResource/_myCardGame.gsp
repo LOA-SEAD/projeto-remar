@@ -71,8 +71,26 @@
                             <div id="modal-group-${instance.id}" class="modal col l6 offset-l3 s6">
                                 <div class="modal-content">
                                     <ul class="collection with-header">
-                                        <li class="collection-header"><h4>Grupos disponíveis</h4></li>
-                                            <g:each var="group" in="${groups}">
+                                        <li class="collection-header"><h5>Meus grupos disponíveis</h5></li>
+                                            <g:each var="group" in="${myGroups}">
+                                                <li class="collection-item">
+                                                    <div>
+                                                        <p>${group.name}</p>
+                                                        <p>
+                                                            Dono: ${group.owner.firstName + " " + group.owner.lastName}<br>
+                                                        </p>
+                                                    </div>
+                                                    <g:if test="${!GroupExportedResources.findByGroupAndExportedResource(group,instance)}">
+                                                        <input name="groupsid" id="groups-${group.id}-instance-${instance.id}" value="${group.id}" type="checkbox">
+                                                    </g:if>
+                                                    <g:else>
+                                                        <input name="groupsid2"  checked="checked" disabled="disabled" type="checkbox">
+                                                    </g:else>
+                                                    <label style="position:relative; bottom: 2em;" for="groups-${group.id}-instance-${instance.id}" class="secondary-content"></label>
+                                                </li>
+                                            </g:each>
+                                        <li class="collection-header"><h5>Grupos que administro</h5></li>
+                                            <g:each var="group" in="${groupsIAdmin}">
                                                 <li class="collection-item">
                                                     <div>
                                                         <p>${group.name}</p>

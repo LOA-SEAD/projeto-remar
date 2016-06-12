@@ -5,7 +5,7 @@ Date: 10/06/15
 Time: 09:55
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="br.ufscar.sead.loa.remar.GroupExportedResources" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="materialize-layout">
@@ -192,7 +192,7 @@ Time: 09:55
 
                     <div class="collapsible-body">
                         <ul class="collection with-header">
-                            <g:each var="group" in="${groups}">
+                            <g:each var="group" in="${groupsIOwn}">
                                 <li class="collection-item">
                                     <div class="left-align">
                                         <p>${group.name}</p>
@@ -202,6 +202,26 @@ Time: 09:55
                                     </g:if>
                                     <g:else>
                                         <input name="groupsid2" id="groups-${group.id}-instance-${exportedResourceInstance.id}" checked="checked" disabled="disabled" type="checkbox">
+                                    </g:else>
+                                    <label style="position:relative; bottom: 2em;" for="groups-${group.id}-instance-${exportedResourceInstance.id}" class="secondary-content"></label>
+                                </li>
+                            </g:each>
+                            <li class="collection-header"><h5>Grupos que administro</h5></li>
+
+                            %{--TODO, checkbox nao ta desabilitando aqui--}%
+                            <g:each var="group" in="${groupsIAdmin}">
+                                <li class="collection-item">
+                                    <div>
+                                        <p>${group.name}</p>
+                                        <p>
+                                            Dono: ${group.owner.firstName + " " + group.owner.lastName}<br>
+                                        </p>
+                                    </div>
+                                    <g:if test="${!GroupExportedResources.findByGroupAndExportedResource(group,exportedResourceInstance)}">
+                                        <input name="groupsid" id="groups-${group.id}-instance-${exportedResourceInstance.id}" value="${group.id}" type="checkbox">
+                                    </g:if>
+                                    <g:else>
+                                        <input name="groupsid2"  checked="checked" disabled="disabled" type="checkbox">
                                     </g:else>
                                     <label style="position:relative; bottom: 2em;" for="groups-${group.id}-instance-${exportedResourceInstance.id}" class="secondary-content"></label>
                                 </li>
