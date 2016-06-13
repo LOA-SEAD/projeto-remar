@@ -77,7 +77,6 @@ $(window).load(function(){
         var card = $("#user-group-card-"+userGroupId);
         var text = ($(".group-size"));
         var groupSize = text.attr("data-group-size");
-        console.log(groupSize);
         $.ajax({
             type:'POST',
             url:"/user-group/delete",
@@ -88,7 +87,9 @@ $(window).load(function(){
                 card.fadeOut(300,function(){
                     card.remove();
                     groupSize--;
+                    text.attr("data-group-size",groupSize);
                     text.html("Ver membros ("+groupSize+")");
+                    groupSize = 0;
                 });
                 Materialize.toast("Usuário removido!", 3000, "rounded");
 
