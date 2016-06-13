@@ -26,7 +26,8 @@ $(window).load(function(){
                     groupid: $("input[name='groupid']").val(),
                     userid: $("input[name='userid']").val()
                 },
-                success: function(data){
+                success: function(data,textStatus){
+                    console.log(textStatus);
                     window.location.reload();
                     //console.log("data:"+ JSON.parse(data))  ;
                     //
@@ -36,6 +37,10 @@ $(window).load(function(){
                     //    '' +
                     //    '' +
                     //    '</li>')
+                }, statusCode: {
+                    403: function(){
+                        $('#modal-user-in-group').openModal();
+                    }
                 }
             });
 

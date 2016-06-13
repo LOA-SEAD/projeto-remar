@@ -71,6 +71,16 @@
             </ul>
         </div>
     </div>
+
+<!-- Modal Structure -->
+<div id="modal-user-in-group" class="modal">
+    <div class="modal-content">
+        <h5>Usuário já pertence ao grupo!</h5>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+    </div>
+</div>
     <!-- Modal Structure -->
 
     <div class="divider"></div>
