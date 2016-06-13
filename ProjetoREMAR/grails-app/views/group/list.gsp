@@ -58,7 +58,7 @@
 
     <div id="others-groups">
         <div class="row">
-            <g:form action="addUser" method="post">
+            %{--<g:form action="addUser" method="post">--}%
                 <div class="col offset-l4 offset-s2 offset-m3">
                 <div class="input-field col l6 s6">
                     <input name="membertoken" id="member-token" type="text" placeholder="Senha de acesso" required>
@@ -67,12 +67,12 @@
                     %{--<input type="hidden" value="" id="user-id" name="userid">--}%
                 </div>
                 <div class="col l6 s4 m6">
-                    <button type="submit" style="font-size: 0.8em; top: 1.4em; position:relative;"  class="btn waves-effect waves-light">Entrar
+                    <button type="submit" style="font-size: 0.8em; top: 1.4em; position:relative;"  class="btn waves-effect waves-light add-user">Entrar
                         <i class="material-icons right">group_add</i>
                     </button>
                 </div>
                 </div>
-            </g:form>
+            %{--</g:form>--}%
         </div>
          <div class="row">
 
@@ -82,7 +82,7 @@
             <g:else>
                 <g:each var="group" in="${groupsIBelong}">
                     <a href="/group/show/${group.id}">
-                        <div style="padding-bottom: 8.0em;" class="card white col l3 s6 m3 offset-s3 hoverable">
+                        <div style="padding-bottom: 8.0em; position: relative; left: 0.6em;;" class="card white col l3 s6 m3 offset-s3 hoverable">
                             <div class="card-image">
                                 %{--TODO--}%
                             </div>
@@ -96,14 +96,20 @@
             </g:else>
 
         </div>
-
+        <div id="modal-user-in-group" class="modal">
+            <div class="modal-content">
+                <h5>Usuário já pertence ao grupo!</h5>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+            </div>
+        </div>
     </div>
+    <g:javascript src="manage-user-group.js"/>
     <script>
         $(document).ready(function(){
             $('ul.tabs').tabs();
         });
     </script>
     </body>
-
-
 </html>

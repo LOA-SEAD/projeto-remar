@@ -14,17 +14,26 @@ $(window).load(function(){
     });
 
     $("button.add-user").click(function(){
+        console.log("foi");
         addUser(this)
     });
 
+
     function addUser(_this){
         var ul = $(".collection");
+        var url;
+        var token = $("#member-token");
+        if($(token).val() != null)
+            url = "/group/addUserByToken";
+        else
+            url = "/group/addUserAutocomplete";
             $.ajax({
                type:'POST',
-                url:'/group/addUserAutocomplete',
+                url:url,
                 data: {
                     groupid: $("input[name='groupid']").val(),
-                    userid: $("input[name='userid']").val()
+                    userid: $("input[name='userid']").val(),
+                    membertoken: $(token).val()
                 },
                 success: function(data,textStatus){
                     console.log(textStatus);
