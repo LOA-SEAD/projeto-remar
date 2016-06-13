@@ -22,7 +22,7 @@
           </h5>
         </div>
             <g:if test="${group.owner.id == session.user.id || UserGroup.findByUserAndAdmin(session.user,true)}">
-                <g:form controller="group" action="addUserAutocomplete">
+                %{--<g:form controller="group" action="addUserAutocomplete">--}%
                     <div class="input-field col l3 offset-l2 m4">
                         <input name="term" id="search-user" type="text" required>
                         <label for="search-user"><i class="fa fa-search"></i></label>
@@ -30,11 +30,11 @@
                         <input type="hidden" value="" id="user-id" name="userid">
                     </div>
                     <div class="col l3">
-                        <button style="font-size: 0.8em; top: 1.2em; position:relative;" class="btn waves-effect waves-light" type="submit" name="action">Adicionar
+                        <button style="font-size: 0.8em; top: 1.2em; position:relative;" class="btn waves-effect waves-light add-user" type="submit" name="action">Adicionar
                             <i class="material-icons right">group_add</i>
                         </button>
                     </div>
-                </g:form>
+                %{--</g:form>--}%
             </g:if>
 
 
@@ -78,14 +78,9 @@
     <div>
         <a href="#modal-users" class="modal-trigger" style="font-size: 1.2em; left: -2.8em; position: relative"><span class="right group-size" data-group-size="${group.userGroups.size()}">Ver membros (${group.userGroups.size()})</span></a>
 
-        <p align="left" style="font-size: 1.2em;">Dono:
-                <g:if test="${group.owner.id == session.user.id}">
-                    Você
-                </g:if>
-                <g:else>
-                    ${group.owner.firstName + " " + group.owner.lastName}
-                </g:else><br>
-        </p>
+        <g:if test="${!group.owner.id == session.user.id}">
+            <p align="left" style="font-size: 1.2em;">Dono: ${group.owner.firstName + " " + group.owner.lastName} </p>
+        </g:if><br>
 
     </div>
 
