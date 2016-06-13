@@ -142,7 +142,6 @@
         </g:each>
     </div>
 </div>
-
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <g:javascript src="delete-group-resources.js" />
@@ -172,6 +171,9 @@
         },
         focus: function(event, ui) {
             event.preventDefault();
+            if(ui.item.inGroup == true){
+                //TODO
+            }
             $(this).val(ui.item.label);
         },
         messages: {

@@ -256,14 +256,17 @@ class UserController {
 
     def autocomplete() {
         if (params.query != "") {
-            def allUsers = []
+            def allUsers = User.findAllByFirstNameRlikeOrLastNameRlike(params.query, params.query)
             def group = Group.findById(params.group)
-            allUsers = User.findAllByFirstNameRlikeOrLastNameRlike(params.query, params.query)
-
-            def list = allUsers.collect {[
-                    label: "${it.firstName} ${it.lastName}",
-                    value: it.id
-            ]}
+            def list = allUsers.collect {
+                def inGroup = UserGroup.findByUserAndGroup(it, group) ? true : false
+                println inGroup
+                    [
+                            label: "${it.firstName} ${it.lastName}",
+                            value: it.id,
+                            inGroup: inGroup
+                    ]
+                }
 
             println list
             render list as JSON
