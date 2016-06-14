@@ -60,17 +60,17 @@
         <div class="row">
             %{--<g:form action="addUser" method="post">--}%
                 <div class="col offset-l4 offset-s2 offset-m3">
-                <div class="input-field col l6 s6">
-                    <input name="membertoken" id="member-token" type="text" placeholder="Senha de acesso" required>
-                    <label for="member-token"><i class="fa fa-search"></i></label>
-                    %{--<input type="hidden" value="${group.id}" name="groupid">--}%
-                    %{--<input type="hidden" value="" id="user-id" name="userid">--}%
-                </div>
-                <div class="col l6 s4 m6">
-                    <button type="submit" style="font-size: 0.8em; top: 1.4em; position:relative;"  class="btn waves-effect waves-light add-user">Entrar
-                        <i class="material-icons right">group_add</i>
-                    </button>
-                </div>
+                <form id="add-user-form">
+                    <div class="input-field col l6 s6">
+                        <input class="user-input" name="membertoken" id="member-token" type="text" placeholder="Senha de acesso" required>
+                        <label for="member-token"></label>
+                    </div>
+                    <div id="input-bottom" class="col l6 s4 m6">
+                        <button type="submit" style="font-size: 0.8em; top: 1.4em; position:relative;"  class="btn waves-effect waves-light add-user">Entrar
+                            <i class="material-icons right">group_add</i>
+                        </button>
+                    </div>
+                </form>
                 </div>
             %{--</g:form>--}%
         </div>
@@ -98,13 +98,14 @@
         </div>
         <div id="modal-user-in-group" class="modal">
             <div class="modal-content">
-                <h5>Usuário já pertence ao grupo!</h5>
+                <h5 id="modal-message"></h5>
             </div>
             <div class="modal-footer">
                 <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
             </div>
         </div>
     </div>
+    <g:javascript src="jquery/jquery.validate.js"/>
     <g:javascript src="manage-user-group.js"/>
     <script>
         $(document).ready(function(){

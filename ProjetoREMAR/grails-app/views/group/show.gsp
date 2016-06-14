@@ -22,9 +22,9 @@
           </h5>
         </div>
             <g:if test="${group.owner.id == session.user.id || UserGroup.findByUserAndAdmin(session.user,true)}">
-                %{--<g:form controller="group" action="addUserAutocomplete">--}%
+                <form id="add-user-form">
                     <div class="input-field col l3 offset-l2 m4">
-                        <input name="term" id="search-user" type="text" required>
+                        <input class="user-input" name="term" id="search-user" type="text" required>
                         <label for="search-user"><i class="fa fa-search"></i></label>
                         <input type="hidden" value="${group.id}" name="groupid">
                         <input type="hidden" value="" id="user-id" name="userid">
@@ -34,7 +34,7 @@
                             <i class="material-icons right">group_add</i>
                         </button>
                     </div>
-                %{--</g:form>--}%
+                </form>
             </g:if>
 
 
@@ -75,7 +75,7 @@
 <!-- Modal Structure -->
 <div id="modal-user-in-group" class="modal">
     <div class="modal-content">
-        <h5>Usuário já pertence ao grupo!</h5>
+        <h5 id="modal-message"></h5>
     </div>
     <div class="modal-footer">
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
@@ -160,7 +160,13 @@
                     group: ${group.id}
                 },
                 success: function(data) {
-                    response(data);
+                        response(data);
+
+                },statusCode:{
+                    403: function(response){
+                        $("#modal-message").html(response.responseText);
+                        $('#modal-user-in-group').openModal();
+                    }
                 }
             })
         },
@@ -184,6 +190,6 @@
     });
 
 </script>
-
+<g:javascript src="jquery/jquery.validate.js"/>
 </body>
 </html>
