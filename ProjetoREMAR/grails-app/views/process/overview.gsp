@@ -75,7 +75,7 @@
                                         </div>
                                         <div class="file-path-wrapper">
                                             <i class="material-icons suffix green-text active">done</i>
-                                            <input class="file-path validate" type="text" id="img-1-text"  placeholder="Envie um ícone para o jogo (opicional)" readonly>
+                                            <input class="file-path validate" type="text" id="img-1-text"  placeholder="Envie um ícone para o jogo (opcional)" readonly>
                                         </div>
                                     </div>
                                 </div>
