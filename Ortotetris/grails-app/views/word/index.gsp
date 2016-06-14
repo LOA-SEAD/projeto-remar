@@ -47,40 +47,57 @@
             </ul>
         </div>
         <div id="instructions" class="col s12 m12 l12">
-            <h4>Instruções</h4>
+            <p style="text-align: justify">Na customização do jogo Ortotetris você deve selecionar ao menos 1 palavra para finaliza-lo, porém quanto mais palavras ele possuir mais atrativo ele será.</p>
+            <p style="text-align: justify">Para selecionar as palavras desejadas utilize a aba "Escolher Palavras". Nela você pode criar novas palavras, editar palavras, movimentar a palavra, esconder ou exibir letras e também excluir palavras. Em caso de dúvidas de onde encontrar cada operação utilize a tabela a baixo para consulta.</p>
             <div class="row">
                 <div class="col s12 m12 l12">
                     <table>
                         <thead>
                             <tr>
                                 <th>Botão</th>
-                                <th>Ação</th>
+                                <th>Legenda</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td><a name="create" class="btn-floating btn-large waves-effect waves-light my-orange"><i class="material-icons">add</i></a></td>
-                                <td>Criar nova questão</td>
+                                <td>Botão para criar nova palavra</td>
                             </tr>
                             <tr>
                                 <td><a class="btn-floating btn-large waves-effect waves-light my-orange"><i class="material-icons">file_upload</i></a></td>
-                                <td>Enviar arquivo .csv</td>
+                                <td>Botão para enviar arquivo .csv</td>
                             </tr>
                         <tr>
+                            <td><i class="material-icons">edit</i></td>
+                            <td>Editar palavra</td>
+                        </tr>
+                        <tr>
+                            <td><i class="material-icons">games</i></td>
+                            <td>Customizar palavra. O botão de customizar palavra abre uma janela na qual é possível movimentar a palavra e esconder ou exibir letras</td>
+                        </tr>
+                        <tr>
+                            <td><i class="material-icons">delete</i></td>
+                            <td>Excluir palavra</td>
+                        </tr>
+                        <tr>
                             <td><a class='btn myButton4'> <div style="margin-top: 20px;" class="arrowleft"></div></a></td>
-                            <td>Mover palavra para esquerda</td>
+                            <td>Botão para mover a palavra para esquerda</td>
                         </tr>
                         <tr>
                             <td><a class='btn myButton4'> <div style="margin-top: 20px;" class="arrowright"></div></a></td>
-                            <td>Mover palavra para direita</td>
+                            <td>Botão para mover a palavra para direita</td>
                         </tr>
                         <tr>
                             <td><a class="myButton3"> X </a></td>
-                            <td>Esconder letra. É possível esconder as letras [C, H, S, X, Z, Ç]</td>
+                            <td>Letra exibida. Esse botão indica que a letra será exibida no jogo. É possível esconder a letra exibida clicando no botão, desde que a letra pertença ao conjunto: [C, H, S, X, Z, Ç]</td>
                         </tr>
                         <tr>
                             <td><a class="myButton"> X </a></td>
-                            <td>Exibir letra. É possível exibir as letras [C, H, S, X, Z, Ç], desde que elas estejam escondidas</td>
+                            <td>Letra não exibida. Esse botão indica que a letra não será exibida no jogo. É possível exibir novamente a letra clicando no botão</td>
+                        </tr>
+                        <tr>
+                            <td><a class="myButton2"> - </a></td>
+                            <td>Espaço em branco</td>
                         </tr>
                         </tbody>
                     </table>
