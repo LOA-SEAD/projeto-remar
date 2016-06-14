@@ -14,12 +14,50 @@ $(window).load(function(){
     });
 
     $("button.add-user").click(function(){
-        console.log("foi");
-        addUser(this)
+        $("membertoken").validate();
+    });
+
+    $("#add-user-form").validate({
+        rules: {
+
+            membertoken: {
+                required: true,
+                minlength: 10,
+                maxlength: 10
+            }
+            ,term: {
+                required: true
+            }
+
+        },
+        messages: {
+            membertoken: {
+                required: "Digite uma senha de acesso",
+                minlength: "Senha muito pequena!",
+                maxlength: "Senha muito longa!"
+            },
+            term: {
+                required: "Digite um nome"
+            }
+
+        },
+        errorElement : 'div',
+        errorPlacement: function(error, element) {
+            var placement = $(element).data('error');
+            if (placement) {
+                $(placement).append(error)
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        submitHandler: function(form){
+            addUser();
+            return false;
+        }
     });
 
 
-    function addUser(_this){
+    function addUser(){
         var ul = $(".collection");
         var url;
         var token = $("#member-token");
@@ -36,18 +74,15 @@ $(window).load(function(){
                     membertoken: $(token).val()
                 },
                 success: function(data,textStatus){
+                    console.log(data);
                     console.log(textStatus);
-                    window.location.reload();
-                    //console.log("data:"+ JSON.parse(data))  ;
-                    //
-                    //
-                    //$(ul).append('<li id="user-group-card-${newUser.id}" class="collection-item avatar left-align"> ' +
-                    //    '<img alt src="/data/users/${newUser.user.username}/profile-picture" class="circle">' +
-                    //    '' +
-                    //    '' +
-                    //    '</li>')
                 }, statusCode: {
-                    403: function(){
+                    403: function(response){
+                        $("#modal-message").html(response.responseText);
+                        $('#modal-user-in-group').openModal();
+                    },
+                    404: function(response){
+                        $("#modal-message").html(response.responseText);
                         $('#modal-user-in-group').openModal();
                     }
                 }
