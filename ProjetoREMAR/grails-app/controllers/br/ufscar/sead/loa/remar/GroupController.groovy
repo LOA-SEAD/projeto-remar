@@ -70,24 +70,27 @@ class GroupController {
     def addUserAutocomplete(){
 
         def group = Group.findById(params.groupid)
-        if(group.owner.id == session.user.id) {
+        if(group.owner.id == session.user.id || UserGroup.findByUserAndGroupAndAdmin(session.user,group,true)) {
             def user = User.findById(params.userid)
-            if(!UserGroup.findByUserAndGroup(User.findById(user.id), group)) {
-                def userGroup = new UserGroup()
-                userGroup.group = Group.findById(group.id)
-                userGroup.user = user
-                userGroup.save flush: true
+            if(user) {
+                if (!UserGroup.findByUserAndGroup(User.findById(user.id), group) && !(group.owner.id == user.id)) {
+                    def userGroup = new UserGroup()
+                    userGroup.group = Group.findById(group.id)
+                    userGroup.user = user
+                    userGroup.save flush: true
 
-                render status: 200
-            }
-            else {
-                println "ja ta no grupo"
-                render status: 403
-            }
+                    render([firstName: user.firstName, lastName: user.lastName, username: user.username] as JSON)
+                } else
+                    render status: 403, text: "Usuário já pertence ao grupo."
+
+            }else
+                render status: 404, text: "Usuário não encontrado."
+
+
         }
     }
 
-    def addUser(){
+    def addUserByToken(){
         if(params.membertoken != ""){
             def userGroup = new UserGroup()
             def group = Group.findByToken(params.membertoken)
@@ -100,13 +103,13 @@ class GroupController {
                     userGroup.save flush: true
                     redirect(status: 200, action: "show", id: userGroup.groupId)
                 }else
-                    render status: 400
+                    render status: 403, text: "Você ja pertence a este grupo."
             }else
-                render status: 403
+                render status: 404, text: "Grupo não encontrado"
 
-        }else {
-//TODO
-        }
+        }else
+            render status: 404, text: "Grupo não encontrado"
+
     }
 
 
