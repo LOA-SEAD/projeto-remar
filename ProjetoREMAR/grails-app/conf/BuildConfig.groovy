@@ -67,7 +67,7 @@ grails.project.dependency.resolution = {
         compile ":quartz:1.0.2"
         compile ":recaptcha:1.2.0"
         compile ":rest-client-builder:2.0.0"
-        compile ":rest:0.8"
+        compile "org.grails.plugins:rest:0.8"
 
         // plugins needed at runtime but not for compilation
         runtime ":hibernate4:4.3.5.5"

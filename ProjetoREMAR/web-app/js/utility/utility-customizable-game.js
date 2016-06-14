@@ -65,7 +65,6 @@ $(function(){
                 });
 
                 addMaterializeDepedences();
-
                 initStars();
             },
             error: function () {

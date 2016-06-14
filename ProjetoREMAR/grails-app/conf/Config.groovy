@@ -4,7 +4,7 @@ import org.apache.log4j.DailyRollingFileAppender
 
 import java.util.concurrent.TimeUnit
 
-grails.config.locations = ["classpath:env.properties"]
+grails.config.locations = ["classpath:env.properties","classpath:env-dspace.properties"]
 
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 
