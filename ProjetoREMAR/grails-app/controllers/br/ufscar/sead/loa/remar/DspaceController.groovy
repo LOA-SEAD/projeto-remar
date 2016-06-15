@@ -104,10 +104,11 @@ class DspaceController {
 //            }
 //        }
 
-        def img = new File(servletContext.getRealPath("/images/architecture.png"))
+        def img = new File(servletContext.getRealPath("/images/respondasepuder-banner.png"))
 
-        def resp = rest.post("${restUrl}/items/5/bitstreams?name=teste&description=blablablalba"){
-            contentType "image/jpeg"
+        def resp = rest.post("${restUrl}/items/5/bitstreams?name=respondasepuder-banner.png&description=blablablalba"){
+            contentType "multipart/form-data"
+            accept: 'application/json'
             header 'rest-dspace-token', token
             file = img
         }
@@ -120,7 +121,6 @@ class DspaceController {
 
     def delete(){
         init()
-//        def l = login("delanobeder@yahoo.com.br", "asdfgasd")
         def l = login(email, password)
         def token = l.token
         def rest = l.restBuilder
@@ -135,6 +135,31 @@ class DspaceController {
 
         render resp.body
 
+    }
+
+    def show(){
+        init()
+        def l = login(email, password)
+        def token = l.token
+        def rest = l.restBuilder
+
+        def resp = rest.get("${restUrl}/bitstreams/${params.id}")
+
+        logout(token,rest)
+
+        render view: "show", model: [dspaceUrl: restUrl, bitstream: resp.json]
+    }
+
+    def save(){
+        def path = new File(servletContext.getRealPath("/images/dspace"))
+        path.mkdirs()
+
+        if (params.img != null) {
+            log.debug("save image ${params.img}")
+
+            def img1 = new File(servletContext.getRealPath("${params.img}"))
+            img1.renameTo(new File(path, "img.png"))
+        }
     }
 
 
