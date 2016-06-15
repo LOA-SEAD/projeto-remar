@@ -7,17 +7,6 @@
 <ul class="sidenav" id="side-nav">
 
     <div class="hide-on-large-only">
-        <div class="row no-margin-bottom valign-wrapper">
-            <div class="col s4">
-
-            </div>
-            <div class="col s8">
-                <p style="margin-top: 0px; margin-left: 20px;">(<u><a class="no-padding" href="/logout" style="display: inline;">Sair</a></u>)</p>
-            </div>
-        </div>
-
-        <div class="divider"></div>
-
         <li class="waves-effect waves-block waves-light">
             <a href="/my-profile"><i class="medium material-icons">account_circle</i>Meu perfil</a>
         </li>

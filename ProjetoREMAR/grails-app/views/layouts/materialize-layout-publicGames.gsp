@@ -14,35 +14,9 @@
 
                     <ul class="right">
                         <li>
-                            <a href="#" data-activates="dropdown-user" class="dropdown-button">
-
+                            <a href="/login/auth" class="btn btn-microsoft my-orange">Fazer login
                             </a>
                         </li>
-                        <ul id="dropdown-user" class="my-dropdown-menu collection">
-                            <li class="collection-item left">
-                                <div class="row no-margin-bottom">
-                                    <div class="col s8 center">
-
-                                    </div>
-                                    <div class="col s4">
-
-                                    </div>
-                                </div>
-                            </li>
-                            <div class="row collection-item footer" style="margin-top: 115px;">
-                                <div class="col s6">
-                                    <a href="/my-profile" class="waves-effect btn-flat left">
-                                        Meu perfil
-                                    </a>
-                                </div>
-                                <div class="col s6">
-                                    <a href="/logout/index" class="waves-effect btn-flat right">
-                                        Sair
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-                        </ul>
                     </ul>
                 </div>
 
