@@ -5,17 +5,55 @@ $(window).load(function(){
     $('.modal-trigger').leanModal();
     $('.tooltipped').tooltip({delay: 50});
 
-    $("a.delete-user").click(function(){
-        deleteGroupUser(this);
+    var usersCollection = $(".users-collection");
+
+    $(usersCollection).on("click",".delete-user",function(){
+        deleteUserGroup(this);
     });
 
-    $("a.manage-user").click(function(){
+    $(usersCollection).on("click",".manage-user",function(){
         manageAdmin(this);
     });
 
-    $("button.add-user").click(function(){
-        $("membertoken").validate();
+    $(usersCollection).on("click",".add-user",function(){
+        //$("membertoken").validate();
     });
+
+    function deleteUserGroup(_this){
+        var userGroupId = $(_this).attr("data-user-group-id");
+        var card = $("#user-group-card-"+userGroupId);
+        var text = ($(".group-size"));
+        var groupSize = text.attr("data-group-size");
+        $.ajax({
+            type:'POST',
+            url:"/user-group/delete",
+            data: {
+                userGroupId: userGroupId
+            },
+            success: function() {
+                $(_this).parents().eq(0).fadeOut(300,function(){
+                    $(this).remove();
+                    groupSize--;
+                    text.attr("data-group-size",groupSize);
+                    text.html("Ver membros ("+groupSize+")");
+                    if(groupSize == 0){
+                        console.log("if");
+                        var noUsers = document.createElement("li");
+                        noUsers.setAttribute("id","no-users");
+                        $(noUsers).addClass("collection-item");
+                        $(noUsers).html("Nenhum usuário foi adicionado à este grupo.");
+                        $(usersCollection).append(noUsers).fadeIn(300);
+                    }
+                });
+
+
+                Materialize.toast("Usuário removido!", 3000, "rounded");
+
+            }
+        });
+
+    }
+
 
     $("#add-user-form").validate({
         rules: {
@@ -58,8 +96,11 @@ $(window).load(function(){
 
 
     function addUser(){
-        var ul = $(".collection");
         var url;
+        var noUsers = $("#no-users");
+        var text = ($(".group-size"));
+        var groupSize = text.attr("data-group-size");
+        var ul = $(".collection");
         var token = $("#member-token");
         if($(token).val() != null)
             url = "/group/addUserByToken";
@@ -73,9 +114,17 @@ $(window).load(function(){
                     userid: $("input[name='userid']").val(),
                     membertoken: $(token).val()
                 },
-                success: function(data,textStatus){
-                    console.log(data);
-                    console.log(textStatus);
+                success: function(data){
+                    groupSize++;
+                    text.attr("data-group-size",groupSize);
+                    text.html("Ver membros ("+groupSize+")");
+                    console.log(noUsers);
+                    if(noUsers) {
+                        noUsers.fadeOut(300);
+                        noUsers.remove();
+                    }
+                    $(ul).append(data);
+
                 }, statusCode: {
                     403: function(response){
                         $("#modal-message").html(response.responseText);
@@ -94,7 +143,6 @@ $(window).load(function(){
         var userGroupId = $(_this).attr("data-user-group-id");
         var option = _this.id.substr(_this.id.charAt(0),_this.id.indexOf("n")+1);
         var icon = $(_this).children("i")[0];
-        console.log(icon);
 
         $.ajax({
             type:'POST',
@@ -120,31 +168,5 @@ $(window).load(function(){
             }
         })
     }
-
-    function deleteGroupUser(_this){
-        var userGroupId = $(_this).attr("data-user-group-id");
-        var card = $("#user-group-card-"+userGroupId);
-        var text = ($(".group-size"));
-        var groupSize = text.attr("data-group-size");
-        $.ajax({
-            type:'POST',
-            url:"/user-group/delete",
-            data: {
-                userGroupId: userGroupId
-            },
-            success: function() {
-                card.fadeOut(300,function(){
-                    card.remove();
-                    groupSize--;
-                    text.attr("data-group-size",groupSize);
-                    text.html("Ver membros ("+groupSize+")");
-                    groupSize = 0;
-                });
-                Materialize.toast("Usuário removido!", 3000, "rounded");
-
-            }
-        })
-    }
-
 
 });
