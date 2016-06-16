@@ -79,7 +79,7 @@ class GroupController {
                     userGroup.user = user
                     userGroup.save flush: true
 
-                    render([firstName: user.firstName, lastName: user.lastName, username: user.username] as JSON)
+                    render template: "newUserGroup", model: [userGroup: userGroup]
                 } else
                     render status: 403, text: "Usuário já pertence ao grupo."
 
