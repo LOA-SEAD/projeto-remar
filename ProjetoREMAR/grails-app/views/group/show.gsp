@@ -45,9 +45,9 @@
         <div class="modal-content">
             <h4 class="left-align">Membros do grupo</h4>
             %{--<p>A bunch of text</p>--}%
-            <ul class="collection">
+            <ul class="collection users-collection">
                 <g:if test="${group.userGroups.size()==0}">
-                    <li class="collection-item">Nenhum usuário foi adicionado à este grupo.</li>
+                    <li id="no-users" class="collection-item">Nenhum usuário foi adicionado à este grupo.</li>
                 </g:if>
                 <g:else>
                     <g:each var="userGroup" in="${group.userGroups}">

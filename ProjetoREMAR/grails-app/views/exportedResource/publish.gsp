@@ -197,7 +197,7 @@ Time: 09:55
                                     <div class="left-align">
                                         <p>${group.name}</p>
                                     </div>
-                                    <g:if test="${!br.ufscar.sead.loa.remar.GroupExportedResources.findByGroupAndExportedResource(group,exportedResourceInstance)}">
+                                    <g:if test="${!GroupExportedResources.findByGroupAndExportedResource(group,exportedResourceInstance)}">
                                         <input name="groupsid" class="group-input" id="groups-${group.id}-instance-${exportedResourceInstance.id}" value="${group.id}" type="checkbox">
                                     </g:if>
                                     <g:else>
