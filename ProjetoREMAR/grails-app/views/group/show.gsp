@@ -97,9 +97,9 @@
 <div class="row">
     <div style="position: relative; left: 1em">
         <g:each var="groupExportedResource" in="${groupExportedResources}">
-            <div id="card-group-exported-resource-${groupExportedResource.id}" style="overflow: visible !important;" class="card white col l3 s4">
-                <div class="card-image">
-                    <img src="/published/${groupExportedResource.exportedResource.processId}/banner.png">
+            <div id="card-group-exported-resource-${groupExportedResource.id}" class="card white col l3 s4">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src="/published/${groupExportedResource.exportedResource.processId}/banner.png">
                 </div>
                 <div class="card-content">
                     <span class="title">${groupExportedResource.exportedResource.name}</span>
@@ -122,21 +122,51 @@
                     </span>
                 </div>
                 <div class="right-align">
-                    <g:if test="${group.owner.id == session.user.id}">
+                        <a class="dropdown-button activator" ><i class="material-icons" style="color: black;">more_vert</i></a>
+                </div>
+                <div class="card-reveal col l12">
+                    <div class="row">
+                        <h5 class="card-title grey-text text-darken-4 col l12"><small class="left">Jogar:</small><i class="material-icons right">close</i></h5><br>
+                        <div class="col l4 tooltipped">
+                            <a style="font-size: 2em; color: black;" target="_blank" href="/published/${groupExportedResource.exportedResource.processId}/web" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Web"><i class="fa fa-globe"></i></a>
+                        </div>
+                        <g:if test="${groupExportedResource.exportedResource.resource.desktop}">
+                            <div class="col l4">
+                                <a style="font-size: 2em; color: black;" target="_blank" href="/published/${groupExportedResource.exportedResource.processId}/desktop/${groupExportedResource.exportedResource.resource.name}-linux.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Linux"><i class="fa fa-linux"></i></a>
+                            </div>
+                            <div class="col l4">
+                                <a style="font-size: 2em; color: black;" target="_blank" href="/published/${groupExportedResource.exportedResource.processId}/desktop/${groupExportedResource.exportedResource.resource.name}-windows.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Windows"><i class="fa fa-windows"></i></a> <br>
+                            </div>
+                            <div class="col l4">
+                                <a style="font-size: 2em; color: black;" target="_blank" href="/published/${groupExportedResource.exportedResource.processId}/desktop/${groupExportedResource.exportedResource.resource.name}-mac.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Mac"><i class="fa fa-apple"></i></a> <br>
+                            </div>
+                        </g:if>
 
-                        <a class="dropdown-button" data-activates='dropdown${groupExportedResource.id}'><i class="material-icons" style="color: black;">more_vert</i></a>
-                    <!-- Dropdown Structure -->
-                    <ul id='dropdown${groupExportedResource.id}' class='dropdown-content'>
-                        <li style="text-align: center;">
-                            <a class="tooltipped remove-resource" id="delete-resource-${groupExportedResource.id}" data-resource-id="${groupExportedResource.id}" data-position="right" data-delay="50" data-tooltip="Remover do grupo">
-                                <i class="material-icons" style="color: #FF5722;">delete</i>
-
-                                %{--TODO remover jogo de grupo apenas--}%
-                                %{--TODO ver estatisticas aqui nas opcoes?--}%
-                            </a>
-                        </li>
-                    </g:if>
-                    </ul>
+                        <div class="col l4">
+                            <g:if test="${groupExportedResource.exportedResource.resource.android}">
+                                <a style="font-size: 2em; color: black;" target="_blank" href="/published/${groupExportedResource.exportedResource.processId}/mobile/${groupExportedResource.exportedResource.resource.name}-android.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Android"><i class="fa fa-android"></i></a> <br>
+                            </g:if>
+                        </div>
+                        <div class="col l4">
+                            <g:if test="${groupExportedResource.exportedResource.resource.moodle}">
+                                <a style="font-size: 2em; color: black;" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Disponível no Moodle"><i class="fa fa-graduation-cap"></i></a>
+                            </g:if>
+                        </div>
+                    </div>
+                            <div class="row">
+                                <div class="card-action">
+                                    <div class="center">
+                                        <a class="remove-resource" style="cursor: pointer" id="delete-resource-${groupExportedResource.id}" data-resource-id="${groupExportedResource.id}" >
+                                            Remover
+                                        </a>
+                                    </div>
+                                    <div class="center">
+                                        <a class="" style="cursor: pointer" id="delete-resource-${groupExportedResource.id}" data-resource-id="${groupExportedResource.id}" >
+                                            Estatisticas
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                 </div>
             </div>
         </g:each>
