@@ -22,8 +22,8 @@
 <div class="row">
     <div class="col s12">
         <ul class="tabs">
+            <li class="tab col s6 active"><a href="#chooseQuestion">Escolher Questões</a></li>
             <li class="tab col s6"><a href="#defineMaxQuestion">Definir número de questões por nível</a></li>
-            <li class="tab col s6"><a href="#chooseQuestion">Escolher Questões</a></li>
         </ul>
     </div>
     <div id="chooseQuestion" class="col s12">
@@ -45,7 +45,7 @@
                         <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnUnCheckAll" onclick="uncheck_all()"><i  class="material-icons">done</i></button>
                     </div>
                 </th>
-                <th>Nível <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+                <th id="levelLabel">Nível <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
                 <th>Pergunta <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
                 <th>Respostas <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
                 <th>Alternativa Correta <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
@@ -187,13 +187,13 @@
                 <div class="row" id="levelRow">
                     <div class="col s2 offset-s3">
                         <input type="radio" id="editLevel1" name="level" value="1"  />
-                        <label for="editLevel1">Nível Fácil</label>
+                        <label for="editLevel1">Nível 1</label>
 
                     </div>
 
                     <div class="col s2">
                         <input type="radio" id="editLevel2" name="level" value="2" />
-                        <label for="editLevel2">Nível Médio</label>
+                        <label for="editLevel2">Nível 2</label>
                     </div>
 
                     <input type="hidden" name="taskId"  value="1" >
@@ -202,7 +202,7 @@
 
                     <div class="col s2">
                         <input type="radio" id="editLevel3" name="level" value="3" />
-                        <label for="editLevel3">Nível Difícil</label>
+                        <label for="editLevel3">Nível 3</label>
                     </div>
                 </div>
 
@@ -275,13 +275,13 @@
                 <div class="row">
                     <div class="col s2 offset-s3">
                         <input type="radio" id="level1" name="level" value="1" />
-                        <label for="level1">Nível Fácil</label>
+                        <label for="level1">Nível 1</label>
 
                     </div>
 
                     <div class="col s2">
                         <input type="radio" id="level2" name="level" value="2" />
-                        <label for="level2">Nível Médio</label>
+                        <label for="level2">Nível 2</label>
                     </div>
 
 
@@ -290,7 +290,7 @@
 
                     <div class="col s2">
                         <input type="radio" id="level3" name="level" value="3" />
-                        <label for="level3">Nível Difícil</label>
+                        <label for="level3">Nível 3</label>
                     </div>
                 </div>
 
