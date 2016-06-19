@@ -3,7 +3,7 @@
  */
 $(window).load(function() {
 
-    $("a.remove-resource").click(function(){
+    $(document).on("click","a.remove-resource",function(){
         deleteResource(this);
     });
     function deleteResource(_this) {
