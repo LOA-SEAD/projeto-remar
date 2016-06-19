@@ -247,8 +247,11 @@ class ExportedResourceController {
 
     @SuppressWarnings("GroovyAssignabilityCheck")
     def publicGames() {
-        def user = springSecurityService.getCurrentUser()
+        User user = session.user
+
         def model = [:]
+        model.myGroups = Group.findAllByOwner(user)
+        model.groupsIAdmin = UserGroup.findAllByUserAndAdmin(user,true).group
 
         def threshold = 12
 
