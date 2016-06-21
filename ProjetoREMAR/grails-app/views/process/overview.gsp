@@ -63,6 +63,16 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class=" input-field s12 m12 l12">
+                                    <input id="content-area" type="text" ><label for="content-area" >Área de conteúdo</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class=" input-field col s12 m12 l12">
+                                    <input id="specific-content" type="text" ><label for="specific-content">Conteúdo específico</label>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col s2 img-preview">
                                     <img id="img1Preview" class="materialboxed my-orange" width="100" height="100" src="/data/processes/${process.id}/banner.png?${new java.util.Date()}" />
                                 </div>
@@ -80,6 +90,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="right">
                                 <a href="#!" class="waves-effect waves-light btn-flat send" id="send" name="send" >
                                     Enviar
