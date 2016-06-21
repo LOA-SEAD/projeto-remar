@@ -10,7 +10,6 @@ class GroupExportedResourcesController {
         def group = groupExportedResource.group
         println group
         if(session.user.id == group.owner.id) {
-            println "entrou"
             groupExportedResource.delete flush: true
             render status: 200
         }else{
