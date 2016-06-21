@@ -35,7 +35,6 @@ class DspaceController {
         def  communities,subCommunities, collections, items, bitstreams, reports
         def resp
 
-
         //get community remar
         resp = rest.get("${restUrl}/communities/${mainCommunityId}")
         communities = resp.json
@@ -44,39 +43,38 @@ class DspaceController {
         resp = rest.get("${restUrl}/communities/${mainCommunityId}/communities")
         subCommunities = resp.json
 
-        //get collection on forca community
-        def id = searchName(subCommunities,"forca")
-        resp = rest.get("${restUrl}/communities/${id}/collections")
-        collections = resp.json
+        subCommunities = catBitstreamsRetrieveLink(rest, subCommunities)
 
-
-        resp = rest.get("${restUrl}/items")
-        items = resp.json
-
-        resp = rest.get("${restUrl}/bitstreams")
-        bitstreams = resp.json
-
-
-        resp = rest.post("${restUrl}/items/find-by-metadata-field"){
-            contentType "application/json"
-            json {
-                key= "dc.title"
-                value= "Teste"
-                language="en_US"
-            }
-        }
-        reports = resp.body
-
-       logout(token,rest)
+        logout(token,rest)
 
         render view: 'index', model:[
-                token:token,
                 communities:communities,
                 subCommunities:subCommunities,
-                collections : collections,
-                items:items,
-                bitstreams:bitstreams,
-                reports: reports
+                restUrl: restUrl
+        ]
+    }
+
+    def listCollections(){
+        init()
+
+        def l  = login(email,password)
+        def token = l.token
+        def rest =  l.restBuilder
+        def collections
+        def resp
+
+        //def id = searchName(subCommunities,"forca")
+        resp = rest.get("${restUrl}/communities/${params.id}/collections")
+        collections = resp.json
+
+        collections = catBitstreamsRetrieveLink(rest, collections)
+
+        logout(token,rest)
+
+        render view: 'listCollections', model:[
+                collections:collections,
+                communityName: params.name,
+                restUrl: restUrl
         ]
     }
 
@@ -184,5 +182,29 @@ class DspaceController {
             contentType "application/json"
             header 'rest-dspace-token', token
         }
+    }
+
+    /**
+     * Procura nos bitstreams, quais são pertencentes ao json (olhando o parentObject e comparando com o id do json)
+     *  , e add o link da imagem no json (cria novo elemento). Geralmente o json será uma comunidade ou uma coleção
+     * @params objeto restBuilder e json
+     * */
+    private static catBitstreamsRetrieveLink(RestBuilder rest, json){
+
+        def resp = rest.get("${restUrl}/bitstreams?expand=parent")
+        def bitstreams = resp.json
+
+        json.each { sub ->
+            def retLink = (bitstreams.find { it.parentObject.id == sub.id }).retrieveLink
+            println(retLink)
+            sub.retrieveLink = retLink
+        }
+
+        return json
+    }
+
+    private static getBitstreams(RestBuilder rest){
+        def resp = rest.get("${restUrl}/bitstreams?expand=parent")
+        return resp.json
     }
 }

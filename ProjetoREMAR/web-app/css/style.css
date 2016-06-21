@@ -73,10 +73,6 @@
     }
 
 
-    .cluster-header {
-        width: 100%;
-        font-size: 28px;
-    }
 
     .card .card-content .card-title{
         line-height: 20px;
@@ -904,4 +900,48 @@ Position must be relative!*/
 .tabs .indicator{
     background-color:#FF5722;
     /*display: none !important;*/
+}
+
+.width-position{
+    position: relative;
+    left: 1em;
+}
+
+/*.card-info{*/
+    /*margin-top: 20px;*/
+/*}*/
+
+/*nao implementado no materialize*/
+.nav-breadcrumb {
+    background-color: transparent;
+    box-shadow: none !important;
+    margin: 20px 0 20px 0;
+}
+
+.nav-breadcrumb a{
+    color: rgba(255,87,34,0.8);
+    font-size: 5vmin;
+}
+
+.nav-breadcrumb a[href="."]{
+    color: #FF5722 !important;
+    font-size: 5vmin;
+}
+
+.breadcrumb, .first-breadcrumb {
+    font-size: 18px;
+    color: rgba(255,255,255,0.7);
+}
+
+.breadcrumb:before {
+    content: '\E5CC';
+    color: rgba(255,87,34,0.8);
+    vertical-align: top;
+    display: inline-block;
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 5vmin;
+    margin: 0 10px 0 8px;
+    -webkit-font-smoothing: antialiased;
 }
