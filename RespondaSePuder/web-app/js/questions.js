@@ -16,6 +16,8 @@ window.onload = function(){
         });
     });
 
+    orderTable();
+
 };
 
 
@@ -276,4 +278,22 @@ function exportQuestions(){
         });
     }
 
+}
+
+function orderTable(){
+    var table = $("#levelLabel").parents('table').eq(0)
+    var rows = table.find('tr:gt(0)').toArray().sort(compare($("#levelLabel").index()))
+    $("#levelLabel").asc = !$("#levelLabel").asc
+    if ($("#levelLabel").asc){rows = rows.reverse()}
+    for (var i = 0; i < rows.length; i++){table.append(rows[i])}
+
+    function compare(index){
+        return function(a, b) {
+            var valA = getCellValue(a, index), valB = getCellValue(b, index)
+            return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB)
+        }
+    }
+    function getCellValue(row, index){
+        return $(row).children('td').eq(index).html()
+    }
 }
