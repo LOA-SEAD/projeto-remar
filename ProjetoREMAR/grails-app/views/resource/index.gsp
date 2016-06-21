@@ -18,8 +18,8 @@
         </p>
         <div class="divider"></div>
         <br />
-        <div class="card-list two-cards">
-            <div class="row show developer">
+        <div style="position:relative; left: 1.0em;" class="card-list two-cards">
+            <div class="row">
                 <g:if test="${resourceInstanceList}">
                     <g:render template="developerCads" model="[resourceInstanceList:resourceInstanceList]" />
                 </g:if>
@@ -36,13 +36,7 @@
     </div>
     <footer class="row">
         <ul class="pagination">
-            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-            <li class="active"><a href="#!">1</a></li>
-            <li class="waves-effect"><a href="#!">2</a></li>
-            <li class="waves-effect"><a href="#!">3</a></li>
-            <li class="waves-effect"><a href="#!">4</a></li>
-            <li class="waves-effect"><a href="#!">5</a></li>
-            <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+
         </ul>
     </footer>
     <g:javascript src="game-index.js"/>
