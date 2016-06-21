@@ -5,7 +5,6 @@ import br.ufscar.sead.loa.remar.Role
 import br.ufscar.sead.loa.remar.UserRole
 import br.ufscar.sead.loa.remar.User
 import br.ufscar.sead.loa.remar.MongoHelper
-import grails.util.Environment
 import br.ufscar.sead.loa.remar.Category
 
 import javax.servlet.http.HttpServletRequest
@@ -15,9 +14,13 @@ class BootStrap {
 
     def init = { servletContext ->
 
-        MongoHelper.instance.init()
+        MongoHelper.instance.init([username: grailsApplication.config.dataSource.username,
+                                   password:  grailsApplication.config.dataSource.password])
 
-        Propeller.instance.init([dbName: 'remar-propeller', wipeDb: false])
+        Propeller.instance.init([dbName: 'remar-propeller', wipeDb: false,
+                                 username: grailsApplication.config.dataSource.username,
+                                 authDb: 'admin',
+                                 password: grailsApplication.config.dataSource.password])
 
         HttpServletRequest.metaClass.isXhr = { ->
             'XMLHttpRequest' == delegate.getHeader('X-Requested-With')
@@ -35,22 +38,12 @@ class BootStrap {
                     username: "admin",
                     password: grailsApplication.config.users.password,
                     email: "admin@remar.dc.ufscar.br",
-                    firstName: "Admin",
-                    lastName: "User",
+                    firstName: "Equipe LOA",
+                    lastName: "– REMAR",
                     enabled: true
             )
 
-            def guest = new User(
-                    username: "guest",
-                    password: grailsApplication.config.users.password,
-                    email: "admin@remar.dc.ufscar.br",
-                    firstName: "Guest",
-                    lastName: "User",
-                    enabled: true,
-            )
-
             admin.save flush: true
-            guest.save flush: true
 
             UserRole.create admin, Role.findByAuthority("ROLE_ADMIN"), true
             UserRole.create admin, Role.findByAuthority("ROLE_DEV"), true
@@ -93,7 +86,7 @@ class BootStrap {
         }
 
         for (url in [
-                '/process/deploy', '/process/undeploy'
+                '/process/deploy', '/process/undeploy','/category/**','/category/delete/**',"category/update/**"
         ]) {
             RequestMap.findOrSaveByUrlAndConfigAttribute(url, 'ROLE_ADMIN')
         }

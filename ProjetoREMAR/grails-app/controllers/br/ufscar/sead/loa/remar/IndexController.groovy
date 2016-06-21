@@ -55,8 +55,6 @@ class IndexController {
             }
         }
 
-        model.uri += "&h=" + (session.user.username as String).bytes.encodeBase64().toString()
-
         render view: "frame", model: model
     }
 

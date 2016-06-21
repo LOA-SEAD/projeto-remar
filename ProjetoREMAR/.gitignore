@@ -46,7 +46,6 @@ stacktrace.log
 /grails-app/conf/env.properties
 
 !web-app/data/users/admin/profile-picture
-!web-app/data/users/guest/profile-picture
 
 propeller
 

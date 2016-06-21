@@ -113,7 +113,7 @@ class ResourceController {
             ant.copy(file: tmp, todir: servletContext.getRealPath("/propeller/${resourceInstance.uri}"))
         }
 
-        //read the file that describes the game DB and creates a collection with the corresponding name
+        // read the file that describes the game DB and creates a collection with the corresponding name
         def bd = new File(expandedWarPath + "/remar/bd.json")
 
         if (!bd.exists()) {
@@ -243,7 +243,7 @@ class ResourceController {
                 resourceInstance.version = 0
                 resourceInstance.save flush: true
 
-                //noinspection GroovyAssignabilityCheck
+                // noinspection GroovyAssignabilityCheck
                 Util.sendEmail(resourceInstance.owner.email,
                         "REMAR – O seu WAR \"${resourceInstance.name}\" foi aprovado!",
                         '<h3>O seu WAR \"${resourceInstance.name}\" foi aprovado! :)</h3> <br>'
@@ -350,12 +350,12 @@ class ResourceController {
 
         model.gameInstanceList = null
 
-        if(params.typeSearch.equals("name")){ //busca pelo nome
+        if(params.typeSearch.equals("name")){ // busca pelo nome
             model.gameInstanceList = Resource.findAllByStatusAndNameIlike('approved', "%${params.text}%",params)
             maxInstances = Resource.findAllByStatusAndNameIlike('approved', "%${params.text}%").size()
 
         }else{
-            if(params.typeSearch.equals("category")){//busca pela categoria
+            if(params.typeSearch.equals("category")){// busca pela categoria
 
                 if(params.text.equals("-1")){// exibe os jogos de todas as categorias
                     model.gameInstanceList = Resource.findAllByStatus('approved',params) // change to #findAllByActive?
@@ -417,13 +417,13 @@ class ResourceController {
         print(rating)
         print(params)
 
-        //atualiza a data do rating
+        // atualiza a data do rating
         rating.date = new Date()
 
-        //retira da soma de estrelas a quantidade de estrelas anterior do rating
+        // retira da soma de estrelas a quantidade de estrelas anterior do rating
         rating.resource.sumStars -= old_stars
 
-        //soma a nova quantidade de estrelas a soma de estrelas do rating
+        // soma a nova quantidade de estrelas a soma de estrelas do rating
         rating.resource.sumStars += rating.stars
 
         rating.save flush: true
@@ -437,7 +437,7 @@ class ResourceController {
 
         def old_stars = rating.getPersistentValue("stars")
 
-        //retira da soma de estrelas a quantidade de estrelas anterior do rating
+        // retira da soma de estrelas a quantidade de estrelas anterior do rating
         rating.resource.sumStars -= old_stars
         rating.resource.sumUser -= 1
 

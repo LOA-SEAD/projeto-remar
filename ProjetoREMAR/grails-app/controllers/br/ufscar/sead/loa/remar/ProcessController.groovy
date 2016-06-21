@@ -22,7 +22,7 @@ class ProcessController {
         } else {
             process = process as ProcessInstance
 
-            //salva uma imagem para o processo
+            // salva uma imagem para o processo
             def path = new File("${servletContext.getRealPath("/data/processes/${process.id}")}/")
             path.mkdirs()
 
@@ -140,7 +140,7 @@ class ProcessController {
 
         def path = new File("${servletContext.getRealPath("/data/processes/${process.id}")}/")
 
-        //se a imagem foi atualizada
+        // se a imagem foi atualizada
         if (params.img1 != null && params.img1 != "") {
             def img1 = new File(servletContext.getRealPath("${params.img1}"))
             img1.renameTo(new File(path, "banner.png"))
@@ -149,9 +149,9 @@ class ProcessController {
         response.status = 200
 
         def i = ExportedResource.findByName(params.name)
-        if(i) {
+        if (i) {
             response.status = 409 // conflited error
-        }else {
+        } else {
             process.name = params.name
 
             process.putVariable("updated", "true", true)
@@ -214,9 +214,9 @@ class ProcessController {
 
     def finish() {
         def exportsTo = [:]
-        log.debug("ID DO PROCESSO --->"+params.id)
+        log.debug("ID DO PROCESSO --->" + params.id)
         def process = Propeller.instance.getProcessInstanceById(params.id, session.user.id as long)
-        log.debug("NOME DO PROCESSO --->"+process.name)
+        log.debug("NOME DO PROCESSO --->" + process.name)
         log.debug(process.getVariable("resourceId"))
 
         def resource = Resource.get(process.getVariable('resourceId'))

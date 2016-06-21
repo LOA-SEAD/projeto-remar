@@ -1,9 +1,10 @@
 package br.ufscar.sead.loa.remar
 
+import com.mongodb.MongoCredential
+import com.mongodb.ServerAddress
 import com.mongodb.client.MongoDatabase
 import com.mongodb.MongoClient
 import org.bson.Document
-import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import org.bson.types.ObjectId
 
 
@@ -12,11 +13,13 @@ class MongoHelper {
 
     MongoClient mongoClient
     MongoDatabase db
-    String dbName = 'remar'
 
-    def init() {
-        this.mongoClient = new MongoClient()
-        this.db = mongoClient.getDatabase(dbName)
+    def init(Map options) {
+        def credential = MongoCredential.createCredential(options.username as String, 'admin',
+                options.password as char[])
+
+        this.mongoClient = new MongoClient(new ServerAddress(), Arrays.asList(credential))
+        this.db = mongoClient.getDatabase('remar')
     }
 
     def createCollection(String collectionName) {

@@ -84,12 +84,16 @@
             </tbody>
         </table>
         <div class="row">
-            <div class="col s1 offset-s10">
+            <div class="col s1 offset-s9">
                 <a data-target="createModal" name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"><i class="material-icons">add</i></a>
             </div>
             <div class="col s1">
                 <a data-target="uploadModal" class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped" data-tooltip="Upload arquivo .csv"><i
                         class="material-icons">file_upload</i></a>
+            </div>
+            <div class="col s1">
+                <a class="btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exportar questões para .csv"><i
+                        class="material-icons" onclick="exportQuestions()">file_download</i></a>
             </div>
         </div>
     </div>
@@ -340,7 +344,7 @@
                     <li>O arquivo deve representar a estrutura da tabela de exemplo</li>
                 </ol>
                 <ul>
-                    <li><a href="../samples/exemploRespondaSePuder.csv">Download do arquivo exemplo</a></li>
+                    <li><a href="/respondasepuder/samples/exemploRespondaSePuder.csv">Download do arquivo exemplo</a></li>
                 </ul>
             </div>
         </div>

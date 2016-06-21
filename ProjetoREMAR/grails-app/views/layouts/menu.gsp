@@ -52,6 +52,12 @@
         </li>
     </sec:ifAllGranted>
 
+    <sec:ifAllGranted roles="ROLE_ADMIN">
+        <li class="waves-effect waves-block waves-light" data-intro="No espaço do desenvolvedor você pode submeter um novo jogo para o REMAR." data-step="4">
+            <a href="/category/index" class=""><i class="material-icons">list</i>Categorias</a>
+        </li>
+    </sec:ifAllGranted>
+
     <div class="divider"></div>
 
 

@@ -5,8 +5,8 @@
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="../css/materialize.css" media="screen,projection"/>
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link type="text/css" rel="stylesheet" href="/forca/css/materialize.css" media="screen,projection"/>
+    <link rel="stylesheet" type="text/css" href="/forca/css/style.css">
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -125,7 +125,7 @@
         </button>
     </div>
 
-    <div class="col s1 offset-s8">
+    <div class="col s1 offset-s7">
         <a data-target="createModal" name="create"
            class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"><i
                 class="material-icons">add</i></a>
@@ -134,6 +134,10 @@
     <div class="col s1">
         <a data-target="uploadModal"  class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped" data-tooltip="Upload de arquivo .csv"><i
                 class="material-icons">file_upload</i></a>
+    </div>
+    <div class="col s1">
+        <a class="btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exportar questões para .csv"><i
+                class="material-icons" onclick="exportQuestions()">file_download</i></a>
     </div>
 </div>
 
@@ -239,7 +243,7 @@
                     <li>O arquivo deve representar a estrutura da tabela ao lado</li>
                 </ol>
                 <ul>
-                    <li><a href="../samples/exemploForca.csv" >Download do arquivo exemplo</a></li>
+                    <li><a href="/forca/samples/exemploForca.csv" >Download do arquivo exemplo</a></li>
                 </ul>
             </div>
             <div class="col s6">
@@ -279,7 +283,7 @@
 
 
 
-<script type="text/javascript" src="../js/materialize.min.js"></script>
+<script type="text/javascript" src="/forca/js/materialize.min.js"></script>
 <script type="text/javascript">
 
     function changeEditQuestion(variable) {

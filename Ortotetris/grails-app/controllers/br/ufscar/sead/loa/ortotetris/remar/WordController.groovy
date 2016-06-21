@@ -17,7 +17,7 @@ class WordController {
     def springSecurityService
 
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", toJson: "GET", getWord: ["GET","POST"]]
 
     def index() {
 
@@ -33,7 +33,7 @@ class WordController {
     }
 
     /* Funções que manipulam word e answer */
-    def initialize_word(Word wordInstance){
+    def initializeWord(Word wordInstance){
         String aux = ""+wordInstance.getAnswer().toUpperCase()
         if (wordInstance.getAnswer().length() < 10) {
             for (int i = (10 - wordInstance.getAnswer().length()); i > 0; i--)
@@ -43,8 +43,15 @@ class WordController {
         wordInstance.setInitial_position(0)
     } //copia answer para word e completa word com 'ì' caso answer.lenght()<10
 
+    def getWord(int id){
+
+        Word wordInstance = Word.findById(id)
+        String attr = "" + wordInstance.word + "#@&" + wordInstance.answer + "#@&" + wordInstance.initial_position + "#@&" + wordInstance.id
+        render attr;
+    }
+
     @Transactional
-    def move_to_left() {
+    def moveToLeft() {
         Word wordInstance = Word.findById(params.id)
         if (wordInstance.getWord().charAt(0) == 'ì') {
             String aux = wordInstance.getWord().substring(1, 10)
@@ -56,14 +63,13 @@ class WordController {
 
         }
         else {
-            render template: 'message', model: [WordMessage: "Não foi possível realizar a operação"]
             render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
 
     }//move word para a esquerda
 
     @Transactional
-    def move_to_right() {
+    def moveToRight() {
         Word wordInstance = Word.findById(params.id)
         if (wordInstance.getWord().charAt(9) == 'ì') {
             String aux = "ì"
@@ -74,19 +80,18 @@ class WordController {
             render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
         else {
-            render template: 'message', model: [WordMessage: "Não foi possível realizar a operação"]
             render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
     }//move word para a direita
 
     @Transactional
-    def mark_letter(int id, int pos) {
+    def markLetter(int id, int pos) {
         Word wordInstance = Word.findById(id)
         String position_text = pos
         int position = position_text.toInteger()
         if ((position-1 >= wordInstance.getInitial_position()) && (position-1 <= wordInstance.getInitial_position() + wordInstance.getAnswer().length()-1) ) {
             String h_char = "" + wordInstance.getWord().charAt(position-1);
-            if(validate_hide_letter(h_char)) {
+            if(validateHideLetter(h_char)) {
                 String aux
                 if(h_char=="H" && wordInstance.getWord().charAt(position-2).toUpperCase()=='C') //caso a letra escondida seja "H" é necessário esconder a letra "C" que a antecede
                 {
@@ -100,7 +105,6 @@ class WordController {
                         aux += ("0")
                     }
                     else{
-                        render template: 'message', model: [WordMessage: "Escolha um caracter válido"]
                         render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
                         return ;
                     }
@@ -109,16 +113,13 @@ class WordController {
                 aux += (wordInstance.getWord().substring(position, 10))
                 wordInstance.setWord(aux)
                 wordInstance.save flush: true
-                render template: 'message', model: [WordMessage: "Caracter oculto com sucesso"]
                 render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName: "Word"]
             }
             else {
-                render template: 'message', model: [WordMessage: "Escolha um caracter válido"]
                 render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
             }
         }
         else {
-            render template: 'message', model: [WordMessage: "Escolha uma posição válida"]
             render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
 
@@ -126,7 +127,7 @@ class WordController {
     }//marca o caractere como '0' (esconde o caractere)
 
     @Transactional
-    def clear_position() {
+    def clearPosition() {
         Word wordInstance = Word.findById(params.id)
         String position_text = params.pos
         int position = position_text.toInteger()
@@ -149,11 +150,9 @@ class WordController {
 
             wordInstance.setWord(aux)
             wordInstance.save flush:true
-            render template: 'message', model: [WordMessage: "Operação realizada com sucesso"]
             render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
         else {
-            render template: 'message', model: [WordMessage: "Escolha uma posição válida"]
             render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName:"Word"]
         }
 
@@ -164,9 +163,9 @@ class WordController {
     def editWord(){
         Word wordInstance = Word.findById(params.id)
         if(Word.findByAnswer(params.new_answer)==null){
-            if(validate_form_answer(params.new_answer)){
+            if(validateFormAnswer(params.new_answer)){
             wordInstance.setAnswer(params.new_answer)
-            initialize_word(wordInstance)
+            initializeWord(wordInstance)
             wordInstance.save flush: true
             render template: 'message', model: [WordMessage: "Palavra atualizada com sucesso"]
             render template: 'list', model: [wordInstanceCount: Word.count(), wordInstanceList: Word.findAllByOwnerId(session.user.id), entityName: "Word"]
@@ -192,7 +191,7 @@ class WordController {
 
     }
 
-    def validate_form_answer(String new_answer) {
+    def validateFormAnswer(String new_answer) {
         if (new_answer.length()>10 || new_answer.length()<1)
             return false
         else
@@ -200,7 +199,7 @@ class WordController {
 
     }
 
-    def validate_hide_letter(String hide_letter){
+    def validateHideLetter(String hide_letter){
         String test_letter=hide_letter.toUpperCase();
 
         switch (test_letter){
@@ -225,6 +224,9 @@ class WordController {
     }
 
     def toJson() {
+        def dataPath = servletContext.getRealPath("/data")
+        def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
+        instancePath.mkdirs()
         def list = Word.getAll(params.ids.split(',').toList())
         def fileName = "gabaritos.txt"
         def fileName2 = "palavras.txt"
@@ -233,8 +235,8 @@ class WordController {
         int count2= 0;
 
 
-        File file = new File("$fileName");
-        File file2 = new File("$fileName2");
+        File file = new File("$instancePath/$fileName");
+        File file2 = new File("$instancePath/$fileName2");
 
         PrintWriter pw = new PrintWriter(file);
         pw.write("{\n \t\"c2array\": true,\n\t\"size\":[" + list.size() +",1,1],\n\t\"data\":[\n\t\t    ")
@@ -309,7 +311,7 @@ class WordController {
             return
         }
 
-        initialize_word(wordInstance) //inicializa a word conforme a answer passada como parâmetro
+        initializeWord(wordInstance) //inicializa a word conforme a answer passada como parâmetro
         wordInstance.ownerId = session.user.id
 
         wordInstance.save flush:true
@@ -342,7 +344,7 @@ class WordController {
         }
 
         if(edited)
-            initialize_word(wordInstance)
+            initializeWord(wordInstance)
         wordInstance.save flush:true
 
         request.withFormat {
@@ -353,6 +355,29 @@ class WordController {
             '*'{ respond wordInstance, [status: OK] }
         }
 
+
+    }
+
+    @Transactional
+    def generateQuestions() {
+        MultipartFile csv = params.csv
+
+        csv.inputStream.toCsvReader(['separatorChar': ';']).eachLine { row ->
+
+            Word wordInstance = new Word()
+            wordInstance.answer = row[0] ?: "NA";
+            initializeWord(wordInstance)
+            wordInstance.ownerId = session.user.id
+            if(wordInstance.hasErrors())
+            {
+                println(wordInstance.errors)
+            }
+            else
+                wordInstance.save flush:true
+
+        }
+
+        redirect(action: index())
 
     }
 

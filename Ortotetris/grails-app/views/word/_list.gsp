@@ -39,7 +39,7 @@
         %{--<td>${wordInstance.id}</td>--}%
             <td>
                 <i class="material-icons" id="button${wordInstance.id}"
-                   onclick="ShowWord('${wordInstance.word}', '${wordInstance.answer.toUpperCase()}', ${wordInstance.initial_position}, ${wordInstance.id})">games</i>
+                   onclick="showWordAndModal('${wordInstance.word}', '${wordInstance.answer.toUpperCase()}', ${wordInstance.initial_position}, ${wordInstance.id})">games</i>
                 <i class="material-icons"
                    onclick="EditWord('${wordInstance.answer.toUpperCase()}', ${wordInstance.id})">edit</i>
                 <i class="material-icons" onclick="WordDelete('${wordInstance.id}')">delete</i>
@@ -54,28 +54,37 @@
 <!-- Modal Structure -->
 <div id="editModal" class="modal">
     <div class="modal-content">
-        <h4>Editar Palavra</h4>
-
         <div class="row">
-            <div class="row">
-                <div class="input-field col s6 offset-s3" id="editDiv">
-                    <input id="EditWordLabel" type="text" name="answer"> <label for="EditWordLabel"></label>
+            <div class="col s12 m12 l12">
+                <h4>Criar Palavra</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m6 offset-m3 l6 offset-l3">
+                <div class="input-field" id="editDiv">
+                    <input id="EditWordLabel"  maxlength="10" type="text" name="answer"> <label for="EditWordLabel"></label>
                     <input id="wordId" type="hidden" name="id"> <label></label>
                     <input type="hidden" value="none" name="word"> <label></label>
                     <input type="hidden" value="0" name="initialPosition"> <label></label>
                 </div>
+                <div class=" center-align s12 m3 l3">
+                    <a onclick="UpdateWord()" class="btn btn-success btn-lg modal-close my-orange">Salvar</a>
+                </div>
             </div>
-            <button onclick="UpdateWord()"
-                    class="btn btn-success btn-lg modal-close my-orange">Salvar</button>
         </div>
     </div>
 </div>
 
 
+
 <!-- Modal Structure -->
 <div id="deleteModal" class="modal">
     <div class="modal-content">
-        <h4>Excluir Palavra</h4>
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <h4>Excluir Palavra</h4>
+            </div>
+        </div>
 
         <div class="row">
             <div class="row">
@@ -84,10 +93,13 @@
                 </div>
             </div>
 
-            <div class="col offset-s8">
-                <button class="btn grey waves-effect waves-light modal-close">Não</button>
-                <button id="deleteButton" class="btn waves-effect waves-light modal-close my-orange"
-                        onclick="Delete()">Sim</button>
+
+            <div class="col s4 offset-s2 m2 offset-m8 l2 offset-l8">
+                <a class="btn grey waves-effect waves-light modal-close">Não</a>
+            </div>
+            <div class="col s4 m2 l2">
+                <a id="deleteButton" class="btn waves-effect waves-light modal-close my-orange"
+                   onclick="Delete()">Sim</a>
             </div>
 
         </div>
@@ -100,7 +112,7 @@
 
     function EditWord(answer, id) {
         $("#editDiv").empty();
-        $("#editDiv").append("<input id='EditWordLabel' value='" + answer + "' type='text' name='answer'> <label for='EditWordLabel'></label>");
+        $("#editDiv").append("<input class='center' maxlength='10' id='EditWordLabel' value='" + answer + "' type='text' name='answer'> <label for='EditWordLabel'></label>");
         $("#editDiv").append("<input id='wordId' type='hidden' value='" + id + "' name='id'> <label></label>");
         $("#editDiv").append("<input type='hidden' value='none' name='word'> <label></label>");
         $("#editDiv").append("<input type='hidden' value='0' name='initialPosition'> <label></label>");
@@ -116,7 +128,7 @@
 
     function WordDelete(id) {
         $('#warningLabel').empty();
-        $("#warningLabel").append("<div> <p> Você tem certeza ?  </p> </div>");
+        $("#warningLabel").append("<div class='col s12 m12 l12 center'> <p> Você tem certeza ?  </p> </div>");
         $("#warningLabel").append("<input id='wordIdDelete' value='" + id + "' type='hidden' name='id'> <label></label>");
         $('#deleteModal').openModal();
     }

@@ -5,50 +5,34 @@ import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.util.Environment
-import grails.util.Holders
 import groovy.json.JsonBuilder
-import groovyx.net.http.HTTPBuilder
-import org.codehaus.groovy.grails.io.support.GrailsIOUtils
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.multipart.MultipartFile
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Secured(["IS_AUTHENTICATED_FULLY"])
+@Secured(["isAuthenticated()"])
 @Transactional(readOnly = true)
 class QuestionController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def springSecurityService
-    def grailsApplication
 
-    @Secured(["permitAll"])
-    def index(Integer max) { // TODO: change to ModelAndView
-        def user = springSecurityService.getCurrentUser()
-//        params.max = Math.min(max ?: 10, 100)
-        params.max = 100 // TODO
-
-        if (params.t && params.h) {
+    def index(Integer max) {
+        if (params.t) {
             session.taskId = params.t
-
-            def u = User.findByUsername(new String(params.h.decodeBase64()))
-            SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(u, null, u.authoritiesHashSet()))
-
-            redirect controller: "question" // redirect to hide params.h
-            return
         }
+        session.user = springSecurityService.currentUser
+
+        println session.user.username
 
         def list = Question.list()
-        render view: "index", model: [questionInstanceList: list, questionInstanceCount: Question.count(), userName: user.getUsername(), userId: user.getId()]
+
+        render view: "index", model: [questionInstanceList: list, questionInstanceCount: Question.count(),
+                                      userName: session.user.username, userId: session.user.id]
 
     }
-
-    /*def show(Question questionInstance) {
-        respond questionInstance
-    }*/
 
     def create() {
         respond new Question(params)
@@ -57,11 +41,7 @@ class QuestionController {
     @Transactional
     def newQuestion(Question questionInstance) {
         if (questionInstance.author == null) {
-            def user = springSecurityService.currentUser.id
-            User currentUser = User.findById(user)
-            //println(currentUser.username.toString())
-            questionInstance.author = new String();
-            questionInstance.author = currentUser.username.toString()
+            questionInstance.author = session.user.username
         }
 
         Question newQuest = new Question();
@@ -122,14 +102,6 @@ class QuestionController {
         }
 
         redirect(action: index())
-
-       /* request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'question.label', default: 'Question'), questionInstance.id])
-                redirect questionInstance
-            }
-            '*' { respond questionInstance, [status: CREATED] }
-        }*/
     }
 
     def edit(Question questionInstance) {
@@ -165,14 +137,6 @@ class QuestionController {
         } else {
             // TODO
         }
-
-        /*request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Question.label', default: 'Question'), questionInstance.id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }*/
     }
 
     protected void notFound() {
@@ -253,9 +217,23 @@ class QuestionController {
 
 
             Question questionInstance = new Question()
-            questionInstance.statement = row[0] ?: "NA";
-            questionInstance.answer = row[1] ?: "NA";
-            questionInstance.category = row[2] ?: "NA";
+
+
+
+            try{
+                String correct = row[6] ?: "NA";
+                int correctAnswer = (correct.toInteger() -1)
+                questionInstance.statement = row[1] ?: "NA";
+                questionInstance.answer = row[(2 + correctAnswer)] ?: "NA";
+                questionInstance.category = row[8] ?: "NA";
+            }
+            catch (ArrayIndexOutOfBoundsException exception){
+                //println("Not default .csv - Model: Title-Answer-Category")
+                questionInstance.statement = row[0] ?: "NA";
+                questionInstance.answer = row[1] ?: "NA";
+                questionInstance.category = row[2] ?: "NA";
+            }
+
             questionInstance.author = username
             questionInstance.taskId = session.taskId as String
 
@@ -271,4 +249,45 @@ class QuestionController {
         redirect(action: index())
 
     }
+
+    def exportCSV(){
+        /* Função que exporta as questões selecionadas para um arquivo .csv genérico.
+           O arquivo .csv gerado será compatível com os modelos Escola Mágica, Forca e Responda Se Puder.
+           O arquivo gerado possui os seguintes campos na ordem correspondente:
+           Nível, Pergunta, Alternativa1, Alternativa2, Alternativa3, Alternativa4, Alternativa Correta, Dica, Tema.
+           O campo Dica é correspondente ao modelo Responda Se Puder e o campo Tema ao modelo Forca.
+           O separador do arquivo .csv gerado é o ";" (ponto e vírgula)
+        */
+
+        ArrayList<Integer> list_questionId = new ArrayList<Integer>() ;
+        ArrayList<Question> questionList = new ArrayList<Question>();
+        list_questionId.addAll(params.list_id);
+        for (int i=0; i<list_questionId.size();i++){
+            questionList.add(Question.findById(list_questionId[i]));
+
+        }
+
+        //println(questionList)
+        def dataPath = servletContext.getRealPath("/samples")
+        def instancePath = new File("${dataPath}/export")
+        instancePath.mkdirs()
+        log.debug instancePath
+
+        def fw = new FileWriter("$instancePath/exportQuestions.csv")
+        for(int i=0; i<questionList.size();i++){
+            fw.write("1;" + questionList.getAt(i).statement + ";" + questionList.getAt(i).answer + ";"  + "Alternativa 2;" +
+                    "Alternativa 3;" + "Alternativa 4;" + "1;" + "dica;" + questionList.getAt(i).category +";\n" )
+        }
+        fw.close()
+
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
+
+        render "http://localhost:${port}/frame/forca/samples/export/exportQuestions.csv"
+
+
+    }
+
 }

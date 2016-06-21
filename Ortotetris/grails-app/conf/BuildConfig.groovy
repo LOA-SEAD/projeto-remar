@@ -68,6 +68,8 @@ grails.project.dependency.resolution = {
         compile ":jquery:1.11.1"
         compile ':spring-security-core:2.0-RC5'
         compile ":camunda:0.4.0"
+        compile ":csv:0.3.1"
+
 
 
         // plugins needed at runtime but not for compilation

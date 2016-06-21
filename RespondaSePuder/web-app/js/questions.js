@@ -52,7 +52,7 @@ function submit(){
             $.ajax({
                 type: "POST",
                 traditional: true,
-                url: "exportQuestions",
+                url: "/respondasepuder/question/exportQuestions",
                 data: { list_id_level1: list_id_level1, list_id_level2: list_id_level2, list_id_level3: list_id_level3, randomQuestion: randomQuestion },
                 success: function(returndata) {
                     window.top.location.href = returndata;
@@ -226,5 +226,36 @@ function uncheck_all(){
 
     $('#BtnUnCheckAll').hide();
     $('#BtnCheckAll').show();
+
+}
+
+function exportQuestions(){
+    var list_id = [];
+
+    $.each($("input[type=checkbox]:checked"), function(ignored, el) {
+        var tr = $(el).parents().eq(1);
+        list_id.push($(tr).attr('data-id'));
+    });
+
+    if(list_id.length<=0){
+        alert("Você deve selecionar ao menos uma questão antes de exportar seu banco de questões");
+    }
+    else{
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            url: "/respondasepuder/question/exportCSV",
+            data: { list_id: list_id },
+            success: function(returndata) {
+                console.log(returndata);
+                window.open(returndata, '_blank');
+            },
+            error: function(returndata) {
+                alert("Error:\n" + returndata.responseText);
+
+
+            }
+        });
+    }
 
 }
