@@ -36,7 +36,16 @@ Time: 08:58
                 </section>
                 <section class="row">
                     <div class="col s12" >
-                        <g:render template="list" model="[objects:subCommunities]" />
+                        %{--<g:render template="list" model="[objects:subCommunities]" />--}%
+                        <ul class="collection">
+                            <g:each in="${subCommunities}" var="obj">
+                                <li class="collection-item avatar left-align">
+                                    <img src="${restUrl}${obj.retrieveLink}" alt="" class="circle">
+                                    <a href="/dspace/listCollections/${obj.id}?names=${obj.name}" class="collection-link" data-id="${obj.id}">${obj.name}</a>
+                                    <p>${obj.shortDescription}</p>
+                                </li>
+                            </g:each>
+                        </ul>
                     </div>
                 </section>
             </article>

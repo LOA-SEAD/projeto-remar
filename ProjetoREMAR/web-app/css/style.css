@@ -920,12 +920,12 @@ Position must be relative!*/
 
 .nav-breadcrumb a{
     color: rgba(255,87,34,0.8);
-    font-size: 5vmin;
+    font-size: 3.5vmin;
 }
 
 .nav-breadcrumb a[href="."]{
     color: #FF5722 !important;
-    font-size: 5vmin;
+    font-size: 3.5vmin;
 }
 
 .breadcrumb, .first-breadcrumb {
@@ -941,7 +941,7 @@ Position must be relative!*/
     font-family: 'Material Icons';
     font-weight: normal;
     font-style: normal;
-    font-size: 5vmin;
+    font-size: 3.5vmin;
     margin: 0 10px 0 8px;
     -webkit-font-smoothing: antialiased;
 }

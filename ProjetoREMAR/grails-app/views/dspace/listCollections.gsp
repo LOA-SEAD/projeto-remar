@@ -39,7 +39,15 @@ Time: 08:58
             </section>
             <section class="row">
                 <div class="col s12" >
-                    <g:render template="list" model="[objects:collections]" />
+                    <ul class="collection">
+                        <g:each in="${collections}" var="obj">
+                            <li class="collection-item avatar left-align">
+                                <img src="${restUrl}${obj.retrieveLink}" alt="" class="circle">
+                                <a href="/dspace/listItems/${obj.id}?names=${communityName}&names=${obj.name}" class="collection-link" data-id="${obj.id}">${obj.name}</a>
+                                <p>${obj.shortDescription}</p>
+                            </li>
+                        </g:each>
+                    </ul>
                 </div>
             </section>
         </article>

@@ -73,7 +73,36 @@ class DspaceController {
 
         render view: 'listCollections', model:[
                 collections:collections,
-                communityName: params.name,
+                communityName: params.names,
+                restUrl: restUrl
+        ]
+    }
+
+    def listItems(){
+        init()
+
+        def l  = login(email,password)
+        def token = l.token
+        def rest =  l.restBuilder
+        def items, metadata, bitstreams
+        def resp
+
+        resp = rest.get("${restUrl}/collections/${params.id}/items?expand=all")
+        items = resp.json
+        metadata = items.metadata
+        bitstreams = items.bitstreams
+
+//        render "<p>${metadata.getAt(0) as JSON}</p><br><p>${bitstreams.getAt(1) as JSON}</p>"
+//        return
+
+        logout(token,rest)
+
+        render view: 'listItems', model:[
+                items: items,
+                metadata: metadata,
+                bitstreams: bitstreams,
+                communityName: params.names.getAt(0),
+                collectionsName: params.names.getAt(1),
                 restUrl: restUrl
         ]
     }
