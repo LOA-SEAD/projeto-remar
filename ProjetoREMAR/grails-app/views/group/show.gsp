@@ -97,78 +97,81 @@
 <div class="row">
     <div style="position: relative; left: 1em">
         <g:each var="groupExportedResource" in="${groupExportedResources}">
-            <div id="card-group-exported-resource-${groupExportedResource.id}" class="card white col l3 s4">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="/published/${groupExportedResource.exportedResource.processId}/banner.png">
-                </div>
-                <div class="card-content">
-                    <span class="title">${groupExportedResource.exportedResource.name}</span>
-                    <div class="divider"></div>
-                    <span style="color: dimgrey; font-size: 0.9em" class="center">${groupExportedResource.exportedResource.resource.category.name}</span>
-                    <span style="color: dimgrey; font-size: 0.9em" class="center truncate">Feito por: ${groupExportedResource.exportedResource.owner.username}</span>
-                    <span style="color: dimgrey;" class="center">
-                        <i class="fa fa-globe"></i>
-                        <g:if test="${groupExportedResource.exportedResource.resource.android}">
-                            <i class="fa fa-android"></i>
-                        </g:if>
-                        <g:if test="${groupExportedResource.exportedResource.resource.desktop}">
-                            <i class="fa fa-windows"></i>
-                            <i class="fa fa-linux"></i>
-                            <i class="fa fa-apple"></i>
-                        </g:if>
-                        <g:if test="${groupExportedResource.exportedResource.resource.moodle}">
-                            <i class="fa fa-graduation-cap"></i>
-                        </g:if>
-                    </span>
-                </div>
-                <div class="right-align">
-                        <a class="dropdown-button activator" ><i class="material-icons" style="color: black;">more_vert</i></a>
-                </div>
-                <div class="card-reveal col l12">
-                    <div class="row">
-                        <h5 class="card-title grey-text text-darken-4 col l12"><small class="left">Jogar:</small><i class="material-icons right">close</i></h5><br>
-                        <div class="col l4 tooltipped">
-                            <a style="font-size: 2em; color: black;" target="_blank" href="/published/${groupExportedResource.exportedResource.processId}/web" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Web"><i class="fa fa-globe"></i></a>
-                        </div>
-                        <g:if test="${groupExportedResource.exportedResource.resource.desktop}">
-                            <div class="col l4">
-                                <a style="font-size: 2em; color: black;" target="_blank" href="/published/${groupExportedResource.exportedResource.processId}/desktop/${groupExportedResource.exportedResource.resource.name}-linux.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Linux"><i class="fa fa-linux"></i></a>
-                            </div>
-                            <div class="col l4">
-                                <a style="font-size: 2em; color: black;" target="_blank" href="/published/${groupExportedResource.exportedResource.processId}/desktop/${groupExportedResource.exportedResource.resource.name}-windows.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Windows"><i class="fa fa-windows"></i></a> <br>
-                            </div>
-                            <div class="col l4">
-                                <a style="font-size: 2em; color: black;" target="_blank" href="/published/${groupExportedResource.exportedResource.processId}/desktop/${groupExportedResource.exportedResource.resource.name}-mac.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Mac"><i class="fa fa-apple"></i></a> <br>
-                            </div>
-                        </g:if>
-
-                        <div class="col l4">
-                            <g:if test="${groupExportedResource.exportedResource.resource.android}">
-                                <a style="font-size: 2em; color: black;" target="_blank" href="/published/${groupExportedResource.exportedResource.processId}/mobile/${groupExportedResource.exportedResource.resource.name}-android.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Android"><i class="fa fa-android"></i></a> <br>
-                            </g:if>
-                        </div>
-                        <div class="col l4">
-                            <g:if test="${groupExportedResource.exportedResource.resource.moodle}">
-                                <a style="font-size: 2em; color: black;" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Disponível no Moodle"><i class="fa fa-graduation-cap"></i></a>
-                            </g:if>
-                        </div>
+            <div class="col l3 s5">
+                <div id="card-group-exported-resource-${groupExportedResource.id}" class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="/published/${groupExportedResource.exportedResource.processId}/banner.png">
                     </div>
-                            <div class="row">
-                                <div class="card-action">
-                                    <div class="center">
-                                        <a class="remove-resource" style="cursor: pointer" id="delete-resource-${groupExportedResource.id}" data-resource-id="${groupExportedResource.id}" >
-                                            Remover
-                                        </a>
-                                    </div>
-                                    <div class="center">
-                                        <a class="" style="cursor: pointer" id="delete-resource-${groupExportedResource.id}" data-resource-id="${groupExportedResource.id}" >
-                                            Estatisticas
-                                        </a>
-                                    </div>
+                    <div class="card-content">
+                        <span style="font-size: 1.3em;" class="card-title grey-text text-darken-4 activator center-align truncate">${groupExportedResource.exportedResource.name}</span>
+                        <div class="divider"></div>
+                        <span style="color: dimgrey; font-size: 0.9em" class="center">${groupExportedResource.exportedResource.resource.category.name}</span>
+                        <span style="color: dimgrey; font-size: 0.9em" class="center truncate">Feito por: ${groupExportedResource.exportedResource.owner.username}</span>
+                        <span style="color: dimgrey;" class="center">
+                            <i class="fa fa-globe"></i>
+                            <g:if test="${groupExportedResource.exportedResource.resource.android}">
+                                <i class="fa fa-android"></i>
+                            </g:if>
+                            <g:if test="${groupExportedResource.exportedResource.resource.desktop}">
+                                <i class="fa fa-windows"></i>
+                                <i class="fa fa-linux"></i>
+                                <i class="fa fa-apple"></i>
+                            </g:if>
+                            <g:if test="${groupExportedResource.exportedResource.resource.moodle}">
+                                <i class="fa fa-graduation-cap"></i>
+                            </g:if>
+                        </span>
+                    </div>
+                    <div class="right">
+                        <i class="activator material-icons" style="color: black; cursor: pointer">more_vert</i>
+                    </div>
+                    <div class="card-reveal col l12">
+                        <div class="row">
+                            <h5 class="card-title grey-text text-darken-4 col l12"><small class="left">Jogar:</small><i class="material-icons right">close</i></h5><br>
+                            <div class="col l4 tooltipped">
+                                <a style="font-size: 2em; color: black;" target="_blank" href="/published/${groupExportedResource.exportedResource.processId}/web" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Web"><i class="fa fa-globe"></i></a>
+                            </div>
+                            <g:if test="${groupExportedResource.exportedResource.resource.desktop}">
+                                <div class="col l4">
+                                    <a style="font-size: 2em; color: black;" target="_blank" href="/published/${groupExportedResource.exportedResource.processId}/desktop/${groupExportedResource.exportedResource.resource.name}-linux.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Linux"><i class="fa fa-linux"></i></a>
+                                </div>
+                                <div class="col l4">
+                                    <a style="font-size: 2em; color: black;" target="_blank" href="/published/${groupExportedResource.exportedResource.processId}/desktop/${groupExportedResource.exportedResource.resource.name}-windows.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Windows"><i class="fa fa-windows"></i></a> <br>
+                                </div>
+                                <div class="col l4">
+                                    <a style="font-size: 2em; color: black;" target="_blank" href="/published/${groupExportedResource.exportedResource.processId}/desktop/${groupExportedResource.exportedResource.resource.name}-mac.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Mac"><i class="fa fa-apple"></i></a> <br>
+                                </div>
+                            </g:if>
+
+                            <div class="col l4">
+                                <g:if test="${groupExportedResource.exportedResource.resource.android}">
+                                    <a style="font-size: 2em; color: black;" target="_blank" href="/published/${groupExportedResource.exportedResource.processId}/mobile/${groupExportedResource.exportedResource.resource.name}-android.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Android"><i class="fa fa-android"></i></a> <br>
+                                </g:if>
+                            </div>
+                            <div class="col l4">
+                                <g:if test="${groupExportedResource.exportedResource.resource.moodle}">
+                                    <a style="font-size: 2em; color: black;" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Disponível no Moodle"><i class="fa fa-graduation-cap"></i></a>
+                                </g:if>
+                            </div>
+                        </div>
+                        <div class="divider"></div><br>
+                        <div class="row">
+                            <div class="center">
+                                <div class="col l4">
+                                    <a class="remove-resource" style="cursor: pointer" id="delete-resource-${groupExportedResource.id}" data-resource-id="${groupExportedResource.id}" >
+                                        <i class="fa fa-trash fa-2x" style="color: #FF5722;"></i>
+                                    </a>
+                                </div>
+                                <div class="col l4">
+                                    <a class="" style="cursor: pointer" id="delete-resource-${groupExportedResource.id}" data-resource-id="${groupExportedResource.id}" >
+                                        <i class="fa fa-bar-chart fa-2x" style="color: #FF5722;"></i>
+                                    </a>
                                 </div>
                             </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+        </div>
         </g:each>
     </div>
 </div>

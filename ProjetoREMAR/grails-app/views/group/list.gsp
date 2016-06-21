@@ -28,28 +28,32 @@
                 <g:else>
                         <g:each var="group" in="${groupsIOwn}">
                             <a href="/group/show/${group.id}">
-                                <div style="padding-bottom: 8.0em;" class="card white col l3 s6 m3 offset-s3 hoverable">
-                                    <div class="card-image">
-                                        %{--TODO--}%
-                                    </div>
-                                    <div style="top: 3.2em; position: relative;" class="card-content">
-                                        <p>${group.name}</p>
-                                    </div>
+                                <div class="col l3 s6 m3 offset-s3">
+                                    <div style="padding-bottom: 8.0em;" class="card white hoverable">
+                                        <div class="card-image">
+                                            %{--TODO--}%
+                                        </div>
+                                        <div style="top: 3.2em; position: relative;" class="card-content">
+                                            <p>${group.name}</p>
+                                        </div>
 
+                                    </div>
                                 </div>
                             </a>
                         </g:each>
                 </g:else>
                 <a style="color: black;" class="" href="/group/new">
-                    <div style="padding-bottom: 4.5em;" data-tooltip="Novo grupo" class="card col l3 s6 m3 offset-s3 hoverable grey lighten-2 tooltipped">
-                        <div class="card-content grey lighten-2">
+                    <div class="col l3 s6 m3 offset-s3">
+                        <div style="padding-bottom: 4.5em;" data-tooltip="Novo grupo" class="card hoverable grey lighten-2 tooltipped">
+                            <div class="card-content grey lighten-2">
 
-                            <div class="row">
-                                <div class="center">
-                                    <i style="font-size: 3.2em; position: relative; top: 1.0em;" class="material-icons">add_circle</i>
+                                <div class="row">
+                                    <div class="center">
+                                        <i style="font-size: 3.2em; position: relative; top: 0.8em;" class="material-icons">add_circle</i>
+                                    </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
                     </div>
                 </a>
@@ -82,14 +86,16 @@
             <g:else>
                 <g:each var="group" in="${groupsIBelong}">
                     <a href="/group/show/${group.id}">
-                        <div style="padding-bottom: 8.0em; position: relative; left: 0.6em;;" class="card white col l3 s6 m3 offset-s3 hoverable">
-                            <div class="card-image">
-                                %{--TODO--}%
-                            </div>
-                            <div style="top: 3.2em; position: relative;" class="card-content">
-                                <p>${group.name}</p>
-                            </div>
+                        <div class="col l3 s6 m3 offset-s3">
+                            <div style="padding-bottom: 8.0em; position: relative; left: 0.6em;;" class="card white hoverable">
+                                <div class="card-image">
+                                    %{--TODO--}%
+                                </div>
+                                <div style="top: 3.2em; position: relative;" class="card-content">
+                                    <p>${group.name}</p>
+                                </div>
 
+                            </div>
                         </div>
                     </a>
                 </g:each>
