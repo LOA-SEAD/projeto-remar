@@ -24,7 +24,7 @@
             <g:if test="${group.owner.id == session.user.id || UserGroup.findByUserAndAdmin(session.user,true)}">
                 <form id="add-user-form">
                     <div class="input-field col l3 offset-l2 m4">
-                        <input class="user-input" name="term" id="search-user" type="text" required>
+                        <input class="user-input" placeholder="Nome ou sobrenome" name="term" id="search-user" type="text" required>
                         <label for="search-user"><i class="fa fa-search"></i></label>
                         <input type="hidden" value="${group.id}" name="groupid">
                         <input type="hidden" value="" id="user-id" name="userid">
