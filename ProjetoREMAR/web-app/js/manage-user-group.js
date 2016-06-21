@@ -118,7 +118,7 @@ $(window).load(function(){
                     groupSize++;
                     text.attr("data-group-size",groupSize);
                     text.html("Ver membros ("+groupSize+")");
-                    console.log(noUsers);
+                    $("#add-user-form")[0].reset();
                     if(noUsers) {
                         noUsers.fadeOut(300);
                         noUsers.remove();
