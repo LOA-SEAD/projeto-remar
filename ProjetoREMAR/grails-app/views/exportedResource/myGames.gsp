@@ -46,7 +46,7 @@
                     <label>Categoria</label>
                 </div>
             </div>
-            <div class="row show cards game">
+            <div class="row">
                 <article class="row">
                     <g:render template="myCardGame" model="[myExportedResourcesList:myExportedResourcesList]" />
                 </article>
@@ -60,7 +60,7 @@
                     <label for="search-processes"><i class="fa fa-search"></i></label>
                 </div>
             </div>
-            <div class="row show cards processes">
+            <div class="row">
                 <article class="row">
                     <g:render template="/process/process" model="[processes:processes]" />
                 </article>
