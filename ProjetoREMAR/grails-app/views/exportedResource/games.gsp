@@ -17,7 +17,7 @@
 <div class="row cluster">
     <div class="cluster-header">
         <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom">
-            <i class="small material-icons left">videogame_asset</i>Jogos publicados
+            <i class="small material-icons left">videogame_asset</i>Banco de Jogos
         </p>
 
         <div class="divider"></div>
@@ -31,7 +31,7 @@
 
         <div class="input-field col s6">
             <select>
-                <option class="option" value="-1" disabled selected></option>
+                <option class="option" value="-1" selected>Todas</option>
                 <g:if test="${categories.size() > 0}">
                     <g:each in="${categories}" var="category">
                         <option class="option" value="${category.id}">${category.name}</option>

@@ -37,7 +37,7 @@
                                 <a target="_blank" href="https://remar.readme.io/docs">Documentação</a>
                             </li>
                             <li>
-                                <a href="/exportedResource/publicGames">Jogos Públicos</a>
+                                <a href="/exportedResource/publicGames">Banco de Jogos</a>
                             </li>
                             <li>
                                 <a href="/login">Entrar</a>

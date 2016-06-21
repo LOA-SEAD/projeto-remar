@@ -17,11 +17,11 @@
     <li class="waves-effect waves-block waves-light">
         <a href="/" class=""><i class="medium mdi-action-dashboard"></i>Início</a>
     </li>
-    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os modelos de jogos que são customizáveis." data-step="1">
-        <a href="/resource/customizableGames" class=""><i class="medium material-icons">create</i>Modelos</a>
+    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os jogos disponíveis para jogar." data-step="1">
+        <a href="/exportedResource/publicGames" class=""><i class="medium material-icons">videogame_asset</i>Banco de Jogos</a>
     </li>
-    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os jogos disponíveis para jogar." data-step="2">
-        <a href="/exportedResource/publicGames" class=""><i class="medium material-icons">videogame_asset</i>Jogos publicados</a>
+    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os modelos de jogos que são customizáveis." data-step="2">
+        <a href="/resource/customizableGames" class=""><i class="medium material-icons">create</i>Customizar</a>
     </li>
 
     <div class="divider"></div>
