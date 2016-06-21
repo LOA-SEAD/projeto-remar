@@ -91,31 +91,15 @@ class DspaceController {
         print(params)
 
 
-//        def resp = rest.post("${restUrl}/communities/${mainCommunityId}/communities"){
-//            contentType "application/json"
-//            header 'rest-dspace-token', token
-//            json {
-//                name=pName
-//                copyrightText= "CREATED BY JSON (POST)"
-//                introductoryText= "CREATED BY JSON (POST)"
-//                shortDescription= "CREATED BY JSON (POST)"
-//                shortDescription= "CREATED BY JSON (POST)"
-//                sidebarText= "CREATED BY JSON (POST)"
-//            }
-//        }
-
         def img = new File(servletContext.getRealPath("/images/respondasepuder-banner.png"))
 
         def resp = rest.post("${restUrl}/items/5/bitstreams?name=respondasepuder-banner.png&description=blablablalba"){
-            contentType "multipart/form-data"
-            accept: 'application/json'
             header 'rest-dspace-token', token
-            file = img
+            body img.bytes
         }
 
         logout(token,rest)
 
-//        render view: "create", model: [community:community]
         render resp.body
     }
 

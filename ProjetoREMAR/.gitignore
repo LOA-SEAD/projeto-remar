@@ -51,3 +51,20 @@ stacktrace.log
 propeller
 
 # end REMAR stuff
+grails-app/conf/hibernate/
+grails-app/jobs/
+grails-app/migrations/
+grails-app/services/
+grails-app/taglib/
+grails-app/utils/
+scripts/
+src/java/
+test/integration/
+test/unit/br/ufscar/sead/loa/remar/CategoryControllerSpec.groovy
+test/unit/br/ufscar/sead/loa/remar/DspaceControllerSpec.groovy
+test/unit/br/ufscar/sead/loa/remar/DspaceSpec.groovy
+test/unit/br/ufscar/sead/loa/remar/dspace/
+web-app/META-INF/
+web-app/images/dspace/
+web-app/images/mathjong-banner.png
+web-app/images/text.csv

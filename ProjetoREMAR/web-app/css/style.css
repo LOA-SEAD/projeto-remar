@@ -302,11 +302,11 @@ footer.page-footer{
         width: 100% !important;
     }
 
-    .title {
-        color: #212121;
-        font-size: 18px;
-        font-weight: bold;
-    }
+    /*.title {*/
+        /*color: #212121;*/
+        /*font-size: 18px;*/
+        /*font-weight: bold;*/
+    /*}*/
 
     .secondary-color {
         color: #727272 !important;
@@ -423,7 +423,7 @@ footer.page-footer{
             font-size: 1.6rem;
             display: block;
             float: left;
-            text-align: center;
+            /*text-align: center;*/
             margin-right: 1rem;
         }
 
