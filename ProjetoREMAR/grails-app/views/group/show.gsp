@@ -46,7 +46,12 @@
             <h4 class="left-align">Membros do grupo</h4>
             %{--<p>A bunch of text</p>--}%
             <ul class="collection users-collection">
-                <g:if test="${group.userGroups.size()==0}">
+                <li class="collection-item avatar left-align">
+                    <img src="/data/users/${group.owner.username}/profile-picture" class="circle">
+                    <span class="title">${group.owner.firstName + " " + group.owner.lastName + " (Dono do grupo)"}</span>
+                    <p class="">Usuário: ${group.owner.username}</p>
+                </li>
+                <g:if test="${group.userGroups.size()==0 && group.owner.id == session.user.id}">
                     <li id="no-users" class="collection-item">Nenhum usuário foi adicionado à este grupo.</li>
                 </g:if>
                 <g:else>
@@ -64,7 +69,6 @@
                                     <a id="remove-admin-${userGroup.id}" data-user-group-id="${userGroup.id}" href="#" class="secondary-content manage-user tooltipped"><i id="admin-star-${userGroup.id}" class="material-icons">star</i></a>
                                 </g:else>
                             </g:if>
-
                         </li>
                     </g:each>
                 </g:else>
@@ -86,7 +90,7 @@
     <div class="divider"></div>
 
     <div>
-        <a href="#modal-users" class="modal-trigger" style="font-size: 1.2em; left: -2.8em; position: relative"><span class="right group-size" data-group-size="${group.userGroups.size()}">Ver membros (${group.userGroups.size()})</span></a>
+        <a href="#modal-users" class="modal-trigger" style="font-size: 1.2em; left: -2.8em; position: relative"><span class="right group-size" data-group-size="${group.userGroups.size()+1}">Ver membros (${group.userGroups.size()+1})</span></a>
 
         <g:if test="${!group.owner.id == session.user.id}">
             <p align="left" style="font-size: 1.2em;">Dono: ${group.owner.firstName + " " + group.owner.lastName} </p>
@@ -98,7 +102,7 @@
     <div style="position: relative; left: 1em">
         <g:each var="groupExportedResource" in="${groupExportedResources}">
             <div class="col l3 s5">
-                <div id="card-group-exported-resource-${groupExportedResource.id}" class="card">
+                <div id="card-group-exported-resource-${groupExportedResource.id}" class="card hoverable">
                     <div class="card-image waves-effect waves-block waves-light">
                         <img class="activator" src="/published/${groupExportedResource.exportedResource.processId}/banner.png">
                     </div>
@@ -125,10 +129,10 @@
                     <div class="right">
                         <i class="activator material-icons" style="color: black; cursor: pointer">more_vert</i>
                     </div>
-                    <div class="card-reveal col l12">
+                    <div class="card-reveal">
                         <div class="row">
-                            <h5 class="card-title grey-text text-darken-4 col l12"><small class="left">Jogar:</small><i class="material-icons right">close</i></h5><br>
-                            <div class="col l4 tooltipped">
+                            <h5 class="card-title grey-text text-darken-4 col l12 truncate"><small class="left">Jogar:</small><i class="material-icons right">close</i></h5><br>
+                            <div class="col l4">
                                 <a style="font-size: 2em; color: black;" target="_blank" href="/published/${groupExportedResource.exportedResource.processId}/web" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Web"><i class="fa fa-globe"></i></a>
                             </div>
                             <g:if test="${groupExportedResource.exportedResource.resource.desktop}">
