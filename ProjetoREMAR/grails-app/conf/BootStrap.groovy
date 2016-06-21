@@ -14,9 +14,13 @@ class BootStrap {
 
     def init = { servletContext ->
 
-        MongoHelper.instance.init()
+        MongoHelper.instance.init([username: grailsApplication.config.dataSource.username,
+                                   password:  grailsApplication.config.dataSource.password])
 
-        Propeller.instance.init([dbName: 'remar-propeller', wipeDb: false])
+        Propeller.instance.init([dbName: 'remar-propeller', wipeDb: false,
+                                 username: grailsApplication.config.dataSource.username,
+                                 authDb: 'admin',
+                                 password: grailsApplication.config.dataSource.password])
 
         HttpServletRequest.metaClass.isXhr = { ->
             'XMLHttpRequest' == delegate.getHeader('X-Requested-With')
@@ -64,7 +68,7 @@ class BootStrap {
         for (url in [
                 '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/exportedResource/**', '/my-profile',
                 '/user/update', '/resource/customizableGames', '/resource/show/**', '/moodle/link/**', '/moodle/unlink/**', '/resource/saveRating/**',
-                '/resource/updateRating/**', '/resource/deleteRating/**'
+                '/resource/updateRating/**', '/resource/deleteRating/**','/group/**','/user-group/**','/group-exported-resources/**'
         ]) {
             RequestMap.findOrSaveByUrlAndConfigAttribute(url, 'isAuthenticated()')
         }

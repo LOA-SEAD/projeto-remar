@@ -43,8 +43,11 @@
     <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os jogos que você já customizou." data-step="3">
         <a href="/exportedResource/myGames" class=""><i class="medium material-icons">recent_actors</i>Meus Jogos</a>
     </li>
+    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os seus grupos criados." data-step="4">
+        <a href="/group/list" class=""><i class="material-icons">people</i>Meus Grupos</a>
+    </li>
     <sec:ifAllGranted roles="ROLE_DEV">
-        <li class="waves-effect waves-block waves-light" data-intro="No espaço do desenvolvedor você pode submeter um novo jogo para o REMAR." data-step="4">
+        <li class="waves-effect waves-block waves-light" data-intro="No espaço do desenvolvedor você pode submeter um novo jogo para o REMAR." data-step="5">
             <a href="/resource/index" class=""><i class="medium material-icons">code</i>Desenvolvedor</a>
         </li>
     </sec:ifAllGranted>
@@ -58,10 +61,10 @@
     <div class="divider"></div>
 
 
-    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra a documentação dos modelos." data-step="5">
+    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra a documentação dos modelos." data-step="6">
         <a href="https://remar.readme.io/docs" target="_blank"><i class="medium material-icons">description</i>Documentação</a>
 
-    <li class="waves-effect waves-block waves-light" data-intro="Para ver este wizard novamente basta clicar aqui." data-step="6">
+    <li class="waves-effect waves-block waves-light" data-intro="Para ver este wizard novamente basta clicar aqui." data-step="7">
         <a onclick="startWizard()" class=""><i class="medium material-icons">live_help</i>Ajuda na navegação</a>
     </li>
 </ul>

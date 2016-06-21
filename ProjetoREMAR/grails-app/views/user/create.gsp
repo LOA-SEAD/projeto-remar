@@ -62,7 +62,7 @@
                             <div>
                                 <input type="file" id="file"  accept="image/jpeg, image/png">
                                 <div class="file-path-wrapper">
-                                    <input class="file-path" type="text" placeholder="Selecione uma foto (opicional)" style="margin-bottom: 0;">
+                                    <input class="file-path" type="text" placeholder="Selecione uma foto (opcional)" style="margin-bottom: 0;">
                                 </div>
                             </div>
                         </div>

@@ -78,152 +78,14 @@
         font-size: 28px;
     }
 
-    .card.small.square-cover {
-        height: 245px;
-        width: 160px;
-    }
+    .card .card-content .card-title{
+        line-height: 20px;
 
-    .cluster .card {
-        float: left;
-    }
-
-    .card {
-        margin: 5px;
-    }
-    .my-card {
-        display: table;
-        overflow: visible;
-    }
-
-    .card-div{
-        max-width: 160px;
-    }
-
-
-    .card-content {
-        background: #fff !important;
-        height: 100% !important;
-        /*position: relative;*/
-        text-decoration: none;
-        vertical-align: top;
-        padding: 0px !important;
-    }
-
-    .card.small.square-cover .cover {
-        height: 155px;
-        /*width: 170px;*/
-    }
-
-    .card .cover {
-        border-radius: 2px 2px 0 0;
-        background-color: #f5f5f5;
-        overflow: hidden;
-        position: relative;
-    }
-
-    .card .cover-image-container {
-        /*height: 110%;*/
-        /*left: -5%;*/
-        position: relative;
-        /*top: -5%;*/
-        width: 100%;
-    }
-
-    .card .cover-outer-align {
-        display: table;
-        height: 100%;
-        width: 100%;
-    }
-
-    .card .cover-inner-align {
-        display: table-cell;
-        text-align: center;
-        vertical-align: middle;
-    }
-
-    .card.small.square-cover .cover-image {
-        max-height: 160px;
-        max-width: 160px;
-    }
-
-    .card-click-target {
-        bottom: 0;
-        left: 0;
-        position: absolute;
-        right: 0;
-        top: 0;
-    }
-
-    .card.small .details {
-        /*max-height: 64px;*/
-        max-height: 90px;
-
-    }
-
-    .card .details {
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        display: block;
-        overflow: hidden;
-        padding: 7px 0 0;
-        position: relative;
-        margin-left: 4px;
-        margin-right: 4px;
-    }
-
-    .card .title {
-        color: #212121;
-        display: block;
-        font-size: 20px;
-        line-height: 18px;
-        max-height: 36px;
-        min-height: 20px;
-        overflow: hidden;
-        text-decoration: none;
-        position: relative;
-        white-space: nowrap;
-        font-weight: normal !important;
-    }
-
-    .card .subtitle-container {
-        height: 19px;
     }
 
     .card .subtitle-container, .card .stars-container {
         display: block;
         position: relative;
-        width: 100%;
-    }
-
-    .card.small .subtitle {
-        width: 140px;
-    }
-
-    .card .subtitle {
-        color: #616161 !important;
-        display: inline-block;
-        font-size: 13px;
-        line-height: 16px;
-        margin: 1px 0;
-        max-width: 132px;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-
-    .card.small .reason-set {
-        max-height: 38px;
-    }
-
-    .card .reason-set {
-        -webkit-border-radius: 2px;
-        border-radius: 2px;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        background: #fff;
-        bottom: 0;
-        display: block;
-        padding: 0 10px;
-        position: absolute;
         width: 100%;
     }
 
@@ -292,10 +154,6 @@ footer.page-footer{
         display: none;
         min-width: 373px;
         margin-top: 4rem;
-    }
-
-    .card-title {
-        font-size: 30px;
     }
 
     #dropdown-settings .collection-item {
@@ -579,9 +437,10 @@ footer.page-footer{
     clear: both;
 }
 
-.card.show-personalize{
-    padding: 20px;
-}
+/*.
+.show-personalize{*/
+    /*padding: 20px;*/
+/*}*/
 
 .card.show-personalize .card-content{
    text-align: justify;
@@ -604,10 +463,6 @@ footer.page-footer{
 
 }
 
-.image{
-    float: left;
-    margin-right: 20px;
-}
 
 .category{
     font-size: 14px;
@@ -628,6 +483,7 @@ footer.page-footer{
 }
 
 .plataform{
+    text-align: left;
     font-size: 1.5em;
     margin-top:20px;
 }
@@ -636,31 +492,15 @@ footer.page-footer{
     display: inline-block;
 }
 
-.card-content > .card-title{
-    font-size: 3em;
-}
 
 .card-content p{
     color: rgba(0, 0, 0, 0.6) !important;
-}
-
-.card.show-personalize > .card-content button{
-    margin-top: -35px;
-}
-
-.card.show-personalize .image img{
-    background-color: #FF5722;
-    width: 200px;
-    height: 200px;
 }
 
 .slider {
     margin-top: 0px;
 }
 
-.card-developer{
-    width: 175px;
-}
 
 .card-developer.approved{
     border: 2px solid #7cb342;
@@ -674,29 +514,9 @@ footer.page-footer{
     border: 2px solid #d50000;
 }
 
-.card .cover-image-container {
-    /*height: 110%;*/
-    /*left: -5%;*/
-    position: relative;
-    /*top: -5%;*/
-    /*width: 110%;*/
+.card .card-content {
+    padding-bottom: 1px
 }
-
-.card.card-developer .cover-image {
-    max-height: 160px;
-    max-width: 160px;
-}
-
-
-
-.card-developer  > .card-content > .card-action{
-    padding: 4px;
-}
-
-.row.card-info{
-    margin-bottom: 0px;
-}
-
 
 .collapsible-body{
     padding: 10px;
@@ -706,48 +526,15 @@ footer.page-footer{
     background-color: transparent !important;
 }
 
-.image-bg{
-    margin-top: 3px;
-    background-color: #FF5722;
-}
 .dashboard-title{
     margin-top: 20px;
     margin-bottom: 20px;
-}
-
-
-.slick {
-    width: 725px;
-    margin-left: 35px;
-}
-
-
-.card.square-cover .cover-image {
-    max-height: 160px;
-    max-width: 170px;
 }
 
 .search {
     margin-top: 20px;
     margin-bottom: 20px;
 }
-
-.row.show{
-    max-height: 1500px;
-    min-height: 100vh;
-    margin: 0 auto;
-    flex: 1 0 auto;
-}
-
-.row.show.cards{
-    width: 700px;
-    /*min-height: 900px !important;*/
-}
-
-.row.show.developer{
-    width: 750px;
-}
-
 
 .pagination li.active{
     background-color: #5D4037;
@@ -800,32 +587,9 @@ table .pending td{
 
 }
 
-.subtitle{
-    font-size: 20px;
-}
-
-.subtitle.space{
-    margin-top: 80px;
-}
-
-.row.space{
-    margin-top: 30px;
-}
 
 .social-button ul li a{
     font-size: 30px;
-}
-.card.square-cover .card-reveal {
-    background-color: rgba(255, 255, 255, 0.9);
-}
-.card-reveal span.card-title{
-    padding: 0;
-    margin: 0;
-}
-
-.card.square-cover .card-reveal a {
-    font-size: 30px;
-    color: #212121;
 }
 
 .plataform-card{
@@ -835,10 +599,6 @@ table .pending td{
 .platforms p{
     margin-top: 20px;
     margin-bottom: 20px;
-}
-
-.subtitle .date{
-    margin-top: 15px;
 }
 
 .send-publish{
@@ -876,11 +636,6 @@ table .pending td{
 .game-owner{
     margin-top: 0;
     width: 30px;
-}
-
-.card.small.square-cover.dashboard {
-    height: 247px;
-    width: 160px !important;
 }
 
 .comment-text{
@@ -1116,11 +871,6 @@ Position must be relative!*/
 
 .no-margin-bottom{
     margin-bottom: 0 !important;
-}
-
-.info-card{
-    margin-top: 3px;
-    border-top: 1px solid #e5e5e5;
 }
 
 .dropdown-button i{

@@ -88,9 +88,12 @@ class ExportedResourceController {
 
     def publish(ExportedResource instance) {
         def exportsTo = [:]
+        def groupsIOwn = Group.findAllByOwner(session.user)
         exportsTo.desktop = instance.resource.desktop
         exportsTo.android = instance.resource.android
         exportsTo.moodle = instance.resource.moodle
+        def groupsIAdmin = UserGroup.findAllByUserAndAdmin(session.user,true).group
+
 
         def baseUrl = "/published/${instance.processId}"
         def process = Propeller.instance.getProcessInstanceById(instance.processId as String, session.user.id as long)
@@ -99,8 +102,8 @@ class ExportedResourceController {
 
         RequestMap.findOrSaveWhere(url: "${baseUrl}/**", configAttribute: 'permitAll')
 
-        render view: 'publish', model: [resourceInstance        : instance, exportsTo: exportsTo, baseUrl: baseUrl,
-                                        exportedResourceInstance: instance, createdAt: process.createdAt]
+        render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl, groupsIAdmin: groupsIAdmin,
+                                            exportedResourceInstance: instance,createdAt: process.createdAt, groupsIOwn: groupsIOwn]
     }
 
     def export(ExportedResource instance) {
@@ -249,8 +252,11 @@ class ExportedResourceController {
 
     @SuppressWarnings("GroovyAssignabilityCheck")
     def publicGames() {
-        def user = springSecurityService.getCurrentUser()
+        User user = session.user
+
         def model = [:]
+        model.myGroups = Group.findAllByOwner(user)
+        model.groupsIAdmin = UserGroup.findAllByUserAndAdmin(user,true).group
 
         def threshold = 12
 
@@ -274,7 +280,13 @@ class ExportedResourceController {
 
     def myGames() {
         def model = [:]
+        def myExportedResourcesList
+        User user = session.user
 
+        model.myGroups = Group.findAllByOwner(user)
+        model.groupsIAdmin = UserGroup.findAllByUserAndAdmin(user,true).group
+
+        
         if (session.user.username.equals("admin")) {
             model.myExportedResourcesList = ExportedResource.list()
 
@@ -335,8 +347,6 @@ class ExportedResourceController {
         model.tCurrentPage = (params.tOffset + threshold) / threshold
         model.tHasNextPage = params.tOffset + threshold < temporary.size()
         model.tHasPreviousPage = params.tOoffset > 0
-
-        println model.tPageCount
 
         render view: "myGames", model: model
     }
