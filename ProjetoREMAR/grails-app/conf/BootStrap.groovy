@@ -68,7 +68,7 @@ class BootStrap {
         for (url in [
                 '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/exportedResource/**', '/my-profile',
                 '/user/update', '/resource/customizableGames', '/resource/show/**', '/moodle/link/**', '/moodle/unlink/**', '/resource/saveRating/**',
-                '/resource/updateRating/**', '/resource/deleteRating/**'
+                '/resource/updateRating/**', '/resource/deleteRating/**','/group/**','/user-group/**','/group-exported-resources/**'
         ]) {
             RequestMap.findOrSaveByUrlAndConfigAttribute(url, 'isAuthenticated()')
         }

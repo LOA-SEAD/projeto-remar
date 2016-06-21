@@ -40,10 +40,10 @@
                 </h5>
             </div>
 
-            <div class="row space">
-                <blockquote>
+            <div class="row">
+                <p>
                     Abaixo estão as etapas para customizar o seu jogo!
-                </blockquote>
+                </p>
             </div>
 
             <ul class="collapsible popout" data-collapsible="expandable">
@@ -76,7 +76,7 @@
                                 <div class="col s2 img-preview">
                                     <img id="img1Preview" class="materialboxed my-orange" width="100" height="100" src="/data/processes/${process.id}/banner.png?${new java.util.Date()}" />
                                 </div>
-                                <div class="col s10">
+                                <div class="col s12">
                                     <div class="file-field input-field">
                                         %{--<input type="hidden" name="photo" value="${baseUrl}/banner.png" id="srcImage">--}%
                                         <div id="file" class="btn waves-effect waves-light my-orange">
@@ -114,7 +114,6 @@
                                     <tr>
                                         <th data-field="id">Nome</th>
                                         <th data-field="name">Status</th>
-                                        <th data-field="status"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -129,14 +128,10 @@
                                                 <td>
                                                     <a href="/frame/${process.definition.uri}/${task.definition.uri}?t=${task.id}">REALIZAR</a>
                                                 </td>
-                                                <td>
-                                                </td>
                                             </g:if>
                                             <g:else>
                                                 <td onload="Materialize.toast('Informações salva com sucesso!', 3000, 'rounded') ">
                                                     <i class="material-icons" style="color:green;">check</i>
-                                                </td>
-                                                <td>
                                                 </td>
                                             </g:else>
                                         </tr>
