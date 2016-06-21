@@ -124,6 +124,7 @@ $(window).load(function(){
                         noUsers.remove();
                     }
                     $(ul).append(data);
+                    Materialize.toast("Usuário adicionado!", 3000, "rounded");
 
                 }, statusCode: {
                     403: function(response){
