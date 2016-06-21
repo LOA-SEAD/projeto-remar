@@ -14,7 +14,7 @@
 </head>
 
 <body>
-<div class="row cluster">
+<div class="row">
     <div class="cluster-header">
         <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom">
             <i class="small material-icons left">videogame_asset</i>Jogos publicados
@@ -42,7 +42,8 @@
         </div>
     </div>
 
-    <div class="row show cards">
+
+    <div style="position:relative; left: 1.2em" class="row ">
         <g:render template="cardGames" model="${pageScope.variables}" />
     </div>
 </div>

@@ -5,7 +5,7 @@ Date: 10/06/15
 Time: 09:55
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="br.ufscar.sead.loa.remar.GroupExportedResources" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="materialize-layout">
@@ -22,13 +22,13 @@ Time: 09:55
     </div>
     <div class="row space">
         <g:if test="${params.toast}">
-            <blockquote>
+            <p>
                 O seu jogo foi publicado com <span class="bold">sucesso</span>! Agora ele já esta disponível no menu
                 <span class="chip">
                     <a class="center" href="/exported-resource/publicGames">Jogos publicados</a>
                     <i class="medium material-icons">videogame_asset</i>
                 </span>
-            </blockquote>
+            </p>
         </g:if>
     </div>
     <div class="row show">
@@ -187,6 +187,55 @@ Time: 09:55
                         </div>
                     </div>
                 </li>
+                <li id="groups">
+                    <div class="collapsible-header active"><i class="material-icons">group_add</i>Compartilhar em grupos </div>
+
+                    <div class="collapsible-body">
+                        <ul class="collection with-header">
+                            <g:each var="group" in="${groupsIOwn}">
+                                <li class="collection-item">
+                                    <div class="left-align">
+                                        <p>${group.name}</p>
+                                    </div>
+                                    <g:if test="${!GroupExportedResources.findByGroupAndExportedResource(group,exportedResourceInstance)}">
+                                        <input name="groupsid" class="group-input" id="groups-${group.id}-instance-${exportedResourceInstance.id}" value="${group.id}" type="checkbox">
+                                    </g:if>
+                                    <g:else>
+                                        <input name="groupsid2" id="groups-${group.id}-instance-${exportedResourceInstance.id}" checked="checked" disabled="disabled" type="checkbox">
+                                    </g:else>
+                                    <label style="position:relative; bottom: 2em;" for="groups-${group.id}-instance-${exportedResourceInstance.id}" class="secondary-content"></label>
+                                </li>
+                            </g:each>
+                            <li class="collection-header"><h5>Grupos que administro</h5></li>
+
+                            %{--TODO, checkbox nao ta desabilitando aqui--}%
+                            <g:each var="group" in="${groupsIAdmin}">
+                                <li class="collection-item">
+                                    <div>
+                                        <p>${group.name}</p>
+                                        <p>
+                                            Dono: ${group.owner.firstName + " " + group.owner.lastName}<br>
+                                        </p>
+                                    </div>
+                                    <g:if test="${!GroupExportedResources.findByGroupAndExportedResource(group,exportedResourceInstance)}">
+                                        <input name="groupsid" id="groups-${group.id}-instance-${exportedResourceInstance.id}" value="${group.id}" type="checkbox">
+                                    </g:if>
+                                    <g:else>
+                                        <input name="groupsid2"  checked="checked" disabled="disabled" type="checkbox">
+                                    </g:else>
+                                    <label style="position:relative; bottom: 2em;" for="groups-${group.id}-instance-${exportedResourceInstance.id}" class="secondary-content"></label>
+                                </li>
+                            </g:each>
+                        %{--<input type="hidden" name="exportedresource" value="${instance.id}">--}%
+                            <div class="row">
+                                <button data-instance-id="${exportedResourceInstance.id}" style="left:2em; top: 0.8em; position:relative;" class="btn waves-effect waves-light" type="submit" name="action">Compartilhar
+                                    <i class="material-icons">send</i>
+                                </button>
+                            </div>
+                        </ul>
+                    </div>
+
+                </li>
             </ul>
         </div>
     </li>
@@ -203,9 +252,9 @@ Time: 09:55
         <a href="#!" class="modal-action modal-close waves-effect btn-flat">Enviar</a>
     </div>
 </div>
-
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
 <g:javascript src="exported-plataforms.js"/>
+<g:javascript src="add-resource-to-group.js"/>
 <g:javascript src="licenseShow.js"/>
 <g:javascript src="imgPreview.js"/>
 <g:javascript src="jquery/jquery.Jcrop.js"/>

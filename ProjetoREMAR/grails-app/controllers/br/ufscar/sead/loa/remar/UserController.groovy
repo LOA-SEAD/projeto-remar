@@ -1,5 +1,8 @@
 package br.ufscar.sead.loa.remar
 
+import com.mongodb.util.JSON
+import grails.converters.JSON
+import groovy.json.JsonBuilder
 import org.apache.commons.lang.RandomStringUtils
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
@@ -250,17 +253,26 @@ class UserController {
     }
 
     def autocomplete() {
-        List<User> allUsers = User.getAll();
-        String autocompleteAlternatives = "";
-        if (params.autocomplete != "") {
-            for (User users : allUsers) {
-                if (users.getUsername().contains(params.autocomplete)) {
-                    autocompleteAlternatives += users.getUsername() + ",";
+        if (params.query != "") {
+            def allUsers = User.findAllByFirstNameRlikeOrLastNameRlike(params.query, params.query)
+            def group = Group.findById(params.group)
+            def list = allUsers.collect {
+                def inGroup = UserGroup.findByUserAndGroup(it, group) ? true : false
+                println inGroup
+                    [
+                            label: "${it.firstName} ${it.lastName}",
+                            value: it.id,
+                            inGroup: inGroup
+                    ]
                 }
-            }
-            log.debug(autocompleteAlternatives)
-            render autocompleteAlternatives
+
+            println list
+            render list as JSON
+
+        }else{
+//            TODO
         }
+
     }
 
     def emailAvailable() {

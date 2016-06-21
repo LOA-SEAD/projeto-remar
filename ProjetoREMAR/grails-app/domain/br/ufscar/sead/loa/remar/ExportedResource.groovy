@@ -2,7 +2,7 @@ package br.ufscar.sead.loa.remar
 
 class ExportedResource {
 	static belongsTo = [owner: User, resource: Resource]
-    static hasMany = [platforms: Platform, accounts: MoodleAccount]
+    static hasMany = [platforms: Platform, accounts: MoodleAccount,groupExportedResources :GroupExportedResources]
 
     static constraints = {
     	moodleUrl nullable: true
@@ -10,7 +10,7 @@ class ExportedResource {
         license nullable: false
     }
 
-
+//    Group group
     String moodleUrl
     boolean exported
 

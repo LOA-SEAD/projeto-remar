@@ -6,108 +6,89 @@
 </head>
 <body>
 <div class="content">
-	<div class="row show">
-		<div class="col l12 m12 s12">
+	<div class="row">
 			<form action="/process/start/${resourceInstance.uri}" method="POST">
-				<div class="card show-personalize">
-					<div class="card-content ">
-						<div class="card-content " style="margin-bottom: 10px;">
-							<div class="image">
-								<img src="/images/${resourceInstance.uri}-banner.png" class="">
+				<input type="hidden" name="id" value="${resourceInstance.id}" id="hidden">
+				<input type="hidden" id="licenseValue" value="${resourceInstance.license}">
+				<div class="card col l12 s11 m11" style="position: relative; left: 1.2em;">
+					<div class="col l12">
+						<div class="card-content">
+							<img class="col l4 s5 m3" src="/images/${resourceInstance.uri}-banner.png">
+							<div class="col l6 s4 m7">
+								<span class="card-title black-text truncate left" style="font-size: 1.6em;" data-id="${resourceInstance.id}">${resourceInstance.name}</span><br>
 							</div>
-							<span class="card-title black-text truncate" data-id="${resourceInstance.id}">${resourceInstance.name}</span>
-							<input type="hidden" name="id" value="${resourceInstance.id}" id="hidden">
-							<div class="category">
-								<p> ${resourceInstance.category.name}</p>
-								<div class="stars hide-on-small-only">
-									<g:if test="${resourceInstance.sumUser == 0}">
-										<div id="rateYo-main" style="display: inline-block;"
-											 data-stars="0"></div>
-									</g:if>
-									<g:else>
-										<div id="rateYo-main" style="display: inline-block;"
-											 data-stars="${resourceInstance.sumStars/resourceInstance.sumUser}"></div>
-									</g:else>
+							<div class="col l4 s4 m5">
+								<span style="color: dimgrey" class="left"> ${resourceInstance.category.name}</span>
+							</div>
+							<div class="stars hide-on-small-only col l4">
+								<g:if test="${resourceInstance.sumUser == 0}">
+									<div id="rateYo-main" style="display: inline-block;"
+										 data-stars="0"></div>
+								</g:if>
+								<g:else>
+									<div id="rateYo-main" style="display: inline-block;"
+										 data-stars="${resourceInstance.sumStars/resourceInstance.sumUser}"></div>
+								</g:else>
 
-									<span id="users">(${resourceInstance.sumUser})</span>
-									<i class="fa fa-users"></i>
-								</div>
+								<span id="users">(${resourceInstance.sumUser})</span>
+								<i class="fa fa-users"></i>
 							</div>
 
-							<div class="chip-dev">
+							<div class="col l8 m7 s7">
+								<img  class="col l2 s5 m3" src="/data/users/${resourceInstance.owner.username}/profile-picture" alt="Contact Person">
+								<span style="color: dimgrey" class="left">${resourceInstance.owner.firstName} ${resourceInstance.owner.lastName}</span><br>
+								<span style="color: dimgrey" class="hide-on-small-only left"> ${resourceInstance.owner.email} </span>
 
-								<img class="img-responsive" src="/data/users/${resourceInstance.owner.username}/profile-picture" alt="Contact Person">
-								<p>
-									${resourceInstance.owner.firstName} ${resourceInstance.owner.lastName} <br>
-									<span class="hide-on-small-only"> ${resourceInstance.owner.email} </span>
-
-
-								<div class="hide-on-med-and-up" style="color: rgba(0, 0, 0, 0.6);">
+							</div>
+							<div class="col l8 m9">
+								<div class="plataform gray-color">
+									<p class="" style="font-size: 16px; display: inline-block;"> Disponível para: </p>
+									<div class="">
 										<i class="fa fa-globe tooltipped" data-position="bottom" data-delay="30" data-tooltip="Web"></i>
 										<g:if test="${resourceInstance.android}">
 											<i class="fa fa-android tooltipped" data-position="bottom" data-delay="30" data-tooltip="Android"></i>
 										</g:if>
 										<g:if test="${resourceInstance.desktop}">
-											<i class="fa fa-desktop tooltipped" data-position="bottom" data-delay="30" data-tooltip="Moodle"></i>
+											<i class="fa fa-windows tooltipped" data-position="bottom" data-delay="30" data-tooltip="Windows"></i>
+											<i class="fa fa-linux tooltipped" data-position="bottom" data-delay="30" data-tooltip="Linux"></i>
+											<i class="fa fa-apple tooltipped" data-position="bottom" data-delay="30" data-tooltip="Mac"></i>
 										</g:if>
 										<g:if test="${resourceInstance.moodle}">
 											<i class="fa fa-graduation-cap tooltipped" data-position="bottom" data-delay="30" data-tooltip="Moodle"></i>
 										</g:if>
+
 									</div>
-								</p>
-
-							</div>
-
-							<div class="plataform gray-color">
-								<p class="hide-on-med-and-down" style="font-size: 16px; display: inline-block;"> Disponível para: </p>
-								<div class="hide-on-small-only">
-									<i class="fa fa-globe tooltipped" data-position="bottom" data-delay="30" data-tooltip="Web"></i>
-									<g:if test="${resourceInstance.android}">
-										<i class="fa fa-android tooltipped" data-position="bottom" data-delay="30" data-tooltip="Android"></i>
-									</g:if>
-									<g:if test="${resourceInstance.desktop}">
-										<i class="fa fa-windows tooltipped" data-position="bottom" data-delay="30" data-tooltip="Windows"></i>
-										<i class="fa fa-linux tooltipped" data-position="bottom" data-delay="30" data-tooltip="Linux"></i>
-										<i class="fa fa-apple tooltipped" data-position="bottom" data-delay="30" data-tooltip="Mac"></i>
-									</g:if>
-									<g:if test="${resourceInstance.moodle}">
-										<i class="fa fa-graduation-cap tooltipped" data-position="bottom" data-delay="30" data-tooltip="Moodle"></i>
-									</g:if>
-
 								</div>
 							</div>
-
-							%{--<div class="info"></div>--}%
-							<br class="clear" />
-
-							<button type="submit" class="btn waves-effect waves-light my-orange right">
-								Customizar
-							</button>
+								<div class="col l8 m8">
+									<button type="submit" class="btn waves-effect waves-light my-orange right">
+										Customizar
+									</button>
+								</div>
 						</div>
-						<input type="hidden" id="licenseValue" value="${resourceInstance.license}">
+					</div>
 
-						<div class="row">
-							<div class="col s12 m12 l12" id="documentation">
-								<p>Documentação do modelo: <a target="_blank" href="${resourceInstance.documentation}">${resourceInstance.documentation}</a> </p>
-							</div>
+					<div class="row">
+						<div class="col s12 m12 l12" id="documentation">
+							<p>Documentação do modelo: <a target="_blank" href="${resourceInstance.documentation}">${resourceInstance.documentation}</a> </p>
 						</div>
-						<div class="row">
-							<div class="col s12 m12 l12 license" id="licenseInfo">
+					</div>
+					<div class="row">
+						<div class="col s12 m12 l12 license" id="licenseInfo">
 
-							</div>
 						</div>
-						<br class="clear" />
-						<div class="slider">
-							<ul class="slides">
+					</div>
+					<br class="clear" />
+					<div class="slider">
+						<ul class="slides">
 								%{--Imagens devem ter 720x400 pixels --}%
-							    <li><img src="/data/resources/assets/${resourceInstance.uri}/description-1" width="auto" height="400px"></li>
-								<li><img src="/data/resources/assets/${resourceInstance.uri}/description-2" width="auto" height="400px;"></li>
-								<li><img src="/data/resources/assets/${resourceInstance.uri}/description-3" width="auto" height="400px;"></li>
-							</ul>
-						</div>
+							<li><img src="/data/resources/assets/${resourceInstance.uri}/description-1" width="auto" height="400px"></li>
+							<li><img src="/data/resources/assets/${resourceInstance.uri}/description-2" width="auto" height="400px;"></li>
+							<li><img src="/data/resources/assets/${resourceInstance.uri}/description-3" width="auto" height="400px;"></li>
+						</ul>
+					</div>
 
 						<p class="description">${resourceInstance.description}</p>
-					</div>
 					<div class="card-action">
 						<p class="left comment-text">Comentários</p>
 						<a  href="#modal-comment" class="modal-trigger btn-floating btn-large waves-effect waves-light right tooltipped"
@@ -164,7 +145,6 @@
 					</div>
 				</div>
 			</form>
-		</div>
 	</div>
 </div>
 <!-- Modal Structure -->
