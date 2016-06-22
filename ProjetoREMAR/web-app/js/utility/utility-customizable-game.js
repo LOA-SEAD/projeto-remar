@@ -23,9 +23,8 @@ $(function(){
             processData: false,
             contentType: false,
             success: function (response) {
-
                 $(".cardGames").remove();
-                $(".show.cards").append(response);
+                $("#resourcesShow").append(response);
 
                 $(".next-page").each(function() {
                     $(this).on("click",listerNextPage)
@@ -58,7 +57,7 @@ $(function(){
             success: function (response) {
 
                 $(".cardGames").remove();
-                $(".show.cards").append(response);
+                $("#resourcesShow").append(response);
 
                 $(".next-page").each(function() {
                     $(this).on("click",listerNextPage)
@@ -92,7 +91,7 @@ $(function(){
             contentType: false,
             success: function (response) {
                 $(".cardGames").remove();
-                $(".show.cards").append(response);
+                $("#resourcesShow").append(response);
 
                 $(".next-page").each(function() {
                     $(this).on("click",listerNextPage)
