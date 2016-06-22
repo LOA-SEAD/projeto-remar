@@ -100,7 +100,7 @@ $(window).load(function(){
         var noUsers = $("#no-users");
         var text = ($(".group-size"));
         var groupSize = text.attr("data-group-size");
-        var ul = $(".collection");
+        var ul = $(".users-collection");
         var token = $("#member-token");
         if($(token).val() != null)
             url = "/group/addUserByToken";
