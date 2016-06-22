@@ -21,7 +21,7 @@
 	<div class="row">
 		<div class="input-field col s12">
 			<i class="material-icons suffix green-text active">done</i>
-			<textarea id="customizableItems" class="materialize-textarea" length="250" name="customizableItems" required ></textarea>
+			<textarea id="customizableItems" class="materialize-textarea" name="customizableItems" required ></textarea>
 			<label for="customizableItems">Itens customizáveis</label>
 			<span id="customizableItems-error" class="invalid-textarea" style="left: 0.75rem">Este campo não pode ser vazio!</span>
 		</div>
