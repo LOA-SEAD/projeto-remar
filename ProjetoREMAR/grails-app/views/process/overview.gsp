@@ -64,12 +64,15 @@
                             </div>
                             <div id="row-content-area" class="row hide">
                                 <div class=" input-field s12 m12 l12">
-                                    <input id="content-area" type="text" name="contentArea" ><label for="content-area" >Área de conteúdo</label>
+                                    <input id="content-area" type="text" name="contentArea" ><label class="active" for="content-area" >Área de conteúdo</label>
+                                    <span id="content-area-error" class="invalid-input" style="left: 0.75rem">Este campo é obrigatório!</span>
+
                                 </div>
                             </div>
                             <div id="row-specific-content" class="row hide">
                                 <div class=" input-field col s12 m12 l12">
-                                    <input id="specific-content" name="specificContent" type="text" ><label for="specific-content">Conteúdo específico</label>
+                                    <input id="specific-content" name="specificContent" type="text" ><label class="active" for="specific-content">Conteúdo específico</label>
+                                    <span id="specific-content-error" class="invalid-input" style="left: 0.75rem">Este campo é obrigatório!</span>
                                 </div>
                             </div>
                             <div class="row">
