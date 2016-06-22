@@ -33,8 +33,7 @@ Time: 08:58
                         <div class="nav-wrapper">
                             <a href="/dspace/index.gsp" class="first-breadcrumb">Comunidades</a>
                             <a href="#!" class="breadcrumb">${communityName}</a>
-                            <a href="." class="breadcrumb">${collectionsName}</a>
-                            %{--<a href="#!" class="breadcrumb">Third</a>--}%
+                            <a href="javascript:location.reload()" class="breadcrumb">${collectionsName}</a>
                         </div>
                     </aside>
                 </div>
@@ -94,7 +93,7 @@ Time: 08:58
                                                         %{--<td class="">${bitstream.description}</td>--}%
                                                         <td class="">${bitstream.format}</td>
                                                         <td>
-                                                            <a href="#!">
+                                                            <a href="#!" class="view" data-bitstream-id="${bitstream.id}">
                                                                 <i class="material-icons">visibility</i>
                                                             </a>
                                                         </td>
@@ -114,5 +113,11 @@ Time: 08:58
         </article>
     </div>
 </div>
+
+<!-- Modal Structure edit -->
+<div id="modal" class="modal">
+</div>
+
+<g:javascript src="dspace.js"/>
 </body>
 </html>

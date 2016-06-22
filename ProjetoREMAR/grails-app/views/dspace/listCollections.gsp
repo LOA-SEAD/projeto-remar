@@ -31,8 +31,7 @@ Time: 08:58
                     <aside class="nav-breadcrumb">
                         <div class="nav-wrapper">
                             <a href="/dspace/index.gsp" class="first-breadcrumb">Comunidades</a>
-                            <a href="." class="breadcrumb">${communityName}</a>
-                            %{--<a href="#!" class="breadcrumb">Third</a>--}%
+                            <a href="javascript:location.reload()" class="breadcrumb">${communityName}</a>
                         </div>
                     </aside>
                 </div>
@@ -43,7 +42,11 @@ Time: 08:58
                         <g:each in="${collections}" var="obj">
                             <li class="collection-item avatar left-align">
                                 <img src="${restUrl}${obj.retrieveLink}" alt="" class="circle">
-                                <a href="/dspace/listItems/${obj.id}?names=${communityName}&names=${obj.name}" class="collection-link" data-id="${obj.id}">${obj.name}</a>
+                                <g:link controller="dspace" action="listItems/${obj.id}?names=${communityName}&names=${obj.name}"
+                                        params="[lastURL:request.getRequestURL()]" data-id="${obj.id}"
+                                        class="collection-link">${obj.name}</g:link>
+                                %{--<a href="/dspace/listItems/${obj.id}?names=${communityName}&names=${obj.name}"--}%
+                                   %{--class="collection-link" data-id="${obj.id}">${obj.name}</a>--}%
                                 <p>${obj.shortDescription}</p>
                             </li>
                         </g:each>

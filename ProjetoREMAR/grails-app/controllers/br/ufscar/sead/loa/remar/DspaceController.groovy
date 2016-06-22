@@ -1,10 +1,14 @@
 package br.ufscar.sead.loa.remar
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 import grails.plugins.rest.client.RestBuilder
 
+@Secured('IS_AUTHENTICATED_ANONYMOUSLY')
 class DspaceController {
     def grailsApplication
+
+    static allowedMethods = [bitstream: "GET"]
 
     static scope = "prototype"
 
@@ -87,13 +91,12 @@ class DspaceController {
         def items, metadata, bitstreams
         def resp
 
+        println(request.getRequestURL())
+
         resp = rest.get("${restUrl}/collections/${params.id}/items?expand=all")
         items = resp.json
         metadata = items.metadata
         bitstreams = items.bitstreams
-
-//        render "<p>${metadata.getAt(0) as JSON}</p><br><p>${bitstreams.getAt(1) as JSON}</p>"
-//        return
 
         logout(token,rest)
 
@@ -105,6 +108,21 @@ class DspaceController {
                 collectionsName: params.names.getAt(1),
                 restUrl: restUrl
         ]
+    }
+
+    def bitstream(){
+        init()
+
+        def l  = login(email,password)
+        def token = l.token
+        def rest =  l.restBuilder
+        def resp
+
+        resp = rest.get("${restUrl}/bitstreams/${params.id}")
+
+        logout(token,rest)
+
+        render view: "_modalBody", model: [bitstream: resp.json, restUrl: restUrl]
     }
 
     def create() {
@@ -139,8 +157,6 @@ class DspaceController {
         def resp = rest.delete("${restUrl}/items/5/bitstreams/${params.id}"){
             header 'rest-dspace-token', token
         }
-
-        print(resp.body)
 
         logout(token,rest)
 
@@ -225,14 +241,13 @@ class DspaceController {
 
         json.each { sub ->
             def retLink = (bitstreams.find { it.parentObject.id == sub.id }).retrieveLink
-            println(retLink)
             sub.retrieveLink = retLink
         }
 
         return json
     }
 
-    private static getBitstreams(RestBuilder rest){
+    private static getListBitstreams(RestBuilder rest){
         def resp = rest.get("${restUrl}/bitstreams?expand=parent")
         return resp.json
     }

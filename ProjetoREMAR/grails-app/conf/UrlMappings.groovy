@@ -61,10 +61,11 @@ class UrlMappings {
         "/exported-resource/_table/$resourceId"(controller: "exportedResource", action: "_table")
         "/exported-resource/_table"(controller: "exportedResource", action: "_data")
 
-
         "/category/save"(controller: "category", action: "save")
         "/category/update/$id"(controller: "category", action: "update")
         "/category/delete/$id"(controller: "category", action: "delete")
+
+        "/dspace/bitstream/$id"(controller: "dspace", action: "bitstream")
 
         // end Resource API endpoints
 

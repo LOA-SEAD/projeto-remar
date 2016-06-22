@@ -945,3 +945,7 @@ Position must be relative!*/
     margin: 0 10px 0 8px;
     -webkit-font-smoothing: antialiased;
 }
+
+.div-close a{
+    font-size: 30px;
+}
