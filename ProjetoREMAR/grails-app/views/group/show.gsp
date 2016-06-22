@@ -58,7 +58,10 @@
                     <g:each var="userGroup" in="${group.userGroups}">
                         <li id="user-group-card-${userGroup.id}" class="collection-item avatar left-align">
                             <img alt src="/data/users/${userGroup.user.username}/profile-picture" class="circle">
-                            <span class="title">${userGroup.user.firstName + " " + userGroup.user.lastName}<span id="admin-${userGroup.id}-text"> <g:if test="${userGroup.admin}">(Administrador)</g:if></span></span>
+                            <span class="title">${userGroup.user.firstName + " " + userGroup.user.lastName}</span>
+                            <span class="admin-text" id="admin-${userGroup.id}-text"> <g:if test="${userGroup.admin}">(Administrador)</g:if>
+                            <g:else> </g:else>
+                            </span>
                             <p class="">Usuário: ${userGroup.user.username}</p>
                             <g:if test="${group.owner.id == session.user.id}">
                                 <a href="#" id="user-group-id-${userGroup.id}" data-user-group-id="${userGroup.id}" style="position: relative; top: -2.5em; left: -1.6em;" class="secondary-content delete-user"><i class="material-icons">delete</i></a>

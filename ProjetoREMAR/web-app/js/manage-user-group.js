@@ -156,13 +156,13 @@ $(window).load(function(){
             success: function() {
 
                 if(option == "make-admin") {
-                    $(adminText).html(" (Administrador)");
+                    $($(_this).prevUntil(".circle")[2]).html(" (Administrador)").fadeIn(400);
                     $(icon).html("star");
                     _this.id = "remove-admin-"+userGroupId;
                     Materialize.toast("Administrador adicionado!", 1500, "rounded");
                 }
                 else if(option == "remove-admin") {
-                    $(adminText).html(" ");
+                    $($(_this).prevUntil(".circle")[2]).fadeOut(400);
                     $(icon).html("star_border");
                     _this.id = "make-admin-"+userGroupId;
                     Materialize.toast("Administrador removido!", 1500, "rounded");
