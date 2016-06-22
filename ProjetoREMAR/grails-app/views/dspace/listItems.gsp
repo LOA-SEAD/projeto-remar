@@ -40,44 +40,71 @@ Time: 08:58
                 </div>
             </section>
             <section class="row">
-                <div class="col s12" >
+                <div class="col s12 m12 l12">
                     <ul class="collapsible" data-collapsible="accordion" >
                         <g:each in="${items}" var="obj">
                             <li>
                                 <div class="collapsible-header">
-                                    <i class="material-icons">filter_drama</i>
+                                    <i class="material-icons">expand_more</i>
                                     ${obj.name}
                                 </div>
                                 <div class="collapsible-body">
-                                    <p>Lorem ipsum dolor sit amet.</p>
-
-                                    <table class="striped">
-                                        <thead>
-                                            <tr>
-                                                <th data-field="id">Arquivo</th>
-                                                <th data-field="name">Description</th>
-                                                <th data-field="price">Format</th>
-                                                <th data-field="price">Ação</th>
-                                            </tr>
-                                        </thead>
-                                
-                                        <tbody>
-                                            <g:each in="${bitstreams.getAt(i)}" var="bitstream">
+                                    <div class="row">
+                                        <div class="col s12">
+                                           <p><span class="bold">Descrição: </span>
+                                               ${(metadata.getAt(i).find {it.key == 'dc.description' }).value}
+                                           </p>
+                                        </div>
+                                        <div class="col s12 m6">
+                                            <p><span class="bold">Ultima modificação: </span>
+                                                ${obj.lastModified}
+                                            </p>
+                                            <p><span class="bold">Licença: </span>
+                                                ${(metadata.getAt(i).find {it.key == 'dcterms.license' }).value}
+                                            </p>
+                                        </div>
+                                        <div class="col s12 m6">
+                                            <p><span class="bold">Autores: </span>
+                                                ${(metadata.getAt(i).find {it.key == 'dc.contributor.author' }).value}
+                                            </p>
+                                            <p><span class="bold">Citação: </span>
+                                                ${(metadata.getAt(i).find {it.key == 'dc.identifier.citation' }).value}
+                                            </p>
+                                            <p><span class="bold">Editor: </span>
+                                                ${(metadata.getAt(i).find {it.key == 'dc.contributor.author' }).value}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col s12 m12 l12">
+                                            <table class="highlight">
+                                                <thead>
                                                 <tr>
-                                                    <td class="truncate">${bitstream.name}</td>
-                                                    <td class="">${bitstream.description}</td>
-                                                    <td class="">${bitstream.format}</td>
-                                                    <td>
-                                                        <a href="#!">
-                                                            <i class="material-icons">visibility</i>
-                                                        </a>
-                                                    </td>
+                                                    <th data-field="id">Arquivo</th>
+                                                    %{--<th data-field="name">Description</th>--}%
+                                                    <th data-field="price">Format</th>
+                                                    <th data-field="price">Ação</th>
                                                 </tr>
-                                            </g:each>
-                                            <g:set var="i" value="${i+1}"/>
-                                        </tbody>
-                                    </table>
+                                                </thead>
 
+                                                <tbody>
+                                                <g:each in="${bitstreams.getAt(i)}" var="bitstream">
+                                                    <tr>
+                                                        <td class="">${bitstream.name}</td>
+                                                        %{--<td class="">${bitstream.description}</td>--}%
+                                                        <td class="">${bitstream.format}</td>
+                                                        <td>
+                                                            <a href="#!">
+                                                                <i class="material-icons">visibility</i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </g:each>
+                                                <g:set var="i" value="${i+1}"/>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </li>
                         </g:each>
