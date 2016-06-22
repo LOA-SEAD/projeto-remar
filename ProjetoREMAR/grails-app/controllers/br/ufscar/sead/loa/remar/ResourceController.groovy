@@ -76,6 +76,7 @@ class ResourceController {
         resourceInstance.status = "pending"
         resourceInstance.valid = true
         resourceInstance.license = params.license
+        resourceInstance.customizableItems = ""
 
         // Move .war to /wars and unzip it
         savedWar.mkdirs()
