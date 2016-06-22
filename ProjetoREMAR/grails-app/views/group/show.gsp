@@ -24,7 +24,7 @@
             <g:if test="${group.owner.id == session.user.id || UserGroup.findByUserAndAdmin(session.user,true)}">
                 <form id="add-user-form">
                     <div class="input-field col l3 offset-l2 m4">
-                        <input class="user-input" placeholder="Nome ou sobrenome" name="term" id="search-user" type="text" required>
+                        <input class="user-input" name="term" id="search-user" type="text" required>
                         <label for="search-user"><i class="fa fa-search"></i></label>
                         <input type="hidden" value="${group.id}" name="groupid">
                         <input type="hidden" value="" id="user-id" name="userid">
@@ -58,7 +58,7 @@
                     <g:each var="userGroup" in="${group.userGroups}">
                         <li id="user-group-card-${userGroup.id}" class="collection-item avatar left-align">
                             <img alt src="/data/users/${userGroup.user.username}/profile-picture" class="circle">
-                            <span class="title">${userGroup.user.firstName + " " + userGroup.user.lastName}</span>
+                            <span class="title">${userGroup.user.firstName + " " + userGroup.user.lastName}<span id="admin-${userGroup.id}-text"> <g:if test="${userGroup.admin}">(Administrador)</g:if></span></span>
                             <p class="">Usuário: ${userGroup.user.username}</p>
                             <g:if test="${group.owner.id == session.user.id}">
                                 <a href="#" id="user-group-id-${userGroup.id}" data-user-group-id="${userGroup.id}" style="position: relative; top: -2.5em; left: -1.6em;" class="secondary-content delete-user"><i class="material-icons">delete</i></a>
