@@ -42,7 +42,7 @@
         </div>
     </div>
 
-    <div class="row show cards">
+    <div style="position:relative; left: 1.2em" id="showCards" class="row ">
         <g:render template="cardGames" model="${pageScope.variables}" />
     </div>
 </div>
