@@ -188,8 +188,25 @@ $(function () {
 
         console.log("removendo disabled button");
         publish.removeClass("disabled");
-        publish.attr("href","/process/finish?id="+publish.data("process-id"))
+        $("#row-content-area").removeClass("hide");
+        $("#row-specific-content").removeClass("hide");
+
     }
+
+    $('#content-area').on('input', function() {
+        var contentArea=$('#content-area').val() ;// get the current value of the input field.
+        var specificContent = $("#specific-content").val();
+        console.log(contentArea);
+        console.log(specificContent);
+        publish.attr("href","/process/finish?id="+publish.data("process-id")+"&&contentArea="+contentArea+"&&specificContent="+specificContent);
+    });
+    $('#specific-content').on('input', function() {
+        var contentArea=$('#content-area').val() ;// get the current value of the input field.
+        var specificContent = $("#specific-content").val();
+        console.log(contentArea);
+        console.log(specificContent);
+        publish.attr("href","/process/finish?id="+publish.data("process-id")+"&&contentArea="+contentArea+"&&specificContent="+specificContent);
+    });
 
     if(info.data("basic-info") != null &&
         info.data("basic-info").toString() == "true") {

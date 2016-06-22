@@ -62,14 +62,14 @@
                                     <span id="name-error" class="invalid-input" style="left: 0.75rem">Já existe um jogo com esse nome!</span>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div id="row-content-area" class="row hide">
                                 <div class=" input-field s12 m12 l12">
-                                    <input id="content-area" type="text" ><label for="content-area" >Área de conteúdo</label>
+                                    <input id="content-area" type="text" name="contentArea" ><label for="content-area" >Área de conteúdo</label>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div id="row-specific-content" class="row hide">
                                 <div class=" input-field col s12 m12 l12">
-                                    <input id="specific-content" type="text" ><label for="specific-content">Conteúdo específico</label>
+                                    <input id="specific-content" name="specificContent" type="text" ><label for="specific-content">Conteúdo específico</label>
                                 </div>
                             </div>
                             <div class="row">
