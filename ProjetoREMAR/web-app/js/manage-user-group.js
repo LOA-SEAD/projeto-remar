@@ -144,6 +144,7 @@ $(window).load(function(){
         var userGroupId = $(_this).attr("data-user-group-id");
         var option = _this.id.substr(_this.id.charAt(0),_this.id.indexOf("n")+1);
         var icon = $(_this).children("i")[0];
+        var adminText = $("#admin-"+ userGroupId +"-text");
 
         $.ajax({
             type:'POST',
@@ -155,11 +156,13 @@ $(window).load(function(){
             success: function() {
 
                 if(option == "make-admin") {
+                    $(adminText).html(" (Administrador)");
                     $(icon).html("star");
                     _this.id = "remove-admin-"+userGroupId;
                     Materialize.toast("Administrador adicionado!", 1500, "rounded");
                 }
                 else if(option == "remove-admin") {
+                    $(adminText).html(" ");
                     $(icon).html("star_border");
                     _this.id = "make-admin-"+userGroupId;
                     Materialize.toast("Administrador removido!", 1500, "rounded");
