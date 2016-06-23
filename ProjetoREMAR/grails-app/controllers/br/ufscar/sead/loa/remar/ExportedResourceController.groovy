@@ -275,7 +275,11 @@ class ExportedResourceController {
 
         model.categories = Category.list(sort: "name")
 
-        render view: "publicGames", model: model
+        if(session.user==null)
+            render view: "games", model: model
+        else
+            render view: "publicGames", model: model
+
     }
 
     def myGames() {
@@ -347,6 +351,8 @@ class ExportedResourceController {
         model.tCurrentPage = (params.tOffset + threshold) / threshold
         model.tHasNextPage = params.tOffset + threshold < temporary.size()
         model.tHasPreviousPage = params.tOoffset > 0
+
+        println model.tPageCount
 
         render view: "myGames", model: model
     }
@@ -572,7 +578,7 @@ class ExportedResourceController {
     }
 
     def searchMyGame() {
-        def mode
+        def model = [:]
         User user = session.user
 
         model.myGroups = Group.findAllByOwner(user)

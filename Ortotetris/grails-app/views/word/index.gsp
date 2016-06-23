@@ -31,7 +31,7 @@
         <div class="col s12 m12 l12">
             <div class="cluster-header">
                 <p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-                    <i class="small material-icons left">grid_on</i>Tabela de Palavras
+                    <i class="small material-icons left">grid_on</i>Ortotetris - Tabela de Palavras
                 </p>
             </div>
         </div>

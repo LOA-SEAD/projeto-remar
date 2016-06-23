@@ -15,7 +15,7 @@
 
 <div class="row" id="form">
     <div class="col s12">
-        <h4> Upload de Imagens</h4>
+        <h4>Escola Mágica - Temas - Upload de Imagens</h4>
     </div>
 </div>
 <g:uploadForm controller="design" action="ImagesManager">

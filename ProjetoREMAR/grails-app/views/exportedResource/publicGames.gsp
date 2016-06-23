@@ -17,7 +17,7 @@
 <div class="row">
     <div class="cluster-header">
         <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom">
-            <i class="small material-icons left">videogame_asset</i>Jogos publicados
+            <i class="small material-icons left">videogame_asset</i>Banco de Jogos
         </p>
 
         <div class="divider"></div>
