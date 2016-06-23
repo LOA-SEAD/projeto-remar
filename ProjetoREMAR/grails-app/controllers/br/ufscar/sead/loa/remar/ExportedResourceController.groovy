@@ -582,7 +582,7 @@ class ExportedResourceController {
         User user = session.user
 
         model.myGroups = Group.findAllByOwner(user)
-        model.groupsIAdmin = UserGroup.findAllByUserAndAdmin(user,true).groupl = [:]
+        model.groupsIAdmin = UserGroup.findAllByUserAndAdmin(user,true).group
 
         def threshold = 12
         def maxInstances = 0
