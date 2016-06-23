@@ -468,16 +468,16 @@ class ExportedResourceController {
 
     @SuppressWarnings("GroovyAssignabilityCheck")
     def searchGame() {
+        def model = [:]
+
         User user = session.user
 
-        def model = [:]
+        model.myGroups = Group.findAllByOwner(user)
+        model.groupsIAdmin = UserGroup.findAllByUserAndAdmin(user,true).group
 
         def threshold = 12
         def maxInstances = 0
 
-
-        model.myGroups = Group.findAllByOwner(user)
-        model.groupsIAdmin = UserGroup.findAllByUserAndAdmin(user,true).group
         params.order = "desc"
         params.sort = "id"
         params.max = params.max ? Integer.valueOf(params.max) : threshold

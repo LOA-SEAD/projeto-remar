@@ -36,7 +36,7 @@
                         </div>
                         <div class="card-reveal">
                             <div class="row">
-                                <h5 class="card-title grey-text text-darken-4 activator center-align truncate"><small class="left">Jogar:</small><i class="material-icons right">close</i></h5><br>
+                                <h5 class="card-title grey-text text-darken-4 activator col l12 truncate"><small class="left">Jogar:</small><i class="material-icons right">close</i></h5><br>
                                 <div class="col l4">
                                     <a style="font-size: 2em; color: black;" target="_blank" href="/published/${instance.processId}/web" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Web"><i class="fa fa-globe"></i></a>
                                 </div>
