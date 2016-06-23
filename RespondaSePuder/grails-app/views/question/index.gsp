@@ -22,8 +22,8 @@
 <div class="row">
     <div class="col s12">
         <ul class="tabs">
-            <li class="tab col s6 active"><a href="#chooseQuestion">Escolher Questões</a></li>
             <li class="tab col s6"><a href="#defineMaxQuestion">Definir número de questões por nível</a></li>
+            <li class="tab col s6"><a class="active" href="#chooseQuestion">Escolher Questões</a></li>
         </ul>
     </div>
     <div id="chooseQuestion" class="col s12">
