@@ -437,33 +437,6 @@ footer.page-footer{
     clear: both;
 }
 
-/*.
-.show-personalize{*/
-    /*padding: 20px;*/
-/*}*/
-
-.card.show-personalize .card-content{
-   text-align: justify;
-}
-
-.card.show-personalize .chip-dev img{
-    width: 60px;
-    height: 60px;
-    float: left;
-    margin-right: 5px;
-
-}
-
-.card.show-personalize .chip-dev p{
-    /*background-color: transparent;*/
-    font-size: 1.0em;
-    color: rgba(0, 0, 0, 0.6);
-    /*margin-top: 15px;*/
-    padding-top: 10px;
-
-}
-
-
 .category{
     font-size: 14px;
     font-weight: bold;

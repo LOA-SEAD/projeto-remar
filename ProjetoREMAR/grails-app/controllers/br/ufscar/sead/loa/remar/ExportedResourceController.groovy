@@ -466,6 +466,11 @@ class ExportedResourceController {
     def searchGame() {
         def model = [:]
 
+        User user = session.user
+
+        model.myGroups = Group.findAllByOwner(user)
+        model.groupsIAdmin = UserGroup.findAllByUserAndAdmin(user,true).group
+
         def threshold = 12
         def maxInstances = 0
 
@@ -567,7 +572,11 @@ class ExportedResourceController {
     }
 
     def searchMyGame() {
-        def model = [:]
+        def mode
+        User user = session.user
+
+        model.myGroups = Group.findAllByOwner(user)
+        model.groupsIAdmin = UserGroup.findAllByUserAndAdmin(user,true).groupl = [:]
 
         def threshold = 12
         def maxInstances = 0

@@ -100,7 +100,7 @@ $(window).load(function(){
         var noUsers = $("#no-users");
         var text = ($(".group-size"));
         var groupSize = text.attr("data-group-size");
-        var ul = $(".collection");
+        var ul = $(".users-collection");
         var token = $("#member-token");
         if($(token).val() != null)
             url = "/group/addUserByToken";
@@ -118,12 +118,13 @@ $(window).load(function(){
                     groupSize++;
                     text.attr("data-group-size",groupSize);
                     text.html("Ver membros ("+groupSize+")");
-                    console.log(noUsers);
+                    $("#add-user-form")[0].reset();
                     if(noUsers) {
                         noUsers.fadeOut(300);
                         noUsers.remove();
                     }
                     $(ul).append(data);
+                    Materialize.toast("Usuário adicionado!", 3000, "rounded");
 
                 }, statusCode: {
                     403: function(response){
@@ -143,6 +144,7 @@ $(window).load(function(){
         var userGroupId = $(_this).attr("data-user-group-id");
         var option = _this.id.substr(_this.id.charAt(0),_this.id.indexOf("n")+1);
         var icon = $(_this).children("i")[0];
+        var adminText = $("#admin-"+ userGroupId +"-text");
 
         $.ajax({
             type:'POST',
@@ -154,11 +156,13 @@ $(window).load(function(){
             success: function() {
 
                 if(option == "make-admin") {
+                    $($(_this).prevUntil(".circle")[2]).html(" (Administrador)").fadeIn(400);
                     $(icon).html("star");
                     _this.id = "remove-admin-"+userGroupId;
                     Materialize.toast("Administrador adicionado!", 1500, "rounded");
                 }
                 else if(option == "remove-admin") {
+                    $($(_this).prevUntil(".circle")[2]).fadeOut(400);
                     $(icon).html("star_border");
                     _this.id = "make-admin-"+userGroupId;
                     Materialize.toast("Administrador removido!", 1500, "rounded");
