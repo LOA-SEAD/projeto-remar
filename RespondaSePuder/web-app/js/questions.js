@@ -189,28 +189,64 @@ function _edit(tr){
 
 }
 
-function _delete(tr) {
-    if(confirm("Você tem certeza que deseja excluir esta questão?")) {
-        var tds = $(tr).find("td");
-        var url = location.origin + '/respondasepuder/question/delete/' + $(tr).attr('data-id');
-        var data = {_method: 'DELETE'};
+function _delete() {
+    var list_id = [];
+    var url;
+    var data;
+    var trID;
 
-        $.ajax({
-                type: 'DELETE',
-                data: data,
-                url: url,
-                success: function (data) {
-                    $(tr).remove();
-                    //uncheck_all();
-                    //window.location.reload();
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                }
+    $.each($("input[type=checkbox]:checked"), function(ignored, el) {
+        var tr = $(el).parents().eq(1);
+        list_id.push($(tr).attr('data-id'));
+    });
+
+    if(list_id.length<=0){
+        alert("Você deve selecionar ao menos uma questão para excluir");
+    }
+    else{
+        if(list_id.length==1){
+            if(confirm("Você tem certeza que deseja deletar essa questão?")){
+                url = location.origin + '/respondasepuder/question/delete/' + list_id[0];
+                data = {_method: 'DELETE'};
+                trID = "#tr"+list_id[0];
+                $.ajax({
+                        type: 'DELETE',
+                        data: data,
+                        url: url,
+                        success: function (data) {
+                            $(trID).remove();
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        }
+                    }
+                );
             }
-        );
+        }
+        else{
+            if(confirm("Você tem certeza que deseja deletar essas questões?")){
+            for(var i=0;i<list_id.length;i++){
+                    url = location.origin + '/respondasepuder/question/delete/' + list_id[i];
+                    data = {_method: 'DELETE'};
+                    trID = "#tr"+list_id[i];
+                    $(trID).remove();
+                $.ajax({
+                            type: 'DELETE',
+                            data: data,
+                            url: url,
+                            success: function (data) {
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            }
+                        }
+                    );
+                }
+                $(trID).remove();
 
+            }
+        }
 
     }
+
 }
 
 function check_all(){
