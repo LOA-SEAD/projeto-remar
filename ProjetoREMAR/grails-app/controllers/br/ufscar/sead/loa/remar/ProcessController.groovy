@@ -234,6 +234,8 @@ class ProcessController {
         exportedResourceInstance.height = resource.height
         exportedResourceInstance.processId = process.id
         exportedResourceInstance.license = resource.license
+        exportedResourceInstance.contentArea = params.contentArea
+        exportedResourceInstance.specificContent =  params.specificContent
 
         exportedResourceInstance.save flush: true
 

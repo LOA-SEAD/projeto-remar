@@ -38,7 +38,7 @@
                 <label>Categoria</label>
             </div>
         </div>
-        <div class="row">
+        <div id="resourcesShow" class="row">
             <g:render template="custCards" model="${pageScope.variables}" />
         </div>
     </div>

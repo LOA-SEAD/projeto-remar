@@ -5,11 +5,15 @@ $(function(){
 
     var name = document.getElementById("name");
     var description = document.getElementById("description");
+    var customizableItems = document.getElementById("customizableItems");
+
 
     //var name = $("#name");
     var nameErr = $("#name-error");
     //var desc = $("#description");
     var descErr = $("#desc-error");
+    var customizableErr = $("#customizableItems-error");
+
 
 
     $.ajax({
@@ -28,6 +32,8 @@ $(function(){
                 .next().addClass("active");
 
             $("#documentation").val(data.documentation)
+                .next().addClass("active");
+            $("#customizableItems").val(data.customizableItems)
                 .next().addClass("active");
 
             $("#img1Preview").attr("src", "/data/resources/assets/"+data.uri+"/description-1");
@@ -61,6 +67,8 @@ $(function(){
         formData.append('name', document.getElementById("name").value);
         formData.append('description', document.getElementById("description").value);
         formData.append('documentation', document.getElementById("documentation").value);
+        formData.append('customizableItems', document.getElementById("customizableItems").value);
+
 
         formData.append('img1',$("#img1Preview").attr("src"));
         formData.append('img2',$("#img2Preview").attr("src"));
