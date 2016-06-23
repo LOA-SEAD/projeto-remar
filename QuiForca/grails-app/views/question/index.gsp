@@ -71,7 +71,7 @@
 
     <tbody>
     <g:each in="${questionInstanceList}" status="i" var="questionInstance">
-        <tr class="selectable_tr ${(i % 2) == 0 ? 'even' : 'odd'} " style="cursor: pointer;"
+        <tr id="tr${questionInstance.id}" class="selectable_tr ${(i % 2) == 0 ? 'even' : 'odd'} " style="cursor: pointer;"
             data-id="${fieldValue(bean: questionInstance, field: "id")}"
             data-owner-id="${fieldValue(bean: questionInstance, field: "ownerId")}"
             data-checked="false">
@@ -89,8 +89,7 @@
 
                 <td><i onclick="_edit($(this.closest('tr')))" style="color: #7d8fff; margin-right:10px;"
                        class="fa fa-pencil"
-                       ></i> <i style="color: #7d8fff;" class="fa fa-trash-o"
-                                                                   onclick="_delete($(this.closest('tr')))"></i></td>
+                       ></i></td>
 
 
             </g:if>
@@ -106,10 +105,8 @@
 
                 <td>${fieldValue(bean: questionInstance, field: "author")}</td>
 
-                <td><i style="color: gray; margin-right:10px;" class="fa fa-pencil"></i>  <i style="color: gray;"
-                                                                                             class="fa fa-trash-o"></i>
+                <td><i style="color: gray; margin-right:10px;" class="fa fa-pencil"></i>
                 </td>
-
             </g:else>
         </tr>
     </g:each>
@@ -125,10 +122,14 @@
         </button>
     </div>
 
-    <div class="col s1 offset-s7">
+    <div class="col s1 offset-s6">
         <a data-target="createModal" name="create"
            class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"><i
                 class="material-icons">add</i></a>
+    </div>
+
+    <div class="col s1 m1 l1">
+        <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exluir questão" ><i class="fa fa-trash"></i></a>
     </div>
 
     <div class="col s1">
