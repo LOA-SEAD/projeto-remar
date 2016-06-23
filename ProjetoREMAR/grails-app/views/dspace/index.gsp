@@ -23,14 +23,18 @@ Time: 08:58
                     <div class="col s12">
                         <aside class="nav-breadcrumb">
                             <div class="nav-wrapper">
-                                <a href="." class="first-breadcrumb">Comunidades</a>
-                                %{--<a href="#!" class="breadcrumb">Second</a>--}%
-                                %{--<a href="#!" class="breadcrumb">Third</a>--}%
+                                <a href="." class="first-breadcrumb active">Comunidades</a>
                             </div>
                         </aside>
                         <div class="card-content">
-                            <p>I am a very simple card. I am good at containing small bits of information.
-                            I am convenient because I require little markup to use effectively.</p>
+                            <p>Neste espaço estão disponíveis alguns artefatos customizados por nossos usuários e
+                                usados na criação dos jogos. Tais artefatos encontram-se no Dspace
+                                (<a href="${jspuiUrl}" target="_blank">${jspuiUrl}</a>).
+                                Este espaço faz uma abstração dos artefatos lá encontrados. Eles estão divididos em
+                                comunidades, nomeadas pelo nome de cada jogo, coleções e os items de cada coleção.
+                                O usuário pode baixar o artefato por este espaço e usá-lo, por exemplo, para customizar
+                                um jogo.
+                            </p>
                         </div>
                     </div>
                 </section>

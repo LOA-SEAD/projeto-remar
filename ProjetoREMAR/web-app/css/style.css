@@ -923,7 +923,7 @@ Position must be relative!*/
     font-size: 3.5vmin;
 }
 
-.nav-breadcrumb a[href="."]{
+.breadcrumb.active, .first-breadcrumb.active{
     color: #FF5722 !important;
     font-size: 3.5vmin;
 }

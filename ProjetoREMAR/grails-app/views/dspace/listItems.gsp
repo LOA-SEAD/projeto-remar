@@ -32,10 +32,15 @@ Time: 08:58
                     <aside class="nav-breadcrumb">
                         <div class="nav-wrapper">
                             <a href="/dspace/index.gsp" class="first-breadcrumb">Comunidades</a>
-                            <a href="#!" class="breadcrumb">${communityName}</a>
-                            <a href="javascript:location.reload()" class="breadcrumb">${collectionsName}</a>
+                            <a href="${communityUrl}" class="breadcrumb">${communityName}</a>
+                            <a href="javascript:location.reload()" class="breadcrumb active">${collectionName}</a>
                         </div>
                     </aside>
+                    <div class="card-content">
+                        <p>Abaixo estão listados os items, bem como os artefatos customizados da coleção ${collectionName}.
+                            Para baixar um artefato, clique em visualizar e porteriormente em abrir
+                        </p>
+                    </div>
                 </div>
             </section>
             <section class="row">
@@ -49,29 +54,43 @@ Time: 08:58
                                 </div>
                                 <div class="collapsible-body">
                                     <div class="row">
-                                        <div class="col s12">
-                                           <p><span class="bold">Descrição: </span>
-                                               ${(metadata.getAt(i).find {it.key == 'dc.description' }).value}
-                                           </p>
+                                        <g:if test="${(metadata.getAt(i).find {it.key == 'dc.description' }) != null}">
+                                            <div class="col s12">
+                                                    <p><span class="bold">Descrição: </span>
+                                                    ${(metadata.getAt(i).find {it.key == 'dc.description' }).value}
+                                                </p>
+                                            </div>
+                                        </g:if>
+                                        <div class="col s12 m6">
+                                             <g:if test="${obj.lastModified != null}">
+                                                <p>
+                                                    <span class="bold">Ultima modificação: </span>
+                                                    ${obj.lastModified}
+                                                </p>
+                                             </g:if>
+                                             <g:if test="${(metadata.getAt(i).find {it.key == 'dcterms.license' }) != null}">
+                                                <p>
+                                                    <span class="bold">Licença: </span>
+                                                    ${(metadata.getAt(i).find {it.key == 'dcterms.license' }).value}
+                                                </p>
+                                             </g:if>
                                         </div>
                                         <div class="col s12 m6">
-                                            <p><span class="bold">Ultima modificação: </span>
-                                                ${obj.lastModified}
-                                            </p>
-                                            <p><span class="bold">Licença: </span>
-                                                ${(metadata.getAt(i).find {it.key == 'dcterms.license' }).value}
-                                            </p>
-                                        </div>
-                                        <div class="col s12 m6">
-                                            <p><span class="bold">Autores: </span>
+                                            <g:if test="${(metadata.getAt(i).find {it.key == 'dc.contributor.author' }) != null}">
+                                             <p><span class="bold">Autores: </span>
                                                 ${(metadata.getAt(i).find {it.key == 'dc.contributor.author' }).value}
-                                            </p>
-                                            <p><span class="bold">Citação: </span>
-                                                ${(metadata.getAt(i).find {it.key == 'dc.identifier.citation' }).value}
-                                            </p>
-                                            <p><span class="bold">Editor: </span>
+                                             </p>
+                                            </g:if>
+                                            <g:if test="${(metadata.getAt(i).find {it.key == 'dc.identifier.citation' }) != null}">
+                                             <p><span class="bold">Citação: </span>
+                                                 ${(metadata.getAt(i).find {it.key == 'dc.identifier.citation' }).value}
+                                             </p>
+                                            </g:if>
+                                            <g:if test="${(metadata.getAt(i).find {it.key == 'dc.contributor.author' }) != null}">
+                                              <p><span class="bold">Editor: </span>
                                                 ${(metadata.getAt(i).find {it.key == 'dc.contributor.author' }).value}
-                                            </p>
+                                              </p>
+                                            </g:if>
                                         </div>
                                     </div>
                                     <div class="row">

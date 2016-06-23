@@ -31,11 +31,6 @@ class CategoryController {
             return
         }
 
-        if (category.hasErrors()) {
-            respond category.errors, view:'create'
-            return
-        }
-
         category.save flush:true
 //
 //        request.withFormat {
@@ -64,10 +59,10 @@ class CategoryController {
             return
         }
 
-        if (category.hasErrors()) {
-            respond category.errors, view:'edit'
-            return
-        }
+//        if (category.hasErrors()) {
+//            respond category.errors, view:'edit'
+//            return
+//        }
 
         category.save flush:true
 

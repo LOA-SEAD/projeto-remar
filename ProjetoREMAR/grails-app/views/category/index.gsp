@@ -46,7 +46,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+	</div>
 		<!-- Modal Structure create -->
 		<div id="create" class="modal">
 			<div class="modal-content">

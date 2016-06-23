@@ -16,7 +16,7 @@
             <p><span class="bold">Tamanho: </span>${bitstream.sizeBytes} KB</p>
         </div>
         <div class="col s12 m12 l12 right-align">
-            <a href="${restUrl}${bitstream.retrieveLink}" target="_blank" class="waves-effect waves-light btn my-orange">Visualizar/Abrir</a>
+            <a href="${restUrl}${bitstream.retrieveLink}" target="_blank" class="waves-effect waves-light btn my-orange">Abrir</a>
         </div>
     </div>
 </div>

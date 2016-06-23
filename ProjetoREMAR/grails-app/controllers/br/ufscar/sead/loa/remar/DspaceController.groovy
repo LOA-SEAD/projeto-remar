@@ -54,7 +54,8 @@ class DspaceController {
         render view: 'index', model:[
                 communities:communities,
                 subCommunities:subCommunities,
-                restUrl: restUrl
+                restUrl: restUrl,
+                jspuiUrl: grailsApplication.config.dspace.jspuiUrl
         ]
     }
 
@@ -90,8 +91,11 @@ class DspaceController {
         def rest =  l.restBuilder
         def items, metadata, bitstreams
         def resp
+        def oldUrl = "/dspace/listCollections/${params.old}?names=${params.names.getAt(0)}"
 
-        println(request.getRequestURL())
+        println(params)
+        println(params.id)
+        println(oldUrl)
 
         resp = rest.get("${restUrl}/collections/${params.id}/items?expand=all")
         items = resp.json
@@ -101,13 +105,13 @@ class DspaceController {
         logout(token,rest)
 
         render view: 'listItems', model:[
-                items: items,
-                metadata: metadata,
-                bitstreams: bitstreams,
-                communityName: params.names.getAt(0),
-                collectionsName: params.names.getAt(1),
-                restUrl: restUrl
-        ]
+                                            items: items,
+                                            metadata: metadata,
+                                            bitstreams: bitstreams,
+                                            communityName: params.names.getAt(0),
+                                            collectionName: params.names.getAt(1),
+                                            restUrl: restUrl,
+                                            communityUrl: oldUrl ]
     }
 
     def bitstream(){
