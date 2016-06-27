@@ -302,6 +302,7 @@ footer.page-footer{
 
             .remar-max-size {
                 width: 992px;
+                flex: 1 0 auto;
 
             }
 
@@ -331,6 +332,7 @@ footer.page-footer{
             @media only screen and (max-width: 992px) {
                 .remar-max-size {
                     width: 100%;
+                    flex: 1 0 auto;
                 }
 
                 .small-logo {

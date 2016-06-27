@@ -35,7 +35,7 @@ Time: 08:58
                         </div>
                     </aside>
                     <div class="card-content">
-                        <p>Abaixo estão listados as coleções da comunidades ${communityName}.
+                        <p>Abaixo estão listados as coleções da comunidade ${communityName}.
                         </p>
                     </div>
                 </div>

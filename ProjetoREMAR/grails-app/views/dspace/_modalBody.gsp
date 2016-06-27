@@ -7,7 +7,6 @@
             <div class="col s12 m6 l6 center-align">
                 <img src="${restUrl}${bitstream.retrieveLink}" title="${bitstream.name}" class="responsive-img"/>
             </div>
-
         </g:if>
         <div class="col s12 m6 l6 left-align">
             <p><span class="bold">Nome: </span>${bitstream.name}</p>
