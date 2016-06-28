@@ -77,6 +77,13 @@ function submit(){
                 $("#totalQuestion").append("<div> <p> Você deve selecionar no mínimo "+ randomQuestion + " questão de cada nível. Utilize a aba \"Escolher Questões\" para concluir essa ação.</p> </div>");
             }
 
+            if(questions_level1==1) {
+                $("#totalQuestion").append("<div> <p> Questões nível 1: " + questions_level1 + " selecionada. </p> </div>");
+            }
+            else {
+                $("#totalQuestion").append("<div> <p> Questões nível 1: " + questions_level1 + " selecionadas. </p> </div>");
+            }
+
             if(questions_level2==1) {
                 $("#totalQuestion").append("<div> <p> Questões nível 2: " + questions_level2 + " selecionada. </p> </div>");
             }
@@ -91,12 +98,6 @@ function submit(){
                 $("#totalQuestion").append("<div> <p> Questões nível 3: " + questions_level3 + " selecionadas. </p> </div>");
             }
 
-            if(questions_level1==1) {
-                $("#totalQuestion").append("<div> <p> Questões nível 1: " + questions_level1 + " selecionada. </p> </div>");
-            }
-            else {
-                $("#totalQuestion").append("<div> <p> Questões nível 1: " + questions_level1 + " selecionadas. </p> </div>");
-            }
             $('#infoModal').openModal();
 
         }

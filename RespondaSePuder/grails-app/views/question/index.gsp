@@ -278,13 +278,13 @@
 
                 <div class="row">
                     <div class="col s2 offset-s3">
-                        <input type="radio" id="level1" name="level" value="1" />
+                        <input required type="radio" id="level1" name="level" value="1" />
                         <label for="level1">Nível 1</label>
 
                     </div>
 
                     <div class="col s2">
-                        <input type="radio" id="level2" name="level" value="2" />
+                        <input required type="radio" id="level2" name="level" value="2" />
                         <label for="level2">Nível 2</label>
                     </div>
 
@@ -293,7 +293,7 @@
 
 
                     <div class="col s2">
-                        <input type="radio" id="level3" name="level" value="3" />
+                        <input required type="radio" id="level3" name="level" value="3" />
                         <label for="level3">Nível 3</label>
                     </div>
                 </div>
