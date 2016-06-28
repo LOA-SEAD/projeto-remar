@@ -3,8 +3,6 @@ dataSource {
     jmxExport = true
     driverClassName = "com.mysql.jdbc.Driver"
     dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
-    username = "escolamagica"
-    password = "escolamagica"
 }
 
 dataSource_remar {
@@ -12,8 +10,6 @@ dataSource_remar {
     jmxExport = true
     driverClassName = "com.mysql.jdbc.Driver"
     dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
-    username = "escolamagica"
-    password = "escolamagica"
 }
 
 // environment specific settings

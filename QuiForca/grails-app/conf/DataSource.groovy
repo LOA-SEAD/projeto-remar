@@ -1,10 +1,10 @@
+import grails.util.Holders
+
 dataSource {
     pooled = true
     jmxExport = true
     driverClassName = "com.mysql.jdbc.Driver"
     dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
-    username = "forca"
-    password = "forca"
 }
 
 dataSource_remar {
@@ -12,8 +12,6 @@ dataSource_remar {
     jmxExport = true
     driverClassName = "com.mysql.jdbc.Driver"
     dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
-    username = "forca"
-    password = "forca"
 }
 
 // environment specific settings
