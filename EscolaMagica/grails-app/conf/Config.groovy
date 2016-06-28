@@ -13,8 +13,6 @@
 
 import org.apache.log4j.DailyRollingFileAppender
 
-grails.config.locations = ["classpath:remar.properties"]
-
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 
 // The ACCEPT header will not be used for content negotiation for user agents containing the following strings (defaults to the 4 major rendering engines)
@@ -94,13 +92,31 @@ logout.afterLogoutUrl = "/"
 
 environments {
     development {
+        // in development, we can use the same credential/api keys that REMAR uses
+        def path = new File('.').absoluteFile.parentFile // app root folder
+        def file = "${path.parent}/ProjetoREMAR/grails-app/conf/env.properties"
+
+        def remarProperties = new Properties()
+        remarProperties.load(new FileInputStream(file))
+
+        def properties = new Properties()
+        for (key in ['dataSource', 'dataSource_remar']) {
+            properties.setProperty("${key}.username", remarProperties.getProperty('dataSource.username'))
+            properties.setProperty("${key}.password", remarProperties.getProperty('dataSource.password'))
+        }
+
+        file = new FileOutputStream("${path}/grails-app/conf/env.properties")
+
+        properties.store(file, 'auto generated from REMAR\'s env.properties')
+        file.close()
+
+        grails.config.locations = ["classpath:env.properties"]
+
         grails.logging.jul.usebridge = true
-//        grails.serverURL = "http://localhost:8080/escolamagica"
         grails.app.context = "/escolamagica"
     }
     production {
         grails.logging.jul.usebridge = false
-//        grails.serverURL = "http://localhost:8080/escolamagica"
         grails.app.context = "/escolamagica"
     }
 }
