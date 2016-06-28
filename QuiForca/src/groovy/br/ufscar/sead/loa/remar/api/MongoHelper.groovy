@@ -1,21 +1,26 @@
 package br.ufscar.sead.loa.remar.api
 
 import com.mongodb.MongoClient
+import com.mongodb.MongoClientOptions
+import com.mongodb.MongoCredential
+import com.mongodb.ServerAddress
 import com.mongodb.client.MongoDatabase
+import grails.util.Holders
 import org.bson.Document
 import org.bson.types.ObjectId
 
-/**
- * Created by matheus on 3/2/16.
- * https://github.com/matheuss
- */
 class MongoHelper {
     static boolean inited
     static MongoDatabase db
 
     static String putFile(String path) {
         if (!inited) {
-            db = new MongoClient().getDatabase('remar')
+            def dataSource = Holders.grailsApplication.config.dataSource as Map
+            def credential = MongoCredential.createCredential(dataSource.username as String,
+                    'remar', dataSource.password as char[])
+            def options = MongoClientOptions.builder().serverSelectionTimeout(1000).build()
+
+            db = new MongoClient(new ServerAddress(), Arrays.asList(credential), options).getDatabase('remar')
         }
         ObjectId id = new ObjectId()
         db.getCollection('file').insertOne(
