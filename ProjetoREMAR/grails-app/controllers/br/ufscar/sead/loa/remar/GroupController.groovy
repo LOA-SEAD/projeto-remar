@@ -59,6 +59,17 @@ class GroupController {
 
     }
 
+    def edit(){
+        def group = Group.findById(params.groupId)
+        if(group.owner.id == session.user.id) {
+            group.setName(params.newName);
+            group.save flush: true
+
+            render status: 200, text: "Nome atualizado!"
+        }else
+            render status: 403
+    }
+
     def leaveGroup(){
         User user = session.user
         def group = Group.findById(params.id)
