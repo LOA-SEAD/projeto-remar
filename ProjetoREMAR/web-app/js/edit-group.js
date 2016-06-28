@@ -7,7 +7,6 @@ $(window).load(function(){
         replaceTitle(this);
     });
     $(document).on("click","a#confirm-edit",function(){
-        console.log("confirm");
         editName(this);
     });
 
@@ -36,11 +35,14 @@ $(window).load(function(){
 
     function placeInput(_this){
         var input = document.createElement("input");
+        var form = document.createElement("form");
+        form.id = "edit-name-form";
         input.id = "group-name-input";
         input.type = "text";
         input.name = "groupName";
         input.value = $("#group-name").html();
         $(input).addClass("left-align col s6 l8");
+        $(form).append(input);
 
         var confirmButton = document.createElement("a");
         confirmButton.id = "confirm-edit";
@@ -56,7 +58,7 @@ $(window).load(function(){
         $(cancelButton).css({"position":"relative","left":"0.4em","top":"-0.205em","color":"red","cursor":"pointer"});
         $(cancelButton).append(cancelIcon);
 
-        $($(_this).parent().children()[0]).replaceWith(input);
+        $($(_this).parent().children()[0]).replaceWith(form);
         $($(_this).parent()).append(cancelButton);
         $($(_this).parent()).append(confirmButton);
 
@@ -83,22 +85,28 @@ $(window).load(function(){
 
     function editName(_this){
         var groupId = $("input[name='groupid']").val();
+        var currentName = $("#edit-group").attr("data-name");
         var newName = $("#group-name-input").val();
-        $.ajax({
-           type: "POST",
-            url: "/group/edit",
-            data:{ groupId: groupId, newName: newName},
-            success: function(data){
+        if(newName != currentName && newName != "") {
+            $.ajax({
+                type: "POST",
+                url: "/group/edit",
+                data: {groupId: groupId, newName: newName},
+                success: function (data) {
 
-            }, statusCode: {
-                200: function (response) {
-                    $("#edit-group").attr("data-name",newName);
-                    replaceTitle(_this);
-                    Materialize.toast(response, 3000, "rounded");
+                }, statusCode: {
+                    200: function (response) {
+                        $("#edit-group").attr("data-name", newName);
+                        replaceTitle(_this);
+                        Materialize.toast(response, 3000, "rounded");
 
+                    }
                 }
-            }
-        });
+            });
+        }else{
+            replaceTitle(_this);
+            Materialize.toast("Nome não alterado", 3000, "rounded");
+        }
     }
 
 
