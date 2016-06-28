@@ -1,5 +1,3 @@
-import grails.util.Holders
-
 dataSource {
     pooled = true
     jmxExport = true
