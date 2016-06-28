@@ -27,14 +27,14 @@
             </g:if>
                 <g:else>
                         <g:each var="group" in="${groupsIOwn}">
-                            <a href="/group/show/${group.id}">
+                            <a href="/group/show/${group.id}" style="color: black;">
                                 <div class="col l3 s6 m3 offset-s3">
                                     <div style="padding-bottom: 8.0em;" class="card white hoverable">
                                         <div class="card-image">
                                             %{--TODO--}%
                                         </div>
                                         <div style="top: 3.2em; position: relative;" class="card-content">
-                                            <p>${group.name}</p>
+                                            <span class="truncate">${group.name}</span>
                                         </div>
 
                                     </div>

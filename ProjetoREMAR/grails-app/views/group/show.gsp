@@ -14,10 +14,14 @@
 <body>
     <div class="row">
         <div class="col l4 s6 m5">
-          <h5 class="left-align trucate">${group.name}  <g:if test="${group.owner.id == session.user.id}"> <a href="/group/delete/${group.id}" data-position="right" data-tooltip="Deletar grupo" class="tooltipped" style="color: black"><i style="position:relative; top: 0.145em;" class="material-icons">delete</i></a> </g:if>
-              <g:else><a class="tooltipped" data-tooltip="Sair do grupo" style=" color: black;" href="/group/leave-group/${group.id}"><i class="fa fa-sign-out fa-1x" aria-hidden="true"></i></a></g:else><br>
+          <h5 class="left-align"><span class="truncate" id="group-name">${group.name}</span>
               <g:if test="${group.owner.id == session.user.id}">
-                  <span style="font-size: 0.6em;" class="left-align">Senha de acesso: ${group.token}</span><br>
+                  <a id="edit-group" data-name="${group.name}" data-position="right" data-tooltip="Editar grupo" class="tooltipped" style="color: black"><i style="position:relative; top: 0.145em; cursor: pointer;" class="material-icons">edit</i></a>
+                  <a id="delete-group" href="/group/delete/${group.id}" data-position="right" data-tooltip="Deletar grupo" class="tooltipped" style="color: black"><i style="position:relative; top: 0.145em;" class="material-icons">delete</i></a>
+              </g:if>
+              <g:else><a class="tooltipped" data-tooltip="Sair do grupo" style=" color: black;" href="/group/leave-group/${group.id}"><i class="fa fa-sign-out fa-1x" aria-hidden="true"></i></a></g:else>
+              <g:if test="${group.owner.id == session.user.id}">
+                  <span style="font-size: 0.6em;" class="left">Senha de acesso: ${group.token}</span><br>
               </g:if>
           </h5>
         </div>
@@ -187,6 +191,7 @@
 <g:javascript src="delete-group-resources.js" />
 <g:javascript src="manage-user-group.js" />
 <g:javascript src="tooltip.js" />
+<g:javascript src="edit-group.js" />
 
 <script>
 
