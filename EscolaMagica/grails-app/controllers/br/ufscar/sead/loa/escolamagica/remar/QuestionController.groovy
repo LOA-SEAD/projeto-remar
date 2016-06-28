@@ -13,7 +13,7 @@ class QuestionController {
 
     def springSecurityService
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "GET" ]
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE" ]
 
     def index(Integer max) {
         if (params.t) {

@@ -169,24 +169,13 @@ function _edit(tr){
                 $("#editAnswers3").attr("value",questionInstance[5]);
                 $("#editHint").attr("value",questionInstance[7]);
                 $("#questionID").attr("value",questionInstance[8]);
-
-
                 $("#editModal").openModal();
-
-
-
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 console.log("Error, não retornou a instância");
             }
         }
     );
-
-
-
-
-
-
 }
 
 function _delete() {

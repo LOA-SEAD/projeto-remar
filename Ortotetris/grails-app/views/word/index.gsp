@@ -64,6 +64,10 @@
                                 <td>Botão para criar nova palavra</td>
                             </tr>
                             <tr>
+                                <td><a class="btn-floating btn-large waves-effect waves-light my-orange"><i class="material-icons">delete</i></a></td>
+                                <td>Excluir palavra</td>
+                            </tr>
+                            <tr>
                                 <td><a class="btn-floating btn-large waves-effect waves-light my-orange"><i class="material-icons">file_upload</i></a></td>
                                 <td>Botão para enviar arquivo .csv</td>
                             </tr>
@@ -74,10 +78,6 @@
                         <tr>
                             <td><i class="material-icons">games</i></td>
                             <td>Customizar palavra. O botão de customizar palavra abre uma janela na qual é possível movimentar a palavra e esconder ou exibir letras</td>
-                        </tr>
-                        <tr>
-                            <td><i class="material-icons">delete</i></td>
-                            <td>Excluir palavra</td>
                         </tr>
                         <tr>
                             <td><a class='btn myButton4'> <div style="margin-top: 20px;" class="arrowleft"></div></a></td>
@@ -146,10 +146,13 @@
                     </button>
                 </div>
 
-                <div class="col s1 m1 l1 offset-s5 offset-m8 offset-l8">
+                <div class="col s1 m1 l1 offset-s3 offset-m7 offset-l7">
                     <a name="create" onclick="openModal('createModal')"
                        class="btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Criar nova palavra"><i
                             class="material-icons">add</i></a>
+                </div>
+                <div class="col s1 offset-s1 m1 l1">
+                            <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exluir questão" ><i class="material-icons">delete</i></a>
                 </div>
                 <div class="col s1 offset-s1 m1 l1">
                     <a onclick="openModal('uploadModal')" class="btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Upload de arquivo .csv"><i
