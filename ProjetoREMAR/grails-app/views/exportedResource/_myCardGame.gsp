@@ -15,7 +15,7 @@
                                 <span style="font-size: 1.3em" class="card-title grey-text text-darken-4 activator truncate" data-category="${instance.resource.category.id}" title="${instance.name}">${instance.name}</span>
                                 <div class="divider"></div>
                                 <span style="color: dimgrey; font-size: 0.9em" class="center">${instance.resource.category.name}</span>
-                                <span style="color: dimgrey; font-size: 0.9em" class="center truncate">Feito por: ${instance.resource.owner.username}</span>
+                                <span style="color: dimgrey; font-size: 0.9em" class="center truncate">Feito por: ${instance.owner.username}</span>
                                 <span style="color: dimgrey;" class="center">
                                     <i class="fa fa-globe"></i>
                                     <g:if test="${instance.resource.android}">

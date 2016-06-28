@@ -17,7 +17,7 @@
 <div class="row">
     <div class="cluster-header">
         <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom">
-            <i class="small material-icons left">videogame_asset</i>Jogos publicados
+            <i class="small material-icons left">videogame_asset</i>Banco de Jogos
         </p>
 
         <div class="divider"></div>
@@ -43,7 +43,7 @@
     </div>
 
 
-    <div style="position:relative; left: 1.2em" class="row ">
+    <div style="position:relative; left: 1.2em" id="showCards" class="row ">
         <g:render template="cardGames" model="${pageScope.variables}" />
     </div>
 </div>
@@ -53,6 +53,7 @@
         $('.modal-trigger').leanModal();
     });
 </script>
+<g:javascript src="add-resource-to-group.js"/>
 <g:javascript src="menu.js"/>
 <g:javascript src="utility/utility-public-game.js"/>
 </body>

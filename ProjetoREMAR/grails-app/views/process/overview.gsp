@@ -62,6 +62,19 @@
                                     <span id="name-error" class="invalid-input" style="left: 0.75rem">Já existe um jogo com esse nome!</span>
                                 </div>
                             </div>
+                            <div id="row-content-area" class="row hide">
+                                <div class=" input-field s12 m12 l12">
+                                    <input id="content-area" type="text" name="contentArea" ><label class="active" for="content-area" >Área de conteúdo</label>
+                                    <span id="content-area-error" class="invalid-input" style="left: 0.75rem">Este campo é obrigatório!</span>
+
+                                </div>
+                            </div>
+                            <div id="row-specific-content" class="row hide">
+                                <div class=" input-field col s12 m12 l12">
+                                    <input id="specific-content" name="specificContent" type="text" ><label class="active" for="specific-content">Conteúdo específico</label>
+                                    <span id="specific-content-error" class="invalid-input" style="left: 0.75rem">Este campo é obrigatório!</span>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col s2 img-preview">
                                     <img id="img1Preview" class="materialboxed my-orange" width="100" height="100" src="/data/processes/${process.id}/banner.png?${new java.util.Date()}" />
@@ -80,6 +93,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="right">
                                 <a href="#!" class="waves-effect waves-light btn-flat send" id="send" name="send" >
                                     Enviar

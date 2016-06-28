@@ -108,6 +108,10 @@ $(function(){
     $(nameErr).hide();
     $(descErr).hide();
     $("#documentation-error").hide();
+    $("#customizableItems-error").hide();
+    $("#customizableItems").prev().hide();
+
+
 
     //console.log($(name).val());
     if($(name).val() != null && $(name).val() != ""){

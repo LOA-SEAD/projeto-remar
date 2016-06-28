@@ -16,6 +16,8 @@ window.onload = function(){
         });
     });
 
+    orderTable();
+
 };
 
 
@@ -69,14 +71,32 @@ function submit(){
 
             $('#totalQuestion').empty();
             if(randomQuestion>1){
-                $("#totalQuestion").append("<div> <p> Você deve selecionar no mínimo "+ randomQuestion + " questões de cada nível. </p> </div>");
+                $("#totalQuestion").append("<div> <p> Você deve selecionar no mínimo "+ randomQuestion + " questões de cada nível. Utilize a aba \"Escolher Questões\" para concluir essa ação. </p> </div>");
             }
             else{
-                $("#totalQuestion").append("<div> <p> Você deve selecionar no mínimo "+ randomQuestion + " questão de cada nível. </p> </div>");
+                $("#totalQuestion").append("<div> <p> Você deve selecionar no mínimo "+ randomQuestion + " questão de cada nível. Utilize a aba \"Escolher Questões\" para concluir essa ação.</p> </div>");
             }
-            $("#totalQuestion").append("<div> <p> Questões nível 1: " + questions_level1 +" . </p> </div>");
-            $("#totalQuestion").append("<div> <p> Questões nível 2: " + questions_level2 +" . </p> </div>");
-            $("#totalQuestion").append("<div> <p> Questões nível 3: " + questions_level3 +" . </p> </div>");
+
+            if(questions_level2==1) {
+                $("#totalQuestion").append("<div> <p> Questões nível 2: " + questions_level2 + " selecionada. </p> </div>");
+            }
+            else {
+                $("#totalQuestion").append("<div> <p> Questões nível 2: " + questions_level2 + " selecionadas. </p> </div>");
+            }
+
+            if(questions_level3==1) {
+                $("#totalQuestion").append("<div> <p> Questões nível 3: " + questions_level3 + " selecionada. </p> </div>");
+            }
+            else {
+                $("#totalQuestion").append("<div> <p> Questões nível 3: " + questions_level3 + " selecionadas. </p> </div>");
+            }
+
+            if(questions_level1==1) {
+                $("#totalQuestion").append("<div> <p> Questões nível 1: " + questions_level1 + " selecionada. </p> </div>");
+            }
+            else {
+                $("#totalQuestion").append("<div> <p> Questões nível 1: " + questions_level1 + " selecionadas. </p> </div>");
+            }
             $('#infoModal').openModal();
 
         }
@@ -258,4 +278,22 @@ function exportQuestions(){
         });
     }
 
+}
+
+function orderTable(){
+    var table = $("#levelLabel").parents('table').eq(0)
+    var rows = table.find('tr:gt(0)').toArray().sort(compare($("#levelLabel").index()))
+    $("#levelLabel").asc = !$("#levelLabel").asc
+    if ($("#levelLabel").asc){rows = rows.reverse()}
+    for (var i = 0; i < rows.length; i++){table.append(rows[i])}
+
+    function compare(index){
+        return function(a, b) {
+            var valA = getCellValue(a, index), valB = getCellValue(b, index)
+            return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB)
+        }
+    }
+    function getCellValue(row, index){
+        return $(row).children('td').eq(index).html()
+    }
 }

@@ -12,7 +12,7 @@
 
     <div class="row" id="form">
         <div class="col s12">
-            <h4> Upload de Imagens</h4>
+            <h4>Forca - Tema - Upload de Imagens</h4>
         </div>
     </div>
 

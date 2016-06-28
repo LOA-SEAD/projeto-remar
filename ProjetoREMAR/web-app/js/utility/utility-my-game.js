@@ -26,7 +26,7 @@ $(function(){
             success: function (response) {
 
                 $(".cardGames").remove();
-                $(".show.cards.game").append(response);
+                $("#showCards").append(response);
 
                 $(".next-page").each(function() {
                     $(this).on("click",listerNextPage)
@@ -56,7 +56,7 @@ $(function(){
             success: function (response) {
 
                 $(".cardProcess").remove();
-                $(".show.cards.processes").append(response);
+                $("#showCardsProcess").append(response);
 
                 $(".tab-next-page").each(function() {
                     $(this).on("click",listerTabNextPage);
@@ -89,7 +89,8 @@ $(function(){
             success: function (response) {
 
                 $(".cardGames").remove();
-                $(".show.cards.game").append(response);
+                console.log(response);
+                $("#showCards").append(response);
 
                 $(".next-page").each(function() {
                     $(this).on("click",listerNextPage)
@@ -123,7 +124,7 @@ $(function(){
             contentType: false,
             success: function (response) {
                 $(".cardGames").remove();
-                $(".show.cards.game").append(response);
+                $("#showCards").append(response);
 
                 $(".next-page").each(function() {
                     $(this).on("click",listerNextPage)
@@ -157,7 +158,7 @@ $(function(){
             contentType: false,
             success: function (response) {
                 $(".cardProcesses").remove();
-                $(".show.cards.processes").append(response);
+                $("#showCardsProcess").append(response);
 
                 $(".tab-next-page").each(function() {
                     $(this).on("click",listerTabNextPage)
