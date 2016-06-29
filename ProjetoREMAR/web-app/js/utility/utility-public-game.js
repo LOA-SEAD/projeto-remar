@@ -12,14 +12,16 @@ $(function(){
     $(select).material_select();
 
     $("#search").on("keyup",function(){
+        var catSelected = $(select).val();
         var formData = new FormData();
-        formData.append('typeSearch','name');
         formData.append('text', $(this).val());
+        formData.append('category', catSelected);
+
 
         console.log($(this).val());
 
         $.ajax({
-            url: "/exported-resource/searchGame",
+            url: "/exported-resource/searchGameByCategoryAndName",
             type: 'POST',
             data: formData,
             processData: false,
@@ -46,13 +48,14 @@ $(function(){
         $("#search").val("");
 
         var formData = new FormData();
-        formData.append('typeSearch','category');
-        formData.append('text', catSelected);
+        formData.append('category', catSelected);
+        formData.append('text', "");
+
 
         console.log($(this).val());
 
         $.ajax({
-            url: "/exported-resource/searchGame",
+            url: "/exported-resource/searchGameByCategoryAndName",
             type: 'POST',
             data: formData,
             processData: false,
