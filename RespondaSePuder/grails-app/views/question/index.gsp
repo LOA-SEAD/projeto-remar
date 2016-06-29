@@ -22,8 +22,8 @@
 <div class="row">
     <div class="col s12">
         <ul class="tabs">
-            <li class="tab col s6 active"><a href="#chooseQuestion">Escolher Questões</a></li>
             <li class="tab col s6"><a href="#defineMaxQuestion">Definir número de questões por nível</a></li>
+            <li class="tab col s6"><a class="active" href="#chooseQuestion">Escolher Questões</a></li>
         </ul>
     </div>
     <div id="chooseQuestion" class="col s12">
@@ -56,7 +56,7 @@
 
             <tbody>
             <g:each in="${questionInstanceList}" status="i" var="questionInstance">
-                <tr class="selectable_tr" style="cursor: pointer;"
+                <tr id="tr${questionInstance.id}" class="selectable_tr" style="cursor: pointer;"
                     data-id="${fieldValue(bean: questionInstance, field: "id")}" data-owner-id="${fieldValue(bean: questionInstance, field: "ownerId")}" data-level="${fieldValue(bean: questionInstance, field: "level")}"
                     data-checked="false">
 
@@ -75,7 +75,8 @@
 
                     <td  >${questionInstance.hint}</td>
 
-                    <td> <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil " onclick="_edit($(this.closest('tr')))" ></i> <i style="color: #7d8fff " class="fa fa-trash-o" onclick="_delete($(this.closest('tr')))" > </i></td>
+                    <td> <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil " onclick="_edit($(this.closest('tr')))" ></i>
+                    </td>
 
                 </tr>
 
@@ -84,8 +85,11 @@
             </tbody>
         </table>
         <div class="row">
-            <div class="col s1 offset-s9">
+            <div class="col s1 offset-s8">
                 <a data-target="createModal" name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"><i class="material-icons">add</i></a>
+            </div>
+            <div class="col s1 m1 l1">
+                <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exluir questão" ><i class="material-icons">delete</i></a>
             </div>
             <div class="col s1">
                 <a data-target="uploadModal" class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped" data-tooltip="Upload arquivo .csv"><i
@@ -274,13 +278,13 @@
 
                 <div class="row">
                     <div class="col s2 offset-s3">
-                        <input type="radio" id="level1" name="level" value="1" />
+                        <input required type="radio" id="level1" name="level" value="1" />
                         <label for="level1">Nível 1</label>
 
                     </div>
 
                     <div class="col s2">
-                        <input type="radio" id="level2" name="level" value="2" />
+                        <input required type="radio" id="level2" name="level" value="2" />
                         <label for="level2">Nível 2</label>
                     </div>
 
@@ -289,7 +293,7 @@
 
 
                     <div class="col s2">
-                        <input type="radio" id="level3" name="level" value="3" />
+                        <input required type="radio" id="level3" name="level" value="3" />
                         <label for="level3">Nível 3</label>
                     </div>
                 </div>

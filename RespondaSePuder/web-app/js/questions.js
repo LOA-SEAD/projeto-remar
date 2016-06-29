@@ -77,6 +77,13 @@ function submit(){
                 $("#totalQuestion").append("<div> <p> Você deve selecionar no mínimo "+ randomQuestion + " questão de cada nível. Utilize a aba \"Escolher Questões\" para concluir essa ação.</p> </div>");
             }
 
+            if(questions_level1==1) {
+                $("#totalQuestion").append("<div> <p> Questões nível 1: " + questions_level1 + " selecionada. </p> </div>");
+            }
+            else {
+                $("#totalQuestion").append("<div> <p> Questões nível 1: " + questions_level1 + " selecionadas. </p> </div>");
+            }
+
             if(questions_level2==1) {
                 $("#totalQuestion").append("<div> <p> Questões nível 2: " + questions_level2 + " selecionada. </p> </div>");
             }
@@ -91,12 +98,6 @@ function submit(){
                 $("#totalQuestion").append("<div> <p> Questões nível 3: " + questions_level3 + " selecionadas. </p> </div>");
             }
 
-            if(questions_level1==1) {
-                $("#totalQuestion").append("<div> <p> Questões nível 1: " + questions_level1 + " selecionada. </p> </div>");
-            }
-            else {
-                $("#totalQuestion").append("<div> <p> Questões nível 1: " + questions_level1 + " selecionadas. </p> </div>");
-            }
             $('#infoModal').openModal();
 
         }
@@ -169,48 +170,73 @@ function _edit(tr){
                 $("#editAnswers3").attr("value",questionInstance[5]);
                 $("#editHint").attr("value",questionInstance[7]);
                 $("#questionID").attr("value",questionInstance[8]);
-
-
                 $("#editModal").openModal();
-
-
-
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 console.log("Error, não retornou a instância");
             }
         }
     );
-
-
-
-
-
-
 }
 
-function _delete(tr) {
-    if(confirm("Você tem certeza que deseja excluir esta questão?")) {
-        var tds = $(tr).find("td");
-        var url = location.origin + '/respondasepuder/question/delete/' + $(tr).attr('data-id');
-        var data = {_method: 'DELETE'};
+function _delete() {
+    var list_id = [];
+    var url;
+    var data;
+    var trID;
 
-        $.ajax({
-                type: 'DELETE',
-                data: data,
-                url: url,
-                success: function (data) {
-                    $(tr).remove();
-                    //uncheck_all();
-                    //window.location.reload();
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                }
+    $.each($("input[type=checkbox]:checked"), function(ignored, el) {
+        var tr = $(el).parents().eq(1);
+        list_id.push($(tr).attr('data-id'));
+    });
+
+    if(list_id.length<=0){
+        alert("Você deve selecionar ao menos uma questão para excluir");
+    }
+    else{
+        if(list_id.length==1){
+            if(confirm("Você tem certeza que deseja deletar essa questão?")){
+                url = location.origin + '/respondasepuder/question/delete/' + list_id[0];
+                data = {_method: 'DELETE'};
+                trID = "#tr"+list_id[0];
+                $.ajax({
+                        type: 'DELETE',
+                        data: data,
+                        url: url,
+                        success: function (data) {
+                            $(trID).remove();
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        }
+                    }
+                );
             }
-        );
+        }
+        else{
+            if(confirm("Você tem certeza que deseja deletar essas questões?")){
+            for(var i=0;i<list_id.length;i++){
+                    url = location.origin + '/respondasepuder/question/delete/' + list_id[i];
+                    data = {_method: 'DELETE'};
+                    trID = "#tr"+list_id[i];
+                    $(trID).remove();
+                $.ajax({
+                            type: 'DELETE',
+                            data: data,
+                            url: url,
+                            success: function (data) {
+                            },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            }
+                        }
+                    );
+                }
+                $(trID).remove();
 
+            }
+        }
 
     }
+
 }
 
 function check_all(){

@@ -22,7 +22,7 @@
         </thead>
         <tbody>
         <g:each in="${wordInstanceList}" status="i" var="wordInstance">
-            <tr class="selectable_tr" style="cursor: pointer;"
+            <tr id="tr${wordInstance.id}" class="selectable_tr" style="cursor: pointer;"
                 data-id="${fieldValue(bean: wordInstance, field: "id")}" data-checked="false">
             <td class="_not_editable"><input style="background-color: #727272" id="checklabel${i}" class="filled-in"
                                              type="checkbox"> <label for="checklabel${i}"></label></td>
@@ -42,7 +42,6 @@
                    onclick="showWordAndModal('${wordInstance.word}', '${wordInstance.answer.toUpperCase()}', ${wordInstance.initial_position}, ${wordInstance.id})">games</i>
                 <i class="material-icons"
                    onclick="EditWord('${wordInstance.answer.toUpperCase()}', ${wordInstance.id})">edit</i>
-                <i class="material-icons" onclick="WordDelete('${wordInstance.id}')">delete</i>
             </td>
             </tr>
         </g:each>
@@ -125,20 +124,6 @@
         var parameters = {"id": id, "new_answer": ans};
         <g:remoteFunction action="editWord" params="parameters" update="TableWordList"/>
     }
-
-    function WordDelete(id) {
-        $('#warningLabel').empty();
-        $("#warningLabel").append("<div class='col s12 m12 l12 center'> <p> Você tem certeza ?  </p> </div>");
-        $("#warningLabel").append("<input id='wordIdDelete' value='" + id + "' type='hidden' name='id'> <label></label>");
-        $('#deleteModal').openModal();
-    }
-
-    function Delete() {
-        var deleteID = document.getElementById("wordIdDelete").value;
-        var parameters = {"id": deleteID};
-        <g:remoteFunction action="WordDelete" params="parameters" update="TableWordList"/>
-    }
-
 </script>
 
 
