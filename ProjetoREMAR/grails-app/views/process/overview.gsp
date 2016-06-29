@@ -63,7 +63,7 @@
                                 </div>
                             </div>
                             <div id="row-content-area" class="row hide">
-                                <div class=" input-field s12 m12 l12">
+                                <div class=" input-field col s12 m12 l12">
                                     <input id="content-area" type="text" name="contentArea" ><label class="active" for="content-area" >Área de conteúdo</label>
                                     <span id="content-area-error" class="invalid-input" style="left: 0.75rem">Este campo é obrigatório!</span>
 
@@ -76,10 +76,10 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col s2 img-preview">
+                                <div class="col s2 m2 l2 img-preview">
                                     <img id="img1Preview" class="materialboxed my-orange" width="100" height="100" src="/data/processes/${process.id}/banner.png?${new java.util.Date()}" />
                                 </div>
-                                <div class="col s10">
+                                <div class="col s8 offset-s2 m10 l10">
                                     <div class="file-field input-field">
                                         %{--<input type="hidden" name="photo" value="${baseUrl}/banner.png" id="srcImage">--}%
                                         <div id="file" class="btn waves-effect waves-light my-orange">
