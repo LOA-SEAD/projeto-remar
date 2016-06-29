@@ -1,5 +1,5 @@
-[submodule "QuiForca/web-app/remar/source"]
-	path = QuiForca/web-app/remar/source
+[submodule "Forca/web-app/remar/source"]
+	path = Forca/web-app/remar/source
 	url = https://github.com/LOA-SEAD/quiforca
 [submodule "MahJong/web-app/remar/source"]
 	path = MahJong/web-app/remar/source
