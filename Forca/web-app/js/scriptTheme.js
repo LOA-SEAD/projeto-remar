@@ -38,7 +38,7 @@ window.onload = function(){
             alert("Você deve selecionar um tema antes de enviar.");
         }
         else{
-            window.top.location.href = "choose/" + id;
+            window.top.location.href = "/forca/theme/choose/" + id;
         }
     });
 
