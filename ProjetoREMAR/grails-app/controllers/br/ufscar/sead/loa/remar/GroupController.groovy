@@ -19,7 +19,6 @@ class GroupController {
     }
 
     def create(){
-        println params
         def groupInstance = new Group()
 
         groupInstance.owner = session.user
@@ -32,6 +31,8 @@ class GroupController {
         }catch(ValidationException e){
             //TODO
         }
+
+        redirect(action: "show", id: groupInstance.id)
 
     }
 
@@ -110,7 +111,6 @@ class GroupController {
                 if(!UserGroup.findByUserAndGroup(User.findById(user.id), group)) {
                     userGroup.group = group
                     userGroup.user = user
-                    println userGroup.admin
                     userGroup.save flush: true
                     redirect(status: 200, action: "show", id: userGroup.groupId)
                 }else
