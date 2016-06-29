@@ -45,11 +45,11 @@ $(function(){
 
     $(select).change(function(){
         var catSelected = $(select).val();
-        $("#search").val("");
+        var text = $("#search").val();
 
         var formData = new FormData();
         formData.append('category', catSelected);
-        formData.append('text', "");
+        formData.append('text', text);
 
 
         console.log($(this).val());
