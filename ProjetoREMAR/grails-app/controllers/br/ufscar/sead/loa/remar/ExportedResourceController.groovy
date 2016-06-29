@@ -469,7 +469,7 @@ class ExportedResourceController {
     }
 
     @SuppressWarnings("GroovyAssignabilityCheck")
-    def searchGame() {
+    def searchGameByCategoryAndName() {
         def model = [:]
 
         User user = session.user
@@ -488,37 +488,27 @@ class ExportedResourceController {
         model.max = params.max
         model.threshold = threshold
 
-        log.debug("type: " + params.typeSearch)
-        log.debug("text: " + params.text)
+        log.debug("category: " + params.category)
 
         model.publicExportedResourcesList = null
 
-        if (params.typeSearch.equals("name")) {
+        if(params.category.equals("-1")){
+            // exibe os jogos de todas as categorias
             model.publicExportedResourcesList = ExportedResource.findAllByTypeAndNameIlike('public', "%${params.text}%", params)
-            maxInstances = ExportedResource.findAllByTypeAndNameIlike('public', "%${params.text}%").size()
+            maxInstances = model.publicExportedResourcesList.size()
+        }
+        else{
+            Category c = Category.findById(params.category)
+            model.publicExportedResourcesList = []
+            maxInstances = 0
 
-        } else {
-            if (params.typeSearch.equals("category")) {
-                // busca pela categoria
+            for (r in Resource.findAllByCategory(c)) {
+                // get all resources belong
+                model.publicExportedResourcesList.addAll(
+                        ExportedResource.findAllByTypeAndResourceAndNameIlike('public', r, "%${params.text}%", params))
 
-                if (params.text.equals("-1")) {
-                    // exibe os jogos de todas as categorias
-                    model.publicExportedResourcesList = ExportedResource.findAllByType('public', params)
-                    maxInstances = ExportedResource.findAllByType('public').size()
-
-                } else {
-                    Category c = Category.findById(params.text)
-                    model.publicExportedResourcesList = []
-                    maxInstances = 0
-
-                    for (r in Resource.findAllByCategory(c)) {
-                        // get all resources belong
-                        model.publicExportedResourcesList.addAll(
-                                ExportedResource.findAllByTypeAndResource('public', r, params))
-                        maxInstances += ExportedResource.findAllByTypeAndResource('public', r).size()
-                    }
-                }
             }
+            maxInstances = model.publicExportedResourcesList.size()
         }
 
         model.pageCount = Math.ceil(maxInstances / params.max) as int
@@ -526,7 +516,7 @@ class ExportedResourceController {
         model.hasNextPage = params.offset + threshold < model.instanceCount
         model.hasPreviousPage = params.offset > 0
 
-        log.debug(model.publicExportedResourcesList.size())
+        log.debug(maxInstances)
 
         render view: "_cardGames", model: model
     }
@@ -577,8 +567,10 @@ class ExportedResourceController {
         render view: "/process/_process", model: model
     }
 
-    def searchMyGame() {
+    @SuppressWarnings("GroovyAssignabilityCheck")
+    def searchMyGames() {
         def model = [:]
+
         User user = session.user
 
         model.myGroups = Group.findAllByOwner(user)
@@ -595,44 +587,27 @@ class ExportedResourceController {
         model.max = params.max
         model.threshold = threshold
 
-        log.debug("type: " + params.typeSearch)
-        log.debug("text: " + params.text)
+        log.debug("category: " + params.category)
 
-        // model.myExportedResourcesList = null
+        model.myExportedResourcesList = null
 
-        if (params.typeSearch.equals("name")) {
-            // busca pelo nome
-            model.myExportedResourcesList =
-                    ExportedResource.findAllByTypeAndNameIlikeAndOwner('public', "%${params.text}%", User.get(session.user.id), params)
+        if(params.category.equals("-1")){
+            // exibe os jogos de todas as categorias
+            model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwnerAndNameIlike('public', user, "%${params.text}%", params)
+            maxInstances = model.myExportedResourcesList.size()
+        }
+        else{
+            Category c = Category.findById(params.category)
+            model.myExportedResourcesList = []
+            maxInstances = 0
 
-            maxInstances = ExportedResource.findAllByTypeAndNameIlikeAndOwner('public', "%${params.text}%", User.get(session.user.id)).size()
+            for (r in Resource.findAllByCategory(c)) {
+                // get all resources belong
+                model.myExportedResourcesList.addAll(
+                        ExportedResource.findAllByTypeAndResourceAndOwnerAndNameIlike('public', r, user, "%${params.text}%", params))
 
-        } else {
-            if (params.typeSearch.equals("category")) {
-                // busca pela categoria
-
-                if (params.text.equals("-1")) {
-                    // exibe os jogos de todas as categorias
-                    model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id), params)
-                    maxInstances = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id)).size()
-
-                } else {
-                    Category c = Category.findById(params.text)
-                    model.myExportedResourcesList = []
-                    maxInstances = 0
-
-                    for (r in Resource.findAllByCategory(c)) {
-                        // get all resources belong
-                        model.myExportedResourcesList.addAll(
-                                ExportedResource.findAllByTypeAndResourceAndOwner('public',
-                                        r,
-                                        User.get(session.user.id),
-                                        params))
-                        maxInstances += ExportedResource.findAllByTypeAndResourceAndOwner('public', r, User.get(session.user.id)).size()
-                    }
-
-                }
             }
+            maxInstances = model.myExportedResourcesList.size()
         }
 
         model.pageCount = Math.ceil(maxInstances / params.max) as int
@@ -640,7 +615,7 @@ class ExportedResourceController {
         model.hasNextPage = params.offset + threshold < model.instanceCount
         model.hasPreviousPage = params.offset > 0
 
-        log.debug(model.myExportedResourcesList.size())
+        log.debug(maxInstances)
 
         render view: "_myCardGame", model: model
     }
