@@ -208,9 +208,10 @@ Time: 09:55
                                     <label style="position:relative; bottom: 2em;" for="groups-${group.id}-instance-${exportedResourceInstance.id}" class="secondary-content"></label>
                                 </li>
                             </g:each>
-                            <li class="collection-header"><h5>Grupos que administro</h5></li>
 
-                            %{--TODO, checkbox nao ta desabilitando aqui--}%
+                            <g:if test="${!groupsIAdmin.empty}">
+                                <li class="collection-header"><h5>Grupos que administro</h5></li>
+                            </g:if>
                             <g:each var="group" in="${groupsIAdmin}">
                                 <li class="collection-item">
                                     <div>
@@ -230,9 +231,12 @@ Time: 09:55
                             </g:each>
                         %{--<input type="hidden" name="exportedresource" value="${instance.id}">--}%
                             <div class="row">
-                                <button data-instance-id="${exportedResourceInstance.id}" style="left:2em; top: 0.8em; position:relative;" class="btn waves-effect waves-light" type="submit" name="action">Compartilhar
-                                    <i class="material-icons">send</i>
-                                </button>
+                                <g:if test="${groupsIAdmin.empty && groupsIOwn.empty}">
+                                    <li class="collection-item"><h5>Nenhum grupo disponível</h5></li>
+                                </g:if>
+                                <g:else>
+                                    <button data-instance-id="${exportedResourceInstance.id}" style="left:2.8em; top: 0.8em; position:relative;" class="btn waves-effect waves-light my-orange" type="submit" name="action">Compartilhar</button>
+                                </g:else>
                             </div>
                         </ul>
                     </div>
