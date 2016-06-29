@@ -14,8 +14,8 @@ Time: 08:58
 <body>
     <div class="row cluster">
         <div class="cluster-header">
-            <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom">
-                <i class="small material-icons left">list</i>Repositório
+            <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom title-page">
+                <i class="medium material-icons left">cloud</i>Repositório
             </p>
             <div class="divider"></div>
             <article class="width-position left-align">
@@ -26,7 +26,7 @@ Time: 08:58
                                 <a href="." class="first-breadcrumb active">Comunidades</a>
                             </div>
                         </aside>
-                        <div class="card-content">
+                        <div class="card-content text-justify">
                             <p>Neste espaço estão disponíveis alguns artefatos customizados por nossos usuários e
                                 usados na criação dos jogos. Tais artefatos encontram-se no Dspace
                                 (<a href="${jspuiUrl}" target="_blank">${jspuiUrl}</a>).

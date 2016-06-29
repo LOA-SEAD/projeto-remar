@@ -5,6 +5,8 @@ import br.ufscar.sead.loa.propeller.domain.ProcessInstance
 import br.ufscar.sead.loa.propeller.domain.TaskInstance
 
 class ProcessController {
+    def grailsApplication
+
     def start() {
         def process
         def ant = new AntBuilder()
@@ -213,6 +215,18 @@ class ProcessController {
     }
 
     def finish() {
+        println(grailsApplication.config.dspace.restUrl)
+
+        if(grailsApplication.config.dspace.restUrl) {
+            redirect uri: "/dspace/overview?id=${params.id}"
+        } else {
+            publishProcess()
+        }
+    }
+
+
+
+    def publishProcess(){
         def exportsTo = [:]
         log.debug("ID DO PROCESSO --->" + params.id)
         def process = Propeller.instance.getProcessInstanceById(params.id, session.user.id as long)

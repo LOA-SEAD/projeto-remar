@@ -36,9 +36,9 @@ Time: 08:58
                             <a href="javascript:location.reload()" class="breadcrumb active">${collectionName}</a>
                         </div>
                     </aside>
-                    <div class="card-content">
-                        <p>Abaixo estão listados os items, bem como os artefatos customizados da coleção ${collectionName}.
-                            Para baixar um artefato, clique em visualizar e porteriormente em abrir
+                    <div class="card-content text-justify">
+                        <p>Abaixo estão listados os items, bem como os artefatos (resultados de customização), da coleção ${collectionName}.
+                            Para baixar um artefato, clique em visualizar e posteriormente em abrir.
                         </p>
                     </div>
                 </div>
@@ -112,7 +112,8 @@ Time: 08:58
                                                         %{--<td class="">${bitstream.description}</td>--}%
                                                         <td class="">${bitstream.format}</td>
                                                         <td>
-                                                            <a href="#!" class="view" data-bitstream-id="${bitstream.id}">
+                                                            <a href="#!" class="view tooltipped" data-bitstream-id="${bitstream.id}"
+                                                               data-position="right" data-delay="50" data-tooltip="Visualizar">
                                                                 <i class="material-icons">visibility</i>
                                                             </a>
                                                         </td>

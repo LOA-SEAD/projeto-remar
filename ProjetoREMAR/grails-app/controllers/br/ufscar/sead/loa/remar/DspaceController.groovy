@@ -1,6 +1,6 @@
 package br.ufscar.sead.loa.remar
 
-import grails.converters.JSON
+import br.ufscar.sead.loa.propeller.Propeller
 import grails.plugin.springsecurity.annotation.Secured
 import grails.plugins.rest.client.RestBuilder
 
@@ -254,5 +254,32 @@ class DspaceController {
     private static getListBitstreams(RestBuilder rest){
         def resp = rest.get("${restUrl}/bitstreams?expand=parent")
         return resp.json
+    }
+
+    def overview(){
+        def process = Propeller.instance.getProcessInstanceById(params.id, session.user.id as long)
+        def tmpFolder = new File("${servletContext.getRealPath("/data/processes/${process.id}")}/tmp")
+        def ant = new AntBuilder()
+        tmpFolder.mkdirs()
+
+        process.completedTasks.each { task ->
+            def taskFolder = new File(tmpFolder,task.id as String)
+            task.outputs.each {output ->
+                ant.copy(
+                        file: output.path,
+                        tofile: "${taskFolder}/${output.definition.name}",
+                        overwrite: true
+                )
+            }
+        }
+
+        render view: "overview", model: [process:process]
+    }
+
+    def updateOutputs() {
+        /*
+        *
+        *
+        * */
     }
 }

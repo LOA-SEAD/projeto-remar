@@ -302,8 +302,6 @@ footer.page-footer{
 
             .remar-max-size {
                 width: 992px;
-                flex: 1 0 auto;
-
             }
 
             .min-height-size {
@@ -950,4 +948,12 @@ Position must be relative!*/
 
 .div-close a{
     font-size: 30px;
+}
+
+.title-page{
+    font-size: 25px;
+}
+
+.text-justify{
+    text-align: justify !important;
 }

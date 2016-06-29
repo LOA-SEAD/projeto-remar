@@ -40,6 +40,8 @@ class UrlMappings {
         "/process/publishOptions/$processId"(controller:"process", action:"publishOptions")
         "/process/finish/$processId"(controller:"process", action:"finish")
 
+//        "/process/outputs/$processId"(controller:"process", action:"publishProcess")
+
         //begin moodle mappings
         "/moodle/confirm/$hash"(controller: "moodle", action: "confirm")
         "/moodle/link/$moodleId"(controller: "moodle", action: "link")
