@@ -29,10 +29,10 @@ if [ -n "$1" ]; then
 		grails war
 		cp_war mahjong
 
-		cd ../QuiForca
+		cd ../Forca
 		rm_war
 		grails war
-		cp_war qiforca
+		cp_war forca
 
 		cd ../RespondaSePuder
 		rm_war
