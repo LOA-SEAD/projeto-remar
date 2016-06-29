@@ -25,8 +25,6 @@ class QuestionController {
         }
         session.user = springSecurityService.currentUser
 
-        println session.user.username
-
         def list = Question.list()
 
         render view: "index", model: [questionInstanceList: list, questionInstanceCount: Question.count(),

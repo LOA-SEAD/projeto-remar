@@ -17,7 +17,7 @@ class MongoHelper {
         if (!inited) {
             def dataSource = Holders.grailsApplication.config.dataSource as Map
             def credential = MongoCredential.createCredential(dataSource.username as String,
-                    'remar', dataSource.password as char[])
+                    'admin', dataSource.password as char[])
             def options = MongoClientOptions.builder().serverSelectionTimeout(1000).build()
 
             db = new MongoClient(new ServerAddress(), Arrays.asList(credential), options).getDatabase('remar')
