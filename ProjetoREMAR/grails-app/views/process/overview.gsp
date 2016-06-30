@@ -152,9 +152,13 @@
                 </li>
                 <!-- Fim 2 Etapa - tarefas -->
             </ul>
-            <a href="#!" data-process-id="${process.id}" id="publish" type="submit" class="btn waves-effect waves-light my-orange right">
-                Publicar
-            </a>
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <a href="#!" data-process-id="${process.id}" id="publish" type="submit" class="btn waves-effect waves-light my-orange right">
+                        Publicar
+                    </a>
+                </div>
+            </div>
         </article>
     </div>
 </div>
