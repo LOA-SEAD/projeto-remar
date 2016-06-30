@@ -344,7 +344,7 @@ class QuestionController {
             port = 8080
         }
 
-        render "http://localhost:${port}/frame/respondasepuder/samples/export/exportQuestions.csv"
+        render "/respondasepuder/samples/export/exportQuestions.csv"
     }
 
 }

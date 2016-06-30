@@ -294,7 +294,7 @@ function exportQuestions(){
             data: { list_id: list_id },
             success: function(returndata) {
                 console.log(returndata);
-                window.open(returndata, '_blank');
+                window.open(location.origin+returndata, '_blank');
             },
             error: function(returndata) {
                 alert("Error:\n" + returndata.responseText);
