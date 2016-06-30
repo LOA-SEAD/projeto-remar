@@ -351,23 +351,14 @@ class ResourceController {
 
         model.gameInstanceList = null
 
-        if(params.typeSearch.equals("name")){ // busca pelo nome
+        if(params.category.equals("-1")){ // busca pelo nome
             model.gameInstanceList = Resource.findAllByStatusAndNameIlike('approved', "%${params.text}%",params)
             maxInstances = Resource.findAllByStatusAndNameIlike('approved', "%${params.text}%").size()
-
-        }else{
-            if(params.typeSearch.equals("category")){// busca pela categoria
-
-                if(params.text.equals("-1")){// exibe os jogos de todas as categorias
-                    model.gameInstanceList = Resource.findAllByStatus('approved',params) // change to #findAllByActive?
-                    maxInstances = Resource.findAllByStatus('approved').size()
-
-                }else{
-                    Category c = Category.findById(params.text)
-                    model.gameInstanceList = Resource.findAllByCategory(c,params)
-                    maxInstances = Resource.findAllByCategory(c).size()
-                }
-            }
+        }
+        else{
+            Category c = Category.findById(params.category)
+            model.gameInstanceList = Resource.findAllByCategoryAndNameIlike(c, "%${params.text}%" ,params)
+            maxInstances = model.gameInstanceList.size()
         }
 
         model.pageCount = Math.ceil(maxInstances / params.max) as int
