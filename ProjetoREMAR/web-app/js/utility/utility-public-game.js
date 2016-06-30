@@ -80,15 +80,18 @@ $(function(){
     $(".next-page").click(listerNextPage);
 
     function listerNextPage(){
+        var catSelected = $(select).val();
+        var text = $("#search").val();
+
         var formData = new FormData();
-        formData.append('typeSearch','name');
-        formData.append('text', $("#search").val());
+        formData.append('category', catSelected);
+        formData.append('text', text);
 
         console.log("max="+$(this).attr("data-max"));
         console.log("offset="+$(this).attr("data-offset"));
 
         $.ajax({
-            url: "/exported-resource/searchGame?max="+$(this).attr("data-max")+"&offset="+$(this).attr("data-offset"),
+            url: "/exported-resource/searchGameByCategoryAndName?max="+$(this).attr("data-max")+"&offset="+$(this).attr("data-offset"),
             type: 'POST',
             data: formData,
             processData: false,
