@@ -9,8 +9,9 @@ class DspaceController {
     def grailsApplication
 
     static allowedMethods = [bitstream: "GET"]
-
     static scope = "prototype"
+
+    def dspaceRestService
 
     static boolean inited;
     static String restUrl;
@@ -31,17 +32,7 @@ class DspaceController {
 
     def index() {
 
-        init()
-
-        def l  = login(email,password)
-        def token = l.token
-        def rest =  l.restBuilder
-        def  communities,subCommunities, collections, items, bitstreams, reports
-        def resp
-
-        //get community remar
-        resp = rest.get("${restUrl}/communities/${mainCommunityId}")
-        communities = resp.json
+        def communities = dspaceRestService.getMainCommunity()
 
         //get sub-communities in remar
         resp = rest.get("${restUrl}/communities/${mainCommunityId}/communities")
