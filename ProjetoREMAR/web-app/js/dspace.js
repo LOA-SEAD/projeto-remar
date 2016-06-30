@@ -5,6 +5,11 @@
 $(document).ready(function(){
 
     var modal = $("#modal");
+    var icon_metadata_done = $('.icon-metadata-done');
+    var icon_metadata_pending = $('.icon-metadata-pending');
+
+    $(icon_metadata_done).hide();
+    $(icon_metadata_pending).hide();
 
     $(".view").on("click",function(){
 
@@ -22,4 +27,18 @@ $(document).ready(function(){
             }
         });
     });
+
+    $("input[type=checkbox]").change(function(){
+        var tr = $(this).parents().eq(2);
+
+        if(this.checked){
+            $(tr).find('.icon-metadata-disabled').hide();
+            $(tr).find(icon_metadata_pending).show();
+        }else{
+            $(tr).find('.icon-metadata-disabled').show();
+            $(tr).find(icon_metadata_pending).hide();
+        }
+    })
+
+
 });

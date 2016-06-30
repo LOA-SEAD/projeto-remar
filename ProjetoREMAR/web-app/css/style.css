@@ -957,3 +957,11 @@ Position must be relative!*/
 .text-justify{
     text-align: justify !important;
 }
+
+.no-margin{
+    margin: 0 !important;
+}
+
+.icon-metadata-done{
+    width: 80px;
+}
