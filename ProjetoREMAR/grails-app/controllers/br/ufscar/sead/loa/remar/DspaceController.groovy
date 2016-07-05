@@ -34,13 +34,7 @@ class DspaceController {
 
         def communities = dspaceRestService.getMainCommunity()
 
-        //get sub-communities in remar
-        resp = rest.get("${restUrl}/communities/${mainCommunityId}/communities")
-        subCommunities = resp.json
-
-        subCommunities = catBitstreamsRetrieveLink(rest, subCommunities)
-
-        logout(token,rest)
+        def subCommunities = dspaceRestService.listSubCommunitiesExpanded()
 
         render view: 'index', model:[
                 communities:communities,

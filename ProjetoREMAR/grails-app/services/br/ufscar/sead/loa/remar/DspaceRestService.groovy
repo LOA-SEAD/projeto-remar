@@ -9,7 +9,7 @@ import java.lang.reflect.Method
 @Transactional
 class DspaceRestService {
 
-    static scope = 'prototype'
+//    static scope = 'prototype'
     def grailsApplication
 
     private boolean initialized;
@@ -25,6 +25,67 @@ class DspaceRestService {
 
     enum HttpMethod{get,post,put,delete}
 
+    boolean getInitialized() {
+        return initialized
+    }
+
+    void setInitialized(boolean initialized) {
+        this.initialized = initialized
+    }
+
+    String getRestUrl() {
+        return restUrl
+    }
+
+    void setRestUrl(String restUrl) {
+        this.restUrl = restUrl
+    }
+
+    String getMainCommunityId() {
+        return mainCommunityId
+    }
+
+    void setMainCommunityId(String mainCommunityId) {
+        this.mainCommunityId = mainCommunityId
+    }
+
+    String getEmail() {
+        return email
+    }
+
+    void setEmail(String email) {
+        this.email = email
+    }
+
+    String getPassword() {
+        return password
+    }
+
+    void setPassword(String password) {
+        this.password = password
+    }
+
+    RestBuilder getRest() {
+        return rest
+    }
+
+    void setRest(RestBuilder rest) {
+        this.rest = rest
+    }
+
+    String getToken() {
+        return token
+    }
+
+    void setToken(String token) {
+        this.token = token
+    }
+
+
+    /**
+     * Inicia as variáveis de controle do dspace baseado com os dados do arquivo env-dspace
+     * Se a inicialização já foi realizada retorna
+     * */
     private void init() {
         if (initialized) {
             return
@@ -63,15 +124,12 @@ class DspaceRestService {
      * @return uma string token
      * */
     def login(String e = null,String p = null) throws RuntimeException{
-
+        init()
         rest = new RestBuilder(connectTimeout:1000, readTimeout:20000)
 
         if(e != null && p != null){
-            init()
             this.email = e
             this.password = password
-        }else{
-            init()
         }
 
         def resp = rest.post("${restUrl}/login"){
@@ -106,7 +164,8 @@ class DspaceRestService {
      * @return json da comunidade principal
      * */
     def getMainCommunity() throws RuntimeException{
-        login()
+        def t = login()
+        println(t)
         def resp = rest.get("${restUrl}/communities/${mainCommunityId}")
         logout()
 
@@ -117,7 +176,7 @@ class DspaceRestService {
      * pesquisa pelas subcomunidades de uma comunidade no dpsace
      * caso nao seja fornecido nenhum valor ao método é pesquisado pela
      * subcomunidades na comunidade pricipal
-     * @return json da comunidade principal
+     * @return json com as subcategorias
      * */
     def listSubCommunities(communityId) throws RuntimeException{
         if(communityId){
@@ -137,13 +196,20 @@ class DspaceRestService {
         }
     }
 
-    def listSubCommunitiesExpanded(communityId) throws RuntimeException{
+    /**
+     * pesquisa pelas subcomunidades de uma comunidade no dpsace fazendo a concatenação da mesma
+     * com o retrieveLink
+     * caso nao seja fornecido nenhum valor ao método é pesquisado pela
+     * subcomunidades na comunidade pricipal
+     * @return json com as subcategorias
+     * */
+    def listSubCommunitiesExpanded(communityId = null) throws RuntimeException{
         if(communityId){
             if(communityId >=0){
                 login()
                 def resp = rest.get("${restUrl}/communities/${communityId}/communities")
                 logout()
-                return resp.json
+                return concatBitstreamsWithRetrieveLink(resp.json)
             }else{
                 throw new RuntimeException("Error in listSubCommunities: communityId has value less than zero")
             }
@@ -151,7 +217,7 @@ class DspaceRestService {
             login()
             def resp = rest.get("${restUrl}/communities/${mainCommunityId}/communities")
             logout()
-            return resp.json
+            return concatBitstreamsWithRetrieveLink(resp.json)
         }
     }
 
