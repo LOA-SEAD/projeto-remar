@@ -6,7 +6,7 @@
             </g:if>
             <g:else>
                 <g:each in="${myExportedResourcesList}" var="instance">
-                <div class="col l3 s5">
+                <div id="card${instance.id}" class="col l3 s5">
                     <div  class="card hoverable">
                         <div class="card-image waves-effect waves-block waves-light">
                             <img alt="${instance.name}" class="activator" src="/published/${instance.processId}/banner.png">
