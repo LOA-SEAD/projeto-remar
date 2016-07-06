@@ -91,7 +91,7 @@ $(document).ready(function(){
 
                     $(".dropdown-button").dropdown();
                     $(".edit-rating").on('click',setListenerEdit);
-                    $(".delete-rating").on('click',setListenerDelete);
+                    //$(".delete-rating").on('click',setListenerDelete);
 
                     $("#not-comment").hide();
                     $("#modal-comment").closeModal();
@@ -120,7 +120,7 @@ $(document).ready(function(){
     //classe nos botões edit e delete rating
     $(".edit-rating").on("click",setListenerEdit);
 
-    $(".delete-rating").on("click",setListenerDelete);
+    //$(".delete-rating").on("click",setListenerDelete);
 
 
     //botão do modal de editar
@@ -175,7 +175,7 @@ $(document).ready(function(){
 
                     $(".dropdown-button").dropdown();
                     $(".edit-rating").on('click',setListenerEdit);
-                    $(".delete-rating").on('click',setListenerDelete);
+                    //$(".delete-rating").on('click',setListenerDelete);
 
                     $("#not-comment").hide();
                     $("#modal-comment").closeModal();
@@ -210,29 +210,29 @@ $(document).ready(function(){
         current_rating = $(this); //set current rating clicked
     }
 
-    function setListenerDelete(){
-        var parent = $(this).parents().eq(2);
-        var idRating = Number(parent.find(".rating-stars").attr("data-rating-id"));
-
-        $.ajax({
-            url: "/resource/deleteRating/" + idRating,
-            type: 'GET',
-            data: null,
-            success: function (response) {
-                parent.remove();
-
-                //set medium stars and amount users of resource
-                var n = Number(response.sumStars) / Number(response.sumUser);
-                $(mainStars).rateYo("option","rating",n);
-                $("#users").text("("+response.sumUser+")");
-
-                Materialize.toast('Comentário excluído!', 3000, 'rounded');
-            },
-            error: function () {
-                alert("error");
-            }
-        });
-    }
+    //function setListenerDelete(){
+    //    var parent = $(this).parents().eq(2);
+    //    var idRating = Number(parent.find(".rating-stars").attr("data-rating-id"));
+    //
+    //    $.ajax({
+    //        url: "/resource/deleteRating/" + idRating,
+    //        type: 'GET',
+    //        data: null,
+    //        success: function (response) {
+    //            parent.remove();
+    //
+    //            //set medium stars and amount users of resource
+    //            var n = Number(response.sumStars) / Number(response.sumUser);
+    //            $(mainStars).rateYo("option","rating",n);
+    //            $("#users").text("("+response.sumUser+")");
+    //
+    //            Materialize.toast('Comentário excluído!', 3000, 'rounded');
+    //        },
+    //        error: function () {
+    //            alert("error");
+    //        }
+    //    });
+    //}
 
 });
 

@@ -113,19 +113,19 @@
 					<ul class="collection rating">
 						<g:if test="${resourceInstance.ratings.size() > 0}">
 							<g:each in="${resourceInstance.ratings.sort{it.date}.reverse()}" var="rating">
-								<li class="collection-item avatar">
+								<li id="rating${rating.id}" class="collection-item avatar">
 									<input type="hidden" name="user-id" value="${rating.user.id}" id="user-id">
 									<img src="/data/users/${rating.user.username}/profile-picture" alt="${rating.user.firstName}" class="circle">
 
 									<g:if test="${rating.user.id == session.user.id}">
 										<ul id='dropdown${rating.id}' class='my-dropdown'>
 											<li>
-												<a href="#!" title="Editar" class="edit-rating" id-rating="${rating.id}">
+												<a title="Editar" onclick="editRating(${rating.id})" class="edit-rating" id-rating="${rating.id}">
 													<i class="fa fa-pencil"></i>
 												</a>
 											</li>
 											<li>
-												<a href="#!" title="Excluir" class="delete-rating" id-rating="${rating.id}">
+												<a title="Excluir" onclick="deleteRating(${rating.id})" class="delete-rating" id-rating="${rating.id}">
 													<i class="fa fa-trash"></i>
 												</a>
 											</li>
@@ -197,9 +197,33 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.js"></script>
+<script>
+	function deleteRating(id){
+		$.ajax({
+			url: "/resource/deleteRating/",
+			type: 'GET',
+			data: {id: id},
+			success: function (response) {
+				$("#rating"+id).remove();
+				//parent.remove();
+				//
+				////set medium stars and amount users of resource
+				//var n = Number(response.sumStars) / Number(response.sumUser);
+				//$(mainStars).rateYo("option","rating",n);
+				//$("#users").text("("+response.sumUser+")");
+				//
+				//Materialize.toast('Comentário excluído!', 3000, 'rounded');
+			},
+			error: function () {
+				alert("error");
+			}
+		});
+	}
+</script>
 <g:javascript src="licenseShow.js"/>
 <g:javascript src="rating.js" />
 <g:javascript src="tooltip.js" />
+
 </body>
 </html>
 

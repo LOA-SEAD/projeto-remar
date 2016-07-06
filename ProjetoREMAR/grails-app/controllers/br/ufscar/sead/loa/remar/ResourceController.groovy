@@ -425,20 +425,29 @@ class ResourceController {
 
     }
 
-    def deleteRating(Rating rating) {
+    @Transactional
+    def deleteRating() {
 
-        def old_stars = rating.getPersistentValue("stars")
+        int id = Integer.parseInt(params.id)
+        Rating rating = Rating.findById(id)
 
-        // retira da soma de estrelas a quantidade de estrelas anterior do rating
-        rating.resource.sumStars -= old_stars
-        rating.resource.sumUser -= 1
+        if(rating!=null){
+            Resource resource = rating.resource
 
-        rating.delete flush: true;
+            // retira da soma de estrelas a quantidade de estrelas anterior do rating
+            resource.sumStars -= rating.stars
+            rating.delete flush: true;
+            resource.sumUser = resource.ratings.size()
+            resource.save flush: true
 
-        render rating.resource as JSON
+            render resource as JSON
+        }
+        else
+            render "null"
+
     }
 
-    def croppicture() {
+    def croppicture(){
         def root = servletContext.getRealPath("/")
         def f = new File("${root}data/tmp")
         f.mkdirs()
