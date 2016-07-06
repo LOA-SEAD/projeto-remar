@@ -198,27 +198,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.js"></script>
 <script>
-	function deleteRating(id){
-		$.ajax({
-			url: "/resource/deleteRating/",
-			type: 'GET',
-			data: {id: id},
-			success: function (response) {
-				$("#rating"+id).remove();
-				//parent.remove();
-				//
-				////set medium stars and amount users of resource
-				//var n = Number(response.sumStars) / Number(response.sumUser);
-				//$(mainStars).rateYo("option","rating",n);
-				//$("#users").text("("+response.sumUser+")");
-				//
-				//Materialize.toast('Comentário excluído!', 3000, 'rounded');
-			},
-			error: function () {
-				alert("error");
-			}
-		});
-	}
+
 </script>
 <g:javascript src="licenseShow.js"/>
 <g:javascript src="rating.js" />
