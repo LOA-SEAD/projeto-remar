@@ -190,8 +190,8 @@
 		</div>
 	</div>
 	<div class="modal-footer">
-		<a id="create-rating" href="#!" class="modal-action waves-effect waves-green btn-flat ">Enviar</a>
-		<a id="edit-rating" href="#!" class="modal-action waves-effect waves-green btn-flat ">Salvar</a>
+		<a id="create-rating" href="#!" class="modal-close waves-effect waves-green btn-flat ">Enviar</a>
+		<a id="edit-rating" href="#!" class="modal-close waves-effect waves-green btn-flat ">Salvar</a>
 	</div>
 </div>
 

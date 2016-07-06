@@ -94,8 +94,8 @@ $(document).ready(function(){
                     //$(".delete-rating").on('click',setListenerDelete);
 
                     $("#not-comment").hide();
-                    $("#modal-comment").closeModal();
                     $(".lean-overlay").remove();
+                    location.reload();
                 },
                 error: function () {
                     alert("error");
@@ -214,7 +214,6 @@ $(document).ready(function(){
 
 function deleteRating(id){
     var parent = $(this).parents().eq(2);
-    var idRating = Number(parent.find(".rating-stars").attr("data-rating-id"));
 
     $.ajax({
         url: "/resource/deleteRating/",
