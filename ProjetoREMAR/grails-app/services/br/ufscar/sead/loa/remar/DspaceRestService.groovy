@@ -4,12 +4,12 @@ import grails.plugins.rest.client.RestBuilder
 import grails.transaction.Transactional
 import org.springframework.http.HttpMethod
 
+import javax.annotation.PostConstruct
 import java.lang.reflect.Method
 
 @Transactional
 class DspaceRestService {
 
-//    static scope = 'prototype'
     def grailsApplication
 
     private boolean initialized;
@@ -19,11 +19,10 @@ class DspaceRestService {
     private String mainCommunityId
     private String email
     private String password
+    private String jspuiUrl
 
     private RestBuilder rest
     private String token
-
-    enum HttpMethod{get,post,put,delete}
 
     boolean getInitialized() {
         return initialized
@@ -65,14 +64,6 @@ class DspaceRestService {
         this.password = password
     }
 
-    RestBuilder getRest() {
-        return rest
-    }
-
-    void setRest(RestBuilder rest) {
-        this.rest = rest
-    }
-
     String getToken() {
         return token
     }
@@ -81,33 +72,42 @@ class DspaceRestService {
         this.token = token
     }
 
+    String getJspuiUrl() {
+        return jspuiUrl
+    }
 
-    /**
-     * Inicia as variáveis de controle do dspace baseado com os dados do arquivo env-dspace
-     * Se a inicialização já foi realizada retorna
-     * */
-    private void init() {
-        if (initialized) {
-            return
-        }
-        restUrl = grailsApplication.config.dspace.restUrl
-        mainCommunityId = grailsApplication.config.dspace.mainCommunityId
-        email = grailsApplication.config.dspace.email
-        password = grailsApplication.config.dspace.password
-        rest = null
-        token = null
-
-        initialized = true
+    void setJspuiUrl(String jspuiUrl) {
+        this.jspuiUrl = jspuiUrl
     }
 
     /**
-     * Procura nos bitstreams, quais são pertencentes ao json (olhando o parentObject e comparando com o id do json)
-     *  , e add o link da imagem no json (cria novo elemento). Geralmente o json será uma comunidade ou uma coleção
+     * Inicia as variáveis de controle do dspace baseado com os dados do arquivo env-dspace toda vez que o objeto é instanciado
+     * Se a inicialização já foi realizada retorna
+     * */
+    @PostConstruct
+    private void init() {
+        if (this.initialized) {
+            return
+        }
+        this.restUrl = grailsApplication.config.dspace.restUrl
+        this.jspuiUrl = grailsApplication.config.dspace.jspuiUrl
+        this.mainCommunityId = grailsApplication.config.dspace.mainCommunityId
+        this.email = grailsApplication.config.dspace.email
+        this.password = grailsApplication.config.dspace.password
+        this.rest = null
+        this.token = null
+
+        this.initialized = true
+    }
+
+    /**
+     * Procura nos bitstreams, quais são pertencentes ao json  (olhando o parentObject e comparando com o id do json)
+     *  e add o link da imagem no json (cria novo elemento chamada retrieveLink). Geralmente o json será uma comunidade ou uma coleção
      * @params objeto restBuilder e json
      * */
     def concatBitstreamsWithRetrieveLink(json){
 
-        def resp = rest.get("${restUrl}/bitstreams?expand=parent")
+        def resp = this.rest.get("${this.restUrl}/bitstreams?expand=parent")
         def bitstreams = resp.json
 
         json.each { sub ->
@@ -124,12 +124,12 @@ class DspaceRestService {
      * @return uma string token
      * */
     def login(String e = null,String p = null) throws RuntimeException{
-        init()
-        rest = new RestBuilder(connectTimeout:1000, readTimeout:20000)
+
+        this.rest = new RestBuilder(connectTimeout:1000, readTimeout:20000)
 
         if(e != null && p != null){
             this.email = e
-            this.password = password
+            this.password = p
         }
 
         def resp = rest.post("${restUrl}/login"){
@@ -139,8 +139,8 @@ class DspaceRestService {
                 password = this.password
             }
         }
-
-        return [token: resp.body.toString()] //return token
+        this.token = resp.body.toString()
+        return [token: token] //return token
     }
 
 
@@ -154,35 +154,50 @@ class DspaceRestService {
                 contentType "application/json"
                 header 'rest-dspace-token', this.token
             }
+            this.token = null
         }else{
             throw new RuntimeException('Error in logout: attribute token is null')
         }
     }
 
     /**
-     * pesquisa pela comunidade principal no dpsace do remar
+     * Pesquisa pela comunidade principal no dpsace do remar
      * @return json da comunidade principal
      * */
     def getMainCommunity() throws RuntimeException{
-        def t = login()
-        println(t)
-        def resp = rest.get("${restUrl}/communities/${mainCommunityId}")
+        login()
+        def resp = rest.get("${this.restUrl}/communities/${this.mainCommunityId}")
         logout()
 
         return resp.json
     }
 
     /**
-     * pesquisa pelas subcomunidades de uma comunidade no dpsace
+     * Pesquisa pela comunidade principal no dpsace do remar
+     * @return json da comunidade principal
+     * */
+    def getBitstream(Integer bitstreamId) throws RuntimeException{
+        if(bitstreamId > 0){
+            login()
+            def resp = rest.get("${this.restUrl}/bitstreams/${bitstreamId.toString()}")
+            logout()
+            return resp.json
+        }else{
+            throw new RuntimeException("Error in getBitstream: bitstreamId has value less than zero")
+        }
+    }
+
+    /**
+     * Pesquisa pelas subcomunidades de uma comunidade no dpsace
      * caso nao seja fornecido nenhum valor ao método é pesquisado pela
-     * subcomunidades na comunidade pricipal
+     * subcomunidades na comunidade pricipal.
      * @return json com as subcategorias
      * */
-    def listSubCommunities(communityId) throws RuntimeException{
+    def listSubCommunities(communityId = null) throws RuntimeException{
         if(communityId){
-            if(communityId >=0){
+            if(Integer.parseInt(communityId.toString()) >=0){
                 login()
-                def resp = rest.get("${restUrl}/communities/${communityId}/communities")
+                def resp = this.rest.get("${this.restUrl}/communities/${communityId}/communities")
                 logout()
                 return resp.json
             }else{
@@ -190,35 +205,79 @@ class DspaceRestService {
             }
         }else{
             login()
-            def resp = rest.get("${restUrl}/communities/${mainCommunityId}/communities")
+            def resp = this.rest.get("${this.restUrl}/communities/${this.mainCommunityId}/communities")
             logout()
             return resp.json
         }
     }
 
     /**
-     * pesquisa pelas subcomunidades de uma comunidade no dpsace fazendo a concatenação da mesma
-     * com o retrieveLink
-     * caso nao seja fornecido nenhum valor ao método é pesquisado pela
-     * subcomunidades na comunidade pricipal
+     * Pesquisa pelas subcomunidades de uma comunidade no dpsace fazendo a concatenação da mesma
+     * com o retrieveLink.
+     * Caso nao seja fornecido nenhum valor ao método é pesquisado pela
+     * subcomunidades na comunidade pricipal.
      * @return json com as subcategorias
      * */
     def listSubCommunitiesExpanded(communityId = null) throws RuntimeException{
         if(communityId){
-            if(communityId >=0){
+            if(Integer.parseInt(communityId.toString()) >=0){
                 login()
-                def resp = rest.get("${restUrl}/communities/${communityId}/communities")
+                def resp = this.rest.get("${this.restUrl}/communities/${communityId}/communities")
                 logout()
                 return concatBitstreamsWithRetrieveLink(resp.json)
             }else{
-                throw new RuntimeException("Error in listSubCommunities: communityId has value less than zero")
+                throw new RuntimeException("Error in listSubCommunitiesExpanded: communityId has value less than zero")
             }
         }else{
             login()
-            def resp = rest.get("${restUrl}/communities/${mainCommunityId}/communities")
+            def resp = this.rest.get("${this.restUrl}/communities/${this.mainCommunityId}/communities")
             logout()
             return concatBitstreamsWithRetrieveLink(resp.json)
         }
     }
 
+
+    /**
+     * Pesquisa pelas coleções de uma comunidade no dpsace fazendo a concatenação da mesma
+     * com o retrieveLink.
+     * Caso nao seja fornecido nenhum valor ao método é pesquisado pelas
+     * coleções da comunidade pricipal.
+     * @return json com as coleções
+     * */
+    def listCollectionsExpanded(communityId = null) throws RuntimeException{
+        if(communityId){
+            if(Integer.parseInt(communityId.toString()) >=0){
+                login()
+                def resp = this.rest.get("${this.restUrl}/communities/${communityId}/collections")
+                logout()
+                return concatBitstreamsWithRetrieveLink(resp.json)
+            }else{
+                throw new RuntimeException("Error in listCollectionsExpanded: communityId has value less than zero")
+            }
+        }else{ //lista as coleções da communityId, caso ela possua
+            login()
+            def resp = this.rest.get("${this.restUrl}/communities/${this.mainCommunityId}/collections")
+            logout()
+            return concatBitstreamsWithRetrieveLink(resp.json)
+        }
+    }
+
+    /**
+     * Pesquisa pelas subcomunidades de uma comunidade no dpsace
+     * caso nao seja fornecido nenhum valor ao método é pesquisado pela
+     * subcomunidades na comunidade pricipal.
+     * @return json com as subcategorias
+     * */
+    def listItems(collectionId) throws RuntimeException{
+        if(collectionId){
+            if(Integer.parseInt(collectionId.toString()) >=0){
+                login()
+                def resp = this.rest.get("${this.restUrl}/collections/${collectionId}/items?expand=all")
+                logout()
+                return resp.json
+            }else{
+                throw new RuntimeException("Error in listItems: collectionId has value less than zero")
+            }
+        }
+    }
 }

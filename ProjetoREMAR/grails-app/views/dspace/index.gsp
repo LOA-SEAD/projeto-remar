@@ -9,7 +9,7 @@ Time: 08:58
 <html>
 <head>
     <meta name="layout" content="materialize-layout">
-    <title>Categorias</title>
+    <title>Repositório</title>
 </head>
 <body>
     <div class="row cluster">
@@ -40,7 +40,6 @@ Time: 08:58
                 </section>
                 <section class="row">
                     <div class="col s12" >
-                        %{--<g:render template="list" model="[objects:subCommunities]" />--}%
                         <ul class="collection">
                             <g:each in="${subCommunities}" var="obj">
                                 <li class="collection-item avatar left-align">

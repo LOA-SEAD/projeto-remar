@@ -32,34 +32,22 @@ class DspaceController {
 
     def index() {
 
-        def communities = dspaceRestService.getMainCommunity()
+        def community = dspaceRestService.getMainCommunity()
 
         def subCommunities = dspaceRestService.listSubCommunitiesExpanded()
 
         render view: 'index', model:[
-                communities:communities,
+                community:community,
                 subCommunities:subCommunities,
-                restUrl: restUrl,
-                jspuiUrl: grailsApplication.config.dspace.jspuiUrl
+                restUrl: dspaceRestService.getRestUrl(),
+                jspuiUrl: dspaceRestService.getJspuiUrl()
         ]
     }
 
     def listCollections(){
         init()
 
-        def l  = login(email,password)
-        def token = l.token
-        def rest =  l.restBuilder
-        def collections
-        def resp
-
-        //def id = searchName(subCommunities,"forca")
-        resp = rest.get("${restUrl}/communities/${params.id}/collections")
-        collections = resp.json
-
-        collections = catBitstreamsRetrieveLink(rest, collections)
-
-        logout(token,rest)
+        def collections = dspaceRestService.listCollectionsExpanded(params.id)
 
         render view: 'listCollections', model:[
                 collections:collections,
@@ -69,25 +57,12 @@ class DspaceController {
     }
 
     def listItems(){
-        init()
-
-        def l  = login(email,password)
-        def token = l.token
-        def rest =  l.restBuilder
         def items, metadata, bitstreams
-        def resp
         def oldUrl = "/dspace/listCollections/${params.old}?names=${params.names.getAt(0)}"
 
-        println(params)
-        println(params.id)
-        println(oldUrl)
-
-        resp = rest.get("${restUrl}/collections/${params.id}/items?expand=all")
-        items = resp.json
+        items = dspaceRestService.listItems(params.id)
         metadata = items.metadata
         bitstreams = items.bitstreams
-
-        logout(token,rest)
 
         render view: 'listItems', model:[
                                             items: items,
@@ -100,18 +75,10 @@ class DspaceController {
     }
 
     def bitstream(){
-        init()
 
-        def l  = login(email,password)
-        def token = l.token
-        def rest =  l.restBuilder
-        def resp
+        def resp = dspaceRestService.getBitstream(Integer.parseInt(params.id.toString()))
 
-        resp = rest.get("${restUrl}/bitstreams/${params.id}")
-
-        logout(token,rest)
-
-        render view: "_modalBody", model: [bitstream: resp.json, restUrl: restUrl]
+        render view: "_modalBody", model: [bitstream: resp, restUrl: dspaceRestService.getRestUrl()]
     }
 
     def create() {
@@ -178,14 +145,6 @@ class DspaceController {
         }
     }
 
-
-    private static searchName(json, name){
-        for (j in json){
-            if(j.name == name)
-                return j.id
-        }
-        return null
-    }
 
     /**
      * Realiza o login no Dspace, necessita ter executado o init() anteriormente
