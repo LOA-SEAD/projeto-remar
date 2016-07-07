@@ -92,8 +92,8 @@ class ExportedResourceController {
     def saveStats(){
         def data = [:]
         data.timestamp = new Date().toTimestamp()
-        data.userId = session.user.id
-        data.exportedResourceId = params.exportedResourceId
+        data.userId = session.user.id as long
+        data.exportedResourceId = params.exportedResourceId as int
         data.points = params.points
         data.errors = params.errors
         data.question = params.question
