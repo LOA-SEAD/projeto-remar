@@ -2,6 +2,8 @@
  * Created by marcus on 11/05/16.
  */
 $(function () {
+    $('.materialboxed').materialbox();
+
     var license = document.getElementById("licenseValue").value;
     var comercial = "cc-by-sa";
     var notComercial = "cc-by-nc-sa";
