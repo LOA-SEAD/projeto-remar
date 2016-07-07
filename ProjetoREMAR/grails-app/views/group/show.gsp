@@ -30,7 +30,6 @@
                     <div class="input-field col l3 offset-l2 m4">
                         <input class="user-input" name="term" id="search-user" type="text" required>
                         <label for="search-user"><i class="fa fa-search"></i></label>
-                        <input type="hidden" value="${group.id}" name="groupid">
                         <input type="hidden" value="" id="user-id" name="userid">
                     </div>
                     <div class="col l3">
@@ -40,8 +39,7 @@
                     </div>
                 </form>
             </g:if>
-
-
+            <input type="hidden" value="${group.id}" name="groupid">
     </div>
 
     <!-- Modal Structure -->
@@ -174,7 +172,7 @@
                                     </a>
                                 </div>
                                 <div class="col l4">
-                                    <a class="" style="cursor: pointer" id="delete-resource-${groupExportedResource.id}" data-resource-id="${groupExportedResource.id}" >
+                                    <a class="show-stats" data-exported-resource-id="${groupExportedResource.exportedResource.id}" style="cursor: pointer" id="delete-resource-${groupExportedResource.id}" data-resource-id="${groupExportedResource.id}" >
                                         <i class="fa fa-bar-chart fa-2x" style="color: #FF5722;"></i>
                                     </a>
                                 </div>
