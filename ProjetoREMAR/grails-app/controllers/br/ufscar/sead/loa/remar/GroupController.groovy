@@ -50,6 +50,19 @@ class GroupController {
 
     }
 
+    def showStats() {
+        def exportedResource = ExportedResource.findById(params.exportedresourceid)
+        if (exportedResource) {
+            def allUsersGroup = UserGroup.findAllByGroup(Group.findById(params.groupid)).user.id.toList()
+            println allUsersGroup
+            def userStats = MongoHelper.instance.getStats("stats", exportedResource.id as Integer, allUsersGroup)
+            userStats.collect {
+                println it
+            }
+        }
+        render stats: 200
+    }
+
     def delete(){
         def group = Group.findById(params.id)
         if(group.owner.id == session.user.id){
