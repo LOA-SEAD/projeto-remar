@@ -15,9 +15,25 @@ $(window).load(function(){
         manageAdmin(this);
     });
 
+    $(document).on("click",".show-stats",function(){
+        showStats(this);
+    });
+
     $(usersCollection).on("click",".add-user",function(){
         //$("membertoken").validate();
     });
+
+    function showStats(_this){
+        $.ajax({
+            type: "POST",
+            url: "/group/show-stats",
+            data: {
+                groupid: $("input[name='groupid']").val(),
+                exportedresourceid: $(_this).attr("data-exported-resource-id") },
+            success: function(data){
+            }
+        })
+    }
 
     function deleteUserGroup(_this){
         var userGroupId = $(_this).attr("data-user-group-id");
