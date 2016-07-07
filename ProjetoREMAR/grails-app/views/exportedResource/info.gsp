@@ -124,6 +124,25 @@ Time: 09:55
                         </div>
                     </div>
                 </li>
+                <li id="reportAbuse">
+                    <div class="collapsible-header"><i class="material-icons">block</i>Reportar abuso</div>
+                    <div class="collapsible-body"><p>Se este conteúdo te incomodou de alguma forma, ou se você o achou ofensivo, por favor entre em contato
+                    com a equipe REMAR. Utilize o campo texto abaixo para descrever o que lhe incomodou e como podemos lhe ajudar.</p>
+
+                        <div class="row">
+                            <form class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s12 m12 l12">
+                                        <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+                                        <label for="icon_prefix2">Mensagem</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </li>
                 %{--<li id="groups">--}%
                     %{--<div class="collapsible-header active"><i class="material-icons">group_add</i>Compartilhar em grupos </div>--}%
 

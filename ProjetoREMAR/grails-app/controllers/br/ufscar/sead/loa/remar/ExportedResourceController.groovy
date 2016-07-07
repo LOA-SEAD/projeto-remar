@@ -653,7 +653,7 @@ class ExportedResourceController {
             Util.sendEmail(
                     "marcusmmourao@gmail.com",
                     "Reportando abuso - Remar - ${exportedResource.name}",
-                    "<h3>Reportado por: ${user.username} (${user.email}) </h3> <h3> Mensagem: ${text} Link para o recurso reportado: ${link}</h3>")
+                    "<h3>Reportado por: ${user.username} (${user.email}) </h3> <p> Mensagem: ${text} </p> <p> Link para o recurso reportado: ${link}</p>")
 
             println(user.email + " " + text + " " + link)
             render (user.email + " " + text + " " + link)
