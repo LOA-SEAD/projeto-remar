@@ -4,10 +4,13 @@ import br.ufscar.sead.loa.propeller.Propeller
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
+import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 import org.apache.commons.lang.RandomStringUtils
+import org.bson.Document
 import org.springframework.web.multipart.commons.CommonsMultipartFile
-
+import com.mongodb.MongoClient
+import com.mongodb.client.MongoDatabase;
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
 
@@ -86,6 +89,26 @@ class ExportedResourceController {
         redirect uri: "/exported-resource/moodle/${exportedResourceInstance.id}"
     }
 
+    def saveStats(){
+        def data = [:]
+        data.timestamp = new Date().toTimestamp()
+        data.userId = session.user.id
+        data.exportedResourceId = params.exportedResourceId
+        data.points = params.points
+        data.errors = params.errors
+        data.question = params.question
+        data.answer = params.answer
+        data.levelId = params.levelId
+        try {
+            MongoHelper.instance.createCollection("stats")
+            MongoHelper.instance.insertData("stats", data)
+
+        }catch(Exception e){
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+        }
+        render status: 200
+    }
+
     def publish(ExportedResource instance) {
         def exportsTo = [:]
         def groupsIOwn = Group.findAllByOwner(session.user)
@@ -108,9 +131,22 @@ class ExportedResourceController {
 
     def export(ExportedResource instance) {
         def urls = [:]
+        def root = servletContext.getRealPath("/")
         def resourceName = instance.resource.name
         def desktop = instance.resource.desktop
         def android = instance.resource.android
+        def builder = new JsonBuilder()
+        def remarJson = builder{
+            exportedResourceId instance.id
+        }
+        def jsonPathWeb = "${root}/published/${instance.processId}/web/json"
+        def jsonName = "remar.json"
+
+        File file = new File("$jsonPathWeb/$jsonName");
+        PrintWriter pw = new PrintWriter(file);
+        pw.write(builder)
+        pw.close()
+
 
         urls.web = "/published/${instance.processId}/web"
         if (desktop) {
@@ -123,7 +159,6 @@ class ExportedResourceController {
         }
 
         if (!instance.exported) {
-            def root = servletContext.getRealPath("/")
             def sourceFolder = "${root}/data/resources/sources/${instance.resource.uri}/"
             def desktopFolder = "${root}/published/${instance.processId}/desktop"
             def mobileFolder = "${root}/published/${instance.processId}/mobile"
@@ -376,21 +411,21 @@ class ExportedResourceController {
         MongoHelper.instance.insertData(json['collection_name'] as String, data)
     }
 
-    def stats() {
-        def myMoodleGames = []
-
-        ExportedResource.findAllByOwnerAndMoodleUrlIsNotNull(session.user).each { exportedResource ->
-            def model = [:]
-
-            model.name = exportedResource.name
-            model.image = "${exportedResource.processId}/banner.png"
-            model.id = exportedResource.id
-
-            myMoodleGames.add(model)
-        }
-
-        render view: "stats", model: [moodleList: myMoodleGames]
-    }
+//    def stats() {
+//        def myMoodleGames = []
+//
+//        ExportedResource.findAllByOwnerAndMoodleUrlIsNotNull(session.user).each { exportedResource ->
+//            def model = [:]
+//
+//            model.name = exportedResource.name
+//            model.image = "${exportedResource.processId}/banner.png"
+//            model.id = exportedResource.id
+//
+//            myMoodleGames.add(model)
+//        }
+//
+//        render view: "stats", model: [moodleList: myMoodleGames]
+//    }
 
     def _table() {
         if (params.resourceId) {
