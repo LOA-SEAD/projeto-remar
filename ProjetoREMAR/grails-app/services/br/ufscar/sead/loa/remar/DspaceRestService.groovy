@@ -176,8 +176,8 @@ class DspaceRestService {
      * Pesquisa pela comunidade principal no dpsace do remar
      * @return json da comunidade principal
      * */
-    def getBitstream(Integer bitstreamId) throws RuntimeException{
-        if(bitstreamId > 0){
+    def getBitstream(bitstreamId) throws RuntimeException{
+        if(Integer.parseInt(bitstreamId.toString()) > 0){
             login()
             def resp = rest.get("${this.restUrl}/bitstreams/${bitstreamId.toString()}")
             logout()
@@ -280,4 +280,45 @@ class DspaceRestService {
             }
         }
     }
+
+    /**
+     * Adiciona um bitstream a um item. Espera o id do item, um arquivo (bitstream) desejado,
+     * o nome do arquivo e  uma descrição (opcional)
+     * @return o corpo na resp, normalmente em json do bitstream submetido
+     * */
+    def addBitstreamToItem(itemId, file, name, description=null){
+        if(Integer.parseInt(itemId.toString())>0){
+            if(file){
+                login()
+                def resp = this.rest.post("${this.restUrl}/items/${itemId}/bitstreams?name=${name}&description=${description}"){
+                                header 'rest-dspace-token', token
+                                body file.bytes
+                            }
+                logout()
+                return resp.body
+            }else{
+                throw new RuntimeException("Error in addBitstreamToItem: file was not specified")
+            }
+        }else{
+            throw new RuntimeException("Error in addBitstreamToItem: itemId has value less than zero")
+        }
+    }
+
+    def deleteBitstreamOfItem(itemId,bitstreamId){
+        if(Integer.parseInt(itemId.toString())>0){
+            if(Integer.parseInt(bitstreamId.toString())>0){
+                login()
+                def resp = this.rest.delete("${this.restUrl}/items/${itemId}/bitstreams/${bitstreamId}"){
+                                header 'rest-dspace-token', token
+                            }
+                logout()
+                return resp.body
+            }else{
+                throw new RuntimeException("Error in deleteBitstreamOfItem: bitstreamId has value less than zero")
+            }
+        }else{
+            throw new RuntimeException("Error in deleteBitstreamOfItem: itemId has value less than zero")
+        }
+    }
+
 }
