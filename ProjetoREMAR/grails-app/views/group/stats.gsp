@@ -14,6 +14,7 @@
 <body>
 <div class="row">
     <div class="col l12 offset-l1">
+        <h5 class=""><i class="fa fa-bar-chart fa-1x"></i> Estatísticas do jogo</h5><br>
         <ul class="collection users-collection">
             <g:each var="userGroup" in="${group.userGroups.sort{it.user.firstName}}">
                 %{--<g:if test="${allStats.get(i).userId == userGroup.user.id}">--}%
