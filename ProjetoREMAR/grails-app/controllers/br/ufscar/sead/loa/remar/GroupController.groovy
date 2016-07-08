@@ -51,33 +51,35 @@ class GroupController {
     }
 
     def stats() {
-        def exportedResource = ExportedResource.findById(params.exp)
-        if (exportedResource) {
-            def group = Group.findById(params.id)
-            def allUsersGroup = UserGroup.findAllByGroup(group).user
-            def queryMongo = MongoHelper.instance.getStats("stats", exportedResource.id as Integer, allUsersGroup.id.toList())
-            def allStats
-            def ids = []
-            allStats = queryMongo.collect {
-                if(!ids.contains(it.userId))
-                    ids.add(it.userId)
 
-                [
-
-                        date     : it.timestamp,
-                        question : it.question,
-                        answer   : it.answer,
-                        level    : it.levelId,
-                        points   : it.points,
-                        errors   : it.errors,
-                        userId   : it.userId
-                ]
-
+        def group = Group.findById(params.id)
+        if(session.user.id == group.owner.id || UserGroup.findByUserAndAdmin(session.user, true)) {
+            def exportedResource = ExportedResource.findById(params.exp)
+            if (exportedResource) {
+                def allUsersGroup = UserGroup.findAllByGroup(group).user
+                def queryMongo = MongoHelper.instance.getStats("stats", exportedResource.id as Integer, allUsersGroup.id.toList())
+                def allStats
+                def ids = []
+                allStats = queryMongo.collect {
+                    if (!ids.contains(it.userId))
+                        ids.add(it.userId)
+                    [
+                            date    : it.timestamp,
+                            question: it.question,
+                            answer  : it.answer,
+                            level   : it.levelId,
+                            points  : it.points,
+                            errors  : it.errors,
+                            userId  : it.userId
+                    ]
+                }
+                render view: "stats", model: [allStats: allStats, group: group, ids: ids, exportedResource: exportedResource]
+            }else{
+                render (status: 401, view: "../401")
             }
-            println ids
-
-            println allStats
-            render view:"stats", model: [allStats: allStats, group: group, ids: ids, exportedResource: exportedResource]
+        }else {
+            println "fobbiden"
+            render(status: 401, view: "../401")
         }
 
     }
