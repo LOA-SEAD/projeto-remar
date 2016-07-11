@@ -95,10 +95,12 @@ class ExportedResourceController {
         data.userId = session.user.id as long
         data.exportedResourceId = params.exportedResourceId as int
         data.points = params.points
+        data.partialPoints = params.partialPoints
         data.errors = params.errors
         data.question = params.question
         data.answer = params.answer
         data.levelId = params.levelId
+        data.end = params.end
         try {
             MongoHelper.instance.createCollection("stats")
             MongoHelper.instance.insertData("stats", data)

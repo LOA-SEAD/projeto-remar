@@ -51,7 +51,6 @@ class GroupController {
     }
 
     def stats() {
-
         def group = Group.findById(params.id)
         if(session.user.id == group.owner.id || UserGroup.findByUserAndAdmin(session.user, true)) {
             def exportedResource = ExportedResource.findById(params.exp)
@@ -68,8 +67,10 @@ class GroupController {
                             question: it.question,
                             answer  : it.answer,
                             level   : it.levelId,
+                            partialPoints : it.partialPoints,
                             points  : it.points,
                             errors  : it.errors,
+                            end  : it.end,
                             userId  : it.userId
                     ]
                 }
