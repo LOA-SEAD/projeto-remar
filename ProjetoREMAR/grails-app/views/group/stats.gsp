@@ -31,9 +31,9 @@
                                     <th data-field="date">Data</th>
                                     <th data-field="question">Pergunta</th>
                                     <th data-field="answer">Resposta</th>
-                                    <th data-field="points">Pontos</th>
+                                    <th data-field="partialPoints">Pontos Parciais</th>
+                                    <th data-field="points">Pontos Acumulados</th>
                                     <th data-field="errors">Erros</th>
-                                    <th data-field="level">Fase</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -43,10 +43,13 @@
                                                     <td><g:formatDate format="dd/MM/yy - HH:mm" date="${stats.date}"/></td>
                                                     <td>${stats.question}</td>
                                                     <td>${stats.answer}</td>
+                                                    <td>${stats.partialPoints}</td>
                                                     <td>${stats.points}</td>
                                                     <td>${stats.errors}</td>
-                                                    <td>${stats.level}</td>
                                                 </tr>
+                                                <g:if test="${stats.end == "true"}">
+                                                    <tr><th class="center" colspan="6">Fim de jogo</th></tr>
+                                                </g:if>
                                             </g:if>
                                         </g:each>
                                 </tbody>
