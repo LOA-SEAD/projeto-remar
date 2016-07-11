@@ -3,6 +3,7 @@ package br.ufscar.sead.loa.remar
 import br.ufscar.sead.loa.propeller.Propeller
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import grails.plugins.rest.client.RestBuilder
 import grails.transaction.Transactional
 import groovy.json.JsonSlurper
 import org.apache.commons.lang.RandomStringUtils
@@ -643,21 +644,31 @@ class ExportedResourceController {
     }
 
     def reportAbuse(){
-        if(params.exportedResourceId!=null)
-        {
-            ExportedResource exportedResource = ExportedResource.findById(Integer.parseInt(params.exportedResourceId))
-            User user = session.user
-            String text = params.text
-            def link = "http://${request.serverName}:${request.serverPort}/exported-resource/info/${params.exportedResourceId}"
+        def userIP = request.getRemoteAddr()
+        def recaptchaResponse = params.get("g-recaptcha-response")
+        def rest = new RestBuilder()
+        def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?" +
+                "secret=${grailsApplication.config.recaptchaSecret}&response=${recaptchaResponse}&remoteip=${userIP}")
 
-            Util.sendEmail(
-                    "remar@sead.ufscar.br",
-                    "Reportando abuso - Remar - ${exportedResource.name}",
-                    "<h3>Reportado por: ${user.username} (${user.email}) </h3> <p> Mensagem: ${text} </p> <p> Link para o recurso reportado: ${link}</p>")
+        if (resp.json.success) {
+            if(params.exportedResourceId!=null)
+            {
+                ExportedResource exportedResource = ExportedResource.findById(Integer.parseInt(params.exportedResourceId))
+                User user = session.user
+                String text = params.text
+                def link = "http://${request.serverName}:${request.serverPort}/exported-resource/info/${params.exportedResourceId}"
 
-            render view: 'confirmSendAbuse'
+                Util.sendEmail(
+                        "remar@sead.ufscar.br",
+                        "Reportando abuso - Remar - ${exportedResource.name}",
+                        "<h3>Reportado por: ${user.username} (${user.email}) </h3> <p> Mensagem: ${text} </p> <p> Link para o recurso reportado: ${link}</p>")
 
+                render view: 'confirmSendAbuse'
+
+            }
         }
+
+
     }
 
 }

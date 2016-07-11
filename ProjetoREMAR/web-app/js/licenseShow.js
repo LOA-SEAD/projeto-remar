@@ -27,3 +27,10 @@ $(function () {
         }
     }
 });
+
+$('#submit').on('click', function() {
+    if(!grecaptcha.getResponse().length) {
+        return false;
+    }
+});
+

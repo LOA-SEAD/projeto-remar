@@ -184,24 +184,27 @@ Time: 09:55
 
                         <g:form action="reportAbuse">
                             <input type="hidden" name="exportedResourceId" value="${exportedResourceInstance.id}">
-                                <div class="row">
-                                    <div class="input-field col s12 m12 l12">
-                                        <textarea id="message" name="text" class="materialize-textarea"></textarea>
-                                        <label for="message">Mensagem</label>
-                                    </div>
+                            <div class="row">
+                                <div class="input-field col s12 m12 l12">
+                                    <textarea id="message" name="text" class="materialize-textarea"></textarea>
+                                    <label for="message">Mensagem</label>
                                 </div>
-                        <div class="row">
-                            <div class="col s3 offset-s7 m3 offset-m9 l3 offset-l9">
-                                <input type="submit" class="btn btn-large my-orange" value="Enviar">
                             </div>
-                        </div>
+                            <div class="row">
+                                <div class="input-field col s6 m7 offset-m3 l7 offset-l3">
+                                    <div class="g-recaptcha text-center" data-sitekey="6LdA8QkTAAAAANzRpkGUT__a9B2zHlU5Mnl6EDoJ"> </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s3 offset-s7 m3 offset-m9 l3 offset-l9">
+                                    <input id="submit" type="submit" class="btn btn-large my-orange" value="Enviar">
+                                </div>
+                            </div>
                         </g:form>
                     </div>
                 </li>
             </ul>
         </div>
-    </li>
-    </ul>
     </div>
 </div>
 </div>
@@ -217,5 +220,6 @@ Time: 09:55
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
 <g:javascript src="add-resource-to-group.js"/>
 <g:javascript src="licenseShow.js"/>
+<recaptcha:script/>
 </body>
 </html>
