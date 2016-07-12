@@ -1,10 +1,33 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: lucasbocanegra
+  Date: 28/06/16
+  Time: 17:24
+--%>
+
+<html>
+<head>
+    <meta name="layout" content="materialize-layout">
+    <title>Adicionar metadados</title>
+</head>
+<body>
 <article class="width-position left-align">
     <section class="row">
-        %{--<div class="col s6">--}%
-        %{--<div class="card-content text-justify">--}%
-        %{--<p>Metadados...</p>--}%
-        %{--</div>--}%
-        %{--</div>--}%
+        <div class="col s12">
+            <div class="card-content text-justify">
+                <p><span class="bold"><g:message code="dspace.metadata.author"/></span> ${author}</p>
+                <p><span class="bold"><g:message code="dspace.metadata.editor"/></span> ${editor}</p>
+                <p><span class="bold"><g:message code="dspace.metadata.title"/></span> ${title}</p>
+                <p><span class="bold"><g:message code="dspace.metadata.abstract"/></span> ${abstractP}</p>
+                <p><span class="bold"><g:message code="dspace.metadata.date_publication"/></span> ${date}</p>
+                <p><span class="bold"><g:message code="dspace.metadata.license"/></span> ${license}</p>
+                <input type="hidden" value="${license}" id="licenseValue">
+                <div id="licenseInfo">
+
+                </div>
+                <p><span class="bold"></span></p>
+            </div>
+        </div>
         <div class="col s12">
             <table class="bordered">
                 <thead>
@@ -36,3 +59,8 @@
         </div>
     </section>
 </article>
+
+<g:javascript src="licenseShow.js"/>
+</body>
+</html>
+
