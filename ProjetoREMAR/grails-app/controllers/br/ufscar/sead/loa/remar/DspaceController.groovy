@@ -2,7 +2,7 @@ package br.ufscar.sead.loa.remar
 
 import br.ufscar.sead.loa.propeller.Propeller
 import grails.plugin.springsecurity.annotation.Secured
-import grails.plugins.rest.client.RestBuilder
+import groovy.io.FileType
 
 @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
 class DspaceController {
@@ -114,7 +114,21 @@ class DspaceController {
         render view: "overview", model: [process:process]
     }
 
-    def updateOutputs() {
+    def listMetadata() {
 
+        params.processId = "57740a26c9cd332a5d6b9684"
+        params.taskId = "57740a26c9cd332a5d6b9686"
+
+        def list = [];
+        def dir = new File(servletContext.getRealPath("/data/processes/${params.processId}/tmp/${params.taskId}/"))
+        dir.eachFileRecurse (FileType.FILES) {file ->
+            list << file
+        }
+
+        list.each {
+            println it.name
+        }
+
+        render view: 'listMetadata', model: [bitstreams: list]
     }
 }

@@ -965,3 +965,8 @@ Position must be relative!*/
 .icon-metadata-done{
     width: 80px;
 }
+
+.description-input{
+    float: left;
+    margin-left: 10px;
+}
