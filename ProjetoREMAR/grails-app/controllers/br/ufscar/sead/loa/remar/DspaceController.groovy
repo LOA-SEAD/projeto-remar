@@ -116,9 +116,6 @@ class DspaceController {
 
     def listMetadata() {
 
-        params.processId = "57740a26c9cd332a5d6b9684"
-        params.taskId = "57740a26c9cd332a5d6b9686"
-
         def list = [];
         def dir = new File(servletContext.getRealPath("/data/processes/${params.processId}/tmp/${params.taskId}/"))
         dir.eachFileRecurse (FileType.FILES) {file ->
