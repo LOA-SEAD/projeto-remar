@@ -67,7 +67,7 @@
                             <div class="row">
                                 <div class="center">
                                     <div class="col l4">
-                                        <a style="font-size: 2em;" href="/exported-resource/publish/${instance.id}"
+                                        <a style="font-size: 2em;" href="/exported-resource/info/${instance.id}"
                                            class="tooltipped"  data-position="down" data-delay="50" data-tooltip="Mais informações">
                                             <i class="fa fa-info-circle" style="color: #FF5722;"></i>
                                         </a>
