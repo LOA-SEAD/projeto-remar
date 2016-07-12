@@ -304,6 +304,11 @@ class DspaceRestService {
         }
     }
 
+    /**
+     * Deleta o bitstream de um item.
+     * @params id do item e id do bitstream pertencente ao item
+     * @return o corpo na resp, normalmente um json do bitstream deletado
+     * */
     def deleteBitstreamOfItem(itemId,bitstreamId){
         if(Integer.parseInt(itemId.toString())>0){
             if(Integer.parseInt(bitstreamId.toString())>0){
@@ -320,5 +325,48 @@ class DspaceRestService {
             throw new RuntimeException("Error in deleteBitstreamOfItem: itemId has value less than zero")
         }
     }
+
+
+    /**
+     * Cria uma nova subcomunidade na comunidade especificada ou caso ela não seja especificada,
+     * na comunidade principal (mainCommunity). O formato do metadados deve ser:
+     * {
+     *       "name":"CREATED BY JSON (POST)",
+     *       "copyrightText":"CREATED BY JSON (POST)",
+     *       "introductoryText":"CREATED BY JSON (POST)",
+     *       "shortDescription":"CREATED BY JSON (POST)",
+     *       "shortDescription":"CREATED BY JSON (POST)",
+     *       "sidebarText":"CREATED BY JSON (POST)"
+     *    }
+     * @params id da comunidade (opcional) e arquivo json de metadados
+     * @return o corpo na resp, normalmente um json do item criado
+     * */
+    def newSubCommunity(communityId=null, metadata,img=null){
+        if(!communityId){
+            communityId = this.mainCommunityId
+        }
+
+        if(Integer.parseInt(communityId.toString())>0){
+            if(metadata){
+                login()
+                print(this.token)
+                def resp = this.rest.post("${this.restUrl}/communities/${communityId}/communities"){
+                    header 'rest-dspace-token', this.token
+                    body img.bytes
+                    json metadata
+                }
+                logout()
+                println(resp.body)
+
+                return resp.body
+            }else{
+                throw new RuntimeException("Error in newCommunity: metadata was not specified")
+            }
+        }else{
+            throw new RuntimeException("Error in newCommunity: communityId has value less than zero")
+        }
+    }
+
+
 
 }

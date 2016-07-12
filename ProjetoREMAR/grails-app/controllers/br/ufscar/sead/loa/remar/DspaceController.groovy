@@ -3,6 +3,9 @@ package br.ufscar.sead.loa.remar
 import br.ufscar.sead.loa.propeller.Propeller
 import grails.plugin.springsecurity.annotation.Secured
 import groovy.io.FileType
+import groovy.json.JsonBuilder
+import com.mongodb.MongoClient
+import com.mongodb.client.MongoDatabase;
 
 @Secured('IS_AUTHENTICATED_ANONYMOUSLY')
 class DspaceController {
@@ -130,5 +133,63 @@ class DspaceController {
         }
 
         render view: 'listMetadata', model: [bitstreams: list]
+    }
+
+
+    def createCommunityTest(){
+        def json = new JsonBuilder()
+        def m= json {
+            "name" "game de teste"
+            "copyrightText" "teste"
+            "introductoryText" "teste"
+            "shortDescription" "game para teste de criação de uma comunidade"
+        }
+
+        def r = dspaceRestService.newSubCommunity(metadata:m)
+
+        render r
+    }
+
+    def mongoTest(){
+
+        def data = [:]
+
+        def r = Resource.findById(1)
+
+        data = {
+            id: r.id
+            name: r.name
+            communityId: 3
+            tasks: [
+                    {
+                        id: "577404b2c9cd3319baf9b41d"
+                        name: "Tema"
+                        uri: "theme"
+                        collectionId: 2
+                    },
+                    {
+                        id: "577404b2c9cd3319baf9b41e"
+                        name: "Banco de Questões"
+                        uri: "questions"
+                        collectionId: 3
+                    }
+            ]
+        }
+
+//        data.tasks = {
+//            MongoHelper.instance.getDataForUri('process_definition', r.uri.toString())
+//        }
+
+        println(data)
+
+//        def t = MongoHelper.instance.getDataForUri('process_definition', r.uri.toString())
+//        t.collect {
+//            println it
+//        }
+
+        MongoHelper.instance.createCollection('resource_dspace')
+        MongoHelper.instance.insertData('resource_dspace',data)
+
+        render "<h1>teste</h1>"
     }
 }

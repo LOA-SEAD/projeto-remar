@@ -70,4 +70,7 @@ class MongoHelper {
 
         return paths
     }
+    def getDataForUri(String collection, String uri){
+        return db.getCollection(collection).find(new Document("uri", uri))
+    }
 }
