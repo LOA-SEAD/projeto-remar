@@ -58,10 +58,9 @@
                                         </div>
 
                                         <div class="icon-metadata-pending">
-                                            <a href="#!" class="tooltipped" data-position="right"
-                                               data-delay="50" data-tooltip="Adicionar Metadados"
-                                                data-process-id="${process.id}"
-                                                data-task-id="${task.id}">
+
+                                            <a href="listMetadata?processId=${process.id}&&taskId=${task.id}&&step=0" class="tooltipped" data-position="right"
+                                               data-delay="50" data-tooltip="Adicionar Metadados">
                                                 Adicionar
                                             </a>
                                         </div>

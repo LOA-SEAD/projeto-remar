@@ -138,7 +138,7 @@
                 </li>
                 <!-- Fim 2 Etapa - tarefas -->
             </ul>
-            <a href="#!" data-process-id="${process.id}" id="publish" type="submit" class="btn waves-effect waves-light my-orange right">
+            <a href="dspace/overview/${process.id}" data-process-id="${process.id}" id="publish" type="submit" class="btn waves-effect waves-light my-orange right">
                 Publicar
             </a>
         </article>
