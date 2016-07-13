@@ -149,14 +149,19 @@ class DspaceController {
 
     def createCommunityTest(){
         def json = new JsonBuilder()
-        def m= json {
+        def img = new File(servletContext.getRealPath("/images/respondasepuder-banner.png"))
+
+        def m = json {
             "name" "game de teste"
             "copyrightText" "teste"
             "introductoryText" "teste"
             "shortDescription" "game para teste de criação de uma comunidade"
+            "shortDescription" "CREATED BY JSON (POST)"
+            "sidebarText" "CREATED BY JSON (POST)"
+            "logo" img.bytes.toString()
         }
 
-        def r = dspaceRestService.newSubCommunity(metadata:m)
+        def r = dspaceRestService.newSubCommunity(m,img)
 
         render r
     }

@@ -2,6 +2,7 @@ package br.ufscar.sead.loa.remar
 
 import grails.plugins.rest.client.RestBuilder
 import grails.transaction.Transactional
+import groovy.json.JsonBuilder
 import org.springframework.http.HttpMethod
 
 import javax.annotation.PostConstruct
@@ -105,13 +106,13 @@ class DspaceRestService {
      *  e add o link da imagem no json (cria novo elemento chamada retrieveLink). Geralmente o json será uma comunidade ou uma coleção
      * @params objeto restBuilder e json
      * */
-    def concatBitstreamsWithRetrieveLink(json){
+    def concatBitstreamsWithRetrieveLink(json, String parentObject_type){
 
         def resp = this.rest.get("${this.restUrl}/bitstreams?expand=parent")
         def bitstreams = resp.json
 
         json.each { sub ->
-            def retLink = (bitstreams.find { it.parentObject.id == sub.id }).retrieveLink
+            def retLink = (bitstreams.find { it.parentObject.id == sub.id && it.parentObject.type == parentObject_type }).retrieveLink
             sub.retrieveLink = retLink
         }
 
@@ -224,7 +225,7 @@ class DspaceRestService {
                 login()
                 def resp = this.rest.get("${this.restUrl}/communities/${communityId}/communities")
                 logout()
-                return concatBitstreamsWithRetrieveLink(resp.json)
+                return concatBitstreamsWithRetrieveLink(resp.json,"community")
             }else{
                 throw new RuntimeException("Error in listSubCommunitiesExpanded: communityId has value less than zero")
             }
@@ -232,7 +233,7 @@ class DspaceRestService {
             login()
             def resp = this.rest.get("${this.restUrl}/communities/${this.mainCommunityId}/communities")
             logout()
-            return concatBitstreamsWithRetrieveLink(resp.json)
+            return concatBitstreamsWithRetrieveLink(resp.json,"community")
         }
     }
 
@@ -250,7 +251,7 @@ class DspaceRestService {
                 login()
                 def resp = this.rest.get("${this.restUrl}/communities/${communityId}/collections")
                 logout()
-                return concatBitstreamsWithRetrieveLink(resp.json)
+                return concatBitstreamsWithRetrieveLink(resp.json, "collection")
             }else{
                 throw new RuntimeException("Error in listCollectionsExpanded: communityId has value less than zero")
             }
@@ -258,7 +259,7 @@ class DspaceRestService {
             login()
             def resp = this.rest.get("${this.restUrl}/communities/${this.mainCommunityId}/collections")
             logout()
-            return concatBitstreamsWithRetrieveLink(resp.json)
+            return concatBitstreamsWithRetrieveLink(resp.json, "collection")
         }
     }
 
@@ -341,20 +342,24 @@ class DspaceRestService {
      * @params id da comunidade (opcional) e arquivo json de metadados
      * @return o corpo na resp, normalmente um json do item criado
      * */
-    def newSubCommunity(communityId=null, metadata,img=null){
+    def newSubCommunity(metadata,file){
+        def communityId=null
         if(!communityId){
             communityId = this.mainCommunityId
         }
 
+        println("community Id: "+communityId)
+
         if(Integer.parseInt(communityId.toString())>0){
             if(metadata){
                 login()
-                print(this.token)
+                println(this.token)
                 def resp = this.rest.post("${this.restUrl}/communities/${communityId}/communities"){
                     header 'rest-dspace-token', this.token
-                    body img.bytes
                     json metadata
                 }
+//                body file.bytes
+
                 logout()
                 println(resp.body)
 
