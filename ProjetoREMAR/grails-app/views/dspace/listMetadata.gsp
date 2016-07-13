@@ -62,7 +62,7 @@
             </div>
 
             <div class="col s12">
-                <span class="description-input">Entre com uma data prevista de publicação do item. </span>
+                <span class="description-input">Entre com a licença do item. </span>
                 <div class="input-field col s12">
                     <select name="license" id="license">
                         %{--<option value="" disabled selected>Choose your option</option>--}%
@@ -73,6 +73,9 @@
                 </div>
             </div>
                 <input type="hidden" name="step" value="1">
+                <input type="hidden" name="processId" value="${processId}">
+                <input type="hidden" name="taskId" value="${taskId}">
+
                 <div class=" col s12 m12 l12">
                     <div class="right">
                         <button class="btn my-orange" type="submit"> <g:message code="dspace.metadata.button_next"/> </button>

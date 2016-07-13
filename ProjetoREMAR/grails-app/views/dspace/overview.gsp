@@ -86,6 +86,9 @@
                 </div>
             </section>
         </article>
+        <a href="../process/publishProcess?id=${process.id}" data-process-id="${process.id}" id="publish" type="submit" class="btn waves-effect waves-light my-orange right">
+            Finalizar
+        </a>
     </div>
 </div>
 <g:javascript src="dspace.js"/>

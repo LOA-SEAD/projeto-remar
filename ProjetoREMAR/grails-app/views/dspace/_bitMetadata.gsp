@@ -12,6 +12,13 @@
 </head>
 <body>
 <article class="width-position left-align">
+    <div class="cluster-header">
+        <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom title-page">
+         Visualizar Submissão
+        </p>
+        <div class="divider"></div>
+        <div class="clearfix"></div>
+    </div>
     <section class="row">
         <div class="col s12">
             <div class="card-content text-justify">
@@ -20,7 +27,7 @@
                 <p><span class="bold"><g:message code="dspace.metadata.title"/></span> ${title}</p>
                 <p><span class="bold"><g:message code="dspace.metadata.abstract"/></span> ${abstractP}</p>
                 <p><span class="bold"><g:message code="dspace.metadata.date_publication"/></span> ${date}</p>
-                <p><span class="bold"><g:message code="dspace.metadata.license"/></span> ${license}</p>
+                %{--<p><span class="bold"><g:message code="dspace.metadata.license"/></span> ${license}</p>--}%
                 <input type="hidden" value="${license}" id="licenseValue">
                 <div id="licenseInfo">
 

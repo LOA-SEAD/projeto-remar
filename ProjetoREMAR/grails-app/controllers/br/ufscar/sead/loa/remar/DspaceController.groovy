@@ -120,22 +120,27 @@ class DspaceController {
     def listMetadata() {
 
         if(params.step=="0"){
-            def list = [];
-            def dir = new File(servletContext.getRealPath("/data/processes/${params.processId}/tmp/${params.taskId}/"))
-            dir.eachFileRecurse (FileType.FILES) {file ->
-                list << file
-            }
+            println(params)
 
-            list.each {
-                println it.name
-            }
-
-            render view: 'listMetadata', model: [bitstreams: list]
+            render view: 'listMetadata', model: [processId: params.processId, taskId:params.taskId]
         }
         else{
             println(params)
             if(params.step=="1")
-                render view: '_bitMetadata', model: [abstractP: params.abstract, author: params.author, title: params.title, editor: params.editor, license: params.license, date: params.date, step: params.step]
+            {
+                def list = [];
+                def dir = new File(servletContext.getRealPath("/data/processes/${params.processId}/tmp/${params.taskId}/"))
+                dir.eachFileRecurse (FileType.FILES) {file ->
+                    list << file
+                }
+
+                list.each {
+                    println it.name
+                }
+
+                render view: '_bitMetadata', model: [bitstreams: list, abstractP: params.abstract, author: params.author, title: params.title, editor: params.editor, license: params.license, date: params.date, step: params.step]
+
+            }
         }
 
 
