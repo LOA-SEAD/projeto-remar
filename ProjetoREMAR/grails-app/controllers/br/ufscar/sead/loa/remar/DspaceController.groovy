@@ -99,6 +99,8 @@ class DspaceController {
 
     def overview(){
         def process = Propeller.instance.getProcessInstanceById(params.id, session.user.id as long)
+        def resource = Resource.get(process.getVariable('resourceId'))
+
         def tmpFolder = new File("${servletContext.getRealPath("/data/processes/${process.id}")}/tmp")
         def ant = new AntBuilder()
         tmpFolder.mkdirs()
@@ -114,6 +116,9 @@ class DspaceController {
             }
         }
 
+        println(resource)
+        process.definition.id
+
         render view: "overview", model: [process:process]
     }
 
@@ -122,7 +127,7 @@ class DspaceController {
         if(params.step=="0"){
             println(params)
 
-            render view: 'listMetadata', model: [processId: params.processId, taskId:params.taskId]
+            render view: 'listMetadata', model: [processId: params.processId, taskId:params.taskId, step: params.step]
         }
         else{
             println(params)
@@ -158,7 +163,6 @@ class DspaceController {
             "shortDescription" "game para teste de criação de uma comunidade"
             "shortDescription" "CREATED BY JSON (POST)"
             "sidebarText" "CREATED BY JSON (POST)"
-            "logo" img.bytes.toString()
         }
 
         def r = dspaceRestService.newSubCommunity(m,img)
@@ -166,46 +170,93 @@ class DspaceController {
         render r
     }
 
-    def mongoTest(){
+    def createDspaceStructure(){
+        //inserir no mongo os id da coleção e comunidades referentes ao resource submetido
+        params.resource_id = 1
 
         def data = [:]
-
+        def task = [:]
+        def task2 = [:]
+        def listTasks = []
         def r = Resource.findById(1)
 
-        data = {
-            id: r.id
-            name: r.name
-            communityId: 3
-            tasks: [
-                    {
-                        id: "577404b2c9cd3319baf9b41d"
-                        name: "Tema"
-                        uri: "theme"
-                        collectionId: 2
-                    },
-                    {
-                        id: "577404b2c9cd3319baf9b41e"
-                        name: "Banco de Questões"
-                        uri: "questions"
-                        collectionId: 3
-                    }
-            ]
-        }
+        task.id = "5787da2c1b4f8b1bba0af8f6"
+        task.name = "Tema"
+        task.uri = "theme"
+        task.collectionId = 1
 
-//        data.tasks = {
-//            MongoHelper.instance.getDataForUri('process_definition', r.uri.toString())
-//        }
+        listTasks.add(task)
+
+        task2.id = "5787da2c1b4f8b1bba0af8f5"
+        task2.name = "Banco de Questões"
+        task2.uri = "questions"
+        task2.collectionId = 2
+
+        listTasks.add(task2)
+
+        data.id = r.id
+        data.name = r.name
+        data.uri = r.uri
+        data.communityId = 2
+        data.tasks = listTasks
 
         println(data)
 
-//        def t = MongoHelper.instance.getDataForUri('process_definition', r.uri.toString())
-//        t.collect {
-//            println it
-//        }
-
-        MongoHelper.instance.createCollection('resource_dspace')
+        MongoHelper.instance.addCollection('resource_dspace')
         MongoHelper.instance.insertData('resource_dspace',data)
 
         render "<h1>teste</h1>"
+    }
+
+    // create/item
+    def createItem(){
+        println(params)
+
+        def metadatas = [], list = [:]
+        def m1 = [:],m2 = [:],m3 = [:], m4 = [:]
+
+        def process = Propeller.instance.getProcessInstanceById(params.processId, session.user.id as long)
+        def resource = Resource.get(process.getVariable('resourceId'))
+        def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
+
+        m1.key = "dc.contributor.author"
+        m1.value = "LAST, FIRST"
+        metadatas.add(m1)
+
+        m2.key = "dc.description"
+        m2.language = "pt_BR"
+        m2.value = "DESCRICAO"
+        metadatas.add(m2)
+
+        m3.key = "dc.description.abstract"
+        m3.language = "pt_BR"
+        m3.value = "RESUMO"
+        metadatas.add(m3)
+
+        m4.key = "dc.title"
+        m4.language = "pt_BR"
+        m4.value = "TESTE 1"
+        metadatas.add(m4)
+
+        list.metadata = metadatas
+
+        if(Integer.parseInt(params.step) == 0){ // -> step era 0 e chegou como 1 create item
+            def resource_dspace = MongoHelper.instance.getCollection("resource_dspace", resource.id)
+            resource_dspace.collect{
+
+                it.tasks.each{ task ->
+                    if(task.id.toString() == current_task.definition.id.toString()){ //achei a coleção correta
+                        println(task.collectionId)
+                        def resp = dspaceRestService.newItem(task.collectionId, list)
+                        render resp
+                    }
+                }
+            }
+
+        }else{ //step == 1 -> create bitstream
+            def new_step = Integer.parseInt(params.step)+1 //calcula o novo step
+            redirect uri: "dspace/listMetadata?processId=${params.processId}&&taskId=${params.taskId}&&step=${new_step}"
+        }
+
     }
 }

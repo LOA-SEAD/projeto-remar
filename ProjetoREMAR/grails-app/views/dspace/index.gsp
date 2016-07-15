@@ -43,7 +43,9 @@ Time: 08:58
                         <ul class="collection">
                             <g:each in="${subCommunities}" var="obj">
                                 <li class="collection-item avatar left-align">
-                                    <img src="${restUrl}${obj.retrieveLink}" alt="" class="circle">
+                                    <g:if test="${obj.retrieveLink != null}">
+                                        <img src="${restUrl}${obj.retrieveLink}" alt="" class="circle">
+                                    </g:if>
                                     <a href="/dspace/listCollections/${obj.id}?names=${obj.name}" class="collection-link" data-id="${obj.id}">${obj.name}</a>
                                     <p>${obj.shortDescription}</p>
                                 </li>

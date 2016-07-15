@@ -112,8 +112,13 @@ class DspaceRestService {
         def bitstreams = resp.json
 
         json.each { sub ->
-            def retLink = (bitstreams.find { it.parentObject.id == sub.id && it.parentObject.type == parentObject_type }).retrieveLink
-            sub.retrieveLink = retLink
+            try{
+
+                def retLink = (bitstreams.find { it.parentObject.id == sub.id && it.parentObject.type == parentObject_type }).retrieveLink
+                sub.retrieveLink = retLink
+            }catch (Exception e){
+                sub.retrieveLink =  null
+            }
         }
 
         return json
@@ -340,7 +345,7 @@ class DspaceRestService {
      *       "sidebarText":"CREATED BY JSON (POST)"
      *    }
      * @params id da comunidade (opcional) e arquivo json de metadados
-     * @return o corpo na resp, normalmente um json do item criado
+     * @return o corpo na resp, normalmente um json da subcomunidade criada
      * */
     def newSubCommunity(metadata,file){
         def communityId=null
@@ -372,6 +377,55 @@ class DspaceRestService {
         }
     }
 
+    /**
+     * Cria um novo item na coleção especificada. O formato do metadados deve ser:
+     * {"metadata":[
+     *    {
+     *       "key": "dc.contributor.author",
+     *       "value": "LAST, FIRST"
+     *    },
+     *    {
+     *       "key": "dc.description",
+     *       "language": "pt_BR",
+     *       "value": "DESCRICAO"
+     *    },
+     *    {
+     *       "key": "dc.description.abstract",
+     *       "language": "pt_BR",
+     *       "value": "ABSTRACT"
+     *    },
+     *    {
+     *      "key": "dc.title",
+     *      "language": "pt_BR",
+     *      "value": "TESTE 1"
+     *    }
+     *    ]}
+     * @params id da coleção e arquivo json de metadados
+     * @return o corpo na resp, normalmente um json do item criado
+     * */
+    def newItem(collectionId, metadata){
+        if(!collectionId){
+            throw new RuntimeException("Error in newItem: collectionId was not specified")
+        }else{
+            if(Integer.parseInt(collectionId.toString())>0){
+                if(metadata){
+                    login()
+                    def resp = this.rest.post("${this.restUrl}/collections/${collectionId}/items"){
+                        header 'rest-dspace-token', this.token
+                        json metadata
+                    }
+                    logout()
+                    println(resp.body)
+                    return resp.body
+                }else{
+                    throw new RuntimeException("Error in newCommunity: metadata was not specified")
+                }
+            }else{
+                throw new RuntimeException("Error in newCommunity: communityId has value less than zero")
+            }
+        }
 
 
+
+    }
 }
