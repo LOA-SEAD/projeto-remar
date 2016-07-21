@@ -7,6 +7,7 @@ import com.mongodb.MongoClient
 import org.bson.Document
 import org.bson.types.ObjectId
 
+import static java.util.Arrays.asList;
 
 @Singleton
 class MongoHelper {
@@ -18,7 +19,7 @@ class MongoHelper {
         def credential = MongoCredential.createCredential(options.username as String, 'admin',
                 options.password as char[])
 
-        this.mongoClient = new MongoClient(new ServerAddress(), Arrays.asList(credential))
+        this.mongoClient = new MongoClient(new ServerAddress(), asList(credential))
         this.db = mongoClient.getDatabase('remar')
     }
 
@@ -51,6 +52,43 @@ class MongoHelper {
         db.getCollection(collection).insertOne(doc)
     }
 
+    def insertStats(String collection, Object data){
+        def selectedCollection = db.getCollection(collection);
+
+        if(selectedCollection.find(new Document('userId', data.userId)).size() != 0) {
+            println "updating"
+            selectedCollection.updateOne(new Document("userId", data.userId), new Document('$push', new Document("stats",
+                    new Document()
+                             .append("points", data.points)
+                             .append("partialPoints", data.partialPoints)
+                             .append("errors", data.errors)
+                             .append("question", data.question)
+                             .append("answer", data.answer)
+                             .append("win", data.win)
+                             .append("levelId", data.levelId)
+                             .append("exportedResourceId", data.exportedResourceId)
+                             .append("timestamp", data.timestamp)
+            )))
+
+        }else{
+            println "creating"
+            selectedCollection.insertOne(new Document("userId", data.userId).append("stats",
+                    asList(new Document()
+                             .append("points", data.points)
+                             .append("partialPoints", data.partialPoints)
+                             .append("errors", data.errors)
+                             .append("question", data.question)
+                             .append("answer", data.answer)
+                             .append("win", data.win)
+                             .append("levelId", data.levelId)
+                             .append("gameSize", data.gameSize)
+                             .append("exportedResourceId", data.exportedResourceId)
+                             .append("timestamp", data.timestamp)
+
+            )))
+        }
+    }
+
     def getData(String collection, int resourceId) {
         return db.getCollection(collection).find(new Document("game", resourceId))
     }
@@ -60,8 +98,7 @@ class MongoHelper {
     }
 
     def getStats(String collection, int exportedResourceId, List<Long> userGroup) {
-        return db.getCollection(collection).find(new Document("exportedResourceId", exportedResourceId).append("userId", new Document('$in', userGroup)))
-
+        return db.getCollection(collection).find(new Document('userId', new Document('$in', userGroup)).append("stats.exportedResourceId", exportedResourceId)).sort({userId: 1})
     }
 
     String[] getFilePaths(String... ids) {
