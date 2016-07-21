@@ -99,11 +99,13 @@ class ExportedResourceController {
         data.errors = params.errors
         data.question = params.question
         data.answer = params.answer
-        data.levelId = params.levelId
-        data.end = params.end
+        data.levelId = params.levelId as int
+        data.win = Boolean.parseBoolean(params.win)
+        data.gameSize = params.size as int
+        data.end = Boolean.parseBoolean(params.end)
         try {
             MongoHelper.instance.createCollection("stats")
-            MongoHelper.instance.insertData("stats", data)
+            MongoHelper.instance.insertStats("stats", data)
 
         }catch(Exception e){
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
