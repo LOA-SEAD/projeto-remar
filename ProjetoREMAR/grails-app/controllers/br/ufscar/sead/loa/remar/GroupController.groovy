@@ -1,8 +1,11 @@
 package br.ufscar.sead.loa.remar
 
+import com.mongodb.DBCursor
 import grails.converters.JSON
+import groovy.json.JsonBuilder
 import org.apache.commons.lang.RandomStringUtils
 import org.grails.datastore.mapping.validation.ValidationException
+import static java.util.Arrays.asList;
 
 
 class GroupController {
@@ -57,24 +60,28 @@ class GroupController {
             if (exportedResource) {
                 def allUsersGroup = UserGroup.findAllByGroup(group).user
                 def queryMongo = MongoHelper.instance.getStats("stats", exportedResource.id as Integer, allUsersGroup.id.toList())
-                def allStats
-                def ids = []
-                allStats = queryMongo.collect {
-                    if (!ids.contains(it.userId))
-                        ids.add(it.userId)
-                    [
-                            date    : it.timestamp,
-                            question: it.question,
-                            answer  : it.answer,
-                            level   : it.levelId,
-                            partialPoints : it.partialPoints,
-                            points  : it.points,
-                            errors  : it.errors,
-                            end  : it.end,
-                            userId  : it.userId
-                    ]
+                def allStats = []
+                def _stat
+                for(int i=0; i<queryMongo.size(); i++){
+                    def user = allUsersGroup.find { user -> user.id == queryMongo.get(i).userId }
+                    _stat = [[user: user]]
+                    queryMongo.get(i).stats.each {
+                        _stat.push([levelId: it.levelId, win: it.win, gameSize: it.gameSize])
+                    }
+                    allStats.push(_stat)
+
                 }
-                render view: "stats", model: [allStats: allStats, group: group, ids: ids, exportedResource: exportedResource]
+
+                if(!allStats.empty) {
+                    allUsersGroup.each { member ->
+                        if (!allStats.find { stat -> stat.get(0).user.id == member.id }) {
+                            allStats.push(member)
+                        }
+                    }
+                }
+
+                println allStats
+                render view: "stats", model: [allStats: allStats, group: group, exportedResource: exportedResource]
             }else{
                 render (status: 401, view: "../401")
             }
