@@ -13,19 +13,19 @@
 
 <body>
 <div class="row">
-    <div class="col l12 offset-l2">
-        <g:if test="${!allStats.empty}">
-        <table class="bordered highlight responsive-table" style="width: auto">
-            <thead>
-                <tr>
-                    <th></th>
+    <g:if test="${!allStats.empty}">
+        <div class="col l12 offset-l2">
+            <table class="bordered highlight responsive-table" style="width: auto">
+                <thead>
+                    <tr>
+                        <th></th>
                     <g:each in="${1..allStats.get(0).get(1).gameSize}" status="i" var="stats">
                         <th style="padding-left: 1.80em;">${stats}</th>
                     </g:each>
                 </tr>
             </thead>
             <tbody>
-            <g:each in="${allStats}" var="stats">
+            <g:each in="${allStats.sort{it.get(0).user.firstName}}" var="stats">
                 <tr>
                     <g:if test="${stats instanceof User}">
                         <td style="padding-left: 1.80em;">${stats.firstName + " " + stats.lastName}</td>
@@ -36,15 +36,21 @@
                     <g:else>
                         <td style="padding-left: 1.80em;">${stats.get(0).user.firstName + " " + stats.get(0).user.lastName}</td>
                         <g:each in="${0..allStats.get(0).get(1).gameSize-1}" var="i">
-                            <g:if test="${stats.find { it.levelId == i && it.win == true}}">
-                                <td style="padding-left: 1.80em;"> <i style="color: green" class="fa fa-check-square"></i> </td>
+
+                            <g:set var="levelWon" value="${stats.find { it.levelId == i && it.win == true}}"/>
+                            <g:set var="levelLose" value="${stats.find { it.levelId == i && it.win == false}}"/>
+
+                            <g:if test="${levelWon}">
+                                <td style="padding-left: 1.80em;"> <a href="/group/user-stats/${stats.get(0).user.id}?exp=${exportedResource.id}&level=${levelWon.levelId}"><i style="color: green" class="fa fa-check-square"></i></a> </td>
                             </g:if>
-                            <g:elseif test="${stats.find { it.levelId == i && it.win == false}}">
-                                <td style="padding-left: 1.80em;"> <i style="color: red" class="fa fa-times"></i> </td>
+
+                            <g:elseif test="${levelLose}">
+                                <td style="padding-left: 1.80em;"> <a href="/group/user-stats/${stats.get(0).user.id}?exp=${exportedResource.id}&level=${levelLose.levelId}"> <i style="color: red" class="fa fa-times"></i> </a></td>
                             </g:elseif>
                             <g:else>
                                 <td></td>
                             </g:else>
+
                         </g:each>
                     </g:else>
                 </tr>
@@ -52,8 +58,14 @@
 
             </tbody>
         </table>
-        </g:if>
     </div>
+    </g:if>
+    <g:else>
+        <div class="col l12">
+            <h5>Nenhuma estatística foi encontrada para este jogo</h5>
+        </div>
+    </g:else>
+
 </div>
 
 
