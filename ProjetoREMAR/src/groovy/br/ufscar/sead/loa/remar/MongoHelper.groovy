@@ -66,6 +66,7 @@ class MongoHelper {
                              .append("answer", data.answer)
                              .append("win", data.win)
                              .append("levelId", data.levelId)
+                             .append("gameSize", data.gameSize)
                              .append("exportedResourceId", data.exportedResourceId)
                              .append("timestamp", data.timestamp)
             )))
@@ -98,7 +99,11 @@ class MongoHelper {
     }
 
     def getStats(String collection, int exportedResourceId, List<Long> userGroup) {
-        return db.getCollection(collection).find(new Document('userId', new Document('$in', userGroup)).append("stats.exportedResourceId", exportedResourceId)).sort({userId: 1})
+        return db.getCollection(collection).find(new Document('userId', new Document('$in', userGroup)).append("stats.exportedResourceId", exportedResourceId)).sort{userId: 1}
+    }
+
+    def getStats(String collection, int exportedResourceId, Long userId) {
+        return db.getCollection(collection).find(new Document('userId', userId).append("stats.exportedResourceId", exportedResourceId))
     }
 
     String[] getFilePaths(String... ids) {
