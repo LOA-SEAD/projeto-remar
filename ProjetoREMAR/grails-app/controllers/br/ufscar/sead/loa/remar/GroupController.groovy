@@ -1,9 +1,11 @@
 package br.ufscar.sead.loa.remar
 
+import com.mongodb.Block
 import com.mongodb.DBCursor
 import grails.converters.JSON
 import groovy.json.JsonBuilder
 import org.apache.commons.lang.RandomStringUtils
+import org.bson.Document
 import org.grails.datastore.mapping.validation.ValidationException
 import static java.util.Arrays.asList;
 
@@ -63,10 +65,13 @@ class GroupController {
                 def allStats = []
                 def _stat
                 for(int i=0; i<queryMongo.size(); i++){
+                    println queryMongo.get(i)
                     def user = allUsersGroup.find { user -> user.id == queryMongo.get(i).userId }
                     _stat = [[user: user]]
                     queryMongo.get(i).stats.each {
-                        _stat.push([levelId: it.levelId, win: it.win, gameSize: it.gameSize])
+                        if(it.exportedResourceId == exportedResource.id) {
+                            _stat.push([levelId: it.levelId, win: it.win, gameSize: it.gameSize])
+                        }
                     }
                     allStats.push(_stat)
 
@@ -79,7 +84,6 @@ class GroupController {
                         }
                     }
                 }
-
                 println allStats
                 render view: "stats", model: [allStats: allStats, group: group, exportedResource: exportedResource]
             }else{
@@ -90,6 +94,41 @@ class GroupController {
             render(status: 401, view: "../401")
         }
 
+    }
+
+    def userStats(){
+        println params
+        def user = User.findById(params.id)
+        def exportedResource = ExportedResource.findById(params.exp)
+        if(user){
+            def queryMongo = MongoHelper.instance.getStats('stats', params.exp as int, user.id)
+            def allStats = []
+            def question = []
+            queryMongo.forEach(new Block<Document>() {
+                @Override
+                void apply(Document document) {
+                    println document.stats
+                    document.stats.each {
+                        if(it.exportedResourceId == exportedResource.id){
+                            println params.level
+                            println it.levelId
+                            if(it.levelId == params.level as int) {
+                                println "achou"
+                                if (question.empty)
+                                    question.push([question: it.question, answer: it.answer, levelId: it.levelId])
+
+                                allStats.push([timeStamp: it.timestamp, levelId: it.levelId, win: it.win,
+                                               points  : it.points, partialPoints: it.partialPoints, errors: it.errors,
+                                               gameSize: it.gameSize])
+                            }
+                        }
+                    }
+
+                }
+            })
+
+            render view: "userStats", model: [allStats: allStats, user: user, question: question, exportedResource: exportedResource]
+        }
     }
 
     def delete(){
