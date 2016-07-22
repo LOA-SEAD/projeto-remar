@@ -1,8 +1,11 @@
 package br.ufscar.sead.loa.remar
 
+import grails.converters.XML
 import grails.plugins.rest.client.RestBuilder
 import grails.transaction.Transactional
 import groovy.json.JsonBuilder
+import jdk.nashorn.internal.parser.JSONParser
+import org.apache.xerces.parsers.XMLParser
 import org.springframework.http.HttpMethod
 
 import javax.annotation.PostConstruct
@@ -401,7 +404,7 @@ class DspaceRestService {
      *    }
      *    ]}
      * @params id da coleção e arquivo json de metadados
-     * @return o corpo na resp, normalmente um json do item criado
+     * @return o id do item criado
      * */
     def newItem(collectionId, metadata){
         if(!collectionId){
@@ -415,8 +418,11 @@ class DspaceRestService {
                         json metadata
                     }
                     logout()
-                    println(resp.body)
-                    return resp.body
+                    def list = resp.body as String
+                    def itemId = list.substring(list.indexOf("<id>")+4, list.indexOf("</id>"))
+                    println(itemId)
+
+                    return itemId
                 }else{
                     throw new RuntimeException("Error in newCommunity: metadata was not specified")
                 }
@@ -424,8 +430,7 @@ class DspaceRestService {
                 throw new RuntimeException("Error in newCommunity: communityId has value less than zero")
             }
         }
-
-
-
     }
+
+
 }

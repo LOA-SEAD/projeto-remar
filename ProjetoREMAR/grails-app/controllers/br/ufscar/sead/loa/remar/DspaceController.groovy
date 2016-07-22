@@ -15,6 +15,8 @@ class DspaceController {
 
     def dspaceRestService
 
+    def tasksFinished = []
+
     def index() {
 
         def community = dspaceRestService.getMainCommunity()
@@ -85,18 +87,6 @@ class DspaceController {
 
     }
 
-    def save(){
-//        def path = new File(servletContext.getRealPath("/images/dspace"))
-//        path.mkdirs()
-//
-//        if (params.img != null) {
-//            log.debug("save image ${params.img}")
-//
-//            def img1 = new File(servletContext.getRealPath("${params.img}"))
-//            img1.renameTo(new File(path, "img.png"))
-//        }
-    }
-
     def overview(){
         def process = Propeller.instance.getProcessInstanceById(params.id, session.user.id as long)
         def resource = Resource.get(process.getVariable('resourceId'))
@@ -119,15 +109,13 @@ class DspaceController {
         println(resource)
         process.definition.id
 
-        render view: "overview", model: [process:process]
+        render view: "overview", model: [tasksFinished: tasksFinished, process:process]
     }
 
     def listMetadata() {
 
         if(params.step=="0"){
-            println(params)
-
-            render view: 'listMetadata', model: [processId: params.processId, taskId:params.taskId, step: params.step]
+           render view: '_itemMetadata', model: [processId: params.processId, taskId: params.taskId, step: params.step]
         }
         else{
             println(params)
@@ -143,12 +131,14 @@ class DspaceController {
                     println it.name
                 }
 
-                render view: '_bitMetadata', model: [bitstreams: list, abstractP: params.abstract, author: params.author, title: params.title, editor: params.editor, license: params.license, date: params.date, step: params.step]
+                render view: '_bitMetadata', model: [bitstreams: list,
+                                                    processId: params.processId,
+                                                    taskId: params.taskId,
+                                                    step: params.step,
+                                                    itemId: params.itemId]
 
             }
         }
-
-
     }
 
 
@@ -214,6 +204,7 @@ class DspaceController {
 
         def metadatas = [], list = [:]
         def m1 = [:],m2 = [:],m3 = [:], m4 = [:]
+        def itemId = null
 
         def process = Propeller.instance.getProcessInstanceById(params.processId, session.user.id as long)
         def resource = Resource.get(process.getVariable('resourceId'))
@@ -240,23 +231,35 @@ class DspaceController {
 
         list.metadata = metadatas
 
-        if(Integer.parseInt(params.step) == 0){ // -> step era 0 e chegou como 1 create item
+        if(Integer.parseInt(params.step) == 0){ // -> step 0 - criar item
             def resource_dspace = MongoHelper.instance.getCollection("resource_dspace", resource.id)
             resource_dspace.collect{
-
-                it.tasks.each{ task ->
+                it.tasks.each{ task -> //procurando pelo id da coleção que o item será criado
                     if(task.id.toString() == current_task.definition.id.toString()){ //achei a coleção correta
-                        println(task.collectionId)
-                        def resp = dspaceRestService.newItem(task.collectionId, list)
-                        render resp
+                       itemId = dspaceRestService.newItem(task.collectionId, list)
                     }
                 }
             }
 
-        }else{ //step == 1 -> create bitstream
             def new_step = Integer.parseInt(params.step)+1 //calcula o novo step
-            redirect uri: "dspace/listMetadata?processId=${params.processId}&&taskId=${params.taskId}&&step=${new_step}"
+            redirect uri: "/dspace/listMetadata?processId=${params.processId}&&taskId=${params.taskId}&&step=${new_step}&&itemId=${itemId}"
+
         }
 
+    }
+
+    def submitBitstream(){
+        println(params)
+
+        def process = Propeller.instance.getProcessInstanceById(params.processId, session.user.id as long)
+
+        def dir = new File(servletContext.getRealPath("/data/processes/${params.processId}/tmp/${params.taskId}/"))
+        dir.eachFileRecurse (FileType.FILES) {file ->
+            dspaceRestService.addBitstreamToItem(params.itemId, file, file.name, params.description)
+        }
+
+        tasksFinished.add(params.taskId)
+
+        render view: 'overview', model: [tasksFinished:tasksFinished, process: process]
     }
 }

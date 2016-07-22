@@ -5,7 +5,7 @@
   Time: 17:24
 --%>
 
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta name="layout" content="materialize-layout">
     <title>Adicionar metadados</title>
@@ -14,49 +14,35 @@
 <article class="width-position left-align">
     <div class="cluster-header">
         <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom title-page">
-         Visualizar Submissão
+            <i class="medium material-icons left">cloud_upload</i>Submeter artefatos
         </p>
         <div class="divider"></div>
         <div class="clearfix"></div>
     </div>
-    <section class="row">
-        <div class="col s12">
-            <div class="card-content text-justify">
-                <p><span class="bold"><g:message code="dspace.metadata.author"/></span> ${author}</p>
-                <p><span class="bold"><g:message code="dspace.metadata.editor"/></span> ${editor}</p>
-                <p><span class="bold"><g:message code="dspace.metadata.title"/></span> ${title}</p>
-                <p><span class="bold"><g:message code="dspace.metadata.abstract"/></span> ${abstractP}</p>
-                <p><span class="bold"><g:message code="dspace.metadata.date_publication"/></span> ${date}</p>
-                %{--<p><span class="bold"><g:message code="dspace.metadata.license"/></span> ${license}</p>--}%
-                <input type="hidden" value="${license}" id="licenseValue">
-                <div id="licenseInfo">
-
-                </div>
-                <p><span class="bold"></span></p>
-            </div>
-        </div>
-        <div class="col s12">
-            <table class="bordered">
-                <thead>
-                <tr>
-                    <th data-field="answer">Arquivo</th>
-                    <th data-field="name">Descrição</th>
-                    <th data-field="action"> </th>
-                </tr>
-                </thead>
-                <tbody>
+    <g:form action="submitBitstream" method="POST">
+        <section class="row">
+            <div class="col s12">
+                <table class="bordered">
+                    <thead>
+                        <tr>
+                            <th data-field="answer">Arquivo</th>
+                            <th data-field="name">Descrição</th>
+                            <th data-field="action"> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
                 <g:each in="${bitstreams}" var="bitstream">
                     <tr class="line">
                         <td>
                             ${bitstream.name}
                         </td>
                         <td>
-                            <input id="description" type="text" class="validate">
-                            <label for="description">First Name</label>
+                            <input id="description" type="text" name="description" class="validate" placeholder="Informe uma descrição">
+                            <label for="description"></label>
                         </td>
                         <td>
-                            <div class="">
-                                <span>ver</span>
+                            <div class="center">
+                               <a class="btn my-orange" target="_blank" href="/data/processes/${processId}/tmp/${taskId}/${bitstream.name}"><g:message code="dspace.metadata.button_view" /> </a>
                             </div>
                         </td>
                     </tr>
@@ -64,9 +50,19 @@
                 </tbody>
             </table>
         </div>
-    </section>
+        </section>
+        <section class="row">
+            <div class="col s12 m12 l12">
+                <input type="hidden" name="processId" value="${processId}">
+                <input type="hidden" name="taskId" value="${taskId}">
+                <input type="hidden" name="itemId" value="${itemId}">
+                <div class="right">
+                    <button class="btn my-orange" type="submit"> <g:message code="dspace.metadata.button_finish"/> </button>
+                </div>
+            </div>
+        </section>
+    </g:form>
 </article>
-
 <g:javascript src="licenseShow.js"/>
 </body>
 </html>

@@ -8,7 +8,7 @@ $(document).ready(function(){
     var icon_metadata_done = $('.icon-metadata-done');
     var icon_metadata_pending = $('.icon-metadata-pending');
 
-    $(icon_metadata_done).hide();
+    // $(icon_metadata_done).hide();
     $(icon_metadata_pending).hide();
 
     $(".view").on("click",function(){

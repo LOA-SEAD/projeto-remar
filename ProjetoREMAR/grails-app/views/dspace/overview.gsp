@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta name="layout" content="materialize-layout">
-    <title>Categorias</title>
+    <title>Dspace-overview</title>
 </head>
 <body>
 <div class="row cluster">
@@ -52,19 +52,7 @@
                                         ${task.definition.name}
                                     </td>
                                     <td>
-
-                                        <div class="icon-metadata-disabled">
-                                            <span>Nenhum</span>
-                                        </div>
-
-                                        <div class="icon-metadata-pending">
-
-                                            <a href="listMetadata?processId=${process.id}&&taskId=${task.id}&&step=0" class="tooltipped" data-position="right"
-                                               data-delay="50" data-tooltip="Adicionar Metadados">
-                                                Adicionar
-                                            </a>
-                                        </div>
-
+                                    <g:if test="${tasksFinished.contains(task.id)}">
                                         <div class="icon-metadata-done">
                                             <span>OK - </span>
                                             <a href="#!" class="tooltipped right" data-position="bottom"
@@ -78,6 +66,20 @@
                                                 <i class="material-icons">mode_edit</i>
                                             </a>
                                         </div>
+                                    </g:if>
+                                    <g:else>
+                                        <div class="icon-metadata-disabled">
+                                            <span>Nenhum</span>
+                                        </div>
+
+                                        <div class="icon-metadata-pending">
+
+                                            <a href="listMetadata?processId=${process.id}&&taskId=${task.id}&&step=0" class="tooltipped" data-position="right"
+                                               data-delay="50" data-tooltip="Adicionar Metadados">
+                                                Adicionar
+                                            </a>
+                                        </div>
+                                    </g:else>
                                     </td>
                                 </tr>
                             </g:each>
