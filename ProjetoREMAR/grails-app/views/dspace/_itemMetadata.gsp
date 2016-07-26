@@ -18,14 +18,14 @@
         </p>
         <div class="divider"></div>
         <div class="clearfix"></div>
-        <g:form action="createItem" method="POST">
+
+        <g:form action="createItem" method="POST" useToken="true">
             <div class="row">
                 <div class="col s6">
                     <span class="description-input">Entre com o nome dos autores do item. </span>
                     <div class="input-field col s12">
                         <input name="author" id="author" type="text" class="validate">
                         <label for="author"><g:message code="dspace.metadata.author"/> </label>
-                        %{--<span id="email-error" class="">Digite um email no formato nome@exemplo.com</span>--}%
                     </div>
                 </div>
 
@@ -48,8 +48,8 @@
                 <div class="col s12">
                     <span class="description-input">Entre com o resumo do item. </span>
                     <div class="input-field col s12">
-                        <textarea name="abstract" id="abstract" class="materialize-textarea"></textarea>
-                        <label for="abstract"><g:message code="dspace.metadata.abstract"/> </label>
+                        <textarea name="description" id="description" class="materialize-textarea"></textarea>
+                        <label for="description"><g:message code="dspace.metadata.abstract"/> </label>
                     </div>
                 </div>
 
@@ -65,7 +65,6 @@
                     <span class="description-input">Entre com a licença do item. </span>
                     <div class="input-field col s12">
                         <select name="license" id="license">
-                            %{--<option value="" disabled selected>Choose your option</option>--}%
                             <option value="cc-by-sa">cc-by-sa</option>
                             <option value="cc-by-nc-sa">cc-by-nc-sa</option>
                         </select>
@@ -83,6 +82,7 @@
                 </div>
             </div>
         </g:form>
+
     </div>
 </div>
 <g:javascript src="dspace.js"/>

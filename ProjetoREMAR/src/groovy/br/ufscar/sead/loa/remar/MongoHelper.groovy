@@ -35,26 +35,27 @@ class MongoHelper {
         if (!dbExists) {
             db.createCollection(name)
             return true
-        }else
-            return false
-    }
-
-    def createCollection(String collectionName) {
-        def dbExists = false;
-
-        db.listCollectionNames().each {
-            if (it.equals(collectionName)) {
-                dbExists = true
-            }
         }
 
-        if (!dbExists) {
-            db.createCollection(collectionName)
-            return false
-        }
-
-        return true
+        return false
     }
+
+//    def createCollection(String collectionName) {
+//        def dbExists = false;
+//
+//        db.listCollectionNames().each {
+//            if (it.equals(collectionName)) {
+//                dbExists = true
+//            }
+//        }
+//
+//        if (!dbExists) {
+//            db.createCollection(collectionName)
+//            return true
+//        }
+//
+//        return false
+//    }
 
     def insertData(String collection, Object data) {
 

@@ -366,7 +366,6 @@ class DspaceRestService {
                     header 'rest-dspace-token', this.token
                     json metadata
                 }
-//                body file.bytes
 
                 logout()
                 println(resp.body)

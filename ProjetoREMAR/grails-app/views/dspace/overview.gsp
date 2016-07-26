@@ -52,7 +52,8 @@
                                         ${task.definition.name}
                                     </td>
                                     <td>
-                                    <g:if test="${tasksFinished.contains(task.id)}">
+
+                                    <g:if test="${tasksSendToDspace.containsKey(task.id.toString())==true}">
                                         <div class="icon-metadata-done">
                                             <span>OK - </span>
                                             <a href="#!" class="tooltipped right" data-position="bottom"

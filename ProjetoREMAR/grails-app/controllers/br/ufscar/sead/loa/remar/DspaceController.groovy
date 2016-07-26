@@ -11,11 +11,11 @@ import com.mongodb.client.MongoDatabase;
 class DspaceController {
 
     static allowedMethods = [bitstream: "GET"]
-    static scope = "prototype"
+    static scope = "session"
 
     def dspaceRestService
 
-    def tasksFinished = []
+//    def tasksFinished = [:]
 
     def index() {
 
@@ -89,33 +89,72 @@ class DspaceController {
 
     def overview(){
         def process = Propeller.instance.getProcessInstanceById(params.id, session.user.id as long)
-        def resource = Resource.get(process.getVariable('resourceId'))
 
+        // cria diretório de tmp no processo e copia os outputs para subpastas nomeadas pelo id das tasks instance
+        // do process instance corrente
         def tmpFolder = new File("${servletContext.getRealPath("/data/processes/${process.id}")}/tmp")
-        def ant = new AntBuilder()
-        tmpFolder.mkdirs()
+        if(!tmpFolder.exists()){
+            def ant = new AntBuilder()
+            tmpFolder.mkdirs()
 
-        process.completedTasks.each { task ->
-            def taskFolder = new File(tmpFolder,task.id as String)
-            task.outputs.each {output ->
-                ant.copy(
-                        file: output.path,
-                        tofile: "${taskFolder}/${output.definition.name}",
-                        overwrite: true
-                )
+            process.completedTasks.each { task ->
+                def taskFolder = new File(tmpFolder,task.id as String)
+                task.outputs.each {output ->
+                    ant.copy(
+                            file: output.path,
+                            tofile: "${taskFolder}/${output.definition.name}",
+                            overwrite: true
+                    )
+                }
             }
         }
 
-        println(resource)
-        process.definition.id
 
-        render view: "overview", model: [tasksFinished: tasksFinished, process:process]
+
+//        // cria no mongo uma estrutura que representa o process instance para o dspace
+//        // eh necessário saber quando uma task completed foi enviada para o dpsace ...
+//        // criado um item na coleção que task defination em resource_dspace representa, e submetido os
+//        // bistreams da task -> outputs
+//        def process_dspace = MongoHelper.instance.getCollection("process_dspace", params.id)
+//        if(process_dspace.first() == null){ //cria uma instancia no Mongo para o processo corrente
+//            def data =  [:]
+//            def tasks = []
+//
+//            process.completedTasks.each { task ->
+//                def taskStructure = [:]
+//
+//                taskStructure.id = task.id
+//                taskStructure.name = task.name
+//                taskStructure.uri = task.uri
+//                taskStructure.status = "pending" //atributo que representa se a task (intansce) do process corrente já foi enviada para o dspace
+//                tasks.add(taskStructure)
+//            }
+//
+//            data.id = process.id //id do process instance
+//            data.name = process.name
+//            data.uri = process.uri
+//            data.tasks = tasks
+//
+//            MongoHelper.instance.insertData('resource_dspace',data)
+//
+//        }
+
+        def map = [:]
+        def list = process.getVariable("tasksSendToDspace")
+        if(list != null){
+            list.split(";").each {task->
+                map.put(task.toString(),task.toString())
+            }
+        }
+        println(map)
+
+        render view: "overview", model: [process:process, tasksSendToDspace: map]
     }
 
     def listMetadata() {
 
         if(params.step=="0"){
-           render view: '_itemMetadata', model: [processId: params.processId, taskId: params.taskId, step: params.step]
+           render view: '_itemMetadata', model: [processId: params.processId, taskId: params.taskId, step: params.step, metadataForm: new MetadataForm()]
         }
         else{
             println(params)
@@ -199,53 +238,70 @@ class DspaceController {
     }
 
     // create/item
-    def createItem(){
+    def createItem(MetadataForm form){
         println(params)
+        println(form)
 
-        def metadatas = [], list = [:]
-        def m1 = [:],m2 = [:],m3 = [:], m4 = [:]
-        def itemId = null
+//        form.validate()
+        if(false){ //validação do formulário
+//            for (error in form.errors.allErrors){
+//                println(error)
+//            }
 
-        def process = Propeller.instance.getProcessInstanceById(params.processId, session.user.id as long)
-        def resource = Resource.get(process.getVariable('resourceId'))
-        def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
+            flash.message = "Erro de validação"
+            render view: '_itemMetadata', model: [processId: params.processId, taskId: params.taskId, step: params.step, metadataForm: form]
 
-        m1.key = "dc.contributor.author"
-        m1.value = "LAST, FIRST"
-        metadatas.add(m1)
+        }else{
+            withForm { //submssão esperada
 
-        m2.key = "dc.description"
-        m2.language = "pt_BR"
-        m2.value = "DESCRICAO"
-        metadatas.add(m2)
+                def metadatas = [], list = [:]
+                def m1 = [:],m2 = [:],m3 = [:], m4 = [:]
+                def itemId = null
 
-        m3.key = "dc.description.abstract"
-        m3.language = "pt_BR"
-        m3.value = "RESUMO"
-        metadatas.add(m3)
+                def process = Propeller.instance.getProcessInstanceById(params.processId, session.user.id as long)
+                def resource = Resource.get(process.getVariable('resourceId'))
+                def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
 
-        m4.key = "dc.title"
-        m4.language = "pt_BR"
-        m4.value = "TESTE 1"
-        metadatas.add(m4)
+                m1.key = "dc.contributor.author"
+                m1.value = "LAST, FIRST"
+                metadatas.add(m1)
 
-        list.metadata = metadatas
+                m2.key = "dc.description"
+                m2.language = "pt_BR"
+                m2.value = "DESCRICAO"
+                metadatas.add(m2)
 
-        if(Integer.parseInt(params.step) == 0){ // -> step 0 - criar item
-            def resource_dspace = MongoHelper.instance.getCollection("resource_dspace", resource.id)
-            resource_dspace.collect{
-                it.tasks.each{ task -> //procurando pelo id da coleção que o item será criado
-                    if(task.id.toString() == current_task.definition.id.toString()){ //achei a coleção correta
-                       itemId = dspaceRestService.newItem(task.collectionId, list)
+                m3.key = "dc.description.abstract"
+                m3.language = "pt_BR"
+                m3.value = "RESUMO"
+                metadatas.add(m3)
+
+                m4.key = "dc.title"
+                m4.language = "pt_BR"
+                m4.value = "TESTE 1"
+                metadatas.add(m4)
+
+                list.metadata = metadatas
+
+                if(Integer.parseInt(params.step) == 0){ // -> step 0 - criar item
+                    def resource_dspace = MongoHelper.instance.getCollection("resource_dspace", resource.id)
+                    resource_dspace.collect{
+                        it.tasks.each{ task -> //procurando pelo id da coleção que o item será criado
+                            if(task.id.toString() == current_task.definition.id.toString()){ //achei a coleção correta
+                                itemId = dspaceRestService.newItem(task.collectionId, list)
+                            }
+                        }
                     }
+
+                    def new_step = Integer.parseInt(params.step)+1 //calcula o novo step
+                    redirect uri: "/dspace/listMetadata?processId=${params.processId}&&taskId=${params.taskId}&&step=${new_step}&&itemId=${itemId}"
+
                 }
+
+            }.invalidToken {
+                //sbmissão duplicada do formulário
             }
-
-            def new_step = Integer.parseInt(params.step)+1 //calcula o novo step
-            redirect uri: "/dspace/listMetadata?processId=${params.processId}&&taskId=${params.taskId}&&step=${new_step}&&itemId=${itemId}"
-
         }
-
     }
 
     def submitBitstream(){
@@ -258,8 +314,21 @@ class DspaceController {
             dspaceRestService.addBitstreamToItem(params.itemId, file, file.name, params.description)
         }
 
-        tasksFinished.add(params.taskId)
+        def tasks = process.getVariable("tasksSendToDspace")
+        if(tasks == null) {
+            tasks = params.taskId
+        }else {
+            tasks += ";" + params.taskId
+        }
+        println(tasks)
+        process.putVariable("tasksSendToDspace",tasks, true)
 
-        render view: 'overview', model: [tasksFinished:tasksFinished, process: process]
+        def map = [:]
+        def list = tasks.split(";")
+        list.each {task->
+            map.put(task.toString(),task.toString())
+        }
+
+        render view: 'overview', model: [process: process, tasksSendToDspace: map]
     }
 }
