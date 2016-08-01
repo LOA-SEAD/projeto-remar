@@ -91,26 +91,50 @@ class ExportedResourceController {
 
     def saveStats(){
         def data = [:]
-        data.timestamp = new Date().toTimestamp()
-        data.userId = session.user.id as long
-        data.exportedResourceId = params.exportedResourceId as int
-        data.points = params.points
-        data.partialPoints = params.partialPoints
-        data.errors = params.errors
-        data.question = params.question
-        data.answer = params.answer
-        data.levelId = params.levelId as int
-        data.win = Boolean.parseBoolean(params.win)
-        data.gameSize = params.size as int
-        data.end = Boolean.parseBoolean(params.end)
-        try {
-            MongoHelper.instance.createCollection("stats")
-            MongoHelper.instance.insertStats("stats", data)
+        println params
+        if(params.gameType == "puzzleWithTime"){
+            data.timestamp = new Date().toTimestamp()
+            data.userId = session.user.id as long
+            data.exportedResourceId = params.exportedResourceId as int
+            data.points = params.points as int
+            data.partialPoints = params.partialPoints as int
+            data.levelId = params.levelId as int
+            data.remainingTime = params.remainingTime as int
+            data.win = Boolean.parseBoolean(params.win)
+            data.gameSize = params.size as int
+            data.end = Boolean.parseBoolean(params.end)
+            data.gameType = params.gameType
+            try {
+                MongoHelper.instance.createCollection("stats")
+                MongoHelper.instance.insertStats("stats", data)
 
-        }catch(Exception e){
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            } catch (Exception e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
+
+            render status: 200
+        }else {
+            data.timestamp = new Date().toTimestamp()
+            data.userId = session.user.id as long
+            data.exportedResourceId = params.exportedResourceId as int
+            data.points = params.points as int
+            data.partialPoints = params.partialPoints as int
+            data.errors = params.errors
+            data.question = params.question
+            data.answer = params.answer
+            data.levelId = params.levelId as int
+            data.win = Boolean.parseBoolean(params.win)
+            data.gameSize = params.size as int
+            data.end = Boolean.parseBoolean(params.end)
+            try {
+                MongoHelper.instance.createCollection("stats")
+                MongoHelper.instance.insertStats("stats", data)
+
+            } catch (Exception e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
+            render status: 200
         }
-        render status: 200
     }
 
     def publish(ExportedResource instance) {
@@ -143,6 +167,7 @@ class ExportedResourceController {
         def remarJson = builder{
             exportedResourceId instance.id
         }
+
         def jsonPathWeb = "${root}/published/${instance.processId}/web/json"
         def jsonName = "remar.json"
 
