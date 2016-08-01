@@ -35,6 +35,7 @@ class ProcessController {
         def resource = Resource.findByUri(params.uri)
 
         process.putVariable("resourceId", resource.id as String, true)
+        process.putVariable("tasksSendToDspace", null, true)
 
         redirect uri: "/process/overview/${process.id}"
         log.debug "${logMsg} ENDED; success – redirecting to overview"
@@ -217,7 +218,6 @@ class ProcessController {
     def finish() {
         if(grailsApplication.config.dspace.restUrl) { //se existir dspace
             def process = Propeller.instance.getProcessInstanceById(params.id, session.user.id as long)
-            process.putVariable("tasksSendToDspace", null, true)
             redirect uri: "/dspace/overview?id=${params.id}"
         } else {
             publishProcess()

@@ -255,31 +255,40 @@ class DspaceController {
             withForm { //submssão esperada
 
                 def metadatas = [], list = [:]
-                def m1 = [:],m2 = [:],m3 = [:], m4 = [:]
+                //def m1 = [:],m2 = [:],m3 = [:], m4 = [:]
                 def itemId = null
 
                 def process = Propeller.instance.getProcessInstanceById(params.processId, session.user.id as long)
                 def resource = Resource.get(process.getVariable('resourceId'))
                 def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
 
-                m1.key = "dc.contributor.author"
-                m1.value = "LAST, FIRST"
-                metadatas.add(m1)
+                //gerar arquivo de metadados
+                for(def hash : dspaceRestService.listMetadata){
+                    println(hash)
+                    def m = [:]
+                    m.key = hash.value
+                    m.value =  params.get(hash.key)
+                    metadatas.add(m)
+                }
 
-                m2.key = "dc.description"
-                m2.language = "pt_BR"
-                m2.value = "DESCRICAO"
-                metadatas.add(m2)
-
-                m3.key = "dc.description.abstract"
-                m3.language = "pt_BR"
-                m3.value = "RESUMO"
-                metadatas.add(m3)
-
-                m4.key = "dc.title"
-                m4.language = "pt_BR"
-                m4.value = "TESTE 1"
-                metadatas.add(m4)
+//                m1.key = "dc.contributor.author"
+//                m1.value = "LAST, FIRST"
+//                metadatas.add(m1)
+//
+//                m2.key = "dc.description"
+//                m2.language = "pt_BR"
+//                m2.value = "DESCRICAO"
+//                metadatas.add(m2)
+//
+//                m3.key = "dc.description.abstract"
+//                m3.language = "pt_BR"
+//                m3.value = "RESUMO"
+//                metadatas.add(m3)
+//
+//                m4.key = "dc.title"
+//                m4.language = "pt_BR"
+//                m4.value = "TESTE 1"
+//                metadatas.add(m4)
 
                 list.metadata = metadatas
 
@@ -305,13 +314,19 @@ class DspaceController {
     }
 
     def submitBitstream(){
-        println(params)
-
         def process = Propeller.instance.getProcessInstanceById(params.processId, session.user.id as long)
-
         def dir = new File(servletContext.getRealPath("/data/processes/${params.processId}/tmp/${params.taskId}/"))
+        def i = 0
+
         dir.eachFileRecurse (FileType.FILES) {file ->
-            dspaceRestService.addBitstreamToItem(params.itemId, file, file.name, params.description)
+            def description = null
+            if(params.description.getClass().isArray()){
+                description = params.description.getAt(i)
+                i = i+1
+            }else{
+                description = params.description
+            }
+            dspaceRestService.addBitstreamToItem(params.itemId, file, file.name, description)
         }
 
         def tasks = process.getVariable("tasksSendToDspace")

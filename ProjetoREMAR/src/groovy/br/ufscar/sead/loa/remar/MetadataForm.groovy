@@ -11,6 +11,7 @@ class MetadataForm implements Validateable {
 
     String author
     String editor
+    String citation
     String title
     String description
     Date   publication_date
@@ -19,6 +20,7 @@ class MetadataForm implements Validateable {
     static constraints = {
         author(nullable: false, blank: false)
         editor (nullable: false, blank: false)
+        citation (nullable: false, blank: false)
         title (nullable: false, blank: false)
         description (nullable: false, blank: false)
         publication_date (nullable: false, blank: false)
@@ -37,6 +39,6 @@ class MetadataForm implements Validateable {
     @Override
     String toString() {
 
-        return "${author}\n${editor}\n${title}\n${description}\n${publication_date.toString()}\n${license}"
+        return "${author}\n${editor}\n${citation}\n${title}\n${description}\n${publication_date.toString()}\n${license}"
     }
 }

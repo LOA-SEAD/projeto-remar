@@ -38,6 +38,14 @@
                 </div>
 
                 <div class="col s12">
+                    <span class="description-input">Entre com um nome padrão de citação. </span>
+                    <div class="input-field col s12">
+                        <input name="citation" id="citation" type="text" class="validate">
+                        <label for="citation"><g:message code="dspace.metadata.citation"/> </label>
+                    </div>
+                </div>
+
+                <div class="col s12">
                     <span class="description-input">Entre com o título item. </span>
                     <div class="input-field col s12">
                         <input name="title" id="title" type="text" class="validate">
@@ -56,8 +64,8 @@
                 <div class="col s12">
                     <span class="description-input">Entre com uma data prevista de publicação do item. </span>
                     <div class="input-field col s12">
-                        <input name="date" type="date" id="date" class="datepicker">
-                        <label for="date"><g:message code="dspace.metadata.date_publication"/> </label>
+                        <input name="publication_date" type="date" id="publication_date" class="datepicker">
+                        <label for="publication_date"><g:message code="dspace.metadata.publication_date"/> </label>
                     </div>
                 </div>
 

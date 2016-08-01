@@ -43,10 +43,18 @@
                             <g:each in="${process.completedTasks}" var="task">
                                 <tr class="line">
                                     <td>
-                                        <p>
-                                            <input type="checkbox" id="test${task.id}" />
-                                            <label for="test${task.id}"></label>
-                                        </p>
+                                        <g:if test="${tasksSendToDspace.containsKey(task.id.toString())==true}">
+                                            <p>
+                                                <input type="checkbox" id="test${task.id}" checked disabled/>
+                                                <label for="test${task.id}"></label>
+                                            </p>
+                                        </g:if>
+                                        <g:else>
+                                            <p>
+                                                <input type="checkbox" id="test${task.id}" />
+                                                <label for="test${task.id}"></label>
+                                            </p>
+                                        </g:else>
                                     </td>
                                     <td>
                                         ${task.definition.name}
