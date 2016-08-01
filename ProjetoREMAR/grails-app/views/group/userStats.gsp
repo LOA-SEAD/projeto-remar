@@ -22,15 +22,26 @@
                 <div class="divider"></div>
                 <h5 class="center-align">Estatísticas do jogo <i>${exportedResource.name}</i></h5>
                 <div class="divider"></div><br>
-                <p><b>Pergunta:</b> ${question.get(0).question}?</p>
-                <p><b>Resposta:</b> ${question.get(0).answer}</p>
+                <g:if test="${allStats.get(0).gameType == "questionAndAnswer"}">
+                    <p><b>Pergunta:</b> ${question.get(0).question}?</p>
+                    <p><b>Resposta:</b> ${question.get(0).answer}</p>
+                </g:if>
+
+                <g:elseif test="${allStats.get(0).gameType == "puzzleWithTime"}">
+                </g:elseif>
                 <p><b>Fase:</b> ${question.get(0).levelId+1}</p>
+
                 <table class=" centered highlight responsive-table">
                     <thead>
                     <tr>
                         <th data-field="date">Data</th>
                         <th data-field="points">Pontos</th>
-                        <th data-field="errors">Erros</th>
+                        <g:if test="${allStats.get(0).gameType == "questionAndAnswer"}">
+                            <th data-field="errors">Erros</th>
+                        </g:if>
+                        <g:elseif test="${allStats.get(0).gameType == "puzzleWithTime"}">
+                            <th data-field="time">Tempo Restante</th>
+                        </g:elseif>
                         <th data-field="win">Vitória</th>
                     </tr>
                     </thead>
@@ -39,7 +50,12 @@
                             <tr>
                                 <td><g:formatDate format="dd/MM/yy - HH:mm" date="${stats.timeStamp}"/></td>
                                 <td>${stats.partialPoints}</td>
-                                <td>${stats.errors}</td>
+                                <g:if test="${allStats.get(0).gameType == "questionAndAnswer"}">
+                                    <td>${stats.errors}</td>
+                                </g:if>
+                                <g:elseif test="${allStats.get(0).gameType == "puzzleWithTime"}">
+                                    <td>${stats.remainingTime}</td>
+                                </g:elseif>
                                 <td>
                                     <g:if test="${stats.win}"><i style="color: green" class="fa fa-check-square"></i></g:if>
                                     <g:else><i style="color: red" class="fa fa-times"></i></g:else>
