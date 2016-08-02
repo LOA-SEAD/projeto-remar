@@ -6,6 +6,7 @@ import grails.converters.JSON
 import groovy.json.JsonBuilder
 import org.apache.commons.lang.RandomStringUtils
 import org.bson.Document
+import java.util.concurrent.TimeUnit;
 import org.grails.datastore.mapping.validation.ValidationException
 import static java.util.Arrays.asList;
 
@@ -109,17 +110,27 @@ class GroupController {
                 void apply(Document document) {
                     println document.stats
                     document.stats.each {
+                        println it.gameType
                         if(it.exportedResourceId == exportedResource.id){
                             println params.level
                             println it.levelId
                             if(it.levelId == params.level as int) {
-                                println "achou"
                                 if (question.empty)
                                     question.push([question: it.question, answer: it.answer, levelId: it.levelId])
 
-                                allStats.push([timeStamp: it.timestamp, levelId: it.levelId, win: it.win,
-                                               points  : it.points, partialPoints: it.partialPoints, errors: it.errors,
-                                               gameSize: it.gameSize])
+                                if(it.gameType == "puzzleWithTime") {
+                                    allStats.push([timeStamp    : it.timestamp, levelId: it.levelId, win: it.win,
+                                                   points       : it.points, partialPoints: it.partialPoints,
+                                                   gameSize     : it.gameSize, gameType: it.gameType,
+                                                   remainingTime: String.format("%d min, %d sec",
+                                                           TimeUnit.SECONDS.toMinutes(it.remainingTime),
+                                                           (it.remainingTime - TimeUnit.MINUTES.toSeconds(TimeUnit.SECONDS.toMinutes(it.remainingTime as long)))
+                                                   )])
+                                }else if(it.gameType == "questionAndAnswer"){
+                                    allStats.push([timeStamp    : it.timestamp, levelId: it.levelId, win: it.win,
+                                                   points       : it.points, partialPoints: it.partialPoints, errors: it.errors,
+                                                   gameSize     : it.gameSize, gameType: it.gameType ])
+                                }
                             }
                         }
                     }
