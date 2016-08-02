@@ -25,7 +25,7 @@
                 </tr>
             </thead>
             <tbody>
-            <g:each in="${allStats.sort{it.get(0).user.firstName}}" var="stats">
+            <g:each in="${allStats}" var="stats">
                 <tr>
                     <g:if test="${stats instanceof User}">
                         <td style="padding-left: 1.80em;">${stats.firstName + " " + stats.lastName}</td>
@@ -62,7 +62,7 @@
     </g:if>
     <g:else>
         <div class="col l12">
-            <h5>Nenhuma estatística foi encontrada para este jogo</h5>
+            <h5>Nenhuma estatística foi encontrada ou este jogo não possui suporte para isto.</h5>
         </div>
     </g:else>
 
