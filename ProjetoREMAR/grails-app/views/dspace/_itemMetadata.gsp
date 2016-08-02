@@ -48,7 +48,8 @@
                 <div class="col s12">
                     <span class="description-input">Entre com o título item. </span>
                     <div class="input-field col s12">
-                        <input name="title" id="title" type="text" class="validate">
+                        <input name="title" id="title" type="text" class="">
+                        <span id="title-error" class="invalid-textarea" style="left: 0.75rem; top: 45px;">Este campo não pode ser vazio!</span>
                         <label for="title"><g:message code="dspace.metadata.title"/> </label>
                     </div>
                 </div>
@@ -65,6 +66,7 @@
                     <span class="description-input">Entre com uma data prevista de publicação do item. </span>
                     <div class="input-field col s12">
                         <input name="publication_date" type="date" id="publication_date" class="datepicker">
+                        <span id="publication_date-error" class="invalid-textarea" style="left: 0.75rem; top: 45px;">Este campo não pode ser vazio!</span>
                         <label for="publication_date"><g:message code="dspace.metadata.publication_date"/> </label>
                     </div>
                 </div>
@@ -93,6 +95,12 @@
 
     </div>
 </div>
+<script>
+
+</script>
 <g:javascript src="dspace.js"/>
+<g:javascript src="dspace/validateSubmit.js"/>
+
+
 </body>
 </html>
