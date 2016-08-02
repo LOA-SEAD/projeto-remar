@@ -113,7 +113,7 @@ class ExportedResourceController {
             }
 
             render status: 200
-        }else {
+        }else if(params.gameType == "questionAndAnswer") {
             data.timestamp = new Date().toTimestamp()
             data.userId = session.user.id as long
             data.exportedResourceId = params.exportedResourceId as int
@@ -126,6 +126,7 @@ class ExportedResourceController {
             data.win = Boolean.parseBoolean(params.win)
             data.gameSize = params.size as int
             data.end = Boolean.parseBoolean(params.end)
+            data.gameType = params.gameType
             try {
                 MongoHelper.instance.createCollection("stats")
                 MongoHelper.instance.insertStats("stats", data)
@@ -163,18 +164,7 @@ class ExportedResourceController {
         def resourceName = instance.resource.name
         def desktop = instance.resource.desktop
         def android = instance.resource.android
-        def builder = new JsonBuilder()
-        def remarJson = builder{
-            exportedResourceId instance.id
-        }
 
-        def jsonPathWeb = "${root}/published/${instance.processId}/web/json"
-        def jsonName = "remar.json"
-
-        File file = new File("$jsonPathWeb/$jsonName");
-        PrintWriter pw = new PrintWriter(file);
-        pw.write(builder)
-        pw.close()
 
 
         urls.web = "/published/${instance.processId}/web"
@@ -188,6 +178,21 @@ class ExportedResourceController {
         }
 
         if (!instance.exported) {
+
+            def builder = new JsonBuilder()
+            def remarJson = builder{
+                exportedResourceId instance.id
+            }
+
+            def jsonPathWeb = "${root}/published/${instance.processId}/web"
+            println jsonPathWeb + " <=- - -- - - - - - - - - - - -- - - - - - - - - - -"
+            def jsonName = "remar.json"
+
+            File file = new File("$jsonPathWeb/$jsonName");
+            PrintWriter pw = new PrintWriter(file);
+            pw.write(builder)
+            pw.close()
+
             def sourceFolder = "${root}/data/resources/sources/${instance.resource.uri}/"
             def desktopFolder = "${root}/published/${instance.processId}/desktop"
             def mobileFolder = "${root}/published/${instance.processId}/mobile"
@@ -265,10 +270,15 @@ class ExportedResourceController {
                 instance.moodleUrl = urls.web
             }
 
+
+
             instance.exported = true
             instance.save flush: true
 
         }
+
+
+
 
         render urls as JSON
     }
