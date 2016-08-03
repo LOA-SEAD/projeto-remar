@@ -58,6 +58,9 @@ class ResourceController {
 
         instance.save flush: true
 
+        //salvar resource_dspace para o resource submetido
+
+
         render true;
     }
 
