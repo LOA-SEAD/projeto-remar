@@ -32,8 +32,8 @@ class DspaceRestService {
                         editor: "dc.contributor.editor",
                         title:  "dc.title",
                         description: "dc.description.abstract",
-                        license: "dcterms.license"
-                        //publication_date: "dc.date.issued"
+                        license: "dcterms.license",
+                        publication_date: "dc.date.issued"
                         ]
 
     boolean getInitialized() {

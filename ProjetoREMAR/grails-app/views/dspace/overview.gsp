@@ -63,17 +63,17 @@
 
                                     <g:if test="${tasksSendToDspace.containsKey(task.id.toString())==true}">
                                         <div class="icon-metadata-done">
-                                            <span>OK - </span>
-                                            <a href="#!" class="tooltipped right" data-position="bottom"
-                                               data-delay="50" data-tooltip="Visualizar"
-                                               data-task-id="${task.id}">
-                                                <i class="material-icons">visibility</i>
-                                            </a>
-                                            <a href="#!" class="tooltipped right" data-position="bottom"
-                                               data-delay="50" data-tooltip="Editar"
-                                               data-task-id="${task.id}">
-                                                <i class="material-icons">mode_edit</i>
-                                            </a>
+                                            <span>OK</span>
+                                            %{--<a href="#!" class="tooltipped right" data-position="bottom"--}%
+                                               %{--data-delay="50" data-tooltip="Visualizar"--}%
+                                               %{--data-task-id="${task.id}">--}%
+                                                %{--<i class="material-icons">visibility</i>--}%
+                                            %{--</a>--}%
+                                            %{--<a href="#!" class="tooltipped right" data-position="bottom"--}%
+                                               %{--data-delay="50" data-tooltip="Editar"--}%
+                                               %{--data-task-id="${task.id}">--}%
+                                                %{--<i class="material-icons">mode_edit</i>--}%
+                                            %{--</a>--}%
                                         </div>
                                     </g:if>
                                     <g:else>

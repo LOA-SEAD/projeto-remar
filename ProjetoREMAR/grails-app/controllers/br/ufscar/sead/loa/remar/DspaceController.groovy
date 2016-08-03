@@ -109,36 +109,6 @@ class DspaceController {
             }
         }
 
-
-
-//        // cria no mongo uma estrutura que representa o process instance para o dspace
-//        // eh necessário saber quando uma task completed foi enviada para o dpsace ...
-//        // criado um item na coleção que task defination em resource_dspace representa, e submetido os
-//        // bistreams da task -> outputs
-//        def process_dspace = MongoHelper.instance.getCollection("process_dspace", params.id)
-//        if(process_dspace.first() == null){ //cria uma instancia no Mongo para o processo corrente
-//            def data =  [:]
-//            def tasks = []
-//
-//            process.completedTasks.each { task ->
-//                def taskStructure = [:]
-//
-//                taskStructure.id = task.id
-//                taskStructure.name = task.name
-//                taskStructure.uri = task.uri
-//                taskStructure.status = "pending" //atributo que representa se a task (intansce) do process corrente já foi enviada para o dspace
-//                tasks.add(taskStructure)
-//            }
-//
-//            data.id = process.id //id do process instance
-//            data.name = process.name
-//            data.uri = process.uri
-//            data.tasks = tasks
-//
-//            MongoHelper.instance.insertData('resource_dspace',data)
-//
-//        }
-
         def map = [:]
         def list = process.getVariable("tasksSendToDspace")
         if(list != null){
@@ -237,7 +207,7 @@ class DspaceController {
         render "<h1>teste</h1>"
     }
 
-    // create/item
+    // create-item
     def createItem(MetadataForm form){
         println(params)
         println(form)
@@ -253,42 +223,24 @@ class DspaceController {
 
         }else{
             withForm { //submssão esperada
-
                 def metadatas = [], list = [:]
-                //def m1 = [:],m2 = [:],m3 = [:], m4 = [:]
                 def itemId = null
-
                 def process = Propeller.instance.getProcessInstanceById(params.processId, session.user.id as long)
                 def resource = Resource.get(process.getVariable('resourceId'))
                 def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
 
+                //convert date for pattern expected
+                Date date = new Date()
+                params.publication_date = date.format('YYYY-MM-dd')
+                println(params.publication_date)
+
                 //gerar arquivo de metadados
                 for(def hash : dspaceRestService.listMetadata){
-                    println(hash)
                     def m = [:]
                     m.key = hash.value
                     m.value =  params.get(hash.key)
                     metadatas.add(m)
                 }
-
-//                m1.key = "dc.contributor.author"
-//                m1.value = "LAST, FIRST"
-//                metadatas.add(m1)
-//
-//                m2.key = "dc.description"
-//                m2.language = "pt_BR"
-//                m2.value = "DESCRICAO"
-//                metadatas.add(m2)
-//
-//                m3.key = "dc.description.abstract"
-//                m3.language = "pt_BR"
-//                m3.value = "RESUMO"
-//                metadatas.add(m3)
-//
-//                m4.key = "dc.title"
-//                m4.language = "pt_BR"
-//                m4.value = "TESTE 1"
-//                metadatas.add(m4)
 
                 list.metadata = metadatas
 
