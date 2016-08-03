@@ -87,7 +87,8 @@
 
                 <div class=" col s12 m12 l12">
                     <div class="right">
-                        <button class="btn my-orange" type="submit"> <g:message code="dspace.metadata.button_next"/> </button>
+                        <button id="nextButton" class="btn my-orange hide" type="submit" > <g:message code="dspace.metadata.button_next"/> </button>
+                        <a id="nextLabel" class="btn my-orange disabled" > <g:message code="dspace.metadata.button_next"/> </a>
                     </div>
                 </div>
             </div>
