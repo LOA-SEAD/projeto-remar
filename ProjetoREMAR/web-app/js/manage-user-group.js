@@ -131,18 +131,20 @@ $(window).load(function(){
                     membertoken: $(token).val()
                 },
                 success: function(data){
-                    groupSize++;
-                    text.attr("data-group-size",groupSize);
-                    text.html("Ver membros ("+groupSize+")");
-                    $("#add-user-form")[0].reset();
-                    if(noUsers) {
-                        noUsers.fadeOut(300);
-                        noUsers.remove();
-                    }
-                    $(ul).append(data);
-                    Materialize.toast("Usuário adicionado!", 3000, "rounded");
 
                 }, statusCode: {
+                    200: function(data){
+                        groupSize++;
+                        text.attr("data-group-size",groupSize);
+                        text.html("Ver membros ("+groupSize+")");
+                        $("#add-user-form")[0].reset();
+                        if(noUsers) {
+                            noUsers.fadeOut(300);
+                            noUsers.remove();
+                        }
+                        $(ul).append(data);
+                        Materialize.toast("Usuário adicionado!", 3000, "rounded");
+                    },
                     403: function(response){
                         $("#modal-message").html(response.responseText);
                         $('#modal-user-in-group').openModal();
