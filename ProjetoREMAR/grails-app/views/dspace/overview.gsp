@@ -30,6 +30,7 @@
                         </p>
                     </div>
                 </div>
+                <input type="hidden" id="taskCount" value="${process.completedTasks.size()}">
                 <div class="col s12">
                     <table class="bordered">
                         <thead>
@@ -40,19 +41,19 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <g:each in="${process.completedTasks}" var="task">
+                            <g:each in="${process.completedTasks}" var="task" status="i">
                                 <tr class="line">
                                     <td>
                                         <g:if test="${tasksSendToDspace.containsKey(task.id.toString())==true}">
                                             <p>
-                                                <input type="checkbox" id="test${task.id}" checked disabled/>
-                                                <label for="test${task.id}"></label>
+                                                <input type="checkbox" id="task${i}" checked disabled/>
+                                                <label for="task${i}"></label>
                                             </p>
                                         </g:if>
                                         <g:else>
                                             <p>
-                                                <input type="checkbox" id="test${task.id}" />
-                                                <label for="test${task.id}"></label>
+                                                <input class="checkbox" type="checkbox" id="task${i}" />
+                                                <label for="task${i}"></label>
                                             </p>
                                         </g:else>
                                     </td>
@@ -63,6 +64,7 @@
 
                                     <g:if test="${tasksSendToDspace.containsKey(task.id.toString())==true}">
                                         <div class="icon-metadata-done">
+                                            <input type="hidden" id="task${i}-metadata" value="true">
                                             <span>OK</span>
                                             %{--<a href="#!" class="tooltipped right" data-position="bottom"--}%
                                                %{--data-delay="50" data-tooltip="Visualizar"--}%
@@ -77,6 +79,8 @@
                                         </div>
                                     </g:if>
                                     <g:else>
+                                        <input type="hidden" id="task${i}-metadata" value="false">
+
                                         <div class="icon-metadata-disabled">
                                             <span>Nenhum</span>
                                         </div>
@@ -97,11 +101,14 @@
                 </div>
             </section>
         </article>
-        <a href="../process/publishProcess?id=${process.id}" data-process-id="${process.id}" id="publish" type="submit" class="btn waves-effect waves-light my-orange right">
+        <a id="finishLabel" class="btn disabled right hide">Finalizar</a>
+        <a id="finishLink" href="../process/publishProcess?id=${process.id}" data-process-id="${process.id}" id="publish" type="submit" class="btn waves-effect waves-light my-orange right">
             Finalizar
         </a>
     </div>
 </div>
 <g:javascript src="dspace.js"/>
+<g:javascript src="dspace/checkMetadata.js"/>
+
 </body>
 </html>
