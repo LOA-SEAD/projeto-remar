@@ -53,6 +53,11 @@
         color: #F44335;
     }
 
+    span.description-error{
+        font-size: 0.8rem;
+        color: #F44335;
+    }
+
     .help-block {
         display: block;
         margin-top: 5px;

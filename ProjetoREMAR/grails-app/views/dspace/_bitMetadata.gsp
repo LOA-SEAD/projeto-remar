@@ -31,18 +31,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                <g:each in="${bitstreams}" var="bitstream">
+                    <input type="hidden" id="itensCount" value="${bitstreams.size()}" />
+                <g:each in="${bitstreams}" var="bitstream" status="i">
                     <tr class="line">
                         <td>
                             ${bitstream.name}
                         </td>
                         <td>
-                            <input id="description" type="text" name="description" class="validate" placeholder="Informe uma descrição">
-                            <label for="description"></label>
+                            <input id="description${i}" type="text" name="description${i}" class="validate" placeholder="Informe uma descrição">
+                            <label for="description${i}"></label>
+                            <span id="description${i}-error" class="description-error" style="left: 0.75rem; top: 45px;">Este campo não pode ser vazio!</span>
                         </td>
                         <td>
                             <div class="center">
-                               <a class="btn my-orange" target="_blank" href="/data/processes/${processId}/tmp/${taskId}/${bitstream.name}"><g:message code="dspace.metadata.button_view" /> </a>
+                               <a class="" target="_blank" href="/data/processes/${processId}/tmp/${taskId}/${bitstream.name}"><g:message code="dspace.metadata.button_view" /> </a>
                             </div>
                         </td>
                     </tr>
@@ -57,13 +59,14 @@
                 <input type="hidden" name="taskId" value="${taskId}">
                 <input type="hidden" name="itemId" value="${itemId}">
                 <div class="right">
-                    <button class="btn my-orange" type="submit"> <g:message code="dspace.metadata.button_finish"/> </button>
+                    <a id="finishLabel" class="btn disabled"><g:message code="dspace.metadata.button_finish"/></a>
+                    <button class="btn my-orange hide" id="finishButton" type="submit"> <g:message code="dspace.metadata.button_finish"/> </button>
                 </div>
             </div>
         </section>
     </g:form>
 </article>
-<g:javascript src="licenseShow.js"/>
+<g:javascript src="dspace/validateDescription.js"/>
 </body>
 </html>
 
