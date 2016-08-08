@@ -116,6 +116,7 @@ environments {
         grails.app.context = "/escolamagica"
     }
     production {
+        grails.config.locations = ["classpath:env.properties"]
         grails.logging.jul.usebridge = false
         grails.app.context = "/escolamagica"
     }

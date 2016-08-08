@@ -114,6 +114,7 @@ environments {
         grails.logging.jul.usebridge = true
     }
     production {
+        grails.config.locations = ["classpath:env.properties"]
         grails.logging.jul.usebridge = false
         grails.app.context = "/respondasepuder"
     }
