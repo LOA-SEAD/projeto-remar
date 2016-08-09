@@ -4,7 +4,7 @@
         <input type="hidden" id="cardStatus${i}" value="${gameInstance.status}">
         <div id="card${i}" class=" card hoverable card-developer">
             <div class="card-image">
-                <img alt="${gameInstance.name}" class=""  src="/images/${gameInstance.uri}-banner.png">
+                <img id="image${gameInstance.id}" alt="${gameInstance.name}" class=""  src="/images/${gameInstance.uri}-banner.png">
             </div>
             <div class="card-content">
                 <a class="title truncate" title="${gameInstance.name}" aria-hidden="true" tabindex="-1" >${gameInstance.name}</a>

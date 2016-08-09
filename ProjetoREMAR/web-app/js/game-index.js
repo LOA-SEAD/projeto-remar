@@ -155,7 +155,8 @@ $(function(){
         var id = $(this).data('id');
         var status = $(this).data('review');
         var _this = this;
-        var img = $(this).parents().eq(5).find('img');
+
+        var img = $("#image"+id);
         var imgSrc = $(img).attr('src');
         console.log(imgSrc);
 
@@ -168,6 +169,7 @@ $(function(){
             url: url,
             success:function(data){
                 console.log(data);
+
                 var tr = $(_this).parents().eq(4);
                 $(tr).removeClass('pending approved rejected');
                 if (status == 'approve') {
@@ -177,10 +179,14 @@ $(function(){
                 }
                 $(img).attr('src', imgSrc);
 
+                window.location.reload();
+
             },
             error:function(req, status, err){
                 console.log(req.responseText);
                 $(img).attr('src', imgSrc);
+                window.location.reload();
+
             }});
     });
 
