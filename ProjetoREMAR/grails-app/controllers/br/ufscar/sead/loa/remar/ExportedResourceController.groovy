@@ -179,20 +179,6 @@ class ExportedResourceController {
 
         if (!instance.exported) {
 
-            def builder = new JsonBuilder()
-            def remarJson = builder{
-                exportedResourceId instance.id
-            }
-
-            def jsonPathWeb = "${root}/published/${instance.processId}/web"
-            println jsonPathWeb + " <=- - -- - - - - - - - - - - -- - - - - - - - - - -"
-            def jsonName = "remar.json"
-
-            File file = new File("$jsonPathWeb/$jsonName");
-            PrintWriter pw = new PrintWriter(file);
-            pw.write(builder)
-            pw.close()
-
             def sourceFolder = "${root}/data/resources/sources/${instance.resource.uri}/"
             def desktopFolder = "${root}/published/${instance.processId}/desktop"
             def mobileFolder = "${root}/published/${instance.processId}/mobile"
@@ -244,6 +230,27 @@ class ExportedResourceController {
                     }
                 }
             }
+            def builder = new JsonBuilder()
+            def remarJson = builder{
+                exportedResourceId instance.id
+            }
+            def jsonName = "remar.json"
+
+            folders.each { folder ->
+                println folder
+                File file = new File("$folder/$jsonName");
+                PrintWriter pw = new PrintWriter(file);
+                pw.write(builder)
+                pw.close()
+            }
+
+            def jsonPathWeb = "${root}/published/${instance.processId}/web"
+            File file = new File("$jsonPathWeb/$jsonName");
+            PrintWriter pw = new PrintWriter(file);
+            pw.write(builder)
+            pw.close()
+
+
             if (desktop) {
                 ant.sequential {
                     chmod(perm: "+x", file: scriptUpdateElectron)
