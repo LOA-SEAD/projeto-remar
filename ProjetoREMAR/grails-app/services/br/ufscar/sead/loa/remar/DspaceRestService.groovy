@@ -173,7 +173,7 @@ class DspaceRestService {
             }
             this.token = null
         }else{
-            throw new RuntimeException('Error in logout: attribute token is null')
+            throw new RuntimeException('Error in logout: token is null')
         }
     }
 
@@ -339,7 +339,7 @@ class DspaceRestService {
      * @params id da comunidade (opcional) e arquivo json de metadados
      * @return o id da sub-comunidade criada
      * */
-    def newSubCommunity(communityId=null, metadata){
+    def newSubCommunity(communityId, Map metadata){
         if(!communityId){
             communityId = this.mainCommunityId
         }
@@ -389,7 +389,7 @@ class DspaceRestService {
      * @params id da comunidade (opcional) e arquivo json de metadados
      * @return o id da coleção criada
      * */
-    def newCollection(communityId=null,metadata){
+    def newCollection(communityId,Map metadata){
         if(!communityId){
             communityId = this.mainCommunityId
         }
@@ -399,16 +399,22 @@ class DspaceRestService {
         if(Integer.parseInt(communityId.toString())>0){
             if(metadata){
                 login()
-                def resp = this.rest.post("${this.restUrl}/communities/${communityId}/collections"){
-                    header 'rest-dspace-token', this.token
-                    json metadata
-                }
-                logout()
+                if(this.token != null){
 
-                println(resp.body)
-                def list = resp.body as String
-                def collectionId = list.substring(list.indexOf("<id>")+4, list.indexOf("</id>"))
-                return collectionId
+                    def resp = this.rest.post("${this.restUrl}/communities/${communityId}/collections"){
+                        header 'rest-dspace-token', this.token
+                        json metadata
+                    }
+                    logout()
+
+                    println(resp.body)
+                    def list = resp.body as String
+                    def collectionId = list.substring(list.indexOf("<id>")+4, list.indexOf("</id>"))
+                    return collectionId
+                }else{
+                    throw new RuntimeException("Error in newCollection: token is null")
+                }
+
             }else{
                 throw new RuntimeException("Error in newCollection: metadata was not specified")
             }

@@ -227,14 +227,15 @@ class DspaceController {
         data.id = resourceInstance.id
         data.name = resourceInstance.name
         data.uri = resourceInstance.uri
-        data.communityId = dspaceRestService.newSubCommunity(metadata:createCommunityMetadata(resourceInstance))
+        data.communityId = dspaceRestService.newSubCommunity(null, createCommunityMetadata(resourceInstance))
 
         for (def taskDefinition : processDefinition.tasks) {
             def t = [:]
             t.id = taskDefinition.id
             t.name = taskDefinition.name
             t.uri = taskDefinition.uri
-            t.collectionId = dspaceRestService.newCollection(data.communityId, createCollectionMetadata(taskDefinition))
+            t.collectionId = dspaceRestService.newCollection(data.communityId,
+                                                             createCollectionMetadata(taskDefinition))
             listTasks.add(t)
         }
 
