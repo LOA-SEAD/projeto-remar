@@ -73,7 +73,7 @@
         <g:applyLayout name="menu" />
     </div>
 
-    <div class="remar-max-size center min-height-size margin-top main">
+    <div class="remar-max-size center min-height-size margin-top main" style="flex: 1 0 auto;">
         <div class="left-sidebar-nav left hide-on-med-and-down">
             <g:applyLayout name="menu" />
         </div>

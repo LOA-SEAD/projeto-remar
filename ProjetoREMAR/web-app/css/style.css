@@ -306,7 +306,7 @@ footer.page-footer{
 
             .remar-max-size {
                 width: 992px;
-                flex: 1 0 auto;
+
             }
 
             .min-height-size {
@@ -335,7 +335,6 @@ footer.page-footer{
             @media only screen and (max-width: 992px) {
                 .remar-max-size {
                     width: 100%;
-                    flex: 1 0 auto;
                 }
 
                 .small-logo {
@@ -878,4 +877,20 @@ Position must be relative!*/
 .tabs .indicator{
     background-color:#FF5722;
     /*display: none !important;*/
+}
+
+.title-page{
+    font-size: 25px;
+ }
+
+.text-justify{
+    text-align: justify !important;
+}
+
+.no-margin{
+    margin: 0 !important;
+}
+
+.icon-metadata-done {
+    width: 80px;
 }
