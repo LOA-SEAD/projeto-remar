@@ -121,6 +121,7 @@ class DspaceController {
         render view: "overview", model: [process:process, tasksSendToDspace: map]
     }
 
+
     def listMetadata() {
 
         if(params.step=="0"){
@@ -150,34 +151,14 @@ class DspaceController {
         }
     }
 
-
-    def createCommunityTest(){
-        def json = new JsonBuilder()
-        def img = new File(servletContext.getRealPath("/images/respondasepuder-banner.png"))
-
-        def m = json {
-            "name" "game de teste"
-            "copyrightText" "teste"
-            "introductoryText" "teste"
-            "shortDescription" "game para teste de criação de uma comunidade"
-            "shortDescription" "CREATED BY JSON (POST)"
-            "sidebarText" "CREATED BY JSON (POST)"
-        }
-
-        def r = dspaceRestService.newSubCommunity(m,img)
-
-        render r
-    }
-
-    def createDspaceStructure(){
-        //inserir no mongo os id da coleção e comunidades referentes ao resource submetido
+    def test(){
         params.resource_id = 1
 
         def data = [:]
         def task = [:]
         def task2 = [:]
         def listTasks = []
-        def r = Resource.findById(1)
+        def r = Resource.findByUri("escolamagica")
 
         task.id = "5787da2c1b4f8b1bba0af8f6"
         task.name = "Tema"
@@ -204,7 +185,69 @@ class DspaceController {
         MongoHelper.instance.addCollection('resource_dspace')
         MongoHelper.instance.insertData('resource_dspace',data)
 
-        render "<h1>teste</h1>"
+    }
+
+    private static createCommunityMetadata(Resource resource){
+        def json = new JsonBuilder()
+        def m = json {
+            "name" resource.name.toString()
+            "copyrightText" "cc-by-sa"
+            "introductoryText" resource.name.toString()
+            "shortDescription" resource.description.toString()
+            "shortDescription" "xyz"
+            "sidebarText" "xyz"
+        }
+        println(m)
+        return m
+    }
+
+    private static createCollectionMetadata(def task){
+        def json = new JsonBuilder()
+        def m = json {
+            "name" task.name
+            "copyrightText" "cc-by-sa"
+            "introductoryText" task.name
+            "shortDescription" task.description
+            "sidebarText" "xyz"
+        }
+        println(m)
+        return m
+    }
+
+
+    //inserir no mongo os id da coleção e comunidades referentes ao resource submetido
+    def createStructure(Resource resourceInstance){
+        def processDefinition = Propeller.instance.getProcessDefinitionByUri(resourceInstance.uri)
+        def data = [:]
+        def listTasks = []
+        def logMsg = "pd-${session.user.username}"
+
+        println(processDefinition.name)
+
+        data.id = resourceInstance.id
+        data.name = resourceInstance.name
+        data.uri = resourceInstance.uri
+        data.communityId = dspaceRestService.newSubCommunity(metadata:createCommunityMetadata(resourceInstance))
+
+        for (def taskDefinition : processDefinition.tasks) {
+            def t = [:]
+            t.id = taskDefinition.id
+            t.name = taskDefinition.name
+            t.uri = taskDefinition.uri
+            t.collectionId = dspaceRestService.newCollection(data.communityId, createCollectionMetadata(taskDefinition))
+            listTasks.add(t)
+        }
+
+        data.tasks = listTasks
+        println(data)
+
+        MongoHelper.instance.addCollection('resource_dspace')
+        MongoHelper.instance.insertData('resource_dspace',data)
+
+        log.debug "${logMsg} ENDED: success – 201"
+        response.status = 201
+        render 201
+
     }
 
     // create-item
@@ -287,7 +330,6 @@ class DspaceController {
         }else {
             tasks += ";" + params.taskId
         }
-        println(tasks)
         process.putVariable("tasksSendToDspace",tasks, true)
 
         def map = [:]

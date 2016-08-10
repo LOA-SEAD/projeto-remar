@@ -110,6 +110,8 @@ class DspaceRestService {
         this.token = null
 
         this.initialized = true
+        this.rest = new RestBuilder(connectTimeout:1000, readTimeout:20000)
+
     }
 
     /**
@@ -141,8 +143,6 @@ class DspaceRestService {
      * @return uma string token
      * */
     def login(String e = null,String p = null) throws RuntimeException{
-
-        this.rest = new RestBuilder(connectTimeout:1000, readTimeout:20000)
 
         if(e != null && p != null){
             this.email = e
@@ -182,10 +182,7 @@ class DspaceRestService {
      * @return json da comunidade principal
      * */
     def getMainCommunity() throws RuntimeException{
-        login()
         def resp = rest.get("${this.restUrl}/communities/${this.mainCommunityId}")
-        logout()
-
         return resp.json
     }
 
@@ -195,9 +192,7 @@ class DspaceRestService {
      * */
     def getBitstream(bitstreamId) throws RuntimeException{
         if(Integer.parseInt(bitstreamId.toString()) > 0){
-            login()
             def resp = rest.get("${this.restUrl}/bitstreams/${bitstreamId.toString()}")
-            logout()
             return resp.json
         }else{
             throw new RuntimeException("Error in getBitstream: bitstreamId has value less than zero")
@@ -213,17 +208,13 @@ class DspaceRestService {
     def listSubCommunities(communityId = null) throws RuntimeException{
         if(communityId){
             if(Integer.parseInt(communityId.toString()) >=0){
-                login()
                 def resp = this.rest.get("${this.restUrl}/communities/${communityId}/communities")
-                logout()
                 return resp.json
             }else{
                 throw new RuntimeException("Error in listSubCommunities: communityId has value less than zero")
             }
         }else{
-            login()
             def resp = this.rest.get("${this.restUrl}/communities/${this.mainCommunityId}/communities")
-            logout()
             return resp.json
         }
     }
@@ -238,17 +229,13 @@ class DspaceRestService {
     def listSubCommunitiesExpanded(communityId = null) throws RuntimeException{
         if(communityId){
             if(Integer.parseInt(communityId.toString()) >=0){
-                login()
                 def resp = this.rest.get("${this.restUrl}/communities/${communityId}/communities")
-                logout()
                 return concatBitstreamsWithRetrieveLink(resp.json,"community")
             }else{
                 throw new RuntimeException("Error in listSubCommunitiesExpanded: communityId has value less than zero")
             }
         }else{
-            login()
             def resp = this.rest.get("${this.restUrl}/communities/${this.mainCommunityId}/communities")
-            logout()
             return concatBitstreamsWithRetrieveLink(resp.json,"community")
         }
     }
@@ -264,17 +251,13 @@ class DspaceRestService {
     def listCollectionsExpanded(communityId = null) throws RuntimeException{
         if(communityId){
             if(Integer.parseInt(communityId.toString()) >=0){
-                login()
                 def resp = this.rest.get("${this.restUrl}/communities/${communityId}/collections")
-                logout()
                 return concatBitstreamsWithRetrieveLink(resp.json, "collection")
             }else{
                 throw new RuntimeException("Error in listCollectionsExpanded: communityId has value less than zero")
             }
         }else{ //lista as coleções da communityId, caso ela possua
-            login()
             def resp = this.rest.get("${this.restUrl}/communities/${this.mainCommunityId}/collections")
-            logout()
             return concatBitstreamsWithRetrieveLink(resp.json, "collection")
         }
     }
@@ -288,9 +271,7 @@ class DspaceRestService {
     def listItems(collectionId) throws RuntimeException{
         if(collectionId){
             if(Integer.parseInt(collectionId.toString()) >=0){
-                login()
                 def resp = this.rest.get("${this.restUrl}/collections/${collectionId}/items?expand=all")
-                logout()
                 return resp.json
             }else{
                 throw new RuntimeException("Error in listItems: collectionId has value less than zero")
@@ -356,10 +337,9 @@ class DspaceRestService {
      *       "sidebarText":"CREATED BY JSON (POST)"
      *    }
      * @params id da comunidade (opcional) e arquivo json de metadados
-     * @return o corpo na resp, normalmente um json da subcomunidade criada
+     * @return o id da sub-comunidade criada
      * */
-    def newSubCommunity(metadata,file){
-        def communityId=null
+    def newSubCommunity(communityId=null, metadata){
         if(!communityId){
             communityId = this.mainCommunityId
         }
@@ -369,21 +349,71 @@ class DspaceRestService {
         if(Integer.parseInt(communityId.toString())>0){
             if(metadata){
                 login()
-                println(this.token)
-                def resp = this.rest.post("${this.restUrl}/communities/${communityId}/communities"){
+
+                if(this.token != null){
+
+                    def resp = this.rest.post("${this.restUrl}/communities/${communityId}/communities"){
+                        header 'rest-dspace-token', this.token
+                        json metadata
+                    }
+
+                    logout()
+
+                    println(resp.body)
+                    def list = resp.body as String
+                    def subCommunityId = list.substring(list.indexOf("<id>")+4, list.indexOf("</id>"))
+                    return subCommunityId
+
+                }else{
+                    throw new RuntimeException("Error in newSubCommunity: token is null")
+                }
+
+            }else{
+                throw new RuntimeException("Error in newSubCommunity: metadata was not specified")
+            }
+        }else{
+            throw new RuntimeException("Error in newSubCommunity: communityId has value less than zero")
+        }
+    }
+
+    /**
+     * Cria uma nova coleção na comunidade especificada ou caso ela não seja especificada,
+     * na comunidade principal (mainCommunity). O formato do metadados deve ser:
+     * {
+     *       "name":"CREATED BY JSON (POST)",
+     *       "copyrightText":"CREATED BY JSON (POST)",
+     *       "introductoryText":"CREATED BY JSON (POST)",
+     *       "shortDescription":"CREATED BY JSON (POST)",
+     *       "sidebarText":"CREATED BY JSON (POST)"
+     *    }
+     * @params id da comunidade (opcional) e arquivo json de metadados
+     * @return o id da coleção criada
+     * */
+    def newCollection(communityId=null,metadata){
+        if(!communityId){
+            communityId = this.mainCommunityId
+        }
+
+        println("community Id: "+communityId)
+
+        if(Integer.parseInt(communityId.toString())>0){
+            if(metadata){
+                login()
+                def resp = this.rest.post("${this.restUrl}/communities/${communityId}/collections"){
                     header 'rest-dspace-token', this.token
                     json metadata
                 }
-
                 logout()
-                println(resp.body)
 
-                return resp.body
+                println(resp.body)
+                def list = resp.body as String
+                def collectionId = list.substring(list.indexOf("<id>")+4, list.indexOf("</id>"))
+                return collectionId
             }else{
-                throw new RuntimeException("Error in newCommunity: metadata was not specified")
+                throw new RuntimeException("Error in newCollection: metadata was not specified")
             }
         }else{
-            throw new RuntimeException("Error in newCommunity: communityId has value less than zero")
+            throw new RuntimeException("Error in newCollection: communityId has value less than zero")
         }
     }
 
@@ -427,8 +457,6 @@ class DspaceRestService {
                     logout()
                     def list = resp.body as String
                     def itemId = list.substring(list.indexOf("<id>")+4, list.indexOf("</id>"))
-                    println(itemId)
-
                     return itemId
                 }else{
                     throw new RuntimeException("Error in newCommunity: metadata was not specified")

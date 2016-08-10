@@ -93,9 +93,14 @@ class ProcessController {
         def process = Propeller.instance.deploy(file, resource.owner.id)
 
         if (process.deployed) {
-            log.debug "${logMsg} ENDED: success – 201"
-            response.status = 201
-            render 201
+            //salvar resource_dspace para o resource submetido
+            if(grailsApplication.config.dspace.restUrl) { //se existir dspace
+                redirect uri: "/dspace/createStructure/${resource.id}"
+            } else {
+                log.debug "${logMsg} ENDED: success – 201"
+                response.status = 201
+                render 201
+            }
         } else {
             log.debug "${logMsg} ENDED: error – 409: a process with '${resource.uri}' as uri already exists"
             response.status = 409
