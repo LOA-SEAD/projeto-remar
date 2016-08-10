@@ -5,6 +5,7 @@ import com.mongodb.DBCursor
 import grails.converters.JSON
 import groovy.json.JsonBuilder
 import org.apache.commons.lang.RandomStringUtils
+import grails.plugin.springsecurity.annotation.Secured
 import org.bson.Document
 import java.util.concurrent.TimeUnit;
 import org.grails.datastore.mapping.validation.ValidationException
@@ -47,7 +48,7 @@ class GroupController {
         def userGroup = UserGroup.findByUserAndGroup(session.user,group)
 
         if( group.owner.id == session.user.id ||  userGroup){
-            def groupExportedResources = group.groupExportedResources.toList()
+            def groupExportedResources = group.groupExportedResources.toList().sort({it.id})
             render(view: "show", model: [group: group, groupExportedResources: groupExportedResources])
             response.status = 200
         }else
@@ -56,37 +57,73 @@ class GroupController {
 
     }
 
+    def isLogged(){
+        println params
+        if(params.choice != "null") {
+            if (params.choice == "offline") {
+                println "ok"
+                render status: 200
+            } else if (params.choice == "login") {
+                println "login in"
+                springSecurityService.reauthenticate(params.username, params.password)
+                if(springSecurityService.isLoggedIn()){
+                    session.user = springSecurityService.getCurrentUser()
+                    println "logged!"
+                    render status: 200
+                }else{
+                    println "didnt find user"
+                    render status: 401, template: "stats/login"
+                }
+            }
+        }else{
+            render status: 401, template: "stats/login"
+        }
+    }
+
     def stats() {
         def group = Group.findById(params.id)
         if(session.user.id == group.owner.id || UserGroup.findByUserAndAdmin(session.user, true)) {
             def exportedResource = ExportedResource.findById(params.exp)
             if (exportedResource) {
                 def allUsersGroup = UserGroup.findAllByGroup(group).user
-                def queryMongo = MongoHelper.instance.getStats("stats", exportedResource.id as Integer, allUsersGroup.id.toList())
-                def allStats = []
-                def _stat
-                for(int i=0; i<queryMongo.size(); i++){
-                    println queryMongo.get(i)
-                    def user = allUsersGroup.find { user -> user.id == queryMongo.get(i).userId }
-                    _stat = [[user: user]]
-                    queryMongo.get(i).stats.each {
-                        if(it.exportedResourceId == exportedResource.id) {
-                            _stat.push([levelId: it.levelId, win: it.win, gameSize: it.gameSize])
+//                allUsersGroup.add(group.owner)
+//                allUsersGroup.sort{it.id}
+                def queryMongo
+                try{
+                    queryMongo = MongoHelper.instance.getStats("stats", exportedResource.id as Integer, allUsersGroup.id.toList())
+
+                    def allStats = []
+                    def _stat
+                    for(int i=0; i<queryMongo.size(); i++){
+                        def user = allUsersGroup.find { user -> user.id == queryMongo.get(i).userId || group.owner.id == queryMongo.get(i).userId }
+
+                        _stat = [[user: user]]
+                        queryMongo.get(i).stats.each {
+                            if(it.exportedResourceId == exportedResource.id) {
+                                _stat.push([levelId: it.levelId, win: it.win, gameSize: it.gameSize])
+                            }
+                        }
+                        allStats.push(_stat)
+
+                    }
+
+                    if(!allStats.empty) {
+                        allUsersGroup.each { member ->
+                            if (!allStats.find { stat -> stat.get(0).user.id == member.id }) {
+                                allStats.push(member)
+                            }
+
                         }
                     }
-                    allStats.push(_stat)
+                    println allStats
 
+                    render view: "stats", model: [allStats: allStats, group: group, exportedResource: exportedResource]
+
+                }catch (NullPointerException e){
+                    System.err.println(e.getClass().getName() + ": " + e.getMessage());
+//                    redirect(action: 'stats', id: params.id)
                 }
 
-                if(!allStats.empty) {
-                    allUsersGroup.each { member ->
-                        if (!allStats.find { stat -> stat.get(0).user.id == member.id }) {
-                            allStats.push(member)
-                        }
-                    }
-                }
-                println allStats
-                render view: "stats", model: [allStats: allStats, group: group, exportedResource: exportedResource]
             }else{
                 render (status: 401, view: "../401")
             }
@@ -108,12 +145,8 @@ class GroupController {
             queryMongo.forEach(new Block<Document>() {
                 @Override
                 void apply(Document document) {
-                    println document.stats
                     document.stats.each {
-                        println it.gameType
                         if(it.exportedResourceId == exportedResource.id){
-                            println params.level
-                            println it.levelId
                             if(it.levelId == params.level as int) {
                                 if (question.empty)
                                     question.push([question: it.question, answer: it.answer, levelId: it.levelId])
@@ -183,7 +216,7 @@ class GroupController {
                     userGroup.user = user
                     userGroup.save flush: true
 
-                    render template: "newUserGroup", model: [userGroup: userGroup]
+                    render status:200, template: "newUserGroup", model: [userGroup: userGroup]
                 } else
                     render status: 403, text: "Usuário já pertence ao grupo."
 
