@@ -10,12 +10,15 @@ cd $1/data/resources/sources/$2/base
 
 cp $1/scripts/crosswalk/manifest.json .
 cp $1/scripts/.REMAR .
+cp $1/stats/login.js .
+cp $1/stats/login.html .
+cp $1/stats/logo-remar-preto-transparente.png .
 
 sed -i.bkp "s/NAME/$3/" manifest.json
 
 make_apk.py --package br.ufscar.sead.loa.remar.published.$2 --manifest manifest.json --target-dir ..
 
-#rm manifest.json manifest.json.bkp .REMAR
+#rm manifest.json manifest.json.bkp .REMAR login.js login.html logo-remar-preto-transparente.png
 
 cd ..
 
