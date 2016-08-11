@@ -244,12 +244,6 @@ class ExportedResourceController {
                 pw.close()
             }
 
-            def jsonPathWeb = "${root}/published/${instance.processId}/web"
-            File file = new File("$jsonPathWeb/$jsonName");
-            PrintWriter pw = new PrintWriter(file);
-            pw.write(builder)
-            pw.close()
-
 
             if (desktop) {
                 ant.sequential {
@@ -277,7 +271,11 @@ class ExportedResourceController {
                 instance.moodleUrl = urls.web
             }
 
-
+            def jsonPathWeb = "${root}/published/${instance.processId}/web"
+            File file = new File("$jsonPathWeb/$jsonName");
+            PrintWriter pw = new PrintWriter(file);
+            pw.write(builder)
+            pw.close()
 
             instance.exported = true
             instance.save flush: true
