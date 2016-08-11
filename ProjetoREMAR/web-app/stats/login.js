@@ -1,9 +1,8 @@
 	function submitLogin(_this){
 		var choice = $(_this).attr('data-choice');
-		console.log(choice)
 		$.ajax({
 				type: 'POST',
-				url: 'http://localhost:8080/group/isLogged',
+				url: 'http://remar.dc.ufscar.br/group/isLogged', //TODO always change to remar.dc.ufscar.br later
 				data: {
 					username: $('#username').val(),
 					password: $('#password').val(),
