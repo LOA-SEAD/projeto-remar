@@ -119,7 +119,7 @@ class DspaceRestService {
      *  e add o link da imagem no json (cria novo elemento chamada retrieveLink). Geralmente o json será uma comunidade ou uma coleção
      * @params objeto restBuilder e json
      * */
-    def concatBitstreamsWithRetrieveLink(json, String parentObject_type){
+    def concatBitstreamsWithRetrieveLink(json, String parentObject_type) throws RuntimeException{
 
         def resp = this.rest.get("${this.restUrl}/bitstreams?expand=parent")
         def bitstreams = resp.json
@@ -142,22 +142,28 @@ class DspaceRestService {
      * @params email e string
      * @return uma string token
      * */
-    def login(String e = null,String p = null) throws RuntimeException{
+    def login(String e = null,String p = null) throws SocketTimeoutException, RuntimeException{
 
         if(e != null && p != null){
             this.email = e
             this.password = p
         }
 
-        def resp = rest.post("${restUrl}/login"){
-            contentType "application/json"
-            json {
-                email = this.email
-                password = this.password
+        try{
+            def resp = rest.post("${restUrl}/login"){
+                contentType "application/json"
+                json {
+                    email = this.email
+                    password = this.password
+                }
             }
+            this.token = resp.body.toString()
+            return [token: token] //return token
+
+        }catch (SocketTimeoutException timeout){
+            println("Timeout in Login - ${timeout.message}, ${timeout.cause}")
+            throw timeout
         }
-        this.token = resp.body.toString()
-        return [token: token] //return token
     }
 
 
@@ -165,13 +171,20 @@ class DspaceRestService {
      * Realiza o logout no Dspace
      * @params
      * */
-    def logout() throws RuntimeException{
+    def logout() throws SocketTimeoutException, RuntimeException{
         if(token != null){
-            rest.post("${restUrl}/logout"){
-                contentType "application/json"
-                header 'rest-dspace-token', this.token
+            try {
+                rest.post("${restUrl}/logout") {
+                    contentType "application/json"
+                    header 'rest-dspace-token', this.token
+                }
+                this.token = null
+
+            }catch (SocketTimeoutException timeout){
+                println("Timeout in Logout - ${timeout.message}, ${timeout.cause}")
+                throw timeout
             }
-            this.token = null
+
         }else{
             throw new RuntimeException('Error in logout: token is null')
         }
@@ -181,7 +194,7 @@ class DspaceRestService {
      * Pesquisa pela comunidade principal no dpsace do remar
      * @return json da comunidade principal
      * */
-    def getMainCommunity() throws RuntimeException{
+    def getMainCommunity() throws SocketTimeoutException, RuntimeException{
         def resp = rest.get("${this.restUrl}/communities/${this.mainCommunityId}")
         return resp.json
     }
@@ -190,7 +203,7 @@ class DspaceRestService {
      * Pesquisa pela comunidade principal no dpsace do remar
      * @return json da comunidade principal
      * */
-    def getBitstream(bitstreamId) throws RuntimeException{
+    def getBitstream(bitstreamId) throws SocketTimeoutException, RuntimeException{
         if(Integer.parseInt(bitstreamId.toString()) > 0){
             def resp = rest.get("${this.restUrl}/bitstreams/${bitstreamId.toString()}")
             return resp.json
@@ -205,7 +218,7 @@ class DspaceRestService {
      * subcomunidades na comunidade pricipal.
      * @return json com as subcategorias
      * */
-    def listSubCommunities(communityId = null) throws RuntimeException{
+    def listSubCommunities(communityId = null) throws SocketTimeoutException, RuntimeException{
         if(communityId){
             if(Integer.parseInt(communityId.toString()) >=0){
                 def resp = this.rest.get("${this.restUrl}/communities/${communityId}/communities")
@@ -226,7 +239,7 @@ class DspaceRestService {
      * subcomunidades na comunidade pricipal.
      * @return json com as subcategorias
      * */
-    def listSubCommunitiesExpanded(communityId = null) throws RuntimeException{
+    def listSubCommunitiesExpanded(communityId = null) throws SocketTimeoutException, RuntimeException{
         if(communityId){
             if(Integer.parseInt(communityId.toString()) >=0){
                 def resp = this.rest.get("${this.restUrl}/communities/${communityId}/communities")
@@ -248,7 +261,7 @@ class DspaceRestService {
      * coleções da comunidade pricipal.
      * @return json com as coleções
      * */
-    def listCollectionsExpanded(communityId = null) throws RuntimeException{
+    def listCollectionsExpanded(communityId = null) throws SocketTimeoutException, RuntimeException{
         if(communityId){
             if(Integer.parseInt(communityId.toString()) >=0){
                 def resp = this.rest.get("${this.restUrl}/communities/${communityId}/collections")
@@ -268,7 +281,7 @@ class DspaceRestService {
      * subcomunidades na comunidade pricipal.
      * @return json com as subcategorias
      * */
-    def listItems(collectionId) throws RuntimeException{
+    def listItems(collectionId) throws SocketTimeoutException, RuntimeException{
         if(collectionId){
             if(Integer.parseInt(collectionId.toString()) >=0){
                 def resp = this.rest.get("${this.restUrl}/collections/${collectionId}/items?expand=all")
@@ -284,16 +297,24 @@ class DspaceRestService {
      * o nome do arquivo e  uma descrição (opcional)
      * @return o corpo na resp, normalmente em json do bitstream submetido
      * */
-    def addBitstreamToItem(itemId, file, name, description=null){
+    def addBitstreamToItem(itemId, file, name, description=null) throws SocketTimeoutException, RuntimeException{
         if(Integer.parseInt(itemId.toString())>0){
             if(file){
-                login()
-                def resp = this.rest.post("${this.restUrl}/items/${itemId}/bitstreams?name=${name}&description=${description}"){
-                                header 'rest-dspace-token', token
-                                body file.bytes
-                            }
-                logout()
-                return resp.body
+                try{
+
+                    login()
+                    def resp = this.rest.post("${this.restUrl}/items/${itemId}/bitstreams?name=${name}&description=${description}"){
+                        header 'rest-dspace-token', token
+                        body file.bytes
+                    }
+                    logout()
+                    return resp.body
+
+                }catch (SocketTimeoutException timeout){
+                    println("Timeout in addBitstreamToItem - ${timeout.message}, ${timeout.cause}")
+                    throw timeout
+                }
+
             }else{
                 throw new RuntimeException("Error in addBitstreamToItem: file was not specified")
             }
@@ -307,7 +328,7 @@ class DspaceRestService {
      * @params id do item e id do bitstream pertencente ao item
      * @return o corpo na resp, normalmente um json do bitstream deletado
      * */
-    def deleteBitstreamOfItem(itemId,bitstreamId){
+    def deleteBitstreamOfItem(itemId,bitstreamId) throws SocketTimeoutException, RuntimeException{
         if(Integer.parseInt(itemId.toString())>0){
             if(Integer.parseInt(bitstreamId.toString())>0){
                 login()
@@ -339,7 +360,7 @@ class DspaceRestService {
      * @params id da comunidade (opcional) e arquivo json de metadados
      * @return o id da sub-comunidade criada
      * */
-    def newSubCommunity(communityId, Map metadata){
+    def newSubCommunity(communityId, Map metadata) throws SocketTimeoutException, RuntimeException{
         if(!communityId){
             communityId = this.mainCommunityId
         }
@@ -348,24 +369,28 @@ class DspaceRestService {
 
         if(Integer.parseInt(communityId.toString())>0){
             if(metadata){
-                login()
+                try{
+                    login()
+                    if(this.token != null){
 
-                if(this.token != null){
+                        def resp = this.rest.post("${this.restUrl}/communities/${communityId}/communities"){
+                            header 'rest-dspace-token', this.token
+                            json metadata
+                        }
 
-                    def resp = this.rest.post("${this.restUrl}/communities/${communityId}/communities"){
-                        header 'rest-dspace-token', this.token
-                        json metadata
+                        logout()
+
+                        println(resp.body)
+                        def list = resp.body as String
+                        def subCommunityId = list.substring(list.indexOf("<id>")+4, list.indexOf("</id>"))
+                        return subCommunityId
+
+                    }else{
+                        throw new NullPointerException("Error in newSubCommunity: token is null")
                     }
-
-                    logout()
-
-                    println(resp.body)
-                    def list = resp.body as String
-                    def subCommunityId = list.substring(list.indexOf("<id>")+4, list.indexOf("</id>"))
-                    return subCommunityId
-
-                }else{
-                    throw new RuntimeException("Error in newSubCommunity: token is null")
+                }catch (SocketTimeoutException timeout){
+                    println("Timeout in newSubCommunity - ${timeout.message}, ${timeout.cause}")
+                    throw timeout
                 }
 
             }else{
@@ -389,7 +414,7 @@ class DspaceRestService {
      * @params id da comunidade (opcional) e arquivo json de metadados
      * @return o id da coleção criada
      * */
-    def newCollection(communityId,Map metadata){
+    def newCollection(communityId,Map metadata) throws SocketTimeoutException, RuntimeException{
         if(!communityId){
             communityId = this.mainCommunityId
         }
@@ -398,23 +423,29 @@ class DspaceRestService {
 
         if(Integer.parseInt(communityId.toString())>0){
             if(metadata){
-                login()
-                if(this.token != null){
+                try{
 
-                    def resp = this.rest.post("${this.restUrl}/communities/${communityId}/collections"){
-                        header 'rest-dspace-token', this.token
-                        json metadata
+                    login()
+                    if(this.token != null){
+
+                        def resp = this.rest.post("${this.restUrl}/communities/${communityId}/collections"){
+                            header 'rest-dspace-token', this.token
+                            json metadata
+                        }
+                        logout()
+
+                        println(resp.body)
+                        def list = resp.body as String
+                        def collectionId = list.substring(list.indexOf("<id>")+4, list.indexOf("</id>"))
+                        return collectionId
+                    }else{
+                        throw new RuntimeException("Error in newCollection: token is null")
                     }
-                    logout()
 
-                    println(resp.body)
-                    def list = resp.body as String
-                    def collectionId = list.substring(list.indexOf("<id>")+4, list.indexOf("</id>"))
-                    return collectionId
-                }else{
-                    throw new RuntimeException("Error in newCollection: token is null")
+                }catch (SocketTimeoutException timeout){
+                    println("Timeout in newColletion - ${timeout.message}, ${timeout.cause}")
+                    throw timeout
                 }
-
             }else{
                 throw new RuntimeException("Error in newCollection: metadata was not specified")
             }
@@ -449,21 +480,28 @@ class DspaceRestService {
      * @params id da coleção e arquivo json de metadados
      * @return o id do item criado
      * */
-    def newItem(collectionId, metadata){
+    def newItem(collectionId, metadata) throws SocketTimeoutException, RuntimeException{
         if(!collectionId){
             throw new RuntimeException("Error in newItem: collectionId was not specified")
         }else{
             if(Integer.parseInt(collectionId.toString())>0){
                 if(metadata){
-                    login()
-                    def resp = this.rest.post("${this.restUrl}/collections/${collectionId}/items"){
-                        header 'rest-dspace-token', this.token
-                        json metadata
+                    try{
+
+                        login()
+                        def resp = this.rest.post("${this.restUrl}/collections/${collectionId}/items"){
+                            header 'rest-dspace-token', this.token
+                            json metadata
+                        }
+                        logout()
+                        def list = resp.body as String
+                        def itemId = list.substring(list.indexOf("<id>")+4, list.indexOf("</id>"))
+                        return itemId
+
+                    }catch (SocketTimeoutException timeout){
+                        println("Timeout in newItem - ${timeout.message}, ${timeout.cause}")
+                        throw timeout
                     }
-                    logout()
-                    def list = resp.body as String
-                    def itemId = list.substring(list.indexOf("<id>")+4, list.indexOf("</id>"))
-                    return itemId
                 }else{
                     throw new RuntimeException("Error in newCommunity: metadata was not specified")
                 }

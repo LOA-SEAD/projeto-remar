@@ -15,8 +15,6 @@ class DspaceController {
 
     def dspaceRestService
 
-//    def tasksFinished = [:]
-
     def index() {
 
         def community = dspaceRestService.getMainCommunity()
@@ -151,42 +149,6 @@ class DspaceController {
         }
     }
 
-    def test(){
-        params.resource_id = 1
-
-        def data = [:]
-        def task = [:]
-        def task2 = [:]
-        def listTasks = []
-        def r = Resource.findByUri("escolamagica")
-
-        task.id = "5787da2c1b4f8b1bba0af8f6"
-        task.name = "Tema"
-        task.uri = "theme"
-        task.collectionId = 1
-
-        listTasks.add(task)
-
-        task2.id = "5787da2c1b4f8b1bba0af8f5"
-        task2.name = "Banco de Questões"
-        task2.uri = "questions"
-        task2.collectionId = 2
-
-        listTasks.add(task2)
-
-        data.id = r.id
-        data.name = r.name
-        data.uri = r.uri
-        data.communityId = 2
-        data.tasks = listTasks
-
-        println(data)
-
-        MongoHelper.instance.addCollection('resource_dspace')
-        MongoHelper.instance.insertData('resource_dspace',data)
-
-    }
-
     private static createCommunityMetadata(Resource resource){
         def json = new JsonBuilder()
         def m = json {
@@ -194,8 +156,8 @@ class DspaceController {
             "copyrightText" "cc-by-sa"
             "introductoryText" resource.name.toString()
             "shortDescription" resource.description.toString()
-            "shortDescription" "xyz"
-            "sidebarText" "xyz"
+            "shortDescription" resource.description.toString()
+            "sidebarText" resource.description.toString()
         }
         println(m)
         return m
@@ -208,7 +170,7 @@ class DspaceController {
             "copyrightText" "cc-by-sa"
             "introductoryText" task.name
             "shortDescription" task.description
-            "sidebarText" "xyz"
+            "sidebarText" task.description
         }
         println(m)
         return m
@@ -224,30 +186,37 @@ class DspaceController {
 
         println(processDefinition.name)
 
-        data.id = resourceInstance.id
-        data.name = resourceInstance.name
-        data.uri = resourceInstance.uri
-        data.communityId = dspaceRestService.newSubCommunity(null, createCommunityMetadata(resourceInstance))
+        try{
 
-        for (def taskDefinition : processDefinition.tasks) {
-            def t = [:]
-            t.id = taskDefinition.id
-            t.name = taskDefinition.name
-            t.uri = taskDefinition.uri
-            t.collectionId = dspaceRestService.newCollection(data.communityId,
-                                                             createCollectionMetadata(taskDefinition))
-            listTasks.add(t)
+            data.id = resourceInstance.id
+            data.name = resourceInstance.name
+            data.uri = resourceInstance.uri
+            data.communityId = dspaceRestService.newSubCommunity(null, createCommunityMetadata(resourceInstance))
+
+            for (def taskDefinition : processDefinition.tasks) {
+                def t = [:]
+                t.id = taskDefinition.id
+                t.name = taskDefinition.name
+                t.uri = taskDefinition.uri
+                t.collectionId = dspaceRestService.newCollection(data.communityId,
+                        createCollectionMetadata(taskDefinition))
+                listTasks.add(t)
+            }
+
+            data.tasks = listTasks
+            println(data)
+
+            MongoHelper.instance.addCollection('resource_dspace')
+            MongoHelper.instance.insertData('resource_dspace',data)
+
+            log.debug "${logMsg} ENDED: success – 201"
+            response.status = 201
+            render 201
+
+        }catch (SocketTimeoutException timeout){
+            println("Timeout in CreateStructure - ${timeout.message}, ${timeout.cause}")
         }
 
-        data.tasks = listTasks
-        println(data)
-
-        MongoHelper.instance.addCollection('resource_dspace')
-        MongoHelper.instance.insertData('resource_dspace',data)
-
-        log.debug "${logMsg} ENDED: success – 201"
-        response.status = 201
-        render 201
 
     }
 
