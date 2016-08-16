@@ -59,6 +59,17 @@
             </tbody>
         </table>
     </div>
+        <div class="row">
+            <div style="padding-top: 3em; text-align: left" class="col s12 m5 offset-l3">
+                <div class="card-panel teal hoverable">
+                    <div class=" right-align"><i style="cursor: pointer; color: white" class="material-icons close">close</i></div>
+                    <span class="white-text">
+                        Na tabela acima você encontra todas as tentativas (certas ou erradas) dos membros do grupo. Clique no icone embaixo do numero
+                        da questão para visualizar todas as tentativas do jogador.
+                    </span>
+                </div>
+            </div>
+        </div>
     </g:if>
     <g:else>
         <div class="col l12">
@@ -67,7 +78,13 @@
     </g:else>
 
 </div>
-
+<script>
+    $('.close').click(function(){
+       $('.card-panel').fadeOut(500, function(){
+           $(this).hide();
+       })
+    });
+</script>
 
 </body>
 </html>
