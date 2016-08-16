@@ -121,6 +121,7 @@ class DspaceController {
 
 
     def listMetadata() {
+        def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
 
         if(params.step=="0"){
            render view: '_itemMetadata', model: [processId: params.processId, taskId: params.taskId, step: params.step, metadataForm: new MetadataForm()]
@@ -133,10 +134,6 @@ class DspaceController {
                 def dir = new File(servletContext.getRealPath("/data/processes/${params.processId}/tmp/${params.taskId}/"))
                 dir.eachFileRecurse (FileType.FILES) {file ->
                     list << file
-                }
-
-                list.each {
-                    println it.name
                 }
 
                 render view: '_bitMetadata', model: [bitstreams: list,
@@ -242,17 +239,29 @@ class DspaceController {
                 def resource = Resource.get(process.getVariable('resourceId'))
                 def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
 
+                if(current_task.getVariable('step') == null){
+                    current_task.putVariable('step','metadata',true)
+                }
+
                 //convert date for pattern expected
                 Date date = new Date()
                 params.publication_date = date.format('YYYY-MM-dd')
-                println(params.publication_date)
 
                 //gerar arquivo de metadados
                 for(def hash : dspaceRestService.listMetadata){
-                    def m = [:]
-                    m.key = hash.value
-                    m.value =  params.get(hash.key)
-                    metadatas.add(m)
+                    if(params.get(hash.key).getClass().isArray()){
+                        params.get(hash.key).each {
+                            def m = [:]
+                            m.key = hash.value
+                            m.value =  it
+                            metadatas.add(m)
+                        }
+                    }else{
+                        def m = [:]
+                        m.key = hash.value
+                        m.value =  params.get(hash.key)
+                        metadatas.add(m)
+                    }
                 }
 
                 list.metadata = metadatas

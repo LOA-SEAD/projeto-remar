@@ -14,7 +14,7 @@
 <article class="width-position left-align">
     <div class="cluster-header">
         <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom title-page">
-            <i class="medium material-icons left">cloud_upload</i>Submeter artefatos
+            <i class="medium material-icons left">cloud_upload</i>Adicionar Metadados - Enviar artefatos
         </p>
         <div class="divider"></div>
         <div class="clearfix"></div>

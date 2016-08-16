@@ -51,5 +51,10 @@ $(document).ready(function(){
 
     $('select').material_select();
 
-
+    $('#add-author').on('click', function(){
+        $('.div-author .input-field').last().after(' <div class="input-field col s12"> ' +
+                                                    '   <input name="author" id="author" type="text" class="validate"> ' +
+                                                    '   <label for="author">Autor:</label> ' +
+                                                    '  </div>');
+    });
 });

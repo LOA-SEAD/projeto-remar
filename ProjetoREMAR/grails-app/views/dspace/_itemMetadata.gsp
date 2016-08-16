@@ -14,28 +14,33 @@
 <div class="row cluster">
     <div class="cluster-header">
         <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom title-page">
-            <i class="medium material-icons left">cloud_upload</i>Adicionar Metadados
+            <i class="medium material-icons left">cloud_upload</i>Adicionar Metadados - Criar um item
         </p>
         <div class="divider"></div>
         <div class="clearfix"></div>
 
         <g:form action="createItem" method="POST" useToken="true">
             <div class="row">
-                <div class="col s6">
-                    <span class="description-input">Entre com o nome dos autores do item. </span>
+                <div class="col s12 div-author">
+                    <span class="description-input">Entre com o nome do autor do item. </span>
                     <div class="input-field col s12">
                         <input name="author" id="author" type="text" class="validate">
-                        <label for="author"><g:message code="dspace.metadata.author"/> </label>
+                        <label for="author">
+                            <g:message code="dspace.metadata.author"/>
+                        </label>
+                    </div>
+                    <div class="right">
+                        <span class="btn my-orange" id="add-author">adicionar autor</span>
                     </div>
                 </div>
 
-                <div class="col s6">
-                    <span class="description-input">Entre com o nome dos editores do item. </span>
-                    <div class="input-field col s12">
-                        <input name="editor" id="editor" type="text" class="validate">
-                        <label for="editor"><g:message code="dspace.metadata.editor"/> </label>
-                    </div>
-                </div>
+                %{--<div class="col s6">--}%
+                    %{--<span class="description-input">Entre com o nome dos editores do item. </span>--}%
+                    %{--<div class="input-field col s12">--}%
+                        %{--<input name="editor" id="editor" type="text" class="validate">--}%
+                        %{--<label for="editor"><g:message code="dspace.metadata.editor"/> </label>--}%
+                    %{--</div>--}%
+                %{--</div>--}%
 
                 <div class="col s12">
                     <span class="description-input">Entre com um nome padrão de citação. </span>
@@ -62,14 +67,14 @@
                     </div>
                 </div>
 
-                <div class="col s12 " style="display: none;">
-                    <span class="description-input">Entre com uma data prevista de publicação do item. </span>
-                    <div class="input-field col s12">
-                        <input name="publication_date" type="hidden" id="publication_date" class="datepicker">
-                        <span id="publication_date-error" class="invalid-textarea" style="left: 0.75rem; top: 45px;">Este campo não pode ser vazio!</span>
-                        <label for="publication_date"><g:message code="dspace.metadata.publication_date"/> </label>
-                    </div>
-                </div>
+                %{--<div class="col s12 " style="display: none;">--}%
+                    %{--<span class="description-input">Entre com uma data prevista de publicação do item. </span>--}%
+                    %{--<div class="input-field col s12">--}%
+                        %{--<input name="publication_date" type="hidden" id="publication_date" class="datepicker">--}%
+                        %{--<span id="publication_date-error" class="invalid-textarea" style="left: 0.75rem; top: 45px;">Este campo não pode ser vazio!</span>--}%
+                        %{--<label for="publication_date"><g:message code="dspace.metadata.publication_date"/> </label>--}%
+                    %{--</div>--}%
+                %{--</div>--}%
 
                 <div class="col s12 m12 l12">
                     <span> Permitir usos comerciais do seu trabalho?</span>
