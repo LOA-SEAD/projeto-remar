@@ -19,7 +19,6 @@ Time: 08:58
     <title>Categorias</title>
 </head>
 <body>
-<g:set var="i" value="${0}"/>
 <div class="row cluster">
     <div class="cluster-header">
         <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom">
@@ -46,7 +45,7 @@ Time: 08:58
             <section class="row">
                 <div class="col s12 m12 l12">
                     <ul class="collapsible" data-collapsible="accordion" >
-                        <g:each in="${items}" var="obj">
+                        <g:each in="${items}" var="obj" status="i">
                             <li>
                                 <div class="collapsible-header">
                                     <i class="material-icons">expand_more</i>
@@ -54,10 +53,10 @@ Time: 08:58
                                 </div>
                                 <div class="collapsible-body">
                                     <div class="row">
-                                        <g:if test="${(metadata.getAt(i).find {it.key == 'dc.description' }) != null}">
+                                        <g:if test="${(metadata.getAt(i).find {it.key == 'dc.description.abstract' }) != null}">
                                             <div class="col s12">
                                                     <p><span class="bold">Descrição: </span>
-                                                    ${(metadata.getAt(i).find {it.key == 'dc.description' }).value}
+                                                    ${(metadata.getAt(i).find {it.key == 'dc.description.abstract' }).value}
                                                 </p>
                                             </div>
                                         </g:if>
@@ -76,9 +75,11 @@ Time: 08:58
                                              </g:if>
                                         </div>
                                         <div class="col s12 m6">
-                                            <g:if test="${(metadata.getAt(i).find {it.key == 'dc.contributor.author' }) != null}">
+                                            <g:if test="${(metadata.getAt(i).findAll {it.key == 'dc.contributor.author' }) != null}">
                                              <p><span class="bold">Autores: </span>
-                                                ${(metadata.getAt(i).find {it.key == 'dc.contributor.author' }).value}
+                                                 <g:each var="author"  status="j" in="${metadata.getAt(i).findAll({it.key == 'dc.contributor.author'})}">
+                                                     ${author.value};
+                                                 </g:each>
                                              </p>
                                             </g:if>
                                             <g:if test="${(metadata.getAt(i).find {it.key == 'dc.identifier.citation' }) != null}">
@@ -86,11 +87,11 @@ Time: 08:58
                                                  ${(metadata.getAt(i).find {it.key == 'dc.identifier.citation' }).value}
                                              </p>
                                             </g:if>
-                                            <g:if test="${(metadata.getAt(i).find {it.key == 'dc.contributor.author' }) != null}">
-                                              <p><span class="bold">Editor: </span>
-                                                ${(metadata.getAt(i).find {it.key == 'dc.contributor.author' }).value}
-                                              </p>
-                                            </g:if>
+                                            %{--<g:if test="${(metadata.getAt(i).find {it.key == 'dc.contributor.author' }) != null}">--}%
+                                              %{--<p><span class="bold">Editor: </span>--}%
+                                                %{--${(metadata.getAt(i).find {it.key == 'dc.contributor.author' }).value}--}%
+                                              %{--</p>--}%
+                                            %{--</g:if>--}%
                                         </div>
                                     </div>
                                     <div class="row">
@@ -119,7 +120,6 @@ Time: 08:58
                                                         </td>
                                                     </tr>
                                                 </g:each>
-                                                <g:set var="i" value="${i+1}"/>
                                                 </tbody>
                                             </table>
                                         </div>

@@ -71,16 +71,23 @@
                     </div>
                 </div>
 
-                <div class="col s12">
-                    <span class="description-input">Entre com a licença do item. </span>
-                    <div class="input-field col s12">
-                        <select name="license" id="license">
-                            <option value="cc-by-sa">cc-by-sa</option>
-                            <option value="cc-by-nc-sa">cc-by-nc-sa</option>
-                        </select>
-                        <label for="license"><g:message code="dspace.metadata.license"/>:</label>
+                <div class="col s12 m12 l12">
+                    <span> Permitir usos comerciais do seu trabalho?</span>
+                    <br>
+                    <input onchange="showLicense()"  class="with-gap" name="comercialLicense" type="radio" id="comercialYes"/>
+                    <label for="comercialYes">Sim</label>
+                    <input onchange="showLicense()" class="with-gap" name="comercialLicense" type="radio" id="comercialNo"/>
+                    <label for="comercialNo">Não</label>
+                </div>
+                <br>
+                <br>
+                <input type="hidden" name="license" value="cc-by" id="licenseValue" >
+                <div class="row">
+                    <div class="col s12" id="licenseImage">
+
                     </div>
                 </div>
+
                 <input type="hidden" name="step" value="${step}">
                 <input type="hidden" name="processId" value="${processId}">
                 <input type="hidden" name="taskId" value="${taskId}">
@@ -98,6 +105,8 @@
 </div>
 <g:javascript src="dspace.js"/>
 <g:javascript src="dspace/validateSubmit.js"/>
+<script type="text/javascript" src="${resource(dir: 'js', file: 'license.js')}"></script>
+
 
 
 </body>
