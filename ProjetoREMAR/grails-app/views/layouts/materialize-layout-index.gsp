@@ -16,7 +16,7 @@
                     <!-- Menu for large displays -->
                     <ul class="left">
                         <li>
-                            <a href="/" class="valign-wrapper">
+                            <a href="project" class="valign-wrapper">
                                 <img src="/images/logo/logo-remar-branco-transparente.png" class="logo" />
                             </a>
                         </li>
@@ -55,7 +55,7 @@
 
                     <ul class="right">
                         <li class="logo-icon">
-                            <a href="/">
+                            <a href="project">
                                 <img src="/images/logo/logo-remar-branco-transparente.png" alt="Logo" class="small-logo" />
                             </a>
                         </li>
