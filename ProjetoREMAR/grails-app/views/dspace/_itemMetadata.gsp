@@ -65,7 +65,7 @@
                     <span class="description-input">Entre com o resumo do item. </span>
                     <div class="input-field col s12">
                         <textarea name="description" id="description" class="materialize-textarea"></textarea>
-                        <span id="description-error" class="invalid-textarea" style="left: 0.75rem; top: 45px;">Este campo não pode ser vazio!</span>
+                        <span id="description-error" class="invalid-textarea" style="left: 0.75rem;">Este campo não pode ser vazio!</span>
                         <label for="description"><g:message code="dspace.metadata.abstract"/> </label>
                     </div>
                 </div>
