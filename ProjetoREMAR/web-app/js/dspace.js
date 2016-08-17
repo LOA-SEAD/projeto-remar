@@ -8,6 +8,14 @@ $(document).ready(function(){
     var icon_metadata_done = $('.icon-metadata-done');
     var icon_metadata_pending = $('.icon-metadata-pending');
 
+    if (localStorageAvailable()) {
+        if (localStorage.DoNotShowMessageAgain && localStorage.DoNotShowMessageAgain === "true") {
+            // user doesn't want to see the message again, so handle accordingly
+        }else{
+            //$('#messenger').openModal();
+        }
+    }
+
     // $(icon_metadata_done).hide();
     $(icon_metadata_pending).hide();
 
@@ -57,4 +65,32 @@ $(document).ready(function(){
                                                     '   <label for="author">Autor:</label> ' +
                                                     '  </div>');
     });
+
+
+    $('#show-messenger').click(function(){
+        console.log("entrou aki!");
+        if (this.checked) {
+            console.log("checked");
+
+            if (localStorageAvailable()){
+                console.log("entramos aki");
+                localStorage.DoNotShowMessageAgain = "true";
+                console.log(localStorage.DoNotShowMessageAgain);
+            }
+        }else{
+            console.log("don't checked");
+
+            localStorage.DoNotShowMessageAgain = "false"
+        }
+    })
+
+
 });
+
+function localStorageAvailable() {
+    if (typeof(Storage) !== "undefined") {
+        return true;
+    }else {
+        return false;
+    }
+}

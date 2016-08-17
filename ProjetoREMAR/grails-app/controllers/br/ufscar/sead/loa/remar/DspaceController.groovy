@@ -50,6 +50,8 @@ class DspaceController {
         metadata = items.metadata
         bitstreams = items.bitstreams
 
+
+
         render view: 'listItems', model:[
                                             items: items,
                                             metadata: metadata,
@@ -124,7 +126,10 @@ class DspaceController {
         def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
 
         if(params.step=="0"){
-           render view: '_itemMetadata', model: [processId: params.processId, taskId: params.taskId, step: params.step, metadataForm: new MetadataForm()]
+           render view: '_itemMetadata', model: [processId: params.processId,
+                                                 taskId: params.taskId,
+                                                 step: params.step,
+                                                 metadataForm: new MetadataForm()]
         }
         else{
             println(params)
