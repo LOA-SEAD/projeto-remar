@@ -15,9 +15,25 @@ $(window).load(function(){
         manageAdmin(this);
     });
 
+    $(document).on("click",".show-stats",function(){
+        showStats(this);
+    });
+
     $(usersCollection).on("click",".add-user",function(){
         //$("membertoken").validate();
     });
+
+    function showStats(_this){
+        $.ajax({
+            type: "POST",
+            url: "/group/show-stats",
+            data: {
+                groupid: $("input[name='groupid']").val(),
+                exportedresourceid: $(_this).attr("data-exported-resource-id") },
+            success: function(data){
+            }
+        })
+    }
 
     function deleteUserGroup(_this){
         var userGroupId = $(_this).attr("data-user-group-id");
@@ -115,18 +131,20 @@ $(window).load(function(){
                     membertoken: $(token).val()
                 },
                 success: function(data){
-                    groupSize++;
-                    text.attr("data-group-size",groupSize);
-                    text.html("Ver membros ("+groupSize+")");
-                    $("#add-user-form")[0].reset();
-                    if(noUsers) {
-                        noUsers.fadeOut(300);
-                        noUsers.remove();
-                    }
-                    $(ul).append(data);
-                    Materialize.toast("Usuário adicionado!", 3000, "rounded");
 
                 }, statusCode: {
+                    200: function(data){
+                        groupSize++;
+                        text.attr("data-group-size",groupSize);
+                        text.html("Ver membros ("+groupSize+")");
+                        $("#add-user-form")[0].reset();
+                        if(noUsers) {
+                            noUsers.fadeOut(300);
+                            noUsers.remove();
+                        }
+                        $(ul).append(data);
+                        Materialize.toast("Usuário adicionado!", 3000, "rounded");
+                    },
                     403: function(response){
                         $("#modal-message").html(response.responseText);
                         $('#modal-user-in-group').openModal();

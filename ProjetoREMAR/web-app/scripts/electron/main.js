@@ -21,10 +21,10 @@ app.on('window-all-closed', function() {
 // initialization and is ready to create browser windows.
 app.on('ready', function() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 1024, height: 768});
+  mainWindow = new BrowserWindow({width: 1024, height: 768, 'node-integration': false});
 
   // and load the index.html of the app.
-  mainWindow.loadURL('file://' + __dirname + '/index.html');
+  mainWindow.loadURL('file://' + __dirname + '/login.html');
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function() {

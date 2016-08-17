@@ -28,9 +28,8 @@
             <g:if test="${group.owner.id == session.user.id || UserGroup.findByUserAndAdmin(session.user,true)}">
                 <form id="add-user-form">
                     <div class="input-field col l3 offset-l2 m4">
-                        <input class="user-input" name="term" id="search-user" type="text" required>
-                        <label for="search-user"><i class="fa fa-search"></i></label>
-                        <input type="hidden" value="${group.id}" name="groupid">
+                        <input class="user-input" type="text" placeholder="Procure por um usuário" name="term" id="search-user" required>
+                        %{--<label for="search-user"><i class="fa fa-search"></i></label>--}%
                         <input type="hidden" value="" id="user-id" name="userid">
                     </div>
                     <div class="col l3">
@@ -40,8 +39,7 @@
                     </div>
                 </form>
             </g:if>
-
-
+            <input type="hidden" value="${group.id}" name="groupid">
     </div>
 
     <!-- Modal Structure -->
@@ -59,7 +57,7 @@
                     <li id="no-users" class="collection-item">Nenhum usuário foi adicionado à este grupo.</li>
                 </g:if>
                 <g:else>
-                    <g:each var="userGroup" in="${group.userGroups}">
+                    <g:each var="userGroup" in="${group.userGroups.sort{it.user.firstName}}">
                         <li id="user-group-card-${userGroup.id}" class="collection-item avatar left-align">
                             <img alt src="/data/users/${userGroup.user.username}/profile-picture" class="circle">
                             <span class="title">${userGroup.user.firstName + " " + userGroup.user.lastName}</span>
@@ -168,16 +166,20 @@
                         <div class="divider"></div><br>
                         <div class="row">
                             <div class="center">
-                                <div class="col l4">
-                                    <a class="remove-resource" style="cursor: pointer" id="delete-resource-${groupExportedResource.id}" data-resource-id="${groupExportedResource.id}" >
-                                        <i class="fa fa-trash fa-2x" style="color: #FF5722;"></i>
-                                    </a>
-                                </div>
-                                <div class="col l4">
-                                    <a class="" style="cursor: pointer" id="delete-resource-${groupExportedResource.id}" data-resource-id="${groupExportedResource.id}" >
-                                        <i class="fa fa-bar-chart fa-2x" style="color: #FF5722;"></i>
-                                    </a>
-                                </div>
+                                <g:if test="${group.owner.id == session.user.id}">
+                                    <div class="col l4">
+                                        <a class="remove-resource" style="cursor: pointer" id="delete-resource-${groupExportedResource.id}" data-resource-id="${groupExportedResource.id}" >
+                                            <i class="fa fa-trash fa-2x" style="color: #FF5722;"></i>
+                                        </a>
+                                    </div>
+                                </g:if>
+                                <g:if test="${group.owner.id == session.user.id || UserGroup.findByUserAndAdmin(session.user, true)}">
+                                    <div class="col l4">
+                                        <a class="show-stats" href="/group/stats/${group.id}?exp=${groupExportedResource.exportedResource.id}" data-exported-resource-id="${groupExportedResource.exportedResource.id}" style="cursor: pointer" id="delete-resource-${groupExportedResource.id}" data-resource-id="${groupExportedResource.id}" >
+                                            <i class="fa fa-bar-chart fa-2x" style="color: #FF5722;"></i>
+                                        </a>
+                                    </div>
+                                </g:if>
                             </div>
                         </div>
                     </div>
