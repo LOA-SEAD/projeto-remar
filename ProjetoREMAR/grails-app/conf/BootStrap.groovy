@@ -81,6 +81,7 @@ class BootStrap {
                 '/**/images/**', '/**/favicon.ico', '/data/**', '/**/scss/**', '/**/less/**', '/**/fonts/**',
                 '/**/font/**', '/password/**', '/moodle/**', '/exportedGame/**', '/static/**', '/login/**',
                 '/logout/**', '/signup/**', '/user/**', '/facebook/**', '/published/**', '/group/isLogged'
+                '/logout/**', '/signup/**', '/user/**', '/facebook/**', '/published/**', '/dspace/**'
         ]) {
             RequestMap.findOrSaveByUrlAndConfigAttribute(url, 'permitAll')
         }

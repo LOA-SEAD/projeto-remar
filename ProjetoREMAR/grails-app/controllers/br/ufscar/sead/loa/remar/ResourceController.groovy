@@ -57,7 +57,6 @@ class ResourceController {
         instance.comment = "Em avaliação"
 
         instance.save flush: true
-
         render true;
     }
 
@@ -255,6 +254,7 @@ class ResourceController {
                 response.status = 500
                 render resp
             }
+
             // probably we don't need this anymore because when the WAR is deployed the bpmn is deployed too
             // redirect controller: "process", action: "deploy", id: resourceInstance.bpmn
         } else if (status == "reject" && resourceInstance.status != "rejected") {

@@ -44,9 +44,11 @@ stacktrace.log
 /web-app/published
 /web-app/wars
 /grails-app/conf/env.properties
+/grails-app/conf/env-dspace.properties
 
 !web-app/data/users/admin/profile-picture
 
 propeller
 
 # end REMAR stuff
+

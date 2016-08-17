@@ -47,6 +47,9 @@
     <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os seus grupos criados." data-step="4">
         <a href="/group/list" class=""><i class="material-icons">people</i>Meus Grupos</a>
     </li>
+    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra artefatos para customizar seus jogos" data-step="4">
+        <a href="/dspace/index" class=""><i class="material-icons">cloud</i>Repositório</a>
+    </li>
     <sec:ifAllGranted roles="ROLE_DEV">
         <li class="waves-effect waves-block waves-light" data-intro="No espaço do desenvolvedor você pode submeter um novo jogo para o REMAR." data-step="5">
             <a href="/resource/index" class=""><i class="medium material-icons">code</i>Desenvolvedor</a>

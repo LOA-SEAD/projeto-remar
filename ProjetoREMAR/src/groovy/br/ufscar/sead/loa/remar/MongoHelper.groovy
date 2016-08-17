@@ -152,4 +152,32 @@ class MongoHelper {
 
         return paths
     }
+
+
+
+    def getCollectionForId(String collection,String id){
+        return db.getCollection(collection).find(new Document("_id", new ObjectId(id)))
+    }
+
+    def getCollection(String collection,Long id){
+        return db.getCollection(collection).find(new Document("id", id))
+    }
+
+    def addCollection(String name){
+        def dbExists = false;
+
+        db.listCollectionNames().each {
+            if (it.equals(name)) {
+                dbExists = true
+            }
+        }
+
+        if (!dbExists) {
+            db.createCollection(name)
+            return true
+        }
+
+        return false
+    }
+
 }
