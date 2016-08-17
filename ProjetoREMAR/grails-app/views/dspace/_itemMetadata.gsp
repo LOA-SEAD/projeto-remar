@@ -25,6 +25,7 @@
                     <span class="description-input">Entre com o nome do autor do item. </span>
                     <div class="input-field col s12">
                         <input name="author" id="author" type="text" class="validate">
+                        <span id="author-error" class="invalid-textarea" style="left: 0.75rem; top: 45px;">Este campo não pode ser vazio!</span>
                         <label for="author">
                             <g:message code="dspace.metadata.author"/>
                         </label>
@@ -46,6 +47,7 @@
                     <span class="description-input">Entre com um nome padrão de citação. </span>
                     <div class="input-field col s12">
                         <input name="citation" id="citation" type="text" class="validate">
+                        <span id="citation-error" class="invalid-textarea" style="left: 0.75rem; top: 45px;">Este campo não pode ser vazio!</span>
                         <label for="citation"><g:message code="dspace.metadata.citation"/> </label>
                     </div>
                 </div>
@@ -63,6 +65,7 @@
                     <span class="description-input">Entre com o resumo do item. </span>
                     <div class="input-field col s12">
                         <textarea name="description" id="description" class="materialize-textarea"></textarea>
+                        <span id="description-error" class="invalid-textarea" style="left: 0.75rem; top: 45px;">Este campo não pode ser vazio!</span>
                         <label for="description"><g:message code="dspace.metadata.abstract"/> </label>
                     </div>
                 </div>
@@ -110,8 +113,6 @@
 </div>
 <g:javascript src="dspace.js"/>
 <g:javascript src="dspace/validateSubmit.js"/>
-<script type="text/javascript" src="${resource(dir: 'js', file: 'license.js')}"></script>
-
 
 
 </body>
