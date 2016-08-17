@@ -248,7 +248,6 @@ class UserController {
     }
 
     def usernameAvailable() {
-        println params.username
         render User.findByUsername(params.username) == null
     }
 
@@ -258,7 +257,6 @@ class UserController {
             def group = Group.findById(params.group)
             def list = allUsers.collect {
                 def inGroup = UserGroup.findByUserAndGroup(it, group) ? true : false
-                println inGroup
                     [
                             label: "${it.firstName} ${it.lastName}",
                             value: it.id,
@@ -266,7 +264,6 @@ class UserController {
                     ]
                 }
 
-            println list
             render list as JSON
 
         }else{
