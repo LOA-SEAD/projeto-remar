@@ -68,7 +68,7 @@ class BootStrap {
         for (url in [
                 '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/exportedResource/**', '/my-profile',
                 '/user/update', '/resource/customizableGames', '/resource/show/**', '/moodle/link/**', '/moodle/unlink/**', '/resource/saveRating/**',
-                '/resource/updateRating/**', '/resource/deleteRating/**','/group/**','/user-group/**','/group-exported-resources/**'
+                '/resource/updateRating/**', '/resource/deleteRating/**','/group','/group/user-stats/**','/group/stats/**','/user-group/**','/group-exported-resources/**'
         ]) {
             RequestMap.findOrSaveByUrlAndConfigAttribute(url, 'isAuthenticated()')
         }
@@ -77,9 +77,10 @@ class BootStrap {
 
         for (url in [
                 '/', '/index', '/index/project', '/index/info', '/doc/**', '/assets/**',
-                '/exportedResource/publicGames', '/exported-resource/searchGame', '/**/js/**', '/**/css/**',
+                '/exportedResource/publicGames', '/exported-resource/searchGameByCategoryAndName', '/**/js/**', '/**/css/**',
                 '/**/images/**', '/**/favicon.ico', '/data/**', '/**/scss/**', '/**/less/**', '/**/fonts/**',
                 '/**/font/**', '/password/**', '/moodle/**', '/exportedGame/**', '/static/**', '/login/**',
+                '/logout/**', '/signup/**', '/user/**', '/facebook/**', '/published/**', '/group/isLogged'
                 '/logout/**', '/signup/**', '/user/**', '/facebook/**', '/published/**', '/dspace/**'
         ]) {
             RequestMap.findOrSaveByUrlAndConfigAttribute(url, 'permitAll')

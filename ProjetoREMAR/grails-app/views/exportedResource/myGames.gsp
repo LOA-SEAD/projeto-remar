@@ -31,8 +31,8 @@
         <section id="test1" class="col s12"> <!-- start my published games -->
             <div class="row search">
                 <div class="input-field col s6">
-                    <input id="search-game" type="text" class="validate">
-                    <label for="search-game"><i class="fa fa-search"></i></label>
+                    <input id="search" type="text" class="validate">
+                    <label for="search"><i class="fa fa-search"></i></label>
                 </div>
                 <div class="input-field col s6">
                     <select>
@@ -46,7 +46,7 @@
                     <label>Categoria</label>
                 </div>
             </div>
-            <div class="row">
+            <div id="showCards" class="row">
                 <article class="row">
                     <g:render template="myCardGame" model="[myExportedResourcesList:myExportedResourcesList]" />
                 </article>
@@ -60,7 +60,7 @@
                     <label for="search-processes"><i class="fa fa-search"></i></label>
                 </div>
             </div>
-            <div class="row">
+            <div id="showCardsProcess" class="row">
                 <article class="row">
                     <g:render template="/process/process" model="[processes:processes]" />
                 </article>

@@ -27,10 +27,9 @@ class GroupExportedResourcesController {
             def groupExportedResource = new GroupExportedResources()
             def group = Group.findById("${it}")
 
-            if(GroupExportedResources.findByGroupAndExportedResource(group,exportedResource)){
-                println "ja tem"
-                //TODO
-            }else{
+            if(GroupExportedResources.findByGroupAndExportedResource(group,exportedResource))
+                render status: 405, text: "Jogo já pertence a grupo!"
+            else{
                 groupExportedResource.group = group
                 groupExportedResource.exportedResource = exportedResource
 

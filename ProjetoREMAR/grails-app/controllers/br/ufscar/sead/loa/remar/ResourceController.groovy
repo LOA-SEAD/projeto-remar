@@ -75,6 +75,7 @@ class ResourceController {
         resourceInstance.status = "pending"
         resourceInstance.valid = true
         resourceInstance.license = params.license
+        resourceInstance.customizableItems = ""
 
         // Move .war to /wars and unzip it
         savedWar.mkdirs()
@@ -350,23 +351,14 @@ class ResourceController {
 
         model.gameInstanceList = null
 
-        if(params.typeSearch.equals("name")){ // busca pelo nome
+        if(params.category.equals("-1")){ // busca pelo nome
             model.gameInstanceList = Resource.findAllByStatusAndNameIlike('approved', "%${params.text}%",params)
             maxInstances = Resource.findAllByStatusAndNameIlike('approved', "%${params.text}%").size()
-
-        }else{
-            if(params.typeSearch.equals("category")){// busca pela categoria
-
-                if(params.text.equals("-1")){// exibe os jogos de todas as categorias
-                    model.gameInstanceList = Resource.findAllByStatus('approved',params) // change to #findAllByActive?
-                    maxInstances = Resource.findAllByStatus('approved').size()
-
-                }else{
-                    Category c = Category.findById(params.text)
-                    model.gameInstanceList = Resource.findAllByCategory(c,params)
-                    maxInstances = Resource.findAllByCategory(c).size()
-                }
-            }
+        }
+        else{
+            Category c = Category.findById(params.category)
+            model.gameInstanceList = Resource.findAllByCategoryAndNameIlike(c, "%${params.text}%" ,params)
+            maxInstances = model.gameInstanceList.size()
         }
 
         model.pageCount = Math.ceil(maxInstances / params.max) as int
@@ -433,20 +425,29 @@ class ResourceController {
 
     }
 
-    def deleteRating(Rating rating) {
+    @Transactional
+    def deleteRating() {
 
-        def old_stars = rating.getPersistentValue("stars")
+        int id = Integer.parseInt(params.id)
+        Rating rating = Rating.findById(id)
 
-        // retira da soma de estrelas a quantidade de estrelas anterior do rating
-        rating.resource.sumStars -= old_stars
-        rating.resource.sumUser -= 1
+        if(rating!=null){
+            Resource resource = rating.resource
 
-        rating.delete flush: true;
+            // retira da soma de estrelas a quantidade de estrelas anterior do rating
+            resource.sumStars -= rating.stars
+            rating.delete flush: true;
+            resource.sumUser = resource.ratings.size()
+            resource.save flush: true
 
-        render rating.resource as JSON
+            render resource as JSON
+        }
+        else
+            render "null"
+
     }
 
-    def croppicture() {
+    def croppicture(){
         def root = servletContext.getRealPath("/")
         def f = new File("${root}data/tmp")
         f.mkdirs()

@@ -3,11 +3,15 @@ package br.ufscar.sead.loa.remar
 import br.ufscar.sead.loa.propeller.Propeller
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
+import grails.plugins.rest.client.RestBuilder
 import grails.transaction.Transactional
+import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 import org.apache.commons.lang.RandomStringUtils
+import org.bson.Document
 import org.springframework.web.multipart.commons.CommonsMultipartFile
-
+import com.mongodb.MongoClient
+import com.mongodb.client.MongoDatabase;
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
 
@@ -86,6 +90,55 @@ class ExportedResourceController {
         redirect uri: "/exported-resource/moodle/${exportedResourceInstance.id}"
     }
 
+    def saveStats(){
+        def data = [:]
+        println params
+        if(params.gameType == "puzzleWithTime"){
+            data.timestamp = new Date().toTimestamp()
+            data.userId = session.user.id as long
+            data.exportedResourceId = params.exportedResourceId as int
+            data.points = params.points as int
+            data.partialPoints = params.partialPoints as int
+            data.levelId = params.levelId as int
+            data.remainingTime = params.remainingTime as int
+            data.win = Boolean.parseBoolean(params.win)
+            data.gameSize = params.size as int
+            data.end = Boolean.parseBoolean(params.end)
+            data.gameType = params.gameType
+            try {
+                MongoHelper.instance.createCollection("stats")
+                MongoHelper.instance.insertStats("stats", data)
+
+            } catch (Exception e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
+
+            render status: 200
+        }else if(params.gameType == "questionAndAnswer") {
+            data.timestamp = new Date().toTimestamp()
+            data.userId = session.user.id as long
+            data.exportedResourceId = params.exportedResourceId as int
+            data.points = params.points as int
+            data.partialPoints = params.partialPoints as int
+            data.errors = params.errors
+            data.question = params.question
+            data.answer = params.answer
+            data.levelId = params.levelId as int
+            data.win = Boolean.parseBoolean(params.win)
+            data.gameSize = params.size as int
+            data.end = Boolean.parseBoolean(params.end)
+            data.gameType = params.gameType
+            try {
+                MongoHelper.instance.createCollection("stats")
+                MongoHelper.instance.insertStats("stats", data)
+
+            } catch (Exception e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
+            render status: 200
+        }
+    }
+
     def publish(ExportedResource instance) {
         def exportsTo = [:]
         def groupsIOwn = Group.findAllByOwner(session.user)
@@ -108,9 +161,12 @@ class ExportedResourceController {
 
     def export(ExportedResource instance) {
         def urls = [:]
+        def root = servletContext.getRealPath("/")
         def resourceName = instance.resource.name
         def desktop = instance.resource.desktop
         def android = instance.resource.android
+
+
 
         urls.web = "/published/${instance.processId}/web"
         if (desktop) {
@@ -123,7 +179,7 @@ class ExportedResourceController {
         }
 
         if (!instance.exported) {
-            def root = servletContext.getRealPath("/")
+
             def sourceFolder = "${root}/data/resources/sources/${instance.resource.uri}/"
             def desktopFolder = "${root}/published/${instance.processId}/desktop"
             def mobileFolder = "${root}/published/${instance.processId}/mobile"
@@ -175,6 +231,21 @@ class ExportedResourceController {
                     }
                 }
             }
+            def builder = new JsonBuilder()
+            def remarJson = builder{
+                exportedResourceId instance.id
+            }
+            def jsonName = "remar.json"
+
+            folders.each { folder ->
+                println folder
+                File file = new File("$folder/$jsonName");
+                PrintWriter pw = new PrintWriter(file);
+                pw.write(builder)
+                pw.close()
+            }
+
+
             if (desktop) {
                 ant.sequential {
                     chmod(perm: "+x", file: scriptUpdateElectron)
@@ -201,10 +272,19 @@ class ExportedResourceController {
                 instance.moodleUrl = urls.web
             }
 
+            def jsonPathWeb = "${root}/published/${instance.processId}/web"
+            File file = new File("$jsonPathWeb/$jsonName");
+            PrintWriter pw = new PrintWriter(file);
+            pw.write(builder)
+            pw.close()
+
             instance.exported = true
             instance.save flush: true
 
         }
+
+
+
 
         render urls as JSON
     }
@@ -275,7 +355,11 @@ class ExportedResourceController {
 
         model.categories = Category.list(sort: "name")
 
-        render view: "publicGames", model: model
+        if(session.user==null)
+            render view: "games", model: model
+        else
+            render view: "publicGames", model: model
+
     }
 
     def myGames() {
@@ -287,13 +371,6 @@ class ExportedResourceController {
         model.groupsIAdmin = UserGroup.findAllByUserAndAdmin(user,true).group
 
         
-        if (session.user.username.equals("admin")) {
-            model.myExportedResourcesList = ExportedResource.list()
-
-        } else {
-            model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', session.user)
-
-        }
 
         def threshold = 12
         params.order = "desc"
@@ -301,6 +378,15 @@ class ExportedResourceController {
 
         params.max = params.max ? Integer.valueOf(params.max) : threshold
         params.offset = params.offset ? Integer.valueOf(params.offset) : 0
+
+        if (session.user.username.equals("admin")) {
+            model.myExportedResourcesList = ExportedResource.list(params)
+
+        } else {
+            model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', session.user, params)
+
+        }
+
 
         model.max = params.max
         model.threshold = threshold
@@ -348,6 +434,8 @@ class ExportedResourceController {
         model.tHasNextPage = params.tOffset + threshold < temporary.size()
         model.tHasPreviousPage = params.tOoffset > 0
 
+        println model.tPageCount
+
         render view: "myGames", model: model
     }
 
@@ -368,21 +456,21 @@ class ExportedResourceController {
         MongoHelper.instance.insertData(json['collection_name'] as String, data)
     }
 
-    def stats() {
-        def myMoodleGames = []
-
-        ExportedResource.findAllByOwnerAndMoodleUrlIsNotNull(session.user).each { exportedResource ->
-            def model = [:]
-
-            model.name = exportedResource.name
-            model.image = "${exportedResource.processId}/banner.png"
-            model.id = exportedResource.id
-
-            myMoodleGames.add(model)
-        }
-
-        render view: "stats", model: [moodleList: myMoodleGames]
-    }
+//    def stats() {
+//        def myMoodleGames = []
+//
+//        ExportedResource.findAllByOwnerAndMoodleUrlIsNotNull(session.user).each { exportedResource ->
+//            def model = [:]
+//
+//            model.name = exportedResource.name
+//            model.image = "${exportedResource.processId}/banner.png"
+//            model.id = exportedResource.id
+//
+//            myMoodleGames.add(model)
+//        }
+//
+//        render view: "stats", model: [moodleList: myMoodleGames]
+//    }
 
     def _table() {
         if (params.resourceId) {
@@ -463,8 +551,13 @@ class ExportedResourceController {
     }
 
     @SuppressWarnings("GroovyAssignabilityCheck")
-    def searchGame() {
+    def searchGameByCategoryAndName() {
         def model = [:]
+
+        User user = session.user
+
+        model.myGroups = Group.findAllByOwner(user)
+        model.groupsIAdmin = UserGroup.findAllByUserAndAdmin(user,true).group
 
         def threshold = 12
         def maxInstances = 0
@@ -477,36 +570,26 @@ class ExportedResourceController {
         model.max = params.max
         model.threshold = threshold
 
-        log.debug("type: " + params.typeSearch)
-        log.debug("text: " + params.text)
+        log.debug("category: " + params.category)
 
         model.publicExportedResourcesList = null
 
-        if (params.typeSearch.equals("name")) {
+        if(params.category.equals("-1")){
+            // exibe os jogos de todas as categorias
             model.publicExportedResourcesList = ExportedResource.findAllByTypeAndNameIlike('public', "%${params.text}%", params)
             maxInstances = ExportedResource.findAllByTypeAndNameIlike('public', "%${params.text}%").size()
+        }
+        else{
+            Category c = Category.findById(params.category)
+            model.publicExportedResourcesList = []
+            maxInstances = 0
 
-        } else {
-            if (params.typeSearch.equals("category")) {
-                // busca pela categoria
+            for (r in Resource.findAllByCategory(c)) {
+                // get all resources belong
+                model.publicExportedResourcesList.addAll(
+                        ExportedResource.findAllByTypeAndResourceAndNameIlike('public', r, "%${params.text}%", params))
+                maxInstances += ExportedResource.findAllByTypeAndResourceAndNameIlike('public', r, "%${params.text}%").size()
 
-                if (params.text.equals("-1")) {
-                    // exibe os jogos de todas as categorias
-                    model.publicExportedResourcesList = ExportedResource.findAllByType('public', params)
-                    maxInstances = ExportedResource.findAllByType('public').size()
-
-                } else {
-                    Category c = Category.findById(params.text)
-                    model.publicExportedResourcesList = []
-                    maxInstances = 0
-
-                    for (r in Resource.findAllByCategory(c)) {
-                        // get all resources belong
-                        model.publicExportedResourcesList.addAll(
-                                ExportedResource.findAllByTypeAndResource('public', r, params))
-                        maxInstances += ExportedResource.findAllByTypeAndResource('public', r).size()
-                    }
-                }
             }
         }
 
@@ -515,7 +598,7 @@ class ExportedResourceController {
         model.hasNextPage = params.offset + threshold < model.instanceCount
         model.hasPreviousPage = params.offset > 0
 
-        log.debug(model.publicExportedResourcesList.size())
+        log.debug(maxInstances)
 
         render view: "_cardGames", model: model
     }
@@ -566,8 +649,14 @@ class ExportedResourceController {
         render view: "/process/_process", model: model
     }
 
-    def searchMyGame() {
+    @SuppressWarnings("GroovyAssignabilityCheck")
+    def searchMyGames() {
         def model = [:]
+
+        User user = session.user
+
+        model.myGroups = Group.findAllByOwner(user)
+        model.groupsIAdmin = UserGroup.findAllByUserAndAdmin(user,true).group
 
         def threshold = 12
         def maxInstances = 0
@@ -580,43 +669,25 @@ class ExportedResourceController {
         model.max = params.max
         model.threshold = threshold
 
-        log.debug("type: " + params.typeSearch)
-        log.debug("text: " + params.text)
+        log.debug("category: " + params.category)
 
-        // model.myExportedResourcesList = null
+        model.myExportedResourcesList = null
 
-        if (params.typeSearch.equals("name")) {
-            // busca pelo nome
-            model.myExportedResourcesList =
-                    ExportedResource.findAllByTypeAndNameIlikeAndOwner('public', "%${params.text}%", User.get(session.user.id), params)
+        if(params.category.equals("-1")){
+            // exibe os jogos de todas as categorias
+            model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwnerAndNameIlike('public', user, "%${params.text}%", params)
+            maxInstances = ExportedResource.findAllByTypeAndOwnerAndNameIlike('public', user, "%${params.text}%").size()
+        }
+        else{
+            Category c = Category.findById(params.category)
+            model.myExportedResourcesList = []
+            maxInstances = 0
 
-            maxInstances = ExportedResource.findAllByTypeAndNameIlikeAndOwner('public', "%${params.text}%", User.get(session.user.id)).size()
-
-        } else {
-            if (params.typeSearch.equals("category")) {
-                // busca pela categoria
-
-                if (params.text.equals("-1")) {
-                    // exibe os jogos de todas as categorias
-                    model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id), params)
-                    maxInstances = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id)).size()
-
-                } else {
-                    Category c = Category.findById(params.text)
-                    model.myExportedResourcesList = []
-                    maxInstances = 0
-
-                    for (r in Resource.findAllByCategory(c)) {
-                        // get all resources belong
-                        model.myExportedResourcesList.addAll(
-                                ExportedResource.findAllByTypeAndResourceAndOwner('public',
-                                        r,
-                                        User.get(session.user.id),
-                                        params))
-                        maxInstances += ExportedResource.findAllByTypeAndResourceAndOwner('public', r, User.get(session.user.id)).size()
-                    }
-
-                }
+            for (r in Resource.findAllByCategory(c)) {
+                // get all resources belong
+                model.myExportedResourcesList.addAll(
+                        ExportedResource.findAllByTypeAndResourceAndOwnerAndNameIlike('public', r, user, "%${params.text}%", params))
+                maxInstances += ExportedResource.findAllByTypeAndResourceAndOwnerAndNameIlike('public', r, user, "%${params.text}%").size()
             }
         }
 
@@ -625,8 +696,58 @@ class ExportedResourceController {
         model.hasNextPage = params.offset + threshold < model.instanceCount
         model.hasPreviousPage = params.offset > 0
 
-        log.debug(model.myExportedResourcesList.size())
+        log.debug(maxInstances)
 
         render view: "_myCardGame", model: model
     }
+
+    def info(ExportedResource instance){
+        def exportsTo = [:]
+        def groupsIOwn = Group.findAllByOwner(session.user)
+        exportsTo.desktop = instance.resource.desktop
+        exportsTo.android = instance.resource.android
+        exportsTo.moodle = instance.resource.moodle
+        def groupsIAdmin = UserGroup.findAllByUserAndAdmin(session.user,true).group
+
+
+        def baseUrl = "/published/${instance.processId}"
+        def process = Propeller.instance.getProcessInstanceById(instance.processId as String, session.user.id as long)
+
+        instance.name = process.name
+
+        RequestMap.findOrSaveWhere(url: "${baseUrl}/**", configAttribute: 'permitAll')
+
+        render view: 'info', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl, groupsIAdmin: groupsIAdmin,
+                                        exportedResourceInstance: instance,createdAt: process.createdAt, groupsIOwn: groupsIOwn]
+
+    }
+
+    def reportAbuse(){
+        def userIP = request.getRemoteAddr()
+        def recaptchaResponse = params.get("g-recaptcha-response")
+        def rest = new RestBuilder()
+        def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?" +
+                "secret=${grailsApplication.config.recaptchaSecret}&response=${recaptchaResponse}&remoteip=${userIP}")
+
+        if (resp.json.success) {
+            if(params.exportedResourceId!=null)
+            {
+                ExportedResource exportedResource = ExportedResource.findById(Integer.parseInt(params.exportedResourceId))
+                User user = session.user
+                String text = params.text
+                def link = "http://${request.serverName}:${request.serverPort}/exported-resource/info/${params.exportedResourceId}"
+
+                Util.sendEmail(
+                        "remar@sead.ufscar.br",
+                        "Reportando abuso - Remar - ${exportedResource.name}",
+                        "<h3>Reportado por: ${user.username} (${user.email}) </h3> <p> Mensagem: ${text} </p> <p> Link para o recurso reportado: ${link}</p>")
+
+                render view: 'confirmSendAbuse'
+
+            }
+        }
+
+
+    }
+
 }

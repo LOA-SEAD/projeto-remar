@@ -18,7 +18,8 @@
         </p>
         <div class="divider"></div>
         <br />
-        <div style="position:relative; left: 1.0em;" class="card-list two-cards">
+        %{--<div style="position:relative; left: 1.0em;" class="card-list two-cards">--}%
+        <main class="cardGames">
             <div class="row">
                 <g:if test="${resourceInstanceList}">
                     <g:render template="developerCads" model="[resourceInstanceList:resourceInstanceList]" />
@@ -32,7 +33,8 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </main>
+        %{--</div>--}%
     </div>
     <footer class="row">
         <ul class="pagination">

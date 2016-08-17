@@ -14,7 +14,7 @@
             </div>
 
             <div>
-                <img src="/assets/img/logo/logo-remar-preto-transparente.png" width="395" align="center" class="img-responsive" />
+                <img src="/assets/img/logo/logo-remar-preto-transparente.png" width="395" align="center" class="responsive-img" />
             </div>
 
             <p class="center">Recursos Educacionais Multiplataforma Abertos na Rede</p>

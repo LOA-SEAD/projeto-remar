@@ -14,19 +14,22 @@
 <body>
     <div class="row">
         <div class="col l4 s6 m5">
-          <h5 class="left-align trucate">${group.name}  <g:if test="${group.owner.id == session.user.id}"> <a href="/group/delete/${group.id}" data-position="right" data-tooltip="Deletar grupo" class="tooltipped" style="color: black"><i style="position:relative; top: 0.145em;" class="material-icons">delete</i></a> </g:if>
-              <g:else><a class="tooltipped" data-tooltip="Sair do grupo" style=" color: black;" href="/group/leave-group/${group.id}"><i class="fa fa-sign-out fa-1x" aria-hidden="true"></i></a></g:else><br>
+          <h5 class="left-align"><span class="truncate" id="group-name">${group.name}</span>
               <g:if test="${group.owner.id == session.user.id}">
-                  <span style="font-size: 0.6em;" class="left-align">Senha de acesso: ${group.token}</span><br>
+                  <a id="edit-group" data-name="${group.name}" data-position="right" data-tooltip="Editar grupo" class="tooltipped" style="color: black"><i style="position:relative; top: 0.145em; cursor: pointer;" class="material-icons">edit</i></a>
+                  <a id="delete-group" href="/group/delete/${group.id}" data-position="right" data-tooltip="Deletar grupo" class="tooltipped" style="color: black"><i style="position:relative; top: 0.145em;" class="material-icons">delete</i></a>
+              </g:if>
+              <g:else><a class="tooltipped" data-tooltip="Sair do grupo" style=" color: black;" href="/group/leave-group/${group.id}"><i class="fa fa-sign-out fa-1x" aria-hidden="true"></i></a></g:else>
+              <g:if test="${group.owner.id == session.user.id}">
+                  <span style="font-size: 0.6em;" class="left">Senha de acesso: ${group.token}</span><br>
               </g:if>
           </h5>
         </div>
             <g:if test="${group.owner.id == session.user.id || UserGroup.findByUserAndAdmin(session.user,true)}">
                 <form id="add-user-form">
                     <div class="input-field col l3 offset-l2 m4">
-                        <input class="user-input" name="term" id="search-user" type="text" required>
-                        <label for="search-user"><i class="fa fa-search"></i></label>
-                        <input type="hidden" value="${group.id}" name="groupid">
+                        <input class="user-input" type="text" placeholder="Procure por um usuário" name="term" id="search-user" required>
+                        %{--<label for="search-user"><i class="fa fa-search"></i></label>--}%
                         <input type="hidden" value="" id="user-id" name="userid">
                     </div>
                     <div class="col l3">
@@ -36,8 +39,7 @@
                     </div>
                 </form>
             </g:if>
-
-
+            <input type="hidden" value="${group.id}" name="groupid">
     </div>
 
     <!-- Modal Structure -->
@@ -46,14 +48,22 @@
             <h4 class="left-align">Membros do grupo</h4>
             %{--<p>A bunch of text</p>--}%
             <ul class="collection users-collection">
-                <g:if test="${group.userGroups.size()==0}">
+                <li class="collection-item avatar left-align">
+                    <img src="/data/users/${group.owner.username}/profile-picture" class="circle">
+                    <span class="title">${group.owner.firstName + " " + group.owner.lastName + " (Dono do grupo)"}</span>
+                    <p class="">Usuário: ${group.owner.username}</p>
+                </li>
+                <g:if test="${group.userGroups.size()==0 && group.owner.id == session.user.id}">
                     <li id="no-users" class="collection-item">Nenhum usuário foi adicionado à este grupo.</li>
                 </g:if>
                 <g:else>
-                    <g:each var="userGroup" in="${group.userGroups}">
+                    <g:each var="userGroup" in="${group.userGroups.sort{it.user.firstName}}">
                         <li id="user-group-card-${userGroup.id}" class="collection-item avatar left-align">
                             <img alt src="/data/users/${userGroup.user.username}/profile-picture" class="circle">
                             <span class="title">${userGroup.user.firstName + " " + userGroup.user.lastName}</span>
+                            <span class="admin-text" id="admin-${userGroup.id}-text"> <g:if test="${userGroup.admin}">(Administrador)</g:if>
+                            <g:else> </g:else>
+                            </span>
                             <p class="">Usuário: ${userGroup.user.username}</p>
                             <g:if test="${group.owner.id == session.user.id}">
                                 <a href="#" id="user-group-id-${userGroup.id}" data-user-group-id="${userGroup.id}" style="position: relative; top: -2.5em; left: -1.6em;" class="secondary-content delete-user"><i class="material-icons">delete</i></a>
@@ -64,7 +74,6 @@
                                     <a id="remove-admin-${userGroup.id}" data-user-group-id="${userGroup.id}" href="#" class="secondary-content manage-user tooltipped"><i id="admin-star-${userGroup.id}" class="material-icons">star</i></a>
                                 </g:else>
                             </g:if>
-
                         </li>
                     </g:each>
                 </g:else>
@@ -86,7 +95,7 @@
     <div class="divider"></div>
 
     <div>
-        <a href="#modal-users" class="modal-trigger" style="font-size: 1.2em; left: -2.8em; position: relative"><span class="right group-size" data-group-size="${group.userGroups.size()}">Ver membros (${group.userGroups.size()})</span></a>
+        <a href="#modal-users" class="modal-trigger" style="font-size: 1.2em; left: -2.8em; position: relative"><span class="right group-size" data-group-size="${group.userGroups.size()+1}">Ver membros (${group.userGroups.size()+1})</span></a>
 
         <g:if test="${!group.owner.id == session.user.id}">
             <p align="left" style="font-size: 1.2em;">Dono: ${group.owner.firstName + " " + group.owner.lastName} </p>
@@ -98,7 +107,7 @@
     <div style="position: relative; left: 1em">
         <g:each var="groupExportedResource" in="${groupExportedResources}">
             <div class="col l3 s5">
-                <div id="card-group-exported-resource-${groupExportedResource.id}" class="card">
+                <div id="card-group-exported-resource-${groupExportedResource.id}" class="card hoverable">
                     <div class="card-image waves-effect waves-block waves-light">
                         <img class="activator" src="/published/${groupExportedResource.exportedResource.processId}/banner.png">
                     </div>
@@ -125,10 +134,10 @@
                     <div class="right">
                         <i class="activator material-icons" style="color: black; cursor: pointer">more_vert</i>
                     </div>
-                    <div class="card-reveal col l12">
+                    <div class="card-reveal">
                         <div class="row">
-                            <h5 class="card-title grey-text text-darken-4 col l12"><small class="left">Jogar:</small><i class="material-icons right">close</i></h5><br>
-                            <div class="col l4 tooltipped">
+                            <h5 class="card-title grey-text text-darken-4 col l12 truncate"><small class="left">Jogar:</small><i class="material-icons right">close</i></h5><br>
+                            <div class="col l4">
                                 <a style="font-size: 2em; color: black;" target="_blank" href="/published/${groupExportedResource.exportedResource.processId}/web" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Web"><i class="fa fa-globe"></i></a>
                             </div>
                             <g:if test="${groupExportedResource.exportedResource.resource.desktop}">
@@ -157,16 +166,20 @@
                         <div class="divider"></div><br>
                         <div class="row">
                             <div class="center">
-                                <div class="col l4">
-                                    <a class="remove-resource" style="cursor: pointer" id="delete-resource-${groupExportedResource.id}" data-resource-id="${groupExportedResource.id}" >
-                                        <i class="fa fa-trash fa-2x" style="color: #FF5722;"></i>
-                                    </a>
-                                </div>
-                                <div class="col l4">
-                                    <a class="" style="cursor: pointer" id="delete-resource-${groupExportedResource.id}" data-resource-id="${groupExportedResource.id}" >
-                                        <i class="fa fa-bar-chart fa-2x" style="color: #FF5722;"></i>
-                                    </a>
-                                </div>
+                                <g:if test="${group.owner.id == session.user.id}">
+                                    <div class="col l4">
+                                        <a class="remove-resource" style="cursor: pointer" id="delete-resource-${groupExportedResource.id}" data-resource-id="${groupExportedResource.id}" >
+                                            <i class="fa fa-trash fa-2x" style="color: #FF5722;"></i>
+                                        </a>
+                                    </div>
+                                </g:if>
+                                <g:if test="${group.owner.id == session.user.id || UserGroup.findByUserAndAdmin(session.user, true)}">
+                                    <div class="col l4">
+                                        <a class="show-stats" href="/group/stats/${group.id}?exp=${groupExportedResource.exportedResource.id}" data-exported-resource-id="${groupExportedResource.exportedResource.id}" style="cursor: pointer" id="delete-resource-${groupExportedResource.id}" data-resource-id="${groupExportedResource.id}" >
+                                            <i class="fa fa-bar-chart fa-2x" style="color: #FF5722;"></i>
+                                        </a>
+                                    </div>
+                                </g:if>
                             </div>
                         </div>
                     </div>
@@ -180,6 +193,7 @@
 <g:javascript src="delete-group-resources.js" />
 <g:javascript src="manage-user-group.js" />
 <g:javascript src="tooltip.js" />
+<g:javascript src="edit-group.js" />
 
 <script>
 

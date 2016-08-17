@@ -40,5 +40,6 @@ logs
 #####################
 
 /web-app/data
+/grails-app/conf/env.properties
 
 # end REMAR stuff

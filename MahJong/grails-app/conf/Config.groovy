@@ -87,13 +87,32 @@ grails.hibernate.osiv.readonly = false
 
 environments {
     development {
-        grails.logging.jul.usebridge = true
-//        grails.serverURL = "http://localhost:8080/mahjong"
+        // in development, we can use the same credential/api keys that REMAR uses
+        def path = new File('.').absoluteFile.parentFile // app root folder
+        def file = "${path.parent}/ProjetoREMAR/grails-app/conf/env.properties"
+
+        def remarProperties = new Properties()
+        remarProperties.load(new FileInputStream(file))
+
+        def properties = new Properties()
+        for (key in ['dataSource', 'dataSource_remar']) {
+            properties.setProperty("${key}.username", remarProperties.getProperty('dataSource.username'))
+            properties.setProperty("${key}.password", remarProperties.getProperty('dataSource.password'))
+        }
+
+        file = new FileOutputStream("${path}/grails-app/conf/env.properties")
+
+        properties.store(file, 'auto generated from REMAR\'s env.properties')
+        file.close()
+
+        grails.config.locations = ["classpath:env.properties"]
+
         grails.app.context = "/mahjong"
+        grails.logging.jul.usebridge = true
     }
     production {
+        grails.config.locations = ["classpath:env.properties"]
         grails.logging.jul.usebridge = false
-//        grails.serverURL = "http://localhost:8080/mahjong"
         grails.app.context = "/mahjong"
     }
 }

@@ -13,7 +13,7 @@
 
 <div class="cluster-header">
     <p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-        <i class="small material-icons left"></i>Temas
+        <i class="small material-icons left"></i>Escola Mágica - Temas
     </p>
 </div>
 
@@ -29,7 +29,7 @@
     <form class="col s12" name="formName">
         <ul class="collapsible" data-collapsible="accordion">
             <li>
-                <div class="collapsible-header active"> <b> Meus Temas </b></div>
+                <div class="collapsible-header active"> <b>Meus Temas </b></div>
                 <div class="collapsible-body">
                     <g:if test="${themeInstanceListMy.size() < 1 }">
                         <p> Você ainda não possui nenhum tema</p>

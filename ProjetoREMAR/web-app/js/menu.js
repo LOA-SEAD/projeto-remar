@@ -18,11 +18,24 @@ $(document).ready(function() {
 function deleteResource(id, processID){
     //console.log(id);
     //console.log(processID);
+    var formData = new FormData();
     if(confirm("Deseja mesmo excluir este jogo?")){
-        window.location.href = " /exported-resource/delete?id="+id+"&processId="+processID;
+        $.ajax({
+            url: " /exported-resource/delete?id="+id+"&processId="+processID,
+            type: 'GET',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                $("#card"+id).remove();
+            },
+            error: function () {
+                alert("error");
+            }
+        });
     }
-}
 
+}
 
 // This is a functions that scrolls to #{blah}link
 function goToByScroll(id){

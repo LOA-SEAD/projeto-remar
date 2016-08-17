@@ -17,7 +17,7 @@
     <div class="row cluster">
         <div class="cluster-header">
             <p class="text-teal text-darken-3 left-align margin-bottom">
-                <i class="small material-icons left">create</i>Modelos
+                <i class="small material-icons left">create</i>Customizar
             </p>
             <div class="divider"></div>
         </div>
@@ -38,7 +38,7 @@
                 <label>Categoria</label>
             </div>
         </div>
-        <div class="row">
+        <div id="resourcesShow" class="row">
             <g:render template="custCards" model="${pageScope.variables}" />
         </div>
     </div>

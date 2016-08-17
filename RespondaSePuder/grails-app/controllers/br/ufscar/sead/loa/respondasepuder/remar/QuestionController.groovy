@@ -1,7 +1,7 @@
 package br.ufscar.sead.loa.respondasepuder.remar
 
 import br.ufscar.sead.loa.remar.User
-import br.ufscar.sead.load.remar.api.MongoHelper
+import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.util.Environment
 import grails.plugin.springsecurity.annotation.Secured
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -344,7 +344,7 @@ class QuestionController {
             port = 8080
         }
 
-        render "http://localhost:${port}/frame/respondasepuder/samples/export/exportQuestions.csv"
+        render "/respondasepuder/samples/export/exportQuestions.csv"
     }
 
 }

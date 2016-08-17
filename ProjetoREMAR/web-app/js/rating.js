@@ -91,11 +91,11 @@ $(document).ready(function(){
 
                     $(".dropdown-button").dropdown();
                     $(".edit-rating").on('click',setListenerEdit);
-                    $(".delete-rating").on('click',setListenerDelete);
+                    //$(".delete-rating").on('click',setListenerDelete);
 
                     $("#not-comment").hide();
-                    $("#modal-comment").closeModal();
                     $(".lean-overlay").remove();
+                    location.reload();
                 },
                 error: function () {
                     alert("error");
@@ -120,7 +120,7 @@ $(document).ready(function(){
     //classe nos botões edit e delete rating
     $(".edit-rating").on("click",setListenerEdit);
 
-    $(".delete-rating").on("click",setListenerDelete);
+    //$(".delete-rating").on("click",setListenerDelete);
 
 
     //botão do modal de editar
@@ -175,7 +175,7 @@ $(document).ready(function(){
 
                     $(".dropdown-button").dropdown();
                     $(".edit-rating").on('click',setListenerEdit);
-                    $(".delete-rating").on('click',setListenerDelete);
+                    //$(".delete-rating").on('click',setListenerDelete);
 
                     $("#not-comment").hide();
                     $("#modal-comment").closeModal();
@@ -210,30 +210,29 @@ $(document).ready(function(){
         current_rating = $(this); //set current rating clicked
     }
 
-    function setListenerDelete(){
-        var parent = $(this).parents().eq(2);
-        var idRating = Number(parent.find(".rating-stars").attr("data-rating-id"));
+});
 
-        $.ajax({
-            url: "/resource/deleteRating/" + idRating,
-            type: 'GET',
-            data: null,
-            success: function (response) {
-                parent.remove();
+function deleteRating(id){
+    var parent = $(this).parents().eq(2);
+
+    $.ajax({
+        url: "/resource/deleteRating/",
+        type: 'GET',
+        data: {id: id},
+        success: function (response) {
+            if(response!="null") {
+                $("#rating" + id).remove();
+                $("#users").text("(" + response.sumUser + ")");
 
                 //set medium stars and amount users of resource
                 var n = Number(response.sumStars) / Number(response.sumUser);
-                $(mainStars).rateYo("option","rating",n);
-                $("#users").text("("+response.sumUser+")");
+                $("#rateYo-main").rateYo("option", "rating", n);
 
                 Materialize.toast('Comentário excluído!', 3000, 'rounded');
-            },
-            error: function () {
-                alert("error");
             }
-        });
-    }
-
-});
-
-
+        },
+        error: function () {
+            alert("error");
+        }
+    });
+}

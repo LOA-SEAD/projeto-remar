@@ -8,6 +8,8 @@ class ExportedResource {
     	moodleUrl nullable: true
         exported nullable: true
         license nullable: false
+        contentArea nullable: false
+        specificContent nullable: false
     }
 
 //    Group group
@@ -22,4 +24,6 @@ class ExportedResource {
     String type //should be "public", "private" or "group"
     String processId
     String license
+    String contentArea
+    String specificContent
 }

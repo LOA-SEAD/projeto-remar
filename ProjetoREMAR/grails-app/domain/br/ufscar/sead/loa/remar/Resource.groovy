@@ -23,6 +23,7 @@ class Resource {
         sumStars nullable: false
         sumUser nullable: false
         license nullable: false
+        customizableItems nullable: true
 
     }
 
@@ -48,6 +49,7 @@ class Resource {
     boolean pending
     String license
     String documentation
+    String customizableItems
 
     float sumStars //total de estrelas
     int   sumUser  //total de usuários que comentaram o jogo

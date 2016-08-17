@@ -253,6 +253,8 @@ class ProcessController {
         exportedResourceInstance.height = resource.height
         exportedResourceInstance.processId = process.id
         exportedResourceInstance.license = resource.license
+        exportedResourceInstance.contentArea = params.contentArea
+        exportedResourceInstance.specificContent =  params.specificContent
 
         exportedResourceInstance.save flush: true
 
@@ -287,6 +289,6 @@ class ProcessController {
         exportsTo.android = exportedResourceInstance.resource.android
         exportsTo.moodle = exportedResourceInstance.resource.moodle
 
-        redirect uri: "/exported-resource/publish/${exportedResourceInstance.id}?toast=1"
+        render "/exported-resource/publish/${exportedResourceInstance.id}?toast=1"
     }
 }

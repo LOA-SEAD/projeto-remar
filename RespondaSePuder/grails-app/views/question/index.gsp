@@ -14,90 +14,89 @@
 
 <div class="cluster-header">
     <p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-        <i class="small material-icons left">grid_on</i> Banco de Questões
+        <i class="small material-icons left">grid_on</i>Responda se Puder - Banco de Questões
     </p>
 </div>
 
+<ul class="tabs tab-demo z-depth-1">
+    <li class="tab col s6"><a class="truncate" href="#defineMaxQuestion">Definir número de questões por nível</a></li>
+    <li class="tab col s6"><a class="truncate active" href="#chooseQuestion">Escolher Questões</a></li>
+</ul>
 
 <div class="row">
-    <div class="col s12">
-        <ul class="tabs">
-            <li class="tab col s6"><a href="#chooseQuestion">Escolher Questões</a></li>
-            <li class="tab col s6"><a href="#defineMaxQuestion">Definir número de questões por nível</a></li>
-        </ul>
-    </div>
-    <div id="chooseQuestion" class="col s12">
-        <br>
+    <div id="chooseQuestion" class="col s12 m12 l12">
         <br>
         <div class="row">
-            <div class="col s3 offset-s9">
+            <div class="col s6 m3 l3 offset-s6 offset-m9 offset-l9">
                 <input  type="text" id="SearchLabel" placeholder="Buscar"/>
             </div>
         </div>
-
-        <table class="highlight" id="table" style="margin-top: -30px;">
-            <thead>
-            <tr>
-                <th>Selecionar
-                    <div class="row" style="margin-bottom: -10px;">
-
-                        <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnCheckAll" onclick="check_all()"><i  class="material-icons">check_box_outline_blank</i></button>
-                        <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnUnCheckAll" onclick="uncheck_all()"><i  class="material-icons">done</i></button>
-                    </div>
-                </th>
-                <th>Nível <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
-                <th>Pergunta <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
-                <th>Respostas <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
-                <th>Alternativa Correta <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
-                <th>Dica<div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
-                <th>Ações <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
-            </tr>
-            </thead>
-
-            <tbody>
-            <g:each in="${questionInstanceList}" status="i" var="questionInstance">
-                <tr class="selectable_tr" style="cursor: pointer;"
-                    data-id="${fieldValue(bean: questionInstance, field: "id")}" data-owner-id="${fieldValue(bean: questionInstance, field: "ownerId")}" data-level="${fieldValue(bean: questionInstance, field: "level")}"
-                    data-checked="false">
-
-                    <td class="_not_editable">
-                        <input style="background-color: #727272" id="checkbox-${questionInstance.id}" class="filled-in" type="checkbox">
-                        <label for="checkbox-${questionInstance.id}"></label>
-                    </td>
-
-                    <td class="level"  >${fieldValue(bean: questionInstance, field: "level")}</td>
-
-                    <td  >${fieldValue(bean: questionInstance, field: "title")}</td>
-
-                    <td >${fieldValue(bean: questionInstance, field: "answers")}</td>
-
-                    <td  >${questionInstance.answers[questionInstance.correctAnswer]}</td>
-
-                    <td  >${questionInstance.hint}</td>
-
-                    <td> <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil " onclick="_edit($(this.closest('tr')))" ></i> <i style="color: #7d8fff " class="fa fa-trash-o" onclick="_delete($(this.closest('tr')))" > </i></td>
-
-                </tr>
-
-
-            </g:each>
-            </tbody>
-        </table>
         <div class="row">
-            <div class="col s1 offset-s9">
+            <div class="col s12 m12 l12">
+                <table class="highlight" id="table" style="margin-top: -30px;">
+                    <thead>
+                    <tr>
+                        <th>Selecionar
+                            <div class="row" style="margin-bottom: -10px;">
+                                <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnCheckAll" onclick="check_all()"><i  class="material-icons">check_box_outline_blank</i></button>
+                                <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnUnCheckAll" onclick="uncheck_all()"><i  class="material-icons">done</i></button>
+                            </div>
+                        </th>
+                        <th id="levelLabel">Nível <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+                        <th>Pergunta <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+                        <th>Respostas <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+                        <th>Alternativa Correta <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+                        <th>Dica<div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+                        <th>Ações <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <g:each in="${questionInstanceList}" status="i" var="questionInstance">
+                        <tr id="tr${questionInstance.id}" class="selectable_tr" style="cursor: pointer;"
+                            data-id="${fieldValue(bean: questionInstance, field: "id")}" data-owner-id="${fieldValue(bean: questionInstance, field: "ownerId")}" data-level="${fieldValue(bean: questionInstance, field: "level")}"
+                            data-checked="false">
+
+                            <td class="_not_editable">
+                                <input style="background-color: #727272" id="checkbox-${questionInstance.id}" class="filled-in" type="checkbox">
+                                <label for="checkbox-${questionInstance.id}"></label>
+                            </td>
+                            <td class="level"  >${fieldValue(bean: questionInstance, field: "level")}</td>
+                            <td>${fieldValue(bean: questionInstance, field: "title")}</td>
+                            <td>${fieldValue(bean: questionInstance, field: "answers")}</td>
+                            <td>${questionInstance.answers[questionInstance.correctAnswer]}</td>
+                            <td>${questionInstance.hint}</td>
+                            <td> <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil " onclick="_edit($(this.closest('tr')))" ></i>
+                            </td>
+                        </tr>
+                    </g:each>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s1 m1 l1 offset-s4 offset-m8 offset-l8">
                 <a data-target="createModal" name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"><i class="material-icons">add</i></a>
             </div>
-            <div class="col s1">
+            <div class="col s1 offset-s1 m1 l1">
+                <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exluir questão" ><i class="material-icons">delete</i></a>
+            </div>
+            <div class="col s1 offset-s1 m1 l1">
                 <a data-target="uploadModal" class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped" data-tooltip="Upload arquivo .csv"><i
                         class="material-icons">file_upload</i></a>
             </div>
-            <div class="col s1">
+            <div class="col s1 offset-s1 m1 l1">
                 <a class="btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exportar questões para .csv"><i
                         class="material-icons" onclick="exportQuestions()">file_download</i></a>
             </div>
         </div>
     </div>
-    <div id="defineMaxQuestion" class="col s12">
+</div>
+
+
+
+<div id="defineMaxQuestion" class="col s12 m12 l12">
         <div class="row">
             <div class="col s12">
                 <p>Escolha o número de questões que serão exibidas a cada nível.</p>
@@ -109,10 +108,7 @@
                 <label for="randomQuestion">O valor mínimo deste campo é 1 (um).</label>
             </div>
         </div>
-
-
     </div>
-</div>
 
 <div class="row">
     <div class="col s2">
@@ -187,13 +183,13 @@
                 <div class="row" id="levelRow">
                     <div class="col s2 offset-s3">
                         <input type="radio" id="editLevel1" name="level" value="1"  />
-                        <label for="editLevel1">Nível Fácil</label>
+                        <label for="editLevel1">Nível 1</label>
 
                     </div>
 
                     <div class="col s2">
                         <input type="radio" id="editLevel2" name="level" value="2" />
-                        <label for="editLevel2">Nível Médio</label>
+                        <label for="editLevel2">Nível 2</label>
                     </div>
 
                     <input type="hidden" name="taskId"  value="1" >
@@ -202,7 +198,7 @@
 
                     <div class="col s2">
                         <input type="radio" id="editLevel3" name="level" value="3" />
-                        <label for="editLevel3">Nível Difícil</label>
+                        <label for="editLevel3">Nível 3</label>
                     </div>
                 </div>
 
@@ -274,14 +270,14 @@
 
                 <div class="row">
                     <div class="col s2 offset-s3">
-                        <input type="radio" id="level1" name="level" value="1" />
-                        <label for="level1">Nível Fácil</label>
+                        <input required type="radio" id="level1" name="level" value="1" />
+                        <label for="level1">Nível 1</label>
 
                     </div>
 
                     <div class="col s2">
-                        <input type="radio" id="level2" name="level" value="2" />
-                        <label for="level2">Nível Médio</label>
+                        <input required type="radio" id="level2" name="level" value="2" />
+                        <label for="level2">Nível 2</label>
                     </div>
 
 
@@ -289,8 +285,8 @@
 
 
                     <div class="col s2">
-                        <input type="radio" id="level3" name="level" value="3" />
-                        <label for="level3">Nível Difícil</label>
+                        <input required type="radio" id="level3" name="level" value="3" />
+                        <label for="level3">Nível 3</label>
                     </div>
                 </div>
 

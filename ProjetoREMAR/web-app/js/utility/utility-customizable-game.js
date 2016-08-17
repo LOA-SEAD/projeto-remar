@@ -12,9 +12,12 @@ $(function(){
     $(select).material_select();
 
     $("#search").on("keyup",function(){
+        var catSelected = $(select).val();
+        var text = $("#search").val();
+
         var formData = new FormData();
-        formData.append('typeSearch','name');
-        formData.append('text', $(this).val());
+        formData.append('category', catSelected);
+        formData.append('text', text);
 
         $.ajax({
             url: "/resource/searchResource",
@@ -23,9 +26,8 @@ $(function(){
             processData: false,
             contentType: false,
             success: function (response) {
-
                 $(".cardGames").remove();
-                $(".show.cards").append(response);
+                $("#resourcesShow").append(response);
 
                 $(".next-page").each(function() {
                     $(this).on("click",listerNextPage)
@@ -43,11 +45,11 @@ $(function(){
 
     $(select).change(function(){
         var catSelected = $(select).val();
-        $("#search").val("");
+        var text = $("#search").val();
 
         var formData = new FormData();
-        formData.append('typeSearch','category');
-        formData.append('text', catSelected);
+        formData.append('category', catSelected);
+        formData.append('text', text);
 
         $.ajax({
             url: "/resource/searchResource",
@@ -58,7 +60,7 @@ $(function(){
             success: function (response) {
 
                 $(".cardGames").remove();
-                $(".show.cards").append(response);
+                $("#resourcesShow").append(response);
 
                 $(".next-page").each(function() {
                     $(this).on("click",listerNextPage)
@@ -91,7 +93,7 @@ $(function(){
             contentType: false,
             success: function (response) {
                 $(".cardGames").remove();
-                $(".show.cards").append(response);
+                $("#resourcesShow").append(response);
 
                 $(".next-page").each(function() {
                     $(this).on("click",listerNextPage)

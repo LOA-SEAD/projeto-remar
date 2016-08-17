@@ -99,6 +99,156 @@ $(function () {
 
     });
 
+    $("#publish").on("click", function () {
+        var contentArea=$('#content-area').val() ;// get the current value of the input field.
+        var specificContent = $("#specific-content").val();
+        if ($(name).val()) {
+            var file = $("#img-1").prop('files')[0];
+            if (file != null) { //se a imagem de preview foi mudada
+                var fr = new FileReader();
+                fr.readAsDataURL(file);
+                fr.onload = function (event) {
+                    var image = new Image();
+                    if (file != null) {
+                        image.src = event.target.result;
+                    } else {
+                        image.src = $("#img1Preview")[0].getAttribute("src");
+                    }
+                    image.onload = function () {
+                        var formData = new FormData();
+                        formData.append('banner', file);
+                        formData.append('name', $(name).val());
+                        formData.append('img1',$("#img1Preview").attr("src"));
+
+
+                        $.ajax({
+                            type: 'POST',
+                            url: location.origin + '/process/update/' + $(name).data("process-id"),
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success: function (data) {
+                                nameErr.hide(500);
+                                $(name).removeClass().addClass("valid");
+                                if(validatePublish()){
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: location.origin + "/process/finish?id="+publish.data("process-id")+"&&contentArea="+contentArea+"&&specificContent="+specificContent,
+                                        data: formData,
+                                        processData: false,
+                                        contentType: false,
+                                        success: function (data) {
+                                            window.location.href = location.origin + data;
+                                        },
+                                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                                        }
+                                    });
+                                }
+                                else{
+                                    return false;
+                                }
+                            },
+                            error: function (req, status, err) {
+                                //alert("Esse nome já existe!");
+                                nameErr.show(500);
+                                $(name).prev().hide(500);
+                                $(name).removeClass().addClass("invalid");
+                                $(name).focus();
+                            }
+                        });
+                    }
+                }
+            } else { //atualiza somente o nome
+                var formData = new FormData();
+                //formData.append('banner', file);
+                formData.append('name', $(name).val());
+
+                $.ajax({
+                    type: 'POST',
+                    url: location.origin + '/process/update/' + $(name).data("process-id"),
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        nameErr.hide(500);
+                        $(name).removeClass().addClass("valid");
+                        if(validatePublish()){
+                            $.ajax({
+                                type: 'POST',
+                                url: location.origin + "/process/finish?id="+publish.data("process-id")+"&&contentArea="+contentArea+"&&specificContent="+specificContent,
+                                data: formData,
+                                processData: false,
+                                contentType: false,
+                                success: function (data) {
+                                    //$(name).prev().show(500);
+                                    window.location.href = location.origin + data;
+                                },
+                                error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                                }
+                            });
+                        }
+                        else{
+                            return false;
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        nameErr.show(500);
+                        $(name).prev().hide(500);
+                        $(name).removeClass().addClass("invalid");
+                        $(name).focus();
+                    }
+                });
+            }
+        }
+    });
+
+    function validatePublish(){
+        var contentArea = $('#content-area').val() ;
+        var specificContent = $("#specific-content").val();
+
+        if(contentArea!=""){
+            if(specificContent!=""){
+                return true
+            }
+            else{
+                $("#specific-content").focus();
+                return false;
+            }
+        }
+        else{
+            $('#content-area').focus();
+            return false;
+        }
+
+    }
+
+    $('#content-area').on('input', function() {
+        var contentArea = $('#content-area').val() ;
+        if(contentArea!=""){
+            $("#content-area-error").hide();
+            $('#content-area').removeClass().addClass("valid");
+        }
+        else{
+            $("#content-area-error").show();
+            $('#content-area').removeClass().addClass("invalid");
+
+        }
+    });
+
+    $('#specific-content').on('input', function() {
+        var specificContent = $("#specific-content").val();
+        if(specificContent!=""){
+            $("#specific-content-error").hide();
+            $('#specific-content').removeClass().addClass("valid");
+        }
+        else{
+            $("#specific-content-error").show();
+            $('#specific-content').removeClass().addClass("invalid");
+
+        }
+    });
 
     function cropPicture(target, updateImg){
         var jcrop;
@@ -188,8 +338,12 @@ $(function () {
 
         console.log("removendo disabled button");
         publish.removeClass("disabled");
-        publish.attr("href","/process/finish?id="+publish.data("process-id"))
+        $("#row-content-area").removeClass("hide");
+        $("#row-specific-content").removeClass("hide");
+        $("#send").hide();
+
     }
+
 
     if(info.data("basic-info") != null &&
         info.data("basic-info").toString() == "true") {

@@ -13,7 +13,7 @@ class QuestionController {
 
     def springSecurityService
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "GET" ]
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE" ]
 
     def index(Integer max) {
         if (params.t) {
@@ -269,7 +269,7 @@ class QuestionController {
             port = 8080
         }
 
-        render "http://localhost:${port}/frame/escolamagica/samples/export/exportQuestions.csv"
+        render "/escolamagica/samples/export/exportQuestions.csv"
 
     }
 

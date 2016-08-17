@@ -24,10 +24,15 @@ $(window).load(function() {
                     $('#modal-group-'+instanceId).closeModal();
                     $(".lean-overlay").remove();
                     Materialize.toast("Compartilhado com sucesso! :)", 5000, "rounded");
-                    arr.length = 0;
+                },statusCode: {
+                    405: function (response) {
+                        Materialize.toast(response.responseText, 5000, "rounded");
+                    }
                 }
             })
-        }
+        }else
+            Materialize.toast("Jogo já pertence a grupo!", 5000, "rounded");
+
     }
 
     $('.modal-trigger').leanModal({

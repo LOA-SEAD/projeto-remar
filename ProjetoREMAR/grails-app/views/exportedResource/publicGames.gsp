@@ -17,7 +17,7 @@
 <div class="row">
     <div class="cluster-header">
         <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom">
-            <i class="small material-icons left">videogame_asset</i>Jogos publicados
+            <i class="small material-icons left">videogame_asset</i>Banco de Jogos
         </p>
 
         <div class="divider"></div>
@@ -43,10 +43,17 @@
     </div>
 
 
-    <div style="position:relative; left: 1.2em" class="row ">
+    <div style="position:relative; left: 1.2em" id="showCards" class="row ">
         <g:render template="cardGames" model="${pageScope.variables}" />
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal-trigger').leanModal();
+    });
+</script>
+<g:javascript src="add-resource-to-group.js"/>
 <g:javascript src="menu.js"/>
 <g:javascript src="utility/utility-public-game.js"/>
 </body>

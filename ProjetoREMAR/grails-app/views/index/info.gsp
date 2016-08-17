@@ -14,7 +14,7 @@
             </div>
 
             <div align="center">
-                <img src="/assets/img/logo/logo-remar-preto-transparente.png" width="395" align="center" class="img-responsive" />
+                <img src="/assets/img/logo/logo-remar-preto-transparente.png" width="395" align="center" class="responsive-img" />
             </div>
 
             <p class="center">Recursos Educacionais Multiplataforma Abertos na Rede</p>
@@ -48,7 +48,7 @@
             </p>
 
             <div class="container-white" style="text-align: center;">
-                <img src="../images/architecture.png" />
+                <img src="../images/architecture.png" class="responsive-img" />
             </div>
 
             <h3 id="team" style="text-align:left;">Equipe</h3>
