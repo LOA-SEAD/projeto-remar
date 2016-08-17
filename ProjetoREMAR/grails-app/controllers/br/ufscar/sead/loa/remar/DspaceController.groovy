@@ -16,6 +16,7 @@ class DspaceController {
     def dspaceRestService
 
     def index() {
+        def g
 
         def community = dspaceRestService.getMainCommunity()
 
