@@ -963,3 +963,9 @@ Position must be relative!*/
     float: left;
     margin-left: 10px;
 }
+
+.waves-button-input {
+    background: transparent;
+    border: none;
+    font-style: normal;
+}

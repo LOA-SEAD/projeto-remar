@@ -7,7 +7,6 @@ import groovy.json.JsonBuilder
 import com.mongodb.MongoClient
 import com.mongodb.client.MongoDatabase;
 
-@Secured('IS_AUTHENTICATED_ANONYMOUSLY')
 class DspaceController {
 
     static allowedMethods = [bitstream: "GET"]
@@ -120,6 +119,7 @@ class DspaceController {
         println(map)
 
         render view: "overview", model: [process:process, tasksSendToDspace: map]
+
     }
 
 

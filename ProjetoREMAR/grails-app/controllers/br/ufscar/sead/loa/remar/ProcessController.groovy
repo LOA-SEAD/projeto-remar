@@ -221,7 +221,7 @@ class ProcessController {
     }
 
     def finish() {
-
+        println(params)
         session.setAttribute('contentArea',params.contentArea)
         session.setAttribute('specificContent',params.specificContent)
 
@@ -295,8 +295,8 @@ class ProcessController {
         exportsTo.moodle = exportedResourceInstance.resource.moodle
 
         session.removeAttribute("contentArea")
-        session.removeAttribute("contentArea")
+        session.removeAttribute("specificContent")
 
-        render "/exported-resource/publish/${exportedResourceInstance.id}?toast=1"
+        redirect uri: "/exported-resource/publish/${exportedResourceInstance.id}?toast=1"
     }
 }
