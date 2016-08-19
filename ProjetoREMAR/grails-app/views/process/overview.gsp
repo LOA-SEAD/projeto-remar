@@ -154,7 +154,7 @@
             </ul>
             <div class="row">
                 <div class="col s12 m12 l12">
-                    <a href="dspace/overview/${process.id}" data-process-id="${process.id}" id="publish" type="submit" class="btn waves-effect waves-light my-orange right">
+                    <a href="#!" data-process-id="${process.id}" id="publish" type="submit" class="btn waves-effect waves-light my-orange right">
                         Publicar
                     </a>
                 </div>
