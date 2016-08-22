@@ -1,0 +1,20 @@
+<plugin name='rest' version='0.8' grailsVersion='2.0 &gt; *'>
+  <title>Grails REST Plugin</title>
+  <description>Adds REST client capabilities to your Grails application.</description>
+  <documentation>http://grails.org/plugin/rest</documentation>
+  <type>RestGrailsPlugin</type>
+  <resources />
+  <repositories>
+    <repository name='grailsCentral' url='http://grails.org/plugins' />
+    <repository name='Codehaus' url='http://repository.codehaus.org/' />
+    <repository name='mavenCentral' url='http://repo1.maven.org/maven2/' />
+  </repositories>
+  <dependencies>
+    <compile>
+      <dependency group='org.codehaus.groovy.modules.http-builder' name='http-builder' version='0.6' />
+    </compile>
+  </dependencies>
+  <plugins />
+  <runtimePluginRequirements />
+  <behavior />
+</plugin>

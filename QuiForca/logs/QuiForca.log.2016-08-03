@@ -1,0 +1,44 @@
+2016-08-03 12:29:58,772 [main] INFO  webxml.WebxmlGrailsPlugin  - Loading default config file: class DefaultWebXmlConfig
+2016-08-03 12:29:58,784 [main] WARN  webxml.WebxmlGrailsPlugin  - Did not find application config file: WebXmlConfig
+2016-08-03 12:29:59,485 [main] INFO  webxml.WebxmlGrailsPlugin  - Loading default config file: class DefaultWebXmlConfig
+2016-08-03 12:29:59,490 [main] WARN  webxml.WebxmlGrailsPlugin  - Did not find application config file: WebXmlConfig
+2016-08-03 12:30:08,962 [main] WARN  pipeline.DirectiveProcessor  - Unable to Locate Asset: /jquery
+2016-08-03 12:50:28,018 [main] INFO  webxml.WebxmlGrailsPlugin  - Loading default config file: class DefaultWebXmlConfig
+2016-08-03 12:50:28,025 [main] WARN  webxml.WebxmlGrailsPlugin  - Did not find application config file: WebXmlConfig
+2016-08-03 12:50:28,113 [main] INFO  webxml.WebxmlGrailsPlugin  - Loading default config file: class DefaultWebXmlConfig
+2016-08-03 12:50:28,118 [main] WARN  webxml.WebxmlGrailsPlugin  - Did not find application config file: WebXmlConfig
+2016-08-03 12:50:31,809 [localhost-startStop-1] INFO  [localhost].[/forca]  - Initializing Spring root WebApplicationContext
+2016-08-03 12:50:36,354 [localhost-startStop-1] INFO  hibernate4.HibernatePluginSupport  - Set db generation strategy to 'update' for datasource DEFAULT
+2016-08-03 12:50:36,427 [localhost-startStop-1] INFO  hibernate4.HibernatePluginSupport  - Set db generation strategy to 'update' for datasource remar
+2016-08-03 12:50:37,466 [localhost-startStop-1] INFO  cache.CacheBeanPostProcessor  - postProcessBeanDefinitionRegistry start
+2016-08-03 12:50:37,470 [localhost-startStop-1] INFO  cache.CacheBeanPostProcessor  - postProcessBeanFactory
+2016-08-03 12:50:39,126 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [ownerId] of domain class br.ufscar.sead.loa.quiforca.remar.Question has type [long] and doesn't support constraint [blank]. This constraint will not be checked during validation.
+2016-08-03 12:50:39,126 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [ownerId] of domain class br.ufscar.sead.loa.quiforca.remar.Question has type [long] and doesn't support constraint [nullable]. This constraint will not be checked during validation.
+2016-08-03 12:50:39,139 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [ownerId] of domain class br.ufscar.sead.loa.quiforca.remar.Theme has type [long] and doesn't support constraint [blank]. This constraint will not be checked during validation.
+2016-08-03 12:50:39,139 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [ownerId] of domain class br.ufscar.sead.loa.quiforca.remar.Theme has type [long] and doesn't support constraint [nullable]. This constraint will not be checked during validation.
+2016-08-03 12:50:39,139 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [processId] of domain class br.ufscar.sead.loa.quiforca.remar.Theme has type [long] and doesn't support constraint [nullable]. This constraint will not be checked during validation.
+2016-08-03 12:50:39,139 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [taskId] of domain class br.ufscar.sead.loa.quiforca.remar.Theme has type [long] and doesn't support constraint [nullable]. This constraint will not be checked during validation.
+2016-08-03 12:50:40,016 [localhost-startStop-1] INFO  sql.DatabaseMetaData  - HHH000262: Table not found: question
+2016-08-03 12:50:40,018 [localhost-startStop-1] INFO  sql.DatabaseMetaData  - HHH000262: Table not found: theme
+2016-08-03 12:50:40,019 [localhost-startStop-1] INFO  sql.DatabaseMetaData  - HHH000262: Table not found: question
+2016-08-03 12:50:40,020 [localhost-startStop-1] INFO  sql.DatabaseMetaData  - HHH000262: Table not found: theme
+2016-08-03 12:50:40,020 [localhost-startStop-1] INFO  sql.DatabaseMetaData  - HHH000262: Table not found: question
+2016-08-03 12:50:40,021 [localhost-startStop-1] INFO  sql.DatabaseMetaData  - HHH000262: Table not found: theme
+2016-08-03 12:50:40,358 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [firstAccess] of domain class br.ufscar.sead.loa.remar.User has type [boolean] and doesn't support constraint [blank]. This constraint will not be checked during validation.
+2016-08-03 12:50:40,358 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [firstAccess] of domain class br.ufscar.sead.loa.remar.User has type [boolean] and doesn't support constraint [nullable]. This constraint will not be checked during validation.
+2016-08-03 12:50:41,660 [localhost-startStop-1] INFO  scaffolding.AbstractGrailsTemplateGenerator  - Scaffolding template generator set to use resource loader [org.codehaus.groovy.grails.commons.spring.GrailsWebApplicationContext@108dfadc: startup date [Wed Aug 03 12:50:37 BRT 2016]; parent: Root WebApplicationContext]
+2016-08-03 12:50:45,585 [localhost-startStop-1] INFO  databasemigration.MigrationRunner  - updateOnStart disabled for dataSource_remar; not running migrations
+2016-08-03 12:50:45,585 [localhost-startStop-1] INFO  databasemigration.MigrationRunner  - updateOnStart disabled for dataSource; not running migrations
+2016-08-03 12:50:45,597 [localhost-startStop-1] INFO  ScaffoldingGrailsPlugin  - configuring scaffolding...
+2016-08-03 12:50:45,602 [localhost-startStop-1] INFO  ScaffoldingGrailsPlugin  - done configuring scaffolding.
+2016-08-03 12:50:45,691 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [firstAccess] of domain class br.ufscar.sead.loa.remar.User has type [boolean] and doesn't support constraint [blank]. This constraint will not be checked during validation.
+2016-08-03 12:50:45,691 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [firstAccess] of domain class br.ufscar.sead.loa.remar.User has type [boolean] and doesn't support constraint [nullable]. This constraint will not be checked during validation.
+2016-08-03 12:50:45,691 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [ownerId] of domain class br.ufscar.sead.loa.quiforca.remar.Theme has type [long] and doesn't support constraint [blank]. This constraint will not be checked during validation.
+2016-08-03 12:50:45,691 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [ownerId] of domain class br.ufscar.sead.loa.quiforca.remar.Theme has type [long] and doesn't support constraint [nullable]. This constraint will not be checked during validation.
+2016-08-03 12:50:45,691 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [processId] of domain class br.ufscar.sead.loa.quiforca.remar.Theme has type [long] and doesn't support constraint [nullable]. This constraint will not be checked during validation.
+2016-08-03 12:50:45,691 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [taskId] of domain class br.ufscar.sead.loa.quiforca.remar.Theme has type [long] and doesn't support constraint [nullable]. This constraint will not be checked during validation.
+2016-08-03 12:50:45,692 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [ownerId] of domain class br.ufscar.sead.loa.quiforca.remar.Question has type [long] and doesn't support constraint [blank]. This constraint will not be checked during validation.
+2016-08-03 12:50:45,692 [localhost-startStop-1] WARN  util.GrailsUtil  - [WARNING] Property [ownerId] of domain class br.ufscar.sead.loa.quiforca.remar.Question has type [long] and doesn't support constraint [nullable]. This constraint will not be checked during validation.
+2016-08-03 12:50:45,692 [localhost-startStop-1] INFO  context.GrailsConfigUtils  - [GrailsContextLoader] Grails application loaded.
+2016-08-03 12:50:45,842 [localhost-startStop-1] INFO  [localhost].[/forca]  - Initializing Spring FrameworkServlet 'grails'
+2016-08-03 12:50:45,951 [main] INFO  http11.Http11Protocol  - Starting ProtocolHandler ["http-bio-8010"]

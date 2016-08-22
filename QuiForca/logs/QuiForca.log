@@ -1,0 +1,15 @@
+2016-08-04 15:53:36,562 [Thread-8] INFO  domain.GrailsDomainClassCleaner  - Clearing static property staticGormStaticApi in br.ufscar.sead.loa.remar.Role
+2016-08-04 15:53:36,564 [Thread-8] INFO  domain.GrailsDomainClassCleaner  - Clearing static property instanceGormInstanceApi in br.ufscar.sead.loa.remar.Role
+2016-08-04 15:53:36,567 [Thread-8] INFO  domain.GrailsDomainClassCleaner  - Clearing static property instanceGormValidationApi in br.ufscar.sead.loa.remar.Role
+2016-08-04 15:53:36,568 [Thread-8] INFO  domain.GrailsDomainClassCleaner  - Clearing static property staticGormStaticApi in br.ufscar.sead.loa.remar.UserRole
+2016-08-04 15:53:36,568 [Thread-8] INFO  domain.GrailsDomainClassCleaner  - Clearing static property instanceGormInstanceApi in br.ufscar.sead.loa.remar.UserRole
+2016-08-04 15:53:36,569 [Thread-8] INFO  domain.GrailsDomainClassCleaner  - Clearing static property instanceGormValidationApi in br.ufscar.sead.loa.remar.UserRole
+2016-08-04 15:53:36,569 [Thread-8] INFO  domain.GrailsDomainClassCleaner  - Clearing static property instanceGormValidationApi in br.ufscar.sead.loa.remar.User
+2016-08-04 15:53:36,572 [Thread-8] INFO  domain.GrailsDomainClassCleaner  - Clearing static property staticGormStaticApi in br.ufscar.sead.loa.remar.User
+2016-08-04 15:53:36,573 [Thread-8] INFO  domain.GrailsDomainClassCleaner  - Clearing static property instanceGormInstanceApi in br.ufscar.sead.loa.remar.User
+2016-08-04 15:53:36,573 [Thread-8] INFO  domain.GrailsDomainClassCleaner  - Clearing static property staticGormStaticApi in br.ufscar.sead.loa.quiforca.remar.Theme
+2016-08-04 15:53:36,574 [Thread-8] INFO  domain.GrailsDomainClassCleaner  - Clearing static property instanceGormInstanceApi in br.ufscar.sead.loa.quiforca.remar.Theme
+2016-08-04 15:53:36,574 [Thread-8] INFO  domain.GrailsDomainClassCleaner  - Clearing static property instanceGormValidationApi in br.ufscar.sead.loa.quiforca.remar.Theme
+2016-08-04 15:53:36,574 [Thread-8] INFO  domain.GrailsDomainClassCleaner  - Clearing static property staticGormStaticApi in br.ufscar.sead.loa.quiforca.remar.Question
+2016-08-04 15:53:36,574 [Thread-8] INFO  domain.GrailsDomainClassCleaner  - Clearing static property instanceGormInstanceApi in br.ufscar.sead.loa.quiforca.remar.Question
+2016-08-04 15:53:36,575 [Thread-8] INFO  domain.GrailsDomainClassCleaner  - Clearing static property instanceGormValidationApi in br.ufscar.sead.loa.quiforca.remar.Question
