@@ -96,8 +96,6 @@
                     </div>
                 </div>
 
-                <input type="hidden" name="step" value="${step}">
-                <input type="hidden" name="processId" value="${processId}">
                 <input type="hidden" name="taskId" value="${taskId}">
 
                 <div class=" col s12 m12 l12">
