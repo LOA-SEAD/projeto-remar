@@ -222,12 +222,12 @@ class ProcessController {
 
     def finish() {
         println(params)
-        session.setAttribute('contentArea',params.contentArea)
-        session.setAttribute('specificContent',params.specificContent)
+        def process = Propeller.instance.getProcessInstanceById(params.id, session.user.id as long)
 
+        process.putVariable('contentArea', params.contentArea, true)
+        process.putVariable('specificContent', params.specificContent, true)
 
         if(grailsApplication.config.dspace.restUrl) { //se existir dspace
-            def process = Propeller.instance.getProcessInstanceById(params.id, session.user.id as long)
             redirect uri: "/dspace/overview?id=${params.id}"
         } else {
             publishProcess()
@@ -258,8 +258,8 @@ class ProcessController {
         exportedResourceInstance.height = resource.height
         exportedResourceInstance.processId = process.id
         exportedResourceInstance.license = resource.license
-        exportedResourceInstance.contentArea = session.getAttribute("contentArea")
-        exportedResourceInstance.specificContent =  session.getAttribute("specificContent")
+        exportedResourceInstance.contentArea = process.getVariable('contentArea')
+        exportedResourceInstance.specificContent =  process.getVariable("specificContent")
 
         exportedResourceInstance.save flush: true
 
@@ -293,9 +293,6 @@ class ProcessController {
         exportsTo.desktop = exportedResourceInstance.resource.desktop
         exportsTo.android = exportedResourceInstance.resource.android
         exportsTo.moodle = exportedResourceInstance.resource.moodle
-
-        session.removeAttribute("contentArea")
-        session.removeAttribute("specificContent")
 
         redirect uri: "/exported-resource/publish/${exportedResourceInstance.id}?toast=1"
     }

@@ -132,14 +132,14 @@
                                 <div id="row-content-area" class="row hide">
                                     <blockquote style="margin-top: 25px;">Digite mais algumas informações sobre o seu jogo.</blockquote>
                                     <div class=" input-field col s12 m12 l12">
-                                        <input id="content-area" type="text" name="contentArea" ><label class="active" for="content-area" >Área de conteúdo</label>
+                                        <input id="content-area" type="text" name="contentArea" value="${process.getVariable("contentArea")}"><label class="active" for="content-area" >Área de conteúdo</label>
                                         <span id="content-area-error" class="invalid-input" style="left: 0.75rem">Este campo é obrigatório!</span>
 
                                     </div>
                                 </div>
                                 <div id="row-specific-content" class="row hide">
                                     <div class=" input-field col s12 m12 l12">
-                                        <input id="specific-content" name="specificContent" type="text" ><label class="active" for="specific-content">Conteúdo específico</label>
+                                        <input id="specific-content" name="specificContent" type="text" value="${process.getVariable("specificContent")}"><label class="active" for="specific-content">Conteúdo específico</label>
                                         <span id="specific-content-error" class="invalid-input" style="left: 0.75rem">Este campo é obrigatório!</span>
                                     </div>
                                 </div>
@@ -157,7 +157,6 @@
                     <div class="col s12 m12 l12">
                         <input name="id" type="hidden" value="${process.id}">
                         <g:submitButton name="Submit" value="PUBLICAR" class="btn waves-effect waves-light my-orange right"/>
-
                     </div>
                 </div>
             </g:form>
