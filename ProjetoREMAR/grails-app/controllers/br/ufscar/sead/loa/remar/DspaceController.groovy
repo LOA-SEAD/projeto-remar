@@ -39,19 +39,25 @@ class DspaceController {
                 collections:collections,
                 communityName: params.names,
                 restUrl: dspaceRestService.getRestUrl()
+
         ]
     }
 
     def listItems(){
         def items, metadata, bitstreams
-
-        //gerando url para os breadcrumbs
+        def linkList = []
         def oldUrl = "/dspace/listCollections/${params.old}?names=${params.names.getAt(0)}"
 
         items = dspaceRestService.listItems(params.id)
         metadata = items.metadata
         bitstreams = items.bitstreams
 
+
+        for(int i=0; i<metadata.size(); i++){
+            String aux = metadata.get(i).find({it.key == 'dc.identifier.uri' }).value
+            String link = "http://200.130.75.21/jspui/handle/" + (aux.split("http://hdl.handle.net/")[1])
+            linkList.add(link)
+        }
 
 
         render view: 'listItems', model:[
@@ -61,7 +67,9 @@ class DspaceController {
                                             communityName: params.names.getAt(0),
                                             collectionName: params.names.getAt(1),
                                             restUrl: dspaceRestService.getRestUrl(),
-                                            communityUrl: oldUrl ]
+                                            communityUrl: oldUrl,
+                                            linkArray: linkList
+                                        ]
     }
 
     def bitstream(){
