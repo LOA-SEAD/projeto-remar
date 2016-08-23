@@ -104,42 +104,30 @@ $(function () {
         var contentArea = $('#content-area').val() ;
         if(contentArea!=""){
             $("#content-area-error").hide();
-            $('#content-area').removeClass().addClass("valid");
+            $('#content-area').removeClass("invalid").addClass("valid");
         }
         else{
             $("#content-area-error").show();
             $('#content-area').removeClass().addClass("invalid");
 
         }
-        if(validatePublish()){
-            $("#submitButton").removeClass('hide');
-            $("#submitButtonDisabled").addClass('hide');
-        }
-        else{
-            $("#submitButton").addClass('hide');
-            $("#submitButtonDisabled").removeClass('hide');
-        }
+        validatePublish();
+
     });
 
     $('#specific-content').on('input', function() {
         var specificContent = $("#specific-content").val();
         if(specificContent!=""){
             $("#specific-content-error").hide();
-            $('#specific-content').removeClass().addClass("valid");
+            $('#specific-content').removeClass("invalid").addClass("valid");
         }
         else{
             $("#specific-content-error").show();
             $('#specific-content').removeClass().addClass("invalid");
 
         }
-        if(validatePublish()){
-            $("#submitButton").removeClass('hide');
-            $("#submitButtonDisabled").addClass('hide');
-        }
-        else{
-            $("#submitButton").addClass('hide');
-            $("#submitButtonDisabled").removeClass('hide');
-        }
+        validatePublish();
+
     });
 
     function cropPicture(target, updateImg){
@@ -248,21 +236,40 @@ $(function () {
 
         Materialize.toast('Informações básicas salvas com sucesso!', 3000, 'rounded')
     }
+
+    if($("#specific-content").val()!=null || $("#content-area").val()!=null){
+        validatePublish();
+    }
+
 });
 
 function validatePublish(){
     var contentArea = $('#content-area').val() ;
     var specificContent = $("#specific-content").val();
 
-    if(contentArea!=""){
-        if(specificContent!=""){
+    if(contentArea!="" && contentArea!=null){
+        if(specificContent!="" && specificContent!=null){
+            $("#submitButton").removeClass('hide');
+            $("#submitButtonDisabled").addClass('hide');
+            $("#specific-content-error").hide();
+            $('#specific-content').removeClass("invalid").addClass("valid");
+            $("#content-area-error").hide();
+            $('#content-area').removeClass("invalid").addClass("valid");
             return true
         }
         else{
+            $("#submitButton").addClass("hide");
+            $("#submitButtonDisabled").removeClass('hide');
+            $("#specific-content-error").show();
+            $('#specific-content').removeClass("valid").addClass("invalid");
             return false;
         }
     }
     else{
+        $("#submitButton").addClass("hide");
+        $("#submitButtonDisabled").removeClass('hide');
+        $("#content-area-error").show();
+        $('#content-area').removeClass("valid").addClass("invalid");
         return false;
     }
 
