@@ -55,9 +55,7 @@
         </section>
         <section class="row">
             <div class="col s12 m12 l12">
-                <input type="hidden" name="processId" value="${processId}">
                 <input type="hidden" name="taskId" value="${taskId}">
-                <input type="hidden" name="itemId" value="${itemId}">
                 <div class="right">
                     <a id="finishLabel" class="btn disabled"><g:message code="dspace.metadata.button_finish"/></a>
                     <button class="btn my-orange hide" id="finishButton" type="submit"> <g:message code="dspace.metadata.button_finish"/> </button>

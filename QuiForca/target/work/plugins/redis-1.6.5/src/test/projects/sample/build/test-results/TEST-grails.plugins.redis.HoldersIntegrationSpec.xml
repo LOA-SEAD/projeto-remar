@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="grails.plugins.redis.HoldersIntegrationSpec" tests="3" skipped="0" failures="0" errors="0" timestamp="2015-03-19T01:33:21" hostname="thrush.local" time="8.724">
+  <properties/>
+  <testcase name="ensure holders wires up getGrailsApplication getMainContext in integration tests" classname="grails.plugins.redis.HoldersIntegrationSpec" time="8.721"/>
+  <testcase name="ensure holders wires up getGrailsApplication getParentContext in integration tests" classname="grails.plugins.redis.HoldersIntegrationSpec" time="0.001"/>
+  <testcase name="ensure holders wires up findApplicationContext in integration tests" classname="grails.plugins.redis.HoldersIntegrationSpec" time="0.002"/>
+  <system-out><![CDATA[Grails application running at http://localhost:8080
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

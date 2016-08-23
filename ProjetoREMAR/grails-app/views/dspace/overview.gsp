@@ -36,12 +36,18 @@
                             <g:each in="${process.completedTasks}" var="task" status="i">
                                 <tr class="line">
                                     <td>
-                                        <g:if test="${tasksSendToDspace.containsKey(task.id.toString())==true}">
+                                        <g:if test="${task.getVariable('step') == "completed" }" >
                                             <p>
                                                 <input type="checkbox" id="task${i}" checked disabled/>
                                                 <label for="task${i}"></label>
                                             </p>
                                         </g:if>
+                                        <g:elseif test="${task.getVariable('step') == "submit_bitstreams"}">
+                                            <p>
+                                                <input type="checkbox" id="task${i}" checked disabled/>
+                                                <label for="task${i}"></label>
+                                            </p>
+                                        </g:elseif>
                                         <g:else>
                                             <p>
                                                 <input class="checkbox" type="checkbox" id="task${i}" />
@@ -54,7 +60,7 @@
                                     </td>
                                     <td>
 
-                                    <g:if test="${tasksSendToDspace.containsKey(task.id.toString())==true}">
+                                    <g:if test="${task.getVariable('step') == "completed" }">
                                         <div class="icon-metadata-done">
                                             <input type="hidden" id="task${i}-metadata" value="true">
                                             <span>OK</span>
@@ -70,16 +76,22 @@
                                             %{--</a>--}%
                                         </div>
                                     </g:if>
+                                    <g:elseif test="${task.getVariable('step') == "submit_bitstreams"}">
+                                        <input type="hidden" id="task${i}-metadata" value="false">
+                                        <div class="">
+                                            <a href="listMetadata?taskId=${task.id}" class="tooltipped" data-position="right"
+                                               data-delay="50" data-tooltip="Submissão incompleta">
+                                                Continuar
+                                            </a>
+                                        </div>
+                                    </g:elseif>
                                     <g:else>
                                         <input type="hidden" id="task${i}-metadata" value="false">
-
                                         <div class="icon-metadata-disabled">
                                             <span>Nenhum</span>
                                         </div>
-
                                         <div class="icon-metadata-pending">
-
-                                            <a href="listMetadata?processId=${process.id}&&taskId=${task.id}&&step=0" class="tooltipped" data-position="right"
+                                            <a href="listMetadata?taskId=${task.id}" class="tooltipped" data-position="right"
                                                data-delay="50" data-tooltip="Adicionar Metadados">
                                                 Adicionar
                                             </a>

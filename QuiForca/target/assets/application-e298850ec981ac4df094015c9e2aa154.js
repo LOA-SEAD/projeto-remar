@@ -1,0 +1,1 @@
+if(typeof jQuery!=="undefined"){(function(e){e("#spinner").ajaxStart(function(){e(this).fadeIn()}).ajaxStop(function(){e(this).fadeOut()})})(jQuery)}

@@ -4,7 +4,7 @@
 var taskCount = $("#taskCount").val();
 
 function checkMetadata(){
-    var status = true
+    var status = true;
     for(var i=0; i<taskCount;i++){
         if($("#task"+i).prop('checked') && $("#task"+i+"-metadata").val()=="false"){
             status=false
@@ -24,6 +24,8 @@ function checkMetadata(){
 }
 
 $(document).ready(function(){
+    checkMetadata();
+
    $(".checkbox").change(function(){
         checkMetadata();
     });

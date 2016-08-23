@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="grails.plugins.redis.RedisMemoizeServiceSpec" tests="11" skipped="0" failures="0" errors="0" timestamp="2015-03-19T01:33:31" hostname="thrush.local" time="2.238">
+  <properties/>
+  <testcase name="get AST transformed score using map key" classname="grails.plugins.redis.RedisMemoizeServiceSpec" time="0.108"/>
+  <testcase name="get AST transformed list using item 0 as key" classname="grails.plugins.redis.RedisMemoizeServiceSpec" time="0.01"/>
+  <testcase name="get AST transformed hash using maps foo as key" classname="grails.plugins.redis.RedisMemoizeServiceSpec" time="0.013"/>
+  <testcase name="get AST transformed hash field using maps foo as key" classname="grails.plugins.redis.RedisMemoizeServiceSpec" time="0.011"/>
+  <testcase name="get AST transformed domain object using title" classname="grails.plugins.redis.RedisMemoizeServiceSpec" time="0.017"/>
+  <testcase name="get AST transformed domain list using key and class" classname="grails.plugins.redis.RedisMemoizeServiceSpec" time="0.04"/>
+  <testcase name="get AST transformed method using object property key" classname="grails.plugins.redis.RedisMemoizeServiceSpec" time="0.009"/>
+  <testcase name="get AST transformed method using simple string key property and expire" classname="grails.plugins.redis.RedisMemoizeServiceSpec" time="2.01"/>
+  <testcase name="get AST transformed method using simple string key property" classname="grails.plugins.redis.RedisMemoizeServiceSpec" time="0.007"/>
+  <testcase name="get AST transformed method using simple key closure" classname="grails.plugins.redis.RedisMemoizeServiceSpec" time="0.008"/>
+  <testcase name="make sure redis is bahving correctly on non-annotated methods" classname="grails.plugins.redis.RedisMemoizeServiceSpec" time="0.005"/>
+  <system-out><![CDATA[cache miss getAnnotatedScore
+cache miss getAnnotatedList
+cache miss getAnnotatedHash
+cache miss getAnnotatedHash
+cache miss createDomainObject
+cache miss createDomainObject
+cache miss getDomainListWithKeyClass
+cache miss getAnnotatedBook
+cache miss getAnnotatedTextUsingKeyAndExpire
+cache miss getAnnotatedTextUsingKeyAndExpire
+cache miss getAnnotatedTextUsingKey
+cache miss getAnnotatedTextUsingClosure
+cache miss getMemoizedTextDate
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

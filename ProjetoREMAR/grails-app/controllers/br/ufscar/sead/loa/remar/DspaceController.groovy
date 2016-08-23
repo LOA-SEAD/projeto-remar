@@ -12,6 +12,8 @@ class DspaceController {
     static allowedMethods = [bitstream: "GET"]
     static scope = "session"
 
+
+
     def dspaceRestService
 
     def index() {
@@ -116,77 +118,117 @@ class DspaceController {
                 }
             }
         }
-
-        def map = [:]
-        def list = process.getVariable("tasksSendToDspace")
-        if(list != null){
-            list.split(";").each {task->
-                map.put(task.toString(),task.toString())
-            }
-        }
-        println(map)
-
-        render view: "overview", model: [process:process, tasksSendToDspace: map]
-
+        render view: "overview", model: [process:process]
     }
 
 
+    /*
+    * se o step da task for nulo, entao eh necessário criar um item
+    * se o step da task for submit_bitstreams, o item ja foi criado e falta submeter os bitstreams
+    * se o step da task for completed então a task ja foi enviada para o dspace
+    * */
     def listMetadata() {
         def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
 
-        if(params.step=="0"){
-           render view: '_itemMetadata', model: [processId: params.processId,
-                                                 taskId: params.taskId,
-                                                 step: params.step,
+        if(current_task.getVariable("step") == null){
+           render view: '_itemMetadata', model: [taskId: params.taskId,
                                                  metadataForm: new MetadataForm()]
         }
         else{
             println(params)
-            if(params.step=="1")
+            if(current_task.getVariable("step") == "submit_bitstreams")
             {
-                def list = [];
-                def dir = new File(servletContext.getRealPath("/data/processes/${params.processId}/tmp/${params.taskId}/"))
+                def list = []; //lista e bitstreams
+                def dir = new File(servletContext.getRealPath("/data/processes/${current_task.getProcess().id}/tmp/${params.taskId}/"))
                 dir.eachFileRecurse (FileType.FILES) {file ->
                     list << file
                 }
 
-                render view: '_bitMetadata', model: [bitstreams: list,
-                                                    processId: params.processId,
-                                                    taskId: params.taskId,
-                                                    step: params.step,
-                                                    itemId: params.itemId]
+                render view: '_bitMetadata', model: [taskId: params.taskId,
+                                                     processId: current_task.getProcess().id,
+                                                     bitstreams: list]
 
             }
         }
     }
 
-    private static createCommunityMetadata(Resource resource){
-        def json = new JsonBuilder()
-        def m = json {
-            "name" resource.name.toString()
-            "copyrightText" "cc-by-sa"
-            "introductoryText" resource.name.toString()
-            "shortDescription" resource.description.toString()
-            "shortDescription" resource.description.toString()
-            "sidebarText" resource.description.toString()
+    // create-item
+    def createItem(MetadataForm form){
+        println(params)
+        println(form)
+
+        withForm { //submssão esperada
+            def metadatas = [], list = [:]
+            def itemId = null
+            def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
+            def resource = Resource.get(current_task.getProcess().getVariable('resourceId'))
+
+            //convert date for pattern expected
+            Date date = new Date()
+            params.publication_date = date.format('YYYY-MM-dd')
+
+            //gerar arquivo de metadados
+            for(def hash : dspaceRestService.listMetadata){
+                if(params.get(hash.key).getClass().isArray()){
+                    params.get(hash.key).each {
+                        def m = [:]
+                        m.key = hash.value
+                        m.value =  it
+                        metadatas.add(m)
+                    }
+                }else{
+                    def m = [:]
+                    m.key = hash.value
+                    m.value =  params.get(hash.key)
+                    metadatas.add(m)
+                }
+            }
+
+            list.metadata = metadatas
+
+            if(current_task.getVariable("step") == null){ // -> criar item
+                def resource_dspace = MongoHelper.instance.getCollection("resource_dspace", resource.id)
+                resource_dspace.collect{
+                    it.tasks.each{ task -> //procurando pelo id da coleção que o item será criado
+                        if(task.id.toString() == current_task.definition.id.toString()){ //achei a coleção correta
+                            itemId = dspaceRestService.newItem(task.collectionId, list)
+                        }
+                    }
+                }
+
+                current_task.putVariable("step","submit_bitstreams",true)
+                current_task.putVariable("itemId",itemId,true)
+
+                redirect uri: "/dspace/listMetadata?taskId=${params.taskId}"
+            }
+
+        }.invalidToken {
+            //sbmissão duplicada do formulário
         }
-        println(m)
-        return m
+
     }
 
-    private static createCollectionMetadata(def task){
-        def json = new JsonBuilder()
-        def m = json {
-            "name" task.name
-            "copyrightText" "cc-by-sa"
-            "introductoryText" task.name
-            "shortDescription" task.description
-            "sidebarText" task.description
-        }
-        println(m)
-        return m
-    }
+    def submitBitstream(){
+        def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
+        def dir = new File(servletContext.getRealPath("/data/processes/${current_task.getProcess().id}/tmp/${params.taskId}/"))
+        def i = 0
+        def itemId = current_task.getVariable("itemId")
 
+        dir.eachFileRecurse (FileType.FILES) {file ->
+            def description = null
+            if(params.description.getClass().isArray()){
+                description = params.description.getAt(i)
+                i = i+1
+            }else{
+                description = params.description
+            }
+            dspaceRestService.addBitstreamToItem(itemId, file, file.name, description)
+        }
+
+        current_task.putVariable("step","completed",true)
+
+        render view: 'overview', model: [process: current_task.getProcess()]
+    }
 
     //inserir no mongo os id da coleção e comunidades referentes ao resource submetido
     def createStructure(Resource resourceInstance){
@@ -198,7 +240,6 @@ class DspaceController {
         println(processDefinition.name)
 
         try{
-
             data.id = resourceInstance.id
             data.name = resourceInstance.name
             data.uri = resourceInstance.uri
@@ -231,106 +272,30 @@ class DspaceController {
 
     }
 
-    // create-item
-    def createItem(MetadataForm form){
-        println(params)
-        println(form)
-
-//        form.validate()
-        if(false){ //validação do formulário
-//            for (error in form.errors.allErrors){
-//                println(error)
-//            }
-
-            flash.message = "Erro de validação"
-            render view: '_itemMetadata', model: [processId: params.processId, taskId: params.taskId, step: params.step, metadataForm: form]
-
-        }else{
-            withForm { //submssão esperada
-                def metadatas = [], list = [:]
-                def itemId = null
-                def process = Propeller.instance.getProcessInstanceById(params.processId, session.user.id as long)
-                def resource = Resource.get(process.getVariable('resourceId'))
-                def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
-
-                if(current_task.getVariable('step') == null){
-                    current_task.putVariable('step','metadata',true)
-                }
-
-                //convert date for pattern expected
-                Date date = new Date()
-                params.publication_date = date.format('YYYY-MM-dd')
-
-                //gerar arquivo de metadados
-                for(def hash : dspaceRestService.listMetadata){
-                    if(params.get(hash.key).getClass().isArray()){
-                        params.get(hash.key).each {
-                            def m = [:]
-                            m.key = hash.value
-                            m.value =  it
-                            metadatas.add(m)
-                        }
-                    }else{
-                        def m = [:]
-                        m.key = hash.value
-                        m.value =  params.get(hash.key)
-                        metadatas.add(m)
-                    }
-                }
-
-                list.metadata = metadatas
-
-                if(Integer.parseInt(params.step) == 0){ // -> step 0 - criar item
-                    def resource_dspace = MongoHelper.instance.getCollection("resource_dspace", resource.id)
-                    resource_dspace.collect{
-                        it.tasks.each{ task -> //procurando pelo id da coleção que o item será criado
-                            if(task.id.toString() == current_task.definition.id.toString()){ //achei a coleção correta
-                                itemId = dspaceRestService.newItem(task.collectionId, list)
-                            }
-                        }
-                    }
-
-                    def new_step = Integer.parseInt(params.step)+1 //calcula o novo step
-                    redirect uri: "/dspace/listMetadata?processId=${params.processId}&&taskId=${params.taskId}&&step=${new_step}&&itemId=${itemId}"
-
-                }
-
-            }.invalidToken {
-                //sbmissão duplicada do formulário
-            }
+    private static createCommunityMetadata(Resource resource){
+        def json = new JsonBuilder()
+        def m = json {
+            "name" resource.name.toString()
+            "copyrightText" "cc-by-sa"
+            "introductoryText" resource.name.toString()
+            "shortDescription" resource.description.toString()
+            "shortDescription" resource.description.toString()
+            "sidebarText" resource.description.toString()
         }
+        println(m)
+        return m
     }
 
-    def submitBitstream(){
-        def process = Propeller.instance.getProcessInstanceById(params.processId, session.user.id as long)
-        def dir = new File(servletContext.getRealPath("/data/processes/${params.processId}/tmp/${params.taskId}/"))
-        def i = 0
-
-        dir.eachFileRecurse (FileType.FILES) {file ->
-            def description = null
-            if(params.description.getClass().isArray()){
-                description = params.description.getAt(i)
-                i = i+1
-            }else{
-                description = params.description
-            }
-            dspaceRestService.addBitstreamToItem(params.itemId, file, file.name, description)
+    private static createCollectionMetadata(def task){
+        def json = new JsonBuilder()
+        def m = json {
+            "name" task.name
+            "copyrightText" "cc-by-sa"
+            "introductoryText" task.name
+            "shortDescription" task.description
+            "sidebarText" task.description
         }
-
-        def tasks = process.getVariable("tasksSendToDspace")
-        if(tasks == null) {
-            tasks = params.taskId
-        }else {
-            tasks += ";" + params.taskId
-        }
-        process.putVariable("tasksSendToDspace",tasks, true)
-
-        def map = [:]
-        def list = tasks.split(";")
-        list.each {task->
-            map.put(task.toString(),task.toString())
-        }
-
-        render view: 'overview', model: [process: process, tasksSendToDspace: map]
+        println(m)
+        return m
     }
 }

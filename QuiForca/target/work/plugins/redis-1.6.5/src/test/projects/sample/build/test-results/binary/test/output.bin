@@ -1,0 +1,14 @@
+4Grails application running at http://localhost:8080
+cache miss getAnnotatedScore
+cache miss getAnnotatedList
+cache miss getAnnotatedHash
+cache miss getAnnotatedHash
+cache miss createDomainObject
+cache miss createDomainObject
+%cache miss getDomainListWithKeyClass
+cache miss getAnnotatedBook
+-cache miss getAnnotatedTextUsingKeyAndExpire
+-cache miss getAnnotatedTextUsingKeyAndExpire
+$cache miss getAnnotatedTextUsingKey
+(cache miss getAnnotatedTextUsingClosure
+cache miss getMemoizedTextDate
