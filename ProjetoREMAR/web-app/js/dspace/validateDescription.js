@@ -6,7 +6,7 @@ $(".description-error").hide();
 
 $( document ).ready(function() {
 
-    $(".validate").change(function(){
+    $(".validate").on('input',function(){
         checkDescriptions();
     })
 

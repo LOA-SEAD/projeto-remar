@@ -120,23 +120,23 @@ $( document ).ready(function() {
     $("#citation-error").hide();
 
     validateSubmit();
-    $("#title").change(function () {
+    $("#title").on('input', function() {
         validateSubmit();
     });
 
-    author.change(function () {
+    author.on('input', function() {
         validateSubmit();
     });
 
-    editor.change(function () {
+    editor.on('input', function() {
         validateSubmit();
     });
 
-    citation.change(function () {
+    citation.on('input', function() {
         validateSubmit();
     });
 
-    description.change(function () {
+    description.on('input', function() {
         validateSubmit();
     });
 
