@@ -38,7 +38,7 @@
                             ${bitstream.name}
                         </td>
                         <td>
-                            <input id="description${i}" type="text" name="description${i}" class="validate" placeholder="Informe uma descrição">
+                            <input id="description${i}" type="text" name="description" class="validate" placeholder="Informe uma descrição">
                             <label for="description${i}"></label>
                             <span id="description${i}-error" class="description-error" style="left: 0.75rem; top: 45px;">Este campo não pode ser vazio!</span>
                         </td>
