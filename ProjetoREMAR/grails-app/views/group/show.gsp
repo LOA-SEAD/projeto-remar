@@ -10,14 +10,22 @@
 <head>
     <meta name="layout" content="materialize-layout">
 </head>
-
 <body>
+<div id="modal-confirmation" class="modal">
+    <div class="modal-content">
+        <p>Tem certeza que deseja realizar esta ação</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Não</a>
+        <a id="delete-group" href="/group/delete/${group.id}" class=" modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
+    </div>
+</div>
     <div class="row">
         <div class="col l4 s6 m5">
           <h5 class="left-align"><span class="truncate" id="group-name">${group.name}</span>
               <g:if test="${group.owner.id == session.user.id}">
                   <a id="edit-group" data-name="${group.name}" data-position="right" data-tooltip="Editar grupo" class="tooltipped" style="color: black"><i style="position:relative; top: 0.145em; cursor: pointer;" class="material-icons">edit</i></a>
-                  <a id="delete-group" href="/group/delete/${group.id}" data-position="right" data-tooltip="Deletar grupo" class="tooltipped" style="color: black"><i style="position:relative; top: 0.145em;" class="material-icons">delete</i></a>
+                  <a  data-position="right" data-tooltip="Deletar grupo" class="tooltipped modal-trigger" href="#modal-confirmation" style="color: black"><i style="position:relative; top: 0.145em;" class="material-icons">delete</i></a>
               </g:if>
               <g:else><a class="tooltipped" data-tooltip="Sair do grupo" style=" color: black;" href="/group/leave-group/${group.id}"><i class="fa fa-sign-out fa-1x" aria-hidden="true"></i></a></g:else>
               <g:if test="${group.owner.id == session.user.id}">
