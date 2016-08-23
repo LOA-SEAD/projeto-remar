@@ -54,7 +54,7 @@ Time: 08:58
                                 <div class="collapsible-body">
                                     <div class="row">
                                         <g:if test="${(metadata.getAt(i).find {it.key == 'dc.description.abstract' }) != null}">
-                                            <div class="col s12">
+                                            <div class="col s12 m12 l12">
                                                     <p><span class="bold">Descrição: </span>
                                                     ${(metadata.getAt(i).find {it.key == 'dc.description.abstract' }).value}
                                                 </p>
@@ -73,6 +73,21 @@ Time: 08:58
                                                     ${(metadata.getAt(i).find {it.key == 'dcterms.license' }).value}
                                                 </p>
                                              </g:if>
+                                        </div>
+                                        <div class="col s12 m6">
+                                                <p>
+                                                    <span class="bold">Link para o Dspace : </span>
+                                                    <a target="_blank" href="${linkArray.getAt(i)}">${linkArray.getAt(i)}</a>
+                                                </p>
+                                            <g:if test="${(metadata.getAt(i).find {it.key == 'dcterms.license' }) != null}">
+                                                <p>
+                                                    <span class="bold">Licença: </span>
+                                                    ${(metadata.getAt(i).find {it.key == 'dcterms.license' }).value}
+                                                </p>
+                                            </g:if>
+                                        </div>
+                                        <div class="col s12 m6">
+                                            
                                         </div>
                                         <div class="col s12 m6">
                                             <g:if test="${(metadata.getAt(i).findAll {it.key == 'dc.contributor.author' }) != null}">
@@ -113,7 +128,7 @@ Time: 08:58
                                                         %{--<td class="">${bitstream.description}</td>--}%
                                                         <td class="">${bitstream.format}</td>
                                                         <td>
-                                                            <a href="#!" class="view tooltipped" data-bitstream-id="${bitstream.id}"
+                                                            <a href="#!" data-dspace-link="${(metadata.getAt(i).find {it.key == 'dc.identifier.uri' }).value}" class="view tooltipped" data-bitstream-id="${bitstream.id}"
                                                                data-position="right" data-delay="50" data-tooltip="Visualizar">
                                                                 <i class="material-icons">visibility</i>
                                                             </a>
