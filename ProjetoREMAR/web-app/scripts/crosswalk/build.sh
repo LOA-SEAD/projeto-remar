@@ -6,6 +6,10 @@
 
 export ANDROID_HOME="/dev-tools/android"
 
+export PATH=$ANDROID_HOME:$PATH
+export PATH=$ANDROID_HOME/tools:$PATH
+export PATH=$ANDROID_HOME/platform-tools:$PATH
+
 cd $1/data/resources/sources/$2/base
 
 cp $1/scripts/crosswalk/manifest.json .
