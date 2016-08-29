@@ -131,7 +131,7 @@ class DspaceController {
         def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
 
         if(current_task.getVariable("step") == null){
-           render view: '_itemMetadata', model: [taskId: params.taskId,
+           render view: '_itemMetadata', model: [task: current_task,
                                                  metadataForm: new MetadataForm()]
         }
         else{

@@ -18,6 +18,14 @@
         </p>
         <div class="divider"></div>
         <div class="clearfix"></div>
+        <div class="subtitle space">
+            <h3 class="text-teal text-darken-3 center truncate">
+                ${task.definition.name}
+            </h3>
+            <h5 class="center date">
+                Criar um item
+            </h5>
+        </div>
     </div>
     <g:form action="submitBitstream" method="POST">
         <section class="row">

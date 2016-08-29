@@ -17,6 +17,14 @@
             <i class="medium material-icons left">cloud_upload</i>Enviar para o repositório
         </p>
         <div class="divider"></div>
+        <div class="subtitle space">
+            <h3 class="text-teal text-darken-3 center truncate">
+                ${process.definition.name}
+            </h3>
+            <h5 class="center date">
+
+            </h5>
+        </div>
         <article class="width-position left-align">
             <section class="row">
                 <div class="col s12">
