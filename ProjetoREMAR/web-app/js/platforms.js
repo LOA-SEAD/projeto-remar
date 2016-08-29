@@ -99,156 +99,35 @@ $(function () {
 
     });
 
-    // $("#publish").on("click", function () {
-    //     var contentArea=$('#content-area').val() ;// get the current value of the input field.
-    //     var specificContent = $("#specific-content").val();
-    //     if ($(name).val()) {
-    //         var file = $("#img-1").prop('files')[0];
-    //         if (file != null) { //se a imagem de preview foi mudada
-    //             var fr = new FileReader();
-    //             fr.readAsDataURL(file);
-    //             fr.onload = function (event) {
-    //                 var image = new Image();
-    //                 if (file != null) {
-    //                     image.src = event.target.result;
-    //                 } else {
-    //                     image.src = $("#img1Preview")[0].getAttribute("src");
-    //                 }
-    //                 image.onload = function () {
-    //                     var formData = new FormData();
-    //                     formData.append('banner', file);
-    //                     formData.append('name', $(name).val());
-    //                     formData.append('img1',$("#img1Preview").attr("src"));
-    //
-    //
-    //                     $.ajax({
-    //                         type: 'POST',
-    //                         url: location.origin + '/process/update/' + $(name).data("process-id"),
-    //                         data: formData,
-    //                         processData: false,
-    //                         contentType: false,
-    //                         success: function (data) {
-    //                             nameErr.hide(500);
-    //                             $(name).removeClass().addClass("valid");
-    //                             if(validatePublish()){
-    //                                 $.ajax({
-    //                                     type: 'POST',
-    //                                     url: location.origin + "/process/finish?id="+publish.data("process-id")+"&&contentArea="+contentArea+"&&specificContent="+specificContent,
-    //                                     data: formData,
-    //                                     processData: false,
-    //                                     contentType: false,
-    //                                     success: function (data) {
-    //                                         window.location.href = location.origin + data;
-    //                                     },
-    //                                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-    //
-    //                                     }
-    //                                 });
-    //                             }
-    //                             else{
-    //                                 return false;
-    //                             }
-    //                         },
-    //                         error: function (req, status, err) {
-    //                             //alert("Esse nome já existe!");
-    //                             nameErr.show(500);
-    //                             $(name).prev().hide(500);
-    //                             $(name).removeClass().addClass("invalid");
-    //                             $(name).focus();
-    //                         }
-    //                     });
-    //                 }
-    //             }
-    //         } else { //atualiza somente o nome
-    //             var formData = new FormData();
-    //             //formData.append('banner', file);
-    //             formData.append('name', $(name).val());
-    //
-    //             $.ajax({
-    //                 type: 'POST',
-    //                 url: location.origin + '/process/update/' + $(name).data("process-id"),
-    //                 data: formData,
-    //                 processData: false,
-    //                 contentType: false,
-    //                 success: function (data) {
-    //                     nameErr.hide(500);
-    //                     $(name).removeClass().addClass("valid");
-    //                     if(validatePublish()){
-    //                         $.ajax({
-    //                             type: 'POST',
-    //                             url: location.origin + "/process/finish?id="+publish.data("process-id")+"&&contentArea="+contentArea+"&&specificContent="+specificContent,
-    //                             data: formData,
-    //                             processData: false,
-    //                             contentType: false,
-    //                             success: function (data) {
-    //                                 //$(name).prev().show(500);
-    //                                 console.log(data);
-    //                                 window.location.href = data;
-    //                             },
-    //                             error: function (XMLHttpRequest, textStatus, errorThrown) {
-    //
-    //                             }
-    //                         });
-    //                     }
-    //                     else{
-    //                         return false;
-    //                     }
-    //                 },
-    //                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-    //                     nameErr.show(500);
-    //                     $(name).prev().hide(500);
-    //                     $(name).removeClass().addClass("invalid");
-    //                     $(name).focus();
-    //                 }
-    //             });
-    //         }
-    //     }
-    // });
-
-    function validatePublish(){
-        var contentArea = $('#content-area').val() ;
-        var specificContent = $("#specific-content").val();
-
-        if(contentArea!=""){
-            if(specificContent!=""){
-                return true
-            }
-            else{
-                $("#specific-content").focus();
-                return false;
-            }
-        }
-        else{
-            $('#content-area').focus();
-            return false;
-        }
-
-    }
 
     $('#content-area').on('input', function() {
         var contentArea = $('#content-area').val() ;
         if(contentArea!=""){
             $("#content-area-error").hide();
-            $('#content-area').removeClass().addClass("valid");
+            $('#content-area').removeClass("invalid").addClass("valid");
         }
         else{
             $("#content-area-error").show();
             $('#content-area').removeClass().addClass("invalid");
 
         }
+        validatePublish();
+
     });
 
     $('#specific-content').on('input', function() {
         var specificContent = $("#specific-content").val();
         if(specificContent!=""){
             $("#specific-content-error").hide();
-            $('#specific-content').removeClass().addClass("valid");
+            $('#specific-content').removeClass("invalid").addClass("valid");
         }
         else{
             $("#specific-content-error").show();
             $('#specific-content').removeClass().addClass("invalid");
 
         }
+        validatePublish();
+
     });
 
     function cropPicture(target, updateImg){
@@ -337,12 +216,11 @@ $(function () {
     if(tasks.data("all-tasks-completed") != null &&
         tasks.data("all-tasks-completed").toString() == "true"){
 
+        $("#send").hide();
         console.log("removendo disabled button");
-        publish.removeClass("disabled");
+        $("#submitButtonDisabled").removeClass("hide");
         $("#row-content-area").removeClass("hide");
         $("#row-specific-content").removeClass("hide");
-        //$("#send").hide();
-
     }
 
 
@@ -358,7 +236,42 @@ $(function () {
 
         Materialize.toast('Informações básicas salvas com sucesso!', 3000, 'rounded')
     }
+
+    if($("#specific-content").val()!=null || $("#content-area").val()!=null){
+        validatePublish();
+    }
+
 });
 
+function validatePublish(){
+    var contentArea = $('#content-area').val() ;
+    var specificContent = $("#specific-content").val();
 
+    if(contentArea!="" && contentArea!=null){
+        if(specificContent!="" && specificContent!=null){
+            $("#submitButton").removeClass('hide');
+            $("#submitButtonDisabled").addClass('hide');
+            $("#specific-content-error").hide();
+            $('#specific-content').removeClass("invalid").addClass("valid");
+            $("#content-area-error").hide();
+            $('#content-area').removeClass("invalid").addClass("valid");
+            return true
+        }
+        else{
+            $("#submitButton").addClass("hide");
+            $("#submitButtonDisabled").removeClass('hide');
+            $("#specific-content-error").show();
+            $('#specific-content').removeClass("valid").addClass("invalid");
+            return false;
+        }
+    }
+    else{
+        $("#submitButton").addClass("hide");
+        $("#submitButtonDisabled").removeClass('hide');
+        $("#content-area-error").show();
+        $('#content-area').removeClass("valid").addClass("invalid");
+        return false;
+    }
+
+}
 

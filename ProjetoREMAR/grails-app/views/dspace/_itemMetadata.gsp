@@ -14,10 +14,32 @@
 <div class="row cluster">
     <div class="cluster-header">
         <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom title-page">
-            <i class="medium material-icons left">cloud_upload</i>Adicionar Metadados - Criar um item
+            <i class="medium material-icons left">cloud_upload</i>Adicionar Metadados
         </p>
         <div class="divider"></div>
         <div class="clearfix"></div>
+        <div class="right">
+            <span>1/2</span>
+        </div>
+        <div class="progress my-orange-opaque">
+            <div class="determinate my-orange" style="width: 50%"></div>
+        </div>
+
+        <div class="subtitle space">
+            <h3 class="text-teal text-darken-3 center truncate">
+                ${task.definition.name}
+            </h3>
+            <h5 class="center date">
+                Criar um item
+            </h5>
+        </div>
+
+        <div class="row center">
+            <p>
+                Abaixo estão listadas as tarefas realizadas durante a customização do jogo. Selecione as tarefas que
+                gostaria de enviar para o repositório.
+            </p>
+        </div>
 
         <g:form action="createItem" method="POST" useToken="true">
             <div class="row">
@@ -34,14 +56,6 @@
                         <span class="btn my-orange" id="add-author">adicionar autor</span>
                     </div>
                 </div>
-
-                %{--<div class="col s6">--}%
-                    %{--<span class="description-input">Entre com o nome dos editores do item. </span>--}%
-                    %{--<div class="input-field col s12">--}%
-                        %{--<input name="editor" id="editor" type="text" class="validate">--}%
-                        %{--<label for="editor"><g:message code="dspace.metadata.editor"/> </label>--}%
-                    %{--</div>--}%
-                %{--</div>--}%
 
                 <div class="col s12">
                     <span class="description-input">Entre com um nome padrão de citação. </span>
@@ -96,7 +110,7 @@
                     </div>
                 </div>
 
-                <input type="hidden" name="taskId" value="${taskId}">
+                <input type="hidden" name="taskId" value="${task.id}">
 
                 <div class=" col s12 m12 l12">
                     <div class="right">

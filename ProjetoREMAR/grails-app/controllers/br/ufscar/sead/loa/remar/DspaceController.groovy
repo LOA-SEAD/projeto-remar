@@ -12,13 +12,9 @@ class DspaceController {
     static allowedMethods = [bitstream: "GET"]
     static scope = "session"
 
-
-
     def dspaceRestService
 
     def index() {
-        def g
-
         def community = dspaceRestService.getMainCommunity()
 
         def subCommunities = dspaceRestService.listSubCommunitiesExpanded()
@@ -131,7 +127,7 @@ class DspaceController {
         def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
 
         if(current_task.getVariable("step") == null){
-           render view: '_itemMetadata', model: [taskId: params.taskId,
+           render view: '_itemMetadata', model: [task: current_task,
                                                  metadataForm: new MetadataForm()]
         }
         else{
@@ -144,8 +140,7 @@ class DspaceController {
                     list << file
                 }
 
-                render view: '_bitMetadata', model: [taskId: params.taskId,
-                                                     processId: current_task.getProcess().id,
+                render view: '_bitMetadata', model: [task: current_task,
                                                      bitstreams: list]
 
             }

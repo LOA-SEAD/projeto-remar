@@ -17,6 +17,17 @@
             <i class="medium material-icons left">cloud_upload</i>Enviar para o repositório
         </p>
         <div class="divider"></div>
+        <div class="subtitle space">
+            <h3 class="text-teal text-darken-3 center truncate">
+                ${process.definition.name}
+            </h3>
+        </div>
+        <div class="row center">
+            <p>
+                Abaixo estão listadas as tarefas realizadas durante a customização do jogo. Selecione as tarefas que
+                gostaria de enviar para o repositório.
+            </p>
+        </div>
         <article class="width-position left-align">
             <section class="row">
                 <div class="col s12">

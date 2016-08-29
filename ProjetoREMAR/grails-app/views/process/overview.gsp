@@ -156,7 +156,8 @@
                 <div class="row">
                     <div class="col s12 m12 l12">
                         <input name="id" type="hidden" value="${process.id}">
-                        <g:submitButton name="Submit" value="PUBLICAR" class="btn waves-effect waves-light my-orange right"/>
+                        <a id="submitButtonDisabled" class="btn disabled right hide">Publicar</a>
+                        <g:submitButton id="submitButton" name="Submit" value="PUBLICAR" class="btn my-orange right hide"/>
                     </div>
                 </div>
             </g:form>
