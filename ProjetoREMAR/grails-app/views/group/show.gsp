@@ -25,7 +25,7 @@
               </g:if>
           </h5>
         </div>
-            <g:if test="${group.owner.id == session.user.id || UserGroup.findByUserAndAdmin(session.user,true)}">
+            <g:if test="${group.owner.id == session.user.id || UserGroup.findByUserAndAdminAndGroup(session.user,true, group)}">
                 <form id="add-user-form">
                     <div class="input-field col l3 offset-l2 m4">
                         <input class="user-input" name="term" id="search-user" type="text" required>
