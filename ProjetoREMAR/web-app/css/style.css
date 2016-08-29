@@ -183,6 +183,10 @@ footer.page-footer{
         background-color: #FF5722 !important;
     }
 
+    .my-orange-opaque {
+        background-color: rgba(255,87,34,0.5) !important;
+    }
+
     .btn-flat i {
         line-height: 36px !important;
     }
@@ -969,3 +973,6 @@ Position must be relative!*/
     border: none;
     font-style: normal;
 }
+
+
+

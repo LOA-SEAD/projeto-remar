@@ -21,9 +21,12 @@
             <h3 class="text-teal text-darken-3 center truncate">
                 ${process.definition.name}
             </h3>
-            <h5 class="center date">
-
-            </h5>
+        </div>
+        <div class="row center">
+            <p>
+                Abaixo estão listadas as tarefas realizadas durante a customização do jogo. Selecione as tarefas que
+                gostaria de enviar para o repositório.
+            </p>
         </div>
         <article class="width-position left-align">
             <section class="row">

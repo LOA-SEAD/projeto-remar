@@ -14,17 +14,30 @@
 <article class="width-position left-align">
     <div class="cluster-header">
         <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom title-page">
-            <i class="medium material-icons left">cloud_upload</i>Adicionar Metadados - Enviar artefatos
+            <i class="medium material-icons left">cloud_upload</i>Adicionar Metadados
         </p>
         <div class="divider"></div>
         <div class="clearfix"></div>
+
+        <div class="right">
+            <span>2/2</span>
+        </div>
+        <div class="progress my-orange-opaque">
+            <div class="determinate my-orange" style="width: 100%"></div>
+        </div>
+
         <div class="subtitle space">
             <h3 class="text-teal text-darken-3 center truncate">
                 ${task.definition.name}
             </h3>
             <h5 class="center date">
-                Criar um item
+                Enviar artefatos
             </h5>
+        </div>
+        <div class="row center">
+            <p>
+                Abaixo estão os artefatos customizados geradas nesta tarefa para serem enviados ao repositório.
+            </p>
         </div>
     </div>
     <g:form action="submitBitstream" method="POST">
@@ -52,7 +65,7 @@
                         </td>
                         <td>
                             <div class="center">
-                               <a class="" target="_blank" href="/data/processes/${processId}/tmp/${taskId}/${bitstream.name}"><g:message code="dspace.metadata.button_view" /> </a>
+                               <a class="" target="_blank" href="/data/processes/${task.process.id}/tmp/${task.id}/${bitstream.name}"><g:message code="dspace.metadata.button_view" /> </a>
                             </div>
                         </td>
                     </tr>
@@ -63,7 +76,7 @@
         </section>
         <section class="row">
             <div class="col s12 m12 l12">
-                <input type="hidden" name="taskId" value="${taskId}">
+                <input type="hidden" name="taskId" value="${task.id}">
                 <div class="right">
                     <a id="finishLabel" class="btn disabled"><g:message code="dspace.metadata.button_finish"/></a>
                     <button class="btn my-orange hide" id="finishButton" type="submit"> <g:message code="dspace.metadata.button_finish"/> </button>

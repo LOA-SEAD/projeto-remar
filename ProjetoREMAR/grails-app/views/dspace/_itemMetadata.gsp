@@ -18,6 +18,13 @@
         </p>
         <div class="divider"></div>
         <div class="clearfix"></div>
+        <div class="right">
+            <span>1/2</span>
+        </div>
+        <div class="progress my-orange-opaque">
+            <div class="determinate my-orange" style="width: 50%"></div>
+        </div>
+
         <div class="subtitle space">
             <h3 class="text-teal text-darken-3 center truncate">
                 ${task.definition.name}
@@ -26,6 +33,14 @@
                 Criar um item
             </h5>
         </div>
+
+        <div class="row center">
+            <p>
+                Abaixo estão listadas as tarefas realizadas durante a customização do jogo. Selecione as tarefas que
+                gostaria de enviar para o repositório.
+            </p>
+        </div>
+
         <g:form action="createItem" method="POST" useToken="true">
             <div class="row">
                 <div class="col s12 div-author">

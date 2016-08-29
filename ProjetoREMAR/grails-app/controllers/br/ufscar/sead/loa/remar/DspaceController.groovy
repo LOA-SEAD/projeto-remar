@@ -12,13 +12,9 @@ class DspaceController {
     static allowedMethods = [bitstream: "GET"]
     static scope = "session"
 
-
-
     def dspaceRestService
 
     def index() {
-        def g
-
         def community = dspaceRestService.getMainCommunity()
 
         def subCommunities = dspaceRestService.listSubCommunitiesExpanded()
@@ -144,8 +140,7 @@ class DspaceController {
                     list << file
                 }
 
-                render view: '_bitMetadata', model: [taskId: params.taskId,
-                                                     processId: current_task.getProcess().id,
+                render view: '_bitMetadata', model: [task: current_task,
                                                      bitstreams: list]
 
             }
