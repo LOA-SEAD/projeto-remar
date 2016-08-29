@@ -267,6 +267,7 @@ class ResourceController {
 
     @Transactional
     def delete(Resource resourceInstance) {
+
         if (resourceInstance == null) {
             log.debug "Trying to delete a resource, but that was not found."
             response.status = 404
@@ -283,6 +284,11 @@ class ResourceController {
             }
 
             Propeller.instance.undeploy(resourceInstance.uri)
+
+            if(grailsApplication.config.dspace.restUrl) { //se existir dspace
+                redirect uri: "/dspace/removeAll/${resourceInstance.id}"
+            }
+
             response.status = 205
             render 205
         } else {

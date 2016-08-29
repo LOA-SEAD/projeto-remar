@@ -180,4 +180,8 @@ class MongoHelper {
         return false
     }
 
+    def removeData(String collectionName, String data, String value){
+        db.getCollection(collectionName).de
+    }
+
 }

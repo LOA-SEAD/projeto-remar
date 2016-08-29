@@ -263,9 +263,24 @@ class DspaceController {
         }catch (SocketTimeoutException timeout){
             println("Timeout in CreateStructure - ${timeout.message}, ${timeout.cause}")
         }
-
-
     }
+
+    public removeAll(Resource resource){
+        def resource_dspace = MongoHelper.instance.getCollection("resource_dspace", resource.id)
+
+        resource_dspace.collect{
+            it.tasks.each{ task -> //procurando pelo id da coleção que o item será criado
+                dspaceRestService.deleteCollection(task.collectionId)
+            }
+            dspaceRestService.deleteCommunity(it.id)
+        }
+
+        MongoHelper.instance.
+
+        response.status = 205
+        render 205
+    }
+
 
     private static createCommunityMetadata(Resource resource){
         def json = new JsonBuilder()
@@ -293,4 +308,5 @@ class DspaceController {
         println(m)
         return m
     }
+
 }
