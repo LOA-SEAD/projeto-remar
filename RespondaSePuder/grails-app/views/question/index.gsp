@@ -127,15 +127,15 @@
           <g:form method="post"  action="update" resource="${questionInstance}">
                 <div class="row">
                     <div class="input-field col s12">
+                        <input id="editTitle" name="title" required="" type="text" length="250" maxlength="250">
                         <label id="labelTitle" class="active" for="editTitle">Pergunta</label>
-                        <input id="editTitle" name="title" required=""  type="text" class="validate" maxlength="250">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="input-field col s9">
+                        <input class="validate" id="editAnswers0" name="answers1" required="" maxlength="49" type="text" length="49">
                         <label id="labelAnswer1" class="active" for="editAnswers0">Alternativa 1</label>
-                        <input type="text" class="validate" id="editAnswers0" name="answers1" required="" maxlength="49"/>
                     </div>
                     <div class="col s2">
                         <input type="radio" id="editRadio0" name="correctAnswer" value="0" />
@@ -145,8 +145,8 @@
 
                 <div class="row">
                     <div class="input-field col s9">
+                        <input class="validate" id="editAnswers1" name="answers2" required="" maxlength="49" type="text" length="49">
                         <label id="labelAnswer2" class="active" for="editAnswers1">Alternativa 2</label>
-                        <input type="text" class="validate" id="editAnswers1" name="answers2" required="" maxlength="49"/>
                     </div>
                     <div class="col s2">
                         <input type="radio" id="editRadio1" name="correctAnswer" value="1" /> <label for="editRadio1">Alternativa correta</label>
@@ -155,8 +155,8 @@
 
                 <div class="row">
                     <div class="input-field col s9">
+                        <input class="validate" id="editAnswers2" name="answers3" required="" maxlength="49" type="text" length="49">
                         <label id="labelAnswer3" class="active" for="editAnswers2">Alternativa 3</label>
-                        <input type="text" class="validate" id="editAnswers2" name="answers3" required="" maxlength="49"/>
                     </div>
                     <div class="col s2">
                         <input type="radio" id="editRadio2" name="correctAnswer" value="2" /> <label for="editRadio2">Alternativa correta</label>
@@ -165,8 +165,8 @@
 
                 <div class="row">
                     <div class="input-field col s9">
+                        <input class="validate" id="editAnswers3" name="answers4" required="" maxlength="49" type="text" length="49">
                         <label id="labelAnswer4" class="active" for="editAnswers3">Alternativa 4</label>
-                        <input type="text" class="form-control" id="editAnswers3" name="answers4" required="" maxlength="49" />
                     </div>
                     <div class="col s2">
                         <input type="radio" id="editRadio3" name="correctAnswer" value="3" /> <label for="editRadio3">Alternativa correta</label>
@@ -175,8 +175,8 @@
 
               <div class="row">
                   <div class="input-field col s12">
-                      <input class="active" type="text" name="hint" id="editHint" required maxlength="250"/>
-                      <label id="labelHint" for="editHint">Dica</label>
+                      <input class="validate" id="editHint" name="hint" required="" maxlength="250" type="text" length="250">
+                      <label id="labelHint" class="active" for="editHint">Alternativa 4</label>
                   </div>
               </div>
 
@@ -216,15 +216,16 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <label for="title">Pergunta</label>
-                        <input id="title" name="title" required=""  type="text" class="validate" maxlength="250">
+                        <input id="title" name="title" required=""  type="text" class="validate" maxlength="250" length="250">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="input-field col s9">
-                        <label for="answers[0]">Alternativa 1</label>
-                        <input type="text" class="validate" id="answers[0]" name="answers1" required="" maxlength="49" />
+                        <input id="answers0" type="text" name="answers1" required maxlength="49" length="49">
+                        <label for="answers0">Alternativa 1</label>
                     </div>
+
                     <div class="col s2">
                         <input type="radio" id="radio0" name="correctAnswer" value="0" />
                         <label for="radio0">Alternativa correta</label>
@@ -233,8 +234,8 @@
 
                 <div class="row">
                     <div class="input-field col s9">
-                        <label for="answers[1]">Alternativa 2</label>
-                        <input type="text" class="validate" id="answers[1]" name="answers2" required="" maxlength="49" />
+                        <input id="answers1" type="text" name="answers2" required maxlength="49" length="49">
+                        <label for="answers1">Alternativa 2</label>
                     </div>
                     <div class="col s2">
                         <input type="radio" id="radio1" name="correctAnswer" value="1" /> <label for="radio1">Alternativa correta</label>
@@ -243,8 +244,8 @@
 
                 <div class="row">
                     <div class="input-field col s9">
-                        <label for="answers[2]">Alternativa 3</label>
-                        <input type="text" class="validate" id="answers[2]" name="answers3" required="" maxlength="49"/>
+                        <input id="answers2" type="text" name="answers3" required maxlength="49" length="49">
+                        <label for="answers2">Alternativa 3</label>
                     </div>
                     <div class="col s2">
                         <input type="radio" id="radio2" name="correctAnswer" value="2" /> <label for="radio2">Alternativa correta</label>
@@ -253,8 +254,8 @@
 
                 <div class="row">
                     <div class="input-field col s9">
-                        <label for="answers[3]">Alternativa 4</label>
-                        <input type="text" class="form-control" id="answers[3]" name="answers4" required="" maxlength="49" />
+                        <input id="answers3" type="text" name="answers4" required maxlength="49" length="49">
+                        <label for="answers3">Alternativa 4</label>
                     </div>
                     <div class="col s2">
                         <input type="radio" id="radio3" name="correctAnswer" value="3" /> <label for="radio3">Alternativa correta</label>
@@ -263,8 +264,8 @@
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <input type="text" name="hint" id="hint" required maxlength="250" />
-                        <label for="hint">Dica</label>
+                        <input name="hint" id="hint" required type="text" maxlength="250" length="250">
+                        <label for="hint">Input text</label>
                     </div>
                 </div>
 
@@ -398,7 +399,12 @@
 </div>
 
 
-
+<script>
+    $(document).ready(function() {
+        $("#title").characterCounter();
+        $("#hint").characterCounter();
+    });
+</script>
 <script type="text/javascript" src="/respondasepuder/js/questions.js"></script>
 </body>
 </html>
