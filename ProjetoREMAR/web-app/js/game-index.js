@@ -205,15 +205,17 @@ $(function(){
     });
 
     $('.delete').on('click', function() {
-        var el = $(this);
         var id = $(this).data('id');
-
         $.ajax({
             type: 'DELETE',
             url: location.origin + '/resource/delete/' + id,
             success: function(data) {
                 console.log(data);
-                location.reload();
+                if(data == "sqlError"){
+                    $('#sqlError').openModal();
+                }else{
+                    location.reload();
+                }
                 //console.log($(el).parents().eq(4).remove());
             },
             error: function(req, status, err) {

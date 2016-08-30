@@ -265,24 +265,19 @@ class DspaceController {
         }
     }
 
+    //dspace/remove/$id_resource?uri=XXXXXXX
     public removeAll(){
         println(params)
         def resource_dspace = MongoHelper.instance.getCollection("resource_dspace",Long.parseLong(params.id))
-        def communityId = -1
         resource_dspace.collect{
-//            it.tasks.each{ task -> //procurando pelo id da coleção que o item será criado
-//                dspaceRestService.deleteCollection(task.collectionId)
-//            }
-            communityId = it.communityId
+            def communityId = it.communityId
             dspaceRestService.deleteCommunity(communityId)
         }
-        println(communityId)
         MongoHelper.instance.removeDataFromUri('resource_dspace',params.uri)
 
         response.status = 205
         render 205
     }
-
 
     private static createCommunityMetadata(Resource resource){
         def json = new JsonBuilder()

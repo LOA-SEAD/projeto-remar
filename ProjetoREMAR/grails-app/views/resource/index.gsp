@@ -41,6 +41,18 @@
 
         </ul>
     </footer>
+
+    <!-- Modal Structure -->
+    <div id="sqlError" class="modal">
+        <div class="modal-content">
+            <h4>Não é possivel excluir esse modelo!</h4>
+            <p>Existe jogos customizados apartir deste modelo.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">ok</a>
+        </div>
+    </div>
+
     <g:javascript src="game-index.js"/>
 </body>
 </html>
