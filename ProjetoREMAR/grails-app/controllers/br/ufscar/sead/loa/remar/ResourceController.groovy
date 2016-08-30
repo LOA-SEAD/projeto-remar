@@ -276,7 +276,8 @@ class ResourceController {
         }
 
         if (resourceInstance.owner == session.user || session.user.username == 'admin') {
-            resourceInstance.delete flush: true
+
+           resourceInstance.delete flush: true
 
             new AntBuilder().sequential {
                 delete(dir: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}"))
@@ -286,11 +287,8 @@ class ResourceController {
             Propeller.instance.undeploy(resourceInstance.uri)
 
             if(grailsApplication.config.dspace.restUrl) { //se existir dspace
-                redirect uri: "/dspace/removeAll/${resourceInstance.id}"
+                redirect uri: "/dspace/removeAll/${resourceInstance.id}?uri=${resourceInstance.uri}"
             }
-
-            response.status = 205
-            render 205
         } else {
             log.debug "Someone is trying to delete a resource that belongs to other user"
         }

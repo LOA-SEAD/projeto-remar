@@ -213,7 +213,8 @@ $(function(){
             url: location.origin + '/resource/delete/' + id,
             success: function(data) {
                 console.log(data);
-                console.log($(el).parents().eq(4).remove());
+                location.reload();
+                //console.log($(el).parents().eq(4).remove());
             },
             error: function(req, status, err) {
                 console.log(req.responseText);

@@ -87,8 +87,8 @@ class DspaceController {
 
     def delete(){
 
-        def resp = dspaceRestService.deleteBitstreamOfItem('5',params.id)
-
+          def resp = dspaceRestService.deleteCommunity(params.id)
+        //MongoHelper.instance.removeData("resource_dspace","uri","forca")
         render resp
 
     }
@@ -265,17 +265,19 @@ class DspaceController {
         }
     }
 
-    public removeAll(Resource resource){
-        def resource_dspace = MongoHelper.instance.getCollection("resource_dspace", resource.id)
-
+    public removeAll(){
+        println(params)
+        def resource_dspace = MongoHelper.instance.getCollection("resource_dspace",Long.parseLong(params.id))
+        def communityId = -1
         resource_dspace.collect{
-            it.tasks.each{ task -> //procurando pelo id da coleção que o item será criado
-                dspaceRestService.deleteCollection(task.collectionId)
-            }
-            dspaceRestService.deleteCommunity(it.id)
+//            it.tasks.each{ task -> //procurando pelo id da coleção que o item será criado
+//                dspaceRestService.deleteCollection(task.collectionId)
+//            }
+            communityId = it.communityId
+            dspaceRestService.deleteCommunity(communityId)
         }
-
-        MongoHelper.instance.
+        println(communityId)
+        MongoHelper.instance.removeDataFromUri('resource_dspace',params.uri)
 
         response.status = 205
         render 205
