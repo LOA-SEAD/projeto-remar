@@ -90,60 +90,60 @@
                             </div>
                     </li>
                     <!-- Fim 1 Etapa - informações básicas -->
-                    <!-- 2 Etapa - tarefas -->
-                        <g:if test="${process.getVariable("showTasks")}">
-                            <li>
-                                    <div id="tasks-header" class="collapsible-header active">
-                                        <i class="material-icons">linear_scale</i>Tarefas
-                                        <g:if test="${process.getVariable("hasOptionalTasks")}">
-                                            <br/>
-                                            <tr>
-                                                <td colspan="2">
-                                                    <span>
-                                                        Atenção: Tarefas marcadas com <span class="required-indicator">*</span> são obrigatórias
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        </g:if>
-                                    </div>
-                                    <div class="collapsible-body">
-                                        <main id="tasks"
-                                              data-all-tasks-completed="${process.status == br.ufscar.sead.loa.propeller.domain.ProcessInstance.STATUS_ALL_TASKS_COMPLETED}">
+                    <g:if test="${process.getVariable("showTasks")}">
+                        <!-- 2 Etapa - tarefas -->
+                        <li>
+                            <div id="tasks-header" class="collapsible-header active">
+                                <i class="material-icons">linear_scale</i>Tarefas
+                                <g:if test="${process.getVariable("hasOptionalTasks")}">
+                                    <br/>
+                                    <tr>
+                                        <td colspan="2">
+                                            <span>
+                                                Atenção: Tarefas marcadas com <span class="required-indicator">*</span> são obrigatórias
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </g:if>
+                            </div>
+                            <div class="collapsible-body">
+                                <main id="tasks"
+                                    data-all-tasks-completed="${process.status == br.ufscar.sead.loa.propeller.domain.ProcessInstance.STATUS_ALL_TASKS_COMPLETED}">
                                     <table class="responsive-table bordered highlight centered">
                                         <thead>
-                                        <tr>
-                                            <th data-field="id">Nome</th>
-                                            <th data-field="name">Status</th>
-                                        </tr>
+                                            <tr>
+                                                <th data-field="id">Nome</th>
+                                                <th data-field="name">Status</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        <g:each in="${tasks}" var="task">
-                                            <tr class="pending">
-                                                <td>
-                                                    <span>
-                                                        ${task.definition.name}
-                                                        <g:if test="${process.getVariable("hasOptionalTasks")}">
-                                                            <g:if test="${task.definition.optional}">
-                                                                <span class="optional-indicator">(Opcional)</span>
-                                                            </g:if>
-                                                            <g:else>
-                                                                <span class="required-indicator">*</span>
-                                                            </g:else>
-                                                        </g:if>
-                                                    </span>
-                                                </td>
-                                                <g:if test="${task.status == 1}">
+                                            <g:each in="${tasks}" var="task">
+                                                <tr class="pending">
                                                     <td>
-                                                        <a href="/frame/${process.definition.uri}/${task.definition.uri}?t=${task.id}">REALIZAR</a>
+                                                        <span>
+                                                            ${task.definition.name}
+                                                            <g:if test="${process.getVariable("hasOptionalTasks")}">
+                                                                <g:if test="${task.definition.optional}">
+                                                                    <span class="optional-indicator">(Opcional)</span>
+                                                                </g:if>
+                                                                <g:else>
+                                                                    <span class="required-indicator">*</span>
+                                                                </g:else>
+                                                            </g:if>
+                                                        </span>
                                                     </td>
-                                                </g:if>
-                                                <g:else>
-                                                    <td onload="Materialize.toast('Informações salva com sucesso!', 3000, 'rounded') ">
-                                                        <i class="material-icons" style="color:green;">check</i>
-                                                    </td>
-                                                </g:else>
-                                            </tr>
-                                        </g:each>
+                                                    <g:if test="${task.status == 1}">
+                                                        <td>
+                                                            <a href="/frame/${process.definition.uri}/${task.definition.uri}?t=${task.id}">REALIZAR</a>
+                                                        </td>
+                                                    </g:if>
+                                                    <g:else>
+                                                        <td onload="Materialize.toast('Informações salva com sucesso!', 3000, 'rounded') ">
+                                                            <i class="material-icons" style="color:green;">check</i>
+                                                        </td>
+                                                    </g:else>
+                                                </tr>
+                                            </g:each>
                                         </tbody>
                                     </table>
                                 </main>
@@ -162,10 +162,11 @@
                                     </div>
                                 </div>
                             </div>
-                            </li>
-                        </g:if>
+                        </li>
+                        <!-- Fim 2 Etapa - tarefas -->
+                    </g:if>
                 </ul>
-                <!-- Fim 2 Etapa - tarefas -->
+
                 <div class="row">
                     <div class="col s12 m12 l12">
                         <input name="id" type="hidden" value="${process.id}">
