@@ -61,7 +61,7 @@
                     <div class="card-image" style="padding-bottom: 20px;">
                         <img src="/assets/img/logo/logo-remar-preto-transparente.png">
                     </div> <!-- card-image -->
-                    <h4 class="title-style center">Redefinir senha</h4>
+                    <h4 class="title-style center">Lembrar meus dados de acesso e redefinir senha</h4>
 
                     <form method='POST' class='cssform' autocomplete='on'>
                         <div class="row" style="padding-top: 30px;">
