@@ -164,11 +164,6 @@
                             </div>
                             </li>
                         </g:if>
-                        <g:else>
-                            <div id="tasks-header" class="collapsible-header">
-                                <i class="material-icons">linear_scale</i>Tarefas
-                            </div>
-                        </g:else>
                 </ul>
                 <!-- Fim 2 Etapa - tarefas -->
                 <div class="row">
