@@ -91,14 +91,24 @@
                     </li>
                     <!-- Fim 1 Etapa - informações básicas -->
                     <!-- 2 Etapa - tarefas -->
-                    <li>
                         <g:if test="${process.getVariable("showTasks")}">
-                            <div id="tasks-header" class="collapsible-header active">
-                                <i class="material-icons">linear_scale</i>Tarefas
-                            </div>
-                            <div class="collapsible-body">
-                                <main id="tasks"
-                                      data-all-tasks-completed="${process.status == br.ufscar.sead.loa.propeller.domain.ProcessInstance.STATUS_ALL_TASKS_COMPLETED}">
+                            <li>
+                                    <div id="tasks-header" class="collapsible-header active">
+                                        <i class="material-icons">linear_scale</i>Tarefas
+                                        <g:if test="${process.getVariable("hasOptionalTasks")}">
+                                            <br/>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <span>
+                                                        Atenção: Tarefas marcadas com <span class="required-indicator">*</span> são obrigatórias
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        </g:if>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <main id="tasks"
+                                              data-all-tasks-completed="${process.status == br.ufscar.sead.loa.propeller.domain.ProcessInstance.STATUS_ALL_TASKS_COMPLETED}">
                                     <table class="responsive-table bordered highlight centered">
                                         <thead>
                                         <tr>
@@ -110,8 +120,16 @@
                                         <g:each in="${tasks}" var="task">
                                             <tr class="pending">
                                                 <td>
-                                                    <span class="">
+                                                    <span>
                                                         ${task.definition.name}
+                                                        <g:if test="${process.getVariable("hasOptionalTasks")}">
+                                                            <g:if test="${task.definition.optional}">
+                                                                <span class="optional-indicator">(Opcional)</span>
+                                                            </g:if>
+                                                            <g:else>
+                                                                <span class="required-indicator">*</span>
+                                                            </g:else>
+                                                        </g:if>
                                                     </span>
                                                 </td>
                                                 <g:if test="${task.status == 1}">
@@ -144,13 +162,13 @@
                                     </div>
                                 </div>
                             </div>
+                            </li>
                         </g:if>
                         <g:else>
                             <div id="tasks-header" class="collapsible-header">
                                 <i class="material-icons">linear_scale</i>Tarefas
                             </div>
                         </g:else>
-                    </li>
                 </ul>
                 <!-- Fim 2 Etapa - tarefas -->
                 <div class="row">

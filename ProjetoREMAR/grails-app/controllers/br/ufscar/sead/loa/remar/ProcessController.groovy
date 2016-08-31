@@ -164,6 +164,7 @@ class ProcessController {
 
             process.putVariable("updated", "true", true)
             process.putVariable("showTasks", "true", true)
+            process.putVariable("hasOptionalTasks", "${process.pendingTasks.any {task -> task.definition.optional}}", true)
 
             redirect controller: "process", action: "overview"
         }
