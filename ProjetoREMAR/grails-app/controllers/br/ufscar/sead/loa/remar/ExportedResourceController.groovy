@@ -711,7 +711,7 @@ class ExportedResourceController {
 
 
         def baseUrl = "/published/${instance.processId}"
-        def process = Propeller.instance.getProcessInstanceById(instance.processId as String, session.user.id as long)
+        def process = Propeller.instance.getProcessInstanceById(instance.processId as String, instance.ownerId as long)
 
         instance.name = process.name
 
