@@ -34,19 +34,19 @@
             </h5>
         </div>
 
-        <div class="row center">
-            <p>
-                Abaixo estão listadas as tarefas realizadas durante a customização do jogo. Selecione as tarefas que
-                gostaria de enviar para o repositório.
-            </p>
-        </div>
+        %{--<div class="row center">--}%
+            %{--<p>--}%
+                %{--Abaixo estão listadas as tarefas realizadas durante a customização do jogo. Selecione as tarefas que--}%
+                %{--gostaria de enviar para o repositório.--}%
+            %{--</p>--}%
+        %{--</div>--}%
 
         <g:form action="createItem" method="POST" useToken="true">
             <div class="row">
                 <div class="col s12 div-author">
                     <span class="description-input">Entre com o nome do autor do item. </span>
                     <div class="input-field col s12">
-                        <input name="author" id="author" type="text" class="validate">
+                        <input name="author" id="author" type="text" class="validate" value="${session.user.firstName}">
                         <span id="author-error" class="invalid-textarea" style="left: 0.75rem; top: 45px;">Este campo não pode ser vazio!</span>
                         <label for="author">
                             <g:message code="dspace.metadata.author"/>
