@@ -176,7 +176,7 @@
               <div class="row">
                   <div class="input-field col s12">
                       <input class="validate" id="editHint" name="hint" required="" maxlength="250" type="text" length="250">
-                      <label id="labelHint" class="active" for="editHint">Alternativa 4</label>
+                      <label id="labelHint" class="active" for="editHint">Dica</label>
                   </div>
               </div>
 
@@ -265,7 +265,7 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <input name="hint" id="hint" required type="text" maxlength="250" length="250">
-                        <label for="hint">Input text</label>
+                        <label for="hint">Dica</label>
                     </div>
                 </div>
 
