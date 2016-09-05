@@ -1,9 +1,9 @@
-<%@ page import="br.ufscar.sead.loa.santograu.remar.FaseCampoMinado" %>
+<%@ page import="br.ufscar.sead.loa.santograu.remar.QuestionFaseCampoMinado" %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'faseCampoMinado.label', default: 'FaseCampoMinado')}" />
+		<g:set var="entityName" value="${message(code: 'faseCampoMinado.label', default: 'QuestionFaseCampoMinado')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
 	</head>
 	<body>
