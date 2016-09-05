@@ -4,7 +4,11 @@
 # $2: Game uri
 # $3: Game name
 
-source $1/scripts/crosswalk/env.sh
+export ANDROID_HOME="/dev-tools/android"
+
+export PATH=$ANDROID_HOME:$PATH
+export PATH=$ANDROID_HOME/tools:$PATH
+export PATH=$ANDROID_HOME/platform-tools:$PATH
 
 cd $1/data/resources/sources/$2/base
 
@@ -16,7 +20,7 @@ cp $1/stats/logo-remar-preto-transparente.png .
 
 sed -i.bkp "s/NAME/$3/" manifest.json
 
-make_apk.py --package br.ufscar.sead.loa.remar.published.$2 --manifest manifest.json --target-dir ..
+/dev-tools/crosswalk/make_apk.py --package br.ufscar.sead.loa.remar.published.$2 --manifest manifest.json --target-dir ..
 
 #rm manifest.json manifest.json.bkp .REMAR login.js login.html logo-remar-preto-transparente.png
 

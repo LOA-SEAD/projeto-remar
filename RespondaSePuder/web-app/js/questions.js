@@ -17,7 +17,6 @@ window.onload = function(){
     });
 
     orderTable();
-
 };
 
 
