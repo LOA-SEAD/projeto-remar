@@ -169,3 +169,35 @@ function _delete() {
         $(trID).remove();
     }
 }
+
+function exportQuestions(){
+    var list_id = [];
+
+    $.each($("input[type=checkbox]:checked"), function(ignored, el) {
+        var tr = $(el).parents().eq(1);
+        list_id.push($(tr).attr('data-id'));
+    });
+
+    if(list_id.length<=0){
+        alert("Você deve selecionar ao menos uma questão antes de exportar seu banco de questões");
+    }
+    else{
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            url: "/santograu/faseCampoMinado/exportCSV",
+            data: { list_id: list_id },
+            success: function(returndata) {
+                console.log(returndata);
+                window.open(location.origin + returndata, '_blank');
+            },
+            error: function(returndata) {
+                alert("Error:\n" + returndata.responseText);
+
+
+            }
+        });
+
+    }
+
+}
