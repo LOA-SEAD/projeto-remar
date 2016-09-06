@@ -8,81 +8,75 @@ $(document).ready(function(){
     });
 });
 
+var tr;
+var id;
 
-window.onload = function(){
-    console.log("ok");
-
+window.onload = function() {
     var checkboxes = document.getElementsByTagName('input');
 
-    for (var i=0; i<checkboxes.length; i++)  {
-        if (checkboxes[i].type == 'radio')   {
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i].type == 'radio') {
             checkboxes[i].checked = false;
         }
     }
 
-    $(".save").click(function() {
-        var select = false;
-        var checkboxes = document.getElementsByTagName('input');
-        var i =0;
-        while(select==false && i<checkboxes.length){
-            if ((checkboxes[i].type == 'radio') && (checkboxes[i].checked==true)){
-                select=true;
-            }
-            i++;
-        }
-        if(select==false){
-            alert("Você deve selecionar um tema antes de enviar.");
-        }
-        else{
-            var id = document.forms["formName"].elements["radio"].value
-            window.top.location.href = "/escolamagica/theme/choose/" + id;
-        }
-    });
-
-
     $(".delete").click(function() {
-        var tr = $(this).parent().parent();
-        var id = $(tr).attr("data-id");
-        var data = { _method: 'DELETE' };
+        tr = $(this).parent().parent();
+        id = $(tr).attr("data-id");
 
+        $('#deleteModal').openModal();
+    });
+};
 
-        if(confirm("Deseja realmente excluir este tema?")) {
-            $.ajax({
-                type: 'POST',
-                data: data,
-                url: "delete/" + id,
-                success: function (data) {
-                    console.log(data);
-                    $(tr).hide();
-                    $(tr).remove();
+function _delete() {
+    var data = {_method: 'DELETE'};
+    var url = "deleteTheme/" + id;
+    $.ajax({
+        type: 'POST',
+        data: data,
+        url: url,
+        success: function () {
+            $(tr).hide();
+            $(tr).remove();
 
-                    var myThemes = document.getElementsByClassName("myTheme");
-                    if(myThemes.length==0){
-                        window.location.reload();
-                    }
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                }
-            });
+            var myThemes = document.getElementsByClassName("myTheme");
+            if (myThemes.length == 0) {
+                window.location.reload();
+            }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
         }
     });
+}
 
-    var doors = $(".door");
+function _save() {
+    var select = false;
+    var checkboxes = document.getElementsByTagName('input');
+    var i = 0;
+    while (select == false && i < checkboxes.length) {
+        if ((checkboxes[i].type == 'radio') && (checkboxes[i].checked == true)) {
+            select = true;
+            console.log("SELECIONOU");
+        }
+        i++;
+    }
+    if (select == false) {
+        //$("#erroSubmitModal").openModal();
+        alert("Você deve selecionar ao menos um tema.");
+    }
+    else {
+        var themeId = document.forms["formName"].elements["radio"].value
+        var data = {_method: 'POST', orientacao: $("#orientacao").val(), themeId: themeId};
+        var url = "save";
+        $.ajax({
+            type: 'POST',
+            data: data,
+            url: url,
+            success: function () {
 
-    $(doors).mouseover(function() {
-        var src =  $(this).attr('src');
-        console.log(src);
-        src = src.replace("sheet1", "sheet0");
-        console.log(src);
-        $(this).attr("src", src);
-    });
-
-    $(doors).mouseout(function() {
-        var src =  $(this).attr('src');
-        console.log(src);
-        src = src.replace("sheet0", "sheet1");
-        console.log(src);
-        $(this).attr("src", src);
-    })
-
-};
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+            }
+        });
+    }
+}

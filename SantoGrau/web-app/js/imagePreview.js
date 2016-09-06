@@ -3,56 +3,38 @@
  */
 
 window.onload = function() {
-    document.getElementById("a-1").onchange = function () {
-        var el = $("#a-preview");
+    document.getElementById("img-1").onchange = function () {
+        var el = $("#img-1-preview");
         $(el).attr("style", "");
         $(el).addClass("img-responsive");
-        preview(this, document.getElementById("a-preview"));
+        preview(this, document.getElementById("img-1-preview"));
         $(el).attr("data-current", "1");
     };
 
-    document.getElementById("b-1").onchange = function () {
-        var el = $("#b-preview");
+    document.getElementById("img-2").onchange = function () {
+        var el = $("#img-2-preview");
         $(el).attr("style", "");
         $(el).addClass("img-responsive");
-        preview(this, document.getElementById("b-preview"));
+        preview(this, document.getElementById("img-2-preview"));
         $(el).attr("data-current", "1");
     };
 
-    document.getElementById("c-1").onchange = function () {
-        var el = $("#c-preview");
+    document.getElementById("img-3").onchange = function () {
+        var el = $("#img-3-preview");
         $(el).attr("style", "");
         $(el).addClass("img-responsive");
-        preview(this, document.getElementById("c-preview"));
+        preview(this, document.getElementById("img-3-preview"));
         $(el).attr("data-current", "1");
     };
 
-    document.getElementById("d-1").onchange = function () {
-        var el = $("#d-preview");
+    document.getElementById("img-4").onchange = function () {
+        var el = $("#img-4-preview");
         $(el).attr("style", "");
         $(el).addClass("img-responsive");
-        preview(this, document.getElementById("d-preview"));
+        preview(this, document.getElementById("img-4-preview"));
         $(el).attr("data-current", "1");
     };
 
-
-    var doors = $(".door");
-
-    $(doors).mouseover(function() {
-        if($(this).data("current") == 1) {
-            $(this).data("current", "0");
-            var input = $("#" + $(this).attr("id")[0] + "-0");
-            preview(input, this);
-        }
-    });
-
-    $(doors).mouseout(function() {
-        if($(this).data("current") == 0) {
-            $(this).data("current", "1");
-            var input = $("#" + $(this).attr("id")[0] + "-1");
-            preview(input, this);
-        }
-    });
 
     function verifyDimensions(input) {
         var file;

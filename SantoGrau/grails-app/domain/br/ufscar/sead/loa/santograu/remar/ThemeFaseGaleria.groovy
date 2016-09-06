@@ -1,9 +1,6 @@
 package br.ufscar.sead.loa.santograu.remar
 
-class FaseGaleria {
-    String orientacao
-    long themeId;
-
+class ThemeFaseGaleria {
     long ownerId
     String taskId
 
