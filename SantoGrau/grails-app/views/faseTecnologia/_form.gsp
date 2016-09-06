@@ -19,7 +19,6 @@
 	<div class="input-field col s12">
 		<div class="input-field col s6">
 			<select>
-				<option class="option" value="-1" selected>Todas</option>
 				<g:if test="${faseTecnologiaInstance.constraints.tipoLink.inList.size() > 0}">
 					<g:each in="${faseTecnologiaInstance.constraints.tipoLink.inList}" var="tipoLink">
 						<option class="option" value="${tipoLink}">${tipoLink}</option>
