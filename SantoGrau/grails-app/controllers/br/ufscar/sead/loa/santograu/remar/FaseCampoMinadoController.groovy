@@ -1,6 +1,7 @@
 package br.ufscar.sead.loa.santograu.remar
 
 import grails.plugin.springsecurity.annotation.Secured
+import org.springframework.web.multipart.MultipartFile
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -115,5 +116,29 @@ class FaseCampoMinadoController {
                     questionFaseCampoMinadoInstance.id
         }
 
+    }
+
+    @Transactional
+    def generateQuestions(){
+        MultipartFile csv = params.csv
+
+        csv.inputStream.toCsvReader([ 'separatorChar': ';']).eachLine { row ->
+            QuestionFaseCampoMinado questionInstance = new QuestionFaseCampoMinado()
+            questionInstance.title = row[1] ?: "NA";
+            questionInstance.answers[0] = row[2] ?: "NA";
+            questionInstance.answers[1] = row[3] ?: "NA";
+            questionInstance.answers[2] = row[4] ?: "NA";
+            questionInstance.answers[3] = row[5] ?: "NA";
+            questionInstance.answers[4] = row[6] ?: "NA";
+            String correct = row[7] ?: "NA";
+            questionInstance.correctAnswer =  (correct.toInteger() -1)
+            questionInstance.taskId = session.taskId as String
+            questionInstance.ownerId = session.user.id as long
+            questionInstance.save flush: true
+            println(questionInstance.taskId)
+            println(questionInstance)
+            println(questionInstance.errors)
+        }
+        redirect(action: index())
     }
 }
