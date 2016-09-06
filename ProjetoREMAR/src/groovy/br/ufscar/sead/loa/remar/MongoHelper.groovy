@@ -4,6 +4,7 @@ import com.mongodb.MongoCredential
 import com.mongodb.ServerAddress
 import com.mongodb.client.MongoDatabase
 import com.mongodb.MongoClient
+import com.mongodb.client.model.Filters
 import org.bson.Document
 import org.bson.types.ObjectId
 
@@ -153,8 +154,6 @@ class MongoHelper {
         return paths
     }
 
-
-
     def getCollectionForId(String collection,String id){
         return db.getCollection(collection).find(new Document("_id", new ObjectId(id)))
     }
@@ -178,6 +177,10 @@ class MongoHelper {
         }
 
         return false
+    }
+
+    def removeDataFromUri(String collectionName, String value){
+        db.getCollection(collectionName).deleteOne(Filters.in("uri",value))
     }
 
 }

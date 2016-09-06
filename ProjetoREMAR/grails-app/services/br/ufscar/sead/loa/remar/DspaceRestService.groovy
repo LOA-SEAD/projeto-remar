@@ -347,6 +347,45 @@ class DspaceRestService {
 
 
     /**
+     * Deleta uma comunidade do Dspace
+     * @params id da comunidade
+     * @return ---
+     * */
+    def deleteCommunity(communityId) throws SocketTimeoutException, RuntimeException{
+
+        if(Integer.parseInt(communityId.toString())>0){
+            login()
+            def resp = this.rest.delete("${this.restUrl}/communities/${communityId}"){
+                header 'rest-dspace-token', token
+            }
+            logout()
+            return resp.body
+        }else{
+            throw new RuntimeException("Error in deleteCommunity: communityId has value less than zero")
+        }
+    }
+
+    /**
+     * Deleta uma coleção do dspace
+     * @params id da coleção
+     * @return ---
+     * */
+    def deleteCollection(collectionId) throws SocketTimeoutException, RuntimeException{
+
+        if(Integer.parseInt(collectionId.toString())>0){
+            login()
+            def resp = this.rest.delete("${this.restUrl}/collections/${collectionId}"){
+                header 'rest-dspace-token', token
+            }
+            logout()
+            return resp.body
+        }else{
+            throw new RuntimeException("Error in deleteCollection: collectionId has value less than zero")
+        }
+    }
+
+
+    /**
      * Cria uma nova subcomunidade na comunidade especificada ou caso ela não seja especificada,
      * na comunidade principal (mainCommunity). O formato do metadados deve ser:
      * {

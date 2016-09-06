@@ -12,6 +12,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
 import java.security.MessageDigest
+import java.sql.SQLException
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -275,16 +276,26 @@ class ResourceController {
         }
 
         if (resourceInstance.owner == session.user || session.user.username == 'admin') {
-            resourceInstance.delete flush: true
 
-            new AntBuilder().sequential {
-                delete(dir: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}"))
-                delete(dir: servletContext.getRealPath("/propeller/${resourceInstance.uri}"))
-            }
+           try{
+               resourceInstance.delete flush: true
 
-            Propeller.instance.undeploy(resourceInstance.uri)
-            response.status = 205
-            render 205
+               new AntBuilder().sequential {
+                   delete(dir: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}"))
+                   delete(dir: servletContext.getRealPath("/propeller/${resourceInstance.uri}"))
+               }
+
+               Propeller.instance.undeploy(resourceInstance.uri)
+
+               if(grailsApplication.config.dspace.restUrl) { //se existir dspace
+                   MongoHelper.instance.removeDataFromUri('resource_dspace',resourceInstance.uri)
+               }
+
+               response.status = 205
+               render 205
+           }catch (Exception e){
+                    render "sqlError"
+           }
         } else {
             log.debug "Someone is trying to delete a resource that belongs to other user"
         }
