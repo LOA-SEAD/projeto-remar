@@ -10,7 +10,7 @@
 	</head>
 	<body>
 	<g:form url="[action:'ImagesManager']"  enctype="multipart/form-data">
-		<div class="form">
+		<div class="form" style="margin-bottom:80px">
 
 			<div class="cluster-header">
 				<p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
@@ -112,6 +112,12 @@
 										</tr>
 										</tbody>
 									</table>
+									<div class="row">
+										<div class="col s1 m1 l1 offset-s11 offset-m11 offset-l11">
+											<a name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Adicionar mais imagens">
+												<i class="material-icons" onclick="addImage()">add</i></a>
+										</div>
+									</div>
 								</div>
 							</li>
 							<li>
@@ -161,10 +167,18 @@
 					</div>
 				</div>
 			</g:uploadForm>
-
 			<input id="upload" type="submit" name="upload" class="btn btn-success my-orange" value="Criar"/>
 		</div>
 	</g:form>
+
+	<div id="limitOfImagesModal" class="modal">
+		<div class="modal-content">
+			Você pode criar um tema com no máximo 10 imagens.
+		</div>
+		<div class="modal-footer">
+			<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
+		</div>
+	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
 	<script>
 

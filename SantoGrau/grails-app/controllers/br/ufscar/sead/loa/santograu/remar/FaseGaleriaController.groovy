@@ -140,31 +140,21 @@ class FaseGaleriaController {
 //        def openingUploaded = request.getFile('opening')
 //        def backgroundUploaded = request.getFile('background')
 
-        def img1Uploaded = request.getFile("img-1")
-        def img2Uploaded = request.getFile("img-2")
-        def img3Uploaded = request.getFile("img-3")
-        def img4Uploaded = request.getFile("img-4")
-
-
-
-        if(!img1Uploaded.isEmpty() || !img2Uploaded.isEmpty() || !img3Uploaded.isEmpty() ||
-                !img4Uploaded.isEmpty()) {
-
-            def img1 = new File("$userPath/image1.png")
-            def img2 = new File("$userPath/image2.png")
-            def img3 = new File("$userPath/image3.png")
-            def img4 = new File("$userPath/image4.png")
-
-            img1Uploaded.transferTo(img1)
-            img2Uploaded.transferTo(img2)
-            img3Uploaded.transferTo(img3)
-            img4Uploaded.transferTo(img4)
-
-
-//            VerifyAndUpload(originalIconUploaded, userPath)
-//            VerifyAndUpload(originalOpeningUploaded, userPath)
-//            VerifyAndUpload(originalBackgroundUploaded, userPath)
+        def imagesUploaded = []
+        int qtsImagens=0;
+        for(def i=1;i<=10;i++) {
+            def caminhoImg = "img-" + i
+            if(request.getFile(caminhoImg) != null) {
+                imagesUploaded[qtsImagens++] = request.getFile(caminhoImg);
+            }
         }
+
+
+            for(def i=1;i<=qtsImagens;i++) {
+                def image = new File("$userPath/image " + i + ".png")
+                if(imagesUploaded[i-1].size > 0)
+                    imagesUploaded[i-1].transferTo(image)
+            }
 
         redirect(action:"index")
 

@@ -89,6 +89,27 @@ window.onload = function() {
 
 
     }
+
+
 }
 
+var qtdeImagens = 4;
+
+function addImage() {
+    if(qtdeImagens < 10) {
+        qtdeImagens++;
+        var newRow = "<tr><td>Imagem " + qtdeImagens + "</td><td>" +
+            "<div class='row' style='height: 200px;'> " +
+            "<img id='img-" + qtdeImagens + "-preview' height='200' />" +
+            "</div></td><td><div class='file-field input-field'>" +
+            "<div class='btn right'><span>File</span> " +
+            "<input data-image='true' type='file' name='img-" + qtdeImagens + "' id='img-" +qtdeImagens+ "'></div>" +
+            "<div class='file-path-wrapper'><input class='file-path validate' type='text' placeholder='URL da imagem'> " +
+            "</div></div></td></tr>";
+        console.log(newRow);
+        $("#tableNewTheme tbody").append(newRow);
+    } else {
+        $("#limitOfImagesModal").openModal();
+    }
+}
 

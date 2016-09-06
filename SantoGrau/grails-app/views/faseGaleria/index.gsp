@@ -43,6 +43,12 @@
 										<th class="simpleTable">Imagem 2</th>
 										<th class="simpleTable">Imagem 3</th>
 										<th class="simpleTable">Imagem 4</th>
+										<th class="simpleTable">Imagem 5</th>
+										<th class="simpleTable">Imagem 6</th>
+										<th class="simpleTable">Imagem 7</th>
+										<th class="simpleTable">Imagem 8</th>
+										<th class="simpleTable">Imagem 9</th>
+										<th class="simpleTable">Imagem 10</th>
 										<th class="simpleTable">Ação</th>
 									</tr>
 									</thead>
@@ -66,6 +72,12 @@
 											<td align="center"><img width="142"
 																	src="/santograu/data/${fieldValue(bean: themeFaseGaleriaInstance, field: "ownerId")}/themes/${fieldValue(bean: themeFaseGaleriaInstance, field: "id")}/image4.png"
 																	class="img-responsive max"/></td>
+											<td>.</td>
+											<td>.</td>
+											<td>.</td>
+											<td>.</td>
+											<td>.</td>
+											<td>.</td>
 											<td align="center"><i id="MydeleteIcon${i}" style="color: #7d8fff" class="material-icons delete">delete</i></td>
 										</tr>
 									</g:each>
