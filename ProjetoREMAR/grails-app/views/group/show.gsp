@@ -177,7 +177,7 @@
                             <div class="center">
                                 <g:if test="${group.owner.id == session.user.id}">
                                     <div class="col l4">
-                                        <a class="modal-trigger" href="#modal-confirmation-exported-resource" style="cursor: pointer" >
+                                        <a class="modal-trigger" href="#modal-confirmation-exported-resource-${groupExportedResource.id}" style="cursor: pointer" >
                                             <i class="fa fa-trash fa-2x" style="color: #FF5722;"></i>
                                         </a>
                                     </div>
@@ -193,7 +193,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="modal-confirmation-exported-resource" class="modal">
+                <div id="modal-confirmation-exported-resource-${groupExportedResource.id}" class="modal">
                     <div class="modal-content">
                         <p>Tem certeza que deseja realizar esta ação</p>
                     </div>
