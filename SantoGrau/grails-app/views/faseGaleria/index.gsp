@@ -58,26 +58,69 @@
 											<td class="myTheme simpleTable" align="center "><input class="with-gap " name="radio" type="radio" id="myTheme${i}"
 																								   value="${fieldValue(bean: themeFaseGaleriaInstance, field: "id")}" > <label for="myTheme${i}"></label>
 											</td>
-											<td align="center"><img width="142"
+											<td align="center"><img width="100"
 																	src="/santograu/data/${fieldValue(bean: themeFaseGaleriaInstance, field: "ownerId")}/themes/${fieldValue(bean: themeFaseGaleriaInstance, field: "id")}/image1.png"
 																	class="img-responsive max"/></td>
-											<td align="center"><img width="142"
+											<td align="center"><img width="100"
 																	src="/santograu/data/${fieldValue(bean: themeFaseGaleriaInstance, field: "ownerId")}/themes/${fieldValue(bean: themeFaseGaleriaInstance, field: "id")}/image2.png"
 																	class="img-responsive max"/></td>
 
-											<td align="center"><img width="142"
+											<td align="center"><img width="100"
 																	src="/santograu/data/${fieldValue(bean: themeFaseGaleriaInstance, field: "ownerId")}/themes/${fieldValue(bean: themeFaseGaleriaInstance, field: "id")}/image3.png"
 																	class="img-responsive max"/></td>
 
-											<td align="center"><img width="142"
+											<td align="center"><img width="100"
 																	src="/santograu/data/${fieldValue(bean: themeFaseGaleriaInstance, field: "ownerId")}/themes/${fieldValue(bean: themeFaseGaleriaInstance, field: "id")}/image4.png"
 																	class="img-responsive max"/></td>
-											<td>.</td>
-											<td>.</td>
-											<td>.</td>
-											<td>.</td>
-											<td>.</td>
-											<td>.</td>
+
+											<g:if test="${themeFaseGaleriaInstance.howManyImages > 4}">
+												<td align="center"><img width="100"
+																		src="/santograu/data/${fieldValue(bean: themeFaseGaleriaInstance, field: "ownerId")}/themes/${fieldValue(bean: themeFaseGaleriaInstance, field: "id")}/image5.png"
+																		class="img-responsive max"/></td>
+											</g:if>
+											<g:else>
+												<td></td>
+											</g:else>
+											<g:if test="${themeFaseGaleriaInstance.howManyImages > 5}">
+												<td align="center"><img width="100"
+																		src="/santograu/data/${fieldValue(bean: themeFaseGaleriaInstance, field: "ownerId")}/themes/${fieldValue(bean: themeFaseGaleriaInstance, field: "id")}/image6.png"
+																		class="img-responsive max"/></td>
+											</g:if>
+											<g:else>
+												<td></td>
+											</g:else>
+											<g:if test="${themeFaseGaleriaInstance.howManyImages > 6}">
+												<td align="center"><img width="100"
+																		src="/santograu/data/${fieldValue(bean: themeFaseGaleriaInstance, field: "ownerId")}/themes/${fieldValue(bean: themeFaseGaleriaInstance, field: "id")}/image7.png"
+																		class="img-responsive max"/></td>
+											</g:if>
+											<g:else>
+												<td></td>
+											</g:else>
+											<g:if test="${themeFaseGaleriaInstance.howManyImages > 7}">
+												<td align="center"><img width="100"
+																		src="/santograu/data/${fieldValue(bean: themeFaseGaleriaInstance, field: "ownerId")}/themes/${fieldValue(bean: themeFaseGaleriaInstance, field: "id")}/image8.png"
+																		class="img-responsive max"/></td>
+											</g:if>
+											<g:else>
+												<td></td>
+											</g:else>
+											<g:if test="${themeFaseGaleriaInstance.howManyImages > 8}">
+												<td align="center"><img width="100"
+																		src="/santograu/data/${fieldValue(bean: themeFaseGaleriaInstance, field: "ownerId")}/themes/${fieldValue(bean: themeFaseGaleriaInstance, field: "id")}/image9.png"
+																		class="img-responsive max"/></td>
+											</g:if>
+											<g:else>
+												<td></td>
+											</g:else>
+											<g:if test="${themeFaseGaleriaInstance.howManyImages > 9}">
+												<td align="center"><img width="100"
+																		src="/santograu/data/${fieldValue(bean: themeFaseGaleriaInstance, field: "ownerId")}/themes/${fieldValue(bean: themeFaseGaleriaInstance, field: "id")}/image10.png"
+																		class="img-responsive max"/></td>
+											</g:if>
+											<g:else>
+												<td></td>
+											</g:else>
 											<td align="center"><i id="MydeleteIcon${i}" style="color: #7d8fff" class="material-icons delete">delete</i></td>
 										</tr>
 									</g:each>

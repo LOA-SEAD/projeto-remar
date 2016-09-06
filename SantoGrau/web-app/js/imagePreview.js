@@ -3,37 +3,15 @@
  */
 
 window.onload = function() {
-    document.getElementById("img-1").onchange = function () {
-        var el = $("#img-1-preview");
+    $(document).on("change", ".image-input", function() {
+        var elID = $(this).attr("id");
+        var placeholder = elID + "-preview";
+        var el = $("#" + placeholder);
         $(el).attr("style", "");
         $(el).addClass("img-responsive");
-        preview(this, document.getElementById("img-1-preview"));
+        preview(this, document.getElementById(placeholder));
         $(el).attr("data-current", "1");
-    };
-
-    document.getElementById("img-2").onchange = function () {
-        var el = $("#img-2-preview");
-        $(el).attr("style", "");
-        $(el).addClass("img-responsive");
-        preview(this, document.getElementById("img-2-preview"));
-        $(el).attr("data-current", "1");
-    };
-
-    document.getElementById("img-3").onchange = function () {
-        var el = $("#img-3-preview");
-        $(el).attr("style", "");
-        $(el).addClass("img-responsive");
-        preview(this, document.getElementById("img-3-preview"));
-        $(el).attr("data-current", "1");
-    };
-
-    document.getElementById("img-4").onchange = function () {
-        var el = $("#img-4-preview");
-        $(el).attr("style", "");
-        $(el).addClass("img-responsive");
-        preview(this, document.getElementById("img-4-preview"));
-        $(el).attr("data-current", "1");
-    };
+    });
 
 
     function verifyDimensions(input) {
@@ -103,10 +81,9 @@ function addImage() {
             "<img id='img-" + qtdeImagens + "-preview' height='200' />" +
             "</div></td><td><div class='file-field input-field'>" +
             "<div class='btn right'><span>File</span> " +
-            "<input data-image='true' type='file' name='img-" + qtdeImagens + "' id='img-" +qtdeImagens+ "'></div>" +
+            "<input data-image='true' type='file' name='img-" + qtdeImagens + "' id='img-" +qtdeImagens+ "' class='image-input'></div>" +
             "<div class='file-path-wrapper'><input class='file-path validate' type='text' placeholder='URL da imagem'> " +
             "</div></div></td></tr>";
-        console.log(newRow);
         $("#tableNewTheme tbody").append(newRow);
     } else {
         $("#limitOfImagesModal").openModal();

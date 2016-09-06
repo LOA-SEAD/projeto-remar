@@ -130,7 +130,16 @@ class FaseGaleriaController {
         session.taskId = "57c42aca9e04b91a75a80f75"
         session.user = springSecurityService.currentUser
 
-        def theme = new ThemeFaseGaleria(ownerId: session.user.id, taskId: session.taskId).save flush: true
+        def imagesUploaded = []
+        int qtsImagens=0;
+        for(def i=1;i<=10;i++) {
+            def caminhoImg = "img-" + i
+            if(request.getFile(caminhoImg) != null && request.getFile(caminhoImg).size > 0) {
+                imagesUploaded[qtsImagens++] = request.getFile(caminhoImg);
+            }
+        }
+
+        def theme = new ThemeFaseGaleria(ownerId: session.user.id, taskId: session.taskId, howManyImages: qtsImagens).save flush: true
 
         def dataPath = servletContext.getRealPath("/data")
         def userPath = new File(dataPath, "/" + session.user.id + "/themes/" + theme.getId())
@@ -140,21 +149,10 @@ class FaseGaleriaController {
 //        def openingUploaded = request.getFile('opening')
 //        def backgroundUploaded = request.getFile('background')
 
-        def imagesUploaded = []
-        int qtsImagens=0;
-        for(def i=1;i<=10;i++) {
-            def caminhoImg = "img-" + i
-            if(request.getFile(caminhoImg) != null) {
-                imagesUploaded[qtsImagens++] = request.getFile(caminhoImg);
-            }
+        for(def i=1;i<=qtsImagens;i++) {
+            def image = new File("$userPath/image" + i + ".png")
+            imagesUploaded[i-1].transferTo(image)
         }
-
-
-            for(def i=1;i<=qtsImagens;i++) {
-                def image = new File("$userPath/image " + i + ".png")
-                if(imagesUploaded[i-1].size > 0)
-                    imagesUploaded[i-1].transferTo(image)
-            }
 
         redirect(action:"index")
 

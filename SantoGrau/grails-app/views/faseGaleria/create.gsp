@@ -38,14 +38,14 @@
 											<td>Imagem 1</td>
 											<td>
 												<div class="row" style="height: 200px;">
-													<img id="img-1-preview" class="door" height="200" />
+													<img id="img-1-preview" height="200" />
 												</div>
 											</td>
 											<td>
 												<div class="file-field input-field">
 													<div class="btn right">
 														<span>File</span>
-														<input data-image="true" type="file" name="img-1" id="img-1">
+														<input data-image="true" type="file" name="img-1" id="img-1" class="image-input" >
 													</div>
 													<div class="file-path-wrapper">
 														<input class="file-path validate" type="text" placeholder="URL da imagem">
@@ -57,14 +57,14 @@
 											<td>Imagem 2</td>
 											<td>
 												<div class="row" style="height: 200px;">
-													<img id="img-2-preview" class="door" height="200"/>
+													<img id="img-2-preview" height="200"/>
 												</div>
 											</td>
 											<td>
 												<div class="file-field input-field">
 													<div class="btn right">
 														<span>File</span>
-														<input data-image="true" type="file" name="img-2" id="img-2">
+														<input data-image="true" type="file" name="img-2" id="img-2" class="image-input">
 													</div>
 													<div class="file-path-wrapper">
 														<input class="file-path validate" type="text" placeholder="URL da imagem">
@@ -76,14 +76,14 @@
 											<td>Imagem 3</td>
 											<td>
 												<div class="row" style="height: 200px;">
-													<img id="img-3-preview" class="door" height="200"/>
+													<img id="img-3-preview" height="200"/>
 												</div>
 											</td>
 											<td>
 												<div class="file-field input-field">
 													<div class="btn right">
 														<span>File</span>
-														<input data-image="true" type="file" name="img-3" id="img-3">
+														<input data-image="true" type="file" name="img-3" id="img-3" class="image-input">
 													</div>
 													<div class="file-path-wrapper">
 														<input class="file-path validate" type="text" placeholder="URL da imagem">
@@ -95,14 +95,14 @@
 											<td>Imagem 4</td>
 											<td>
 												<div class="row" style="height: 200px;">
-													<img id="img-4-preview" class="door" height="200"/>
+													<img id="img-4-preview" height="200"/>
 												</div>
 											</td>
 											<td>
 												<div class="file-field input-field">
 													<div class="btn right">
 														<span>File</span>
-														<input data-image="true" type="file" name="img-4" id="img-4">
+														<input data-image="true" type="file" name="img-4" id="img-4" class="image-input">
 													</div>
 													<div class="file-path-wrapper">
 														<input class="file-path validate" type="text" placeholder="URL da imagem">
