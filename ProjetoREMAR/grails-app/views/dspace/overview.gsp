@@ -149,7 +149,7 @@
 </div>
 
 
-<g:javascript src="dspace.js"/>
+<g:javascript src="dspace/dspace.js"/>
 <g:javascript src="dspace/checkMetadata.js"/>
 
 </body>

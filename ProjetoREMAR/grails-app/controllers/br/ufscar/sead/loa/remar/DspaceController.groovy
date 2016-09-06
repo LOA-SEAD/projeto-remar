@@ -125,9 +125,11 @@ class DspaceController {
     * */
     def listMetadata() {
         def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
+        def resource = Resource.findById(Long.parseLong(current_task.getProcess().getVariable("resourceId")))
 
         if(current_task.getVariable("step") == null){
            render view: '_itemMetadata', model: [task: current_task,
+                                                 resource: resource,
                                                  metadataForm: new MetadataForm()]
         }
         else{
