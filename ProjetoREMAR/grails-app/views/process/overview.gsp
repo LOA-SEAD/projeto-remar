@@ -155,9 +155,9 @@
                 <!-- Fim 2 Etapa - tarefas -->
                 <div class="row">
                     <div class="col s12 m12 l12">
-                        <input name="id" type="hidden" value="${process.id}">
+                        <input name="id" id="processId" type="hidden" value="${process.id}">
                         <a id="submitButtonDisabled" class="btn disabled right hide">Publicar</a>
-                        <g:submitButton id="submitButton" name="Submit" value="PUBLICAR" class="btn my-orange right hide"/>
+                        <a  onclick="finishGame()" id="submitButton" name="Submit" value="PUBLICAR" class="btn my-orange right hide"> Publicar </a>
                     </div>
                 </div>
             </g:form>
