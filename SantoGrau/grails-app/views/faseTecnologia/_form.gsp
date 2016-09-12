@@ -36,7 +36,7 @@
 		<g:message code="faseTecnologia.palavras1.label" default="Palavra 1: " />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field name="palavras1" type="text" value="${faseTecnologiaInstance.palavras[0]}" required=""/>
+	<g:field name="palavras1" type="text" value="${faseTecnologiaInstance.palavras[0]}" required="" length="25" maxlength="25" class="validate"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: faseTecnologiaInstance, field: 'palavras2', 'error')} required">
@@ -44,7 +44,7 @@
 		<g:message code="faseTecnologia.palavras2.label" default="Palavra 2: " />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field name="palavras2" type="text" value="${faseTecnologiaInstance.palavras[1]}" required=""/>
+	<g:field name="palavras2" type="text" value="${faseTecnologiaInstance.palavras[1]}" required="" length="25" maxlength="25" class="validate"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: faseTecnologiaInstance, field: 'palavras3', 'error')} required">
@@ -52,6 +52,6 @@
 		<g:message code="faseTecnologia.palavras3.label" default="Palavra 3: " />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field name="palavras3" type="text" value="${faseTecnologiaInstance.palavras[2]}" required=""/>
+	<g:field name="palavras3" type="text" value="${faseTecnologiaInstance.palavras[2]}" required="" length="25" maxlength="25" class="validate"/>
 </div>
 
