@@ -7,6 +7,9 @@
         <title>Fase Tecnologia</title>
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script type="text/javascript" src="/santograu/js/faseTecnologia.js"></script>
         <g:javascript src="iframeResizer.contentWindow.min.js"/>
 		<script type="text/javascript">//<![CDATA[
 		window.onload=function(){
@@ -29,7 +32,9 @@
 					<g:render template="form"/>
 				</div>
 				<div class="buttons col s1 m1 l1 offset-s8 offset-m10 offset-l10" style="margin-top:20px">
-					<g:submitButton class="btn my-orange" name="btnEnviar" value="Enviar"/>
+					<button class="btn waves-effect waves-light my-orange" type="submit" name="save" id="submitButton" onclick="_submit()">Enviar
+						<i class="material-icons">send</i>
+					</button>
 				</div>
 			</g:form>
 		</div>

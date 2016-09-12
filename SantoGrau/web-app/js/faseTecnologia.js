@@ -1,0 +1,31 @@
+/**
+ * Created by leticia on 12/09/16.
+ */
+
+function _submit() {
+    if ($("#palavras1").val() != "" && $("#palavras2").val() != "" && $("#palavras3").val() != "" && $("#orientacao").val() != "") {
+        var words = [];
+        var link = $("#link").val();
+        var tipoLink = "";
+
+        words.push($("#palavras1").val());
+        words.push($("#palavras2").val());
+        words.push($("#palavras3").val());
+
+        console.log("PALAVRAS: " + words);
+
+        //Chama controlador para salvar questões em arquivos .json
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            url: "/santograu/faseTecnologia/exportQuestions",
+            data: {words: words, link: link, tipoLink: tipoLink},
+            success: function (returndata) {
+                window.top.location.href = returndata;
+            },
+            error: function (returndata) {
+                alert("Error:\n" + returndata.responseText);
+            }
+        });
+    }
+}
