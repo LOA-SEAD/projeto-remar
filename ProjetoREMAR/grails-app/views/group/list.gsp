@@ -75,10 +75,9 @@
                 </div>
             %{--</g:form>--}%
         </div>
-         <div class="row">
-
+         <div class="row" id="belong">
             <g:if test="${groupsIBelong.empty}">
-                <h5 class="center-align">Você ainda não pertence a um grupo :(</h5>
+                <h5 class="center-align no-groups-message">Você ainda não pertence a um grupo :(</h5>
             </g:if>
             <g:else>
                 <g:each var="group" in="${groupsIBelong}">
