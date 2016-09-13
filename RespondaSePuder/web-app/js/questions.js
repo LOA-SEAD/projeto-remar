@@ -16,7 +16,6 @@ window.onload = function(){
         });
     });
 
-    orderTable();
 };
 
 
@@ -305,16 +304,88 @@ function exportQuestions(){
 
 }
 
-function orderTable(){
-    var table = $("#levelLabel").parents('table').eq(0)
-    var rows = table.find('tr:gt(0)').toArray().sort(compare($("#levelLabel").index()))
-    $("#levelLabel").asc = !$("#levelLabel").asc
+function sortTableByLevel(){
+    var table = $("#levelLabel").parents('table').eq(0);
+    var rows = table.find('tr:gt(0)').toArray().sort(compare($("#levelLabel").index()));
+    $("#levelLabel").asc = !$("#levelLabel").asc;
     if ($("#levelLabel").asc){rows = rows.reverse()}
     for (var i = 0; i < rows.length; i++){table.append(rows[i])}
 
     function compare(index){
         return function(a, b) {
             var valA = getCellValue(a, index), valB = getCellValue(b, index)
+            return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB)
+        }
+    }
+    function getCellValue(row, index){
+        return $(row).children('td').eq(index).html()
+    }
+}
+
+function sortTableByName(){
+    var table = $("#statementLabel").parents('table').eq(0);
+    var rows = table.find('tr:gt(0)').toArray().sort(compare($("#statementLabel").index()));
+    $("#statementLabel").asc = !$("#statementLabel").asc;
+    if ($("#statementLabel").asc){rows = rows.reverse()}
+    for (var i = 0; i < rows.length; i++){table.append(rows[i])}
+
+    function compare(index){
+        return function(a, b) {
+            var valA = getCellValue(a, index), valB = getCellValue(b, index);
+            return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB)
+        }
+    }
+    function getCellValue(row, index){
+        return $(row).children('td').eq(index).html()
+    }
+}
+
+function sortTableByAnswer(){
+    var table = $("#answerLabel").parents('table').eq(0);
+    var rows = table.find('tr:gt(0)').toArray().sort(compare($("#answerLabel").index()));
+    $("#answerLabel").asc = !$("#answerLabel").asc;
+    if ($("#answerLabel").asc){rows = rows.reverse()}
+    for (var i = 0; i < rows.length; i++){table.append(rows[i])}
+
+    function compare(index){
+        return function(a, b) {
+            var valA = getCellValue(a, index), valB = getCellValue(b, index);
+            return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB)
+        }
+    }
+    function getCellValue(row, index){
+        return $(row).children('td').eq(index).html()
+    }
+}
+
+function sortTableByCorrectAnswer(){
+    var table = $("#correctAnswerLabel").parents('table').eq(0);
+    var rows = table.find('tr:gt(0)').toArray().sort(compare($("#correctAnswerLabel").index()));
+    $("#correctAnswerLabel").asc = !$("#correctAnswerLabel").asc;
+    if ($("#correctAnswerLabel").asc){rows = rows.reverse()}
+    for (var i = 0; i < rows.length; i++){table.append(rows[i])}
+
+    function compare(index){
+        return function(a, b) {
+            var valA = getCellValue(a, index), valB = getCellValue(b, index);
+            return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB)
+        }
+    }
+    function getCellValue(row, index){
+        return $(row).children('td').eq(index).html()
+    }
+}
+
+function sortTableByHint(){
+    var table = $("#hintLabel").parents('table').eq(0);
+    var rows = table.find('tr:gt(0)').toArray().sort(compare($("#hintLabel").index()));
+    $("#hintLabel").asc = !$("#hintLabel").asc;
+    if ($("#hintLabel").asc){rows = rows.reverse()}
+    for (var i = 0; i < rows.length; i++){table.append(rows[i])}
+
+    function compare(index){
+        return function(a, b) {
+            var valA = getCellValue(a, index), valB = getCellValue(b, index);
             return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB)
         }
     }
