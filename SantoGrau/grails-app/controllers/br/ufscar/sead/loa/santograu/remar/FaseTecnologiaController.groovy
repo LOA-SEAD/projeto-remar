@@ -16,8 +16,7 @@ class FaseTecnologiaController {
     @Secured(['permitAll'])
     def index(Integer max) {
         session.taskId = "57c42aca9e04b91a75a80f75"
-        session.user = 1//springSecurityService.currentUser
-        params.max = Math.min(max ?: 10, 100)
+        session.user = springSecurityService.currentUser
         respond new FaseTecnologia(params)
     }
 
@@ -117,14 +116,19 @@ class FaseTecnologiaController {
 
     @Secured(['permitAll'])
     def exportQuestions(){
-        //Criando lista de palavras
+        //cria a instancia da fase tecnologia com os valores digitados pelo usuario
         FaseTecnologia faseTecnologia = new FaseTecnologia()
         faseTecnologia.palavras[0] = params.words[0]
         faseTecnologia.palavras[1] = params.words[1]
         faseTecnologia.palavras[2] = params.words[2]
-        println(faseTecnologia.palavras)
+        faseTecnologia.link = params.link
+        faseTecnologia.tipoLink = params.tipoLink
 
-        createJsonFile("computadores.json", faseTecnologia)
+        //cria os arquivos json e html da fase
+        createJsonFileComputadores("computadores.json", faseTecnologia)
+        createHtmlFileTelao("telao.html", faseTecnologia)
+
+        respond new FaseTecnologia(params)
         //def ids = []
         //def folder = servletContext.getRealPath("/data/${session.user.id}/${session.taskId}")
 
@@ -141,7 +145,7 @@ class FaseTecnologiaController {
 
     }
 
-    void createJsonFile(String fileName, FaseTecnologia faseTecnologia){
+    void createJsonFileComputadores(String fileName, FaseTecnologia faseTecnologia){
         def dataPath = servletContext.getRealPath("/data")
         def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
         instancePath.mkdirs()
@@ -152,5 +156,34 @@ class FaseTecnologiaController {
         pw.write("\"words\":[\"" + faseTecnologia.palavras[0] + "\",\""+ faseTecnologia.palavras[1] +"\",\""+ faseTecnologia.palavras[2] +"\"]\n")
         pw.write("}");
         pw.close();
+    }
+
+    void createHtmlFileTelao(String fileName, FaseTecnologia faseTecnologia){
+        def dataPath = servletContext.getRealPath("/data")
+        def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
+        instancePath.mkdirs()
+
+        File file = new File("$instancePath/"+fileName);
+        PrintWriter pw = new PrintWriter(file);
+
+        if(faseTecnologia.tipoLink == FaseTecnologia.LINK_YOUTUBE) {
+            faseTecnologia.link = fixYoutubeLink(faseTecnologia.link)
+            println faseTecnologia.link
+            pw.write("<html>\n");
+            pw.write("<body style=\"margin: 0 !important;\">\n")
+            pw.write("<iframe width=\"334\" height=\"201\" src=\"" + faseTecnologia.link + "\" frameborder=\"0\" ")
+            pw.write("style=\"background: #000000\" allowfullscreen></iframe>")
+            pw.write("</body>\n")
+            pw.write("</html>")
+        }
+
+        pw.close();
+    }
+
+    String fixYoutubeLink(String link) {
+        if(link.contains("embed"))
+            return link;
+        def pos = link.indexOf("v=")
+        return "www.youtube.com/embed/" + link.substring(pos+2)
     }
 }

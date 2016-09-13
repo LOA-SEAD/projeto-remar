@@ -6,7 +6,7 @@ function _submit() {
     if ($("#palavras1").val() != "" && $("#palavras2").val() != "" && $("#palavras3").val() != "" && $("#orientacao").val() != "") {
         var words = [];
         var link = $("#link").val();
-        var tipoLink = "";
+        var tipoLink = $("#tipo-link").val();
 
         words.push($("#palavras1").val());
         words.push($("#palavras2").val());
