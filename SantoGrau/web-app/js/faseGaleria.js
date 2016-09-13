@@ -67,7 +67,7 @@ function _save() {
     else {
         var themeId = document.forms["formName"].elements["radio"].value
         var data = {_method: 'POST', orientacao: $("#orientacao").val(), themeId: themeId};
-        var url = "save";
+        var url = "/santograu/faseGaleria/exportLevel";
         $.ajax({
             type: 'POST',
             data: data,

@@ -4,12 +4,13 @@ import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import org.apache.tools.ant.util.FileUtils
 
 @Secured(["isAuthenticated()"])
 class FaseGaleriaController {
     def springSecurityService
 
-    static allowedMethods = [save: "POST", saveLevel: "PUT", update: "PUT", delete: "DELETE", deleteTheme: "DELETE", imagesManager: "POST"]
+    static allowedMethods = [save: "POST", saveLevel: "PUT", update: "PUT", delete: "DELETE", deleteTheme: "DELETE", imagesManager: "POST", exportLevel:"POST"]
 
     @Secured(['permitAll'])
     def index(Integer max) {
@@ -39,6 +40,10 @@ class FaseGaleriaController {
         faseGaleriaInstance.save flush:true
 
         redirect(action: "index")
+    }
+
+    def saveFaseGaleria(FaseGaleria faseGaleriaInstance) {
+        faseGaleriaInstance.save flush:true
     }
 
     def saveLevel() {
@@ -156,5 +161,73 @@ class FaseGaleriaController {
 
         redirect(action:"index")
 
+    }
+
+    @Secured(['permitAll'])
+    def exportLevel(){
+        //cria a instancia da fase galeria com os valores inseridos pelo usuario
+        FaseGaleria faseGaleria = new FaseGaleria()
+        faseGaleria.themeId = Long.parseLong(params.themeId)
+        faseGaleria.orientacao = params.orientacao
+        faseGaleria.ownerId = session.user.id as long
+        faseGaleria.taskId = session.taskId as String
+
+        //salva os dados da fase no BD
+        saveFaseGaleria(faseGaleria)
+
+        //cria o arquivo json da fase
+        createJsonFile("Quadros.json", faseGaleria)
+
+        respond new FaseGaleria(params)
+        //def ids = []
+        //def folder = servletContext.getRealPath("/data/${session.user.id}/${session.taskId}")
+
+        //ids << MongoHelper.putFile(folder + '/computadores.json')
+
+        //def port = request.serverPort
+        //if (Environment.current == Environment.DEVELOPMENT) {
+        //    port = 8080
+        //}
+
+        //render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
+        //       "?files=${ids[0]}&files=${ids[1]}&files=${ids[2]}"
+
+
+    }
+
+    void createJsonFile(String fileName, FaseGaleria faseGaleria){
+        def dataPath = servletContext.getRealPath("/data")
+        def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
+        instancePath.mkdirs()
+
+        def theme = ThemeFaseGaleria.findById(faseGaleria.themeId)
+        saveImages(theme, instancePath)
+
+        File file = new File("$instancePath/"+fileName);
+        PrintWriter pw = new PrintWriter(file);
+        pw.write("{\n")
+        pw.write("\t\"numero\": [\"" + theme.howManyImages + "\"],\n")
+        pw.write("\t\"resposta\": [\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\", \"10\"],\n")
+        pw.write("\t\"dicaOrdenacao\": [\"" + faseGaleria.orientacao +"\"]\n")
+        pw.write("}")
+        pw.close()
+    }
+
+    void saveImages(ThemeFaseGaleria theme, path) {
+        def dataPath = servletContext.getRealPath("/data")
+        def dstPath = "/" + session.user.id + "/" + session.taskId
+        def srcPath = "/" + session.user.id + "/themes/" + theme.getId()
+        path.mkdirs()
+
+        FileUtils file = new FileUtils()
+        for(def i=1;i<=theme.howManyImages;i++) {
+            try {
+                def src = new File(dataPath, srcPath + "/image" + i + ".png")
+                def dst = new File(dataPath, dstPath + "/" + i + ".png")
+                file.copyFile(src, dst)
+            } catch(Exception e) {
+                println e.message
+            }
+        }
     }
 }

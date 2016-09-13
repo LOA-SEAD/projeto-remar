@@ -6,6 +6,8 @@
 		<meta name="layout" content="main">
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
 		<g:javascript src="faseGaleria.js"/>
 		<g:javascript src="iframeResizer.contentWindow.min.js"/>
 		<title>Em Busca do Santo Grau</title>
@@ -24,7 +26,7 @@
 						<g:message code="faseGaleria.orientacao.label" default="Orientação " />
 						<span class="required-indicator">*</span>
 					</label>
-					<g:field name="orientacao" type="text" required="" length="250" maxlength="250"/>
+					<g:field name="orientacao" type="text" required="" length="95" maxlength="95" class="validate"/>
 				</div>
 				<g:form method="post"  action="save" controller="faseGaleria">
 				<ul class="collapsible" data-collapsible="accordion">
@@ -159,8 +161,6 @@
 			</div>
 		</form>
 	</div>
-	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
 	</body>
 </html>
 

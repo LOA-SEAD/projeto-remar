@@ -11,7 +11,7 @@ import grails.transaction.Transactional
 class FaseTecnologiaController {
     def springSecurityService
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", exportQuestions: "POST"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", exportLevel: "POST"]
 
     @Secured(['permitAll'])
     def index(Integer max) {
@@ -115,7 +115,7 @@ class FaseTecnologiaController {
     }
 
     @Secured(['permitAll'])
-    def exportQuestions(){
+    def exportLevel(){
         //cria a instancia da fase tecnologia com os valores digitados pelo usuario
         FaseTecnologia faseTecnologia = new FaseTecnologia()
         faseTecnologia.palavras[0] = params.words[0]

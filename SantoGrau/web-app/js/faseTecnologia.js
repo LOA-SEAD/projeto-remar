@@ -18,7 +18,7 @@ function _submit() {
         $.ajax({
             type: "POST",
             traditional: true,
-            url: "/santograu/faseTecnologia/exportQuestions",
+            url: "/santograu/faseTecnologia/exportLevel",
             data: {words: words, link: link, tipoLink: tipoLink},
             success: function (returndata) {
                 window.top.location.href = returndata;
