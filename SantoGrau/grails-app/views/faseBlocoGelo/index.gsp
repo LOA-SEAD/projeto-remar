@@ -98,14 +98,14 @@
 								<div class="row">
 									<div class="input-field col s12">
 										<label id="labelTitle" class="active" for="editTitle">Pergunta</label>
-										<input id="editTitle" name="title" required=""  type="text" class="validate" length="250" maxlength="250">
+										<input id="editTitle" name="title" required=""  type="text" class="validate" length="95" maxlength="95">
 									</div>
 								</div>
 
 								<div class="row">
 									<div class="input-field col s9">
 										<label id="labelAnswer1" class="active" for="editAnswers0">Alternativa 1</label>
-										<input class="validate" id="editAnswers0" name="answers1" required="" maxlength="49" type="text" length="49"/>
+										<input class="validate" id="editAnswers0" name="answers1" required="" maxlength="15" type="text" length="15"/>
 									</div>
 									<div class="col s2">
 										<input type="radio" id="editRadio0" name="correctAnswer" value="0" checked="checked"/>
@@ -116,7 +116,7 @@
 								<div class="row">
 									<div class="input-field col s9">
 										<label id="labelAnswer2" class="active" for="editAnswers1">Alternativa 2</label>
-										<input class="validate" id="editAnswers1" name="answers2" required="" maxlength="49" type="text" length="49" />
+										<input class="validate" id="editAnswers1" name="answers2" required="" maxlength="15" type="text" length="15" />
 									</div>
 									<div class="col s2">
 										<input type="radio" id="editRadio1" name="correctAnswer" value="1" /> <label for="editRadio1">Alternativa correta</label>
@@ -126,7 +126,7 @@
 								<div class="row">
 									<div class="input-field col s9">
 										<label id="labelAnswer3" class="active" for="editAnswers2">Alternativa 3</label>
-										<input class="validate" id="editAnswers2" name="answers3" required="" maxlength="49" type="text" length="49"/>
+										<input class="validate" id="editAnswers2" name="answers3" required="" maxlength="15" type="text" length="15"/>
 									</div>
 									<div class="col s2">
 										<input type="radio" id="editRadio2" name="correctAnswer" value="2" /> <label for="editRadio2">Alternativa correta</label>
@@ -149,14 +149,14 @@
 								<div class="row">
 									<div class="input-field col s12">
 										<label id="labelTitleCreate" class="active" for="editTitleCreate">Pergunta</label>
-										<input id="editTitleCreate" name="title" required=""  type="text" class="validate" length="250" maxlength="250">
+										<input id="editTitleCreate" name="title" required=""  type="text" class="validate" length="95" maxlength="95">
 									</div>
 								</div>
 
 								<div class="row">
 									<div class="input-field col s9">
 										<label id="labelAnswer1Create" class="active" for="editAnswers0Create">Alternativa 1</label>
-										<input type="text" class="validate" id="editAnswers0Create" name="answers1" required="" maxlength="49" length="49"/>
+										<input type="text" class="validate" id="editAnswers0Create" name="answers1" required="" maxlength="15" length="15"/>
 									</div>
 									<div class="col s2">
 										<input type="radio" id="editRadio0Create" name="correctAnswer" value="0"/>
@@ -167,7 +167,7 @@
 								<div class="row">
 									<div class="input-field col s9">
 										<label id="labelAnswer2Create" class="active" for="editAnswers1Create">Alternativa 2</label>
-										<input type="text" class="validate" id="editAnswers1Create" name="answers2" required="" maxlength="49" length="49"/>
+										<input type="text" class="validate" id="editAnswers1Create" name="answers2" required="" maxlength="15" length="15"/>
 									</div>
 									<div class="col s2">
 										<input type="radio" id="editRadio1Create" name="correctAnswer" value="1" /> <label for="editRadio1Create">Alternativa correta</label>
@@ -177,7 +177,7 @@
 								<div class="row">
 									<div class="input-field col s9">
 										<label id="labelAnswer3Create" class="active" for="editAnswers2Create">Alternativa 3</label>
-										<input type="text" class="validate" id="editAnswers2Create" name="answers3" required="" maxlength="49" length="49"/>
+										<input type="text" class="validate" id="editAnswers2Create" name="answers3" required="" maxlength="15" length="15"/>
 									</div>
 									<div class="col s2">
 										<input type="radio" id="editRadio2Create" name="correctAnswer" value="2" /> <label for="editRadio2Create">Alternativa correta</label>
