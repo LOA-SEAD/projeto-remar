@@ -30,9 +30,6 @@
                             <a href="/group/show/${group.id}" style="color: black;">
                                 <div class="col l3 s6 m3 offset-s3">
                                     <div style="padding-bottom: 8.0em;" class="card white hoverable">
-                                        <div class="card-image">
-                                            %{--TODO--}%
-                                        </div>
                                         <div style="top: 3.2em; position: relative;" class="card-content">
                                             <span class="truncate">${group.name}</span>
                                         </div>
@@ -78,19 +75,15 @@
                 </div>
             %{--</g:form>--}%
         </div>
-         <div class="row">
-
+         <div class="row" id="belong">
             <g:if test="${groupsIBelong.empty}">
-                <h5 class="center-align">Você ainda não pertence a um grupo :(</h5>
+                <h5 class="center-align no-groups-message">Você ainda não pertence a um grupo :(</h5>
             </g:if>
             <g:else>
                 <g:each var="group" in="${groupsIBelong}">
                     <a href="/group/show/${group.id}">
                         <div class="col l3 s6 m3 offset-s3">
                             <div style="padding-bottom: 8.0em; position: relative; left: 0.6em;;" class="card white hoverable">
-                                <div class="card-image">
-                                    %{--TODO--}%
-                                </div>
                                 <div style="top: 3.2em; position: relative;" class="card-content">
                                     <p>${group.name}</p>
                                 </div>
