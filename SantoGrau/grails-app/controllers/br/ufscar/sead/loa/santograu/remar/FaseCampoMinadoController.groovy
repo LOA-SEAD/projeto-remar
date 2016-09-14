@@ -1,5 +1,6 @@
 package br.ufscar.sead.loa.santograu.remar
 
+import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.plugin.springsecurity.annotation.Secured
 import org.springframework.web.multipart.MultipartFile
 
@@ -11,10 +12,10 @@ import grails.util.Environment
 class FaseCampoMinadoController {
     def springSecurityService
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", returnInstance: "GET"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", returnInstance: "GET", exportQuestions: "POST"]
 
     @Secured(['permitAll'])
-    def index(Integer max) {
+    def index() {
         session.taskId = "57c42aca9e04b91a75a80f75"
         session.user = springSecurityService.currentUser
 
@@ -117,6 +118,77 @@ class FaseCampoMinadoController {
                     questionFaseCampoMinadoInstance.id
         }
 
+    }
+
+    @Secured(['permitAll'])
+    def exportQuestions(){
+        //popula a lista de questoes a partir do ID de cada uma
+        ArrayList<Integer> list_questionId = new ArrayList<Integer>() ;
+        ArrayList<QuestionFaseCampoMinado> questionList = new ArrayList<QuestionFaseCampoMinado>();
+        list_questionId.addAll(params.list_id);
+        for (int i=0; i<list_questionId.size();i++)
+            questionList.add(QuestionFaseCampoMinado.findById(list_questionId[i]));
+
+        //cria o arquivo json
+        createJsonFile("questoesCM.json", questionList)
+        render "index"
+
+        //def ids = []
+        //def folder = servletContext.getRealPath("/data/${session.user.id}/${session.taskId}")
+
+        //ids << MongoHelper.putFile(folder + '/pergFacil.json')
+        //ids << MongoHelper.putFile(folder + '/pergMedio.json')
+        //ids << MongoHelper.putFile(folder + '/pergDificil.json')
+
+        //def port = request.serverPort
+        //if (Environment.current == Environment.DEVELOPMENT) {
+         //   port = 8080
+        //}
+
+        //render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
+        //        "?files=${ids[0]}&files=${ids[1]}&files=${ids[2]}"
+
+
+    }
+
+    void createJsonFile(String fileName, ArrayList<QuestionFaseCampoMinado> questionList){
+        def dataPath = servletContext.getRealPath("/data")
+        def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
+        instancePath.mkdirs()
+
+        File file = new File("$instancePath/"+fileName);
+        PrintWriter pw = new PrintWriter(file);
+        pw.write("{\n");
+        for(def i=0; i<4;i++){
+            pw.write("\t\"" + (i+1) + "\": [\"" + questionList[i].title + "\", ")
+            pw.write("\""+ questionList[i].answers[0] +"\", " + "\""+ questionList[i].answers[1] +"\", ")
+            pw.write("\""+ questionList[i].answers[2] +"\", " + "\""+ questionList[i].answers[3] +"\", ")
+            pw.write("\""+ questionList[i].answers[4] +"\", ")
+            switch(questionList[i].correctAnswer){
+                case 0:
+                    pw.write("\"A\"]")
+                    break;
+                case 1:
+                    pw.write("\"B\"]")
+                    break;
+                case 2:
+                    pw.write("\"C\"]")
+                    break;
+                case 3:
+                    pw.write("\"D\"]")
+                    break;
+                case 4:
+                    pw.write("\"E\"]")
+                    break;
+                default:
+                    println("Erro! Alternativa correta inválida")
+            }
+            if(i<3)
+                pw.write(",")
+            pw.write("\n")
+        }
+        pw.write("}");
+        pw.close();
     }
 
     @Transactional
