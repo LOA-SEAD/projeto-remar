@@ -6,6 +6,8 @@
 		<meta name="layout" content="main">
 		<title>Em Busca do Santo Grau</title>
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<g:javascript src="iframeResizer.contentWindow.min.js"/>
 		<script type="text/javascript" src="/santograu/js/faseBlocoGelo.js"></script>
@@ -82,11 +84,9 @@
 
 				<div class="row">
 					<div class="col s2">
-						<g:form method="post"  action="save" resource="${faseBlocoGeloInstance}">
-							<button class="btn waves-effect waves-light my-orange" type="submit" name="save" id="submitButton" onclick="submit()">Enviar
-								<i class="material-icons">send</i>
-							</button>
-						</g:form>
+						<button class="btn waves-effect waves-light my-orange"  name="save" id="submitButton" onclick="_submit()">Enviar
+							<i class="material-icons">send</i>
+						</button>
 					</div>
 				</div>
 
@@ -209,6 +209,15 @@
 				<div id="erroDeleteModal" class="modal">
 					<div class="modal-content">
 						Você deve selecionar ao menos uma questão para excluir.
+					</div>
+					<div class="modal-footer">
+						<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
+					</div>
+				</div>
+
+				<div id="errorSaveModal" class="modal">
+					<div class="modal-content">
+						Você deve selecionar exatamente 3 questões para enviar.
 					</div>
 					<div class="modal-footer">
 						<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>

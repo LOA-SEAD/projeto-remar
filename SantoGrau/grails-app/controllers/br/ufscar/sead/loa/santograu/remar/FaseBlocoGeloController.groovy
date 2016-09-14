@@ -111,4 +111,68 @@ class FaseBlocoGeloController {
         }
 
     }
+
+    @Transactional
+    def exportQuestions(){
+        //popula a lista de questoes a partir do ID de cada uma
+        ArrayList<Integer> list_questionId = new ArrayList<Integer>() ;
+        ArrayList<QuestionFaseBlocoGelo> questionList = new ArrayList<QuestionFaseBlocoGelo>();
+        list_questionId.addAll(params.list_id);
+        for (int i=0; i<list_questionId.size();i++)
+            questionList.add(QuestionFaseBlocoGelo.findById(list_questionId[i]));
+
+        //cria o arquivo json
+        createJsonFile("questoesBN.json", questionList)
+        render "index"
+
+        //def ids = []
+        //def folder = servletContext.getRealPath("/data/${session.user.id}/${session.taskId}")
+
+        //ids << MongoHelper.putFile(folder + '/pergFacil.json')
+        //ids << MongoHelper.putFile(folder + '/pergMedio.json')
+        //ids << MongoHelper.putFile(folder + '/pergDificil.json')
+
+        //def port = request.serverPort
+        //if (Environment.current == Environment.DEVELOPMENT) {
+        //   port = 8080
+        //}
+
+        //render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
+        //        "?files=${ids[0]}&files=${ids[1]}&files=${ids[2]}"
+
+
+    }
+
+    void createJsonFile(String fileName, ArrayList<QuestionFaseBlocoGelo> questionList){
+        def dataPath = servletContext.getRealPath("/data")
+        def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
+        instancePath.mkdirs()
+
+        File file = new File("$instancePath/"+fileName);
+        PrintWriter pw = new PrintWriter(file);
+        pw.write("{\n");
+        for(def i=0; i<3;i++){
+            pw.write("\t\"" + (i+1) + "\": [\"" + questionList[i].title + "\", ")
+            pw.write("\""+ questionList[i].answers[0] +"\", " + "\""+ questionList[i].answers[1] +"\", ")
+            pw.write("\""+ questionList[i].answers[2] +"\", ")
+            switch(questionList[i].correctAnswer){
+                case 0:
+                    pw.write("\"A\"]")
+                    break;
+                case 1:
+                    pw.write("\"B\"]")
+                    break;
+                case 2:
+                    pw.write("\"C\"]")
+                    break;
+                default:
+                    println("Erro! Alternativa correta inválida")
+            }
+            if(i<2)
+                pw.write(",")
+            pw.write("\n")
+        }
+        pw.write("}");
+        pw.close();
+    }
 }

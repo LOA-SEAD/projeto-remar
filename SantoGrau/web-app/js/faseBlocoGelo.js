@@ -159,3 +159,32 @@ function _delete() {
         $(trID).remove();
     }
 }
+
+function _submit() {
+    var list_id = [];
+
+    //checa se o usuario selecionou exatamente 3 questoes
+    if($("input[type=checkbox]:checked").size() != 3) {
+        $("#errorSaveModal").openModal();
+    } else {
+        //cria uma lista com os ids de cada questao selecionada
+        $.each($("input[type=checkbox]:checked"), function (ignored, el) {
+            var tr = $(el).parents().eq(1);
+            list_id.push($(tr).attr('data-id'));
+        });
+
+        //chama o controlador para criar o arquivo json com as informacoes inseridas
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            url: "/santograu/faseBlocoGelo/exportQuestions",
+            data: { list_id: list_id},
+            success: function(returndata) {
+                window.top.location.href = returndata;
+            },
+            error: function(returndata) {
+                alert("Error:\n" + returndata.responseText);
+            }
+        });
+    }
+}
