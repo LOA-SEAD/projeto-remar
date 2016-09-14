@@ -82,11 +82,9 @@
 
 				<div class="row">
 					<div class="col s2">
-						<g:form method="post"  action="save" resource="${faseTCCInstance}">
-							<button class="btn waves-effect waves-light my-orange" type="submit" name="save" id="submitButton" onclick="submit()">Enviar
-								<i class="material-icons">send</i>
-							</button>
-						</g:form>
+						<button class="btn waves-effect waves-light my-orange"  name="save" id="submitButton" onclick="_submit()">Enviar
+							<i class="material-icons">send</i>
+						</button>
 					</div>
 				</div>
 
@@ -249,6 +247,15 @@
 				<div id="erroDeleteModal" class="modal">
 					<div class="modal-content">
 						Você deve selecionar ao menos uma questão para excluir.
+					</div>
+					<div class="modal-footer">
+						<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
+					</div>
+				</div>
+
+				<div id="errorSaveModal" class="modal">
+					<div class="modal-content">
+						Você deve selecionar exatamente 5 questões para enviar.
 					</div>
 					<div class="modal-footer">
 						<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
