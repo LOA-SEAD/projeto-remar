@@ -6,7 +6,8 @@
 		<meta name="layout" content="main">
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<g:javascript src="faseGaleria.js"/>
 		<g:javascript src="iframeResizer.contentWindow.min.js"/>
 		<title>Em Busca do Santo Grau</title>
@@ -140,7 +141,7 @@
 				<div id="deleteModal" class="modal">
 					<div class="modal-content">
 						<div id="delete-one-question">
-							Você tem certeza que deseja excluir essa questão?
+							Você tem certeza que deseja excluir esse tema?
 						</div>
 					</div>
 					<div class="modal-footer">

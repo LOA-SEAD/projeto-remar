@@ -2,11 +2,10 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<g:javascript src="imagePreview.js"/>
 		<g:javascript src="iframeResizer.contentWindow.min.js"/>
 		<title>Em Busca do Santo Grau</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	</head>
 	<body>
 	<g:form url="[action:'ImagesManager']"  enctype="multipart/form-data">
@@ -31,6 +30,7 @@
 											<th>Nome da Imagem</th>
 											<th>Preview da Imagem</th>
 											<th>Arquivo</th>
+											<th>Ação</th>
 										</tr>
 										</thead>
 										<tbody>
@@ -41,16 +41,19 @@
 													<img id="img-1-preview" height="200" />
 												</div>
 											</td>
-											<td>
+											<td id="file-input-1">
 												<div class="file-field input-field">
 													<div class="btn right">
 														<span>File</span>
-														<input data-image="true" type="file" name="img-1" id="img-1" class="image-input" >
+														<input data-image="true" type="file" name="img-1" id="img-1" class="image-input" accept="image/png">
 													</div>
 													<div class="file-path-wrapper">
 														<input class="file-path validate" type="text" placeholder="URL da imagem">
 													</div>
 												</div>
+											</td>
+											<td>
+												<i id="delete-1" style='color: #7d8fff !important; margin-right:10px; cursor:pointer' class='fa fa-trash-o' onclick='deleteSelectedImage(this)'></i>
 											</td>
 										</tr>
 										<tr>
@@ -60,7 +63,7 @@
 													<img id="img-2-preview" height="200"/>
 												</div>
 											</td>
-											<td>
+											<td id="file-input-2">
 												<div class="file-field input-field">
 													<div class="btn right">
 														<span>File</span>
@@ -71,6 +74,9 @@
 													</div>
 												</div>
 											</td>
+											<td>
+												<i id="delete-2" style='color: #7d8fff !important; margin-right:10px; cursor:pointer' class='fa fa-trash-o' onclick='deleteSelectedImage(this)'></i>
+											</td>
 										</tr>
 										<tr>
 											<td>Imagem 3</td>
@@ -79,7 +85,7 @@
 													<img id="img-3-preview" height="200"/>
 												</div>
 											</td>
-											<td>
+											<td id="file-input-3">
 												<div class="file-field input-field">
 													<div class="btn right">
 														<span>File</span>
@@ -90,6 +96,9 @@
 													</div>
 												</div>
 											</td>
+											<td>
+												<i id="delete-3" style='color: #7d8fff !important; margin-right:10px; cursor:pointer' class='fa fa-trash-o' onclick='deleteSelectedImage(this)'></i>
+											</td>
 										</tr>
 										<tr>
 											<td>Imagem 4</td>
@@ -98,7 +107,7 @@
 													<img id="img-4-preview" height="200"/>
 												</div>
 											</td>
-											<td>
+											<td id="file-input-4">
 												<div class="file-field input-field">
 													<div class="btn right">
 														<span>File</span>
@@ -108,6 +117,9 @@
 														<input class="file-path validate" type="text" placeholder="URL da imagem">
 													</div>
 												</div>
+											</td>
+											<td>
+												<i id="delete-4" style='color: #7d8fff !important; margin-right:10px; cursor:pointer' class='fa fa-trash-o' onclick='deleteSelectedImage(this)'></i>
 											</td>
 										</tr>
 										</tbody>
@@ -135,22 +147,27 @@
 										<tbody>
 										<tr>
 											<td>Imagem 1</td>
-											<td> 142x213 </td>
+											<td> 160x200 </td>
 											<td> PNG </td>
 										</tr>
 										<tr>
 											<td>Imagem 2</td>
-											<td> 142x200 </td>
+											<td> 160x200 </td>
 											<td> PNG </td>
 										</tr>
 										<tr>
 											<td>Imagem 3</td>
-											<td> 142x213 </td>
+											<td> 160x200 </td>
 											<td> PNG </td>
 										</tr>
 										<tr>
 											<td>Imagem 4</td>
-											<td> 142x200 </td>
+											<td> 160x200 </td>
+											<td> PNG </td>
+										</tr>
+										<tr>
+											<td>Demais imagens</td>
+											<td> 160x200 </td>
 											<td> PNG </td>
 										</tr>
 										</tbody>
@@ -179,9 +196,14 @@
 			<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
 		</div>
 	</div>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
-	<script>
 
-	</script>
+	<div id="fileTypeErrorModal" class="modal">
+		<div class="modal-content">
+			Você só pode usar imagens cuja extensão seja .png
+		</div>
+		<div class="modal-footer">
+			<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
+		</div>
+	</div>
 	</body>
 </html>
