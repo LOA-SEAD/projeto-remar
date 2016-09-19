@@ -20,19 +20,21 @@
         <div class="divider"></div>
         <div class="clearfix"></div>
         <div class="right">
-            <span>2/3</span>
+            <span>3/3</span>
         </div>
         <div class="subtitle space">
             <h3 class="text-teal text-darken-3 center truncate">
                 ${task.definition.name}
             </h3>
             <h5 class="center date">
-                Enviar artefatos
+               Conferindo os dados
             </h5>
         </div>
         <div class="row center">
             <p>
-                Abaixo estão os artefatos customizados geradas nesta tarefa para serem enviados ao repositório.
+                Atenção! Antes de finalizar o envio, por favor confira os dados atentamente. Uma vez enviado
+                para o respositório o conteúdo só podera ser alterado ou removido mediante contanto com o
+                administrador da plataforma.
             </p>
         </div>
     </div>
@@ -49,23 +51,23 @@
                     </thead>
                     <tbody>
                     <input type="hidden" id="itensCount" value="${bitstreams.size()}" />
-                <g:each in="${bitstreams}" var="bitstream" status="i">
-                    <tr class="line">
-                        <td>
-                            ${bitstream.name}
-                        </td>
-                        <td>
-                            <input id="description${i}" type="text" name="description" class="validate" placeholder="Informe uma descrição">
-                            <label for="description${i}"></label>
-                            <span id="description${i}-error" class="description-error" style="left: 0.75rem; top: 45px;">Este campo não pode ser vazio!</span>
-                        </td>
-                        <td>
-                            <div class="center">
-                               <a class="" target="_blank" href="/data/processes/${task.process.id}/tmp/${task.id}/${bitstream.name}"><g:message code="dspace.metadata.button_view" /> </a>
-                            </div>
-                        </td>
-                    </tr>
-                </g:each>
+                    <g:each in="${bitstreams}" var="bitstream" status="i">
+                        <tr class="line">
+                            <td>
+                                ${bitstream.name}
+                            </td>
+                            <td>
+                                <input id="description${i}" type="text" name="description" class="validate" placeholder="Informe uma descrição">
+                                <label for="description${i}"></label>
+                                <span id="description${i}-error" class="description-error" style="left: 0.75rem; top: 45px;">Este campo não pode ser vazio!</span>
+                            </td>
+                            <td>
+                                <div class="center">
+                                   <a class="" target="_blank" href="/data/processes/${task.process.id}/tmp/${task.id}/${bitstream.name}"><g:message code="dspace.metadata.button_view" /> </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </g:each>
                 </tbody>
             </table>
         </div>

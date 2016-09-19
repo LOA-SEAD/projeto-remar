@@ -2,6 +2,7 @@ package br.ufscar.sead.loa.remar
 
 import br.ufscar.sead.loa.propeller.Propeller
 import grails.plugin.springsecurity.annotation.Secured
+import grails.web.JSONBuilder
 import groovy.io.FileType
 import groovy.json.JsonBuilder
 import com.mongodb.MongoClient
@@ -126,31 +127,68 @@ class DspaceController {
     def listMetadata() {
         def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
         def resource = Resource.findById(Long.parseLong(current_task.getProcess().getVariable("resourceId")))
+        def list = []; //lista e bitstreams
 
-        if(current_task.getVariable("step") == null){
-           render view: '_itemMetadata', model: [task: current_task,
-                                                 resource: resource,
-                                                 metadataForm: new MetadataForm()]
+        def dir = new File(servletContext.getRealPath("/data/processes/${current_task.getProcess().id}/tmp/${params.taskId}/"))
+        dir.eachFileRecurse (FileType.FILES) {file ->
+            list << file
         }
-        else{
-            println(params)
-            if(current_task.getVariable("step") == "submit_bitstreams")
-            {
-                def list = []; //lista e bitstreams
-                def dir = new File(servletContext.getRealPath("/data/processes/${current_task.getProcess().id}/tmp/${params.taskId}/"))
-                dir.eachFileRecurse (FileType.FILES) {file ->
-                    list << file
-                }
 
-                render view: '_bitMetadata', model: [task: current_task,
-                                                     bitstreams: list]
+//        if(current_task.getVariable("step") == null){
+//           render view: '_itemMetadata', model: [task: current_task,
+//                                                 resource: resource]
+//        }
+//        else{
+//            println(params)
+//            if(current_task.getVariable("step") == "submit_bitstreams")
+//            {
+//
+//                render view: '_bitMetadata', model: [task: current_task,
+//                                                     bitstreams: list]
+//
+//            }
+//        }
 
+        render view: 'listMetadata', model: [task: current_task,
+                                              resource: resource,
+                                              bitstreams:list ]
+
+
+    }
+
+
+    //preview metadata
+    def previewMetadata(){
+        println(params)
+
+        def json = new JsonBuilder()
+
+        def root = json {
+            "citation" params.citation
+            "title" params.title
+            "abstract" params.description
+            "license" params.license
+
+            if(params.author.getClass().isArray()){
+                "authors" params.author.collect { [name: it] }
+            }else{
+                "authors" params.author
+            }
+
+            if(params.bit_description.getClass().isArray()){
+                "bitstreams" params.bit_description.collect { [description: it] }
+            }else{
+                "bitstreams" params.bit_description
             }
         }
+
+        println(root)
+
+        render  view: "previewMetadata", model: [metadata: root]
     }
 
     // create-item
-    def createItem(MetadataForm form){
+    def createItem(){
         println(params)
         println(form)
 
@@ -162,39 +200,13 @@ class DspaceController {
 
             //convert date for pattern expected
             Date date = new Date()
-            params.publication_date = date.format('YYYY-MM-dd')
-
-            //gerar arquivo de metadados
-            for(def hash : dspaceRestService.listMetadata){
-                if(params.get(hash.key).getClass().isArray()){
-                    params.get(hash.key).each {
-                        def m = [:]
-                        m.key = hash.value
-                        m.value =  it
-                        metadatas.add(m)
-                    }
-                }else{
-                    def m = [:]
-                    m.key = hash.value
-                    m.value =  params.get(hash.key)
-                    metadatas.add(m)
-                }
-            }
-
-            list.metadata = metadatas
+            form.publication_date = date.format('YYYY-MM-dd')
 
             if(current_task.getVariable("step") == null){ // -> criar item
-                def resource_dspace = MongoHelper.instance.getCollection("resource_dspace", resource.id)
-                resource_dspace.collect{
-                    it.tasks.each{ task -> //procurando pelo id da coleção que o item será criado
-                        if(task.id.toString() == current_task.definition.id.toString()){ //achei a coleção correta
-                            itemId = dspaceRestService.newItem(task.collectionId, list)
-                        }
-                    }
-                }
 
                 current_task.putVariable("step","submit_bitstreams",true)
-                current_task.putVariable("itemId",itemId,true)
+
+                session.setAttribute('metadataForm',form) //save form in session
 
                 redirect uri: "/dspace/listMetadata?taskId=${params.taskId}"
             }
@@ -205,11 +217,17 @@ class DspaceController {
 
     }
 
-    def submitBitstream(){
+    def submitBitstream(MetadataForm form){
         def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
         def dir = new File(servletContext.getRealPath("/data/processes/${current_task.getProcess().id}/tmp/${params.taskId}/"))
         def i = 0
         def itemId = current_task.getVariable("itemId")
+
+        println(form)
+        params.description.each {
+            println(it)
+            form.bitstreams.add(it.toString())
+        }
 
         dir.eachFileRecurse (FileType.FILES) {file ->
             def description = null
@@ -222,10 +240,67 @@ class DspaceController {
             dspaceRestService.addBitstreamToItem(itemId, file, file.name, description)
         }
 
-        current_task.putVariable("step","completed",true)
+        current_task.putVariable("step","preview_metadata",true)
 
-        render view: 'overview', model: [process: current_task.getProcess()]
+        redirect uri: "/dspace/listMetadata?taskId=${params.taskId}"
     }
+
+    //create item and submit bitstreams for dspace
+    def finishDataSending(){
+        def metadatas = [], list = [:]
+        def itemId = null
+        def i = 0
+        def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
+        def resource = Resource.get(current_task.getProcess().getVariable('resourceId'))
+        def dir = new File(servletContext.getRealPath("/data/processes/${current_task.getProcess().id}/tmp/${params.taskId}/"))
+
+        //gerar arquivo de metadados do item
+        for(def hash : dspaceRestService.listMetadata){
+            if(params.get(hash.key).getClass().isArray()){
+                params.get(hash.key).each {
+                    def m = [:]
+                    m.key = hash.value
+                    m.value =  it
+                    metadatas.add(m)
+                }
+            }else{
+                def m = [:]
+                m.key = hash.value
+                m.value =  params.get(hash.key)
+                metadatas.add(m)
+            }
+        }
+
+        list.metadata = metadatas
+
+        if(current_task.getVariable("step") == "preview_metadata"){ // -> criar item
+            def resource_dspace = MongoHelper.instance.getCollection("resource_dspace", resource.id)
+            resource_dspace.collect{
+                it.tasks.each{ task -> //procurando pelo id da coleção que o item será criado
+                    if(task.id.toString() == current_task.definition.id.toString()){ //achei a coleção correta
+                        itemId = dspaceRestService.newItem(task.collectionId, list)
+                    }
+                }
+            }
+            current_task.putVariable("itemId",itemId,true)
+
+            dir.eachFileRecurse (FileType.FILES) {file ->
+                def description = null
+                if(params.description.getClass().isArray()){
+                    description = params.description.getAt(i)
+                    i = i+1
+                }else{
+                    description = params.description
+                }
+                dspaceRestService.addBitstreamToItem(itemId, file, file.name, description)
+            }
+
+            current_task.putVariable("step","completed",true)
+
+            render view: 'overview', model: [process: current_task.getProcess()]
+        }
+    }
+
 
     //inserir no mongo os id da coleção e comunidades referentes ao resource submetido
     def createStructure(Resource resourceInstance){
