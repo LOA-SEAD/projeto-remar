@@ -14,23 +14,23 @@
             $('form').validate({
                 rules: {
                     newPassword: {
-                        minlength: 5,
+                        minlength: 8,
                         required: true
                     },
                     confirm_password: {
                         required: true,
-                        minlength: 5,
+                        minlength: 8,
                         equalTo: "#newPassword"
                     }
                 },
                 messages: {
                     newPassword: {
                         required: "Por favor digite uma senha",
-                        minlength: "A senha deve ter no minimo 5 caracteres"
+                        minlength: "A senha deve ter no minimo 8 caracteres"
                     },
                     confirm_password: {
                         required: "Por favor confirme sua senha",
-                        minlength: "Sua senha deve ter no minimo 5 caracteres",
+                        minlength: "Sua senha deve ter no minimo 8 caracteres",
                         equalTo: "As senhas não coincidem"
                     }
                 },
