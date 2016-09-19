@@ -30,6 +30,40 @@ window.onload = function() {
 
         }
     }
+    $("#myForm").submit(function() {
+        if(!atLeastFourImagesSelected()) {
+            $("#selectFourImagesModal").openModal();
+            return false;
+        }
+    });
+
+    function atLeastFourImagesSelected() {
+        var howManyImages = 0;
+        if($("#img-1").prop("files")[0] != null)
+            howManyImages++;
+        if($("#img-2").prop("files")[0] != null)
+            howManyImages++;
+        if($("#img-3").prop("files")[0] != null)
+            howManyImages++;
+        if($("#img-4").prop("files")[0] != null)
+            howManyImages++;
+        if($("#img-5").prop("files") != null && $("#img-5").prop("files")[0] != null)
+            howManyImages++;
+        if($("#img-6").prop("files") != null && $("#img-6").prop("files")[0] != null)
+            howManyImages++;
+        if($("#img-7").prop("files") != null && $("#img-7").prop("files")[0] != null)
+            howManyImages++;
+        if($("#img-8").prop("files") != null && $("#img-8").prop("files")[0] != null)
+            howManyImages++;
+        if($("#img-9").prop("files") != null && $("#img-9").prop("files")[0] != null)
+            howManyImages++;
+        if($("#img-10").prop("files") != null && $("#img-10").prop("files")[0] != null)
+            howManyImages++;
+
+        if(howManyImages < 4)
+            return false;
+        return true;
+    }
 }
 
 function clearSelectedImage(id, imagePreview) {

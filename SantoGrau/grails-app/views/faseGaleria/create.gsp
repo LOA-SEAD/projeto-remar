@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	</head>
 	<body>
-	<g:form url="[action:'ImagesManager']"  enctype="multipart/form-data">
+	<g:form id="myForm" url="[action:'ImagesManager']"  enctype="multipart/form-data">
 		<div class="form" style="margin-bottom:80px">
 
 			<div class="cluster-header">
@@ -200,6 +200,15 @@
 	<div id="fileTypeErrorModal" class="modal">
 		<div class="modal-content">
 			Você só pode usar imagens cuja extensão seja .png
+		</div>
+		<div class="modal-footer">
+			<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
+		</div>
+	</div>
+
+	<div id="selectFourImagesModal" class="modal">
+		<div class="modal-content">
+			Você deve selecionar no mínimo 4 imagens.
 		</div>
 		<div class="modal-footer">
 			<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>

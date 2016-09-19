@@ -12,7 +12,6 @@
 			</p>
 		</div>
 		<div class="row">
-			<g:form action="save" resource="${faseCampoMinadoInstance}">
 				<div class="row">
 					<div class="input-field col s12">
 						<label id="labelTitle" class="active" for="editTitle">Pergunta</label>
@@ -70,10 +69,12 @@
 						<input type="radio" id="editRadio4" name="correctAnswer" value="4" /> <label for="editRadio3">Alternativa correta</label>
 					</div>
 				</div>
-				<div class="col l10">
-					<g:submitButton name="create" class="btn btn-success btn-lg my-orange" value="Criar" />
+				<div class="row">
+					<div class="col s2">
+						<button class="btn waves-effect waves-light my-orange"  name="save" id="submitButton" onclick="_save()">Criar
+						</button>
+					</div>
 				</div>
-			</g:form>
 		</div>
 	</body>
 </html>
