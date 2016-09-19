@@ -11,79 +11,94 @@
     <title>Adicionar metadados</title>
 </head>
 <body>
-<article class="width-position left-align">
-    <div class="cluster-header">
+<div class="row cluster">
+    <aside>
         <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom title-page">
             <i class="medium material-icons left">cloud_upload</i>Adicionar Metadados
-
         </p>
         <div class="divider"></div>
         <div class="clearfix"></div>
-        <div class="right">
-            <span>3/3</span>
-        </div>
-        <div class="subtitle space">
-            <h3 class="text-teal text-darken-3 center truncate">
-                ${task.definition.name}
-            </h3>
-            <h5 class="center date">
-               Conferindo os dados
-            </h5>
-        </div>
-        <div class="row center">
-            <p>
-                Atenção! Antes de finalizar o envio, por favor confira os dados atentamente. Uma vez enviado
-                para o respositório o conteúdo só podera ser alterado ou removido mediante contanto com o
-                administrador da plataforma.
-            </p>
-        </div>
+    </aside>
+    <div class="subtitle space">
+        <h3 class="text-teal text-darken-3 center truncate">
+            ${task.definition.name}
+        </h3>
+        <h5>
+            Por favor, revise seus dados antes de finalizar!
+        </h5>
     </div>
-    <g:form action="submitBitstream" method="POST">
-        <section class="row">
-            <div class="col s12">
-                <table class="bordered">
-                    <thead>
-                        <tr>
-                            <th data-field="answer">Arquivo</th>
-                            <th data-field="name">Descrição</th>
-                            <th data-field="action"> </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <input type="hidden" id="itensCount" value="${bitstreams.size()}" />
-                    <g:each in="${bitstreams}" var="bitstream" status="i">
-                        <tr class="line">
-                            <td>
-                                ${bitstream.name}
-                            </td>
-                            <td>
-                                <input id="description${i}" type="text" name="description" class="validate" placeholder="Informe uma descrição">
-                                <label for="description${i}"></label>
-                                <span id="description${i}-error" class="description-error" style="left: 0.75rem; top: 45px;">Este campo não pode ser vazio!</span>
-                            </td>
-                            <td>
-                                <div class="center">
-                                   <a class="" target="_blank" href="/data/processes/${task.process.id}/tmp/${task.id}/${bitstream.name}"><g:message code="dspace.metadata.button_view" /> </a>
-                                </div>
-                            </td>
-                        </tr>
-                    </g:each>
-                </tbody>
-            </table>
+
+    <article class="width-position">
+        <div class=" col s12">
+            <div class="right">
+                <a id="editMetadata" class="btn my-orange" href="#!"> <g:message code="dspace.metadata.button_edit"/> </a>
+            </div>
         </div>
-        </section>
-        <section class="row">
-            <div class="col s12 m12 l12">
-                <input type="hidden" name="taskId" value="${task.id}">
+        <div class="clearfix"></div>
+        <g:form action="finishDataSending" method="POST" useToken="true">
+            <g:render template="itemMetadata" model="[task: task, resource: resource]" />
+            <g:render template="bitMetadata" model="[task: task, bitstreams: metadata.bitstreams, metadata: metadata]" />
+
+            <input type="hidden" name="license" value="${metadata.license}" id="licenseValue" >
+            <g:if test="${metadata.license == "cc-by-sa"}">
+                <div class="col s12 m12 l12">
+                    <span> Permitir usos comerciais do seu trabalho?</span>
+                    <br>
+                    <input onchange="showLicense()"  class="with-gap" name="comercialLicense" type="radio" id="comercialYes" checked/>
+                    <label for="comercialYes">Sim</label>
+                    <input onchange="showLicense()" class="with-gap" name="comercialLicense" type="radio" id="comercialNo" disabled/>
+                    <label for="comercialNo">Não</label>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col s12" id="licenseImage">
+                        <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'>
+                            <img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by-sa/4.0/88x31.png' />
+                        </a>
+                        <br />
+                        <p> Esta obra está licenciado com uma Licença
+                            <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Atribuição-CompartilhaIgual 4.0 Internacional</a>
+                            .
+                        </p>
+                    </div>
+                </div>
+            </g:if>
+            <g:else>
+                <div class="col s12 m12 l12">
+                    <span> Permitir usos comerciais do seu trabalho?</span>
+                    <br>
+                    <input onchange="showLicense()"  class="with-gap" name="comercialLicense" type="radio" id="comercialYes" disabled/>
+                    <label for="comercialYes">Sim</label>
+                    <input onchange="showLicense()" class="with-gap" name="comercialLicense" type="radio" id="comercialNo" checked/>
+                    <label for="comercialNo">Não</label>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col s12" id="licenseImage">
+                        <a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/4.0/'>
+                            <img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png' />
+                        </a>
+                        <br />
+                        <p> Esta obra está licenciado com uma Licença
+                            <a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/4.0/'>Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional</a>
+                            .
+                        </p>
+                    </div>
+                </div>
+            </g:else>
+
+            <input type="hidden" name="taskId" value="${task.id}">
+
+            <div class=" col s12 m12 l12">
                 <div class="right">
-                    <a id="finishLabel" class="btn disabled"><g:message code="dspace.metadata.button_finish"/></a>
-                    <button class="btn my-orange hide" id="finishButton" type="submit"> <g:message code="dspace.metadata.button_finish"/> </button>
+                    <button id="nextButton" class="btn my-orange hide" type="submit" > <g:message code="dspace.metadata.button_finish"/> </button>
+                    <a id="nextLabel" class="btn my-orange disabled" > <g:message code="dspace.metadata.button_finish"/> </a>
                 </div>
             </div>
-        </section>
-    </g:form>
-</article>
-<g:javascript src="dspace/validateDescription.js"/>
+        </g:form>
+    </article>
+</div>
 </body>
 </html>
-

@@ -162,6 +162,14 @@ class DspaceController {
         println(params)
 
         def json = new JsonBuilder()
+        def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
+        def resource = Resource.findById(Long.parseLong(current_task.getProcess().getVariable("resourceId")))
+        def list = []; //lista e bitstreams
+
+        def dir = new File(servletContext.getRealPath("/data/processes/${current_task.getProcess().id}/tmp/${params.taskId}/"))
+        dir.eachFileRecurse (FileType.FILES) {file ->
+            list << file
+        }
 
         def root = json {
             "citation" params.citation
@@ -176,15 +184,15 @@ class DspaceController {
             }
 
             if(params.bit_description.getClass().isArray()){
-                "bitstreams" params.bit_description.collect { [description: it] }
+                "bitstreams" params.bit_description.collect { [name: list.pop().name, description: it] }
             }else{
-                "bitstreams" params.bit_description
+                "bitstreams" collect{[name: list.pop().name, description: params.bit_description]}
             }
         }
 
         println(root)
 
-        render  view: "previewMetadata", model: [metadata: root]
+        render  view: "previewMetadata", model: [metadata: root, task: current_task, resource: resource]
     }
 
     // create-item

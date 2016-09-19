@@ -25,7 +25,7 @@
         </h3>
     </div>
 
-    <artigle class="width-position">
+    <article class="width-position">
         <g:form action="previewMetadata" method="POST" useToken="true">
             <blockquote class="left-align">
                 Informe os dados do item que será criado no repositório.
@@ -61,7 +61,7 @@
                 </div>
             </div>
         </g:form>
-    </artigle>
+    </article>
 </div>
 </body>
 </html>
