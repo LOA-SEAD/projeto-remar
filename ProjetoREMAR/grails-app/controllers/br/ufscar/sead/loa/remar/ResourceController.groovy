@@ -227,6 +227,7 @@ class ResourceController {
                 resourceInstance.status = "approved"
                 resourceInstance.active = true
                 resourceInstance.version = 0
+                resourceInstance.comment = "Aprovado"
                 resourceInstance.save flush: true
 
                 redirect controller: "process", action: "deploy", id: resourceInstance.uri
@@ -242,6 +243,7 @@ class ResourceController {
                 resourceInstance.status = "approved"
                 resourceInstance.active = true
                 resourceInstance.version = 0
+                resourceInstance.comment = "Aprovado"
                 resourceInstance.save flush: true
 
                 // noinspection GroovyAssignabilityCheck
@@ -260,6 +262,8 @@ class ResourceController {
             // redirect controller: "process", action: "deploy", id: resourceInstance.bpmn
         } else if (status == "reject" && resourceInstance.status != "rejected") {
             resourceInstance.status = "rejected"
+            resourceInstance.comment = "Rejeitado"
+
 
             render "success"
         }
