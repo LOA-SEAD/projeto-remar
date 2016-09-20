@@ -36,47 +36,43 @@
         </div>
         <div class="clearfix"></div>
         <g:form action="finishDataSending" method="POST" useToken="true">
-            <g:render template="itemMetadata" model="[task: task, resource: resource]" />
-            <g:render template="bitMetadata" model="[task: task, bitstreams: metadata.bitstreams, metadata: metadata]" />
-
-            <input type="hidden" name="license" value="${metadata.license}" id="licenseValue" >
-            <g:if test="${metadata.license == "cc-by-sa"}">
-                <div class="col s12 m12 l12">
-                    <span> Permitir usos comerciais do seu trabalho?</span>
-                    <br>
-                    <input onchange="showLicense()"  class="with-gap" name="comercialLicense" type="radio" id="comercialYes" checked/>
-                    <label for="comercialYes">Sim</label>
-                    <input onchange="showLicense()" class="with-gap" name="comercialLicense" type="radio" id="comercialNo" disabled/>
-                    <label for="comercialNo">Não</label>
-                </div>
-                <br>
-                <br>
+            %{--<g:render template="itemMetadata" model="[task: task, resource: resource]" />--}%
+            <fieldset class="preview-fieldset">
                 <div class="row">
-                    <div class="col s12" id="licenseImage">
+                    <p>
+                        <span class="bold">Autor (es): </span>
+                        <g:each in="${metadata.authors}" var="author">${author.name}; </g:each>
+                    </p>
+                    <p>
+                        <span class="bold">Citação: </span>
+                        ${metadata.citation};
+                    </p>
+                    <p>
+                        <span class="bold">Título: </span>
+                        ${metadata.title};
+                    </p>
+                    <p>
+                        <span class="bold">Resumo: </span>
+                        ${metadata.abstract};
+                    </p>
+                </div>
+            </fieldset>
+
+            <g:render template="bitMetadata" model="[task: task, bitstreams: metadata.bitstreams, preview: true]" />
+
+            <div class="row">
+                <div class="col s12" id="licenseImage">
+                    <g:if test="${metadata.license == "cc-by-sa"}">
                         <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'>
-                            <img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by-sa/4.0/88x31.png' />
+                           <img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by-sa/4.0/88x31.png' />
                         </a>
                         <br />
                         <p> Esta obra está licenciado com uma Licença
-                            <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Atribuição-CompartilhaIgual 4.0 Internacional</a>
+                           <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Atribuição-CompartilhaIgual 4.0 Internacional</a>
                             .
                         </p>
-                    </div>
-                </div>
-            </g:if>
-            <g:else>
-                <div class="col s12 m12 l12">
-                    <span> Permitir usos comerciais do seu trabalho?</span>
-                    <br>
-                    <input onchange="showLicense()"  class="with-gap" name="comercialLicense" type="radio" id="comercialYes" disabled/>
-                    <label for="comercialYes">Sim</label>
-                    <input onchange="showLicense()" class="with-gap" name="comercialLicense" type="radio" id="comercialNo" checked/>
-                    <label for="comercialNo">Não</label>
-                </div>
-                <br>
-                <br>
-                <div class="row">
-                    <div class="col s12" id="licenseImage">
+                    </g:if>
+                    <g:else>
                         <a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/4.0/'>
                             <img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png' />
                         </a>
@@ -85,16 +81,16 @@
                             <a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/4.0/'>Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional</a>
                             .
                         </p>
-                    </div>
+                    </g:else>
                 </div>
-            </g:else>
+            </div>
 
             <input type="hidden" name="taskId" value="${task.id}">
+            <input type="hidden" name="metadata" value="${metadata}">
 
             <div class=" col s12 m12 l12">
                 <div class="right">
-                    <button id="nextButton" class="btn my-orange hide" type="submit" > <g:message code="dspace.metadata.button_finish"/> </button>
-                    <a id="nextLabel" class="btn my-orange disabled" > <g:message code="dspace.metadata.button_finish"/> </a>
+                    <button id="nextButton" class="btn my-orange" type="submit" > <g:message code="dspace.metadata.button_finish"/> </button>
                 </div>
             </div>
         </g:form>

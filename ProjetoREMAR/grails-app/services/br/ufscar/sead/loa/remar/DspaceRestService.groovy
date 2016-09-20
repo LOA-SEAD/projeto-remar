@@ -29,9 +29,8 @@ class DspaceRestService {
     private String token
 
     def listMetadata = [author: "dc.contributor.author",
-//                        editor: "dc.contributor.editor",
                         title:  "dc.title",
-                        description: "dc.description.abstract",
+                        abstract: "dc.description.abstract",
                         license: "dcterms.license",
                         publication_date: "dc.date.issued"
                         ]

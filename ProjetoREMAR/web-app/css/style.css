@@ -974,5 +974,6 @@ Position must be relative!*/
     font-style: normal;
 }
 
-
-
+.preview-fieldset{
+    margin-top: 10px !important;
+}

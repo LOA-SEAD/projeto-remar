@@ -8,9 +8,7 @@ $( document ).ready(function() {
 
     $(".validate").on('input',function(){
         checkDescriptions();
-    })
-
-
+    });
 
 });
 

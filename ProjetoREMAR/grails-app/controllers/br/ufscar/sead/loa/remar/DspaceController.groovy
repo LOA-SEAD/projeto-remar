@@ -134,25 +134,10 @@ class DspaceController {
             list << file
         }
 
-//        if(current_task.getVariable("step") == null){
-//           render view: '_itemMetadata', model: [task: current_task,
-//                                                 resource: resource]
-//        }
-//        else{
-//            println(params)
-//            if(current_task.getVariable("step") == "submit_bitstreams")
-//            {
-//
-//                render view: '_bitMetadata', model: [task: current_task,
-//                                                     bitstreams: list]
-//
-//            }
-//        }
-
         render view: 'listMetadata', model: [task: current_task,
-                                              resource: resource,
-                                              bitstreams:list ]
-
+                                             resource: resource,
+                                             bitstreams: list.collect { [name: it.name, description: ""] }
+                                             ]
 
     }
 
@@ -171,6 +156,8 @@ class DspaceController {
             list << file
         }
 
+        print(list.get(0).name)
+
         def root = json {
             "citation" params.citation
             "title" params.title
@@ -180,7 +167,7 @@ class DspaceController {
             if(params.author.getClass().isArray()){
                 "authors" params.author.collect { [name: it] }
             }else{
-                "authors" params.author
+                "authors" collect{[name: params.author]}
             }
 
             if(params.bit_description.getClass().isArray()){
@@ -191,38 +178,9 @@ class DspaceController {
         }
 
         println(root)
+        current_task.putVariable("step","preview-metadata",true)
 
         render  view: "previewMetadata", model: [metadata: root, task: current_task, resource: resource]
-    }
-
-    // create-item
-    def createItem(){
-        println(params)
-        println(form)
-
-        withForm { //submssão esperada
-            def metadatas = [], list = [:]
-            def itemId = null
-            def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
-            def resource = Resource.get(current_task.getProcess().getVariable('resourceId'))
-
-            //convert date for pattern expected
-            Date date = new Date()
-            form.publication_date = date.format('YYYY-MM-dd')
-
-            if(current_task.getVariable("step") == null){ // -> criar item
-
-                current_task.putVariable("step","submit_bitstreams",true)
-
-                session.setAttribute('metadataForm',form) //save form in session
-
-                redirect uri: "/dspace/listMetadata?taskId=${params.taskId}"
-            }
-
-        }.invalidToken {
-            //sbmissão duplicada do formulário
-        }
-
     }
 
     def submitBitstream(MetadataForm form){
@@ -255,12 +213,17 @@ class DspaceController {
 
     //create item and submit bitstreams for dspace
     def finishDataSending(){
+        println(params)
         def metadatas = [], list = [:]
         def itemId = null
         def i = 0
         def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
         def resource = Resource.get(current_task.getProcess().getVariable('resourceId'))
         def dir = new File(servletContext.getRealPath("/data/processes/${current_task.getProcess().id}/tmp/${params.taskId}/"))
+
+        //convert date for pattern expected
+        Date date = new Date()
+        params.publication_date = date.format('YYYY-MM-dd')
 
         //gerar arquivo de metadados do item
         for(def hash : dspaceRestService.listMetadata){
@@ -281,7 +244,7 @@ class DspaceController {
 
         list.metadata = metadatas
 
-        if(current_task.getVariable("step") == "preview_metadata"){ // -> criar item
+        if(current_task.getVariable("step") == "preview-metadata"){ // -> criar item
             def resource_dspace = MongoHelper.instance.getCollection("resource_dspace", resource.id)
             resource_dspace.collect{
                 it.tasks.each{ task -> //procurando pelo id da coleção que o item será criado
@@ -294,8 +257,8 @@ class DspaceController {
 
             dir.eachFileRecurse (FileType.FILES) {file ->
                 def description = null
-                if(params.description.getClass().isArray()){
-                    description = params.description.getAt(i)
+                if(params.bit_description.getClass().isArray()){
+                    description = params.bit_description.getAt(i)
                     i = i+1
                 }else{
                     description = params.description
