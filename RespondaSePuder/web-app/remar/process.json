@@ -1,5 +1,5 @@
 {
-  "name": "Responda Se Puder",
+  "name": "Respondasepuder",
   "uri": "respondasepuder",
   "version": 1,
   "tasks": [
@@ -30,7 +30,9 @@
 
   ],
   "outputs": [
-    "web"
+    "web",
+    "desktop",
+    "android"
   ],
   "vars": {
     "width": 800,
