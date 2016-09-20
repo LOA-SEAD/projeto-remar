@@ -43,16 +43,6 @@
                                 <button type="submit" data-choice="offline" class="btn waves-effect waves-light my-orange">Jogar Offline</button>
                             </div>
                         </div>
-                        <div class="row no-margin-bottom">
-                            <div class="input-field col s6 m6 l6">
-                                <g:link class="margin" mapping="resetPassword">Esqueceu sua senha?</g:link> <br>
-                                <g:link mapping="recoverAccount"> Reativar minha conta </g:link>
-                            </div>
-                            <div class="input-field col s6 m6 l6 right-align">
-                                <g:link mapping="signup">Cadastre-se</g:link>
-                            </div>
-                        </div> <!-- input field -->
-
                     </div> <!-- row -->
                 %{--</form>--}%
             </div> <!-- card-content -->
