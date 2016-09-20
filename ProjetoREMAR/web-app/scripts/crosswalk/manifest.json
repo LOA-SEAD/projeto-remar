@@ -2,10 +2,13 @@
   "name": "NAME",
   "app": {
     "launch": {
-      "local_path": "index.html"
+      "local_path": "login.html"
     }
   },
-  "start_url": "index.html",
+  "start_url": "login.html",
+  "xwalk_hosts": [
+    "http://remar.dc.ufscar.br/group/isLogged"
+  ],
   "display": "standalone",
   "orientation": "any"
 }
