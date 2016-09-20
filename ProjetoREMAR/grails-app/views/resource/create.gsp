@@ -48,7 +48,7 @@
 															%{--<label for="shareNo">Não</label>--}%
 															%{--<br>--}%
 														<input readonly class="with-gap" checked="checked" name="shareLicense" type="radio" id="shareYesAsLike"/>
-														<label for="shareYesAsLike">Sim, desde que outros compartilhem igual  <a style="color: red;">*</a> </label>
+														<label for="shareYesAsLike">Sim, desde que outros compartilhem igual  <span class="required-indicator">*</span> </label>
 													</div>
 												</div>
 												<div class="row">

@@ -42,11 +42,11 @@
                                 <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnUnCheckAll" onclick="uncheck_all()"><i  class="material-icons">done</i></button>
                             </div>
                         </th>
-                        <th id="levelLabel">Nível <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
-                        <th>Pergunta <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
-                        <th>Respostas <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
-                        <th>Alternativa Correta <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
-                        <th>Dica<div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+                        <th style="cursor: pointer;" onclick="sortTableByLevel()" id="levelLabel">Nível <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+                        <th style="cursor: pointer;" onclick="sortTableByName()" id="statementLabel">Pergunta <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+                        <th style="cursor: pointer;" onclick="sortTableByAnswer()" id="answerLabel">Respostas <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+                        <th style="cursor: pointer;" onclick="sortTableByCorrectAnswer()" id="correctAnswerLabel">Alternativa Correta <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+                        <th style="cursor: pointer;" onclick="sortTableByHint()" id="hintLabel">Dica<div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
                         <th>Ações <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
                     </tr>
                     </thead>
@@ -176,7 +176,7 @@
               <div class="row">
                   <div class="input-field col s12">
                       <input class="validate" id="editHint" name="hint" required="" maxlength="250" type="text" length="250">
-                      <label id="labelHint" class="active" for="editHint">Alternativa 4</label>
+                      <label id="labelHint" class="active" for="editHint">Dica</label>
                   </div>
               </div>
 
@@ -265,7 +265,7 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <input name="hint" id="hint" required type="text" maxlength="250" length="250">
-                        <label for="hint">Input text</label>
+                        <label for="hint">Dica</label>
                     </div>
                 </div>
 

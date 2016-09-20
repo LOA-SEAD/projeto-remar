@@ -275,3 +275,31 @@ function validatePublish(){
 
 }
 
+function finishGame() {
+    var formData = new FormData();
+    var name = $("#name");
+    var contentArea = $('#content-area').val();
+    var specificContent = $("#specific-content").val();
+    window.location = location.origin +  "/process/finish?name=" + name.val() + "&&id=" + $("#processId").val() + "&&contentArea=" + contentArea + "&&specificContent=" + specificContent;
+    //formData.append('banner', file);
+    // formData.append('name', $(name).val());
+    // formData.append('id',$("#processId").val());
+    // formData.append('contentArea',contentArea);
+    // formData.append('specificContent',specificContent);
+    //
+    //
+    // $.ajax({
+    //     type: 'POST',
+    //     url: location.origin + '/process/finish/' + $("#processId").val(),
+    //     data: formData,
+    //     processData: false,
+    //     contentType: false,
+    //     success: function (data) {
+    //        console.log("Funcionou")
+    //     },
+    //     error: function (XMLHttpRequest, textStatus, errorThrown) {
+    //         console.log("Error - não funcionou");
+    //     }
+    // });
+}
+

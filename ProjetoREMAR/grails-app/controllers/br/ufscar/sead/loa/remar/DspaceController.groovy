@@ -87,8 +87,8 @@ class DspaceController {
 
     def delete(){
 
-        def resp = dspaceRestService.deleteBitstreamOfItem('5',params.id)
-
+          def resp = dspaceRestService.deleteCommunity(params.id)
+        //MongoHelper.instance.removeData("resource_dspace","uri","forca")
         render resp
 
     }
@@ -125,9 +125,11 @@ class DspaceController {
     * */
     def listMetadata() {
         def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
+        def resource = Resource.findById(Long.parseLong(current_task.getProcess().getVariable("resourceId")))
 
         if(current_task.getVariable("step") == null){
            render view: '_itemMetadata', model: [task: current_task,
+                                                 resource: resource,
                                                  metadataForm: new MetadataForm()]
         }
         else{
@@ -263,8 +265,20 @@ class DspaceController {
         }catch (SocketTimeoutException timeout){
             println("Timeout in CreateStructure - ${timeout.message}, ${timeout.cause}")
         }
+    }
 
+    //dspace/remove/$id_resource?uri=XXXXXXX
+    public removeAll(){
+        println(params)
+        def resource_dspace = MongoHelper.instance.getCollection("resource_dspace",Long.parseLong(params.id))
+        resource_dspace.collect{
+            def communityId = it.communityId
+            dspaceRestService.deleteCommunity(communityId)
+        }
+        MongoHelper.instance.removeDataFromUri('resource_dspace',params.uri)
 
+        response.status = 205
+        render 205
     }
 
     private static createCommunityMetadata(Resource resource){
@@ -293,4 +307,5 @@ class DspaceController {
         println(m)
         return m
     }
+
 }

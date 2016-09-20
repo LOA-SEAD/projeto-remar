@@ -237,7 +237,7 @@ class GroupController {
                     userGroup.group = group
                     userGroup.user = user
                     userGroup.save flush: true
-                    redirect(status: 200, action: "show", id: userGroup.groupId)
+                    render status: 200, template: "newGroup", model: [group: group]
                 }else
                     render status: 403, text: "Você ja pertence a este grupo."
             }else

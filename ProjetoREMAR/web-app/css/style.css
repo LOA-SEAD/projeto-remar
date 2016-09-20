@@ -132,6 +132,14 @@ footer.page-footer{
         line-height: 4.5em;
     }
 
+    .required-indicator {
+        color: red;
+    }
+
+    .optional-indicator {
+        color: grey;
+    }
+
     .profile-pic {
         margin-top: 14px;
         width: 36px;

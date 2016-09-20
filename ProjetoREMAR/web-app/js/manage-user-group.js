@@ -134,16 +134,23 @@ $(window).load(function(){
 
                 }, statusCode: {
                     200: function(data){
-                        groupSize++;
-                        text.attr("data-group-size",groupSize);
-                        text.html("Ver membros ("+groupSize+")");
-                        $("#add-user-form")[0].reset();
-                        if(noUsers) {
-                            noUsers.fadeOut(300);
-                            noUsers.remove();
-                        }
-                        $(ul).append(data);
-                        Materialize.toast("Usuário adicionado!", 3000, "rounded");
+                       if(url === '/group/addUserAutocomplete'){
+                           groupSize++;
+                           text.attr("data-group-size",groupSize);
+                           text.html("Ver membros ("+groupSize+")");
+                           $("#add-user-form")[0].reset();
+                           if(noUsers) {
+                               noUsers.fadeOut(300);
+                               noUsers.remove();
+                           }
+                           $(ul).append(data);
+                           Materialize.toast("Usuário adicionado!", 3000, "rounded");
+                       }else {
+                           $('.no-groups-message').remove();
+                           $('#belong').append(data);
+                           Materialize.toast("Ingresso realizado! :)", 3000, "rounded");
+
+                       }
                     },
                     403: function(response){
                         $("#modal-message").html(response.responseText);

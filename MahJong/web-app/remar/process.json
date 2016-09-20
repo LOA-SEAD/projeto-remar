@@ -4,9 +4,9 @@
   "version": 1,
   "tasks": [
     {
-      "name": "Banco de expressões matemáticas",
+      "name": "Banco de expressões",
       "uri": "math",
-      "description": "Criar/editar/selecionar um banco de expressões matemáticas para o jogo.",
+      "description": "Criar/editar/selecionar um banco de expressões para o jogo.",
       "type": "latex_database",
       "dependencies": null,
       "outputs": [

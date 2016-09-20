@@ -58,7 +58,7 @@ $(document).ready(function() {
             },
             confirm_password: {
                 required: requiredMsg,
-                equalTo: "As senhas não são coincidem"
+                equalTo: "As senhas não coincidem"
             },
             gender: {
                 required: requiredMsg

@@ -69,6 +69,7 @@ class UrlMappings {
         "/category/delete/$id"(controller: "category", action: "delete")
 
         "/dspace/bitstream/$id"(controller: "dspace", action: "bitstream")
+        "/dspace/removeAll/$id"(controller: "dspace", action: "removeAll")
 
         // end Resource API endpoints
 
