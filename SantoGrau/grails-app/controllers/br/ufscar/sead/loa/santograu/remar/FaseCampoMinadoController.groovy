@@ -132,23 +132,6 @@ class FaseCampoMinadoController {
         //cria o arquivo json
         createJsonFile("questoescm.json", questionList)
         render "index"
-
-        //def ids = []
-        //def folder = servletContext.getRealPath("/data/${session.user.id}/${session.taskId}")
-
-        //ids << MongoHelper.putFile(folder + '/pergFacil.json')
-        //ids << MongoHelper.putFile(folder + '/pergMedio.json')
-        //ids << MongoHelper.putFile(folder + '/pergDificil.json')
-
-        //def port = request.serverPort
-        //if (Environment.current == Environment.DEVELOPMENT) {
-         //   port = 8080
-        //}
-
-        //render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
-        //        "?files=${ids[0]}&files=${ids[1]}&files=${ids[2]}"
-
-
     }
 
     void createJsonFile(String fileName, ArrayList<QuestionFaseCampoMinado> questionList){
@@ -204,7 +187,7 @@ class FaseCampoMinadoController {
             questionInstance.answers[3] = row[5] ?: "NA";
             questionInstance.answers[4] = row[6] ?: "NA";
             String correct = row[7] ?: "NA";
-            questionInstance.correctAnswer =  (correct.toInteger() -1)
+            questionInstance.correctAnswer =  (correct.toInteger() - 1)
             questionInstance.taskId = session.taskId as String
             questionInstance.ownerId = session.user.id as long
             questionInstance.save flush: true
@@ -219,7 +202,7 @@ class FaseCampoMinadoController {
         /* Função que exporta as questões selecionadas para um arquivo .csv genérico.
            O arquivo .csv gerado será compatível com os modelos Escola Mágica, Forca e Responda Se Puder.
            O arquivo gerado possui os seguintes campos na ordem correspondente:
-           Nível, Pergunta, Alternativa1, Alternativa2, Alternativa3, Alternativa4, Alternativa Correta, Dica, Tema.
+           Nível, Pergunta, Alternativa1, Alternativa2, Alternativa3, Alternativa4, Alternativa5, Alternativa Correta, Dica, Tema.
            O campo Dica é correspondente ao modelo Responda Se Puder e o campo Tema ao modelo Forca.
            O separador do arquivo .csv gerado é o ";" (ponto e vírgula)
         */
@@ -240,7 +223,7 @@ class FaseCampoMinadoController {
         def fw = new FileWriter("$instancePath/exportQuestions.csv")
         for(int i=0; i<questionList.size();i++){
             fw.write("nivel;" + questionList.getAt(i).title + ";" + questionList.getAt(i).answers[0] + ";" + questionList.getAt(i).answers[1] + ";" +
-                    questionList.getAt(i).answers[2] + ";" + questionList.getAt(i).answers[3] + ";" + (questionList.getAt(i).correctAnswer +1) + ";dica;tema" +";\n" )
+                    questionList.getAt(i).answers[2] + ";" + questionList.getAt(i).answers[3] + ";" + questionList.getAt(i).answers[4] + ";" + (questionList.getAt(i).correctAnswer +1) + ";dica;tema" +";\n" )
         }
         fw.close()
 
