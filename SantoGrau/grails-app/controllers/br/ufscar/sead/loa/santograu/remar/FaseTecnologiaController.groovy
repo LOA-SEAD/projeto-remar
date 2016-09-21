@@ -208,9 +208,10 @@ class FaseTecnologiaController {
     }
 
     String fixYoutubeLink(String link) {
-        if(link.contains("embed"))
-            return link;
-        def pos = link.indexOf("v=")
-        return "www.youtube.com/embed/" + link.substring(pos+2)
+        def newLink = link.substring(link.indexOf("www"))
+        if(newLink.contains("embed"))
+            return "http://" + newLink;
+        def pos = newLink.indexOf("v=")
+        return "http://www.youtube.com/embed/" + newLink.substring(pos+2)
     }
 }

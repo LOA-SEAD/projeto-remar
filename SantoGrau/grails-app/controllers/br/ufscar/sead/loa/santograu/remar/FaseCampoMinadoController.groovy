@@ -130,7 +130,7 @@ class FaseCampoMinadoController {
             questionList.add(QuestionFaseCampoMinado.findById(list_questionId[i]));
 
         //cria o arquivo json
-        createJsonFile("questoesCM.json", questionList)
+        createJsonFile("questoescm.json", questionList)
         render "index"
 
         //def ids = []

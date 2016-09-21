@@ -48,7 +48,7 @@
 														<input data-image="true" type="file" name="img-1" id="img-1" class="image-input" accept="image/png">
 													</div>
 													<div class="file-path-wrapper">
-														<input class="file-path validate" type="text" placeholder="URL da imagem">
+														<input class="file-path validate" type="text" placeholder="Imagem PNG (160x200px)">
 													</div>
 												</div>
 											</td>
@@ -70,7 +70,7 @@
 														<input data-image="true" type="file" name="img-2" id="img-2" class="image-input">
 													</div>
 													<div class="file-path-wrapper">
-														<input class="file-path validate" type="text" placeholder="URL da imagem">
+														<input class="file-path validate" type="text" placeholder="Imagem PNG (160x200px)">
 													</div>
 												</div>
 											</td>
@@ -92,7 +92,7 @@
 														<input data-image="true" type="file" name="img-3" id="img-3" class="image-input">
 													</div>
 													<div class="file-path-wrapper">
-														<input class="file-path validate" type="text" placeholder="URL da imagem">
+														<input class="file-path validate" type="text" placeholder="Imagem PNG (160x200px)">
 													</div>
 												</div>
 											</td>
@@ -114,7 +114,7 @@
 														<input data-image="true" type="file" name="img-4" id="img-4" class="image-input">
 													</div>
 													<div class="file-path-wrapper">
-														<input class="file-path validate" type="text" placeholder="URL da imagem">
+														<input class="file-path validate" type="text" placeholder="Imagem PNG (160x200px)">
 													</div>
 												</div>
 											</td>

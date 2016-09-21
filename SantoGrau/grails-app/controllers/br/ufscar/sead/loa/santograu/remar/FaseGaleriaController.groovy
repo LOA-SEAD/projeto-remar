@@ -44,7 +44,7 @@ class FaseGaleriaController {
         saveFaseGaleria(faseGaleria)
 
         //cria o arquivo json da fase
-        createJsonFile("Quadros.json", faseGaleria)
+        createJsonFile("quadros.json", faseGaleria)
 
         respond new FaseGaleria(params)
         //def ids = []
@@ -189,7 +189,7 @@ class FaseGaleriaController {
         saveFaseGaleria(faseGaleria)
 
         //cria o arquivo json da fase
-        createJsonFile("Quadros.json", faseGaleria)
+        createJsonFile("quadros.json", faseGaleria)
 
         respond new FaseGaleria(params)
         //def ids = []

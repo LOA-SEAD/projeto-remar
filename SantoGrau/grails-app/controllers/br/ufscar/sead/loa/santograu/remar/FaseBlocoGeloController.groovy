@@ -122,7 +122,7 @@ class FaseBlocoGeloController {
             questionList.add(QuestionFaseBlocoGelo.findById(list_questionId[i]));
 
         //cria o arquivo json
-        createJsonFile("questoesBN.json", questionList)
+        createJsonFile("questoesbn.json", questionList)
         render "index"
 
         //def ids = []

@@ -129,7 +129,7 @@ class FaseTCCController {
             questionList.add(QuestionFaseTCC.findById(list_questionId[i]));
 
         //cria o arquivo json
-        createJsonFile("questoesTCC.json", questionList)
+        createJsonFile("questoestcc.json", questionList)
         render "index"
 
         //def ids = []
