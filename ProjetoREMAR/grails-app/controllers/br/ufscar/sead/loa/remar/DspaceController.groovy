@@ -1,12 +1,14 @@
 package br.ufscar.sead.loa.remar
 
 import br.ufscar.sead.loa.propeller.Propeller
+import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.web.JSONBuilder
 import groovy.io.FileType
 import groovy.json.JsonBuilder
 import com.mongodb.MongoClient
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.MongoDatabase
+import org.codehaus.groovy.grails.web.json.JSONArray
 
 class DspaceController {
 
@@ -214,6 +216,7 @@ class DspaceController {
     //create item and submit bitstreams for dspace
     def finishDataSending(){
         println(params)
+        def json = JSON.parse(params.metadata.toString())
         def metadatas = [], list = [:]
         def itemId = null
         def i = 0
@@ -223,25 +226,27 @@ class DspaceController {
 
         //convert date for pattern expected
         Date date = new Date()
-        params.publication_date = date.format('YYYY-MM-dd')
+        json.publication_date = date.format('YYYY-MM-dd')
+
+        println(json)
+        println(json.get("license"))
 
         //gerar arquivo de metadados do item
         for(def hash : dspaceRestService.listMetadata){
-            if(params.get(hash.key).getClass().isArray()){
-                params.get(hash.key).each {
+            if(json.get(hash.key) instanceof JSONArray){
+                for (it in json.get(hash.key)){
                     def m = [:]
                     m.key = hash.value
-                    m.value =  it
+                    m.value =  it.name
                     metadatas.add(m)
                 }
             }else{
                 def m = [:]
                 m.key = hash.value
-                m.value =  params.get(hash.key)
+                m.value =  json.get(hash.key)
                 metadatas.add(m)
             }
         }
-
         list.metadata = metadatas
 
         if(current_task.getVariable("step") == "preview-metadata"){ // -> criar item
@@ -253,20 +258,21 @@ class DspaceController {
                     }
                 }
             }
+
             current_task.putVariable("itemId",itemId,true)
 
-            dir.eachFileRecurse (FileType.FILES) {file ->
-                def description = null
-                if(params.bit_description.getClass().isArray()){
-                    description = params.bit_description.getAt(i)
-                    i = i+1
-                }else{
-                    description = params.description
-                }
-                dspaceRestService.addBitstreamToItem(itemId, file, file.name, description)
-            }
-
-            current_task.putVariable("step","completed",true)
+//            dir.eachFileRecurse (FileType.FILES) {file ->
+//                def description = null
+//                if(json.get("bitstreams") instanceof JSONArray){
+//                    description = params.bit_description.getAt(i)
+//                    i = i+1
+//                }else{
+//                    description = params.description
+//                }
+//                dspaceRestService.addBitstreamToItem(itemId, file, file.name, description)
+//            }
+//
+//            current_task.putVariable("step","completed",true)
 
             render view: 'overview', model: [process: current_task.getProcess()]
         }

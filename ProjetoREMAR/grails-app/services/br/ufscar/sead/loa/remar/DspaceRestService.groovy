@@ -28,7 +28,7 @@ class DspaceRestService {
     private RestBuilder rest
     private String token
 
-    def listMetadata = [author: "dc.contributor.author",
+    def listMetadata = [authors: "dc.contributor.author",
                         title:  "dc.title",
                         abstract: "dc.description.abstract",
                         license: "dcterms.license",

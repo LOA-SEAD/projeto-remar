@@ -45,15 +45,15 @@
                     </p>
                     <p>
                         <span class="bold">Citação: </span>
-                        ${metadata.citation};
+                        ${metadata.citation}
                     </p>
                     <p>
                         <span class="bold">Título: </span>
-                        ${metadata.title};
+                        ${metadata.title}
                     </p>
                     <p>
                         <span class="bold">Resumo: </span>
-                        ${metadata.abstract};
+                        ${metadata.abstract}
                     </p>
                 </div>
             </fieldset>
