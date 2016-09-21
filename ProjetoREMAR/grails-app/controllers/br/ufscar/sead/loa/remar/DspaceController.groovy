@@ -185,34 +185,6 @@ class DspaceController {
         render  view: "previewMetadata", model: [metadata: root, task: current_task, resource: resource]
     }
 
-    def submitBitstream(MetadataForm form){
-        def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
-        def dir = new File(servletContext.getRealPath("/data/processes/${current_task.getProcess().id}/tmp/${params.taskId}/"))
-        def i = 0
-        def itemId = current_task.getVariable("itemId")
-
-        println(form)
-        params.description.each {
-            println(it)
-            form.bitstreams.add(it.toString())
-        }
-
-        dir.eachFileRecurse (FileType.FILES) {file ->
-            def description = null
-            if(params.description.getClass().isArray()){
-                description = params.description.getAt(i)
-                i = i+1
-            }else{
-                description = params.description
-            }
-            dspaceRestService.addBitstreamToItem(itemId, file, file.name, description)
-        }
-
-        current_task.putVariable("step","preview_metadata",true)
-
-        redirect uri: "/dspace/listMetadata?taskId=${params.taskId}"
-    }
-
     //create item and submit bitstreams for dspace
     def finishDataSending(){
         println(params)
@@ -261,18 +233,12 @@ class DspaceController {
 
             current_task.putVariable("itemId",itemId,true)
 
-//            dir.eachFileRecurse (FileType.FILES) {file ->
-//                def description = null
-//                if(json.get("bitstreams") instanceof JSONArray){
-//                    description = params.bit_description.getAt(i)
-//                    i = i+1
-//                }else{
-//                    description = params.description
-//                }
-//                dspaceRestService.addBitstreamToItem(itemId, file, file.name, description)
-//            }
-//
-//            current_task.putVariable("step","completed",true)
+            dir.eachFileRecurse (FileType.FILES) {file ->
+                def description = json.get("bitstreams").pop().description
+                dspaceRestService.addBitstreamToItem(itemId, file, file.name, description)
+            }
+
+            current_task.putVariable("step","completed",true)
 
             render view: 'overview', model: [process: current_task.getProcess()]
         }
