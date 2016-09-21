@@ -24,7 +24,8 @@ function _submit() {
                 window.top.location.href = returndata;
             },
             error: function (returndata) {
-                alert("Error:\n" + returndata.responseText);
+                window.top.location.href = "index";
+                //alert("Error:\n" + returndata.responseText);
             }
         });
     }

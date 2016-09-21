@@ -188,5 +188,17 @@ class FaseTCCController {
         }
         pw.write("}");
         pw.close();
+
+        //se o arquivo fases.json nao existe, cria ele com nenhuma fase opcional
+        File fileFasesJson = new File("$instancePath/fases.json")
+        boolean exists = fileFasesJson.exists()
+        if(!exists) {
+            PrintWriter printer = new PrintWriter(fileFasesJson);
+            printer.write("{\n");
+            printer.write("\t\"quantidade\": [\"0\"],\n")
+            printer.write("\t\"fases\": [\"1\", \"2\"]\n")
+            printer.write("}")
+            printer.close();
+        }
     }
 }

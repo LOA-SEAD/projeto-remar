@@ -1,6 +1,7 @@
 package br.ufscar.sead.loa.santograu.remar
 
 import grails.plugin.springsecurity.annotation.Secured
+import groovy.json.JsonSlurper
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -10,7 +11,7 @@ import org.apache.tools.ant.util.FileUtils
 class FaseGaleriaController {
     def springSecurityService
 
-    static allowedMethods = [save: "POST", saveLevel: "PUT", update: "PUT", delete: "DELETE", deleteTheme: "DELETE", imagesManager: "POST", exportLevel:"POST"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", deleteTheme: "DELETE", imagesManager: "POST", exportLevel:"POST"]
 
     @Secured(['permitAll'])
     def index(Integer max) {
@@ -32,12 +33,32 @@ class FaseGaleriaController {
 
     @Transactional
     def save() {
-        FaseGaleria faseGaleriaInstance = new FaseGaleria()
-        faseGaleriaInstance.orientacao = params.orientacao
-        faseGaleriaInstance.themeId = Long.parseLong(params.themeId)
-        faseGaleriaInstance.ownerId = session.user.id as long
-        faseGaleriaInstance.taskId = session.taskId as String
-        faseGaleriaInstance.save flush:true
+        //cria a instancia da fase galeria com os valores inseridos pelo usuario
+        FaseGaleria faseGaleria = new FaseGaleria()
+        faseGaleria.themeId = Long.parseLong(params.radio)
+        faseGaleria.orientacao = params.orientacao
+        faseGaleria.ownerId = session.user.id as long
+        faseGaleria.taskId = session.taskId as String
+
+        //salva os dados da fase no BD
+        saveFaseGaleria(faseGaleria)
+
+        //cria o arquivo json da fase
+        createJsonFile("Quadros.json", faseGaleria)
+
+        respond new FaseGaleria(params)
+        //def ids = []
+        //def folder = servletContext.getRealPath("/data/${session.user.id}/${session.taskId}")
+
+        //ids << MongoHelper.putFile(folder + '/computadores.json')
+
+        //def port = request.serverPort
+        //if (Environment.current == Environment.DEVELOPMENT) {
+        //    port = 8080
+        //}
+
+        //render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
+        //       "?files=${ids[0]}&files=${ids[1]}&files=${ids[2]}"
 
         redirect(action: "index")
     }
@@ -46,14 +67,6 @@ class FaseGaleriaController {
         faseGaleriaInstance.save flush:true
     }
 
-    def saveLevel() {
-        println "entrou save -----------------";
-        println "orientacoes: " + params.orientacao
-        FaseGaleria faseGaleriaInstance = new FaseGaleria()
-
-        //faseGaleriaInstance.save flush:true
-        redirect(action: "index")
-    }
 
     def edit(FaseGaleria faseGaleriaInstance) {
         respond faseGaleriaInstance
@@ -167,7 +180,7 @@ class FaseGaleriaController {
     def exportLevel(){
         //cria a instancia da fase galeria com os valores inseridos pelo usuario
         FaseGaleria faseGaleria = new FaseGaleria()
-        faseGaleria.themeId = Long.parseLong(params.themeId)
+        faseGaleria.themeId = Long.parseLong(params.radio)
         faseGaleria.orientacao = params.orientacao
         faseGaleria.ownerId = session.user.id as long
         faseGaleria.taskId = session.taskId as String
@@ -211,6 +224,34 @@ class FaseGaleriaController {
         pw.write("\t\"dicaOrdenacao\": [\"" + faseGaleria.orientacao +"\"]\n")
         pw.write("}")
         pw.close()
+
+        //adiciona a fase galeria no arquivo fases.json
+        File fileFasesJson = new File("$instancePath/fases.json")
+        boolean exists = fileFasesJson.exists()
+        if(!exists) {
+            PrintWriter printer = new PrintWriter(fileFasesJson);
+            printer.write("{\n");
+            printer.write("\t\"quantidade\": [\"1\"],\n")
+            printer.write("\t\"fases\": [\"2\", \"1\"]\n")
+            printer.write("}")
+            printer.close();
+        } else {
+            def arq = new JsonSlurper().parseText(new File("$instancePath/fases.json").text)
+            PrintWriter printer = new PrintWriter(fileFasesJson);
+            printer.write("{\n");
+
+            if(arq["quantidade"][0] == "0") {
+                printer.write("\t\"quantidade\": [\"1\"],\n")
+                printer.write("\t\"fases\": [\"2\", \"1\"]\n")
+
+            } else {
+                printer.write("\t\"quantidade\": [\"2\"],\n")
+                printer.write("\t\"fases\": [\"1\", \"2\"]\n")
+            }
+
+            printer.write("}")
+            printer.close();
+        }
     }
 
     void saveImages(ThemeFaseGaleria theme, path) {

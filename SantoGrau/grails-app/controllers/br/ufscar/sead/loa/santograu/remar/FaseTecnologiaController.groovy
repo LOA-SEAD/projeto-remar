@@ -6,6 +6,7 @@ import grails.util.Environment
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import groovy.json.JsonSlurper
 
 @Secured(["isAuthenticated()"])
 class FaseTecnologiaController {
@@ -128,6 +129,7 @@ class FaseTecnologiaController {
         createJsonFileComputadores("computadores.json", faseTecnologia)
         createHtmlFileTelao("telao.html", faseTecnologia)
 
+
         respond new FaseTecnologia(params)
         //def ids = []
         //def folder = servletContext.getRealPath("/data/${session.user.id}/${session.taskId}")
@@ -152,8 +154,8 @@ class FaseTecnologiaController {
 
         File file = new File("$instancePath/"+fileName);
         PrintWriter pw = new PrintWriter(file);
-        pw.write("{\n ");
-        pw.write("\"words\":[\"" + faseTecnologia.palavras[0] + "\",\""+ faseTecnologia.palavras[1] +"\",\""+ faseTecnologia.palavras[2] +"\"]\n")
+        pw.write("{\n");
+        pw.write("\t\"words\": [\"" + faseTecnologia.palavras[0] + "\", \""+ faseTecnologia.palavras[1] +"\", \""+ faseTecnologia.palavras[2] +"\"]\n")
         pw.write("}");
         pw.close();
     }
@@ -178,6 +180,31 @@ class FaseTecnologiaController {
         }
 
         pw.close();
+
+        //adiciona a fase tecnologia no arquivo fases.json
+        File fileFasesJson = new File("$instancePath/fases.json")
+        boolean exists = fileFasesJson.exists()
+        if(!exists) {
+            PrintWriter printer = new PrintWriter(fileFasesJson);
+            printer.write("{\n");
+            printer.write("\t\"quantidade\": [\"1\"],\n")
+            printer.write("\t\"fases\": [\"1\", \"2\"]\n")
+            printer.write("}")
+            printer.close();
+        } else {
+            def arq = new JsonSlurper().parseText(new File("$instancePath/fases.json").text)
+            PrintWriter printer = new PrintWriter(fileFasesJson);
+            printer.write("{\n");
+
+            if(arq["quantidade"][0] == "0")
+                printer.write("\t\"quantidade\": [\"1\"],\n")
+            else
+                printer.write("\t\"quantidade\": [\"2\"],\n")
+
+            printer.write("\t\"fases\": [\"1\", \"2\"]\n")
+            printer.write("}")
+            printer.close();
+        }
     }
 
     String fixYoutubeLink(String link) {

@@ -4,9 +4,6 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<g:javascript src="faseGaleria.js"/>
 		<g:javascript src="iframeResizer.contentWindow.min.js"/>
@@ -19,16 +16,16 @@
 		</p>
 	</div>
 	<div class="row">
-		<form class="col s12" name="formName">
+		<div id="myForm" class="col s12" enctype="multipart/form-data">
 			<div class="row">
+				<g:form controller="faseGaleria" action="save">
 				<div class="fieldcontain required">
 					<label for="orientacao">
 						<g:message code="faseGaleria.orientacao.label" default="Orientação " />
 						<span class="required-indicator">*</span>
 					</label>
-					<g:field name="orientacao" type="text" required="" length="95" maxlength="95" class="validate"/>
+					<g:field name="orientacao" id="orientacao" type="text" required="" length="95" maxlength="95" class="validate"/>
 				</div>
-				<g:form method="post"  action="save" controller="faseGaleria">
 				<ul class="collapsible" data-collapsible="accordion">
 					<li>
 						<div class="collapsible-header active"> <b>Meus Temas </b></div>
@@ -133,7 +130,7 @@
 					</li>
 				</ul>
 				<div class="col s12">
-					<g:submitButton name="save" class="btn btn-success btn-lg my-orange" value="Enviar" onclick="_save()"/>
+					<input id="save" type="submit" class="btn btn-success btn-lg my-orange" value="Enviar"/>
 					<g:link class="btn btn-success btn-lg my-orange" action="create">Novo tema</g:link>
 				</div>
 				</g:form>
@@ -152,14 +149,14 @@
 
 				<div id="erroSubmitModal" class="modal">
 					<div class="modal-content">
-						Você deve selecionar um tema antes de enviar.
+						Você deve escrever uma orientação e selecionar um tema antes de enviar.
 					</div>
 					<div class="modal-footer">
 						<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
 					</div>
 				</div>
 			</div>
-		</form>
+		</div>
 	</div>
 	</body>
 </html>

@@ -2,12 +2,6 @@
  * Created by leticia on 31/08/16.
  */
 
-$(document).ready(function(){
-    $('.collapsible').collapsible({
-        accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-    });
-});
-
 var tr;
 var id;
 
@@ -20,11 +14,32 @@ window.onload = function() {
         }
     }
 
+    $('.collapsible').collapsible({
+        accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
+
     $(".delete").click(function() {
         tr = $(this).parent().parent();
         id = $(tr).attr("data-id");
 
         $('#deleteModal').openModal();
+    });
+
+    $("#myForm").submit(function() {
+        var select = false;
+        var checkboxes = document.getElementsByTagName('input');
+        var i = 0;
+        while (select == false && i < checkboxes.length) {
+            if ((checkboxes[i].type == 'radio') && (checkboxes[i].checked == true)) {
+                select = true;
+                console.log("SELECIONOU");
+            }
+            i++;
+        }
+        if (select == false || $("#orientacao").val() == "") {
+            $("#erroSubmitModal").openModal();
+            return false;
+        }
     });
 };
 

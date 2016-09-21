@@ -17,7 +17,7 @@
 				</p>
 			</div>
 
-			<g:uploadForm controller="design" action="imagesManager">
+			<g:uploadForm  method="POST" controller="design" action="imagesManager">
 				<div class="row">
 					<div class="col s12">
 						<ul class="collapsible" data-collapsible="accordion">
