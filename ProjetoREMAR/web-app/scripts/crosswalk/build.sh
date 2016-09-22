@@ -2,6 +2,7 @@
 
 # $1: Application root path (where /data, /scripts, /data etc are located)
 # $2: Game uri
+# $3: Game name
 
 export ANDROID_HOME="/dev-tools/android"
 export CROSSWALK_PATH="/dev-tools/crosswalk"
@@ -17,7 +18,7 @@ cp $1/stats/login.js .
 cp $1/stats/login.html .
 cp $1/stats/logo-remar-preto-transparente.png .
 
-sed -i.bkp "s/NAME/$2/" manifest.json
+sed -i.bkp "s/NAME/$3/" manifest.json
 
 ${CROSSWALK_PATH}/make_apk.py --package br.ufscar.sead.loa.remar.published.$2 --manifest manifest.json --target-dir ..
 
