@@ -1,0 +1,95 @@
+{
+  "name": "SantoGrau",
+  "uri": "santograu",
+  "version": 1,
+  "tasks": [
+    {
+      "name": "Fase Tecnologia",
+      "uri": "faseTecnologia",
+      "description": "Criar/editar/selecionar um banco de questões para o jogo.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "telao.html",
+          "type": "html",
+          "path": ""
+        },
+        {
+          "name": "fases.json",
+          "type": "json",
+          "path": ""
+        },
+        {
+          "name": "computadores.json",
+          "type": "json",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "name": "Fase Galeria",
+      "uri": "question",
+      "description": "Criar/editar/selecionar um banco de questões para o jogo.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+        "name": "perguntas.xml",
+        "type": "xml",
+        "path": ""
+        }
+      ]
+    },
+    {
+      "name": "Fase Campo Minado",
+      "uri": "question",
+      "description": "Criar/editar/selecionar um banco de questões para o jogo.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "perguntas.xml",
+          "type": "xml",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "name": "Fase Bloco de Gelo",
+      "uri": "question",
+      "description": "Criar/editar/selecionar um banco de questões para o jogo.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "perguntas.xml",
+          "type": "xml",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "name": "Fase TCC",
+      "uri": "question",
+      "description": "Criar/editar/selecionar um banco de questões para o jogo.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "perguntas.xml",
+          "type": "xml",
+          "path": ""
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    "web",
+    "moodle"
+  ],
+  "vars": {
+    "width": 1280,
+    "height": 720
+  }
+}
