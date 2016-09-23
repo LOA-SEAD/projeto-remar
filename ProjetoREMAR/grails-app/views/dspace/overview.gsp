@@ -74,17 +74,8 @@
                                     <g:if test="${task.getVariable('step') == "completed" }">
                                         <div class="icon-metadata-done">
                                             <input type="hidden" id="task${i}-metadata" value="true">
-                                            <span>OK</span>
-                                            %{--<a href="#!" class="tooltipped right" data-position="bottom"--}%
-                                               %{--data-delay="50" data-tooltip="Visualizar"--}%
-                                               %{--data-task-id="${task.id}">--}%
-                                                %{--<i class="material-icons">visibility</i>--}%
-                                            %{--</a>--}%
-                                            %{--<a href="#!" class="tooltipped right" data-position="bottom"--}%
-                                               %{--data-delay="50" data-tooltip="Editar"--}%
-                                               %{--data-task-id="${task.id}">--}%
-                                                %{--<i class="material-icons">mode_edit</i>--}%
-                                            %{--</a>--}%
+                                            <span>OK - </span>
+                                            <a href="${task.getVariable('handle')}" target="_blank">visualizar</a>
                                         </div>
                                     </g:if>
                                     <g:elseif test="${task.getVariable('step') == "submit_bitstreams"}">

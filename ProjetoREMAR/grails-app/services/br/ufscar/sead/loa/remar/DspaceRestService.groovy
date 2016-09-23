@@ -534,7 +534,8 @@ class DspaceRestService {
                         logout()
                         def list = resp.body as String
                         def itemId = list.substring(list.indexOf("<id>")+4, list.indexOf("</id>"))
-                        return itemId
+                        def handle = list.substring(list.indexOf("<handle>")+8, list.indexOf("</handle>"))
+                        return [itemId: itemId, handle: handle]
 
                     }catch (SocketTimeoutException timeout){
                         println("Timeout in newItem - ${timeout.message}, ${timeout.cause}")

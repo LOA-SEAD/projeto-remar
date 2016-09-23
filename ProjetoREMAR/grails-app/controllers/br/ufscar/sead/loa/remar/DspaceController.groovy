@@ -190,7 +190,7 @@ class DspaceController {
         println(params)
         def json = JSON.parse(params.metadata.toString())
         def metadatas = [], list = [:]
-        def itemId = null
+        def itemId, handle = null
         def i = 0
         def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
         def resource = Resource.get(current_task.getProcess().getVariable('resourceId'))
@@ -226,12 +226,14 @@ class DspaceController {
             resource_dspace.collect{
                 it.tasks.each{ task -> //procurando pelo id da coleção que o item será criado
                     if(task.id.toString() == current_task.definition.id.toString()){ //achei a coleção correta
-                        itemId = dspaceRestService.newItem(task.collectionId, list)
+                        def aux = dspaceRestService.newItem(task.collectionId, list)
+                        itemId = aux.itemId
+                        handle = dspaceRestService.getJspuiUrl()+"/handle/"+aux.handle
                     }
                 }
             }
-
             current_task.putVariable("itemId",itemId,true)
+            current_task.putVariable("handle",handle,true)
 
             dir.eachFileRecurse (FileType.FILES) {file ->
                 def description = json.get("bitstreams").pop().description

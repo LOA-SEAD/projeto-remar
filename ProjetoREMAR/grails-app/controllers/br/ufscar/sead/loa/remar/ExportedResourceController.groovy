@@ -141,22 +141,27 @@ class ExportedResourceController {
 
     def publish(ExportedResource instance) {
         def exportsTo = [:]
+        def handle = [:]
         def groupsIOwn = Group.findAllByOwner(session.user)
         exportsTo.desktop = instance.resource.desktop
         exportsTo.android = instance.resource.android
         exportsTo.moodle = instance.resource.moodle
         def groupsIAdmin = UserGroup.findAllByUserAndAdmin(session.user,true).group
 
-
         def baseUrl = "/published/${instance.processId}"
         def process = Propeller.instance.getProcessInstanceById(instance.processId as String, session.user.id as long)
-
         instance.name = process.name
 
         RequestMap.findOrSaveWhere(url: "${baseUrl}/**", configAttribute: 'permitAll')
 
+        process.completedTasks.each {task ->
+            if(task.getVariable('handle') != null){
+                handle.put(task.definition.name, task.getVariable('handle'))
+            }
+        }
+
         render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl, groupsIAdmin: groupsIAdmin,
-                                            exportedResourceInstance: instance,createdAt: process.createdAt, groupsIOwn: groupsIOwn]
+                                            exportedResourceInstance: instance,createdAt: process.createdAt, groupsIOwn: groupsIOwn, handle: handle]
     }
 
     def export(ExportedResource instance) {
