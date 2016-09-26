@@ -41,25 +41,25 @@
 
     <div class="divider"></div>
 
-    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os jogos que você já customizou." data-step="3">
+    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os seus jogos (customizados ou em processo de customização)." data-step="3">
         <a href="/exportedResource/myGames" class=""><i class="medium material-icons">recent_actors</i>Meus Jogos</a>
     </li>
     <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra todos os seus grupos criados." data-step="4">
         <a href="/group/list" class=""><i class="material-icons">people</i>Meus Grupos</a>
     </li>
     <g:if test="${grailsApplication.config.dspace.restUrl}">
-        <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra artefatos para customizar seus jogos" data-step="4">
+        <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra recursos abertos  que podem ser reutilizados na customização de seus jogos." data-step="5">
             <a href="/dspace/index" class=""><i class="material-icons">cloud</i>Repositório</a>
         </li>
     </g:if>
     <sec:ifAllGranted roles="ROLE_DEV">
-        <li class="waves-effect waves-block waves-light" data-intro="No espaço do desenvolvedor você pode submeter um novo jogo para o REMAR." data-step="5">
+        <li class="waves-effect waves-block waves-light" data-intro="No espaço do desenvolvedor você pode submeter um novo jogo para o REMAR." data-step="6">
             <a href="/resource/index" class=""><i class="medium material-icons">code</i>Desenvolvedor</a>
         </li>
     </sec:ifAllGranted>
 
     <sec:ifAllGranted roles="ROLE_ADMIN">
-        <li class="waves-effect waves-block waves-light" data-intro="No espaço do desenvolvedor você pode submeter um novo jogo para o REMAR." data-step="4">
+        <li class="waves-effect waves-block waves-light">
             <a href="/category/index" class=""><i class="material-icons">list</i>Categorias</a>
         </li>
     </sec:ifAllGranted>
@@ -67,10 +67,10 @@
     <div class="divider"></div>
 
 
-    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra a documentação dos modelos." data-step="6">
+    <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra orientações para o uso da plataforma e customização de cada modelo de jogo" data-step="7">
         <a href="https://remar.readme.io/docs" target="_blank"><i class="medium material-icons">description</i>Documentação</a>
 
-    <li class="waves-effect waves-block waves-light" data-intro="Para ver este wizard novamente basta clicar aqui." data-step="7">
+    <li class="waves-effect waves-block waves-light" data-intro="Para ver este wizard novamente basta clicar aqui." data-step="8">
         <a onclick="startWizard()" class=""><i class="medium material-icons">live_help</i>Ajuda na navegação</a>
     </li>
 </ul>
