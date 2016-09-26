@@ -43,7 +43,7 @@ Time: 09:55
                                               date="${createdAt}"/></p>
 
                             <p><span class="bold">Baseado no modelo: </span>${exportedResourceInstance.resource.name}</p>
-                            <p><span class="bold">Áre de conteúdo: </span>${exportedResourceInstance.contentArea}</p>
+                            <p><span class="bold">Área de conteúdo: </span>${exportedResourceInstance.contentArea}</p>
                             <p><span class="bold">Conteúdo específico: </span>${exportedResourceInstance.specificContent}</p>
                             <input type="hidden" id="licenseValue" value="${exportedResourceInstance.license}">
                             <br>
