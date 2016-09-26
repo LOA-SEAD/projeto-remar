@@ -6,6 +6,9 @@ import groovy.json.JsonSlurper
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import org.apache.tools.ant.util.FileUtils
+import static java.awt.RenderingHints.*
+import java.awt.image.BufferedImage
+import javax.imageio.ImageIO
 
 @Secured(["isAuthenticated()"])
 class FaseGaleriaController {
@@ -170,10 +173,29 @@ class FaseGaleriaController {
         for(def i=1;i<=qtsImagens;i++) {
             def image = new File("$userPath/image" + i + ".png")
             imagesUploaded[i-1].transferTo(image)
+            resizeImage(userPath, i)
         }
 
         redirect(action:"index")
 
+    }
+
+    def resizeImage(userPath, i) {
+        int newWidth = 160
+        int newHeight = 200
+        def newImage = ImageIO.read(new File("$userPath/image" + i + ".png"))
+        try {
+            new BufferedImage( newWidth, newHeight, newImage.type ).with { img ->
+                createGraphics().with {
+                    setRenderingHint( KEY_INTERPOLATION, VALUE_INTERPOLATION_BICUBIC )
+                    drawImage( newImage, 0, 0, newWidth, newHeight, null )
+                    dispose()
+                }
+                ImageIO.write( img, 'png', new File("$userPath/image" + i + ".png"))
+            }
+        } catch (Exception e) {
+            println e.message
+        }
     }
 
     @Secured(['permitAll'])
