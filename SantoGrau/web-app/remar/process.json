@@ -6,8 +6,8 @@
     {
       "name": "Fase Tecnologia",
       "uri": "faseTecnologia",
-      "description": "Criar/editar/selecionar um banco de questões para o jogo.",
-      "type": "text_database",
+      "description": "Configurar um conteúdo multimídia com 3 palavras-chaves relacionadas ao conteúdo, que serão embaralhadas em anagramas.",
+      "type": "media_list",
       "dependencies": null,
       "outputs": [
         {
@@ -29,56 +29,101 @@
     },
     {
       "name": "Fase Galeria",
-      "uri": "question",
-      "description": "Criar/editar/selecionar um banco de questões para o jogo.",
-      "type": "text_database",
+      "uri": "faseGaleria",
+      "description": "Criar/editar/selecionar um tema de imagens para o nivel Galeria.",
+      "type": "image_collection",
       "dependencies": null,
       "outputs": [
         {
-        "name": "perguntas.xml",
-        "type": "xml",
-        "path": ""
+          "name": "1.png",
+          "type": "image",
+          "path": ""
+        },
+        {
+          "name": "2.png",
+          "type": "image",
+          "path": ""
+        },
+        {
+          "name": "3.png",
+          "type": "image",
+          "path": ""
+        },
+        {
+          "name": "4.png",
+          "type": "image",
+          "path": ""
+        },
+        {
+          "name": "5.png",
+          "type": "image",
+          "path": ""
+        },
+        {
+          "name": "6.png",
+          "type": "image",
+          "path": ""
+        },
+        {
+          "name": "7.png",
+          "type": "image",
+          "path": ""
+        },
+        {
+          "name": "8.png",
+          "type": "image",
+          "path": ""
+        },
+        {
+          "name": "9.png",
+          "type": "image",
+          "path": ""
+        },
+        {
+          "name": "10.png",
+          "type": "image",
+          "path": ""
         }
       ]
     },
     {
       "name": "Fase Campo Minado",
-      "uri": "question",
-      "description": "Criar/editar/selecionar um banco de questões para o jogo.",
+      "uri": "faseCampoMinado",
+      "description": "Criar/editar/selecionar um banco de questões para o nivel Campo Minado.",
       "type": "text_database",
       "dependencies": null,
       "outputs": [
         {
-          "name": "perguntas.xml",
-          "type": "xml",
+          "name": "questoescm.json",
+          "type": "json",
           "path": ""
         }
       ]
     },
     {
       "name": "Fase Bloco de Gelo",
-      "uri": "question",
-      "description": "Criar/editar/selecionar um banco de questões para o jogo.",
+      "uri": "faseBlocoGelo",
+      "description": "Criar/editar/selecionar um banco de questões para o nivel Bloco de Gelo.",
       "type": "text_database",
       "dependencies": null,
       "outputs": [
         {
-          "name": "perguntas.xml",
-          "type": "xml",
+          "name": "questoesbn.json",
+          "type": "json",
           "path": ""
         }
       ]
     },
     {
       "name": "Fase TCC",
-      "uri": "question",
-      "description": "Criar/editar/selecionar um banco de questões para o jogo.",
+      "uri": "faseTCC",
+      "description": "Criar/editar/selecionar um banco de questões  para o nivel final TCC.",
       "type": "text_database",
       "dependencies": null,
       "outputs": [
         {
-          "name": "perguntas.xml",
-          "type": "xml",
+          "name": "questoestcc.json",
+          "type": "json",
           "path": ""
         }
       ]
