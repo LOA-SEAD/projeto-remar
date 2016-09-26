@@ -172,7 +172,7 @@ function _submit() {
     var list_id = [];
 
     //checa se o usuario selecionou exatamente 5 questoes
-    if($("input[type=checkbox]:checked").size() != 5) {
+    if($("input[type=checkbox]:checked").size() < 5) {
         $("#errorSaveModal").openModal();
     } else {
         //cria uma lista com os ids de cada questao selecionada

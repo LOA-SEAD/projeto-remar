@@ -157,8 +157,9 @@ class FaseTCCController {
 
         File file = new File("$instancePath/"+fileName);
         PrintWriter pw = new PrintWriter(file);
-        pw.write("{\n");
-        for(def i=0; i<5;i++){
+        pw.write("{\n")
+        pw.write("\t\"quantidadeQuestoes\": [\"" + questionList.size() + "\"],\n")
+        for(def i=0; i<questionList.size();i++){
             pw.write("\t\"" + (i+1) + "\": [\"" + questionList[i].title + "\", ")
             pw.write("\""+ questionList[i].answers[0] +"\", " + "\""+ questionList[i].answers[1] +"\", ")
             pw.write("\""+ questionList[i].answers[2] +"\", " + "\""+ questionList[i].answers[3] +"\", ")
@@ -182,7 +183,7 @@ class FaseTCCController {
                 default:
                     println("Erro! Alternativa correta inválida")
             }
-            if(i<4)
+            if(i<questionList.size()-1)
                 pw.write(",")
             pw.write("\n")
         }

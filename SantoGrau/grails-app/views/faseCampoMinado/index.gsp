@@ -255,7 +255,7 @@
 
 				<div id="errorSaveModal" class="modal">
 					<div class="modal-content">
-						Você deve selecionar exatamente 4 questões para enviar.
+						Você deve selecionar pelo menos 4 questões para enviar.
 					</div>
 					<div class="modal-footer">
 						<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>

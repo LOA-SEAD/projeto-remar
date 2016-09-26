@@ -150,8 +150,9 @@ class FaseBlocoGeloController {
 
         File file = new File("$instancePath/"+fileName);
         PrintWriter pw = new PrintWriter(file);
-        pw.write("{\n");
-        for(def i=0; i<3;i++){
+        pw.write("{\n")
+        pw.write("\t\"quantidadeQuestoes\": [\"" + questionList.size() + "\"],\n")
+        for(def i=0; i<questionList.size();i++){
             pw.write("\t\"" + (i+1) + "\": [\"" + questionList[i].title + "\", ")
             pw.write("\""+ questionList[i].answers[0] +"\", " + "\""+ questionList[i].answers[1] +"\", ")
             pw.write("\""+ questionList[i].answers[2] +"\", ")
@@ -168,7 +169,7 @@ class FaseBlocoGeloController {
                 default:
                     println("Erro! Alternativa correta inválida")
             }
-            if(i<2)
+            if(i<questionList.size()-1)
                 pw.write(",")
             pw.write("\n")
         }
