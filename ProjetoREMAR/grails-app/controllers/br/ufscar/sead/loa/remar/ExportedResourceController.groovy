@@ -708,6 +708,7 @@ class ExportedResourceController {
 
     def info(ExportedResource instance){
         def exportsTo = [:]
+        def handle = [:]
         def groupsOwnedByMe = Group.findAllByOwner(session.user)
         exportsTo.desktop = instance.resource.desktop
         exportsTo.android = instance.resource.android
@@ -722,8 +723,14 @@ class ExportedResourceController {
 
         RequestMap.findOrSaveWhere(url: "${baseUrl}/**", configAttribute: 'permitAll')
 
+        process.completedTasks.each {task ->
+            if(task.getVariable('handle') != null){
+                handle.put(task.definition.name, task.getVariable('handle'))
+            }
+        }
+
         render view: 'info', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl, groupsIAdmin: groupsAdministeredByMe,
-                                     exportedResourceInstance: instance, createdAt: process.createdAt, groupsIOwn: groupsOwnedByMe]
+                                     exportedResourceInstance: instance, createdAt: process.createdAt, groupsIOwn: groupsOwnedByMe, handle : handle]
 
     }
 

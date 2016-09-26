@@ -143,6 +143,9 @@ class DspaceController {
 
     }
 
+    def editListMetadata(){
+
+    }
 
     //preview metadata
     def previewMetadata(){
@@ -184,6 +187,7 @@ class DspaceController {
 
         render  view: "previewMetadata", model: [metadata: root, task: current_task, resource: resource]
     }
+
 
     //create item and submit bitstreams for dspace
     def finishDataSending(){
