@@ -15,8 +15,8 @@
     <div class="row">
         <div class="col l12 s12 m12">
             <ul class="tabs">
-                <li class="tab"><a href="#my-groups">Sou dono</a></li>
-                <li class="tab"><a href="#others-groups">Sou membro</a></li>
+                <li class="tab"><a href="#my-groups">Sou Dono/Administrador</a></li>
+                <li class="tab"><a href="#others-groups">Sou Membro</a></li>
             </ul>
         </div>
     </div>
