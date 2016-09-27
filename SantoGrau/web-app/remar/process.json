@@ -6,6 +6,7 @@
     {
       "name": "Fase Tecnologia",
       "uri": "faseTecnologia",
+      "optional": true,
       "description": "Configurar um conteúdo multimídia com 3 palavras-chaves relacionadas ao conteúdo, que serão embaralhadas em anagramas.",
       "type": "media_list",
       "dependencies": null,
@@ -30,6 +31,7 @@
     {
       "name": "Fase Galeria",
       "uri": "faseGaleria",
+      "optional": true,
       "description": "Criar/editar/selecionar um tema de imagens para o nivel Galeria.",
       "type": "image_collection",
       "dependencies": null,
