@@ -14,7 +14,9 @@ class FaseTCCController {
 
     @Secured(['permitAll'])
     def index(Integer max) {
-        session.taskId = "57c42aca9e04b91a75a80f75"
+        if (params.t) {
+            session.taskId = params.t
+        }
         session.user = springSecurityService.currentUser
 
         def list = QuestionFaseTCC.findAllByOwnerId(session.user.id)

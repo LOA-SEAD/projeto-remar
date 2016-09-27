@@ -16,7 +16,9 @@ class FaseCampoMinadoController {
 
     @Secured(['permitAll'])
     def index() {
-        session.taskId = "57c42aca9e04b91a75a80f75"
+        if (params.t) {
+            session.taskId = params.t
+        }
         session.user = springSecurityService.currentUser
 
         def list = QuestionFaseCampoMinado.findAllByOwnerId(session.user.id)
