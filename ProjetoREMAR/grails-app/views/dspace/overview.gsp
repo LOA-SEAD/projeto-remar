@@ -53,7 +53,7 @@
                                                 <label for="task${i}"></label>
                                             </p>
                                         </g:if>
-                                        <g:elseif test="${task.getVariable('step') == "submit_bitstreams"}">
+                                        <g:elseif test="${task.getVariable('step') == "preview-metadata"}">
                                             <p>
                                                 <input type="checkbox" id="task${i}" checked disabled/>
                                                 <label for="task${i}"></label>
@@ -78,10 +78,10 @@
                                             <a href="${task.getVariable('handle')}" target="_blank">visualizar</a>
                                         </div>
                                     </g:if>
-                                    <g:elseif test="${task.getVariable('step') == "submit_bitstreams"}">
+                                    <g:elseif test="${task.getVariable('step') == "preview-metadata"}">
                                         <input type="hidden" id="task${i}-metadata" value="false">
                                         <div class="">
-                                            <a href="listMetadata?taskId=${task.id}" class="tooltipped" data-position="right"
+                                            <a href="preview-metadata?taskId=${task.id}" class="tooltipped" data-position="right"
                                                data-delay="50" data-tooltip="Submissão incompleta">
                                                 Continuar
                                             </a>

@@ -155,35 +155,42 @@ class DspaceController {
         def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
         def resource = Resource.findById(Long.parseLong(current_task.getProcess().getVariable("resourceId")))
         def list = []; //lista e bitstreams
+        def root = null; //lista e bitstreams
 
         def dir = new File(servletContext.getRealPath("/data/processes/${current_task.getProcess().id}/tmp/${params.taskId}/"))
         dir.eachFileRecurse (FileType.FILES) {file ->
             list << file
         }
 
-        print(list.get(0).name)
+        println(current_task.getVariable('metadata'))
 
-        def root = json {
-            "citation" params.citation
-            "title" params.title
-            "abstract" params.description
-            "license" params.license
+        if(current_task.getVariable('metadata') == null){
+            root = json {
+                "citation" params.citation
+                "title" params.title
+                "abstract" params.description
+                "license" params.license
 
-            if(params.author.getClass().isArray()){
-                "authors" params.author.collect { [name: it] }
-            }else{
-                "authors" collect{[name: params.author]}
+                if(params.author.getClass().isArray()){
+                    "authors" params.author.collect { [name: it] }
+                }else{
+                    "authors" collect{[name: params.author]}
+                }
+
+                if(params.bit_description.getClass().isArray()){
+                    "bitstreams" params.bit_description.collect { [name: list.pop().name, description: it] }
+                }else{
+                    "bitstreams" collect{[name: list.pop().name, description: params.bit_description]}
+                }
             }
 
-            if(params.bit_description.getClass().isArray()){
-                "bitstreams" params.bit_description.collect { [name: list.pop().name, description: it] }
-            }else{
-                "bitstreams" collect{[name: list.pop().name, description: params.bit_description]}
-            }
+            println(json.toString())
+
+            current_task.putVariable("metadata",json.toString(),true)
+            current_task.putVariable("step","preview-metadata",true)
+        }else{
+            root = JSON.parse(current_task.getVariable("metadata").toString())
         }
-
-        println(root)
-        current_task.putVariable("step","preview-metadata",true)
 
         render  view: "previewMetadata", model: [metadata: root, task: current_task, resource: resource]
     }
@@ -192,13 +199,15 @@ class DspaceController {
     //create item and submit bitstreams for dspace
     def finishDataSending(){
         println(params)
-        def json = JSON.parse(params.metadata.toString())
         def metadatas = [], list = [:]
         def itemId, handle = null
-        def i = 0
+
         def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
         def resource = Resource.get(current_task.getProcess().getVariable('resourceId'))
         def dir = new File(servletContext.getRealPath("/data/processes/${current_task.getProcess().id}/tmp/${params.taskId}/"))
+
+        def json = JSON.parse(current_task.getVariable("metadata"))
+        println(json)
 
         //convert date for pattern expected
         Date date = new Date()

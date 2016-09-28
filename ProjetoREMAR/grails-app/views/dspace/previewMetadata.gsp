@@ -90,6 +90,8 @@
 
             <div class=" col s12 m12 l12">
                 <div class="right">
+                    <button id="cancel" class="btn my-orange" type="submit" > <g:message code="dspace.metadata.button_cancel"/> </button>
+
                     <button id="nextButton" class="btn my-orange" type="submit" > <g:message code="dspace.metadata.button_finish"/> </button>
                 </div>
             </div>
