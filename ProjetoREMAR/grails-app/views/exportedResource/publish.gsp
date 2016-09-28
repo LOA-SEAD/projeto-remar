@@ -25,7 +25,7 @@ Time: 09:55
             <p>
                 O seu jogo foi publicado com <span class="bold">sucesso</span>! Agora ele já esta disponível no menu
                 <span class="chip">
-                    <a class="center" href="/exported-resource/publicGames">Jogos publicados</a>
+                    <a class="center" href="/exported-resource/publicGames">Banco de jogos</a>
                     <i class="medium material-icons">videogame_asset</i>
                 </span>
             </p>
