@@ -169,10 +169,10 @@ class UserController {
             def link = "http://${request.serverName}:${request.serverPort}/user/account/confirm/${token.token}"
 
             // noinspection GroovyAssignabilityCheck
-            def mensagem = "<h3>Prezado(a) ${user.firstName} ${user.lastName},  </h3> <br>" +
-                                "<p>Seu cadastro, username ${user.username}, foi realizado com sucesso.</p> <br>" +
+            def mensagem = "<h3>Prezado(a) ${instance.firstName} ${instance.lastName},  </h3> <br>" +
+                                "<p>Seu cadastro, username ${instance.username}, foi realizado com sucesso.</p> <br>" +
                                 "<p>Para confirmar seu cadastro, acesse o link  abaixo. </p> <br>" +
-                                "<p> ${url} </p> <br>" +
+                                "<p> ${link} </p> <br>" +
                                 "Atenciosamente, <br>" +
                                 "<br>" +
                                 "Equipe REMAR <br>" +
