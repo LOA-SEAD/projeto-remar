@@ -6,7 +6,8 @@
 --%>
 
 <ul class="pagination">
-    <g:if test="${pageCount > 0}">
+    <input type="hidden" value="${pageCount}">
+    <g:if test="${pageCount > 1}">
 
         <g:if test="${currentPage != 1}">
             <li class="waves-effect">
@@ -16,7 +17,7 @@
             </li>
         </g:if>
         <g:else>
-            <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+            <li id="arrowLeft" class="waves-effect"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
         </g:else>
 
         <g:each in="${1..pageCount}" var="page">
@@ -38,7 +39,7 @@
             </li>
         </g:if>
         <g:else>
-            <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+            <li id="arrowRight" class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
         </g:else>
 
     </g:if>
