@@ -131,20 +131,22 @@ class FaseTecnologiaController {
         createJsonFileComputadores("computadores.json", faseTecnologia)
         createHtmlFileTelao("telao.html", faseTecnologia)
 
+        // Finds the created file path
+        def ids = []
+        def folder = servletContext.getRealPath("/data/${session.user.id}/${session.taskId}")
 
-        respond new FaseTecnologia(params)
-        //def ids = []
-        //def folder = servletContext.getRealPath("/data/${session.user.id}/${session.taskId}")
+        ids << MongoHelper.putFile(folder + '/computadores.json')
+        ids << MongoHelper.putFile(folder + '/telao.html')
 
-        //ids << MongoHelper.putFile(folder + '/computadores.json')
 
-        //def port = request.serverPort
-        //if (Environment.current == Environment.DEVELOPMENT) {
-        //    port = 8080
-        //}
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
 
-        //render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
-         //       "?files=${ids[0]}&files=${ids[1]}&files=${ids[2]}"
+        // Updates current task to 'completed' status
+        render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
+                "?files=${ids[0]}&files=${ids[1]}"
 
 
     }

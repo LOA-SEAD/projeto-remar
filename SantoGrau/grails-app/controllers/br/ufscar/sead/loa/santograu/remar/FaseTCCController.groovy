@@ -1,6 +1,8 @@
 package br.ufscar.sead.loa.santograu.remar
 
+import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.plugin.springsecurity.annotation.Secured
+import grails.util.Environment
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -132,24 +134,19 @@ class FaseTCCController {
 
         //cria o arquivo json
         createJsonFile("questoestcc.json", questionList)
-        render "index"
 
-        //def ids = []
-        //def folder = servletContext.getRealPath("/data/${session.user.id}/${session.taskId}")
-
-        //ids << MongoHelper.putFile(folder + '/pergFacil.json')
-        //ids << MongoHelper.putFile(folder + '/pergMedio.json')
-        //ids << MongoHelper.putFile(folder + '/pergDificil.json')
-
-        //def port = request.serverPort
-        //if (Environment.current == Environment.DEVELOPMENT) {
-        //   port = 8080
-        //}
-
-        //render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
-        //        "?files=${ids[0]}&files=${ids[1]}&files=${ids[2]}"
+        // Finds the created file path
+        def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
+        String id = MongoHelper.putFile("${folder}/questoestcc.json")
 
 
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
+
+        // Updates current task to 'completed' status
+        render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}?files=${id}"
     }
 
     void createJsonFile(String fileName, ArrayList<QuestionFaseTCC> questionList){

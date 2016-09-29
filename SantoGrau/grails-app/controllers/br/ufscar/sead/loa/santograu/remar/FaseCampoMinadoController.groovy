@@ -133,7 +133,19 @@ class FaseCampoMinadoController {
 
         //cria o arquivo json
         createJsonFile("questoescm.json", questionList)
-        render "index"
+
+        // Finds the created file path
+        def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
+        String id = MongoHelper.putFile("${folder}/questoescm.json")
+
+
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
+
+        // Updates current task to 'completed' status
+        render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}?files=${id}"
     }
 
     void createJsonFile(String fileName, ArrayList<QuestionFaseCampoMinado> questionList){
