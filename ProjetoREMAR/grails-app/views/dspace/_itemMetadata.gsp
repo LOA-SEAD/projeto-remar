@@ -10,7 +10,7 @@
             %{--<span class="description-input">Entre com o nome do autor do item. </span>--}%
                 <g:if test="${metadata != null}">
                     <g:each in="${metadata.authors}" var="author">
-                        <div class="input-field col m6 s12">
+                        <div class="input-field col m12 s12">
                             <input name="author" id="author" type="text" class="validate" value="${author.name}">
                             <label for="author">
                                 <g:message code="dspace.metadata.author"/>

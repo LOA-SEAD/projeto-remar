@@ -144,7 +144,16 @@ class DspaceController {
     }
 
     def editListMetadata(){
+        def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
+        def resource = Resource.findById(Long.parseLong(current_task.getProcess().getVariable("resourceId")))
+        def  root = JSON.parse(current_task.getVariable("metadata").toString())
 
+        //reinitialize metadata
+        current_task.putVariable("metadata",null,true)
+
+        render view: 'listMetadata', model: [task: current_task,
+                                             resource: resource,
+                                             metadata: root ]
     }
 
     //preview metadata
@@ -161,8 +170,6 @@ class DspaceController {
         dir.eachFileRecurse (FileType.FILES) {file ->
             list << file
         }
-
-        println(current_task.getVariable('metadata'))
 
         if(current_task.getVariable('metadata') == null){
             root = json {
@@ -183,9 +190,6 @@ class DspaceController {
                     "bitstreams" collect{[name: list.pop().name, description: params.bit_description]}
                 }
             }
-
-            println(json.toString())
-
             current_task.putVariable("metadata",json.toString(),true)
             current_task.putVariable("step","preview-metadata",true)
         }else{

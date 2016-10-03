@@ -30,12 +30,24 @@
             <blockquote class="left-align">
                 Informe os dados do item que será criado no repositório.
             </blockquote>
-            <g:render template="itemMetadata" model="[task: task, resource: resource]" />
+            <g:if test="${metadata != null}">
+                <g:render template="itemMetadata" model="[task: task, resource: resource, metadata: metadata]" />
+            </g:if>
+            <g:else>
+                <g:render template="itemMetadata" model="[task: task, resource: resource]" />
+            </g:else>
+
             <blockquote class="left-align">
                 Abaixo estão os artefatos, gerados na customização desta tarefa, que serão enviados ao repositório. Por favor,
                 informe uma pequena descrição a eles.
             </blockquote>
-            <g:render template="bitMetadata" model="[task: task, bitstreams: bitstreams]" />
+
+            <g:if test="${metadata != null}">
+                <g:render template="bitMetadata" model="[task: task, bitstreams: metadata.bitstreams]"/>
+            </g:if>
+            <g:else>
+                <g:render template="bitMetadata" model="[task: task, bitstreams: bitstreams]" />
+            </g:else>
 
             <div class="col s12 m12 l12">
                 <span> Permitir usos comerciais do seu trabalho?</span>

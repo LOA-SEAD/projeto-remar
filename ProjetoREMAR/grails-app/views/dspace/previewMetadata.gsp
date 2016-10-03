@@ -31,7 +31,9 @@
     <article class="width-position">
         <div class=" col s12">
             <div class="right">
-                <a id="editMetadata" class="btn my-orange" href="#!"> <g:message code="dspace.metadata.button_edit"/> </a>
+                <g:link class="btn my-orange" action="editListMetadata" params="[taskId: task.id]">
+                    <g:message code="dspace.metadata.button_edit"/>
+                </g:link>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -91,8 +93,7 @@
             <div class=" col s12 m12 l12">
                 <div class="right">
                     <button id="cancel" class="btn my-orange" type="submit" > <g:message code="dspace.metadata.button_cancel"/> </button>
-
-                    <button id="nextButton" class="btn my-orange" type="submit" > <g:message code="dspace.metadata.button_finish"/> </button>
+                    <button id="nextButton" class="btn my-orange" type="submit" > <g:message code="dspace.metadata.button_send"/> </button>
                 </div>
             </div>
         </g:form>
