@@ -6,7 +6,9 @@ var $jq = jQuery.noConflict();
 var MQ = MathQuill.getInterface(2);
 
 $jq(document).ready(function () {
-    $jq('.modal-trigger').leanModal();
+    $jq('.modal-trigger').leanModal(
+        { dismissible: false}
+    );
 });
 
 window.addEventListener("load", function () {
@@ -51,7 +53,9 @@ function onClickPreview(el) {
         $(this).removeClass("selected");
     });
     $(el).addClass("selected");
-    $jq("#editableModal").openModal();
+    $jq("#editableModal").openModal({
+        dismissible: false
+    });
 
     var mquill = $('#mquill');
     $(mquill).text($(el).attr('data-latex'));
