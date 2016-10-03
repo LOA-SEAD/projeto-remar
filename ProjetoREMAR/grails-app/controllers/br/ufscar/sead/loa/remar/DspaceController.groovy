@@ -150,6 +150,7 @@ class DspaceController {
 
         //reinitialize metadata
         current_task.putVariable("metadata",null,true)
+        current_task.putVariable("step",null,true)
 
         render view: 'listMetadata', model: [task: current_task,
                                              resource: resource,
