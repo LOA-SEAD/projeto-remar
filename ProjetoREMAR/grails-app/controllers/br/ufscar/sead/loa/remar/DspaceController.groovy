@@ -157,6 +157,17 @@ class DspaceController {
                                              metadata: root ]
     }
 
+    def cancelListMetadata(){
+        def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
+
+        //reinitialize metadata
+        current_task.putVariable("metadata",null,true)
+        current_task.putVariable("step",null,true)
+
+        render view: "overview", model: [process:current_task.getProcess()]
+
+    }
+
     //preview metadata
     def previewMetadata(){
         println(params)

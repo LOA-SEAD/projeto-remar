@@ -68,7 +68,7 @@ Time: 09:55
                         <div class="collapsible-header active"> <i class="material-icons">cloud</i>Repositório</div>
                         <div class="collapsible-body">
                             <div class="row">
-                                <blockquote>Abaixo estão listados os artefatos customizados neste jogo que foram enviados para o repositório digital.</blockquote>
+                                <blockquote>Abaixo estão os artefatos customizados enviados para o repositório digital.</blockquote>
 
                                 <g:each in="${handle}" var="h">
                                     <p><span class="bold">${h.key}: </span>

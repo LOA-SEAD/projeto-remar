@@ -92,7 +92,9 @@
 
             <div class=" col s12 m12 l12">
                 <div class="right">
-                    <button id="cancel" class="btn my-orange" type="submit" > <g:message code="dspace.metadata.button_cancel"/> </button>
+                    <g:link class="btn my-orange" action="cancelListMetadata" params="[taskId: task.id]">
+                        <g:message code="dspace.metadata.button_cancel"/>
+                    </g:link>
                     <button id="nextButton" class="btn my-orange" type="submit" > <g:message code="dspace.metadata.button_send"/> </button>
                 </div>
             </div>
