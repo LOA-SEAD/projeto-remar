@@ -3,6 +3,7 @@ package br.ufscar.sead.loa.santograu.remar
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.plugin.springsecurity.annotation.Secured
 import grails.util.Environment
+import org.springframework.web.multipart.MultipartFile
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -176,5 +177,64 @@ class FaseBlocoGeloController {
         }
         pw.write("}");
         pw.close();
+    }
+
+    @Transactional
+    def generateQuestions(){
+        MultipartFile csv = params.csv
+
+        csv.inputStream.toCsvReader([ 'separatorChar': ';']).eachLine { row ->
+            QuestionFaseBlocoGelo questionInstance = new QuestionFaseBlocoGelo()
+            questionInstance.title = row[1] ?: "NA";
+            questionInstance.answers[0] = row[2] ?: "NA";
+            questionInstance.answers[1] = row[3] ?: "NA";
+            questionInstance.answers[2] = row[4] ?: "NA";
+            String correct = row[7] ?: "NA";
+            questionInstance.correctAnswer =  (correct.toInteger() - 1)
+            questionInstance.taskId = session.taskId as String
+            questionInstance.ownerId = session.user.id as long
+            questionInstance.save flush: true
+            println(questionInstance.taskId)
+            println(questionInstance)
+            println(questionInstance.errors)
+        }
+        redirect(action: index())
+    }
+
+    def exportCSV(){
+        /* Função que exporta as questões selecionadas para um arquivo .csv genérico.
+           O arquivo .csv gerado será compatível com os modelos Escola Mágica, Forca e Responda Se Puder.
+           O arquivo gerado possui os seguintes campos na ordem correspondente:
+           Nível, Pergunta, Alternativa1, Alternativa2, Alternativa3, Alternativa4, Alternativa5, Alternativa Correta, Dica, Tema.
+           O campo Dica é correspondente ao modelo Responda Se Puder e o campo Tema ao modelo Forca.
+           O separador do arquivo .csv gerado é o ";" (ponto e vírgula)
+        */
+
+        ArrayList<Integer> list_questionId = new ArrayList<Integer>() ;
+        ArrayList<QuestionFaseCampoMinado> questionList = new ArrayList<QuestionFaseCampoMinado>();
+        list_questionId.addAll(params.list_id);
+        for (int i=0; i<list_questionId.size();i++){
+            questionList.add(QuestionFaseCampoMinado.findById(list_questionId[i]));
+
+        }
+
+        def dataPath = servletContext.getRealPath("/samples")
+        def instancePath = new File("${dataPath}/export")
+        instancePath.mkdirs()
+        log.debug instancePath
+
+        def fw = new FileWriter("$instancePath/exportQuestions.csv")
+        for(int i=0; i<questionList.size();i++){
+            fw.write("nivel;" + questionList.getAt(i).title + ";" + questionList.getAt(i).answers[0] + ";" + questionList.getAt(i).answers[1] + ";" +
+                    questionList.getAt(i).answers[2] + (questionList.getAt(i).correctAnswer +1) + ";dica;tema" +";\n" )
+        }
+        fw.close()
+
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
+
+        render "/santograu/samples/export/exportQuestions.csv"
     }
 }

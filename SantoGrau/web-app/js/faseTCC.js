@@ -196,3 +196,35 @@ function _submit() {
         });
     }
 }
+
+function exportQuestions(){
+    var list_id = [];
+
+    $.each($("input[type=checkbox]:checked"), function(ignored, el) {
+        var tr = $(el).parents().eq(1);
+        list_id.push($(tr).attr('data-id'));
+    });
+
+    if(list_id.length<=0){
+        $("#errorDownloadModal").openModal();
+    }
+    else{
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            url: "/santograu/faseTCC/exportCSV",
+            data: { list_id: list_id },
+            success: function(returndata) {
+                console.log(returndata);
+                window.open(location.origin + returndata, '_blank');
+            },
+            error: function(returndata) {
+                alert("Error:\n" + returndata.responseText);
+
+
+            }
+        });
+
+    }
+
+}

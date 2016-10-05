@@ -262,6 +262,16 @@
 					</div>
 				</div>
 
+
+				<div id="errorDownloadModal" class="modal">
+					<div class="modal-content">
+						Você deve selecionar ao menos uma questão antes de exportar seu banco de questões.
+					</div>
+					<div class="modal-footer">
+						<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
+					</div>
+				</div>
+
 				<div id="uploadModal" class="modal">
 					<div class="modal-content">
 						<h4>Enviar arquivo .csv</h4>

@@ -179,7 +179,7 @@ function exportQuestions(){
     });
 
     if(list_id.length<=0){
-        alert("Você deve selecionar ao menos uma questão antes de exportar seu banco de questões");
+        $("#errorDownloadModal").openModal();
     }
     else{
         $.ajax({
