@@ -103,7 +103,6 @@
     </article>
 </div>
 
-
 <!-- Modal Structure -->
 <div id="messenger" class="modal">
     <div class="modal-content">

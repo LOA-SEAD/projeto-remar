@@ -183,7 +183,6 @@ class DspaceController {
 
         if(current_task.getVariable('metadata') == null){
             root = json {
-//                "citation" params.citation
                 "title" params.title
                 "abstract" params.description
                 "license" params.license
@@ -194,16 +193,8 @@ class DspaceController {
                     "authors" collect{[name: params.author]}
                 }
 
-//                if(params.bit_description.getClass().isArray()){
-//                    "bitstreams" params.bit_description.collect { [name: list.pop().name, description: it] }
-//                }else{
-//                    "bitstreams" collect{[name: list.pop().name, description: params.bit_description]}
-//                }
-
                   "bitstreams" list.collect{[name: it.name]}
             }
-
-            println(json.toPrettyString())
 
             current_task.putVariable("metadata",json.toString(),true)
             current_task.putVariable("step","preview-metadata",true)
@@ -217,7 +208,6 @@ class DspaceController {
 
     //create item and submit bitstreams for dspace
     def finishDataSending(){
-        println(params)
         def metadatas = [], list = [:]
         def itemId, handle = null
 
@@ -226,14 +216,10 @@ class DspaceController {
         def dir = new File(servletContext.getRealPath("/data/processes/${current_task.getProcess().id}/tmp/${params.taskId}/"))
 
         def json = JSON.parse(current_task.getVariable("metadata"))
-        println(json)
 
         //convert date for pattern expected
         Date date = new Date()
         json.publication_date = date.format('YYYY-MM-dd')
-
-        println(json)
-        println(json.get("license"))
 
         //gerar arquivo de metadados do item
         for(def hash : dspaceRestService.listMetadata){

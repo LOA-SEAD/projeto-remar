@@ -9,7 +9,7 @@
   <!-- Se não for a tela de preview dos dados -->
     <section class="row">
         <div class="col s12">
-            <table class="bordered">
+            <table class="bordered centered">
                 <thead>
                     <tr>
                         <th data-field="answer">Arquivo</th>
