@@ -21,7 +21,9 @@
 			<select id="tipo-link">
 				<g:if test="${faseTecnologiaInstance.constraints.tipoLink.inList.size() > 0}">
 					<g:each in="${faseTecnologiaInstance.constraints.tipoLink.inList}" var="tipoLink">
-						<option class="option" value="${tipoLink}">${tipoLink}</option>
+						<g:if test="${tipoLink == 'Youtube'}">
+							<option class="option" value="${tipoLink}">${tipoLink}</option>
+						</g:if>
 					</g:each>
 				</g:if>
 			</select>
