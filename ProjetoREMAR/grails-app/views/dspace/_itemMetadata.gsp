@@ -32,15 +32,6 @@
             </div>
         </div>
 
-        %{--<div class="col s12">--}%
-            %{--<span class="description-input">Entre com um nome padrão de citação. </span>--}%
-            %{--<div class="input-field col s12">--}%
-                %{--<input name="citation" id="citation" type="text" class="validate" value="${metadata!=null? metadata.citation : ''}">--}%
-                %{--<span id="citation-error" class="invalid-textarea" style="left: 0.75rem; top: 45px;">Este campo não pode ser vazio!</span>--}%
-                %{--<label for="citation"><g:message code="dspace.metadata.citation"/> </label>--}%
-            %{--</div>--}%
-        %{--</div>--}%
-
         <div class="col s12">
             %{--<span class="description-input">Entre com o título item. </span>--}%
             <div class="input-field col s12">
@@ -60,5 +51,4 @@
         </div>
     </div>
 </section>
-%{--<g:javascript src="dspace/validateSubmit.js"/>--}%
-<g:javascript src="dspace/item.js"/>
+

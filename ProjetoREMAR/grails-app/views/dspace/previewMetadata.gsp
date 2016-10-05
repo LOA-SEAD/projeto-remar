@@ -26,6 +26,11 @@
         <h5>
             Por favor, revise seus dados antes de finalizar!
         </h5>
+        <blockquote class="modal-text">
+          <strong>Atente</strong> para que os dados, submetidos ao repositório, <strong>estejam corretos</strong>, pois <span style="text-decoration: underline;">alterações</span> e
+            <span style="text-decoration: underline;">remoções</span> só poderão ser realizadas mediante a uma requisição ao administrador do repositório.
+        </blockquote>
+
     </div>
 
     <article class="width-position">

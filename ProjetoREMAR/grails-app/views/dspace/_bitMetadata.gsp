@@ -23,17 +23,6 @@
                         <td>
                             ${bitstream.name}
                         </td>
-                        %{--<td>--}%
-                            %{--<g:if test="${preview != null && preview && bitstream.description != null}">--}%
-                                %{--<p>${bitstream.description}</p>--}%
-                            %{--</g:if>--}%
-                            %{--<g:else>--}%
-                                %{--<input id="description${i}" type="text" name="bit_description" class="validate"--}%
-                                       %{--placeholder="Informe uma descrição"  value="${bitstream.description? bitstream.description : ''}">--}%
-                            %{--</g:else>--}%
-                            %{--<label for="description${i}"></label>--}%
-                            %{--<span id="description${i}-error" class="description-error" style="left: 0.75rem; top: 45px;">Este campo não pode ser vazio!</span>--}%
-                        %{--</td>--}%
                         <td>
                             <div class="center">
                                <a class="" target="_blank" href="/data/processes/${task.process.id}/tmp/${task.id}/${bitstream.name}"><g:message code="dspace.metadata.button_view" /> </a>
@@ -46,5 +35,4 @@
         </div>
     </section>
 </article>
-<g:javascript src="dspace/validateDescription.js"/>
 

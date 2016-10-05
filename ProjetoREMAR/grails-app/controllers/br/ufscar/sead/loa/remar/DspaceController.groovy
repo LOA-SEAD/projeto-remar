@@ -170,8 +170,6 @@ class DspaceController {
 
     //preview metadata
     def previewMetadata(){
-        println(params)
-
         def json = new JsonBuilder()
         def current_task = Propeller.instance.getTaskInstance(params.taskId, session.user.id as long)
         def resource = Resource.findById(Long.parseLong(current_task.getProcess().getVariable("resourceId")))

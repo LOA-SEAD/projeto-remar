@@ -74,5 +74,7 @@
         </g:form>
     </article>
 </div>
+<g:javascript src="dspace/validateSubmit.js"/>
+<g:javascript src="dspace/item.js"/>
 </body>
 </html>

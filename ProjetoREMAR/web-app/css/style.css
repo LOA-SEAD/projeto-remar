@@ -981,3 +981,7 @@ Position must be relative!*/
 .modal-text{
     text-align: justify !important;
 }
+
+.underline-text{
+    text-decoration: underline !important;
+}
