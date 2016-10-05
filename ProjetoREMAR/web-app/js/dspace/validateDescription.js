@@ -6,9 +6,8 @@ $(".description-error").hide();
 
 $( document ).ready(function() {
 
-    $(".validate").on('input',function(){
-        checkDescriptions();
-    });
+    $("#nextLabel").hide();
+    $("#nextButton").removeClass('hide');
 
 });
 

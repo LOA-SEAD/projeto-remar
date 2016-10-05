@@ -138,7 +138,7 @@ class DspaceController {
 
         render view: 'listMetadata', model: [task: current_task,
                                              resource: resource,
-                                             bitstreams: list.collect { [name: it.name, description: ""] }
+                                             bitstreams: list.collect { [name: it.name] }
                                              ]
 
     }
@@ -185,7 +185,7 @@ class DspaceController {
 
         if(current_task.getVariable('metadata') == null){
             root = json {
-                "citation" params.citation
+//                "citation" params.citation
                 "title" params.title
                 "abstract" params.description
                 "license" params.license
@@ -196,12 +196,17 @@ class DspaceController {
                     "authors" collect{[name: params.author]}
                 }
 
-                if(params.bit_description.getClass().isArray()){
-                    "bitstreams" params.bit_description.collect { [name: list.pop().name, description: it] }
-                }else{
-                    "bitstreams" collect{[name: list.pop().name, description: params.bit_description]}
-                }
+//                if(params.bit_description.getClass().isArray()){
+//                    "bitstreams" params.bit_description.collect { [name: list.pop().name, description: it] }
+//                }else{
+//                    "bitstreams" collect{[name: list.pop().name, description: params.bit_description]}
+//                }
+
+                  "bitstreams" list.collect{[name: it.name]}
             }
+
+            println(json.toPrettyString())
+
             current_task.putVariable("metadata",json.toString(),true)
             current_task.putVariable("step","preview-metadata",true)
         }else{
@@ -265,8 +270,8 @@ class DspaceController {
             current_task.putVariable("handle",handle,true)
 
             dir.eachFileRecurse (FileType.FILES) {file ->
-                def description = json.get("bitstreams").pop().description
-                dspaceRestService.addBitstreamToItem(itemId, file, file.name, description)
+//                def description = json.get("bitstreams").pop().description
+                dspaceRestService.addBitstreamToItem(itemId, file, file.name)
             }
 
             current_task.putVariable("step","completed",true)

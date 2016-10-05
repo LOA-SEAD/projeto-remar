@@ -2,6 +2,7 @@
  * Created by lucasbocanegra on 21/06/16.
  */
 
+
 $(document).ready(function(){
 
     var modal = $("#modal");
@@ -41,11 +42,6 @@ $(document).ready(function(){
 
     $(icon_metadata_pending).on("click",function(){
 
-    });
-
-    $('.datepicker').pickadate({
-        selectMonths: true, // Creates a dropdown to control month
-        selectYears: 15 // Creates a dropdown of 15 years to control year
     });
 
 });

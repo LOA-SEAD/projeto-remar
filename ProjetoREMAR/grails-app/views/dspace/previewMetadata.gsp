@@ -46,10 +46,6 @@
                         <g:each in="${metadata.authors}" var="author">${author.name}; </g:each>
                     </p>
                     <p>
-                        <span class="bold">Citação: </span>
-                        ${metadata.citation}
-                    </p>
-                    <p>
                         <span class="bold">Título: </span>
                         ${metadata.title}
                     </p>
@@ -101,5 +97,32 @@
         </g:form>
     </article>
 </div>
+
+
+<!-- Modal Structure -->
+<div id="messenger" class="modal">
+    <div class="modal-content">
+        <h3>Atenção!</h3>
+        <h6 class="modal-text">
+            Por favor antes de enviar <strong>atente</strong> para que os dados, submetidos ao repositório, <strong>estejam corretos</strong>, pois alterações e
+            remoções só poderão ser realizadas mediante a uma requisição ao administrador do repositório.
+        </h6>
+    </div>
+    <div class="modal-footer">
+        <div class="divisor"></div>
+        <div class="row">
+            <div class="col s10">
+                <p class="right">
+                    <input type="checkbox" id="show-messenger" />
+                    <label for="show-messenger">Não mostrar novamente</label>
+                </p>
+            </div>
+            <div class="col s2">
+                <a href="#!" class="modal-action modal-close btn my-orange right">Ok</a>
+            </div>
+        </div>
+    </div>
+</div>
+<g:javascript src="dspace/warningDspace.js"/>
 </body>
 </html>

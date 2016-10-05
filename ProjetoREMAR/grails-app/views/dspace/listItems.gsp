@@ -16,7 +16,7 @@ Time: 08:58
 <html>
 <head>
     <meta name="layout" content="materialize-layout">
-    <title>Categorias</title>
+    <title>Repositório</title>
 </head>
 <body>
 <div class="row cluster">

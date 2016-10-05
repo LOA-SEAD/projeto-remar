@@ -38,8 +38,7 @@
             </g:else>
 
             <blockquote class="left-align">
-                Abaixo estão os artefatos, gerados na customização desta tarefa, que serão enviados ao repositório. Por favor,
-                informe uma pequena descrição a eles.
+                Abaixo estão os artefatos, gerados na customização desta tarefa, que serão enviados ao repositório.
             </blockquote>
 
             <g:if test="${metadata != null}">
