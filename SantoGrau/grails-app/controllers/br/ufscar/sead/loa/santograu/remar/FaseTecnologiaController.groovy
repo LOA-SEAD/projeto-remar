@@ -133,10 +133,12 @@ class FaseTecnologiaController {
 
         // Finds the created file path
         def ids = []
-        def folder = servletContext.getRealPath("/data/${session.user.id}/${session.taskId}")
+        def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
 
-        ids << MongoHelper.putFile(folder + '/computadores.json')
+        log.debug folder
         ids << MongoHelper.putFile(folder + '/telao.html')
+        ids << MongoHelper.putFile(folder + '/fases.json')
+        ids << MongoHelper.putFile(folder + '/computadores.json')
 
 
         def port = request.serverPort
@@ -146,8 +148,7 @@ class FaseTecnologiaController {
 
         // Updates current task to 'completed' status
         render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
-                "?files=${ids[0]}&files=${ids[1]}"
-
+                "?files=${ids[0]}&files=${ids[1]}&files=${ids[2]}"
 
     }
 

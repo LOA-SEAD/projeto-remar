@@ -1,7 +1,5 @@
 <%@ page import="br.ufscar.sead.loa.santograu.remar.FaseTecnologia" %>
 
-
-
 <div class="fieldcontain ${hasErrors(bean: faseTecnologiaInstance, field: 'link', 'error')} required">
 	<label for="link">
 		<g:message code="faseTecnologia.link.label" default="Link: " />

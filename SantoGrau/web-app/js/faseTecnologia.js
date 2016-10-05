@@ -1,32 +1,37 @@
 /**
  * Created by leticia on 12/09/16.
  */
+$(document).ready(function() {
+    $('select').material_select();
+});
 
-function _submit() {
-    if ($("#palavras1").val() != "" && $("#palavras2").val() != "" && $("#palavras3").val() != "" && $("#orientacao").val() != "") {
-        var words = [];
-        var link = $("#link").val();
-        var tipoLink = $("#tipo-link").val();
+window.onload = function() {
 
-        words.push($("#palavras1").val());
-        words.push($("#palavras2").val());
-        words.push($("#palavras3").val());
+    $("#submitButton").click(function() {
+        if ($("#palavras1").val() != "" && $("#palavras2").val() != "" && $("#palavras3").val() != "" && $("#orientacao").val() != "") {
+            var words = [];
+            var link = $("#link").val();
+            var tipoLink = $("#tipo-link").val();
 
-        console.log("PALAVRAS: " + words);
+            words.push($("#palavras1").val());
+            words.push($("#palavras2").val());
+            words.push($("#palavras3").val());
 
-        //Chama controlador para salvar questões em arquivos .json
-        $.ajax({
-            type: "POST",
-            traditional: true,
-            url: "/santograu/faseTecnologia/exportLevel",
-            data: {words: words, link: link, tipoLink: tipoLink},
-            success: function (returndata) {
-                window.top.location.href = returndata;
-            },
-            error: function (returndata) {
-                window.top.location.href = "index";
-                //alert("Error:\n" + returndata.responseText);
-            }
-        });
-    }
+            console.log("PALAVRAS: " + words);
+
+            //Chama controlador para salvar questões em arquivos .json
+            $.ajax({
+                type: "POST",
+                traditional: true,
+                url: "/santograu/faseTecnologia/exportLevel",
+                data: {words: words, link: link, tipoLink: tipoLink},
+                success: function (returndata) {
+                    window.top.location.href = returndata;
+                },
+                error: function (returndata) {
+                    alert("Error:\n" + returndata.responseText);
+                }
+            });
+        }
+    })
 }
