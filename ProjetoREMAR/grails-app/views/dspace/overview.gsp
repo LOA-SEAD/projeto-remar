@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta name="layout" content="materialize-layout">
-    <title>Dspace-overview</title>
+    <title>Repositório</title>
 </head>
 <body>
 <div class="row cluster">
@@ -53,7 +53,7 @@
                                                 <label for="task${i}"></label>
                                             </p>
                                         </g:if>
-                                        <g:elseif test="${task.getVariable('step') == "submit_bitstreams"}">
+                                        <g:elseif test="${task.getVariable('step') == "preview-metadata"}">
                                             <p>
                                                 <input type="checkbox" id="task${i}" checked disabled/>
                                                 <label for="task${i}"></label>
@@ -74,23 +74,14 @@
                                     <g:if test="${task.getVariable('step') == "completed" }">
                                         <div class="icon-metadata-done">
                                             <input type="hidden" id="task${i}-metadata" value="true">
-                                            <span>OK</span>
-                                            %{--<a href="#!" class="tooltipped right" data-position="bottom"--}%
-                                               %{--data-delay="50" data-tooltip="Visualizar"--}%
-                                               %{--data-task-id="${task.id}">--}%
-                                                %{--<i class="material-icons">visibility</i>--}%
-                                            %{--</a>--}%
-                                            %{--<a href="#!" class="tooltipped right" data-position="bottom"--}%
-                                               %{--data-delay="50" data-tooltip="Editar"--}%
-                                               %{--data-task-id="${task.id}">--}%
-                                                %{--<i class="material-icons">mode_edit</i>--}%
-                                            %{--</a>--}%
+                                            <span>OK - </span>
+                                            <a href="${task.getVariable('handle')}" target="_blank">visualizar</a>
                                         </div>
                                     </g:if>
-                                    <g:elseif test="${task.getVariable('step') == "submit_bitstreams"}">
+                                    <g:elseif test="${task.getVariable('step') == "preview-metadata"}">
                                         <input type="hidden" id="task${i}-metadata" value="false">
                                         <div class="">
-                                            <a href="listMetadata?taskId=${task.id}" class="tooltipped" data-position="right"
+                                            <a href="preview-metadata?taskId=${task.id}" class="tooltipped" data-position="right"
                                                data-delay="50" data-tooltip="Submissão incompleta">
                                                 Continuar
                                             </a>
@@ -122,32 +113,6 @@
         </a>
     </div>
 </div>
-
-<!-- Modal Structure -->
-<div id="messenger" class="modal modal-fixed-footer">
-    <div class="modal-content">
-        <h4>Modal Header</h4>
-            <p>
-                Nesta página você pode enviar os artefatos customizados por você, neste jogo, para um repositório Dspace.
-                Abaixo estão listadas as terefas que vocÊ realizou durante a customização do jogo. Para enviar os artefatos
-                customizados em cada customização selecione a tarefa e click em adicionar metadados.
-            </p>
-    </div>
-    <div class="modal-footer">
-        <div class="row">
-            <div class="col s10">
-                <p class="right">
-                    <input type="checkbox" id="show-messenger" />
-                    <label for="show-messenger">Não mostrar novamente</label>
-                </p>
-            </div>
-            <div class="col s2">
-                <a href="#!" class="modal-action modal-close btn my-orange right">Ok</a>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <g:javascript src="dspace/dspace.js"/>
 <g:javascript src="dspace/checkMetadata.js"/>
