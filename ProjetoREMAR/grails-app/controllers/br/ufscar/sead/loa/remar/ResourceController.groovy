@@ -246,7 +246,7 @@ class ResourceController {
                 resourceInstance.comment = "Aprovado"
                 resourceInstance.save flush: true
 
-                if (resourceInstance.owner != session.user) {
+                if (resourceInstance.owner.username != 'admin') {
 
                 	// noinspection GroovyAssignabilityCheck
                 	Util.sendEmail(resourceInstance.owner.email,
