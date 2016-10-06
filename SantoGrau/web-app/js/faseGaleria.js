@@ -59,7 +59,7 @@ function _delete() {
     var data = {_method: 'DELETE'};
     var url = "deleteTheme/" + id;
     $.ajax({
-        type: 'POST',
+        type: 'DELETE',
         data: data,
         url: url,
         success: function () {
