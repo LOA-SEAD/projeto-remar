@@ -37,6 +37,16 @@
       "dependencies": null,
       "outputs": [
         {
+          "name": "quadros.json",
+          "type": "json",
+          "path": ""
+        },
+        {
+          "name": "fases.json",
+          "type": "json",
+          "path": ""
+        },
+        {
           "name": "1.png",
           "type": "image",
           "path": ""
