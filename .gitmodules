@@ -15,3 +15,4 @@
 [submodule "SantoGrau/web-app/remar/source"]
 	path = SantoGrau/web-app/remar/source
 	url = https://github.com/LOA-SEAD/santo-grau
+	branch = exported
