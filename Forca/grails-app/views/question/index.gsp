@@ -62,8 +62,7 @@
         </th>
         <th>Tema <div class="row" style="margin-bottom: -10px;"><button class="btn-floating"
                                                                         style="visibility: hidden"></button></div></th>
-        <th>Autor <div class="row" style="margin-bottom: -10px;"><button class="btn-floating"
-                                                                         style="visibility: hidden"></button></div></th>
+
         <th>Ação <div class="row" style="margin-bottom: -10px;"><button class="btn-floating"
                                                                         style="visibility: hidden"></button></div></th>
     </tr>
@@ -85,7 +84,6 @@
 
                 <td name="theme" id="theme">${fieldValue(bean: questionInstance, field: "category")}</td>
 
-                <td>${fieldValue(bean: questionInstance, field: "author")}</td>
 
                 <td><i onclick="_edit($(this.closest('tr')))" style="color: #7d8fff; margin-right:10px;"
                        class="fa fa-pencil"
@@ -102,8 +100,6 @@
                 <td>${fieldValue(bean: questionInstance, field: "answer")}</td>
 
                 <td name="theme" id="theme">${fieldValue(bean: questionInstance, field: "category")}</td>
-
-                <td>${fieldValue(bean: questionInstance, field: "author")}</td>
 
                 <td><i style="color: gray; margin-right:10px;" class="fa fa-pencil"></i>
                 </td>

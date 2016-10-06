@@ -15,17 +15,18 @@
     <div class="row">
         <div class="col l12 s12 m12">
             <ul class="tabs">
-                <li class="tab"><a href="#my-groups">Sou dono</a></li>
-                <li class="tab"><a href="#others-groups">Sou membro</a></li>
+                <li class="tab"><a href="#my-groups">Sou Administrador</a></li>
+                <li class="tab"><a href="#others-groups">Sou Membro</a></li>
             </ul>
         </div>
     </div>
     <div id="my-groups">
         <div style="position: relative; left: 1em" class="row">
-            <g:if test="${groupsIOwn.empty}">
-                <h5>Você ainda não possui nenhum grupo criado :(</h5>
+            <g:if test="${groupsIOwn.empty && groupsIAdmin.empty}">
+                <h5>Você ainda não possui nenhum grupo criado ou administrado :(</h5>
             </g:if>
                 <g:else>
+                    <g:if test="${!groupsIOwn.empty}">
                         <g:each var="group" in="${groupsIOwn}">
                             <a href="/group/show/${group.id}" style="color: black;">
                                 <div class="col l3 s6 m3 offset-s3">
@@ -38,6 +39,22 @@
                                 </div>
                             </a>
                         </g:each>
+                    </g:if>
+                    <g:if test="${!groupsIAdmin.empty}">
+                        <g:each var="group" in="${groupsIAdmin}">
+                            <a href="/group/show/${group.id}" style="color: black;">
+                                <div class="col l3 s6 m3 offset-s3">
+                                    <div style="padding-bottom: 8.0em;" class="card white hoverable">
+                                        <div style="top: 3.2em; position: relative;" class="card-content">
+                                            <span class="truncate">${group.name}</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </a>
+                        </g:each>
+                    </g:if>
+
                 </g:else>
                 <a style="color: black;" class="" href="/group/new">
                     <div class="col l3 s6 m3 offset-s3">

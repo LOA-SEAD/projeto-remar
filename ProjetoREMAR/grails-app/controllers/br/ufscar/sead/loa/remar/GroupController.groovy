@@ -20,7 +20,8 @@ class GroupController {
         def model = [:]
 
         model.groupsIOwn = Group.findAllByOwner(session.user)
-        model.groupsIBelong = UserGroup.findAllByUser(session.user).group
+        model.groupsIAdmin = UserGroup.findAllByAdminAndUser(true, session.user).group
+        model.groupsIBelong = UserGroup.findAllByAdminAndUser(false, session.user).group
 
         render view: "list", model: model
     }

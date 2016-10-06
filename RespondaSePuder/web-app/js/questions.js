@@ -69,10 +69,10 @@ function submit(){
 
             $('#totalQuestion').empty();
             if(randomQuestion>1){
-                $("#totalQuestion").append("<div> <p> Você deve selecionar no mínimo "+ randomQuestion + " questões de cada nível. Utilize a aba \"Escolher Questões\" para concluir essa ação. </p> </div>");
+                $("#totalQuestion").append("<div> <p> Você deve selecionar no mínimo "+ randomQuestion + " questões de cada nível.</p> </div>");
             }
             else{
-                $("#totalQuestion").append("<div> <p> Você deve selecionar no mínimo "+ randomQuestion + " questão de cada nível. Utilize a aba \"Escolher Questões\" para concluir essa ação.</p> </div>");
+                $("#totalQuestion").append("<div> <p> Você deve selecionar no mínimo "+ randomQuestion + " questão de cada nível.</p> </div>");
             }
 
             if(questions_level1==1) {
@@ -102,8 +102,7 @@ function submit(){
     }
     else{
         $('#totalQuestion').empty();
-        $("#totalQuestion").append("<div> <p> Você ainda precisa definir o número de questões que o jogo exibirá por nível." +
-            " Utilize a aba \"Definir número de questões por nível\"  para concluir essa ação.</p> </div>");
+        $("#totalQuestion").append("<div> <p> Você ainda precisa definir o número de questões que o jogo exibirá por nível.</p> </div>");
         $('#infoModal').openModal();
     }
 

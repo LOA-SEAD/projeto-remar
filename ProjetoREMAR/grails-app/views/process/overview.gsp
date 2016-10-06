@@ -65,6 +65,7 @@
                                 <div class="row">
                                     <div class="col s2 m2 l2 img-preview">
                                         <img id="img1Preview" class="materialboxed my-orange" width="100" height="100" src="/data/processes/${process.id}/banner.png?${new java.util.Date()}" />
+                                        <span style="font-size: 0.8rem">180 x 180 pixels</span>
                                     </div>
                                     <div class="col s8 offset-s2 m10 l10">
                                         <div class="file-field input-field">

@@ -18,11 +18,6 @@
     </p>
 </div>
 
-<ul class="tabs tab-demo z-depth-1">
-    <li class="tab col s6"><a class="truncate" href="#defineMaxQuestion">Definir número de questões por nível</a></li>
-    <li class="tab col s6"><a class="truncate active" href="#chooseQuestion">Escolher Questões</a></li>
-</ul>
-
 <div class="row">
     <div id="chooseQuestion" class="col s12 m12 l12">
         <br>
@@ -76,7 +71,20 @@
         </div>
 
         <div class="row">
-            <div class="col s1 m1 l1 offset-s4 offset-m8 offset-l8">
+            <div id="defineMaxQuestion" class="col s12 m7 l7">
+                <div class="row">
+                    <div class="col s12">
+                        <p>Escolha o número de questões que serão exibidas a cada nível.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6">
+                        <input type="number" min="1" max="10" step="1" value="0" name="randomQuestion" id="randomQuestion" />
+                        <label for="randomQuestion">O valor mínimo deste campo é 1 (um).</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col s1 m1 l1 offset-s4">
                 <a data-target="createModal" name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"><i class="material-icons">add</i></a>
             </div>
             <div class="col s1 offset-s1 m1 l1">
@@ -96,19 +104,7 @@
 
 
 
-<div id="defineMaxQuestion" class="col s12 m12 l12">
-        <div class="row">
-            <div class="col s12">
-                <p>Escolha o número de questões que serão exibidas a cada nível.</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s4">
-                <input type="number" min="1" max="10" step="1" value="0" name="randomQuestion" id="randomQuestion" />
-                <label for="randomQuestion">O valor mínimo deste campo é 1 (um).</label>
-            </div>
-        </div>
-    </div>
+
 
 <div class="row">
     <div class="col s2">

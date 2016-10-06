@@ -141,28 +141,33 @@ class ExportedResourceController {
 
     def publish(ExportedResource instance) {
         def exportsTo = [:]
+        def handle = [:]
         def groupsIOwn = Group.findAllByOwner(session.user)
         exportsTo.desktop = instance.resource.desktop
         exportsTo.android = instance.resource.android
         exportsTo.moodle = instance.resource.moodle
         def groupsIAdmin = UserGroup.findAllByUserAndAdmin(session.user,true).group
 
-
         def baseUrl = "/published/${instance.processId}"
         def process = Propeller.instance.getProcessInstanceById(instance.processId as String, session.user.id as long)
-
         instance.name = process.name
 
         RequestMap.findOrSaveWhere(url: "${baseUrl}/**", configAttribute: 'permitAll')
 
+        process.completedTasks.each {task ->
+            if(task.getVariable('handle') != null){
+                handle.put(task.definition.name, task.getVariable('handle'))
+            }
+        }
+
         render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl, groupsIAdmin: groupsIAdmin,
-                                            exportedResourceInstance: instance,createdAt: process.createdAt, groupsIOwn: groupsIOwn]
+                                            exportedResourceInstance: instance,createdAt: process.createdAt, groupsIOwn: groupsIOwn, handle: handle]
     }
 
     def export(ExportedResource instance) {
         def urls = [:]
         def root = servletContext.getRealPath("/")
-        def resourceName = instance.resource.name
+        def resourceURI = instance.resource.uri         // get uri because blank spaces in name
         def desktop = instance.resource.desktop
         def android = instance.resource.android
 
@@ -170,12 +175,12 @@ class ExportedResourceController {
 
         urls.web = "/published/${instance.processId}/web"
         if (desktop) {
-            urls.windows = "/published/${instance.processId}/desktop/${resourceName}-windows.zip"
-            urls.linux = "/published/${instance.processId}/desktop/${resourceName}-linux.zip"
-            urls.mac = "/published/${instance.processId}/desktop/${resourceName}-mac.zip"
+            urls.windows = "/published/${instance.processId}/desktop/${resourceURI}-windows.zip"
+            urls.linux = "/published/${instance.processId}/desktop/${resourceURI}-linux.zip"
+            urls.mac = "/published/${instance.processId}/desktop/${resourceURI}-mac.zip"
         }
         if (android) {
-            urls.android = "/published/${instance.processId}/mobile/${resourceName}-android.zip"
+            urls.android = "/published/${instance.processId}/mobile/${resourceURI}-android.zip"
         }
 
         if (!instance.exported) {
@@ -191,7 +196,7 @@ class ExportedResourceController {
 
             folders << "${desktopFolder}/windows/resources/app"
             folders << "${desktopFolder}/linux/resources/app"
-            folders << "${desktopFolder}/mac/${resourceName}.app/Contents/Resources/app"
+            folders << "${desktopFolder}/mac/${resourceURI}.app/Contents/Resources/app"
             folders << "${mobileFolder}/assets/www"
 
             ant.sequential {
@@ -200,8 +205,8 @@ class ExportedResourceController {
                 copy(file: "${sourceFolder}/windows.zip", tofile: "${desktopFolder}/windows.zip", failonerror: false)
                 copy(file: "${sourceFolder}/linux.zip", tofile: "${desktopFolder}/linux.zip", failonerror: false)
                 copy(file: "${sourceFolder}/mac.zip", tofile: "${desktopFolder}/mac.zip", failonerror: false)
-                copy(file: "${sourceFolder}/android/${resourceName}-arm.apk", tofile: "${mobileFolder}/${resourceName}-arm.apk", failonerror: false)
-                copy(file: "${sourceFolder}/android/${resourceName}-x86.apk", tofile: "${mobileFolder}/${resourceName}-x86.apk", failonerror: false)
+                copy(file: "${sourceFolder}/android/${resourceURI}-arm.apk", tofile: "${mobileFolder}/${resourceURI}-arm.apk", failonerror: false)
+                copy(file: "${sourceFolder}/android/${resourceURI}-x86.apk", tofile: "${mobileFolder}/${resourceURI}-x86.apk", failonerror: false)
 
                 mkdir(dir: folders[0])
                 mkdir(dir: folders[1])
@@ -251,7 +256,7 @@ class ExportedResourceController {
                     chmod(perm: "+x", file: scriptUpdateElectron)
                     exec(executable: scriptUpdateElectron) {
                         arg(value: desktopFolder)
-                        arg(value: resourceName)
+                        arg(value: resourceURI)
                     }
                 }
             }
@@ -262,7 +267,7 @@ class ExportedResourceController {
                     exec(executable: scriptUpdateCrosswalk) {
                         arg(value: root)
                         arg(value: mobileFolder)
-                        arg(value: resourceName)
+                        arg(value: resourceURI)
                     }
                 }
             }
@@ -703,6 +708,7 @@ class ExportedResourceController {
 
     def info(ExportedResource instance){
         def exportsTo = [:]
+        def handle = [:]
         def groupsOwnedByMe = Group.findAllByOwner(session.user)
         exportsTo.desktop = instance.resource.desktop
         exportsTo.android = instance.resource.android
@@ -717,8 +723,14 @@ class ExportedResourceController {
 
         RequestMap.findOrSaveWhere(url: "${baseUrl}/**", configAttribute: 'permitAll')
 
+        process.completedTasks.each {task ->
+            if(task.getVariable('handle') != null){
+                handle.put(task.definition.name, task.getVariable('handle'))
+            }
+        }
+
         render view: 'info', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl, groupsIAdmin: groupsAdministeredByMe,
-                                     exportedResourceInstance: instance, createdAt: process.createdAt, groupsIOwn: groupsOwnedByMe]
+                                     exportedResourceInstance: instance, createdAt: process.createdAt, groupsIOwn: groupsOwnedByMe, handle : handle]
 
     }
 

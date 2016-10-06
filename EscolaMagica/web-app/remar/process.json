@@ -1,5 +1,5 @@
 {
-  "name": "Escola Mágica",
+  "name": "Escola Magica",
   "uri": "escolamagica",
   "version": 1,
   "tasks": [
@@ -20,6 +20,7 @@
     {
       "name": "Tema",
       "uri": "theme",
+      "optional": true,
       "description": "Criar/editar/selecionar um tema para o jogo.",
       "type": "image_collection",
       "dependencies": null,
@@ -59,7 +60,7 @@
   ],
   "outputs": [
     "web",
-    "moodle"
+    "desktop"
   ],
   "vars": {
     "width": 816,

@@ -37,7 +37,7 @@ class BootStrap {
             def admin = new User(
                     username: "admin",
                     password: grailsApplication.config.users.password,
-                    email: "admin@remar.dc.ufscar.br",
+                    email: "loa@sead.ufscar.br",
                     firstName: "Equipe LOA",
                     lastName: "– REMAR",
                     enabled: true

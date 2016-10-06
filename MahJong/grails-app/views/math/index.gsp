@@ -92,6 +92,7 @@
         </div>
     </div>
     <div class="modal-footer">
+        <a class="btn btn-large modal-close">Salvar</a>
     </div>
 </div>
 </body>

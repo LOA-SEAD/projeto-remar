@@ -14,7 +14,7 @@
                 </div> <!-- card-image -->
                 <div class="center">
                     <span class="card-title black-text">Quase lá...</span>
-                    <p>Verifique seu email – enviamos um link para você ativar sua conta :)</p>
+                    <p>Uma mensagem de confirmação acaba de ser enviada para o seu email. Caso não a receba em instantes, verifique sua caixa de spam</p>
             </div>
             </div> <!-- card-content -->
         </div> <!-- card -->

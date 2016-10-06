@@ -207,7 +207,7 @@ class ResourceController {
                     exec(executable: scriptElectron) {
                         arg(value: rootPath)
                         arg(value: resourceInstance.uri)
-                        arg(value: resourceInstance.name)
+                        arg(value: resourceInstance.name.replaceAll("\\s+",""))
                     }
                 }
             }

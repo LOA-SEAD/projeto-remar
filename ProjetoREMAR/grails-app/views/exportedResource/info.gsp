@@ -43,7 +43,7 @@ Time: 09:55
                                               date="${createdAt}"/></p>
 
                             <p><span class="bold">Baseado no modelo: </span>${exportedResourceInstance.resource.name}</p>
-                            <p><span class="bold">Áre de conteúdo: </span>${exportedResourceInstance.contentArea}</p>
+                            <p><span class="bold">Área de conteúdo: </span>${exportedResourceInstance.contentArea}</p>
                             <p><span class="bold">Conteúdo específico: </span>${exportedResourceInstance.specificContent}</p>
                             <input type="hidden" id="licenseValue" value="${exportedResourceInstance.license}">
                             <br>
@@ -55,6 +55,24 @@ Time: 09:55
                         <div class="clearfix"></div>
                     </div>
                 </li>
+                <g:if test="${!handle.isEmpty()}">
+                    <li>
+                        <div class="collapsible-header active"> <i class="material-icons">cloud</i>Repositório</div>
+                        <div class="collapsible-body">
+                            <div class="row">
+                                <blockquote>Abaixo estão os artefatos customizados enviados para o repositório digital.</blockquote>
+
+                                <g:each in="${handle}" var="h">
+                                    <p><span class="bold">${h.key}: </span>
+                                        <a href="${h.value}" target="_blank">${h.value}</a>
+                                    </p>
+                                </g:each>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </li>
+
+                </g:if>
                 <li>
                     <div id="plataforms" class="collapsible-header active" data-exported="true">
                         <i class="material-icons">view_column</i>Plataformas
@@ -75,7 +93,7 @@ Time: 09:55
                                     </div>
                                 </a>
                                 <g:if test="${exportsTo.desktop}">
-                                    <a href="/published/${exportedResourceInstance.processId}/desktop/${exportedResourceInstance.resource.name}-windows.zip" style="color: inherit">
+                                    <a href="/published/${exportedResourceInstance.processId}/desktop/${exportedResourceInstance.resource.uri}-windows.zip" style="color: inherit">
                                         <div class="col s6 m2 platform" data-text="Windows" data-name="windows">
                                             <div class="row no-margin-bottom">
                                                 <i class="fa fa-windows big-platform-logo"></i>
@@ -85,7 +103,7 @@ Time: 09:55
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="/published/${exportedResourceInstance.processId}/desktop/${exportedResourceInstance.resource.name}-linux.zip" style="color: inherit">
+                                    <a href="/published/${exportedResourceInstance.processId}/desktop/${exportedResourceInstance.resource.uri}-linux.zip" style="color: inherit">
                                         <div class="col s6 m2 platform" data-text="Linux (64 bits)"  data-name="linux">
                                             <div class="row no-margin-bottom">
                                                 <i class="fa fa-linux big-platform-logo"></i>
@@ -96,7 +114,7 @@ Time: 09:55
                                         </div>
                                     </a>
 
-                                    <a href="/published/${exportedResourceInstance.processId}/desktop/${exportedResourceInstance.resource.name}-mac.zip" style="color: inherit">
+                                    <a href="/published/${exportedResourceInstance.processId}/desktop/${exportedResourceInstance.resource.uri}-mac.zip" style="color: inherit">
                                         <div class="col s6 m2 platform" data-text="OS X" data-name="mac">
                                             <div class="row no-margin-bottom">
                                                 <i class="fa fa-apple big-platform-logo"></i>
@@ -109,7 +127,7 @@ Time: 09:55
                                 </g:if>
 
                                 <g:if test="${exportsTo.android}">
-                                    <a href="/published/${exportedResourceInstance.processId}/mobile/${exportedResourceInstance.resource.name}-android.zip" style="color: inherit">
+                                    <a href="/published/${exportedResourceInstance.processId}/mobile/${exportedResourceInstance.resource.uri}-android.zip" style="color: inherit">
                                         <div class="col s6 m2 platform" data-text="Android" data-name="android">
                                             <div class="row no-margin-bottom">
                                                 <i class="fa fa-android big-platform-logo"></i>

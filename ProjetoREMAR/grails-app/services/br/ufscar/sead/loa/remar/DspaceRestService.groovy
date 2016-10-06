@@ -28,10 +28,9 @@ class DspaceRestService {
     private RestBuilder rest
     private String token
 
-    def listMetadata = [author: "dc.contributor.author",
-//                        editor: "dc.contributor.editor",
+    def listMetadata = [authors: "dc.contributor.author",
                         title:  "dc.title",
-                        description: "dc.description.abstract",
+                        abstract: "dc.description.abstract",
                         license: "dcterms.license",
                         publication_date: "dc.date.issued"
                         ]
@@ -535,7 +534,8 @@ class DspaceRestService {
                         logout()
                         def list = resp.body as String
                         def itemId = list.substring(list.indexOf("<id>")+4, list.indexOf("</id>"))
-                        return itemId
+                        def handle = list.substring(list.indexOf("<handle>")+8, list.indexOf("</handle>"))
+                        return [itemId: itemId, handle: handle]
 
                     }catch (SocketTimeoutException timeout){
                         println("Timeout in newItem - ${timeout.message}, ${timeout.cause}")

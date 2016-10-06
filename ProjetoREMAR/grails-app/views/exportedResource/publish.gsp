@@ -25,7 +25,7 @@ Time: 09:55
             <p>
                 O seu jogo foi publicado com <span class="bold">sucesso</span>! Agora ele já esta disponível no menu
                 <span class="chip">
-                    <a class="center" href="/exported-resource/publicGames">Jogos publicados</a>
+                    <a class="center" href="/exported-resource/publicGames">Banco de jogos</a>
                     <i class="medium material-icons">videogame_asset</i>
                 </span>
             </p>
@@ -54,7 +54,7 @@ Time: 09:55
                                               date="${createdAt}"/></p>
 
                             <p><span class="bold">Baseado no modelo: </span>${exportedResourceInstance.resource.name}</p>
-                            <p><span class="bold">Áre de conteúdo: </span>${exportedResourceInstance.contentArea}</p>
+                            <p><span class="bold">Área de conteúdo: </span>${exportedResourceInstance.contentArea}</p>
                             <p><span class="bold">Conteúdo específico: </span>${exportedResourceInstance.specificContent}</p>
 
                             %{--<p><span class="bold">Licenciado: </span>${exportedResourceInstance.name}</p>--}%
@@ -63,6 +63,24 @@ Time: 09:55
                         <div class="clearfix"></div>
                     </div>
                 </li>
+                <g:if test="${!handle.isEmpty()}">
+                    <li>
+                        <div class="collapsible-header active"> <i class="material-icons">cloud</i>Repositório</div>
+                        <div class="collapsible-body">
+                            <div class="row">
+                                <blockquote>Abaixo estão os artefatos customizados enviados para o repositório digital.</blockquote>
+
+                                <g:each in="${handle}" var="h">
+                                    <p><span class="bold">${h.key}: </span>
+                                        <a href="${h.value}" target="_blank">${h.value}</a>
+                                    </p>
+                                </g:each>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </li>
+
+                </g:if>
                 <li>
                     <div id="plataforms" class="collapsible-header active" data-exported="true">
                         <i class="material-icons">view_column</i>Plataformas
