@@ -18,7 +18,7 @@
 	<div class="row">
 		<div id="myForm" class="col s12" enctype="multipart/form-data">
 			<div class="row">
-				<form class="col s12" id="themeForm">>
+				<form class="col s12" id="themeForm">
 				<div class="fieldcontain required">
 					<label for="orientacao">
 						<g:message code="faseGaleria.orientacao.label" default="Orientação " />

@@ -14,25 +14,32 @@ window.onload = function() {
         }
     }
 
-    $("#save").click(function() {
+    $("#save").click(function( event) {
+        event.preventDefault();
         var selectedTheme = $('input[name=radio]:checked', '#themeForm').val();
         var orientation = $("#orientacao").val();
 
-        if (selectedTheme && orientation ) {
-            var data = {_method: 'POST', orientacao: orientation, themeId: selectedTheme};
-            var url = "/santograu/faseGaleria/exportLevel";
-            $.ajax({
-                traditional: true,
-                type: 'POST',
-                data: data,
-                url: url,
-                success: function (response) {
-                    window.top.location.href = response
-                },
-                error: function (response) {
-                    alert("Error:\n" + response.responseText);
-                }
-            });
+        if (selectedTheme) {
+            if (orientation) {
+                var data = {_method: 'POST', orientacao: orientation, themeId: selectedTheme};
+                var url = "/santograu/faseGaleria/exportLevel";
+                $.ajax({
+                    traditional: true,
+                    type: 'POST',
+                    data: data,
+                    url: url,
+                    success: function (response) {
+                        window.top.location.href = response
+                    },
+                    error: function (response) {
+                        alert("Error:\n" + response.responseText);
+                    }
+                });
+            } else {
+                $("#erroSubmitModal").openModal();
+            }
+        } else {
+            $("#erroSubmitModal").openModal();
         }
     });
 
@@ -45,23 +52,6 @@ window.onload = function() {
         id = $(tr).attr("data-id");
 
         $('#deleteModal').openModal();
-    });
-
-    $("#myForm").submit(function() {
-        var select = false;
-        var checkboxes = document.getElementsByTagName('input');
-        var i = 0;
-        while (select == false && i < checkboxes.length) {
-            if ((checkboxes[i].type == 'radio') && (checkboxes[i].checked == true)) {
-                select = true;
-                console.log("SELECIONOU");
-            }
-            i++;
-        }
-        if (select == false || $("#orientacao").val() == "") {
-            $("#erroSubmitModal").openModal();
-            return false;
-        }
     });
 };
 
