@@ -246,11 +246,14 @@ class ResourceController {
                 resourceInstance.comment = "Aprovado"
                 resourceInstance.save flush: true
 
-                // noinspection GroovyAssignabilityCheck
-                Util.sendEmail(resourceInstance.owner.email,
-                        "REMAR – O seu WAR \"${resourceInstance.name}\" foi aprovado!",
-                        '<h3>O seu WAR \"${resourceInstance.name}\" foi aprovado! :)</h3> <br>'
-                )
+                if (resourceInstance.owner != session.user) {
+
+                	// noinspection GroovyAssignabilityCheck
+                	Util.sendEmail(resourceInstance.owner.email,
+                        	"REMAR – O seu WAR \"${resourceInstance.name}\" foi aprovado!",
+                        	"<h3>O seu WAR \"${resourceInstance.name}\" foi aprovado! :)</h3> <br>"
+                	)
+                }
 
                 redirect controller: "process", action: "deploy", id: resourceInstance.uri
             } else {
