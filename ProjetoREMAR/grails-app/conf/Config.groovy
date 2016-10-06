@@ -139,7 +139,7 @@ environments {
                 appender new DailyRollingFileAppender(
                         name: 'dailyAppender',
                         datePattern: "'.'yyyy-MM-dd",  // See the API for all patterns.
-                        fileName: "logs/${grails.util.Metadata.current.'app.name'}.log",
+                        fileName: "../logs/${grails.util.Metadata.current.'app.name'}.log",
                         layout: pattern(conversionPattern: '%d [%p] %c{2} - %m%n'))
                 console name: "stdout" // TODO: define a pattern/layout
             }
