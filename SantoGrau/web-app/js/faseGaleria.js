@@ -14,6 +14,28 @@ window.onload = function() {
         }
     }
 
+    $(".save").click(function() {
+        var selectedTheme = $('input[name=radio]:checked', '#themeForm').val();
+        var orientation = $("#orientacao").val();
+
+        if (selectedTheme && orientation ) {
+            var data = {_method: 'POST', orientacao: orientation, themeId: selectedTheme};
+            var url = "/santograu/faseGaleria/exportLevel";
+            $.ajax({
+                traditional: true,
+                type: 'POST',
+                data: data,
+                url: url,
+                success: function (response) {
+                    window.top.location.href = response
+                },
+                error: function (response) {
+                    alert("Error:\n" + response.responseText);
+                }
+            });
+        }
+    });
+
     $('.collapsible').collapsible({
         accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
     });
@@ -62,36 +84,4 @@ function _delete() {
         error: function (XMLHttpRequest, textStatus, errorThrown) {
         }
     });
-}
-
-function _save() {
-    var select = false;
-    var checkboxes = document.getElementsByTagName('input');
-    var i = 0;
-    while (select == false && i < checkboxes.length) {
-        if ((checkboxes[i].type == 'radio') && (checkboxes[i].checked == true)) {
-            select = true;
-            console.log("SELECIONOU");
-        }
-        i++;
-    }
-    if (select == false) {
-        //$("#erroSubmitModal").openModal();
-        alert("Você deve selecionar ao menos um tema.");
-    }
-    else {
-        var themeId = document.forms["formName"].elements["radio"].value
-        var data = {_method: 'POST', orientacao: $("#orientacao").val(), themeId: themeId};
-        var url = "/santograu/faseGaleria/exportLevel";
-        $.ajax({
-            type: 'POST',
-            data: data,
-            url: url,
-            success: function () {
-
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-            }
-        });
-    }
 }

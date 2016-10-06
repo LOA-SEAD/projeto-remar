@@ -30,7 +30,7 @@ class FaseTecnologiaController {
         respond new FaseTecnologia(params)
     }
 
-    //@Transactional
+    @Transactional
     def save(FaseTecnologia faseTecnologiaInstance) {
         if (faseTecnologiaInstance == null) {
             notFound()

@@ -18,7 +18,7 @@
 	<div class="row">
 		<div id="myForm" class="col s12" enctype="multipart/form-data">
 			<div class="row">
-				<g:form controller="faseGaleria" action="save">
+				<form class="col s12" id="themeForm">>
 				<div class="fieldcontain required">
 					<label for="orientacao">
 						<g:message code="faseGaleria.orientacao.label" default="Orientação " />
@@ -54,7 +54,8 @@
 									<tbody>
 									<g:each in="${themeFaseGaleriaInstanceList}" status="i" var="themeFaseGaleriaInstance">
 										<tr data-id="${fieldValue(bean: themeFaseGaleriaInstance, field: "id")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
-											<td class="myTheme simpleTable" align="center "><input class="with-gap " name="radio" type="radio" id="myTheme${i}"
+											<td class="myTheme simpleTable" align="center ">
+												<input class="with-gap " name="radio" type="radio" id="myTheme${i}"
 																								   value="${fieldValue(bean: themeFaseGaleriaInstance, field: "id")}" > <label for="myTheme${i}"></label>
 											</td>
 											<td align="center"><img width="100"
@@ -130,10 +131,10 @@
 					</li>
 				</ul>
 				<div class="col s12">
-					<input id="save" type="submit" class="btn btn-success btn-lg my-orange" value="Enviar"/>
+					<g:submitButton name="save" class="save btn btn-success btn-lg my-orange" value="Enviar"/>
 					<g:link class="btn btn-success btn-lg my-orange" action="create">Novo tema</g:link>
 				</div>
-				</g:form>
+				</form>
 
 				<div id="deleteModal" class="modal">
 					<div class="modal-content">

@@ -7,6 +7,7 @@ import org.apache.tools.ant.util.FileUtils
 import grails.transaction.Transactional
 import static java.awt.RenderingHints.*
 import java.awt.image.BufferedImage
+import grails.util.Environment
 import groovy.json.JsonSlurper
 import javax.imageio.ImageIO
 
@@ -50,20 +51,6 @@ class FaseGaleriaController {
 
         //cria o arquivo json da fase
         createJsonFile("quadros.json", faseGaleria)
-
-        respond new FaseGaleria(params)
-        //def ids = []
-        //def folder = servletContext.getRealPath("/data/${session.user.id}/${session.taskId}")
-
-        //ids << MongoHelper.putFile(folder + '/computadores.json')
-
-        //def port = request.serverPort
-        //if (Environment.current == Environment.DEVELOPMENT) {
-        //    port = 8080
-        //}
-
-        //render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
-        //       "?files=${ids[0]}&files=${ids[1]}&files=${ids[2]}"
 
         redirect(action: "index")
     }
@@ -200,7 +187,7 @@ class FaseGaleriaController {
     def exportLevel(){
         //cria a instancia da fase galeria com os valores inseridos pelo usuario
         FaseGaleria faseGaleria = new FaseGaleria()
-        faseGaleria.themeId = Long.parseLong(params.radio)
+        faseGaleria.themeId = Long.parseLong(params.themeId)
         faseGaleria.orientacao = params.orientacao
         faseGaleria.ownerId = session.user.id as long
         faseGaleria.taskId = session.taskId as String
@@ -212,15 +199,17 @@ class FaseGaleriaController {
         createJsonFile("quadros.json", faseGaleria)
 
         // Finds the created file path
-        def ids = []
+        def id
+        def files = "?"
         def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
-        ids << MongoHelper.putFile("${folder}/quadros.json")
-        ids << MongoHelper.putFile("${folder}/1.jpg")
-        ids << MongoHelper.putFile("${folder}/2.jpg")
-        ids << MongoHelper.putFile("${folder}/3.jpg")
-        ids << MongoHelper.putFile("${folder}/4.jpg")
-        ids << MongoHelper.putFile("${folder}/5.jpg")
-
+        id = MongoHelper.putFile("${folder}/quadros.json")
+        files += "files=${id}&"
+        id = MongoHelper.putFile("${folder}/fases.json")
+        files += "files=${id}&"
+        ThemeFaseGaleria.findById(faseGaleria.themeId).howManyImages.times {
+            id = MongoHelper.putFile("${folder}/${it + 1}.png")
+            files += "files=${id}&"
+        }
 
         def port = request.serverPort
         if (Environment.current == Environment.DEVELOPMENT) {
@@ -228,7 +217,7 @@ class FaseGaleriaController {
         }
 
         // Updates current task to 'completed' status
-        render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}?files=${id}"
+        redirect uri:  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}${files}"
 
     }
 
