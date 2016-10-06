@@ -1,13 +1,13 @@
 package br.ufscar.sead.loa.santograu.remar
 
 import grails.plugin.springsecurity.annotation.Secured
-import groovy.json.JsonSlurper
-
 import static org.springframework.http.HttpStatus.*
-import grails.transaction.Transactional
+import br.ufscar.sead.loa.remar.api.MongoHelper
 import org.apache.tools.ant.util.FileUtils
+import grails.transaction.Transactional
 import static java.awt.RenderingHints.*
 import java.awt.image.BufferedImage
+import groovy.json.JsonSlurper
 import javax.imageio.ImageIO
 
 @Secured(["isAuthenticated()"])

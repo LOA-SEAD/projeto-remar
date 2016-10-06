@@ -1,11 +1,10 @@
 package br.ufscar.sead.loa.santograu.remar
 
-import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.plugin.springsecurity.annotation.Secured
-import grails.util.Environment
-
 import static org.springframework.http.HttpStatus.*
+import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.transaction.Transactional
+import grails.util.Environment
 import groovy.json.JsonSlurper
 
 @Secured(["isAuthenticated()"])
