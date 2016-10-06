@@ -1,5 +1,5 @@
 {
-  "name": "SantoGrau",
+  "name": "Santo Grau",
   "uri": "santograu",
   "version": 1,
   "tasks": [
@@ -112,8 +112,7 @@
     }
   ],
   "outputs": [
-    "web",
-    "moodle"
+    "web"
   ],
   "vars": {
     "width": 1280,
