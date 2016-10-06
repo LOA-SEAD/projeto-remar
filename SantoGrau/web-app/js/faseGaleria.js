@@ -14,7 +14,7 @@ window.onload = function() {
         }
     }
 
-    $(".save").click(function() {
+    $("#save").click(function() {
         var selectedTheme = $('input[name=radio]:checked', '#themeForm').val();
         var orientation = $("#orientacao").val();
 
