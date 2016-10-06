@@ -188,16 +188,15 @@ class FaseTecnologiaController {
         //adiciona a fase tecnologia no arquivo fases.json
         File fileFasesJson = new File("$instancePath/fases.json")
         boolean exists = fileFasesJson.exists()
+        PrintWriter printer = new PrintWriter(fileFasesJson);
         if(!exists) {
-            PrintWriter printer = new PrintWriter(fileFasesJson);
             printer.write("{\n");
             printer.write("\t\"quantidade\": [\"1\"],\n")
-            printer.write("\t\"fases\": [\"1\", \"2\"]\n")
+            printer.write("\t\"fases\": [\"1\"]\n")
             printer.write("}")
             printer.close();
         } else {
             def arq = new JsonSlurper().parseText(new File("$instancePath/fases.json").text)
-            PrintWriter printer = new PrintWriter(fileFasesJson);
             printer.write("{\n");
 
             if(arq["quantidade"][0] == "0")
