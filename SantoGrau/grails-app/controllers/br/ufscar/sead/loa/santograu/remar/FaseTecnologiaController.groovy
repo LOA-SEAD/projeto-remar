@@ -215,6 +215,9 @@ class FaseTecnologiaController {
         if(newLink.contains("embed"))
             return "http://" + newLink;
         def pos = newLink.indexOf("v=")
-        return "http://www.youtube.com/embed/" + newLink.substring(pos+2)
+        def endPos = newLink.indexOf("&")
+        if(endPos == -1)
+            return "http://www.youtube.com/embed/" + newLink.substring(pos+2)
+        return "http://www.youtube.com/embed/" + newLink.substring(pos+2, endPos)
     }
 }
