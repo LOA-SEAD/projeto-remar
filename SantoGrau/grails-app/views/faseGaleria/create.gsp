@@ -185,6 +185,7 @@
 				</div>
 			</g:uploadForm>
 			<input id="upload" type="submit" name="upload" class="btn btn-success my-orange" value="Criar"/>
+			<input id="cancel" type="button" name="cancel" class="btn my-orange" value="Cancelar"/>
 		</div>
 	</g:form>
 

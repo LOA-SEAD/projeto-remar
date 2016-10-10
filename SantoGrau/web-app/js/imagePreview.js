@@ -13,6 +13,10 @@ window.onload = function() {
         $(el).attr("data-current", "1");
     });
 
+    $('#cancel').click(function() {
+        history.back();
+    });
+
 
     function preview(input, preview) {
         var fileType = $(input).prop("files")[0].type;
