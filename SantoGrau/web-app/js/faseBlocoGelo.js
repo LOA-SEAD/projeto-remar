@@ -18,6 +18,10 @@ window.onload = function(){
                 $(this).show();
         });
     });
+
+    if($("#errorImportingQuestions").val() == "true") {
+        $("#errorImportingQuestionsModal").openModal();
+    }
 };
 
 

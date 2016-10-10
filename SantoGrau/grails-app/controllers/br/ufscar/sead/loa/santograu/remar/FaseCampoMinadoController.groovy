@@ -30,7 +30,7 @@ class FaseCampoMinadoController {
         }
 
         list = QuestionFaseCampoMinado.findAllByOwnerId(session.user.id)
-        respond list, model: [faseCampoMinadoInstanceCount: QuestionFaseCampoMinado.count()]
+        respond list, model: [faseCampoMinadoInstanceCount: QuestionFaseCampoMinado.count(), errorImportQuestions:params.errorImportQuestions]
     }
 
     def show(QuestionFaseCampoMinado questionFaseCampoMinadoInstance) {
@@ -192,25 +192,29 @@ class FaseCampoMinadoController {
     @Transactional
     def generateQuestions(){
         MultipartFile csv = params.csv
+        def error = false;
 
         csv.inputStream.toCsvReader([ 'separatorChar': ';']).eachLine { row ->
-            QuestionFaseCampoMinado questionInstance = new QuestionFaseCampoMinado()
-            questionInstance.title = row[1] ?: "NA";
-            questionInstance.answers[0] = row[2] ?: "NA";
-            questionInstance.answers[1] = row[3] ?: "NA";
-            questionInstance.answers[2] = row[4] ?: "NA";
-            questionInstance.answers[3] = row[5] ?: "NA";
-            questionInstance.answers[4] = row[6] ?: "NA";
-            String correct = row[7] ?: "NA";
-            questionInstance.correctAnswer =  (correct.toInteger() - 1)
-            questionInstance.taskId = session.taskId as String
-            questionInstance.ownerId = session.user.id as long
-            questionInstance.save flush: true
-            println(questionInstance.taskId)
-            println(questionInstance)
-            println(questionInstance.errors)
+            if(row.size() == 7) {
+                QuestionFaseCampoMinado questionInstance = new QuestionFaseCampoMinado()
+                questionInstance.title = row[0] ?: "NA";
+                questionInstance.answers[0] = row[1] ?: "NA";
+                questionInstance.answers[1] = row[2] ?: "NA";
+                questionInstance.answers[2] = row[3] ?: "NA";
+                questionInstance.answers[3] = row[4] ?: "NA";
+                questionInstance.answers[4] = row[5] ?: "NA";
+                String correct = row[6] ?: "NA";
+                questionInstance.correctAnswer =  (correct.toInteger() - 1)
+                questionInstance.taskId = session.taskId as String
+                questionInstance.ownerId = session.user.id as long
+                questionInstance.save flush: true
+                println(questionInstance.errors)
+            } else {
+                error = true
+            }
         }
-        redirect(action: index())
+
+        redirect(action: index(), params: [errorImportQuestions:error])
     }
 
     def exportCSV(){
@@ -237,8 +241,8 @@ class FaseCampoMinadoController {
 
         def fw = new FileWriter("$instancePath/exportQuestions.csv")
         for(int i=0; i<questionList.size();i++){
-            fw.write("nivel;" + questionList.getAt(i).title + ";" + questionList.getAt(i).answers[0] + ";" + questionList.getAt(i).answers[1] + ";" +
-                    questionList.getAt(i).answers[2] + ";" + questionList.getAt(i).answers[3] + ";" + questionList.getAt(i).answers[4] + ";" + (questionList.getAt(i).correctAnswer +1) + ";dica;tema" +";\n" )
+            fw.write(questionList.getAt(i).title + ";" + questionList.getAt(i).answers[0] + ";" + questionList.getAt(i).answers[1] + ";" +
+                    questionList.getAt(i).answers[2] + ";" + questionList.getAt(i).answers[3] + ";" + questionList.getAt(i).answers[4] + ";" + (questionList.getAt(i).correctAnswer +1) + "\n" )
         }
         fw.close()
 

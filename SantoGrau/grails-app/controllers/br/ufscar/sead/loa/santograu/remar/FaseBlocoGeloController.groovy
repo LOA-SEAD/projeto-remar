@@ -19,6 +19,7 @@ class FaseBlocoGeloController {
         if (params.t) {
             session.taskId = params.t
         }
+
         session.user = springSecurityService.currentUser
 
         def list = QuestionFaseBlocoGelo.findAllByOwnerId(session.user.id)
@@ -31,7 +32,9 @@ class FaseBlocoGeloController {
         }
 
         list = QuestionFaseBlocoGelo.findAllByOwnerId(session.user.id)
-        respond list, model: [faseBlocoGeloInstanceCount: QuestionFaseBlocoGelo.count()]
+
+
+        respond list, model: [faseBlocoGeloInstanceCount: QuestionFaseBlocoGelo.count(), errorImportQuestions:params.errorImportQuestions]
     }
 
     def show(QuestionFaseBlocoGelo faseBlocoGeloInstance) {
@@ -182,23 +185,26 @@ class FaseBlocoGeloController {
     @Transactional
     def generateQuestions(){
         MultipartFile csv = params.csv
+        def error = false
 
         csv.inputStream.toCsvReader([ 'separatorChar': ';']).eachLine { row ->
-            QuestionFaseBlocoGelo questionInstance = new QuestionFaseBlocoGelo()
-            questionInstance.title = row[1] ?: "NA";
-            questionInstance.answers[0] = row[2] ?: "NA";
-            questionInstance.answers[1] = row[3] ?: "NA";
-            questionInstance.answers[2] = row[4] ?: "NA";
-            String correct = row[7] ?: "NA";
-            questionInstance.correctAnswer =  (correct.toInteger() - 1)
-            questionInstance.taskId = session.taskId as String
-            questionInstance.ownerId = session.user.id as long
-            questionInstance.save flush: true
-            println(questionInstance.taskId)
-            println(questionInstance)
-            println(questionInstance.errors)
+            if(row.size() == 5) {
+                QuestionFaseBlocoGelo questionInstance = new QuestionFaseBlocoGelo()
+                questionInstance.title = row[0] ?: "NA";
+                questionInstance.answers[0] = row[1] ?: "NA";
+                questionInstance.answers[1] = row[2] ?: "NA";
+                questionInstance.answers[2] = row[3] ?: "NA";
+                String correct = row[4] ?: "NA";
+                questionInstance.correctAnswer =  (correct.toInteger() - 1)
+                questionInstance.taskId = session.taskId as String
+                questionInstance.ownerId = session.user.id as long
+                questionInstance.save flush: true
+                println(questionInstance.errors)
+            } else {
+                error = true
+            }
         }
-        redirect(action: index())
+        redirect(action: index(), params: [errorImportQuestions:error])
     }
 
     def exportCSV(){
@@ -211,10 +217,10 @@ class FaseBlocoGeloController {
         */
 
         ArrayList<Integer> list_questionId = new ArrayList<Integer>() ;
-        ArrayList<QuestionFaseCampoMinado> questionList = new ArrayList<QuestionFaseCampoMinado>();
+        ArrayList<QuestionFaseBlocoGelo> questionList = new ArrayList<QuestionFaseBlocoGelo>();
         list_questionId.addAll(params.list_id);
         for (int i=0; i<list_questionId.size();i++){
-            questionList.add(QuestionFaseCampoMinado.findById(list_questionId[i]));
+            questionList.add(QuestionFaseBlocoGelo.findById(list_questionId[i]));
 
         }
 
@@ -225,8 +231,8 @@ class FaseBlocoGeloController {
 
         def fw = new FileWriter("$instancePath/exportQuestions.csv")
         for(int i=0; i<questionList.size();i++){
-            fw.write("nivel;" + questionList.getAt(i).title + ";" + questionList.getAt(i).answers[0] + ";" + questionList.getAt(i).answers[1] + ";" +
-                    questionList.getAt(i).answers[2] + (questionList.getAt(i).correctAnswer +1) + ";dica;tema" +";\n" )
+            fw.write(questionList.getAt(i).title + ";" + questionList.getAt(i).answers[0] + ";" + questionList.getAt(i).answers[1] + ";" +
+                    questionList.getAt(i).answers[2] + ";" +(questionList.getAt(i).correctAnswer +1) + "\n" )
         }
         fw.close()
 

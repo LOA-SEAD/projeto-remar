@@ -271,6 +271,14 @@
 						<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
 					</div>
 				</div>
+				<div id="errorImportingQuestionsModal" class="modal">
+					<div class="modal-content">
+						Erro - Para importar questões, você deve deixá-las no formado indicado.
+					</div>
+					<div class="modal-footer">
+						<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
+					</div>
+				</div>
 
 				<div id="uploadModal" class="modal">
 					<div class="modal-content">
@@ -312,41 +320,41 @@
 								<table class="center" style="font-size: 12px;">
 									<thead>
 									<tr>
-										<th>Nível</th>
 										<th>Pergunta</th>
 										<th>Resposta1</th>
 										<th>Resposta2</th>
 										<th>Resposta3</th>
 										<th>Resposta4</th>
+										<th>Resposta5</th>
 										<th>Alternativa Correta</th>
 									</tr>
 									</thead>
 									<tbody>
 									<tr>
-										<td>1</td>
 										<td>Pergunta 1</td>
 										<td>Alternativa 1</td>
 										<td>Alternativa 2</td>
 										<td>Alternativa 3</td>
 										<td>Alternativa 4</td>
+										<td>Alternativa 5</td>
 										<td>1</td>
 									</tr>
 									<tr>
-										<td>2</td>
 										<td>Pergunta 2</td>
 										<td>Alternativa 1</td>
 										<td>Alternativa 2</td>
 										<td>Alternativa 3</td>
 										<td>Alternativa 4</td>
+										<td>Alternativa 5</td>
 										<td>3</td>
 									</tr>
 									<tr>
-										<td>3</td>
 										<td>Pergunta 3</td>
 										<td>Alternativa 1</td>
 										<td>Alternativa 2</td>
 										<td>Alternativa 3</td>
 										<td>Alternativa 4</td>
+										<td>Alternativa 5</td>
 										<td>4</td>
 									</tr>
 									</tbody>
@@ -355,8 +363,8 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
+		<input type="hidden" id="errorImportingQuestions" name="errorImportingQuestions" value="${errorImportQuestions}">
 	</body>
 </html>
