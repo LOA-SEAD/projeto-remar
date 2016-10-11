@@ -17,7 +17,6 @@ class FaseGaleriaController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", deleteTheme: "DELETE", imagesManager: "POST", exportLevel:"POST"]
 
-    @Secured(['permitAll'])
     def index(Integer max) {
         if (params.t) {
             session.taskId = params.t
@@ -183,7 +182,6 @@ class FaseGaleriaController {
         }
     }
 
-    @Secured(['permitAll'])
     def exportLevel(){
         //cria a instancia da fase galeria com os valores inseridos pelo usuario
         FaseGaleria faseGaleria = new FaseGaleria()
