@@ -239,16 +239,16 @@ class FaseGaleriaController {
         //adiciona a fase galeria no arquivo fases.json
         File fileFasesJson = new File("$instancePath/fases.json")
         boolean exists = fileFasesJson.exists()
-        PrintWriter printer = new PrintWriter(fileFasesJson);
+        PrintWriter printer = new PrintWriter(fileFasesJson)
         if(!exists) {
-            printer.write("{\n");
+            printer.write("{\n")
             printer.write("\t\"quantidade\": [\"1\"],\n")
             printer.write("\t\"fases\": [\"2\"]\n")
-            printer.write("}")
-            printer.close();
+            printer.write("}\n")
+            printer.close()
         } else {
             def arq = new JsonSlurper().parseText(new File("$instancePath/fases.json").text)
-            printer.write("{\n");
+            printer.write("{\n")
 
             if(arq["quantidade"][0] == "0") {
                 printer.write("\t\"quantidade\": [\"1\"],\n")
@@ -259,7 +259,7 @@ class FaseGaleriaController {
             }
 
             printer.write("}")
-            printer.close();
+            printer.close()
         }
     }
 
