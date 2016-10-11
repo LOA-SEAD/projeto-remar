@@ -7,7 +7,6 @@
 		<meta name="layout" content="main">
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<g:javascript src="faseTecnologia.js" />
-		<g:javascript src="../js/materialize.min.js"/>
 		<g:javascript src="iframeResizer.contentWindow.min.js"/>
 
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
