@@ -27,7 +27,7 @@
                   <a id="edit-group" data-name="${group.name}" data-position="right" data-tooltip="Editar grupo" class="tooltipped" style="color: black"><i style="position:relative; top: 0.145em; cursor: pointer;" class="material-icons">edit</i></a>
                   <a  data-position="right" data-tooltip="Deletar grupo" class="tooltipped modal-trigger" href="#modal-confirmation-group" style="color: black"><i style="position:relative; top: 0.145em;" class="material-icons">delete</i></a>
               </g:if>
-              <g:else><a class="tooltipped" data-tooltip="Sair do grupo" style=" color: black;" href="/group/leave-group/${group.id}"><i class="fa fa-sign-out fa-1x" aria-hidden="true"></i></a></g:else>
+              <g:else><a class="tooltipped modal-trigger" href="#leave-group" data-tooltip="Sair do grupo" style=" color: black;"><i class="fa fa-sign-out fa-1x" aria-hidden="true"></i></a></g:else>
               <g:if test="${group.owner.id == session.user.id}">
                   <span style="font-size: 0.6em;" class="left">Senha de acesso: ${group.token}</span><br>
               </g:if>
@@ -98,6 +98,17 @@
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
     </div>
 </div>
+<!-- Modal Structure -->
+<div id="leave-group" class="modal">
+    <div class="modal-content">
+        <h5>Deseja mesmo sair do grupo? </h5>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Não</a>
+        <a id="delete-group" href="/group/leave-group/${group.id}" class=" modal-action modal-close waves-effect waves-green btn-flat">Sim</a> 
+     </div>
+</div>
+
     <!-- Modal Structure -->
 
     <div class="divider"></div>
