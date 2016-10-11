@@ -27,10 +27,16 @@ class Resource {
 
     }
 
+    Resource() {
+        this.shareable = false;
+    }
+
     String name
     boolean active
     int version
     String uri
+
+    boolean shareable
 
     boolean android
     boolean desktop
