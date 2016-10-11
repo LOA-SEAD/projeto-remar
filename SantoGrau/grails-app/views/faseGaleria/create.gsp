@@ -18,6 +18,7 @@
 			</div>
 
 			<g:uploadForm  method="POST" controller="design" action="imagesManager">
+				<input type="hidden" id="orientacao" name="orientacao" value="${orientacao}">
 				<div class="row">
 					<div class="col s12">
 						<ul class="collapsible" data-collapsible="accordion">

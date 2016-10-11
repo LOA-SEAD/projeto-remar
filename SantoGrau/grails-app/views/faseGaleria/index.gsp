@@ -18,13 +18,12 @@
 	<div class="row">
 		<div id="myForm" class="col s12" enctype="multipart/form-data">
 			<div class="row">
-				<form class="col s12" id="themeForm">
 				<div class="fieldcontain required">
 					<label for="orientacao">
 						<g:message code="faseGaleria.orientacao.label" default="Orientação " />
 						<span class="required-indicator">*</span>
 					</label>
-					<g:field name="orientacao" id="orientacao" type="text" required="" length="95" maxlength="95" class="validate"/>
+					<g:field name="orientacao" id="orientacao" type="text" required="" length="95" maxlength="95" class="validate" value="${orientacao}"/>
 				</div>
 				<ul class="collapsible" data-collapsible="accordion">
 					<li>
@@ -132,9 +131,8 @@
 				</ul>
 				<div class="col s12">
 					<g:submitButton name="save" class="save btn btn-success btn-lg my-orange" value="Enviar"/>
-					<g:link class="btn btn-success btn-lg my-orange" action="create">Novo tema</g:link>
+					<g:link class="btn btn-success btn-lg my-orange myLink" action="create">Novo tema</g:link>
 				</div>
-				</form>
 
 				<div id="deleteModal" class="modal">
 					<div class="modal-content">

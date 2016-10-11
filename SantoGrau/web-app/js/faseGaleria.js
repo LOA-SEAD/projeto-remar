@@ -16,7 +16,7 @@ window.onload = function() {
 
     $("#save").click(function( event) {
         event.preventDefault();
-        var selectedTheme = $('input[name=radio]:checked', '#themeForm').val();
+        var selectedTheme = $('input[name=radio]:checked', '#myForm').val();
         var orientation = $("#orientacao").val();
 
         if (selectedTheme) {
@@ -52,6 +52,14 @@ window.onload = function() {
         id = $(tr).attr("data-id");
 
         $('#deleteModal').openModal();
+    });
+
+    jQuery(function(){
+        $("a.myLink").on("click", function(e) {
+            var orientacao = $("#orientacao").val();
+            window.location.href = $(this).attr("href") + "?orientacao=" +orientacao;
+            return false;
+        });
     });
 };
 

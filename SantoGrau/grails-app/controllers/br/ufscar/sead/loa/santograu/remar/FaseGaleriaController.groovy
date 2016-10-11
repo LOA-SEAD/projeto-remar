@@ -24,8 +24,12 @@ class FaseGaleriaController {
         session.user = springSecurityService.currentUser
 
         def list = ThemeFaseGaleria.findAllByOwnerId(session.user.id)
+        String orientacao = ""
+        if(params.orientacao) {
+            orientacao = params.orientacao
+        }
 
-        render view: "index", model: [themeFaseGaleriaInstanceList: list]
+        render view: "index", model: [themeFaseGaleriaInstanceList: list, orientacao: orientacao]
     }
 
     def show(FaseGaleria faseGaleriaInstance) {
@@ -33,7 +37,8 @@ class FaseGaleriaController {
     }
 
     def create() {
-        respond new FaseGaleria(params)
+        render view: "create", model: [orientacao: params.orientacao]
+        //respond new FaseGaleria(params)
     }
 
     @Transactional
@@ -151,7 +156,7 @@ class FaseGaleriaController {
             resizeImage(userPath, i)
         }
 
-        redirect(action:"index")
+        redirect(actixon:"index", params: [orientacao:params.orientacao])
 
     }
 
