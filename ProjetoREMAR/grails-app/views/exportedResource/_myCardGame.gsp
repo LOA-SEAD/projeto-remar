@@ -78,11 +78,13 @@
                                             <i class="fa fa-trash" style="color: #FF5722;"></i>
                                         </a>
                                     </div>
-                                    <div class="col l4">
-                                        <a style="font-size: 2em;" href="#modal-group-${instance.id}" class="tooltipped modal-trigger" data-position="down" data-delay="50" data-tooltip="Compartilhar em grupo">
-                                            <i class="fa fa-users" style="color: #FF5722;"></i>
-                                        </a>
-                                    </div>
+                                    <g:if test='${instance.resource.shareable}'>
+                                        <div class="col l4">
+                                            <a style="font-size: 2em;" href="#modal-group-${instance.id}" class="tooltipped modal-trigger" data-position="down" data-delay="50" data-tooltip="Compartilhar em grupo">
+                                                <i class="fa fa-users" style="color: #FF5722;"></i>
+                                            </a>
+                                        </div>
+                                    </g:if>
                                 </div>
                             </div>
                         </div>
