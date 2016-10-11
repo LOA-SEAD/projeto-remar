@@ -4,55 +4,6 @@
     <meta name="layout" content="base">
     <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}"/>
     <title>Recuperar conta</title>
-
-    <g:javascript src="jquery/jquery.validate.js"/>
-
-    <script>
-        $(function () {
-            var existUser = false;
-            var existEmail = false;
-            $('form').validate({
-                rules: {
-                    newPassword: {
-                        minlength: 8,
-                        required: true
-                    },
-                    confirm_password: {
-                        required: true,
-                        minlength: 8,
-                        equalTo: "#newPassword"
-                    }
-                },
-                messages: {
-                    newPassword: {
-                        required: "Por favor digite uma senha",
-                        minlength: "A senha deve ter no minimo 8 caracteres"
-                    },
-                    confirm_password: {
-                        required: "Por favor confirme sua senha",
-                        minlength: "Sua senha deve ter no minimo 8 caracteres",
-                        equalTo: "As senhas não coincidem"
-                    }
-                },
-                highlight: function (element) {
-                    $(element).closest('.form-group')
-                            .addClass('has-error');
-                },
-                unhighlight: function (element) {
-                    if (existUser == false && existEmail == false) {
-                        $(element).closest('.form-group').removeClass('has-error');
-                        $('#span-error').remove();
-                    }
-                },
-                errorElement: 'span',
-                errorClass: 'help-block help-block-create',
-                errorPlacement: function (error, element) {
-                    error.insertAfter(element.parent());
-                }
-            });
-        });
-    </script>
-
 </head>
 
 <body>
@@ -73,8 +24,8 @@
 
                         <div class="input-field col s12">
                             <i class="material-icons prefix">lock</i>
-                            <input id="password-confirmation" name="password_confirmation" type="password"/>
-                            <label for="password-confirmation">Confirme sua senha</label>
+                            <input id="password_confirmation" name="password_confirmation" type="password"/>
+                            <label for="password_confirmation">Confirme sua senha</label>
                         </div>
 
                         <input type="hidden" name="token" value="${token}"/>
@@ -90,5 +41,71 @@
         </div> <!-- card -->
     </div> <!-- row -->
 </div> <!-- container -->
+<g:javascript src="jquery/jquery.validate.js"/>
+<script>
+    $(function () {
+        var existUser = false;
+        var existEmail = false;
+        $('form').validate({
+            rules: {
+                password: {
+                    minlength: 8,
+                    required: true
+                },
+                password_confirmation: {
+                    required: true,
+                    equalTo: "#password"
+                }
+            },
+            messages: {
+                password: {
+                    required: "Por favor digite uma senha",
+                    minlength: "A senha deve ter no minimo 8 caracteres"
+                },
+                password_confirmation: {
+                    required: "Por favor confirme sua senha",
+                    minlength: "Sua senha deve ter no minimo 8 caracteres",
+                    equalTo: "As senhas não coincidem"
+                }
+            },
+
+            errorElement: 'span',
+            errorClass: 'invalid-input',
+
+            errorPlacement: errorPlacement,
+
+            highlight: highlight,
+            unhighlight: unhighlight,
+
+            success: function(el) {
+
+            }
+        });
+    });
+
+    function unhighlight(el) {
+        $(el).removeClass('invalid');
+        $(el).addClass('valid');
+
+        if($(el).siblings('select').attr('name') != "gender" && $(el).attr('data-done') !== "true") {
+            $('<i class="material-icons suffix green-text">done</i>').insertBefore(el);
+            $(el).attr('data-done', true);
+        }
+    }
+
+    function highlight(el) {
+        $(el).removeClass('input-error');
+        $(el).addClass('invalid');
+
+        if($(el).attr("data-done") == "true") {
+            $(el).siblings(".suffix").remove();
+            $(el).removeAttr("data-done");
+        }
+    }
+
+    function errorPlacement(err, el) {
+        err.insertAfter($(el).next());
+    }
+</script>
 </body>
 </html>
