@@ -96,8 +96,22 @@ class UserController {
                         token.save flush: true
                         log.debug token.errors
                         def url = "http://${request.serverName}:${request.serverPort}/user/password/reset?t=${token.token}"
-                        def mensagem = "<h3>Username:" + user.username + "</h3> <br> <h3><a href=\"${url}\">Clique aqui</a> para redefinir sua senha :)</h3> <br> <h3> Caso você não" +
-                                "tenha solicitado recuperar seus dados cadastrados ignore esta email. </h3> <br>"
+                        def mensagem = "<h3>Prezado(a) ${user.firstName} ${user.lastName},  </h3> <br>" +
+                                "<p>Você encontra-se cadastrado(a) com o username: ${user.username} </p> <br>" +
+                                "<p>Para dar continuidade a sua solicitação, acesse o link  abaixo. </p> <br>" +
+                                "<p> ${url} </p> <br>" +
+                                "Atenciosamente, <br>" +
+                                "<br>" +
+                                "Equipe REMAR <br>" +
+                                "Recursos Educacionais Multiplataforma Abertos na Rede <br>" +
+                                "<br>" +
+                                "**********************************************************************<br>" +
+                                "Este é um e-mail automático. Não é necessário respondê-lo. <br>" +
+                                "<br>" +
+                                "Caso tenha recebido esta mensagem por engano, por favor, apague-a.  <br>" +
+                                "<br>" +
+                                "Agradecemos sua cooperação. <br>" +
+                                "**********************************************************************"
                         Util.sendEmail(user.email, "Recuperar dados cadastrados", mensagem)
 
                         render view: "/user/password/emailSent", model: [email: user.email]
@@ -155,10 +169,23 @@ class UserController {
             def link = "http://${request.serverName}:${request.serverPort}/user/account/confirm/${token.token}"
 
             // noinspection GroovyAssignabilityCheck
-            Util.sendEmail(
-                    instance.email,
-                    "Confirme seu email",
-                    "<h3><a href=\"${link}\">Clique aqui</a> para confirmar seu email</h3>")
+            def mensagem = "<h3>Prezado(a) ${user.firstName} ${user.lastName},  </h3> <br>" +
+                                "<p>Seu cadastro, username ${user.username}, foi realizado com sucesso.</p> <br>" +
+                                "<p>Para confirmar seu cadastro, acesse o link  abaixo. </p> <br>" +
+                                "<p> ${url} </p> <br>" +
+                                "Atenciosamente, <br>" +
+                                "<br>" +
+                                "Equipe REMAR <br>" +
+                                "Recursos Educacionais Multiplataforma Abertos na Rede <br>" +
+                                "<br>" +
+                                "**********************************************************************<br>" +
+                                "Este é um e-mail automático. Não é necessário respondê-lo. <br>" +
+                                "<br>" +
+                                "Caso tenha recebido esta mensagem por engano, por favor, apague-a.  <br>" +
+                                "<br>" +
+                                "Agradecemos sua cooperação. <br>" +
+                                "**********************************************************************"
+            Util.sendEmail(instance.email, "Confirmação de Cadastro", mensagem)
             redirect uri: "/signup/success/$instance.id"
         } else {
             // TODO

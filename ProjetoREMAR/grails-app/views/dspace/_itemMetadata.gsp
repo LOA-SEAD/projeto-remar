@@ -103,7 +103,7 @@
                 </div>
                 <br>
                 <br>
-                <input type="hidden" name="license" value="cc-by" id="licenseValue" >
+                <input type="hidden" name="license" value="${resource.license}" id="licenseValue" >
                 <div class="row">
                     <div class="col s12" id="licenseImage">
 
@@ -123,9 +123,8 @@
 
     </div>
 </div>
-<g:javascript src="dspace.js"/>
 <g:javascript src="dspace/validateSubmit.js"/>
-
+<g:javascript src="dspace/item.js"/>
 
 </body>
 </html>

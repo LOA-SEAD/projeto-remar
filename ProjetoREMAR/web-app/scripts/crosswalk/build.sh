@@ -5,7 +5,7 @@
 # $3: Game name
 
 export ANDROID_HOME="/dev-tools/android"
-
+export CROSSWALK_PATH="/dev-tools/crosswalk"
 export PATH=$ANDROID_HOME:$PATH
 export PATH=$ANDROID_HOME/tools:$PATH
 export PATH=$ANDROID_HOME/platform-tools:$PATH
@@ -20,15 +20,12 @@ cp $1/stats/logo-remar-preto-transparente.png .
 
 sed -i.bkp "s/NAME/$3/" manifest.json
 
-/dev-tools/crosswalk/make_apk.py --package br.ufscar.sead.loa.remar.published.$2 --manifest manifest.json --target-dir ..
-
-#rm manifest.json manifest.json.bkp .REMAR login.js login.html logo-remar-preto-transparente.png
+${CROSSWALK_PATH}/make_apk.py --package br.ufscar.sead.loa.remar.published.$2 --manifest manifest.json --target-dir ..
 
 cd ..
 
 mkdir android
 mv *.apk android
-
 
 for i in $(find . -name "*.apk")
 do

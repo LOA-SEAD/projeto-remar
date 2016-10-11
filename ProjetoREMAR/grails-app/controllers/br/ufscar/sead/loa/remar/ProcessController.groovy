@@ -145,7 +145,7 @@ class ProcessController {
     def update() {
 
         def process = Propeller.instance.getProcessInstanceById(params.id as String, session.user.id as long)
-
+        def hasOptionalTasks = (process.completedTasks + process.pendingTasks).any {task -> task.definition.optional}
         def path = new File("${servletContext.getRealPath("/data/processes/${process.id}")}/")
 
         // se a imagem foi atualizada
@@ -164,6 +164,7 @@ class ProcessController {
 
             process.putVariable("updated", "true", true)
             process.putVariable("showTasks", "true", true)
+            process.putVariable("hasOptionalTasks", "${hasOptionalTasks}", true)
 
             redirect controller: "process", action: "overview"
         }

@@ -1,5 +1,5 @@
 {
-  "name": "Escola Mágica",
+  "name": "Escola Magica",
   "uri": "escolamagica",
   "version": 1,
   "tasks": [
@@ -59,7 +59,7 @@
   ],
   "outputs": [
     "web",
-    "moodle"
+    "desktop"
   ],
   "vars": {
     "width": 816,

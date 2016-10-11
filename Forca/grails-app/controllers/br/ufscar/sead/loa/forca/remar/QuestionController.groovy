@@ -25,9 +25,9 @@ class QuestionController {
         }
         session.user = springSecurityService.currentUser
 
-        def list = Question.list()
+        def list = Question.findAllByAuthor(session.user.username)
 
-        render view: "index", model: [questionInstanceList: list, questionInstanceCount: Question.count(),
+        render view: "index", model: [questionInstanceList: list, questionInstanceCount: list.size(),
                                       userName: session.user.username, userId: session.user.id]
 
     }
@@ -49,6 +49,7 @@ class QuestionController {
         newQuest.author = questionInstance.author
         newQuest.category = questionInstance.category
         newQuest.taskId    = session.taskId as String
+        newQuest.ownerId = session.user.id
 
         if (newQuest.hasErrors()) {
             respond newQuest.errors, view: 'create' //TODO
@@ -234,6 +235,7 @@ class QuestionController {
 
             questionInstance.author = username
             questionInstance.taskId = session.taskId as String
+            questionInstance.ownerId = session.user.id
 
             if (questionInstance.hasErrors()) {
 

@@ -153,6 +153,6 @@ Time: 08:58
 <div id="modal" class="modal">
 </div>
 
-<g:javascript src="dspace.js"/>
+<g:javascript src="dspace/dspace.js"/>
 </body>
 </html>

@@ -16,5 +16,6 @@ class DspaceRestServiceSpec extends Specification {
     }
 
     void "test something"() {
+        true
     }
 }
