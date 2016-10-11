@@ -1,7 +1,5 @@
 package br.ufscar.sead.loa.remar
 
-
-
 class Resource {
 
     static belongsTo = [owner: User, category: Category]
@@ -27,6 +25,10 @@ class Resource {
 
     }
 
+    Resource() {
+        this.shareable = false;
+    }
+
     String name
     boolean active
     int version
@@ -35,6 +37,7 @@ class Resource {
     boolean android
     boolean desktop
     boolean moodle
+    boolean shareable
 
     // deploy
     Date submittedAt
