@@ -45,12 +45,6 @@ class FaseGaleriaController {
         faseGaleria.ownerId = session.user.id as long
         faseGaleria.taskId = session.taskId as String
 
-        //salva os dados da fase no BD
-        saveFaseGaleria(faseGaleria)
-
-        //cria o arquivo json da fase
-        createJsonFile("quadros.json", faseGaleria)
-
         redirect(action: "index")
     }
 
@@ -136,9 +130,6 @@ class FaseGaleriaController {
 
     @Transactional
     def imagesManager() {
-        session.taskId = "57c42aca9e04b91a75a80f75"
-        session.user = springSecurityService.currentUser
-
         def imagesUploaded = []
         int qtsImagens=0;
         for(def i=1;i<=10;i++) {
@@ -182,6 +173,7 @@ class FaseGaleriaController {
         }
     }
 
+    @Transactional
     def exportLevel(){
         //cria a instancia da fase galeria com os valores inseridos pelo usuario
         FaseGaleria faseGaleria = new FaseGaleria()
@@ -215,7 +207,7 @@ class FaseGaleriaController {
         }
 
         // Updates current task to 'completed' status
-        redirect uri:  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}${files}"
+        render "http://${request.serverName}:${port}/process/task/complete/${session.taskId}${files}"
 
     }
 
