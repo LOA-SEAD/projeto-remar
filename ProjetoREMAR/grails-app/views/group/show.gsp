@@ -20,6 +20,16 @@
         <a id="delete-group" href="/group/delete/${group.id}" class=" modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
     </div>
 </div>
+
+<div id="leave-group" class="modal">
+    <div class="modal-content">
+        <h5>Deseja mesmo sair do grupo? </h5>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Não</a>
+        <a href="/group/leave-group/${group.id}" class=" modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
+    </div>
+</div>
     <div class="row">
         <div class="col l4 s6 m5">
           <h5 class="left-align"><span class="truncate" id="group-name">${group.name}</span>
@@ -27,7 +37,7 @@
                   <a id="edit-group" data-name="${group.name}" data-position="right" data-tooltip="Editar grupo" class="tooltipped" style="color: black"><i style="position:relative; top: 0.145em; cursor: pointer;" class="material-icons">edit</i></a>
                   <a  data-position="right" data-tooltip="Deletar grupo" class="tooltipped modal-trigger" href="#modal-confirmation-group" style="color: black"><i style="position:relative; top: 0.145em;" class="material-icons">delete</i></a>
               </g:if>
-              <g:else><a class="tooltipped" data-tooltip="Sair do grupo" style=" color: black;" href="/group/leave-group/${group.id}"><i class="fa fa-sign-out fa-1x" aria-hidden="true"></i></a></g:else>
+              <g:else><a class="tooltipped modal-trigger" data-tooltip="Sair do grupo" style=" color: black;" href="#leave-group"><i class="fa fa-sign-out fa-1x" aria-hidden="true"></i></a></g:else>
               <g:if test="${group.owner.id == session.user.id}">
                   <span style="font-size: 0.6em;" class="left">Senha de acesso: ${group.token}</span><br>
               </g:if>
@@ -113,6 +123,7 @@
 
 <div class="row">
     <div style="position: relative; left: 1em">
+    <g:if test='${!groupExportedResources.empty}'>
         <g:each var="groupExportedResource" in="${groupExportedResources}">
             <div class="col l3 s5">
                 <div id="card-group-exported-resource-${groupExportedResource.id}" class="card hoverable">
@@ -204,6 +215,12 @@
                 </div>
         </div>
         </g:each>
+        </g:if>
+        <g:else>
+            <h5> Para compartilhar um jogo à este grupo, clique em "Banco de Jogos" ou "Meus Jogos", clique no icone
+             "..." para visualizar as opções disponíveis e a seguir, clique em "Compartilhar em grupo".
+            </h5>
+        </g:else>
     </div>
 </div>
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
