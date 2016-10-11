@@ -254,8 +254,10 @@ class DspaceController {
             current_task.putVariable("handle",handle,true)
 
             dir.eachFileRecurse (FileType.FILES) {file ->
-//                def description = json.get("bitstreams").pop().description
-                dspaceRestService.addBitstreamToItem(itemId, file, file.name)
+                String[] f = file.name.toString().split("\\.")
+                String user_name = session.user.firstName.toString().replace(" ", "")
+                String file_name = "${f[0]}_${user_name}_${date.format('dd-MM-YYYY')}.${f[1]}"
+                dspaceRestService.addBitstreamToItem(itemId, file, file_name, "nenhum")
             }
 
             current_task.putVariable("step","completed",true)

@@ -300,7 +300,6 @@ class DspaceRestService {
         if(Integer.parseInt(itemId.toString())>0){
             if(file){
                 try{
-
                     login()
                     def resp = this.rest.post("${this.restUrl}/items/${itemId}/bitstreams?name=${name}&description=${description}"){
                         header 'rest-dspace-token', token
