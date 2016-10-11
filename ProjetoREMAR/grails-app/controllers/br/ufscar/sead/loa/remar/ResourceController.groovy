@@ -160,6 +160,7 @@ class ResourceController {
         resourceInstance.sumUser = 0
         resourceInstance.sumStars = 0
 
+        resourceInstance.shareable = false
         resourceInstance.save flush: true
 
         if (resourceInstance.hasErrors()) {
