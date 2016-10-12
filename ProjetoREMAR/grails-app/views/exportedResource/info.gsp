@@ -142,9 +142,10 @@ Time: 09:55
                         </div>
                     </div>
                 </li>
+                <g:if test="${exportedResourceInstance.resource.shareable}">
                 <li id="groups">
                     <div class="collapsible-header active"><i class="material-icons">group_add</i>Compartilhar em grupos </div>
-                    <g:if test="${exportedResourceInstance.resource.shareable}">
+    
                         <div class="collapsible-body">
                             <ul class="collection with-header">
                                 <g:each var="group" in="${groupsIOwn}">
@@ -193,13 +194,8 @@ Time: 09:55
                                 </div>
                             </ul>
                         </div>
+                    </li>
                     </g:if>
-                    <g:else>
-                        <div class="row">
-                            <h5> Não é possível o acompanhamento deste jogo em grupos</h5>
-                        </div>
-                    </g:else>
-                </li>
                 <li id="reportAbuse">
                     <div class="collapsible-header"><i class="material-icons">block</i>Reportar abuso</div>
                     <div class="collapsible-body"><p>Se este conteúdo te incomodou de alguma forma, ou se você o achou ofensivo, por favor entre em contato
