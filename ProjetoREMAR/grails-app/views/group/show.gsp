@@ -217,9 +217,9 @@
         </g:each>
         </g:if>
         <g:else>
-            <h5> Para compartilhar um jogo à este grupo, clique em "Banco de Jogos" ou "Meus Jogos", clique no icone
+            <!--h5> Para compartilhar um jogo à este grupo, clique em "Banco de Jogos" ou "Meus Jogos", clique no icone
              "..." para visualizar as opções disponíveis e a seguir, clique em "Compartilhar em grupo".
-            </h5>
+            </h5-->
         </g:else>
     </div>
 </div>
