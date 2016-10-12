@@ -10,7 +10,7 @@ APK_2=${apk_name}-x86.apk
 
 ZIPALIGN_PARENT=$1/scripts/crosswalk
 KEYSTORE=${ZIPALIGN_PARENT}/keystore
-BUILD_TOOLS="/dev-tools/android/build-tools/24.0.2"
+BUILD_TOOLS="/dev-tools/android/build-tools/current"
 
 cd $2
 
