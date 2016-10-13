@@ -45,6 +45,11 @@
         color: #F44335;
     }
 
+    .invalid-password{
+        font-size: 0.8rem;
+        color: #F44335;
+    }
+
     span.invalid-textarea {
         font-size: 0.8rem;
         position: absolute;

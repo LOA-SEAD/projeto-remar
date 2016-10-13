@@ -27,8 +27,7 @@
             Por favor, revise seus dados antes de finalizar!
         </h5>
         <blockquote class="modal-text">
-          <strong>Atente</strong> para que os dados, submetidos ao repositório, <strong>estejam corretos</strong>, pois <span style="text-decoration: underline;">alterações</span> e
-            <span style="text-decoration: underline;">remoções</span> só poderão ser realizadas mediante a uma requisição ao administrador do repositório.
+           <strong>ATENÇÃO: após a confirmação </strong>,  <strong>alterações</strong> e <strong>remoções</strong> só poderão ser realizadas pelo administrador do repositório, mediante requisição.
         </blockquote>
 
     </div>
@@ -96,7 +95,7 @@
                     <g:link class="btn my-orange" action="cancelListMetadata" params="[taskId: task.id]">
                         <g:message code="dspace.metadata.button_cancel"/>
                     </g:link>
-                    <button id="nextButton" class="btn my-orange" type="submit" > <g:message code="dspace.metadata.button_send"/> </button>
+                    <button id="nextButton" class="btn my-orange" type="submit" > <g:message code="dspace.metadata.button_confirm"/> </button>
                 </div>
             </div>
         </g:form>

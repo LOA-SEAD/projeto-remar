@@ -281,7 +281,11 @@ class UserController {
 
     def autocomplete() {
         if (params.query != "") {
-            def allUsers = User.findAllByFirstNameRlikeOrLastNameRlikeOrUsernameRlike(params.query, params.query, params.query)
+            def firstName = User.findAllByFirstNameRlike(params.query, params.query, params.query)
+            def lastName = User.findAllByLastNameRlike(params.query, params.query, params.query)
+            def userName = User.findAllByUsernameRlike(params.query, params.query, params.query)
+            def allUsers = ((firstName + lastName + userName) as Set).sort{it.firstName.toUpperCase()}
+            
             def group = Group.findById(params.group)
             def list = allUsers.collect {
                 def inGroup = UserGroup.findByUserAndGroup(it, group) ? true : false

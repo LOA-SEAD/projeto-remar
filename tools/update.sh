@@ -5,15 +5,16 @@ function rm_war {
 }
 
 function cp_war {
-	cp target/*.war /srv/production/tomcat/webapps/$1.war
+	cp target/*.war /srv/tomcat/webapps/$1.war
 }
 
 ./backup.sh
-cd /srv/production/source
+cd /srv/source
 git pull
 
 cd ProjetoREMAR
 rm_war
+grails clean
 grails war
 cp_war ROOT
 

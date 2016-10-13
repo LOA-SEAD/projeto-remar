@@ -25,10 +25,7 @@
                     <ul class="right">
                         <ul class="right hide-on-med-and-down">
                             <li>
-                                <a href="/">GT-REMAR</a>
-                            </li>
-                            <li>
-                                <a href="/index/info">Mais informações</a>
+                                <a href="/index/info">GT-REMAR</a>
                             </li>
                             <li>
                                 <a target="_blank" href="http://www.loa.sead.ufscar.br/publicacoes.php">Publicações</a>
@@ -69,15 +66,9 @@
     <div class="remar-max-size center min-height-size margin-top">
         <ul id="slide-out" class="side-nav" style="text-align: left;">
             <li>
-                <a href="/" class="waves-effect">
-                    <i class="material-icons">help</i>
-                    GT-REMAR
-                </a>
-            </li>
-            <li>
                 <a href="/index/info" class="waves-effect">
                     <i class="material-icons">info</i>
-                    Mais informações
+                    GT-REMAR
                 </a>
             </li>
             <li>
