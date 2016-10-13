@@ -37,7 +37,6 @@
                   <a id="edit-group" data-name="${group.name}" data-position="right" data-tooltip="Editar grupo" class="tooltipped" style="color: black"><i style="position:relative; top: 0.145em; cursor: pointer;" class="material-icons">edit</i></a>
                   <a  data-position="right" data-tooltip="Deletar grupo" class="tooltipped modal-trigger" href="#modal-confirmation-group" style="color: black"><i style="position:relative; top: 0.145em;" class="material-icons">delete</i></a>
               </g:if>
-              <g:else><a class="tooltipped modal-trigger" data-tooltip="Sair do grupo" style=" color: black;" href="#leave-group"><i class="fa fa-sign-out fa-1x" aria-hidden="true"></i></a></g:else>
               <g:if test="${group.owner.id == session.user.id}">
                   <span style="font-size: 0.6em;" class="left">Senha de acesso: ${group.token}</span><br>
               </g:if>
@@ -84,7 +83,7 @@
                             </span>
                             <p class="">Usuário: ${userGroup.user.username}</p>
                             <g:if test="${group.owner.id == session.user.id}">
-                                <a href="#" id="user-group-id-${userGroup.id}" data-user-group-id="${userGroup.id}" style="position: relative; top: -2.5em; left: -1.6em;" class="secondary-content delete-user"><i class="material-icons">delete</i></a>
+                                <a href="#" id="${userGroup.id}"  style="position: relative; top: -2.5em; left: -1.6em;" class="secondary-content delete-modal"><i class="material-icons">delete</i></a>
                                 <g:if test="${!userGroup.admin}">
                                     <a id="make-admin-${userGroup.id}"  data-user-group-id="${userGroup.id}" href="#" data-position="left" data-tooltip="Tornar admin" class="secondary-content manage-user tooltipped"><i id="admin-${userGroup.id}" class="material-icons">star_border</i></a>
                                 </g:if>
@@ -92,13 +91,27 @@
                                     <a id="remove-admin-${userGroup.id}" data-user-group-id="${userGroup.id}" href="#" class="secondary-content manage-user tooltipped"><i id="admin-star-${userGroup.id}" class="material-icons">star</i></a>
                                 </g:else>
                             </g:if>
+                            <g:else>
+                                <g:if test='${userGroup.user.id == session.user.id}'>
+                                    <a class="tooltipped modal-trigger secondary-content" data-tooltip="Sair do grupo" style=" color: black;" href="#leave-group"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
+                                </g:if>
+                            </g:else>
                         </li>
                     </g:each>
                 </g:else>
             </ul>
         </div>
     </div>
-
+<!-- Modal Structure -->
+<div id="delete-modal" class="modal">
+    <div class="modal-content">
+            <h5>Deseja mesmo deletar este usuário?</h5>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" data-user-group-id="" class="delete-user modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Não</a>
+    </div>
+</div>
 <!-- Modal Structure -->
 <div id="modal-user-in-group" class="modal">
     <div class="modal-content">
