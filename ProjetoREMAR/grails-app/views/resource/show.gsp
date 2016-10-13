@@ -41,7 +41,7 @@
 						</div>
 						<div class="col l8 m9">
 							<div class="plataform gray-color">
-								<p class="" style="font-size: 16px; display: inline-block;"> Disponível para: </p>
+								<p class="" style="font-size: 16px; display: inline-block;"><b> Disponível para: </b></p>
 								<div class="">
 									<i class="fa fa-globe tooltipped" data-position="bottom" data-delay="30" data-tooltip="Web"></i>
 									<g:if test="${resourceInstance.android}">
@@ -59,6 +59,22 @@
 								</div>
 							</div>
 						</div>
+
+						<div class="col l8 m9">
+							<div class="plataform gray-color">
+								<p class="" style="font-size: 16px; display: inline-block;"><b> Grupos (Compartilhamento): </b></p>
+								<div class="">
+									<g:if test="${resourceInstance.shareable}">
+										<p class="" style="font-size: 16px; display: inline-block;">Sim</p>
+									</g:if>
+									<g:else>
+									        <p class="" style="font-size: 16px; display: inline-block;"> Não </p>
+									</g:else>
+
+								</div>
+							</div>
+						</div>
+
 						<div class="col l8 m8">
 							<button type="submit" class="btn waves-effect waves-light my-orange right">
 								Customizar

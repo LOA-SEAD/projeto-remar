@@ -31,7 +31,7 @@
 
                     <div class="row">
                         <div>
-                            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Criar
                                 <i class="material-icons right">send</i>
                             </button>
                         </div>

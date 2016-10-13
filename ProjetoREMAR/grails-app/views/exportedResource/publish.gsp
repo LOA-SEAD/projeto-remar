@@ -202,7 +202,7 @@
                 </li>
                 <g:if test="${exportedResourceInstance.resource.shareable}">
                 <li id="groups">
-                    <div class="collapsible-header active"><i class="material-icons">group_add</i>Compartilhar em grupos </div>
+                    <div class="collapsible-header active"><i class="material-icons">people</i>Compartilhar para grupos </div>
 
                     <div class="collapsible-body">
                         <ul class="collection with-header">

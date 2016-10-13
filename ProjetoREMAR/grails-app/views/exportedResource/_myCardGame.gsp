@@ -72,7 +72,7 @@
                                             <i class="fa fa-info-circle" style="color: #FF5722;"></i>
                                         </a>
                                     </div>
-                                    
+
                                     <div class="col l4">
                                         <a style="font-size: 2em;" onclick="deleteResource(${instance.id})"
                                            class="tooltipped"  data-position="down" data-delay="50" data-tooltip="Excluir">
@@ -81,11 +81,18 @@
                                     </div>
                                     <g:if test="${instance.resource.shareable}">
                                         <div class="col l4">
-                                            <a style="font-size: 2em;" href="#modal-group-${instance.id}" class="tooltipped modal-trigger" data-position="down" data-delay="50" data-tooltip="Compartilhar em grupo">
+                                            <a style="font-size: 2em;" href="#modal-group-${instance.id}" class="tooltipped modal-trigger" data-position="down" data-delay="50" data-tooltip="Compartilhar para grupos">
                                                 <i class="fa fa-users" style="color: #FF5722;"></i>
                                             </a>
                                         </div>
                                     </g:if>
+                                    <g:else>
+                                        <div class="col l4">
+                                            <div style="font-size: 2em;" class="tooltipped" data-position="down" data-delay="50" data-tooltip="Sem compartilharmento para grupos">
+                                                <i class="fa fa-users" style="color: #DCDCDC;"></i>
+                                            </div>
+                                        </div>
+                                    </g:else>
                                 </div>
                             </div>
                         </div>

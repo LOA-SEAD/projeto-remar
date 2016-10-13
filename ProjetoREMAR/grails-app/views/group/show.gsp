@@ -256,6 +256,7 @@
                 },
                 success: function(data) {
                         response(data);
+                        $("#user-id").val('');
 
                 },statusCode:{
                     403: function(response){
