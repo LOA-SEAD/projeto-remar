@@ -7,7 +7,8 @@ $(window).load(function(){
 
     var usersCollection = $(".users-collection");
 
-    $(usersCollection).on("click",".delete-user",function(){
+    $(document).on("click",".delete-user", function(){
+        console.log("delete");
         deleteUserGroup(this);
     });
 
@@ -21,6 +22,17 @@ $(window).load(function(){
 
     $(usersCollection).on("click",".add-user",function(){
         //$("membertoken").validate();
+    });
+
+    $(usersCollection).on("click",".delete-modal",function(){
+        var id = $(this).attr('id');
+        var deleteUser = $('.delete-user')
+        deleteUser.attr('data-user-group-id', id)
+        $('#modal-users').closeModal({
+            complete: function(){
+                $('#delete-modal').openModal();
+            }
+        });
     });
 
     function showStats(_this){
@@ -47,8 +59,8 @@ $(window).load(function(){
                 userGroupId: userGroupId
             },
             success: function() {
-                $(_this).parents().eq(0).fadeOut(300,function(){
-                    $(this).remove();
+                console.log($('#user-group-card-'+userGroupId));
+                $('#user-group-card-'+userGroupId).remove();
                     groupSize--;
                     text.attr("data-group-size",groupSize);
                     text.html("Ver membros ("+groupSize+")");
@@ -60,7 +72,7 @@ $(window).load(function(){
                         $(noUsers).html("Nenhum usuário foi adicionado à este grupo.");
                         $(usersCollection).append(noUsers).fadeIn(300);
                     }
-                });
+               
 
 
                 Materialize.toast("Usuário removido!", 3000, "rounded");
