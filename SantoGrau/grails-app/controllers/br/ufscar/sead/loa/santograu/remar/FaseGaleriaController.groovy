@@ -21,8 +21,12 @@ class FaseGaleriaController {
         if (params.t) {
             session.taskId = params.t
         }
-        session.user = springSecurityService.currentUser
 
+        if (params.p) {
+            session.processId = params.p
+        }
+
+        session.user = springSecurityService.currentUser
         def list = ThemeFaseGaleria.findAllByOwnerId(session.user.id)
         String orientacao = ""
         if(params.orientacao) {
@@ -197,9 +201,10 @@ class FaseGaleriaController {
         def id
         def files = "?"
         def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
+        def fasesFolder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/processes/${session.processId}")
         id = MongoHelper.putFile("${folder}/quadros.json")
         files += "files=${id}&"
-        id = MongoHelper.putFile("${folder}/fases.json")
+        id = MongoHelper.putFile("${fasesFolder}/fases.json")
         files += "files=${id}&"
         ThemeFaseGaleria.findById(faseGaleria.themeId).howManyImages.times {
             id = MongoHelper.putFile("${folder}/${it + 1}.png")
@@ -219,7 +224,9 @@ class FaseGaleriaController {
     void createJsonFile(String fileName, FaseGaleria faseGaleria){
         def dataPath = servletContext.getRealPath("/data")
         def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
+        def fasesFolder = new File("${dataPath}/${springSecurityService.currentUser.id}/processes/${session.processId}")
         instancePath.mkdirs()
+        fasesFolder.mkdirs()
 
         def theme = ThemeFaseGaleria.findById(faseGaleria.themeId)
         saveImages(theme, instancePath)
@@ -234,17 +241,18 @@ class FaseGaleriaController {
         pw.close()
 
         //adiciona a fase galeria no arquivo fases.json
-        File fileFasesJson = new File("$instancePath/fases.json")
+        File fileFasesJson = new File("$fasesFolder/fases.json")
         boolean exists = fileFasesJson.exists()
-        PrintWriter printer = new PrintWriter(fileFasesJson)
         if(!exists) {
+            PrintWriter printer = new PrintWriter(fileFasesJson)
             printer.write("{\n")
             printer.write("\t\"quantidade\": [\"1\"],\n")
             printer.write("\t\"fases\": [\"2\"]\n")
             printer.write("}\n")
             printer.close()
         } else {
-            def arq = new JsonSlurper().parseText(new File("$instancePath/fases.json").text)
+            def arq = new JsonSlurper().parseText(fileFasesJson.text)
+            PrintWriter printer = new PrintWriter(fileFasesJson)
             printer.write("{\n")
 
             if(arq["quantidade"][0] == "0") {

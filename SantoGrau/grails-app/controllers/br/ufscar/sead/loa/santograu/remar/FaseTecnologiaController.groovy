@@ -18,6 +18,11 @@ class FaseTecnologiaController {
         if (params.t) {
             session.taskId = params.t
         }
+
+        if (params.p) {
+            session.processId = params.p
+        }
+
         session.user = springSecurityService.currentUser
         respond new FaseTecnologia(params)
     }
@@ -133,10 +138,11 @@ class FaseTecnologiaController {
         // Finds the created file path
         def ids = []
         def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
+        def fasesFolder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/processes/${session.processId}")
 
         log.debug folder
         ids << MongoHelper.putFile(folder + '/telao.html')
-        ids << MongoHelper.putFile(folder + '/fases.json')
+        ids << MongoHelper.putFile(fasesFolder + '/fases.json')
         ids << MongoHelper.putFile(folder + '/computadores.json')
 
 
@@ -154,6 +160,7 @@ class FaseTecnologiaController {
     void createJsonFileComputadores(String fileName, FaseTecnologia faseTecnologia){
         def dataPath = servletContext.getRealPath("/data")
         def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
+
         instancePath.mkdirs()
 
         File file = new File("$instancePath/"+fileName);
@@ -167,7 +174,9 @@ class FaseTecnologiaController {
     void createHtmlFileTelao(String fileName, FaseTecnologia faseTecnologia){
         def dataPath = servletContext.getRealPath("/data")
         def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
+        def fasesFolder = new File("${dataPath}/${springSecurityService.currentUser.id}/processes/${session.processId}")
         instancePath.mkdirs()
+        fasesFolder.mkdirs()
 
         File file = new File("$instancePath/"+fileName);
         PrintWriter pw = new PrintWriter(file);
@@ -186,17 +195,18 @@ class FaseTecnologiaController {
         pw.close();
 
         //adiciona a fase tecnologia no arquivo fases.json
-        File fileFasesJson = new File("$instancePath/fases.json")
+        File fileFasesJson = new File("$fasesFolder/fases.json")
         boolean exists = fileFasesJson.exists()
-        PrintWriter printer = new PrintWriter(fileFasesJson);
         if(!exists) {
+            PrintWriter printer = new PrintWriter(fileFasesJson)
             printer.write("{\n");
             printer.write("\t\"quantidade\": [\"1\"],\n")
             printer.write("\t\"fases\": [\"1\"]\n")
             printer.write("}")
-            printer.close();
+            printer.close()
         } else {
-            def arq = new JsonSlurper().parseText(new File("$instancePath/fases.json").text)
+            def arq = new JsonSlurper().parseText(fileFasesJson.text)
+            PrintWriter printer = new PrintWriter(fileFasesJson)
             printer.write("{\n");
 
             if(arq["quantidade"][0] == "0")
@@ -206,7 +216,7 @@ class FaseTecnologiaController {
 
             printer.write("\t\"fases\": [\"1\", \"2\"]\n")
             printer.write("}")
-            printer.close();
+            printer.close()
         }
     }
 
