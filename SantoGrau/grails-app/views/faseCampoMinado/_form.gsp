@@ -1,4 +1,4 @@
-<%@ page import="br.ufscar.sead.loa.santograu.remar.FaseCampoMinado" %>
+<%@ page import="br.ufscar.sead.loa.santograu.remar.QuestionFaseCampoMinado" %>
 
 
 <div class="fieldcontain ${hasErrors(bean: faseCampoMinadoInstance, field: 'title', 'error')} required">

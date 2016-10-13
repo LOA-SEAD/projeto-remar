@@ -12,3 +12,7 @@
 	path = RespondaSePuder/web-app/remar/source
 	url = https://github.com/LOA-SEAD/responda_se_puder
 	branch = exported
+[submodule "SantoGrau/web-app/remar/source"]
+	path = SantoGrau/web-app/remar/source
+	url = https://github.com/LOA-SEAD/santo-grau
+	branch = exported

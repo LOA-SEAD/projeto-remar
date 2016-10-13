@@ -5,9 +5,9 @@ package br.ufscar.sead.loa.santograu.remar
 import grails.test.mixin.*
 import spock.lang.*
 
-@TestFor(FaseCampoMinadoController)
-@Mock(QuestionFaseCampoMinado)
-class FaseCampoMinadoControllerSpec extends Specification {
+@TestFor(FaseGaleriaController)
+@Mock(FaseGaleria)
+class FaseGaleriaControllerSpec extends Specification {
 
     def populateValidParams(params) {
         assert params != null
@@ -21,8 +21,8 @@ class FaseCampoMinadoControllerSpec extends Specification {
             controller.index()
 
         then:"The model is correct"
-            !model.faseCampoMinadoInstanceList
-            model.faseCampoMinadoInstanceCount == 0
+            !model.faseGaleriaInstanceList
+            model.faseGaleriaInstanceCount == 0
     }
 
     void "Test the create action returns the correct model"() {
@@ -30,7 +30,7 @@ class FaseCampoMinadoControllerSpec extends Specification {
             controller.create()
 
         then:"The model is correctly created"
-            model.faseCampoMinadoInstance!= null
+            model.faseGaleriaInstance!= null
     }
 
     void "Test the save action correctly persists an instance"() {
@@ -38,25 +38,25 @@ class FaseCampoMinadoControllerSpec extends Specification {
         when:"The save action is executed with an invalid instance"
             request.contentType = FORM_CONTENT_TYPE
             request.method = 'POST'
-            def faseCampoMinado = new QuestionFaseCampoMinado()
-            faseCampoMinado.validate()
-            controller.save(faseCampoMinado)
+            def faseGaleria = new FaseGaleria()
+            faseGaleria.validate()
+            controller.save(faseGaleria)
 
         then:"The create view is rendered again with the correct model"
-            model.faseCampoMinadoInstance!= null
+            model.faseGaleriaInstance!= null
             view == 'create'
 
         when:"The save action is executed with a valid instance"
             response.reset()
             populateValidParams(params)
-            faseCampoMinado = new QuestionFaseCampoMinado(params)
+            faseGaleria = new FaseGaleria(params)
 
-            controller.save(faseCampoMinado)
+            controller.save(faseGaleria)
 
         then:"A redirect is issued to the show action"
-            response.redirectedUrl == '/faseCampoMinado/show/1'
+            response.redirectedUrl == '/faseGaleria/show/1'
             controller.flash.message != null
-            QuestionFaseCampoMinado.count() == 1
+            FaseGaleria.count() == 1
     }
 
     void "Test that the show action returns the correct model"() {
@@ -68,11 +68,11 @@ class FaseCampoMinadoControllerSpec extends Specification {
 
         when:"A domain instance is passed to the show action"
             populateValidParams(params)
-            def faseCampoMinado = new QuestionFaseCampoMinado(params)
-            controller.show(faseCampoMinado)
+            def faseGaleria = new FaseGaleria(params)
+            controller.show(faseGaleria)
 
         then:"A model is populated containing the domain instance"
-            model.faseCampoMinadoInstance == faseCampoMinado
+            model.faseGaleriaInstance == faseGaleria
     }
 
     void "Test that the edit action returns the correct model"() {
@@ -84,11 +84,11 @@ class FaseCampoMinadoControllerSpec extends Specification {
 
         when:"A domain instance is passed to the edit action"
             populateValidParams(params)
-            def faseCampoMinado = new QuestionFaseCampoMinado(params)
-            controller.edit(faseCampoMinado)
+            def faseGaleria = new FaseGaleria(params)
+            controller.edit(faseGaleria)
 
         then:"A model is populated containing the domain instance"
-            model.faseCampoMinadoInstance == faseCampoMinado
+            model.faseGaleriaInstance == faseGaleria
     }
 
     void "Test the update action performs an update on a valid domain instance"() {
@@ -98,28 +98,28 @@ class FaseCampoMinadoControllerSpec extends Specification {
             controller.update(null)
 
         then:"A 404 error is returned"
-            response.redirectedUrl == '/faseCampoMinado/index'
+            response.redirectedUrl == '/faseGaleria/index'
             flash.message != null
 
 
         when:"An invalid domain instance is passed to the update action"
             response.reset()
-            def faseCampoMinado = new QuestionFaseCampoMinado()
-            faseCampoMinado.validate()
-            controller.update(faseCampoMinado)
+            def faseGaleria = new FaseGaleria()
+            faseGaleria.validate()
+            controller.update(faseGaleria)
 
         then:"The edit view is rendered again with the invalid instance"
             view == 'edit'
-            model.faseCampoMinadoInstance == faseCampoMinado
+            model.faseGaleriaInstance == faseGaleria
 
         when:"A valid domain instance is passed to the update action"
             response.reset()
             populateValidParams(params)
-            faseCampoMinado = new QuestionFaseCampoMinado(params).save(flush: true)
-            controller.update(faseCampoMinado)
+            faseGaleria = new FaseGaleria(params).save(flush: true)
+            controller.update(faseGaleria)
 
         then:"A redirect is issues to the show action"
-            response.redirectedUrl == "/faseCampoMinado/show/$faseCampoMinado.id"
+            response.redirectedUrl == "/faseGaleria/show/$faseGaleria.id"
             flash.message != null
     }
 
@@ -130,23 +130,23 @@ class FaseCampoMinadoControllerSpec extends Specification {
             controller.delete(null)
 
         then:"A 404 is returned"
-            response.redirectedUrl == '/faseCampoMinado/index'
+            response.redirectedUrl == '/faseGaleria/index'
             flash.message != null
 
         when:"A domain instance is created"
             response.reset()
             populateValidParams(params)
-            def faseCampoMinado = new QuestionFaseCampoMinado(params).save(flush: true)
+            def faseGaleria = new FaseGaleria(params).save(flush: true)
 
         then:"It exists"
-            QuestionFaseCampoMinado.count() == 1
+            FaseGaleria.count() == 1
 
         when:"The domain instance is passed to the delete action"
-            controller.delete(faseCampoMinado)
+            controller.delete(faseGaleria)
 
         then:"The instance is deleted"
-            QuestionFaseCampoMinado.count() == 0
-            response.redirectedUrl == '/faseCampoMinado/index'
+            FaseGaleria.count() == 0
+            response.redirectedUrl == '/faseGaleria/index'
             flash.message != null
     }
 }

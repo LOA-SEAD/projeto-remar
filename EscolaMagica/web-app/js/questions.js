@@ -70,8 +70,6 @@ window.onload = function() {
                 },
                 error: function(returndata) {
                     alert("Error:\n" + returndata.responseText);
-
-
                 }
             });
         }

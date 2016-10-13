@@ -1,7 +1,5 @@
 <%@ page import="br.ufscar.sead.loa.santograu.remar.FaseTecnologia" %>
 
-
-
 <div class="fieldcontain ${hasErrors(bean: faseTecnologiaInstance, field: 'link', 'error')} required">
 	<label for="link">
 		<g:message code="faseTecnologia.link.label" default="Link: " />
@@ -18,11 +16,12 @@
 	</label>
 	<div class="input-field col s12">
 		<div class="input-field col s6">
-			<select>
-				<option class="option" value="-1" selected>Todas</option>
+			<select id="tipo-link">
 				<g:if test="${faseTecnologiaInstance.constraints.tipoLink.inList.size() > 0}">
 					<g:each in="${faseTecnologiaInstance.constraints.tipoLink.inList}" var="tipoLink">
-						<option class="option" value="${tipoLink}">${tipoLink}</option>
+						<g:if test="${tipoLink == 'Youtube'}">
+							<option class="option" value="${tipoLink}">${tipoLink}</option>
+						</g:if>
 					</g:each>
 				</g:if>
 			</select>
@@ -37,7 +36,7 @@
 		<g:message code="faseTecnologia.palavras1.label" default="Palavra 1: " />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field name="palavras1" type="text" value="${faseTecnologiaInstance.palavras[0]}" required=""/>
+	<g:field name="palavras1" type="text" value="${faseTecnologiaInstance.palavras[0]}" required="" length="25" maxlength="25" class="validate"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: faseTecnologiaInstance, field: 'palavras2', 'error')} required">
@@ -45,7 +44,7 @@
 		<g:message code="faseTecnologia.palavras2.label" default="Palavra 2: " />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field name="palavras2" type="text" value="${faseTecnologiaInstance.palavras[1]}" required=""/>
+	<g:field name="palavras2" type="text" value="${faseTecnologiaInstance.palavras[1]}" required="" length="25" maxlength="25" class="validate"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: faseTecnologiaInstance, field: 'palavras3', 'error')} required">
@@ -53,6 +52,6 @@
 		<g:message code="faseTecnologia.palavras3.label" default="Palavra 3: " />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field name="palavras3" type="text" value="${faseTecnologiaInstance.palavras[2]}" required=""/>
+	<g:field name="palavras3" type="text" value="${faseTecnologiaInstance.palavras[2]}" required="" length="25" maxlength="25" class="validate"/>
 </div>
 

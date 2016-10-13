@@ -1,113 +1,102 @@
 package br.ufscar.sead.loa.santograu.remar
 
+import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.plugin.springsecurity.annotation.Secured
+import org.springframework.web.multipart.MultipartFile
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import grails.util.Environment
 
 @Secured(["isAuthenticated()"])
 class FaseCampoMinadoController {
     def springSecurityService
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", returnInstance: "GET"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", returnInstance: "GET", exportQuestions: "POST"]
 
     @Secured(['permitAll'])
-    def index(Integer max) {
-        session.taskId = "57c42aca9e04b91a75a80f75"
-        session.user = springSecurityService.currentUser //new br.ufscar.sead.loa.remar.User(username:"admin", password:"root")//
+    def index() {
+        if (params.t) {
+            session.taskId = params.t
+        }
+        session.user = springSecurityService.currentUser
 
-        def list = FaseCampoMinado.findAllByOwnerId(session.user.id)
+        def list = QuestionFaseCampoMinado.findAllByOwnerId(session.user.id)
         if(list.size()==0){
-            new FaseCampoMinado(title: "Questão 1", answers: ["Alternativa A", "Alternativa B", "Alternativa C", "Alternativa D", "Alternativa E"], correctAnswer: 0, ownerId:  session.user.id, taskId: session.taskId).save flush: true
-            new FaseCampoMinado(title: "Questão 2", answers: ["Alternativa A", "Alternativa B", "Alternativa C", "Alternativa D", "Alternativa E"], correctAnswer: 0, ownerId:  session.user.id, taskId: session.taskId).save flush: true
-            new FaseCampoMinado(title: "Questão 3", answers: ["Alternativa A", "Alternativa B", "Alternativa C", "Alternativa D", "Alternativa E"], correctAnswer: 0, ownerId:  session.user.id, taskId: session.taskId).save flush: true
-            new FaseCampoMinado(title: "Questão 4", answers: ["Alternativa A", "Alternativa B", "Alternativa C", "Alternativa D", "Alternativa E"], correctAnswer: 0, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new QuestionFaseCampoMinado(title: "Questão 1", answers: ["Alternativa A", "Alternativa B", "Alternativa C", "Alternativa D", "Alternativa E"], correctAnswer: 0, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new QuestionFaseCampoMinado(title: "Questão 2", answers: ["Alternativa A", "Alternativa B", "Alternativa C", "Alternativa D", "Alternativa E"], correctAnswer: 0, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new QuestionFaseCampoMinado(title: "Questão 3", answers: ["Alternativa A", "Alternativa B", "Alternativa C", "Alternativa D", "Alternativa E"], correctAnswer: 0, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new QuestionFaseCampoMinado(title: "Questão 4", answers: ["Alternativa A", "Alternativa B", "Alternativa C", "Alternativa D", "Alternativa E"], correctAnswer: 0, ownerId:  session.user.id, taskId: session.taskId).save flush: true
         }
 
-        list = FaseCampoMinado.findAllByOwnerId(session.user.id)
-        respond list, model: [faseCampoMinadoInstanceCount: FaseCampoMinado.count()]
+        list = QuestionFaseCampoMinado.findAllByOwnerId(session.user.id)
+        respond list, model: [faseCampoMinadoInstanceCount: QuestionFaseCampoMinado.count(), errorImportQuestions:params.errorImportQuestions]
     }
 
-    def show(FaseCampoMinado faseCampoMinadoInstance) {
-        respond faseCampoMinadoInstance
+    def show(QuestionFaseCampoMinado questionFaseCampoMinadoInstance) {
+        respond questionFaseCampoMinadoInstance
     }
 
     def create() {
-        respond new FaseCampoMinado(params)
+        respond new QuestionFaseCampoMinado(params)
     }
 
     @Transactional
-    def save(FaseCampoMinado faseCampoMinadoInstance) {
-        if (faseCampoMinadoInstance == null) {
+    def save(QuestionFaseCampoMinado questionFaseCampoMinadoInstance) {
+        if (questionFaseCampoMinadoInstance == null) {
             notFound()
             return
         }
 
-        faseCampoMinadoInstance.answers[0]= params.answers1
-        faseCampoMinadoInstance.answers[1]= params.answers2
-        faseCampoMinadoInstance.answers[2]= params.answers3
-        faseCampoMinadoInstance.answers[3]= params.answers4
-        faseCampoMinadoInstance.answers[4]= params.answers5
-        faseCampoMinadoInstance.ownerId = session.user.id as long
-        faseCampoMinadoInstance.taskId = session.taskId as String
-        faseCampoMinadoInstance.save flush:true
+        questionFaseCampoMinadoInstance.answers[0]= params.answers1
+        questionFaseCampoMinadoInstance.answers[1]= params.answers2
+        questionFaseCampoMinadoInstance.answers[2]= params.answers3
+        questionFaseCampoMinadoInstance.answers[3]= params.answers4
+        questionFaseCampoMinadoInstance.answers[4]= params.answers5
+        questionFaseCampoMinadoInstance.ownerId = session.user.id as long
+        questionFaseCampoMinadoInstance.taskId = session.taskId as String
+        questionFaseCampoMinadoInstance.save flush:true
 
         redirect(action: "index")
-
-        /*
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'faseCampoMinado.label', default: 'FaseCampoMinado'), faseCampoMinadoInstance.id])
-                redirect faseCampoMinadoInstance
-            }
-            '*' { respond faseCampoMinadoInstance, [status: CREATED] }
-        }*/
     }
 
-    def edit(FaseCampoMinado faseCampoMinadoInstance) {
-        respond faseCampoMinadoInstance
+    def edit(QuestionFaseCampoMinado questionFaseCampoMinadoInstance) {
+        respond questionFaseCampoMinadoInstance
     }
 
     @Transactional
     def update() {
-        FaseCampoMinado faseCampoMinadoInstance = FaseCampoMinado.findById(Integer.parseInt(params.faseCampoMinadoID))
-        faseCampoMinadoInstance.title = params.title
-        faseCampoMinadoInstance.answers[0]= params.answers1
-        faseCampoMinadoInstance.answers[1]= params.answers2
-        faseCampoMinadoInstance.answers[2]= params.answers3
-        faseCampoMinadoInstance.answers[3]= params.answers4
-        faseCampoMinadoInstance.answers[4]= params.answers5
-        faseCampoMinadoInstance.correctAnswer = Integer.parseInt(params.correctAnswer)
-        faseCampoMinadoInstance.ownerId = session.user.id as long
-        faseCampoMinadoInstance.taskId = session.taskId as String
-        faseCampoMinadoInstance.save flush:true
+        QuestionFaseCampoMinado questionFaseCampoMinadoInstance = QuestionFaseCampoMinado.findById(Integer.parseInt(params.faseCampoMinadoID))
+        questionFaseCampoMinadoInstance.title = params.title
+        questionFaseCampoMinadoInstance.answers[0]= params.answers1
+        questionFaseCampoMinadoInstance.answers[1]= params.answers2
+        questionFaseCampoMinadoInstance.answers[2]= params.answers3
+        questionFaseCampoMinadoInstance.answers[3]= params.answers4
+        questionFaseCampoMinadoInstance.answers[4]= params.answers5
+        questionFaseCampoMinadoInstance.correctAnswer = Integer.parseInt(params.correctAnswer)
+        questionFaseCampoMinadoInstance.ownerId = session.user.id as long
+        questionFaseCampoMinadoInstance.taskId = session.taskId as String
+        questionFaseCampoMinadoInstance.save flush:true
 
         redirect action: "index"
     }
 
     @Transactional
-    def delete(FaseCampoMinado faseCampoMinadoInstance) {
+    def delete(QuestionFaseCampoMinado questionFaseCampoMinadoInstance) {
 
-        if (faseCampoMinadoInstance == null) {
+        if (questionFaseCampoMinadoInstance == null) {
             notFound()
             return
         }
 
-        faseCampoMinadoInstance.delete flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'FaseCampoMinado.label', default: 'FaseCampoMinado'), faseCampoMinadoInstance.id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
+        questionFaseCampoMinadoInstance.delete flush:true
+        redirect action: "index"
     }
 
     protected void notFound() {
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'faseCampoMinado.label', default: 'FaseCampoMinado'), params.id])
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'faseCampoMinado.label', default: 'QuestionFaseCampoMinado'), params.id])
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }
@@ -115,21 +104,153 @@ class FaseCampoMinadoController {
     }
 
     @Secured(['permitAll'])
-    def returnInstance(FaseCampoMinado faseCampoMinadoInstance){
-        if (faseCampoMinadoInstance == null) {
+    def returnInstance(QuestionFaseCampoMinado questionFaseCampoMinadoInstance){
+        if (questionFaseCampoMinadoInstance == null) {
             //notFound()
             render "null"
         }
         else{
-            render faseCampoMinadoInstance.title + "%@!" +
-                    faseCampoMinadoInstance.answers[0] + "%@!" +
-                    faseCampoMinadoInstance.answers[1] + "%@!" +
-                    faseCampoMinadoInstance.answers[2] + "%@!" +
-                    faseCampoMinadoInstance.answers[3] + "%@!" +
-                    faseCampoMinadoInstance.answers[4] + "%@!" +
-                    faseCampoMinadoInstance.correctAnswer + "%@!" +
-                    faseCampoMinadoInstance.id
+            render questionFaseCampoMinadoInstance.title + "%@!" +
+                    questionFaseCampoMinadoInstance.answers[0] + "%@!" +
+                    questionFaseCampoMinadoInstance.answers[1] + "%@!" +
+                    questionFaseCampoMinadoInstance.answers[2] + "%@!" +
+                    questionFaseCampoMinadoInstance.answers[3] + "%@!" +
+                    questionFaseCampoMinadoInstance.answers[4] + "%@!" +
+                    questionFaseCampoMinadoInstance.correctAnswer + "%@!" +
+                    questionFaseCampoMinadoInstance.id
         }
 
+    }
+
+    @Secured(['permitAll'])
+    def exportQuestions(){
+        //popula a lista de questoes a partir do ID de cada uma
+        ArrayList<Integer> list_questionId = new ArrayList<Integer>() ;
+        ArrayList<QuestionFaseCampoMinado> questionList = new ArrayList<QuestionFaseCampoMinado>();
+        list_questionId.addAll(params.list_id);
+        for (int i=0; i<list_questionId.size();i++)
+            questionList.add(QuestionFaseCampoMinado.findById(list_questionId[i]));
+
+        //cria o arquivo json
+        createJsonFile("questoescm.json", questionList)
+
+        // Finds the created file path
+        def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
+        String id = MongoHelper.putFile("${folder}/questoescm.json")
+
+
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
+
+        // Updates current task to 'completed' status
+        render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}?files=${id}"
+    }
+
+    void createJsonFile(String fileName, ArrayList<QuestionFaseCampoMinado> questionList){
+        def dataPath = servletContext.getRealPath("/data")
+        def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
+        instancePath.mkdirs()
+
+        File file = new File("$instancePath/"+fileName);
+        PrintWriter pw = new PrintWriter(file);
+        pw.write("{\n")
+        pw.write("\t\"quantidadeQuestoes\": [\"" + questionList.size() + "\"],\n")
+        for(def i=0; i<questionList.size();i++){
+            pw.write("\t\"" + (i+1) + "\": [\"" + questionList[i].title + "\", ")
+            pw.write("\""+ questionList[i].answers[0] +"\", " + "\""+ questionList[i].answers[1] +"\", ")
+            pw.write("\""+ questionList[i].answers[2] +"\", " + "\""+ questionList[i].answers[3] +"\", ")
+            pw.write("\""+ questionList[i].answers[4] +"\", ")
+            switch(questionList[i].correctAnswer){
+                case 0:
+                    pw.write("\"A\"]")
+                    break;
+                case 1:
+                    pw.write("\"B\"]")
+                    break;
+                case 2:
+                    pw.write("\"C\"]")
+                    break;
+                case 3:
+                    pw.write("\"D\"]")
+                    break;
+                case 4:
+                    pw.write("\"E\"]")
+                    break;
+                default:
+                    println("Erro! Alternativa correta inválida")
+            }
+            if(i<questionList.size()-1)
+                pw.write(",")
+            pw.write("\n")
+        }
+        pw.write("}");
+        pw.close();
+    }
+
+    @Transactional
+    def generateQuestions(){
+        MultipartFile csv = params.csv
+        def error = false;
+
+        csv.inputStream.toCsvReader([ 'separatorChar': ';']).eachLine { row ->
+            if(row.size() == 7) {
+                QuestionFaseCampoMinado questionInstance = new QuestionFaseCampoMinado()
+                questionInstance.title = row[0] ?: "NA";
+                questionInstance.answers[0] = row[1] ?: "NA";
+                questionInstance.answers[1] = row[2] ?: "NA";
+                questionInstance.answers[2] = row[3] ?: "NA";
+                questionInstance.answers[3] = row[4] ?: "NA";
+                questionInstance.answers[4] = row[5] ?: "NA";
+                String correct = row[6] ?: "NA";
+                questionInstance.correctAnswer =  (correct.toInteger() - 1)
+                questionInstance.taskId = session.taskId as String
+                questionInstance.ownerId = session.user.id as long
+                questionInstance.save flush: true
+                println(questionInstance.errors)
+            } else {
+                error = true
+            }
+        }
+
+        redirect(action: index(), params: [errorImportQuestions:error])
+    }
+
+    def exportCSV(){
+        /* Função que exporta as questões selecionadas para um arquivo .csv genérico.
+           O arquivo .csv gerado será compatível com os modelos Escola Mágica, Forca e Responda Se Puder.
+           O arquivo gerado possui os seguintes campos na ordem correspondente:
+           Nível, Pergunta, Alternativa1, Alternativa2, Alternativa3, Alternativa4, Alternativa5, Alternativa Correta, Dica, Tema.
+           O campo Dica é correspondente ao modelo Responda Se Puder e o campo Tema ao modelo Forca.
+           O separador do arquivo .csv gerado é o ";" (ponto e vírgula)
+        */
+
+        ArrayList<Integer> list_questionId = new ArrayList<Integer>() ;
+        ArrayList<QuestionFaseCampoMinado> questionList = new ArrayList<QuestionFaseCampoMinado>();
+        list_questionId.addAll(params.list_id);
+        for (int i=0; i<list_questionId.size();i++){
+            questionList.add(QuestionFaseCampoMinado.findById(list_questionId[i]));
+
+        }
+
+        def dataPath = servletContext.getRealPath("/samples")
+        def instancePath = new File("${dataPath}/export")
+        instancePath.mkdirs()
+        log.debug instancePath
+
+        def fw = new FileWriter("$instancePath/exportQuestions.csv")
+        for(int i=0; i<questionList.size();i++){
+            fw.write(questionList.getAt(i).title + ";" + questionList.getAt(i).answers[0] + ";" + questionList.getAt(i).answers[1] + ";" +
+                    questionList.getAt(i).answers[2] + ";" + questionList.getAt(i).answers[3] + ";" + questionList.getAt(i).answers[4] + ";" + (questionList.getAt(i).correctAnswer +1) + "\n" )
+        }
+        fw.close()
+
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
+
+        render "/santograu/samples/export/exportQuestions.csv"
     }
 }

@@ -1,6 +1,9 @@
 package br.ufscar.sead.loa.santograu.remar
 
+import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.plugin.springsecurity.annotation.Secured
+import grails.util.Environment
+import org.springframework.web.multipart.MultipartFile
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -14,7 +17,9 @@ class FaseTCCController {
 
     @Secured(['permitAll'])
     def index(Integer max) {
-        session.taskId = "57c42aca9e04b91a75a80f75"
+        if (params.t) {
+            session.taskId = params.t
+        }
         session.user = springSecurityService.currentUser
 
         def list = QuestionFaseTCC.findAllByOwnerId(session.user.id)
@@ -24,10 +29,11 @@ class FaseTCCController {
             new QuestionFaseTCC(title: "Questão 2", answers: ["Alternativa A", "Alternativa B", "Alternativa C", "Alternativa D", "Alternativa E"], correctAnswer: 0, ownerId:  session.user.id, taskId: session.taskId).save flush: true
             new QuestionFaseTCC(title: "Questão 3", answers: ["Alternativa A", "Alternativa B", "Alternativa C", "Alternativa D", "Alternativa E"], correctAnswer: 0, ownerId:  session.user.id, taskId: session.taskId).save flush: true
             new QuestionFaseTCC(title: "Questão 4", answers: ["Alternativa A", "Alternativa B", "Alternativa C", "Alternativa D", "Alternativa E"], correctAnswer: 0, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new QuestionFaseTCC(title: "Questão 5", answers: ["Alternativa A", "Alternativa B", "Alternativa C", "Alternativa D", "Alternativa E"], correctAnswer: 0, ownerId:  session.user.id, taskId: session.taskId).save flush: true
         }
 
         list = QuestionFaseTCC.findAllByOwnerId(session.user.id)
-        respond list, model: [questionFaseTccInstanceCount: QuestionFaseTCC.count()]
+        respond list, model: [questionFaseTccInstanceCount: QuestionFaseTCC.count(), errorImportQuestions:params.errorImportQuestions]
     }
 
     def show(QuestionFaseTCC faseTCCInstance) {
@@ -117,5 +123,149 @@ class FaseTCCController {
                     questionFaseTCCInstance.id
         }
 
+    }
+
+    @Transactional
+    def exportQuestions(){
+        //popula a lista de questoes a partir do ID de cada uma
+        ArrayList<Integer> list_questionId = new ArrayList<Integer>() ;
+        ArrayList<QuestionFaseTCC> questionList = new ArrayList<QuestionFaseTCC>();
+        list_questionId.addAll(params.list_id);
+        for (int i=0; i<list_questionId.size();i++)
+            questionList.add(QuestionFaseTCC.findById(list_questionId[i]));
+
+        //cria o arquivo json
+        createJsonFile("questoestcc.json", questionList)
+
+        // Finds the created file path
+        def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
+        String id = MongoHelper.putFile("${folder}/questoestcc.json")
+
+
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
+
+        // Updates current task to 'completed' status
+        render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}?files=${id}"
+    }
+
+    void createJsonFile(String fileName, ArrayList<QuestionFaseTCC> questionList){
+        def dataPath = servletContext.getRealPath("/data")
+        def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
+        instancePath.mkdirs()
+
+        File file = new File("$instancePath/"+fileName);
+        PrintWriter pw = new PrintWriter(file);
+        pw.write("{\n")
+        pw.write("\t\"quantidadeQuestoes\": [\"" + questionList.size() + "\"],\n")
+        for(def i=0; i<questionList.size();i++){
+            pw.write("\t\"" + (i+1) + "\": [\"" + questionList[i].title + "\", ")
+            pw.write("\""+ questionList[i].answers[0] +"\", " + "\""+ questionList[i].answers[1] +"\", ")
+            pw.write("\""+ questionList[i].answers[2] +"\", " + "\""+ questionList[i].answers[3] +"\", ")
+            pw.write("\""+ questionList[i].answers[4] +"\", ")
+            switch(questionList[i].correctAnswer){
+                case 0:
+                    pw.write("\"A\"]")
+                    break;
+                case 1:
+                    pw.write("\"B\"]")
+                    break;
+                case 2:
+                    pw.write("\"C\"]")
+                    break;
+                case 3:
+                    pw.write("\"D\"]")
+                    break;
+                case 4:
+                    pw.write("\"E\"]")
+                    break;
+                default:
+                    println("Erro! Alternativa correta inválida")
+            }
+            if(i<questionList.size()-1)
+                pw.write(",")
+            pw.write("\n")
+        }
+        pw.write("}");
+        pw.close();
+
+        //se o arquivo fases.json nao existe, cria ele com nenhuma fase opcional
+        File fileFasesJson = new File("$instancePath/fases.json")
+        boolean exists = fileFasesJson.exists()
+        if(!exists) {
+            PrintWriter printer = new PrintWriter(fileFasesJson);
+            printer.write("{\n");
+            printer.write("\t\"quantidade\": [\"0\"],\n")
+            printer.write("\t\"fases\": [\"1\", \"2\"]\n")
+            printer.write("}")
+            printer.close();
+        }
+    }
+
+    @Transactional
+    def generateQuestions(){
+        MultipartFile csv = params.csv
+        def error = false;
+
+        csv.inputStream.toCsvReader([ 'separatorChar': ';']).eachLine { row ->
+            if(row.size() == 7) {
+                QuestionFaseTCC questionInstance = new QuestionFaseTCC()
+                questionInstance.title = row[0] ?: "NA";
+                questionInstance.answers[0] = row[1] ?: "NA";
+                questionInstance.answers[1] = row[2] ?: "NA";
+                questionInstance.answers[2] = row[3] ?: "NA";
+                questionInstance.answers[3] = row[4] ?: "NA";
+                questionInstance.answers[4] = row[5] ?: "NA";
+                String correct = row[6] ?: "NA";
+                questionInstance.correctAnswer =  (correct.toInteger() - 1)
+                questionInstance.taskId = session.taskId as String
+                questionInstance.ownerId = session.user.id as long
+                questionInstance.save flush: true
+                println(questionInstance.errors)
+            } else {
+                error = true
+            }
+
+        }
+        redirect(action: index(), params: [errorImportQuestions:error])
+    }
+
+    def exportCSV(){
+        /* Função que exporta as questões selecionadas para um arquivo .csv genérico.
+           O arquivo .csv gerado será compatível com os modelos Escola Mágica, Forca e Responda Se Puder.
+           O arquivo gerado possui os seguintes campos na ordem correspondente:
+           Nível, Pergunta, Alternativa1, Alternativa2, Alternativa3, Alternativa4, Alternativa5, Alternativa Correta, Dica, Tema.
+           O campo Dica é correspondente ao modelo Responda Se Puder e o campo Tema ao modelo Forca.
+           O separador do arquivo .csv gerado é o ";" (ponto e vírgula)
+        */
+
+        ArrayList<Integer> list_questionId = new ArrayList<Integer>() ;
+        ArrayList<QuestionFaseTCC> questionList = new ArrayList<QuestionFaseTCC>();
+        list_questionId.addAll(params.list_id);
+        for (int i=0; i<list_questionId.size();i++){
+            questionList.add(QuestionFaseTCC.findById(list_questionId[i]));
+
+        }
+
+        def dataPath = servletContext.getRealPath("/samples")
+        def instancePath = new File("${dataPath}/export")
+        instancePath.mkdirs()
+        log.debug instancePath
+
+        def fw = new FileWriter("$instancePath/exportQuestions.csv")
+        for(int i=0; i<questionList.size();i++){
+            fw.write(questionList.getAt(i).title + ";" + questionList.getAt(i).answers[0] + ";" + questionList.getAt(i).answers[1] + ";" +
+                    questionList.getAt(i).answers[2] + ";" + questionList.getAt(i).answers[3] + ";" + questionList.getAt(i).answers[4] + ";" + (questionList.getAt(i).correctAnswer +1) + "\n" )
+        }
+        fw.close()
+
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
+
+        render "/santograu/samples/export/exportQuestions.csv"
     }
 }
