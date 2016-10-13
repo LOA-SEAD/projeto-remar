@@ -8,7 +8,6 @@ $(window).load(function(){
     var usersCollection = $(".users-collection");
 
     $(document).on("click",".delete-user", function(){
-        console.log("delete");
         deleteUserGroup(this);
     });
 
@@ -28,11 +27,7 @@ $(window).load(function(){
         var id = $(this).attr('id');
         var deleteUser = $('.delete-user')
         deleteUser.attr('data-user-group-id', id)
-        $('#modal-users').closeModal({
-            complete: function(){
-                $('#delete-modal').openModal();
-            }
-        });
+        $('#delete-modal').openModal()
     });
 
     function showStats(_this){
@@ -59,13 +54,11 @@ $(window).load(function(){
                 userGroupId: userGroupId
             },
             success: function() {
-                console.log($('#user-group-card-'+userGroupId));
                 $('#user-group-card-'+userGroupId).remove();
                     groupSize--;
                     text.attr("data-group-size",groupSize);
                     text.html("Ver membros ("+groupSize+")");
                     if(groupSize == 0){
-                        console.log("if");
                         var noUsers = document.createElement("li");
                         noUsers.setAttribute("id","no-users");
                         $(noUsers).addClass("collection-item");
