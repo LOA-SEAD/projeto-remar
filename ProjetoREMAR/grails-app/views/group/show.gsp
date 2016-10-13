@@ -105,7 +105,7 @@
 <!-- Modal Structure -->
 <div id="delete-modal" class="modal">
     <div class="modal-content">
-            <h5>Deseja mesmo deletar este usuário?</h5>
+            <h5>Deseja mesmo remover este usuário do grupo?</h5>
     </div>
     <div class="modal-footer">
         <a href="#!" data-user-group-id="" class="delete-user modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
