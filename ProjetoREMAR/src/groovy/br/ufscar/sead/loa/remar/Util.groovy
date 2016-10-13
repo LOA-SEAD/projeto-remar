@@ -24,8 +24,8 @@ class Util {
             http.setHeaders(['Authorization': "Bearer ${Holders.getGrailsApplication().config.sendGridApiKey}"])
             def response = http.post(path: '/api/mail.send.json', body: [
                     'fromname': 'REMAR',
-                    'from': 'noreply@remar.dc.ufscar.br',
-                    'replyto': 'contato@remar.dc.ufscar.br', // TODO @remar.dc.ufscar.br probably can't receive emails
+                    'from': 'noreply@sead.ufscar.br',
+                    'replyto': 'remar@sead.ufscar.br',
                     'to': recipient,
                     'subject': subject,
                     'html': body

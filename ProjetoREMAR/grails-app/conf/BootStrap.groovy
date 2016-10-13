@@ -48,6 +48,22 @@ class BootStrap {
             UserRole.create admin, Role.findByAuthority("ROLE_ADMIN"), true
             UserRole.create admin, Role.findByAuthority("ROLE_DEV"), true
 
+def dev = new User(
+                    username: "dev",
+                    password: grailsApplication.config.users.password,
+                    email: "remar@sead.ufscar.br",
+                    firstName: "Equipe DEV",
+                    lastName: "– REMAR",
+                    enabled: true
+            )
+
+            dev.save flush: true
+
+            UserRole.create dev, Role.findByAuthority("ROLE_ADMIN"), true
+            UserRole.create dev, Role.findByAuthority("ROLE_DEV"), true
+
+
+
             log.debug "Users: ok"
         }
 

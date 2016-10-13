@@ -52,7 +52,7 @@
                     </div>
                     <div class="col l3">
                         <button style="font-size: 0.8em; top: 1.2em; position:relative;" class="btn waves-effect waves-light add-user" type="submit" name="action">Adicionar
-                            <i class="material-icons right">group_add</i>
+                            <i class="material-icons right">person_add</i>
                         </button>
                     </div>
                 </form>
