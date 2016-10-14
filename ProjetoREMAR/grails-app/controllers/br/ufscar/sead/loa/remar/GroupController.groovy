@@ -240,7 +240,7 @@ class GroupController {
                     userGroup.save flush: true
                     render status: 200, template: "newGroup", model: [group: group]
                 }else
-                    render status: 403, text: "Você ja pertence a este grupo."
+                    render status: 403, text: "Você já pertence a este grupo."
             }else
                 render status: 404, text: "Grupo não encontrado"
 

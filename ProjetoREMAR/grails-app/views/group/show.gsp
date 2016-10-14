@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: deniscapp
-  Date: 5/18/16
-  Time: 5:24 PM
---%>
-
 <%@ page import="br.ufscar.sead.loa.remar.Group; br.ufscar.sead.loa.remar.UserGroup" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -38,7 +31,7 @@
                   <a  data-position="right" data-tooltip="Deletar grupo" class="tooltipped modal-trigger" href="#modal-confirmation-group" style="color: black"><i style="position:relative; top: 0.145em;" class="material-icons">delete</i></a>
               </g:if>
               <g:if test="${group.owner.id == session.user.id}">
-                  <span style="font-size: 0.6em;" class="left">Senha de acesso: ${group.token}</span><br>
+                  <span style="font-size: 0.6em;" class="left">Código de acesso: ${group.token}</span><br>
               </g:if>
           </h5>
         </div>

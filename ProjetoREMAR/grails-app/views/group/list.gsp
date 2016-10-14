@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: deniscapp
-  Date: 5/17/16
-  Time: 9:01 PM
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
     <head>
@@ -21,27 +14,10 @@
         </div>
     </div>
 
-<div id="others-groups">
-<div class="row">
-            %{--<g:form action="addUser" method="post">--}%
-                <div class="col offset-l4 offset-s2 offset-m3">
-                <form id="add-user-form">
-                    <div class="input-field col l6 s6">
-                        <input class="user-input" name="membertoken" id="member-token" type="text" placeholder="Senha de acesso" required>
-                        <label for="member-token"></label>
-                    </div>
-                    <div id="input-bottom" class="col l6 s4 m6">
-                        <button type="submit" title="Entre com a senha de acesso para entrar" style="font-size: 0.8em; top: 1.4em; position:relative;"  class="btn waves-effect waves-light add-user">Entrar
-                            <i class="material-icons right">person_add</i>
-                        </button>
-                    </div>
-                </form>
-                </div>
-            %{--</g:form>--}%
-        </div>
-         <div class="row" id="belong">
+    <div id="others-groups">
+        <div class="row" id="belong">
             <g:if test="${groupsIBelong.empty}">
-                <h5 class="center-align no-groups-message">Você ainda não pertence a um grupo :(</h5>
+                <h5 class="center-align no-groups-message">Você ainda não pertence a nenhum grupo :(</h5>
             </g:if>
             <g:else>
                 <g:each var="group" in="${groupsIBelong}">
@@ -57,8 +33,8 @@
                     </a>
                 </g:each>
             </g:else>
-
         </div>
+
         <div id="modal-user-in-group" class="modal">
             <div class="modal-content">
                 <h5 id="modal-message"></h5>
@@ -67,6 +43,30 @@
                 <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
             </div>
         </div>
+        <ul class="collapsible popout" data-collapsible="expandable">
+            <li>
+                <div class="collapsible-header"> <i class="material-icons">fingerprint</i>Código de Acesso</div>
+                <div id="info" class="collapsible-body">
+                    <div class="row">
+                        %{--<g:form action="addUser" method="post">--}%
+                        <div class="col offset-l4 offset-s2 offset-m3">
+                            <form id="add-user-form">
+                                <div class="input-field col l6 s6">
+                                    <input class="user-input" name="membertoken" id="member-token" type="text" placeholder="Código de acesso" required>
+                                    <label for="member-token"></label>
+                                </div>
+                                <div id="input-bottom" class="col l6 s4 m6">
+                                    <button type="submit" title="Entre com o código de acesso" style="font-size: 0.8em; top: 1.4em; position:relative;"  class="btn waves-effect waves-light add-user">Entrar
+                                        <i class="material-icons right">person_add</i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        %{--</g:form>--}%
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
 
     <div id="my-groups">
