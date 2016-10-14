@@ -246,7 +246,7 @@
                 <div id="info" class="collapsible-body">
                     <div class="row">
 
-                        Informações sobre o compartilharmento de jogos
+                        Informações sobre o compartilhamento de jogos
 
                         <ul>
                             <li>
