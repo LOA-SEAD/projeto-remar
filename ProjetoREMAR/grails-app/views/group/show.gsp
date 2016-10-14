@@ -123,13 +123,14 @@
 
         <g:if test="${!group.owner.id == session.user.id}">
             <p align="left" style="font-size: 1.2em;">Dono: ${group.owner.firstName + " " + group.owner.lastName} </p>
-        </g:if><br>
+        </g:if>
+        <br>
 
     </div>
 
 <div class="row">
     <div style="position: relative; left: 1em">
-    <g:if test='${!groupExportedResources.empty}'>
+        <g:if test="${!groupExportedResources.empty}">
         <g:each var="groupExportedResource" in="${groupExportedResources}">
             <div class="col l3 s5">
                 <div id="card-group-exported-resource-${groupExportedResource.id}" class="card hoverable">
@@ -223,10 +224,49 @@
         </g:each>
         </g:if>
         <g:else>
-            <!--h5> Para compartilhar um jogo à este grupo, clique em "Banco de Jogos" ou "Meus Jogos", clique no icone
-             "..." para visualizar as opções disponíveis e a seguir, clique em "Compartilhar em grupo".
-            </h5-->
+            <g:if test="${group.owner.id != session.user.id}">
+                <h5>Nenhum jogo foi compartilhado para esse grupo :(</h5>
+            </g:if>
         </g:else>
+
+        <g:if test="${group.owner.id == session.user.id}">
+        <ul class="collapsible popout" data-collapsible="expandable">
+            <li>
+                <g:if test="${groupExportedResources.empty}">
+                    <div class="collapsible-header active">
+                </g:if>
+                <g:else>
+                    <div class="collapsible-header">
+                </g:else>
+                <i class="material-icons">feedback</i>Compartilhamento de Jogos
+            </div>
+                <div id="info" class="collapsible-body">
+                    <div class="row">
+
+                        Informações sobre o compartilharmento de jogos
+
+                        <ul>
+                            <li>
+                                <p>Acesse <g:link controller="exportedResource" action="publicGames">Banco de Jogos</g:link>
+                                    ou <g:link controller="exportedResource" action="MyGames">Meus Jogos</g:link></p>
+                            </li>
+                            <li>
+                                <p>Escolha um Jogo e clique na opção "Compartilhar para grupos" <i class="fa fa-users" style="color: #FF5722;"></i><p>
+                            </li>
+                            <li>
+                                <p><span class="bold">Obs: </span>Você também pode compartilhar um jogo ao término de sua customização.</p>
+                            </li>
+
+                        </ul>
+
+
+
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </li>
+        </ul>
+        </g:if>
     </div>
 </div>
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>

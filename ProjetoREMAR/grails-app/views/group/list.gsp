@@ -45,8 +45,17 @@
         </div>
         <ul class="collapsible popout" data-collapsible="expandable">
             <li>
-                <div class="collapsible-header"> <i class="material-icons">fingerprint</i>Código de Acesso</div>
-                <div id="info" class="collapsible-body">
+
+                <g:if test="${groupsIBelong.empty}">
+                    <div class="collapsible-header active">
+                </g:if>
+                <g:else>
+                    <div class="collapsible-header">
+                </g:else>
+                    <i class="material-icons">fingerprint</i>Código de Acesso
+                </div>
+
+                    <div id="info" class="collapsible-body">
                     <div class="row">
                         %{--<g:form action="addUser" method="post">--}%
                         <div class="col offset-l4 offset-s2 offset-m3">
