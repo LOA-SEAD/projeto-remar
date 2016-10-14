@@ -228,7 +228,10 @@
                 <h5>Nenhum jogo foi compartilhado para esse grupo :(</h5>
             </g:if>
         </g:else>
-
+</div>
+</div>
+<div class="row">
+    <div style="position: relative; left: 1em">
         <g:if test="${group.owner.id == session.user.id}">
         <ul class="collapsible popout" data-collapsible="expandable">
             <li>
