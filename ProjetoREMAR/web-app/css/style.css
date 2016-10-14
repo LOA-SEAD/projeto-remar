@@ -925,33 +925,37 @@ Position must be relative!*/
 .nav-breadcrumb {
     background-color: transparent;
     box-shadow: none !important;
-    margin: 20px 0 20px 0;
+    /*margin: 20px 0 20px 0;*/
 }
 
 .nav-breadcrumb a{
     color: rgba(255,87,34,0.8);
-    font-size: 3.5vmin;
+    font-size: 2.5vmin;
+}
+
+.nav-breadcrumb p{
+    display: inline-block;
 }
 
 .breadcrumb.active, .first-breadcrumb.active{
     color: #FF5722 !important;
-    font-size: 3.5vmin;
+    font-size: 2.5vmin;
 }
 
 .breadcrumb, .first-breadcrumb {
-    font-size: 18px;
+    /*font-size: 18px;*/
     color: rgba(255,255,255,0.7);
 }
 
 .breadcrumb:before {
     content: '\E5CC';
     color: rgba(255,87,34,0.8);
-    vertical-align: top;
+    /*vertical-align: top;*/
     display: inline-block;
     font-family: 'Material Icons';
     font-weight: normal;
     font-style: normal;
-    font-size: 3.5vmin;
+    font-size: 2.5vmin;
     margin: 0 10px 0 8px;
     -webkit-font-smoothing: antialiased;
 }

@@ -30,26 +30,26 @@ Time: 08:58
                 <div class="col s12">
                     <aside class="nav-breadcrumb">
                         <div class="nav-wrapper">
-                            <a href="/dspace/index.gsp" class="first-breadcrumb">Comunidades</a>
-                            <a href="${communityUrl}" class="breadcrumb">${communityName}</a>
-                            <a href="javascript:location.reload()" class="breadcrumb active">${collectionName}</a>
+                            <a href="/dspace/repository" class="first-breadcrumb">Comunidades</a>
+                            <a href="/dspace/repository/${params.communityId}" class="breadcrumb">${communityName}</a>
+                            <p class="breadcrumb active">${collectionName}</p>
                         </div>
                     </aside>
                     <div class="card-content text-justify">
-                        <p>Abaixo estão listados os items, bem como os artefatos (resultados de customização), da coleção ${collectionName}.
+                        <blockquote>Abaixo estão listados os items, bem como os artefatos (resultados de customização), da coleção ${collectionName}.
                             Para baixar um artefato, clique em visualizar e posteriormente em abrir.
-                        </p>
+                        </blockquote>
                     </div>
                 </div>
             </section>
             <section class="row">
                 <div class="col s12 m12 l12">
                     <ul class="collapsible" data-collapsible="accordion" >
-                        <g:each in="${items}" var="obj" status="i">
+                        <g:each in="${items}" var="item" status="i">
                             <li>
                                 <div class="collapsible-header">
                                     <i class="material-icons">expand_more</i>
-                                    ${obj.name}
+                                    ${item.name}
                                 </div>
                                 <div class="collapsible-body">
                                     <div class="row">
@@ -61,10 +61,10 @@ Time: 08:58
                                             </div>
                                         </g:if>
                                         <div class="col s12 m6">
-                                             <g:if test="${obj.lastModified != null}">
+                                             <g:if test="${item.lastModified != null}">
                                                 <p>
                                                     <span class="bold">Ultima modificação: </span>
-                                                    ${obj.lastModified}
+                                                    ${item.lastModified}
                                                 </p>
                                              </g:if>
                                              <g:if test="${(metadata.getAt(i).find {it.key == 'dcterms.license' }) != null}">
@@ -86,8 +86,7 @@ Time: 08:58
                                                 </p>
                                             </g:if>
                                         </div>
-                                        <div class="col s12 m6">
-                                            
+                                        <div class="col s12 m6">                                            
                                         </div>
                                         <div class="col s12 m6">
                                             <g:if test="${(metadata.getAt(i).findAll {it.key == 'dc.contributor.author' }) != null}">
@@ -102,11 +101,6 @@ Time: 08:58
                                                  ${(metadata.getAt(i).find {it.key == 'dc.identifier.citation' }).value}
                                              </p>
                                             </g:if>
-                                            %{--<g:if test="${(metadata.getAt(i).find {it.key == 'dc.contributor.author' }) != null}">--}%
-                                              %{--<p><span class="bold">Editor: </span>--}%
-                                                %{--${(metadata.getAt(i).find {it.key == 'dc.contributor.author' }).value}--}%
-                                              %{--</p>--}%
-                                            %{--</g:if>--}%
                                         </div>
                                     </div>
                                     <div class="row">
@@ -128,9 +122,8 @@ Time: 08:58
                                                         %{--<td class="">${bitstream.description}</td>--}%
                                                         <td class="">${bitstream.format}</td>
                                                         <td>
-                                                            <a href="#!" data-dspace-link="${(metadata.getAt(i).find {it.key == 'dc.identifier.uri' }).value}" class="view tooltipped" data-bitstream-id="${bitstream.id}"
-                                                               data-position="right" data-delay="50" data-tooltip="Visualizar">
-                                                                <i class="material-icons">visibility</i>
+                                                            <a href="#!" data-dspace-link="${(metadata.getAt(i).find {it.key == 'dc.identifier.uri' }).value}" class="view " data-bitstream-id="${bitstream.id}">
+                                                                Visualizar
                                                             </a>
                                                         </td>
                                                     </tr>

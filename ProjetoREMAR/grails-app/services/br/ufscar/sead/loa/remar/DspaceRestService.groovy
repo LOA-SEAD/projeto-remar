@@ -109,7 +109,7 @@ class DspaceRestService {
         this.token = null
 
         this.initialized = true
-        this.rest = new RestBuilder(connectTimeout:1000, readTimeout:20000)
+        this.rest = new RestBuilder(connectTimeout:5000, readTimeout:10000)
 
     }
 
@@ -212,6 +212,19 @@ class DspaceRestService {
     }
 
     /**
+     * Pesquisa por uma collection passando o id da collection
+     * @return json da comunidade principal
+     * */
+    def getCollectionExpanded(collectionId) throws SocketTimeoutException, RuntimeException{
+        if(Integer.parseInt(collectionId.toString()) > 0){
+            def resp = this.rest.get("${this.restUrl}/collections/${collectionId}?expand=all")
+            return resp.json
+        }else{
+            throw new RuntimeException("Error in getCollection: collectionId has value less than zero")
+        }
+    }
+
+    /**
      * Pesquisa pelas subcomunidades de uma comunidade no dpsace
      * caso nao seja fornecido nenhum valor ao método é pesquisado pela
      * subcomunidades na comunidade pricipal.
@@ -260,10 +273,10 @@ class DspaceRestService {
      * coleções da comunidade pricipal.
      * @return json com as coleções
      * */
-    def listCollectionsExpanded(communityId = null) throws SocketTimeoutException, RuntimeException{
+    def listCollectionsFromCommunity(communityId = null) throws SocketTimeoutException, RuntimeException{
         if(communityId){
             if(Integer.parseInt(communityId.toString()) >=0){
-                def resp = this.rest.get("${this.restUrl}/communities/${communityId}/collections")
+                def resp = this.rest.get("${this.restUrl}/communities/${communityId}/collections?expand=parentCommunity")
                 return concatBitstreamsWithRetrieveLink(resp.json, "collection")
             }else{
                 throw new RuntimeException("Error in listCollectionsExpanded: communityId has value less than zero")

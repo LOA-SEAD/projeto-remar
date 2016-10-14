@@ -23,31 +23,34 @@ Time: 08:58
                     <div class="col s12">
                         <aside class="nav-breadcrumb">
                             <div class="nav-wrapper">
-                                <a href="." class="first-breadcrumb active">Comunidades</a>
+                                <p class="first-breadcrumb active">Comunidades</p>
                             </div>
                         </aside>
                         <div class="card-content text-justify">
-                            <p>Neste espaço estão disponíveis alguns artefatos customizados por nossos usuários e
+                            <blockquote>Neste espaço estão disponíveis alguns artefatos customizados por nossos usuários e
                                 usados na criação dos jogos. Tais artefatos encontram-se no Dspace
                                 (<a href="${jspuiUrl}" target="_blank">${jspuiUrl}</a>).
                                 Este espaço faz uma abstração dos artefatos lá encontrados. Eles estão divididos em
                                 comunidades, nomeadas pelo nome de cada jogo, coleções e os items de cada coleção.
                                 O usuário pode baixar o artefato por este espaço e usá-lo, por exemplo, para customizar
                                 um jogo.
-                            </p>
+                            </blockquote>
                         </div>
                     </div>
                 </section>
                 <section class="row">
                     <div class="col s12" >
                         <ul class="collection">
-                            <g:each in="${subCommunities}" var="obj">
+                            <g:each in="${subCommunities}" var="community">
                                 <li class="collection-item avatar left-align">
-                                    <g:if test="${obj.retrieveLink != null}">
-                                        <img src="${restUrl}${obj.retrieveLink}" alt="" class="circle">
+                                    <g:if test="${community.retrieveLink != null}">
+                                        <img src="${restUrl}${community.retrieveLink}" alt="" class="circle">
                                     </g:if>
-                                    <a href="/dspace/listCollections/${obj.id}?names=${obj.name}" class="collection-link" data-id="${obj.id}">${obj.name}</a>
-                                    <p>${obj.shortDescription}</p>
+                                    <a href="/dspace/repository/${community.id}" class="collection-link" >${community.name}</a>
+                                    %{--<g:link class="collection-link" action="listCollections" params="[communityId: community.id]">--}%
+                                        %{--${community.name}--}%
+                                    %{--</g:link>--}%
+                                    <p>${community.shortDescription}</p>
                                 </li>
                             </g:each>
                         </ul>
