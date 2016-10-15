@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: lucasbocanegra
-  Date: 28/06/16
-  Time: 17:24
---%>
-
 <html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta name="layout" content="materialize-layout">
@@ -28,7 +21,7 @@
     <article class="width-position">
         <g:form action="previewMetadata" method="POST" useToken="true">
             <blockquote class="left-align">
-                Informe os dados do item que será criado no repositório.
+                Informe os metadados do item que será criado no repositório.
             </blockquote>
             <g:if test="${metadata != null}">
                 <g:render template="itemMetadata" model="[task: task, resource: resource, metadata: metadata]" />
@@ -38,7 +31,7 @@
             </g:else>
 
             <blockquote class="left-align">
-                Abaixo estão os artefatos, gerados na customização desta tarefa, que serão enviados ao repositório.
+                Abaixo estão os arquivos que serão enviados ao repositório.
             </blockquote>
 
             <g:if test="${metadata != null}">

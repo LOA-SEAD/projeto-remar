@@ -24,7 +24,7 @@
                 <g:form action="create" controller="group" method="post">
                     <div class="row">
                         <div class="input-field col l6 offset-l3">
-                            <input name="groupname" id="group-name" type="text" class="validate">
+                            <input name="groupname" id="group-name" type="text" class="validate" required>
                             <label for="group-name">Nome do Grupo</label>
                         </div>
                     </div>

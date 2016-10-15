@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: lucasbocanegra
-  Date: 28/06/16
-  Time: 17:24
---%>
-
 <html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta name="layout" content="materialize-layout">
@@ -27,7 +20,7 @@
             Por favor, revise seus dados antes de finalizar!
         </h5>
         <blockquote class="modal-text">
-           <strong>ATENÇÃO: após a confirmação </strong>,  <strong>alterações</strong> e <strong>remoções</strong> só poderão ser realizadas pelo administrador do repositório, mediante requisição.
+           <strong>ATENÇÃO: após a confirmação</strong>, <strong>alterações</strong> e <strong>remoções</strong> só poderão ser realizadas pelo administrador do repositório, mediante requisição.
         </blockquote>
 
     </div>
@@ -105,7 +98,7 @@
 <!-- Modal Structure -->
 <div id="confirm" class="modal">
     <div class="modal-content">
-        <h3>Atenção!</h3>
+        <h5>Atenção!</h5>
         <blockquote class="modal-text center">
             Ao cancelar, você perdera todos os dados preenchidos até o momento. Você deseja continuar?
         </blockquote>

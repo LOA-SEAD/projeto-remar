@@ -1,17 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: lucasbocanegra
-  Date: 21/06/16
-  Time: 15:28
---%>
-
-<%--
-Created by IntelliJ IDEA.
-User: lucasbocanegra
-Date: 07/06/16
-Time: 08:58
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -109,36 +95,38 @@ Time: 08:58
                                             %{--</g:if>--}%
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col s12 m12 l12">
-                                            <table class="highlight">
-                                                <thead>
-                                                <tr>
-                                                    <th data-field="id">Arquivo</th>
-                                                    %{--<th data-field="name">Description</th>--}%
-                                                    <th data-field="price">Format</th>
-                                                    <th data-field="price">Ação</th>
-                                                </tr>
-                                                </thead>
 
-                                                <tbody>
-                                                <g:each in="${bitstreams.getAt(i)}" var="bitstream">
-                                                    <tr>
-                                                        <td class="">${bitstream.name}</td>
+                                    %{--<div class="row">--}%
+                                        %{--<div class="col s12 m12 l12">--}%
+                                            %{--<table class="highlight">--}%
+                                                %{--<thead>--}%
+                                                %{--<tr>--}%
+                                                    %{--<th data-field="id">Arquivo</th>--}%
+                                                    %{--<th data-field="name">Description</th>--}%
+                                                    %{--<th data-field="price">Format</th>--}%
+                                                    %{--<th data-field="price">Ação</th>--}%
+                                                %{--</tr>--}%
+                                                %{--</thead>--}%
+
+                                                %{--<tbody>--}%
+                                                %{--<g:each in="${bitstreams.getAt(i)}" var="bitstream"> --}%
+                                                    %{--<tr>--}%
+                                                        %{--<td class="">${bitstream.name}</td>--}%
                                                         %{--<td class="">${bitstream.description}</td>--}%
-                                                        <td class="">${bitstream.format}</td>
-                                                        <td>
-                                                            <a href="#!" data-dspace-link="${(metadata.getAt(i).find {it.key == 'dc.identifier.uri' }).value}" class="view tooltipped" data-bitstream-id="${bitstream.id}"
-                                                               data-position="right" data-delay="50" data-tooltip="Visualizar">
-                                                                <i class="material-icons">visibility</i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                </g:each>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                                                        %{--<td class="">${bitstream.format}</td>--}%
+                                                        %{--<td>--}%
+                                                            %{--<a href="#!" data-dspace-link="${(metadata.getAt(i).find {it.key == 'dc.identifier.uri' }).value}" class="view tooltipped" data-bitstream-id="${bitstream.id}"--}%
+                                                               %{--data-position="right" data-delay="50" data-tooltip="Visualizar">--}%
+                                                                %{--<i class="material-icons">visibility</i>--}%
+                                                            %{--</a>--}%
+                                                        %{--</td>--}%
+                                                    %{--</tr>--}%
+                                                %{-- </g:each> --}%
+                                                %{--</tbody>--}%
+                                            %{--</table>--}%
+                                        %{--</div>--}%
+                                    %{--</div>--}%
+
                                 </div>
                             </li>
                         </g:each>
