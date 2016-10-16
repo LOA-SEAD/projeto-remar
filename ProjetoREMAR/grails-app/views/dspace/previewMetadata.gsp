@@ -100,7 +100,7 @@
     <div class="modal-content">
         <h5>Atenção!</h5>
         <blockquote class="modal-text center">
-            Ao cancelar, você perdera todos os dados preenchidos até o momento. Você deseja continuar?
+            Ao cancelar, você perderá todos os dados preenchidos até o momento. Você deseja continuar?
         </blockquote>
     </div>
     <div class="modal-footer">
