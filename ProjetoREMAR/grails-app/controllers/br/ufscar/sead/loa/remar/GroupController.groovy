@@ -40,7 +40,7 @@ class GroupController {
             //TODO
         }
 
-        redirect(action: "show", id: groupInstance.id)
+        render groupInstance.id
 
     }
 
@@ -249,5 +249,9 @@ class GroupController {
 
     }
 
-
+    def findGroup(){
+        println(params.name)
+        def group = Group.findByNameAndOwner(params.name, session.user)
+        render group
+    }
 }

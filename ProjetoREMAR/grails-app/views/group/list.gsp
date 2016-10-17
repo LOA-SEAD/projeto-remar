@@ -131,7 +131,7 @@
                 </a>
         </div>
     </div>
-    
+
     <g:javascript src="jquery/jquery.validate.js"/>
     <g:javascript src="manage-user-group.js"/>
     <script>
