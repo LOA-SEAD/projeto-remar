@@ -23,10 +23,17 @@
             </h3>
         </div>
         <div class="row center">
-            <p>
-                Abaixo estão listadas as tarefas realizadas durante a customização do jogo. Selecione as tarefas que
-                gostaria de enviar para o repositório.
-            </p>
+            <g:if test="${!finished}">
+                <p> Os itens criados para suas tarefas de customização  (imagens, questões etc.)
+                também podem ser Recursos Educacionais Abertos!
+                Selecione uma tarefa de customização e
+                informe os metadados para a publicação de seus itens, sob licença Creative Commons, no
+                Repositório Digital do REMAR.
+                </p>
+            </g:if>
+            <g:else>
+                <p>Todos os itens de customização foram publicados com sucesso no Repositório Digital do REMAR.</p>
+            </g:else>
         </div>
         <article class="width-position left-align">
             <section class="row">
@@ -74,8 +81,7 @@
                                     <g:if test="${task.getVariable('step') == "completed" }">
                                         <div class="icon-metadata-done">
                                             <input type="hidden" id="task${i}-metadata" value="true">
-                                            <span>OK - </span>
-                                            <a href="${task.getVariable('handle')}" target="_blank">visualizar</a>
+                                            <a href="${task.getVariable('handle')}" target="_blank">Visualizar</a>
                                         </div>
                                     </g:if>
                                     <g:elseif test="${task.getVariable('step') == "preview-metadata"}">

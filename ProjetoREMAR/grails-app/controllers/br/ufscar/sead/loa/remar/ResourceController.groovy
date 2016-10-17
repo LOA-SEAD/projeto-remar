@@ -161,6 +161,7 @@ class ResourceController {
         resourceInstance.sumUser = 0
         resourceInstance.sumStars = 0
         resourceInstance.shareable = false
+        resourceInstance.repository = true
 
         resourceInstance.save flush: true
 

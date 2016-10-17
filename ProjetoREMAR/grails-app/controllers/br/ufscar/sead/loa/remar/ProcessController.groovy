@@ -224,11 +224,12 @@ class ProcessController {
     def finish() {
         println(params)
         def process = Propeller.instance.getProcessInstanceById(params.id, session.user.id as long)
+        def resource = Resource.get(process.getVariable('resourceId'))
 
         process.putVariable('contentArea', params.contentArea, true)
         process.putVariable('specificContent', params.specificContent, true)
 
-        if(grailsApplication.config.dspace.restUrl) { //se existir dspace
+        if(grailsApplication.config.dspace.restUrl && resource.repository) { //se existir dspace
             redirect uri: "/dspace/overview?id=${params.id}"
         } else {
             publishProcess()
