@@ -20,6 +20,9 @@ class FaseTCCController {
         if (params.t) {
             session.taskId = params.t
         }
+        if (params.p) {
+            session.processId = params.p
+        }
         session.user = springSecurityService.currentUser
 
         def list = QuestionFaseTCC.findAllByOwnerId(session.user.id)
@@ -192,7 +195,9 @@ class FaseTCCController {
         pw.close();
 
         //se o arquivo fases.json nao existe, cria ele com nenhuma fase opcional
-        File fileFasesJson = new File("$instancePath/fases.json")
+        def fasesFolder = new File("${dataPath}/${springSecurityService.currentUser.id}/processes/${session.processId}")
+        fasesFolder.mkdirs()
+        File fileFasesJson = new File("$fasesFolder/fases.json")
         boolean exists = fileFasesJson.exists()
         if(!exists) {
             PrintWriter printer = new PrintWriter(fileFasesJson);

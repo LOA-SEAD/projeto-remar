@@ -201,7 +201,7 @@ class FaseTecnologiaController {
             PrintWriter printer = new PrintWriter(fileFasesJson)
             printer.write("{\n");
             printer.write("\t\"quantidade\": [\"1\"],\n")
-            printer.write("\t\"fases\": [\"1\"]\n")
+            printer.write("\t\"fases\": [\"1\",\"2\"]\n")
             printer.write("}")
             printer.close()
         } else {
@@ -209,12 +209,14 @@ class FaseTecnologiaController {
             PrintWriter printer = new PrintWriter(fileFasesJson)
             printer.write("{\n");
 
-            if(arq["quantidade"][0] == "0")
+            if(arq["quantidade"][0] == "0") {
                 printer.write("\t\"quantidade\": [\"1\"],\n")
-            else
+                printer.write("\t\"fases\": [\"1\", \"2\"]\n")
+            } else {
                 printer.write("\t\"quantidade\": [\"2\"],\n")
+                printer.write("\t\"fases\": [\"2\", \"1\"]\n")
+            }
 
-            printer.write("\t\"fases\": [\"1\", \"2\"]\n")
             printer.write("}")
             printer.close()
         }

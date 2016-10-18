@@ -247,7 +247,7 @@ class FaseGaleriaController {
             PrintWriter printer = new PrintWriter(fileFasesJson)
             printer.write("{\n")
             printer.write("\t\"quantidade\": [\"1\"],\n")
-            printer.write("\t\"fases\": [\"2\"]\n")
+            printer.write("\t\"fases\": [\"2\", \"1\"]\n")
             printer.write("}\n")
             printer.close()
         } else {
@@ -257,7 +257,7 @@ class FaseGaleriaController {
 
             if(arq["quantidade"][0] == "0") {
                 printer.write("\t\"quantidade\": [\"1\"],\n")
-                printer.write("\t\"fases\": [\"2\"]\n")
+                printer.write("\t\"fases\": [\"2\", \"1\"]\n")
             } else {
                 printer.write("\t\"quantidade\": [\"2\"],\n")
                 printer.write("\t\"fases\": [\"1\", \"2\"]\n")
