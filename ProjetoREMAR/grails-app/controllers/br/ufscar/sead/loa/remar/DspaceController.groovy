@@ -262,16 +262,16 @@ class DspaceController {
 
             def process = current_task.getProcess()
 
-            int contador = 0
+            int counter = 0
 
             process?.completedTasks.each { task ->
                 def vars = task.vars
                 if (vars?.get("step") == "completed")
-                    contador++
+                    counter++
             }
 
             render view: 'overview', model: [process: current_task.getProcess(),
-                                             finished: process?.completedTasks.size() == contador]
+                                             finished: process?.completedTasks.size() == counter]
         }
     }
 
