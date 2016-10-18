@@ -62,7 +62,7 @@ $(window).load(function(){
         $($(_this).parent()).append(cancelButton);
         $($(_this).parent()).append(confirmButton);
 
-        $("#delete-group").hide();
+        $("#remove-group").hide();
         $("#edit-group").hide();
 
     }
@@ -78,7 +78,7 @@ $(window).load(function(){
         $("#confirm-edit").remove();
         $("#cancel-edit").remove();
 
-        $("#delete-group").show();
+        $("#remove-group").show();
         editGroup.show();
 
     }
