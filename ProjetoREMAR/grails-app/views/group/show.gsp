@@ -28,7 +28,7 @@
           <h5 class="left-align"><span class="truncate" id="group-name">${group.name}</span>
               <g:if test="${group.owner.id == session.user.id}">
                   <a id="edit-group" data-name="${group.name}" data-position="right" data-tooltip="Editar grupo" class="tooltipped" style="color: black"><i style="position:relative; top: 0.145em; cursor: pointer;" class="material-icons">edit</i></a>
-                  <a  data-position="right" data-tooltip="Deletar grupo" class="tooltipped modal-trigger" href="#modal-confirmation-group" style="color: black"><i style="position:relative; top: 0.145em;" class="material-icons">delete</i></a>
+                  <a id="remove-group" data-position="right" data-tooltip="Deletar grupo" class="tooltipped modal-trigger" href="#modal-confirmation-group" style="color: black"><i style="position:relative; top: 0.145em;" class="material-icons">delete</i></a>
               </g:if>
               <g:if test="${group.owner.id == session.user.id}">
                   <span style="font-size: 0.6em;" class="left">Código de acesso: ${group.token}</span><br>
