@@ -49,59 +49,79 @@ Time: 08:58
                             <li>
                                 <div class="collapsible-header">
                                     <i class="material-icons">expand_more</i>
-                                    ${item.name}
+                                    <span style="font-weight: bold;">${item.name}</span>
+                                    <span class="right complement hide-on-med-and-down">
+                                        (<g:formatDate format="MMM d, yyyy"
+                                                       date="${new Date().parse("YYYY-MM-dd HH:mm:ss",item.lastModified.toString())}"/>)
+                                        |
+                                        <g:each var="author"  status="j" in="${metadata.getAt(i).findAll({it.key == 'dc.contributor.author'})}">
+                                            ${author.value};
+                                        </g:each>
+                                    </span>
                                 </div>
                                 <div class="collapsible-body">
                                     <div class="row">
                                         <g:if test="${(metadata.getAt(i).find {it.key == 'dc.description.abstract' }) != null}">
                                             <div class="col s12 m12 l12">
+                                                    <g:link class="btn my-orange tooltipped right" action="exportZipFiles" params="[itemId: item.id]"
+                                                            data-position="bottom" data-delay="50" data-tooltip="Baixar arquivos como zip">
+                                                        <i class="fa fa-file-archive-o" aria-hidden="true"></i> Baixar
+                                                    </g:link>
                                                     <p><span class="bold">Descrição: </span>
                                                     ${(metadata.getAt(i).find {it.key == 'dc.description.abstract' }).value}
                                                 </p>
                                             </div>
                                         </g:if>
-                                        <div class="col s12 m6">
+                                        <div class="col s12 m12">
+                                            <g:if test="${(metadata.getAt(i).findAll {it.key == 'dc.contributor.author' }) != null}">
+                                                <p>
+                                                    <span class="bold">Autores: </span>
+                                                    <g:each var="author"  status="j" in="${metadata.getAt(i).findAll({it.key == 'dc.contributor.author'})}">
+                                                        ${author.value};
+                                                    </g:each>
+                                                </p>
+                                            </g:if>
                                              <g:if test="${item.lastModified != null}">
                                                 <p>
                                                     <span class="bold">Ultima modificação: </span>
-                                                    ${item.lastModified}
+                                                    <g:formatDate format="dd/MM/yy HH:mm"
+                                                                  date="${new Date().parse("YYYY-MM-dd HH:mm:ss",item.lastModified.toString())}"/>
+
                                                 </p>
                                              </g:if>
+                                            <p>
+                                                <span class="bold">Link para o Dspace : </span>
+                                                <a target="_blank" href="${linkArray.getAt(i)}">${linkArray.getAt(i)}</a>
+                                            </p>
                                              <g:if test="${(metadata.getAt(i).find {it.key == 'dcterms.license' }) != null}">
-                                                <p>
-                                                    <span class="bold">Licença: </span>
-                                                    ${(metadata.getAt(i).find {it.key == 'dcterms.license' }).value}
-                                                </p>
+                                                 <div class="div-license center">
+                                                 <g:if test="${(metadata.getAt(i).find {it.key == 'dcterms.license' }) == "cc-by-sa"}">
+                                                     <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'>
+                                                         <img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by-sa/4.0/88x31.png' />
+                                                     </a>
+                                                     <br>
+                                                     <span class="hide-on-med-and-down text-center">
+                                                         Esta obra está licenciado com uma Licença
+                                                         <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Atribuição-CompartilhaIgual 4.0 Internacional</a>
+                                                         .
+                                                     </span>
+
+                                                 </g:if>
+                                                 <g:else>
+                                                     <a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/4.0/'>
+                                                         <img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png' />
+                                                     </a>
+                                                     <br>
+                                                     <span class="hide-on-med-and-down center">
+                                                         Esta obra está licenciado com uma Licença
+                                                         <a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/4.0/'>Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional</a>
+                                                         .
+                                                     </span>
+                                                 </g:else>
+                                                 </div>
                                              </g:if>
                                         </div>
-                                        <div class="col s12 m6">
-                                                <p>
-                                                    <span class="bold">Link para o Dspace : </span>
-                                                    <a target="_blank" href="${linkArray.getAt(i)}">${linkArray.getAt(i)}</a>
-                                                </p>
-                                            <g:if test="${(metadata.getAt(i).find {it.key == 'dcterms.license' }) != null}">
-                                                <p>
-                                                    <span class="bold">Licença: </span>
-                                                    ${(metadata.getAt(i).find {it.key == 'dcterms.license' }).value}
-                                                </p>
-                                            </g:if>
-                                        </div>
-                                        <div class="col s12 m6">                                            
-                                        </div>
-                                        <div class="col s12 m6">
-                                            <g:if test="${(metadata.getAt(i).findAll {it.key == 'dc.contributor.author' }) != null}">
-                                             <p><span class="bold">Autores: </span>
-                                                 <g:each var="author"  status="j" in="${metadata.getAt(i).findAll({it.key == 'dc.contributor.author'})}">
-                                                     ${author.value};
-                                                 </g:each>
-                                             </p>
-                                            </g:if>
-                                            <g:if test="${(metadata.getAt(i).find {it.key == 'dc.identifier.citation' }) != null}">
-                                             <p><span class="bold">Citação: </span>
-                                                 ${(metadata.getAt(i).find {it.key == 'dc.identifier.citation' }).value}
-                                             </p>
-                                            </g:if>
-                                        </div>
+
                                     </div>
                                     <div class="row">
                                         <div class="col s12 m12 l12">

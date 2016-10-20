@@ -11,6 +11,9 @@ import com.mongodb.client.MongoDatabase
 import org.codehaus.groovy.grails.web.json.JSONArray
 import org.codehaus.groovy.grails.web.json.JSONException
 
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
+
 class DspaceController {
 
     static allowedMethods = [bitstream: "GET"]
@@ -80,6 +83,34 @@ class DspaceController {
                                             restUrl: dspaceRestService.getRestUrl(),
                                             linkArray: linkList
                                         ]
+    }
+
+    def exportZipFiles(){
+        def bitstreams = dspaceRestService.getItem(params.itemId.toString()).bitstreams
+        def path = null
+
+        try{
+            response.setContentType("application/octet-stream")
+            response.setHeader('Content-Disposition',
+                    'Attachment;Filename="repositorio-'+new Date().format('dd-MM-YYYY')+'.zip"')
+            ZipOutputStream zip = new ZipOutputStream(response.outputStream)
+
+            bitstreams.each {
+                path = "${dspaceRestService.jspuiUrl}/retrieve/${it.id}/${it.name}"
+                URL fileUrl = new URL(path)
+
+                def file = new File("${it.name}") << fileUrl.openStream()
+                def fileEntry = new ZipEntry("${file.name}")
+
+                zip.putNextEntry(fileEntry)
+                zip.write(file.bytes)
+            }
+            zip.close()
+        }catch (Exception e){
+           log.debug(e.toString())
+        }
+
+
     }
 
     def bitstream(){

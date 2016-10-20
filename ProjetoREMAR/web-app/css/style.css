@@ -1002,3 +1002,13 @@ Position must be relative!*/
 .underline-text{
     text-decoration: underline !important;
 }
+
+.div-license{
+    text-align: center !important;
+    margin-top: 5px;
+}
+
+.collapsible-header .complement{
+    /*font-style: italic;*/
+    font-size: 12px;
+}

@@ -224,6 +224,21 @@ class DspaceRestService {
         }
     }
 
+
+    /**
+     * Pesquisa por um item passando o id do item
+     * @return json da comunidade principal
+     * */
+    def getItem(itemId) throws SocketTimeoutException, RuntimeException{
+        if(Integer.parseInt(itemId.toString()) > 0){
+            def resp = this.rest.get("${this.restUrl}/items/${itemId}?expand=all")
+            return resp.json
+        }else{
+            throw new RuntimeException("Error in getItem: itemId has value less than zero")
+        }
+    }
+
+
     /**
      * Pesquisa pelas subcomunidades de uma comunidade no dpsace
      * caso nao seja fornecido nenhum valor ao método é pesquisado pela

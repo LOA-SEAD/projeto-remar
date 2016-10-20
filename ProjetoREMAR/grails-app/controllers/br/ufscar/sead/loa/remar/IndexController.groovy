@@ -11,6 +11,7 @@ class IndexController {
         if (springSecurityService.isLoggedIn()) {
             def model = [:]
 
+
             model.gameInstanceList = Resource.findAllByStatus('approved', [max: 8, sort: "id", order: "desc"])
             model.userName = session.user.firstName
             model.publicExportedResourcesList = ExportedResource.findAllByType('public', [max: 8, sort: "id", order: "desc"])
