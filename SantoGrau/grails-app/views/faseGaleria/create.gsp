@@ -23,6 +23,15 @@
 					<div class="col s12">
 						<ul class="collapsible" data-collapsible="accordion">
 							<li>
+								<div class="collapsible-header active"><i class="material-icons">info</i>Informação sobre a ordem das imagens</div>
+								<div class="collapsible-body">
+									<p class="justify-text">As imagens devem ser inseridas na ordem correta da resolução do desafio.</p>
+								</div>
+							</li>
+						</ul>
+
+						<ul class="collapsible" data-collapsible="accordion">
+							<li>
 								<div class="collapsible-header active"><i class="material-icons">file_upload</i>Upload</div>
 								<div class="collapsible-body">
 									<table style="overflow: scroll;" class="centered" id="tableNewTheme">
@@ -68,7 +77,7 @@
 												<div class="file-field input-field">
 													<div class="btn right">
 														<span>File</span>
-														<input data-image="true" type="file" name="img-2" id="img-2" class="image-input">
+														<input data-image="true" type="file" name="img-2" id="img-2" class="image-input" accept="image/png">
 													</div>
 													<div class="file-path-wrapper">
 														<input class="file-path validate" type="text" placeholder="Imagem PNG (160x200px)">
@@ -90,7 +99,7 @@
 												<div class="file-field input-field">
 													<div class="btn right">
 														<span>File</span>
-														<input data-image="true" type="file" name="img-3" id="img-3" class="image-input">
+														<input data-image="true" type="file" name="img-3" id="img-3" class="image-input" accept="image/png">
 													</div>
 													<div class="file-path-wrapper">
 														<input class="file-path validate" type="text" placeholder="Imagem PNG (160x200px)">
@@ -112,7 +121,7 @@
 												<div class="file-field input-field">
 													<div class="btn right">
 														<span>File</span>
-														<input data-image="true" type="file" name="img-4" id="img-4" class="image-input">
+														<input data-image="true" type="file" name="img-4" id="img-4" class="image-input" accept="image/png">
 													</div>
 													<div class="file-path-wrapper">
 														<input class="file-path validate" type="text" placeholder="Imagem PNG (160x200px)">
@@ -133,48 +142,7 @@
 									</div>
 								</div>
 							</li>
-							<li>
-								<div class="collapsible-header"><i class="material-icons">info</i>Informações sobre as Imagens</div>
-								<div class="collapsible-body">
-									<p class="justify-text">Para um melhor desempenho as imagens devem possuir as propriedades descritas na tabela abaixo.</p>
-									<table class="centered">
-										<thead>
-										<tr>
-											<th>Imagem</th>
-											<th>Dimensões (pixels)</th>
-											<th>Extensão</th>
-										</tr>
-										</thead>
-										<tbody>
-										<tr>
-											<td>Imagem 1</td>
-											<td> 160x200 </td>
-											<td> PNG </td>
-										</tr>
-										<tr>
-											<td>Imagem 2</td>
-											<td> 160x200 </td>
-											<td> PNG </td>
-										</tr>
-										<tr>
-											<td>Imagem 3</td>
-											<td> 160x200 </td>
-											<td> PNG </td>
-										</tr>
-										<tr>
-											<td>Imagem 4</td>
-											<td> 160x200 </td>
-											<td> PNG </td>
-										</tr>
-										<tr>
-											<td>Demais imagens</td>
-											<td> 160x200 </td>
-											<td> PNG </td>
-										</tr>
-										</tbody>
-									</table>
-								</div>
-							</li>
+							
 
 						</ul>
 					</div>

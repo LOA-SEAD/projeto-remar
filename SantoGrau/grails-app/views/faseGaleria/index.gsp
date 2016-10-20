@@ -18,9 +18,13 @@
 	<div class="row">
 		<div id="myForm" class="col s12" enctype="multipart/form-data">
 			<div class="row">
+				<h6>
+					Nessa fase o desafio do jogador é ordenar um conjunto de imagens (tema selecionado) tendo uma questão como dica
+				</h6>
+				<br/>
 				<div class="fieldcontain required">
 					<label for="orientacao">
-						<g:message code="faseGaleria.orientacao.label" default="Orientação " />
+						<g:message code="faseGaleria.orientacao.label" default="Questão (dica) " />
 						<span class="required-indicator">*</span>
 					</label>
 					<g:field name="orientacao" id="orientacao" type="text" required="" length="95" maxlength="95" class="validate" value="${orientacao}"/>
@@ -41,12 +45,6 @@
 										<th class="simpleTable">Imagem 2</th>
 										<th class="simpleTable">Imagem 3</th>
 										<th class="simpleTable">Imagem 4</th>
-										<th class="simpleTable">Imagem 5</th>
-										<th class="simpleTable">Imagem 6</th>
-										<th class="simpleTable">Imagem 7</th>
-										<th class="simpleTable">Imagem 8</th>
-										<th class="simpleTable">Imagem 9</th>
-										<th class="simpleTable">Imagem 10</th>
 										<th class="simpleTable">Ação</th>
 									</tr>
 									</thead>
@@ -78,7 +76,7 @@
 																		class="img-responsive max"/></td>
 											</g:if>
 											<g:else>
-												<td></td>
+												<!--td></td-->
 											</g:else>
 											<g:if test="${themeFaseGaleriaInstance.howManyImages > 5}">
 												<td align="center"><img width="60"
@@ -86,7 +84,7 @@
 																		class="img-responsive max"/></td>
 											</g:if>
 											<g:else>
-												<td></td>
+												<!--td></td-->
 											</g:else>
 											<g:if test="${themeFaseGaleriaInstance.howManyImages > 6}">
 												<td align="center"><img width="60"
@@ -94,7 +92,7 @@
 																		class="img-responsive max"/></td>
 											</g:if>
 											<g:else>
-												<td></td>
+												<!--td></td-->
 											</g:else>
 											<g:if test="${themeFaseGaleriaInstance.howManyImages > 7}">
 												<td align="center"><img width="60"
@@ -102,7 +100,7 @@
 																		class="img-responsive max"/></td>
 											</g:if>
 											<g:else>
-												<td></td>
+												<!--td></td-->
 											</g:else>
 											<g:if test="${themeFaseGaleriaInstance.howManyImages > 8}">
 												<td align="center"><img width="60"
@@ -110,7 +108,7 @@
 																		class="img-responsive max"/></td>
 											</g:if>
 											<g:else>
-												<td></td>
+												<!--td></td-->
 											</g:else>
 											<g:if test="${themeFaseGaleriaInstance.howManyImages > 9}">
 												<td align="center"><img width="60"
@@ -118,7 +116,7 @@
 																		class="img-responsive max"/></td>
 											</g:if>
 											<g:else>
-												<td></td>
+												<!--td></td-->
 											</g:else>
 											<td align="center"><i id="MydeleteIcon${i}" style="color: #7d8fff" class="material-icons delete">delete</i></td>
 										</tr>
