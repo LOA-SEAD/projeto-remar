@@ -14,7 +14,7 @@
 <body>
 <div class="row">
     <g:if test="${!allStats.empty}">
-        <div class="col l12 offset-l2">
+        <div class="col l12 offset-l1">
             <table class="bordered highlight responsive-table" style="width: auto">
                 <thead>
                     <tr>
@@ -73,7 +73,7 @@
     </g:if>
     <g:else>
         <div class="col l12">
-            <h5>Nenhuma estatística foi encontrada ou este jogo não possui suporte para isto.</h5>
+            <h5>Nenhuma estatística foi encontrada ou este jogo não possui suporte.</h5>
         </div>
     </g:else>
 
