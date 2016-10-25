@@ -160,10 +160,13 @@ class GroupController {
                                                            TimeUnit.SECONDS.toMinutes(it.remainingTime),
                                                            (it.remainingTime - TimeUnit.MINUTES.toSeconds(TimeUnit.SECONDS.toMinutes(it.remainingTime as long)))
                                                    )])
-                                }else if(it.gameType == "questionAndAnswer"){
+                                } else if(it.gameType == "questionAndAnswer"){
                                     allStats.push([timeStamp    : it.timestamp, levelId: it.levelId, win: it.win,
                                                    points       : it.points, partialPoints: it.partialPoints, errors: it.errors,
                                                    gameSize     : it.gameSize, gameType: it.gameType ])
+                                } else if(it.gameType == "multipleChoice"){
+                                    allStats.push([timeStamp    : it.timestamp, levelId: it.levelId, win: it.win, choice: it.choice, 
+                                                choices: it.choices, errors: it.errors, gameSize: it.gameSize, gameType: it.gameType ])
                                 }
                             }
                         }
