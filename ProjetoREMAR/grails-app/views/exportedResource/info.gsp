@@ -108,12 +108,12 @@
                                     </a>
 
                                     <a href="/published/${exportedResourceInstance.processId}/desktop/${exportedResourceInstance.resource.uri}-mac.zip" style="color: inherit">
-                                        <div class="col s6 m2 platform" data-text="OS X" data-name="mac">
+                                        <div class="col s6 m2 platform" data-text="macOS" data-name="mac">
                                             <div class="row no-margin-bottom">
                                                 <i class="fa fa-apple big-platform-logo"></i>
                                             </div>
                                             <div class="row">
-                                                OS X
+                                                macOS
                                             </div>
                                         </div>
                                     </a>
@@ -147,6 +147,9 @@
                                         <div class="left-align">
                                             <p>${group.name}</p>
                                         </div>
+                                        <p>
+                                            Dono: ${group.owner.firstName + " " + group.owner.lastName}<br>
+                                        </p>
                                         <g:if test="${!GroupExportedResources.findByGroupAndExportedResource(group,exportedResourceInstance)}">
                                             <input name="groupsid" class="group-input" id="groups-${group.id}-instance-${exportedResourceInstance.id}" value="${group.id}" type="checkbox">
                                         </g:if>
@@ -181,7 +184,8 @@
                                 </g:if>
                                 <g:else>
                                     <div class="row">                                   
-                                        <button data-instance-id="${exportedResourceInstance.id}" style="left:2.8em; top: 0.8em; position:relative;" class="btn waves-effect waves-light my-orange" type="submit" name="action">Compartilhar</button>                                     
+                                        <button data-instance-id="${exportedResourceInstance.id}" style="left:2.8em; top: 0.8em; position:relative;" class="btn waves-effect waves-light my-orange" type="submit" name="action">Compartilhar</button>
+                                       
                                     </div>
                                 </g:else>                       
                             </ul>
