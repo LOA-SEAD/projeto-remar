@@ -93,50 +93,41 @@ class ExportedResourceController {
     def saveStats(){
         def data = [:]
         println params
+        data.timestamp = new Date().toTimestamp()
+        data.userId = session.user.id as long
+        data.exportedResourceId = params.exportedResourceId as int
+        data.levelId = params.levelId as int
+        data.win = Boolean.parseBoolean(params.win)
+        data.gameSize = params.size as int
+        data.gameType = params.gameType
+
         if(params.gameType == "puzzleWithTime"){
-            data.timestamp = new Date().toTimestamp()
-            data.userId = session.user.id as long
-            data.exportedResourceId = params.exportedResourceId as int
             data.points = params.points as int
             data.partialPoints = params.partialPoints as int
-            data.levelId = params.levelId as int
             data.remainingTime = params.remainingTime as int
-            data.win = Boolean.parseBoolean(params.win)
-            data.gameSize = params.size as int
             data.end = Boolean.parseBoolean(params.end)
-            data.gameType = params.gameType
-            try {
-                MongoHelper.instance.createCollection("stats")
-                MongoHelper.instance.insertStats("stats", data)
-
-            } catch (Exception e) {
-                System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            }
-
-            render status: 200
-        }else if(params.gameType == "questionAndAnswer") {
-            data.timestamp = new Date().toTimestamp()
-            data.userId = session.user.id as long
-            data.exportedResourceId = params.exportedResourceId as int
+        } else if(params.gameType == "questionAndAnswer") {
             data.points = params.points as int
             data.partialPoints = params.partialPoints as int
             data.errors = params.errors
             data.question = params.question
             data.answer = params.answer
-            data.levelId = params.levelId as int
-            data.win = Boolean.parseBoolean(params.win)
-            data.gameSize = params.size as int
             data.end = Boolean.parseBoolean(params.end)
-            data.gameType = params.gameType
-            try {
+        } else if(params.gameType == "multipleChoice") {
+            data.question = params.question
+            data.answer = params.answer
+            data.choices = params.choices
+            data.choice = params.choice
+        }
+        try {
                 MongoHelper.instance.createCollection("stats")
                 MongoHelper.instance.insertStats("stats", data)
 
-            } catch (Exception e) {
+            } catch (Exception  e) {
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
             }
+
             render status: 200
-        }
     }
 
     def publish(ExportedResource instance) {
