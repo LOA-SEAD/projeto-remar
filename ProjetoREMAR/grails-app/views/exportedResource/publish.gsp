@@ -162,12 +162,12 @@
                                     </a>
 
                                     <a style="color: inherit">
-                                        <div class="col s6 m2 platform" data-text="OS X" data-name="mac">
+                                        <div class="col s6 m2 platform" data-text="macOS" data-name="mac">
                                             <div class="row no-margin-bottom">
                                                 <i class="fa fa-apple big-platform-logo"></i>
                                             </div>
                                             <div class="row">
-                                                OS X
+                                                macOS
                                             </div>
                                         </div>
                                     </a>
@@ -206,11 +206,14 @@
 
                     <div class="collapsible-body">
                         <ul class="collection with-header">
-                        <g:if test="${!groupsIOwn.empty}">
+                        <g:if test="${!groupsIOwn.isEmpty()}">
                             <g:each var="group" in="${groupsIOwn}">
                                 <li class="collection-item">
                                     <div class="left-align">
                                         <p>${group.name}</p>
+                                        <p>
+                                            Dono: ${group.owner.firstName + " " + group.owner.lastName}<br>
+                                        </p>
                                     </div>
                                     <g:if test="${!GroupExportedResources.findByGroupAndExportedResource(group,exportedResourceInstance)}">
                                         <input name="groupsid" class="group-input" id="groups-${group.id}-instance-${exportedResourceInstance.id}" value="${group.id}" type="checkbox">
@@ -222,7 +225,7 @@
                                 </li>
                             </g:each>
                         </g:if>
-                        <g:if test="${!groupsIAdmin.empty}">
+                        <g:if test="${!groupsIAdmin.isEmpty()}">
                             <g:each var="group" in="${groupsIAdmin}">
                                 <li class="collection-item">
                                     <div>
@@ -241,7 +244,7 @@
                                     </li>
                             </g:each>
                         </g:if>
-                        <g:if test="${groupsIAdmin.empty && myGroups.empty}"> 
+                        <g:if test="${groupsIAdmin.isEmpty() && groupsIAdmin.isEmpty()}"> 
                             <li class="collection-header"><h5>Você não possui grupos disponíveis</h5></li> 
                         </g:if>
                         <g:else>
@@ -249,14 +252,6 @@
                                 <button data-instance-id="${exportedResourceInstance.id}" style="left:2.8em; top: 0.8em; position:relative;" class="btn waves-effect waves-light my-orange" type="submit" name="action">Compartilhar</button>
                             </div>
                         </g:else>
-                            %{-- <div class="row">
-                                <g:if test="${groupsIAdmin.empty && groupsIOwn.empty}">
-                                    <li class="collection-item"><h5>Nenhum grupo disponível</h5></li>
-                                </g:if>
-                                <g:else>
-                                    <button data-instance-id="${exportedResourceInstance.id}" style="left:2.8em; top: 0.8em; position:relative;" class="btn waves-effect waves-light my-orange" type="submit" name="action">Compartilhar</button>
-                                </g:else>
-                            </div> --}%
                         </ul>
                     </div>
 
