@@ -75,7 +75,7 @@
                             <g:else> </g:else>
                             </span>
                             <p class="">Usuário: ${userGroup.user.username}</p>
-                            <g:if test="${group.owner.id == session.user.id}">
+                            <g:if test="${group.owner.id == session.user.id} || UserGroup.findByUserAndAdmin(session.user, true)">
                                 <a href="#" id="${userGroup.id}"  style="position: relative; top: -2.5em; left: -1.6em;" class="secondary-content delete-modal"><i class="material-icons">delete</i></a>
                                 <g:if test="${!userGroup.admin}">
                                     <a id="make-admin-${userGroup.id}"  data-user-group-id="${userGroup.id}" href="#" data-position="left" data-tooltip="Tornar admin" class="secondary-content manage-user tooltipped"><i id="admin-${userGroup.id}" class="material-icons">star_border</i></a>
@@ -85,9 +85,11 @@
                                 </g:else>
                             </g:if>
                             <g:else>
+
                                 <g:if test='${userGroup.user.id == session.user.id}'>
                                     <a class="tooltipped modal-trigger secondary-content" data-tooltip="Sair do grupo" style=" color: black;" href="#leave-group"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
                                 </g:if>
+
                             </g:else>
                         </li>
                     </g:each>
@@ -223,16 +225,12 @@
         </div>
         </g:each>
         </g:if>
-        <g:else>
-            <g:if test="${group.owner.id != session.user.id}">
-                <h5>Nenhum jogo foi compartilhado para esse grupo :(</h5>
-            </g:if>
-        </g:else>
 </div>
 </div>
 <div class="row">
     <div style="position: relative; left: 1em">
-        <g:if test="${group.owner.id == session.user.id}">
+        <g:if test="${group.owner.id == session.user.id ||
+                UserGroup.findByUserAndAdminAndGroup(session.user,true, group)}">
         <ul class="collapsible popout" data-collapsible="expandable">
             <li>
                 <g:if test="${groupExportedResources.empty}">
