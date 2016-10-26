@@ -112,7 +112,7 @@
                                                 </p>
                                             </div>
                                             <g:if test="${!GroupExportedResources.findByGroupAndExportedResource(group,instance)}">
-                                                <input name="groupsid" id="groups-${group.id}-instance-${instance.id}" value="${group.id}" type="checkbox">
+                                                <input name="groupsid" class="filled-in" id="groups-${group.id}-instance-${instance.id}" value="${group.id}" type="checkbox">
                                             </g:if>
                                             <g:else>
                                                 <input name="groupsid2"  checked="checked" disabled="disabled" type="checkbox">
@@ -131,7 +131,7 @@
                                                 </p>
                                             </div>
                                             <g:if test="${!GroupExportedResources.findByGroupAndExportedResource(group,instance)}">
-                                                <input name="groupsid" id="groups-${group.id}-instance-${instance.id}" value="${group.id}" type="checkbox">
+                                                <input name="groupsid" class="filled-in" id="groups-${group.id}-instance-${instance.id}" value="${group.id}" type="checkbox">
                                             </g:if>
                                             <g:else>
                                                 <input name="groupsid2"  checked="checked" disabled="disabled" type="checkbox">
