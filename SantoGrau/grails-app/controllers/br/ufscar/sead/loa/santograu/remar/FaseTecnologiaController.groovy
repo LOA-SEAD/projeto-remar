@@ -125,9 +125,9 @@ class FaseTecnologiaController {
     def exportLevel(){
         //cria a instancia da fase tecnologia com os valores digitados pelo usuario
         FaseTecnologia faseTecnologia = new FaseTecnologia()
-        faseTecnologia.palavras[0] = params.words[0]
-        faseTecnologia.palavras[1] = params.words[1]
-        faseTecnologia.palavras[2] = params.words[2]
+        faseTecnologia.palavras[0] = params.palavras1
+        faseTecnologia.palavras[1] = params.palavras2
+        faseTecnologia.palavras[2] = params.palavras3
         faseTecnologia.link = params.link
         faseTecnologia.tipoLink = params.tipoLink
 
