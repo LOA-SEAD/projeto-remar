@@ -91,7 +91,7 @@ function addImage() {
             "<img id='img-" + qtdeImagens + "-preview' height='200' />" +
             "</div></td><td id='file-input-" + qtdeImagens + "'><div class='file-field input-field'>" +
             "<div class='btn right'><span>File</span> " +
-            "<input data-image='true' type='file' name='img-" + qtdeImagens + "' id='img-" +qtdeImagens+ "' class='image-input'></div>" +
+            "<input data-image='true' type='file' name='img-" + qtdeImagens + "' id='img-" +qtdeImagens+ "' class='image-input' accept='image/png'></div>" +
             "<div class='file-path-wrapper'><input class='file-path validate' type='text' placeholder='Imagem PNG (160x200px)'> " +
             "</div></div></td>" +
             "<td><i style='color: #7d8fff !important; margin-right:10px; cursor:pointer' class='fa fa-trash-o' id='delete-" + qtdeImagens + "' onclick='deleteSelectedImage(this)'></i></td></tr>";
