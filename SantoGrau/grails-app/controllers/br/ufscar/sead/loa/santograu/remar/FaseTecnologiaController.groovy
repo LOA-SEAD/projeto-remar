@@ -125,9 +125,9 @@ class FaseTecnologiaController {
     def exportLevel(){
         //cria a instancia da fase tecnologia com os valores digitados pelo usuario
         FaseTecnologia faseTecnologia = new FaseTecnologia()
-        faseTecnologia.palavras[0] = params.words[0]
-        faseTecnologia.palavras[1] = params.words[1]
-        faseTecnologia.palavras[2] = params.words[2]
+        faseTecnologia.palavras[0] = params.palavras1
+        faseTecnologia.palavras[1] = params.palavras2
+        faseTecnologia.palavras[2] = params.palavras3
         faseTecnologia.link = params.link
         faseTecnologia.tipoLink = params.tipoLink
 
@@ -201,7 +201,7 @@ class FaseTecnologiaController {
             PrintWriter printer = new PrintWriter(fileFasesJson)
             printer.write("{\n");
             printer.write("\t\"quantidade\": [\"1\"],\n")
-            printer.write("\t\"fases\": [\"1\"]\n")
+            printer.write("\t\"fases\": [\"1\",\"2\"]\n")
             printer.write("}")
             printer.close()
         } else {
@@ -209,12 +209,14 @@ class FaseTecnologiaController {
             PrintWriter printer = new PrintWriter(fileFasesJson)
             printer.write("{\n");
 
-            if(arq["quantidade"][0] == "0")
+            if(arq["quantidade"][0] == "0") {
                 printer.write("\t\"quantidade\": [\"1\"],\n")
-            else
+                printer.write("\t\"fases\": [\"1\", \"2\"]\n")
+            } else {
                 printer.write("\t\"quantidade\": [\"2\"],\n")
+                printer.write("\t\"fases\": [\"2\", \"1\"]\n")
+            }
 
-            printer.write("\t\"fases\": [\"1\", \"2\"]\n")
             printer.write("}")
             printer.close()
         }

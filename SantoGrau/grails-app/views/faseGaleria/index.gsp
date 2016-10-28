@@ -118,7 +118,7 @@
 											<g:else>
 												<!--td></td-->
 											</g:else>
-											<td align="center"><i id="MydeleteIcon${i}" style="color: #7d8fff" class="material-icons delete">delete</i></td>
+											<td align="center"><i id="MydeleteIcon${i}" style="color: #7d8fff; cursor:pointer" class="material-icons delete">delete</i></td>
 										</tr>
 									</g:each>
 									</tbody>
