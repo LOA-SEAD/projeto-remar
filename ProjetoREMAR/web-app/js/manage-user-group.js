@@ -159,11 +159,20 @@ $(window).load(function(){
                     },
                     403: function(response){
                         $("#modal-message").html(response.responseText);
-                        $('#modal-user-in-group').openModal();
+                        $('#modal-user-in-group').openModal({
+                            ready: function(){
+                                $("#add-user-form")[0].reset();
+
+                            }
+                        });
                     },
                     404: function(response){
                         $("#modal-message").html(response.responseText);
-                        $('#modal-user-in-group').openModal();
+                        $('#modal-user-in-group').openModal({
+                            ready: function(){
+                                $("#add-user-form")[0].reset();
+                            }
+                        });
                     }
                 }
             });
