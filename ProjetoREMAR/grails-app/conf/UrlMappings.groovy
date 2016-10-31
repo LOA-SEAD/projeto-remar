@@ -68,6 +68,9 @@ class UrlMappings {
         "/category/update/$id"(controller: "category", action: "update")
         "/category/delete/$id"(controller: "category", action: "delete")
 
+        "/dspace/repository"(controller: "dspace", action: "index")
+        "/dspace/repository/$communityId"(controller: "dspace", action: "listCollections")
+        "/dspace/repository/$communityId/$collectionId"(controller: "dspace", action: "listItems")
         "/dspace/bitstream/$id"(controller: "dspace", action: "bitstream")
         "/dspace/removeAll/$id"(controller: "dspace", action: "removeAll")
 

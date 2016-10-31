@@ -9,6 +9,10 @@ import groovy.json.JsonBuilder
 import com.mongodb.MongoClient
 import com.mongodb.client.MongoDatabase
 import org.codehaus.groovy.grails.web.json.JSONArray
+import org.codehaus.groovy.grails.web.json.JSONException
+
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
 
 class DspaceController {
 
@@ -17,6 +21,9 @@ class DspaceController {
 
     def dspaceRestService
 
+    /*
+    * /dspace/respositorio
+    * */
     def index() {
         def community = dspaceRestService.getMainCommunity()
 
@@ -29,28 +36,37 @@ class DspaceController {
                 jspuiUrl: dspaceRestService.getJspuiUrl()
         ]
     }
-
+    /*
+    * /dspace/repositorio/<id da comunidade>
+    * */
     def listCollections(){
+        println(params)
 
-        def collections = dspaceRestService.listCollectionsExpanded(params.id)
+        def collections = dspaceRestService.listCollectionsFromCommunity(params.communityId)
+        def communityName = collections.get(0).parentCommunity.name //todas a parentCommunity das collections sao iguais, pois referentes a msm comunidade
 
         render view: 'listCollections', model:[
                 collections:collections,
-                communityName: params.names,
+                communityName: communityName,
                 restUrl: dspaceRestService.getRestUrl()
 
         ]
     }
-
+    /*
+    * /dspace/repositorio/<id da comunidade>/<id da coleção>
+    * */
     def listItems(){
-        def items, metadata, bitstreams
+        def collection, items, metadata = null, bitstreams = null, communityName, collectionName
         def linkList = []
-        def oldUrl = "/dspace/listCollections/${params.old}?names=${params.names.getAt(0)}"
 
-        items = dspaceRestService.listItems(params.id)
+        collection = dspaceRestService.getCollectionExpanded(params.collectionId)
+        items = dspaceRestService.listItems(params.collectionId)
         metadata = items.metadata
         bitstreams = items.bitstreams
 
+        //get collection name and community name of item zero. All items has same parent collection and parent communty
+        collectionName = collection.name
+        communityName = collection.parentCommunity.name
 
         for(int i=0; i<metadata.size(); i++){
             String aux = metadata.get(i).find({it.key == 'dc.identifier.uri' }).value
@@ -58,24 +74,50 @@ class DspaceController {
             linkList.add(link)
         }
 
-
         render view: 'listItems', model:[
                                             items: items,
                                             metadata: metadata,
                                             bitstreams: bitstreams,
-                                            communityName: params.names.getAt(0),
-                                            collectionName: params.names.getAt(1),
+                                            communityName: communityName,
+                                            collectionName: collectionName,
                                             restUrl: dspaceRestService.getRestUrl(),
-                                            communityUrl: oldUrl,
                                             linkArray: linkList
                                         ]
+    }
+
+    def exportZipFiles(){
+        def bitstreams = dspaceRestService.getItem(params.itemId.toString()).bitstreams
+        def path = null
+
+        try{
+            response.setContentType("application/octet-stream")
+            response.setHeader('Content-Disposition',
+                    'Attachment;Filename="repositorio-'+new Date().format('dd-MM-YYYY')+'.zip"')
+            ZipOutputStream zip = new ZipOutputStream(response.outputStream)
+
+            bitstreams.each {
+                path = "${dspaceRestService.jspuiUrl}/retrieve/${it.id}/${it.name}"
+                URL fileUrl = new URL(path)
+
+                def file = new File("${it.name}") << fileUrl.openStream()
+                def fileEntry = new ZipEntry("${file.name}")
+
+                zip.putNextEntry(fileEntry)
+                zip.write(file.bytes)
+            }
+            zip.close()
+        }catch (Exception e){
+           log.debug(e.toString())
+        }
+
     }
 
     def bitstream(){
 
         def resp = dspaceRestService.getBitstream(params.id)
 
-        render view: "_modalBody", model: [bitstream: resp, restUrl: dspaceRestService.getRestUrl()]
+        render view: "_modalBody", model: [bitstream: resp, restUrl: dspaceRestService.getRestUrl(),
+                                            jspuiUrl: dspaceRestService.getJspuiUrl()]
     }
 
     def create() {
@@ -90,7 +132,7 @@ class DspaceController {
 
     def delete(){
 
-          def resp = dspaceRestService.deleteCommunity(params.id)
+        def resp = dspaceRestService.deleteCommunity(params.id)
         //MongoHelper.instance.removeData("resource_dspace","uri","forca")
         render resp
 
@@ -254,8 +296,10 @@ class DspaceController {
             current_task.putVariable("handle",handle,true)
 
             dir.eachFileRecurse (FileType.FILES) {file ->
-//                def description = json.get("bitstreams").pop().description
-                dspaceRestService.addBitstreamToItem(itemId, file, file.name)
+                String[] f = file.name.toString().split("\\.")
+                String user_name = session.user.firstName.toString().replace(" ", "")
+                String file_name = "${f[0]}_${user_name}_${date.format('dd-MM-YYYY')}.${f[1]}"
+                dspaceRestService.addBitstreamToItem(itemId, file, file_name, "nenhum")
             }
 
             current_task.putVariable("step","completed",true)
@@ -329,6 +373,12 @@ class DspaceController {
         response.status = 205
         render 205
     }
+
+
+//    def connectException(final ConnectException exception) {
+//        log.debug(exception)
+//        render view: 'error', model: [exception: exception]
+//    }
 
     private static createCommunityMetadata(Resource resource){
         def json = new JsonBuilder()

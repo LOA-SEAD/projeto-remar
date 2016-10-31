@@ -30,27 +30,29 @@ Time: 08:58
                 <div class="col s12">
                     <aside class="nav-breadcrumb">
                         <div class="nav-wrapper">
-                            <a href="/dspace/index.gsp" class="first-breadcrumb">Comunidades</a>
-                            <a href="javascript:location.reload()" class="breadcrumb active">${communityName}</a>
+                            <a href="/dspace/repository" class="first-breadcrumb">Comunidades</a>
+                            <p class="breadcrumb active">${communityName}</p>
                         </div>
                     </aside>
                     <div class="card-content">
-                        <p>Abaixo estão listados as coleções da comunidade ${communityName}.
-                        </p>
+                        <blockquote>
+                            Abaixo estão listados as coleções da comunidade ${communityName}.
+                        </blockquote>
                     </div>
                 </div>
             </section>
             <section class="row">
                 <div class="col s12" >
                     <ul class="collection">
-                        <g:each in="${collections}" var="obj">
+                        <g:each in="${collections}" var="collection">
                             <li class="collection-item avatar left-align">
-                                <g:if test="${obj.retrieveLink != null}">
-                                    <img src="${restUrl}${obj.retrieveLink}" alt="" class="circle">
+                                <g:if test="${collection.retrieveLink != null}">
+                                    <img src="${restUrl}${collection.retrieveLink}" alt="" class="circle">
                                 </g:if>
-                                <a href="/dspace/listItems/${obj.id}?old=${params.id}&names=${communityName}&names=${obj.name}"
-                                   class="collection-link" data-id="${obj.id}">${obj.name}</a>
-                                <p>${obj.shortDescription}</p>
+                                <a href="/dspace/repository/${params.communityId}/${collection.id}" class="collection-link">
+                                    ${collection.name}
+                                </a>
+                                <p>${collection.shortDescription}</p>
                             </li>
                         </g:each>
                     </ul>

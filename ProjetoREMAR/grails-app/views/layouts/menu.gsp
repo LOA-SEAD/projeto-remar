@@ -49,7 +49,7 @@
     </li>
     <g:if test="${grailsApplication.config.dspace.restUrl}">
         <li class="waves-effect waves-block waves-light" data-intro="Aqui você encontra recursos abertos  que podem ser reutilizados na customização de seus jogos." data-step="5">
-            <a href="/dspace/index" class=""><i class="material-icons">cloud</i>Repositório</a>
+            <a href="/dspace/repository" class=""><i class="material-icons">cloud</i>Repositório</a>
         </li>
     </g:if>
     <sec:ifAllGranted roles="ROLE_DEV">
