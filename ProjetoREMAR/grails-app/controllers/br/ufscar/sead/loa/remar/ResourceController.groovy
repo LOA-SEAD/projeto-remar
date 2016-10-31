@@ -495,6 +495,10 @@ class ResourceController {
         log.debug "War submited by " + session.user.username + " rejected. Reason: " + reason
     }
 
+    def findResource() {
+        render Resource.findByName(params.name)
+    }
+
 
 
 }

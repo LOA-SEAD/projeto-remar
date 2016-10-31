@@ -7,6 +7,7 @@
 			<i class="material-icons suffix green-text active">done</i>
 			<input id="name" type="text" class="validate" value="${resourceInstance?.name}" required name="name">
 			<label for="name">Nome do jogo</label>
+			<span id="name-error2" class="invalid-input" style="left: 0.75rem">Este nome não é válido!</span>
 			<span id="name-error" class="invalid-input" style="left: 0.75rem">Este campo não pode ser vazio!</span>
 		</div>
 	</div>

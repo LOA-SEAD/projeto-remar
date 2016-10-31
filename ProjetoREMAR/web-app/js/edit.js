@@ -3,6 +3,7 @@
  */
 $(function(){
 
+
     var name = document.getElementById("name");
     var description = document.getElementById("description");
     var customizableItems = document.getElementById("customizableItems");
@@ -10,6 +11,9 @@ $(function(){
 
     //var name = $("#name");
     var nameErr = $("#name-error");
+    var nameErr2 = $("#name-error2");
+    nameErr2.hide();
+
     //var desc = $("#description");
     var descErr = $("#desc-error");
     var customizableErr = $("#customizableItems-error");
@@ -19,7 +23,7 @@ $(function(){
     $.ajax({
         type: 'POST',
         url: location.origin + "/resource/getResourceInstance/"+$("#hidden").val(),
-        data: null,
+        data: {name: $("#name").val()},
         processData: false,
         contentType: false,
         success: function (data) {
@@ -54,8 +58,10 @@ $(function(){
 
     $("#upload").on("click",function(){
 
+
         var ok = 0;
         var formData = new FormData();
+
         //var image1 = $("#img-1").prop('files')[0];
         //var image2 = $("#img-2").prop('files')[0];
         //var image3 = $("#img-3").prop('files')[0];
@@ -75,46 +81,71 @@ $(function(){
         formData.append('img3',$("#img3Preview").attr("src"));
         formData.append('category', $("select").val());
 
+        $.ajax({
+            url: "/resource/findResource?name=" + $("#name").val(),
+            type: 'GET',
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                //window.location.href = "../index";
+                console.log(data);
+                if(data == "null"){
+                    if($(name).val()==null || $(name).val() == "") {
+                        $(nameErr).show(500);
+                        $(name).prev().hide();
+                        $(name).removeClass().addClass('invalid');
+                        ok = ok+1;
+                    }
 
-        if($(name).val()==null || $(name).val() == "") {
-            $(nameErr).show(500);
-            $(name).prev().hide();
-            $(name).removeClass().addClass('invalid');
-            ok = ok+1;
-        }
+                    if($(description).val()==null || $(description).val()==""){
+                        $(descErr).show(500);
+                        $(description).prev().hide();
+                        $(description).removeClass('valid').addClass('invalid');
+                        ok = ok+1;
+                    }
 
-        if($(description).val()==null || $(description).val()==""){
-            $(descErr).show(500);
-            $(description).prev().hide();
-            $(description).removeClass('valid').addClass('invalid');
-            ok = ok+1;
-        }
+                    if(ok == 0) {
+                        $.ajax({
+                            url: "/resource/update/" + $("#hidden").val(),
+                            type: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success: function (response) {
+                                //window.location.href = "../index";
+                                Materialize.toast('Informações salvas com sucesso!', 3000, 'rounded');
+                                $(nameErr2).hide();
 
-        if(ok == 0) {
-            $.ajax({
-                url: "/resource/update/" + $("#hidden").val(),
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    //window.location.href = "../index";
-                    Materialize.toast('Informações salvas com sucesso!', 3000, 'rounded');
 
-                    $(name).removeClass().addClass("valid");
-                    $(name).prev().show(500);
+                                $(name).removeClass().addClass("valid");
+                                $(name).prev().show(500);
 
-                    $(description).addClass("valid");
-                    $(description).prev().show(500);
+                                $(description).addClass("valid");
+                                $(description).prev().show(500);
 
-                    $(documentation).prev().show(500);
+                                $(documentation).prev().show(500);
 
-                },
-                error: function () {
+                            },
+                            error: function () {
 
+                            }
+                        });
+                    }
                 }
-            });
-        }
+                else{
+                    $(nameErr2).show(500);
+                    $(name).prev().hide();
+                    $(name).removeClass().addClass('invalid');
+                }
+
+            },
+            error: function () {
+
+            }
+        });
+
+
+
     });
 
 });
