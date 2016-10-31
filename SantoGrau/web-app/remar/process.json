@@ -1,5 +1,5 @@
 {
-  "name": "Santo Grau",
+  "name": "Em Busca do Santo Grau",
   "uri": "santograu",
   "version": 1,
   "tasks": [
@@ -19,7 +19,8 @@
         {
           "name": "fases.json",
           "type": "json",
-          "path": ""
+          "path": "",
+          "shareable": false
         },
         {
           "name": "computadores.json",
@@ -39,12 +40,14 @@
         {
           "name": "quadros.json",
           "type": "json",
-          "path": ""
+          "path": "",
+          "shareable": false
         },
         {
           "name": "fases.json",
           "type": "json",
-          "path": ""
+          "path": "",
+          "shareable": false
         },
         {
           "name": "1.png",
