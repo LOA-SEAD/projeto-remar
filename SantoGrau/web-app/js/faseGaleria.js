@@ -65,7 +65,7 @@ window.onload = function() {
 
 function _delete() {
     var data = {_method: 'DELETE'};
-    var url = "deleteTheme/" + id;
+    var url = "faseGaleria/deleteTheme/" + id;
     $.ajax({
         type: 'DELETE',
         data: data,

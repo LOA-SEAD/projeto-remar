@@ -15,7 +15,7 @@ import javax.imageio.ImageIO
 class FaseGaleriaController {
     def springSecurityService
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", deleteTheme: "DELETE", imagesManager: "POST", exportLevel:"POST"]
+    static allowedMethods = [save: "POST", update: "PUT", deleteTheme: "DELETE", imagesManager: "POST", exportLevel:"POST"]
 
     def index(Integer max) {
         if (params.t) {
@@ -108,6 +108,8 @@ class FaseGaleriaController {
         }
     }
 
+
+    @Transactional
     def deleteTheme(ThemeFaseGaleria themeFaseGaleriaInstance) {
 
         if (themeFaseGaleriaInstance == null) {
