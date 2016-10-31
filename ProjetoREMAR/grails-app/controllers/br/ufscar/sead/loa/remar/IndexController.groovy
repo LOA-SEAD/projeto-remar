@@ -53,7 +53,10 @@ class IndexController {
                 model.uri = "http://localhost:8040${model.uri}"
             } else if (model.uri.indexOf('ortotetris') != -1) {
                 model.uri = "http://localhost:8050${model.uri}"
+            } else if (model.uri.indexOf('santograu') != -1) {
+                model.uri = "http://localhost:8060${model.uri}"
             }
+
         }
 
         render view: "frame", model: model

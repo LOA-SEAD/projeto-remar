@@ -72,7 +72,7 @@ class MongoHelper {
                                 .append("timestamp", data.timestamp)
                                 .append("gameType", data.gameType)
                 )))
-            }else{
+            } else if(data.gameType == 'questionAndAnswer') {
                 selectedCollection.updateOne(new Document("userId", data.userId), new Document('$push', new Document("stats",
                         new Document()
                                 .append("points", data.points)
@@ -86,6 +86,20 @@ class MongoHelper {
                                 .append("exportedResourceId", data.exportedResourceId)
                                 .append("timestamp", data.timestamp)
                                 .append("gameType", data.gameType)
+                )))
+            } else if(data.gameType == 'multipleChoice'){
+                selectedCollection.updateOne(new Document("userId", data.userId), new Document('$push', new Document("stats",
+                        new Document()
+                                .append("question", data.question)
+                                .append("answer", data.answer)
+                                .append("choices", data.choices)
+                                .append("choice", data.choice)
+                                .append("win", data.win)
+                                .append("levelId", data.levelId)
+                                .append("exportedResourceId", data.exportedResourceId)
+                                .append("timestamp", data.timestamp)
+                                .append("gameType", data.gameType)
+                                .append("gameSize", data.gameSize)
                 )))
             }
 
@@ -106,7 +120,7 @@ class MongoHelper {
                                 .append("gameType", data.gameType)
 
                         )))
-            }else {
+            } else if(data.gameType == 'questionAndAnswer') {
                 selectedCollection.insertOne(new Document("userId", data.userId).append("stats",
                         asList(new Document()
                                 .append("points", data.points)
@@ -121,6 +135,20 @@ class MongoHelper {
                                 .append("timestamp", data.timestamp)
                                 .append("gameType", data.gameType)
 
+                        )))
+            } else if(data.gameType == 'multipleChoice') {
+                selectedCollection.insertOne(new Document("userId", data.userId).append("stats",
+                        asList(new Document()
+                                .append("question", data.question)
+                                .append("answer", data.answer)
+                                .append("choices", data.choices)
+                                .append("choice", data.choice)
+                                .append("win", data.win)
+                                .append("levelId", data.levelId)
+                                .append("exportedResourceId", data.exportedResourceId)
+                                .append("timestamp", data.timestamp)
+                                .append("gameType", data.gameType)
+                                .append("gameSize", data.gameSize)
                         )))
             }
         }

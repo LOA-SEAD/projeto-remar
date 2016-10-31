@@ -3,19 +3,14 @@
 <!DOCTYPE html>
 <html>
 	<head>
-        <meta name="layout" content="main">
-        <title>Fase Tecnologia</title>
-        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-        <g:javascript src="iframeResizer.contentWindow.min.js"/>
-		<script type="text/javascript">//<![CDATA[
-		window.onload=function(){
-			$(document).ready(function() {
-				$('select').material_select();
-			});
-		}//]]>
+		<title>Fase Tecnologia</title>
+		<meta name="layout" content="main">
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<g:javascript src="faseTecnologia.js" />
+		<g:javascript src="iframeResizer.contentWindow.min.js"/>
 
-		</script>
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	</head>
 	<body>
 		<div class="cluster-header">
@@ -24,14 +19,10 @@
 			</p>
 		</div>
 		<div id="list-faseTecnologia" class="content scaffold-list row" role="main">
-			<g:form url="[resource:faseTecnologiaInstance, action:'save']" >
-				<div class="form">
+				<div class="form" id="myForm" >
 					<g:render template="form"/>
 				</div>
-				<div class="buttons col s1 m1 l1 offset-s8 offset-m10 offset-l10" style="margin-top:20px">
-					<g:submitButton class="btn my-orange" name="btnEnviar" value="Enviar"/>
-				</div>
-			</g:form>
+
 		</div>
 	</body>
 </html>

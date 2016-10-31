@@ -12,6 +12,8 @@ function localStorageAvailable() {
 
 $(document).ready(function(){
 
+    $('.modal-trigger').leanModal();
+
     if (localStorageAvailable()) {
         if (localStorage.DoNotShowMessageAgain && localStorage.DoNotShowMessageAgain === "true") {
             // user doesn't want to see the message again, so handle accordingly

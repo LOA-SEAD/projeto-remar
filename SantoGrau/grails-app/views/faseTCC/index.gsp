@@ -82,11 +82,9 @@
 
 				<div class="row">
 					<div class="col s2">
-						<g:form method="post"  action="save" resource="${faseTCCInstance}">
-							<button class="btn waves-effect waves-light my-orange" type="submit" name="save" id="submitButton" onclick="submit()">Enviar
-								<i class="material-icons">send</i>
-							</button>
-						</g:form>
+						<button class="btn waves-effect waves-light my-orange"  name="save" id="submitButton" onclick="_submit()">Enviar
+							<i class="material-icons">send</i>
+						</button>
 					</div>
 				</div>
 
@@ -98,14 +96,14 @@
 								<div class="row">
 									<div class="input-field col s12">
 										<label id="labelTitle" class="active" for="editTitle">Pergunta</label>
-										<input id="editTitle" name="title" required=""  type="text" class="validate" length="250" maxlength="250">
+										<input id="editTitle" name="title" required=""  type="text" class="validate" length="95" maxlength="95">
 									</div>
 								</div>
 
 								<div class="row">
 									<div class="input-field col s9">
 										<label id="labelAnswer1" class="active" for="editAnswers0">Alternativa 1</label>
-										<input type="text" class="validate" id="editAnswers0" name="answers1" required="" maxlength="49" length="49"/>
+										<input type="text" class="validate" id="editAnswers0" name="answers1" required="" maxlength="15" length="15"/>
 									</div>
 									<div class="col s2">
 										<input type="radio" id="editRadio0" name="correctAnswer" value="0" checked="checked"/>
@@ -116,7 +114,7 @@
 								<div class="row">
 									<div class="input-field col s9">
 										<label id="labelAnswer2" class="active" for="editAnswers1">Alternativa 2</label>
-										<input type="text" class="validate" id="editAnswers1" name="answers2" required="" maxlength="49" length="49"/>
+										<input type="text" class="validate" id="editAnswers1" name="answers2" required="" maxlength="15" length="15"/>
 									</div>
 									<div class="col s2">
 										<input type="radio" id="editRadio1" name="correctAnswer" value="1" /> <label for="editRadio1">Alternativa correta</label>
@@ -126,7 +124,7 @@
 								<div class="row">
 									<div class="input-field col s9">
 										<label id="labelAnswer3" class="active" for="editAnswers2">Alternativa 3</label>
-										<input type="text" class="validate" id="editAnswers2" name="answers3" required="" maxlength="49" length="49"/>
+										<input type="text" class="validate" id="editAnswers2" name="answers3" required="" maxlength="15" length="15"/>
 									</div>
 									<div class="col s2">
 										<input type="radio" id="editRadio2" name="correctAnswer" value="2" /> <label for="editRadio2">Alternativa correta</label>
@@ -136,7 +134,7 @@
 								<div class="row">
 									<div class="input-field col s9">
 										<label id="labelAnswer4" class="active" for="editAnswers3">Alternativa 4</label>
-										<input type="text" class="validate" id="editAnswers3" name="answers4" required="" maxlength="49" length="49"/>
+										<input type="text" class="validate" id="editAnswers3" name="answers4" required="" maxlength="15" length="15"/>
 									</div>
 									<div class="col s2">
 										<input type="radio" id="editRadio3" name="correctAnswer" value="3" /> <label for="editRadio3">Alternativa correta</label>
@@ -146,7 +144,7 @@
 								<div class="row">
 									<div class="input-field col s9">
 										<label id="labelAnswer5" class="active" for="editAnswers4">Alternativa 5</label>
-										<input type="text" class="validate" id="editAnswers4" name="answers5" required="" maxlength="49" length="49" />
+										<input type="text" class="validate" id="editAnswers4" name="answers5" required="" maxlength="15" length="15"/>
 									</div>
 									<div class="col s2">
 										<input type="radio" id="editRadio4" name="correctAnswer" value="4" /> <label for="editRadio4">Alternativa correta</label>
@@ -169,14 +167,14 @@
 								<div class="row">
 									<div class="input-field col s12">
 										<label id="labelTitleCreate" class="active" for="editTitleCreate">Pergunta</label>
-										<input id="editTitleCreate" name="title" required=""  type="text" class="validate" length="250" maxlength="250">
+										<input id="editTitleCreate" name="title" required=""  type="text" class="validate" length="95" maxlength="95">
 									</div>
 								</div>
 
 								<div class="row">
 									<div class="input-field col s9">
 										<label id="labelAnswer1Create" class="active" for="editAnswers0Create">Alternativa 1</label>
-										<input type="text" class="validate" id="editAnswers0Create" name="answers1" required="" maxlength="49" length="49"/>
+										<input type="text" class="validate" id="editAnswers0Create" name="answers1" required="" maxlength="15" length="15"/>
 									</div>
 									<div class="col s2">
 										<input type="radio" id="editRadio0Create" name="correctAnswer" value="0"/>
@@ -187,7 +185,7 @@
 								<div class="row">
 									<div class="input-field col s9">
 										<label id="labelAnswer2Create" class="active" for="editAnswers1Create">Alternativa 2</label>
-										<input type="text" class="validate" id="editAnswers1Create" name="answers2" required="" maxlength="49" length="49"/>
+										<input type="text" class="validate" id="editAnswers1Create" name="answers2" required="" maxlength="15" length="15"/>
 									</div>
 									<div class="col s2">
 										<input type="radio" id="editRadio1Create" name="correctAnswer" value="1" /> <label for="editRadio1Create">Alternativa correta</label>
@@ -197,7 +195,7 @@
 								<div class="row">
 									<div class="input-field col s9">
 										<label id="labelAnswer3Create" class="active" for="editAnswers2Create">Alternativa 3</label>
-										<input type="text" class="validate" id="editAnswers2Create" name="answers3" required="" maxlength="49" length="49"/>
+										<input type="text" class="validate" id="editAnswers2Create" name="answers3" required="" maxlength="15" length="15"/>
 									</div>
 									<div class="col s2">
 										<input type="radio" id="editRadio2Create" name="correctAnswer" value="2" /> <label for="editRadio2Create">Alternativa correta</label>
@@ -207,7 +205,7 @@
 								<div class="row">
 									<div class="input-field col s9">
 										<label id="labelAnswer4Create" class="active" for="editAnswers3Create">Alternativa 4</label>
-										<input type="text" class="validate" id="editAnswers3Create" name="answers4" required="" maxlength="49" length="49"/>
+										<input type="text" class="validate" id="editAnswers3Create" name="answers4" required="" maxlength="15" length="15"/>
 									</div>
 									<div class="col s2">
 										<input type="radio" id="editRadio3Create" name="correctAnswer" value="3" /> <label for="editRadio3Create">Alternativa correta</label>
@@ -217,7 +215,7 @@
 								<div class="row">
 									<div class="input-field col s9">
 										<label id="labelAnswer5Create" class="active" for="editAnswers4Create">Alternativa 5</label>
-										<input type="text" class="validate" id="editAnswers4Create" name="answers5" required="" maxlength="49" length="49"/>
+										<input type="text" class="validate" id="editAnswers4Create" name="answers5" required="" maxlength="15" length="15"/>
 									</div>
 									<div class="col s2">
 										<input type="radio" id="editRadio4Create" name="correctAnswer" value="4" /> <label for="editRadio4Create">Alternativa correta</label>
@@ -254,7 +252,117 @@
 						<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
 					</div>
 				</div>
+
+				<div id="errorSaveModal" class="modal">
+					<div class="modal-content">
+						Você deve selecionar pelo menos 5 questões para enviar.
+					</div>
+					<div class="modal-footer">
+						<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
+					</div>
+				</div>
+				<div id="errorDownloadModal" class="modal">
+					<div class="modal-content">
+						Você deve selecionar ao menos uma questão antes de exportar seu banco de questões.
+					</div>
+					<div class="modal-footer">
+						<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
+					</div>
+				</div>
+				<div id="errorImportingQuestionsModal" class="modal">
+					<div class="modal-content">
+						Erro - Para importar questões, você deve deixá-las no formado indicado.
+					</div>
+					<div class="modal-footer">
+						<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
+					</div>
+				</div>
+
+				<div id="uploadModal" class="modal">
+					<div class="modal-content">
+						<h4>Enviar arquivo .csv</h4>
+						<div class="row">
+							<g:uploadForm action="generateQuestions">
+								<div class="file-field input-field">
+									<div class="btn my-orange">
+										<span>File</span>
+										<input type="file" accept="text/csv" id="csv" name="csv">
+									</div>
+									<div class="file-path-wrapper">
+										<input class="file-path validate" type="text">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col s1 offset-s10">
+										<g:submitButton class="btn my-orange" name="csv" value="Enviar"/>
+									</div>
+								</div>
+							</g:uploadForm>
+						</div>
+
+						<blockquote>Formatação do arquivo .csv</blockquote>
+						<div class="row">
+							<div class="col s12">
+								<ol>
+									<li>O separador do arquivo .csv deve ser <b> ';' (ponto e vírgula)</b>  </li>
+									<li>O arquivo deve ser composto apenas por <b>dados</b></li>
+									<li>O arquivo deve representar a estrutura da tabela de exemplo</li>
+								</ol>
+								<ul>
+									<li><a href="/santograu/samples/exemploSantoGrau.csv">Download do arquivo exemplo</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<table class="center" style="font-size: 12px;">
+									<thead>
+									<tr>
+										<th>Pergunta</th>
+										<th>Resposta1</th>
+										<th>Resposta2</th>
+										<th>Resposta3</th>
+										<th>Resposta4</th>
+										<th>Resposta5</th>
+										<th>Alternativa Correta</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr>
+										<td>Pergunta 1</td>
+										<td>Alternativa 1</td>
+										<td>Alternativa 2</td>
+										<td>Alternativa 3</td>
+										<td>Alternativa 4</td>
+										<td>Alternativa 5</td>
+										<td>1</td>
+									</tr>
+									<tr>
+										<td>Pergunta 2</td>
+										<td>Alternativa 1</td>
+										<td>Alternativa 2</td>
+										<td>Alternativa 3</td>
+										<td>Alternativa 4</td>
+										<td>Alternativa 5</td>
+										<td>3</td>
+									</tr>
+									<tr>
+										<td>Pergunta 3</td>
+										<td>Alternativa 1</td>
+										<td>Alternativa 2</td>
+										<td>Alternativa 3</td>
+										<td>Alternativa 4</td>
+										<td>Alternativa 5</td>
+										<td>4</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
+		<input type="hidden" id="errorImportingQuestions" name="errorImportingQuestions" value="${errorImportQuestions}">
 	</body>
 </html>

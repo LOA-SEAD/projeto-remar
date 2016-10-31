@@ -1,12 +1,14 @@
 package br.ufscar.sead.loa.santograu.remar
 
 class FaseGaleria {
-    String orientacaco
+    String orientacao
+    long themeId;
 
     long ownerId
     String taskId
 
     static constraints = {
-        orientacao blank:false
+        ownerId blank: false, nullable: false
+        taskId nullable: true
     }
 }

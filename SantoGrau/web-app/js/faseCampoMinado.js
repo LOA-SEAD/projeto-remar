@@ -6,6 +6,7 @@ var list_id_delete = [];
 
 
 window.onload = function(){
+    $("#title").characterCounter();
     $('#BtnUnCheckAll').hide();
     $('.modal-trigger').leanModal();
     $("#SearchLabel").keyup(function(){
@@ -17,6 +18,10 @@ window.onload = function(){
                 $(this).show();
         });
     });
+
+    if($("#errorImportingQuestions").val() == "true") {
+        $("#errorImportingQuestionsModal").openModal();
+    }
 };
 
 
@@ -166,5 +171,66 @@ function _delete() {
             );
         }
         $(trID).remove();
+    }
+}
+
+function exportQuestions(){
+    var list_id = [];
+
+    $.each($("input[type=checkbox]:checked"), function(ignored, el) {
+        var tr = $(el).parents().eq(1);
+        list_id.push($(tr).attr('data-id'));
+    });
+
+    if(list_id.length<=0){
+        $("#errorDownloadModal").openModal();
+    }
+    else{
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            url: "/santograu/faseCampoMinado/exportCSV",
+            data: { list_id: list_id },
+            success: function(returndata) {
+                console.log(returndata);
+                window.open(location.origin + returndata, '_blank');
+            },
+            error: function(returndata) {
+                alert("Error:\n" + returndata.responseText);
+
+
+            }
+        });
+
+    }
+
+}
+
+function _submit() {
+    var list_id = [];
+
+    //checa se o usuario selecionou exatamente 4 questoes
+    if($("input[type=checkbox]:checked").size() < 4) {
+        $("#errorSaveModal").openModal();
+    } else {
+        //cria uma lista com os ids de cada questao selecionada
+        $.each($("input[type=checkbox]:checked"), function (ignored, el) {
+            var tr = $(el).parents().eq(1);
+            list_id.push($(tr).attr('data-id'));
+        });
+
+        //chama o controlador para criar o arquivo json com as informacoes inseridas
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            url: "/santograu/faseCampoMinado/exportQuestions",
+            data: { list_id: list_id},
+            success: function(returndata) {
+                window.top.location.href = returndata;
+            },
+            error: function(returndata) {
+                alert("Error:\n" + returndata.responseText);
+            }
+        });
     }
 }

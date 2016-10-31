@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: lucasbocanegra
-  Date: 28/06/16
-  Time: 17:24
---%>
-
 <html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta name="layout" content="materialize-layout">
@@ -27,7 +20,7 @@
             Por favor, revise seus dados antes de finalizar!
         </h5>
         <blockquote class="modal-text">
-           <strong>ATENÇÃO: após a confirmação </strong>,  <strong>alterações</strong> e <strong>remoções</strong> só poderão ser realizadas pelo administrador do repositório, mediante requisição.
+           <strong>ATENÇÃO: após a confirmação</strong>, <strong>alterações</strong> e <strong>remoções</strong> só poderão ser realizadas pelo administrador do repositório, mediante requisição.
         </blockquote>
 
     </div>
@@ -92,9 +85,9 @@
 
             <div class=" col s12 m12 l12">
                 <div class="right">
-                    <g:link class="btn my-orange" action="cancelListMetadata" params="[taskId: task.id]">
+                    <a class="btn my-orange modal-trigger" href="#confirm" >
                         <g:message code="dspace.metadata.button_cancel"/>
-                    </g:link>
+                    </a>
                     <button id="nextButton" class="btn my-orange" type="submit" > <g:message code="dspace.metadata.button_confirm"/> </button>
                 </div>
             </div>
@@ -103,29 +96,21 @@
 </div>
 
 <!-- Modal Structure -->
-<div id="messenger" class="modal">
+<div id="confirm" class="modal">
     <div class="modal-content">
-        <h3>Atenção!</h3>
-        <h6 class="modal-text">
-            Por favor antes de enviar <strong>atente</strong> para que os dados, submetidos ao repositório, <strong>estejam corretos</strong>, pois alterações e
-            remoções só poderão ser realizadas mediante a uma requisição ao administrador do repositório.
-        </h6>
+        <h5>Atenção!</h5>
+        <blockquote class="modal-text center">
+            Ao cancelar, você perderá todos os dados preenchidos até o momento. Você deseja continuar?
+        </blockquote>
     </div>
     <div class="modal-footer">
-        <div class="divisor"></div>
-        <div class="row">
-            <div class="col s10">
-                <p class="right">
-                    <input type="checkbox" id="show-messenger" />
-                    <label for="show-messenger">Não mostrar novamente</label>
-                </p>
-            </div>
-            <div class="col s2">
-                <a href="#!" class="modal-action modal-close btn my-orange right">Ok</a>
-            </div>
-        </div>
+        <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat ">Não</a>
+        <g:link class="btn my-orange" action="cancelListMetadata" params="[taskId: task.id]">
+            Sim
+        </g:link>
     </div>
 </div>
+
 <g:javascript src="dspace/warningDspace.js"/>
 </body>
 </html>

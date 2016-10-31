@@ -1,7 +1,5 @@
 package br.ufscar.sead.loa.remar
 
-
-
 class Resource {
 
     static belongsTo = [owner: User, category: Category]
@@ -27,10 +25,18 @@ class Resource {
 
     }
 
+    Resource() {
+        this.shareable = false;
+        this.repository = true;
+    }
+
     String name
     boolean active
     int version
     String uri
+
+    boolean shareable
+    boolean repository
 
     boolean android
     boolean desktop

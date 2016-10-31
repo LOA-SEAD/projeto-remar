@@ -40,7 +40,7 @@ class GroupController {
             //TODO
         }
 
-        redirect(action: "show", id: groupInstance.id)
+        render groupInstance.id
 
     }
 
@@ -160,10 +160,13 @@ class GroupController {
                                                            TimeUnit.SECONDS.toMinutes(it.remainingTime),
                                                            (it.remainingTime - TimeUnit.MINUTES.toSeconds(TimeUnit.SECONDS.toMinutes(it.remainingTime as long)))
                                                    )])
-                                }else if(it.gameType == "questionAndAnswer"){
+                                } else if(it.gameType == "questionAndAnswer"){
                                     allStats.push([timeStamp    : it.timestamp, levelId: it.levelId, win: it.win,
                                                    points       : it.points, partialPoints: it.partialPoints, errors: it.errors,
                                                    gameSize     : it.gameSize, gameType: it.gameType ])
+                                } else if(it.gameType == "multipleChoice"){
+                                    allStats.push([timeStamp    : it.timestamp, levelId: it.levelId, win: it.win, choice: it.choice, 
+                                                choices: it.choices, errors: it.errors, gameSize: it.gameSize, gameType: it.gameType ])
                                 }
                             }
                         }
@@ -240,7 +243,7 @@ class GroupController {
                     userGroup.save flush: true
                     render status: 200, template: "newGroup", model: [group: group]
                 }else
-                    render status: 403, text: "Você ja pertence a este grupo."
+                    render status: 403, text: "Você já pertence a este grupo."
             }else
                 render status: 404, text: "Grupo não encontrado"
 
@@ -249,5 +252,9 @@ class GroupController {
 
     }
 
-
+    def findGroup(){
+        println(params.name)
+        def group = Group.findByNameAndOwner(params.name, session.user)
+        render group
+    }
 }

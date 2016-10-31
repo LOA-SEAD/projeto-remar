@@ -1,11 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: lucas
-  Date: 21/01/16
-  Time: 13:57
-  Desc: Tela que lista os jogos do usuário
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -24,8 +16,8 @@
     <div class="row">
         <div class="col s12">
             <ul class="tabs">
-                <li class="tab col s3"><a class="active" href="#test2">Em customização</a></li>
-                <li class="tab col s3"><a href="#test1">Publicados</a></li>
+                <li class="tab col s3"><a href="#test2">Em customização</a></li>
+                <li class="tab col s3"><a class="active" href="#test1">Publicados</a></li>
             </ul>
         </div>
         <section id="test1" class="col s12"> <!-- start my published games -->

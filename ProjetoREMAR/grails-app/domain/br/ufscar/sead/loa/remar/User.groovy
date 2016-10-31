@@ -46,6 +46,10 @@ class User {
 		UserRole.findAllByUser(this).collect { it.role }
 	}
 
+	String getName () {
+		return firstName + " " + lastName
+	}
+
 	def beforeInsert() {
 		encodePassword()
 	}

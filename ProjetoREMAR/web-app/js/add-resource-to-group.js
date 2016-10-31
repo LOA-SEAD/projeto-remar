@@ -31,7 +31,7 @@ $(window).load(function() {
                 }
             })
         }else
-            Materialize.toast("Jogo já pertence a grupo!", 5000, "rounded");
+            Materialize.toast("Por favor, selecione pelo menos um grupo", 5000, "rounded");
 
     }
 

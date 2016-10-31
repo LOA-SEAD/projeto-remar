@@ -7,7 +7,7 @@ $(window).load(function(){
 
     var usersCollection = $(".users-collection");
 
-    $(usersCollection).on("click",".delete-user",function(){
+    $(document).on("click",".delete-user", function(){
         deleteUserGroup(this);
     });
 
@@ -21,6 +21,13 @@ $(window).load(function(){
 
     $(usersCollection).on("click",".add-user",function(){
         //$("membertoken").validate();
+    });
+
+    $(usersCollection).on("click",".delete-modal",function(){
+        var id = $(this).attr('id');
+        var deleteUser = $('.delete-user')
+        deleteUser.attr('data-user-group-id', id)
+        $('#delete-modal').openModal()
     });
 
     function showStats(_this){
@@ -47,20 +54,18 @@ $(window).load(function(){
                 userGroupId: userGroupId
             },
             success: function() {
-                $(_this).parents().eq(0).fadeOut(300,function(){
-                    $(this).remove();
+                $('#user-group-card-'+userGroupId).remove();
                     groupSize--;
                     text.attr("data-group-size",groupSize);
                     text.html("Ver membros ("+groupSize+")");
                     if(groupSize == 0){
-                        console.log("if");
                         var noUsers = document.createElement("li");
                         noUsers.setAttribute("id","no-users");
                         $(noUsers).addClass("collection-item");
                         $(noUsers).html("Nenhum usuário foi adicionado à este grupo.");
                         $(usersCollection).append(noUsers).fadeIn(300);
                     }
-                });
+               
 
 
                 Materialize.toast("Usuário removido!", 3000, "rounded");
@@ -154,11 +159,20 @@ $(window).load(function(){
                     },
                     403: function(response){
                         $("#modal-message").html(response.responseText);
-                        $('#modal-user-in-group').openModal();
+                        $('#modal-user-in-group').openModal({
+                            ready: function(){
+                                $("#add-user-form")[0].reset();
+
+                            }
+                        });
                     },
                     404: function(response){
                         $("#modal-message").html(response.responseText);
-                        $('#modal-user-in-group').openModal();
+                        $('#modal-user-in-group').openModal({
+                            ready: function(){
+                                $("#add-user-form")[0].reset();
+                            }
+                        });
                     }
                 }
             });

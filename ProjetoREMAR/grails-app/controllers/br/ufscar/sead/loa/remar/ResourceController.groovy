@@ -160,6 +160,8 @@ class ResourceController {
         // set ratings variables
         resourceInstance.sumUser = 0
         resourceInstance.sumStars = 0
+        resourceInstance.shareable = false
+        resourceInstance.repository = true
 
         resourceInstance.save flush: true
 
@@ -491,6 +493,10 @@ class ResourceController {
         instance.comment = reason
         instance.save flush: true
         log.debug "War submited by " + session.user.username + " rejected. Reason: " + reason
+    }
+
+    def findResource() {
+        render Resource.findByName(params.name)
     }
 
 

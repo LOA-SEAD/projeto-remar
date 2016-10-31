@@ -1,18 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: lucasbocanegra
-  Date: 21/06/16
-  Time: 15:28
---%>
-
-<%--
-Created by IntelliJ IDEA.
-User: lucasbocanegra
-Date: 07/06/16
-Time: 08:58
---%>
-
-<%@ page import="java.text.SimpleDateFormat" contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="materialize-layout">
@@ -119,7 +105,40 @@ Time: 08:58
                                                  </div>
                                              </g:if>
                                         </div>
-
+                                        <div class="col s12 m6">
+                                                <p>
+                                                    <span class="bold">Link para o Dspace : </span>
+                                                    <a target="_blank" href="${linkArray.getAt(i)}">${linkArray.getAt(i)}</a>
+                                                </p>
+                                            <g:if test="${(metadata.getAt(i).find {it.key == 'dcterms.license' }) != null}">
+                                                <p>
+                                                    <span class="bold">Licença: </span>
+                                                    ${(metadata.getAt(i).find {it.key == 'dcterms.license' }).value}
+                                                </p>
+                                            </g:if>
+                                        </div>
+                                        <div class="col s12 m6">
+                                            
+                                        </div>
+                                        <div class="col s12 m6">
+                                            <g:if test="${(metadata.getAt(i).findAll {it.key == 'dc.contributor.author' }) != null}">
+                                             <p><span class="bold">Autores: </span>
+                                                 <g:each var="author"  status="j" in="${metadata.getAt(i).findAll({it.key == 'dc.contributor.author'})}">
+                                                     ${author.value};
+                                                 </g:each>
+                                             </p>
+                                            </g:if>
+                                            <g:if test="${(metadata.getAt(i).find {it.key == 'dc.identifier.citation' }) != null}">
+                                             <p><span class="bold">Citação: </span>
+                                                 ${(metadata.getAt(i).find {it.key == 'dc.identifier.citation' }).value}
+                                             </p>
+                                            </g:if>
+                                            %{--<g:if test="${(metadata.getAt(i).find {it.key == 'dc.contributor.author' }) != null}">--}%
+                                              %{--<p><span class="bold">Editor: </span>--}%
+                                                %{--${(metadata.getAt(i).find {it.key == 'dc.contributor.author' }).value}--}%
+                                              %{--</p>--}%
+                                            %{--</g:if>--}%
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col s12 m12 l12">

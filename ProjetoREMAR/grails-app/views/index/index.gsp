@@ -21,7 +21,7 @@
             <br>
             <br>
             <div class="video-container">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/bU56kBDGJK4" frameborder="0" allowfullscreen></iframe>
+                <iframe width="500" height="300" src="https://www.youtube.com/embed/VQTO3txJbM4" frameborder="0" allowfullscreen></iframe>
             </div>
 
             %{--<h3 style="text-align: left;">GT-REMAR</h3>--}%

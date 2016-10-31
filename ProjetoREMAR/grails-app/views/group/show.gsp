@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: deniscapp
-  Date: 5/18/16
-  Time: 5:24 PM
---%>
-
 <%@ page import="br.ufscar.sead.loa.remar.Group; br.ufscar.sead.loa.remar.UserGroup" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -20,16 +13,25 @@
         <a id="delete-group" href="/group/delete/${group.id}" class=" modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
     </div>
 </div>
+
+<div id="leave-group" class="modal">
+    <div class="modal-content">
+        <h5>Deseja mesmo sair do grupo? </h5>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Não</a>
+        <a href="/group/leave-group/${group.id}" class=" modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
+    </div>
+</div>
     <div class="row">
         <div class="col l4 s6 m5">
           <h5 class="left-align"><span class="truncate" id="group-name">${group.name}</span>
               <g:if test="${group.owner.id == session.user.id}">
                   <a id="edit-group" data-name="${group.name}" data-position="right" data-tooltip="Editar grupo" class="tooltipped" style="color: black"><i style="position:relative; top: 0.145em; cursor: pointer;" class="material-icons">edit</i></a>
-                  <a  data-position="right" data-tooltip="Deletar grupo" class="tooltipped modal-trigger" href="#modal-confirmation-group" style="color: black"><i style="position:relative; top: 0.145em;" class="material-icons">delete</i></a>
+                  <a id="remove-group" data-position="right" data-tooltip="Deletar grupo" class="tooltipped modal-trigger" href="#modal-confirmation-group" style="color: black"><i style="position:relative; top: 0.145em;" class="material-icons">delete</i></a>
               </g:if>
-              <g:else><a class="tooltipped" data-tooltip="Sair do grupo" style=" color: black;" href="/group/leave-group/${group.id}"><i class="fa fa-sign-out fa-1x" aria-hidden="true"></i></a></g:else>
               <g:if test="${group.owner.id == session.user.id}">
-                  <span style="font-size: 0.6em;" class="left">Senha de acesso: ${group.token}</span><br>
+                  <span style="font-size: 0.6em;" class="left">Código de acesso: ${group.token}</span><br>
               </g:if>
           </h5>
         </div>
@@ -42,7 +44,7 @@
                     </div>
                     <div class="col l3">
                         <button style="font-size: 0.8em; top: 1.2em; position:relative;" class="btn waves-effect waves-light add-user" type="submit" name="action">Adicionar
-                            <i class="material-icons right">group_add</i>
+                            <i class="material-icons right">person_add</i>
                         </button>
                     </div>
                 </form>
@@ -73,8 +75,8 @@
                             <g:else> </g:else>
                             </span>
                             <p class="">Usuário: ${userGroup.user.username}</p>
-                            <g:if test="${group.owner.id == session.user.id}">
-                                <a href="#" id="user-group-id-${userGroup.id}" data-user-group-id="${userGroup.id}" style="position: relative; top: -2.5em; left: -1.6em;" class="secondary-content delete-user"><i class="material-icons">delete</i></a>
+                            <g:if test="${group.owner.id == session.user.id} || UserGroup.findByUserAndAdmin(session.user, true)">
+                                <a href="#" id="${userGroup.id}"  style="position: relative; top: -2.5em; left: -1.6em;" class="secondary-content delete-modal"><i class="material-icons">delete</i></a>
                                 <g:if test="${!userGroup.admin}">
                                     <a id="make-admin-${userGroup.id}"  data-user-group-id="${userGroup.id}" href="#" data-position="left" data-tooltip="Tornar admin" class="secondary-content manage-user tooltipped"><i id="admin-${userGroup.id}" class="material-icons">star_border</i></a>
                                 </g:if>
@@ -82,13 +84,29 @@
                                     <a id="remove-admin-${userGroup.id}" data-user-group-id="${userGroup.id}" href="#" class="secondary-content manage-user tooltipped"><i id="admin-star-${userGroup.id}" class="material-icons">star</i></a>
                                 </g:else>
                             </g:if>
+                            <g:else>
+
+                                <g:if test='${userGroup.user.id == session.user.id}'>
+                                    <a class="tooltipped modal-trigger secondary-content" data-tooltip="Sair do grupo" style=" color: black;" href="#leave-group"><i class="fa fa-sign-out fa-2x" aria-hidden="true"></i></a>
+                                </g:if>
+
+                            </g:else>
                         </li>
                     </g:each>
                 </g:else>
             </ul>
         </div>
     </div>
-
+<!-- Modal Structure -->
+<div id="delete-modal" class="modal">
+    <div class="modal-content">
+            <h5>Deseja mesmo remover este usuário do grupo?</h5>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" data-user-group-id="" class="delete-user modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Não</a>
+    </div>
+</div>
 <!-- Modal Structure -->
 <div id="modal-user-in-group" class="modal">
     <div class="modal-content">
@@ -107,12 +125,14 @@
 
         <g:if test="${!group.owner.id == session.user.id}">
             <p align="left" style="font-size: 1.2em;">Dono: ${group.owner.firstName + " " + group.owner.lastName} </p>
-        </g:if><br>
+        </g:if>
+        <br>
 
     </div>
 
 <div class="row">
     <div style="position: relative; left: 1em">
+        <g:if test="${!groupExportedResources.empty}">
         <g:each var="groupExportedResource" in="${groupExportedResources}">
             <div class="col l3 s5">
                 <div id="card-group-exported-resource-${groupExportedResource.id}" class="card hoverable">
@@ -204,6 +224,50 @@
                 </div>
         </div>
         </g:each>
+        </g:if>
+</div>
+</div>
+<div class="row">
+    <div style="position: relative; left: 1em">
+        <g:if test="${group.owner.id == session.user.id ||
+                UserGroup.findByUserAndAdminAndGroup(session.user,true, group)}">
+        <ul class="collapsible popout" data-collapsible="expandable">
+            <li>
+                <g:if test="${groupExportedResources.empty}">
+                    <div class="collapsible-header active">
+                </g:if>
+                <g:else>
+                    <div class="collapsible-header">
+                </g:else>
+                <i class="material-icons">feedback</i>Compartilhamento de Jogos
+            </div>
+                <div id="info" class="collapsible-body">
+                    <div class="row">
+
+                        Informações sobre o compartilhamento de jogos
+
+                        <ul>
+                            <li>
+                                <p>Acesse <g:link controller="exportedResource" action="publicGames">Banco de Jogos</g:link>
+                                    ou <g:link controller="exportedResource" action="MyGames">Meus Jogos</g:link></p>
+                            </li>
+                            <li>
+                                <p>Escolha um Jogo e clique na opção "Compartilhar para grupos" <i class="fa fa-users" style="color: #FF5722;"></i><p>
+                            </li>
+                            <li>
+                                <p><span class="bold">Obs: </span>Você também pode compartilhar um jogo ao término de sua customização.</p>
+                            </li>
+
+                        </ul>
+
+
+
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </li>
+        </ul>
+        </g:if>
     </div>
 </div>
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
@@ -226,6 +290,7 @@
                 },
                 success: function(data) {
                         response(data);
+                        $("#user-id").val('');
 
                 },statusCode:{
                     403: function(response){
