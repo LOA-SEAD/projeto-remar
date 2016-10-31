@@ -84,7 +84,7 @@ function clearSelectedImage(id, imagePreview) {
 var qtdeImagens = 4;
 
 function addImage() {
-    if(qtdeImagens < 4) {
+    if(qtdeImagens < 10) {
         qtdeImagens++;
         var newRow = "<tr id='row-" + qtdeImagens + "'><td>Imagem " + qtdeImagens + "</td><td>" +
             "<div class='row' style='height: 200px;'> " +

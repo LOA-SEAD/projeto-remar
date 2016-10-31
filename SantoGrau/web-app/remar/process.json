@@ -65,7 +65,50 @@
           "name": "4.png",
           "type": "image",
           "path": ""
+        },
+        {
+          "name": "5.png",
+          "type": "image",
+          "path": "",
+          "optional": true
+
+        },
+        {
+          "name": "6.png",
+          "type": "image",
+          "path": "",
+          "optional": true
+
+        },
+        {
+          "name": "7.png",
+          "type": "image",
+          "path": "",
+          "optional": true
+
+        },
+        {
+          "name": "8.png",
+          "type": "image",
+          "path": "",
+          "optional": true
+
+        },
+        {
+          "name": "9.png",
+          "type": "image",
+          "path": "",
+          "optional": true
+
+        },
+        {
+          "name": "10.png",
+          "type": "image",
+          "path": "",
+          "optional": true
+
         }
+
       ]
     },
     {

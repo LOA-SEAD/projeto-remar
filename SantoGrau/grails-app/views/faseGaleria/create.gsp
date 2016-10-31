@@ -160,7 +160,7 @@
 
 	<div id="limitOfImagesModal" class="modal">
 		<div class="modal-content">
-			Você só pode criar um tema com exatamente 4 imagens.
+			Você só pode criar um tema com até 10 imagens.
 		</div>
 		<div class="modal-footer">
 			<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
@@ -178,7 +178,7 @@
 
 	<div id="selectFourImagesModal" class="modal">
 		<div class="modal-content">
-			Você deve selecionar exatamente 4 imagens.
+			Você deve selecionar pelo menos 4 imagens.
 		</div>
 		<div class="modal-footer">
 			<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
