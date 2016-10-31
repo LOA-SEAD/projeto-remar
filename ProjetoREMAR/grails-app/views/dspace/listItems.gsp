@@ -12,7 +12,7 @@ Date: 07/06/16
 Time: 08:58
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="java.text.SimpleDateFormat" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="materialize-layout">
@@ -51,8 +51,7 @@ Time: 08:58
                                     <i class="material-icons">expand_more</i>
                                     <span style="font-weight: bold;">${item.name}</span>
                                     <span class="right complement hide-on-med-and-down">
-                                        (<g:formatDate format="MMM d, yyyy"
-                                                       date="${new Date().parse("YYYY-MM-dd HH:mm:ss",item.lastModified.toString())}"/>)
+                                        ${(metadata.getAt(i).find {it.key == 'dc.date.issued' }).value}
                                         |
                                         <g:each var="author"  status="j" in="${metadata.getAt(i).findAll({it.key == 'dc.contributor.author'})}">
                                             ${author.value};
@@ -84,8 +83,7 @@ Time: 08:58
                                              <g:if test="${item.lastModified != null}">
                                                 <p>
                                                     <span class="bold">Ultima modificação: </span>
-                                                    <g:formatDate format="dd/MM/yy HH:mm"
-                                                                  date="${new Date().parse("YYYY-MM-dd HH:mm:ss",item.lastModified.toString())}"/>
+                                                    ${(metadata.getAt(i).find {it.key == 'dc.date.issued' }).value}
 
                                                 </p>
                                              </g:if>

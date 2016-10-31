@@ -110,14 +110,14 @@ class DspaceController {
            log.debug(e.toString())
         }
 
-
     }
 
     def bitstream(){
 
         def resp = dspaceRestService.getBitstream(params.id)
 
-        render view: "_modalBody", model: [bitstream: resp, restUrl: dspaceRestService.getRestUrl()]
+        render view: "_modalBody", model: [bitstream: resp, restUrl: dspaceRestService.getRestUrl(),
+                                            jspuiUrl: dspaceRestService.getJspuiUrl()]
     }
 
     def create() {
