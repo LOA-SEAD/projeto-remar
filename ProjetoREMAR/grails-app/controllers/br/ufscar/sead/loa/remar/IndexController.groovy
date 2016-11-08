@@ -9,15 +9,13 @@ class IndexController {
 
     def index() {
         if (springSecurityService.isLoggedIn()) {
-            def model = [:]
+                def model = [:]
 
-
-            model.gameInstanceList = Resource.findAllByStatus('approved', [max: 8, sort: "id", order: "desc"])
-            model.userName = session.user.firstName
-            model.publicExportedResourcesList = ExportedResource.findAllByType('public', [max: 8, sort: "id", order: "desc"])
-            model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id), [max: 8, sort: "id", order: "desc"])
-
-            render view: "dashboard", model: model
+                model.gameInstanceList = Resource.findAllByStatus('approved', [max: 8, sort: "id", order: "desc"])
+                model.userName = session.user.firstName
+                model.publicExportedResourcesList = ExportedResource.findAllByType('public', [max: 8, sort: "id", order: "desc"])
+                model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id), [max: 8, sort: "id", order: "desc"])
+                render view: "dashboard", model: model
         } else {
             render view: "index"
         }
@@ -62,4 +60,11 @@ class IndexController {
         render view: "frame", model: model
     }
 
+    def nullPointerException(final NullPointerException exception) {
+        log.debug "NullPointerException caught !"
+        if (exception.getMessage().contains("firstName")) {
+            log.debug "Logout: session.user is NULL !"
+            redirect controller: "logout", action: "index"
+        }
+    }
 }

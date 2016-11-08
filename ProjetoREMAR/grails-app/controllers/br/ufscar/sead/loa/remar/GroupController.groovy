@@ -16,6 +16,16 @@ class GroupController {
 
     def springSecurityService
 
+    def beforeInterceptor = [action: this.&check, only: ['list', 'show']]
+
+    private check() {
+        if (!session.user) {
+            log.debug "Logout: session.user is NULL !"
+            redirect controller: "logout", action: "index"
+            return false
+        }
+    }
+
     def list() {
         def model = [:]
 
