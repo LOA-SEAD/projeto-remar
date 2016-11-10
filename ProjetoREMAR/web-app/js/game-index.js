@@ -320,3 +320,22 @@ $(function(){
     });
 
 });
+
+$(".user-profile").click(function() {
+    var id = $(this).attr("id").substr(8);
+    var url = location.origin + "/user/profile/" + id;
+    $.ajax({
+        type: 'POST',
+        url:  url,
+        data: null,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+            $("#userDetailsModal .modal-content").html(data);
+            $("#userDetailsModal").openModal();
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log(textStatus + "\n" + errorThrown);
+        }
+    });
+});

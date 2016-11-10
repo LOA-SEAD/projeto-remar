@@ -30,6 +30,7 @@ class UrlMappings {
         name infoPage: "/index/info" (view: "index/info")
         name project: "/index/project" (view: "index/index")
         name recoverAccount: "/user/accountRecover" (view: "user/accountRecover")
+
         name newGroup: "/group/new" (view: "group/new")
         // end password mappings
 
@@ -77,6 +78,7 @@ class UrlMappings {
         // end Resource API endpoints
 
         name myProfile: "/my-profile" (controller:"user", action:"myProfile")
+        "/user/profile/$id"(controller:"user", action: "userProfile")
 
         "500"(view:'/error')
 	}

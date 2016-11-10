@@ -42,7 +42,13 @@
             <g:render template="custCards" model="${pageScope.variables}" />
         </div>
     </div>
-
+    <div id="userDetailsModal" class="modal" style="width:40%">
+        <div class="modal-content">
+        </div>
+        <div class="modal-footer">
+            <button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
+        </div>
+    </div>
     <g:javascript src="menu.js"/>
     <g:javascript src="/utility/utility-customizable-game.js"/>
 </body>

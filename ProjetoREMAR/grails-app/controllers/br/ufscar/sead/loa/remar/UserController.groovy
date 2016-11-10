@@ -2,6 +2,7 @@ package br.ufscar.sead.loa.remar
 
 import com.mongodb.util.JSON
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 import groovy.json.JsonBuilder
 import org.apache.commons.lang.RandomStringUtils
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -22,7 +23,7 @@ class UserController {
     def springSecurityService
     def grailsApplication
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", filteredList: "POST"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", filteredList: "POST", userProfile:"POST"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -392,5 +393,11 @@ class UserController {
         } else {
             return ""
         }
+    }
+
+    @Transactional
+    def userProfile() {
+        User user = User.get(params.id);
+        render view: "_userProfileModal", model: [user: user]
     }
 }

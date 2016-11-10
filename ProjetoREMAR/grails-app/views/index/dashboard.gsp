@@ -39,7 +39,12 @@
                                     </a>
                                     <div class="divider"></div>
                                     <span style="color: dimgrey; font-size: 0.9em" class="center">${gameInstance.category.name}</span>
-                                    <span style="color: dimgrey; font-size: 0.9em" class="center truncate">Feito por: ${gameInstance.owner.username}</span>
+                                    <span style="color: dimgrey; font-size: 0.9em" class="center truncate">
+                                        Feito por:
+                                        <a href="#!" style="color: #7d8fff !important; margin-right:10px; cursor:pointer; font-style:normal"  class="user-profile" id="user-id-${gameInstance.owner.id}" >
+                                            ${gameInstance.owner.username}
+                                        </a>
+                                    </span>
                                     <span style="color: dimgrey;" class="center">
                                         <i class="fa fa-globe"></i>
                                         <g:if test="${gameInstance.android}">
@@ -76,6 +81,15 @@
             </div>
     </div>
 </div>
+
+<div id="userDetailsModal" class="modal" style="width:40%">
+    <div class="modal-content">
+    </div>
+    <div class="modal-footer">
+        <button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
+    </div>
+</div>
+
 <g:javascript src="layout/dashboard.js"/>
 </body>
 </html>

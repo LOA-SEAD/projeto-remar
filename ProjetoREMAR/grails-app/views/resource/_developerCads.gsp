@@ -10,7 +10,11 @@
             </div>
             <div class="card-content">
                 <a class="title truncate" title="${gameInstance.name}" aria-hidden="true" tabindex="-1" >${gameInstance.name}</a>
-                <p style="font-size: 1.0em;" class="center">Feito por: REMAR</p>
+                <p style="font-size: 1.0em;" class="center">Feito por:
+                    <a href="#!" style="color: #7d8fff !important; margin-right:10px; cursor:pointer; font-style:normal"  class="user-profile" id="user-id-${gameInstance.owner.id}" >
+                        ${gameInstance.owner.username}
+                    </a>
+                </p>
                 <div class="divider"></div>
                 <sec:ifAllGranted roles="ROLE_ADMIN">
                     <input type="text" class="comment truncate" placeholder="Comentário"  value="${gameInstance.comment}" data-id="${gameInstance.id}">

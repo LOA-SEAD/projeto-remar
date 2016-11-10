@@ -14,7 +14,10 @@
                             <span style="font-size: 1.3em;" class="card-title grey-text text-darken-4 activator center-align truncate data-category="${gameInstance.category.id}" title="${gameInstance.name}">${gameInstance.name}</span>
                             <div class="divider"></div>
                             <span style="color: dimgrey; font-size: 0.9em" class="center">${gameInstance.category.name}</span>
-                            <span style="color: dimgrey; font-size: 0.9em" class="center truncate">Feito por: ${gameInstance.owner.username}</span>
+                            <span style="color: dimgrey; font-size: 0.9em" class="center truncate">Feito por:
+                                <a href="#!" style="color: #7d8fff !important; margin-right:10px; cursor:pointer; font-style:normal"  class="user-profile" id="user-id-${gameInstance.owner.id}" >
+                                    ${gameInstance.owner.username}
+                                </a></span>
                             <span style="color: dimgrey;" class="center">
                                 <i class="fa fa-globe"></i>
                                 <g:if test="${gameInstance.android}">
