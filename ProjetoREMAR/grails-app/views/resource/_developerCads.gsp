@@ -1,37 +1,37 @@
 <input type="hidden" id="resourceCount" value="${resourceInstanceList.size()}">
-<g:each in="${resourceInstanceList}" status="i" var="gameInstance">
+<g:each in="${resourceInstanceList}" status="i" var="resourceInstance">
     <div class=" col l3 m3 s6">
-        <input type="hidden" id="cardStatus${i}" value="${gameInstance.status}">
+        <input type="hidden" id="cardStatus${i}" value="${resourceInstance.status}">
         <div id="card${i}" class=" card hoverable card-developer">
             <div class="card-image">
-                <a href="edit/${gameInstance.id}">
-                <img id="image${gameInstance.id}" alt="${gameInstance.name}" class=""  src="/images/${gameInstance.uri}-banner.png">
+                <a href="edit/${resourceInstance.id}">
+                <img id="image${resourceInstance.id}" alt="${resourceInstance.name}" class=""  src="/images/${resourceInstance.uri}-banner.png">
                 </a>
             </div>
             <div class="card-content">
-                <a class="title truncate" title="${gameInstance.name}" aria-hidden="true" tabindex="-1" >${gameInstance.name}</a>
+                <a class="title truncate" title="${resourceInstance.name}" aria-hidden="true" tabindex="-1" >${resourceInstance.name}</a>
                 <p style="font-size: 1.0em;" class="center">Feito por:
-                    <a href="#!" style="color: #7d8fff !important; margin-right:10px; cursor:pointer; font-style:normal"  class="user-profile" id="user-id-${gameInstance.owner.id}" >
-                        ${gameInstance.owner.username}
+                    <a href="#!" style="color: #7d8fff !important; margin-right:10px; cursor:pointer; font-style:normal"  class="user-profile" id="user-id-${resourceInstance.owner.id}" >
+                        ${resourceInstance.owner.username}
                     </a>
                 </p>
                 <div class="divider"></div>
                 <sec:ifAllGranted roles="ROLE_ADMIN">
-                    <input type="text" class="comment truncate" placeholder="Comentário"  value="${gameInstance.comment}" data-id="${gameInstance.id}">
+                    <input type="text" class="comment truncate" placeholder="Comentário"  value="${resourceInstance.comment}" data-id="${resourceInstance.id}">
                 </sec:ifAllGranted>
                 <sec:ifNotGranted roles="ROLE_ADMIN">
-                    <input type="text" value="${gameInstance.comment}" class="comment" data-id="${gameInstance.id}" disabled>
+                    <input type="text" value="${resourceInstance.comment}" class="comment" data-id="${resourceInstance.id}" disabled>
                 </sec:ifNotGranted>
                 <sec:ifAllGranted roles="ROLE_ADMIN">
                     <div class="col s3 m3 l3">
-                        <a href="#" class="tooltipped  review"  data-review="approve" data-id="${gameInstance.id}"  data-position="bottom" data-delay="5" data-tooltip="Aprovar" style="color: green;"><i class="material-icons">done</i></a>
+                        <a href="#" class="tooltipped  review"  data-review="approve" data-id="${resourceInstance.id}"  data-position="bottom" data-delay="5" data-tooltip="Aprovar" style="color: green;"><i class="material-icons">done</i></a>
                     </div>
                     <div class="col s3 m3 l3">
-                        <a href="#" class="tooltipped  review" data-review="reject" data-id="${gameInstance.id}" data-position="bottom" data-delay="5" data-tooltip="Rejeitar" style="color: red;"><i class="material-icons">block</i></a>
+                        <a href="#" class="tooltipped  review" data-review="reject" data-id="${resourceInstance.id}" data-position="bottom" data-delay="5" data-tooltip="Rejeitar" style="color: red;"><i class="material-icons">block</i></a>
                     </div>
                 </sec:ifAllGranted>
                 <div class="">
-                    <a href="#" class="tooltipped delete" data-id="${gameInstance.id}"  data-position="bottom" data-delay="5" data-tooltip="Excluir" style="color: gray;"><i class="material-icons">delete</i></a>
+                    <a href="#" class="tooltipped delete" data-id="${resourceInstance.id}"  data-position="bottom" data-delay="5" data-tooltip="Excluir" style="color: gray;"><i class="material-icons">delete</i></a>
                 </div>
             </div>
 
