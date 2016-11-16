@@ -27,8 +27,7 @@ $(function(){
         processData: false,
         contentType: false,
         success: function (data) {
-           // console.log(data);
-            console.log(data);
+
             $("#name").val(data.name)
                 .next().addClass("active");
 
@@ -39,6 +38,12 @@ $(function(){
                 .next().addClass("active");
             $("#customizableItems").val(data.customizableItems)
                 .next().addClass("active");
+
+            if(data.shareable == true) {
+                $('#shareable').attr('checked', 'checked');
+                $('#shareable').attr('disabled', 'disabled');
+            }
+
 
             $("#img1Preview").attr("src", "/data/resources/assets/"+data.uri+"/description-1");
             $("#img-1-text").prop('placeholder',"Carregue uma nova imagem!");
@@ -80,6 +85,10 @@ $(function(){
         formData.append('img2',$("#img2Preview").attr("src"));
         formData.append('img3',$("#img3Preview").attr("src"));
         formData.append('category', $("select").val());
+        if($('#shareable').is(':checked'))
+            formData.append('shareable', 'yes');
+        else
+            formData.append('shareable', 'no');
 
         $.ajax({
             url: "/resource/findResource?name=" + $("#name").val(),
