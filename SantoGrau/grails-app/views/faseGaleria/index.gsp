@@ -18,10 +18,9 @@
 	<div class="row">
 		<div id="myForm" class="col s12" enctype="multipart/form-data">
 			<div class="row">
-				<h6>
-					Nessa fase o desafio do jogador é ordenar um conjunto de imagens (tema selecionado) tendo uma questão como dica
-				</h6>
-				<br/>
+				<div style=" margin-bottom: 20px; color:#333333">
+					Selecione ou adicione um novo tema com imagens ordenadas (o jogo será responsável por embaralhá-las) e forneça no campo “Orientação” uma dica.
+				</div>
 				<div class="fieldcontain required">
 					<label for="orientacao">
 						<g:message code="faseGaleria.orientacao.label" default="Questão (dica) " />

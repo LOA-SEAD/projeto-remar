@@ -40,6 +40,9 @@ class ResourceController {
         def path = new File(servletContext.getRealPath("/data/resources/assets/${instance.uri}"))
         path.mkdirs()
 
+        if(params.shareable == "yes")
+            instance.shareable = true;
+
         if (params.img1 != null && params.img1 != "") {
             log.debug("entrou img1" + params.img1)
             def img1 = new File(servletContext.getRealPath("${params.img1}"))

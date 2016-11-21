@@ -17,6 +17,9 @@
 			</p>
 		</div>
 		<div class="row">
+			<div style=" margin-bottom: 20px; color:#333333">
+				Selecione no mínimo 5 perguntas, com 5 alternativas cada (caso forneça mais de 5 questões, o jogo escolherá 5 aleatoriamente).
+			</div>
 			<div id="chooseQuestion" class="col s12 m12 l12">
 				<br>
 				<div class="row">
