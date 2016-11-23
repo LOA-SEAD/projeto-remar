@@ -23,7 +23,7 @@ class UserController {
     def springSecurityService
     def grailsApplication
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", filteredList: "POST", userProfile:"POST"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", filteredList: "POST"]//, userProfile:"POST"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)

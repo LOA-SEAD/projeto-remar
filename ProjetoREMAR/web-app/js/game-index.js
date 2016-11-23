@@ -325,7 +325,7 @@ $(".user-profile").click(function() {
     var id = $(this).attr("id").substr(8);
     var url = location.origin + "/user/profile/" + id;
     $.ajax({
-        type: 'POST',
+        type: 'GET',
         url:  url,
         data: null,
         processData: false,
