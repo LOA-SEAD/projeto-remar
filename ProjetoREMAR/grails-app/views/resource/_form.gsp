@@ -55,7 +55,14 @@
 			</div>
 		</div>
 	</div>
-
+	<div class="row">
+		<div>
+			<p>
+				<input class="filled-in" type="checkbox" name="shareable" id="shareable" />
+				<label style="font-size: 1.2em" for="shareable">Deseja habilitar o compartilhamento e acompanhamento em grupos?</label>
+			</p>
+		</div>
+	</div>
 	<!-- Imagens -->
 	<div class="row">
 		<div class="col s4 m4 l4 img-preview">

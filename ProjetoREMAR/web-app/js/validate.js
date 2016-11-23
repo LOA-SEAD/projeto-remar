@@ -12,16 +12,6 @@ function validateSubmit(){
     var customizableErr = $("#customizableItems-error");
 
 
-
-    //if(name==null || name == "") {
-    //    alert("O campo Nome do Jogo é obrigatório.");
-    //}
-    //else{
-    //    if(description==null || description==""){
-    //        alert("O campo Textarea é obrigatório.");
-    //    }
-    //    else{
-
     if($(name).val()==null || $(name).val() == "") {
         $(nameErr).show(500);
         $(name).prev().hide();
@@ -67,6 +57,10 @@ function validateSubmit(){
                 formData.append('img2',$("#img2Preview").attr("src"));
                 formData.append('img3',$("#img3Preview").attr("src"));
                 formData.append('category', $("select").val());
+                if($('#shareable').is(':checked'))
+                    formData.append('shareable', 'yes');
+                else
+                    formData.append('shareable', 'no');
 
 
                 $.ajax({

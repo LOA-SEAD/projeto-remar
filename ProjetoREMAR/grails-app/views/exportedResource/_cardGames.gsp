@@ -8,7 +8,7 @@
             <g:each in="${publicExportedResourcesList}" var="instance">
                 <div class="col l3 s5">
                     <div class="card hoverable">
-                        <div class="card-image waves-effect waves-block waves-light">
+                        <div class="card-image waves-effect waves-light">
                             <img alt="${instance.name}" class="activator" src="/published/${instance.processId}/banner.png">
                         </div>
                         <div class="card-content">

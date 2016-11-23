@@ -40,6 +40,9 @@ class ResourceController {
         def path = new File(servletContext.getRealPath("/data/resources/assets/${instance.uri}"))
         path.mkdirs()
 
+        if(params.shareable == "yes")
+            instance.shareable = true;
+
         if (params.img1 != null && params.img1 != "") {
             log.debug("entrou img1" + params.img1)
             def img1 = new File(servletContext.getRealPath("${params.img1}"))
@@ -337,16 +340,16 @@ class ResourceController {
         model.max = params.max
         model.threshold = threshold
 
-        model.gameInstanceList = Resource.findAllByStatus('approved',params) // change to #findAllByActive?
+        model.resourceInstanceList = Resource.findAllByStatus('approved',params) // change to #findAllByActive?
 
-        model.pageCount = Math.ceil(model.gameInstanceList.size() / params.max) as int
+        model.pageCount = Math.ceil(model.resourceInstanceList.size() / params.max) as int
         model.currentPage = (params.offset + threshold) / threshold
         model.hasNextPage = params.offset + threshold < model.instanceCount
         model.hasPreviousPage = params.offset > 0
 
         model.categories = Category.list(sort:"name")
 
-        log.debug(model.gameInstanceList.size())
+        log.debug(model.resourceInstanceList.size())
 
         render view: "customizableGames", model: model
     }
@@ -369,16 +372,16 @@ class ResourceController {
         log.debug("type: " + params.typeSearch)
         log.debug("text: " +params.text)
 
-        model.gameInstanceList = null
+        model.resourceInstanceList = null
 
         if(params.category.equals("-1")){ // busca pelo nome
-            model.gameInstanceList = Resource.findAllByStatusAndNameIlike('approved', "%${params.text}%",params)
+            model.resourceInstanceList = Resource.findAllByStatusAndNameIlike('approved', "%${params.text}%",params)
             maxInstances = Resource.findAllByStatusAndNameIlike('approved', "%${params.text}%").size()
         }
         else{
             Category c = Category.findById(params.category)
-            model.gameInstanceList = Resource.findAllByCategoryAndNameIlike(c, "%${params.text}%" ,params)
-            maxInstances = model.gameInstanceList.size()
+            model.resourceInstanceList = Resource.findAllByCategoryAndNameIlike(c, "%${params.text}%" ,params)
+            maxInstances = model.resourceInstanceList.size()
         }
 
         model.pageCount = Math.ceil(maxInstances / params.max) as int
@@ -386,7 +389,7 @@ class ResourceController {
         model.hasNextPage = params.offset + threshold < model.instanceCount
         model.hasPreviousPage = params.offset > 0
 
-        log.debug(model.gameInstanceList.size())
+        log.debug(model.resourceInstanceList.size())
 
         render view: "_custCards", model: model
     }

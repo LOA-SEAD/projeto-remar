@@ -42,11 +42,6 @@
 												<div class="row">
 													<div class="col s12 m12 l12">
 															<p> <i  class="material-icons tooltipped cursor-pointer" data-tooltip="Mais informações" onclick="openThisModal('modalShareAsLike')">info</i> Permitir que adaptações do seu trabalho sejam compartilhadas?</p>
-															%{--<input onclick="checkAsLike()" onchange="bloqCheck()" readonly="readonly"  class="with-gap" name="shareLicense" type="radio" id="shareYes"/>--}%
-															%{--<label for="shareYes">Sim</label>--}%
-															%{--<input onclick="checkAsLike()" onchange="bloqCheck()" readonly="readonly" class="with-gap" name="shareLicense" type="radio" id="shareNo"/>--}%
-															%{--<label for="shareNo">Não</label>--}%
-															%{--<br>--}%
 														<input readonly class="with-gap" checked="checked" name="shareLicense" type="radio" id="shareYesAsLike"/>
 														<label for="shareYesAsLike">Sim, desde que outros compartilhem igual  <span class="required-indicator">*</span> </label>
 													</div>
@@ -122,17 +117,6 @@
 	<div id="modalShareAsLike" class="modal">
 		<div class="modal-content">
 			<h4>Permitir que adaptações do seu trabalho sejam compartilhadas?</h4>
-			%{--<div class="row">--}%
-				%{--<div class="col s6 m6 l6 license">--}%
-					%{--<h5>Sim</h5>--}%
-					%{--<p align="justify">O licenciante autoriza que outros copiem, distribuam, exibam e executem o trabalho, bem como façam e distribuam trabalhos derivados baseados nele.</p>--}%
-				%{--</div>--}%
-				%{--<div class="col s6 m6 l6 license">--}%
-					%{--<h5>Não</h5>--}%
-					%{--<p align="justify">O licenciante autoriza que outros copiem, distribuam, exibam e executem o trabalho, mas não que distribuam trabalhos derivados baseados nele.</p>--}%
-				%{--</div>--}%
-
-			%{--</div>--}%
 			<div class="row">
 				<div class="col s12 m12 l12 license">
 					<h5 align="left">Sim, desde que os outros compartilhem igual</h5>

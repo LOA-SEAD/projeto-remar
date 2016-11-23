@@ -1,6 +1,8 @@
 <%@ page import="br.ufscar.sead.loa.santograu.remar.FaseTecnologia" %>
 
-
+	<div style="margin-bottom: 15px; color:#333333">
+		Insira abaixo um link multimídia que forneça conteúdo didático para o jogador responder ao desafio dessa fase.
+	</div>
 	<div class="fieldcontain ${hasErrors(bean: faseTecnologiaInstance, field: 'link', 'error')} required">
 		<label for="link">
 			<g:message code="faseTecnologia.link.label" default="Link: " />
@@ -10,7 +12,7 @@
 
 	</div>
 
-	<div class="fieldcontain ${hasErrors(bean: faseTecnologiaInstance, field: 'tipoLink', 'error')} required">
+	<div class="fieldcontain ${hasErrors(bean: faseTecnologiaInstance, field: 'tipoLink', 'error')} required" style="overflow:auto">
 		<label for="tipoLink">
 			<g:message code="faseTecnologia.tipoLink.label" default="Tipo Link: " />
 			<span class="required-indicator">*</span>
@@ -32,6 +34,9 @@
 		</div>
 	</div>
 
+	<div style="margin-top:45px; margin-bottom: 20px; color:#333333">
+		Adicione abaixo três palavras relacionadas ao conteúdo multimídia para o jogador decifrar (o jogo irá embaralhá-las automaticamente).
+	</div>
 	<div class="fieldcontain ${hasErrors(bean: faseTecnologiaInstance, field: 'palavras1', 'error')} required">
 		<label for="palavras1">
 			<g:message code="faseTecnologia.palavras1.label" default="Palavra 1: " />
