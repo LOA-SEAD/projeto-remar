@@ -17,6 +17,7 @@ class Resource {
         height nullable: true
         description nullable: true, maxSize: 1000
         documentation nullable: true
+        videoLink nullable: true
         pending nullable: true
         sumStars nullable: false
         sumUser nullable: false
@@ -52,6 +53,7 @@ class Resource {
     int height
 
     String description
+    String videoLink
     boolean pending
     String license
     String documentation

@@ -51,6 +51,7 @@ function validateSubmit(){
                 formData.append('description', document.getElementById("description").value);
                 formData.append('documentation', document.getElementById("documentation").value);
                 formData.append('customizableItems', document.getElementById("customizableItems").value);
+                formData.append('videoLink', document.getElementById("videoLink").value);
 
 
                 formData.append('img1',$("#img1Preview").attr("src"));
