@@ -60,7 +60,6 @@
         </section> <!-- finished processes-->
     </div>
 </div>
-
 <div id="userDetailsModal" class="modal" style="width:40%">
     <div class="modal-content">
     </div>

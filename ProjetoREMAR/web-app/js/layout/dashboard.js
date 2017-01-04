@@ -106,3 +106,4 @@ $(".user-profile").click(function() {
       }
    });
 });
+

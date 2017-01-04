@@ -148,3 +148,4 @@ $(".user-profile").click(function() {
         }
     });
 });
+

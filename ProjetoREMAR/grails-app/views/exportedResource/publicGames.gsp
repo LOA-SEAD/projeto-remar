@@ -47,7 +47,6 @@
         <g:render template="cardGames" model="${pageScope.variables}" />
     </div>
 </div>
-
 <div id="userDetailsModal" class="modal" style="width:40%">
     <div class="modal-content">
     </div>
@@ -55,7 +54,6 @@
         <button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
     </div>
 </div>
-
 <script>
     $(document).ready(function(){
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered

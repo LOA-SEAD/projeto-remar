@@ -140,3 +140,4 @@ $(".user-profile").click(function() {
         }
     });
 });
+

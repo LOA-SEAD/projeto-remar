@@ -318,7 +318,6 @@ $(function(){
         $(descErr).hide();
         $(desc).removeClass().addClass("materialize-textarea");
     });
-
 });
 
 $(".user-profile").click(function() {

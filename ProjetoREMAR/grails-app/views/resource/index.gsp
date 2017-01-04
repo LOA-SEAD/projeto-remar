@@ -52,7 +52,6 @@
             <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">ok</a>
         </div>
     </div>
-
     <div id="userDetailsModal" class="modal" style="width:40%">
         <div class="modal-content">
         </div>
@@ -60,7 +59,6 @@
             <button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
         </div>
     </div>
-
     <g:javascript src="game-index.js"/>
 </body>
 </html>
