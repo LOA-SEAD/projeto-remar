@@ -30,6 +30,14 @@
 	<div class="row">
 		<div class="input-field col s12">
 			<i class="material-icons suffix green-text active">done</i>
+			<input value="${resourceInstance?.videoLink}" id="videoLink" type="text" class="validate" required name="videoLink">
+			<label for="videoLink">Link de Video Tutorial</label>
+			<span id="videoLink-error" class="invalid-input" style="left: 0.75rem">Este campo não pode ser vazio!</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="input-field col s12">
+			<i class="material-icons suffix green-text active">done</i>
 			<input value="${resourceInstance?.documentation}" id="documentation" type="text" class="validate" required name="documentation">
 			<label for="documentation">Documentação</label>
 			<span id="documentation-error" class="invalid-input" style="left: 0.75rem">Este campo não pode ser vazio!</span>

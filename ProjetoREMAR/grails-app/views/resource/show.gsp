@@ -105,6 +105,11 @@
                     </div>
                 </div>
 				<div class="row">
+					<div class="col s12 m12 l12">
+						<p><b>Vídeo Tutorial:</b><a target="_blank" href="${resourceInstance.videoLink}"> Clique aqui</a> </p>
+					</div>
+				</div>
+				<div class="row">
 					<div class="col s12 m12 l12" id="documentation">
 						<p><b>Documentação do modelo:</b><a target="_blank" href="${resourceInstance.documentation}"> ${resourceInstance.name}</a> </p>
 					</div>
