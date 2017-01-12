@@ -1,5 +1,17 @@
 <%@ page import="br.ufscar.sead.loa.santograu.remar.FaseTecnologia" %>
 
+	<div style="margin-top:-20px; margin-bottom: 30px; color:#333333">
+		Nesta fase é possível utilizar um conteúdo multimídia (vídeo do Youtube) para auxiliar o jogador a realizar a tarefa de descobrir
+		3 palavras-chaves necessárias para destrancar a porta. Se desejar, acesse o <a href="https://goo.gl/TPIINh" target="_blank">tutorial</a> para customizar essa fase.
+		<center>
+		<div style="margin-top:20px">
+			<img src="https://files.readme.io/6a10415-sala_tecno.jpg"
+				 style="width:400px;margin-right:30px"/>
+			<img src="https://files.readme.io/cb630fb-cdigo_sala_tecno.jpg"
+				 style="width:400px"/>
+		</div>
+		</center>
+	</div>
 	<div style="margin-bottom: 15px; color:#333333">
 		Insira abaixo um link multimídia que forneça conteúdo didático para o jogador responder ao desafio dessa fase.
 	</div>

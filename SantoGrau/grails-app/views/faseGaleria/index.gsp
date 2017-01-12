@@ -18,8 +18,17 @@
 	<div class="row">
 		<div id="myForm" class="col s12" enctype="multipart/form-data">
 			<div class="row">
-				<div style=" margin-bottom: 20px; color:#333333">
-					Selecione ou adicione um novo tema com imagens ordenadas (o jogo será responsável por embaralhá-las) e forneça no campo “Orientação” uma dica.
+				<div style="margin-top:-20px; margin-bottom: 20px; color:#333333">
+					Selecione ou adicione um novo tema com imagens ordenadas (o jogo será responsável por embaralhá-las) e forneça no
+					campo “Orientação” uma dica. Se desejar, acesse o <a href="https://goo.gl/gfj1AQ" target="_blank">tutorial</a> para customizar essa fase.
+					<center>
+						<div style="margin-top:20px">
+							<img src="https://files.readme.io/53ace4c-galerias_2.jpg"
+								 style="width:400px;margin-right:30px"/>
+							<img src="https://files.readme.io/d6bea0c-GALERIAS.jpg"
+								 style="width:400px"/>
+						</div>
+					</center>
 				</div>
 				<div class="fieldcontain required">
 					<label for="orientacao">

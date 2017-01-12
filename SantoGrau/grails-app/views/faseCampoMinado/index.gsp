@@ -17,7 +17,16 @@
 			</p>
 		</div>
 		<div class="row">
-			<div style=" margin-bottom: 20px; color:#333333">
+			<div style=" margin-bottom: 10px; color:#333333">
+				Etapa em que o jogador se depara com um campo minado (pontes) dividido em 4 colunas e 5 fileiras com espaços demarcados como A, B, C, D e E.
+				O desafio desta etapa consiste em o jogador pisar no espaço correspondente à alternativa que considera a correta para cada uma das questões
+				que aparecem na tela. Se desejar, acesse o <a href="https://goo.gl/sTbtFX" target="_blank">tutorial</a> para customizar essa fase.
+				<center>
+					<div style="margin-top:20px;margin-bottom:15px">
+						<img src="https://files.readme.io/617b2c1-campo_minado2.jpg"
+							 style="width:400px"/>
+					</div>
+				</center>
 				Selecione no mínimo 4 perguntas, com 5 alternativas cada (caso forneça mais de 4 questões, o jogo escolherá 4 aleatoriamente).
 			</div>
 			<div id="chooseQuestion" class="col s12 m12 l12">

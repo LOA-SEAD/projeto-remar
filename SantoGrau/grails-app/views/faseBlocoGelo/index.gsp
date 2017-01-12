@@ -19,7 +19,17 @@
 			</p>
 		</div>
 		<div class="row">
-			<div style=" margin-bottom: 20px; color:#333333">
+			<div style=" margin-bottom: 10px; color:#333333">
+				Nesta fase o jogador precisa interagir com 3 blocos que estão espalhados e deslizando por uma pista de gelo.
+				Cada bloco (1, 2 e 3) representa uma alternativa correspondente à questão customizada e o jogador deverá pegar aquele
+				que considerar a resposta certa. Se desejar, acesse o
+				<a href="https://goo.gl/i7Yt2Z" target="_blank">tutorial</a> para customizar essa fase.
+				<center>
+					<div style="margin-top:20px;margin-bottom:10px">
+						<img src="https://files.readme.io/cd9e86a-gelo.jpg"
+							 style="width:400px"/>
+					</div>
+				</center>
 				Selecione no mínimo 3 perguntas, com 3 alternativas cada (caso forneça mais de 3 questões, o jogo escolherá 3 aleatoriamente).
 			</div>
 			<div id="chooseQuestion" class="col s12 m12 l12">

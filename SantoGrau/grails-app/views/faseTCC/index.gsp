@@ -17,7 +17,16 @@
 			</p>
 		</div>
 		<div class="row">
-			<div style=" margin-bottom: 20px; color:#333333">
+			<div style=" margin-bottom: 10px; color:#333333">
+				A mecânica desta fase ocorre com o temido monstro TCC atirando projéteis no jogador, o qual precisa se esquivar ao mesmo tempo que responde
+				a 5 questões com suas alternativas demarcadas pelo cenário (A, B, C, D e E). Se desejar, acesse o <a href="https://goo.gl/OSNxGT" target="_blank">
+				tutorial</a> para customizar essa fase.
+				<center>
+					<div style="margin-top:20px;margin-bottom:10px">
+						<img src="https://files.readme.io/0fb9bf0-tcc.jpg"
+							 style="width:400px"/>
+					</div>
+				</center>
 				Selecione no mínimo 5 perguntas, com 5 alternativas cada (caso forneça mais de 5 questões, o jogo escolherá 5 aleatoriamente).
 			</div>
 			<div id="chooseQuestion" class="col s12 m12 l12">
