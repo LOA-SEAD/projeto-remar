@@ -1,0 +1,23 @@
+version: '1'
+services:
+  mysql:
+    image: 'mysql'
+  mongodb:
+    image: 'mongo'
+  remar:
+    image: 'lucasaciole/projeto-remar'
+    ports:
+      - '8081:80'
+      - '443:443'
+    volumes:
+      - 'code:code'
+    depends_on:
+      - mysql
+      - mongodb
+volumes:
+  mongo_data:
+    driver: local
+  mysql_data:
+    driver: local
+  remar_data:
+    driver: local
