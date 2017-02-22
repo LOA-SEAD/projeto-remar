@@ -34,6 +34,13 @@ window.onload = function() {
                     },
                     error: function (returndata) {
                         alert("Error:\n" + returndata.responseText);
+                        if(returndata.status == 401) {
+                            var url = document.referrer;
+                            //url = url.substr(0,url.indexOf('/',7))
+                            window.top.location.href = url //+ "/login/auth"
+                        } else {
+                            alert("Error:\n" + returndata.responseText);
+                        }
                     }
                 });
             } else {
