@@ -1,3 +1,7 @@
+../
 .idea/
 target/
 .slcache/
+out/
+test/
+web-app/WEB-INF/
