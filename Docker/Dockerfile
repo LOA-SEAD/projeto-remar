@@ -6,10 +6,10 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
 RUN apt-get update && apt-get install -y \
 			ant \
 			curl \
-			git \
 			nano \  
 			nodejs \
 			telnet \
+			tomcat8 \
 			vim \
 			wget \
 			zip
@@ -20,5 +20,22 @@ RUN mkdir /usr/lib/grails
 WORKDIR /usr/lib/grails
 RUN wget http://dist.springframework.org.s3.amazonaws.com/release/GRAILS/grails-2.4.5.zip
 RUN unzip grails-2.4.5.zip && rm grails-2.4.5.zip
+
 ENV GRAILS_HOME /usr/lib/grails/grails-2.3.8/
 ENV PATH $PATH:$GRAILS_HOME/bin
+
+WORKDIR /dev-tools
+RUN wget https://dl.google.com/android/android-sdk_r24.4.1-linux.tgz && \
+	tar -zxvf android-sdk_r24.4.1-linux.tgz && \
+	mv android-sdk-linux/ android && rm android-sdk_r24.4.1-linux.tgz && \
+	(echo y | android/tools/android update sdk --no-ui --filter tools) && \
+	(echo y | android/tools/android update sdk --no-ui --filter platform-tools) && \
+	(echo y | android/tools/android update sdk --no-ui --filter build-tools-25.0.2,android-22)
+WORKDIR android/build-tools
+RUN ln -s 25.0.2 current
+
+WORKDIR /dev-tools
+RUN wget https://download.01.org/crosswalk/releases/crosswalk/android/stable/12.41.296.9/crosswalk-12.41.296.9.zip && \
+	unzip crosswalk-12.41.296.9.zip && \
+	mv crosswalk-12.41.296.9 crosswalk && rm crosswalk-12.41.296.9.zip && \
+	chmod +x crosswalk/make_apk.py
