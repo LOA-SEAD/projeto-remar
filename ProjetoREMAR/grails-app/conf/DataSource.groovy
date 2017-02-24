@@ -1,7 +1,7 @@
 dataSource {
     pooled = true
     jmxExport = true
-    driverClassName = "com.mysql.jdbc.Driver"
+    driverClassName = "org.mariadb.jdbc.Driver"
     dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
 }
 hibernate {
@@ -14,23 +14,23 @@ hibernate {
 }
 
 // environment specific settings
-environments {
+environments {''
     development {
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate'
-            url = "jdbc:mysql://localhost/remar"
+            url = "jdbc:mariadb://localhost:3306/remar"
         }
     }
     test {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:mysql://localhost/remar"
+            url = "jdbc:mariadb://localhost:3306/remar"
         }
     }
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:mysql://localhost/remar"
+            url = "jdbc:mariadb://localhost:3306/remar"
             //noinspection GroovyAssignabilityCheck
             username = "root"
             password = "3wJBssW0tAtadw0HjPD3"

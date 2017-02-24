@@ -47,6 +47,7 @@ grails.project.dependency.resolution = {
 
     dependencies {
         runtime 'mysql:mysql-connector-java:5.1.29'
+        runtime 'org.mariadb.jdbc:mariadb-java-client:1.5.0-RC1'
         // test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
         compile 'org.apache.ant:ant:1.9.6'
         compile 'org.apache.ant:ant-launcher:1.9.6'
