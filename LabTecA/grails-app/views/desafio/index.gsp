@@ -8,6 +8,7 @@
 	<g:set var="entityName" value="${message(code: 'desafio.label', default: 'Desafio')}" />
 	<title><g:message code="default.list.label" args="[entityName]" /></title>
 	<g:external dir="css" file="desafio.css"/>
+
 </head>
 
 <body>
@@ -47,9 +48,9 @@
 	</div>
 </div>
 
-	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<g:javascript src="iframeResizer.contentWindow.min.js"/>
-	<g:javascript src="desafio.js" />
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<g:javascript src="iframeResizer.contentWindow.min.js"/>
+<g:javascript src="desafio.js" />
 
 </body>
 </html>
