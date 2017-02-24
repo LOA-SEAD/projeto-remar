@@ -1,23 +1,35 @@
-version: '1'
+version: '2'
 services:
   mysql:
-    image: 'mysql'
+    image: 'mariadb'
+    restart: always
+    volumes:
+      - 'mysql-data:/var/lib/mysql'
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: remar
+    ports:
+      - '3306:3306'
   mongodb:
     image: 'mongo'
+    volumes: 
+      - 'mongo-data:/var/lib/mongo'
   remar:
-    image: 'lucasaciole/projeto-remar'
+    build: .
+    restart: always
     ports:
-      - '8081:80'
-      - '443:443'
+      - '8080:80'
     volumes:
-      - 'code:code'
-    depends_on:
+      - '~/volume_docker_remar:/war-dir'
+    links:
       - mysql
       - mongodb
+    tty: true
 volumes:
-  mongo_data:
-    driver: local
-  mysql_data:
-    driver: local
-  remar_data:
-    driver: local
+  mongo-data:
+    driver: convoy
+  mysql-data:
+    driver: convoy
+  remar-data:
+    driver: convoy
