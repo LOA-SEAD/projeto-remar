@@ -5,16 +5,15 @@
 		<g:set var="entityName" value="${message(code: 'composto.label', default: 'Composto')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
+
 	<body>
-		<a href="#create-composto" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
 		<div id="create-composto" class="content scaffold-create" role="main">
-			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
+			<div class="cluster-header">
+				<p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
+					<i class="small material-icons left">grid_on</i>Criação de Composto
+				</p>
+			</div>
+
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
@@ -29,8 +28,12 @@
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>
-				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+				<fieldset class="buttons" style="border:none">
+					<div class="buttons col s1 m1 l1 offset-s8 offset-m10 offset-l10" style="margin-top:0px">
+						<button class="btn waves-effect waves-light my-orange" type="submit" name="save" class="save" id="submitButton">
+							Criar
+						</button>
+					</div>
 				</fieldset>
 			</g:form>
 		</div>

@@ -20,7 +20,7 @@
 	<body>
 	<div class="cluster-header">
 		<p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-			<i class="small material-icons left">grid_on</i>Customização - Anotação
+			<i class="small material-icons left">grid_on</i>Criação de Anotação
 		</p>
 	</div>
 
@@ -56,9 +56,5 @@
 		</div>
 	</body>
 </html>
-
-<textarea id="informacao" class="materialize-textarea"  style="margin-bottom: -30px"
-          name="title" required="" class="validate" length="1000" maxlength="1000"></textarea>
-
 
 
