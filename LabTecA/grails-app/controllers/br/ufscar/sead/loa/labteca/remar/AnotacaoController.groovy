@@ -20,7 +20,7 @@ class AnotacaoController {
         respond anotacaoInstance
     }
 
-    def create() {t
+    def create() {
         respond new Anotacao(params)
     }
 
