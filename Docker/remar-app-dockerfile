@@ -38,3 +38,5 @@ RUN wget https://download.01.org/crosswalk/releases/crosswalk/android/stable/12.
 	unzip crosswalk-12.41.296.9.zip && \
 	mv crosswalk-12.41.296.9 crosswalk && rm crosswalk-12.41.296.9.zip && \
 	chmod +x crosswalk/make_apk.py
+
+RUN chown $(whoami) /dev-tools /usr/local/tomcat

@@ -1,0 +1,3 @@
+FROM mariadb
+
+RUN mysql -e 'CREATE DATABASE remar;CREATE DATABASE santograu;CREATE DATABASE forca;CREATE DATABASE escolamagica;CREATE DATABASE mahjong;CREATE DATABASE respondasepuder;'

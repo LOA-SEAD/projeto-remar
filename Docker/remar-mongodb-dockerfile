@@ -1,0 +1,4 @@
+FROM mongo
+ENV MONGODB_PASSWORD=
+RUN mongo admin --eval "db.createUser({user: 'root', pwd: 'root', roles: [{role: 'root', db: 'admin'}]});"
+RUN sh -c '(echo "security:"; echo "  authorization: enabled";) >> /etc/mongod.conf'

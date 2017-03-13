@@ -1,7 +1,8 @@
 version: '2'
 services:
   mysql:
-    image: 'mariadb'
+    build: .
+    dockerfile: remar-mysql-dockerfile
     restart: always
     volumes:
       - 'mysql-data:/var/lib/mysql'
@@ -17,11 +18,12 @@ services:
       - 'mongo-data:/var/lib/mongo'
   remar:
     build: .
+    dockerfile: remar-app-dockerfile
     restart: always
     ports:
-      - '8080:80'
+      - '8080:8080'
     volumes:
-      - '~/volume_docker_remar:/war-dir'
+        - '~/volume_docker_remar:/usr/local/tomcat/webapps'
     links:
       - mysql
       - mongodb
