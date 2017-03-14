@@ -1,8 +1,9 @@
-version: '2'
+version: '3'
 services:
   mysql:
-    build: .
-    dockerfile: remar-mysql-dockerfile
+    build:
+      context: .
+      dockerfile: remar-mysql-dockerfile
     restart: always
     volumes:
       - 'mysql-data:/var/lib/mysql'
@@ -13,12 +14,16 @@ services:
     ports:
       - '3306:3306'
   mongodb:
+    build:
+      context: .
+      dockerfile: remar-mongodb-dockerfile
     image: 'mongo'
     volumes: 
       - 'mongo-data:/var/lib/mongo'
   remar:
-    build: .
-    dockerfile: remar-app-dockerfile
+    build: 
+      context: .
+      dockerfile: remar-app-dockerfile
     restart: always
     ports:
       - '8080:8080'
