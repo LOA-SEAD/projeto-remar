@@ -5,3 +5,4 @@ target/
 out/
 test/
 web-app/WEB-INF/
+grails-app/conf/env.properties
