@@ -142,15 +142,15 @@ class AnotacaoController {
     }
 
 
+
     @Secured(['permitAll'])
     def returnInstance(Anotacao anotacaoInstance){
         if (anotacaoInstance == null) {
-            //notFound()
+            notFound()
             render "null"
         }
         else{
-            render anotacaoInstance.informacao + "%@!" +
-                    questionFaseTCCInstance.id
+            render anotacaoInstance.informacao + "%@!" + anotacaoInstance.id
         }
 
     }

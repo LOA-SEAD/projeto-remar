@@ -93,7 +93,7 @@
 
                     <div id="editModal" class="modal">
                         <div class="modal-content">
-                            <h4>Editar Anotacao</h4>
+                            <h4>Edição de anotação</h4>
                             <div class="row">
                                 <g:form method="post" action="update" resource="${AnotacaoInstance}">
                                     <div class="row">
@@ -103,16 +103,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="input-field col s9">
-                                            <label id="labelAnotacao" class="active" for="editAnotacao0">Alternativa 1</label>
-                                            <input type="text" class="validate" id="editAnotacao0" name="anotacao1" required="" maxlength="15" length="15"/>
-                                        </div>
-                                        <div class="col s2">
-                                            <input type="radio" id="editRadio0" name="correctAnswer" value="0" checked="checked"/>
-                                            <label for="editRadio0">Alternativa correta</label>
-                                        </div>
-                                    </div>
 
                                     <input type="hidden" id="AnotacaoID" name="AnotacaoID">
                                     <div class="col l10">
@@ -138,6 +128,7 @@
                                                           </div>
                                                      <div class="row">
                                                           <div class="input-field col s12">
+                                                              <label id="labelInformacao" class="active" for="informacao">Anotação</label>
                                                               <textarea id="informacao" class="materialize-textarea"  style="margin-bottom: -30px" name="informacao" required="" class="validate" length="1000" maxlength="1000"></textarea>
                                                           </div>
                                                       </div>

@@ -18,6 +18,7 @@ window.onload = function(){
                 $(this).show();
         });
     });
+
 };
 
 
@@ -50,7 +51,7 @@ function uncheck_all(){
 }
 
 function _modal_edit(tr){
-    var url = location.origin + '/LabTecA/anotacao/returnInstance/' + $(tr).attr('data-id');
+    var url = location.origin + '/labteca/anotacao/returnInstance/' + $(tr).attr('data-id');
     var data = {_method: 'GET'};
 
     $.ajax({
@@ -68,10 +69,10 @@ function _modal_edit(tr){
                 $("#editAnotacao0").attr("value",anotacaoInstance[1]);
 
 
-                $("#AnotacaoID").attr("value",anotacaoInstance[2]);
+                $("#labelInformacao").attr("class","active");
+                $("#informacao").attr("value",anotacaoInstance[2]);
 
-                $("#informacao").attr("value",anotacaoInstance[3]);
-
+                $("#AnotacaoID").attr("value",anotacaoInstance[3]);
                 $("#editModal").openModal();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -166,7 +167,7 @@ function _submit() {
     var list_id = [];
 
     //checa se o usuario selecionou pelo menos 5 questoes
-    if($("input[type=checkbox]:checked").size() < 5) {
+    if($("input[type=checkbox]:checked").size() < 1) {
         $("#errorSaveModal").openModal();
     } else {
         //cria uma lista com os ids de cada questao selecionada
