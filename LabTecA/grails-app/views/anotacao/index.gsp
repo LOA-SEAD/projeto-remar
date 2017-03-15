@@ -53,16 +53,15 @@
                                 </thead>
 
                                 <tbody>
-                                <g:each in="${anotacaoAnotacaoInstanceList}" status="i" var="anotacaoAnotacaoInstance">
-                                    <tr id="tr${anotacaoAnotacaoInstance.id}" class="selectable_tr" style="cursor: pointer;"
-                                        data-id="${fieldValue(bean: anotacaoAnotacaoInstance, field: "id")}" data-owner-id="${fieldValue(bean: anotacaoAnotacaoInstance, field: "ownerId")}"
+                                <g:each in="${anotacaoInstanceList}" status="i" var="anotacaoInstance">
+                                    <tr id="tr${anotacaoInstance.id}" class="selectable_tr" style="cursor: pointer;"
+                                        data-id="${fieldValue(bean: anotacaoInstance, field: "id")}" data-owner-id="${fieldValue(bean: anotacaoInstance, field: "ownerId")}"
                                         data-checked="false">
                                         <td class="_not_editable">
-                                            <input style="background-color: #727272" id="checkbox-${anotacaoAnotacaoInstance.id}" class="filled-in" type="checkbox">
-                                            <label for="checkbox-${anotacaoAnotacaoInstance.id}"></label>
+                                            <input style="background-color: #727272" id="checkbox-${anotacaoInstance.id}" class="filled-in" type="checkbox">
+                                            <label for="checkbox-${anotacaoInstance.id}"></label>
                                         </td>
-                                        <td>${fieldValue(bean: anotacaoAnotacaoInstance, field: "anotacao")}</td>
-                                       <!-- <td>${anotacaoAnotacaoInstance.answers[anotacaoAnotacaoInstance.correctAnswer]}</td> -->
+                                        <td>${fieldValue(bean: anotacaoInstance, field: "informacao")}</td>
                                         <td> <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil " onclick="_modal_edit($(this.closest('tr')))" ></i>
                                         </td>
                                     </tr>
@@ -129,17 +128,27 @@
                         <div class="modal-content">
                             <h4>Criar Anotação</h4>
                             <div class="row">
-                                <g:form action="save" resource="${AnotacaoInstance}">
-                                    <div class="row">
-                                        <div class="input-field col s12">
-                                            <label id="labelTitleCreate" class="active" for="editTitleCreate">Anotacao</label>
-                                            <input id="editTitleCreate" name="title" required=""  type="text" class="validate" length="95" maxlength="95">
-                                        </div>
-                                    </div>
-                                    <div class="col l10">
-                                        <g:submitButton name="create" class="btn btn-success btn-lg my-orange" value="Criar" />
-                                    </div>
-                                </g:form>
+                                <div id="create-anotacao" class="content scaffold-create" role="main">
+                                    <g:form url="[resource:anotacaoInstance, action:'save']" >
+                                        <form class="col s12">
+                                              <fieldset class="form"  style="border:none"  >
+                                                    <div class="row">
+                                                        <div class="input-field col s12">
+                                                            <span id="anot">Insira o passo a passo* </span>
+                                                          </div>
+                                                     <div class="row">
+                                                          <div class="input-field col s12">
+                                                              <textarea id="informacao" class="materialize-textarea"  style="margin-bottom: -30px" name="informacao" required="" class="validate" length="1000" maxlength="1000"></textarea>
+                                                          </div>
+                                                      </div>
+                                                    </div>
+                                              </fieldset>
+                                            <div class="col l10">
+                                                <g:submitButton name="create" class="btn btn-success btn-lg my-orange" value="Criar" />
+                                            </div>
+                                        </form>
+                                    </g:form>
+                                </div>
                             </div>
                         </div>
                     </div>

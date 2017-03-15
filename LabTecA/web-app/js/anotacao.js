@@ -60,29 +60,18 @@ function _modal_edit(tr){
             success: function (returndata) {
                 var anotacaoInstance = returndata.split("%@!");
 
-/*                switch(faseTCCInstance[2]){
-                    case '0':
-                        $("#editRadio0").attr("checked","checked");
-                        break;
-                    case '1':
-                        $("#editRadio1").attr("checked","checked");
-                        break;
-                    case '2':
-                        $("#editRadio2").attr("checked","checked");
-                        break;
-                    case '3':
-                        $("#editRadio3").attr("checked","checked");
-                        break;
-                    case '4':
-                        $("#editRadio4").attr("checked","checked");
-                        break;
-                    default :
-                        console.log("Alternativa correta inválida");
-                }*/
                 $("#editTitle").attr("value",anotacaoInstance[0]);
                 $("#labelTitle").attr("class","active");
+
+
                 $("#labelAnotacao").attr("class","active");
-                $("#anotacaoID").attr("value",anotacaoInstance[1]);
+                $("#editAnotacao0").attr("value",anotacaoInstance[1]);
+
+
+                $("#AnotacaoID").attr("value",anotacaoInstance[2]);
+
+                $("#informacao").attr("value",anotacaoInstance[3]);
+
                 $("#editModal").openModal();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {

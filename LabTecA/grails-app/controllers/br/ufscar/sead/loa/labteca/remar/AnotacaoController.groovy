@@ -37,6 +37,10 @@ class AnotacaoController {
             session.processId = params.p
         }
         session.user = springSecurityService.currentUser
+
+       def list = Anotacao.findAllByOwnerId(session.user.id)
+        println list
+        respond list, model: [AnotacaoInstanceCount: Anotacao.count(), errorImportQuestions:params.errorImportQuestions]
     }
 
     def show(Anotacao anotacaoInstance) {
@@ -91,9 +95,9 @@ class AnotacaoController {
             render anotacaoInstance.errors;
             return
         }
-        anotacaoInstance.answers[0]= params.informacao
+      //anotacaoInstance.informacao[0]= params.informacao
         anotacaoInstance.ownerId = session.user.id as long
-        anotacaoInstance.taskId = session.taskId as String
+      // anotacaoInstance.taskId = session.taskId as String
         anotacaoInstance.save flush:true
 
         redirect(action: "index")
@@ -107,8 +111,8 @@ class AnotacaoController {
     def update() {
         Anotacao anotacaoInstance = Anotacao.findById(Integer.parseInt(params.anotacaoID))
         anotacaoInstance.informacao = params.informacao
-        questionFaseTCCInstance.ownerId = session.user.id as long
-        questionFaseTCCInstance.taskId = session.taskId as String
+        anotacaoInstance.ownerId = session.user.id as long
+        anotacaoInstance.taskId = session.taskId as String
         anotacaoInstance.save flush:true
 
         redirect action: "index"
@@ -138,19 +142,17 @@ class AnotacaoController {
     }
 
 
-
-
+    @Secured(['permitAll'])
     def returnInstance(Anotacao anotacaoInstance){
-
         if (anotacaoInstance == null) {
-            notFound()
+            //notFound()
+            render "null"
         }
         else{
-            render anotacaoInstance.anotacao + "%@!" +
-                    anotacaoInstance.ownerId + "%@!" +
-                    anotacaoInstance.taskId + "%@!" +
-                    anotacaoInstance.id
+            render anotacaoInstance.informacao + "%@!" +
+                    questionFaseTCCInstance.id
         }
+
     }
 
 }
