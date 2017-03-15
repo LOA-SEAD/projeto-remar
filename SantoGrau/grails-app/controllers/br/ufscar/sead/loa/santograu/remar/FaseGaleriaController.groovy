@@ -11,7 +11,11 @@ import grails.util.Environment
 import groovy.json.JsonSlurper
 import javax.imageio.ImageIO
 
+@Transactional(readOnly = true)
+
 @Secured(["isAuthenticated()"])
+
+
 class FaseGaleriaController {
     def springSecurityService
 

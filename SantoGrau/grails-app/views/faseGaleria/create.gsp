@@ -17,6 +17,11 @@
 				</p>
 			</div>
 
+
+
+
+
+
 			<g:uploadForm  method="POST" controller="design" action="imagesManager">
 				<input type="hidden" id="orientacao" name="orientacao" value="${orientacao}">
 				<div class="row">
@@ -142,8 +147,6 @@
 									</div>
 								</div>
 							</li>
-							
-
 						</ul>
 					</div>
 				</div>

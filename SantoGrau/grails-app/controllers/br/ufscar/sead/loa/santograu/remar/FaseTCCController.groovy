@@ -12,9 +12,7 @@ import grails.transaction.Transactional
 class FaseTCCController {
 
     def springSecurityService
-
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", returnInstance: "GET"]
-
     def beforeInterceptor = [action: this.&check, only: ['index', 'exportQuestions','save', 'update', 'delete']]
 
 

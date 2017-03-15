@@ -15,46 +15,42 @@
 	</head>
 
 
-
-
 	<body>
-	<div class="cluster-header">
-		<p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-			<i class="small material-icons left">grid_on</i>Criação de Anotação
-		</p>
-	</div>
-
-
-		<div id="create-anotacao" class="content scaffold-create" role="main">
-
-			<g:form url="[resource:anotacaoInstance, action:'save']" >
-                <form class="col s12">
-                    <fieldset class="form"  style="border:none"  >
-                        <div class="row">
+        <g:uploadForm  method="POST" controller="design" action="imagesManager">
+            <input type="hidden" id="orientacao" name="orientacao" value="${orientacao}">
+            <form class="col s12">
+                 <fieldset class="form"  style="border:none"  >
+                    <div class="row">
+                        <div class="col s12">
+                            <ul class="collapsible" data-collapsible="accordion">
+                                <li>
+                                    <div class="collapsible-header active"><i class="material-icons">info</i>Informação sobre a criação da anotação</div>
+                                    <div class="collapsible-body">
+                                        <p class="justify-text">A anotação deve ser escrita que modo claro e objetivo.</p>
+                                    </div>
+                                </li>
+                            </ul>
                             <div class="input-field col s12">
                                 <span id="anot">Insira o passo a passo* </span>
-                            </div>
+                             </div>
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <!-- g:textField name="informacao" required="" value="${anotacaoInstance?.informacao}"/>-->
                                     <g:textArea name="informacao" required="" value="${anotacaoInstance?.informacao}"/>
                                 </div>
                             </div>
                         </div>
-                    </fieldset>
+                 </fieldset>
+        <%--<fieldset class="buttons" style="border:none">
+           <div class="buttons col s1 m1 l1 offset-s8 offset-m10 offset-l10" style="margin-top:0px">
+               <button class="btn waves-effect waves-light my-orange" type="submit" name="save" class="save" id="submitButton">
+                   Enviar
 
-                    <fieldset class="buttons" style="border:none">
-                        <div class="buttons col s1 m1 l1 offset-s8 offset-m10 offset-l10" style="margin-top:0px">
-                            <button class="btn waves-effect waves-light my-orange" type="submit" name="save" class="save" id="submitButton">
-                                Enviar
-                            </button>
-                        </div>
-                    </fieldset>
-                </form>
+               </button>
+           </div>
+       </fieldset> --%>
+            </form>
+        </g:uploadForm>
+        <input class="btn waves-effect waves-light my-orange"  type="submit" name="save" class="save" value="Criar" id="submitButton"/>
+    </body>
 
-            </g:form>
-		</div>
-	</body>
 </html>
-
-

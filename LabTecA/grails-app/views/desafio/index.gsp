@@ -32,9 +32,15 @@
 			</ul>
 		</g:hasErrors>
 		<g:form url="[resource:desafioInstance, action:'save']" >
+
+
+
 			<fieldset class="form" style="border:none">
 				<g:render template="form" except=""/>
 			</fieldset>
+
+
+
 			<!-- BOTÃO ENVIAR -->
 			<fieldset class="buttons" style="border:none">
 				<div class="buttons col s1 m1 l1 offset-s8 offset-m10 offset-l10" style="margin-top:20px">
