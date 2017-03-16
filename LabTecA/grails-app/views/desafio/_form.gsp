@@ -178,10 +178,10 @@
 <div id="desafio1-modal" class="modal">
 	<div class="modal-content">
 		<h4>Desafio 1</h4>
-		<p>A bunch of text</p>
+		<p>Nesse desafio, o jogador deve descobrir qual a classe do composto. O desafio não é editável pois a classe é resgatada automaticamente de nosso banco de dados, basta escolher o composto!</p>
 	</div>
-	<div class="modal-footer">
-		<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat my-orange">Agree</a>
+	<div class="modal-footer col s1 m1 l1 offset-s8 offset-m10 offset-l10">
+		<a href="#!" class=" btn modal-close waves-effect waves-light my-orange">OK</a>
 	</div>
 </div>
 
@@ -189,32 +189,32 @@
 <div id="desafio2-modal" class="modal">
 	<div class="modal-content">
 		<h4>Desafio 2</h4>
-		<p>A bunch of text</p>
+		<p>Nesse desafio, o jogador deve descobrir qual o composto, dizendo o nome e a fórmula dele. O desafio não é editável pois essas informações são resgatadas automaticamente de nosso banco de dados, basta escolher o composto!</p>
 	</div>
-	<div class="modal-footer">
-		<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat my-orange">Agree</a>
+	<div class="modal-footer col s1 m1 l1 offset-s8 offset-m10 offset-l10">
+		<a href="#!" class=" btn modal-close waves-effect waves-light my-orange">OK</a>
 	</div>
 </div>
 
-<!-- Modal Desafio 3 -->
+<!-- Modal Desafio 3 (OCULTO) -->
 <div id="desafio3-modal" class="modal">
 	<div class="modal-content">
 		<h4>Desafio 3</h4>
 		<p>A bunch of text</p>
 	</div>
-	<div class="modal-footer">
-		<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat my-orange">Agree</a>
+	<div class="modal-footer col s1 m1 l1 offset-s8 offset-m10 offset-l10">
+		<a href="#!" class=" btn modal-close waves-effect waves-light my-orange">OK</a>
 	</div>
 </div>
 
-<!-- Modal Desafio 4 -->
+<!-- Modal Desafio 4 (3) -->
 <div id="desafio4-modal" class="modal">
 	<div class="modal-content">
-		<h4>Desafio 4</h4>
-		<p>A bunch of text</p>
+		<h4>Desafio 3</h4>
+		<p>Nesse desafio, o jogador deve alterar a solução para atender as especificações inseridas (volume mínimo e molaridade).</p>
 	</div>
-	<div class="modal-footer">
-		<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat my-orange">Agree</a>
+	<div class="modal-footer col s1 m1 l1 offset-s8 offset-m10 offset-l10">
+		<a href="#!" class=" btn modal-close waves-effect waves-light my-orange">OK</a>
 	</div>
 </div>
 
@@ -223,8 +223,8 @@
 	<div class="modal-content">
 		Preencha todos os campos antes de finalizar a customização.
 	</div>
-	<div class="modal-footer">
-		<a href="#!" class=" modal-action modal-close btn waves-effect waves-light my-orange">Ok</a>
+	<div class="modal-footer col s1 m1 l1 offset-s8 offset-m10 offset-l10">
+		<a href="#!" class=" btn modal-close waves-effect waves-light my-orange">OK</a>
 	</div>
 </div>
 

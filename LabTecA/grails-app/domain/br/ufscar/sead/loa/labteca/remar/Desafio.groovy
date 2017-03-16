@@ -14,4 +14,8 @@ class Desafio {
     double volFinal         // Volume do composto na solução a ser feita pelo jogador
     double molInicial       // Molaridade do composto na solução dada pelo desafio
     double molFinal         // Molaridade do composto na solução a ser feita pelo jogador
+
+    String toString () {
+        return composto?.nome + ' ' + volInicial + ' ' + volFinal + ' ' + molInicial + ' ' + molFinal
+    }
 }

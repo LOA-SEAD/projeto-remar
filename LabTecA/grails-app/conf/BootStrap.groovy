@@ -24,7 +24,7 @@ class BootStrap {
         print "populando usuário admin -> ok"
         */
 
-        /*
+
         if (Composto.list().size() == 0) {
             def nacl = new Composto(nome: "Cloreto de Sódio", formula: "NaCl", tipo: Composto.SAL)
             nacl.save()
@@ -33,7 +33,7 @@ class BootStrap {
             }
         }
         print "populando compostos -> ok"
-        */
+
 
     }
     def destroy = {

@@ -5,12 +5,10 @@
 var isCollapsibleVisible = false;
 
 $(document).ready(function() {
-
     // Inicializações
     $('select').material_select();
     $('.collapsible').collapsible();
     $('.modal-trigger').leanModal();
-
 });
 
 
@@ -23,9 +21,9 @@ window.onload = function() {
             !isEmpty($('#molaridade-final').val())) {
 
             var compostoInstance = $('#composto').val();
-            var volumeInicial = $('#volume-inicial').val();
+            var volInicial = $('#volume-inicial').val();
             var molInicial = $('#molaridade-inicial').val();
-            var volumeFinal = $('#volume-final').val();
+            var volFinal = $('#volume-final').val();
             var molFinal = $('#molaridade-final').val();
 
             // Chama controlador para salvar o desafio em um arquivo .json e no banco de dados

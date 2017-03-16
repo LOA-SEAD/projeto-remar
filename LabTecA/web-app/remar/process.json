@@ -1,0 +1,49 @@
+{
+  "name": "LabTecA",
+  "uri": "labteca",
+  "version": 1,
+  "tasks": [
+    {
+      "name": "Desafio",
+      "uri": "desafio",
+      "optional": false,
+      "description": "Configurar um desafio.",
+      "type": "json_files",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "customPhase.json",
+          "type": "json",
+          "path": ""
+        },
+        {
+          "name": "journalItems0.json",
+          "type": "json",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "name": "Anotações",
+      "uri": "anotacao",
+      "optional": true,
+      "description": "Escrever anotações para auxílio do aluno.",
+      "type": "json",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "anotacoes.json",
+          "type": "json",
+          "path": ""
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    "web"
+  ],
+  "vars": {
+    "width": 1280,
+    "height": 720
+  }
+}

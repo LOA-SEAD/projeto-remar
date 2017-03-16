@@ -9,6 +9,7 @@ class Composto {
     public static final String ETC = "Etc"
 
     static constraints = {
+        nome (unique: true)
         formula (nullable: false)
         tipo (nullable: false, inList: [SAL, BASE, ACIDO, ORGANICO, ETC])
     }
