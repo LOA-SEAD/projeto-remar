@@ -1,4 +1,3 @@
-
 <%@ page import="br.ufscar.sead.loa.labteca.remar.Anotacao" %>
 <!DOCTYPE html>
 <html>
@@ -95,14 +94,13 @@
                         <div class="modal-content">
                             <h4>Edição de anotação</h4>
                             <div class="row">
-                                <g:form method="post" action="update" resource="${AnotacaoInstance}">
+                                <g:form method="PUT" action="update" resource="${AnotacaoInstance}">
                                     <div class="row">
                                         <div class="input-field col s12">
-                                            <label id="labelTitle" class="active" for="editTitle">Anotação</label>
-                                            <input id="editTitle" name="title" required=""  type="text" class="validate" length="95" maxlength="95">
+                                            <label id="labelAnotacao" class="active" for="editAnotacao">Anotação</label>
+                                            <input id="editAnotacao" name="anotacao" required=""  type="text" class="validate" length="95" maxlength="95">
                                         </div>
                                     </div>
-
 
                                     <input type="hidden" id="AnotacaoID" name="AnotacaoID">
                                     <div class="col l10">
@@ -147,10 +145,10 @@
 
                     <div id="deleteModal" class="modal">
                         <div class="modal-content">
-                            <div id="delete-one-anotacao">
+                            <div id="delete-one-question">
                                 Você tem certeza que deseja excluir essa anotação?
                             </div>
-                            <div id="delete-several-anotacao">
+                            <div id="delete-several-questions">
                                 Você tem certeza que deseja excluir essas anotações?
                             </div>
                         </div>

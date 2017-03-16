@@ -61,18 +61,10 @@ function _modal_edit(tr){
             success: function (returndata) {
                 var anotacaoInstance = returndata.split("%@!");
 
-                $("#editTitle").attr("value",anotacaoInstance[0]);
-                $("#labelTitle").attr("class","active");
-
-
                 $("#labelAnotacao").attr("class","active");
-                $("#editAnotacao0").attr("value",anotacaoInstance[1]);
+                $("#editAnotacao").attr("value",anotacaoInstance[0]);
 
-
-                $("#labelInformacao").attr("class","active");
-                $("#informacao").attr("value",anotacaoInstance[2]);
-
-                $("#AnotacaoID").attr("value",anotacaoInstance[3]);
+                $("#AnotacaoID").attr("value",anotacaoInstance[1]);
                 $("#editModal").openModal();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -113,7 +105,7 @@ function _delete() {
     var trID;
 
     if(list_id_delete.length==1){
-        url = location.origin + '/LabTecA/anotacao/delete/' + list_id_delete[0];
+        url = location.origin + '/labteca/anotacao/delete/' + list_id_delete[0];
         data = {_method: 'DELETE'};
         trID = "#tr"+list_id_delete[0];
         $.ajax({
@@ -137,7 +129,7 @@ function _delete() {
 
     } else{
         for(var i=0;i<list_id_delete.length;i++){
-            url = location.origin + '/LabTecA/anotacao/delete/' + list_id_delete[i];
+            url = location.origin + '/labteca/anotacao/delete/' + list_id_delete[i];
             data = {_method: 'DELETE'};
             trID = "#tr"+list_id_delete[i];
             $(trID).remove();
@@ -166,11 +158,11 @@ function _delete() {
 function _submit() {
     var list_id = [];
 
-    //checa se o usuario selecionou pelo menos 5 questoes
+    //checa se o usuario selecionou pelo menos 1 anotacao
     if($("input[type=checkbox]:checked").size() < 1) {
         $("#errorSaveModal").openModal();
     } else {
-        //cria uma lista com os ids de cada questao selecionada
+        //cria uma lista com os ids de cada anotacao selecionada
         $.each($("input[type=checkbox]:checked"), function (ignored, el) {
             var tr = $(el).parents().eq(1);
             list_id.push($(tr).attr('data-id'));
@@ -180,7 +172,7 @@ function _submit() {
         $.ajax({
             type: "POST",
             traditional: true,
-            url: "/santograu/anotacao/exportAnotacoes",
+            url: "/labteca/anotacao/exportAnotacoes",
             data: { list_id: list_id},
             success: function(returndata) {
                 window.top.location.href = returndata;

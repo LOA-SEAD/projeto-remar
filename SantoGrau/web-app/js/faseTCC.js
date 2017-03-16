@@ -86,7 +86,12 @@ function _modal_edit(tr){
                 }
                 $("#editTitle").attr("value",faseTCCInstance[0]);
                 $("#labelTitle").attr("class","active");
+
+
                 $("#labelAnswer1").attr("class","active");
+                $("#editAnswers0").attr("value",faseTCCInstance[1]);
+
+
                 $("#labelAnswer2").attr("class","active");
                 $("#labelAnswer3").attr("class","active");
                 $("#editAnswers0").attr("value",faseTCCInstance[1]);
@@ -94,6 +99,10 @@ function _modal_edit(tr){
                 $("#editAnswers2").attr("value",faseTCCInstance[3]);
                 $("#editAnswers3").attr("value",faseTCCInstance[4]);
                 $("#editAnswers4").attr("value",faseTCCInstance[5]);
+
+
+
+
                 $("#faseTCCID").attr("value",faseTCCInstance[7]);
                 $("#editModal").openModal();
             },
