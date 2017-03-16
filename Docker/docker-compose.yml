@@ -1,16 +1,12 @@
 version: '3'
 services:
   mysql:
-    build:
-      context: .
-      dockerfile: remar-mysql-dockerfile
+    image: mysql
     restart: always
     volumes:
       - 'mysql-data:/var/lib/mysql'
-    environment:
-      MYSQL_USER: root
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: remar
+      - './database:/tmp/db'
+    command: mysqld --init-file="/tmp/db/db_startup.sql"
     ports:
       - '3306:3306'
   mongodb:
