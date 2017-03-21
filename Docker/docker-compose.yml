@@ -3,6 +3,8 @@ services:
   mysql:
     image: mysql
     restart: always
+    env_file:
+      - .env
     volumes:
       - 'mysql-data:/var/lib/mysql'
       - './database:/tmp/db'
@@ -10,26 +12,28 @@ services:
     ports:
       - '3306:3306'
   mongodb:
-    build:
-      context: .
-      dockerfile: remar-mongodb-dockerfile
-    image: 'mongo'
+    env_file:
+      - .env
+    image: tutum/mongodb:latest
     volumes: 
-      - 'mongo-data:/var/lib/mongo'
-  remar:
-    build: 
-      context: .
-      dockerfile: remar-app-dockerfile
-    restart: always
+      - 'mongo-data:/data/db'
     ports:
-      - '8080:8080'
-    volumes:
-        - '~/volume_docker_remar:/usr/local/tomcat/webapps'
-    links:
-      - mysql
-      - mongodb
-    tty: true
+      - '27017:27017'
+      - '28017:28017'
+  remar:
+      build: 
+        context: .
+        dockerfile: remar-app-dockerfile
+      restart: always
+      ports:
+        - '8080:8080'
+      volumes:
+          - '~/volume_docker_remar:/usr/local/tomcat/webapps'
+      links:
+        - mongodb
+      tty: true
 volumes:
+  mongo-init:
   mongo-data:
     driver: convoy
   mysql-data:
