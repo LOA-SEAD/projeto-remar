@@ -1,6 +1,8 @@
 package br.ufscar.sead.loa.remar
 
 import br.ufscar.sead.loa.propeller.Propeller
+import br.ufscar.sead.loa.propeller.domain.ProcessDefinition
+import org.mongodb.morphia.Datastore
 import grails.converters.JSON
 import grails.util.Environment
 import groovyx.net.http.HTTPBuilder
@@ -297,7 +299,11 @@ class ResourceController {
                    delete(dir: servletContext.getRealPath("/propeller/${resourceInstance.uri}"))
                }
 
-               Propeller.instance.undeploy(resourceInstance.uri)
+               // Só realiza o undeploy se o deploy foi dado de fato (quando é aprovado)
+               Datastore ds = Propeller.instance.getDs()
+               if (ds.createQuery(ProcessDefinition.class).field('uri').equal(resourceInstance.uri).get())
+                   Propeller.instance.undeploy(resourceInstance.uri)
+               else log.debug "Skipped undeploy"
 
                if(grailsApplication.config.dspace.restUrl) { //se existir dspace
                    MongoHelper.instance.removeDataFromUri('resource_dspace',resourceInstance.uri)
@@ -305,7 +311,7 @@ class ResourceController {
 
                response.status = 205
                render 205
-           }catch (Exception e){
+           }catch (Exception e) {
                     render "sqlError"
            }
         } else {
