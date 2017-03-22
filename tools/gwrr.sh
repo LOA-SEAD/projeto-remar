@@ -1,6 +1,18 @@
 #!/bin/bash
 
+if [[ $# -eq 0 ]]; then
+    echo "Nenhum argumento foi fornecido"
+    exit 1
+fi
 
+# verifica se o projeto existe
+proj=/srv/source/$1
+result="$(file $proj)"
+if [[ $result == *"cannot open"* ]]; then
+        echo "Projeto não encontrado"
+        echo "msg :: $result"
+        exit 1
+fi
 
 # gera o war do jogo
 cd /srv/source/$1
@@ -17,5 +29,3 @@ else
 	rm -r /srv/tomcat/webapps/"${1,,}"
 	rm /srv/tomcat/webapps/"${1,,}".war
 fi
-
-
