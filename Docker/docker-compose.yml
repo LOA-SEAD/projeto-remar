@@ -1,7 +1,8 @@
 version: '3'
 services:
   mysql:
-    image: mysql
+    image: mariadb
+    env_file: .env
     restart: always
     env_file:
       - .env
@@ -14,7 +15,7 @@ services:
   mongodb:
     env_file:
       - .env
-    image: tutum/mongodb:latest
+    image: tutum/mongodb:3.2
     volumes: 
       - 'mongo-data:/data/db'
     ports:
@@ -31,9 +32,9 @@ services:
           - '~/volume_docker_remar:/usr/local/tomcat/webapps'
       links:
         - mongodb
+        - mysql
       tty: true
 volumes:
-  mongo-init:
   mongo-data:
     driver: convoy
   mysql-data:
