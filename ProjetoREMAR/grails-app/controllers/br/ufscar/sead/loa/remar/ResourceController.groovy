@@ -301,8 +301,15 @@ class ResourceController {
 
                // Só realiza o undeploy se o deploy foi dado de fato (quando é aprovado)
                Datastore ds = Propeller.instance.getDs()
-               if (ds.createQuery(ProcessDefinition.class).field('uri').equal(resourceInstance.uri).get())
+               if (ds.createQuery(ProcessDefinition.class).field('uri').equal(resourceInstance.uri).get()) {
                    Propeller.instance.undeploy(resourceInstance.uri)
+
+                   def http = new HTTPBuilder("http://root:${grailsApplication.config.users.password}@localhost:8080")
+                   def resp = http.get(path: '/manager/text/undeploy', query: [path: "/${resourceInstance.uri}"])
+                   resp = GrailsIOUtils.toString(resp)
+                   if (resp.indexOf('OK') != -1) log.debug "Resource successfully undeployed"
+                   else log.debug "Failed trying to undeploy resource"
+               }
                else log.debug "Skipped undeploy"
 
                if(grailsApplication.config.dspace.restUrl) { //se existir dspace
