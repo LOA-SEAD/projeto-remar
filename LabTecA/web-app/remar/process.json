@@ -1,6 +1,7 @@
 {
   "name": "LabTecA",
   "uri": "labteca",
+  "type": "unity",
   "version": 1,
   "tasks": [
     {

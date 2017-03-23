@@ -145,6 +145,8 @@ class ExportedResourceController {
 
         RequestMap.findOrSaveWhere(url: "${baseUrl}/**", configAttribute: 'permitAll')
 
+        println process.definition.type
+
         process.completedTasks.each {task ->
             if(task.getVariable('handle') != null){
                 handle.put(task.definition.name, task.getVariable('handle'))
@@ -242,6 +244,8 @@ class ExportedResourceController {
             }
 
 
+            ///////////////////////////////////////////////////////////////////
+
             if (desktop) {
                 ant.sequential {
                     chmod(perm: "+x", file: scriptUpdateElectron)
@@ -263,6 +267,7 @@ class ExportedResourceController {
                 }
             }
 
+            /////////////////////////////////////////////////////////////////////
 
             if (instance.resource.moodle) {
                 instance.moodleUrl = urls.web
