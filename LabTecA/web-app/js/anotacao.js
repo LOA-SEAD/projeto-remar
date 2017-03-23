@@ -162,7 +162,7 @@ function _submit() {
     if($("input[type=checkbox]:checked").size() < 1) {
         $("#errorSaveModal").openModal();
     } else {
-        //cria uma lista com os ids de cada anotacao selecionada
+        //cria uma lista com os ids de cada questao selecionada
         $.each($("input[type=checkbox]:checked"), function (ignored, el) {
             var tr = $(el).parents().eq(1);
             list_id.push($(tr).attr('data-id'));

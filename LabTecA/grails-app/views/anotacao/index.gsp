@@ -32,6 +32,7 @@
                          <div class="col s6 m3 l3 offset-s6 offset-m9 offset-l9">
                              <input  type="text" id="SearchLabel" placeholder="Buscar"/>
                          </div>
+                         </div>
                      </div>
 
 

@@ -204,12 +204,12 @@ void createJsonFile(String fileName, ArrayList<Anotacao> anotacaoList) {
     pw.close();
 
     //se o arquivo fases.json nao existe, cria ele com nenhuma fase opcional
-    def fasesFolder = new File("${dataPath}/${springSecurityService.currentUser.id}/processes/${session.processId}")
-    fasesFolder.mkdirs()
-    File fileFasesJson = new File("$fasesFolder/anotacoes.json")
-    boolean exists = fileFasesJson.exists()
+    def anotacoesFolder = new File("${dataPath}/${springSecurityService.currentUser.id}/processes/${session.processId}")
+    anotacoesFolder.mkdirs()
+    File anotacoesJson = new File("$anotacoesFolder/anotacoes.json")
+    boolean exists = anotacoesJson.exists()
     if (!exists) {
-        PrintWriter printer = new PrintWriter(fileAnotacoesJson);
+        PrintWriter printer = new PrintWriter(anotacoesJson);
         printer.write("{\n");
         printer.write("\t\"quantidade\": [\"0\"],\n")
         printer.write("\t\"anotacoes\": [\"1\", \"2\"]\n")
