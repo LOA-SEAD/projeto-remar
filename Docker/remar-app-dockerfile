@@ -40,3 +40,8 @@ RUN wget https://download.01.org/crosswalk/releases/crosswalk/android/stable/12.
 	chmod +x crosswalk/make_apk.py
 
 RUN chown $(whoami) /dev-tools /usr/local/tomcat
+
+WORKDIR /
+
+COPY ./entrypoint_remar.sh /
+RUN chmod +x /entrypoint_remar.sh
