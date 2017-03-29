@@ -145,8 +145,6 @@ class ExportedResourceController {
 
         RequestMap.findOrSaveWhere(url: "${baseUrl}/**", configAttribute: 'permitAll')
 
-        println process.definition.type
-
         process.completedTasks.each {task ->
             if(task.getVariable('handle') != null){
                 handle.put(task.definition.name, task.getVariable('handle'))
@@ -163,6 +161,7 @@ class ExportedResourceController {
         def resourceURI = instance.resource.uri         // get uri because blank spaces in name
         def desktop = instance.resource.desktop
         def android = instance.resource.android
+        def web = instance.resource.web
 
 
 
@@ -181,8 +180,10 @@ class ExportedResourceController {
             def sourceFolder = "${root}/data/resources/sources/${instance.resource.uri}/"
             def desktopFolder = "${root}/published/${instance.processId}/desktop"
             def mobileFolder = "${root}/published/${instance.processId}/mobile"
+            def webFolder = "${root}/published/${instance.processId}/web"
             def ant = new AntBuilder()
             def process = Propeller.instance.getProcessInstanceById(instance.processId, session.user.id as long)
+            def processType = process.definition.type
             def folders = []
             def scriptUpdateElectron = "${root}/scripts/electron/update.sh"
             def scriptUpdateCrosswalk = "${root}/scripts/crosswalk/update.sh"
@@ -243,16 +244,53 @@ class ExportedResourceController {
                 pw.close()
             }
 
-
-            ///////////////////////////////////////////////////////////////////
-
             if (desktop) {
-                ant.sequential {
-                    chmod(perm: "+x", file: scriptUpdateElectron)
-                    exec(executable: scriptUpdateElectron) {
-                        arg(value: desktopFolder)
-                        arg(value: resourceURI)
-                    }
+                switch (processType) {
+                    case "unity" :
+                        // Descompressão dos arquivos do projeto para uma pasta temporária
+                         ant.sequential {
+                             /* Windows */  unzip (src:"${root}/data/resources/sources/${instance.resource.uri}/base/windows.zip", dest:"${folders[0]}/temp", overwrite:true)
+                             /* Linux */    //unzip (src:"${root}/data/resources/sources/${instance.resource.uri}/base/linux.zip", dest:"${folders[1]}", overwrite:true)
+                             /* Mac */      //unzip (src:"${root}/data/resources/sources/${instance.resource.uri}/base/mac.zip", dest:"${folders[2]}", overwrite:true)
+                         }
+
+                        // Copia os arquivos de output para a pasta Assets/Resources do projeto Unity
+                        process.completedTasks.outputs.each { outputs ->
+                            outputs.each { output ->
+                                ant.sequential {
+                                    /* Windows */   copy (file: output.path, tofile: "${folders[0]}/temp/Assets/Resources/${output.definition.name}", failonerror: false)
+                                    /* Linux */     copy (file: output.path, tofile: "${folders[1]}/temp/Assets/Resources/${output.definition.name}", failonerror: false)
+                                    /* Mac */       copy (file: output.path, tofile: "${folders[2]}/temp/Assets/Resources/${output.definition.name}", failonerror: false)
+                                }
+                            }
+                        }
+
+                        // Comprime os arquivos em um novo .zip e remove as pastas temporárias
+                        ant.sequential {
+                            // Compressão
+                            /* Windows */   zip (destfile: "${desktopFolder}/${instance.resource.uri}-windows.zip", basedir: "${folders[0]}/temp", update: true)
+                            /* Linux */     //zip (destfile: "${folders[1]}/${instance.resource.uri}-linux.zip", basedir: "${folders[1]}/temp", update: true)
+                            /* Mac */       //zip (destfile: "${folders[2]}/${instance.resource.uri}-mac.zip", basedir: "${folders[2]}/temp", update: true)
+
+                            // Remoção
+                            /* Windows */   delete (dir: "${folders[0]}/temp", failonerror: false)
+                            /* Linux */     delete (dir: "${folders[1]}/temp", failonerror: false)
+                            /* Mac */       delete (dir: "${folders[2]}/temp", failonerror: false)
+                            /* Web */       delete (dir: "${webFolder}/temp", failonerror: false)
+                        }
+
+                        log.debug "Finished exporting Unity project"
+                        break
+                    default /* HTML */ :
+                        ant.sequential {
+                            chmod(perm: "+x", file: scriptUpdateElectron)
+                            exec(executable: scriptUpdateElectron) {
+                                arg(value: desktopFolder)
+                                arg(value: resourceURI)
+                            }
+                        }
+                        log.debug "Finished exporting HTML project"
+                        break
                 }
             }
 
@@ -267,25 +305,39 @@ class ExportedResourceController {
                 }
             }
 
-            /////////////////////////////////////////////////////////////////////
-
             if (instance.resource.moodle) {
                 instance.moodleUrl = urls.web
             }
 
-            def jsonPathWeb = "${root}/published/${instance.processId}/web"
-            File file = new File("$jsonPathWeb/$jsonName");
-            PrintWriter pw = new PrintWriter(file);
-            pw.write(builder)
-            pw.close()
+            if (web) {
+                switch (processType) {
+                    case "unity" :
+                        ant.unzip(src:"${root}/data/resources/sources/${instance.resource.uri}/base/web.zip", dest:"${webFolder}/", overwrite:true)
+                        process.completedTasks.outputs.each { outputs ->
+                            outputs.each { output ->
+                                ant.sequential {
+                                    ant.copy(file: output.path, tofile: "${webFolder}/Assets/Resources/${output.definition.name}", failonerror: false)
+                                }
+                            }
+                        }
+                        
+                        log.debug "Finished exporting Unity project"
+                        break
+                    default /* HTML */ :
+                        def jsonPathWeb = "${root}/published/${instance.processId}/web"
+                        File file = new File("$jsonPathWeb/$jsonName")
+                        PrintWriter pw = new PrintWriter(file)
+                        pw.write(builder)
+                        pw.close()
 
-            instance.exported = true
-            instance.save flush: true
+                        instance.exported = true
+                        instance.save flush: true
 
+                        log.debug "Finished exporting HTML project"
+                        break
+                }
+            }
         }
-
-
-
 
         render urls as JSON
     }

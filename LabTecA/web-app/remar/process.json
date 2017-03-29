@@ -41,7 +41,7 @@
     }
   ],
   "outputs": [
-    "web"
+    "web","desktop"
   ],
   "vars": {
     "width": 1280,

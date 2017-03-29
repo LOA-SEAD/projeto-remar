@@ -23,6 +23,15 @@ class ResourceController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE"]
     def springSecurityService
+    def beforeInterceptor = [action: this.&check, only: ['index']]
+
+    private check() {
+        if (!session.user) {
+            log.debug "Logout: session.user is NULL !"
+            redirect controller: "logout", action: "index"
+            return false
+        }
+    }
 
     def index(Integer max) {
         if (request.isUserInRole("ROLE_ADMIN")) {
@@ -112,6 +121,7 @@ class ResourceController {
             resourceInstance.android = 'android' in json.outputs
             resourceInstance.desktop = 'desktop' in json.outputs
             resourceInstance.moodle = 'moodle' in json.outputs
+            resourceInstance.web = 'web' in json.outputs
             resourceInstance.width = json.vars.width
             resourceInstance.height = json.vars.height
 
