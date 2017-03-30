@@ -27,11 +27,16 @@
                 <g:else>
                     <p>Você ainda não submeteu nenhum jogo. Nos envie um agora mesmo!  :)</p>
                 </g:else>
-                <div class="fixed-action-btn my-position">
-                    <a class="btn-floating btn-large my-orange" href="/resource/create">
-                        <i class="material-icons large">add</i>
-                    </a>
+
+
+
+                <div class="col s1 offset-s10">
+                    <a href="/resource/create"  name="create"
+                       class="btn-floating btn-large waves-effect waves-light my-orange tooltipped modal-trigger"
+                       data-tooltip="Adicionar modelo de jogo"><i class="material-icons">add</i></a>
                 </div>
+
+
             </div>
         </main>
         %{--</div>--}%

@@ -16,6 +16,7 @@
 				<i class="small material-icons left">grid_on</i>Customização - Desafios
 			</p>
 		</div>
+
 		<div id="list-desafio" class="content scaffold-list row" role="main">
 			<div class="form" id="myForm" >
 				<g:render template="form"/>

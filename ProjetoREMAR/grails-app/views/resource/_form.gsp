@@ -123,10 +123,30 @@
 		</div>
 	</div>
 
+
+
+	<!-- Botão Enviar PAdronizado-->
+	<div class="buttons col s1 m1 l1 offset-s8 offset-m10 offset-l10" style="margin-top:20px">
+		<button class="btn waves-effect waves-light my-orange" onclick="validateSubmit()" type="submit" name="save" id="upload">
+			Enviar
+		</button>
+	</div>
+
+
+
+%{--
+botao enviar antigo
+
 	<div class="right">
 		<button  onclick="validateSubmit()" class="waves-effect waves-light btn-flat " id="upload" >
 			Enviar
 		</button>
-	</div>
+	</div>--}%
+
+
+
+
+
+
 	<br class="clear" />
 </div>
