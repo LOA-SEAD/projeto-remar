@@ -25,8 +25,8 @@
 
     <div class="row search">
         <div class="input-field col s6">
-            <input id="search" type="text" class="validate" autocomplete="off">
-            <label for="search"><i class="fa fa-search"></i></label>
+            <input id="search" type="text" placeholder="Buscar jogo" class="validate" autocomplete="off">
+            <label for="search"><i class="fa fa-search" ></i></label>
         </div>
 
         <div class="input-field col s6">
