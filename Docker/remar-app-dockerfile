@@ -1,6 +1,10 @@
 FROM openweb/oracle-tomcat
 
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
+
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+RUN echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.2.list
+
 RUN apt-get update && apt-get install -y \
 			ant \
 			curl \
@@ -9,7 +13,9 @@ RUN apt-get update && apt-get install -y \
 			telnet \
 			vim \
 			wget \
-			zip
+			zip \
+			mongodb-org-shell \
+			mysql-client
 
 RUN npm install --global electron-packager
 
@@ -44,4 +50,6 @@ RUN chown $(whoami) /dev-tools /usr/local/tomcat
 WORKDIR /
 
 COPY ./entrypoint_remar.sh /
-RUN chmod +x /entrypoint_remar.sh
+RUN chmod +x entrypoint_remar.sh
+ENTRYPOINT ["./entrypoint_remar.sh"]
+CMD ["catalina.sh", "run"]
