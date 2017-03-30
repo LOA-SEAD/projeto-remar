@@ -77,7 +77,7 @@
 
 						<div class="col l8 m8">
 							<button type="submit" class="btn waves-effect waves-light my-orange right">
-								Customizar
+								Criar jogo
 							</button>
 						</div>
 					</div>
