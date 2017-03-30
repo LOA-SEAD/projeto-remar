@@ -23,7 +23,7 @@
         </div>
         <div class="row search">
             <div class="input-field col s6">
-                <input id="search" type="text" class="validate">
+                <input id="search" type="text" placeholder="Buscar customização" class="validate">
                 <label for="search"><i class="fa fa-search"></i></label>
             </div>
             <div class="input-field col s6">
