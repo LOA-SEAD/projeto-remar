@@ -23,7 +23,7 @@
         <section id="test1" class="col s12"> <!-- start my published games -->
             <div class="row search">
                 <div class="input-field col s6">
-                    <input id="search" type="text" class="validate">
+                    <input id="search" type="text" placeholder="Buscar meus jogos"class="validate">
                     <label for="search"><i class="fa fa-search"></i></label>
                 </div>
                 <div class="input-field col s6">
