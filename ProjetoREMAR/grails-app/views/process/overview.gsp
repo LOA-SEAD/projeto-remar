@@ -83,7 +83,9 @@
                                 </div>
 
                                 <div class="right">
-                                    <input class="btn waves-effect waves-light my-orange"  type="submit" name="sand" class="save" value="Criar" id="send"/>
+                                    <a href="#!" class="waves-effect waves-light btn-flat send" id="send" name="send" >
+                                        Enviar
+                                    </a>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
