@@ -14,7 +14,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
 import java.security.MessageDigest
-import java.sql.SQLException
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional

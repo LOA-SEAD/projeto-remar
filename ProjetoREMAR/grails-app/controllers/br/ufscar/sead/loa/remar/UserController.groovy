@@ -19,10 +19,10 @@ import grails.plugins.rest.client.RestBuilder
 
 @Transactional(readOnly = true)
 class UserController {
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", filteredList: "POST"]
+
     def springSecurityService
     def grailsApplication
-
-    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", filteredList: "POST"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)

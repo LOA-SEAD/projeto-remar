@@ -8,10 +8,7 @@ import grails.transaction.Transactional
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 import org.apache.commons.lang.RandomStringUtils
-import org.bson.Document
 import org.springframework.web.multipart.commons.CommonsMultipartFile
-import com.mongodb.MongoClient
-import com.mongodb.client.MongoDatabase;
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
 
@@ -20,6 +17,15 @@ class ExportedResourceController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "GET"]
     def springSecurityService
+    def beforeInterceptor = [action: this.&check, only: ['publish', 'myGames']]
+
+    private check() {
+        if (!session.user) {
+            log.debug "Logout: session.user is NULL !"
+            redirect controller: "logout", action: "index"
+            return false
+        }
+    }
 
     def save(ExportedResource exportedResourceInstance) {
         // need to improve that
