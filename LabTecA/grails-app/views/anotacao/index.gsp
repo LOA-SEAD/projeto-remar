@@ -16,7 +16,7 @@
 	<body>
 		<div class="cluster-header">
 			<p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-				<i class="small material-icons left">grid_on</i>Customização - Anotação
+				<i class="small material-icons left"></i>Customização - Anotação
 			</p>
 		</div>
 
@@ -84,7 +84,7 @@
                     <div class="row">
                         <div class="col s2">
                             <button class="btn waves-effect waves-light my-orange"  name="save" id="submitButton" onclick="_submit()">Enviar
-                                <i class="material-icons">send</i>
+                                <i class="material-icons"></i>
                             </button>
                         </div>
                     </div>

@@ -50,7 +50,18 @@
        </fieldset> --%>
             </form>
         </g:uploadForm>
-        <input class="btn waves-effect waves-light my-orange"  type="submit" name="save" class="save" value="Criar" id="submitButton"/>
+
+
+%{--    <div class="right">
+        <a href="#!" class="btn waves-effect waves-light my-orange" id="save" value="Enviar" name="save" >
+            Enviar
+        </a>
+    </div>--}%
+
+        %{--<input class="btn waves-effect waves-light my-orange"  type="submit" name="save" class="save" value="Criar" id="submitButton"/>--}%
+
+
+
     </body>
 
 </html>
