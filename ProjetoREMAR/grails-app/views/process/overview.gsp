@@ -82,11 +82,26 @@
                                     </div>
                                 </div>
 
+
+
+
                                 <div class="right">
-                                    <a href="#!" class="waves-effect waves-light btn-flat send" id="send" name="send" >
+                                    <a href="#!" class="btn waves-effect waves-light my-orange" id="send" name="send" >
                                         Enviar
                                     </a>
                                 </div>
+
+
+
+%{--                            <div class="right">
+                                    <button class="btn waves-effect waves-light my-orange" type="submit" name="send" id="send">
+                                        Enviar
+                                    </button>
+                                </div>
+                                --}%
+
+
+
                                 <div class="clearfix"></div>
                             </div>
                     </li>
