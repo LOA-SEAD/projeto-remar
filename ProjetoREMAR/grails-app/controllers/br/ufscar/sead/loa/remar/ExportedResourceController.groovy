@@ -193,6 +193,7 @@ class ExportedResourceController {
             def folders = []
             def scriptUpdateElectron = "${root}/scripts/electron/update.sh"
             def scriptUpdateCrosswalk = "${root}/scripts/crosswalk/update.sh"
+            def scriptUpdateUnity = "${root}/scripts/unity/update.sh"
 
             folders << "${desktopFolder}/windows/resources/app"
             folders << "${desktopFolder}/linux/resources/app"
@@ -244,8 +245,8 @@ class ExportedResourceController {
 
             folders.each { folder ->
                 println folder
-                File file = new File("$folder/$jsonName");
-                PrintWriter pw = new PrintWriter(file);
+                File file = new File("$folder/$jsonName")
+                PrintWriter pw = new PrintWriter(file)
                 pw.write(builder)
                 pw.close()
             }
@@ -253,40 +254,18 @@ class ExportedResourceController {
             if (desktop) {
                 switch (processType) {
                     case "unity" :
-                        // Descompressão dos arquivos do projeto para uma pasta temporária
-                         ant.sequential {
-                             /* Windows */  unzip (src:"${root}/data/resources/sources/${instance.resource.uri}/base/windows.zip", dest:"${folders[0]}/temp", overwrite:true)
-                             /* Linux */    //unzip (src:"${root}/data/resources/sources/${instance.resource.uri}/base/linux.zip", dest:"${folders[1]}", overwrite:true)
-                             /* Mac */      //unzip (src:"${root}/data/resources/sources/${instance.resource.uri}/base/mac.zip", dest:"${folders[2]}", overwrite:true)
-                         }
-
-                        // Copia os arquivos de output para a pasta Assets/Resources do projeto Unity
-                        process.completedTasks.outputs.each { outputs ->
-                            outputs.each { output ->
-                                ant.sequential {
-                                    /* Windows */   copy (file: output.path, tofile: "${folders[0]}/temp/Assets/Resources/${output.definition.name}", failonerror: false)
-                                    /* Linux */     copy (file: output.path, tofile: "${folders[1]}/temp/Assets/Resources/${output.definition.name}", failonerror: false)
-                                    /* Mac */       copy (file: output.path, tofile: "${folders[2]}/temp/Assets/Resources/${output.definition.name}", failonerror: false)
-                                }
+                        ant.sequential {
+                            chmod(perm: "+x", file: scriptUpdateUnity)
+                            exec(executable: scriptUpdateUnity) {
+                                arg(value: root)
+                                arg(value: resourceURI)
+                                arg(value: instance.processId)
                             }
                         }
 
-                        // Comprime os arquivos em um novo .zip e remove as pastas temporárias
-                        ant.sequential {
-                            // Compressão
-                            /* Windows */   zip (destfile: "${desktopFolder}/${instance.resource.uri}-windows.zip", basedir: "${folders[0]}/temp", update: true)
-                            /* Linux */     //zip (destfile: "${folders[1]}/${instance.resource.uri}-linux.zip", basedir: "${folders[1]}/temp", update: true)
-                            /* Mac */       //zip (destfile: "${folders[2]}/${instance.resource.uri}-mac.zip", basedir: "${folders[2]}/temp", update: true)
-
-                            // Remoção
-                            /* Windows */   delete (dir: "${folders[0]}/temp", failonerror: false)
-                            /* Linux */     delete (dir: "${folders[1]}/temp", failonerror: false)
-                            /* Mac */       delete (dir: "${folders[2]}/temp", failonerror: false)
-                            /* Web */       delete (dir: "${webFolder}/temp", failonerror: false)
-                        }
-
-                        log.debug "Finished exporting Unity project"
+                        log.debug "Finished exporting Unity Desktop project"
                         break
+
                     default /* HTML */ :
                         ant.sequential {
                             chmod(perm: "+x", file: scriptUpdateElectron)
@@ -295,7 +274,8 @@ class ExportedResourceController {
                                 arg(value: resourceURI)
                             }
                         }
-                        log.debug "Finished exporting HTML project"
+
+                        log.debug "Finished exporting HTML Desktop project"
                         break
                 }
             }
@@ -326,8 +306,15 @@ class ExportedResourceController {
                                 }
                             }
                         }
+
+                        // Conversão de .html para .gsp
+                        File index = new File("${webFolder}/index.html")
+                        if (index != null) {
+                            index.renameTo "index.gsp"
+                            assert index.exists()
+                        }
                         
-                        log.debug "Finished exporting Unity project"
+                        log.debug "Finished exporting Unity Web project"
                         break
                     default /* HTML */ :
                         def jsonPathWeb = "${root}/published/${instance.processId}/web"
@@ -339,7 +326,7 @@ class ExportedResourceController {
                         instance.exported = true
                         instance.save flush: true
 
-                        log.debug "Finished exporting HTML project"
+                        log.debug "Finished exporting HTML Web project"
                         break
                 }
             }
