@@ -27,7 +27,7 @@ for FILE in *;
 do
     cp ${FILE} ${desktop}/windows/temp/Assets/Resources/
     cp ${FILE} ${desktop}/linux/temp/Assets/Resources/
-    cp ${FILE} ${desktop}/mac/temp/Contents/Resources/
+    cp ${FILE} ${desktop}/mac/temp/$2.app/Contents/Data/Resources/
 done
 
 # With all files in their places, zip the source again
