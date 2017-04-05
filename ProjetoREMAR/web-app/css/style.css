@@ -42,12 +42,12 @@
         position: absolute;
         top: 3.1rem;
         left: 3.75rem;
-        color: #ff2121;
+        color: #f70000;
     }
 
     .invalid-password{
         font-size: 0.8rem;
-        color: #ff2121;
+        color: #f70000;
     }
 
     span.invalid-textarea {
@@ -55,12 +55,12 @@
         position: absolute;
         top: 8.1em;
         left: 3.75rem;
-        color: #ff2121;
+        color: #f70000;
     }
 
     span.description-error{
         font-size: 0.8rem;
-        color: #ff2121;
+        color: #f70000;
     }
 
     .help-block {
