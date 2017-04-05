@@ -4,7 +4,6 @@
             <nav class="valign-wrapper">
                 <div class="hide-on-med-and-down remar-max-size center">
                     <!-- Menu for large displays -->
-                    <!-- vrau-->
 
                     <ul class="left">
                         <li>
