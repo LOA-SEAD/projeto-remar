@@ -30,7 +30,7 @@
                     <br>
                     <div class="row">
                          <div class="col s6 m3 l3 offset-s6 offset-m9 offset-l9">
-                             <input  type="text" id="SearchLabel" placeholder="Buscar"/>
+                             <input  type="text" id="SearchLabel" placeholder="Buscar anotação"/>
                          </div>
                          </div>
                      </div>
@@ -48,7 +48,7 @@
                                         </div>
                                     </th>
                                     <th id="titleLabel">Anotação <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
-                                    <th>Ações <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
+                                    <th>Ação <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
                                 </tr>
                                 </thead>
 
@@ -73,7 +73,7 @@
 
                     <div class="row">
                         <div class="col s1 m1 l1 offset-s4 offset-m8 offset-l8">
-                            <a data-target="createModal" name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar anotacao"><i class="material-icons">add</i></a>
+                            <a data-target="createModal" name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar anotação"><i class="material-icons">add</i></a>
                         </div>
                         <div class="col s1 offset-s1 m1 l1">
                             <a name="delete" class="btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exluir anotação" ><i class="material-icons" onclick="_open_modal_delete()">delete</i></a>

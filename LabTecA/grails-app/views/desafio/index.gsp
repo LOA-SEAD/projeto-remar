@@ -13,7 +13,7 @@
 	<body>
 		<div class="cluster-header">
 			<p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-				<i class="small material-icons left">grid_on</i>Customização - Desafios
+				<i class="small material-icons left"></i>Customização - Desafios
 			</p>
 		</div>
 

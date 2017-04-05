@@ -42,12 +42,12 @@
         position: absolute;
         top: 3.1rem;
         left: 3.75rem;
-        color: #F44335;
+        color: #ff2121;
     }
 
     .invalid-password{
         font-size: 0.8rem;
-        color: #F44335;
+        color: #ff2121;
     }
 
     span.invalid-textarea {
@@ -55,12 +55,12 @@
         position: absolute;
         top: 8.1em;
         left: 3.75rem;
-        color: #F44335;
+        color: #ff2121;
     }
 
     span.description-error{
         font-size: 0.8rem;
-        color: #F44335;
+        color: #ff2121;
     }
 
     .help-block {
@@ -228,8 +228,8 @@ footer.page-footer{
     input[type=number]:focus:not([readonly]),
     input[type=search]:focus:not([readonly]),
     textarea.materialize-textarea:focus:not([readonly]) {
-        border-bottom: 1px solid #FF5722;
-        box-shadow: 0 1px 0 0 #FF5722;
+        border-bottom: 1px solid #5D4037;
+        box-shadow: 0 1px 0 0 #5D4037;
     }
 
     input[type=text]:focus:not([readonly]) + label,
@@ -243,11 +243,11 @@ footer.page-footer{
     input[type=number]:focus:not([readonly]) + label,
     input[type=search]:focus:not([readonly]) + label,
     textarea.materialize-textarea:focus:not([readonly]) + label {
-        color: #FF5722 !important;
+        color: #5D4037 !important;
     }
 
     .input-field .prefix.active {
-        color: #FF5722 !important;
+        color: #5D4037 !important;
     }
 
     .g-recaptcha div div {
