@@ -282,7 +282,8 @@ class ProcessController {
         }
 
         ant.copy(todir: "${instanceFolder}/web") {
-            fileset(dir: servletContext.getRealPath("/data/resources/sources/${resource.uri}/base"))
+            fileset(dir: servletContext.getRealPath("/data/resources/sources/${resource.uri}/base"),
+                    excludes: "*.zip")
         }
 
         def pathImgPrev = servletContext.getRealPath("/data/processes/${process.id}")

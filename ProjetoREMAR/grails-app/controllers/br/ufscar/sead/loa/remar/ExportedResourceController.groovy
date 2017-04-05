@@ -289,6 +289,8 @@ class ExportedResourceController {
                         arg(value: resourceURI)
                     }
                 }
+
+                log.debug "Finished exporting Android project"
             }
 
             if (instance.resource.moodle) {
@@ -307,13 +309,6 @@ class ExportedResourceController {
                             }
                         }
 
-                        // Conversão de .html para .gsp
-                        File index = new File("${webFolder}/index.html")
-                        if (index != null) {
-                            index.renameTo "index.gsp"
-                            assert index.exists()
-                        }
-                        
                         log.debug "Finished exporting Unity Web project"
                         break
                     default /* HTML */ :
