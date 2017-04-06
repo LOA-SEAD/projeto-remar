@@ -43,8 +43,15 @@
                                 <tr>
                                     <th>Selecionar
                                         <div class="row" style="margin-bottom: -10px;">
-                                            <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnCheckAll" onclick="check_all()"><i  class="material-icons">check_box_outline_blank</i></button>
-                                            <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnUnCheckAll" onclick="uncheck_all()"><i  class="material-icons">done</i></button>
+                                            <button style="margin-left: 3px; background-color: #795548" class="btn-floating tooltipped" id="BtnCheckAll" onclick="check_all()"
+                                                    data-position="right" data-delay="50" data-tooltip="Selecionar Todos">
+                                                <i class="material-icons">check_box_outline_blank</i>
+                                            </button>
+
+                                            <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnUnCheckAll" onclick="uncheck_all()"
+                                                    data-position="right" data-delay="50" data-tooltip="Desmarcar Todos">
+                                                <i class="material-icons">done</i>
+                                            </button>
                                         </div>
                                     </th>
                                     <th id="titleLabel">Anotação <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
@@ -114,35 +121,28 @@
 
 
                     <div id="createModal" class="modal">
-                        <div class="modal-content">
-                            <h4>Criar Anotação</h4>
-                            <div class="row">
-                                <div id="create-anotacao" class="content scaffold-create" role="main">
-                                    <g:form url="[resource:anotacaoInstance, action:'save']" >
-                                        <form class="col s12">
-                                              <fieldset class="form"  style="border:none"  >
-                                                    <div class="row">
-                                                        <div class="input-field col s12">
-                                                            <span id="anot">Insira o passo a passo* </span>
-                                                          </div>
-                                                     <div class="row">
-                                                          <div class="input-field col s12">
-                                                              <label id="labelInformacao" class="active" for="informacao">Anotação</label>
-                                                              <textarea id="informacao" class="materialize-textarea"  style="margin-bottom: -30px" name="informacao" required="" class="validate" length="1000" maxlength="1000"></textarea>
-                                                          </div>
-                                                      </div>
-                                                    </div>
-                                              </fieldset>
-                                            <div class="col l10">
-                                                <g:submitButton name="create" class="btn btn-success btn-lg my-orange" value="Criar" />
+                        <g:form name="create-anotacao" url="[resource:anotacaoInstance, action:'save']" >
+                            <div class="modal-content">
+                                <h4>Criar Anotação</h4>
+                                <div class="row">
+                                    <div class="content scaffold-create" role="main">
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <textarea required id="informacao" class="materialize-textarea"
+                                                          name="informacao" class="validate" length="1000" maxlength="1000"
+                                                          placeholder="Insira o Passo a Passo..."></textarea>
                                             </div>
-                                        </form>
-                                    </g:form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
+                            <div class="modal-footer">
+                                <button class="btn waves-effect waves-light my-orange" onclick="document.getElementById('create-anotacao').submit()" style="margin-right: 10px;">Criar</button>
+                                <a class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;" href="#!">Cancelar</a>
+                            </div>
+                        </g:form>
+                    </div>
 
                     <div id="deleteModal" class="modal">
                         <div class="modal-content">
