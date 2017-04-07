@@ -19,8 +19,7 @@ class MongoHelper {
     def init(Map options) {
         def credential = MongoCredential.createCredential(options.username as String, 'admin', options.password as char[])
 
-        this.mongoClient = new MongoClient(options.dbHost, asList(credential))
-        H
+        this.mongoClient = new MongoClient(new ServerAddress(options.dbHost as String), asList(credential))
         this.db = mongoClient.getDatabase('remar')
     }
 
