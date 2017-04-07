@@ -1,7 +1,7 @@
 dataSource {
     pooled = true
     jmxExport = true
-    driverClassName = "org.mariadb.jdbc.Driver"
+    driverClassName = "com.mysql.jdbc.Driver"
     dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
 }
 hibernate {
@@ -18,22 +18,20 @@ environments {
     development {
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate'
-            url = "jdbc:mariadb://localhost:3306/remar"
+            url = "jdbc:mysql://localhost/remar"
         }
     }
     test {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:mariadb://localhost:3306/remar"
+            url = "jdbc:mysql://localhost/remar"
         }
     }
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:mariadb://localhost:3306/remar"
+            url = "jdbc:mysql://localhost/remar"
             //noinspection GroovyAssignabilityCheck
-            username = "root"
-            password = "3wJBssW0tAtadw0HjPD3"
             properties {
                 // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                 jmxEnabled = true
