@@ -48,6 +48,7 @@ RUN chown $(whoami) /dev-tools /usr/local/tomcat
 
 WORKDIR /
 
+COPY ./tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml
 COPY ./entrypoint_remar.sh /
 RUN chmod +x entrypoint_remar.sh
 ENTRYPOINT ["./entrypoint_remar.sh"]
