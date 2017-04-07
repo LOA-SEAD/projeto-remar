@@ -12,8 +12,21 @@ import grails.transaction.Transactional
 class FaseTCCController {
 
     def springSecurityService
-
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", returnInstance: "GET"]
+    def beforeInterceptor = [action: this.&check, only: ['index', 'exportQuestions','save', 'update', 'delete']]
+
+
+    private check() {
+        if (springSecurityService.isLoggedIn())
+            session.user = springSecurityService.currentUser
+        else {
+            log.debug "Logout: session.user is NULL !"
+            session.user = null
+            redirect controller: "login", action: "index"
+
+            return false
+        }
+    }
 
     @Secured(['permitAll'])
     def index(Integer max) {

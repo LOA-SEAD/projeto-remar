@@ -1,6 +1,8 @@
 package br.ufscar.sead.loa.remar
 
 import br.ufscar.sead.loa.propeller.Propeller
+import br.ufscar.sead.loa.propeller.domain.ProcessDefinition
+import org.mongodb.morphia.Datastore
 import grails.converters.JSON
 import grails.util.Environment
 import groovyx.net.http.HTTPBuilder
@@ -12,7 +14,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
 import java.security.MessageDigest
-import java.sql.SQLException
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -21,6 +22,15 @@ class ResourceController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE"]
     def springSecurityService
+    def beforeInterceptor = [action: this.&check, only: ['index']]
+
+    private check() {
+        if (!session.user) {
+            log.debug "Logout: session.user is NULL !"
+            redirect controller: "logout", action: "index"
+            return false
+        }
+    }
 
     def index(Integer max) {
         if (request.isUserInRole("ROLE_ADMIN")) {
@@ -110,6 +120,7 @@ class ResourceController {
             resourceInstance.android = 'android' in json.outputs
             resourceInstance.desktop = 'desktop' in json.outputs
             resourceInstance.moodle = 'moodle' in json.outputs
+            resourceInstance.web = 'web' in json.outputs
             resourceInstance.width = json.vars.width
             resourceInstance.height = json.vars.height
 
@@ -297,7 +308,18 @@ class ResourceController {
                    delete(dir: servletContext.getRealPath("/propeller/${resourceInstance.uri}"))
                }
 
-               Propeller.instance.undeploy(resourceInstance.uri)
+               // Só realiza o undeploy se o deploy foi dado de fato (quando é aprovado)
+               Datastore ds = Propeller.instance.getDs()
+               if (ds.createQuery(ProcessDefinition.class).field('uri').equal(resourceInstance.uri).get()) {
+                   Propeller.instance.undeploy(resourceInstance.uri)
+
+                   def http = new HTTPBuilder("http://root:${grailsApplication.config.users.password}@localhost:8080")
+                   def resp = http.get(path: '/manager/text/undeploy', query: [path: "/${resourceInstance.uri}"])
+                   resp = GrailsIOUtils.toString(resp)
+                   if (resp.indexOf('OK') != -1) log.debug "Resource successfully undeployed"
+                   else log.debug "Failed trying to undeploy resource"
+               }
+               else log.debug "Skipped undeploy"
 
                if(grailsApplication.config.dspace.restUrl) { //se existir dspace
                    MongoHelper.instance.removeDataFromUri('resource_dspace',resourceInstance.uri)
@@ -305,7 +327,7 @@ class ResourceController {
 
                response.status = 205
                render 205
-           }catch (Exception e){
+           }catch (Exception e) {
                     render "sqlError"
            }
         } else {

@@ -13,6 +13,7 @@ class Resource {
         moodle defaultValue: false
         android defaultValue: false
         desktop defaultValue: false
+        web defaultValue: false
         width nullable: true
         height nullable: true
         description nullable: true, maxSize: 1000
@@ -41,6 +42,7 @@ class Resource {
 
     boolean android
     boolean desktop
+    boolean web
     boolean moodle
 
     // deploy

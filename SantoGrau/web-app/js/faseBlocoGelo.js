@@ -92,6 +92,13 @@ function _modal_edit(tr){
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 console.log("Error, não retornou a instância");
+                if(returndata.status == 401) {
+                    var url = document.referrer;
+                    //url = url.substr(0,url.indexOf('/',7))
+                    window.top.location.href = url //+ "/login/auth"
+                } else {
+                    alert("Error:\n" + returndata.responseText);
+                }
             }
         }
     );
@@ -139,6 +146,13 @@ function _delete() {
                     $(trID).remove();
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if(returndata.status == 401) {
+                        var url = document.referrer;
+                        //url = url.substr(0,url.indexOf('/',7))
+                        window.top.location.href = url //+ "/login/auth"
+                    } else {
+                        alert("Error:\n" + returndata.responseText);
+                    }
                 }
             }
         );
@@ -156,6 +170,13 @@ function _delete() {
                     success: function (data) {
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        if(returndata.status == 401) {
+                            var url = document.referrer;
+                            //url = url.substr(0,url.indexOf('/',7))
+                            window.top.location.href = url //+ "/login/auth"
+                        } else {
+                            alert("Error:\n" + returndata.responseText);
+                        }
                     }
                 }
             );
@@ -187,7 +208,13 @@ function _submit() {
                 window.top.location.href = returndata;
             },
             error: function(returndata) {
-                alert("Error:\n" + returndata.responseText);
+                if(returndata.status == 401) {
+                    var url = document.referrer;
+                    //url = url.substr(0,url.indexOf('/',7))
+                    window.top.location.href = url //+ "/login/auth"
+                } else {
+                    alert("Error:\n" + returndata.responseText);
+                }
             }
         });
     }
@@ -215,7 +242,13 @@ function exportQuestions(){
                 window.open(location.origin + returndata, '_blank');
             },
             error: function(returndata) {
-                alert("Error:\n" + returndata.responseText);
+                if(returndata.status == 401) {
+                    var url = document.referrer;
+                    //url = url.substr(0,url.indexOf('/',7))
+                    window.top.location.href = url //+ "/login/auth"
+                } else {
+                    alert("Error:\n" + returndata.responseText);
+                }
 
 
             }

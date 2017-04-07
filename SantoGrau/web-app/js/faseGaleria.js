@@ -32,7 +32,13 @@ window.onload = function() {
                         window.top.location.href = response
                     },
                     error: function (response) {
-                        alert("Error:\n" + response.responseText);
+                        if(returndata.status == 401) {
+                            var url = document.referrer;
+                            //url = url.substr(0,url.indexOf('/',7))
+                            window.top.location.href = url //+ "/login/auth"
+                        } else {
+                            alert("Error:\n" + returndata.responseText);
+                        }
                     }
                 });
             } else {
@@ -80,6 +86,13 @@ function _delete() {
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
+            if(returndata.status == 401) {
+                var url = document.referrer;
+                //url = url.substr(0,url.indexOf('/',7))
+                window.top.location.href = url //+ "/login/auth"
+            } else {
+                alert("Error:\n" + returndata.responseText);
+            }
         }
     });
 }

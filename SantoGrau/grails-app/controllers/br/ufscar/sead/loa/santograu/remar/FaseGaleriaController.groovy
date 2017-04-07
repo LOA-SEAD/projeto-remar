@@ -11,11 +11,29 @@ import grails.util.Environment
 import groovy.json.JsonSlurper
 import javax.imageio.ImageIO
 
+@Transactional(readOnly = true)
+
 @Secured(["isAuthenticated()"])
+
+
 class FaseGaleriaController {
     def springSecurityService
 
     static allowedMethods = [save: "POST", update: "PUT", deleteTheme: "DELETE", imagesManager: "POST", exportLevel:"POST"]
+
+    def beforeInterceptor = [action: this.&check, only: ['index', 'imagesManager','deleteTheme', 'imagesManager', 'exportLevel']]
+
+    private check() {
+        if (springSecurityService.isLoggedIn())
+            session.user = springSecurityService.currentUser
+        else {
+            log.debug "Logout: session.user is NULL !"
+            session.user = null
+            redirect controller: "login", action: "index"
+
+            return false
+        }
+    }
 
     def index(Integer max) {
         if (params.t) {

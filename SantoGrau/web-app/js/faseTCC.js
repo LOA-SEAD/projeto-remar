@@ -86,7 +86,12 @@ function _modal_edit(tr){
                 }
                 $("#editTitle").attr("value",faseTCCInstance[0]);
                 $("#labelTitle").attr("class","active");
+
+
                 $("#labelAnswer1").attr("class","active");
+                $("#editAnswers0").attr("value",faseTCCInstance[1]);
+
+
                 $("#labelAnswer2").attr("class","active");
                 $("#labelAnswer3").attr("class","active");
                 $("#editAnswers0").attr("value",faseTCCInstance[1]);
@@ -94,6 +99,10 @@ function _modal_edit(tr){
                 $("#editAnswers2").attr("value",faseTCCInstance[3]);
                 $("#editAnswers3").attr("value",faseTCCInstance[4]);
                 $("#editAnswers4").attr("value",faseTCCInstance[5]);
+
+
+
+
                 $("#faseTCCID").attr("value",faseTCCInstance[7]);
                 $("#editModal").openModal();
             },
@@ -146,6 +155,13 @@ function _delete() {
                     $(trID).remove();
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    if(returndata.status == 401) {
+                        var url = document.referrer;
+                        //url = url.substr(0,url.indexOf('/',7))
+                        window.top.location.href = url //+ "/login/auth"
+                    } else {
+                        alert("Error:\n" + returndata.responseText);
+                    }
                 }
             }
         );
@@ -163,6 +179,13 @@ function _delete() {
                     success: function (data) {
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        if(returndata.status == 401) {
+                            var url = document.referrer;
+                            //url = url.substr(0,url.indexOf('/',7))
+                            window.top.location.href = url //+ "/login/auth"
+                        } else {
+                            alert("Error:\n" + returndata.responseText);
+                        }
                     }
                 }
             );
@@ -174,7 +197,7 @@ function _delete() {
 function _submit() {
     var list_id = [];
 
-    //checa se o usuario selecionou exatamente 5 questoes
+    //checa se o usuario selecionou pelo menos 5 questoes
     if($("input[type=checkbox]:checked").size() < 5) {
         $("#errorSaveModal").openModal();
     } else {
@@ -194,7 +217,13 @@ function _submit() {
                 window.top.location.href = returndata;
             },
             error: function(returndata) {
-                alert("Error:\n" + returndata.responseText);
+                if(returndata.status == 401) {
+                    var url = document.referrer;
+                    //url = url.substr(0,url.indexOf('/',7))
+                    window.top.location.href = url //+ "/login/auth"
+                } else {
+                    alert("Error:\n" + returndata.responseText);
+                }
             }
         });
     }
@@ -222,7 +251,13 @@ function exportQuestions(){
                 window.open(location.origin + returndata, '_blank');
             },
             error: function(returndata) {
-                alert("Error:\n" + returndata.responseText);
+                if(returndata.status == 401) {
+                    var url = document.referrer;
+                    //url = url.substr(0,url.indexOf('/',7))
+                    window.top.location.href = url //+ "/login/auth"
+                } else {
+                    alert("Error:\n" + returndata.responseText);
+                }
 
 
             }

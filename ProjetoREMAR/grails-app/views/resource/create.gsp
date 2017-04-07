@@ -10,7 +10,7 @@
 				<div class="col-md-12">
 					<div class="box box-body box-info">
 						<p class="left-align margin-bottom" style="font-size: 24px;">
-							<i class="left small material-icons">games</i>Submeter jogo
+							<i class="left small material-icons">games</i>Submeter modelo de jogo
 						</p>
 						<div class="divider"></div>
 						<br />
@@ -21,7 +21,7 @@
 									<div class="collapsible-body">
 										<div class="file-field input-field">
 											<div class="btn waves-effect waves-light my-orange col s2">
-												<span>File</span>
+												<span>Arquivo</span>
 												<input type="file" required name="war" id="war" accept=".war">
 											</div>
 											<div class="file-path-wrapper col s10">
@@ -64,11 +64,25 @@
 												</div>
 
 												<br>
-												<div class="send-war right">
+
+												<!-- Botão Enviar -->
+												<div class="buttons col s1 m1 l1 offset-s8 offset-m10 offset-l10" style="margin-top:20px">
+													<button class="btn waves-effect waves-light my-orange" data-delay="5" data-tooltip="Enviar" onclick="confirmLicense()" type="submit" name="save" id="submitButton">
+														Enviar
+													</button>
+												</div>
+
+
+
+												<!--<div class="send-war right">
 													<a href="#!" data-position="bottom" data-delay="5" data-tooltip="Enviar" class="waves-effect waves-light btn-flat send" onclick="confirmLicense()">
 														Enviar <i class="material-icons send-icon" style="color: green;">done</i>
 													</a>
 												</div>
+												-->
+
+
+
 											</div>
 											<br class="clear" />
 										</div>

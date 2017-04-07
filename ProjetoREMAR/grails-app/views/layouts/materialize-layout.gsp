@@ -4,6 +4,7 @@
             <nav class="valign-wrapper">
                 <div class="hide-on-med-and-down remar-max-size center">
                     <!-- Menu for large displays -->
+
                     <ul class="left">
                         <li>
                             <a href="/index/project" class="valign-wrapper">

@@ -6,6 +6,15 @@ import br.ufscar.sead.loa.propeller.domain.TaskInstance
 
 class ProcessController {
     def grailsApplication
+    def beforeInterceptor = [action: this.&check, only: ['start', 'overview', 'list']]
+
+    private check() {
+        if (!session.user) {
+            log.debug "Logout: session.user is NULL !"
+            redirect controller: "logout", action: "index"
+            return false
+        }
+    }
 
     def start() {
         def process
@@ -261,7 +270,7 @@ class ProcessController {
         exportedResourceInstance.processId = process.id
         exportedResourceInstance.license = resource.license
         exportedResourceInstance.contentArea = process.getVariable('contentArea')
-        exportedResourceInstance.specificContent =  process.getVariable("specificContent")
+        exportedResourceInstance.specificContent =  process.getVariable('specificContent')
 
         exportedResourceInstance.save flush: true
 
@@ -273,7 +282,8 @@ class ProcessController {
         }
 
         ant.copy(todir: "${instanceFolder}/web") {
-            fileset(dir: servletContext.getRealPath("/data/resources/sources/${resource.uri}/base"))
+            fileset(dir: servletContext.getRealPath("/data/resources/sources/${resource.uri}/base"),
+                    excludes: "*.zip")
         }
 
         def pathImgPrev = servletContext.getRealPath("/data/processes/${process.id}")

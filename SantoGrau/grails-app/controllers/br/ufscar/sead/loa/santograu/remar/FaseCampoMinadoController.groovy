@@ -14,6 +14,21 @@ class FaseCampoMinadoController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", returnInstance: "GET", exportQuestions: "POST"]
 
+    def beforeInterceptor = [action: this.&check, only: ['index', 'exportQuestions','save', 'update', 'delete']]
+
+
+    private check() {
+        if (springSecurityService.isLoggedIn())
+            session.user = springSecurityService.currentUser
+        else {
+            log.debug "Logout: session.user is NULL !"
+            session.user = null
+            redirect controller: "login", action: "index"
+
+            return false
+        }
+    }
+
     @Secured(['permitAll'])
     def index() {
         if (params.t) {

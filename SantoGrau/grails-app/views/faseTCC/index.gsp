@@ -29,13 +29,17 @@
 				</center>
 				Selecione no mínimo 5 perguntas, com 5 alternativas cada (caso forneça mais de 5 questões, o jogo escolherá 5 aleatoriamente).
 			</div>
-			<div id="chooseQuestion" class="col s12 m12 l12">
+
+				<div id="chooseQuestion" class="col s12 m12 l12">
 				<br>
 				<div class="row">
 					<div class="col s6 m3 l3 offset-s6 offset-m9 offset-l9">
 						<input  type="text" id="SearchLabel" placeholder="Buscar"/>
 					</div>
 				</div>
+
+
+
 				<div class="row">
 					<div class="col s12 m12 l12">
 						<table class="highlight" id="table" style="margin-top: -30px;">
@@ -75,22 +79,67 @@
 					</div>
 				</div>
 
-				<div class="row">
-					<div class="col s1 m1 l1 offset-s4 offset-m8 offset-l8">
-						<a data-target="createModal" name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"><i class="material-icons">add</i></a>
-					</div>
-					<div class="col s1 offset-s1 m1 l1">
-						<a name="delete" class="btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exluir questão" ><i class="material-icons" onclick="_open_modal_delete()">delete</i></a>
-					</div>
-					<div class="col s1 offset-s1 m1 l1">
-						<a data-target="uploadModal" class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped" data-tooltip="Upload arquivo .csv"><i
-								class="material-icons">file_upload</i></a>
-					</div>
-					<div class="col s1 offset-s1 m1 l1">
-						<a class="btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exportar questões para .csv"><i
-								class="material-icons" onclick="exportQuestions()">file_download</i></a>
-					</div>
-				</div>
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="row">
+                        <div class="col s1 m1 l1 offset-s4 offset-m8 offset-l8">
+                            <a data-target="createModal" name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"><i class="material-icons">add</i></a>
+                        </div>
+
+
+                        <div class="col s1 offset-s1 m1 l1">
+                            <a name="delete" class="btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exluir questão" ><i class="material-icons" onclick="_open_modal_delete()">delete</i></a>
+                        </div>
+
+
+                        <div class="col s1 offset-s1 m1 l1">
+                            <a data-target="uploadModal" class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped" data-tooltip="Upload arquivo .csv"><i
+                                    class="material-icons">file_upload</i></a>
+                        </div>
+
+
+                        <div class="col s1 offset-s1 m1 l1">
+                            <a class="btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exportar questões para .csv"><i
+                                    class="material-icons" onclick="exportQuestions()">file_download</i></a>
+                        </div>
+
+				    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 				<div class="row">
 					<div class="col s2">
@@ -99,6 +148,8 @@
 						</button>
 					</div>
 				</div>
+
+
 
 				<div id="editModal" class="modal">
 					<div class="modal-content">
@@ -171,6 +222,10 @@
 					</div>
 				</div>
 
+
+
+
+
 				<div id="createModal" class="modal">
 					<div class="modal-content">
 						<h4>Criar Questão</h4>
@@ -241,6 +296,10 @@
 					</div>
 				</div>
 
+
+
+
+
 				<div id="deleteModal" class="modal">
 					<div class="modal-content">
 						<div id="delete-one-question">
@@ -256,6 +315,11 @@
 					</div>
 				</div>
 
+
+
+
+
+
 				<div id="erroDeleteModal" class="modal">
 					<div class="modal-content">
 						Você deve selecionar ao menos uma questão para excluir.
@@ -265,7 +329,11 @@
 					</div>
 				</div>
 
-				<div id="errorSaveModal" class="modal">
+
+
+
+
+                    <div id="errorSaveModal" class="modal">
 					<div class="modal-content">
 						Você deve selecionar pelo menos 5 questões para enviar.
 					</div>
@@ -273,6 +341,10 @@
 						<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
 					</div>
 				</div>
+
+
+
+
 				<div id="errorDownloadModal" class="modal">
 					<div class="modal-content">
 						Você deve selecionar ao menos uma questão antes de exportar seu banco de questões.
@@ -281,6 +353,11 @@
 						<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
 					</div>
 				</div>
+
+
+
+
+
 				<div id="errorImportingQuestionsModal" class="modal">
 					<div class="modal-content">
 						Erro - Para importar questões, você deve deixá-las no formado indicado.
@@ -289,6 +366,10 @@
 						<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
 					</div>
 				</div>
+
+
+
+
 
 				<div id="uploadModal" class="modal">
 					<div class="modal-content">
@@ -373,6 +454,9 @@
 						</div>
 					</div>
 				</div>
+
+
+
 			</div>
 		</div>
 		<input type="hidden" id="errorImportingQuestions" name="errorImportingQuestions" value="${errorImportQuestions}">

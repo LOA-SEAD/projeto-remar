@@ -13,6 +13,22 @@ class FaseTecnologiaController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", exportLevel: "POST"]
 
+    def beforeInterceptor = [action: this.&check, only: ['index', 'exportLevel']]
+
+
+    private check() {
+        if (springSecurityService.isLoggedIn())
+            session.user = springSecurityService.currentUser
+        else {
+            log.debug "Logout: session.user is NULL !"
+            session.user = null
+            redirect controller: "login", action: "index"
+
+            return false
+        }
+    }
+
+
     @Secured(['permitAll'])
     def index(Integer max) {
         if (params.t) {
@@ -22,8 +38,6 @@ class FaseTecnologiaController {
         if (params.p) {
             session.processId = params.p
         }
-
-        session.user = springSecurityService.currentUser
         respond new FaseTecnologia(params)
     }
 

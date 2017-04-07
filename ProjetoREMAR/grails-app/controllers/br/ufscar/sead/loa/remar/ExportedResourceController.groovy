@@ -8,10 +8,7 @@ import grails.transaction.Transactional
 import groovy.json.JsonBuilder
 import groovy.json.JsonSlurper
 import org.apache.commons.lang.RandomStringUtils
-import org.bson.Document
 import org.springframework.web.multipart.commons.CommonsMultipartFile
-import com.mongodb.MongoClient
-import com.mongodb.client.MongoDatabase;
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
 
@@ -20,6 +17,15 @@ class ExportedResourceController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "GET"]
     def springSecurityService
+    def beforeInterceptor = [action: this.&check, only: ['publish', 'myGames']]
+
+    private check() {
+        if (!session.user) {
+            log.debug "Logout: session.user is NULL !"
+            redirect controller: "logout", action: "index"
+            return false
+        }
+    }
 
     def save(ExportedResource exportedResourceInstance) {
         // need to improve that
@@ -161,6 +167,7 @@ class ExportedResourceController {
         def resourceURI = instance.resource.uri         // get uri because blank spaces in name
         def desktop = instance.resource.desktop
         def android = instance.resource.android
+        def web = instance.resource.web
 
 
 
@@ -179,11 +186,14 @@ class ExportedResourceController {
             def sourceFolder = "${root}/data/resources/sources/${instance.resource.uri}/"
             def desktopFolder = "${root}/published/${instance.processId}/desktop"
             def mobileFolder = "${root}/published/${instance.processId}/mobile"
+            def webFolder = "${root}/published/${instance.processId}/web"
             def ant = new AntBuilder()
             def process = Propeller.instance.getProcessInstanceById(instance.processId, session.user.id as long)
+            def processType = process.definition.type
             def folders = []
             def scriptUpdateElectron = "${root}/scripts/electron/update.sh"
             def scriptUpdateCrosswalk = "${root}/scripts/crosswalk/update.sh"
+            def scriptUpdateUnity = "${root}/scripts/unity/update.sh"
 
             folders << "${desktopFolder}/windows/resources/app"
             folders << "${desktopFolder}/linux/resources/app"
@@ -235,20 +245,38 @@ class ExportedResourceController {
 
             folders.each { folder ->
                 println folder
-                File file = new File("$folder/$jsonName");
-                PrintWriter pw = new PrintWriter(file);
+                File file = new File("$folder/$jsonName")
+                PrintWriter pw = new PrintWriter(file)
                 pw.write(builder)
                 pw.close()
             }
 
-
             if (desktop) {
-                ant.sequential {
-                    chmod(perm: "+x", file: scriptUpdateElectron)
-                    exec(executable: scriptUpdateElectron) {
-                        arg(value: desktopFolder)
-                        arg(value: resourceURI)
-                    }
+                switch (processType) {
+                    case "unity" :
+                        ant.sequential {
+                            chmod(perm: "+x", file: scriptUpdateUnity)
+                            exec(executable: scriptUpdateUnity) {
+                                arg(value: root)
+                                arg(value: resourceURI)
+                                arg(value: instance.processId)
+                            }
+                        }
+
+                        log.debug "Finished exporting Unity Desktop project"
+                        break
+
+                    default /* HTML */ :
+                        ant.sequential {
+                            chmod(perm: "+x", file: scriptUpdateElectron)
+                            exec(executable: scriptUpdateElectron) {
+                                arg(value: desktopFolder)
+                                arg(value: resourceURI)
+                            }
+                        }
+
+                        log.debug "Finished exporting HTML Desktop project"
+                        break
                 }
             }
 
@@ -261,26 +289,43 @@ class ExportedResourceController {
                         arg(value: resourceURI)
                     }
                 }
-            }
 
+                log.debug "Finished exporting Android project"
+            }
 
             if (instance.resource.moodle) {
                 instance.moodleUrl = urls.web
             }
 
-            def jsonPathWeb = "${root}/published/${instance.processId}/web"
-            File file = new File("$jsonPathWeb/$jsonName");
-            PrintWriter pw = new PrintWriter(file);
-            pw.write(builder)
-            pw.close()
+            if (web) {
+                switch (processType) {
+                    case "unity" :
+                        ant.unzip(src:"${root}/data/resources/sources/${instance.resource.uri}/base/web.zip", dest:"${webFolder}/", overwrite:true)
+                        process.completedTasks.outputs.each { outputs ->
+                            outputs.each { output ->
+                                ant.sequential {
+                                    ant.copy(file: output.path, tofile: "${webFolder}/Assets/Resources/${output.definition.name}", failonerror: false)
+                                }
+                            }
+                        }
 
-            instance.exported = true
-            instance.save flush: true
+                        log.debug "Finished exporting Unity Web project"
+                        break
+                    default /* HTML */ :
+                        def jsonPathWeb = "${root}/published/${instance.processId}/web"
+                        File file = new File("$jsonPathWeb/$jsonName")
+                        PrintWriter pw = new PrintWriter(file)
+                        pw.write(builder)
+                        pw.close()
 
+                        instance.exported = true
+                        instance.save flush: true
+
+                        log.debug "Finished exporting HTML Web project"
+                        break
+                }
+            }
         }
-
-
-
 
         render urls as JSON
     }

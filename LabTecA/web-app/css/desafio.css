@@ -1,0 +1,22 @@
+.collapsible-body {
+    padding: 2rem;
+}
+
+.collapsible-header .row {
+    margin-bottom: 0px;
+}
+
+.button-icon {
+    color: #FF5722;
+    margin-left: 90%;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
