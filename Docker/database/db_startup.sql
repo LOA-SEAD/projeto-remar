@@ -6,6 +6,5 @@ CREATE DATABASE IF NOT EXISTS mahjong;
 CREATE DATABASE IF NOT EXISTS respondasepuder;
 
 GRANT ALL PRIVILEGES
-ON database.*
+ON *.*
 TO 'root'@'172.18.%'
-IDENTIFIED BY 'root';
