@@ -79,7 +79,7 @@
 		<div class="col s8 m8 l8">
 			<div class="file-field input-field">
 				<div class="btn waves-effect waves-light my-orange">
-					<span>File</span>
+					<span>Arquivo</span>
 					<input type="file" data-image="true" id="img-1" name="img1" accept="image/jpeg, image/png">
 				</div>
 				<div class="file-path-wrapper">
@@ -96,7 +96,7 @@
 		<div class="col s8 m8 l8" >
 			<div class="file-field input-field">
 				<div class="btn waves-effect waves-light my-orange">
-					<span>File</span>
+					<span>Arquivo</span>
 					<input type="file" data-image="true" name="img2" id="img-2"  accept="image/jpeg, image/png">
 				</div>
 				<div class="file-path-wrapper">
@@ -113,7 +113,7 @@
 		<div class="col s8 m8 l8">
 			<div class="file-field input-field">
 				<div class="btn waves-effect waves-light my-orange">
-					<span>File</span>
+					<span>Arquivo</span>
 					<input type="file" data-image="true" name="img3" id="img-3"  accept="image/jpeg, image/png">
 				</div>
 				<div class="file-path-wrapper">

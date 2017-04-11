@@ -200,7 +200,12 @@
         <img id="crop-preview" class="responsive-img">
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect btn-flat">Enviar</a>
+        <!-- Botão Enviar -->
+        <div class="buttons col s1 m1 l1 offset-s8 offset-m10 offset-l10" style="margin-top:20px">
+            <a href="#!" class="modal-action modal-close btn waves-effect waves-light my-orange">
+                Enviar
+            </a>
+        </div>
     </div>
 </div>
 
