@@ -1,5 +1,6 @@
 body {
   margin: 20px;
+  background-color: #E6E6E6;
 }
 
 pre[class*="language-"] {
@@ -27,4 +28,16 @@ pre[class*="language-"] {
   height: 100px;
   width: 100px;
   margin-left: 20px;
+}
+
+.color-code {
+  margin-top: 0.5em;
+}
+
+.card-panel {
+  padding-top: 5px;
+}
+
+.card-panel--content {
+  margin-top: 1em;
 }

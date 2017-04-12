@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link type="text/css" href="css/materialize.css" rel="stylesheet" media="screen,projection"/>
+		<link type="text/css" href="css/prism.css" rel="stylesheet" media="screen,projection"/>
+		<link type="text/css" href="css/standardization.css" rel="stylesheet" media="screen,projection"/>
+
+		<title>REMAR Standardization</title>
+		<meta charset="UTF-8"/>
+	</head>
+
+
+	<body>
+		<div class="row">
+			<!-- Painel de Cores-->
+			<div class="col s6">
+				<div class="card-panel">
+					<div class="card-panel--top">
+						<h5 class="light">Cores</h5>
+					</div>
+
+					<div class="divider"></div>
+
+					<div class="card-panel--content">
+						<!-- Laranja -->
+						<div class="row">
+							<div class="col s3">
+	      				<p class="z-depth-5 box remar-orange"/>
+							</div>
+							<div class="col s9 color-code">
+								<pre class="language-css">
+									<code class="language-css">
+										.remar-orange {
+										  background-color: #FF5722 !important;
+										}
+									</code>
+								</pre>
+							</div>
+	    			</div>
+						<!-- Vermelho -->
+						<div class="row">
+							<div class="col s3">
+	      				<p class="z-depth-5 box remar-red"/>
+							</div>
+							<div class="col s9 color-code">
+								<pre class="language-css">
+									<code class="language-css">
+										.remar-red {
+										  background-color: #F70000 !important;
+										}
+									</code>
+								</pre>
+							</div>
+	    			</div>
+						<!-- Marrom -->
+						<div class="row">
+							<div class="col s3">
+	      				<p class="z-depth-5 box remar-brown"/>
+							</div>
+							<div class="col s9 color-code">
+								<pre class="language-css">
+									<code class="language-css">
+										.remar-brown {
+										  background-color: #5D4037 !important;
+										}
+									</code>
+								</pre>
+							</div>
+	    			</div>
+						<!-- Verde -->
+						<div class="row">
+							<div class="col s3">
+	      				<p class="z-depth-5 box remar-green"/>
+							</div>
+							<div class="col s9 color-code">
+								<pre class="language-css">
+									<code class="language-css">
+										.remar-green {
+										  background-color: #4CAF50 !important;
+										}
+									</code>
+								</pre>
+							</div>
+	    			</div>
+					</div>
+
+					<div class="card-panel--footer">
+					</div>
+				</div>
+			</div>
+
+			<!-- Painel Botão Enviar -->
+			<div class="col s6">
+				<div class="card-panel">
+					<div class="card-panel--header">
+						<h5 class="light">Botão Enviar</h5>
+					</div>
+
+					<div class="divider"></div>
+
+					<div class="card-panel--content">
+						<!-- Botão -->
+						<div class="row">
+							<div class="center-align">
+								<div class="buttons s1">
+									<a href="#!" class="btn waves-effect waves-light remar-orange" onclick="alert('Enviado!')">
+										Enviar
+									</a>
+								</div>
+							</div>
+						</div>
+						<!-- Código -->
+						<div class="row">
+							<section class="languague-markup">
+								<pre class="language-markup">
+									<code class="language-markup">
+										&lt;a href="#!" class="btn waves-effect waves-light remar-orange" onclick=""&gt;
+											Enviar
+										&lt;/a&gt;
+									</code>
+								</pre>
+							</section>
+						</div>
+					</div>
+
+					<div class="card-panel--footer">
+					</div>
+				</div>
+			</div>
+
+			<!-- Painel Modal -->
+			<div class="col s6">
+				<div class="card-panel">
+					<div class="card-panel--header">
+						<h5 class="light">Modal</h5>
+					</div>
+
+					<div class="divider"></div>
+
+					<div class="card-panel--content">
+						<!-- Trigger do Modal -->
+						<div class="row">
+							<div class="center-align">
+								<div class="buttons s1">
+									<a class="btn waves-effect waves-light remar-orange" href="#exemploModal">
+										Abrir Modal
+									</a>
+								</div>
+							</div>
+						</div>
+						<!-- Código -->
+						<div class="row">
+							<!-- HTML -->
+							<section class="languague-markup">
+								<pre class="language-markup">
+									<code class="language-markup">
+										&lt;!-- Trigger --&gt;
+										&lt;a class="btn waves-effect waves-light remar-orange" href="#exemploModal"&gt;
+											Abrir Modal
+										&lt;/a&gt;
+
+										&lt;!-- Modal --&gt;
+										&lt;div id="exemploModal" class="modal"&gt;
+											&lt;div class="modal-content"&gt;
+												&lt;h4&gt;Cabeçalho do modal&lt;/h4&gt;
+												&lt;p&gt;Um monte de texto&lt;/p&gt;
+											&lt;/div&gt;
+											&lt;div class="modal-footer"&gt;
+												&lt;a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" style="margin-right: 10px;"&gt;Opção 1&lt;/a&gt;
+												&lt;a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" style="margin-right: 10px;"&gt;Opção 2&lt;/a&gt;
+											&lt;/div&gt;
+										&lt;/div&gt;
+									</code>
+								</pre>
+							</section>
+							<!-- JavaScript -->
+							<section class="languague-javasscript">
+								<pre class="language-javascript">
+									<code class="language-javascript">
+										// O atributo "href" de um .modal-trigger deve especificar o ID do modal ao qual está ligado
+										$(document).ready(function() {
+										  $('.modal').modal();
+										});
+									</code>
+								</pre>
+							</section>
+						</div>
+					</div>
+
+					<div class="card-panel--footer">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="exemploModal" class="modal">
+	    <div class="modal-content">
+				<h4>Cabeçalho do Modal</h4>
+      	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+      </div>
+    	<div class="modal-footer">
+      	<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" style="margin-right: 10px;">Opção 1</a>
+				<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" style="margin-right: 10px;">Opção 2</a>
+      </div>
+    </div>
+
+		<!-- Scripts -->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="js/materialize.js"></script>
+		<script type="text/javascript" src="js/prism.js"></script>
+		<script type="text/javascript" src="js/standardization.js"></script>
+	</body>
+</html>
