@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<g:external dir="css" file="resource.css"/>
+		<g:external dir="css" file="desafio.css"/>
+
 		<meta name="layout" content="materialize-layout">
 		<title>Novo Jogo</title>
+
 	</head>
 	<body>
 		<div class="content">
@@ -71,15 +75,6 @@
 														Enviar
 													</button>
 												</div>
-
-
-
-												<!--<div class="send-war right">
-													<a href="#!" data-position="bottom" data-delay="5" data-tooltip="Enviar" class="waves-effect waves-light btn-flat send" onclick="confirmLicense()">
-														Enviar <i class="material-icons send-icon" style="color: green;">done</i>
-													</a>
-												</div>
-												-->
 
 
 
@@ -156,10 +151,27 @@
 
 		</div>
 		<div class="modal-footer">
-			<a href="#!" class=" btn btn-large modal-close my-orange" onclick="submit()">Sim, tenho certeza</a>
-			<a href="#!" class=" btn btn-large modal-close disabled" onclick="return false;">Não</a>
+			<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" onclick="submit()" style="margin-right: 10px;">Sim</a>
+			<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" onclick="return false;" style="margin-right: 10px;">Não</a>
 		</div>
 	</div>
+
+	<!-- Modal -->
+%{--	<div id="modalConfirmLicense" class="modal">
+		<div class="modal-content">
+			<h4>Você tem certeza que deseja escolher esta licença?</h4>
+			<div class="row">
+				<div class="col s12 m12 l12">
+					<p align="justify">Após escolher a licença do seu modelo, você não poderá alterá-la posteriormente.</p>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" onclick="submit()" style="margin-right: 10px;">Sim</a>
+			<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" onclick="return false;" style="margin-right: 10px;">Não</a>
+		</div>
+	</div>--}%
+
 
     <div id="modal-picture" class="modal">
         <div class="modal-content center">
