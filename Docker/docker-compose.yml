@@ -10,17 +10,12 @@ services:
       - 'mysql-data:/var/lib/mysql'
       - './database:/tmp/db'
     command: mysqld --init-file="/tmp/db/db_startup.sql"
-    ports:
-      - '3306:3306'
   mongodb:
     env_file:
       - .env
     image: tutum/mongodb:3.2
     volumes: 
       - 'mongo-data:/data/db'
-    ports:
-      - '27017:27017'
-      - '28017:28017'
   remar:
       build: 
         context: .
