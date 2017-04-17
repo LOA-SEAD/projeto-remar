@@ -1,7 +1,13 @@
 
+window.onload = function() {
+  $('.modal').modal();
+  $('.grid').masonry({
+    itemSelector: '.grid-item'
+  });
+}
 
 $(document).ready(function() {
-  $('.modal').modal();
+  $('.grid').masonry('layout');
 });
 
 // Normaliza espaços em branco de códigos mostrados dentro de blocos PrismJS
