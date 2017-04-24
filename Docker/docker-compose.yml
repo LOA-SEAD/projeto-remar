@@ -17,9 +17,7 @@ services:
     volumes: 
       - 'mongo-data:/data/db'
   remar:
-      build: 
-        context: .
-        dockerfile: remar-app-dockerfile
+      image: lucasaciole/projeto-remar
       restart: always
       ports:
         - '8080:8080'
