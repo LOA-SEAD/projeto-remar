@@ -211,8 +211,16 @@
 		</div>
 	</div>
 	<div class="modal-footer">
-		<a id="create-rating" href="#!" class="modal-close waves-effect waves-green btn-flat ">Enviar</a>
-		<a id="edit-rating" href="#!" class="modal-close waves-effect waves-green btn-flat ">Salvar</a>
+
+		<a href="#!" id="create-rating" class="modal-action modal-close btn waves-effect waves-light remar-orange">
+			Enviar
+		</a>
+
+
+		<a href="#!" id="edit-rating" class="modal-action modal-close btn waves-effect waves-light remar-orange">
+			Salvar
+		</a>
+		<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" id="edit-rating"">Cancelar</a>
 	</div>
 </div>
 

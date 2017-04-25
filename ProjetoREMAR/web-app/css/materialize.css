@@ -5425,7 +5425,7 @@ html {
   line-height: 1.5;
   font-family: "Roboto", sans-serif;
   font-weight: normal;
-  color: rgba(0, 0, 0, 0.87); }
+  color: rgba(0, 0, 0, 1); }
   @media only screen and (min-width: 0) {
     html {
       font-size: 14px; } }
@@ -5857,7 +5857,7 @@ small {
   height: 37px;
   line-height: 37px;
   padding: 0;
-  background-color: #26a69a;
+  background-color: #FF5722;
   border-radius: 50%;
   transition: .3s;
   cursor: pointer;
@@ -6277,7 +6277,7 @@ label {
 input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea {
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid #5D4037;
+  border-bottom: none;
   border-radius: 0;
   outline: none;
   height: 3rem;
@@ -7596,7 +7596,7 @@ select {
       transition: background-color .3s;
       border-radius: 50%; }
       .slider .indicators .indicator-item.active {
-        background-color: #4CAF50; }
+        background-color: #FF5722; }
 
 /* ==========================================================================
    $BASE-PICKER
