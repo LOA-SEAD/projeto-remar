@@ -6,36 +6,31 @@
 		<div class="input-field col s12">
 			<input id="name" type="text" class="validate" value="${resourceInstance?.name}" required name="name">
 			<label for="name">Nome do jogo</label>
-			<!-- <span id="name-error2" class="invalid-input" style="left: 0.75rem">Este nome não é válido!</span> -->
-			<span id="name-error" class="invalid-input" style="left: 0.75rem">Este campo não pode ser vazio!</span>
+			<span id="name-error2" class="invalid-input" style="left: 0.75rem">Este nome não é válido!</span>
 		</div>
 	</div>
 	<div class="row">
 		<div class="input-field col s12">
 			<textarea id="description" class="materialize-textarea" length="250" name="description" required >${resourceInstance?.description}</textarea>
 			<label for="description">Descrição</label>
-			<span id="desc-error" class="invalid-textarea" style="left: 0.75rem">Este campo não pode ser vazio!</span>
 		</div>
 	</div>
 	<div class="row">
 		<div class="input-field col s12">
 			<textarea id="customizableItems" class="materialize-textarea" name="customizableItems" required >${resourceInstance?.customizableItems}</textarea>
 			<label for="customizableItems">Itens customizáveis</label>
-			<span id="customizableItems-error" class="invalid-textarea" style="left: 0.75rem">Este campo não pode ser vazio!</span>
 		</div>
 	</div>
 	<div class="row">
 		<div class="input-field col s12">
 			<input value="${resourceInstance?.videoLink}" id="videoLink" type="text" class="validate" required name="videoLink">
 			<label for="videoLink">Link de Video Tutorial</label>
-			<!-- <span id="videoLink-error" class="invalid-input" style="left: 0.75rem">Este campo não pode ser vazio!</span> -->
 		</div>
 	</div>
 	<div class="row">
 		<div class="input-field col s12">
 			<input value="${resourceInstance?.documentation}" id="documentation" type="text" class="validate" required name="documentation">
 			<label for="documentation">Documentação</label>
-			<span id="documentation-error" class="invalid-input" style="left: 0.75rem">Este campo não pode ser vazio!</span>
 		</div>
 	</div>
 
