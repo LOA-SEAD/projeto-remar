@@ -4,7 +4,6 @@
 <div id="formResource" class="fieldcontain ${hasErrors(bean: deployInstance, field: 'war', 'error')} required">
 	<div class="row">
 		<div class="input-field col s12">
-			<i class="material-icons suffix green-text active">done</i>
 			<input id="name" type="text" class="validate" value="${resourceInstance?.name}" required name="name">
 			<label for="name">Nome do jogo</label>
 			<!-- <span id="name-error2" class="invalid-input" style="left: 0.75rem">Este nome não é válido!</span> -->
@@ -13,7 +12,6 @@
 	</div>
 	<div class="row">
 		<div class="input-field col s12">
-			<i class="material-icons suffix green-text active">done</i>
 			<textarea id="description" class="materialize-textarea" length="250" name="description" required >${resourceInstance?.description}</textarea>
 			<label for="description">Descrição</label>
 			<span id="desc-error" class="invalid-textarea" style="left: 0.75rem">Este campo não pode ser vazio!</span>
@@ -21,7 +19,6 @@
 	</div>
 	<div class="row">
 		<div class="input-field col s12">
-			<i class="material-icons suffix green-text active">done</i>
 			<textarea id="customizableItems" class="materialize-textarea" name="customizableItems" required >${resourceInstance?.customizableItems}</textarea>
 			<label for="customizableItems">Itens customizáveis</label>
 			<span id="customizableItems-error" class="invalid-textarea" style="left: 0.75rem">Este campo não pode ser vazio!</span>
@@ -29,7 +26,6 @@
 	</div>
 	<div class="row">
 		<div class="input-field col s12">
-			<!-- <i class="material-icons suffix green-text active">done</i> -->
 			<input value="${resourceInstance?.videoLink}" id="videoLink" type="text" class="validate" required name="videoLink">
 			<label for="videoLink">Link de Video Tutorial</label>
 			<!-- <span id="videoLink-error" class="invalid-input" style="left: 0.75rem">Este campo não pode ser vazio!</span> -->
@@ -37,7 +33,6 @@
 	</div>
 	<div class="row">
 		<div class="input-field col s12">
-			<i class="material-icons suffix green-text active">done</i>
 			<input value="${resourceInstance?.documentation}" id="documentation" type="text" class="validate" required name="documentation">
 			<label for="documentation">Documentação</label>
 			<span id="documentation-error" class="invalid-input" style="left: 0.75rem">Este campo não pode ser vazio!</span>

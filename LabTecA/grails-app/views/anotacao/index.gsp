@@ -120,19 +120,6 @@
                     </div>
 
 
-               %{-- <div id="editModal" class="modal">
-                    <div class="modal-content">
-                        <h4>Edição de anotação</h4>
-                        <label id="labelAnotacao" class="active" for="editAnotacao">Anotação</label>
-                        <input id="editAnotacao" name="anotacao" required=""  type="text" class="validate" length="95" maxlength="95">
-
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" name="update" style="margin-right: 10px;">Salvar </a>
-                        <a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" style="margin-right: 10px;">Cancelar</a>
-                    </div>
-                </div>--}%
-
                     <div id="createModal" class="modal">
                         <g:form name="create-anotacao" url="[resource:anotacaoInstance, action:'save']" >
                             <div class="modal-content">
