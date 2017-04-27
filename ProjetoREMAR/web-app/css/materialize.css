@@ -1987,7 +1987,7 @@ ul {
   list-style-type: none; }
 
 a {
-  color: #039be5;
+  color: #FF5722;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent; }
 
@@ -2045,7 +2045,7 @@ ul {
 blockquote {
   margin: 20px 0;
   padding-left: 1.5rem;
-  border-left: 5px solid #ee6e73; }
+  border-left: 5px solid #FF5722; }
 
 i {
   line-height: inherit; }
@@ -2080,7 +2080,7 @@ img.responsive-img, video.responsive-video {
   .pagination li.active a {
     color: #fff; }
   .pagination li.active {
-    background-color: #ee6e73; }
+    background-color: #FF5722; }
   .pagination li.disabled a {
     cursor: default;
     color: #999; }
@@ -2189,7 +2189,7 @@ ul.staggered-list li {
 footer.page-footer {
   margin-top: 20px;
   padding-top: 20px;
-  background-color: #ee6e73; }
+  background-color: #FF5722; }
   footer.page-footer .footer-copyright {
     overflow: hidden;
     height: 50px;
@@ -5270,7 +5270,7 @@ nav ul a span.badge {
 
 nav {
   color: #fff;
-  background-color: #ee6e73;
+  background-color: #FF5722;
   width: 100%;
   height: 56px;
   line-height: 56px; }
@@ -5425,7 +5425,7 @@ html {
   line-height: 1.5;
   font-family: "Roboto", sans-serif;
   font-weight: normal;
-  color: rgba(0, 0, 0, 1); }
+  color: rgba(0, 0, 0, 0.87); }
   @media only screen and (min-width: 0) {
     html {
       font-size: 14px; } }
@@ -5940,7 +5940,7 @@ button.btn-floating {
       background-color: #eee; }
     .dropdown-content li > a, .dropdown-content li > span {
       font-size: 1.2rem;
-      color: #26a69a;
+      color: #5D4037;
       display: block;
       padding: 1rem 1rem; }
     .dropdown-content li > a > i {
@@ -6058,12 +6058,14 @@ a.waves-effect .waves-ripple {
   right: 0;
   background-color: #fafafa;
   padding: 0;
-  max-height: 70%;
-  width: 55%;
+  /*max-height: 70%;*/
+  /*width: 55%;*/
   margin: auto;
-  overflow-y: auto;
+  /*overflow-y: auto;*/
   border-radius: 2px;
-  will-change: top, opacity; }
+  will-change: top, opacity;
+  width: 75% !important ; max-height: 100% !important;
+  overflow-y: hidden !important ;}
   @media only screen and (max-width : 992px) {
     .modal {
       width: 80%; } }
@@ -6277,7 +6279,7 @@ label {
 input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea {
   background-color: transparent;
   border: none;
-  border-bottom: none;
+  border-bottom: 1px solid #5D4037;
   border-radius: 0;
   outline: none;
   height: 3rem;

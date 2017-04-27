@@ -25,7 +25,7 @@
                     <g:render template="developerCads" model="[resourceInstanceList:resourceInstanceList]" />
                 </g:if>
                 <g:else>
-                    <p>Você ainda não submeteu nenhum jogo. Nos envie um agora mesmo!  :)</p>
+                    <p>Você ainda não submeteu nenhum jogo. Nos envie um agora mesmo!</p>
                 </g:else>
 
 

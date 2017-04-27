@@ -17,7 +17,7 @@
     <div id="others-groups">
         <div class="row" id="belong">
             <g:if test="${groupsIBelong.empty}">
-                <h5 class="center-align no-groups-message">Você ainda não pertence a nenhum grupo :(</h5>
+                <h5 class="center-align no-groups-message">Você ainda não pertence a nenhum grupo</h5>
             </g:if>
             <g:else>
                 <g:each var="group" in="${groupsIBelong}">
@@ -81,7 +81,7 @@
     <div id="my-groups">
         <div style="position: relative; left: 1em" class="row">
             <g:if test="${groupsIOwn.empty && groupsIAdmin.empty}">
-                <h5>Você ainda não possui nenhum grupo criado ou administrado :(</h5>
+                <h5>Você ainda não possui nenhum grupo criado ou administrado</h5>
             </g:if>
                 <g:else>
                     <g:if test="${!groupsIOwn.empty}">
