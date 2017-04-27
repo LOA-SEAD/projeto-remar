@@ -81,6 +81,10 @@ pre[class*="language-"] {
   box-shadow: 0 1px 0 0 #F70000 !important;
 }
 
+label .required-indicator {
+  color: #F70000 !important;
+}
+
 /* NAVBAR */
 nav img.logo {
   width: 250px;

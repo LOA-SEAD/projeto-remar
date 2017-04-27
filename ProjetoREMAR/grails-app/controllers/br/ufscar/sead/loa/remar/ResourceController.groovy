@@ -121,6 +121,7 @@ class ResourceController {
             resourceInstance.desktop = 'desktop' in json.outputs
             resourceInstance.moodle = 'moodle' in json.outputs
             resourceInstance.web = 'web' in json.outputs
+            resourceInstance.type = json.type
             resourceInstance.width = json.vars.width
             resourceInstance.height = json.vars.height
 
@@ -217,7 +218,11 @@ class ResourceController {
             def scriptElectron = "${rootPath}/scripts/electron/build.sh"
             def scriptCrosswalk = "${rootPath}/scripts/crosswalk/build.sh"
 
-            if (resourceInstance.desktop && resourceInstance.comment != "test") {
+            // Electron Script --> Projetos HTML para Desktop
+            if (resourceInstance.desktop &&
+                    resourceInstance.comment != "test" &&
+                    resourceInstance.type == "html")
+            {
                 ant.sequential {
                     chmod(perm: "+x", file: scriptElectron)
                     exec(executable: scriptElectron) {
@@ -226,9 +231,16 @@ class ResourceController {
                         arg(value: resourceInstance.name.replaceAll("\\s+",""))
                     }
                 }
+            } else {
+                println "Electron skipped. Project type is [" + resourceInstance.type + "]."
             }
 
-            if (resourceInstance.android && resourceInstance.comment != "test") {
+
+            // Crosswalk Script --> Projetos HTML para Android
+            if (resourceInstance.android &&
+                    resourceInstance.comment != "test" &&
+                    resourceInstance.type == "html")
+            {
                 ant.sequential {
                     chmod(perm: "+x", file: scriptCrosswalk)
                     exec(executable: scriptCrosswalk) {
@@ -237,6 +249,8 @@ class ResourceController {
                         arg(value: resourceInstance.name)
                     }
                 }
+            } else {
+                println "Crosswalk skipped. Project type is [" + resourceInstance.type + "]."
             }
 
             if (Environment.current == Environment.DEVELOPMENT) {

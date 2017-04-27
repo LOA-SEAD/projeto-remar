@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<g:external dir="css" file="resource.css"/>
-		<g:external dir="css" file="desafio.css"/>
-
 		<meta name="layout" content="materialize-layout">
 		<title>Novo Jogo</title>
-
 	</head>
+
 	<body>
 		<div class="content">
 			<div class="row">
@@ -83,7 +80,7 @@
 										</div>
 									</div>
 								</li>
-								<li>
+								<li id="info-add-container">
 									<div id="info-add" class="collapsible-header"><i class="material-icons">info_outline</i>Informações adicionais</div>
 									<div class="collapsible-body">
 										<div class="row loaded-form">
@@ -103,72 +100,75 @@
 		</div>
 
 
-	<div id="modalComercial" class="modal">
-		<div class="modal-content">
-			<h4>Permitir usos comerciais do seu trabalho?</h4>
-			<div class="row">
-				<div class="col s6 m6 l6 license">
-					<h5>Sim</h5>
-					<p align="justify">O licenciante autoriza que outros copiem, distribuam, exibam e executem o trabalho, inclusive para fins comerciais.</p>
+		<div id="modalComercial" class="modal">
+			<div class="modal-content">
+				<h4>Permitir usos comerciais do seu trabalho?</h4>
+				<div class="row">
+					<div class="col s6 m6 l6 license">
+						<h5>Sim</h5>
+						<p align="justify">O licenciante autoriza que outros copiem, distribuam, exibam e executem o trabalho, inclusive para fins comerciais.</p>
+					</div>
+					<div class="col s6 m6 l6 license">
+						<h5>Não</h5>
+						<p align="justify">O licenciante autoriza que outros copiem, distribuam, exibam e executem o trabalho somente para fins não comerciais.</p>
+					</div>
 				</div>
-				<div class="col s6 m6 l6 license">
-					<h5>Não</h5>
-					<p align="justify">O licenciante autoriza que outros copiem, distribuam, exibam e executem o trabalho somente para fins não comerciais.</p>
+
+			</div>
+			<div class="modal-footer">
+				<a href="#!" class="  btn btn-large modal-close my-orange">Entendi</a>
+			</div>
+		</div>
+
+		<div id="modalShareAsLike" class="modal">
+			<div class="modal-content">
+				<h4>Permitir que adaptações do seu trabalho sejam compartilhadas?</h4>
+				<div class="row">
+					<div class="col s12 m12 l12 license">
+						<h5 align="left">Sim, desde que os outros compartilhem igual</h5>
+						<p align="justify">O licenciante autoriza que outros criem e distribuam trabalhos derivados, mas apenas ao abrigo da mesma licença ou de uma licença <a target="_blank" href="https://creativecommons.org/compatiblelicenses/">compatível</a>.</p>
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<a href="#!" class=" btn btn-large modal-close my-orange">Entendi</a>
+			</div>
+		</div>
+
+		<div id="modalConfirmLicense" class="modal">
+			<div class="modal-content">
+				<h4>Você tem certeza que deseja escolher esta licença?</h4>
+				<div class="row">
+					<div class="col s12 m12 l12">
+						<p align="justify">Após escolher a licença do seu modelo, você não poderá alterá-la posteriormente.</p>
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" onclick="submit()" style="margin-right: 10px;">Sim</a>
+				<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" onclick="return false;" style="margin-right: 10px;">Não</a>
+			</div>
+		</div>
+
+
+
+		<div id="modal-picture" class="modal remar-modal">
+			<div class="modal-content">
+				<h4>Upload de Imagem</h4>
+				<div class="img-container">
+					<img id="crop-preview" class="responsive-img">
 				</div>
 			</div>
 
- 		</div>
-		<div class="modal-footer">
-			<a href="#!" class="  btn btn-large modal-close my-orange">Entendi</a>
-		</div>
-	</div>
-
-	<div id="modalShareAsLike" class="modal">
-		<div class="modal-content">
-			<h4>Permitir que adaptações do seu trabalho sejam compartilhadas?</h4>
-			<div class="row">
-				<div class="col s12 m12 l12 license">
-					<h5 align="left">Sim, desde que os outros compartilhem igual</h5>
-					<p align="justify">O licenciante autoriza que outros criem e distribuam trabalhos derivados, mas apenas ao abrigo da mesma licença ou de uma licença <a target="_blank" href="https://creativecommons.org/compatiblelicenses/">compatível</a>.</p>
-				</div>
+			<div class="modal-footer">
+				<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Cancelar</a>
+				<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Enviar</a>
 			</div>
-
-		</div>
-		<div class="modal-footer">
-			<a href="#!" class=" btn btn-large modal-close my-orange">Entendi</a>
-		</div>
-	</div>
-
-	<div id="modalConfirmLicense" class="modal">
-		<div class="modal-content">
-			<h4>Você tem certeza que deseja escolher esta licença?</h4>
-			<div class="row">
-				<div class="col s12 m12 l12">
-					<p align="justify">Após escolher a licença do seu modelo, você não poderá alterá-la posteriormente.</p>
-				</div>
-			</div>
-
-		</div>
-		<div class="modal-footer">
-			<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" onclick="submit()" style="margin-right: 10px;">Sim</a>
-			<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" onclick="return false;" style="margin-right: 10px;">Não</a>
-		</div>
-	</div>
-
-
-
-    <div id="modal-picture" class="modal">
-        <div class="modal-content center">
-            <img id="crop-preview" class="responsive-img">
-        </div>
-
-
-		<div class="buttons col s1 m1 l1 offset-s8 offset-m10 offset-l10" style="margin-top:20px">
-			<button class="modal-action modal-close btn waves-effect waves-light my-orange">
-				Enviar
-			</button>
 		</div>
 
+		<g:external dir="css" file="resource.css"/>
 		<script type="text/javascript" src="${resource(dir: 'js', file: "imgPreview.js")}"></script>
 		<script type="text/javascript" src="${resource(dir: 'js', file: 'game-index.js')}"></script>
 	    <script type="text/javascript" src="${resource(dir: 'js', file: 'validate.js')}"></script>

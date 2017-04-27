@@ -82,6 +82,9 @@ function submit(){
             //set hidden id
             $("#hidden").val(data.id);
 
+            //set it to show
+            $("#info-add-container").show();
+
         },
         error: function(req, res, err) {
             console.log(req);

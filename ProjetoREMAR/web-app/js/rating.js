@@ -209,7 +209,6 @@ $(document).ready(function(){
 
         current_rating = $(this); //set current rating clicked
     }
-
 });
 
 function deleteRating(id){
