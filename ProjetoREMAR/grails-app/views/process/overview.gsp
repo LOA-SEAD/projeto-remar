@@ -150,7 +150,7 @@
                                                     </td>
                                                     <g:if test="${task.status == 1}">
                                                         <td>
-                                                            <a href="/frame/${process.definition.uri}/${task.definition.uri}?t=${task.id}&p=${process.id}">REALIZAR</a>
+                                                            <a href="/frame/${process.definition.uri}/${task.definition.uri}?t=${task.id}&p=${process.id}">Pendente</a>
                                                         </td>
                                                     </g:if>
                                                     <g:else>
@@ -166,15 +166,13 @@
                                 <div id="row-content-area" class="row hide">
                                     <blockquote style="margin-top: 25px;">Digite mais algumas informações sobre o seu jogo.</blockquote>
                                     <div class=" input-field col s12 m12 l12">
-                                        <input id="content-area" type="text" name="contentArea" value="${process.getVariable("contentArea")}"><label class="active" for="content-area" >Área de conteúdo</label>
-                                        <span id="content-area-error" class="invalid-input" style="left: 0.75rem">Este campo é obrigatório!</span>
+                                        <input id="content-area" type="text" name="contentArea" value="${process.getVariable("contentArea")}"><label class="active" for="content-area" >Área de conteúdo <span class="required-indicator">*</span></label>
 
                                     </div>
                                 </div>
                                 <div id="row-specific-content" class="row hide">
                                     <div class=" input-field col s12 m12 l12">
-                                        <input id="specific-content" name="specificContent" type="text" value="${process.getVariable("specificContent")}"><label class="active" for="specific-content">Conteúdo específico</label>
-                                        <span id="specific-content-error" class="invalid-input" style="left: 0.75rem">Este campo é obrigatório!</span>
+                                        <input id="specific-content" name="specificContent" type="text" value="${process.getVariable("specificContent")}"><label class="active" for="specific-content">Conteúdo específico <span class="required-indicator">*</span></label>
                                     </div>
                                 </div>
                             </div>
@@ -187,7 +185,9 @@
                     <div class="col s12 m12 l12">
                         <input name="id" id="processId" type="hidden" value="${process.id}">
                         <a id="submitButtonDisabled" class="btn disabled right hide">Publicar</a>
+
                         <a  onclick="finishGame()" id="submitButton" name="Submit" value="PUBLICAR" class="btn my-orange right hide"> Publicar </a>
+                        <a id="backButton" name="Back" class="btn my-orange right" href="/resource/customizableGames"> Voltar </a>
                     </div>
                 </div>
             </g:form>

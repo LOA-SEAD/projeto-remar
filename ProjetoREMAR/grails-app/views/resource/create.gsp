@@ -101,7 +101,8 @@
 				</div>
 			</div>
 		</div>
-	<!-- Modal Structure -->
+
+
 	<div id="modalComercial" class="modal">
 		<div class="modal-content">
 			<h4>Permitir usos comerciais do seu trabalho?</h4>
@@ -122,7 +123,6 @@
 		</div>
 	</div>
 
-	<!-- Modal Structure -->
 	<div id="modalShareAsLike" class="modal">
 		<div class="modal-content">
 			<h4>Permitir que adaptações do seu trabalho sejam compartilhadas?</h4>
@@ -139,7 +139,6 @@
 		</div>
 	</div>
 
-	<!-- Modal Structure -->
 	<div id="modalConfirmLicense" class="modal">
 		<div class="modal-content">
 			<h4>Você tem certeza que deseja escolher esta licença?</h4>
@@ -156,31 +155,19 @@
 		</div>
 	</div>
 
-	<!-- Modal -->
-%{--	<div id="modalConfirmLicense" class="modal">
-		<div class="modal-content">
-			<h4>Você tem certeza que deseja escolher esta licença?</h4>
-			<div class="row">
-				<div class="col s12 m12 l12">
-					<p align="justify">Após escolher a licença do seu modelo, você não poderá alterá-la posteriormente.</p>
-				</div>
-			</div>
-		</div>
-		<div class="modal-footer">
-			<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" onclick="submit()" style="margin-right: 10px;">Sim</a>
-			<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" onclick="return false;" style="margin-right: 10px;">Não</a>
-		</div>
-	</div>--}%
 
 
     <div id="modal-picture" class="modal">
         <div class="modal-content center">
             <img id="crop-preview" class="responsive-img">
         </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect btn-flat">Enviar</a>
-        </div>
-    </div>
+
+
+		<div class="buttons col s1 m1 l1 offset-s8 offset-m10 offset-l10" style="margin-top:20px">
+			<button class="modal-action modal-close btn waves-effect waves-light my-orange">
+				Enviar
+			</button>
+		</div>
 
 		<script type="text/javascript" src="${resource(dir: 'js', file: "imgPreview.js")}"></script>
 		<script type="text/javascript" src="${resource(dir: 'js', file: 'game-index.js')}"></script>
