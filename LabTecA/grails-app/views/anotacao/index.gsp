@@ -69,7 +69,7 @@
                                             <label for="checkbox-${anotacaoInstance.id}"></label>
                                         </td>
                                         <td>${fieldValue(bean: anotacaoInstance, field: "informacao")}</td>
-                                        <td> <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil " onclick="_modal_edit($(this.closest('tr')))" ></i>
+                                        <td> <i style="color: #5D4037 !important; margin-right:10px;" class="fa fa-pencil" onclick="_modal_edit($(this.closest('tr')))" ></i>
                                         </td>
                                     </tr>
                                 </g:each>
@@ -97,30 +97,32 @@
                     </div>
 
 
-
-                    <div id="editModal" class="modal">
-                        <div class="modal-content">
-                            <h4>Edição de anotação</h4>
-                            <div class="row">
-                                <g:form method="PUT" action="update" resource="${AnotacaoInstance}">
-                                    <div class="row">
-                                        <div class="input-field col s12">
-                                            <label id="labelAnotacao" class="active" for="editAnotacao">Anotação</label>
-                                            <input id="editAnotacao" name="anotacao" required=""  type="text" class="validate" length="95" maxlength="95">
+                    <div id="editModal" class="modal remar-modal">
+                        <g:form name="edit-anotacao" method="PUT" url="[resource:anotacaoInstance, action:'update']">
+                            <div class="modal-content">
+                                <h4>Edição de Anotação</h4>
+                                <div class="row">
+                                    <div class="content scaffold-create" role="main">
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <textarea required id="editAnotacao" class="materialize-textarea validate"
+                                                          name="anotacao" class="validate" length="1000" maxlength="1000"
+                                                          placeholder="Insira o Passo a Passo..."></textarea>
+                                            </div>
                                         </div>
                                     </div>
-
-                                    <input type="hidden" id="AnotacaoID" name="AnotacaoID">
-                                    <div class="col l10">
-                                        <g:submitButton name="update" class="btn btn-success btn-lg my-orange" value="Salvar" />
-                                    </div>
-                                </g:form>
+                                </div>
+                                <input type="hidden" id="AnotacaoID" name="AnotacaoID">
                             </div>
-                        </div>
+
+                            <div class="modal-footer">
+                                <g:submitButton name="update" class="btn btn-success btn-lg my-orange" value="Salvar" />
+                                <a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Fechar</a>
+                            </div>
+                        </g:form>
                     </div>
 
-
-                    <div id="createModal" class="modal">
+                    <div id="createModal" class="modal remar-modal">
                         <g:form name="create-anotacao" url="[resource:anotacaoInstance, action:'save']" >
                             <div class="modal-content">
                                 <h4>Criar Anotação</h4>
@@ -138,8 +140,8 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button class="btn waves-effect waves-light my-orange" onclick="document.getElementById('create-anotacao').submit()" style="margin-right: 10px;">Criar</button>
-                                <a class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;" href="#!">Cancelar</a>
+                                <a class="btn waves-effect waves-light remar-orange" onclick="document.getElementById('create-anotacao').submit()">Criar</a>
+                                <a class="btn waves-effect waves-light modal-close remar-orange" href="#!">Cancelar</a>
                             </div>
                         </g:form>
                     </div>
