@@ -11,14 +11,14 @@
 				<div class="col-md-12">
 					<div class="box box-body box-info">
 						<p class="left-align margin-bottom" style="font-size: 24px;">
-							<i class="left small material-icons">games</i>Submeter modelo de jogo
+							Submeter modelo de jogo
 						</p>
 						<div class="divider"></div>
 						<br />
 						<div class="row show">
 							<ul class="collapsible popout" data-collapsible="accordion">
 								<li>
-									<div class="collapsible-header active"><i class="material-icons">filter_drama</i>Upload War</div>
+									<div class="collapsible-header active">Upload War</div>
 									<div class="collapsible-body">
 										<div class="file-field input-field">
 											<div class="btn waves-effect waves-light my-orange col s2">
@@ -40,31 +40,33 @@
 													</div>
 													</div>
 												</div>
-												<div class="row">
-													<div class="col s12 m12 l12">
-															<p> <i  class="material-icons tooltipped cursor-pointer" data-tooltip="Mais informações" onclick="openThisModal('modalShareAsLike')">info</i> Permitir que adaptações do seu trabalho sejam compartilhadas?</p>
-														<input readonly class="with-gap" checked="checked" name="shareLicense" type="radio" id="shareYesAsLike"/>
-														<label for="shareYesAsLike">Sim, desde que outros compartilhem igual  <span class="required-indicator">*</span> </label>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col s12 m12 l12">
-														<p><i class="material-icons tooltipped cursor-pointer" data-tooltip="Mais informações" onclick="openThisModal('modalComercial')">info</i> Permitir usos comerciais do seu trabalho?</p>
-														<input onchange="showLicense()"  class="with-gap" name="comercialLicense" type="radio" id="comercialYes"/>
-														<label for="comercialYes">Sim</label>
-														<input onchange="showLicense()" class="with-gap" name="comercialLicense" type="radio" id="comercialNo"/>
-														<label for="comercialNo">Não</label>
-													</div>
-												</div>
-												<br>
-												<input type="hidden" name="license" value="cc-by" id="licenseValue" >
-												<div class="row">
-													<div class="col s12" id="licenseImage">
 
-													</div>
+												<span class="card-title valign-wrapper">
+													<p class="valign">  Permitir que adaptações do seu trabalho sejam compartilhadas?</p>
+													<i class="material-icons tooltipped cursor-pointer valign" data-tooltip="Mais informações" onclick="openThisModal('modalShareAsLike')">info</i>
+												</span>
+
+												<div>
+													<span class="card-title valign-wrapper">
+															<p class="valign">  Permitir usos comerciais do seu trabalho?</p>
+															<i class="material-icons tooltipped cursor-pointer valign" data-tooltip="Mais informações" onclick="openThisModal('modalComercial')">info</i>
+
+													</span>
+												</div>
+												<div>
+													<input onchange="showLicense()"  class="with-gap" name="comercialLicense" type="radio" id="comercialYes"/>
+													<label for="comercialYes">Sim</label>
+													<input onchange="showLicense()" class="with-gap" name="comercialLicense" type="radio" id="comercialNo"/>
+													<label for="comercialNo">Não</label>
 												</div>
 
-												<br>
+												<div id="license-container" style="display: none">
+													<input type="hidden" name="license" value="cc-by" id="licenseValue" >
+													<div class="row">
+														<div class="col s12" id="licenseImage">
+														</div>
+													</div>
+												</div>
 
 												<!-- Botão Enviar -->
 												<div class="buttons col s1 m1 l1 offset-s8 offset-m10 offset-l10" style="margin-top:20px">
@@ -72,9 +74,6 @@
 														Enviar
 													</button>
 												</div>
-
-
-
 											</div>
 											<br class="clear" />
 										</div>

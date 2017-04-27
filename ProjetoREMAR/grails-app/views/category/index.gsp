@@ -9,8 +9,8 @@
 	<body>
 	<div class="row cluster">
 		<div class="cluster-header">
-			<p id="title-page" class="text-teal text-darken-3 left-align margin-bottom">
-				<i class="small material-icons left">list</i>Categorias
+			<p id="title-page" class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 24px;">
+				Categorias
 			</p>
 
 			<div class="divider"></div>

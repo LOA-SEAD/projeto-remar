@@ -8,8 +8,8 @@
 <body>
 <div class="row cluster">
     <div class="cluster-header">
-        <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom">
-            <i class="small material-icons left">recent_actors</i>Meus jogos
+        <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 24px;">
+            Meus Jogos
         </p>
         <div class="divider"></div>
     </div>

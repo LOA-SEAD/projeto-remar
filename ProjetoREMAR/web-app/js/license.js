@@ -9,8 +9,6 @@ function showLicense(){
                                   " </a> <br />" +
                                   " Esta obra está licenciado com uma Licença <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Atribuição-CompartilhaIgual 4.0 Internacional</a>.");
         $("#licenseValue").attr("value", "cc-by-sa");
-
-
     }
     else{
         if($("#comercialNo").is(":checked")){
@@ -20,10 +18,10 @@ function showLicense(){
                                       "</a> <br /> " +
                                       " Esta obra está licenciado com uma Licença <a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/4.0/'>Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional</a>.");
             $("#licenseValue").attr("value", "cc-by-nc-sa");
-
-
+            // $("#license-container").show();
         }
     }
+    $("#license-container").show();
 }
 
 function checkAsLike(){

@@ -48,6 +48,7 @@
       <excludeFolder url="file://$MODULE_DIR$/target/work/plugin-provided-classes" />
       <excludeFolder url="file://$MODULE_DIR$/target/work/resources" />
       <excludeFolder url="file://$MODULE_DIR$/target/work/scriptCache" />
+      <excludeFolder url="file://$MODULE_DIR$/target/work/stage" />
       <excludeFolder url="file://$MODULE_DIR$/target/work/tomcat" />
     </content>
     <orderEntry type="inheritedJdk" />

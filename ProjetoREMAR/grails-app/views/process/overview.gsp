@@ -197,7 +197,9 @@
 
 <div id="modal-picture" class="modal">
     <div class="modal-content center">
-        <img id="crop-preview" class="responsive-img">
+        <div class="img-container">
+            <img id="crop-preview" class="responsive-img">
+        </div>
     </div>
     <div class="modal-footer">
         <!-- Botão Enviar -->
@@ -209,7 +211,7 @@
     </div>
 </div>
 
-
+<g:external dir="css" file="process.css"/>
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
 <g:javascript src="platforms.js"/>
 <g:javascript src="imgPreview.js"/>
