@@ -61,8 +61,7 @@ function _modal_edit(tr){
             success: function (returndata) {
                 var anotacaoInstance = returndata.split("%@!");
 
-                $("#labelAnotacao").attr("class","active");
-                $("#editAnotacao").attr("value",anotacaoInstance[0]);
+                $("#editAnotacao").val(anotacaoInstance[0]);
 
                 $("#AnotacaoID").attr("value",anotacaoInstance[1]);
                 $("#editModal").openModal();
