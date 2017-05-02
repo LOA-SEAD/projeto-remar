@@ -59,6 +59,7 @@
 													<input onchange="showLicense()" class="with-gap" name="comercialLicense" type="radio" id="comercialNo"/>
 													<label for="comercialNo">Não</label>
 												</div>
+												<br><br>
 
 												<div id="license-container" style="display: none">
 													<input type="hidden" name="license" value="cc-by" id="licenseValue" >

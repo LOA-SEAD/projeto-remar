@@ -6598,8 +6598,8 @@ form p:last-child {
   height: 22px;
   border-top: 2px solid transparent;
   border-left: 2px solid transparent;
-  border-right: 2px solid #26a69a;
-  border-bottom: 2px solid #26a69a;
+  border-right: 2px solid #FF5722;
+  border-bottom: 2px solid #FF5722;
   -webkit-transform: rotate(40deg);
   -moz-transform: rotate(40deg);
   -ms-transform: rotate(40deg);
@@ -6623,7 +6623,7 @@ form p:last-child {
   height: 22px;
   border-top: none;
   border-left: none;
-  border-right: 2px solid #26a69a;
+  border-right: 2px solid #FF5722;
   border-bottom: none;
   -webkit-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
@@ -6683,8 +6683,8 @@ form p:last-child {
   top: 0px;
   width: 20px;
   height: 20px;
-  border: 2px solid #26a69a;
-  background-color: #26a69a;
+  border: 2px solid #FF5722;
+  background-color: #FF5722;
   z-index: 0; }
 [type="checkbox"].filled-in:disabled:not(:checked) + label:before {
   background-color: transparent;
@@ -6716,10 +6716,10 @@ form p:last-child {
   height: 0; }
 
 .switch label input[type=checkbox]:checked + .lever {
-  background-color: #84c7c1; }
+  background-color: #FF5722; }
 
 .switch label input[type=checkbox]:checked + .lever:after {
-  background-color: #26a69a; }
+  background-color: #FF5722; }
 
 .switch label .lever {
   content: "";
@@ -6878,7 +6878,7 @@ input[type=range] + .thumb {
   height: 0;
   width: 0;
   border-radius: 50%;
-  background-color: #26a69a;
+  background-color: #FF5722;
   top: 10px;
   margin-left: -6px;
   -webkit-transform-origin: 50% 50%;
@@ -6895,7 +6895,7 @@ input[type=range] + .thumb {
     display: block;
     width: 30px;
     text-align: center;
-    color: #26a69a;
+    color: #FF5722;
     font-size: 0;
     -webkit-transform: rotate(45deg);
     -moz-transform: rotate(45deg);
@@ -6927,7 +6927,7 @@ input[type=range]::-webkit-slider-thumb {
   height: 14px;
   width: 14px;
   border-radius: 50%;
-  background-color: #26a69a;
+  background-color: #FF5722;
   transform-origin: 50% 50%;
   margin: -5px 0 0 0;
   -webkit-transition: 0.3s;
@@ -6954,7 +6954,7 @@ input[type=range]::-moz-range-thumb {
   height: 14px;
   width: 14px;
   border-radius: 50%;
-  background: #26a69a;
+  background: #FF5722;
   margin-top: -5px; }
 
 /*hide the outline behind the border*/
@@ -6986,7 +6986,7 @@ input[type=range]::-ms-thumb {
   height: 14px;
   width: 14px;
   border-radius: 50%;
-  background: #26a69a; }
+  background: #FF5722; }
 
 input[type=range]:focus::-ms-fill-lower {
   background: #888; }
@@ -7158,7 +7158,7 @@ select {
   width: 100%;
   height: 100%;
   opacity: 0;
-  border-color: #26a69a; }
+  border-color: #FF5722; }
 
 .spinner-blue, .spinner-blue-only {
   border-color: #4285f4; }
@@ -7170,7 +7170,7 @@ select {
   border-color: #f4b400; }
 
 .spinner-green, .spinner-green-only {
-  border-color: #0f9d58; }
+  border-color: #FF5722; }
 
 /**
  * IMPORTANT NOTE ABOUT CSS ANIMATION PROPERTIES (keanulee):

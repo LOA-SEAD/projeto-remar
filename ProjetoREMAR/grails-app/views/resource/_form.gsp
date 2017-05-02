@@ -5,20 +5,20 @@
 	<div class="row">
 		<div class="input-field col s12">
 			<input id="name" type="text" class="validate" value="${resourceInstance?.name}" required name="name">
-			<label for="name">Nome do jogo</label>
+			<label for="name">Nome do jogo <span class="required-indicator">*</span></label>
 			<span id="name-error2" class="invalid-input" style="left: 0.75rem">Este nome não é válido!</span>
 		</div>
 	</div>
 	<div class="row">
 		<div class="input-field col s12">
 			<textarea id="description" class="materialize-textarea" length="250" name="description" required >${resourceInstance?.description}</textarea>
-			<label for="description">Descrição</label>
+			<label for="description">Descrição <span class="required-indicator">*</span></label>
 		</div>
 	</div>
 	<div class="row">
 		<div class="input-field col s12">
 			<textarea id="customizableItems" class="materialize-textarea" name="customizableItems" required >${resourceInstance?.customizableItems}</textarea>
-			<label for="customizableItems">Itens customizáveis</label>
+			<label for="customizableItems">Itens customizáveis <span class="required-indicator">*</span></label>
 		</div>
 	</div>
 	<div class="row">
@@ -49,7 +49,7 @@
 						</g:each>
 					</g:if>
 				</select>
-				<label for="select">Escolha uma categoria: </label>
+				<label for="select">Escolha uma categoria: <span class="required-indicator">*</span></label>
 			</div>
 		</div>
 	</div>
