@@ -26,7 +26,7 @@
 		<div class="collapsible-header">
 			<div class="row">
 				<div class="col s6">
-					<i class="material-icons">mode_edit</i>Desafio 1
+					Desafio 1
 				</div>
 				<!-- Modal Trigger -->
 				<div class="col s6">
@@ -60,7 +60,7 @@
 		<div class="collapsible-header">
 			<div class="row">
 				<div class="col s6">
-					<i class="material-icons">mode_edit</i>Desafio 2
+					Desafio 2
 				</div>
 				<!-- Modal Trigger -->
 				<div class="col s6">

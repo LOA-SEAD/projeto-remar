@@ -1,6 +1,3 @@
-/**
- * Created by marcus on 11/05/16.
- */
 function showLicense(){
     if( $("#comercialYes").is(":checked")){
         $("#licenseImage").empty();

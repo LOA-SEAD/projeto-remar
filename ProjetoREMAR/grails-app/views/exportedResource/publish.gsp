@@ -9,7 +9,7 @@
 <div class="row cluster">
     <div class="cluster-header">
         <p class="text-teal text-darken-3 left-align margin-bottom">
-            <i class="small material-icons left">games</i>${exportedResourceInstance.name}
+           ${exportedResourceInstance.name}
         </p>
         <div class="divider"></div>
     </div>
@@ -30,7 +30,7 @@
 
             <ul class="collapsible popout" data-collapsible="expandable">
                 <li>
-                    <div class="collapsible-header active"> <i class="material-icons">feedback</i>Informações</div>
+                    <div class="collapsible-header active">Informações</div>
                     <div id="info" class="collapsible-body">
                         <div class="row">
                             <img id="img1Preview" class="my-orange right" width="100" height="100"
@@ -76,7 +76,7 @@
                 </g:if>
                 <li>
                     <div id="plataforms" class="collapsible-header active" data-exported="true">
-                        <i class="material-icons">view_column</i>Plataformas
+                        Plataformas
                     </div>
                     <div class="collapsible-body">
 

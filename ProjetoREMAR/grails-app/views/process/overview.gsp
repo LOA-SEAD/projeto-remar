@@ -49,7 +49,7 @@
                 <ul class="collapsible popout" data-collapsible="expandable">
                     <!-- 1 Etapa - informações básicas -->
                     <li>
-                        <div class="collapsible-header active"> <i class="material-icons">feedback</i>Informações básicas</div>
+                        <div class="collapsible-header active">Informações básicas</div>
                             <div id="info" class="collapsible-body"
                                  data-basic-info="${process.getVariable("updated")}">
                                 ${process.putVariable("updated","false",true)}
@@ -110,7 +110,7 @@
                         <!-- 2 Etapa - tarefas -->
                         <li>
                             <div id="tasks-header" class="collapsible-header active">
-                                <i class="material-icons">linear_scale</i>Tarefas
+                                Tarefas
                                 <g:if test="${process.getVariable("hasOptionalTasks")}">
                                     <br/>
                                     <tr>

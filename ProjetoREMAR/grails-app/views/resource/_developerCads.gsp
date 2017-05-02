@@ -11,7 +11,7 @@
             <div class="card-content">
                 <a class="title truncate" title="${resourceInstance.name}" aria-hidden="true" tabindex="-1" >${resourceInstance.name}</a>
                 <p style="font-size: 1.0em;" class="center">Feito por:
-                    <a href="#!" style="color: #7d8fff !important; margin-right:10px; cursor:pointer; font-style:normal"  class="user-profile" id="user-id-${resourceInstance.owner.id}" >
+                    <a href="#!" style="color: #FF5722 !important; margin-right:10px; cursor:pointer; font-style:normal"  class="user-profile" id="user-id-${resourceInstance.owner.id}" >
                         ${resourceInstance.owner.username}
                     </a>
                 </p>
