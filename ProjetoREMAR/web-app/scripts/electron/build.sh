@@ -16,9 +16,9 @@ cp $1/stats/logo-remar-preto-transparente.png .
 
 sed -i.bkp "s/NAME/$3/" package.json
 
-electron-packager . $2 --platform win32 --arch ia32 --version 0.37.5 --out ..
-electron-packager . $2 --platform linux --arch x64 --version 0.37.5 --out ..
-electron-packager . $2 --platform darwin --arch all --version 0.37.5 --out ..
+electron-packager . $2 --platform win32 --arch ia32 --electron-version 0.37.5 --out ..
+electron-packager . $2 --platform linux --arch x64 --electron-version 0.37.5 --out ..
+electron-packager . $2 --platform darwin --arch all --electron-version 0.37.5 --out ..
 
 rm main.js package.json package.json.bkp .REMAR login.js login.html logo-remar-preto-transparente.png
 
