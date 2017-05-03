@@ -1,4 +1,4 @@
-#informacao {
+#informacao, #editAnotacao {
     border:0;
     padding:10px;
     font-size:0.9em;
@@ -18,7 +18,7 @@
     min-height: 100px;
 }
 
-#informacao:focus {
+#informacao:focus, #editAnotacao:focus {
     outline: none !important;
     box-shadow: 0 0 10px #5d4037;
 }
@@ -34,4 +34,24 @@
 
 .modal .row {
     margin-bottom: auto;
+}
+
+.remar-modal {
+    text-align: center;
+}
+
+.remar-modal .modal-content h4 {
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.remar-modal .modal-footer a {
+    margin-right: 10px !important;
+}
+
+.remar-orange {
+    background-color: #FF5722 !important;
+}
+
+.remar-brown {
+    background-color: #5D4037 !important;
 }

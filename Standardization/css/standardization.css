@@ -1,0 +1,143 @@
+html, body, .block {
+  height: 100%;
+}
+
+span h5 {
+  margin-right: 10px;
+}
+
+pre[class*="language-"] {
+  padding: 25px 12px 7px 12px;
+}
+
+
+
+/* COLORS */
+.remar-orange {
+  background-color: #FF5722 !important;
+}
+
+.remar-green {
+  background-color: #4CAF50 !important;
+}
+
+.remar-red {
+  background-color: #F70000 !important;
+}
+
+.remar-brown {
+  background-color: #5D4037 !important;
+}
+
+.remar-black {
+  background-color: #212121 !important;
+}
+
+/* PANELS */
+.card-panel--content {
+  margin-top: 20px;
+}
+
+/* MODAL */
+.remar-modal {
+  text-align: center;
+}
+
+.remar-modal .modal-content h4 {
+  border-bottom: 1px solid #E0E0E0;
+}
+
+/* FORM INPUT */
+.remar-input--number {
+  -moz-appearance: textfield;
+  -webkit-appearance: textfield;
+  appearance: textfield;
+}
+
+.remar-input:focus:not([readonly]) + label {
+  color: #5D4037 !important;
+}
+
+.remar-input:focus {
+  border-bottom: 1px solid #5D4037 !important;
+  box-shadow: 0 1px 0 0 #5D4037 !important;
+}
+
+.remar-input.valid + label {
+  color: #4CAF50 !important;
+}
+
+.remar-input.valid {
+  border-bottom: 1px solid #4CAF50 !important;
+  box-shadow: 0 1px 0 0 #4CAF50 !important;
+}
+
+.remar-input.invalid + label {
+  color: #F70000 !important;
+}
+
+.remar-input.invalid {
+  border-bottom: 1px solid #F70000 !important;
+  box-shadow: 0 1px 0 0 #F70000 !important;
+}
+
+label .required-indicator {
+  color: #F70000 !important;
+}
+
+/* NAVBAR */
+nav img.logo {
+  width: 250px;
+}
+
+.nav-logo, .nav-content-container {
+  display: inline-block;
+}
+
+.nav-logo {
+  height: 112px;
+  width: 16.666%;
+  padding: 14px 25px;
+}
+
+.nav-content-container {
+  width: 83.333%;
+  float: right;
+}
+
+#search {
+  position: absolute;
+  right: 0;
+}
+
+/* SIDEBAR */
+.navbox-container {
+  height: 100%;
+  width: 16.666%;
+  position: absolute;
+  background-color: #FFF;
+}
+
+
+/* ETC */
+.box {
+ height: 100px;
+ width: 100px;
+ margin: auto;
+}
+
+.link {
+ color: #FF5722;
+}
+
+.link:hover {
+ color: #FF7043
+}
+
+.content-container {
+  overflow: auto;
+  height:100%;
+  padding: 0 100px 0 400px !important;
+  background-color: #E6E6E6 !important;
+  left: 16.666% !important;
+}

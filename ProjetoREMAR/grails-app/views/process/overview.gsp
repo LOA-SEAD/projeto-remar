@@ -49,7 +49,7 @@
                 <ul class="collapsible popout" data-collapsible="expandable">
                     <!-- 1 Etapa - informações básicas -->
                     <li>
-                        <div class="collapsible-header active"> <i class="material-icons">feedback</i>Informações básicas</div>
+                        <div class="collapsible-header active">Informações básicas</div>
                             <div id="info" class="collapsible-body"
                                  data-basic-info="${process.getVariable("updated")}">
                                 ${process.putVariable("updated","false",true)}
@@ -110,7 +110,7 @@
                         <!-- 2 Etapa - tarefas -->
                         <li>
                             <div id="tasks-header" class="collapsible-header active">
-                                <i class="material-icons">linear_scale</i>Tarefas
+                                Tarefas
                                 <g:if test="${process.getVariable("hasOptionalTasks")}">
                                     <br/>
                                     <tr>
@@ -150,7 +150,7 @@
                                                     </td>
                                                     <g:if test="${task.status == 1}">
                                                         <td>
-                                                            <a href="/frame/${process.definition.uri}/${task.definition.uri}?t=${task.id}&p=${process.id}">REALIZAR</a>
+                                                            <a href="/frame/${process.definition.uri}/${task.definition.uri}?t=${task.id}&p=${process.id}">Pendente</a>
                                                         </td>
                                                     </g:if>
                                                     <g:else>
@@ -166,15 +166,13 @@
                                 <div id="row-content-area" class="row hide">
                                     <blockquote style="margin-top: 25px;">Digite mais algumas informações sobre o seu jogo.</blockquote>
                                     <div class=" input-field col s12 m12 l12">
-                                        <input id="content-area" type="text" name="contentArea" value="${process.getVariable("contentArea")}"><label class="active" for="content-area" >Área de conteúdo</label>
-                                        <span id="content-area-error" class="invalid-input" style="left: 0.75rem">Este campo é obrigatório!</span>
+                                        <input id="content-area" type="text" name="contentArea" value="${process.getVariable("contentArea")}"><label class="active" for="content-area" >Área de conteúdo <span class="required-indicator">*</span></label>
 
                                     </div>
                                 </div>
                                 <div id="row-specific-content" class="row hide">
                                     <div class=" input-field col s12 m12 l12">
-                                        <input id="specific-content" name="specificContent" type="text" value="${process.getVariable("specificContent")}"><label class="active" for="specific-content">Conteúdo específico</label>
-                                        <span id="specific-content-error" class="invalid-input" style="left: 0.75rem">Este campo é obrigatório!</span>
+                                        <input id="specific-content" name="specificContent" type="text" value="${process.getVariable("specificContent")}"><label class="active" for="specific-content">Conteúdo específico <span class="required-indicator">*</span></label>
                                     </div>
                                 </div>
                             </div>
@@ -187,7 +185,9 @@
                     <div class="col s12 m12 l12">
                         <input name="id" id="processId" type="hidden" value="${process.id}">
                         <a id="submitButtonDisabled" class="btn disabled right hide">Publicar</a>
+
                         <a  onclick="finishGame()" id="submitButton" name="Submit" value="PUBLICAR" class="btn my-orange right hide"> Publicar </a>
+                        <a id="backButton" name="Back" class="btn my-orange right" href="/resource/customizableGames"> Voltar </a>
                     </div>
                 </div>
             </g:form>
@@ -197,14 +197,21 @@
 
 <div id="modal-picture" class="modal">
     <div class="modal-content center">
-        <img id="crop-preview" class="responsive-img">
+        <div class="img-container">
+            <img id="crop-preview" class="responsive-img">
+        </div>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect btn-flat">Enviar</a>
+        <!-- Botão Enviar -->
+        <div class="buttons col s1 m1 l1 offset-s8 offset-m10 offset-l10" style="margin-top:20px">
+            <a href="#!" class="modal-action modal-close btn waves-effect waves-light my-orange">
+                Enviar
+            </a>
+        </div>
     </div>
 </div>
 
-
+<g:external dir="css" file="process.css"/>
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
 <g:javascript src="platforms.js"/>
 <g:javascript src="imgPreview.js"/>

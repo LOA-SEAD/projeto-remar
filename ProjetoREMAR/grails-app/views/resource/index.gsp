@@ -14,7 +14,7 @@
 <body>
     <div class="row cluster">
         <p class="left-align margin-bottom" style="font-size: 24px;">
-            <i class="left small material-icons">work</i>Gerenciar jogos
+            Gerenciar Jogos
         </p>
         <div class="divider"></div>
         <br />
@@ -25,7 +25,7 @@
                     <g:render template="developerCads" model="[resourceInstanceList:resourceInstanceList]" />
                 </g:if>
                 <g:else>
-                    <p>Você ainda não submeteu nenhum jogo. Nos envie um agora mesmo!  :)</p>
+                    <p>Você ainda não submeteu nenhum jogo. Nos envie um agora mesmo!</p>
                 </g:else>
 
 
@@ -64,6 +64,8 @@
             <button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
         </div>
     </div>
+
+    <g:external dir="css" file="res.css"/>
     <g:javascript src="game-index.js"/>
 </body>
 </html>

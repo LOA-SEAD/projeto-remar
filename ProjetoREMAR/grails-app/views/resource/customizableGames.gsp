@@ -16,8 +16,8 @@
 <body>
     <div class="row cluster">
         <div class="cluster-header">
-            <p class="text-teal text-darken-3 left-align margin-bottom">
-                <i class="small material-icons left">create</i>Customizar
+            <p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 24px;">
+               Customizar
             </p>
             <div class="divider"></div>
         </div>

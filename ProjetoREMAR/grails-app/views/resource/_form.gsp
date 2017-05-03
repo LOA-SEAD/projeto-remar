@@ -4,43 +4,33 @@
 <div id="formResource" class="fieldcontain ${hasErrors(bean: deployInstance, field: 'war', 'error')} required">
 	<div class="row">
 		<div class="input-field col s12">
-			<i class="material-icons suffix green-text active">done</i>
 			<input id="name" type="text" class="validate" value="${resourceInstance?.name}" required name="name">
-			<label for="name">Nome do jogo</label>
-			<!-- <span id="name-error2" class="invalid-input" style="left: 0.75rem">Este nome não é válido!</span> -->
-			<span id="name-error" class="invalid-input" style="left: 0.75rem">Este campo não pode ser vazio!</span>
+			<label for="name">Nome do jogo <span class="required-indicator">*</span></label>
+			<span id="name-error2" class="invalid-input" style="left: 0.75rem">Este nome não é válido!</span>
 		</div>
 	</div>
 	<div class="row">
 		<div class="input-field col s12">
-			<i class="material-icons suffix green-text active">done</i>
 			<textarea id="description" class="materialize-textarea" length="250" name="description" required >${resourceInstance?.description}</textarea>
-			<label for="description">Descrição</label>
-			<span id="desc-error" class="invalid-textarea" style="left: 0.75rem">Este campo não pode ser vazio!</span>
+			<label for="description">Descrição <span class="required-indicator">*</span></label>
 		</div>
 	</div>
 	<div class="row">
 		<div class="input-field col s12">
-			<i class="material-icons suffix green-text active">done</i>
 			<textarea id="customizableItems" class="materialize-textarea" name="customizableItems" required >${resourceInstance?.customizableItems}</textarea>
-			<label for="customizableItems">Itens customizáveis</label>
-			<span id="customizableItems-error" class="invalid-textarea" style="left: 0.75rem">Este campo não pode ser vazio!</span>
+			<label for="customizableItems">Itens customizáveis <span class="required-indicator">*</span></label>
 		</div>
 	</div>
 	<div class="row">
 		<div class="input-field col s12">
-			<!-- <i class="material-icons suffix green-text active">done</i> -->
 			<input value="${resourceInstance?.videoLink}" id="videoLink" type="text" class="validate" required name="videoLink">
 			<label for="videoLink">Link de Video Tutorial</label>
-			<!-- <span id="videoLink-error" class="invalid-input" style="left: 0.75rem">Este campo não pode ser vazio!</span> -->
 		</div>
 	</div>
 	<div class="row">
 		<div class="input-field col s12">
-			<i class="material-icons suffix green-text active">done</i>
 			<input value="${resourceInstance?.documentation}" id="documentation" type="text" class="validate" required name="documentation">
 			<label for="documentation">Documentação</label>
-			<span id="documentation-error" class="invalid-input" style="left: 0.75rem">Este campo não pode ser vazio!</span>
 		</div>
 	</div>
 
@@ -59,7 +49,7 @@
 						</g:each>
 					</g:if>
 				</select>
-				<label for="select">Escolha uma categoria: </label>
+				<label for="select">Escolha uma categoria: <span class="required-indicator">*</span></label>
 			</div>
 		</div>
 	</div>
@@ -79,7 +69,7 @@
 		<div class="col s8 m8 l8">
 			<div class="file-field input-field">
 				<div class="btn waves-effect waves-light my-orange">
-					<span>File</span>
+					<span>Arquivo</span>
 					<input type="file" data-image="true" id="img-1" name="img1" accept="image/jpeg, image/png">
 				</div>
 				<div class="file-path-wrapper">
@@ -96,7 +86,7 @@
 		<div class="col s8 m8 l8" >
 			<div class="file-field input-field">
 				<div class="btn waves-effect waves-light my-orange">
-					<span>File</span>
+					<span>Arquivo</span>
 					<input type="file" data-image="true" name="img2" id="img-2"  accept="image/jpeg, image/png">
 				</div>
 				<div class="file-path-wrapper">
@@ -113,7 +103,7 @@
 		<div class="col s8 m8 l8">
 			<div class="file-field input-field">
 				<div class="btn waves-effect waves-light my-orange">
-					<span>File</span>
+					<span>Arquivo</span>
 					<input type="file" data-image="true" name="img3" id="img-3"  accept="image/jpeg, image/png">
 				</div>
 				<div class="file-path-wrapper">
@@ -123,30 +113,12 @@
 		</div>
 	</div>
 
-
-
 	<!-- Botão Enviar PAdronizado-->
 	<div class="buttons col s1 m1 l1 offset-s8 offset-m10 offset-l10" style="margin-top:20px">
 		<button class="btn waves-effect waves-light my-orange" onclick="validateSubmit()" type="submit" name="save" id="upload">
 			Enviar
 		</button>
 	</div>
-
-
-
-%{--
-botao enviar antigo
-
-	<div class="right">
-		<button  onclick="validateSubmit()" class="waves-effect waves-light btn-flat " id="upload" >
-			Enviar
-		</button>
-	</div>--}%
-
-
-
-
-
 
 	<br class="clear" />
 </div>

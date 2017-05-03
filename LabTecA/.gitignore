@@ -7,3 +7,5 @@ test/
 web-app/WEB-INF/
 grails-app/conf/env.properties
 wed-app/data
+LabTecA-grailsPlugins.iml
+LabTecA.iml

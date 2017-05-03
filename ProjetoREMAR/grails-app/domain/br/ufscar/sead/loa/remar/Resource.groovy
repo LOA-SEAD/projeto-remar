@@ -9,6 +9,7 @@ class Resource {
     static constraints = {
         submittedAt blank: false
         name blank: false
+        type nullable: true, blank: true
         comment nullable: true, blank: true
         moodle defaultValue: false
         android defaultValue: false
@@ -36,6 +37,7 @@ class Resource {
     boolean active
     int version
     String uri
+    String type
 
     boolean shareable
     boolean repository

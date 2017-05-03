@@ -15,7 +15,7 @@
                             <div class="divider"></div>
                             <span style="color: dimgrey; font-size: 0.9em" class="center">${resourceInstance.category.name}</span>
                             <span style="color: dimgrey; font-size: 0.9em" class="center truncate">Feito por:
-                                <a href="#!" style="color: #7d8fff !important; margin-right:10px; cursor:pointer; font-style:normal"  class="user-profile" id="user-id-${resourceInstance.owner.id}" >
+                                <a href="#!" style="color: #FF5722 !important; margin-right:10px; cursor:pointer; font-style:normal"  class="user-profile" id="user-id-${resourceInstance.owner.id}" >
                                     ${resourceInstance.owner.username}
                                 </a></span>
                             <span style="color: dimgrey;" class="center">
