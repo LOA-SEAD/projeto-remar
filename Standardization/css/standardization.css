@@ -13,6 +13,8 @@ pre[class*="language-"] {
 
 
 /* COLORS */
+#components nav ul li a:hover,
+#components nav ul li.active a,
 .remar-orange {
   background-color: #FF5722 !important;
 }
@@ -34,6 +36,13 @@ pre[class*="language-"] {
 }
 
 /* PANELS */
+.card-panel {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background-color: transparent;
+  box-shadow: none;
+}
+
 .card-panel--content {
   margin-top: 20px;
 }
@@ -49,9 +58,18 @@ pre[class*="language-"] {
 
 /* FORM INPUT */
 .remar-input--number {
+  color: #413c3c;
   -moz-appearance: textfield;
   -webkit-appearance: textfield;
   appearance: textfield;
+}
+
+.remar-input {
+  border-bottom: 1px solid #717171 !important;
+}
+
+.remar-input + label {
+  color: #717171 !important;
 }
 
 .remar-input:focus:not([readonly]) + label {
@@ -64,12 +82,12 @@ pre[class*="language-"] {
 }
 
 .remar-input.valid + label {
-  color: #4CAF50 !important;
+  color: #5D4037 !important;
 }
 
 .remar-input.valid {
-  border-bottom: 1px solid #4CAF50 !important;
-  box-shadow: 0 1px 0 0 #4CAF50 !important;
+  border-bottom: 1px solid #5D4037 !important;
+  box-shadow: 0 1px 0 0 #5D4037 !important;
 }
 
 .remar-input.invalid + label {
@@ -86,12 +104,13 @@ label .required-indicator {
 }
 
 /* NAVBAR */
-nav img.logo {
-  width: 250px;
+body nav {
+  display: flex;
+  flex-grow: 1;
 }
 
-.nav-logo, .nav-content-container {
-  display: inline-block;
+nav img.logo {
+  width: 250px;
 }
 
 .nav-logo {
@@ -101,23 +120,26 @@ nav img.logo {
 }
 
 .nav-content-container {
-  width: 83.333%;
-  float: right;
+  display: flex;
+  flex-direction: column;
+  width: 83.3333%;
 }
 
-#search {
+.nav-content {
   position: absolute;
-  right: 0;
+  bottom: 0px;
 }
 
-/* SIDEBAR */
-.navbox-container {
-  height: 100%;
-  width: 16.666%;
+/* PAGE FOOTER */
+.page-footer {
+  height: 15%;
+  background-color: #5D4037 !important;
+}
+
+.footer-copyright {
+  background-color: #FF9845 !important;
   position: absolute;
-  background-color: #FFF;
 }
-
 
 /* ETC */
 .box {
@@ -135,9 +157,26 @@ nav img.logo {
 }
 
 .content-container {
-  overflow: auto;
-  height:100%;
-  padding: 0 100px 0 400px !important;
-  background-color: #E6E6E6 !important;
-  left: 16.666% !important;
+  padding: 0 100px !important;
+  background-color: #FCFCFC;
+  z-index: 0;
+}
+
+.header {
+  color: #5D4037 !important;
+}
+
+/* COMPONENTS CONTENT TAB */
+#components {
+  display: flex;
+  flex-direction: column;
+}
+
+#components nav {
+  background-color: #FF9845 !important;
+  z-index: 2;
+}
+
+#components nav a {
+  transition: none;
 }
