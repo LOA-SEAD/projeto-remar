@@ -101,7 +101,7 @@
                 <li>Alex Roberto Guido - Desenvolvimento</li>
                 <li>Ana Esther Camargo – Game Design</li>
                 <li>Denis Cappelini - Desenvolvimento</li>
-                <li>Leticia Domingues</li>
+                <li>Leticia Domingues - Desenvolvimento</li>
                 <li>Lucas Fernando Bocanegra - Desenvolvimento</li>
                 <li>Marcus Marangon Mourão - Desenvolvimento</li>
                 <li>Matheus Vieira Fernandes - Desenvolvimento</li>
