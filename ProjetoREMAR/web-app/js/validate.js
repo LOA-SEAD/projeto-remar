@@ -5,9 +5,7 @@ function validateSubmit(){
     var customizableItems = document.getElementById("customizableItems");
 
 
-    //var name = $("#name");
     var nameErr = $("#name-error");
-    //var desc = $("#description");
     var descErr = $("#desc-error");
     var customizableErr = $("#customizableItems-error");
 

@@ -46,10 +46,16 @@ function validateLicense(){
     return $("#comercialYes").is(":checked") || $("#comercialNo").is(":checked")
 }
 
+
+function validateShare(){
+    return $("#shareYes").is(":checked")
+}
+
 function validateSubmit(){
     if( validateTitle()
         && validateAuthor()
         && validateDescription()
+        && validateShare()
         && validateLicense()){
 
         $("#nextLabel").hide();
