@@ -23,6 +23,8 @@ class QuestionController {
 
         def list = Question.findAllByOwnerId(session.user.id)
         if(!list) {
+            println "Questions list for user " + session.user.id + "is empty."
+            println "Generating questions automatically."
             new Question(title: 'Questão 1 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
                     correctAnswer: 0, level: 1, taskId: session.taskId, ownerId: session.user.id).save flush: true
             new Question(title: 'Questão 2 – Nível 1', answers: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
@@ -203,9 +205,9 @@ class QuestionController {
             return
         }
 
-        questionInstance.delete flush: true
+        println "Delete Question ID = " + questionInstance.id
 
-        redirect action: "index"
+        questionInstance.delete flush: true
     }
 
     protected void notFound() {
@@ -275,6 +277,9 @@ class QuestionController {
 
     @Transactional
     def generateQuestions(){
+        /*
+         * Importa questões de um arquivo CSV com valores separados por ponto-e-vírgula
+         */
         MultipartFile csv = params.csv
 
         csv.inputStream.toCsvReader([ 'separatorChar': ';']).eachLine { row ->
