@@ -80,16 +80,15 @@
 
             <h6 align="left">Equipe de Desenvolvimento da Plataforma</h6>
             <ul class="with-marker">
-                <li>Denis Cappelini - Desenvolvimento</li>
-                <li>Lucas Fernando Bocanegra - Desenvolvimento</li>
+                <li>Gustavo do Carmo Braghim - Desenvolvimento</li>
+                <li>Hugo Leonardo Moura - Desenvolvimento</li>
+                <li>Lucas Yuji Aciole - Desenvolvimento</li>
                 <li>Marcos Tsuda - Testes e Avaliação</li>
-                <li>Marcus Marangon Mourão - Desenvolvimento</li>
-                <li>Matheus Vieira Fernandes - Desenvolvimento</li>
+                <li>Pedro Henrique Romaoli Garcia - Desenvolvimento</li>
             </ul>
 
             <h6 align="left">Equipe de Desenvolvimento de Jogos</h6>
             <ul class="with-marker">
-                <li>Ana Esther Camargo – Game Design</li>
                 <li>Catarine Ohnuma – Ilustração</li>
                 <li>Douglas Barbino - Desenvolvimento</li>
                 <li>Luiz Valério Neto – Desenvolvimento</li>
@@ -100,6 +99,12 @@
             <h6 align="left">Ex-integrantes</h6>
             <ul class="with-marker">
                 <li>Alex Roberto Guido - Desenvolvimento</li>
+                <li>Ana Esther Camargo – Game Design</li>
+                <li>Denis Cappelini - Desenvolvimento</li>
+                <li>Leticia Domingues - Desenvolvimento</li>
+                <li>Lucas Fernando Bocanegra - Desenvolvimento</li>
+                <li>Marcus Marangon Mourão - Desenvolvimento</li>
+                <li>Matheus Vieira Fernandes - Desenvolvimento</li>
                 <li>Pablo Bizzi Mahmud - Desenvolvimento</li>
                 <li>Rener Baffa da Silva - Desenvolvimento</li>
             </ul>

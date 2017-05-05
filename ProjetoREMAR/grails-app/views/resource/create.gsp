@@ -41,16 +41,24 @@
 													</div>
 												</div>
 
-												<span class="card-title valign-wrapper">
-													<p class="valign">  Permitir que adaptações do seu trabalho sejam compartilhadas?</p>
-													<i class="material-icons tooltipped cursor-pointer valign" data-tooltip="Mais informações" onclick="openThisModal('modalShareAsLike')">info</i>
-												</span>
+												<div>
+													<span class="card-title valign-wrapper">
+														<p class="valign">  Permitir que adaptações do seu trabalho sejam compartilhadas?</p>
+														<i class="material-icons tooltipped cursor-pointer valign" data-tooltip="Mais informações" onclick="openThisModal('modalShareAsLike')">info</i>
+													</span>
+												</div>
+												<div>
+													<input class="with-gap" name="shareGame" type="radio" id="shareYes"/>
+													<label for="shareYes" >Sim, desde que outros compartilhem igual <span class="required-indicator">*</span></label>
+												</div>
+												<br><br>
+%{--aqui em cima ta sendo editado agora--}%
+
 
 												<div>
 													<span class="card-title valign-wrapper">
 															<p class="valign">  Permitir usos comerciais do seu trabalho?</p>
 															<i class="material-icons tooltipped cursor-pointer valign" data-tooltip="Mais informações" onclick="openThisModal('modalComercial')">info</i>
-
 													</span>
 												</div>
 												<div>

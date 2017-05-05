@@ -1,3 +1,6 @@
+<!-- TODO: Painel de Dropdown Select -->
+<!-- TODO: Ajeitar indentação -->
+
 <!DOCTYPE html>
 
 <html>
@@ -18,42 +21,37 @@
 
 	<body>
 		<!-- Barra de navegação -->
-    <nav class="nav-extended remar-brown" style="height:112px">
-			<div class="nav-logo">
-				<a class="brand-logo" href="http://remar.dc.ufscar.br/">
-					<img class="logo" src="images/logo-remar-branco-transparente.png">
-				</a>
-			</div>
-			<div class="nav-content-container">
-	      <div class="nav-wrapper">
-					<ul class="right hide-on-med-and-down">
-						<form>
-			        <div id="search" class="input-field">
-			          <input type="search" class="autocomplete" required>
-			          <label class="label-icon" for="search" placeholder="Busca"
-								 data-activates="singleDropdown" data-beloworigin="true">
-									<i class="material-icons">search</i>
-								</label>
-			          <i class="material-icons">close</i>
-			        </div>
-			      </form>
-					</ul>
-	      </div>
-				<div class="nav-content">
-					<ul class="tabs tabs-transparent">
-						<li class="tab"><a href="#components">Componentes</a></li>
-						<li class="tab"><a href="#directives">Diretivas</a></li>
-						<li class="tab"><a href="#tips">Dicas</a></li>
+        <nav class="nav-extended remar-brown">
+            <div class="nav-logo">
+                <a class="brand-logo" href="http://remar.dc.ufscar.br/">
+                    <img class="logo" src="images/logo-remar-branco-transparente.png">
+                </a>
+            </div>
+            <div class="nav-content-container">
+                <div class="nav-wrapper"></div>
+                <div class="nav-content">
+                    <ul class="tabs tabs-transparent">
+                        <li class="tab"><a href="#components">Componentes</a></li>
+                        <li class="tab"><a href="#directives">Diretivas</a></li>
+                        <li class="tab"><a href="#tips">Dicas</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+		<div id="components">
+			<!-- Barra de navegação lateral -->
+			<nav>
+				<div class="nav-wrapper">
+					<ul class="lefter hide-on-med-and-down">
+						<li><a class="navbtn" href="#panel--colors">Cores</a></li>
+						<li><a class="navbtn" href="#panel--button">Botões</a></li>
+						<li><a class="navbtn" href="#panel--modal">Modal</a></li>
+						<li><a class="navbtn" href="#panel--input">Campo de Input</a></li>
+						<li><a class="navbtn" href="#panel--select">Campo de Seleção</a></li>
 					</ul>
 				</div>
-			</div>
-    </nav>
-
-		<section id="components" style="margin-bottom:auto;">
-			<!-- Barra de navegação lateral -->
-			<div class="navbox-container">
-
-			</div>
+			</nav>
 
 			<!-- Conteúdo -->
 			<div class="content-container">
@@ -61,7 +59,7 @@
 				<div id="panel--colors" class="card-panel">
 					<div class="card-panel--header">
 						<span class="card-title valign-wrapper">
-							<h5 class="light">Cores</h5>
+							<h2 class="header valign">Cores</h2>
 							<a class= "link" href="http://materializecss.com/color.html">
 								<i class="small material-icons valign">live_help</i>
 							</a>
@@ -74,11 +72,11 @@
 						<!-- Laranja -->
 						<div class="row valign-wrapper">
 							<div class="col s3 valign">
-	      				<p class="z-depth-5 box remar-orange"/>
-							</div>
+                                <p class="z-depth-5 box remar-orange"/>
+				            </div>
 							<div class="col s9 valign">
 								<section class="language-css">
-									<h7>CSS<h7>
+                                    <h7>CSS</h7>
 									<pre class="language-css">
 										<code class="language-css">
 											.remar-orange {
@@ -88,15 +86,15 @@
 									</pre>
 								</section>
 							</div>
-	    			</div>
+	    			    </div>
 						<!-- Vermelho -->
 						<div class="row valign-wrapper">
 							<div class="col s3 valign">
-	      				<p class="z-depth-5 box remar-red"/>
+                                <p class="z-depth-5 box remar-red"/>
 							</div>
 							<div class="col s9 valign">
 								<section class="language-css">
-									<h7>CSS<h7>
+                                    <h7>CSS</h7>
 									<pre class="language-css">
 										<code class="language-css">
 											.remar-red {
@@ -106,11 +104,11 @@
 									</pre>
 								</section>
 							</div>
-	    			</div>
+	    			    </div>
 						<!-- Marrom -->
 						<div class="row valign-wrapper">
 							<div class="col s3 valign">
-	      				<p class="z-depth-5 box remar-brown"/>
+                                <p class="z-depth-5 box remar-brown"/>
 							</div>
 							<div class="col s9 valign">
 								<section class="language-css">
@@ -124,11 +122,11 @@
 									</pre>
 								</section>
 							</div>
-	    			</div>
+	    			    </div>
 						<!-- Preto -->
 						<div class="row valign-wrapper">
 							<div class="col s3 valign">
-	      				<p class="z-depth-5 box remar-black"/>
+                                <p class="z-depth-5 box remar-black"/>
 							</div>
 							<div class="col s9 valign">
 								<section class="language-css">
@@ -142,11 +140,11 @@
 									</pre>
 								</section>
 							</div>
-	    			</div>
+	    			    </div>
 						<!-- Verde -->
 						<div class="row valign-wrapper">
 							<div class="col s3 valign">
-	      				<p class="z-depth-5 box remar-green"/>
+                                <p class="z-depth-5 box remar-green"/>
 							</div>
 							<div class="col s9 valign">
 								<section class="language-css">
@@ -160,161 +158,161 @@
 									</pre>
 								</section>
 							</div>
-	    			</div>
+	    			    </div>
 					</div>
 
 					<div class="card-panel--footer">
 					</div>
 				</div>
 
-				<!-- Painel Botão Enviar -->
-				<div id="panel--button" class="card-panel">
-					<div class="card-panel--header">
-						<span class="card-title valign-wrapper">
-							<h5 class="light">Botões</h5>
-							<a class= "link" href="http://materializecss.com/buttons.html">
-								<i class="small material-icons valign">live_help</i>
-							</a>
-						</span>
-					</div>
+                <!-- Painel Botão Enviar -->
+                <div id="panel--button" class="card-panel">
+                    <div class="card-panel--header">
+                        <span class="card-title valign-wrapper">
+                            <h2 class="header">Botões</h2>
+                            <a class= "link" href="http://materializecss.com/buttons.html">
+                                <i class="small material-icons valign">live_help</i>
+                            </a>
+                        </span>
+                    </div>
 
-					<div class="divider"></div>
+                    <div class="divider"></div>
 
-					<div class="card-panel--content">
-						<!-- Botão -->
-						<div class="row">
-							<div class="center-align">
-								<div class="buttons s1">
-									<a href="#!" class="btn waves-effect waves-light remar-orange" onclick="alert('Enviado!')">
-										Enviar
-									</a>
-								</div>
-							</div>
-						</div>
-						<!-- Código -->
-						<div class="row">
-							<div class="col s12">
-								<section class="languague-markup">
-									<h7>HTML</h7>
-									<pre class="language-markup">
-										<code class="language-markup">
-											&lt;a href="#!" class="btn waves-effect waves-light remar-orange" onclick="algumafuncaojs()"&gt;
-												Enviar
-											&lt;/a&gt;
-										</code>
-									</pre>
-								</section>
-							</div>
-						</div>
-					</div>
+                    <div class="card-panel--content">
+                        <!-- Botão -->
+                        <div class="row">
+                            <div class="center-align">
+                                <div class="buttons s1">
+                                    <a href="#!" class="btn waves-effect waves-light remar-orange" onclick="alert('Enviado!')">
+                                        Enviar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Código -->
+                        <div class="row">
+                            <div class="col s12">
+                                <section class="languague-markup">
+                                    <h7>HTML</h7>
+                                    <pre class="language-markup">
+                                        <code class="language-markup">
+                                            &lt;a href="#!" class="btn waves-effect waves-light remar-orange" onclick="algumafuncaojs()"&gt;
+                                                Enviar
+                                            &lt;/a&gt;
+                                        </code>
+                                    </pre>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
 
-					<div class="card-panel--footer">
-					</div>
-			</div>
+                    <div class="card-panel--footer">
+                    </div>
+                </div>
 
-			<!-- Painel Modal -->
-			<div id="panel--modal" class="card-panel">
-				<div class="card-panel--header">
-					<span class="card-title valign-wrapper">
-						<h5 class="light">Modal</h5>
-						<a class= "link" href="http://materializecss.com/modals.html">
-							<i class="small material-icons valign">live_help</i>
-						</a>
-					</span>
-				</div>
+                <!-- Painel Modal -->
+                <div id="panel--modal" class="card-panel">
+                    <div class="card-panel--header">
+                        <span class="card-title valign-wrapper">
+                            <h2 class="header">Modal</h2>
+                            <a class= "link" href="http://materializecss.com/modals.html">
+                                <i class="small material-icons valign">live_help</i>
+                            </a>
+                        </span>
+                    </div>
 
-				<div class="divider"></div>
+                    <div class="divider"></div>
 
-				<div class="card-panel--content">
-					<!-- Trigger do Modal -->
-					<div class="row">
-						<div class="center-align">
-							<div class="buttons s1">
-								<a class="btn waves-effect waves-light remar-orange" href="#exemploModal">
-									Abrir Modal
-								</a>
-							</div>
-						</div>
-					</div>
-					<!-- Código -->
-					<!-- HTML -->
-					<div class="row">
-						<div class="col s12">
-							<section class="languague-markup">
-								<h7>HTML</h7>
-								<pre class="language-markup">
-									<code class="language-markup">
-										&lt;!-- Trigger --&gt;
-										&lt;a class="btn waves-effect waves-light remar-orange" href="#exemploModal"&gt;
-											Abrir Modal
-										&lt;/a&gt;
+                    <div class="card-panel--content">
+                        <!-- Trigger do Modal -->
+                        <div class="row">
+                            <div class="center-align">
+                                <div class="buttons s1">
+                                    <a class="btn waves-effect waves-light remar-orange" href="#exemploModal">
+                                        Abrir Modal
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Código -->
+                        <!-- HTML -->
+                        <div class="row">
+                            <div class="col s12">
+                                <section class="languague-markup">
+                                    <h7>HTML</h7>
+                                    <pre class="language-markup">
+                                        <code class="language-markup">
+                                            &lt;!-- Trigger --&gt;
+                                            &lt;a class="btn waves-effect waves-light remar-orange" href="#exemploModal"&gt;
+                                                Abrir Modal
+                                            &lt;/a&gt;
 
-										&lt;!-- Modal --&gt;
-										&lt;div id="exemploModal" class="modal remar-modal"&gt;
-											&lt;div class="modal-content"&gt;
-												&lt;h4&gt;Cabeçalho do modal&lt;/h4&gt;
-												&lt;p&gt;Um monte de texto&lt;/p&gt;
-											&lt;/div&gt;
-											&lt;div class="modal-footer"&gt;
-												&lt;a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange"&gt;Opção 1&lt;/a&gt;
-												&lt;a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange"&gt;Opção 2&lt;/a&gt;
-											&lt;/div&gt;
-										&lt;/div&gt;
-									</code>
-								</pre>
-							</section>
-						</div>
-					</div>
-					<!-- CSS -->
-					<div class="row">
-						<div class="col s12">
-							<section class="language-css">
-								<h7>CSS</h7>
-								<pre class="language-css">
-									<code class="language-css">
-										.remar-modal {
-										    text-align: center;
-										}
+                                            &lt;!-- Modal --&gt;
+                                            &lt;div id="exemploModal" class="modal remar-modal"&gt;
+                                                &lt;div class="modal-content"&gt;
+                                                    &lt;h4&gt;Cabeçalho do modal&lt;/h4&gt;
+                                                    &lt;p&gt;Um monte de texto&lt;/p&gt;
+                                                &lt;/div&gt;
+                                                &lt;div class="modal-footer"&gt;
+                                                    &lt;a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange"&gt;Opção 1&lt;/a&gt;
+                                                    &lt;a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange"&gt;Opção 2&lt;/a&gt;
+                                                &lt;/div&gt;
+                                            &lt;/div&gt;
+                                        </code>
+                                    </pre>
+                                </section>
+                            </div>
+                        </div>
+                        <!-- CSS -->
+                        <div class="row">
+                            <div class="col s12">
+                                <section class="language-css">
+                                    <h7>CSS</h7>
+                                    <pre class="language-css">
+                                        <code class="language-css">
+                                            .remar-modal {
+                                                text-align: center;
+                                            }
 
-										.remar-modal .modal-content h4 {
-										  border-bottom: 1px solid #E0E0E0;
-										}
+                                            .remar-modal .modal-content h4 {
+                                              border-bottom: 1px solid #E0E0E0;
+                                            }
 
-										.remar-modal .modal-footer a {
-											margin-right: 10px !important;
-										}
-									</code>
-								</pre>
-							</section>
-						</div>
-					</div>
-					<!-- JavaScript -->
-					<div class="row">
-						<div class="col s12">
-							<section class="languague-javascript">
-								<h7>JavaScript</h7>
-								<pre class="language-javascript">
-									<code class="language-javascript">
-										// O atributo "href" de um .modal-trigger deve especificar o ID do modal ao qual está ligado
-										$(document).ready(function() {
-										  $('.modal').modal();
-										});
-									</code>
-								</pre>
-							</section>
-						</div>
-					</div>
-				</div>
+                                            .remar-modal .modal-footer a {
+                                                margin-right: 10px !important;
+                                            }
+                                        </code>
+                                    </pre>
+                                </section>
+                            </div>
+                        </div>
+                        <!-- JavaScript -->
+                        <div class="row">
+                            <div class="col s12">
+                                <section class="languague-javascript">
+                                    <h7>JavaScript</h7>
+                                    <pre class="language-javascript">
+                                        <code class="language-javascript">
+                                            // O atributo "href" de um .modal-trigger deve especificar o ID do modal ao qual está ligado
+                                            $(document).ready(function() {
+                                              $('.modal').modal();
+                                            });
+                                        </code>
+                                    </pre>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
 
-				<div class="card-panel--footer">
-				</div>
-			</div>
+                    <div class="card-panel--footer">
+                    </div>
+                </div>
 
 				<!-- Painel de Entradas de Formulários -->
-				<div id="panel--form" class="card-panel">
+				<div id="panel--input" class="card-panel">
 					<div class="card-panel--header">
 						<span class="card-title valign-wrapper">
-							<h5 class="light">Formulário</h5>
+							<h2 class="header">Campo de Input</h2>
 							<a class= "link" href="http://materializecss.com/forms.html">
 								<i class="small material-icons valign">live_help</i>
 							</a>
@@ -368,9 +366,18 @@
 									<pre class="language-css">
 										<code class="language-css">
 											.remar-input--number {
+											  color: #413c3c;
 											  -moz-appearance: textfield;
 											  -webkit-appearance: textfield;
 											  appearance: textfield;
+											}
+
+											.remar-input {
+											  border-bottom: 1px solid #717171 !important;
+											}
+
+											.remar-input + label {
+											  color: #717171 !important;
 											}
 
 											.remar-input:focus:not([readonly]) + label {
@@ -383,12 +390,12 @@
 											}
 
 											.remar-input.valid + label {
-											  color: #4CAF50 !important;
+											  color: #5D4037 !important;
 											}
 
 											.remar-input.valid {
-											  border-bottom: 1px solid #4CAF50 !important;
-											  box-shadow: 0 1px 0 0 #4CAF50 !important;
+											  border-bottom: 1px solid #5D4037 !important;
+											  box-shadow: 0 1px 0 0 #5D4037 !important;
 											}
 
 											.remar-input.invalid + label {
@@ -401,8 +408,67 @@
 											}
 
 											label .required-indicator {
-												background-color: #F70000 !important;
+												color: #F70000 !important;
 											}
+										</code>
+									</pre>
+								</section>
+							</div>
+						</div>
+					</div>
+
+					<div class="card-panel--footer">
+					</div>
+				</div>
+
+				<!-- Painel de Entradas de Formulários -->
+				<div id="panel--select" class="card-panel">
+					<div class="card-panel--header">
+						<span class="card-title valign-wrapper">
+							<h2 class="header">Campo de Seleção</h2>
+							<a class= "link" href="http://materializecss.com/forms.html#select">
+								<i class="small material-icons valign">live_help</i>
+							</a>
+						</span>
+					</div>
+
+					<div class="divider"></div>
+
+					<div class="card-panel--content">
+						<!-- Exemplos de campos de input -->
+						<div class="row">
+							<div clas="center-align">
+								<div class="required input-field col s6">
+									<input id="exemplo-input" class="remar-input remar-input--number validate" type="number">
+									<label for ="exemplo-input">
+										Digite um número
+										<span class="required-indicator">*</span>
+									</label>
+								</div>
+							</div>
+						</div>
+						<!-- Código -->
+						<!-- HTML -->
+						<div class="row">
+							<div class="col s12">
+								<section class="languague-markup">
+									<h7>HTML</h7>
+									<pre class="language-markup">
+										<code class="language-markup">
+
+										</code>
+									</pre>
+								</section>
+							</div>
+						</div>
+						<!-- CSS -->
+						<div class="row">
+							<div class="col s12">
+								<section class="languague-css">
+									<h7>CSS</h7>
+									<pre class="language-css">
+										<code class="language-css">
+
 										</code>
 									</pre>
 								</section>
@@ -416,16 +482,16 @@
 			</div>
 
 			<div id="exemploModal" class="modal remar-modal">
-		    <div class="modal-content">
-					<h4>Cabeçalho do Modal</h4>
-	      	<p align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-	      </div>
-	    	<div class="modal-footer">
-	      	<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" style="margin-right: 10px;">Opção 1</a>
-					<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" style="margin-right: 10px;">Opção 2</a>
-	      </div>
-	    </div>
-		</section>
+                <div class="modal-content">
+                    <h4>Cabeçalho do Modal</h4>
+                    <p align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" style="margin-right: 10px;">Opção 1</a>
+                    <a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" style="margin-right: 10px;">Opção 2</a>
+                </div>
+            </div>
+		</div>
 
 		<div id="directives">
 			<h1>Diretivas</h1>
@@ -435,10 +501,20 @@
 			<h1>Dicas</h1>
 		</div>
 
+		<footer class="page-footer">
+			<div class="container">
+			</div>
+			<div class="footer-copyright">
+				<div class="container">
+				</div>
+			</div>
+		</footer>
+
 		<!-- Scripts -->
 		<script type="text/javascript" src="js/jquery-2.1.1.js"></script>
-		<script type="text/javascript" src="js/jquery.sticky-kit.js"></script>
-		<script type="text/javascript" src="js/materialize.js"></script>
+		<script type="text/javascript" src="js/jquery.sticky-kit.min.js"></script>
+		<script type="text/javascript" src="js/jquery.waypoints.min.js"></script>
+		<script type="text/javascript" src="js/materialize.min.js"></script>
 		<script type="text/javascript" src="js/prism.js"></script>
 		<script type="text/javascript" src="js/standardization.js"></script>
 	</body>

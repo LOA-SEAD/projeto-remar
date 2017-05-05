@@ -15,7 +15,6 @@ function showLicense(){
                                       "</a> <br /> " +
                                       " Esta obra está licenciado com uma Licença <a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/4.0/'>Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional</a>.");
             $("#licenseValue").attr("value", "cc-by-nc-sa");
-            // $("#license-container").show();
         }
     }
     $("#license-container").show();
@@ -33,6 +32,15 @@ function bloqCheck(){
 
 function validateLicense(){
     if( ($("#comercialYes").is(":checked")) || ($("#comercialNo").is(":checked")) ){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+function validateShare(){
+    if( ($("#shareYes").is(":checked"))  ){
         return true;
     }
     else{

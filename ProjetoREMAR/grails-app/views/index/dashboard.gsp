@@ -65,6 +65,9 @@
                                         <g:if test="${resourceInstance.shareable}">
                                             <i class="fa fa-users"></i>
                                         </g:if>
+                                        <g:else>
+                                            <br>
+                                        </g:else>
                                     </span>
                                 </div>
                                 <div class="row no-margin margin-top ">
