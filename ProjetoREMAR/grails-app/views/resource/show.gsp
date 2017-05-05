@@ -107,12 +107,22 @@
 					</div>
 					<div class="row">
 						<div class="col s12 m12 l12">
-							<p><b>Vídeo Tutorial:</b><a target="_blank" href="${resourceInstance.videoLink}"> Clique aqui</a> </p>
+							<g:if test="${resourceInstance.videoLink == null}">
+								<p><b>Vídeo Tutorial:</b> Não Disponível</p>
+							</g:if>
+							<g:else>
+								<p><b>Vídeo Tutorial:</b><a target="_blank" href="${resourceInstance.videoLink}"> Clique aqui</a> </p>
+							</g:else>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col s12 m12 l12" id="documentation">
-							<p><b>Documentação do modelo:</b><a target="_blank" href="${resourceInstance.documentation}"> ${resourceInstance.name}</a> </p>
+							<g:if test="${resourceInstance.documentation == null}">
+								<p><b>Documentação do Modelo:</b> Não Disponível</p>
+							</g:if>
+							<g:else>
+								<p><b>Documentação do Modelo:</b><a target="_blank" href="${resourceInstance.documentation}"> ${resourceInstance.name}</a> </p>
+							</g:else>
 						</div>
 					</div>
 					<div class="row"></div>
