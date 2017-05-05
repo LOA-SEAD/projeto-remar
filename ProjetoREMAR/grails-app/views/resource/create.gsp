@@ -48,7 +48,7 @@
 													</span>
 												</div>
 												<div>
-													<input class="with-gap" name="shareGame" type="radio" id="shareYes"/>
+													<input class="with-gap" name="shareGame" type="radio" id="shareYes" disabled checked="checked"/>
 													<label for="shareYes" >Sim, desde que outros compartilhem igual <span class="required-indicator">*</span></label>
 												</div>
 												<br><br>

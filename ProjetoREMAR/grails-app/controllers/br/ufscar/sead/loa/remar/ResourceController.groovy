@@ -121,7 +121,7 @@ class ResourceController {
             resourceInstance.desktop = 'desktop' in json.outputs
             resourceInstance.moodle = 'moodle' in json.outputs
             resourceInstance.web = 'web' in json.outputs
-            resourceInstance.type = json.type
+            resourceInstance.type = json.type ? json.type : "html"
             resourceInstance.width = json.vars.width
             resourceInstance.height = json.vars.height
 
@@ -232,7 +232,8 @@ class ResourceController {
                     }
                 }
             } else {
-                println "Electron skipped. Project type is [" + resourceInstance.type + "]."
+                if (resourceInstance.type != "html") println "Electron skipped. Project type is [" + resourceInstance.type + "]."
+                else if (!resourceInstance.desktop) println "Electron skipped. Project is not desktop."
             }
 
 
@@ -250,7 +251,8 @@ class ResourceController {
                     }
                 }
             } else {
-                println "Crosswalk skipped. Project type is [" + resourceInstance.type + "]."
+                if (resourceInstance.type != "html") println "Crosswalk skipped. Project type is [" + resourceInstance.type + "]."
+                else if (!resourceInstance.android) println "Crosswalk skipped. Project is not android."
             }
 
             if (Environment.current == Environment.DEVELOPMENT) {
