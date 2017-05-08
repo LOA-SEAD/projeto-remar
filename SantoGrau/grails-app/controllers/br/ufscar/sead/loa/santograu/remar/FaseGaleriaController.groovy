@@ -252,7 +252,8 @@ class FaseGaleriaController {
         saveImages(theme, instancePath)
 
         File file = new File("$instancePath/"+fileName);
-        PrintWriter pw = new PrintWriter(file);
+        def pw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(file), "UTF-8"))
         pw.write("{\n")
         pw.write("\t\"numero\": [\"" + theme.howManyImages + "\"],\n")
         pw.write("\t\"resposta\": [\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\", \"10\"],\n")
@@ -264,7 +265,8 @@ class FaseGaleriaController {
         File fileFasesJson = new File("$fasesFolder/fases.json")
         boolean exists = fileFasesJson.exists()
         if(!exists) {
-            PrintWriter printer = new PrintWriter(fileFasesJson)
+            def printer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(fileFasesJson), "UTF-8"))
             printer.write("{\n")
             printer.write("\t\"quantidade\": [\"1\"],\n")
             printer.write("\t\"fases\": [\"2\", \"1\"]\n")
@@ -272,7 +274,8 @@ class FaseGaleriaController {
             printer.close()
         } else {
             def arq = new JsonSlurper().parseText(fileFasesJson.text)
-            PrintWriter printer = new PrintWriter(fileFasesJson)
+            def printer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(fileFasesJson), "UTF-8"))
             printer.write("{\n")
 
             if(arq["quantidade"][0] == "0") {

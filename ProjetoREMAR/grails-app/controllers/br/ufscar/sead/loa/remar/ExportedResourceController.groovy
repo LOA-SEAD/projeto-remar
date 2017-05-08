@@ -136,6 +136,48 @@ class ExportedResourceController {
             render status: 200
     }
 
+    def showPlayStats(){
+
+        def lista = MongoHelper.instance.getData("playStats")
+
+        StringBuffer buffer = new StringBuffer();
+
+        for (Object o: lista) {
+            buffer.append(o.toString());
+            buffer.append("<br><br>");
+        }
+
+        render buffer
+    }
+
+    def savePlayStats(){
+
+        if (GroupExportedResources.findAllByExportedResource(ExportedResource.get(params.exportedResourceId)).size != 0) {
+            // Game exportado para um grupo
+
+            def data = [:]
+            data.timestamp = new Date().toTimestamp()
+            data.userId = session.user.id as long
+            data.exportedResourceId = params.exportedResourceId as int
+            data.level = params.level as int
+            data.sector = params.sector as int
+            data.monster = params.monster as int
+            data.gameType = params.gameType
+
+            try {
+                MongoHelper.instance.createCollection("playStats")
+                MongoHelper.instance.insertPlayStats("playStats", data)
+
+            } catch (Exception  e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
+        } else {
+            log.debug "Stats skipped. Game was not published to a group."
+        }
+
+        render status: 200
+    }
+
     def publish(ExportedResource instance) {
         def exportsTo = [:]
         def handle = [:]
@@ -168,8 +210,6 @@ class ExportedResourceController {
         def desktop = instance.resource.desktop
         def android = instance.resource.android
         def web = instance.resource.web
-
-
 
         urls.web = "/published/${instance.processId}/web"
         if (desktop) {

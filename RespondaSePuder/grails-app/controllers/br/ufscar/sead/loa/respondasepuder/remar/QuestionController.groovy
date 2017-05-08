@@ -233,61 +233,59 @@ class QuestionController {
         def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
         instancePath.mkdirs()
 
-
-
         File file = new File("$instancePath/"+fileName);
-        PrintWriter pw = new PrintWriter(file);
-        pw.write("{\n ");
-        pw.write("\"numero\":[\"" + questionList.size()+ "\",\""+ randomQuestion +"\"],\n")
+        def bw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(file), "UTF-8"))
+        bw.write("{\n ")
+        bw.write("\"numero\":[\"" + questionList.size()+ "\",\""+ randomQuestion +"\"],\n")
         for(i=0; i<(questionList.size()-1);i++){
-            pw.write("\"" + (i+1) + "\": [\"" + questionList.getAt(i).title + "\", ")
+            bw.write("\"" + (i+1) + "\": [\"" + questionList.getAt(i).title + "\", ")
             switch(questionList.getAt(i).correctAnswer){
                 case 0:
-                    pw.write("\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
+                    bw.write("\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
                     break;
                 case 1:
-                    pw.write("\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
+                    bw.write("\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
                     break;
                 case 2:
-                    pw.write("\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
+                    bw.write("\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
                     break;
                 case 3:
-                    pw.write("\""+ questionList.getAt(i).answers[3] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " )
+                    bw.write("\""+ questionList.getAt(i).answers[3] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " )
                     break;
                 default:
                     println("Erro! Alternativa correta inválida")
             }
-            pw.write("\""+ questionList.getAt(i).hint +"\"],\n")
+            bw.write("\""+ questionList.getAt(i).hint +"\"],\n")
 
         }
 
-        pw.write("\"" + (i+1) + "\": [\"" + questionList.getAt(i).title + "\", ")
+        bw.write("\"" + (i+1) + "\": [\"" + questionList.getAt(i).title + "\", ")
         switch(questionList.getAt(i).correctAnswer){
             case 0:
-                pw.write("\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
+                bw.write("\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
                 break;
             case 1:
-                pw.write("\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
+                bw.write("\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
                 break;
             case 2:
-                pw.write("\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
+                bw.write("\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
                 break;
             case 3:
-                pw.write("\""+ questionList.getAt(i).answers[3] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " )
+                bw.write("\""+ questionList.getAt(i).answers[3] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " )
                 break;
             default:
                 println("Erro! Alternativa correta inválida")
         }
-        pw.write("\""+ questionList.getAt(i).hint +"\"]\n")
-        pw.write("}");
-        pw.close();
+        bw.write("\""+ questionList.getAt(i).hint +"\"]\n")
+        bw.write("}");
+        bw.close();
 
     }
 
     @Transactional
     def generateQuestions(){
         MultipartFile csv = params.csv
-
 
         csv.inputStream.toCsvReader(['separatorChar': ';']).eachLine { row ->
             Question questionInstance = new Question()
@@ -332,7 +330,9 @@ class QuestionController {
         instancePath.mkdirs()
         log.debug instancePath
 
-        def fw = new FileWriter("$instancePath/exportQuestions.csv")
+        def fw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("$instancePath/exportQuestions.csv"), "UTF-8"))
+
         for(int i=0; i<questionList.size();i++){
             fw.write(questionList.getAt(i).level + ";" + questionList.getAt(i).title + ";" + questionList.getAt(i).answers[0] + ";" + questionList.getAt(i).answers[1] + ";" +
                     questionList.getAt(i).answers[2] + ";" + questionList.getAt(i).answers[3] + ";" + (questionList.getAt(i).correctAnswer +1) + ";" + questionList.getAt(i).hint + ";tema" +";\n" )

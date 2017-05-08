@@ -9,6 +9,7 @@ services:
     volumes:
       - 'mysql-data:/var/lib/mysql'
       - './database:/tmp/db'
+      - './mysqld_charset.cnf:/etc/mysql/conf.d/mysqld_charset.cnf'
     command: mysqld --init-file="/tmp/db/db_startup.sql"
   mongodb:
     env_file:
@@ -23,6 +24,7 @@ services:
         - '8080:8080'
       volumes:
           - '~/volume_docker_remar:/usr/local/tomcat/webapps'
+          - '~/electron_docker:/root/.electron'
       links:
         - mongodb
         - mysql

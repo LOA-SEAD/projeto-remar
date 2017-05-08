@@ -169,32 +169,34 @@ class FaseBlocoGeloController {
         instancePath.mkdirs()
 
         File file = new File("$instancePath/"+fileName);
-        PrintWriter pw = new PrintWriter(file);
-        pw.write("{\n")
-        pw.write("\t\"quantidadeQuestoes\": [\"" + questionList.size() + "\"],\n")
+        def bw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(file), "UTF-8"))
+
+        bw.write("{\n")
+        bw.write("\t\"quantidadeQuestoes\": [\"" + questionList.size() + "\"],\n")
         for(def i=0; i<questionList.size();i++){
-            pw.write("\t\"" + (i+1) + "\": [\"" + questionList[i].title + "\", ")
-            pw.write("\""+ questionList[i].answers[0] +"\", " + "\""+ questionList[i].answers[1] +"\", ")
-            pw.write("\""+ questionList[i].answers[2] +"\", ")
+            bw.write("\t\"" + (i+1) + "\": [\"" + questionList[i].title + "\", ")
+            bw.write("\""+ questionList[i].answers[0] +"\", " + "\""+ questionList[i].answers[1] +"\", ")
+            bw.write("\""+ questionList[i].answers[2] +"\", ")
             switch(questionList[i].correctAnswer){
                 case 0:
-                    pw.write("\"A\"]")
+                    bw.write("\"A\"]")
                     break;
                 case 1:
-                    pw.write("\"B\"]")
+                    bw.write("\"B\"]")
                     break;
                 case 2:
-                    pw.write("\"C\"]")
+                    bw.write("\"C\"]")
                     break;
                 default:
                     println("Erro! Alternativa correta inválida")
             }
             if(i<questionList.size()-1)
-                pw.write(",")
-            pw.write("\n")
+                bw.write(",")
+            bw.write("\n")
         }
-        pw.write("}");
-        pw.close();
+        bw.write("}");
+        bw.close();
     }
 
     @Transactional
@@ -244,7 +246,8 @@ class FaseBlocoGeloController {
         instancePath.mkdirs()
         log.debug instancePath
 
-        def fw = new FileWriter("$instancePath/exportQuestions.csv")
+        def fw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("$instancePath/exportQuestions.csv"), "UTF-8"))
         for(int i=0; i<questionList.size();i++){
             fw.write(questionList.getAt(i).title + ";" + questionList.getAt(i).answers[0] + ";" + questionList.getAt(i).answers[1] + ";" +
                     questionList.getAt(i).answers[2] + ";" +(questionList.getAt(i).correctAnswer +1) + "\n" )

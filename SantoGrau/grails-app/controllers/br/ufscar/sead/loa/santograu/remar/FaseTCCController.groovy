@@ -173,7 +173,8 @@ class FaseTCCController {
         instancePath.mkdirs()
 
         File file = new File("$instancePath/"+fileName);
-        PrintWriter pw = new PrintWriter(file);
+        def pw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(file), "UTF-8"))
         pw.write("{\n")
         pw.write("\t\"quantidadeQuestoes\": [\"" + questionList.size() + "\"],\n")
         for(def i=0; i<questionList.size();i++){
@@ -272,7 +273,8 @@ class FaseTCCController {
         instancePath.mkdirs()
         log.debug instancePath
 
-        def fw = new FileWriter("$instancePath/exportQuestions.csv")
+        def fw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("$instancePath/exportQuestions.csv"), "UTF-8"))
         for(int i=0; i<questionList.size();i++){
             fw.write(questionList.getAt(i).title + ";" + questionList.getAt(i).answers[0] + ";" + questionList.getAt(i).answers[1] + ";" +
                     questionList.getAt(i).answers[2] + ";" + questionList.getAt(i).answers[3] + ";" + questionList.getAt(i).answers[4] + ";" + (questionList.getAt(i).correctAnswer +1) + "\n" )
