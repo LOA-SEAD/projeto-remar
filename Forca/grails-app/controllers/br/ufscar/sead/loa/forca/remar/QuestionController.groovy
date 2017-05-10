@@ -210,14 +210,9 @@ class QuestionController {
         def userId = user.toString().split(':').toList()
         String username = User.findById(userId[1].toInteger()).username
 
-
-
-        csv.inputStream.toCsvReader(['separatorChar': ';']).eachLine { row ->
-
+        csv.inputStream.toCsvReader(['separatorChar': ';', 'charset':'UTF-8']).eachLine { row ->
 
             Question questionInstance = new Question()
-
-
 
             try{
                 String correct = row[6] ?: "NA";

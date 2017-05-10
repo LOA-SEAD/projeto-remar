@@ -105,7 +105,7 @@ class FaseCampoMinadoController {
         }
 
         questionFaseCampoMinadoInstance.delete flush:true
-        redirect action: "index"
+        render "delete OK"
     }
 
     protected void notFound() {
@@ -210,7 +210,7 @@ class FaseCampoMinadoController {
         MultipartFile csv = params.csv
         def error = false;
 
-        csv.inputStream.toCsvReader([ 'separatorChar': ';']).eachLine { row ->
+        csv.inputStream.toCsvReader([ 'separatorChar': ';', 'charset':'UTF-8']).eachLine { row ->
             if(row.size() == 7) {
                 QuestionFaseCampoMinado questionInstance = new QuestionFaseCampoMinado()
                 questionInstance.title = row[0] ?: "NA";

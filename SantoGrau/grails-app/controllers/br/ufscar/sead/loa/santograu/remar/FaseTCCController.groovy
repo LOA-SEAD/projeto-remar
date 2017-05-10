@@ -109,7 +109,7 @@ class FaseTCCController {
         }
 
         questionFaseTCCInstance.delete flush:true
-        redirect action: "index"
+        render "delete OK"
     }
 
     protected void notFound() {
@@ -228,7 +228,7 @@ class FaseTCCController {
         MultipartFile csv = params.csv
         def error = false;
 
-        csv.inputStream.toCsvReader([ 'separatorChar': ';']).eachLine { row ->
+        csv.inputStream.toCsvReader(['separatorChar': ';', 'charset':'UTF-8']).eachLine { row ->
             if(row.size() == 7) {
                 QuestionFaseTCC questionInstance = new QuestionFaseTCC()
                 questionInstance.title = row[0] ?: "NA";

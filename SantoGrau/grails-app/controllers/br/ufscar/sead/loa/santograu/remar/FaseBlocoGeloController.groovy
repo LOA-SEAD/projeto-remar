@@ -105,7 +105,7 @@ class FaseBlocoGeloController {
         }
 
         questionFaseBlocoGeloInstance.delete flush:true
-        redirect action: "index"
+        render "delete OK"
     }
 
     protected void notFound() {
@@ -204,8 +204,9 @@ class FaseBlocoGeloController {
         MultipartFile csv = params.csv
         def error = false
 
-        csv.inputStream.toCsvReader([ 'separatorChar': ';']).eachLine { row ->
+        csv.inputStream.toCsvReader([ 'separatorChar': ';', 'charset':'UTF-8' ]).eachLine { row ->
             if(row.size() == 5) {
+                println row
                 QuestionFaseBlocoGelo questionInstance = new QuestionFaseBlocoGelo()
                 questionInstance.title = row[0] ?: "NA";
                 questionInstance.answers[0] = row[1] ?: "NA";
@@ -216,7 +217,6 @@ class FaseBlocoGeloController {
                 questionInstance.taskId = session.taskId as String
                 questionInstance.ownerId = session.user.id as long
                 questionInstance.save flush: true
-                println(questionInstance.errors)
             } else {
                 error = true
             }

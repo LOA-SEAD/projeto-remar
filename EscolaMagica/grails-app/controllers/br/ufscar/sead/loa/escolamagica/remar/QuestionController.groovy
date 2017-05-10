@@ -282,9 +282,11 @@ class QuestionController {
         /*
          * Importa questões de um arquivo CSV com valores separados por ponto-e-vírgula
          */
+
         MultipartFile csv = params.csv
 
-        csv.inputStream.toCsvReader([ 'separatorChar': ';']).eachLine { row ->
+        csv.inputStream.toCsvReader([ 'separatorChar': ';', 'charset':'UTF-8']).eachLine { row ->
+            println row
             Question questionInstance = new Question()
             questionInstance.level = row[0] ?: "NA";
             questionInstance.title = row[1] ?: "NA";
@@ -297,12 +299,11 @@ class QuestionController {
             questionInstance.taskId = session.taskId as String
             questionInstance.ownerId = session.user.id as long
             questionInstance.save flush: true
-            println(questionInstance.taskId)
-            println(questionInstance)
-            println(questionInstance.errors)
-
-
+            // println(questionInstance.taskId)
+            // println(questionInstance)
+            // println(questionInstance.errors)
         }
+
         redirect(action: index())
     }
 }

@@ -139,8 +139,7 @@ class QuestionController {
 
         questionInstance.delete flush: true
 
-        redirect action: "index"
-
+        render "delete ok!"
     }
 
     protected void notFound() {
@@ -287,7 +286,7 @@ class QuestionController {
     def generateQuestions(){
         MultipartFile csv = params.csv
 
-        csv.inputStream.toCsvReader(['separatorChar': ';']).eachLine { row ->
+        csv.inputStream.toCsvReader(['separatorChar': ';', 'charset':'UTF-8']).eachLine { row ->
             Question questionInstance = new Question()
             String levelQuestion = row[0] ?: "NA";
             questionInstance.level = levelQuestion.toInteger()

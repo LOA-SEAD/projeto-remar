@@ -9,5 +9,6 @@ class QuestionFaseBlocoGelo {
     String taskId
 
     static constraints = {
+        correctAnswer(range: 0..2)
     }
 }
