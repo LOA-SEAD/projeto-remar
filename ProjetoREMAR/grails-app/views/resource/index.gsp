@@ -10,10 +10,14 @@
 <html>
 <head>
     <meta name="layout" content="materialize-layout">
+    <style>
+        .toast { line-height: 20px !important; }
+        .row .cluster p { font-size: 24px; }
+    </style>
 </head>
 <body>
     <div class="row cluster">
-        <p class="left-align margin-bottom" style="font-size: 24px;">
+        <p class="left-align margin-bottom">
             Gerenciar Jogos
         </p>
         <div class="divider"></div>
@@ -47,25 +51,6 @@
         </ul>
     </footer>
 
-    <!-- Modal Structure -->
-    <div id="sqlError" class="modal">
-        <div class="modal-content">
-            <h4>Não é possivel excluir esse modelo!</h4>
-            <p>Existe jogos customizados apartir deste modelo.</p>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">ok</a>
-        </div>
-    </div>
-    <div id="userDetailsModal" class="modal" style="width:40%">
-        <div class="modal-content">
-        </div>
-        <div class="modal-footer">
-            <button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
-        </div>
-    </div>
-
-    <g:external dir="css" file="res.css"/>
     <g:javascript src="game-index.js"/>
 </body>
 </html>
