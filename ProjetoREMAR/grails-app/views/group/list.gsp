@@ -52,7 +52,7 @@
                 <g:else>
                     <div class="collapsible-header">
                 </g:else>
-                    <i class="material-icons">fingerprint</i>Código de Acesso
+                   Código de Acesso
                 </div>
 
                     <div id="info" class="collapsible-body">
@@ -65,8 +65,8 @@
                                     <label for="member-token"></label>
                                 </div>
                                 <div id="input-bottom" class="col l6 s4 m6">
-                                    <button type="submit" title="Entre com o código de acesso" style="font-size: 0.8em; top: 1.4em; position:relative;"  class="btn waves-effect waves-light add-user">Entrar
-                                        <i class="material-icons right">person_add</i>
+                                    <button type="submit" title="Entre com o código de acesso" style="font-size: 0.8em; top: 1.4em; position:relative;"  class="btn waves-effect waves-light remar-orange">Entrar
+
                                     </button>
                                 </div>
                             </form>

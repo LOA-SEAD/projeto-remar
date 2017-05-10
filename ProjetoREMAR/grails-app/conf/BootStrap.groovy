@@ -45,8 +45,28 @@ class BootStrap {
 
             admin.save flush: true
 
+
+
+//            log.debug "Users: ok"
+
+
+//            criando um novo usuário
+            def usuario = new User(
+                    username: "gustavo",
+                    password: "160870",
+                    email: "loa22@sead.ufscar.br",
+                    firstName: "Gustavo",
+                    lastName: "Braghim",
+                    enabled: true
+            )
+
+            usuario.save flush: true
+
+ println usuario.errors;
+
             UserRole.create admin, Role.findByAuthority("ROLE_ADMIN"), true
             UserRole.create admin, Role.findByAuthority("ROLE_DEV"), true
+
 
             log.debug "Users: ok"
         }
