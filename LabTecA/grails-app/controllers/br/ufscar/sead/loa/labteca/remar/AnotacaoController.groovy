@@ -3,7 +3,6 @@ package br.ufscar.sead.loa.labteca.remar
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.plugin.springsecurity.annotation.Secured
 import grails.util.Environment
-import org.springframework.web.multipart.MultipartFile
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
