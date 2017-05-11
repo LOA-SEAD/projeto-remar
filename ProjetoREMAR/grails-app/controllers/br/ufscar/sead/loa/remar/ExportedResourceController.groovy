@@ -321,16 +321,24 @@ class ExportedResourceController {
             }
 
             if (android) {
-                ant.sequential {
-                    chmod(perm: "+x", file: scriptUpdateCrosswalk)
-                    exec(executable: scriptUpdateCrosswalk) {
-                        arg(value: root)
-                        arg(value: mobileFolder)
-                        arg(value: resourceURI)
-                    }
-                }
+                switch (processType) {
+                    case "unity":
+                        log.debug "Unity::Android not yet implemented"
+                        break
+                    default /* HTML */:
+                        ant.sequential {
+                            chmod(perm: "+x", file: scriptUpdateCrosswalk)
+                            exec(executable: scriptUpdateCrosswalk) {
+                                arg(value: root)
+                                arg(value: mobileFolder)
+                                arg(value: resourceURI)
+                            }
+                        }
 
-                log.debug "Finished exporting Android project"
+                        log.debug "Finished exporting HTML Android project"
+                        break
+
+                }
             }
 
             if (instance.resource.moodle) {
@@ -345,6 +353,7 @@ class ExportedResourceController {
                             outputs.each { output ->
                                 ant.sequential {
                                     ant.copy(file: output.path, tofile: "${webFolder}/Assets/Resources/${output.definition.name}", failonerror: false)
+                                    ant.copy(file: "${webFolder}/${process.definition.name}.html", tofile: "${webFolder}/index.gsp")
                                 }
                             }
                         }
