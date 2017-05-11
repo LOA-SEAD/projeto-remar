@@ -21,7 +21,7 @@ services:
       image: lucasaciole/projeto-remar
       restart: always
       ports:
-        - '8080:8080'
+        - '80:8080'
       volumes:
           - '~/volume_docker_remar:/usr/local/tomcat/webapps'
           - '~/electron_docker:/root/.electron'
