@@ -207,7 +207,7 @@
                             </div>
                             <div class="row">
                                 <div class="input-field col s6 m7 offset-m3 l7 offset-l3">
-                                    <div class="g-recaptcha text-center" data-sitekey="6LdA8QkTAAAAANzRpkGUT__a9B2zHlU5Mnl6EDoJ"> </div>
+                                    <div class="g-recaptcha text-center" data-sitekey="6Ldm4CAUAAAAAMs6FsUuQIweiP-bhiCGsnNdrtBb"> </div>
                                 </div>
                             </div>
                             <div class="row">

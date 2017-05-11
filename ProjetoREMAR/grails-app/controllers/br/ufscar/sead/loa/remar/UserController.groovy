@@ -16,7 +16,6 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 import grails.plugins.rest.client.RestBuilder
 
-
 @Transactional(readOnly = true)
 class UserController {
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", filteredList: "POST"]
@@ -97,8 +96,8 @@ class UserController {
                         log.debug token.errors
                         def url = "http://${request.serverName}:${request.serverPort}/user/password/reset?t=${token.token}"
                         def mensagem = "<h3>Prezado(a) ${user.firstName} ${user.lastName},  </h3> <br>" +
-                                "<p>Você encontra-se cadastrado(a) com o username: ${user.username} </p> <br>" +
-                                "<p>Para dar continuidade a sua solicitação, acesse o link  abaixo. </p> <br>" +
+                                "<p>Voc&ecirc; encontra-se cadastrado(a) com o username: ${user.username} </p> <br>" +
+                                "<p>Para dar continuidade a sua solicita&ccedil;&atilde;o, acesse o link  abaixo. </p> <br>" +
                                 "<p> ${url} </p> <br>" +
                                 "Atenciosamente, <br>" +
                                 "<br>" +
@@ -106,12 +105,13 @@ class UserController {
                                 "Recursos Educacionais Multiplataforma Abertos na Rede <br>" +
                                 "<br>" +
                                 "**********************************************************************<br>" +
-                                "Este é um e-mail automático. Não é necessário respondê-lo. <br>" +
+                                "Este &eacute; um e-mail autom&aacute;tico. N&atilde;o &eacute; necess&aacute;rio respond&ecirc;-lo. <br>" +
                                 "<br>" +
                                 "Caso tenha recebido esta mensagem por engano, por favor, apague-a.  <br>" +
                                 "<br>" +
-                                "Agradecemos sua cooperação. <br>" +
-                                "**********************************************************************"
+                                "Agradecemos sua coopera&ccedil;&atilde;o. <br>" +
+                               "**********************************************************************"
+
                         Util.sendEmail(user.email, "Recuperar dados cadastrados", mensagem)
 
                         render view: "/user/password/emailSent", model: [email: user.email]
@@ -169,23 +169,23 @@ class UserController {
             def link = "http://${request.serverName}:${request.serverPort}/user/account/confirm/${token.token}"
 
             // noinspection GroovyAssignabilityCheck
-            def mensagem = "<h3>Prezado(a) ${instance.firstName} ${instance.lastName},  </h3> <br>" +
+	   def mensagem =      "<h3>Prezado(a) ${instance.firstName} ${instance.lastName},  </h3> <br>" +
                                 "<p>Seu cadastro, username ${instance.username}, foi realizado com sucesso.</p> <br>" +
                                 "<p>Para confirmar seu cadastro, acesse o link  abaixo. </p> <br>" +
-                                "<p> ${link} </p> <br>" +
                                 "Atenciosamente, <br>" +
                                 "<br>" +
                                 "Equipe REMAR <br>" +
                                 "Recursos Educacionais Multiplataforma Abertos na Rede <br>" +
                                 "<br>" +
                                 "**********************************************************************<br>" +
-                                "Este é um e-mail automático. Não é necessário respondê-lo. <br>" +
+                                "Este &eacute; um e-mail autom&aacute;tico. N&atilde;o &eacute; necess&aacute;rio respond&ecirc;-lo. <br>" +
                                 "<br>" +
                                 "Caso tenha recebido esta mensagem por engano, por favor, apague-a.  <br>" +
                                 "<br>" +
-                                "Agradecemos sua cooperação. <br>" +
-                                "**********************************************************************"
-            Util.sendEmail(instance.email, "Confirmação de Cadastro", mensagem)
+                                "Agradecemos sua coopera&ccedil;&atilde;o. <br>" +
+                               "**********************************************************************"
+                          
+            Util.sendEmail(instance.email, "Cadastro - REMAR", mensagem)
             redirect uri: "/signup/success/$instance.id"
         } else {
             // TODO
