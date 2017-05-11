@@ -214,12 +214,22 @@ $(function(){
             url: location.origin + '/resource/delete/' + id,
             success: function(data) {
                 console.log(data);
-                if(data == "sqlError"){
-                    $('#sqlError').openModal();
-                }else{
-                    location.reload();
+
+                switch (data) {
+                    case "sqlError":
+                        var $toastContent = $('<p style="line-height: 20px;"><strong>Não foi possível excluir!</strong>' +
+                            '<br />Existem jogos customizados a partir desse modelo.</p>');
+                        Materialize.toast($toastContent, 4000);
+                        break;
+                    case "pendingProcessError":
+                        var $toastContent = $('<p style="line-height: 20px;"><strong>Não foi possível excluir!</strong>' +
+                            '<br />Existem jogos em customização a partir desse modelo.</p>');
+                        Materialize.toast($toastContent, 4000);
+                        break;
+                    default:
+                        location.reload();
+
                 }
-                //console.log($(el).parents().eq(4).remove());
             },
             error: function(req, status, err) {
                 console.log(req.responseText);

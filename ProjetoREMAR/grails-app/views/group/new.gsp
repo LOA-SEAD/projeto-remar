@@ -31,9 +31,17 @@
 
                     <div id="submit-button" class="row">
                         <div>
-                            <a class="btn waves-effect waves-light disabled" type="submit" name="action">Criar
-                                <i class="material-icons right">send</i>
+
+
+                            <a class="btn waves-effect waves-light remar-orange" type="submit" name="action">
+                                Criar
                             </a>
+
+
+
+%{--                            <a class="btn waves-effect waves-light disabled" type="submit" name="action">Criar
+                                <i class="material-icons right">send</i>
+                            </a>--}%
                         </div>
                     </div>
                 %{--</g:form>--}%
@@ -47,8 +55,7 @@
         if($('#group-name').val() == ""){
             $("#submit-button").empty();
             $("#submit-button").append(" <div>" +
-                    "                            <a class=\"btn waves-effect waves-light disabled\" name=\"action\">Criar " +
-                    "<i class=\"material-icons right\">send</i> " +
+                    "                            <a class=\"btn waves-effect waves-light remar-orange disabled\" name=\"action\">Criar " +
                     "</a> " +
                     "</div>");
         }
@@ -63,16 +70,14 @@
                     if(data != "null"){
                         $("#submit-button").empty();
                         $("#submit-button").append(" <div>" +
-                                "                            <a class=\"btn waves-effect waves-light disabled\" name=\"action\">Criar " +
-                                "<i class=\"material-icons right\">send</i> " +
+                                "                            <a class=\"btn waves-effect waves-light remar-orange disabled\" name=\"action\">Criar " +
                                 "</a> " +
                                 "</div>");
                     }
                     else{
                         $("#submit-button").empty();
                         $("#submit-button").append(" <div>" +
-                                "                            <a class=\"btn waves-effect waves-light\" onclick='createNewGroup()' type=\"submit\" name=\"action\">Criar " +
-                                "<i class=\"material-icons right\">send</i> " +
+                                "                            <a class=\"btn waves-effect waves-light remar-orange\" onclick='createNewGroup()' type=\"submit\" name=\"action\">Criar " +
                                 "</a> " +
                                 "</div>");
 
