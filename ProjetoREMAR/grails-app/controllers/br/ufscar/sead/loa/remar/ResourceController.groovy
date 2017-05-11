@@ -121,7 +121,7 @@ class ResourceController {
             resourceInstance.desktop = 'desktop' in json.outputs
             resourceInstance.moodle = 'moodle' in json.outputs
             resourceInstance.web = 'web' in json.outputs
-            resourceInstance.type = json.type
+            resourceInstance.type = json.type ? json.type : "html"
             resourceInstance.width = json.vars.width
             resourceInstance.height = json.vars.height
 

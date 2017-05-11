@@ -42,6 +42,18 @@
             </g:else>
 
             <div class="col s12 m12 l12">
+                <span style="display: inline-flex;">
+                    <p style="margin: 0px;"></p> Permitir que adaptações do seu trabalho sejam compartilhadas?</p>
+                    <i class="material-icons tooltipped cursor-pointer valign" data-tooltip="Mais informações" onclick="openThisModal('modalShareAsLike')">info</i>
+                </span>
+            </div>
+            <div>
+                <input class="with-gap" name="shareGame" type="radio" id="shareYes" disabled checked="checked"/>
+                <label for="shareYes" >Sim, desde que outros compartilhem igual <span class="required-indicator">*</span></label>
+            </div>
+            <br><br>
+
+            <div class="col s12 m12 l12">
                 <span> Permitir usos comerciais do seu trabalho?</span>
                 <br>
                 <input onchange="showLicense()"  class="with-gap" name="comercialLicense" type="radio" id="comercialYes"/>
@@ -49,8 +61,8 @@
                 <input onchange="showLicense()" class="with-gap" name="comercialLicense" type="radio" id="comercialNo"/>
                 <label for="comercialNo">Não</label>
             </div>
-            <br>
-            <br>
+            <br><br><br>
+
             <input type="hidden" name="license" value="${resource.license}" id="licenseValue" >
             <div class="row">
                 <div class="col s12" id="licenseImage"></div>

@@ -6257,7 +6257,7 @@ button:focus {
 
 label {
   font-size: 0.8rem;
-  color: #9e9e9e; }
+  color: #717171; }
 
 /***************************
    Text Inputs + Textarea
@@ -6527,7 +6527,7 @@ textarea {
   border-color: rgba(0, 0, 0, 0.26); }
 
 [type="radio"]:disabled + label {
-  color: rgba(0, 0, 0, 0.26); }
+  color: #717171; }
 
 [type="radio"]:disabled:not(:checked) + label:before {
   border-color: rgba(0, 0, 0, 0.26); }
