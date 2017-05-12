@@ -3,6 +3,7 @@ package br.ufscar.sead.loa.labteca.remar
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.plugin.springsecurity.annotation.Secured
 import grails.util.Environment
+import org.springframework.web.multipart.MultipartFile
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -191,11 +192,11 @@ void createJsonFile(String fileName, ArrayList<Anotacao> anotacaoList) {
     File file = new File("$instancePath/" + fileName);
     def bw = new BufferedWriter(new OutputStreamWriter(
             new FileOutputStream(file), "UTF-8"));
-    
+
     bw.write("{\n")
-    bw.write("\t\"quantidadeAnotacoes\": [\"" + anotacaoList.size() + "\"],\n")
+    bw.write("\t\"quantidadeAnotacoes\": \"" + anotacaoList.size() + "\",\n")
     for (def i = 0; i < anotacaoList.size(); i++) {
-        bw.write("\t\"" + (i + 1) + "\": [\"" + anotacaoList[i].informacao + "\"] ")
+        bw.write("\t\"" + (i + 1) + "\": \"" + anotacaoList[i].informacao + "\" ")
 
         if (i < anotacaoList.size() - 1)
             bw.write(",")
@@ -212,8 +213,8 @@ void createJsonFile(String fileName, ArrayList<Anotacao> anotacaoList) {
     if (!exists) {
         PrintWriter printer = new PrintWriter(anotacoesJson);
         printer.write("{\n");
-        printer.write("\t\"quantidade\": [\"0\"],\n")
-        printer.write("\t\"anotacoes\": [\"1\", \"2\"]\n")
+        printer.write("\t\"quantidade\": \"0\",\n")
+        printer.write("\t\"anotacoes\": \"1\", \"2\"\n")
         printer.write("}")
         printer.close();
     }

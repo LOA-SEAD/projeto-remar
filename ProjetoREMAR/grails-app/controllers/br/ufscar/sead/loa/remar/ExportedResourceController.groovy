@@ -352,11 +352,15 @@ class ExportedResourceController {
                         process.completedTasks.outputs.each { outputs ->
                             outputs.each { output ->
                                 ant.sequential {
-                                    ant.copy(file: output.path, tofile: "${webFolder}/Assets/Resources/${output.definition.name}", failonerror: false)
-                                    ant.copy(file: "${webFolder}/${process.definition.name}.html", tofile: "${webFolder}/index.gsp")
+                                    copy (file: output.path, tofile: "${webFolder}/Assets/Resources/${output.definition.name}", failonerror: false)
+                                    delete (file: "${webFolder}/${output.definition.name}", failonerror: false)
                                 }
                             }
                         }
+
+                        // Copia [nomeDoJogo].html para index.gsp e o deleta
+                        ant.copy(file: "${webFolder}/${process.definition.name}.html", tofile: "${webFolder}/index.gsp")
+                        ant.delete(file: "${webFolder}/${process.definition.name}.html", failonerror: false)
 
                         log.debug "Finished exporting Unity Web project"
                         break
@@ -460,7 +464,7 @@ class ExportedResourceController {
         model.myGroups = Group.findAllByOwner(user)
         model.groupsIAdmin = UserGroup.findAllByUserAndAdmin(user,true).group
 
-        
+
 
         def threshold = 12
         params.order = "desc"
