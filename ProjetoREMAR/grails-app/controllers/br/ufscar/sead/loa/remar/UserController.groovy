@@ -172,6 +172,7 @@ class UserController {
 	   def mensagem =      "<h3>Prezado(a) ${instance.firstName} ${instance.lastName},  </h3> <br>" +
                                 "<p>Seu cadastro, username ${instance.username}, foi realizado com sucesso.</p> <br>" +
                                 "<p>Para confirmar seu cadastro, acesse o link  abaixo. </p> <br>" +
+                                "${link} <br><br>" +
                                 "Atenciosamente, <br>" +
                                 "<br>" +
                                 "Equipe REMAR <br>" +
