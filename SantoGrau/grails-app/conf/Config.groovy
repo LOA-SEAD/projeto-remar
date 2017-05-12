@@ -90,6 +90,10 @@ logout.afterLogoutUrl = "/"
 
 environments {
     development {
+        grails.config.locations = ["classpath:env.properties"]
+        grails.app.context = "/santograu"
+        grails.logging.jul.usebridge = true
+
         // in development, we can use the same credential/api keys that REMAR uses
         def path = new File('.').absoluteFile.parentFile // app root folder
         def file = "${path.parent}/ProjetoREMAR/grails-app/conf/env.properties"
@@ -101,17 +105,14 @@ environments {
         for (key in ['dataSource', 'dataSource_remar']) {
             properties.setProperty("${key}.username", remarProperties.getProperty('dataSource.username'))
             properties.setProperty("${key}.password", remarProperties.getProperty('dataSource.password'))
+            properties.setProperty("${key}.url", remarProperties.getProperty('dataSource.url'))
         }
+        properties.setProperty("dataSource.url", remarProperties.getProperty('dataSource.url').replaceAll(/(jdbc:mysql:\/\/\w*)(\/*\w*)$/,grails.app.context)​​​​)
 
         file = new FileOutputStream("${path}/grails-app/conf/env.properties")
 
         properties.store(file, 'auto generated from REMAR\'s env.properties')
         file.close()
-
-        grails.config.locations = ["classpath:env.properties"]
-
-        grails.app.context = "/santograu"
-        grails.logging.jul.usebridge = true
     }
     production {
         grails.config.locations = ["classpath:env.properties"]

@@ -89,6 +89,8 @@ grails.hibernate.osiv.readonly = false
 
 environments {
     development {
+        grails.app.context = "/forca"
+
         // in development, we can use the same credential/api keys that REMAR uses
         def path = new File('.').absoluteFile.parentFile // app root folder
         def file = "${path.parent}/ProjetoREMAR/grails-app/conf/env.properties"
@@ -101,15 +103,15 @@ environments {
             properties.setProperty("${key}.username", remarProperties.getProperty('dataSource.username'))
             properties.setProperty("${key}.password", remarProperties.getProperty('dataSource.password'))
         }
-
+        result = (remarProperties.getProperty('dataSource.url') =~ /(jdbc:mysql:\/\/\w*)(\/{0,1}\w*)/)
+        properties.setProperty('dataSource.url', result[0][0])
+        properties.setProperty('dataSource.url', '${result[0][1]}${grails.app.context}')
         file = new FileOutputStream("${path}/grails-app/conf/env.properties")
 
         properties.store(file, 'auto generated from REMAR\'s env.properties')
         file.close()
 
         grails.config.locations = ["classpath:env.properties"]
-
-        grails.app.context = "/forca"
         grails.logging.jul.usebridge = true
     }
     production {
