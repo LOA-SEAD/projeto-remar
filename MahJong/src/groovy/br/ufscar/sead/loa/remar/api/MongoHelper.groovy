@@ -20,7 +20,7 @@ class MongoHelper {
                     'admin', dataSource.password as char[])
             def options = MongoClientOptions.builder().serverSelectionTimeout(1000).build()
 
-            db = new MongoClient(new ServerAddress(), Arrays.asList(credential), options).getDatabase('remar')
+            db = new MongoClient(new ServerAddress(dataSource.dbHost as String), Arrays.asList(credential), options).getDatabase('remar')
         }
         ObjectId id = new ObjectId()
         db.getCollection('file').insertOne(

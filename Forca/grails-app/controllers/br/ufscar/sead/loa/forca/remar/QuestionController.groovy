@@ -210,14 +210,9 @@ class QuestionController {
         def userId = user.toString().split(':').toList()
         String username = User.findById(userId[1].toInteger()).username
 
-
-
-        csv.inputStream.toCsvReader(['separatorChar': ';']).eachLine { row ->
-
+        csv.inputStream.toCsvReader(['separatorChar': ';', 'charset':'UTF-8']).eachLine { row ->
 
             Question questionInstance = new Question()
-
-
 
             try{
                 String correct = row[6] ?: "NA";
@@ -273,7 +268,9 @@ class QuestionController {
         instancePath.mkdirs()
         log.debug instancePath
 
-        def fw = new FileWriter("$instancePath/exportQuestions.csv")
+        def fw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("$instancePath/exportQuestions.csv"), "UTF-8"));
+
         for(int i=0; i<questionList.size();i++){
             fw.write("1;" + questionList.getAt(i).statement + ";" + questionList.getAt(i).answer + ";"  + "Alternativa 2;" +
                     "Alternativa 3;" + "Alternativa 4;" + "1;" + "dica;" + questionList.getAt(i).category +";\n" )

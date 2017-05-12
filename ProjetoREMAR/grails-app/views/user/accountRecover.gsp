@@ -82,7 +82,7 @@
                         </div>
                         <div class="col s12">
                             <div class="input-field col s12 center">
-                                <div class="g-recaptcha text-center" data-sitekey="6LdA8QkTAAAAANzRpkGUT__a9B2zHlU5Mnl6EDoJ"> </div>
+                                <div class="g-recaptcha text-center" data-sitekey="6Ldm4CAUAAAAAMs6FsUuQIweiP-bhiCGsnNdrtBb"> </div>
                             </div>
                         </div>
                         <div class="col s12">

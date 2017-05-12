@@ -1,0 +1,38 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:5.6
+    env_file: .env
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - 'mysql-data:/var/lib/mysql'
+      - './database:/tmp/db'
+      - './mysqld_charset.cnf:/etc/mysql/conf.d/mysqld_charset.cnf'
+    command: mysqld --init-file="/tmp/db/db_startup.sql"
+  mongodb:
+    env_file:
+      - .env
+    image: tutum/mongodb:3.2
+    volumes: 
+      - 'mongo-data:/data/db'
+  remar:
+      image: lucasaciole/projeto-remar
+      restart: always
+      ports:
+        - '80:8080'
+      volumes:
+          - '~/volume_docker_remar:/usr/local/tomcat/webapps'
+          - '~/electron_docker:/root/.electron'
+      links:
+        - mongodb
+        - mysql
+      tty: true
+volumes:
+  mongo-data:
+    driver: convoy
+  mysql-data:
+    driver: convoy
+  remar-data:
+    driver: convoy

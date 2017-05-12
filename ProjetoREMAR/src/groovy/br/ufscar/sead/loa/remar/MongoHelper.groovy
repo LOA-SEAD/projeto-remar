@@ -5,6 +5,7 @@ import com.mongodb.ServerAddress
 import com.mongodb.client.MongoDatabase
 import com.mongodb.MongoClient
 import com.mongodb.client.model.Filters
+import com.mongodb.FindIterableImpl
 import org.bson.Document
 import org.bson.types.ObjectId
 
@@ -17,10 +18,9 @@ class MongoHelper {
     MongoDatabase db
 
     def init(Map options) {
-        def credential = MongoCredential.createCredential(options.username as String, 'admin',
-                options.password as char[])
+        def credential = MongoCredential.createCredential(options.username as String, 'admin', options.password as char[])
 
-        this.mongoClient = new MongoClient(new ServerAddress(), asList(credential))
+        this.mongoClient = new MongoClient(new ServerAddress(options.dbHost as String), asList(credential))
         this.db = mongoClient.getDatabase('remar')
     }
 
@@ -106,6 +106,7 @@ class MongoHelper {
         }else{
             println "creating"
             println data.gameType
+
             if(data.gameType == 'puzzleWithTime'){
                 selectedCollection.insertOne(new Document("userId", data.userId).append("stats",
                         asList(new Document()
@@ -152,6 +153,46 @@ class MongoHelper {
                         )))
             }
         }
+    }
+
+    def insertPlayStats(String collection, Object data){
+        def selectedCollection = db.getCollection(collection);
+
+        println "insertPlayStats: " + data
+
+        if(selectedCollection.find(new Document('userId', data.userId)).size() != 0) {
+
+            selectedCollection.updateOne(new Document("userId", data.userId), new Document('$push', new Document("playStats",
+                    new Document()
+                            .append("level", data.level)
+                            .append("sector", data.sector)
+                            .append("monster", data.monster)
+                            .append("timestamp", data.timestamp)
+                            .append("exportedResourceId", data.exportedResourceId)
+                            .append("gameType", data.gameType)
+            )))
+        }else {
+
+            selectedCollection.insertOne(new Document("userId", data.userId).append("playStats",
+                    asList(new Document()
+                            .append("level", data.level)
+                            .append("sector", data.sector)
+                            .append("monster", data.monster)
+                            .append("timestamp", data.timestamp)
+                            .append("exportedResourceId", data.exportedResourceId)
+                            .append("gameType", data.gameType)
+                    )))
+        }
+
+        /* def lista = db.getCollection(collection).find()
+
+        for (Object o: lista) {
+            println o
+        } */
+    }
+
+    def getData(String collection) {
+        return db.getCollection(collection).find()
     }
 
     def getData(String collection, int resourceId) {

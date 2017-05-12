@@ -86,7 +86,6 @@ class QuestionController {
         list_questionId.addAll(params.list_id);
         for (int i=0; i<list_questionId.size();i++){
             questionList.add(Question.findById(list_questionId[i]));
-
         }
 
         def dataPath = servletContext.getRealPath("/data")
@@ -94,7 +93,8 @@ class QuestionController {
         instancePath.mkdirs()
         log.debug instancePath
 
-        def fw = new FileWriter("$instancePath/perguntas.xml")
+        def fw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("$instancePath/perguntas.xml"), "UTF-8"));
         def xml = new MarkupBuilder(fw)
         xml.mkp.xmlDeclaration(version: "1.0", encoding: "utf-8")
         xml.Perguntas() {
@@ -259,7 +259,9 @@ class QuestionController {
         instancePath.mkdirs()
         log.debug instancePath
 
-        def fw = new FileWriter("$instancePath/exportQuestions.csv")
+        def fw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("$instancePath/exportQuestions.csv"), "UTF-8"));
+
         for(int i=0; i<questionList.size();i++){
             fw.write(questionList.getAt(i).level + ";" + questionList.getAt(i).title + ";" + questionList.getAt(i).answers[0] + ";" + questionList.getAt(i).answers[1] + ";" +
                      questionList.getAt(i).answers[2] + ";" + questionList.getAt(i).answers[3] + ";" + (questionList.getAt(i).correctAnswer +1) + ";dica;tema" +";\n" )
@@ -280,9 +282,11 @@ class QuestionController {
         /*
          * Importa questões de um arquivo CSV com valores separados por ponto-e-vírgula
          */
+
         MultipartFile csv = params.csv
 
-        csv.inputStream.toCsvReader([ 'separatorChar': ';']).eachLine { row ->
+        csv.inputStream.toCsvReader([ 'separatorChar': ';', 'charset':'UTF-8']).eachLine { row ->
+            println row
             Question questionInstance = new Question()
             questionInstance.level = row[0] ?: "NA";
             questionInstance.title = row[1] ?: "NA";
@@ -295,12 +299,11 @@ class QuestionController {
             questionInstance.taskId = session.taskId as String
             questionInstance.ownerId = session.user.id as long
             questionInstance.save flush: true
-            println(questionInstance.taskId)
-            println(questionInstance)
-            println(questionInstance.errors)
-
-
+            // println(questionInstance.taskId)
+            // println(questionInstance)
+            // println(questionInstance.errors)
         }
+
         redirect(action: index())
     }
 }

@@ -32,8 +32,6 @@ environments {
             dbCreate = "update"
             url = "jdbc:mysql://localhost/remar"
             //noinspection GroovyAssignabilityCheck
-            username = "root"
-            password = "3wJBssW0tAtadw0HjPD3"
             properties {
                 // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                 jmxEnabled = true

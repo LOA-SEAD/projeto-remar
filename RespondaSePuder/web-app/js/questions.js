@@ -27,7 +27,8 @@ function submit(){
     var questions_level1 = 0;
     var questions_level2 = 0;
     var questions_level3 = 0;
-    var randomQuestion = document.getElementById("randomQuestion").value;
+    var randomQuestion = parseInt(document.getElementById("randomQuestion").value);
+
     if(randomQuestion>0){
         $.each($("input[type=checkbox]:checked"), function (ignored, el) {
             var tr = $(el).parents().eq(1);
@@ -47,7 +48,7 @@ function submit(){
 
             }
         });
-        if(questions_level1 >= randomQuestion && questions_level2 >= randomQuestion && questions_level3 >= randomQuestion){
+        if(questions_level1 > randomQuestion && questions_level2 > randomQuestion && questions_level3 > randomQuestion){
             //Chaama controlador para salvar questões em arquivos.json
             $.ajax({
                 type: "POST",
@@ -68,11 +69,16 @@ function submit(){
         {
 
             $('#totalQuestion').empty();
+            var min = randomQuestion + 1;
             if(randomQuestion>1){
-                $("#totalQuestion").append("<div> <p> Você deve selecionar no mínimo "+ randomQuestion + " questões de cada nível.</p> </div>");
+                $("#totalQuestion").append("<div> <p> Você deve selecionar no mínimo "+ min + " questões: " + 
+                                          randomQuestion + " para serem utilizadas em cada nível mais 1 questão para " + 
+					  " a opção \"Pular\".</p> </div>");
             }
             else{
-                $("#totalQuestion").append("<div> <p> Você deve selecionar no mínimo "+ randomQuestion + " questão de cada nível.</p> </div>");
+                $("#totalQuestion").append("<div> <p> Você deve selecionar no mínimo "+ min + " questões: " + 
+                                          randomQuestion + " para serem utilizadas em cada nível mais 1 questão para " + 
+					  " a opção \"Pular\".</p> </div>");
             }
 
             if(questions_level1==1) {

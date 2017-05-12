@@ -74,7 +74,7 @@
             <div id="defineMaxQuestion" class="col s12 m7 l7">
                 <div class="row">
                     <div class="col s12">
-                        <p>Escolha o número de questões que serão exibidas a cada nível.</p>
+                        <p>Escolha o número de questões que serão utilizadas a cada nível.</p>
                     </div>
                 </div>
                 <div class="row">

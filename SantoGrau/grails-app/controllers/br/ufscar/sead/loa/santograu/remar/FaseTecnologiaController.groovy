@@ -178,7 +178,8 @@ class FaseTecnologiaController {
         instancePath.mkdirs()
 
         File file = new File("$instancePath/"+fileName);
-        PrintWriter pw = new PrintWriter(file);
+        def pw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(file), "UTF-8"))
         pw.write("{\n");
         pw.write("\t\"words\": [\"" + faseTecnologia.palavras[0] + "\", \""+ faseTecnologia.palavras[1] +"\", \""+ faseTecnologia.palavras[2] +"\"]\n")
         pw.write("}");

@@ -320,7 +320,7 @@
 										<td>Alternativa 1</td>
 										<td>Alternativa 2</td>
 										<td>Alternativa 3</td>
-										<td>4</td>
+										<td>2</td>
 									</tr>
 									</tbody>
 								</table>

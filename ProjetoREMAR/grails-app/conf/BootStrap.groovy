@@ -14,10 +14,11 @@ class BootStrap {
 
     def init = { servletContext ->
 
-        MongoHelper.instance.init([username: grailsApplication.config.dataSource.username,
+        MongoHelper.instance.init([dbHost: grailsApplication.config.dataSource.dbHost,
+                                   username: grailsApplication.config.dataSource.username,
                                    password: grailsApplication.config.dataSource.password])
 
-        Propeller.instance.init([dbName  : 'remar-propeller', wipeDb: false,
+        Propeller.instance.init([dbHost: grailsApplication.config.dataSource.dbHost, dbName  : 'remar-propeller', wipeDb: false,
                                  username: grailsApplication.config.dataSource.username,
                                  authDb  : 'admin',
                                  password: grailsApplication.config.dataSource.password])

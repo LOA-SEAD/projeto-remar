@@ -3,7 +3,6 @@ package br.ufscar.sead.loa.labteca.remar
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.plugin.springsecurity.annotation.Secured
 import grails.util.Environment
-import org.springframework.web.multipart.MultipartFile
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -190,18 +189,20 @@ void createJsonFile(String fileName, ArrayList<Anotacao> anotacaoList) {
     instancePath.mkdirs()
 
     File file = new File("$instancePath/" + fileName);
-    PrintWriter pw = new PrintWriter(file);
-    pw.write("{\n")
-    pw.write("\t\"quantidadeAnotacoes\": [\"" + anotacaoList.size() + "\"],\n")
+    def bw = new BufferedWriter(new OutputStreamWriter(
+            new FileOutputStream(file), "UTF-8"));
+    
+    bw.write("{\n")
+    bw.write("\t\"quantidadeAnotacoes\": [\"" + anotacaoList.size() + "\"],\n")
     for (def i = 0; i < anotacaoList.size(); i++) {
-        pw.write("\t\"" + (i + 1) + "\": [\"" + anotacaoList[i].informacao + "\"] ")
+        bw.write("\t\"" + (i + 1) + "\": [\"" + anotacaoList[i].informacao + "\"] ")
 
         if (i < anotacaoList.size() - 1)
-            pw.write(",")
-        pw.write("\n")
+            bw.write(",")
+        bw.write("\n")
     }
-    pw.write("}");
-    pw.close();
+    bw.write("}");
+    bw.close();
 
     //se o arquivo fases.json nao existe, cria ele com nenhuma fase opcional
     def anotacoesFolder = new File("${dataPath}/${springSecurityService.currentUser.id}/processes/${session.processId}")
