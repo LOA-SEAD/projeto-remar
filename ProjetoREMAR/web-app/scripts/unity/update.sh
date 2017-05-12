@@ -25,9 +25,9 @@ cd ${desktop}/windows/resources/app
 
 for FILE in *;
 do
-    cp ${FILE} ${desktop}/windows/temp/Assets/Resources/
-    cp ${FILE} ${desktop}/linux/temp/Assets/Resources/
-    cp ${FILE} ${desktop}/mac/temp/$2.app/Contents/Data/Resources/
+    cp ${FILE} ${desktop}/windows/temp/Assets/Resources/${FILE}
+    cp ${FILE} ${desktop}/linux/temp/Assets/Resources/${FILE}
+    cp ${FILE} ${desktop}/mac/temp/$2.app/Contents/Data/Resources/${FILE}
 done
 
 # With all files in their places, zip the source again

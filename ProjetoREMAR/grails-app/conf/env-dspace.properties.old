@@ -1,0 +1,5 @@
+dspace.mainCommunityId=1
+dspace.restUrl=http://200.130.75.21/rest
+dspace.jspuiUrl=http://200.130.75.21/jspui
+dspace.email=contato@remar.dc.ufscar.br
+dspace.password=12345123
