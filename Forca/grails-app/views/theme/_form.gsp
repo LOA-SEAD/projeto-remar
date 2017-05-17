@@ -22,7 +22,7 @@
                 <ul class="collapsible" data-collapsible="accordion">
 
                     <li>
-                        <div class="collapsible-header active"><i class="material-icons">file_upload</i>Upload</div>
+                        <div class="collapsible-header active">Upload</div>
                         <div class="collapsible-body">
                             <table class="centered" id="tableNewTheme">
                                 <thead>
@@ -100,7 +100,7 @@
 
                     </li>
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">info</i>Informações sobre as Imagens</div>
+                        <div class="collapsible-header">Informações sobre as Imagens</div>
                         <div class="collapsible-body">
                             <p class="justify-text"> Procure enviar imagens de fundo claro. Imagens de fundo escuro dificultam a visualização das informações do jogo.
                             Para um melhor desempenho as imagens devem possuir as propriedades descritas na tabela abaixo.</p>

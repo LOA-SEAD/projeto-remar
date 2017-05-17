@@ -54,11 +54,7 @@
     </div>
     <div class="row">
         <div class="col-xs-8">
-            %{--<div class="checkbox icheck">--}%
-                %{--<label>--}%
-                    %{--<input type="checkbox"> Lembre-me--}%
-                %{--</label>--}%
-            %{--</div>--}%
+
         </div><!-- /.col -->
         <div class="col-xs-4">
             <button type="submit" class="btn btn-primary btn-block btn-flat">Entrar</button>
@@ -78,8 +74,6 @@
 </div>
 
 
-%{--<div class="footer-span"><g:link class="footer-span" mapping="resetPassword">Esqueci a Senha!</g:link></div>--}%
-%{--<div class="footer-span">Ainda n&atilde;o est&aacute; cadastrado? <g:link class="footer-span" controller="user" action="create" >Registre-se</g:link> </div>--}%
 
 <g:if test='${flash.message}'>
     <script>

@@ -12,10 +12,6 @@
     <div class="row">
     </div>
 
-    %{--<div class="row">--}%
-        %{--<h4 style="margin-left: 10px;">Criando meu próprio tema</h4>--}%
-    %{--</div>--}%
-
     <div class="row">
         <div class="col s12">
             <g:if test="${flash.message}">

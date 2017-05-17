@@ -43,10 +43,8 @@
 <table class="highlight" id="table" style="margin-top: -30px;">
     <thead>
     <tr>
-        <th>Selecionar %{--<div class="row">--}%
+        <th>Selecionar
             <div class="row" style="margin-bottom: -10px;">
-                %{--<input class="filled-in" type="checkbox" id="BtnCheckAll" onclick="check_all()"> <label for="BtnCheckAll"></label>--}%
-                %{--<input class="filled-in" type="checkbox" id="BtnUnCheckAll" onclick="uncheck_all()"> <label for="BtnUnCheckAll"></label>--}%
 
                 <button style="margin-left: 3px; background-color: #795548;" class="btn-floating" id="BtnCheckAll"
                         onclick="check_all()"><i class="material-icons">check_box_outline_blank</i></button>
@@ -114,23 +112,20 @@
 <div class="row">
     <div class="col s2">
         <button class="btn waves-effect waves-light my-orange" type="submit" name="save" id="save">Enviar
-            <i class="material-icons right">send</i>
         </button>
     </div>
 
     <div class="col s1 offset-s6">
         <a data-target="createModal" name="create"
-           class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"><i
-                class="material-icons">add</i></a>
+           class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"></a>
     </div>
 
     <div class="col s1 m1 l1">
-        <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exluir questão" ><i class="material-icons">delete</i></a>
+        <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exluir questão"></a>
     </div>
 
     <div class="col s1">
-        <a data-target="uploadModal"  class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped" data-tooltip="Upload de arquivo .csv"><i
-                class="material-icons">file_upload</i></a>
+        <a data-target="uploadModal"  class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped" data-tooltip="Upload de arquivo .csv"></a>
     </div>
     <div class="col s1">
         <a class="btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exportar questões para .csv"><i

@@ -6,7 +6,6 @@ function validate(evt) {
     }
     key = String.fromCharCode( key );
 
-   // var regex = /[a-z|A-Z|/]/;
     var regex = /[a-zA-Z]/;
     console.log("key: " + key);
     if( !regex.test(key) || key == 32) {

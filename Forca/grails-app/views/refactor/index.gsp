@@ -39,13 +39,6 @@
                         </div>
                         <fieldset class="buttons">
                             <g:submitButton id="send" name="send" class="btn btn-success" value="Enviar" />
-                            %{--
-                            <g:submitButton id="save-and-finish" name="save" class="save"
-                                    value="Salvar e finalizar jogo" />
-                            --}% %{--
-                            <g:submitButton name="delete" class="delete"
-                                    value="Remover questões selecionadas" />
-                            --}%
                         </fieldset>
                     </div>
                 </div>
