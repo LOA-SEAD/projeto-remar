@@ -127,40 +127,7 @@ class ThemeController {
 
     }
 
-//    def VerifyAndUpload(originalUpload,storagePath){
-//
-//        def imageIn = ImageIO.read(originalUpload)
-//        def name = originalUpload.getName()
-//
-//
-//        if(originalUpload.toString().contains("icon")){
-//
-//            int[] sizes = [36,48,72,96,144,192]
-//
-//            for(int i=0; i<sizes.length; i++) {
-//
-//                BufferedImage newImg = Scalr.resize(imageIn, Scalr.Method.ULTRA_QUALITY, sizes[i], sizes[i], Scalr.OP_ANTIALIAS)
-//                name = "icon" + sizes[i] + ".png"
-//                def newImgUploaded = new File("$storagePath/$name")
-//                ImageIO.write(newImg, 'png', newImgUploaded)
-//
-//            }
-//
-//
-//        }
-//
-//
-//        if((imageIn.getWidth() > 800)||imageIn.getHeight() > 600){
-//            BufferedImage newImg = Scalr.resize(imageIn, Scalr.Method.ULTRA_QUALITY, 600, 800, Scalr.OP_ANTIALIAS)
-//            def newImgUploaded = new File("$storagePath/$name")
-//            ImageIO.write(newImg, 'png', newImgUploaded)
-//            return false
-//        }
-//        else{
-//            return true
-//        }
-//
-//    }
+
 
 
     @Transactional
@@ -172,9 +139,6 @@ class ThemeController {
         def userPath = new File(dataPath, "/" + userId + "/themes/" + theme.getId())
         userPath.mkdirs()
 
-//        def iconUploaded = request.getFile('icone')
-//        def openingUploaded = request.getFile('opening')
-//        def backgroundUploaded = request.getFile('background')
 
         def a0Uploaded = request.getFile("a-0")
         def a1Uploaded = request.getFile("a-1")
@@ -201,9 +165,6 @@ class ThemeController {
             c0Uploaded.transferTo(c0)
             c1Uploaded.transferTo(c1)
 
-//            VerifyAndUpload(originalIconUploaded, userPath)
-//            VerifyAndUpload(originalOpeningUploaded, userPath)
-//            VerifyAndUpload(originalBackgroundUploaded, userPath)
         }
 
         redirect(controller: "Theme", action:"index")

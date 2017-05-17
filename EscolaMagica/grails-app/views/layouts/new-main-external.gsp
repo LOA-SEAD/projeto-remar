@@ -1,9 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: lucas
-  Date: 05/09/15
-  Time: 15:47
---%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
@@ -62,15 +56,7 @@
 <g:javascript src="../assets/js/jquery.validate.js" />
 <g:javascript src="../assets/js/jquery.min.js" />
 
-%{--<script>--}%
-%{--$(function () {--}%
-%{--$('input').iCheck({--}%
-%{--checkboxClass: 'icheckbox_square-blue',--}%
-%{--radioClass: 'iradio_square-blue',--}%
-%{--increaseArea: '20%' // optional--}%
-%{--});--}%
-%{--});--}%
-%{--</script>--}%
+
 
 </body>
 </html>

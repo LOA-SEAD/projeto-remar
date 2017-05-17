@@ -16,23 +16,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="${assetPath(src: 'favicon.png')}" type="image/x-icon">
 
-    %{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'fullcalendar.css')}"	type="text/css">--}%
-    %{--<link rel="stylesheet" href="${resource(dir: 'css/datatables', file: 'datatables.css')}"	type="text/css">--}%
-    %{--<link rel="stylesheet" href="${resource(dir: 'css/datatables', file: 'bootstrap.datatables.css')}"	type="text/css">--}%
-    %{--<link rel="stylesheet" href="${resource(dir: 'scss', file: 'chosen.css')}"	type="text/css">--}%
-    %{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">--}%
-    %{--<link rel="stylesheet" href="${resource(dir: 'css', file: 'app.css')}"	type="text/css">--}%
-
-    %{--<link href='http://fonts.googleapis.com/css?family=Oswald:300,400,700|Open+Sans:400,700,300' rel='stylesheet' type='text/css'>--}%
-
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 
-
-    %{--<script type="text/javascript" src="${resource(dir: 'js/bootstrap', file: 'tab.js')}"></script>--}%
-    %{--<script type="text/javascript" src="${resource(dir: 'js/bootstrap', file: 'dropdown.js')}"></script>--}%
-    %{--<script type="text/javascript" src="${resource(dir: 'js/bootstrap', file: 'collapse.js')}"></script>--}%
-    %{--<script type="text/javascript" src="${resource(dir: 'js/bootstrap', file: 'transition.js')}"></script>--}%
 
     <g:layoutHead/>
 </head>

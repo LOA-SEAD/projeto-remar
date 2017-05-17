@@ -13,14 +13,14 @@
 
 <div class="cluster-header">
     <p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-        <i class="small material-icons left"></i>Escola Mágica - Temas
+        Escola Mágica - Temas
     </p>
 </div>
 
 <div class="row">
     <div>
         %{--<p> Download tema ESR</p>--}%
-        <p style="margin-left: 10px;">Download do tema modelo <a class="btn-floating waves-effect waves-light my-orange" href="/escolamagica/samples/portas-escola-magica.zip"> <i class="material-icons">file_download</i> </a>
+        <p style="margin-left: 10px;">Download do tema modelo <a class="btn-floating waves-effect waves-light my-orange" href="/escolamagica/samples/portas-escola-magica.zip">  </a>
         </p>
     </div>
 </div>
@@ -60,7 +60,6 @@
                                     <td align="center"><img width="142"
                                             src="/escolamagica/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portac-sheet1.png"
                                             class="img-responsive max door"/></td>
-                                    <td align="center"><i id="MydeleteIcon${i}" style="color: #7d8fff" class="material-icons delete">delete</i></td>
                                 </tr>
                             </g:each>
                             </tbody>

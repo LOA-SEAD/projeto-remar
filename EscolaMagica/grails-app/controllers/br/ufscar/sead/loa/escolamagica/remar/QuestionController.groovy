@@ -64,7 +64,6 @@ class QuestionController {
 
     def confirming() {
         log.debug params.id
-        //redirect(controller: "process",action: "completeTask", id: "confirming")
     }
 
     def show(Question questionInstance) {
@@ -77,9 +76,7 @@ class QuestionController {
 
     def createXML() {
 
-        //   def servletContext = ServletContextHolder.servletContext
-        //  def storagePath = servletContext.getRealPath("/")
-        //   log.debug storagePath
+
 
         ArrayList<Integer> list_questionId = new ArrayList<Integer>() ;
         ArrayList<Question> questionList = new ArrayList<Question>();
@@ -105,7 +102,6 @@ class QuestionController {
                         list.push(it);
                 }
 
-               // def questionList = Question.findAllByOwnerIdAndLevel(session.user.id, String.valueOf(i + 1))
                 if (!list.isEmpty()) {
                     int j = 0
                     int k = 0
