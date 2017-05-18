@@ -60,16 +60,18 @@
         </section> <!-- finished processes-->
     </div>
 </div>
-<div id="userDetailsModal" class="modal" style="width:40%">
+
+<div id="userDetailsModal" class="modal remar-modal">
     <div class="modal-content">
+        <h4>Informações de Usuário</h4>
     </div>
     <div class="modal-footer">
-        <button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
+        <a href="#!" class="modal-action modal-close btn waves-effect waves-light my-orange">OK</a>
     </div>
 </div>
+
 <script>
     $(document).ready(function(){
-        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('.modal-trigger').leanModal();
     });
 </script>

@@ -55,7 +55,6 @@
     <div id="modal-users" class="modal bottom-sheet">
         <div class="modal-content">
             <h4 class="left-align">Membros do grupo</h4>
-            %{--<p>A bunch of text</p>--}%
             <ul class="collection users-collection">
                 <li class="collection-item avatar left-align">
                     <img src="/data/users/${group.owner.username}/profile-picture" class="circle">

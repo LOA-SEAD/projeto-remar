@@ -3,10 +3,25 @@
  */
 $(window).load(function() {
 
-    $("button").click(function(){
+    $("button").click( function() {
         addToGroups(this);
     });
-    function addToGroups(_this) {
+
+    $('.modal-trigger').leanModal({
+            dismissible: true, // Modal can be dismissed by clicking outside of the modal
+            opacity: .5, // Opacity of modal background
+            in_duration: 300, // Transition in duration
+            out_duration: 200, // Transition out duration
+            ready: function() {  }, // Callback for Modal open
+            complete: function() {
+                $(".lean-overlay").remove();
+                $("input[name='groupsid']:checked").removeAttr('checked');
+            } // Callback for Modal close
+        }
+    );
+});
+
+function addToGroups(_this) {
         var arr = $.map($("input[name='groupsid']:checked"), function (e, i) {
             return +e.value;
         });
@@ -23,30 +38,13 @@ $(window).load(function() {
                     $("input[name='groupsid']:checked").prop("disabled", "disabled");
                     $('#modal-group-'+instanceId).closeModal();
                     $(".lean-overlay").remove();
-                    Materialize.toast("Compartilhado com sucesso! :)", 5000, "rounded");
-                },statusCode: {
+                    Materialize.toast("Compartilhado com sucesso!", 5000);
+                }, statusCode: {
                     405: function (response) {
-                        Materialize.toast(response.responseText, 5000, "rounded");
+                        Materialize.toast(response.responseText, 5000);
                     }
                 }
             })
-        }else
-            Materialize.toast("Por favor, selecione pelo menos um grupo", 5000, "rounded");
-
+        } else
+            Materialize.toast("Por favor, selecione pelo menos um grupo", 5000);
     }
-
-    $('.modal-trigger').leanModal({
-            dismissible: true, // Modal can be dismissed by clicking outside of the modal
-            opacity: .5, // Opacity of modal background
-            in_duration: 300, // Transition in duration
-            out_duration: 200, // Transition out duration
-            ready: function() {  }, // Callback for Modal open
-            complete: function() {
-                $(".lean-overlay").remove();
-                $("input[name='groupsid']:checked").removeAttr('checked');
-            } // Callback for Modal close
-        }
-    );
-
-
-});

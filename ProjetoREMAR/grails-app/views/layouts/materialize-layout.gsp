@@ -34,6 +34,7 @@
                                     </div>
                                 </div>
                             </li>
+                            
                             <div class="row collection-item footer" style="margin-top: 115px;">
                                 <div class="col s6">
                                     <a href="/my-profile" class="waves-effect btn-flat left">

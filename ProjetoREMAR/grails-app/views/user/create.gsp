@@ -2,7 +2,8 @@
 <html>
 <head>
     <meta name="layout" content="base">
-    <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
+    <link type="text/css" rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.Jcrop.css')}"/>
+    <link type="text/css" rel="stylesheet" href="${resource(dir: 'css', file: 'signup.css')}"/>
     <title>Registrar-se</title>
 </head>
 <body>
@@ -15,62 +16,78 @@
                 </div> <!-- card-image -->
                 <form action="/user/save" method="POST" enctype="multipart/form-data">
                     <div class="row">
-                        <div class="input-field col s12 m6">
+                        <div class="input-field col s6 m6">
                             <i class="material-icons prefix">person</i>
                             <input id="first-name" name="firstName" type="text"/>
                             <label for="first-name">Nome</label>
                         </div>
-
-                        <div class="input-field col s12 m6">
+ 
+                        <div class="input-field col s6 m6">
                             <i class="material-icons prefix">person</i>
                             <input id="last-name" name="lastName" type="text"/>
                             <label for="last-name">Sobrenome</label>
                         </div>
+                    </div>
 
-
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">email</i>
-                            <input id="email" name="email" type="email"/>
-                            <label for="email">Email</label>
-                        </div>
-
+                   <div class="row">
                         <div class="input-field col s12 m12">
                             <i class="material-icons prefix">account_circle</i>
                             <input id="username" name="username" type="text"/>
                             <label for="username">Nome de usuário</label>
                         </div>
-
-                        <div class="input-field col s12 m6">
+                    </div>
+                   
+                    <div class="row">
+                        <div class="input-field col s12 m12">
+                            <i class="material-icons prefix">email</i>
+                            <input id="email" name="email" type="email"/>
+                            <label for="email">Email</label>
+                        </div>
+                    </div>
+                        
+                    <div class="row">
+                        <div class="input-field col s6 m6">
                             <i class="material-icons prefix">lock</i>
                             <input id="password" name="password" type="password"/>
                             <label for="password">Senha</label>
                         </div>
 
-                        <input id="firstAccess" name="firstAccess" type="hidden" value="true">
-
-                        <div class="input-field col s12 m6">
+                        <div class="input-field col s6 m6">
                             <i class="material-icons prefix">lock</i>
                             <input id="confirm-password" name="confirm_password" type="password"/>
                             <label for="confirm-password">Confirme sua senha</label>
                         </div>
+                    </div>
+                    
+                    <input id="firstAccess" name="firstAccess" type="hidden" value="true">
 
-                        <div class="input-field file-field col s12">
-                            <div class="col s3">
-                                <input type="hidden" name="photo" value="/images/avatars/default.png" id="srcImage">
-                                <img id="profile-picture"  class="circle profile-picture" src="/images/avatars/default.png" />
-                            </div>
-                            <div>
-                                <input type="file" id="file"  accept="image/jpeg, image/png">
+                    <div class="row img-container">
+                        <div class="col s2 m2 l2 img-preview">
+                            <input type="hidden" name="photo" value="/images/avatars/default.png" id="srcImage">
+                            <img id="profile-picture"  class="circle profile-picture" src="/images/avatars/default.png" />
+                        </div>
+                        <div class="col s8 offset-s2 m10 l10">
+                            <div class="file-field input-field">
+                                <div class="btn waves-effect waves-light my-orange">
+                                    <span>Arquivo</span>
+                                    <input id="file" type="file" data-image="true" id="img-1" name="img1" accept="image/jpeg, image/png">
+                                </div>
                                 <div class="file-path-wrapper">
-                                    <input class="file-path" type="text" placeholder="Selecione uma foto (opcional)" style="margin-bottom: 0;">
+                                    <input readonly class="file-path validate" type="text" placeholder="Selecione uma foto (opcional)" style="margin-bottom: 0;">
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="input-field col s12 center">
+                    <div class="row">
+                        <div class="input-field center-align">
                             <div class="g-recaptcha text-center" data-sitekey="6Ldm4CAUAAAAAMs6FsUuQIweiP-bhiCGsnNdrtBb"> </div>
                         </div>
-                        <div class="clearfix"></div>
+                    </div>
+                    
+                    <div class="clearfix"></div>
+                    
+                    <div class="row">
                         <div class="input-field center-align">
                             <button id="submit" class="btn waves-effect waves-light tooltiped my-orange" type="submit">Enviar</button>
                         </div>
@@ -89,6 +106,7 @@
         <a href="#!" class="modal-action modal-close waves-effect btn-flat">Enviar</a>
     </div>
 </div>
+
 <g:javascript src="jquery/jquery.validate.js"/>
 <recaptcha:script/>
 <g:javascript src="user/form.js"/>

@@ -1,0 +1,16 @@
+.img-container,
+.img-preview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.row .input-field {
+    margin-top: 0px;
+}
+
+.g-recaptcha {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1012,3 +1012,27 @@ Position must be relative!*/
     /*font-style: italic;*/
     font-size: 12px;
 }
+
+/* group/show modal styles */
+#modal-users {
+  height: 100%;
+  width: 50% !important;
+}
+
+#modal-users modal-content {
+  overflow-y: scroll;
+  height: 100%;
+}
+
+/* remar styles */
+.remar-modal {
+    text-align: center;
+}
+
+.remar-modal .modal-content h4 {
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.remar-modal .modal-footer a {
+    margin-right: 10px !important;
+}
