@@ -102,6 +102,7 @@ environments {
         for (key in ['dataSource', 'dataSource_remar']) {
             properties.setProperty("${key}.username", remarProperties.getProperty('dataSource.username'))
             properties.setProperty("${key}.password", remarProperties.getProperty('dataSource.password'))
+            properties.setProperty("${key}.url", remarProperties.getProperty('dataSource.url'))
         }
         result = (remarProperties.getProperty('dataSource.url') =~ /(jdbc\:mysql\:\/\/\w*\:*\d*)(\/{0,1}\w*)/)
         properties.setProperty('dataSource.url', "${result[0][1]}${grails.app.context}")

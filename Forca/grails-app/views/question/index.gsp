@@ -29,7 +29,7 @@
 <body>
 <div class="cluster-header">
     <p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-        <i class="small material-icons left">grid_on</i>Forca - Tabela de Questões
+        Forca - Tabela de Questões
     </p>
 </div>
 
@@ -117,15 +117,17 @@
 
     <div class="col s1 offset-s6">
         <a data-target="createModal" name="create"
-           class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"></a>
+           -           class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"><i
+                -                class="material-icons">add</i></a>
     </div>
 
     <div class="col s1 m1 l1">
-        <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exluir questão"></a>
+              <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exluir questão" ><i class="material-icons">delete</i></a>
     </div>
 
     <div class="col s1">
-        <a data-target="uploadModal"  class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped" data-tooltip="Upload de arquivo .csv"></a>
+        <a data-target="uploadModal"  class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped" data-tooltip="Upload de arquivo .csv"><i
+                              class="material-icons">file_upload</i></a>
     </div>
     <div class="col s1">
         <a class="btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exportar questões para .csv"><i
@@ -138,16 +140,14 @@
 <!-- Modal Structure -->
 <div id="createModal" class="modal">
     <div class="modal-content">
-
-                <h4>Criar Questão <i class="material-icons tooltipped" data-position="right" data-delay="30" data-tooltip="Respostas não devem possuir números nem caracteres especiais.">info</i></h4>
-
+                <h4>Criar Questão <i class="material-icons tooltipped" data-position="right" data-delay="30" data-tooltip="Respostas não devem possuir números nem caracteres especiais.">info</i> </h4>
 
         <div class="row">
             <g:form url="[resource: questionInstance, action: 'newQuestion']">
                 <g:render template="form"/>
                 <br/>
                 <g:submitButton name="create" class="btn btn-success btn-lg my-orange"
-                                value="${message(code: 'default.button.create.label', default: 'Create')}"/>
+                                value="${message(code: 'default.button.create.label', default: 'Criar')}"/>
             </g:form>
         </div>
     </div>
