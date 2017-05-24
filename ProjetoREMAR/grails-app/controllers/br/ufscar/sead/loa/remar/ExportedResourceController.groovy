@@ -353,13 +353,13 @@ class ExportedResourceController {
                             outputs.each { output ->
                                 ant.sequential {
                                     copy (file: output.path, tofile: "${webFolder}/Assets/Resources/${output.definition.name}", failonerror: false)
-                                    delete (file: "${webFolder}/${output.definition.name}", failonerror: false)
+                                    delete (file: "${webFolder}/${output.definition.name}")
                                 }
                             }
                         }
 
                         // Copia [nomeDoJogo].html para index.gsp e o deleta
-                        ant.copy(file: "${webFolder}/${process.definition.name}.html", tofile: "${webFolder}/index.gsp")
+                        ant.copy(file: "${webFolder}/*.html", tofile: "${webFolder}/index.gsp")
                         ant.delete(file: "${webFolder}/${process.definition.name}.html", failonerror: false)
 
                         log.debug "Finished exporting Unity Web project"

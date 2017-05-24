@@ -1,4 +1,5 @@
 <%@ page import="br.ufscar.sead.loa.remar.User; br.ufscar.sead.loa.remar.UserController" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,69 +44,90 @@
         <div class="row show">
             <form method="POST" action="/user/update?id=${session.user.id}" enctype="multipart/form-data" data-user-id="${session.user.id}">
                 <div class="row" style="margin-top: 20px;">
-                    <div class="input-field col s12 m6">
-                        <i class="material-icons prefix">person</i>
-                        <input id="firstName" name="firstName" type="text" value="${session.user.firstName}" />
-                        <label for="firstName">Nome</label>
-                    </div>
-                    <div class="input-field col s12 m6">
-                        <i class="material-icons prefix">person</i>
-                        <input id="lastName" name="lastName" type="text" value="${session.user.lastName}" />
-                        <label for="lastName">Sobrenome</label>
-                    </div>
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">email</i>
-                        <input id="email" name="email" type="email" value="${session.user.email}" />
-                        <label for="email">Email</label>
-                    </div>
-                    <div class="input-field col s12 m12">
-                        <i class="material-icons prefix">account_circle</i>
-                        <input id="username" name="username" type="hidden" value="${session.user.username}" />
-                        <input type="text" value="${session.user.username}" disabled />
-                        <label for="username">Nome de Usuário</label>
-                    </div>
+										<div class="row">
+		                    <div class="input-field col s12 m6">
+		                        <i class="material-icons prefix">person</i>
+		                        <input id="firstName" name="firstName" type="text" value="${session.user.firstName}" />
+		                        <label for="firstName">Nome</label>
+		                    </div>
 
-                    <div class="input-field col s12 m6">
-                        <i class="material-icons prefix">lock</i>
-                        <input id="password" name="password" type="password"/>
-                        <label for="password">Nova senha</label>
-                    </div>
+		                    <div class="input-field col s12 m6">
+		                        <i class="material-icons prefix">person</i>
+		                        <input id="lastName" name="lastName" type="text" value="${session.user.lastName}" />
+		                        <label for="lastName">Sobrenome</label>
+		                    </div>
+										</div>
 
-                    <div class="input-field col s12 m6">
-                        <i class="material-icons prefix">lock</i>
-                        <input id="confirm-password" name="confirm_password" type="password"/>
-                        <label for="confirm-password">Confirme sua nova senha</label>
-                    </div>
+										<div class="row">
+		                    <div class="input-field col s12">
+				                    <i class="material-icons prefix">email</i>
+				                    <input id="email" name="email" type="email" value="${session.user.email}" />
+				                    <label for="email">Email</label>
+		                    </div>
+										</div>
 
-                    <div class="input-field file-field col s12">
-                        <div class="col s3">
+										<div class="row">
+		                    <div class="input-field col s12 m12">
+		                        <i class="material-icons prefix">account_circle</i>
+		                        <input id="username" name="username" type="hidden" value="${session.user.username}" />
+		                        <input type="text" value="${session.user.username}" disabled />
+		                        <label for="username">Nome de Usuário</label>
+		                    </div>
+										</div>
+
+										<div class="row">
+		                    <div class="input-field col s12 m6">
+		                        <i class="material-icons prefix">lock</i>
+		                        <input id="password" name="password" type="password"/>
+		                        <label for="password">Nova senha</label>
+		                    </div>
+
+		                    <div class="input-field col s12 m6">
+		                        <i class="material-icons prefix">lock</i>
+		                        <input id="confirm-password" name="confirm_password" type="password"/>
+		                        <label for="confirm-password">Confirme sua nova senha</label>
+		                    </div>
+										</div>
+
+										<div class="row img-input-container">
+                        <div class="col s2 m2 l2 img-preview">
                             <input type="hidden" name="photo" value="/images/avatars/default.png" id="srcImage">
                             <img id="profile-picture" class="circle profile-picture" src="/data/users/${session.user.username}/profile-picture?${new Date()}" />
                         </div>
-                        <div>
-                            <input type="file" id="file" accept="image/jpeg, image/png">
-                            <div class="file-path-wrapper">
-                                <input class="file-path" type="text" placeholder="Selecione uma foto (opcional)">
-                                <span class="input-description my-left">Outros usuários irão te identificar mais facilmente :)</span>
+                        <div class="col s8 offset-s2 m10 l10">
+                            <div class="file-field input-field">
+                                <div class="btn waves-effect waves-light my-orange">
+                                    <span>Arquivo</span>
+                                    <input id="file" type="file" data-image="true" accept="image/jpeg, image/png">
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input readonly class="file-path validate" type="text" placeholder="Selecione uma foto (opcional)" style="margin-bottom: 0;">
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="clearfix"></div>
-                    <div class="input-field center-align">
-                        <button class="btn waves-effect waves-light tooltiped my-orange" type="submit">Enviar</button>
-                    </div>
+
+										<div class="row">
+		                    <div class="input-field center-align">
+		                        <button class="btn waves-effect waves-light tooltiped my-orange" type="submit">Enviar</button>
+		                    </div>
+										</div>
                 </div>
             </form>
 
-            <div id="modal-profile-picture" class="modal">
-                <div class="modal-content center">
-                    <img id="crop-preview" class="responsive-img">
-                </div>
-                <div class="modal-footer">
-                    <a id="toHide" href="#!" class="modal-action modal-close waves-effect btn-flat">Enviar</a>
-                </div>
-            </div>
+						<div id="modal-profile-picture" class="modal remar-modal">
+						    <div class="modal-content">
+						        <h4>Envio de Imagem</h4>
+						        <div class="img-container">
+						            <img id="crop-preview" class="responsive-img">
+						        </div>
+						    </div>
+						    <div class="modal-footer">
+						        <a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Enviar</a>
+						    </div>
+						</div>
 
             <div class="row">
                 <div class="col s12">

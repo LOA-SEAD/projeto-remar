@@ -4,6 +4,7 @@
     <meta name="layout" content="base">
     <link type="text/css" rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.Jcrop.css')}"/>
     <link type="text/css" rel="stylesheet" href="${resource(dir: 'css', file: 'signup.css')}"/>
+    
     <title>Registrar-se</title>
 </head>
 <body>
@@ -61,7 +62,7 @@
                     
                     <input id="firstAccess" name="firstAccess" type="hidden" value="true">
 
-                    <div class="row img-container">
+                    <div class="row img-input-container">
                         <div class="col s2 m2 l2 img-preview">
                             <input type="hidden" name="photo" value="/images/avatars/default.png" id="srcImage">
                             <img id="profile-picture"  class="circle profile-picture" src="/images/avatars/default.png" />
@@ -98,12 +99,15 @@
     </div> <!-- row -->
 </div> <!-- container -->
 
-<div id="modal-profile-picture" class="modal">
-    <div class="modal-content center">
-        <img id="crop-preview" class="responsive-img">
+<div id="modal-profile-picture" class="modal remar-modal">
+    <div class="modal-content">
+        <h4>Envio de Imagem</h4>
+        <div class="img-container">
+            <img id="crop-preview" class="responsive-img">
+        </div>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect btn-flat">Enviar</a>
+        <a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Enviar</a>
     </div>
 </div>
 
