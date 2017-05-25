@@ -187,7 +187,6 @@
 
                         <a onclick="disableUser()" >Desabilitar minha conta</a>
                         <br>
-                        %{--<a onclick="deleteUser()" >Excluir minha conta</a>--}%
 
                     </ul>
                 </div>

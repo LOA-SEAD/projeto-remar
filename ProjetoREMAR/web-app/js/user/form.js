@@ -85,10 +85,10 @@ function unhighlight(el) {
     $(el).removeClass('invalid');
     $(el).addClass('valid');
 
-//    if($(el).siblings('select').attr('name') != "gender" && $(el).attr('data-done') !== "true") {
+/*//    if($(el).siblings('select').attr('name') != "gender" && $(el).attr('data-done') !== "true") {
 //        $('<i class="material-icons suffix green-text">done</i>').insertBefore(el);
 //        $(el).attr('data-done', true);
-//    }
+//    }*/
 }
 
 function highlight(el) {
