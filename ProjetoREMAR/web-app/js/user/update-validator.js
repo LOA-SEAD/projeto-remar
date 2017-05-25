@@ -70,14 +70,6 @@ $(document).ready(function() {
 function unhighlight(el) {
     $(el).removeClass('invalid');
     $(el).addClass('valid');
-<<<<<<< HEAD
-=======
-
-    if($(el).siblings('select').attr('name') != "gender" && $(el).attr('data-done') !== "true") {
-       // $('<i class="material-icons suffix green-text">done</i>').insertBefore(el); //É O CHECK DO FORM QUE APARECE DENTRO DO BOTÃO
-        $(el).attr('data-done', true);
-    }
->>>>>>> 36790f3e98ee1e3fa4fcd138589409821cfc6c49
 }
 
 function highlight(el) {
