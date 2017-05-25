@@ -1,4 +1,4 @@
-<%@ page import="br.ufscar.sead.loa.remar.User; br.ufscar.sead.loa.remar.UserController" %>
+<!--<%@ page import="br.ufscar.sead.loa.remar.User; br.ufscar.sead.loa.remar.UserController" %>-->
 
 <!DOCTYPE html>
 <html>
@@ -9,9 +9,6 @@
 </head>
 <body>
     <g:if test="${params.success}">
-        <script>
-            console.log("asdsadsdsaadsda");
-        </script>
         <div id="modal" class="modal">
             <div class="modal-content">
 
@@ -30,7 +27,7 @@
 
     <g:if test="${params.profileUpdated}">
         <script type="text/javascript">
-            Materialize.toast('Perfil atualizado!', 3000, 'rounded') // 'rounded' is the class I'm applying to the toast
+            Materialize.toast('Perfil atualizado!', 3000);
         </script>
     </g:if>
 
@@ -91,14 +88,14 @@
 
 										<div class="row img-input-container">
                         <div class="col s2 m2 l2 img-preview">
-                            <input type="hidden" name="photo" value="/images/avatars/default.png" id="srcImage">
-                            <img id="profile-picture" class="circle profile-picture" src="/data/users/${session.user.username}/profile-picture?${new Date()}" />
+                            <input type="hidden" name="photo" value="/images/avatars/default.png" id="source-image">
+                            <img id="profile-picture"  class="circle profile-picture" src="/images/avatars/default.png" />
                         </div>
                         <div class="col s8 offset-s2 m10 l10">
                             <div class="file-field input-field">
                                 <div class="btn waves-effect waves-light my-orange">
                                     <span>Arquivo</span>
-                                    <input id="file" type="file" data-image="true" accept="image/jpeg, image/png">
+                                    <input id="file" type="file" data-image="true" id="img-1" name="img1" accept="image/jpeg, image/png">
                                 </div>
                                 <div class="file-path-wrapper">
                                     <input readonly class="file-path validate" type="text" placeholder="Selecione uma foto (opcional)" style="margin-bottom: 0;">
@@ -125,7 +122,8 @@
 						        </div>
 						    </div>
 						    <div class="modal-footer">
-						        <a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Enviar</a>
+						        <a id="accept-picture" href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Enviar</a>
+						        <a id="cancel-picture" href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Cancelar</a>
 						    </div>
 						</div>
 
@@ -238,8 +236,10 @@
     </script>
 
     <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
+
+		<g:javascript src="user/image-selector.js"/>
+		<g:javascript src="user/update-validator.js"/>
     <g:javascript src="jquery/jquery.validate.js"/>
-    <g:javascript src="user/update-validator.js"/>
     <g:javascript src="jquery/jquery.Jcrop.js"/>
 </body>
 </html>

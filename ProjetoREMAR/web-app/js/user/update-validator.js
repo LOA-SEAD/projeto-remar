@@ -70,11 +70,6 @@ $(document).ready(function() {
 function unhighlight(el) {
     $(el).removeClass('invalid');
     $(el).addClass('valid');
-
-    if($(el).siblings('select').attr('name') != "gender" && $(el).attr('data-done') !== "true") {
-        $('<i class="material-icons suffix green-text">done</i>').insertBefore(el);
-        $(el).attr('data-done', true);
-    }
 }
 
 function highlight(el) {
@@ -90,60 +85,3 @@ function highlight(el) {
 function errorPlacement(err, el) {
     err.insertAfter($(el).next());
 }
-
-var jcrop;
-
-$('#file').on('change', function() {
-    var file = $(this).prop('files')[0];
-    var fr = new FileReader();
-
-    fr.readAsDataURL(file);
-    fr.onload = function(event) {
-        var image = new Image();
-        image.src = event.target.result;
-        image.onload = function() {
-            var el = $('#crop-preview');
-            $(el).attr('src', event.target.result);
-            $("#modal-profile-picture").openModal({
-                complete: function () {
-                    jcrop.destroy();
-                    $(".jcrop-holder").remove();
-                    $(el).removeAttr("style");
-
-                    var formData = new FormData();
-                    var coordinates = jcrop.tellSelect();
-                    formData.append('photo', file);
-                    formData.append('x', coordinates.x);
-                    formData.append('y', coordinates.y);
-                    formData.append('w', coordinates.w);
-                    formData.append('h', coordinates.h);
-
-                    $.ajax({
-                        type: 'POST',
-                        url: "user/crop-profile-picture",
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function (data) {
-                            $('#profile-picture').attr("src", "/data/tmp/" + data);
-                            $('#srcImage').attr("value", "/data/tmp/" + data);
-                        },
-                        error: function(req, res, err) {
-                            console.log(req);
-                            console.log(res);
-                            console.log(err);
-                        }
-                    })
-                }
-            });
-            $(el).Jcrop({
-                aspectRatio: 1,
-                setSelect: [0, 0, Math.max(this.width, this.height), Math.max(this.width, this.height)],
-                boxHeight: 500,
-                trueSize: [this.width, this.height]
-            }, function () {
-                jcrop = this;
-            });
-        }
-    }
-});
