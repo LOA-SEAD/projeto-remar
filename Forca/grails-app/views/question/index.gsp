@@ -6,7 +6,7 @@
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="/forca/css/materialize.css" media="screen,projection"/>
-    <link rel="stylesheet" type="text/css" href="/forca/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/forca/css/question.css">
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -15,6 +15,8 @@
     <g:javascript src="editableTable.js"/>
     <g:javascript src="scriptTable.js"/>
     <g:javascript src="validate.js"/>
+    <g:javascript src="question.js"/>
+
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
     <meta property="user-name" content="${userName}"/>
@@ -36,7 +38,7 @@
 
 <div class="row">
     <div class="col s3 offset-s9">
-        <input type="text" id="SearchLabel" placeholder="Buscar"/>
+        <input type="text" id="SearchLabel" class="remar-input" placeholder="Buscar"/>
     </div>
 </div>
 
@@ -138,57 +140,62 @@
 
 
 <!-- Modal Structure -->
-<div id="createModal" class="modal">
-    <div class="modal-content">
-                <h4>Criar Questão <i class="material-icons tooltipped" data-position="right" data-delay="30" data-tooltip="Respostas não devem possuir números nem caracteres especiais.">info</i> </h4>
-
-        <div class="row">
-            <g:form url="[resource: questionInstance, action: 'newQuestion']">
+<div id="createModal" class="modal remar-modal">
+    <g:form url="[resource: questionInstance, action: 'newQuestion']">
+        <div class="modal-content">
+            <h4>Criar Questão <i class="material-icons tooltipped" data-position="right" data-delay="30" data-tooltip="Respostas não devem possuir números nem caracteres especiais.">info</i> </h4>
+            <div class="row">
                 <g:render template="form"/>
-                <br/>
-                <g:submitButton name="create" class="btn btn-success btn-lg my-orange"
-                                value="${message(code: 'default.button.create.label', default: 'Criar')}"/>
-            </g:form>
+            </div>
         </div>
-    </div>
+        <div class="modal-footer">
+            <a href="#!" class="save modal-action modal-close btn waves-effect waves-light remar-orange" action="create"
+               onclick="$(this).closest('form').submit()" name="create">Criar</a>
+            <a href="#!" class="save modal-action modal-close btn waves-effect waves-light remar-orange">Cancelar</a>
+        </div>
+    </g:form>
 </div>
 
-<!-- Modal Structure -->
-<div id="editModal" class="modal">
-    <div class="modal-content">
-        <h4>Editar Questão</h4>
-        <g:form url="[resource: questionInstance, action: 'update']" method="PUT">
 
-                <input id="editVersion" name="version" required="" value="" type="hidden">
-                <input type="hidden" id="questionID" name="questionID">
+
+<!-- Modal -->
+<div id="editModal" class="modal remar-modal">
+    <g:form url="[resource: questionInstance, action: 'update']" method="PUT">
+        <div class="modal-content">
+            <h4>Editar Questão</h4>
+
+            <input id="editVersion" name="version" required="" value="" type="hidden">
+            <input type="hidden" id="questionID" name="questionID">
 
 
             <div class="input-field col s12">
-                <input id="editStatement" name="statement" required="" value="" type="text" class="validate" maxlength="150">
+                <input id="editStatement" name="statement" required="" value="" type="text" class="validate remar-input" maxlength="150">
                 <label id="statementLabel" for="editStatement">Pergunta</label>
             </div>
             <div class="input-field col s12">
-                <input id="editAnswer" name="answer" required="" value="" type="text" class="validate"  onkeypress="validate(event)" maxlength="48">
+                <input id="editAnswer" name="answer" required="" value="" type="text" class="validate remar-input"  onkeypress="validate(event)" maxlength="48">
                 <label id="answerLabel" for="editAnswer">Resposta</label>
             </div>
             <div class="input-field col s12">
-                <input id="editCategory" name="category" required="" value="" type="text" class="validate">
+                <input id="editCategory" name="category" required="" value="" type="text" class="validate remar-input">
                 <label id="categoryLabel" for="editCategory">Tema</label>
             </div>
 
             <div class="input-field col s12" style="display: none;">
-                <input id="editAuthor" name="author" required="" readonly="readonly" value="" type="text" class="validate">
+                <input id="editAuthor" name="author" required="" readonly="readonly" value="" type="text" class="validate remar-input">
                 <label id="authorLabel" for="editAuthor">Autor</label>
             </div>
 
-            <g:actionSubmit class="save btn btn-success btn-lg my-orange" action="update"
-                            value="${message(code: 'default.button.update.label', default: 'Salvar')}"/>
-        </g:form>
-    </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="save modal-action modal-close btn waves-effect waves-light remar-orange" action="update"
+               onclick="$(this).closest('form').submit()" name="create">Atualizar</a>
+            <a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Cancelar</a>
+        </div>
+    </g:form>
 </div>
 
-
-<!-- Modal Structure -->
+            <!-- Modal Structure -->
 <div id="infoModal" class="modal">
     <div class="modal-content">
         <div id="totalQuestion">
