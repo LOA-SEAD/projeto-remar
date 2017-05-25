@@ -1,0 +1,128 @@
+{
+	"objects": [{
+		"formula": "HCl",
+		"description" : "Nome: Ácido Clorídrico\n
+Densidade: 1,18 g/ml\n
+pH: 3\n
+Condutibilidade: 30 mS\n
+Turbidez: 0,5 NTU\n
+Polarizabilidade: 0º\n
+Concentração de Sódio: 0 g/mol\n
+Concentração de Potássio: 0 g/mol\n
+Concentração de Lítio: 0 g/mol\n
+\n
+OBS: Todos os valores tomam como base uma mistura de 1 molar a 25ºC"
+	},
+	{
+		"formula": "NaOH",
+		"description" : "Nome: Óxido de Sódio\n
+Densidade: 1,18 g/ml\n
+pH: 3\n
+Condutibilidade: --- mS\n
+Turbidez: --- NTU\n
+Polarizabilidade: ---\n
+Concentração de Sódio: --- g/mol\n
+Concentração de Potássio: --- g/mol\n
+Concentração de Lítio: --- g/mol\n
+\n
+OBS: Todos os valores tomam como base uma mistura de 1 molar a 25ºC"
+	},
+	{
+		"formula": "NaCl",
+		"description" : "Nome: Cloreto de Sódio\n
+Densidade: 1,18 g/ml\n
+pH: 3\n
+Condutibilidade: --- mS\n
+Turbidez: --- NTU\n
+Polarizabilidade: ---\n
+Concentração de Sódio: --- g/mol\n
+Concentração de Potássio: --- g/mol\n
+Concentração de Lítio: --- g/mol\n
+\n
+OBS: Todos os valores tomam como base uma mistura de 1 molar a 25ºC"
+	},
+	{
+		"formula": "H\u2082SO\u2084",
+		"description" : "Nome: Ácido Clorídrico\n
+Densidade: 1,18 g/ml\n
+pH: 3\n
+Condutibilidade: --- mS\n
+Turbidez: --- NTU\n
+Polarizabilidade: ---\n
+Concentração de Sódio: --- g/mol\n
+Concentração de Potássio: --- g/mol\n
+Concentração de Lítio: --- g/mol\n
+\n
+OBS: Todos os valores tomam como base uma mistura de 1 molar a 25ºC"
+	},
+	{
+		"formula": "NiH\u2083",
+		"description" : "Hidróxido de Níquel III\n
+Densidade: 1,18 g/ml\n
+pH: 3\n
+Condutibilidade: --- mS\n
+Turbidez: --- NTU\n
+Polarizabilidade: ---\n
+Concentração de Sódio: --- g/mol\n
+Concentração de Potássio: --- g/mol\n
+Concentração de Lítio: --- g/mol\n
+\n
+OBS: Todos os valores tomam como base uma mistura de 1 molar a 25ºC"
+	},
+	{
+		"formula": "H\u2082O\u2082",
+		"description" : "Nome: Peróxido de Hidrogênio\n
+Densidade: 1,18 g/ml\n
+pH: 3\n
+Condutibilidade: --- mS\n
+Turbidez: --- NTU\n
+Polarizabilidade: ---\n
+Concentração de Sódio: --- g/mol\n
+Concentração de Potássio: --- g/mol\n
+Concentração de Lítio: --- g/mol\n
+\n
+OBS: Todos os valores tomam como base uma mistura de 1 molar a 25ºC"
+	},
+	{
+		"formula": "PbO\u2083",
+		"description" : "Óxido de Chumbo\n
+Densidade: 1,18 g/ml\n
+pH: 3\n
+Condutibilidade: --- mS\n
+Turbidez: --- NTU\n
+Polarizabilidade: ---\n
+Concentração de Sódio: --- g/mol\n
+Concentração de Potássio: --- g/mol\n
+Concentração de Lítio: --- g/mol\n
+\n
+OBS: Todos os valores tomam como base uma mistura de 1 molar a 25ºC"
+	},
+	{
+		"formula": "C\u2086H\u2081\u2082O\u2086",
+		"description" : "Nome: Glicose\n
+Densidade: 1,18 g/ml\n
+pH: 3\n
+Condutibilidade: --- mS\n
+Turbidez: --- NTU\n
+Polarizabilidade: ---\n
+Concentração de Sódio: --- g/mol\n
+Concentração de Potássio: --- g/mol\n
+Concentração de Lítio: --- g/mol\n
+\n
+OBS: Todos os valores tomam como base uma mistura de 1 molar a 25ºC"
+	},
+	{
+		"formula": "Li\u2082O",
+		"description" : "Nome: Óxido de Lítio\n
+Densidade: 1,18 g/ml\n
+pH: 3\n
+Condutibilidade: --- mS\n
+Turbidez: --- NTU\n
+Polarizabilidade: ---\n
+Concentração de Sódio: --- g/mol\n
+Concentração de Potássio: --- g/mol\n
+Concentração de Lítio: --- g/mol\n
+\n
+OBS: Todos os valores tomam como base uma mistura de 1 molar a 25ºC"
+	}]
+}

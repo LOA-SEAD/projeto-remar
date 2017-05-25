@@ -120,7 +120,7 @@ class GroupController {
 
                     if(!allStats.empty) {
                         allUsersGroup.each { member ->
-                            if (!allStats.find { stat -> stat.get(0).user.id == member.id }) {
+                            if (!allStats.find { stat -> stat?.get(0)?.user?.id == member.id }) {
                                 allStats.push(member)
                             }
 

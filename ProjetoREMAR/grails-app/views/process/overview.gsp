@@ -69,6 +69,7 @@
                                     </div>
                                     <div class="col s8 offset-s2 m10 l10">
                                         <div class="file-field input-field">
+                                            %{--<input type="hidden" name="photo" value="${baseUrl}/banner.png" id="srcImage">--}%
                                             <div id="file" class="btn waves-effect waves-light my-orange">
                                                 <span>Arquivo</span>
                                                 <input type="file" data-image="true" id="img-1" name="img1" accept="image/jpeg, image/png"  >
@@ -81,13 +82,25 @@
                                     </div>
                                 </div>
 
-                                <div class="right">
-                                    <a id="backButton" name="Back" class="btn my-orange" href="/resource/customizableGames">Voltar</a>
 
-                                    <a href="#!" class="btn waves-effect waves-light my-orange" id="send" name="send">
+
+
+                                <div class="right">
+                                    <a href="#!" class="btn waves-effect waves-light my-orange" id="send" name="send" >
                                         Enviar
                                     </a>
                                 </div>
+
+
+
+%{--                            <div class="right">
+                                    <button class="btn waves-effect waves-light my-orange" type="submit" name="send" id="send">
+                                        Enviar
+                                    </button>
+                                </div>
+                                --}%
+
+
 
                                 <div class="clearfix"></div>
                             </div>
@@ -172,7 +185,9 @@
                     <div class="col s12 m12 l12">
                         <input name="id" id="processId" type="hidden" value="${process.id}">
                         <a id="submitButtonDisabled" class="btn disabled right hide">Publicar</a>
+
                         <a  onclick="finishGame()" id="submitButton" name="Submit" value="PUBLICAR" class="btn my-orange right hide"> Publicar </a>
+                        <a id="backButton" name="Back" class="btn my-orange right" href="/resource/customizableGames"> Voltar </a>
                     </div>
                 </div>
             </g:form>

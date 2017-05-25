@@ -1,5 +1,27 @@
+.img-input-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.img-preview {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .img-container{
     margin-left:auto;
     margin-right: auto;
     display: table;
+}
+
+.file-field {
+    padding-bottom: 18px;
+}
+
+td a {
+    display: block;
+    width: 100%;
 }

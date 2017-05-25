@@ -1,0 +1,15 @@
+{
+	"objects": [{
+		"name": "Cloreto de Sódio",
+		"formula": "NaCl",
+		"isSolid": "True",
+		"molarMass": "58.5",
+		"purity": "1",
+		"density": "1",
+		"polarizability": "0",
+		"irSpecter": "",
+		"conductibility": "274.6",
+		"solubility": "1",
+		"fumeHoodOnly": "false"
+	}]
+}

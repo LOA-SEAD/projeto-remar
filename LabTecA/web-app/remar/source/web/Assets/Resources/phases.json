@@ -1,0 +1,11 @@
+{
+	"objects" : [ {
+		"productFormula": "NaCl",
+		"molarity": "1.0",
+		"minVolume": "25",
+		"maxError": "0.2",
+		"density": "null",
+		"turbidity": "null",
+		"conductibility": "null"
+	}]
+}

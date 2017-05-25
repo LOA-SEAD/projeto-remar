@@ -234,6 +234,7 @@ class ExportedResourceController {
             def scriptUpdateElectron = "${root}/scripts/electron/update.sh"
             def scriptUpdateCrosswalk = "${root}/scripts/crosswalk/update.sh"
             def scriptUpdateUnity = "${root}/scripts/unity/update.sh"
+            def scriptBuildWeb = "${root}/scripts/unity/buildweb.sh"
 
             folders << "${desktopFolder}/windows/resources/app"
             folders << "${desktopFolder}/linux/resources/app"
@@ -348,21 +349,17 @@ class ExportedResourceController {
             if (web) {
                 switch (processType) {
                     case "unity" :
-                        ant.unzip(src:"${root}/data/resources/sources/${instance.resource.uri}/base/web.zip", dest:"${webFolder}/", overwrite:true)
-                        process.completedTasks.outputs.each { outputs ->
-                            outputs.each { output ->
-                                ant.sequential {
-                                    copy (file: output.path, tofile: "${webFolder}/Assets/Resources/${output.definition.name}", failonerror: false)
-                                    delete (file: "${webFolder}/${output.definition.name}", failonerror: false)
-                                }
+                        ant.sequential {
+                            chmod(perm: "+x", file: scriptBuildWeb)
+                            exec(executable: scriptBuildWeb) {
+                                arg(value: root)
+                                arg(value: resourceURI)
+                                arg(value: instance.processId)
                             }
                         }
 
-                        // Copia [nomeDoJogo].html para index.gsp e o deleta
-                        ant.copy(file: "${webFolder}/${process.definition.name}.html", tofile: "${webFolder}/index.gsp")
-                        ant.delete(file: "${webFolder}/${process.definition.name}.html", failonerror: false)
-
                         log.debug "Finished exporting Unity Web project"
+
                         break
                     default /* HTML */ :
                         def jsonPathWeb = "${root}/published/${instance.processId}/web"
@@ -375,6 +372,7 @@ class ExportedResourceController {
                         instance.save flush: true
 
                         log.debug "Finished exporting HTML Web project"
+
                         break
                 }
             }
