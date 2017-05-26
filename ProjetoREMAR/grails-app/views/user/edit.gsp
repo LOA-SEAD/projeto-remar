@@ -20,7 +20,7 @@
 
         <script>
             $(document).ready(function() {
-               $("#modal").openModal();
+            	$("#modal").openModal();
             });
         </script>
     </g:if>
@@ -32,122 +32,123 @@
     </g:if>
 
 	<div class="row cluster">
-        <div class="cluster-header">
-            <p class="text-teal text-darken-3 left-align margin-bottom">
-                <i class="left small material-icons">account_circle</i>Meu perfil
-            </p>
-            <div class="divider"></div>
-        </div>
-        <div class="row show">
-            <form method="POST" action="/user/update?id=${session.user.id}" enctype="multipart/form-data" data-user-id="${session.user.id}">
-                <div class="row" style="margin-top: 20px;">
-										<div class="row">
-		                    <div class="input-field col s12 m6">
-		                        <i class="material-icons prefix">person</i>
-		                        <input id="firstName" name="firstName" type="text" value="${session.user.firstName}" />
-		                        <label for="firstName">Nome</label>
-		                    </div>
+		<!-- Seção de Atualização do Perfil -->
+		<div class="row">
+	        <div class="cluster-header">
+	            <h4>Meu Perfil</h4>
+	            <div class="divider"></div>
+	        </div>
 
-		                    <div class="input-field col s12 m6">
-		                        <i class="material-icons prefix">person</i>
-		                        <input id="lastName" name="lastName" type="text" value="${session.user.lastName}" />
-		                        <label for="lastName">Sobrenome</label>
-		                    </div>
-										</div>
+	        <div class="row show">
+				<!-- Informações do Perfil -->
+				<div class="col s8">
+		            <form method="POST" action="/user/update?id=${session.user.id}" enctype="multipart/form-data" data-user-id="${session.user.id}">
+		                <div class="row" style="margin-top: 20px;">
+							<div class="row">
+			                    <div class="input-field col s12 m6">
+			                        <i class="material-icons prefix">person</i>
+			                        <input id="firstName" name="firstName" type="text" value="${session.user.firstName}" />
+			                        <label for="firstName">Nome</label>
+			                    </div>
 
-										<div class="row">
-		                    <div class="input-field col s12">
-				                    <i class="material-icons prefix">email</i>
-				                    <input id="email" name="email" type="email" value="${session.user.email}" />
-				                    <label for="email">Email</label>
-		                    </div>
-										</div>
+			                    <div class="input-field col s12 m6">
+			                        <i class="material-icons prefix">person</i>
+			                        <input id="lastName" name="lastName" type="text" value="${session.user.lastName}" />
+			                        <label for="lastName">Sobrenome</label>
+			                    </div>
+							</div>
 
-										<div class="row">
-		                    <div class="input-field col s12 m12">
-		                        <i class="material-icons prefix">account_circle</i>
-		                        <input id="username" name="username" type="hidden" value="${session.user.username}" />
-		                        <input type="text" value="${session.user.username}" disabled />
-		                        <label for="username">Nome de Usuário</label>
-		                    </div>
-										</div>
+							<div class="row">
+				                <div class="input-field col s12">
+					                <i class="material-icons prefix">email</i>
+					                <input id="email" name="email" type="email" value="${session.user.email}" />
+					                <label for="email">Email</label>
+				                </div>
+							</div>
 
-										<div class="row">
-		                    <div class="input-field col s12 m6">
-		                        <i class="material-icons prefix">lock</i>
-		                        <input id="password" name="password" type="password"/>
-		                        <label for="password">Nova senha</label>
-		                    </div>
+							<div class="row">
+			                    <div class="input-field col s12 m12">
+			                        <i class="material-icons prefix">account_circle</i>
+			                        <input id="username" name="username" type="hidden" value="${session.user.username}" />
+			                        <input type="text" value="${session.user.username}" disabled />
+			                        <label for="username">Nome de Usuário</label>
+			                    </div>
+							</div>
 
-		                    <div class="input-field col s12 m6">
-		                        <i class="material-icons prefix">lock</i>
-		                        <input id="confirm-password" name="confirm_password" type="password"/>
-		                        <label for="confirm-password">Confirme sua nova senha</label>
-		                    </div>
-										</div>
+							<div class="row">
+			                    <div class="input-field col s12 m6">
+			                        <i class="material-icons prefix">lock</i>
+			                        <input id="password" name="password" type="password"/>
+			                        <label for="password">Nova senha</label>
+			                    </div>
 
-										<div class="row img-input-container">
-                        <div class="col s2 m2 l2 img-preview">
-                            <input type="hidden" name="photo" value="/images/avatars/default.png" id="source-image">
-                            <img id="profile-picture"  class="circle profile-picture" src="/images/avatars/default.png" />
-                        </div>
-                        <div class="col s8 offset-s2 m10 l10">
-                            <div class="file-field input-field">
-                                <div class="btn waves-effect waves-light my-orange">
-                                    <span>Arquivo</span>
-                                    <input id="file" type="file" data-image="true" id="img-1" name="img1" accept="image/jpeg, image/png">
-                                </div>
-                                <div class="file-path-wrapper">
-                                    <input readonly class="file-path validate" type="text" placeholder="Selecione uma foto (opcional)" style="margin-bottom: 0;">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+			                    <div class="input-field col s12 m6">
+			                        <i class="material-icons prefix">lock</i>
+			                        <input id="confirm-password" name="confirm_password" type="password"/>
+			                        <label for="confirm-password">Confirme sua nova senha</label>
+			                    </div>
+							</div>
 
-                    <div class="clearfix"></div>
+		                    <div class="clearfix"></div>
 
-										<div class="row">
-		                    <div class="input-field center-align">
-		                        <button class="btn waves-effect waves-light tooltiped my-orange" type="submit">Enviar</button>
-		                    </div>
-										</div>
-                </div>
-            </form>
+							<div class="row">
+			                    <div id="submitButton" class="input-field">
+			                        <button class="btn waves-effect waves-light tooltiped my-orange" type="submit">
+										Atualizar
+									</button>
+			                    </div>
+							</div>
+		                </div>
+		            </form>
+				</div>
 
-						<div id="modal-profile-picture" class="modal remar-modal">
-						    <div class="modal-content">
-						        <h4>Envio de Imagem</h4>
-						        <div class="img-container">
-						            <img id="crop-preview" class="responsive-img">
-						        </div>
-						    </div>
-						    <div class="modal-footer">
-						        <a id="accept-picture" href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Enviar</a>
-						        <a id="cancel-picture" href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Cancelar</a>
-						    </div>
+				<!-- Upload de Foto -->
+				<div class="col s4">
+					<div class="row img-input-container">
+						<div class="img-preview">
+							<input type="hidden" name="photo" value="/images/avatars/default.png" id="source-image">
+							<img id="profile-picture"  class="profile-picture" src="/images/avatars/default.png" />
 						</div>
+						<div>
+							<div class="file-field input-field">
+								<a href="#!" class="btn waves-effect waves-light">
+									<span>Atualizar</span>
+									<input id="file" type="file" data-image="true" id="img-1" name="img1" accept="image/jpeg, image/png">
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-            <div class="row">
-                <div class="col s12">
-                    <ul class="collection">
-                        <li class="collection-item">
-                            <sec:ifNotGranted roles="ROLE_DEV">
-                                <div>
-                                    <p><u>Você ainda não é um desenvolvedor do REMAR</u>. Se deseja tornar-se um desenvolvedor, <a href="/developer/new">clique aqui</a>.</p>
-                                </div>
-                            </sec:ifNotGranted>
-                            <sec:ifAnyGranted roles="ROLE_DEV">
-                                <div>
-                                    <p align="left"><u>Você já é um desenvolvedor no REMAR</u>.</p>
-                                    <p align="left" style="margin-left: 20px;">Para enviar novos jogos, clique no menu <a href="/resource/index">"Desenvolvedor"</a>.</p>
-                                    <p align="left" style="margin-left: 20px;">Se não deseja mais ser um desenvolvedor, <a href="/user/unmakeDeveloper">clique aqui</a>.</p>
-                                </div>
-                            </sec:ifAnyGranted>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+		<!-- Desenvolvedor REMAR -->
+		<div class="row">
+			<div class="cluster-header">
+	            <h4>Desenvolvedor REMAR</h4>
+	            <div class="divider"></div>
+	        </div>
 
+			<div class="row show">
+				<sec:ifNotGranted roles="ROLE_DEV">
+					<div style="padding-left: 15px;">
+						<p><u>Você ainda não é um desenvolvedor do REMAR</u></p>
+						<a hred="/developer/new" class="waves-effect btn">
+							Tornar-se desenvolvedor
+						</a>
+					</div>
+				</sec:ifNotGranted>
+				<sec:ifAnyGranted roles="ROLE_DEV">
+					<div style="padding-left: 15px;">
+						<p align="left"><u>Você já é um desenvolvedor no REMAR</u></p>
+						<p align="left" style="margin-left: 20px;">Para enviar novos jogos, clique no menu <a href="/resource/index">"Desenvolvedor"</a>.</p>
+						<p align="left" style="margin-left: 20px;">Se não deseja mais ser um desenvolvedor, <a href="/user/unmakeDeveloper">clique aqui</a>.</p>
+					</div>
+				</sec:ifAnyGranted>
+			</div>
+		</div>
+
+		<!--
             <div class="row" id="moodle">
                 <div class="col s12 left-align">
                     <ul class="collection with-header">
@@ -179,30 +180,60 @@
                     </ul>
                 </div>
             </div>
+			-->
 
-            <div class="row" id="desableAccount">
-                <div class="col s12 left-align">
-                    <ul class="collection with-header">
-                        <h5>Desativar minha conta</h5>
+		<!-- Card para DESABILITAR uma conta -->
+		<div class="row" style="margin-top: 50px;">
+			<div class="cluster-header">
+	            <h4>Desativar Conta</h4>
+	            <div class="divider"></div>
+	        </div>
 
-                        <a onclick="disableUser()" >Desabilitar minha conta</a>
-                        <br>
+			<div class="row" id="disableAccountCard">
+		        <div class="col s12">
+		            <div class="card">
+			            <div class="card-header">
+				            <span class="card-title">Desativar minha conta </span>
+			            </div>
 
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+			            <div class="card-content">
+				            <p>Uma vez que você desativar sua conta, não há como voltar atrás.</p>
+							<p>Por favor tenha certeza antes de prosseguir.</p>
+			            </div>
 
-<!-- Modal Structure -->
-<div id="confirmModal" class="modal">
-    <div class="modal-content" id="modalContent">
+			            <div class="card-action">
+			                <a class="waves-effect btn" onclick="disableUser()">
+								Desativar minha conta
+							</a>
+			            </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	</div>
 
-    </div>
-    <div class="modal-footer" id="modalFooter">
+	<!-- MODAIS -->
+	<div id="confirmModal" class="modal">
+		  <div class="modal-content" id="modalContent">
 
-    </div>
-</div>
+		  </div>
+		  <div class="modal-footer" id="modalFooter">
+
+		  </div>
+	</div>
+
+	<div id="modal-profile-picture" class="modal remar-modal">
+			<div class="modal-content">
+					<h4>Envio de Imagem</h4>
+					<div class="img-container">
+							<img id="crop-preview" class="responsive-img">
+					</div>
+			</div>
+			<div class="modal-footer">
+					<a id="accept-picture" href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Enviar</a>
+					<a id="cancel-picture" href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Cancelar</a>
+			</div>
+	</div>
 
     <script>
         $('#toHide').click(function() {
@@ -234,11 +265,12 @@
         }
     </script>
 
-    <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
+    <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}" />
+		<link type="text/css" rel="stylesheet" href="${resource(dir: "css/user", file: "profile.css")}" />
 
-		<g:javascript src="user/image-selector.js"/>
-		<g:javascript src="user/update-validator.js"/>
-    <g:javascript src="jquery/jquery.validate.js"/>
-    <g:javascript src="jquery/jquery.Jcrop.js"/>
+		<g:javascript src="user/image-selector.js" />
+		<g:javascript src="user/update-validator.js" />
+    <g:javascript src="jquery/jquery.validate.js" />
+    <g:javascript src="jquery/jquery.Jcrop.js" />
 </body>
 </html>
