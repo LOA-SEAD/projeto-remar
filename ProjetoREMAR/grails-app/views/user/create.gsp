@@ -4,7 +4,7 @@
     <meta name="layout" content="base">
     <link type="text/css" rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.Jcrop.css')}"/>
     <link type="text/css" rel="stylesheet" href="${resource(dir: 'css', file: 'signup.css')}"/>
-    
+
     <title>Registrar-se</title>
 </head>
 <body>
@@ -22,7 +22,7 @@
                             <input id="first-name" name="firstName" type="text"/>
                             <label for="first-name">Nome</label>
                         </div>
- 
+
                         <div class="input-field col s6 m6">
                             <i class="material-icons prefix">person</i>
                             <input id="last-name" name="lastName" type="text"/>
@@ -37,7 +37,7 @@
                             <label for="username">Nome de usuário</label>
                         </div>
                     </div>
-                   
+
                     <div class="row">
                         <div class="input-field col s12 m12">
                             <i class="material-icons prefix">email</i>
@@ -45,7 +45,7 @@
                             <label for="email">Email</label>
                         </div>
                     </div>
-                        
+
                     <div class="row">
                         <div class="input-field col s6 m6">
                             <i class="material-icons prefix">lock</i>
@@ -59,12 +59,12 @@
                             <label for="confirm-password">Confirme sua senha</label>
                         </div>
                     </div>
-                    
+
                     <input id="firstAccess" name="firstAccess" type="hidden" value="true">
 
                     <div class="row img-input-container">
                         <div class="col s2 m2 l2 img-preview">
-                            <input type="hidden" name="photo" value="/images/avatars/default.png" id="srcImage">
+                            <input type="hidden" name="photo" value="/images/avatars/default.png" id="source-image">
                             <img id="profile-picture"  class="circle profile-picture" src="/images/avatars/default.png" />
                         </div>
                         <div class="col s8 offset-s2 m10 l10">
@@ -85,9 +85,9 @@
                             <div class="g-recaptcha text-center" data-sitekey="6Ldm4CAUAAAAAMs6FsUuQIweiP-bhiCGsnNdrtBb"> </div>
                         </div>
                     </div>
-                    
+
                     <div class="clearfix"></div>
-                    
+
                     <div class="row">
                         <div class="input-field center-align">
                             <button id="submit" class="btn waves-effect waves-light tooltiped my-orange" type="submit">Enviar</button>
@@ -107,13 +107,15 @@
         </div>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Enviar</a>
+        <a id="accept-picture" href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Enviar</a>
+        <a id="cancel-picture" href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Cancelar</a>
     </div>
 </div>
 
 <g:javascript src="jquery/jquery.validate.js"/>
 <recaptcha:script/>
 <g:javascript src="user/form.js"/>
+<g:javascript src="user/image-selector.js"/>
 <g:javascript src="jquery/jquery.Jcrop.js"/>
 </body>
 </html>
