@@ -236,25 +236,6 @@ class ResourceController {
                 else if (!resourceInstance.desktop) println "Electron skipped. Project is not desktop."
             }
 
-
-            // Crosswalk Script --> Projetos HTML para Android
-            if (resourceInstance.android &&
-                    resourceInstance.comment != "test" &&
-                    resourceInstance.type == "html")
-            {
-                ant.sequential {
-                    chmod(perm: "+x", file: scriptCrosswalk)
-                    exec(executable: scriptCrosswalk) {
-                        arg(value: rootPath)
-                        arg(value: resourceInstance.uri)
-                        arg(value: resourceInstance.name)
-                    }
-                }
-            } else {
-                if (resourceInstance.type != "html") println "Crosswalk skipped. Project type is [" + resourceInstance.type + "]."
-                else if (!resourceInstance.android) println "Crosswalk skipped. Project is not android."
-            }
-
             if (Environment.current == Environment.DEVELOPMENT) {
                 resourceInstance.status = "approved"
                 resourceInstance.active = true

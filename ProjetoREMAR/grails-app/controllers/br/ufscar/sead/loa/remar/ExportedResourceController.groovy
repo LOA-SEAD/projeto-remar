@@ -333,6 +333,7 @@ class ExportedResourceController {
                                 arg(value: root)
                                 arg(value: mobileFolder)
                                 arg(value: resourceURI)
+                                arg(value: instance.name)
                             }
                         }
 
