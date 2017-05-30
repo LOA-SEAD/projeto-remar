@@ -216,7 +216,6 @@ class ResourceController {
             def ant = new AntBuilder()
             def rootPath = servletContext.getRealPath('/')
             def scriptElectron = "${rootPath}/scripts/electron/build.sh"
-            def scriptCrosswalk = "${rootPath}/scripts/crosswalk/build.sh"
 
             // Electron Script --> Projetos HTML para Desktop
             if (resourceInstance.desktop &&

@@ -231,10 +231,10 @@ class ExportedResourceController {
             def process = Propeller.instance.getProcessInstanceById(instance.processId, session.user.id as long)
             def processType = process.definition.type
             def folders = []
-            def scriptUpdateElectron = "${root}/scripts/electron/update.sh"
-            def scriptUpdateCrosswalk = "${root}/scripts/crosswalk/update.sh"
-            def scriptUpdateUnity = "${root}/scripts/unity/update.sh"
+            def scriptBuildCrosswalk = "${root}/scripts/crosswalk/build.sh"
             def scriptBuildWeb = "${root}/scripts/unity/buildweb.sh"
+            def scriptUpdateUnity = "${root}/scripts/unity/update.sh"
+            def scriptUpdateElectron = "${root}/scripts/electron/update.sh"
 
             folders << "${desktopFolder}/windows/resources/app"
             folders << "${desktopFolder}/linux/resources/app"
@@ -328,8 +328,8 @@ class ExportedResourceController {
                         break
                     default /* HTML */:
                         ant.sequential {
-                            chmod(perm: "+x", file: scriptUpdateCrosswalk)
-                            exec(executable: scriptUpdateCrosswalk) {
+                            chmod(perm: "+x", file: scriptBuildCrosswalk)
+                            exec(executable: scriptBuildCrosswalk) {
                                 arg(value: root)
                                 arg(value: mobileFolder)
                                 arg(value: resourceURI)

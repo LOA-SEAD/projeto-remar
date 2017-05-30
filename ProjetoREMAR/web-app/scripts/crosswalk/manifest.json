@@ -10,5 +10,11 @@
     "http://remar.dc.ufscar.br/group/isLogged"
   ],
   "display": "standalone",
-  "orientation": "any"
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "72x72"
+    }
+  ]
 }
