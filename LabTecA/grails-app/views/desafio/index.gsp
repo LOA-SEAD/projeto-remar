@@ -7,6 +7,7 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'desafio.label', default: 'Desafio')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<g:external dir="css" file="desafio.css"/>
 	</head>
 
@@ -23,7 +24,6 @@
 			</div>
 		</div>
 
-		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<g:javascript src="iframeResizer.contentWindow.min.js"/>
 		<g:javascript src="desafio.js" />
 	</body>

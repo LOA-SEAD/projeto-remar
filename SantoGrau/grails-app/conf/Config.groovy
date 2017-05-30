@@ -107,10 +107,11 @@ environments {
             properties.setProperty("${key}.password", remarProperties.getProperty('dataSource.password'))
             properties.setProperty("${key}.url", remarProperties.getProperty('dataSource.url'))
         }
-        properties.setProperty("dataSource.url", remarProperties.getProperty('dataSource.url').replaceAll(/(jdbc:mysql:\/\/\w*)(\/*\w*)$/,grails.app.context)​​​​)
+        properties.setProperty("dataSource.dbHost", remarProperties.getProperty('dataSource.dbHost'))
+        result = (remarProperties.getProperty('dataSource.url') =~ /(jdbc\:mysql\:\/\/\w*\:*\d*)(\/{0,1}\w*)/)
+        properties.setProperty('dataSource.url', "${result[0][1]}${grails.app.context}")
 
         file = new FileOutputStream("${path}/grails-app/conf/env.properties")
-
         properties.store(file, 'auto generated from REMAR\'s env.properties')
         file.close()
     }
