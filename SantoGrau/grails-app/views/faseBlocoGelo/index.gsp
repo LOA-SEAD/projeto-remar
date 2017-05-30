@@ -8,14 +8,16 @@
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <script type="text/javascript" src="/santograu/js/faseBlocoGelo.js"></script>
+        <g:external dir="css" file="faseBlocoGelo.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<g:javascript src="iframeResizer.contentWindow.min.js"/>
 		<script type="text/javascript" src="/santograu/js/faseBlocoGelo.js"></script>
 	</head>
 	<body>
 		<div class="cluster-header">
 			<p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-				<i class="small material-icons left">grid_on</i>Fase Bloco de Gelo - Banco de Questões
+				Fase Bloco de Gelo - Banco de Questões
 			</p>
 		</div>
 		<div class="row">
@@ -97,9 +99,7 @@
 
 				<div class="row">
 					<div class="col s2">
-						<button class="btn waves-effect waves-light my-orange"  name="save" id="submitButton" onclick="_submit()">Enviar
-							<i class="material-icons">send</i>
-						</button>
+						<button class="btn waves-effect waves-light remar-orange"  name="save" id="submitButton" onclick="_submit()">Enviar</button>
 					</div>
 				</div>
 

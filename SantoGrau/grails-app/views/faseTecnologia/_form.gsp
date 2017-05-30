@@ -74,8 +74,8 @@
 	</div>
 
 	<div class="buttons col s1 m1 l1 offset-s8 offset-m10 offset-l10" style="margin-top:20px">
-		<button class="btn waves-effect waves-light my-orange" type="submit" name="save" id="submitButton">
-			Enviar <i class="material-icons">send</i>
+		<button class="btn waves-effect waves-light remar-orange" type="submit" name="save" id="submitButton">
+			Enviar
 		</button>
 	</div>
 

@@ -8,12 +8,13 @@
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<g:javascript src="iframeResizer.contentWindow.min.js"/>
-		<script type="text/javascript" src="/santograu/js/faseTCC.js"></script>
+        <g:external dir="css" file="faseTCC.css"/>
+        <script type="text/javascript" src="/santograu/js/faseTCC.js"></script>
 	</head>
 	<body>
 		<div class="cluster-header">
 			<p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-				<i class="small material-icons left">grid_on</i>Fase TCC - Banco de Questões
+				Fase TCC - Banco de Questões
 			</p>
 		</div>
 		<div class="row">
@@ -37,8 +38,6 @@
 						<input  type="text" id="SearchLabel" placeholder="Buscar"/>
 					</div>
 				</div>
-
-
 
 				<div class="row">
 					<div class="col s12 m12 l12">
@@ -79,17 +78,6 @@
 					</div>
 				</div>
 
-
-
-
-
-
-
-
-
-
-
-
                     <div class="row">
                         <div class="col s1 m1 l1 offset-s4 offset-m8 offset-l8">
                             <a data-target="createModal" name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"><i class="material-icons">add</i></a>
@@ -111,45 +99,13 @@
                             <a class="btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exportar questões para .csv"><i
                                     class="material-icons" onclick="exportQuestions()">file_download</i></a>
                         </div>
-
 				    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 				<div class="row">
 					<div class="col s2">
-						<button class="btn waves-effect waves-light my-orange"  name="save" id="submitButton" onclick="_submit()">Enviar
-							<i class="material-icons">send</i>
-						</button>
+						<button class="btn waves-effect waves-light remar-orange"  name="save" id="submitButton" onclick="_submit()">Enviar</button>
 					</div>
 				</div>
-
-
 
 				<div id="editModal" class="modal">
 					<div class="modal-content">
@@ -222,10 +178,6 @@
 					</div>
 				</div>
 
-
-
-
-
 				<div id="createModal" class="modal">
 					<div class="modal-content">
 						<h4>Criar Questão</h4>
@@ -296,10 +248,6 @@
 					</div>
 				</div>
 
-
-
-
-
 				<div id="deleteModal" class="modal">
 					<div class="modal-content">
 						<div id="delete-one-question">
@@ -315,11 +263,6 @@
 					</div>
 				</div>
 
-
-
-
-
-
 				<div id="erroDeleteModal" class="modal">
 					<div class="modal-content">
 						Você deve selecionar ao menos uma questão para excluir.
@@ -328,10 +271,6 @@
 						<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
 					</div>
 				</div>
-
-
-
-
 
                     <div id="errorSaveModal" class="modal">
 					<div class="modal-content">
@@ -342,9 +281,6 @@
 					</div>
 				</div>
 
-
-
-
 				<div id="errorDownloadModal" class="modal">
 					<div class="modal-content">
 						Você deve selecionar ao menos uma questão antes de exportar seu banco de questões.
@@ -354,10 +290,6 @@
 					</div>
 				</div>
 
-
-
-
-
 				<div id="errorImportingQuestionsModal" class="modal">
 					<div class="modal-content">
 						Erro - Para importar questões, você deve deixá-las no formado indicado.
@@ -366,10 +298,6 @@
 						<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
 					</div>
 				</div>
-
-
-
-
 
 				<div id="uploadModal" class="modal">
 					<div class="modal-content">
