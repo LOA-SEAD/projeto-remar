@@ -7,6 +7,7 @@
 		<meta name="layout" content="main">
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<g:javascript src="faseTecnologia.js" />
+		<g:external dir="css" file="faseTecnologia.css"/>
 		<g:javascript src="iframeResizer.contentWindow.min.js"/>
 
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -15,7 +16,7 @@
 	<body>
 		<div class="cluster-header">
 			<p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-				<i class="small material-icons left">grid_on</i>Customização - Fase Tecnologia
+				Customização - Fase Tecnologia
 			</p>
 		</div>
 		<div id="list-faseTecnologia" class="content scaffold-list row" role="main">
