@@ -5,7 +5,7 @@
     <g:javascript src="iframeResizer.contentWindow.min.js"/>
     <g:javascript src="../assets/js/jquery.min.js"/>
     <g:set var="entityName" value="${message(code: 'theme.label', default: 'theme')}" />
-
+    <g:external dir="css" file="themes.css"/>
 </head>
 <body>
 

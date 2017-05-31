@@ -4,6 +4,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
+    <g:external dir="css" file="themes.css"/>
     <g:javascript src="scriptTheme.js"/>
     <g:javascript src="iframeResizer.contentWindow.min.js"/>
     <!--<g:set var="entityName" value="${message(code: 'Theme.label', default: 'Theme')}" />-->
@@ -20,7 +21,7 @@
 <div class="row">
     <div>
         %{--<p> Download tema ESR</p>--}%
-        <p style="margin-left: 10px;">Download do tema modelo <a class="btn-floating waves-effect waves-light my-orange" href="/escolamagica/samples/portas-escola-magica.zip">  </a>
+        <p style="margin-left: 10px;">Download do tema modelo <a class="btn-floating waves-effect waves-light my-orange" href="/escolamagica/samples/portas-escola-magica.zip"><i class="material-icons">file_download</i></a>
         </p>
     </div>
 </div>

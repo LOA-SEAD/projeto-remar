@@ -1,4 +1,5 @@
 <%@ page import="br.ufscar.sead.loa.escolamagica.remar.Question" %>
+<g:external dir="css" file="question.css"/>
     <div class="row">
         <div class="input-field col s12">
             <label for="title">Pergunta</label>

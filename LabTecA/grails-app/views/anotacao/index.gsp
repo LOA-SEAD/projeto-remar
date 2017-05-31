@@ -16,7 +16,7 @@
 	<body>
 		<div class="cluster-header">
 			<p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-				<i class="small material-icons left"></i>Customização - Anotação
+				Customização - Anotação
 			</p>
 		</div>
 

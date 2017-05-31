@@ -3,7 +3,7 @@
 <head>
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'theme.label', default: 'theme')}" />
-    
+    <g:external dir="css" file="themes.css"/>
 </head>
 <body>
 <a href="#edit-theme" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
