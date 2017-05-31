@@ -11,9 +11,7 @@
 		<g:javascript src="iframeResizer.contentWindow.min.js"/>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
 	</head>
-
 
 	<body>
         <g:uploadForm  method="POST" controller="design" action="imagesManager">
@@ -40,28 +38,7 @@
                             </div>
                         </div>
                  </fieldset>
-        <%--<fieldset class="buttons" style="border:none">
-           <div class="buttons col s1 m1 l1 offset-s8 offset-m10 offset-l10" style="margin-top:0px">
-               <button class="btn waves-effect waves-light my-orange" type="submit" name="save" class="save" id="submitButton">
-                   Enviar
-
-               </button>
-           </div>
-       </fieldset> --%>
             </form>
         </g:uploadForm>
-
-
-%{--    <div class="right">
-        <a href="#!" class="btn waves-effect waves-light my-orange" id="save" value="Enviar" name="save" >
-            Enviar
-        </a>
-    </div>--}%
-
-        %{--<input class="btn waves-effect waves-light my-orange"  type="submit" name="save" class="save" value="Criar" id="submitButton"/>--}%
-
-
-
     </body>
-
 </html>

@@ -20,20 +20,16 @@
             Escola Mágica - Tabela de Questões
         </p>
     </div>
-
-
     <div class="row">
         <div class="col s3 offset-s9">
-            <input  type="text" id="SearchLabel" placeholder="Buscar"/>
+            <input  type="text" id="SearchLabel" class="remar-input" placeholder="Buscar"/>
         </div>
     </div>
-
     <table class="highlight" id="table" style="margin-top: -30px;">
         <thead>
         <tr>
             <th>Selecionar
                 <div class="row" style="margin-bottom: -10px;">
-
                     <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnCheckAll" onclick="check_all()"><i  class="material-icons">check_box_outline_blank</i></button>
                     <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnUnCheckAll" onclick="uncheck_all()"><i  class="material-icons">done</i></button>
                 </div>
@@ -45,40 +41,27 @@
             <th>Ações <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
         </tr>
         </thead>
-
         <tbody>
         <g:each in="${questionInstanceList}" status="i" var="questionInstance">
             <tr id="tr${questionInstance.id}" class="selectable_tr" style="cursor: pointer;"
                 data-id="${fieldValue(bean: questionInstance, field: "id")}" data-owner-id="${fieldValue(bean: questionInstance, field: "ownerId")}" data-level="${fieldValue(bean: questionInstance, field: "level")}"
                 data-checked="false">
-
                 <td class="_not_editable">
                     <input style="background-color: #727272" id="checkbox-${questionInstance.id}" class="filled-in" type="checkbox">
                     <label for="checkbox-${questionInstance.id}"></label>
                 </td>
-
                 <td class="level"  >${fieldValue(bean: questionInstance, field: "level")}</td>
-
                 <td  >${fieldValue(bean: questionInstance, field: "title")}</td>
-
                 <td >${fieldValue(bean: questionInstance, field: "answers")}</td>
-
                 <td  >${questionInstance.answers[questionInstance.correctAnswer]} (${questionInstance.correctAnswer + 1}ª Alternativa)</td>
-
                 <td> <i onclick="_edit($(this.closest('tr')))" style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil" ></i></td>
-
             </tr>
-
-
         </g:each>
         </tbody>
     </table>
-
     <div class="row">
         <div class="col s2">
-            <button class="btn waves-effect waves-light my-orange" type="submit" name="save" id="submitButton">Enviar
-                <i class="material-icons">send</i>
-            </button>
+            <button class="btn waves-effect waves-light my-orange" type="submit" name="save" id="submitButton">Enviar</button>
         </div>
         <div class="col s1 offset-s6">
             <a data-target="createModal" name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"><i class="material-icons">add</i></a>
@@ -95,7 +78,6 @@
                     class="material-icons" onclick="exportQuestions()">file_download</i></a>
         </div>
     </div>
-
     <!-- Modal Structure -->
     <div id="createModal" class="modal">
         <div class="modal-content">
@@ -115,74 +97,69 @@
                     </ul>
                 </g:hasErrors>
                 <g:form action="save" resource="${questionInstance}">
-
                     <div class="row">
                         <div class="input-field col s12">
                             <label for="title">Pergunta</label>
-                            <input id="title" name="title" required="" value="${questionInstance?.title}" type="text" class="validate" maxlength="250" length="250">
+                            <input id="title" name="title" required="" value="${questionInstance?.title}" type="text" class="remar-input validate" maxlength="250" length="250">
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="input-field col s9">
                             <label for="answers[0]">Alternativa 1</label>
-                            <input type="text" class="validate" id="answers[0]" name="answers[0]" required="" value="${questionInstance?.answers}" maxlength="13" length="13">
+                            <input type="text" class="remar-input validate" id="answers[0]" name="answers[0]" required="" value="${questionInstance?.answers}" maxlength="13" length="13">
                         </div>
                         <div class="col s2">
                             <input type="radio" id="radio0" name="correctAnswer" value="0" />
                             <label for="radio0">Alternativa correta</label>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="input-field col s9">
                             <label for="answers[1]">Alternativa 2</label>
-                            <input type="text" class="validate" id="answers[1]" name="answers[1]" required="" value="${questionInstance?.answers}" maxlength="13" length="13">
+                            <input type="text" class="remar-input validate" id="answers[1]" name="answers[1]" required="" value="${questionInstance?.answers}" maxlength="13" length="13">
                         </div>
                         <div class="col s2">
                             <input type="radio" id="radio1" name="correctAnswer" value="1" /> <label for="radio1">Alternativa correta</label>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="input-field col s9">
                             <label for="answers[2]">Alternativa 3</label>
-                            <input type="text" class="validate" id="answers[2]" name="answers[2]" required="" value="${questionInstance?.answers}" maxlength="13" length="13">
+                            <input type="text" class="remar-input validate" id="answers[2]" name="answers[2]" required="" value="${questionInstance?.answers}" maxlength="13" length="13">
                         </div>
                         <div class="col s2">
                             <input type="radio" id="radio2" name="correctAnswer" value="2" /> <label for="radio2">Alternativa correta</label>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="input-field col s9">
                             <label for="answers[3]">Alternativa 4</label>
-                            <input type="text" class="form-control" id="answers[3]" name="answers[3]" required="" value="${questionInstance?.answers}" maxlength="13" length="13">
+                            <input type="text" class="remar-input form-control" id="answers[3]" name="answers[3]" required="" value="${questionInstance?.answers}" maxlength="13" length="13">
                         </div>
                         <div class="col s2">
                             <input type="radio" id="radio3" name="correctAnswer" value="3" /> <label for="radio3">Alternativa correta</label>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col s2 offset-s3">
                             <input type="radio" id="level1" name="level" value="1" />
                             <label for="level1">Nível 1</label>
-
                         </div>
-
                         <div class="col s2">
                             <input type="radio" id="level2" name="level" value="2" />
                             <label for="level2">Nível 2</label>
                         </div>
-
                         <div class="col s2">
                             <input type="radio" id="level3" name="level" value="3" />
                             <label for="level3">Nível 3</label>
                         </div>
                     </div>
-
-                    <g:submitButton name="create" class="btn btn-success btn-lg my-orange" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+                    <div class="buttons col s1 m1 l1 offset-s8 offset-m10 offset-l10" style="margin-top:20px">
+                        <button class="btn waves-effect waves-light my-orange" type="submit" name="save" id="submitButton">
+                            Criar
+                        </button>
+                    </div>
+                    %{--<g:submitButton name="create" class="btn waves-effect waves-light remar-orange" value="Criar"/>     ESSE É O BOTÃO ANTERIOR, NÃO DELETAR ATÉ TESTAR PELO TOMCAT--}%
                 </g:form>
             </div>
         </div>
@@ -197,7 +174,6 @@
             </div>
             <div class="row">
                 <div class="col s12">
-
                     <g:form method="post"  action="update" resource="${questionInstance}">
                         <div class="row">
                             <div class="input-field col s12">
@@ -205,38 +181,34 @@
                                 <input id="editTitle" name="title" required=""  type="text" class="validate" maxlength="250" length="250">
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="input-field col s9">
                                 <label id="labelAnswer1" class="active" for="editAnswers0">Alternativa 1</label>
-                                <input type="text" class="validate" id="editAnswers0" name="answers1" required="" maxlength="13" length="13">
+                                <input type="text" class="remar-input validate" id="editAnswers0" name="answers1" required="" maxlength="13" length="13">
                             </div>
                             <div class="col s2">
                                 <input type="radio" id="editRadio0" name="correctAnswer" value="0" />
                                 <label for="editRadio0">Alternativa correta</label>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="input-field col s9">
                                 <label id="labelAnswer2" class="active" for="editAnswers1">Alternativa 2</label>
-                                <input type="text" class="validate" id="editAnswers1" name="answers2" required="" maxlength="13" length="13">
+                                <input type="text" class="remar-input validate" id="editAnswers1" name="answers2" required="" maxlength="13" length="13">
                             </div>
                             <div class="col s2">
                                 <input type="radio" id="editRadio1" name="correctAnswer" value="1" /> <label for="editRadio1">Alternativa correta</label>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="input-field col s9">
                                 <label id="labelAnswer3" class="active" for="editAnswers2">Alternativa 3</label>
-                                <input type="text" class="validate" id="editAnswers2" name="answers3" required="" maxlength="13" length="13">
+                                <input type="text" class="remar-input validate" id="editAnswers2" name="answers3" required="" maxlength="13" length="13">
                             </div>
                             <div class="col s2">
                                 <input type="radio" id="editRadio2" name="correctAnswer" value="2" /> <label for="editRadio2">Alternativa correta</label>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="input-field col s9">
                                 <label id="labelAnswer4" class="active" for="editAnswers3">Alternativa 4</label>
@@ -246,31 +218,23 @@
                                 <input type="radio" id="editRadio3" name="correctAnswer" value="3" /> <label for="editRadio3">Alternativa correta</label>
                             </div>
                         </div>
-
                         <div class="row" id="levelRow">
                             <div class="col s2 offset-s3">
                                 <input type="radio" id="editLevel1" name="level" value="1"  />
                                 <label for="editLevel1">Nível 1</label>
-
                             </div>
-
                             <div class="col s2">
                                 <input type="radio" id="editLevel2" name="level" value="2" />
                                 <label for="editLevel2">Nível 2</label>
                             </div>
-
                             <input type="hidden" name="taskId"  value="1" >
                             <input type="hidden" id="questionID" name="questionID">
-
-
                             <div class="col s2">
                                 <input type="radio" id="editLevel3" name="level" value="3" />
                                 <label for="editLevel3">Nível 3</label>
                             </div>
                         </div>
-
-                        <g:submitButton name="update" class="btn btn-success btn-lg my-orange" value="Salvar" />
-
+                        <g:submitButton name="update" class="btn waves-effect waves-light remar-orange" value="Salvar" />
                     </g:form>
                 </div>
             </div>
@@ -282,14 +246,12 @@
         <div class="modal-content">
             <div id="totalQuestion">
                 Este é o modal Informações
-
             </div>
         </div>
         <div class="modal-footer">
             <button class="btn waves-effect waves-light modal-close my-orange">Entendi</button>
         </div>
     </div>
-
     <div id="uploadModal" class="modal">
         <div class="modal-content">
             <h4>Enviar arquivo .csv</h4>
@@ -301,17 +263,16 @@
                             <input type="file" accept="text/csv" id="csv" name="csv">
                         </div>
                         <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text">
+                            <input class="file-path remar-input validate" type="text">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col s1 offset-s10">
-                            <g:submitButton class="btn my-orange" name="csv" value="Enviar"/>
+                            <g:submitButton class="btn waves-effect waves-light my-orange" name="csv" value="Enviar"/>
                         </div>
                     </div>
                 </g:uploadForm>
             </div>
-
             <blockquote>Formatação do arquivo .csv</blockquote>
             <div class="row">
                 <div class="col s12">
@@ -373,6 +334,5 @@
             </div>
         </div>
     </div>
-
     </body>
 </html>

@@ -3,10 +3,9 @@
     <div class="row">
         <div class="input-field col s12">
             <label for="title">Pergunta</label>
-            <input id="title" name="title" required="" value="${questionInstance?.title}" type="text" class="validate">
+            <input id="title" name="title" required="" value="${questionInstance?.title}" type="text" class="input-remar validate">
         </div>
     </div>
-
     <div class="row">
         <div class="input-field col s9">
             <label for="answers[0]">Alternativa 1</label>
@@ -22,7 +21,6 @@
             <label for="radio0${count}">Alternativa correta</label>
         </div>
     </div>
-
     <div class="row">
         <div class="input-field col s9">
             <label for="answers[1]">Alternativa 2</label>
@@ -39,7 +37,6 @@
             <label for="radio1${count}">Alternativa correta</label>
         </div>
     </div>
-
     <div class="row">
         <div class="input-field col s9">
             <label for="answers[2]">Alternativa 3</label>
@@ -55,7 +52,6 @@
             <label for="radio2${count}">Alternativa correta</label>
         </div>
     </div>
-
     <div class="row">
         <div class="input-field col s9">
             <label for="answers[3]">Alternativa 4</label>
@@ -71,8 +67,6 @@
             <label for="radio3${count}">Alternativa correta</label>
         </div>
     </div>
-
-
     <div class="row">
         <g:if test="${questionInstance.level == "1" }">
             <div class="col s2 offset-s3">
@@ -110,18 +104,10 @@
                 <label for="level3${count}">Nível 3</label>
             </div>
         </g:else>
-
-
     </div>
-
-
-
-
-
 <script>
     $(document).ready(function(){
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('select').material_select();
     });
-
 </script>

@@ -30,9 +30,10 @@
                                 <g:render template="form"/>
                             </fieldset>
                             <br />
-                            <fieldset class="buttons">
-                                <g:submitButton name="create" class="btn btn-success btn-lg" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-                            </fieldset>
+                                <a href="#!" name="create" value="${message(code: 'default.button.create.label', default: 'Create')}" class="btn waves-effect waves-light remar-orange">
+                                    Enviar
+                                </a>
+                                %{--<g:submitButton name="create" class="btn btn-success btn-lg" value="${message(code: 'default.button.create.label', default: 'Create')}" />--}%
                         </g:form>
                 </div>
             </div>

@@ -8,7 +8,6 @@
 		<title>LabTeca</title>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<g:javascript src="anotacao.js" />
-
 		<g:javascript src="iframeResizer.contentWindow.min.js"/>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -19,8 +18,6 @@
 				Customização - Anotação
 			</p>
 		</div>
-
-
             <div class="row">
                 <div style=" margin-bottom: 10px; color:#333333">
                     Aqui você pode gerar, alterar e deletar anotações.
@@ -34,8 +31,6 @@
                          </div>
                          </div>
                      </div>
-
-
                     <div class="row">
                         <div class="col s12 m12 l12">
                             <table class="highlight" id="table" style="margin-top: -30px;">
@@ -47,7 +42,6 @@
                                                     data-position="right" data-delay="50" data-tooltip="Selecionar Todos">
                                                 <i class="material-icons">check_box_outline_blank</i>
                                             </button>
-
                                             <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnUnCheckAll" onclick="uncheck_all()"
                                                     data-position="right" data-delay="50" data-tooltip="Desmarcar Todos">
                                                 <i class="material-icons">done</i>
@@ -58,7 +52,6 @@
                                     <th>Ação <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>
                                 </tr>
                                 </thead>
-
                                 <tbody>
                                 <g:each in="${anotacaoInstanceList}" status="i" var="anotacaoInstance">
                                     <tr id="tr${anotacaoInstance.id}" class="selectable_tr" style="cursor: pointer;"
@@ -77,7 +70,6 @@
                             </table>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col s1 m1 l1 offset-s4 offset-m8 offset-l8">
                             <a data-target="createModal" name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar anotação"><i class="material-icons">add</i></a>
@@ -86,17 +78,11 @@
                             <a name="delete" class="btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exluir anotação" ><i class="material-icons" onclick="_open_modal_delete()">delete</i></a>
                         </div>
                     </div>
-
-
                     <div class="row">
                         <div class="col s2">
-                            <button class="btn waves-effect waves-light my-orange"  name="save" id="submitButton" onclick="_submit()">Enviar
-                                <i class="material-icons"></i>
-                            </button>
+                            <button class="btn waves-effect waves-light remar-orange" name="save" id="submitButton" onclick="_submit()">Enviar</button>
                         </div>
                     </div>
-
-
                     <div id="editModal" class="modal remar-modal">
                         <g:form name="edit-anotacao" method="PUT" url="[resource:anotacaoInstance, action:'update']">
                             <div class="modal-content">
@@ -114,14 +100,12 @@
                                 </div>
                                 <input type="hidden" id="AnotacaoID" name="AnotacaoID">
                             </div>
-
                             <div class="modal-footer">
                                 <g:submitButton name="update" class="btn btn-success btn-lg my-orange" value="Salvar" />
                                 <a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Fechar</a>
                             </div>
                         </g:form>
                     </div>
-
                     <div id="createModal" class="modal remar-modal">
                         <g:form name="create-anotacao" url="[resource:anotacaoInstance, action:'save']" >
                             <div class="modal-content">
@@ -138,14 +122,12 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="modal-footer">
                                 <a class="btn waves-effect waves-light remar-orange" onclick="document.getElementById('create-anotacao').submit()">Criar</a>
                                 <a class="btn waves-effect waves-light modal-close remar-orange" href="#!">Cancelar</a>
                             </div>
                         </g:form>
                     </div>
-
                     <div id="deleteModal" class="modal">
                         <div class="modal-content">
                             <div id="delete-one-question">
@@ -160,8 +142,6 @@
                             <button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Não</button>
                         </div>
                     </div>
-
-
                     <div id="erroDeleteModal" class="modal">
                         <div class="modal-content">
                             Você deve selecionar ao menos uma anotação para excluir.
@@ -170,8 +150,6 @@
                             <button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
                         </div>
                     </div>
-
-
                     <div id="errorSaveModal" class="modal">
                         <div class="modal-content">
                             Você deve selecionar pelo menos 1 anotação para enviar.
