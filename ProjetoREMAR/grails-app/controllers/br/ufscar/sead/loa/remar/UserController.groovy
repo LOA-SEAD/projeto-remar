@@ -185,7 +185,7 @@ class UserController {
                                 "<br>" +
                                 "Agradecemos sua coopera&ccedil;&atilde;o. <br>" +
                                "**********************************************************************"
-                          
+
             Util.sendEmail(instance.email, "Cadastro - REMAR", mensagem)
             redirect uri: "/signup/success/$instance.id"
         } else {
@@ -217,6 +217,22 @@ class UserController {
         session.user = user
 
         redirect uri: "/my-profile?profileUpdated=t";
+    }
+
+    @Transactional
+    def updatePhoto(User user) {
+        def root = servletContext.getRealPath("/")
+        def f = new File("${root}data/users/${user.username}")
+        f.mkdirs()
+
+        println "Photo: ${params.photo}"
+        def img = new File(servletContext.getRealPath("${params.photo}"))
+        img.renameTo(new File(f, "profile-picture"))
+
+        user.save flush: true
+        session.user = user
+
+        redirect uri: "/my-profile?photoUpdated=t";
     }
 
     @Transactional
@@ -286,7 +302,7 @@ class UserController {
             def lastName = User.findAllByLastNameRlike(params.query, params.query, params.query)
             def userName = User.findAllByUsernameRlike(params.query, params.query, params.query)
             def allUsers = ((firstName + lastName + userName) as Set).sort{it.firstName.toUpperCase()}
-            
+
             def group = Group.findById(params.group)
             def list = allUsers.collect {
                 def inGroup = UserGroup.findByUserAndGroup(it, group) ? true : false

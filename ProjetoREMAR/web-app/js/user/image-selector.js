@@ -57,6 +57,14 @@ $('#file').on('change', function() {
                     success: function (data) {
                         $('#profile-picture').attr("src", "/data/tmp/" + data);
                         $('#source-image').attr("value", "/data/tmp/" + data);
+
+                        // Se  o botão de aceitar a imagem tiver um atributo "data-target"
+                        // que é o nome para um formulário, após cortar a imagem
+                        // o formulário é submetido
+                        var $node = $('#accept-picture');
+                        if ($node.data().target) {
+                            document.forms[$node.data().target].submit();
+                        }
                     },
                     error: function(req, res, err) {
                         console.log(req);

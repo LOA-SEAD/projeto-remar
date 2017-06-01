@@ -31,6 +31,12 @@
         </script>
     </g:if>
 
+	<g:if test="${params.photoUpdated}">
+        <script type="text/javascript">
+            Materialize.toast('Foto atualizada!', 3000);
+        </script>
+    </g:if>
+
 	<div class="row cluster">
 		<!-- Seção de Atualização do Perfil -->
 		<div class="row">
@@ -104,20 +110,28 @@
 
 				<!-- Upload de Foto -->
 				<div class="col s4">
-					<div class="row img-input-container">
-						<div class="img-preview">
-							<input type="hidden" name="photo" value="/images/avatars/default.png" id="source-image">
-							<img id="profile-picture"  class="profile-picture" src="/images/avatars/default.png" />
-						</div>
-						<div>
-							<div class="file-field input-field">
-								<a href="#!" class="btn waves-effect waves-light">
-									<span>Atualizar</span>
-									<input id="file" type="file" data-image="true" id="img-1" name="img1" accept="image/jpeg, image/png">
-								</a>
+					<form method="POST" name="photoUpload" action="/user/updatePhoto?id=${session.user.id}" enctype="multipart/form-data" data-user-id="${session.user.id}">
+						<div class="row img-input-container">
+							<div id="img-preview">
+								<input id="source-image" type="hidden" name="photo" value="/images/avatars/default.png">
+								<img id="profile-picture"  class="profile-picture" src="/data/users/${session.user.username}/profile-picture" />
+							</div>
+
+							<input id="file" type="file" data-image="true" id="img-1" name="img1" accept="image/jpeg, image/png">
+							<div id="img-update-button-container">
+								<div id="img-update-button">
+									<i class="file-field-icon material-icons">camera_alt</i>
+									<div class="file-field-text">
+										Atualizar foto do perfil
+									</div>
+								</div>
+							</div>
+
+							<!-- Efeito de hovering sobre o botão acima -->
+							<div id="img-update-button-effect">
 							</div>
 						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -214,25 +228,28 @@
 
 	<!-- MODAIS -->
 	<div id="confirmModal" class="modal">
-		  <div class="modal-content" id="modalContent">
+		<div class="modal-content" id="modalContent">
 
-		  </div>
-		  <div class="modal-footer" id="modalFooter">
+		</div>
+		<div class="modal-footer" id="modalFooter">
 
-		  </div>
+		</div>
 	</div>
 
 	<div id="modal-profile-picture" class="modal remar-modal">
-			<div class="modal-content">
-					<h4>Envio de Imagem</h4>
-					<div class="img-container">
-							<img id="crop-preview" class="responsive-img">
-					</div>
-			</div>
-			<div class="modal-footer">
-					<a id="accept-picture" href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Enviar</a>
-					<a id="cancel-picture" href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Cancelar</a>
-			</div>
+		<div class="modal-content">
+				<h4>Envio de Imagem</h4>
+				<div class="img-container">
+						<img id="crop-preview" class="responsive-img">
+				</div>
+		</div>
+		<div class="modal-footer">
+				<a id="accept-picture" href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange"
+					data-target="photoUpload">
+					Enviar
+				</a>
+				<a id="cancel-picture" href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Cancelar</a>
+		</div>
 	</div>
 
     <script>
@@ -266,10 +283,10 @@
     </script>
 
     <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}" />
-		<link type="text/css" rel="stylesheet" href="${resource(dir: "css/user", file: "profile.css")}" />
+	<link type="text/css" rel="stylesheet" href="${resource(dir: "css/user", file: "profile.css")}" />
 
-		<g:javascript src="user/image-selector.js" />
-		<g:javascript src="user/update-validator.js" />
+	<g:javascript src="user/image-selector.js" />
+	<g:javascript src="user/update-validator.js" />
     <g:javascript src="jquery/jquery.validate.js" />
     <g:javascript src="jquery/jquery.Jcrop.js" />
 </body>

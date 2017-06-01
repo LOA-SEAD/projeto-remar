@@ -85,3 +85,10 @@ function highlight(el) {
 function errorPlacement(err, el) {
     err.insertAfter($(el).next());
 }
+
+$(function () {
+    $('#img-update-button').on('click', function(e) {
+        e.preventDefault();
+        $('#file:hidden').trigger('click');
+    });
+});

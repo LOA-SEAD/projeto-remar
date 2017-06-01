@@ -18,9 +18,10 @@ class UrlMappings {
         "/signup/success/$id"(controller: "user", action: "signUpSuccess")
 
         // begin user mappings
-        "/user/account/confirm/$token"(controller: 'user',action: 'confirmAccount')
         name resetPassword: "/user/password/reset"(controller: 'user', action: 'resetPassword')
         name update: "/user/update"(controller: 'user', action: 'update')
+		name updatePhoto: "/user/updatePhoto"(controller: 'user', action: 'updatePhoto')
+		"/user/account/confirm/$token"(controller: 'user',action: 'confirmAccount')
 
         // end user mappings
 
