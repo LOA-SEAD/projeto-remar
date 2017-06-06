@@ -26,7 +26,7 @@
 <div class="container">
     <div class="cluster-header">
         <p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-            <i class="small material-icons left">grid_on</i>Mahjong - Minha Tabela
+            Mahjong - Minha Tabela
         </p>
     </div>
 
@@ -63,14 +63,22 @@
             <br/>
 
             <div class="row">
-                <g:submitButton id="save-and-new" name="create" class="btn btn-success btn-large my-orange"
-                                value="Salvar e criar novo nível"/>
-                <g:submitButton id="save-and-finish" name="save" class="btn btn-info btn-large my-orange"
-                                value="Salvar e finalizar jogo"/>
-                <g:submitButton id="new-tr" name="save" class="btn btn-info btn-large my-orange"
-                                value="Nova linha"/>
-                <g:submitButton id="new-td" name="save" class="btn btn-info btn-large my-orange"
-                                value="Nova coluna"/>
+
+                <a href="#!" id="save-and-new" name="create" class="btn waves-effect waves-light remar-orange">
+                    Salvar e criar novo nível
+                </a>
+
+                <a href="#!" id="save-and-finish" name="save" class="btn waves-effect waves-light remar-orange">
+                    Salvar e finalizar jogo
+                </a>
+
+                <a href="#!" id="new-tr" name="save" class="btn waves-effect waves-light remar-orange">
+                    Nova linha
+                </a>
+
+                <a href="#!" id="new-td" name="save" class="btn waves-effect waves-light remar-orange">
+                    Nova coluna
+                </a>
             </div>
         </div>
     </div>
