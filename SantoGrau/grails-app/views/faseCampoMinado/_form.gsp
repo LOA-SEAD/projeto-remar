@@ -1,13 +1,10 @@
 <%@ page import="br.ufscar.sead.loa.santograu.remar.QuestionFaseCampoMinado" %>
-
-
 <div class="fieldcontain ${hasErrors(bean: faseCampoMinadoInstance, field: 'title', 'error')} required">
 	<label for="title">
 		<g:message code="faseCampoMinado.title.label" default="Pergunta: " />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:textField name="title" required="" value="${faseCampoMinadoInstance?.title}"/>
-
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: faseCampoMinadoInstance, field: 'answers1', 'error')} required">
@@ -56,7 +53,6 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<g:field name="correctAnswer" type="number" value="${faseCampoMinadoInstance.correctAnswer}" required=""/>
-
 </div>
 
 

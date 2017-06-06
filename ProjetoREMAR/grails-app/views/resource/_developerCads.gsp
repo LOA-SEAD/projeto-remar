@@ -24,15 +24,11 @@
                 </sec:ifNotGranted>
                 <sec:ifAllGranted roles="ROLE_ADMIN">
                     <div class="col s3 m3 l3">
-                        <a href="#" class="tooltipped  review"  data-review="approve" data-id="${resourceInstance.id}"  data-position="bottom" data-delay="5" data-tooltip="Aprovar" style="color: green;"><i class="material-icons">done</i></a>
+                       <a href="#" class="tooltipped review" data-review="approve" data-id="${resourceInstance.id}"  data-position="bottom" data-delay="5" data-tooltip="Aprovar" style="color: green; padding-left: 20px"><i class="material-icons">done</i></a>
                     </div>
-                   %{-- <div class="col s3 m3 l3">
-                        <a href="#" class="tooltipped  review" data-review="reject" data-id="${resourceInstance.id}" data-position="bottom" data-delay="5" data-tooltip="Rejeitar" style="color: red;"><i class="material-icons">block</i></a>
-                    </div>--}%
-
                 </sec:ifAllGranted>
                 <div class="">
-                    <a href="#" class="tooltipped delete" data-id="${resourceInstance.id}"  data-position="bottom" data-delay="5" data-tooltip="Excluir" style="color: gray;"><i class="material-icons">delete</i></a>
+                    <a href="#" class="tooltipped delete" data-id="${resourceInstance.id}"  data-position="bottom" data-delay="5" data-tooltip="Excluir" style="color: gray; padding-right: 3px"><i class="material-icons">delete</i></a>
                 </div>
             </div>
 
