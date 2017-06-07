@@ -11,6 +11,7 @@ function showResourceStatus(){
                 break;
             case "approved":
                 $("#card"+i).addClass("approved");
+                $("#conteudo"+i).remove();
                 break;
             case "rejected":
                 $("#card"+i).addClass("rejected");
@@ -18,7 +19,6 @@ function showResourceStatus(){
         }
     }
 }
-
 $(document).ready(function(){
     showResourceStatus();
 });

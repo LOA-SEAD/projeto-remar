@@ -43,7 +43,7 @@
                 </p>
             </div>
             <g:form action="finish" method="POST">
-                <ul class="collapsible popout" data-collapsible="expandable">
+                <ul class="collapsible popout" data-collapsible="accordion">
                     <!-- 1 Etapa - informações básicas -->
                     <li>
                         <div class="collapsible-header active">Informações básicas</div>

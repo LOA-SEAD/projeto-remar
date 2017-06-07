@@ -24,7 +24,7 @@
                     <div class="box-body">
                         <ul class="collapsible popout" data-collapsible="accordion">
                             <li>
-                                <div class="collapsible-header active"><i class="material-icons">info_outline</i>Informações adicionais</div>
+                                <div class="collapsible-header active">Informações adicionais</div>
                                 <div class="collapsible-body">
                                         <input type="hidden" name="id" value="${resourceInstance.id}" id="hidden">
                                         <div class="col-s12" >

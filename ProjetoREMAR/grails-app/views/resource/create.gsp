@@ -89,7 +89,7 @@
 									</div>
 								</li>
 								<li id="info-add-container">
-									<div id="info-add" class="collapsible-header"><i class="material-icons">info_outline</i>Informações adicionais</div>
+									<div id="info-add" class="collapsible-header">Informações adicionais</div>
 									<div class="collapsible-body">
 										<div class="row loaded-form">
 										%{-- TODO mudar controlador --}%
@@ -106,7 +106,6 @@
 				</div>
 			</div>
 		</div>
-
 
 		<div id="modalComercial" class="modal">
 			<div class="modal-content">
@@ -159,8 +158,6 @@
 				<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" onclick="return false;" style="margin-right: 10px;">Não</a>
 			</div>
 		</div>
-
-
 
 		<div id="modal-picture" class="modal remar-modal">
 			<div class="modal-content">

@@ -7,7 +7,6 @@ function openThisModal(modalName){
     $(name).openModal({
         dismissible: false
     });
-
 }
 
 function validateWar(){
@@ -38,11 +37,9 @@ function confirmLicense(){
             Materialize.toast("Selecione uma licença para o seu modelo.", 3000);
         }
     }
-
     else{
         Materialize.toast("Extensão do arquivo inválida. Por favor selecione um arquivo .war", 3000);
     }
-
 }
 
 function submit(){
@@ -68,16 +65,12 @@ function submit(){
             $('.send-icon').show('fast');
             $('#info-add').trigger('click');
 
-
             $('.loaded-form').show("slideDown");
 
             $("#name").val(data.name)
                 .next().addClass("active");
 
             $("#description").val(data.description);
-
-            //$(".icons-select select").val(data.category);
-            //$("#img-1").attr("src", "/data/resources/assets/"+data.uri+"/description-1");
 
             //set hidden id
             $("#hidden").val(data.id);
@@ -94,10 +87,8 @@ function submit(){
     });
 }
 
-
 $(function(){
     /* carregar war, chamando o controlador e redirecionando para a mesma pagina*/
-
     var name = $("#name");
     var nameErr = $("#name-error");
     var desc = $("#description");
@@ -113,8 +104,6 @@ $(function(){
     $("#documentation-error").hide();
     $("#customizableItems-error").hide();
     $("#customizableItems").prev().hide();
-
-
 
     //console.log($(name).val());
     if($(name).val() != null && $(name).val() != ""){
@@ -137,7 +126,6 @@ $(function(){
 
 
     function progress(e){
-
         if(e.lengthComputable){
             var max = e.total;
             var current = e.loaded;
@@ -241,7 +229,6 @@ $(function(){
         var jcrop;
         console.log(target.toString());
 
-
         var file = $(target).prop('files')[0];
         var fr = new FileReader();
 
@@ -267,7 +254,6 @@ $(function(){
                         formData.append('y', coordinates.y);
                         formData.append('w', coordinates.w);
                         formData.append('h', coordinates.h);
-
                         saveCrop(formData, updateImg);
                     }
                 });
@@ -283,8 +269,6 @@ $(function(){
         }
 
     }
-
-
 
     function saveCrop(FormData, updateImg)
     //FormData é o arquivo de imagem e as coordenadas para o corte
