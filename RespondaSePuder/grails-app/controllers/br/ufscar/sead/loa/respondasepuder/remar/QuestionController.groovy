@@ -204,16 +204,16 @@ class QuestionController {
 
         }
 
-        createJsonFile("pergFacil.json",questionList_level1, randomQuestion)
-        createJsonFile("pergMedio.json",questionList_level2, randomQuestion)
-        createJsonFile("pergDificil.json",questionList_level3, randomQuestion)
+        createJsonFile("pergfacil.json",questionList_level1, randomQuestion)
+        createJsonFile("pergmedio.json",questionList_level2, randomQuestion)
+        createJsonFile("pergdificil.json",questionList_level3, randomQuestion)
 
         def ids = []
         def folder = servletContext.getRealPath("/data/${session.user.id}/${session.taskId}")
 
-        ids << MongoHelper.putFile(folder + '/pergFacil.json')
-        ids << MongoHelper.putFile(folder + '/pergMedio.json')
-        ids << MongoHelper.putFile(folder + '/pergDificil.json')
+        ids << MongoHelper.putFile(folder + '/pergfacil.json')
+        ids << MongoHelper.putFile(folder + '/pergmedio.json')
+        ids << MongoHelper.putFile(folder + '/pergdificil.json')
 
         def port = request.serverPort
         if (Environment.current == Environment.DEVELOPMENT) {

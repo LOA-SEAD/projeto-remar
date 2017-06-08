@@ -11,17 +11,17 @@
       "dependencies": null,
       "outputs": [
         {
-          "name": "pergFacil.json",
+          "name": "pergfacil.json",
           "type": "json",
           "path": ""
         },
         {
-          "name": "pergMedio.json",
+          "name": "pergmedio.json",
           "type": "json",
           "path": ""
         },
         {
-          "name": "pergDificil.json",
+          "name": "pergdificil.json",
           "type": "json",
           "path": ""
         }

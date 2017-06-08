@@ -33,8 +33,9 @@ cp -r $2/assets/www/* .
 sed -i.bkp "s/NAME/$4/" manifest.json
 
 name=${4,,}
+name=${name//[[:blank:]]/}
 
-${CROSSWALK_PATH}/make_apk.py --package br.ufscar.sead.loa.remar.published.$3.$name --manifest manifest.json --target-dir .
+${CROSSWALK_PATH}/make_apk.py --package br.ufscar.sead.loa.remar.published.$3.$name --manifest manifest.json --target-dir . --verbose
 
 mv *.apk $2
 
