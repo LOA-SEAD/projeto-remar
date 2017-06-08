@@ -44,7 +44,6 @@
 	            <h4>Meu Perfil</h4>
 	            <div class="divider"></div>
 	        </div>
-
 	        <div class="row show">
 				<!-- Informações do Perfil -->
 				<div class="col s8">
@@ -56,14 +55,12 @@
 			                        <input id="firstName" name="firstName" type="text" value="${session.user.firstName}" />
 			                        <label for="firstName">Nome</label>
 			                    </div>
-
 			                    <div class="input-field col s12 m6">
 			                        <i class="material-icons prefix">person</i>
 			                        <input id="lastName" name="lastName" type="text" value="${session.user.lastName}" />
 			                        <label for="lastName">Sobrenome</label>
 			                    </div>
 							</div>
-
 							<div class="row">
 				                <div class="input-field col s12">
 					                <i class="material-icons prefix">email</i>
@@ -71,7 +68,6 @@
 					                <label for="email">Email</label>
 				                </div>
 							</div>
-
 							<div class="row">
 			                    <div class="input-field col s12 m12">
 			                        <i class="material-icons prefix">account_circle</i>
@@ -80,23 +76,19 @@
 			                        <label for="username">Nome de Usuário</label>
 			                    </div>
 							</div>
-
 							<div class="row">
 			                    <div class="input-field col s12 m6">
 			                        <i class="material-icons prefix">lock</i>
 			                        <input id="password" name="password" type="password"/>
 			                        <label for="password">Nova senha</label>
 			                    </div>
-
 			                    <div class="input-field col s12 m6">
 			                        <i class="material-icons prefix">lock</i>
 			                        <input id="confirm-password" name="confirm_password" type="password"/>
 			                        <label for="confirm-password">Confirme sua nova senha</label>
 			                    </div>
 							</div>
-
 		                    <div class="clearfix"></div>
-
 							<div class="row">
 			                    <div id="submitButton" class="input-field">
 			                        <button class="btn waves-effect waves-light tooltiped my-orange" type="submit">
@@ -142,7 +134,6 @@
 	            <h4>Desenvolvedor REMAR</h4>
 	            <div class="divider"></div>
 	        </div>
-
 			<div class="row show">
 				<sec:ifNotGranted roles="ROLE_DEV">
 					<div style="padding-left: 15px;">
@@ -161,14 +152,6 @@
 				</sec:ifAnyGranted>
 			</div>
 		</div>
-
-		<!--
-            <div class="row" id="moodle">
-                <div class="col s12 left-align">
-                    <ul class="collection with-header">
-                        <li class="collection-header">
-                            <h4>Contas do Moodle</h4>
-                        </li>
                         <g:each var="moodleInstance" in="${moodleList}">
                             <li class="collection-item">
                                 <div class="row no-margin-bottom">
@@ -202,7 +185,6 @@
 	            <h4>Desativar Conta</h4>
 	            <div class="divider"></div>
 	        </div>
-
 			<div class="row" id="disableAccountCard">
 		        <div class="col s12">
 		            <div class="card">
@@ -229,13 +211,10 @@
 	<!-- MODAIS -->
 	<div id="confirmModal" class="modal">
 		<div class="modal-content" id="modalContent">
-
 		</div>
 		<div class="modal-footer" id="modalFooter">
-
 		</div>
 	</div>
-
 	<div id="modal-profile-picture" class="modal remar-modal">
 		<div class="modal-content">
 				<h4>Envio de Imagem</h4>
@@ -257,7 +236,6 @@
             console.log(this);
             $(this).hide();
         });
-
         function disableUser(){
             $("#modalContent").empty();
             $("#modalFooter").empty();
@@ -269,7 +247,6 @@
                 dismissible:false
             });
         }
-
         function deleteUser(){
             $("#modalContent").empty();
             $("#modalFooter").empty();
@@ -281,10 +258,8 @@
             });
         }
     </script>
-
     <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}" />
 	<link type="text/css" rel="stylesheet" href="${resource(dir: "css/user", file: "profile.css")}" />
-
 	<g:javascript src="user/image-selector.js" />
 	<g:javascript src="user/update-validator.js" />
     <g:javascript src="jquery/jquery.validate.js" />

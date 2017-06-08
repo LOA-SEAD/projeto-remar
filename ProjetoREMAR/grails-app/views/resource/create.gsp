@@ -40,7 +40,6 @@
 													</div>
 													</div>
 												</div>
-
 												<div>
 													<span class="card-title valign-wrapper">
 														<p class="valign">  Permitir que adaptações do seu trabalho sejam compartilhadas?</p>
@@ -52,9 +51,6 @@
 													<label for="shareYes" >Sim, desde que outros compartilhem igual <span class="required-indicator">*</span></label>
 												</div>
 												<br><br>
-%{--aqui em cima ta sendo editado agora--}%
-
-
 												<div>
 													<span class="card-title valign-wrapper">
 															<p class="valign">  Permitir usos comerciais do seu trabalho?</p>
@@ -68,7 +64,6 @@
 													<label for="comercialNo">Não</label>
 												</div>
 												<br><br>
-
 												<div id="license-container" style="display: none">
 													<input type="hidden" name="license" value="cc-by" id="licenseValue" >
 													<div class="row">
@@ -76,7 +71,6 @@
 														</div>
 													</div>
 												</div>
-
 												<!-- Botão Enviar -->
 												<div class="buttons col s1 m1 l1 offset-s8 offset-m10 offset-l10" style="margin-top:20px">
 													<button class="btn waves-effect waves-light my-orange" data-delay="5" data-tooltip="Enviar" onclick="confirmLicense()" type="submit" name="save" id="submitButton">
@@ -106,7 +100,6 @@
 				</div>
 			</div>
 		</div>
-
 		<div id="modalComercial" class="modal">
 			<div class="modal-content">
 				<h4>Permitir usos comerciais do seu trabalho?</h4>
@@ -120,7 +113,6 @@
 						<p align="justify">O licenciante autoriza que outros copiem, distribuam, exibam e executem o trabalho somente para fins não comerciais.</p>
 					</div>
 				</div>
-
 			</div>
 			<div class="modal-footer">
 				<a href="#!" class="  btn btn-large modal-close my-orange">Entendi</a>
@@ -136,13 +128,11 @@
 						<p align="justify">O licenciante autoriza que outros criem e distribuam trabalhos derivados, mas apenas ao abrigo da mesma licença ou de uma licença <a target="_blank" href="https://creativecommons.org/compatiblelicenses/">compatível</a>.</p>
 					</div>
 				</div>
-
 			</div>
 			<div class="modal-footer">
 				<a href="#!" class=" btn btn-large modal-close my-orange">Entendi</a>
 			</div>
 		</div>
-
 		<div id="modalConfirmLicense" class="modal">
 			<div class="modal-content">
 				<h4>Você tem certeza que deseja escolher esta licença?</h4>
@@ -151,14 +141,12 @@
 						<p align="justify">Após escolher a licença do seu modelo, você não poderá alterá-la posteriormente.</p>
 					</div>
 				</div>
-
 			</div>
 			<div class="modal-footer">
 				<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" onclick="submit()" style="margin-right: 10px;">Sim</a>
 				<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" onclick="return false;" style="margin-right: 10px;">Não</a>
 			</div>
 		</div>
-
 		<div id="modal-picture" class="modal remar-modal">
 			<div class="modal-content">
 				<h4>Upload de Imagem</h4>
@@ -166,13 +154,11 @@
 					<img id="crop-preview" class="responsive-img">
 				</div>
 			</div>
-
 			<div class="modal-footer">
 				<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Cancelar</a>
 				<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Enviar</a>
 			</div>
 		</div>
-
 		<g:external dir="css" file="resource.css"/>
 		<script type="text/javascript" src="${resource(dir: 'js', file: "imgPreview.js")}"></script>
 		<script type="text/javascript" src="${resource(dir: 'js', file: 'game-index.js')}"></script>

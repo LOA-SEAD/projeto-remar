@@ -96,7 +96,8 @@ $(function () {
                 });
             }
         }
-
+        $("#info-header").parents("li").hide();
+        $("#tasks-header").parents("li").show();
     });
 
 
@@ -272,7 +273,6 @@ function validatePublish(){
         $('#content-area').removeClass("valid").addClass("invalid");
         return false;
     }
-
 }
 
 function finishGame() {
@@ -281,25 +281,19 @@ function finishGame() {
     var contentArea = $('#content-area').val();
     var specificContent = $("#specific-content").val();
     window.location = location.origin +  "/process/finish?name=" + name.val() + "&&id=" + $("#processId").val() + "&&contentArea=" + contentArea + "&&specificContent=" + specificContent;
-    //formData.append('banner', file);
-    // formData.append('name', $(name).val());
-    // formData.append('id',$("#processId").val());
-    // formData.append('contentArea',contentArea);
-    // formData.append('specificContent',specificContent);
-    //
-    //
-    // $.ajax({
-    //     type: 'POST',
-    //     url: location.origin + '/process/finish/' + $("#processId").val(),
-    //     data: formData,
-    //     processData: false,
-    //     contentType: false,
-    //     success: function (data) {
-    //        console.log("Funcionou")
-    //     },
-    //     error: function (XMLHttpRequest, textStatus, errorThrown) {
-    //         console.log("Error - não funcionou");
-    //     }
-    // });
+
 }
 
+
+//testanto função de hide and click collapsible
+function hideTeste(){
+    $('#info-header').toggleClass("collapsed");
+    $('#tasks-header').toggleClass("expanded");
+  /* $("#info-header").click(function () {
+        $(this).toggleClass("collapsed");
+    });
+    $('#tasks-header').click(function () {
+        $(this).toggleClass("expanded");
+    });*/
+
+}

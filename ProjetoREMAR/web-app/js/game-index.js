@@ -31,7 +31,6 @@ function confirmLicense(){
     if(validateWar()){
         if(validateLicense()){
             openThisModal("modalConfirmLicense");
-            //submit();
         }
         else{
             Materialize.toast("Selecione uma licença para o seu modelo.", 3000);
