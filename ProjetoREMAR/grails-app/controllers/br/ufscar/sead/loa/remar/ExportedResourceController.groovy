@@ -19,6 +19,22 @@ class ExportedResourceController {
     def springSecurityService
     def beforeInterceptor = [action: this.&check, only: ['publish', 'myGames']]
 
+    /* Funções do Monitor de Exportação */
+    def getExportMonitor() {
+        def response = MonitorClusterSingleton.instance.getResourceExportMonitor(params.id)
+
+        render response.flags as JSON
+    }
+
+    def removeExportMonitor() {
+        def response = MonitorClusterSingleton.instance.removeResourceExportMonitor(params.id)
+        log.debug params.id + " export monitor removed from cluster."
+
+        render response
+    }
+    /* Funções do Monitor de Exportação */
+
+
     private check() {
         if (!session.user) {
             log.debug "Logout: session.user is NULL !"
@@ -209,6 +225,7 @@ class ExportedResourceController {
         def resourceURI = instance.resource.uri         // get uri because blank spaces in name
         def desktop = instance.resource.desktop
         def android = instance.resource.android
+        def moodle = instance.resource.moodle
         def web = instance.resource.web
 
         urls.web = "/published/${instance.processId}/web"
@@ -222,7 +239,6 @@ class ExportedResourceController {
         }
 
         if (!instance.exported) {
-
             def sourceFolder = "${root}/data/resources/sources/${instance.resource.uri}/"
             def desktopFolder = "${root}/published/${instance.processId}/desktop"
             def mobileFolder = "${root}/published/${instance.processId}/mobile"
@@ -231,10 +247,18 @@ class ExportedResourceController {
             def process = Propeller.instance.getProcessInstanceById(instance.processId, session.user.id as long)
             def processType = process.definition.type
             def folders = []
-            def scriptBuildCrosswalk = "${root}/scripts/crosswalk/build.sh"
-            def scriptBuildWeb = "${root}/scripts/unity/buildweb.sh"
-            def scriptUpdateUnity = "${root}/scripts/unity/update.sh"
-            def scriptUpdateElectron = "${root}/scripts/electron/update.sh"
+
+            /* ENTRADA NO CLUSTER DE MONITORES */
+            def platformList = []
+            if (desktop) platformList.add("desktop")
+            if (android) platformList.add("android")
+            if (moodle) platformList.add("moodle")
+            if (web) platformList.add("web")
+
+            def rem = new ResourceExportMonitor(platformList)
+            MonitorClusterSingleton.instance.setResourceExportMonitor(instance.id, rem)
+            log.debug instance.id + " export monitor added to cluster."
+            /* ENTRADA NO CLUSTER DE MONITORES */
 
             folders << "${desktopFolder}/windows/resources/app"
             folders << "${desktopFolder}/linux/resources/app"
@@ -285,101 +309,170 @@ class ExportedResourceController {
             def jsonName = "remar.json"
 
             folders.each { folder ->
-                println folder
                 File file = new File("$folder/$jsonName")
                 PrintWriter pw = new PrintWriter(file)
                 pw.write(builder)
                 pw.close()
             }
 
-            if (desktop) {
-                switch (processType) {
-                    case "unity" :
-                        ant.sequential {
-                            chmod(perm: "+x", file: scriptUpdateUnity)
-                            exec(executable: scriptUpdateUnity) {
-                                arg(value: root)
-                                arg(value: resourceURI)
-                                arg(value: instance.processId)
-                            }
-                        }
+            def params = [
+            /* 0 */    processType,
+            /* 1 */    root,
+            /* 2 */    resourceURI,
+            /* 3 */    instance,
+            /* 4 */    desktopFolder,
+            /* 5 */    mobileFolder,
+            /* 6 */    webFolder
+            ]
 
-                        log.debug "Finished exporting Unity Desktop project"
-                        break
-
-                    default /* HTML */ :
-                        ant.sequential {
-                            chmod(perm: "+x", file: scriptUpdateElectron)
-                            exec(executable: scriptUpdateElectron) {
-                                arg(value: desktopFolder)
-                                arg(value: resourceURI)
-                            }
-                        }
-
-                        log.debug "Finished exporting HTML Desktop project"
-                        break
-                }
-            }
-
-            if (android) {
-                switch (processType) {
-                    case "unity":
-                        log.debug "Unity::Android not yet implemented"
-                        break
-                    default /* HTML */:
-                        ant.sequential {
-                            chmod(perm: "+x", file: scriptBuildCrosswalk)
-                            exec(executable: scriptBuildCrosswalk) {
-                                arg(value: root)
-                                arg(value: mobileFolder)
-                                arg(value: resourceURI)
-                                arg(value: instance.name)
-                            }
-                        }
-
-                        log.debug "Finished exporting HTML Android project"
-                        break
-
-                }
-            }
-
-            if (instance.resource.moodle) {
-                instance.moodleUrl = urls.web
-            }
-
-            if (web) {
-                switch (processType) {
-                    case "unity" :
-                        ant.sequential {
-                            chmod(perm: "+x", file: scriptBuildWeb)
-                            exec(executable: scriptBuildWeb) {
-                                arg(value: root)
-                                arg(value: resourceURI)
-                                arg(value: instance.processId)
-                            }
-                        }
-
-                        log.debug "Finished exporting Unity Web project"
-
-                        break
-                    default /* HTML */ :
-                        def jsonPathWeb = "${root}/published/${instance.processId}/web"
-                        File file = new File("$jsonPathWeb/$jsonName")
-                        PrintWriter pw = new PrintWriter(file)
-                        pw.write(builder)
-                        pw.close()
-
-                        instance.exported = true
-                        instance.save flush: true
-
-                        log.debug "Finished exporting HTML Web project"
-
-                        break
-                }
-            }
+            if (web) exportWeb(ant, params)
+            if (android) exportAndroid(ant, params)
+            if (desktop) exportDesktop(ant, params)
+            // if (moodle) exportMoodle(ant, paramsList, urls)
         }
 
         render urls as JSON
+    }
+
+    /*
+     * Tratamento de publicação do jogo para plataformas Desktop
+     */
+    def exportDesktop(ant, params) {
+        def processType = params[0]
+        def root = params[1]
+        def resourceURI = params[2]
+        def instance = params[3]
+        def desktopFolder = params[4]
+
+        def scriptUpdateUnity = "${root}/scripts/unity/update.sh"
+        def scriptUpdateElectron = "${root}/scripts/electron/update.sh"
+
+        switch (processType) {
+            case "unity" :
+                ant.sequential {
+                    chmod(perm: "+x", file: scriptUpdateUnity)
+                    exec(executable: scriptUpdateUnity) {
+                        arg(value: root)
+                        arg(value: resourceURI)
+                        arg(value: instance.processId)
+                    }
+                }
+
+                log.debug "Finished exporting Unity Desktop project"
+                break
+
+            default /* HTML */ :
+                ant.sequential {
+                    chmod(perm: "+x", file: scriptUpdateElectron)
+                    exec(executable: scriptUpdateElectron) {
+                        arg(value: desktopFolder)
+                        arg(value: resourceURI)
+                    }
+                }
+
+                log.debug "Finished exporting HTML Desktop project"
+                break
+        }
+
+        // Funções de monitoramento
+        def monitor = MonitorClusterSingleton.instance.getResourceExportMonitor(instance.id)
+        monitor.setFlag("desktop", true)
+    }
+
+    /*
+     * Tratamento de publicação do jogo para Android
+     */
+    def exportAndroid(ant, params) {
+        def processType = params[0]
+        def root = params[1]
+        def resourceURI = params[2]
+        def instance = params[3]
+        def mobileFolder = params[5]
+
+        def scriptBuildCrosswalk = "${root}/scripts/crosswalk/build.sh"
+
+        switch (processType) {
+            case "unity":
+                log.debug "Unity::Android not yet implemented"
+                break
+            default /* HTML */:
+                ant.sequential {
+                    chmod(perm: "+x", file: scriptBuildCrosswalk)
+                    exec(executable: scriptBuildCrosswalk) {
+                        arg(value: root)
+                        arg(value: mobileFolder)
+                        arg(value: resourceURI)
+                        arg(value: instance.name)
+                    }
+                }
+
+                log.debug "Finished exporting HTML Android project"
+                break
+
+        }
+
+        // Funções de monitoramento
+        def monitor = MonitorClusterSingleton.instance.getResourceExportMonitor(instance.id)
+        monitor.setFlag("android", true)
+    }
+
+    /*
+     * Tratamento de publicação do jogo para moodle
+     */
+    def exportMoodle(ant, params, urls) {
+        def instance = params[3]
+
+        instance.moodleUrl = urls.web
+
+        // Funções de monitoramento
+        def monitor = MonitorClusterSingleton.instance.getResourceExportMonitor(instance.id)
+        monitor.setFlag("moodle", true)
+    }
+
+    /*
+     * Tratamento de publicação do jogo para Web
+     */
+    def exportWeb(ant, params) {
+        def processType = params[0]
+        def root = params[1]
+        def resourceURI = params[2]
+        def instance = params[3]
+        def webFolder = params[6]
+
+        def scriptBuildWeb = "${root}/scripts/unity/buildweb.sh"
+
+        switch (processType) {
+            case "unity" :
+                ant.sequential {
+                    chmod(perm: "+x", file: scriptBuildWeb)
+                    exec(executable: scriptBuildWeb) {
+                        arg(value: root)
+                        arg(value: resourceURI)
+                        arg(value: instance.processId)
+                    }
+                }
+
+                log.debug "Finished exporting Unity Web project"
+
+                break
+            default /* HTML */ :
+                def jsonPathWeb = "${root}/published/${instance.processId}/web"
+                File file = new File("$jsonPathWeb/$jsonName")
+                PrintWriter pw = new PrintWriter(file)
+                pw.write(builder)
+                pw.close()
+
+                instance.exported = true
+                instance.save flush: true
+
+                log.debug "Finished exporting HTML Web project"
+
+                break
+        }
+
+        // Funções de monitoramento
+        def monitor = MonitorClusterSingleton.instance.getResourceExportMonitor(instance.id)
+        monitor.setFlag("web", true)
     }
 
     def moodle(ExportedResource exportedResourceInstance) {

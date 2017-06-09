@@ -56,6 +56,7 @@
                         <div class="clearfix"></div>
                     </div>
                 </li>
+
                 <g:if test="${!handle.isEmpty()}">
                     <li>
                         <div class="collapsible-header active"> <i class="material-icons">cloud</i>Repositório</div>
@@ -72,60 +73,48 @@
                             <div class="clearfix"></div>
                         </div>
                     </li>
-
                 </g:if>
+
                 <li>
                     <div id="plataforms" class="collapsible-header active" data-exported="true">
                         Plataformas
                     </div>
-                    <div class="collapsible-body">
 
+                    <div class="collapsible-body">
                         <aside class="plataforms-progress center">
                             <div class="center">
                                 <p>Gerando o jogo para diferentes plataformas... </p>
                             </div>
                             <div class="preloader-wrapper big active">
-                                <div class="spinner-layer spinner-blue">
+                                <div class="spinner-layer" style="border-color:#FF5722;">
                                     <div class="circle-clipper left">
                                         <div class="circle"></div>
-                                    </div><div class="gap-patch">
-                                    <div class="circle"></div>
-                                </div><div class="circle-clipper right">
-                                    <div class="circle"></div>
-                                </div>
+                                    </div>
+                                    <div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
                                 </div>
 
-                                <div class="spinner-layer spinner-red">
+                                <div class="spinner-layer" style="border-color:#5D4037;">
                                     <div class="circle-clipper left">
                                         <div class="circle"></div>
-                                    </div><div class="gap-patch">
-                                    <div class="circle"></div>
-                                </div><div class="circle-clipper right">
-                                    <div class="circle"></div>
-                                </div>
-                                </div>
-
-                                <div class="spinner-layer spinner-yellow">
-                                    <div class="circle-clipper left">
+                                    </div>
+                                    <div class="gap-patch">
                                         <div class="circle"></div>
-                                    </div><div class="gap-patch">
-                                    <div class="circle"></div>
-                                </div><div class="circle-clipper right">
-                                    <div class="circle"></div>
-                                </div>
-                                </div>
-
-                                <div class="spinner-layer spinner-green">
-                                    <div class="circle-clipper left">
+                                    </div>
+                                    <div class="circle-clipper right">
                                         <div class="circle"></div>
-                                    </div><div class="gap-patch">
-                                    <div class="circle"></div>
-                                </div><div class="circle-clipper right">
-                                    <div class="circle"></div>
-                                </div>
+                                    </div>
                                 </div>
                             </div>
                         </aside>
+
+                        <div id="exportProgress">
+
+                        </div>
 
                         <div id="plataforms-icons" class="row" style="margin: 0;">
                             <div class="col s12">
@@ -244,11 +233,11 @@
                                     </li>
                             </g:each>
                         </g:if>
-                        <g:if test="${groupsIAdmin.isEmpty() && groupsIAdmin.isEmpty()}"> 
-                            <li class="collection-header"><h5>Você não possui grupos disponíveis</h5></li> 
+                        <g:if test="${groupsIAdmin.isEmpty() && groupsIAdmin.isEmpty()}">
+                            <li class="collection-header"><h5>Você não possui grupos disponíveis</h5></li>
                         </g:if>
                         <g:else>
-                            <div class="row">                              
+                            <div class="row">
                                 <button data-instance-id="${exportedResourceInstance.id}" style="left:2.8em; top: 0.8em; position:relative;" class="btn waves-effect waves-light my-orange" type="submit" name="action">Compartilhar</button>
                             </div>
                         </g:else>
@@ -273,6 +262,7 @@
         <a href="#!" class="modal-action modal-close waves-effect btn-flat">Enviar</a>
     </div>
 </div>
+
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
 <g:javascript src="exported-plataforms.js"/>
 <g:javascript src="add-resource-to-group.js"/>
