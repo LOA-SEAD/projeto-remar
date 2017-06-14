@@ -68,15 +68,6 @@ class FaseTecnologiaController {
         faseTecnologiaInstance.taskId = session.taskId as String
 
         faseTecnologiaInstance.save flush:true
-
-        /*
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'FaseTecnologia.label', default: 'FaseTecnologia'), faseTecnologiaInstance.id])
-                redirect faseTecnologiaInstance
-            }
-            '*' { respond faseTecnologiaInstance, [status: CREATED] }
-        }*/
     }
 
     def edit(FaseTecnologia faseTecnologiaInstance) {
@@ -159,12 +150,10 @@ class FaseTecnologiaController {
         ids << MongoHelper.putFile(fasesFolder + '/fases.json')
         ids << MongoHelper.putFile(folder + '/computadores.json')
 
-
         def port = request.serverPort
         if (Environment.current == Environment.DEVELOPMENT) {
             port = 8080
         }
-
         // Updates current task to 'completed' status
         render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
                 "?files=${ids[0]}&files=${ids[1]}&files=${ids[2]}"
@@ -181,7 +170,7 @@ class FaseTecnologiaController {
         def pw = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(file), "UTF-8"))
         pw.write("{\n");
-        pw.write("\t\"words\": [\"" + faseTecnologia.palavras[0] + "\", \""+ faseTecnologia.palavras[1] +"\", \""+ faseTecnologia.palavras[2] +"\"]\n")
+        pw.write("\t\"words\": [\"" + faseTecnologia.palavras[0].replace("\"","\\\"") + "\", \""+ faseTecnologia.palavras[1].replace("\"","\\\"") +"\", \""+ faseTecnologia.palavras[2].replace("\"","\\\"") +"\"]\n")
         pw.write("}");
         pw.close();
     }
@@ -206,7 +195,6 @@ class FaseTecnologiaController {
             pw.write("</body>\n")
             pw.write("</html>")
         }
-
         pw.close();
 
         //adiciona a fase tecnologia no arquivo fases.json

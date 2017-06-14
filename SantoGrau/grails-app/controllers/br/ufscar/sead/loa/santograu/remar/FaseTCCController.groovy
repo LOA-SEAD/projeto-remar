@@ -178,10 +178,10 @@ class FaseTCCController {
         pw.write("{\n")
         pw.write("\t\"quantidadeQuestoes\": [\"" + questionList.size() + "\"],\n")
         for(def i=0; i<questionList.size();i++){
-            pw.write("\t\"" + (i+1) + "\": [\"" + questionList[i].title + "\", ")
-            pw.write("\""+ questionList[i].answers[0] +"\", " + "\""+ questionList[i].answers[1] +"\", ")
-            pw.write("\""+ questionList[i].answers[2] +"\", " + "\""+ questionList[i].answers[3] +"\", ")
-            pw.write("\""+ questionList[i].answers[4] +"\", ")
+            pw.write("\t\"" + (i+1) + "\": [\"" + questionList[i].title.replace("\"","\\\"") + "\", ")
+            pw.write("\""+ questionList[i].answers[0].replace("\"","\\\"") +"\", " + "\""+ questionList[i].answers[1].replace("\"","\\\"") +"\", ")
+            pw.write("\""+ questionList[i].answers[2].replace("\"","\\\"") +"\", " + "\""+ questionList[i].answers[3].replace("\"","\\\"") +"\", ")
+            pw.write("\""+ questionList[i].answers[4].replace("\"","\\\"") +"\", ")
             switch(questionList[i].correctAnswer){
                 case 0:
                     pw.write("\"A\"]")

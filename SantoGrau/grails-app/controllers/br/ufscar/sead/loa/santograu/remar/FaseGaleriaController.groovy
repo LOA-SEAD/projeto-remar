@@ -255,9 +255,9 @@ class FaseGaleriaController {
         def pw = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(file), "UTF-8"))
         pw.write("{\n")
-        pw.write("\t\"numero\": [\"" + theme.howManyImages + "\"],\n")
+        pw.write("\t\"numero\": [\"" + theme.howManyImages.replace("\"","\\\"") + "\"],\n")
         pw.write("\t\"resposta\": [\"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\", \"10\"],\n")
-        pw.write("\t\"dicaOrdenacao\": [\"" + faseGaleria.orientacao +"\"]\n")
+        pw.write("\t\"dicaOrdenacao\": [\"" + faseGaleria.orientacao.replace("\"","\\\"") +"\"]\n")
         pw.write("}")
         pw.close()
 

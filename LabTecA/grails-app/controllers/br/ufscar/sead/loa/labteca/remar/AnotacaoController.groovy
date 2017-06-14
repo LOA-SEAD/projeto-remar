@@ -51,37 +51,6 @@ class AnotacaoController {
     }
 
 
-   /* @Transactional
-    def newAnotacao(Anotacao anotacaoInstance) {
-
-        Anotacao newQuest = new Anotacao();
-        newAnotacao.id = anotacaoInstance.id
-        newAnotacao.statement = anotacaoInstance.statement
-        newAnotacao.taskId    = session.taskId as String
-        newAnotacao.ownerId = session.user.id
-
-        if (newAnotacao.hasErrors()) {
-            respond newAnotacao.errors, view: 'create' //TODO
-            render newAnotacao.errors;
-            return
-        }
-
-        newAnotacao.save flush: true
-
-        if (request.isXhr()) {
-            render(contentType: "application/json") {
-                JSON.parse("{\"id\":" + newAnotacao.getId() + "}")
-            }
-        } else {
-            // TODO
-        }
-
-        redirect(action: index())
-
-
-    }
-*/
-
     @Transactional
     def save(Anotacao anotacaoInstance) {
         if (anotacaoInstance == null) {
@@ -94,9 +63,7 @@ class AnotacaoController {
             render anotacaoInstance.errors;
             return
         }
-      //anotacaoInstance.informacao[0]= params.informacao
         anotacaoInstance.ownerId = session.user.id as long
-      // anotacaoInstance.taskId = session.taskId as String
         anotacaoInstance.save flush:true
 
         redirect(action: "index")
@@ -110,10 +77,8 @@ class AnotacaoController {
     def update() {
         Anotacao anotacaoInstance = Anotacao.findById(Integer.parseInt(params.AnotacaoID))
         anotacaoInstance.informacao= params.anotacao
-       // anotacaoInstance.informacao = Integer.parseInt(params.title)
 
         anotacaoInstance.ownerId = session.user.id as long
-        //anotacaoInstance.taskId = session.taskId as String
         anotacaoInstance.save flush:true
 
         redirect action: "index"
@@ -198,8 +163,6 @@ void createJsonFile(String fileName, ArrayList<Anotacao> anotacaoList) {
     for (def i = 0; i < anotacaoList.size(); i++) {
 
         // replace " by /"
-        //String info = anotacaoList[i].informacao
-        //info = info.replace("\"","\\\"")
         bw.write("\t\"" + (i + 1) + "\": \"" + anotacaoList[i].informacao.replace("\"","\\\"") + "\" ")
 
         if (i < anotacaoList.size() - 1)

@@ -175,9 +175,9 @@ class FaseBlocoGeloController {
         bw.write("{\n")
         bw.write("\t\"quantidadeQuestoes\": [\"" + questionList.size() + "\"],\n")
         for(def i=0; i<questionList.size();i++){
-            bw.write("\t\"" + (i+1) + "\": [\"" + questionList[i].title + "\", ")
-            bw.write("\""+ questionList[i].answers[0] +"\", " + "\""+ questionList[i].answers[1] +"\", ")
-            bw.write("\""+ questionList[i].answers[2] +"\", ")
+            bw.write("\t\"" + (i+1) + "\": [\"" + questionList[i].title.replace("\"","\\\"") + "\", ")
+            bw.write("\""+ questionList[i].answers[0].replace("\"","\\\"") +"\", " + "\""+ questionList[i].answers[1].replace("\"","\\\"") +"\", ")
+            bw.write("\""+ questionList[i].answers[2].replace("\"","\\\"") +"\", ")
             switch(questionList[i].correctAnswer){
                 case 0:
                     bw.write("\"A\"]")

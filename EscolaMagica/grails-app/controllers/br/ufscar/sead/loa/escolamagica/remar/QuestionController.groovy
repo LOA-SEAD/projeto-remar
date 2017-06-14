@@ -75,9 +75,6 @@ class QuestionController {
     }
 
     def createXML() {
-
-
-
         ArrayList<Integer> list_questionId = new ArrayList<Integer>() ;
         ArrayList<Question> questionList = new ArrayList<Question>();
         list_questionId.addAll(params.list_id);
@@ -163,7 +160,6 @@ class QuestionController {
 
         request.withFormat {
             form multipartForm {
-                //flash.message = message(code: 'default.created.message', args: [message(code: 'question.label', default: 'Questão'), questionInstance.id])
                 redirect(action: "index")
             }
             '*' { respond questionInstance, [status: CREATED] }
@@ -295,9 +291,6 @@ class QuestionController {
             questionInstance.taskId = session.taskId as String
             questionInstance.ownerId = session.user.id as long
             questionInstance.save flush: true
-            // println(questionInstance.taskId)
-            // println(questionInstance)
-            // println(questionInstance.errors)
         }
 
         redirect(action: index())

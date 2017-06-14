@@ -1,5 +1,4 @@
 package br.ufscar.sead.loa.respondasepuder.remar
-
 import br.ufscar.sead.loa.remar.User
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.util.Environment
@@ -14,7 +13,6 @@ import grails.transaction.Transactional
 @Secured(["isAuthenticated()"])
 class QuestionController {
     def springSecurityService
-
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", returnInstance: ["GET","POST"]]
 
     @Secured(['permitAll'])
@@ -23,10 +21,7 @@ class QuestionController {
             session.taskId = params.t
         }
         session.user = springSecurityService.currentUser
-
-
         def list = Question.findAllByOwnerId(session.user.id)
-
         if(list.size()==0){
 
             new Question(title: "Questão 1 - Nível 1", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 1, ownerId:  session.user.id, taskId: session.taskId).save flush: true
@@ -46,56 +41,33 @@ class QuestionController {
             new Question(title: "Questão 3 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId:  session.user.id, taskId: session.taskId).save flush: true
             new Question(title: "Questão 4 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId:  session.user.id, taskId: session.taskId).save flush: true
             new Question(title: "Questão 5 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId:  session.user.id, taskId: session.taskId).save flush: true
-
         }
-
-
-
-
         respond Question.findAllByOwnerId(session.user.id), model: [questionInstanceCount: Question.count()]
     }
-
     def show(Question questionInstance) {
         respond questionInstance
     }
-
     def create() {
         respond new Question(params)
     }
-
     @Transactional
     def save(Question questionInstance) {
         if (questionInstance == null) {
             notFound()
             return
         }
-
         if (questionInstance.hasErrors()) {
             respond questionInstance.errors, view:'create'
             return
         }
-
         questionInstance.answers[0]= params.answers1
         questionInstance.answers[1]= params.answers2
         questionInstance.answers[2]= params.answers3
         questionInstance.answers[3]= params.answers4
         questionInstance.ownerId = session.user.id as long
         questionInstance.taskId = session.taskId as String
-
-
-
-
         questionInstance.save flush:true
-
         redirect(action: "index")
-
-//        request.withFormat {
-//            form multipartForm {
-//                flash.message = message(code: 'default.created.message', args: [message(code: 'question.label', default: 'Question'), questionInstance.id])
-//                redirect questionInstance
-//            }
-//            '*' { respond questionInstance, [status: CREATED] }
-//        }
     }
 
     def edit(Question questionInstance) {
@@ -104,9 +76,7 @@ class QuestionController {
 
     @Transactional
     def update() {
-
         Question questionInstance = Question.findById(Integer.parseInt(params.questionID))
-
         questionInstance.level = Integer.parseInt(params.level)
         questionInstance.title = params.title
         questionInstance.answers[0] = params.answers1
@@ -117,28 +87,17 @@ class QuestionController {
         questionInstance.hint = params.hint
         questionInstance.ownerId = session.user.id as long
         questionInstance.taskId = session.taskId as String
-
-
-
-
-
         questionInstance.save flush:true
-
         redirect action: "index"
-
     }
 
     @Transactional
     def delete(Question questionInstance) {
-
-
         if (questionInstance == null) {
             notFound()
             return
         }
-
         questionInstance.delete flush: true
-
         render "delete ok!"
     }
 
@@ -153,7 +112,6 @@ class QuestionController {
     }
 
     def returnInstance(Question questionInstance){
-
         if (questionInstance == null) {
             notFound()
         }
@@ -167,15 +125,11 @@ class QuestionController {
                     questionInstance.correctAnswer + "%@!" +
                     questionInstance.hint + "%@!" +
                     questionInstance.id
-
-
         }
-
     }
 
     @Transactional
     def exportQuestions(){
-
         int randomQuestion = Integer.parseInt(params.randomQuestion)
         //Criando lista de questões do level 1
         ArrayList<Integer> list_questionId_level1 = new ArrayList<Integer>() ;
@@ -183,9 +137,7 @@ class QuestionController {
         list_questionId_level1.addAll(params.list_id_level1);
         for (int i=0; i<list_questionId_level1.size();i++){
             questionList_level1.add(Question.findById(list_questionId_level1[i]));
-
         }
-
         //Criando lista de questões do level 2
         ArrayList<Integer> list_questionId_level2 = new ArrayList<Integer>() ;
         ArrayList<Question> questionList_level2 = new ArrayList<Question>();
@@ -194,14 +146,12 @@ class QuestionController {
             questionList_level2.add(Question.findById(list_questionId_level2[i]));
 
         }
-
         //Criando lista de questões do level 3
         ArrayList<Integer> list_questionId_level3 = new ArrayList<Integer>() ;
         ArrayList<Question> questionList_level3 = new ArrayList<Question>();
         list_questionId_level3.addAll(params.list_id_level3);
         for (int i=0; i<list_questionId_level3.size();i++){
             questionList_level3.add(Question.findById(list_questionId_level3[i]));
-
         }
 
         createJsonFile("pergfacil.json",questionList_level1, randomQuestion)
@@ -222,8 +172,6 @@ class QuestionController {
 
         render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
                 "?files=${ids[0]}&files=${ids[1]}&files=${ids[2]}"
-
-
     }
 
     void createJsonFile(String fileName, ArrayList<Question> questionList, int randomQuestion ){
@@ -238,25 +186,24 @@ class QuestionController {
         bw.write("{\n ")
         bw.write("\"numero\":[\"" + questionList.size()+ "\",\""+ randomQuestion +"\"],\n")
         for(i=0; i<(questionList.size()-1);i++){
-            bw.write("\"" + (i+1) + "\": [\"" + questionList.getAt(i).title + "\", ")
+            bw.write("\"" + (i+1) + "\": [\"" + questionList.getAt(i).title.replace("\"","\\\"") + "\", ")
             switch(questionList.getAt(i).correctAnswer){
                 case 0:
-                    bw.write("\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
+                    bw.write("\""+ questionList.getAt(i).answers[0.replace("\"","\\\"")] +"\", " + "\""+ questionList.getAt(i).answers[1].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[2].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[3].replace("\"","\\\"") +"\", " )
                     break;
                 case 1:
-                    bw.write("\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
+                    bw.write("\""+ questionList.getAt(i).answers[1].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[0].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[2].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[3].replace("\"","\\\"") +"\", " )
                     break;
                 case 2:
-                    bw.write("\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
+                    bw.write("\""+ questionList.getAt(i).answers[2].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[1].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[0].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[3].replace("\"","\\\"") +"\", " )
                     break;
                 case 3:
-                    bw.write("\""+ questionList.getAt(i).answers[3] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " )
+                    bw.write("\""+ questionList.getAt(i).answers[3].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[1].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[2].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[0].replace("\"","\\\"") +"\", " )
                     break;
                 default:
                     println("Erro! Alternativa correta inválida")
             }
             bw.write("\""+ questionList.getAt(i).hint +"\"],\n")
-
         }
 
         bw.write("\"" + (i+1) + "\": [\"" + questionList.getAt(i).title + "\", ")
@@ -279,13 +226,11 @@ class QuestionController {
         bw.write("\""+ questionList.getAt(i).hint +"\"]\n")
         bw.write("}");
         bw.close();
-
     }
 
     @Transactional
     def generateQuestions(){
         MultipartFile csv = params.csv
-
         csv.inputStream.toCsvReader(['separatorChar': ';', 'charset':'UTF-8']).eachLine { row ->
             Question questionInstance = new Question()
             String levelQuestion = row[0] ?: "NA";
@@ -304,7 +249,6 @@ class QuestionController {
 
         }
         redirect action: "index"
-
     }
 
     def exportCSV(){
@@ -345,5 +289,4 @@ class QuestionController {
 
         render "/respondasepuder/samples/export/exportQuestions.csv"
     }
-
 }

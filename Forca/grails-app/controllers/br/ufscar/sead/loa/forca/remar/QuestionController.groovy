@@ -149,16 +149,13 @@ class QuestionController {
     }
 
     def toJson() {
-
         def list = Question.getAll(params.id ? params.id.split(',').toList() : null)
-
         def builder = new JsonBuilder()
-
         def json = builder(
                 list.collect { p ->
-                    ["palavra"     : p.getAnswer().toUpperCase(),
-                     "dica"        : p.getStatement(),
-                     "contribuicao": p.getAuthor()]
+                    ["palavra"     : p.getAnswer().toUpperCase().replace("\"","\\\""),
+                     "dica"        : p.getStatement().replace("\"","\\\""),
+                     "contribuicao": p.getAuthor().replace("\"","\\\"")]
                 }
         )
 
@@ -168,9 +165,7 @@ class QuestionController {
         def userPath = new File(dataPath, "/" + springSecurityService.getCurrentUser().getId() + "/" + session.taskId)
         userPath.mkdirs()
 
-
         def fileName = "palavras.json"
-
         File file = new File("$userPath/$fileName");
         PrintWriter pw = new PrintWriter(file);
         pw.write('{ "nome" : "Forca","palavras":' + builder.toString() + '}');
