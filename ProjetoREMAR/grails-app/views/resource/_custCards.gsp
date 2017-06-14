@@ -10,7 +10,6 @@
                             <a href="/resource/show/${resourceInstance.id}"><img alt="${resourceInstance.name}" class="activator" src="/images/${resourceInstance.uri}-banner.png"></a>
                         </div>
                         <div class="card-content">
-                            %{--<a class="card-click-target"  href="/resource/show/${resourceInstance.id}" aria-hidden="true" tabindex="-1"></a>--}%
                             <span style="font-size: 1.3em;" class="card-title grey-text text-darken-4 activator center-align truncate data-category="${resourceInstance.category.id}" title="${resourceInstance.name}">${resourceInstance.name}</span>
                             <div class="divider"></div>
                             <span style="color: dimgrey; font-size: 0.9em" class="center">${resourceInstance.category.name}</span>
@@ -21,12 +20,12 @@
                             <span style="color: dimgrey;" class="center">
                                 <i class="fa fa-globe"></i>
                                 <g:if test="${resourceInstance.android}">
-                                    <i class="fa fa-android"></i>
+                                    <i class="tooltipped fa fa-android" data-tooltip="Android"></i>
                                 </g:if>
                                 <g:if test="${resourceInstance.desktop}">
-                                    <i class="fa fa-windows"></i>
-                                    <i class="fa fa-linux"></i>
-                                    <i class="fa fa-apple"></i>
+                                    <i class="tooltipped fa fa-windows" data-tooltip="Windows"></i>
+                                    <i class="tooltipped fa fa-linux" data-tooltip="Linux"></i>
+                                    <i class="tooltipped fa fa-apple" data-tooltip="Mac"></i>
                                 </g:if>
                                 <g:if test="${resourceInstance.moodle}">
                                     <i class="fa fa-graduation-cap"></i>

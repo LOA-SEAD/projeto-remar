@@ -21,33 +21,22 @@
     <div class="row">
         <div style="bottom: -1em;"  class="card white col l8 s10 offset-l2 offset-s1">
             <div class="card-content">
-                %{--<g:form action="create" controller="group" method="post">--}%
                     <div class="row">
                         <div class="input-field col l6 offset-l3">
                             <input name="groupname" id="group-name" onkeyup="findGroup()" type="text" class="validate" required>
                             <label for="group-name">Nome do Grupo</label>
                         </div>
                     </div>
-
                     <div id="submit-button" class="row">
                         <div>
-
 
                             <a class="btn waves-effect waves-light remar-orange" type="submit" name="action">
                                 Criar
                             </a>
 
-
-
-%{--                            <a class="btn waves-effect waves-light disabled" type="submit" name="action">Criar
-                                <i class="material-icons right">send</i>
-                            </a>--}%
                         </div>
                     </div>
-                %{--</g:form>--}%
-
             </div>
-
         </div>
     </div>
 <script>

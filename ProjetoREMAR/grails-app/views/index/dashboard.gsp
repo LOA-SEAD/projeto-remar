@@ -48,12 +48,12 @@
                                     <span style="color: dimgrey;" class="center">
                                         <i class="fa fa-globe"></i>
                                         <g:if test="${resourceInstance.android}">
-                                            <i class="fa fa-android"></i>
+                                            <i class="fa fa-android" data-tooltip="Android"></i>
                                         </g:if>
                                         <g:if test="${resourceInstance.desktop}">
-                                            <i class="fa fa-windows"></i>
-                                            <i class="fa fa-linux"></i>
-                                            <i class="fa fa-apple"></i>
+                                            <i class="fa fa-windows" data-tooltip="Windows"></i>
+                                            <i class="fa fa-linux" data-tooltip="Linux"></i>
+                                            <i class="fa fa-apple" data-tooltip="Mac"></i>
                                         </g:if>
                                         <g:if test="${resourceInstance.moodle}">
                                             <i class="fa fa-graduation-cap"></i>

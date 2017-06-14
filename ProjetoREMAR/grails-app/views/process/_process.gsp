@@ -1,7 +1,6 @@
     <main class="cardProcess">
         <article class="row">
             <g:each in="${processes}" var="process">
-                %{--<g:if test="${process.pendingTasks.size() > 0}">--}%
                 <div class="col l3 s5">
                         <div  class="card hoverable">
                             <a href="/process/overview/${process.id}">
@@ -22,7 +21,7 @@
                                     <div class="col l4">
                                         <a class="tooltipped delete" onclick=" if(confirm('Deseja mesmo excluir este processo?')){ href='/process/delete/${process.id}'}"
                                            data-position="right" data-delay="50" data-tooltip="Excluir" style="color: gray; cursor: pointer;">
-                                            <i class="fa fa-trash fa-2x" style="color: #FF5722;"></i>
+                                            <i class="fa fa-trash fa-2x" data-tooltip="Excluir" style="color: #FF5722;"></i>
                                         </a>
                                     </div>
                                     <h5 class="card-title grey-text text-darken-4 col l8"><i class="material-icons right">close</i></h5><br>
@@ -34,9 +33,7 @@
                                 </div>
                         </div>
                 </div>
-                %{--</g:if>--}%
             </g:each>
         </article>
-        %{--<g:applyLayout name="tab-pagination"/>--}%
     </main>
 

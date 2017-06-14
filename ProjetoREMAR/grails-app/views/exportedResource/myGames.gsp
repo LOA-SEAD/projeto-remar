@@ -24,7 +24,7 @@
             <div class="row search">
                 <div class="input-field col s6">
                     <input id="search" type="text" placeholder="Buscar meus jogos"class="validate">
-                    <label for="search"><i class="fa fa-search"></i></label>
+                    <label for="search"><i class="fa fa-search" data-tooltip="Buscar"></i></label>
                 </div>
                 <div class="input-field col s6">
                     <select>
@@ -49,7 +49,7 @@
             <div class="row search">
                 <div class="input-field col s12">
                     <input id="search-processes" type="text" class="validate">
-                    <label for="search-processes"><i class="fa fa-search"></i></label>
+                    <label for="search-processes"><i class="fa fa-search" data-tooltip="Buscar"></i></label>
                 </div>
             </div>
             <div id="showCardsProcess" class="row">

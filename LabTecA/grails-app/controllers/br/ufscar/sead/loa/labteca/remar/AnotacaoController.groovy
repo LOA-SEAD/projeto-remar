@@ -196,7 +196,11 @@ void createJsonFile(String fileName, ArrayList<Anotacao> anotacaoList) {
     bw.write("{\n")
     bw.write("\t\"quantidadeAnotacoes\": \"" + anotacaoList.size() + "\",\n")
     for (def i = 0; i < anotacaoList.size(); i++) {
-        bw.write("\t\"" + (i + 1) + "\": \"" + anotacaoList[i].informacao + "\" ")
+
+        // replace " by /"
+        //String info = anotacaoList[i].informacao
+        //info = info.replace("\"","\\\"")
+        bw.write("\t\"" + (i + 1) + "\": \"" + anotacaoList[i].informacao.replace("\"","\\\"") + "\" ")
 
         if (i < anotacaoList.size() - 1)
             bw.write(",")

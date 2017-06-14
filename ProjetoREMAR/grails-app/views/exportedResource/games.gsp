@@ -26,7 +26,7 @@
     <div class="row search">
         <div class="input-field col s6">
             <input id="search" type="text" class="validate" autocomplete="off">
-            <label for="search"><i class="fa fa-search"></i></label>
+            <label for="search"><i class="fa fa-search" data-tooltip="Buscar"></i></label>
         </div>
 
         <div class="input-field col s6">

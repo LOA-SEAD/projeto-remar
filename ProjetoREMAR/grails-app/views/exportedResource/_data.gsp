@@ -17,7 +17,6 @@
 
                 <!--
                     <g:if test="${data.resposta == data.alternativaa}">
-                        <i class="material-icons">check</i>
                     </g:if>
                 -->
 

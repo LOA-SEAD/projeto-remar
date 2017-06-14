@@ -121,7 +121,7 @@
                                 <a style="color: inherit" target="_blank">
                                     <div id="web" class="col s6 m2">
                                         <div class="row no-margin-bottom">
-                                            <i class="fa fa-globe big-platform-logo"></i>
+                                            <i class="fa fa-globe big-platform-logo" data-tooltip="Web"></i>
                                         </div>
                                         <div class="row">
                                             Web
@@ -132,7 +132,7 @@
                                     <a style="color: inherit">
                                         <div class="col s6 m2 platform" data-text="Windows" data-name="windows">
                                             <div class="row no-margin-bottom">
-                                                <i class="fa fa-windows big-platform-logo"></i>
+                                                <i class="fa fa-windows big-platform-logo" data-tooltip="Windows"></i>
                                             </div>
                                             <div class="row">
                                                 Windows
@@ -142,7 +142,7 @@
                                     <a style="color: inherit">
                                         <div class="col s6 m2 platform" data-text="Linux (64 bits)"  data-name="linux">
                                             <div class="row no-margin-bottom">
-                                                <i class="fa fa-linux big-platform-logo"></i>
+                                                <i class="fa fa-linux big-platform-logo" data-tooltip="Linux"></i>
                                             </div>
                                             <div class="row">
                                                 Linux (64 bits)
@@ -153,7 +153,7 @@
                                     <a style="color: inherit">
                                         <div class="col s6 m2 platform" data-text="macOS" data-name="mac">
                                             <div class="row no-margin-bottom">
-                                                <i class="fa fa-apple big-platform-logo"></i>
+                                                <i class="fa fa-apple big-platform-logo" data-tooltip="Mac"></i>
                                             </div>
                                             <div class="row">
                                                 macOS
@@ -166,7 +166,7 @@
                                     <a style="color: inherit">
                                         <div class="col s6 m2 platform" data-text="Android" data-name="android">
                                             <div class="row no-margin-bottom">
-                                                <i class="fa fa-android big-platform-logo"></i>
+                                                <i class="fa fa-android big-platform-logo" data-tooltip="Android"></i>
                                             </div>
                                             <div class="row">
                                                 Android

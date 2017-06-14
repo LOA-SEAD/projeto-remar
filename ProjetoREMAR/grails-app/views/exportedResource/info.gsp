@@ -41,9 +41,6 @@
                             <input type="hidden" id="licenseValue" value="${exportedResourceInstance.license}">
                             <br>
                             <div id="licenseInfo"></div>
-
-                            %{--<p><span class="bold">Licenciado: </span>${exportedResourceInstance.name}</p>--}%
-
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -78,7 +75,7 @@
                                 <a href="/published/${exportedResourceInstance.processId}/web" style="color: inherit" target="_blank">
                                     <div id="web" class="col s6 m2">
                                         <div class="row no-margin-bottom">
-                                            <i class="fa fa-globe big-platform-logo"></i>
+                                            <i class="fa fa-globe big-platform-logo" data-tooltip="Web"></i>
                                         </div>
                                         <div class="row">
                                             Web
@@ -89,7 +86,7 @@
                                     <a href="/published/${exportedResourceInstance.processId}/desktop/${exportedResourceInstance.resource.uri}-windows.zip" style="color: inherit">
                                         <div class="col s6 m2 platform" data-text="Windows" data-name="windows">
                                             <div class="row no-margin-bottom">
-                                                <i class="fa fa-windows big-platform-logo"></i>
+                                                <i class="fa fa-windows big-platform-logo" data-tooltip="Windows"></i>
                                             </div>
                                             <div class="row">
                                                 Windows
@@ -99,7 +96,7 @@
                                     <a href="/published/${exportedResourceInstance.processId}/desktop/${exportedResourceInstance.resource.uri}-linux.zip" style="color: inherit">
                                         <div class="col s6 m2 platform" data-text="Linux (64 bits)"  data-name="linux">
                                             <div class="row no-margin-bottom">
-                                                <i class="fa fa-linux big-platform-logo"></i>
+                                                <i class="fa fa-linux big-platform-logo" data-tooltip="Linux"></i>
                                             </div>
                                             <div class="row">
                                                 Linux (64 bits)
@@ -110,7 +107,7 @@
                                     <a href="/published/${exportedResourceInstance.processId}/desktop/${exportedResourceInstance.resource.uri}-mac.zip" style="color: inherit">
                                         <div class="col s6 m2 platform" data-text="macOS" data-name="mac">
                                             <div class="row no-margin-bottom">
-                                                <i class="fa fa-apple big-platform-logo"></i>
+                                                <i class="fa fa-apple big-platform-logo" data-tooltip="Mac"></i>
                                             </div>
                                             <div class="row">
                                                 macOS
@@ -123,7 +120,7 @@
                                     <a href="/published/${exportedResourceInstance.processId}/mobile/${exportedResourceInstance.resource.uri}-android.zip" style="color: inherit">
                                         <div class="col s6 m2 platform" data-text="Android" data-name="android">
                                             <div class="row no-margin-bottom">
-                                                <i class="fa fa-android big-platform-logo"></i>
+                                                <i class="fa fa-android big-platform-logo" data-tooltip="Android"></i>
                                             </div>
                                             <div class="row">
                                                 Android
