@@ -1,0 +1,27 @@
+.progress {
+    height: 20px;
+    background-color: rgba(255, 87, 34, .25);
+    border-radius: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress .determinate {
+    background-color: rgb(255, 87, 34);
+}
+
+#progress-percentage {
+    position: relative;
+    font-weight: 600;
+    font-size: 13px;
+    color: white;
+}
+
+#inner-bar {
+    margin: 0px;
+}
+
+#inner-bar .indeterminate {
+    background-color: #d23e10;
+}

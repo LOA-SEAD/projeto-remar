@@ -19,22 +19,6 @@ class ExportedResourceController {
     def springSecurityService
     def beforeInterceptor = [action: this.&check, only: ['publish', 'myGames']]
 
-    /* Funções do Monitor de Exportação */
-    def getExportMonitor() {
-        def response = MonitorClusterSingleton.instance.getResourceExportMonitor(params.id)
-
-        render response.flags as JSON
-    }
-
-    def removeExportMonitor() {
-        def response = MonitorClusterSingleton.instance.removeResourceExportMonitor(params.id)
-        log.debug params.id + " export monitor removed from cluster."
-
-        render response
-    }
-    /* Funções do Monitor de Exportação */
-
-
     private check() {
         if (!session.user) {
             log.debug "Logout: session.user is NULL !"
@@ -248,18 +232,6 @@ class ExportedResourceController {
             def processType = process.definition.type
             def folders = []
 
-            /* ENTRADA NO CLUSTER DE MONITORES */
-            def platformList = []
-            if (desktop) platformList.add("desktop")
-            if (android) platformList.add("android")
-            if (moodle) platformList.add("moodle")
-            if (web) platformList.add("web")
-
-            def rem = new ResourceExportMonitor(platformList)
-            MonitorClusterSingleton.instance.setResourceExportMonitor(instance.id, rem)
-            log.debug instance.id + " export monitor added to cluster."
-            /* ENTRADA NO CLUSTER DE MONITORES */
-
             folders << "${desktopFolder}/windows/resources/app"
             folders << "${desktopFolder}/linux/resources/app"
             folders << "${desktopFolder}/mac/${resourceURI}.app/Contents/Resources/app"
@@ -315,20 +287,26 @@ class ExportedResourceController {
                 pw.close()
             }
 
+            // Lista de plataformas para as quais o jogo será exportado
+            def platformList = []
+            if (desktop) platformList.add("desktop")
+            if (android) platformList.add("android")
+            if (moodle) platformList.add("moodle")
+            if (web) platformList.add("web")
+            //if ([plataforma]) platformList.add("[plataforma]")
+
             def params = [
             /* 0 */    processType,
             /* 1 */    root,
             /* 2 */    resourceURI,
-            /* 3 */    instance,
+            /* 3 */    instance.id,
             /* 4 */    desktopFolder,
             /* 5 */    mobileFolder,
             /* 6 */    webFolder
             ]
 
-            if (web) exportWeb(ant, params)
-            if (android) exportAndroid(ant, params)
-            if (desktop) exportDesktop(ant, params)
-            // if (moodle) exportMoodle(ant, paramsList, urls)
+            render ([platforms:platformList, params:params, urls:urls] as JSON)
+            return
         }
 
         render urls as JSON
@@ -337,13 +315,17 @@ class ExportedResourceController {
     /*
      * Tratamento de publicação do jogo para plataformas Desktop
      */
-    def exportDesktop(ant, params) {
-        def processType = params[0]
-        def root = params[1]
-        def resourceURI = params[2]
-        def instance = params[3]
-        def desktopFolder = params[4]
+    def exportDesktop(params) {
+        def exp = params.get("params[]");
 
+        def ant = new AntBuilder()
+        def processType = exp[0]
+        def root = exp[1]
+        def resourceURI = exp[2]
+        def instanceId = exp[3]
+        def desktopFolder = exp[4]
+
+        def instance = ExportedResource.findById(instanceId)
         def scriptUpdateUnity = "${root}/scripts/unity/update.sh"
         def scriptUpdateElectron = "${root}/scripts/electron/update.sh"
 
@@ -374,21 +356,23 @@ class ExportedResourceController {
                 break
         }
 
-        // Funções de monitoramento
-        def monitor = MonitorClusterSingleton.instance.getResourceExportMonitor(instance.id)
-        monitor.setFlag("desktop", true)
+        render "OK"
     }
 
     /*
      * Tratamento de publicação do jogo para Android
      */
-    def exportAndroid(ant, params) {
-        def processType = params[0]
-        def root = params[1]
-        def resourceURI = params[2]
-        def instance = params[3]
-        def mobileFolder = params[5]
+    def exportAndroid(params) {
+        def exp = params.get("params[]");
 
+        def ant = new AntBuilder()
+        def processType = exp[0]
+        def root = exp[1]
+        def resourceURI = exp[2]
+        def instanceId = exp[3]
+        def mobileFolder = exp[5]
+
+        def instance = ExportedResource.findById(instanceId)
         def scriptBuildCrosswalk = "${root}/scripts/crosswalk/build.sh"
 
         switch (processType) {
@@ -411,34 +395,37 @@ class ExportedResourceController {
 
         }
 
-        // Funções de monitoramento
-        def monitor = MonitorClusterSingleton.instance.getResourceExportMonitor(instance.id)
-        monitor.setFlag("android", true)
+        render "OK"
     }
 
     /*
      * Tratamento de publicação do jogo para moodle
      */
-    def exportMoodle(ant, params, urls) {
+    /*
+    def exportMoodle(params) {
+        def ant = new AntBuilder()
         def instance = params[3]
 
-        instance.moodleUrl = urls.web
+        //instance.moodleUrl = urls.web
 
-        // Funções de monitoramento
-        def monitor = MonitorClusterSingleton.instance.getResourceExportMonitor(instance.id)
-        monitor.setFlag("moodle", true)
+        render "OK"
     }
+    */
 
     /*
      * Tratamento de publicação do jogo para Web
      */
-    def exportWeb(ant, params) {
-        def processType = params[0]
-        def root = params[1]
-        def resourceURI = params[2]
-        def instance = params[3]
-        def webFolder = params[6]
+    def exportWeb() {
+        def exp = params.get("params[]");
 
+        def ant = new AntBuilder()
+        def processType = exp[0]
+        def root = exp[1]
+        def resourceURI = exp[2]
+        def instanceId = exp[3]
+        def webFolder = exp[5]
+
+        def instance = ExportedResource.findById(instanceId)
         def scriptBuildWeb = "${root}/scripts/unity/buildweb.sh"
 
         switch (processType) {
@@ -470,9 +457,7 @@ class ExportedResourceController {
                 break
         }
 
-        // Funções de monitoramento
-        def monitor = MonitorClusterSingleton.instance.getResourceExportMonitor(instance.id)
-        monitor.setFlag("web", true)
+        render "OK"
     }
 
     def moodle(ExportedResource exportedResourceInstance) {

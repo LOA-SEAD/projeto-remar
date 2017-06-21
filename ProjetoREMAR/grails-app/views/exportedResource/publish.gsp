@@ -76,115 +76,109 @@
                 </g:if>
 
                 <li>
-                    <div id="plataforms" class="collapsible-header active" data-exported="true">
+                    <div id="platforms" class="collapsible-header active" data-exported="true">
                         Plataformas
                     </div>
 
                     <div class="collapsible-body">
-                        <aside class="plataforms-progress center">
-                            <div class="center">
-                                <p>Gerando o jogo para diferentes plataformas... </p>
-                            </div>
-                            <div class="preloader-wrapper big active">
-                                <div class="spinner-layer" style="border-color:#FF5722;">
-                                    <div class="circle-clipper left">
-                                        <div class="circle"></div>
-                                    </div>
-                                    <div class="gap-patch">
-                                        <div class="circle"></div>
-                                    </div>
-                                    <div class="circle-clipper right">
-                                        <div class="circle"></div>
-                                    </div>
-                                </div>
-
-                                <div class="spinner-layer" style="border-color:#5D4037;">
-                                    <div class="circle-clipper left">
-                                        <div class="circle"></div>
-                                    </div>
-                                    <div class="gap-patch">
-                                        <div class="circle"></div>
-                                    </div>
-                                    <div class="circle-clipper right">
-                                        <div class="circle"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </aside>
-
-                        <div id="exportProgress">
-
-                        </div>
-
-                        <div id="plataforms-icons" class="row" style="margin: 0;">
+                        <div id="platforms-icons" class="row" style="margin: 0;">
                             <div class="col s12">
-                                <a style="color: inherit" target="_blank">
-                                    <div id="web" class="col s6 m2">
-                                        <div class="row no-margin-bottom">
-                                            <i class="fa fa-globe big-platform-logo" data-tooltip="Web"></i>
-                                        </div>
-                                        <div class="row">
-                                            Web
-                                        </div>
-                                    </div>
-                                </a>
-                                <g:if test="${exportsTo.desktop}">
-                                    <a style="color: inherit">
-                                        <div class="col s6 m2 platform" data-text="Windows" data-name="windows">
-                                            <div class="row no-margin-bottom">
-                                                <i class="fa fa-windows big-platform-logo" data-tooltip="Windows"></i>
-                                            </div>
-                                            <div class="row">
-                                                Windows
-                                            </div>
-                                        </div>
-                                    </a>
-                                    <a style="color: inherit">
-                                        <div class="col s6 m2 platform" data-text="Linux (64 bits)"  data-name="linux">
-                                            <div class="row no-margin-bottom">
-                                                <i class="fa fa-linux big-platform-logo" data-tooltip="Linux"></i>
-                                            </div>
-                                            <div class="row">
-                                                Linux (64 bits)
-                                            </div>
-                                        </div>
-                                    </a>
 
-                                    <a style="color: inherit">
-                                        <div class="col s6 m2 platform" data-text="macOS" data-name="mac">
+                                <div id="web" class="platform-icon">
+                                    <a style="color: inherit" target="_blank">
+                                        <div class="col s6 m2 platform" data-text="Web" data-name="web">
                                             <div class="row no-margin-bottom">
-                                                <i class="fa fa-apple big-platform-logo" data-tooltip="Mac"></i>
+                                                <i class="fa fa-globe big-platform-logo"></i>
                                             </div>
-                                            <div class="row">
-                                                macOS
+                                            <div class="platform-title row">
+                                                Web
                                             </div>
                                         </div>
                                     </a>
+                                </div>
+
+                                <g:if test="${exportsTo.desktop}">
+                                    <div id="windows" class="platform-icon">
+                                        <a style="color: inherit">
+                                            <div class="col s6 m2 platform" data-text="Windows" data-name="windows">
+                                                <div class="row no-margin-bottom">
+                                                    <i class="fa fa-windows big-platform-logo"></i>
+                                                </div>
+                                                <div class="platform-title row">
+                                                    Windows
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div id="linux" class="platform-icon">
+                                        <a style="color: inherit">
+                                            <div class="col s6 m2 platform" data-text="Linux (64 bits)"  data-name="linux">
+                                                <div class="row no-margin-bottom">
+                                                    <i class="fa fa-linux big-platform-logo"></i>
+                                                </div>
+                                                <div class="platform-title row">
+                                                    Linux (64 bits)
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div id="mac" class="platform-icon">
+                                        <a style="color: inherit">
+                                            <div class="col s6 m2 platform" data-text="MacOS" data-name="mac">
+                                                <div class="row no-margin-bottom">
+                                                    <i class="fa fa-apple big-platform-logo"></i>
+                                                </div>
+                                                <div class="platform-title row">
+                                                    macOS
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </g:if>
 
                                 <g:if test="${exportsTo.android}">
-                                    <a style="color: inherit">
-                                        <div class="col s6 m2 platform" data-text="Android" data-name="android">
-                                            <div class="row no-margin-bottom">
-                                                <i class="fa fa-android big-platform-logo" data-tooltip="Android"></i>
+                                    <div id="android" class="platform-icon">
+                                        <a style="color: inherit">
+                                            <div class="col s6 m2 platform" data-text="Android" data-name="android">
+                                                <div class="row no-margin-bottom">
+                                                    <i class="fa fa-android big-platform-logo"></i>
+                                                </div>
+                                                <div class="platform-title row">
+                                                    Android
+                                                </div>
                                             </div>
-                                            <div class="row">
-                                                Android
-                                            </div>
-                                        </div>
-                                    </a>
+                                        </a>
+                                    </div>
                                 </g:if>
 
                                 <g:if test="${exportsTo.moodle}">
-                                    <div id="moodle" class="col s6 m2">
+                                    <div id="moodle" class="platform-icon col s6 m2">
                                         <div class="row no-margin-bottom">
                                             <i class="fa fa-graduation-cap big-platform-logo"></i>
                                         </div>
-                                        <div class="row">
+                                        <div class="platform-title row">
                                             Moodle
                                         </div>
                                     </div>
                                 </g:if>
+                            </div>
+                        </div>
+
+                        <div id="progress-viewer">
+                            <div class="progress">
+                                <div class="determinate" style="width: 1%">
+                                    <div id="inner-bar" class="progress">
+                                        <div class="indeterminate"></div>
+                                    </div>
+                                </div>
+                                <div id="progress-percentage">
+                                    <!-- Dynamically modified in javascript -->
+                                </div>
+                            </div>
+                            <div id="progress-text">
+                                <!-- Dynamically modified in javascript -->
                             </div>
                         </div>
                     </div>
@@ -264,7 +258,8 @@
 </div>
 
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
-<g:javascript src="exported-plataforms.js"/>
+<link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "export.css")}"/>
+<g:javascript src="exported-platforms.js"/>
 <g:javascript src="add-resource-to-group.js"/>
 <g:javascript src="licenseShow.js"/>
 <g:javascript src="imgPreview.js"/>
