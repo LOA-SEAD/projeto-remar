@@ -1,3 +1,5 @@
+<link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
+
 <main class="cardGames">
     <article class="row">
         <g:if test="${resourceInstanceList.size() == 0}">

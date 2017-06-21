@@ -7,3 +7,4 @@ test/
 grails-app/conf/env.properties
 LabTecA-grailsPlugins.iml
 LabTecA.iml
+web-app/data

@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
     <meta name="layout" content="materialize-layout">
     <style>
         .toast { line-height: 20px !important; }

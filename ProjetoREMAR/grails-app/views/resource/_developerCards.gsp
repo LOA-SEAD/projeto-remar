@@ -1,4 +1,5 @@
 <input type="hidden" id="resourceCount" value="${resourceInstanceList.size()}">
+<link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
 <g:each in="${resourceInstanceList}" status="i" var="resourceInstance">
     <div class=" col l3 m3 s6">
         <input type="hidden" id="cardStatus${i}" value="${resourceInstance.status}">

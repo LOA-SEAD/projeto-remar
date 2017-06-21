@@ -5589,23 +5589,23 @@ small {
       left: 0;
       right: 0; }
   .card.small {
-    height: 300px; }
+    height: 175.5px; }
     .card.small .card-image {
-      height: 150px; }
+      height: 175.5px; }
     .card.small .card-content {
-      height: 150px; }
+      height: 175.5px; }
   .card.medium {
-    height: 400px; }
+    height: 175.5px; }
     .card.medium .card-image {
-      height: 250px; }
+      height: 175.5px; }
     .card.medium .card-content {
-      height: 150px; }
+      height: 175.5px; }
   .card.large {
-    height: 500px; }
+    height: 175.5px; }
     .card.large .card-image {
-      height: 330px; }
+      height: 175.5px; }
     .card.large .card-content {
-      height: 170px; }
+      height: 175.5px; }
   .card .card-image {
     position: relative; }
     .card .card-image img {

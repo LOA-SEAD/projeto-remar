@@ -1,4 +1,5 @@
 <%@ page import="br.ufscar.sead.loa.remar.GroupExportedResources" %>
+<link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
 <main class="cardGames">
         <div class="row">
             <g:if test="${myExportedResourcesList.size() == 0}">
