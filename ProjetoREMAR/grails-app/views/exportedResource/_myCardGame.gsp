@@ -3,7 +3,6 @@
 <main class="cardGames">
         <div class="row">
             <g:if test="${myExportedResourcesList.size() == 0}">
-                %{--<p>Você ainda não possui nenhum jogo!</p>--}%
             </g:if>
             <g:else>
                 <g:each in="${myExportedResourcesList}" var="instance">
@@ -55,7 +54,6 @@
                                         <a style="font-size: 2em; color: black;" target="_blank" href="/published/${instance.processId}/desktop/${instance.resource.uri}-mac.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Mac"><i class="fa fa-apple"></i></a> <br>
                                     </div>
                                 </g:if>
-
                                 <div class="col l4">
                                     <g:if test="${instance.resource.android}">
                                         <a style="font-size: 2em; color: black;" target="_blank" href="/published/${instance.processId}/mobile/${instance.resource.uri}-android.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Android"><i class="fa fa-android"></i></a> <br>
@@ -67,12 +65,7 @@
                                     </g:if>
                                 </div>
                             </div>
-
-
                             <div class="divider"></div><br>
-
-
-
                             <div class="row">
                                 <div class="center">
                                     <div class="col l4">
@@ -81,7 +74,6 @@
                                             <i class="fa fa-info-circle" style="color: #FF5722;"></i>
                                         </a>
                                     </div>
-
                                     <div class="col l4">
                                         <a style="font-size: 2em;" onclick="deleteResource(${instance.id})"
                                            class="tooltipped"  data-position="down" data-delay="50" cursor="pointer" data-tooltip="Excluir">
@@ -106,7 +98,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                     <div id="modal-group-${instance.id}" class="modal col l6 offset-l3 s12">
@@ -170,4 +161,3 @@
         <g:javascript src="add-resource-to-group.js" />
         <g:applyLayout name="pagination"/>
     </main>
-
