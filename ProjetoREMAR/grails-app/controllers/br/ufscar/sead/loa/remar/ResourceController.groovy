@@ -121,7 +121,7 @@ class ResourceController {
             resourceInstance.desktop = 'desktop' in json.outputs
             resourceInstance.moodle = 'moodle' in json.outputs
             resourceInstance.web = 'web' in json.outputs
-            resourceInstance.type = json.type ? json.type : "html"
+            resourceInstance.type = json.type ? json.type.toLowerCase() : "html"
             resourceInstance.width = json.vars.width
             resourceInstance.height = json.vars.height
 
@@ -216,23 +216,38 @@ class ResourceController {
             def ant = new AntBuilder()
             def rootPath = servletContext.getRealPath('/')
             def scriptElectron = "${rootPath}/scripts/electron/build.sh"
+            def scriptUnity = "${rootPath}/scripts/unity/decompress.sh"
 
-            // Electron Script --> Projetos HTML para Desktop
-            if (resourceInstance.desktop &&
-                    resourceInstance.comment != "test" &&
-                    resourceInstance.type == "html")
-            {
-                ant.sequential {
-                    chmod(perm: "+x", file: scriptElectron)
-                    exec(executable: scriptElectron) {
-                        arg(value: rootPath)
-                        arg(value: resourceInstance.uri)
-                        arg(value: resourceInstance.name.replaceAll("\\s+",""))
-                    }
+            // Pré-processamento do código-fonte do jogo dependente do tipo
+            if (resourceInstance.desktop && resourceInstance.comment != "test") {
+                switch (resourceInstance.type) {
+                    case "html":
+                        log.debug "Running Electron Script for HTML desktop resource."
+                        ant.sequential {
+                            chmod(perm: "+x", file: scriptElectron)
+                            exec(executable: scriptElectron) {
+                                arg(value: rootPath)
+                                arg(value: resourceInstance.uri)
+                                arg(value: resourceInstance.name.replaceAll("\\s+",""))
+                            }
+                        }
+                        break
+                    case "unity":
+                        log.debug "Running Decompression Script for Unity desktop resource."
+                        ant.sequential {
+                            chmod(perm: "+x", file: scriptUnity)
+                            exec(executable: scriptUnity) {
+                                arg(value: rootPath)
+                                arg(value: resourceInstance.uri)
+                            }
+                        }
+                        break
+                    default:
+                        log.debug "No additional source code pre-processing needed for resource of type [" + resourceInstance.type + "]."
+                        break
                 }
-            } else {
-                if (resourceInstance.type != "html") println "Electron skipped. Project type is [" + resourceInstance.type + "]."
-                else if (!resourceInstance.desktop) println "Electron skipped. Project is not desktop."
+            } else if (!resourceInstance.desktop) {
+                log.debug "No additional source code pre-processing needed. Resource is not for desktop."
             }
 
             if (Environment.current == Environment.DEVELOPMENT) {

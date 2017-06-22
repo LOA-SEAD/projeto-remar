@@ -3,42 +3,37 @@
 #   $1: Application root path (where /data, /scripts, /data etc are located)
 #   $2: Game URI
 #   $3: The instance process ID
+#   $4: Game Name
 
 root=${1::-1}
 desktop="${root}/published/$3/desktop"
-
-# Make temporary directories
-mkdir ${desktop}/windows/temp
-mkdir ${desktop}/linux/temp
-mkdir ${desktop}/mac/temp
-
-# Unzip files to temporary directories
-cd ${root}/data/resources/sources/$2/base
-
-find windows.zip -type f | xargs unzip -d ${desktop}/windows/temp
-find linux.zip -type f | xargs unzip -d ${desktop}/linux/temp
-find mac.zip -type f | xargs unzip -d ${desktop}/mac/temp
+base="${root}/data/resources/sources/$2/base"
 
 # Copy generated resource files to each platform project's folder
 # Since the files generated are the same for all platforms, we can copy them to all projects at once
-cd ${desktop}/windows/resources/app
+cd ${root}/published/$3/desktop/windows/resources/app
 
 for FILE in *;
 do
-    cp ${FILE} ${desktop}/windows/temp/Assets/Resources/${FILE}
-    cp ${FILE} ${desktop}/linux/temp/Assets/Resources/${FILE}
-    cp ${FILE} ${desktop}/mac/temp/$2.app/Contents/Data/Resources/${FILE}
+    cp -v ${FILE} ${base}/windows/Assets/Resources/${FILE}
+    cp -v ${FILE} ${base}/linux/Assets/Resources/${FILE}
+    cp -v ${FILE} ${base}/mac/$4.app/Contents/Data/Resources/${FILE}
 done
 
 # With all files in their places, zip the source again
-cd ${desktop}/windows/temp
-zip -r ${desktop}/$2-windows.zip *
-cd ${desktop}/linux/temp
-zip -r ${desktop}/$2-linux.zip *
-cd ${desktop}/mac/temp/
-zip -r ${desktop}/$2-mac.zip *
+cd ${base}/windows
+zip -rq ${desktop}/$2-windows.zip *
+cd ${base}/linux
+zip -rq ${desktop}/$2-linux.zip *
+cd ${base}/mac
+zip -rq ${desktop}/$2-mac.zip *
 
-# Remove temporary folders
-rm -r ${desktop}/windows/temp
-rm -r ${desktop}/linux/temp
-rm -r ${desktop}/mac/temp
+# Remove custom files
+cd ${root}/published/$3/desktop/windows/resources/app
+
+for FILE in *;
+do
+    rm -v ${base}/windows/Assets/Resources/${FILE}
+    rm -v ${base}/linux/Assets/Resources/${FILE}
+    rm -v ${base}/mac/$4.app/Contents/Data/Resources/${FILE}
+done

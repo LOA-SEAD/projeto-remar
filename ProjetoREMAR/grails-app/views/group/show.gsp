@@ -121,6 +121,7 @@
         </ul>
     </div>
 </div>
+
 <!-- Modal Structure -->
 <div id="delete-modal" class="modal">
     <div class="modal-content">
@@ -133,6 +134,7 @@
         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Não</a>
     </div>
 </div>
+
 <!-- Modal Structure -->
 <div id="modal-user-in-group" class="modal">
     <div class="modal-content">
@@ -143,7 +145,6 @@
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
     </div>
 </div>
-<!-- Modal Structure -->
 
 <div class="divider"></div>
 
@@ -351,61 +352,14 @@
             </g:if>
         </div>
     </div>
+
+    
     <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <g:javascript src="delete-group-resources.js"/>
     <g:javascript src="manage-user-group.js"/>
     <g:javascript src="tooltip.js"/>
     <g:javascript src="edit-group.js"/>
-
-    <script>
-    $(document).ready(function(){
-        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-        $('.modal-trigger').leanModal();
-    });
-
-        $("#search-user").autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    type: 'GET',
-                    url: "/user/autocomplete",
-                    data: {
-                        query: request.term,
-                        group: ${group.id}
-                    },
-                    success: function (data) {
-                        response(data);
-                        $("#user-id").val('');
-
-                    }, statusCode: {
-                        403: function (response) {
-                            $("#modal-message").html(response.responseText);
-                            $('#modal-user-in-group').openModal();
-                        }
-                    }
-                })
-            },
-            select: function (event, ui) {
-                event.preventDefault();
-                $("#user-id").val(ui.item.value);
-
-            },
-            focus: function (event, ui) {
-                event.preventDefault();
-                if (ui.item.inGroup == true) {
-                    //TODO
-                }
-                $(this).val(ui.item.label);
-            },
-            messages: {
-                noResults: '',
-                results: function () {
-                }
-            },
-            minLength: 1
-        });
-
-    </script>
     <g:javascript src="jquery/jquery.validate.js"/>
     <g:javascript src="tooltip.js"/>
 </body>
