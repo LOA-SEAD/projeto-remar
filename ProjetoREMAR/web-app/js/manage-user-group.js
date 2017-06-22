@@ -1,6 +1,53 @@
 /**
  * Created by deniscapp on 6/9/16.
  */
+ $(document).ready(function () {
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+
+    $("#search-user").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                type: 'GET',
+                url: "/user/autocomplete",
+                data: {
+                    query: request.term,
+                    group: ${group.id}
+                },
+                success: function (data) {
+                    response(data);
+                    $("#user-id").val('');
+                }, statusCode: {
+                    403: function (response) {
+                        $("#modal-message").html(response.responseText);
+                        $('#modal-user-in-group').openModal();
+                    }
+                }
+            })
+        },
+
+        select: function (event, ui) {
+            event.preventDefault();
+            $("#user-id").val(ui.item.value);
+        },
+
+        focus: function (event, ui) {
+            event.preventDefault();
+            if (ui.item.inGroup == true) {
+                //TODO
+            }
+            $(this).val(ui.item.label);
+        },
+
+        messages: {
+            noResults: '',
+            results: function () {}
+        },
+
+        minLength: 1
+    });
+ });
+
 $(window).load(function(){
     $('.modal-trigger').leanModal();
     $('.tooltipped').tooltip({delay: 50});
@@ -65,7 +112,7 @@ $(window).load(function(){
                         $(noUsers).html("Nenhum usuário foi adicionado à este grupo.");
                         $(usersCollection).append(noUsers).fadeIn(300);
                     }
-               
+
 
 
                 Materialize.toast("Usuário removido!", 3000, "rounded");

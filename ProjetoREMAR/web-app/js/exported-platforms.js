@@ -23,9 +23,10 @@ $(document).ready(function () {
             var platformCounter;
             var finished = 0;
 
+            $('#progress-text').text('Estamos exportando seu jogo para diversas plataformas, por favor aguarde...')
+
             // Exportação para plataforma web
             if (resp.platforms.includes('web')) {
-                updateProgressText('Exportando versão Web');
                 URL = '/exported-resource/exportWeb';
 
                 // Apenas a exportação para web ẽ assĩncrona, para garantir que terminará primeiro que as demais
@@ -62,7 +63,6 @@ $(document).ready(function () {
 
             // Exportação para plataforma desktop
             if (resp.platforms.includes('desktop')) {
-                updateProgressText('Exportando versão Desktop (Windows/Linux/MacOS)');
                 URL = '/exported-resource/exportDesktop';
 
                 $.ajax ({
@@ -100,7 +100,6 @@ $(document).ready(function () {
 
             // Exportação para plataforma android
             if (resp.platforms.includes('android')) {
-                updateProgressText('Exportando versão Android')
                 URL = '/exported-resource/exportAndroid';
 
                 $.ajax ({
@@ -146,10 +145,6 @@ $(document).ready(function () {
         }
     });
 });
-
-function updateProgressText(text) {
-    $('#progress-text').html(text);
-}
 
 function updateProgress(finished, total) {
     progressPercentage = ( finished / total ) * 100;
