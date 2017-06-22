@@ -281,9 +281,15 @@ class ProcessController {
             return
         }
 
-        ant.copy(todir: "${instanceFolder}/web") {
-            fileset(dir: servletContext.getRealPath("/data/resources/sources/${resource.uri}/base"),
-                    excludes: "*.zip")
+        // LEGACY: Jogos feitos em HTML/CSS/JS seguem o seguinte comportamento. Mudar esse código pode
+        // quebrar o sistema de exportação posterior. Atualmente, jogos feitos em Unity seguem outro
+        // workflow que não precisa da cópia de todos os arquivos de código-fonte para a pasta web
+        // do jogo exportado.
+        if (process.definition.type == "html") {
+            ant.copy(todir: "${instanceFolder}/web") {
+                fileset(dir: servletContext.getRealPath("/data/resources/sources/${resource.uri}/base"),
+                        excludes: "*.zip")
+            }
         }
 
         def pathImgPrev = servletContext.getRealPath("/data/processes/${process.id}")

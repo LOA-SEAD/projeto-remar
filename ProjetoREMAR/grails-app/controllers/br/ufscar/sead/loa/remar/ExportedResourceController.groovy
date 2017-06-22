@@ -298,7 +298,7 @@ class ExportedResourceController {
             def params = [
             /* 0 */    processType,
             /* 1 */    root,
-            /* 2 */    resourceURI,
+            /* 2 */    instance.resource.id,
             /* 3 */    instance.id,
             /* 4 */    desktopFolder,
             /* 5 */    mobileFolder,
@@ -317,26 +317,27 @@ class ExportedResourceController {
      */
     def exportDesktop(params) {
         def exp = params.get("params[]");
+        def resource = Resource.findById(exp[2])
+        def instance = ExportedResource.findById(exp[3])
 
         def ant = new AntBuilder()
         def processType = exp[0]
         def root = exp[1]
-        def resourceURI = exp[2]
-        def instanceId = exp[3]
         def desktopFolder = exp[4]
 
-        def instance = ExportedResource.findById(instanceId)
         def scriptUpdateUnity = "${root}/scripts/unity/update.sh"
         def scriptUpdateElectron = "${root}/scripts/electron/update.sh"
 
         switch (processType) {
             case "unity" :
+                log.debug "Started Unity Desktop Script"
                 ant.sequential {
                     chmod(perm: "+x", file: scriptUpdateUnity)
                     exec(executable: scriptUpdateUnity) {
                         arg(value: root)
-                        arg(value: resourceURI)
+                        arg(value: resource.uri)
                         arg(value: instance.processId)
+                        arg(value: resource.name)
                     }
                 }
 
@@ -344,11 +345,12 @@ class ExportedResourceController {
                 break
 
             default /* HTML */ :
+                log.debug "Started Electron Script"
                 ant.sequential {
                     chmod(perm: "+x", file: scriptUpdateElectron)
                     exec(executable: scriptUpdateElectron) {
                         arg(value: desktopFolder)
-                        arg(value: resourceURI)
+                        arg(value: resource.uri)
                     }
                 }
 
@@ -365,14 +367,14 @@ class ExportedResourceController {
     def exportAndroid(params) {
         def exp = params.get("params[]");
 
+        def resource = Resource.findById(exp[2])
+        def instance = ExportedResource.findById(exp[3])
+
         def ant = new AntBuilder()
         def processType = exp[0]
         def root = exp[1]
-        def resourceURI = exp[2]
-        def instanceId = exp[3]
         def mobileFolder = exp[5]
 
-        def instance = ExportedResource.findById(instanceId)
         def scriptBuildCrosswalk = "${root}/scripts/crosswalk/build.sh"
 
         switch (processType) {
@@ -380,12 +382,13 @@ class ExportedResourceController {
                 log.debug "Unity::Android not yet implemented"
                 break
             default /* HTML */:
+                log.debug "Started Crosswalk Script"
                 ant.sequential {
                     chmod(perm: "+x", file: scriptBuildCrosswalk)
                     exec(executable: scriptBuildCrosswalk) {
                         arg(value: root)
                         arg(value: mobileFolder)
-                        arg(value: resourceURI)
+                        arg(value: resource.uri)
                         arg(value: instance.name)
                     }
                 }
@@ -418,23 +421,24 @@ class ExportedResourceController {
     def exportWeb() {
         def exp = params.get("params[]");
 
+        def resource = Resource.findById(exp[2])
+        def instance = ExportedResource.findById(exp[3])
+
         def ant = new AntBuilder()
         def processType = exp[0]
         def root = exp[1]
-        def resourceURI = exp[2]
-        def instanceId = exp[3]
         def webFolder = exp[5]
 
-        def instance = ExportedResource.findById(instanceId)
         def scriptBuildWeb = "${root}/scripts/unity/buildweb.sh"
 
         switch (processType) {
             case "unity" :
+                log.debug "Started Unity Web Script"
                 ant.sequential {
                     chmod(perm: "+x", file: scriptBuildWeb)
                     exec(executable: scriptBuildWeb) {
                         arg(value: root)
-                        arg(value: resourceURI)
+                        arg(value: resource.uri)
                         arg(value: instance.processId)
                     }
                 }
