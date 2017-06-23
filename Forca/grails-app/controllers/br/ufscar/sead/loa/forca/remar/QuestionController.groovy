@@ -153,9 +153,9 @@ class QuestionController {
         def builder = new JsonBuilder()
         def json = builder(
                 list.collect { p ->
-                    ["palavra"     : p.getAnswer().toUpperCase().replace("\"","\\\""),
-                     "dica"        : p.getStatement().replace("\"","\\\""),
-                     "contribuicao": p.getAuthor().replace("\"","\\\"")]
+                    ["palavra"     : p.getAnswer().toUpperCase(),
+                     "dica"        : p.getStatement(),
+                     "contribuicao": p.getAuthor()]
                 }
         )
 
