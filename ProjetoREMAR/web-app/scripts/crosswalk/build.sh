@@ -3,7 +3,7 @@
 # $1: Application root path (where /data, /scripts, /data etc are located)
 # $2: Mobile Folder
 # $3: Game uri
-# $4: Game name
+# $4: Process ID
 
 export ANDROID_HOME="/dev-tools/android"
 export CROSSWALK_PATH="/dev-tools/crosswalk"
@@ -32,10 +32,7 @@ cp -r $2/assets/www/* .
 
 sed -i.bkp "s/NAME/$4/" manifest.json
 
-name=${4,,}
-name=${name//[[:blank:]]/}
-
-${CROSSWALK_PATH}/make_apk.py --package br.ufscar.sead.loa.remar.published.$3.$name --manifest manifest.json --target-dir . --verbose
+${CROSSWALK_PATH}/make_apk.py --package br.ufscar.sead.loa.remar.published.$3$4 --manifest manifest.json --target-dir . --verbose
 
 mv *.apk $2
 

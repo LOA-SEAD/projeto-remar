@@ -389,7 +389,7 @@ class ExportedResourceController {
                         arg(value: root)
                         arg(value: mobileFolder)
                         arg(value: resource.uri)
-                        arg(value: instance.name)
+                        arg(value: instance.processId)
                     }
                 }
 
