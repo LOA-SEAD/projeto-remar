@@ -80,7 +80,6 @@
                                             <i class="fa fa-trash" style="color: #FF5722;"></i>
                                         </a>
                                     </div>
-
                                     <g:if test="${instance.resource.shareable}">
                                         <div class="col l4">
                                             <a style="font-size: 2em;" href="#modal-group-${instance.id}" class="tooltipped modal-trigger" data-position="down" data-delay="50" data-tooltip="Compartilhar para grupos">
@@ -147,9 +146,7 @@
                                 <g:else> 
                                     <input type="hidden" name="exportedresource" value="${instance.id}">
                                     <div class="row">
-                                        <button data-instance-id="${instance.id}" style=" top: 0.8em; right: -1.2em; position:relative;" class="btn waves-effect waves-light" type="submit" name="action">Compartilhar
-                                            <i class="material-icons right">send</i>
-                                        </button>
+                                        <button data-instance-id="${instance.id}" style=" top: 0.8em; right: -1.2em; position:relative;" class="btn waves-effect waves-light remar-orange" type="submit" name="action">Compartilhar</button>
                                     </div>
                                 </g:else>
                             </ul>
