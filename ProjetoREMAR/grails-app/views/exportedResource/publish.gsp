@@ -168,9 +168,7 @@
                        <div class="collapsible-header active"><i class="material-icons">people</i>Compartilhar para grupos </div>
                        <div class="collapsible-body">
                           <ul class="collection with-header">
-                             %{--<g:if test="${!groupsIOwn.isEmpty()}">--}%
-                            %{--<g:each var="group" in="${groupsIOwn}">--}%
-                                %{--<li class="collection-item">--}%
+
                             <div class="col l12">
                                     <a href="#modal-group-${exportedResourceInstance.id}" class="tooltipped modal-trigger" data-position="down" data-delay="50" data-tooltip="Compartilhar para grupos">
                                        Compartilhar para grupo(s)
@@ -235,69 +233,13 @@
                             <g:else>
                                 <input type="hidden" name="exportedresource" value="${exportedResourceInstance.id}">
                                 <div class="row">
-                                    <button data-instance-id="${exportedResourceInstance.id}" style=" top: 0.8em; right: -2.4em; position:relative;" class="btn waves-effect waves-light" type="submit" name="action">Compartilhar
-                                        <i class="material-icons right">send</i>
+                                    <button data-instance-id="${exportedResourceInstance.id}" style=" top: 0.8em; right: -2.4em; position:relative;" class="btn waves-effect waves-light remar-orange" type="submit" name="action">Compartilhar
                                     </button>
                                 </div>
                             </g:else>
                         </ul>
                     </div>
                 </div>
-%{--                <li id="groups">
-                    <div class="collapsible-header active"><i class="material-icons">people</i>Compartilhar para grupos </div>
-                    <div class="collapsible-body">
-                        <ul class="collection with-header">
-                        <g:if test="${!groupsIOwn.isEmpty()}">
-                            <g:each var="group" in="${groupsIOwn}">
-                                <li class="collection-item">
-                                    <div class="left-align">
-                                    <p>${group.name}</p>
-                                        <p>
-                                            Dono: ${group.owner.firstName + " " + group.owner.lastName}<br>
-                                        </p>
-
-                                    </div>
-                                    <g:if test="${!GroupExportedResources.findByGroupAndExportedResource(group,exportedResourceInstance)}">
-                                        <input name="groupsid" class="group-input" id="groups-${group.id}-instance-${exportedResourceInstance.id}" value="${group.id}" type="checkbox">
-                                    </g:if>
-                                    <g:else>
-                                        <input name="groupsid2" id="groups-${group.id}-instance-${exportedResourceInstance.id}" checked="checked" disabled="disabled" type="checkbox">
-                                    </g:else>
-                                    <label style="position:relative; bottom: 2em;" for="groups-${group.id}-instance-${exportedResourceInstance.id}" class="secondary-content"></label>
-                                </li>
-                            </g:each>
-                        </g:if>
-                        <g:if test="${!groupsIAdmin.isEmpty()}">
-                            <g:each var="group" in="${groupsIAdmin}">
-                                <li class="collection-item">
-                                    <div>
-                                        <p>${group.name}</p>
-                                        <p>
-                                            Dono: ${group.owner.firstName + " " + group.owner.lastName}<br>
-                                        </p>
-                                    </div>
-                                    <g:if test="${!GroupExportedResources.findByGroupAndExportedResource(group,exportedResourceInstance)}">
-                                            <input name="groupsid" id="groups-${group.id}-instance-${exportedResourceInstance.id}" value="${group.id}" type="checkbox">
-                                    </g:if>
-                                    <g:else>
-                                        <input name="groupsid2"  checked="checked" disabled="disabled" type="checkbox">
-                                    </g:else>
-                                    <label style="position:relative; bottom: 2em;" for="groups-${group.id}-instance-${exportedResourceInstance.id}" class="secondary-content"></label>
-                                    </li>
-                            </g:each>
-                        </g:if>
-                        <g:if test="${groupsIAdmin.isEmpty() && groupsIAdmin.isEmpty()}">
-                            <li class="collection-header"><h5>Você não possui grupos disponíveis</h5></li>
-                        </g:if>
-                        <g:else>
-                            <div class="row">
-                                <button data-instance-id="${exportedResourceInstance.id}" style="left:2.8em; top: 0.8em; position:relative;" class="btn waves-effect waves-light my-orange" type="submit" name="action">Compartilhar</button>
-                            </div>
-                        </g:else>
-                        </ul>
-                    </div>
-                </li>--}%
-                %{--</g:if>--}%
             </ul>
         </div>
     </li>
