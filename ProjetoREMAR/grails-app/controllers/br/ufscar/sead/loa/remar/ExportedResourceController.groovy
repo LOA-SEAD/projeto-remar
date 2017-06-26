@@ -429,11 +429,10 @@ class ExportedResourceController {
         def root = exp[1]
         def webFolder = exp[5]
 
-        def scriptBuildWeb = "${root}/scripts/unity/buildweb.sh"
-
         switch (processType) {
             case "unity" :
                 log.debug "Started Unity Web Script"
+                def scriptBuildWeb = "${root}/scripts/unity/buildweb.sh"
                 ant.sequential {
                     chmod(perm: "+x", file: scriptBuildWeb)
                     exec(executable: scriptBuildWeb) {
@@ -448,6 +447,11 @@ class ExportedResourceController {
                 break
             default /* HTML */ :
                 def jsonPathWeb = "${root}/published/${instance.processId}/web"
+                def builder = new JsonBuilder()
+                def remarJson = builder{
+                    exportedResourceId instance.id
+                }
+                def jsonName = "remar.json"
                 File file = new File("$jsonPathWeb/$jsonName")
                 PrintWriter pw = new PrintWriter(file)
                 pw.write(builder)
