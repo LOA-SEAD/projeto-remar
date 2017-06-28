@@ -20,7 +20,7 @@ services:
   remar:
       image: lucasaciole/projeto-remar
       environment:
-          - TZ:America/Sao_Paulo
+        - "TZ=America/Sao_Paulo"
       restart: always
       ports:
         - '80:8080'
