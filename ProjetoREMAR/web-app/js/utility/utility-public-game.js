@@ -10,16 +10,12 @@
 $(function(){
     var select = $("select");
     $(select).material_select();
-
     $("#search").on("keyup",function(){
         var catSelected = $(select).val();
         var formData = new FormData();
         formData.append('text', $(this).val());
         formData.append('category', catSelected);
-
-
         console.log($(this).val());
-
         $.ajax({
             url: "/exported-resource/searchGameByCategoryAndName",
             type: 'POST',
@@ -27,14 +23,11 @@ $(function(){
             processData: false,
             contentType: false,
             success: function (response) {
-
                 $(".cardGames").remove();
                 $("#showCards").append(response);
-
                 $(".next-page").each(function() {
                     $(this).on("click",listerNextPage)
                 });
-
                 addMaterializeDepedences();
             },
             error: function () {
@@ -46,14 +39,10 @@ $(function(){
     $(select).change(function(){
         var catSelected = $(select).val();
         var text = $("#search").val();
-
         var formData = new FormData();
         formData.append('category', catSelected);
         formData.append('text', text);
-
-
         console.log($(this).val());
-
         $.ajax({
             url: "/exported-resource/searchGameByCategoryAndName",
             type: 'POST',
@@ -61,14 +50,12 @@ $(function(){
             processData: false,
             contentType: false,
             success: function (response) {
-
                 $(".cardGames").remove();
                 $("#showCards").append(response);
 
                 $(".next-page").each(function() {
                     $(this).on("click",listerNextPage)
                 });
-
                 addMaterializeDepedences();
             },
             error: function () {
@@ -76,20 +63,15 @@ $(function(){
             }
         });
     });
-
     $(".next-page").click(listerNextPage);
-
     function listerNextPage(){
         var catSelected = $(select).val();
         var text = $("#search").val();
-
         var formData = new FormData();
         formData.append('category', catSelected);
         formData.append('text', text);
-
         console.log("max="+$(this).attr("data-max"));
         console.log("offset="+$(this).attr("data-offset"));
-
         $.ajax({
             url: "/exported-resource/searchGameByCategoryAndName?max="+$(this).attr("data-max")+"&offset="+$(this).attr("data-offset"),
             type: 'POST',
@@ -99,13 +81,10 @@ $(function(){
             success: function (response) {
                 $(".cardGames").remove();
                 $("#showCards").append(response);
-
                 $(".next-page").each(function() {
                     $(this).on("click",listerNextPage)
                 });
-
                 addMaterializeDepedences();
-
                 goToByScroll("title-page");
             },
             error: function () {
@@ -116,13 +95,12 @@ $(function(){
 });
 
 function addMaterializeDepedences(){
-
     //inicializa componentes bootstrap
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});
 }
 
-$(".user-profile").click(function() {
+$(".user-profile").click(function(){
     var id = $(this).attr("id").substr(8);
     var url = location.origin + "/user/profile/" + id;
     $.ajax({
@@ -140,4 +118,3 @@ $(".user-profile").click(function() {
         }
     });
 });
-

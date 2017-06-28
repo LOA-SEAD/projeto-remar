@@ -112,10 +112,10 @@
                                                 </p>
                                             </div>
                                             <g:if test="${!GroupExportedResources.findByGroupAndExportedResource(group,instance)}">
-                                                <input name="groupsid" class="filled-in" id="groups-${group.id}-instance-${instance.id}" value="${group.id}" type="checkbox">
+                                                <input name="groupsid" class="filled-in" id="groups-${group.id}-instance-${instance.id}" value="${group.id}" type="checkbox" onchange="document.getElementById('groups-${group.id}-instance-${instance.id}').disabled = !this.checked;">
                                             </g:if>
                                             <g:else>
-                                                <input name="groupsid2"  checked="checked" disabled="disabled" type="checkbox">
+                                                <input name="groupsid2" checked="checked" disabled="disabled" type="checkbox" onchange="document.getElementById('groups-${group.id}-instance-${instance.id}').disabled = !this.checked;">
                                             </g:else>
                                             <label style="position:relative; bottom: 2em;" for="groups-${group.id}-instance-${instance.id}" class="secondary-content"></label>
                                         </li>
@@ -131,10 +131,10 @@
                                                 </p>
                                             </div>
                                             <g:if test="${!GroupExportedResources.findByGroupAndExportedResource(group,instance)}">
-                                                <input name="groupsid" class="filled-in" id="groups-${group.id}-instance-${instance.id}" value="${group.id}" type="checkbox">
+                                                <input name="groupsid" class="filled-in" id="groups-${group.id}-instance-${instance.id}" value="${group.id}" type="checkbox" onchange="document.getElementById('groups-${group.id}-instance-${instance.id}').disabled = !this.checked;">
                                             </g:if>
                                             <g:else>
-                                                <input name="groupsid2"  checked="checked" disabled="disabled" type="checkbox">
+                                                <input name="groupsid2" checked="checked" disabled="disabled" type="checkbox" onchange="document.getElementById('groups-${group.id}-instance-${instance.id}').disabled = !this.checked;">
                                             </g:else>
                                             <label style="position:relative; bottom: 2em;" for="groups-${group.id}-instance-${instance.id}" class="secondary-content"></label>
                                         </li>

@@ -2,11 +2,9 @@
  * Created by deniscapp on 6/9/16.
  */
 $(window).load(function() {
-
     $("button").click( function() {
         addToGroups(this);
     });
-
     $('.modal-trigger').leanModal({
             dismissible: true, // Modal can be dismissed by clicking outside of the modal
             opacity: .5, // Opacity of modal background
@@ -47,4 +45,4 @@ function addToGroups(_this) {
             })
         } else
             Materialize.toast("Por favor, selecione pelo menos um grupo", 5000);
-    }
+}

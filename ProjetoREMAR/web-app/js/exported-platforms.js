@@ -23,7 +23,8 @@ $(document).ready(function () {
             var platformCounter;
             var finished = 0;
 
-            $('#progress-text').text('Estamos exportando seu jogo para diversas plataformas, por favor aguarde...')
+            $('#progress-text').text('Estamos exportando seu jogo para diversas plataformas, por favor aguarde...');
+            updateProgress(1,100);
 
             // Exportação para plataforma web
             if (resp.platforms.includes('web')) {
@@ -140,7 +141,8 @@ $(document).ready(function () {
                 } else {
                     console.log ('Exportação ainda não concluída');
                 }
-            }, 1000);
+
+            },1000);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             console.log('Failed to start export process for resource ' + ID + ' with error: ');
