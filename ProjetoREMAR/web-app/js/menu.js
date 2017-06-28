@@ -3,7 +3,6 @@
  */
 
 $(document).ready(function() {
-
     $('.rating-card').each(function() {
         $(this).rateYo({
             readOnly: true,
@@ -16,8 +15,6 @@ $(document).ready(function() {
 });
 
 function deleteResource(id, processID){
-    //console.log(id);
-    //console.log(processID);
     var formData = new FormData();
     if(confirm("Deseja mesmo excluir este jogo?")){
         $.ajax({
@@ -34,8 +31,8 @@ function deleteResource(id, processID){
             }
         });
     }
-
 }
+
 
 // This is a functions that scrolls to #{blah}link
 function goToByScroll(id){

@@ -5,14 +5,12 @@
   Time: 13:57
   Desc: Tela que lista os jogos públicos
 --%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Jogos Públicados</title>
     <meta name="layout" content="materialize-layout">
 </head>
-
 <body>
 <div class="row">
     <div class="cluster-header">
@@ -22,13 +20,11 @@
 
         <div class="divider"></div>
     </div>
-
     <div class="row search">
         <div class="input-field col s6">
             <input id="search" type="text" placeholder="Buscar jogo" class="validate" autocomplete="off">
             <label for="search"><i class="fa fa-search" ></i></label>
         </div>
-
         <div class="input-field col s6">
             <select>
                 <option class="option" value="-1" selected>Todas</option>
@@ -41,22 +37,20 @@
             <label>Categoria</label>
         </div>
     </div>
-
-
     <div style="position:relative; left: 1.2em" id="showCards" class="row ">
         <g:render template="cardGames" model="${pageScope.variables}" />
     </div>
 </div>
-<div id="userDetailsModal" class="modal" style="width:40%">
+<div id="userDetailsModal" class="modal remar-modal">
     <div class="modal-content">
+        <h4>Informações de Usuário</h4>
     </div>
     <div class="modal-footer">
-        <button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
+        <a href="#!" class="modal-action modal-close btn waves-effect waves-light my-orange">OK</a>
     </div>
 </div>
 <script>
     $(document).ready(function(){
-        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('.modal-trigger').leanModal();
     });
 </script>
