@@ -136,9 +136,12 @@ $(document).ready(function () {
             var clearProgress = setInterval(function () {
                 if (finished == platformCounter) {
                     $('#progress-viewer').hide(1000);
+                    console.log ('Exportação concluída');
                     clearInterval(clearProgress);
+                } else {
+                    console.log ('Exportação ainda não concluída');
                 }
-            },1000);
+            }, 1000);
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             console.log('Failed to start export process for resource ' + ID + ' with error: ');

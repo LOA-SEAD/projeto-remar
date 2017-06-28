@@ -17,7 +17,7 @@ mkdir $2/tmp
 
 cd $2/tmp
 
-cp -r $1/data/resources/sources/$3/base/* .
+cp -r ${1::-1}/data/resources/sources/$3/base/* .
 
 cp $1/scripts/crosswalk/manifest.json .
 cp $1/scripts/.REMAR .
