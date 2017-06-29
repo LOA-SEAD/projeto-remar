@@ -133,7 +133,7 @@
     </div>
 
     <g:javascript src="jquery/jquery.validate.js"/>
-    <g:javascript src="manage-user-group.js"/>
+    <g:javascript src="group/manage-user-group.js"/>
     <script>
         $(document).ready(function(){
             $('ul.tabs').tabs();

@@ -50,7 +50,7 @@
             <div class="input-field col l3 offset-l2 m4">
                 <input class="user-input" type="text" placeholder="Procure por um usuário" name="term" id="search-user"
                        required>
-                <input type="hidden" value="" id="user-id" name="userid">
+                <input type="hidden" value="" id="search-username" name="search-username">
             </div>
 
             <div class="col l3">
@@ -61,7 +61,7 @@
             </div>
         </form>
     </g:if>
-    <input type="hidden" value="${group.id}" name="groupid">
+    <input type="hidden" value="${group.id}" id="group-id" name="groupid">
 </div>
 
 <!-- Modal Structure -->
@@ -353,13 +353,18 @@
         </div>
     </div>
 
-    
+    <div id="ranking" class="row">
+
+    </div>
+
+
     <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <g:javascript src="delete-group-resources.js"/>
-    <g:javascript src="manage-user-group.js"/>
+    <g:javascript src="group/delete-group-resources.js"/>
+    <g:javascript src="group/manage-user-group.js"/>
+    <g:javascript src="group/edit-group.js"/>
+    <g:javascript src="group/group-ranking.js"/>
     <g:javascript src="tooltip.js"/>
-    <g:javascript src="edit-group.js"/>
     <g:javascript src="jquery/jquery.validate.js"/>
     <g:javascript src="tooltip.js"/>
 </body>

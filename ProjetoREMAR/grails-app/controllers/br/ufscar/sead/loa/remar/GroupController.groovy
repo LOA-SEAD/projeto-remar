@@ -175,7 +175,7 @@ class GroupController {
                                                    points       : it.points, partialPoints: it.partialPoints, errors: it.errors,
                                                    gameSize     : it.gameSize, gameType: it.gameType ])
                                 } else if(it.gameType == "multipleChoice"){
-                                    allStats.push([timeStamp    : it.timestamp, levelId: it.levelId, win: it.win, choice: it.choice, 
+                                    allStats.push([timeStamp    : it.timestamp, levelId: it.levelId, win: it.win, choice: it.choice,
                                                 choices: it.choices, errors: it.errors, gameSize: it.gameSize, gameType: it.gameType ])
                                 }
                             }
@@ -219,10 +219,11 @@ class GroupController {
     }
 
     def addUserAutocomplete(){
-
         def group = Group.findById(params.groupid)
-        if(group.owner.id == session.user.id || UserGroup.findByUserAndGroupAndAdmin(session.user,group,true)) {
-            def user = User.findById(params.userid)
+
+        if(group.owner.id == session.user.id || UserGroup.findByUserAndGroupAndAdmin(session.user, group, true)) {
+            def user = User.findByUsername(params.username)
+            log.debug ("Attempting to add user " + params.username + " to group " + params.groupid)
             if(user) {
                 if (!UserGroup.findByUserAndGroup(User.findById(user.id), group) && !(group.owner.id == user.id)) {
                     def userGroup = new UserGroup()
@@ -230,34 +231,35 @@ class GroupController {
                     userGroup.user = user
                     userGroup.save flush: true
 
+                    log.debug ("Success!")
                     render status:200, template: "newUserGroup", model: [userGroup: userGroup]
-                } else
+                } else {
+                    log.debug ("Failed! User is already in group.")
                     render status: 403, text: "Usuário já pertence ao grupo."
-
-            }else
+                }
+            } else {
+                log.debug ("Failed! User not found.")
                 render status: 404, text: "Usuário não encontrado."
-
-
+            }
         }
     }
 
-    def addUserByToken(){
+    def addUserByToken () {
         if(params.membertoken != ""){
             def userGroup = new UserGroup()
             def group = Group.findByToken(params.membertoken)
-            if(group) {
+            if (group) {
                 def user = User.findById(session.user.id)
-                if(!UserGroup.findByUserAndGroup(User.findById(user.id), group)) {
+                if (!UserGroup.findByUserAndGroup(User.findById(user.id), group)) {
                     userGroup.group = group
                     userGroup.user = user
                     userGroup.save flush: true
                     render status: 200, template: "newGroup", model: [group: group]
-                }else
+                } else
                     render status: 403, text: "Você já pertence a este grupo."
-            }else
+            } else
                 render status: 404, text: "Grupo não encontrado"
-
-        }else
+        } else
             render status: 404, text: "Grupo não encontrado"
 
     }
@@ -266,5 +268,25 @@ class GroupController {
         println(params.name)
         def group = Group.findByNameAndOwner(params.name, session.user)
         render group
+    }
+
+    def rankUsers() {
+        def group = Group.findById(params.id)
+
+        log.debug(params.id)
+        log.debug(group)
+
+        def userGroups = UserGroup.findAllByGroup(group)
+        def users = []
+
+        log.debug(userGroups)
+
+        for (userGroup in userGroups) {
+            log.debug(userGroup)
+            def user = userGroup.user
+            users.add(user)
+        }
+
+        render text: users
     }
 }
