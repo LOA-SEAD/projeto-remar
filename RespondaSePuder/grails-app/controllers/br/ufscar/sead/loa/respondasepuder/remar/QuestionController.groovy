@@ -189,7 +189,7 @@ class QuestionController {
             bw.write("\"" + (i+1) + "\": [\"" + questionList.getAt(i).title.replace("\"","\\\"") + "\", ")
             switch(questionList.getAt(i).correctAnswer){
                 case 0:
-                    bw.write("\""+ questionList.getAt(i).answers[0.replace("\"","\\\"")] +"\", " + "\""+ questionList.getAt(i).answers[1].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[2].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[3].replace("\"","\\\"") +"\", " )
+                    bw.write("\""+ questionList.getAt(i).answers[0].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[1].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[2].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[3].replace("\"","\\\"") +"\", " )
                     break;
                 case 1:
                     bw.write("\""+ questionList.getAt(i).answers[1].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[0].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[2].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[3].replace("\"","\\\"") +"\", " )
