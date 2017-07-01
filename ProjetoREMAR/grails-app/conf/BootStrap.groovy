@@ -45,26 +45,6 @@ class BootStrap {
             )
             admin.save flush: true
 
-            def user1 = new User(
-                    username: "gustavo",
-                    password: "160870",
-                    email: "loa22@sead.ufscar.br",
-                    firstName: "Gustavo",
-                    lastName: "Braghim",
-                    enabled: true
-            )
-            user1.save flush: true
-
-            def user2 = new User (
-                    username: "dovakin",
-                    password: "fusrodah",
-                    email: "loakin@sead.ufscar.br",
-                    firstName: "Dragon",
-                    lastName: "Born",
-                    enabled: true
-            )
-            user2.save flush: true
-
             UserRole.create admin, Role.findByAuthority("ROLE_ADMIN"), true
             UserRole.create admin, Role.findByAuthority("ROLE_DEV"), true
 
