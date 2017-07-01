@@ -175,13 +175,6 @@
                                     </a>
                             </div>
                 </g:if>
-                <g:else>
-                    <div class="col l4">
-                        <div style="font-size: 2em;" class="tooltipped" data-position="down" data-delay="50" data-tooltip="Sem compartilharmento para grupos">
-                            <i class="fa fa-users" style="color: #DCDCDC;"></i>
-                        </div>
-                    </div>
-                </g:else>
                         </ul>
             </div>
                     </li>
