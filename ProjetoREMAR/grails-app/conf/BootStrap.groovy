@@ -35,7 +35,7 @@ class BootStrap {
         }
 
         if (!User.list()) {
-            def admin = new User(
+            def admin = new User (
                     username: "admin",
                     password: grailsApplication.config.users.password,
                     email: "loa@sead.ufscar.br",
@@ -43,31 +43,10 @@ class BootStrap {
                     lastName: "– REMAR",
                     enabled: true
             )
-
             admin.save flush: true
-
-
-
-//            log.debug "Users: ok"
-
-
-//            criando um novo usuário
-            def usuario = new User(
-                    username: "gustavo",
-                    password: "160870",
-                    email: "loa22@sead.ufscar.br",
-                    firstName: "Gustavo",
-                    lastName: "Braghim",
-                    enabled: true
-            )
-
-            usuario.save flush: true
-
- println usuario.errors;
 
             UserRole.create admin, Role.findByAuthority("ROLE_ADMIN"), true
             UserRole.create admin, Role.findByAuthority("ROLE_DEV"), true
-
 
             log.debug "Users: ok"
         }

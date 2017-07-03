@@ -314,13 +314,15 @@
             </g:if>
         </div>
     </div>
-
+    <div id="ranking" class="row">
+    </div>
     <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <g:javascript src="delete-group-resources.js"/>
-    <g:javascript src="manage-user-group.js"/>
+    <g:javascript src="group/delete-group-resources.js"/>
+    <g:javascript src="group/manage-user-group.js"/>
+    <g:javascript src="group/edit-group.js"/>
+    <g:javascript src="group/group-ranking.js"/>
     <g:javascript src="tooltip.js"/>
-    <g:javascript src="edit-group.js"/>
     <g:javascript src="jquery/jquery.validate.js"/>
     <g:javascript src="tooltip.js"/>
 </body>

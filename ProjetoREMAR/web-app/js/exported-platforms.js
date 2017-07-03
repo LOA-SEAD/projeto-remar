@@ -20,6 +20,10 @@ $(document).ready(function () {
         success: function (resp) {
             var platformCounter;
             var finished = 0;
+
+            $('#progress-text').text('Estamos exportando seu jogo para diversas plataformas, por favor aguarde...');
+            updateProgress(1,100);
+
             $('#progress-text').text('Estamos exportando seu jogo para diversas plataformas, por favor aguarde...');
             updateProgress(1,100);
             // Exportação para plataforma web

@@ -1,5 +1,6 @@
 /**
- * Created by deniscapp on 6/9/16.
+ * Created by deniscapp on 6/9/16
+ * Edited by garcia-pedro-hr on 6/29/17
  */
  $(document).ready(function () {
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
@@ -12,7 +13,7 @@
                 url: "/user/autocomplete",
                 data: {
                     query: request.term,
-                    group: ${group.id}
+                    group: $('#group-id')
                 },
                 success: function (data) {
                     response(data);
@@ -179,7 +180,7 @@ $(window).load(function(){
                 url:url,
                 data: {
                     groupid: $("input[name='groupid']").val(),
-                    userid: $("input[name='userid']").val(),
+                    username: $("#search-user").val(),
                     membertoken: $(token).val()
                 },
                 success: function(data){
