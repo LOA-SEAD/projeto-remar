@@ -6,12 +6,10 @@ $(document).ready(function () {
     // Inicialização do processo de exportação
     var ID = $('#resource-id').val();
     var URL = '/exported-resource/export';
-
     // Esconde todos os ícones para acesso às plataformas ja exportadas
     $('.platform-icon').each(function() {
         $(this).hide();
     });
-
     // Chamadas AJAX aos procedimentos de exportação
     // A primeira chamada é para o procedimento geral, a fim de resgatar os parametros que
     //  serão utilizados pelas demais funções. Depois disso, as demais são feitas simultaneamente.
@@ -22,14 +20,11 @@ $(document).ready(function () {
         success: function (resp) {
             var platformCounter;
             var finished = 0;
-
             $('#progress-text').text('Estamos exportando seu jogo para diversas plataformas, por favor aguarde...');
             updateProgress(1,100);
-
             // Exportação para plataforma web
             if (resp.platforms.includes('web')) {
                 URL = '/exported-resource/exportWeb';
-
                 // Apenas a exportação para web ẽ assĩncrona, para garantir que terminará primeiro que as demais
                 $.ajax ({
                     type: 'GET',
@@ -61,7 +56,6 @@ $(document).ready(function () {
                     }
                 });
             }
-
             // Exportação para plataforma desktop
             if (resp.platforms.includes('desktop')) {
                 URL = '/exported-resource/exportDesktop';
@@ -98,11 +92,9 @@ $(document).ready(function () {
                     }
                 });
             }
-
             // Exportação para plataforma android
             if (resp.platforms.includes('android')) {
                 URL = '/exported-resource/exportAndroid';
-
                 $.ajax ({
                     type: 'GET',
                     url: URL,
@@ -131,7 +123,6 @@ $(document).ready(function () {
                     }
                 });
             }
-
             // Verifica se o processo de exportação já acabou para esconder a barra de progresso
             var clearProgress = setInterval(function () {
                 if (finished == platformCounter) {

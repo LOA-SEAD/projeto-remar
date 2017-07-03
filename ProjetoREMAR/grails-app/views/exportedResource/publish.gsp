@@ -68,7 +68,7 @@
                         Plataformas
                     </div>
                     <div class="collapsible-body">
-                        <div id="platforms-icons" class="row" style="margin: 0;">
+                        <div id="platforms-icons" class="row">
                             <div class="col s12">
                                 <div id="web" class="platform-icon">
                                     <a style="color: inherit" target="_blank">
@@ -165,27 +165,22 @@
                 </li>
                 <g:if test="${exportedResourceInstance.resource.shareable}">
                     <li id="groups">
-                       <div class="collapsible-header active"><i class="material-icons">people</i>Compartilhar para grupos </div>
+                       <div class="collapsible-header active">Compartilhar para grupos </div>
                        <div class="collapsible-body">
                           <ul class="collection with-header">
 
                             <div class="col l12">
-                                    <a href="#modal-group-${exportedResourceInstance.id}" class="tooltipped modal-trigger" data-position="down" data-delay="50" data-tooltip="Compartilhar para grupos">
+                                    <a href="#modal-group-${exportedResourceInstance.id}" class="tooltipped modal-trigger" data-position="down" data-delay="50" data-tooltip="Ver grupos">
                                        Compartilhar para grupo(s)
                                     </a>
                             </div>
                 </g:if>
                 <g:else>
-                    <div class="col l4">
-                        <div style="font-size: 2em;" class="tooltipped" data-position="down" data-delay="50" data-tooltip="Sem compartilharmento para grupos">
-                            <i class="fa fa-users" style="color: #DCDCDC;"></i>
-                        </div>
-                    </div>
+
                 </g:else>
                         </ul>
             </div>
                     </li>
-
                 <div id="modal-group-${exportedResourceInstance.id}" class="modal col l6 offset-l3 s6">
                     <div class="modal-content">
                         <ul class="collection with-header">
@@ -258,6 +253,7 @@
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "export.css")}"/>
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
+<link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "container.css")}"/>
 <g:javascript src="exported-platforms.js"/>
 <g:javascript src="add-resource-to-group.js"/>
 <g:javascript src="licenseShow.js"/>

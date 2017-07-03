@@ -5,8 +5,6 @@
 * Script contém o código que controla a busca e o pagination da
 * página publicGames
 * */
-
-
 $(function(){
     var select = $("select");
     $(select).material_select();

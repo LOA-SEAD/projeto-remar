@@ -3,32 +3,27 @@
 <head>
     <meta name="layout" content="materialize-layout">
 </head>
-
 <body>
 <div id="modal-confirmation-group" class="modal">
     <div class="modal-content">
         <p>Tem certeza que deseja realizar esta ação</p>
     </div>
-
     <div class="modal-footer">
         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Não</a>
         <a id="delete-group" href="/group/delete/${group.id}"
            class=" modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
     </div>
 </div>
-
 <div id="leave-group" class="modal">
     <div class="modal-content">
         <h5>Deseja mesmo sair do grupo?</h5>
     </div>
-
     <div class="modal-footer">
         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Não</a>
         <a href="/group/leave-group/${group.id}"
            class=" modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
     </div>
 </div>
-
 <div class="row">
     <div class="col l4 s6 m5">
         <h5 class="left-align"><span class="truncate" id="group-name">${group.name}</span>
@@ -52,18 +47,15 @@
                        required>
                 <input type="hidden" value="" id="user-id" name="userid">
             </div>
-
             <div class="col l3">
                 <button style="font-size: 0.8em; top: 1.2em; position:relative;"
                         class="btn waves-effect waves-light remar-orange" type="submit" name="action">Adicionar
-
                 </button>
             </div>
         </form>
     </g:if>
     <input type="hidden" value="${group.id}" name="groupid">
 </div>
-
 <!-- Modal Structure -->
 <div id="modal-users" class="modal bottom-sheet">
     <div class="modal-content">
@@ -72,7 +64,6 @@
             <li class="collection-item avatar left-align">
                 <img src="/data/users/${group.owner.username}/profile-picture" class="circle">
                 <span class="title">${group.owner.firstName + " " + group.owner.lastName + " (Dono do grupo)"}</span>
-
                 <p class="">Usuário: ${group.owner.username}</p>
             </li>
             <g:if test="${group.userGroups.size() == 0 && group.owner.id == session.user.id}">
@@ -87,7 +78,6 @@
                                 test="${userGroup.admin}">(Administrador)</g:if>
                         <g:else></g:else>
                         </span>
-
                         <p class="">Usuário: ${userGroup.user.username}</p>
                         <g:if test="${group.owner.id == session.user.id}">
                             <a href="#" id="${userGroup.id}" style="position: relative; top: -2.5em; left: -1.6em;"
@@ -107,7 +97,6 @@
                             </g:else>
                         </g:if>
                         <g:else>
-
                             <g:if test='${userGroup.user.id == session.user.id}'>
                                 <a class="tooltipped modal-trigger secondary-content" data-tooltip="Sair do grupo"
                                    style=" color: black;" href="#leave-group"><i class="fa fa-sign-out fa-2x"
@@ -121,43 +110,35 @@
         </ul>
     </div>
 </div>
-
 <!-- Modal Structure -->
 <div id="delete-modal" class="modal">
     <div class="modal-content">
         <h5>Deseja mesmo remover este usuário do grupo?</h5>
     </div>
-
     <div class="modal-footer">
         <a href="#!" data-user-group-id=""
            class="delete-user modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
         <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Não</a>
     </div>
 </div>
-
 <!-- Modal Structure -->
 <div id="modal-user-in-group" class="modal">
     <div class="modal-content">
         <h5 id="modal-message"></h5>
     </div>
-
     <div class="modal-footer">
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
     </div>
 </div>
-
 <div class="divider"></div>
-
 <div>
     <a href="#modal-users" class="modal-trigger" style="font-size: 1.2em; left: -2.8em; position: relative"><span
             class="right group-size"
             data-group-size="${group.userGroups.size() + 1}">Ver membros (${group.userGroups.size() + 1})</span></a>
-
     <g:if test="${!group.owner.id == session.user.id}">
         <p align="left" style="font-size: 1.2em;">Dono: ${group.owner.firstName + " " + group.owner.lastName}</p>
     </g:if>
     <br>
-
 </div>
 <main class="cardGames">
     <div class="row">
@@ -170,11 +151,9 @@
                                 <img class="activator"
                                      src="/published/${groupExportedResource.exportedResource.processId}/banner.png">
                             </div>
-
                             <div class="card-content">
                                 <span style="font-size: 1.3em;"
                                       class="card-title grey-text text-darken-4 activator center-align truncate">${groupExportedResource.exportedResource.name}</span>
-
                                 <div class="divider"></div>
                                 <span style="color: dimgrey; font-size: 0.9em"
                                       class="center">${groupExportedResource.exportedResource.resource.category.name}</span>
@@ -195,17 +174,14 @@
                                     </g:if>
                                 </span>
                             </div>
-
                             <div class="right">
                                 <i class="activator material-icons" style="color: black; cursor: pointer">more_vert</i>
                             </div>
-
                             <div class="card-reveal">
                                 <div class="row">
                                     <h5 class="card-title grey-text text-darken-4 col l12 truncate"><small
                                             class="left">Jogar:</small><i class="material-icons right">close</i>
                                     </h5><br>
-
                                     <div class="col l4">
                                         <a style="font-size: 2em; color: black;" target="_blank"
                                            href="/published/${groupExportedResource.exportedResource.processId}/web"
@@ -219,14 +195,12 @@
                                                class="tooltipped" data-position="right" data-delay="50"
                                                data-tooltip="Linux"><i class="fa fa-linux"></i></a>
                                         </div>
-
                                         <div class="col l4">
                                             <a style="font-size: 2em; color: black;" target="_blank"
                                                href="/published/${groupExportedResource.exportedResource.processId}/desktop/${groupExportedResource.exportedResource.resource.uri}-windows.zip"
                                                class="tooltipped" data-position="right" data-delay="50"
                                                data-tooltip="Windows"><i class="fa fa-windows"></i></a> <br>
                                         </div>
-
                                         <div class="col l4">
                                             <a style="font-size: 2em; color: black;" target="_blank"
                                                href="/published/${groupExportedResource.exportedResource.processId}/desktop/${groupExportedResource.exportedResource.resource.uri}-mac.zip"
@@ -234,7 +208,6 @@
                                                data-tooltip="Mac"><i class="fa fa-apple"></i></a> <br>
                                         </div>
                                     </g:if>
-
                                     <div class="col l4">
                                         <g:if test="${groupExportedResource.exportedResource.resource.android}">
                                             <a style="font-size: 2em; color: black;" target="_blank"
@@ -243,7 +216,6 @@
                                                data-tooltip="Android"><i class="fa fa-android"></i></a> <br>
                                         </g:if>
                                     </div>
-
                                     <div class="col l4">
                                         <g:if test="${groupExportedResource.exportedResource.resource.moodle}">
                                             <a style="font-size: 2em; color: black;" class="tooltipped"
@@ -253,9 +225,7 @@
                                         </g:if>
                                     </div>
                                 </div>
-
                                 <div class="divider"></div><br>
-
                                 <div class="row">
                                     <div class="center">
                                         <g:if test="${group.owner.id == session.user.id}">
@@ -284,12 +254,10 @@
                                 </div>
                             </div>
                         </div>
-
                         <div id="modal-confirmation-exported-resource-${groupExportedResource.id}" class="modal">
                             <div class="modal-content">
                                 <p>Tem certeza que deseja realizar esta ação</p>
                             </div>
-
                             <div class="modal-footer">
                                 <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Não</a>
                                 <a id="delete-resource-${groupExportedResource.id}"
@@ -319,9 +287,7 @@
                     </div>
                         <div id="info" class="collapsible-body">
                             <div class="row">
-
                                 Informações sobre o compartilhamento de jogos
-
                                 <ul>
                                     <li>
                                         <p>Acesse <g:link controller="exportedResource"
@@ -332,7 +298,6 @@
                                     <li>
                                         <p>Escolha um Jogo e clique na opção "Compartilhar para grupos" <i
                                                 class="fa fa-users" style="color: #FF5722;"></i>
-
                                         <p>
                                     </li>
                                     <li>
@@ -340,11 +305,8 @@
                                                 class="bold">Obs:</span>Você também pode compartilhar um jogo ao término de sua customização.
                                         </p>
                                     </li>
-
                                 </ul>
-
                             </div>
-
                             <div class="clearfix"></div>
                         </div>
                     </li>
@@ -353,7 +315,6 @@
         </div>
     </div>
 
-    
     <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <g:javascript src="delete-group-resources.js"/>
