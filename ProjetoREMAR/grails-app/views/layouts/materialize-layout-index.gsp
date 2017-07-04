@@ -8,7 +8,6 @@
             $(".button-collapse").sideNav();
         });
     </script>
-
     <header>
         <div class="navbar-fixed">
             <nav class="valign-wrapper">
@@ -21,7 +20,6 @@
                             </a>
                         </li>
                     </ul>
-
                     <ul class="right">
                         <ul class="right hide-on-med-and-down">
                             <li>
@@ -37,19 +35,17 @@
                                 <a href="/exportedResource/publicGames">Banco de Jogos</a>
                             </li>
                             <li>
-                                <a href="/login">Entrar</a>
+                                <a href="/login">Acessar</a>
                             </li>
                         </ul>
                     </ul>
                 </div>
-
                 <div class="hide-on-large-only remar-max-size">
                     <ul class="left">
                         <a id="button-collapse" href="#" data-activates="slide-out" class="button-collapse top-nav full hide-on-large-only">
                             <i class="material-icons small">menu</i>
                         </a>
                     </ul>
-
                     <ul class="right">
                         <li class="logo-icon">
                             <a href="project">
@@ -61,8 +57,6 @@
             </nav>
         </div>
     </header>
-
-
     <div class="remar-max-size center min-height-size margin-top">
         <ul id="slide-out" class="side-nav" style="text-align: left;">
             <li>

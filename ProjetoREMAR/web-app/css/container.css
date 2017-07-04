@@ -1,10 +1,8 @@
 #platforms-icons{
-    display: flex;
-    justify-content: space-around;
-    flex-direction: row;
-    flex-wrap: nowrap;
+    text-align: center;
 }
 
-.platform{
-    margin: auto;
+.platforms{
+    display: inline-block;
+    width: 100%;
 }

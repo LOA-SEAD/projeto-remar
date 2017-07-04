@@ -43,7 +43,7 @@ class ExportedResourceController {
         instance.delete flush: true
         def root = servletContext.getRealPath("/")
         def ant = new AntBuilder()
-        ant.delete(dir: root + '/published/' + processId,failonerror:false)
+        ant.delete(dir: root + '/published/' + processId,failonerror:false) //corrigir pra deletar os arquivos da pasta
         myGames()
     }
 
