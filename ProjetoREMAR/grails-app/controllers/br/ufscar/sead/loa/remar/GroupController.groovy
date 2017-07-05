@@ -145,7 +145,7 @@ class GroupController {
 
     }
 
-    def userStats(){
+    def userStats() {
         println params
         def user = User.findById(params.id)
         def exportedResource = ExportedResource.findById(params.exp)
@@ -264,6 +264,18 @@ class GroupController {
 
     }
 
+    def addUserById () {
+        def group = Group.findById(params.groupId)
+        def user = User.findById(params.userId)
+        def userGroup = new UserGroup()
+
+        if (user) {
+            userGroup.group = group
+            userGroup.user = user
+            userGroup.save flush:true
+        }
+    }
+
     def findGroup(){
         println(params.name)
         def group = Group.findByNameAndOwner(params.name, session.user)
@@ -271,15 +283,30 @@ class GroupController {
     }
 
     def rankUsers() {
+        /*
+         *  Parâmetros:
+         *      id -> identificador do grupo
+         *      exp -> identificador do recurso exportado
+         */
+        println ("rankUsers() params: " + params)
+
         def group = Group.findById(params.id)
         def userGroups = UserGroup.findAllByGroup(group)
-        def users = []
 
         for (userGroup in userGroups) {
             def user = userGroup.user
-            users.add(user)
+            def lista = MongoHelper.instance.getScore("stats", 0, user.id as Long)
+
+            StringBuffer buffer = new StringBuffer();
+            for (Object o: lista) {
+                println o.stats.score
+                println o.stats.exportedResourceId
+
+                buffer.append(o.toString());
+                buffer.append("<br><br>");
+            }
         }
 
-        render text: users
+        render text: out
     }
 }

@@ -719,4 +719,35 @@ class ExportedResourceController {
 
     }
 
+    def saveScore() {
+        def data = [:]
+        data.timestamp = new Date().toTimestamp()
+        data.userId = params.user as long
+        data.exportedResourceId = 0
+        data.score = params.score
+
+        try {
+                MongoHelper.instance.createCollection("ranking")
+                MongoHelper.instance.insertRank(data)
+
+            } catch (Exception  e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
+            render status: 200
+    }
+
+    def showScore() {
+        def lista = MongoHelper.instance.getScore(0, params.user as Long)
+        StringBuffer buffer = new StringBuffer();
+        for (Object o: lista) {
+            println o.ranking.score
+            println o.ranking.exportedResourceId
+            println o.ranking.timestamp
+
+            buffer.append(o.toString());
+            buffer.append("<br><br>");
+        }
+        render buffer
+    }
+
 }

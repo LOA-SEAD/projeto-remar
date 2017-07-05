@@ -101,6 +101,13 @@ class MongoHelper {
                                 .append("gameType", data.gameType)
                                 .append("gameSize", data.gameSize)
                 )))
+            } else if(data.gameType == 'ranking') {
+                selectedCollection.updateOne(new Document("userId", data.userId).append("stats",
+                        asList(new Document()
+                            .append("gameType", data.gameType)
+                            .append("exportedResourceId", data.exportedResourceId)
+                            .append("score", data.score)
+                        )))
             }
 
         }else{
@@ -151,7 +158,56 @@ class MongoHelper {
                                 .append("gameType", data.gameType)
                                 .append("gameSize", data.gameSize)
                         )))
+            } else if(data.gameType == 'ranking') {
+                selectedCollection.insertOne(new Document("userId", data.userId).append("stats",
+                        asList(new Document()
+                            .append("gameType", data.gameType)
+                            .append("exportedResourceId", data.exportedResourceId)
+                            .append("score", data.score)
+                        )))
             }
+        }
+    }
+
+    def insertRank(Object data) {
+        def rankingCollection = db.getCollection("ranking");
+
+        if (rankingCollection.find(new Document("userId", data.userId)).size() != 0) {
+            def lista = getScore(data.exportedResourceId, data.userId)
+            def score = (lista.size() > 0) ? lista[0].ranking.score[0] as int : -1
+
+            println lista
+            println lista.size()
+            println score
+
+            if ((data.score as int) > score) {
+                println "deleting"
+
+                rankingCollection.deleteOne(new Document("userId", data.userId).append("ranking",
+                    asList(new Document()
+                        .append("exportedResourceId", data.exportedResourceId)
+                    )))
+
+                println "updating"
+
+                rankingCollection.updateOne(new Document("userId", data.userId), new Document('$push', new Document("ranking",
+                    new Document()
+                        .append("exportedResourceId", data.exportedResourceId)
+                        .append("score", data.score)
+                        .append("timestamp", data.timestamp)
+                    )))
+            } else {
+                println "nothing to update"
+            }
+        } else {
+            println "creating"
+
+            rankingCollection.insertOne(new Document("userId", data.userId).append("ranking",
+                asList(new Document()
+                    .append("exportedResourceId", data.exportedResourceId)
+                    .append("score", data.score)
+                    .append("timestamp", data.timestamp)
+                )))
         }
     }
 
@@ -209,6 +265,11 @@ class MongoHelper {
 
     def getStats(String collection, int exportedResourceId, Long userId) {
         return db.getCollection(collection).find(new Document('userId', userId).append("stats.exportedResourceId", exportedResourceId))
+    }
+
+    def getScore(int exportedResourceId, Long userId) {
+        return db.getCollection("ranking").find(new Document('userId', userId)
+            .append("ranking.exportedResourceId", exportedResourceId))
     }
 
     String[] getFilePaths(String... ids) {
