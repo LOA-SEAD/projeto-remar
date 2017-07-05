@@ -272,17 +272,10 @@ class GroupController {
 
     def rankUsers() {
         def group = Group.findById(params.id)
-
-        log.debug(params.id)
-        log.debug(group)
-
         def userGroups = UserGroup.findAllByGroup(group)
         def users = []
 
-        log.debug(userGroups)
-
         for (userGroup in userGroups) {
-            log.debug(userGroup)
             def user = userGroup.user
             users.add(user)
         }

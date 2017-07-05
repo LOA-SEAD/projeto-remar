@@ -1,6 +1,8 @@
-#platforms-icons{
+#platforms-icons {
+
 }
 
-.platforms{
-
+.platforms {
+    display: inline-block;
+    width: 100%;
 }

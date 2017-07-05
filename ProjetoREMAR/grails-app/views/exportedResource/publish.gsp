@@ -64,17 +64,17 @@
                     </li>
                 </g:if>
                 <li>
-                    <div class="collapsible-header active" data-exported="true">
+                    <div id="platforms" class="collapsible-header active" data-exported="true">
                         Plataformas
                     </div>
                     <div class="collapsible-body">
-                        <div id="platforms-icons" class="platforms row">
-                            <div class="col s12">
-                                <div id="web" class="platforms">
+                        <div class="row">
+                            <div id="platforms-icons" class="col s12">
+                                <div id="web" class="platform-icon">
                                     <a style="color: inherit" target="_blank">
                                         <div class="col s6 m2 platform" data-text="Web" data-name="web">
                                             <div class="row no-margin-bottom">
-                                                <i class="fa fa-globe big-platform-logo platforms"></i>
+                                                <i class="fa fa-globe big-platform-logo"></i>
                                             </div>
                                             <div class="platform-title row">
                                                 Web
@@ -83,11 +83,11 @@
                                     </a>
                                 </div>
                                 <g:if test="${exportsTo.desktop}">
-                                    <div id="windows" class="platforms">
+                                    <div id="windows" class="platform-icon">
                                         <a style="color: inherit">
                                             <div class="col s6 m2 platform" data-text="Windows" data-name="windows">
                                                 <div class="row no-margin-bottom">
-                                                    <i class="fa fa-windows big-platform-logo platforms"></i>
+                                                    <i class="fa fa-windows big-platform-logo"></i>
                                                 </div>
                                                 <div class="platform-title row">
                                                     Windows
@@ -95,11 +95,11 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div id="linux" class="platforms">
+                                    <div id="linux" class="platform-icon">
                                         <a style="color: inherit">
                                             <div class="col s6 m2 platform" data-text="Linux (64 bits)"  data-name="linux">
                                                 <div class="row no-margin-bottom">
-                                                    <i class="fa fa-linux big-platform-logo platforms"></i>
+                                                    <i class="fa fa-linux big-platform-logo"></i>
                                                 </div>
                                                 <div class="platform-title row">
                                                     Linux (64 bits)
@@ -107,11 +107,11 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div id="mac" class="platforms">
+                                    <div id="mac" class="platform-icon">
                                         <a style="color: inherit">
                                             <div class="col s6 m2 platform" data-text="MacOS" data-name="mac">
                                                 <div class="row no-margin-bottom">
-                                                    <i class="fa fa-apple big-platform-logo platforms"></i>
+                                                    <i class="fa fa-apple big-platform-logo"></i>
                                                 </div>
                                                 <div class="platform-title row">
                                                     macOS
@@ -121,11 +121,11 @@
                                     </div>
                                 </g:if>
                                 <g:if test="${exportsTo.android}">
-                                    <div id="android" class="platforms">
+                                    <div id="android" class="platform-icon">
                                         <a style="color: inherit">
                                             <div class="col s6 m2 platform" data-text="Android" data-name="android">
                                                 <div class="row no-margin-bottom">
-                                                    <i class="fa fa-android big-platform-logo platforms"></i>
+                                                    <i class="fa fa-android big-platform-logo"></i>
                                                 </div>
                                                 <div class="platform-title row">
                                                     Android
@@ -135,9 +135,9 @@
                                     </div>
                                 </g:if>
                                 <g:if test="${exportsTo.moodle}">
-                                    <div id="moodle" class="platforms col s6 m2">
+                                    <div id="moodle" class="platform-icon col s6 m2">
                                         <div class="row no-margin-bottom">
-                                            <i class="fa fa-graduation-cap big-platform-logo platforms"></i>
+                                            <i class="fa fa-graduation-cap big-platform-logo"></i>
                                         </div>
                                         <div class="platform-title row">
                                             Moodle

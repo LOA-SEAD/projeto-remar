@@ -6,10 +6,12 @@ $(document).ready(function () {
     // Inicialização do processo de exportação
     var ID = $('#resource-id').val();
     var URL = '/exported-resource/export';
+
     // Esconde todos os ícones para acesso às plataformas ja exportadas
     $('.platform-icon').each(function() {
         $(this).hide();
     });
+
     // Chamadas AJAX aos procedimentos de exportação
     // A primeira chamada é para o procedimento geral, a fim de resgatar os parametros que
     //  serão utilizados pelas demais funções. Depois disso, as demais são feitas simultaneamente.
@@ -60,6 +62,7 @@ $(document).ready(function () {
                     }
                 });
             }
+
             // Exportação para plataforma desktop
             if (resp.platforms.includes('desktop')) {
                 URL = '/exported-resource/exportDesktop';
@@ -96,6 +99,7 @@ $(document).ready(function () {
                     }
                 });
             }
+
             // Exportação para plataforma android
             if (resp.platforms.includes('android')) {
                 URL = '/exported-resource/exportAndroid';
@@ -127,6 +131,7 @@ $(document).ready(function () {
                     }
                 });
             }
+            
             // Verifica se o processo de exportação já acabou para esconder a barra de progresso
             var clearProgress = setInterval(function () {
                 if (finished == platformCounter) {
