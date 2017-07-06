@@ -290,23 +290,24 @@ class GroupController {
          */
         println ("rankUsers() params: " + params)
 
-        def group = Group.findById(params.id)
+        def group = Group.findById(params.groupId)
         def userGroups = UserGroup.findAllByGroup(group)
+        def resourceRanking = MongoHelper.getRanking(params.exportedResourceId)
+        def groupRanking = []
+        def rankingMax = 10
+        def rankingPosition = 0
 
-        for (userGroup in userGroups) {
-            def user = userGroup.user
-            def lista = MongoHelper.instance.getScore("stats", 0, user.id as Long)
+        for (o in resourceRanking) {
+            if (userGroups.find { it.user == o.userId } != null) {
+                println o
+                groupRanking.add(o)
+                rankingPosition = rankingPosition + 1
 
-            StringBuffer buffer = new StringBuffer();
-            for (Object o: lista) {
-                println o.stats.score
-                println o.stats.exportedResourceId
-
-                buffer.append(o.toString());
-                buffer.append("<br><br>");
+                if (rankingPosition >= rankingMax)
+                    break
             }
         }
 
-        render text: out
+        render groupRanking as JSON
     }
 }

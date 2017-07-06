@@ -728,7 +728,7 @@ class ExportedResourceController {
 
         try {
                 MongoHelper.instance.createCollection("ranking")
-                MongoHelper.instance.insertRank(data)
+                MongoHelper.instance.insertScoreToRanking(data)
 
             } catch (Exception  e) {
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -736,18 +736,10 @@ class ExportedResourceController {
             render status: 200
     }
 
-    def showScore() {
-        def lista = MongoHelper.instance.getScore(0, params.user as Long)
-        StringBuffer buffer = new StringBuffer();
-        for (Object o: lista) {
-            println o.ranking.score
-            println o.ranking.exportedResourceId
-            println o.ranking.timestamp
+    def getRanking() {
+        def lista = MongoHelper.instance.getRanking(params.exportedResourceId as Long)
 
-            buffer.append(o.toString());
-            buffer.append("<br><br>");
-        }
-        render buffer
+        render lista as JSON
     }
 
 }
