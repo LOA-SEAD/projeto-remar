@@ -170,41 +170,60 @@ class MongoHelper {
     }
 
     def insertRank(Object data) {
-        def rankingCollection = db.getCollection("ranking");
+        /*
+            A entrada no banco de dados para o ranking está estruturada da seguinte forma:
+            {id, exportedResourceId, ranking:[{userId, score, timestamp}]}
+        */
+        def rankingCollection = db.getCollection("ranking")
+        def collectionEntry = rankingCollection.find(new Document('exportedResourceId', data.exportedResourceId))
 
-        if (rankingCollection.find(new Document("userId", data.userId)).size() != 0) {
-            def lista = getScore(data.exportedResourceId, data.userId)
-            def score = (lista.size() > 0) ? lista[0].ranking.score[0] as int : -1
+        if (collectionEntry.first() != null) {
+            // Verifica se o usuário já tem uma pontuação para o jogo
+            collectionEntry.collect {
+                def pos = -1
 
-            println lista
-            println lista.size()
-            println score
+                it.ranking.eachWithIndex { obj, idx ->
+                    if (obj.userId as int == data.userId as int) {
+                        pos = idx
+                        return true // break
+                    }
+                    return false // continua
+                }
 
-            if ((data.score as int) > score) {
-                println "deleting"
+                if (pos != -1) {
+                    // Se tiver, atualiza sua pontuação caso seja maior
+                    println it.ranking[pos].score + " <> " + data.score
 
-                rankingCollection.deleteOne(new Document("userId", data.userId).append("ranking",
-                    asList(new Document()
-                        .append("exportedResourceId", data.exportedResourceId)
-                    )))
+                    if ((it.ranking[pos].score as int) < (data.score as int)) {
+                        println "Updating user " + data.userId + " score"
+                        def selector = "ranking." + pos
 
-                println "updating"
+                        rankingCollection.updateOne(new Document("exportedResourceId", data.exportedResourceId),
+                            new Document('$set', new Document(selector, new Document()
+                                .append("userId", data.userId)
+                                .append("score", data.score)
+                                .append("timestamp", data.timestamp)
+                            )))
+                    } else
+                        println "no score to update for user " + data.userId
 
-                rankingCollection.updateOne(new Document("userId", data.userId), new Document('$push', new Document("ranking",
-                    new Document()
-                        .append("exportedResourceId", data.exportedResourceId)
-                        .append("score", data.score)
-                        .append("timestamp", data.timestamp)
-                    )))
-            } else {
-                println "nothing to update"
+                } else {
+                    println "creating user " + data.userId + " score"
+                    // Senão, cria a entrada para esse usuário
+                    rankingCollection.updateOne(new Document("exportedResourceId", data.exportedResourceId),
+                        new Document('$push', new Document("ranking", new Document()
+                            .append("userId", data.userId)
+                            .append("score", data.score)
+                            .append("timestamp", data.timestamp)
+                        )))
+                }
             }
         } else {
-            println "creating"
+            println "creating resource " + data.exportedResourceId + " ranking entry"
 
-            rankingCollection.insertOne(new Document("userId", data.userId).append("ranking",
+            rankingCollection.insertOne(new Document("exportedResourceId", data.exportedResourceId).append("ranking",
                 asList(new Document()
-                    .append("exportedResourceId", data.exportedResourceId)
+                    .append("userId", data.userId)
                     .append("score", data.score)
                     .append("timestamp", data.timestamp)
                 )))
@@ -268,8 +287,8 @@ class MongoHelper {
     }
 
     def getScore(int exportedResourceId, Long userId) {
-        return db.getCollection("ranking").find(new Document('userId', userId)
-            .append("ranking.exportedResourceId", exportedResourceId))
+        return db.getCollection("ranking").find(new Document('exportedResourceId', exportedResourceId)
+            .append("ranking.userId", userId))
     }
 
     String[] getFilePaths(String... ids) {
