@@ -250,6 +250,15 @@
                                                 </a>
                                             </div>
                                         </g:if>
+                                        <!-- Botão para mostrar o Ranking -->
+                                        <div class="col l4">
+                                            <a id="show-ranking-${groupExportedResource.id}" class="show-ranking"
+                                               href="/group/rankUsers?groupId=${group.id}&exportedResourceId=${groupExportedResource.exportedResource.id}"
+                                               data-exported-resource-id="${groupExportedResource.exportedResource.id}"
+                                               data-resource-id="${groupExportedResource.id}">
+                                                <i class="fa fa-trophy fa-2x" style="color: #FF55722;"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -299,7 +299,6 @@ class GroupController {
 
         for (o in resourceRanking) {
             if (userGroups.find { it.user.id == o.userId } != null) {
-                println o
                 groupRanking.add(o)
                 rankingPosition = rankingPosition + 1
 

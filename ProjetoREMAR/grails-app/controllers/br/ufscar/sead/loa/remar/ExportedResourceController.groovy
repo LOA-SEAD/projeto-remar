@@ -719,7 +719,7 @@ class ExportedResourceController {
 
     }
 
-    /*
+    //
 
     // Funções para testar ranqueamento
 
@@ -768,6 +768,6 @@ class ExportedResourceController {
 
         render lista as JSON
     }
-    */
+    //*/
 
 }

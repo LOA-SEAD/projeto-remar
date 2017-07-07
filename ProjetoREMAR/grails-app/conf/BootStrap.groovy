@@ -66,7 +66,7 @@ class BootStrap {
             log.debug "Users: ok"
         }
 
-        /*
+        
         def g = new Group(
             name: "g1",
             token: "g1",
@@ -80,7 +80,7 @@ class BootStrap {
                 user: User.findById(it + 2)
                 ).save flush:true
         }
-        */
+
 
         Platform.findOrSaveByName('Android')
         Platform.findOrSaveByName('Linux')
