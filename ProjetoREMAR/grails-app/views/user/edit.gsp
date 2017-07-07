@@ -152,6 +152,7 @@
 				</sec:ifAnyGranted>
 			</div>
 		</div>
+			<!--
                         <g:each var="moodleInstance" in="${moodleList}">
                             <li class="collection-item">
                                 <div class="row no-margin-bottom">

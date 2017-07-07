@@ -13,7 +13,7 @@
                 url: "/user/autocomplete",
                 data: {
                     query: request.term,
-                    group: $('#group-id')
+                    group: $('#group-id').val()
                 },
                 success: function (data) {
                     response(data);

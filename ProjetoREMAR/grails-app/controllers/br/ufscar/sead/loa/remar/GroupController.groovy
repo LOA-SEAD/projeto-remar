@@ -292,13 +292,13 @@ class GroupController {
 
         def group = Group.findById(params.groupId)
         def userGroups = UserGroup.findAllByGroup(group)
-        def resourceRanking = MongoHelper.getRanking(params.exportedResourceId)
+        def resourceRanking = MongoHelper.instance.getRanking(params.exportedResourceId as Long)
         def groupRanking = []
         def rankingMax = 10
         def rankingPosition = 0
 
         for (o in resourceRanking) {
-            if (userGroups.find { it.user == o.userId } != null) {
+            if (userGroups.find { it.user.id == o.userId } != null) {
                 println o
                 groupRanking.add(o)
                 rankingPosition = rankingPosition + 1

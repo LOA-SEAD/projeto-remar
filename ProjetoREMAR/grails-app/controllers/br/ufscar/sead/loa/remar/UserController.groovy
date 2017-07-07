@@ -315,7 +315,7 @@ class UserController {
 
             render list as JSON
 
-        }else{
+        } else {
 //            TODO
         }
 

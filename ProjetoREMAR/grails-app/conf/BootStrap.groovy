@@ -7,6 +7,9 @@ import br.ufscar.sead.loa.remar.User
 import br.ufscar.sead.loa.remar.MongoHelper
 import br.ufscar.sead.loa.remar.Category
 
+import br.ufscar.sead.loa.remar.Group
+import br.ufscar.sead.loa.remar.UserGroup
+
 import javax.servlet.http.HttpServletRequest
 
 class BootStrap {
@@ -48,8 +51,36 @@ class BootStrap {
             UserRole.create admin, Role.findByAuthority("ROLE_ADMIN"), true
             UserRole.create admin, Role.findByAuthority("ROLE_DEV"), true
 
+            10.times {
+                def user = new User (
+                        username: "user${it}",
+                        password: grailsApplication.config.users.password,
+                        email: "loa${it}@sead.ufscar.br",
+                        firstName: "User",
+                        lastName: "${it}",
+                        enabled: true
+                )
+
+                user.save flush:true
+            }
             log.debug "Users: ok"
         }
+
+        /*
+        def g = new Group(
+            name: "g1",
+            token: "g1",
+            owner: User.findById(1)
+            )
+        g.save flush:true
+
+        5.times {
+            new UserGroup (
+                group: g,
+                user: User.findById(it + 2)
+                ).save flush:true
+        }
+        */
 
         Platform.findOrSaveByName('Android')
         Platform.findOrSaveByName('Linux')
