@@ -230,32 +230,33 @@
                                     <div class="center">
                                         <g:if test="${group.owner.id == session.user.id}">
                                             <div class="col l4">
-                                                <a class="modal-trigger"
+                                                <a class="modal-trigger tooltipped"
                                                    href="#modal-confirmation-exported-resource-${groupExportedResource.id}"
-                                                   style="cursor: pointer">
-                                                    <i class="fa fa-trash fa-2x" data-tooltip="Descompartilhar"
-                                                       style="color: #FF5722;"></i>
+                                                   style="cursor: pointer"
+                                                   data-position="bottom" data-delay="50" data-tooltip="Descompartilhar">
+                                                    <i class="fa fa-trash fa-2x" style="color: #FF5722;"></i>
                                                 </a>
                                             </div>
                                         </g:if>
                                         <g:if test="${group.owner.id == session.user.id || UserGroup.findByUserAndAdmin(session.user, true)}">
                                             <div class="col l4">
-                                                <a class="show-stats"
+                                                <a class="show-stats tooltipped"
                                                    href="/group/stats/${group.id}?exp=${groupExportedResource.exportedResource.id}"
                                                    data-exported-resource-id="${groupExportedResource.exportedResource.id}"
                                                    style="cursor: pointer"
                                                    id="delete-resource-${groupExportedResource.id}"
-                                                   data-resource-id="${groupExportedResource.id}">
+                                                   data-resource-id="${groupExportedResource.id}"
+                                                   data-position="bottom" data-delay="50" data-tooltip="Estatísticas">
                                                     <i class="fa fa-bar-chart fa-2x" style="color: #FF5722;"></i>
                                                 </a>
                                             </div>
                                         </g:if>
-                                        <!-- Botão para mostrar o Ranking -->
                                         <div class="col l4">
-                                            <a id="show-ranking-${groupExportedResource.id}" class="show-ranking"
+                                            <a id="show-ranking-${groupExportedResource.id}" class="show-ranking tooltipped"
                                                href="/group/rankUsers?groupId=${group.id}&exportedResourceId=${groupExportedResource.exportedResource.id}"
                                                data-exported-resource-id="${groupExportedResource.exportedResource.id}"
-                                               data-resource-id="${groupExportedResource.id}">
+                                               data-resource-id="${groupExportedResource.id}"
+                                               data-position="bottom" data-delay="50" data-tooltip="Ranking">
                                                 <i class="fa fa-trophy fa-2x" style="color: #FF55722;"></i>
                                             </a>
                                         </div>

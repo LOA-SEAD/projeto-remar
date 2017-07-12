@@ -1059,3 +1059,8 @@ Position must be relative!*/
 .progress .determinate {
     background-color: rgba(255, 87, 34, 1);
 }
+
+/* Ranking table rules */
+.table-container {
+    margin: 30px;
+}

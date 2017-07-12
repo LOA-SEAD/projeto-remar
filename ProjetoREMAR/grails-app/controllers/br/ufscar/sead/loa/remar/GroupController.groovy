@@ -299,7 +299,12 @@ class GroupController {
 
         for (o in resourceRanking) {
             if (userGroups.find { it.user.id == o.userId } != null) {
-                groupRanking.add(o)
+                def entry = [:]
+                entry.user = User.findById(o.userId)
+                entry.score = o.score
+                entry.timestamp = o.timestamp.format("dd/MM/yyyy HH:mm:ss")
+
+                groupRanking.add(entry)
                 rankingPosition = rankingPosition + 1
 
                 if (rankingPosition >= rankingMax)
@@ -307,6 +312,6 @@ class GroupController {
             }
         }
 
-        render groupRanking as JSON
+        render(view: "ranking", model: [ranking: groupRanking])
     }
 }

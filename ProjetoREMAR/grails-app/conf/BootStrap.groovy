@@ -63,24 +63,22 @@ class BootStrap {
 
                 user.save flush:true
             }
+
+            def g = new Group(
+                name: "g1",
+                token: "g1",
+                owner: User.findById(1)
+                )
+            g.save flush:true
+
+            5.times {
+                new UserGroup (
+                    group: g,
+                    user: User.findById(it + 2)
+                    ).save flush:true
+            }
             log.debug "Users: ok"
         }
-
-        
-        def g = new Group(
-            name: "g1",
-            token: "g1",
-            owner: User.findById(1)
-            )
-        g.save flush:true
-
-        5.times {
-            new UserGroup (
-                group: g,
-                user: User.findById(it + 2)
-                ).save flush:true
-        }
-
 
         Platform.findOrSaveByName('Android')
         Platform.findOrSaveByName('Linux')

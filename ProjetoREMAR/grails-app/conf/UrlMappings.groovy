@@ -59,9 +59,9 @@ class UrlMappings {
         "/resource/deleteRating/$id"(controller: "resource", action: "deleteRating")
         "/resource/updateRating/$id"(controller: "resource", action: "updateRating")
 
-        '/exported-resource/publicGames'(controller:"exportedResource", action:"publicGames")
-        '/exported-resource/myGames'(controller:"exportedResource", action:"myGames")
-        '/exported-resource/stats'(controller:"exportedResource", action:"stats")
+        "/exported-resource/publicGames"(controller:"exportedResource", action:"publicGames")
+        "/exported-resource/myGames"(controller:"exportedResource", action:"myGames")
+        "/exported-resource/stats"(controller:"exportedResource", action:"stats")
         "/exported-resource/_table/$resourceId"(controller: "exportedResource", action: "_table")
         "/exported-resource/_table"(controller: "exportedResource", action: "_data")
 
