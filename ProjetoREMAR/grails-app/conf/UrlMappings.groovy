@@ -78,7 +78,7 @@ class UrlMappings {
         // end Resource API endpoints
 
         name myProfile: "/my-profile" (controller:"user", action:"myProfile")
-        "/user/profile/$id"(controller:"user", action: "userProfile")
+        "/user/userProfile/$id"(controller:"user", action: "userProfile")
 
         "500"(view:'/error')
 	}

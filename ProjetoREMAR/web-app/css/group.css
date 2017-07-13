@@ -1,0 +1,8 @@
+#main-header {
+    display: flex;
+    align-items: center;
+}
+
+.cardGames {
+    margin-top: 15px;
+}

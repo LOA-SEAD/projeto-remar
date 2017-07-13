@@ -1,3 +1,12 @@
+/* general styling */
+
+    h4 {
+        font-size: 1.8rem;
+        text-align: left;
+    }
+
+/* end of general styling */
+
 /* layout for the index page (static) */
 
     .sidenav li.active{
@@ -893,7 +902,7 @@ Position must be relative!*/
 }
 
 .tabs .indicator{
-    background-color:#5d4037bb;
+    background-color: rgba(93,64,55,0.733);
     /*display: none !important;*/
 }
 
@@ -1062,5 +1071,17 @@ Position must be relative!*/
 
 /* Ranking table rules */
 .table-container {
-    margin: 30px;
+    margin: 15px;
+}
+
+/* Slick */
+.slick-prev:before,
+.slick-next:before {
+    font-size: 20px;
+    line-height: 1;
+    opacity: .75;
+    color: black;
+}
+.slick-slide img {
+    display: inline-block;
 }

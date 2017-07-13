@@ -307,7 +307,7 @@ class UserController {
             def list = allUsers.collect {
                 def inGroup = UserGroup.findByUserAndGroup(it, group) ? true : false
                     [
-                            label: "${it.firstName} ${it.lastName}",
+                            label: "${it.firstName} ${it.lastName} ($it.username)",
                             value: it.id,
                             inGroup: inGroup
                     ]
@@ -411,7 +411,6 @@ class UserController {
         }
     }
 
-    @Transactional
     def userProfile() {
         User user = User.get(params.id);
         render view: "_userProfileModal", model: [user: user]

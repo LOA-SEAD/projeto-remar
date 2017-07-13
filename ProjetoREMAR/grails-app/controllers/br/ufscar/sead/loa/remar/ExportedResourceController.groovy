@@ -18,6 +18,7 @@ class ExportedResourceController {
     static allowedMethods = [save: "POST", update: "POST", delete: "GET"]
     def springSecurityService
     def beforeInterceptor = [action: this.&check, only: ['publish', 'myGames']]
+
     private check() {
         if (!session.user) {
             log.debug "Logout: session.user is NULL !"
@@ -25,6 +26,7 @@ class ExportedResourceController {
             return false
         }
     }
+
     def save(ExportedResource exportedResourceInstance) {
         // need to improve that
         exportedResourceInstance.owner = User.findById(springSecurityService.getCurrentUser().getId())
@@ -34,6 +36,7 @@ class ExportedResourceController {
         exportedResourceInstance.save flush: true
         redirect controller: "ExportedResource", action: "accountConfig", id: exportedResourceInstance.id
     }
+
     def delete(int id) {
         //Deleta a instância do Exported Resource e o diretório criado também
         ExportedResource instance = ExportedResource.findById(id)
@@ -43,6 +46,7 @@ class ExportedResourceController {
         mainDir.deleteDir()
         myGames()
     }
+
     // to test the moodle list
     def loadMoodleList() {
         def moodleList = Moodle.where {
@@ -50,11 +54,13 @@ class ExportedResourceController {
         }.list()
         render(view: '/exportedResource/_moodles', model: [moodleList: moodleList, id: params.local])
     }
+
     def accountConfig(ExportedResource exportedResource) {
         Moodle m = Moodle.findWhere(id: Long.parseLong("1"))
 
         render(view: "accountConfig", model: ['exportedResourceInstance': exportedResource]);
     }
+
     def accountSave() {
         def arr = []
         def exportedResourceId = Long.parseLong(params.find({ it.key == "exportedResourceId" }).value)
@@ -81,6 +87,7 @@ class ExportedResourceController {
         }
         redirect uri: "/exported-resource/moodle/${exportedResourceInstance.id}"
     }
+
     def saveStats(){
         def data = [:]
         println params
@@ -152,6 +159,7 @@ class ExportedResourceController {
         }
         render status: 200
     }
+
     def publish(ExportedResource instance) {
         def exportsTo = [:]
         def handle = [:]
@@ -172,6 +180,7 @@ class ExportedResourceController {
         render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl, groupsIAdmin: groupsIAdmin,
                                             exportedResourceInstance: instance,createdAt: process.createdAt, groupsIOwn: groupsIOwn, handle: handle]
     }
+
     def export(ExportedResource instance) {
         def urls = [:]
         def root = servletContext.getRealPath("/")
@@ -269,6 +278,7 @@ class ExportedResourceController {
         }
         render urls as JSON
     }
+
     /*
      * Tratamento de publicação do jogo para plataformas Desktop
      */
@@ -386,6 +396,7 @@ class ExportedResourceController {
         }
         render "OK"
     }
+
     def moodle(ExportedResource exportedResourceInstance) {
         // pega os dados de como será a tabela no moodle
         def file = new File(servletContext.getRealPath("/data/resources/sources/${exportedResourceInstance.resource.uri}/bd.json"))
@@ -395,6 +406,7 @@ class ExportedResourceController {
         exportedResourceInstance.save flush: true
         render true
     }
+
     def update(ExportedResource instance) {
         def path = new File("${servletContext.getRealPath("/published/${instance.processId}")}/")
         if (params.img1 != null && params.img1 != "") {
@@ -417,6 +429,7 @@ class ExportedResourceController {
         }
         render ' '
     }
+
     @SuppressWarnings("GroovyAssignabilityCheck")
     def publicGames() {
         User user = session.user
@@ -441,6 +454,7 @@ class ExportedResourceController {
         else
             render view: "publicGames", model: model
     }
+
     def myGames() {
         def model = [:]
         def myExportedResourcesList
@@ -487,6 +501,7 @@ class ExportedResourceController {
         println model.tPageCount
         render view: "myGames", model: model
     }
+
     def saveGameInfo() {
         def data = request.JSON
         /* auto generate required data */
@@ -501,6 +516,7 @@ class ExportedResourceController {
         def json = JSON.parse(new File(servletContext.getRealPath("/data/resources/sources/${Resource.findById(exportedResource.resourceId).uri}/bd.json")).text)
         MongoHelper.instance.insertData(json['collection_name'] as String, data)
     }
+
     def _table() {
         if (params.resourceId) {
             def data = MongoHelper.instance.getData("escola_magica", params.resourceId as Integer)
@@ -535,6 +551,7 @@ class ExportedResourceController {
             render "no information found in our records."
         }
     }
+
     def _data() {
         def data = MongoHelper.instance.getData("escola_magica", params.exportedResourceId as Integer, params.userId as Integer)
         if (data.first() != null) {
@@ -546,6 +563,7 @@ class ExportedResourceController {
             render "no information found in our records."
         }
     }
+
     @Transactional
     def croppicture() {
         def root = servletContext.getRealPath("/")
@@ -564,6 +582,7 @@ class ExportedResourceController {
         println destination.name
         render destination.name
     }
+
     @SuppressWarnings("GroovyAssignabilityCheck")
     def searchGameByCategoryAndName() {
         def model = [:]
@@ -604,6 +623,7 @@ class ExportedResourceController {
         log.debug(maxInstances)
         render view: "_cardGames", model: model
     }
+
     @SuppressWarnings("GroovyAssignabilityCheck")
     def searchProcesses() {
         def model = [:]
@@ -636,6 +656,7 @@ class ExportedResourceController {
         log.debug("amount process: " + model.processes.size())
         render view: "/process/_process", model: model
     }
+
     @SuppressWarnings("GroovyAssignabilityCheck")
     def searchMyGames() {
         def model = [:]
@@ -675,6 +696,7 @@ class ExportedResourceController {
         log.debug(maxInstances)
         render view: "_myCardGame", model: model
     }
+
     def info(ExportedResource instance){
         def exportsTo = [:]
         def handle = [:]
@@ -695,6 +717,7 @@ class ExportedResourceController {
         render view: 'info', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl, groupsIAdmin: groupsAdministeredByMe,
                                      exportedResourceInstance: instance, createdAt: process.createdAt, groupsIOwn: groupsOwnedByMe, handle : handle]
     }
+
     def reportAbuse(){
         def userIP = request.getRemoteAddr()
         def recaptchaResponse = params.get("g-recaptcha-response")
@@ -719,15 +742,12 @@ class ExportedResourceController {
 
     }
 
-    //
-
     // Funções para testar ranqueamento
-
     def saveScore() {
         def data = [:]
         data.timestamp = new Date().toTimestamp()
         data.userId = params.user as long
-        data.exportedResourceId = 0
+        data.exportedResourceId = params.exportedResourceId
         data.score = params.score
 
         try {
@@ -741,7 +761,7 @@ class ExportedResourceController {
     }
 
     def getRanking() {
-        def lista = MongoHelper.instance.getRanking(params.exportedResourceId as int)
+        def lista = MongoHelper.instance.getRanking(params.exportedResourceId as Long)
 
         render lista as JSON
     }

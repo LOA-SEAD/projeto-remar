@@ -164,7 +164,10 @@ $(window).load(function(){
     });
 
 
-    function addUser(){
+    function addUser() {
+        console.log($("#search-user").val());
+        console.log($("#user-id").val());
+
         var url;
         var noUsers = $("#no-users");
         var text = ($(".group-size"));
@@ -172,59 +175,52 @@ $(window).load(function(){
         var ul = $(".users-collection");
         var token = $("#member-token");
         if($(token).val() != null)
-            url = "/group/addUserByToken";
+            url = location.origin + "/group/addUserByToken/";
         else
-            url = "/group/addUserAutocomplete";
-            $.ajax({
-               type:'POST',
-                url:url,
-                data: {
-                    groupid: $("input[name='groupid']").val(),
-                    username: $("#search-user").val(),
-                    membertoken: $(token).val()
-                },
-                success: function(data){
+            url = location.origin + "/group/addUserAutocomplete";
 
-                }, statusCode: {
-                    200: function(data){
-                       if(url === '/group/addUserAutocomplete'){
-                           groupSize++;
-                           text.attr("data-group-size",groupSize);
-                           text.html("Ver membros ("+groupSize+")");
-                           $("#add-user-form")[0].reset();
-                           if(noUsers) {
-                               noUsers.fadeOut(300);
-                               noUsers.remove();
-                           }
-                           $(ul).append(data);
-                           Materialize.toast("Usuário adicionado!", 3000, "rounded");
-                       }else {
-                           $('.no-groups-message').remove();
-                           $('#belong').append(data);
-                           Materialize.toast("Ingresso realizado! :)", 3000, "rounded");
-
+        $.ajax({
+           type:'POST',
+            url:url,
+            data: {
+                groupid: $("input[name='groupid']").val(),
+                userid: $("#user-id").val(),
+                membertoken: $(token).val()
+            },
+            success: function(data) {
+                console.log(data);
+            },
+            statusCode: {
+                200: function(data){
+                   if(url === '/group/addUserAutocomplete'){
+                       groupSize++;
+                       text.attr("data-group-size",groupSize);
+                       text.html("Ver membros ("+groupSize+")");
+                       $("#search-user").reset();
+                       if(noUsers) {
+                           noUsers.fadeOut(300);
+                           noUsers.remove();
                        }
-                    },
-                    403: function(response){
-                        $("#modal-message").html(response.responseText);
-                        $('#modal-user-in-group').openModal({
-                            ready: function(){
-                                $("#add-user-form")[0].reset();
-
-                            }
-                        });
-                    },
-                    404: function(response){
-                        $("#modal-message").html(response.responseText);
-                        $('#modal-user-in-group').openModal({
-                            ready: function(){
-                                $("#add-user-form")[0].reset();
-                            }
-                        });
-                    }
+                       $(ul).append(data);
+                       Materialize.toast("Usuário adicionado!", 3000);
+                   } else {
+                       $('.no-groups-message').remove();
+                       $('#belong').append(data);
+                       Materialize.toast("Ingresso realizado! :)", 3000);
+                   }
+                },
+                403: function(response){
+                    $("#modal-message").html(response.responseText);
+                    $('#modal-user-in-group').openModal();
+                    $("#search-user").reset();
+                },
+                404: function(response){
+                    $("#modal-message").html(response.responseText);
+                    $('#modal-user-in-group').openModal();
+                    $("#search-user").reset();
                 }
-            });
-
+            }
+        });
     }
 
     function manageAdmin(_this){

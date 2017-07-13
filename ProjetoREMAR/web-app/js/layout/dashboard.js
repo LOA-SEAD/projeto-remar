@@ -90,7 +90,7 @@ window.onload = function(){
 
 $(".user-profile").click(function() {
    var id = $(this).attr("id").substr(8);
-   var url = location.origin + "/user/profile/" + id;
+   var url = location.origin + "/user/userProfile/" + id;
    $.ajax({
       type: 'GET',
       url:  url,
@@ -106,4 +106,3 @@ $(".user-profile").click(function() {
       }
    });
 });
-

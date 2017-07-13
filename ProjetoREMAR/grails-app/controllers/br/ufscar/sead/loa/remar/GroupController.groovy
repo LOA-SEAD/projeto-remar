@@ -218,21 +218,22 @@ class GroupController {
         redirect(status: 200,action: "list")
     }
 
-    def addUserAutocomplete(){
+    def addUserAutocomplete() {
         def group = Group.findById(params.groupid)
 
         if(group.owner.id == session.user.id || UserGroup.findByUserAndGroupAndAdmin(session.user, group, true)) {
-            def user = User.findByUsername(params.username)
-            log.debug ("Attempting to add user " + params.username + " to group " + params.groupid)
+            def user = User.findById(params.userid)
+            println user
+            log.debug ("Attempting to add user " + params.userid + " to group " + params.groupid)
             if(user) {
-                if (!UserGroup.findByUserAndGroup(User.findById(user.id), group) && !(group.owner.id == user.id)) {
+                if (!UserGroup.findByUserAndGroup(user, group) && !(group.owner.id == user.id)) {
                     def userGroup = new UserGroup()
-                    userGroup.group = Group.findById(group.id)
+                    userGroup.group = group
                     userGroup.user = user
                     userGroup.save flush: true
 
                     log.debug ("Success!")
-                    render status:200, template: "newUserGroup", model: [userGroup: userGroup]
+                    render status: 200, template: "newUserGroup", model: [userGroup: userGroup]
                 } else {
                     log.debug ("Failed! User is already in group.")
                     render status: 403, text: "Usuário já pertence ao grupo."
@@ -292,6 +293,7 @@ class GroupController {
 
         def group = Group.findById(params.groupId)
         def userGroups = UserGroup.findAllByGroup(group)
+        def resourceName = ExportedResource.findById(params.exportedResourceId).name
         def resourceRanking = MongoHelper.instance.getRanking(params.exportedResourceId as Long)
         def groupRanking = []
         def rankingMax = 10
@@ -312,6 +314,6 @@ class GroupController {
             }
         }
 
-        render(view: "ranking", model: [ranking: groupRanking])
+        render(view: "ranking", model: [ranking: groupRanking, resource: resourceName])
     }
 }
