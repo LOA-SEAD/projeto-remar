@@ -1,0 +1,44 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<molecule name='3-Hepteno' formula='C_7_H_14_' dica='Para acertar a nomenclatura, deve-se começar a numerar os carbonos, a partir do carbono mais próximo à insaturação.'>
+  <atom id='0' type='carbono' number='1'/>
+  <atom id='1' type='carbono' number='2'/>
+  <atom id='2' type='carbono' number='3'/>
+  <atom id='3' type='carbono' number='4'/>
+  <atom id='4' type='carbono' number='5'/>
+  <atom id='5' type='carbono' number='6'/>
+  <atom id='6' type='carbono' number='7'/>
+  <atom id='7' type='hidrogenio' number='-1'/>
+  <atom id='8' type='hidrogenio' number='-1'/>
+  <atom id='9' type='hidrogenio' number='-1'/>
+  <atom id='10' type='hidrogenio' number='-1'/>
+  <atom id='11' type='hidrogenio' number='-1'/>
+  <atom id='12' type='hidrogenio' number='-1'/>
+  <atom id='13' type='hidrogenio' number='-1'/>
+  <atom id='14' type='hidrogenio' number='-1'/>
+  <atom id='15' type='hidrogenio' number='-1'/>
+  <atom id='16' type='hidrogenio' number='-1'/>
+  <atom id='17' type='hidrogenio' number='-1'/>
+  <atom id='18' type='hidrogenio' number='-1'/>
+  <atom id='19' type='hidrogenio' number='-1'/>
+  <atom id='20' type='hidrogenio' number='-1'/>
+  <bond source='7' target='0' type='1'/>
+  <bond source='1' target='10' type='1'/>
+  <bond source='8' target='0' type='1'/>
+  <bond source='9' target='0' type='1'/>
+  <bond source='0' target='1' type='1'/>
+  <bond source='2' target='1' type='1'/>
+  <bond source='11' target='1' type='1'/>
+  <bond source='20' target='6' type='1'/>
+  <bond source='19' target='6' type='1'/>
+  <bond source='18' target='6' type='1'/>
+  <bond source='16' target='5' type='1'/>
+  <bond source='17' target='5' type='1'/>
+  <bond source='6' target='5' type='1'/>
+  <bond source='15' target='4' type='1'/>
+  <bond source='14' target='4' type='1'/>
+  <bond source='12' target='2' type='1'/>
+  <bond source='13' target='3' type='1'/>
+  <bond source='5' target='4' type='1'/>
+  <bond source='4' target='3' type='1'/>
+  <bond source='2' target='3' type='2'/>
+</molecule>

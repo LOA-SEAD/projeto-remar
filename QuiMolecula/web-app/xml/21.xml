@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<molecule name='Etanoato de Metila' formula='C_3_H_6_O_2_' dica='Fabricantes de alimentos e de bebidas utilizam estes ésteres como aditivos para intensificar o sabor ou o odor de sobremesas e bebidas.'>
+  <atom id='0' type='carbono' number='-1'/>
+  <atom id='1' type='carbono' number='-1'/>
+  <atom id='2' type='carbono' number='-1'/>
+  <atom id='3' type='oxigenio' number='-1'/>
+  <atom id='4' type='oxigenio' number='-1'/>
+  <atom id='5' type='hidrogenio' number='-1'/>
+  <atom id='6' type='hidrogenio' number='-1'/>
+  <atom id='7' type='hidrogenio' number='-1'/>
+  <atom id='8' type='hidrogenio' number='-1'/>
+  <atom id='9' type='hidrogenio' number='-1'/>
+  <atom id='10' type='hidrogenio' number='-1'/>
+  <bond source='6' target='0' type='1'/>
+  <bond source='0' target='7' type='1'/>
+  <bond source='5' target='0' type='1'/>
+  <bond source='0' target='1' type='1'/>
+  <bond source='1' target='3' type='1'/>
+  <bond source='3' target='2' type='1'/>
+  <bond source='2' target='8' type='1'/>
+  <bond source='2' target='9' type='1'/>
+  <bond source='2' target='10' type='1'/>
+  <bond source='1' target='4' type='2'/>
+</molecule>
