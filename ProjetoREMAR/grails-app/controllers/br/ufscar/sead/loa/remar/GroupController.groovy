@@ -199,15 +199,23 @@ class GroupController {
 
     }
 
-    def edit(){
-        def group = Group.findById(params.groupId)
-        if(group.owner.id == session.user.id) {
-            group.setName(params.newName);
-            group.save flush: true
+    def edit() {
+        def group = Group.findById(params.id)
+        println group
+        def usersInGroup = []
+        def usersNotInGroup= []
 
-            render status: 200, text: "Nome atualizado!"
-        }else
-            render status: 403
+        for (user in User.list()) {
+            if (UserGroup.findByUserAndGroup(user, group)) {
+                println "user " + user.id + " is in group"
+                usersInGroup.add(user)
+            } else {
+                println "user " + user.id + "is not in group"
+                usersNotInGroup.add(user)
+            }
+        }
+
+        render view: "manage", model: [group: group, usersInGroup: usersInGroup, usersNotInGroup: usersNotInGroup]
     }
 
     def leaveGroup(){

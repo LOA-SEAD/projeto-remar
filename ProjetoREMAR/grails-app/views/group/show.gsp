@@ -219,6 +219,10 @@
                             </div>
                         </div>
                     </form>
+
+
+
+                    <g:link action="edit" id="${group.id}">GERENCIAR</g:link>
                 </div>
             </div>
 
