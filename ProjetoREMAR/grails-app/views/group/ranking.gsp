@@ -44,16 +44,11 @@
             </div>
         </div>
 
-        <div id="user-details-modal" class="modal remar-modal">
-            <div class="modal-content">
-                <h4>TESTE</h4>
-                <p>Lorem Ipsum</p>
-            </div>
-            <div class="modal-footer">
-                <a href="#!" class="modal-action modal-close waves-effect btn-flat">OK</a>
-            </div>
+        <div id="user-details-modal" class="modal">
+            %{-- Preenchido pelo Javascript --}%
         </div>
 
-        <g:javascript src="ranking.js"/>
+        <g:external dir="css" file="ranking.css"/>
+        <g:javascript src="user/showProfile.js"/>
     </body>
 </html>

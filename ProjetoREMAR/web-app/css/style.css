@@ -1085,3 +1085,44 @@ Position must be relative!*/
 .slick-slide img {
     display: inline-block;
 }
+
+/* Remar Colors */
+.remar-orange {
+     background-color: #FF5722 !important;
+}
+
+.remar-orange-text {
+     color: #FF5722 !important;
+}
+
+.remar-red {
+     background-color: #F70000 !important;
+}
+
+.remar-red-text {
+     color: #F70000 !important;
+}
+
+.remar-brown {
+     background-color: #5D4037 !important;
+}
+
+.remar-brown-text {
+     color: #5D4037 !important;
+}
+
+.remar-black {
+     background-color: #212121 !important;
+}
+
+.remar-black-text {
+     color: #212121 !important;
+}
+
+.remar-green {
+     background-color: #4CAF50 !important;
+}
+
+.remar-green-text {
+     color: #4CAF50 !important;
+}

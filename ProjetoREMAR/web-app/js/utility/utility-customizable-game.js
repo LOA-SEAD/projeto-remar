@@ -140,7 +140,7 @@ $(".user-profile").click(function() {
         processData: false,
         contentType: false,
         success: function (data) {
-            $("#userDetailsModal .modal-content").html(data);
+            $("#userDetailsModal").html(data);
             $("#userDetailsModal").openModal();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

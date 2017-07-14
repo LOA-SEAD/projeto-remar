@@ -1,7 +1,28 @@
-<img src="/data/users/${user.username}/profile-picture" alt="Equipe LOA" class="circle responsive-img"
-     style="width: 150px;display:inline-block;margin-top:20px" data-beloworigin="true">
-<div id="userDetails">
-    <div style="margin-top:15px; color:#727272">${user.username}</div>
-    <div style="margin-top:5px; font-size:18px">${user.firstName} ${user.lastName}</div>
-    <div style="margin-top:5px; color:#333333 ">${user.email}</div>
+<div class="user-profile-card-header">
+    <img src="/data/users/${user.username}/profile-picture" data-beloworigin="true" alt="Foto de ${user.firstName}"/>
 </div>
+
+<div class="user-profile-card-content">
+    <h3 class="remar-brown-text">${user.username}</h3>
+    <h4 class="remar-brown-text">${user.name}</h4>
+    <p>${user.email}</p>
+</div>
+
+%{-- TODO: O botão abaixo deve redirecionar para a página de enviar uma mensagem/email para o usuário
+<div class="user-profile-card-footer">
+    <ul>
+        <li>
+            <a href="#"><i class="fa fa-envelope remar-orange-text"></i></a>
+        </li>
+    </ul>
+</div>
+--}%
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".user-profile-card-header").parent().addClass("user-profile-card");
+    });
+</script>
+
+<g:external dir="css" file="user/profileModal.css" />

@@ -20,19 +20,6 @@
         <g:external dir="css" file="materialize.css" />
         <g:external dir="css" file="style.css" />
 
-        <style>
-            .slick-prev:before,
-            .slick-next:before {
-                font-size: 20px;
-                line-height: 1;
-                opacity: .75;
-                color: black;
-            }
-            .slick-slide img {
-                display: inline-block;
-            }
-        </style>
-
         <g:javascript src="jquery-2.1.4.min.js" />
         <g:javascript src="materialize.min.js" />
         <g:javascript src="intro.js" />
