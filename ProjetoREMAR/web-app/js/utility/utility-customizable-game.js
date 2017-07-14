@@ -132,7 +132,7 @@ function initStars(){
 
 $(".user-profile").click(function() {
     var id = $(this).attr("id").substr(8);
-    var url = location.origin + "/user/profile/" + id;
+    var url = location.origin + "/user/userProfile/" + id;
     $.ajax({
         type: 'GET',
         url:  url,
@@ -140,7 +140,7 @@ $(".user-profile").click(function() {
         processData: false,
         contentType: false,
         success: function (data) {
-            $("#userDetailsModal .modal-content").html(data);
+            $("#userDetailsModal").html(data);
             $("#userDetailsModal").openModal();
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -148,4 +148,3 @@ $(".user-profile").click(function() {
         }
     });
 });
-

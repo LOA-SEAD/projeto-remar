@@ -59,9 +59,9 @@ class UrlMappings {
         "/resource/deleteRating/$id"(controller: "resource", action: "deleteRating")
         "/resource/updateRating/$id"(controller: "resource", action: "updateRating")
 
-        '/exported-resource/publicGames'(controller:"exportedResource", action:"publicGames")
-        '/exported-resource/myGames'(controller:"exportedResource", action:"myGames")
-        '/exported-resource/stats'(controller:"exportedResource", action:"stats")
+        "/exported-resource/publicGames"(controller:"exportedResource", action:"publicGames")
+        "/exported-resource/myGames"(controller:"exportedResource", action:"myGames")
+        "/exported-resource/stats"(controller:"exportedResource", action:"stats")
         "/exported-resource/_table/$resourceId"(controller: "exportedResource", action: "_table")
         "/exported-resource/_table"(controller: "exportedResource", action: "_data")
 
@@ -78,7 +78,7 @@ class UrlMappings {
         // end Resource API endpoints
 
         name myProfile: "/my-profile" (controller:"user", action:"myProfile")
-        "/user/profile/$id"(controller:"user", action: "userProfile")
+        "/user/userProfile/$id"(controller:"user", action: "userProfile")
 
         "500"(view:'/error')
 	}

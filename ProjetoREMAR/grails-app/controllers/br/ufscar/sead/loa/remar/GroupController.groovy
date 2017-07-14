@@ -145,7 +145,7 @@ class GroupController {
 
     }
 
-    def userStats(){
+    def userStats() {
         println params
         def user = User.findById(params.id)
         def exportedResource = ExportedResource.findById(params.exp)
@@ -218,21 +218,22 @@ class GroupController {
         redirect(status: 200,action: "list")
     }
 
-    def addUserAutocomplete(){
+    def addUserAutocomplete() {
         def group = Group.findById(params.groupid)
 
         if(group.owner.id == session.user.id || UserGroup.findByUserAndGroupAndAdmin(session.user, group, true)) {
-            def user = User.findByUsername(params.username)
-            log.debug ("Attempting to add user " + params.username + " to group " + params.groupid)
+            def user = User.findById(params.userid)
+            println user
+            log.debug ("Attempting to add user " + params.userid + " to group " + params.groupid)
             if(user) {
-                if (!UserGroup.findByUserAndGroup(User.findById(user.id), group) && !(group.owner.id == user.id)) {
+                if (!UserGroup.findByUserAndGroup(user, group) && !(group.owner.id == user.id)) {
                     def userGroup = new UserGroup()
-                    userGroup.group = Group.findById(group.id)
+                    userGroup.group = group
                     userGroup.user = user
                     userGroup.save flush: true
 
                     log.debug ("Success!")
-                    render status:200, template: "newUserGroup", model: [userGroup: userGroup]
+                    render status: 200, template: "newUserGroup", model: [userGroup: userGroup]
                 } else {
                     log.debug ("Failed! User is already in group.")
                     render status: 403, text: "Usuário já pertence ao grupo."
@@ -264,6 +265,18 @@ class GroupController {
 
     }
 
+    def addUserById () {
+        def group = Group.findById(params.groupId)
+        def user = User.findById(params.userId)
+        def userGroup = new UserGroup()
+
+        if (user) {
+            userGroup.group = group
+            userGroup.user = user
+            userGroup.save flush:true
+        }
+    }
+
     def findGroup(){
         println(params.name)
         def group = Group.findByNameAndOwner(params.name, session.user)
@@ -271,15 +284,36 @@ class GroupController {
     }
 
     def rankUsers() {
-        def group = Group.findById(params.id)
-        def userGroups = UserGroup.findAllByGroup(group)
-        def users = []
+        /*
+         *  Parâmetros:
+         *      id -> identificador do grupo
+         *      exp -> identificador do recurso exportado
+         */
+        println ("rankUsers() params: " + params)
 
-        for (userGroup in userGroups) {
-            def user = userGroup.user
-            users.add(user)
+        def group = Group.findById(params.groupId)
+        def userGroups = UserGroup.findAllByGroup(group)
+        def resourceName = ExportedResource.findById(params.exportedResourceId).name
+        def resourceRanking = MongoHelper.instance.getRanking(params.exportedResourceId as Long)
+        def groupRanking = []
+        def rankingMax = 10
+        def rankingPosition = 0
+
+        for (o in resourceRanking) {
+            if (userGroups.find { it.user.id == o.userId } != null) {
+                def entry = [:]
+                entry.user = User.findById(o.userId)
+                entry.score = o.score
+                entry.timestamp = o.timestamp.format("dd/MM/yyyy HH:mm:ss")
+
+                groupRanking.add(entry)
+                rankingPosition = rankingPosition + 1
+
+                if (rankingPosition >= rankingMax)
+                    break
+            }
         }
 
-        render text: users
+        render(view: "ranking", model: [ranking: groupRanking, resource: resourceName])
     }
 }

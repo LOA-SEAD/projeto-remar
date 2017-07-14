@@ -11,31 +11,36 @@
 </head>
 <body>
     <div class="row cluster">
-        <p class="left-align margin-bottom">
-            Gerenciar Jogos
-        </p>
-        <div class="divider"></div>
-        <br />
-        <main class="cardGames">
-            <div class="row">
-                <g:if test="${resourceInstanceList}">
-                    <g:render template="developerCards" model="[resourceInstanceList:resourceInstanceList]" />
-                </g:if>
-                <g:else>
-                    <p>Você ainda não submeteu nenhum jogo. Nos envie um agora mesmo!</p>
-                </g:else>
-                <div class="col s1 offset-s10">
-                    <a href="/resource/create"  name="create"
-                       class="btn-floating btn-large waves-effect waves-light my-orange tooltipped modal-trigger"
-                       data-tooltip="Adicionar modelo de jogo"><i class="material-icons">add</i></a>
+        <div class="cluster-header">
+            <h4>Gerenciar Jogos</h4>
+            <div class="divider"></div>
+        </div>
+        <div class="row show">
+            <main class="cardGames">
+                <div class="row">
+                    <g:if test="${resourceInstanceList}">
+                        <g:render template="developerCards" model="[resourceInstanceList:resourceInstanceList]" />
+                    </g:if>
+                    <g:else>
+                        <p>Você ainda não submeteu nenhum jogo. Nos envie um agora mesmo!</p>
+                    </g:else>
+                    <div class="col s1 offset-s10">
+                        <a href="/resource/create"  name="create"
+                           class="btn-floating btn-large waves-effect waves-light my-orange tooltipped modal-trigger"
+                           data-tooltip="Adicionar modelo de jogo"><i class="material-icons">add</i></a>
+                    </div>
                 </div>
-            </div>
-        </main>
+            </main>
+        </div>
     </div>
     <footer class="row">
         <ul class="pagination">
         </ul>
     </footer>
+
+    <div id="user-details-modal" class="modal">
+        %{-- Preenchido pelo Javascript --}%
+    </div>
 
     <g:javascript src="game-index.js"/>
 </body>

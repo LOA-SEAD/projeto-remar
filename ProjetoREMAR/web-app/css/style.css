@@ -1,3 +1,12 @@
+/* general styling */
+
+    h4 {
+        font-size: 1.8rem;
+        text-align: left;
+    }
+
+/* end of general styling */
+
 /* layout for the index page (static) */
 
     .sidenav li.active{
@@ -893,7 +902,7 @@ Position must be relative!*/
 }
 
 .tabs .indicator{
-    background-color:#5d4037bb;
+    background-color: rgba(93,64,55,0.733);
     /*display: none !important;*/
 }
 
@@ -1058,4 +1067,62 @@ Position must be relative!*/
 
 .progress .determinate {
     background-color: rgba(255, 87, 34, 1);
+}
+
+/* Ranking table rules */
+.table-container {
+    margin: 15px;
+}
+
+/* Slick */
+.slick-prev:before,
+.slick-next:before {
+    font-size: 20px;
+    line-height: 1;
+    opacity: .75;
+    color: black;
+}
+.slick-slide img {
+    display: inline-block;
+}
+
+/* Remar Colors */
+.remar-orange {
+     background-color: #FF5722 !important;
+}
+
+.remar-orange-text {
+     color: #FF5722 !important;
+}
+
+.remar-red {
+     background-color: #F70000 !important;
+}
+
+.remar-red-text {
+     color: #F70000 !important;
+}
+
+.remar-brown {
+     background-color: #5D4037 !important;
+}
+
+.remar-brown-text {
+     color: #5D4037 !important;
+}
+
+.remar-black {
+     background-color: #212121 !important;
+}
+
+.remar-black-text {
+     color: #212121 !important;
+}
+
+.remar-green {
+     background-color: #4CAF50 !important;
+}
+
+.remar-green-text {
+     color: #4CAF50 !important;
 }

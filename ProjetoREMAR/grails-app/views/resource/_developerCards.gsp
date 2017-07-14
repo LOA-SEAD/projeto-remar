@@ -13,7 +13,7 @@
             <div class="card-content">
                 <a class="title truncate" title="${resourceInstance.name}" aria-hidden="true" tabindex="-1" >${resourceInstance.name}</a>
                 <p style="font-size: 1.0em;" class="center">Feito por:
-                    <a href="#!" style="color: #FF5722 !important; margin-right:10px; cursor:pointer; font-style:normal"  class="user-profile" id="user-id-${resourceInstance.owner.id}" >
+                    <a href="#!" data-user-id="${resourceInstance.owner.id}" class="user-profile-anchor" href="#user-details-modal" >
                         ${resourceInstance.owner.username}
                     </a>
                 </p>
@@ -36,4 +36,6 @@
         </div>
     </div>
 </g:each>
+
+<g:javascript src="user/showProfile.js"/>
 <g:javascript src="showResourceStatus.js"/>
