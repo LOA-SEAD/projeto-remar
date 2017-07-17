@@ -1,54 +1,32 @@
-/**
- * Created by deniscapp on 6/9/16
- * Edited by garcia-pedro-hr on 6/29/17
- */
+
  $(document).ready(function () {
-    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $('.modal-trigger').leanModal();
 
-    $("#search-user").autocomplete({
-        source: function (request, response) {
-            $.ajax({
-                type: 'GET',
-                url: "/user/autocomplete",
-                data: {
-                    query: request.term,
-                    group: $('#group-id').val()
-                },
-                success: function (data) {
-                    response(data);
-                    $("#user-id").val('');
-                }, statusCode: {
-                    403: function (response) {
-                        $("#modal-message").html(response.responseText);
-                        $('#modal-user-in-group').openModal();
-                    }
-                }
-            })
-        },
+    $('#remove-btn').click(function () {
+        var usersToRemove = [];
 
-        select: function (event, ui) {
-            event.preventDefault();
-            $("#user-id").val(ui.item.value);
-        },
+        $('#in-group-form .user-list-container span input').each(function (index) {
+            if ($(this).is(':checked'))
+                usersToRemove.push($(this).data("user-id"));
+        });
 
-        focus: function (event, ui) {
-            event.preventDefault();
-            if (ui.item.inGroup == true) {
-                //TODO
-            }
-            $(this).val(ui.item.label);
-        },
-
-        messages: {
-            noResults: '',
-            results: function () {}
-        },
-
-        minLength: 1
+        console.log(usersToRemove);
     });
+
+    $('#add-btn').click(function () {
+        var usersToAdd = [];
+
+        $('#off-group-form .user-list-container span input').each(function (index) {
+            if ($(this).is(':checked'))
+                usersToAdd.push($(this).data("user-id"));
+        });
+
+        console.log(usersToAdd);
+    });
+
  });
 
+/*
 $(window).load(function(){
     $('.modal-trigger').leanModal();
     $('.tooltipped').tooltip({delay: 50});
@@ -257,3 +235,4 @@ $(window).load(function(){
     }
 
 });
+*/

@@ -1,0 +1,60 @@
+span {
+    white-space: nowrap;
+}
+
+a span p {
+    margin: 0px;
+}
+
+.user-management {
+    width: 100%;
+    height: 400px;
+    margin: auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-radius: 8px;
+}
+
+.user-selection-box-container {
+    width: 60%;
+    height: 100%;
+    margin: 10px;
+
+    float: left;
+}
+
+.user-selection-box-container p {
+    margin: 10px 0 10px 0;
+    color: white;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.user-selection-box {
+    height: 86%;
+    padding: 10px;
+
+    background-color: white;
+    overflow: auto;
+}
+
+.user-list-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.buttons .btn {
+    width: 95%;
+    margin: 15px 0;
+    padding: 0px 15px;
+}
+
+.btn span {
+    display: flex;
+    justify-content: space-between;
+}

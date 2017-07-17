@@ -201,21 +201,25 @@ class GroupController {
 
     def edit() {
         def group = Group.findById(params.id)
-        println group
         def usersInGroup = []
         def usersNotInGroup= []
 
         for (user in User.list()) {
-            if (UserGroup.findByUserAndGroup(user, group)) {
-                println "user " + user.id + " is in group"
+            if (UserGroup.findByUserAndGroup(user, group))
                 usersInGroup.add(user)
-            } else {
-                println "user " + user.id + "is not in group"
+            else
                 usersNotInGroup.add(user)
-            }
         }
 
         render view: "manage", model: [group: group, usersInGroup: usersInGroup, usersNotInGroup: usersNotInGroup]
+    }
+
+    def addUsers() {
+        // TODO
+    }
+
+    def removeUsers() {
+        // TODO
     }
 
     def leaveGroup(){
