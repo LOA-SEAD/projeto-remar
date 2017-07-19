@@ -20,11 +20,10 @@
         <g:external dir="css" file="materialize.css" />
         <g:external dir="css" file="style.css" />
 
-        <g:javascript src="jquery-2.1.4.min.js" />
+        <g:javascript src="jquery/jquery-2.1.4.min.js" />
+        <g:javascript src="jquery/jquery.rateyo.min.js" />
         <g:javascript src="materialize.min.js" />
         <g:javascript src="intro.js" />
-
-        <link type="text/javascript" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.js" />
 
         <title><g:layoutTitle default="REMAR"/></title>
 

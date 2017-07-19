@@ -19,12 +19,9 @@
                             <div class="row right-align" style="margin-bottom: 0px">
                                 <g:if test="${group.owner.id == session.user.id}">
                                     <div class="row" style="margin:0px;">
-                                        <a id="edit-group" data-name="${group.name}" data-position="right" data-tooltip="Editar grupo"
-                                           class="tooltipped" style="color: black"><i style="position:relative; top: 0.145em; cursor: pointer;"
-                                                                                      class="material-icons">edit</i></a>
-                                        <a id="remove-group" data-position="right" data-tooltip="Deletar grupo" class="tooltipped modal-trigger"
-                                           href="#modal-confirmation-group" style="color: black"><i style="position:relative; top: 0.145em;"
-                                                                                                    class="material-icons">delete</i></a>
+                                        <g:link action="edit" id="${group.id}" class="tooltipped" data-position="left" data-delay="30" data-tootip="Gerenciar Grupo">
+                                            <i class="fa fa-cog fa-2x"></i>
+                                        </g:link>
                                     </div>
                                 </g:if>
                             </div>
@@ -37,7 +34,7 @@
                                 </g:if>
                             </div>
                         </div>
-                    </div class="row">
+                    </div>
 
                     <input type="hidden" value="${group.id}" id="group-id" name="groupid">
 
@@ -194,38 +191,6 @@
         </div>
 
         <g:if test="${group.owner.id == session.user.id || UserGroup.findByUserAndAdminAndGroup(session.user, true, group)}">
-            <!-- Adicionar um Jogador -->
-            <div class="row cluster">
-                <div class="row">
-                    <div class="cluster-header">
-                        <h4>Adicionar um Membro</h4>
-                        <div class="divider"></div>
-                    </div>
-                    <form id="add-user-form">
-                        <div class="row show">
-                            <div class="col s12">
-                                <div class="row">
-                                    <div class="input-field col s8">
-                                        <input class="autocomplete" type="text" name="term" id="search-user" required>
-                                        <label for="search-user">Procure por um usuário</label>
-                                        <input type="hidden" value="" id="user-id" name="user-id">
-                                    </div>
-                                    <div class="col s4">
-                                        <button style="font-size: 0.8em; top: 1.2em; position:relative;"
-                                                class="btn waves-effect waves-light remar-orange" type="submit" name="action">Adicionar
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-
-
-                    <g:link action="edit" id="${group.id}">GERENCIAR</g:link>
-                </div>
-            </div>
-
             <!-- Compartilhamento de Jogos -->
             <div class="row cluster">
                 <div class="row">
@@ -310,16 +275,6 @@
             </div>
         </div>
 
-        <div id="modal-confirmation-group" class="modal">
-            <div class="modal-content">
-                <p>Tem certeza que deseja realizar esta ação</p>
-            </div>
-            <div class="modal-footer">
-                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Não</a>
-                <a id="delete-group" href="/group/delete/${group.id}"
-                   class=" modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
-            </div>
-        </div>
         <div id="leave-group" class="modal">
             <div class="modal-content">
                 <h5>Deseja mesmo sair do grupo?</h5>
@@ -328,17 +283,6 @@
                 <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Não</a>
                 <a href="/group/leave-group/${group.id}"
                    class=" modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
-            </div>
-        </div>
-
-        <div id="delete-modal" class="modal">
-            <div class="modal-content">
-                <h5>Deseja mesmo remover este usuário do grupo?</h5>
-            </div>
-            <div class="modal-footer">
-                <a href="#!" data-user-group-id=""
-                   class="delete-user modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
-                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Não</a>
             </div>
         </div>
 
@@ -356,12 +300,10 @@
         <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "group.css")}" />
 
         <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-        <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">-->
         <g:javascript src="group/delete-group-resources.js"/>
         <g:javascript src="group/manage-user-group.js"/>
         <g:javascript src="group/edit-group.js"/>
         <g:javascript src="group/group-ranking.js"/>
-        <g:javascript src="tooltip.js"/>
         <g:javascript src="jquery/jquery.validate.js"/>
     </body>
 </html>

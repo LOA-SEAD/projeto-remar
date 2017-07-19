@@ -9,6 +9,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import org.bson.Document
 import java.util.concurrent.TimeUnit;
 import org.grails.datastore.mapping.validation.ValidationException
+import org.springframework.transaction.annotation.Transactional
 import static java.util.Arrays.asList;
 
 
@@ -64,8 +65,6 @@ class GroupController {
             response.status = 200
         }else
             render (status: 401, view: "../401")
-
-
     }
 
     def isLogged(){
@@ -189,7 +188,8 @@ class GroupController {
         }
     }
 
-    def delete(){
+    @Transactional
+    def delete() {
         def group = Group.findById(params.id)
         if(group.owner.id == session.user.id){
             group.delete flush: true
@@ -197,6 +197,22 @@ class GroupController {
         }else
             render (status: 401, view: "../401")
 
+    }
+
+    @Transactional
+    def update() {
+        def group = Group.findById(params.groupid)
+
+        if (group == null) {
+            println "GroupController.update() could not find group with id: " + params.groupid
+            return
+        }
+
+        group.name = params.groupname
+        group.token = params.grouptoken
+        group.save flush: true
+
+        forward action: "edit", id: params.groupid
     }
 
     def edit() {
@@ -215,11 +231,27 @@ class GroupController {
     }
 
     def addUsers() {
-        // TODO
+        def group = Group.findById(params.groupid)
+
+        for (id in JSON.parse(params.users)) {
+            def user = User.findById(id)
+            def userGroup = new UserGroup(user: user, group: group)
+            userGroup.save flush: true
+        }
+
+        forward action: "edit", id: params.groupid
     }
 
     def removeUsers() {
-        // TODO
+        def group = Group.findById(params.groupid)
+
+        for (id in JSON.parse(params.users)) {
+            def user = User.findById(id)
+            def userGroup = UserGroup.findByUserAndGroup(user, group)
+            userGroup.delete flush: true
+        }
+
+        forward action: "edit", id: params.groupid
     }
 
     def leaveGroup(){

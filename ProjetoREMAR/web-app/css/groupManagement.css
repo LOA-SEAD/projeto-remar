@@ -24,17 +24,25 @@ a span p {
     margin: 10px;
 
     float: left;
+    background-color: #5d4037;
+    border-radius: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .user-selection-box-container p {
     margin: 10px 0 10px 0;
     color: white;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .user-selection-box {
-    height: 86%;
+    height: 84%;
+    width: 95%;
     padding: 10px;
 
     background-color: white;
@@ -57,4 +65,25 @@ a span p {
 .btn span {
     display: flex;
     justify-content: space-between;
+}
+
+.group-management {
+    width: 100%;
+    margin-bottom: auto;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.group-management > div.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.group-management form {
+    display: flex;
+    flex-direction: column;
+}
+
+.group-management form div.row {
+    width: 30em;
 }
