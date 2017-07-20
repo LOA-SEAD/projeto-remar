@@ -30,7 +30,7 @@ div {
 }
 
 #camadaMenu {
-	background: url("../../img/menu/titulo.png"), url("../../img/fundo.png");
+	background: url("../../images/editor/menu/titulo.png"), url("../../images/editor/fundo.png");
 }
 
 #camadaJogo {
@@ -38,16 +38,16 @@ div {
 }
 
 #camadaNiveis {
-	background: url("../../img/niveis.png"), url("../../img/fundo.png");
+	background: url("../../images/editor/niveis.png"), url("../../images/editor/fundo.png");
 }
 
 #camadaRanking {
 
-	background: url("../../img/ranking.png"), url("../../img/fundo.png");
+	background: url("../../images/editor/ranking.png"), url("../../images/editor/fundo.png");
 }
 
 #camadaCreditos {
-	background: url("../../img/creditos.png"), url("../../img/fundo.png");
+	background: url("../../images/editor/creditos.png"), url("../../images/editor/fundo.png");
 }
 
 /*Botoes do MENU*/
@@ -57,7 +57,7 @@ div {
 }
 
 #btnJogar {
-	background: url("../../img/menu/btnJogar.png");
+	background: url("../../images/editor/menu/btnJogar.png");
 	position: absolute;
 	top: 414px;
 	left: 47px;
@@ -68,7 +68,7 @@ div {
 }
 
 #btnNiveis {
-	background: url("../../img/menu/btnNiveis.png");
+	background: url("../../images/editor/menu/btnNiveis.png");
 	position: absolute;
 	top: 414px;
 	left: 227px;
@@ -79,7 +79,7 @@ div {
 }
 
 #btnRanking {
-	background: url("../../img/menu/btnRanking.png");
+	background: url("../../images/editor/menu/btnRanking.png");
 	position: absolute;
 	top: 414px;
 	left: 406px;
@@ -90,7 +90,7 @@ div {
 }
 
 #btnCreditos {
-	background: url("../../img/menu/btnCreditos.png");
+	background: url("../../images/editor/menu/btnCreditos.png");
 	position: absolute;
 	top: 414px;
 	left: 587px;
@@ -107,7 +107,7 @@ div {
 	left: 200px;
 	width: 600px;
 	height: 80px;
-	background: url(../../img/barrainferior.png);
+	background: url(../../images/editor/barrainferior.png);
 }
 
 #areaLateral {
@@ -116,7 +116,7 @@ div {
 	left: 0px;
 	width: 200px;
 	height: 600px;
-	background-image: url(../../img/barralateral.png);
+	background-image: url(../../images/editor/barralateral.png);
 	overflow: visible;
 }
 
@@ -126,7 +126,7 @@ div {
 	left: 200px;
 	width: 600px;
 	height: 520px;
-	background: url(../../img/campo.png);
+	background: url(../../images/editor/campo.png);
 	z-index: 8;
 }
 
@@ -137,7 +137,7 @@ div {
 	position: absolute;
 	top: 158px;
 	left: 15px;
-	background: url(../../img/numeroCarbono.png);
+	background: url(../../images/editor/numeroCarbono.png);
 	background-position: 0px 0px;
 }
 
@@ -152,7 +152,7 @@ div {
 	height: 60px;
 	top: 450px;
 	left: 109px;
-	background: url(../../img/btnVerifica.png);
+	background: url(../../images/editor/btnVerifica.png);
 	background-position: 0px 0px;
 	border-radius: 10px;
 }
@@ -167,7 +167,7 @@ div {
 	height: 60px;
 	top: 521px;
 	left: 109px;
-	background: url(../../img/btnMenu.png);
+	background: url(../../images/editor/btnMenu.png);
 	background-position: 0px 0px;
 	border-radius: 10px;
 }
@@ -182,7 +182,7 @@ div {
 	height: 60px;
 	top: 14px;
 	left: 510px;
-	background: url(../../img/btnLixeira.png);
+	background: url(../../images/editor/btnLixeira.png);
 	background-position: 0px 0px;
 	border-radius: 10px;
 }
@@ -200,7 +200,7 @@ div {
 	top: 14px;
 	left: 15px;
 	padding-top: 5px;
-	background: url(../../img/nomemolecula.png);
+	background: url(../../images/editor/nomemolecula.png);
 	z-index: 10;
 	font-family: "Fonte";
 	text-align: center;
@@ -214,7 +214,7 @@ div {
 	height: 46px;
 	padding-top: 18px;
 	border-radius: 10px;
-	background: url(../../img/formulamolecula.png);
+	background: url(../../images/editor/formulamolecula.png);
 	top: 40px;
 	left: 35px;
 	z-index: 9;
@@ -251,61 +251,61 @@ div {
 #hidrogenio {
 	top : 221px;
 	left: 40px;
-	background: url(../../img/atomos/hidrogenio.png);
+	background: url(../../images/editor/atomos/hidrogenio.png);
 }
 
 #carbono {
 	top : 221px;
 	left: 119px;
-	background: url(../../img/atomos/carbono.png);
+	background: url(../../images/editor/atomos/carbono.png);
 }
 
 #nitrogenio {
 	top : 261px;
 	left: 40px;
-	background: url(../../img/atomos/nitrogenio.png);
+	background: url(../../images/editor/atomos/nitrogenio.png);
 }
 
 #oxigenio {
 	top : 261px;
 	left: 119px;
-	background: url(../../img/atomos/oxigenio.png);
+	background: url(../../images/editor/atomos/oxigenio.png);
 }
 
 #fluor {
 	top : 304px;
 	left: 40px;
-	background: url(../../img/atomos/fluor.png);
+	background: url(../../images/editor/atomos/fluor.png);
 }
 
 #cloro {
 	top : 304px;
 	left: 119px;
-	background: url(../../img/atomos/cloro.png);
+	background: url(../../images/editor/atomos/cloro.png);
 }
 
 #bromo {
 	top : 345px;
 	left: 40px;
-	background: url(../../img/atomos/bromo.png);
+	background: url(../../images/editor/atomos/bromo.png);
 }
 
 #iodo {
 	top : 345px;
 	left: 119px;
-	background: url(../../img/atomos/iodo.png);
+	background: url(../../images/editor/atomos/iodo.png);
 }
 
 #fosforo {
 	top : 387px;
 	left: 40px;
-	background: url(../../img/atomos/fosforo.png);
+	background: url(../../images/editor/atomos/fosforo.png);
 }
 
 #enxofre {
 	top : 387px;
 	left: 119px;
-	background: url(../../img/atomos/enxofre.png);
+	background: url(../../images/editor/atomos/enxofre.png);
 }
 
 /*ATOMOS - NA AREA DE EDICAO*/
@@ -329,17 +329,17 @@ div {
 
 #ligacaosimples {
 	top: 467px;
-	background: url("../../img/atomos/ligacaosimples.png")
+	background: url("../../images/editor/atomos/ligacaosimples.png")
 }
 
 #ligacaodupla {
 	top: 497px;
-	background: url("../../img/atomos/ligacaodupla.png")
+	background: url("../../images/editor/atomos/ligacaodupla.png")
 }
 
 #ligacaotripla {
 	top: 535px;
-	background: url("../../img/atomos/ligacaotripla.png")
+	background: url("../../images/editor/atomos/ligacaotripla.png")
 }
 
 /*LIGACOES - NA AREA DE EDICAO*/
@@ -357,7 +357,7 @@ div {
 	position: absolute;
 	width: 113px;
 	height: 71px;
-	background: url("../../img/btnNivel.png");
+	background: url("../../images/editor/btnNivel.png");
 }
 
 .btnNivel:hover {
@@ -374,7 +374,7 @@ div {
 	height: 54px;
 	top: 365px;
 	left: 675px;
-	background: url("../../img/btnProximo.png");
+	background: url("../../images/editor/btnProximo.png");
 }
 
 #proximo:hover {
@@ -387,7 +387,7 @@ div {
 	height: 54px;
 	top: 365px;
 	left: 74px;
-	background: url("../../img/btnAnterior.png");
+	background: url("../../images/editor/btnAnterior.png");
 }
 
 #anterior:hover {
@@ -400,7 +400,7 @@ div {
 	height: 60px;
 	top: 540px;
 	left: 717px;
-	background: url(../../img/btnMenu.png);
+	background: url(../../images/editor/btnMenu.png);
 	background-position: 0px 0px;
 	border-radius: 10px;
 }
@@ -490,11 +490,11 @@ div {
 	height: 414px;
 	top: 60px;
 	left: 300px;
-	background: url("../../img/popup/popupFundo.png");
+	background: url("../../images/editor/popup/popupFundo.png");
 }
 
 #acertou.popup {
-	background: url("../../img/popup/acerto.png"), url("../../img/popup/popupFundo.png");
+	background: url("../../images/editor/popup/acerto.png"), url("../../images/editor/popup/popupFundo.png");
 }
 
 #terminouJogo.popup {
@@ -507,7 +507,7 @@ div {
 	height: 414px;
 	top: 60px;
 	left: 300px;
-	background: url("../../img/popup/popupParabens.png");
+	background: url("../../images/editor/popup/popupParabens.png");
 }
 
 #reiniciar.botao {
@@ -520,7 +520,7 @@ div {
 	padding-top: 6px;
 	width: 164px;
 	height: 86px;
-	background: url("../../img/popup/popupBotao2.png");
+	background: url("../../images/editor/popup/popupBotao2.png");
 	background-position: 0px 0px;
 }
 
@@ -529,7 +529,7 @@ div {
 }
 
 #reiniciar.botao.desabilitado {
-	background: url("../../img/popup/popupBotao2D.png");
+	background: url("../../images/editor/popup/popupBotao2D.png");
 	background-position: 0px 0px;
 }
 
@@ -543,7 +543,7 @@ div {
 	padding-top: 6px;
 	width: 164px;
 	height: 86px;
-	background: url("../../img/popup/popupBotao1.png");
+	background: url("../../images/editor/popup/popupBotao1.png");
 	background-position: 0px 0px;
 }
 
@@ -552,7 +552,7 @@ div {
 }
 
 #continuar.botao.desabilitado {
-	background: url("../../img/popup/popupBotao2D.png");
+	background: url("../../images/editor/popup/popupBotao2D.png");
 	background-position: 0px 0px;
 }
 
@@ -574,17 +574,17 @@ div {
 
 #tutorial1.botaoTutorial {
 	left: 13px;
-	background: url("../../img/popup/popupErrobt1.png");
+	background: url("../../images/editor/popup/popupErrobt1.png");
 }
 
 #tutorial2.botaoTutorial {
 	left: 145px;
-	background: url("../../img/popup/popupErrobt2.png");
+	background: url("../../images/editor/popup/popupErrobt2.png");
 }
 
 #tutorial3.botaoTutorial {
 	left: 277px;
-	background: url("../../img/popup/popupErrobt3.png");
+	background: url("../../images/editor/popup/popupErrobt3.png");
 }
 
 .moverAtomo {

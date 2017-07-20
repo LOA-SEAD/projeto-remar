@@ -1,5 +1,5 @@
 var xmlPath = "/quimolecula/xml/"
-var imgPath = "/quimolecula/img/"
+var imgPath = "/quimolecula/images/editor/"
 var save = (function () {
 
     var Publico = {
