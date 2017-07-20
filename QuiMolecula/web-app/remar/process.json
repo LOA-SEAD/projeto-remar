@@ -1,12 +1,12 @@
 {
-  "name": "Forca",
-  "uri": "forca",
+  "name": "QuiMolécula",
+  "uri": "quimolecula",
   "version": 1,
   "tasks": [
     {
-      "name": "Banco de Questões",
+      "name": "Banco de Moléculas",
       "uri": "question",
-      "description": "Criar/editar/selecionar um banco de questões para o jogo.",
+      "description": "Criar/editar/selecionar um banco de moléculas para o jogo.",
       "type": "text_database",
       "dependencies": null,
       "outputs": [
@@ -16,39 +16,12 @@
           "path": "json"
         }
       ]
-    },
-    {
-      "name": "Tema",
-      "uri": "theme",
-      "optional": true,
-      "description": "Criar/editar/selecionar um tema para o jogo.",
-      "type": "image_collection",
-      "dependencies": null,
-      "outputs": [
-        {
-          "name": "inicio.png",
-          "type": "image",
-          "path": "imgs"
-        },
-        {
-          "name": "papel.png",
-          "type": "image",
-          "path": "imgs"
-        },
-        {
-          "name": "icon.png",
-          "type": "image",
-          "path": "imgs"
-        }
-      ]
     }
   ],
   "outputs": [
     "web",
-    "android",
     "desktop"
   ],
-
   "vars": {
     "width": 800,
     "height": 600
