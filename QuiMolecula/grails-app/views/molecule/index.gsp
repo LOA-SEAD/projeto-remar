@@ -77,11 +77,11 @@
 
                 <td class="_not_editable"><input class="filled-in" type="checkbox"> <label></label></td>
 
-                <td name="Molecule_label">${fieldValue(bean: MoleculeInstance, field: "statement")}</td>
+                <td name="Molecule_label">${fieldValue(bean: MoleculeInstance, field: "name")}</td>
 
-                <td>${fieldValue(bean: MoleculeInstance, field: "answer")}</td>
+                <td>${fieldValue(bean: MoleculeInstance, field: "structure")}</td>
 
-                <td name="theme" id="theme">${fieldValue(bean: MoleculeInstance, field: "category")}</td>
+                <td name="theme" id="theme">${fieldValue(bean: MoleculeInstance, field: "tip")}</td>
 
 
                 <td><i onclick="_edit($(this.closest('tr')))" style="color: #7d8fff; margin-right:10px;"
@@ -94,11 +94,11 @@
                 <td class="_not_editable"><input class="filled-in" type="checkbox"> <label></label></td>
 
                 <td name="Molecule_label"
-                    data-MoleculeId="${MoleculeInstance.id}">${fieldValue(bean: MoleculeInstance, field: "statement")}</td>
+                    data-MoleculeId="${MoleculeInstance.id}">${fieldValue(bean: MoleculeInstance, field: "name")}</td>
 
-                <td>${fieldValue(bean: MoleculeInstance, field: "answer")}</td>
+                <td>${fieldValue(bean: MoleculeInstance, field: "structure")}</td>
 
-                <td name="theme" id="theme">${fieldValue(bean: MoleculeInstance, field: "category")}</td>
+                <td name="theme" id="theme">${fieldValue(bean: MoleculeInstance, field: "tip")}</td>
 
                 <td><i style="color: gray; margin-right:10px;" class="fa fa-pencil"></i>
                 </td>

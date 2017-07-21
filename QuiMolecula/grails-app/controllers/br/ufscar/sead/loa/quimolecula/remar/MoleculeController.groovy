@@ -15,9 +15,10 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class MoleculeController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [newMolecule: "POST", save: "POST", update: "PUT", delete: "DELETE"]
 
     def springSecurityService
+
 
     def index(Integer max) {
         if (params.t) {
@@ -42,34 +43,34 @@ class MoleculeController {
             MoleculeInstance.author = session.user.username
         }
 
-        Molecule newQuest = new Molecule();
-        newQuest.id = MoleculeInstance.id
-        newQuest.statement = MoleculeInstance.statement
-        newQuest.answer = MoleculeInstance.answer
-        newQuest.author = MoleculeInstance.author
-        newQuest.category = MoleculeInstance.category
-        newQuest.taskId    = session.taskId as String
-        newQuest.ownerId = session.user.id
+        Molecule newMolecule  = new Molecule();
+        newMolecule.id        = MoleculeInstance.id
+        newMolecule.tip       = MoleculeInstance.tip
+        newMolecule.name      = MoleculeInstance.name
+        newMolecule.author    = MoleculeInstance.author
+        newMolecule.xml       = MoleculeInstance.xml
+        newMolecule.structure = MoleculeInstance.structure
 
-        if (newQuest.hasErrors()) {
-            respond newQuest.errors, view: 'create' //TODO
-            render newQuest.errors;
+        newMolecule.ownerId   = session.user.id
+        newMolecule.taskId    = session.taskId as String
+
+        if (newMolecule.hasErrors()) {
+            respond newMolecule.errors, view: 'create' //TODO
+            render newMolecule.errors;
             return
         }
 
-        newQuest.save flush: true
+        newMolecule.save flush: true
 
         if (request.isXhr()) {
             render(contentType: "application/json") {
-                JSON.parse("{\"id\":" + newQuest.getId() + "}")
+                JSON.parse("{\"id\":" + newMolecule.getId() + "}")
             }
         } else {
             // TODO
         }
 
-        redirect(action: index())
-
-
+        render("200 OK")
     }
 
     @Transactional
