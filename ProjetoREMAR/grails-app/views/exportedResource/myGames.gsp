@@ -62,12 +62,7 @@
 </div>
 
 <div id="userDetailsModal" class="modal remar-modal">
-    <div class="modal-content">
-        <h4>Informações de Usuário</h4>
-    </div>
-    <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close btn waves-effect waves-light my-orange">OK</a>
-    </div>
+    %{-- Preenchido pelo Javascript --}%
 </div>
 
 <script>

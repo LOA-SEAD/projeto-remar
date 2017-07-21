@@ -7,6 +7,9 @@ import br.ufscar.sead.loa.remar.User
 import br.ufscar.sead.loa.remar.MongoHelper
 import br.ufscar.sead.loa.remar.Category
 
+import br.ufscar.sead.loa.remar.Group
+import br.ufscar.sead.loa.remar.UserGroup
+
 import javax.servlet.http.HttpServletRequest
 
 class BootStrap {
@@ -48,6 +51,32 @@ class BootStrap {
             UserRole.create admin, Role.findByAuthority("ROLE_ADMIN"), true
             UserRole.create admin, Role.findByAuthority("ROLE_DEV"), true
 
+            10.times {
+                def user = new User (
+                        username: "user${it}",
+                        password: grailsApplication.config.users.password,
+                        email: "loa${it}@sead.ufscar.br",
+                        firstName: "User",
+                        lastName: "${it}",
+                        enabled: true
+                )
+
+                user.save flush:true
+            }
+
+            def g = new Group(
+                name: "g1",
+                token: "g1",
+                owner: User.findById(1)
+                )
+            g.save flush:true
+
+            5.times {
+                new UserGroup (
+                    group: g,
+                    user: User.findById(it + 2)
+                    ).save flush:true
+            }
             log.debug "Users: ok"
         }
 
@@ -67,9 +96,9 @@ class BootStrap {
 
         for (url in [
                 '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/exportedResource/**', '/my-profile',
-                '/user/update', '/user/profile','/user/profile/**', '/resource/customizableGames', '/resource/show/**', '/moodle/link/**', '/moodle/unlink/**', '/resource/saveRating/**',
+                '/user/update', '/userProfile', '/userProfile/**', '/moodle/link/**', '/moodle/unlink/**', '/resource/saveRating/**',
                 '/resource/updateRating/**', '/resource/deleteRating/**', '/group/**', '/group/user-stats/**', '/group/stats/**', '/user-group/**', '/group-exported-resources/**',
-                '/dspace/**'
+                '/dspace/**', '/resource/customizableGames', '/resource/show/**'
         ]) {
             RequestMap.findOrSaveByUrlAndConfigAttribute(url, 'isAuthenticated()')
         }
