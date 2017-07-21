@@ -6,10 +6,14 @@ class Molecule {
     String structure
     String tip
     String author
-    Text xml
+    String xml
 
     long ownerId
     String taskId
+
+    static mapping = {
+        xml type: 'text'
+    }
 
     static constraints = {
         name blank: false, maxSize: 150
