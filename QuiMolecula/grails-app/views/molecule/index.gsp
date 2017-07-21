@@ -122,7 +122,8 @@
     </div>
 
     <div class="col s1 m1 l1">
-        <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exluir molécula" ></a>
+        <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exluir molécula" >
+        <i class="material-icons">delete</i>Excluir moléculas</a>
     </div>
 </div>
 
