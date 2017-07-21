@@ -52,12 +52,12 @@
 							<div class="row">
 			                    <div class="input-field col s12 m6">
 			                        <i class="material-icons prefix">person</i>
-			                        <input id="firstName" name="firstName" type="text" value="${session.user.firstName}" />
+			                        <input required id="firstName" name="firstName" type="text" value="${session.user.firstName}" />
 			                        <label for="firstName">Nome</label>
 			                    </div>
 			                    <div class="input-field col s12 m6">
 			                        <i class="material-icons prefix">person</i>
-			                        <input id="lastName" name="lastName" type="text" value="${session.user.lastName}" />
+			                        <input required id="lastName" name="lastName" type="text" value="${session.user.lastName}" />
 			                        <label for="lastName">Sobrenome</label>
 			                    </div>
 							</div>
@@ -152,33 +152,7 @@
 				</sec:ifAnyGranted>
 			</div>
 		</div>
-                        <g:each var="moodleInstance" in="${moodleList}">
-                            <li class="collection-item">
-                                <div class="row no-margin-bottom">
-                                    <div class="col s10">
-                                        <b>Moodle</b>: <a href="${moodleInstance.domain}">${moodleInstance.name}</a><br />
-                                        <g:if test="${(new UserController()).getMoodleAccount((int) moodleInstance.id)}">
-                                            <b>Conta</b>: ${(new UserController()).getMoodleAccount((int) moodleInstance.id).accountName} (<a href="/moodle/unlink/${(new UserController()).getMoodleAccount((int) moodleInstance.id).token}">X</a>)
-                                        </g:if>
-                                        <g:else>
-                                            <b>Conta</b>: -
-                                        </g:else>
-                                    </div>
-                                    <div class="col s2 right">
-                                        <g:if test="${!(new UserController()).getMoodleAccount((int) moodleInstance.id)}">
-                                            <a href="/moodle/link/${moodleInstance.id}" class="btn-floating btn-medium waves-effect waves-light my-orange right">
-                                                <i class="mdi-content-add"></i>
-                                            </a>
-                                        </g:if>
-                                    </div>
-                                </div>
-                            </li>
-                        </g:each>
-                    </ul>
-                </div>
-            </div>
-			-->
-
+		
 		<!-- Card para DESABILITAR uma conta -->
 		<div class="row" style="margin-top: 50px;">
 			<div class="cluster-header">

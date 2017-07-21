@@ -8,22 +8,5 @@
 $(document).ready(function() {
     console.log ('group-ranking.js loaded');
 
-    $('#ranking a.btn').click(function() {
-        var ID = $('#group-id').val();
-        var URL = '/group/rankUsers';
-
-        console.log(ID);
-
-        $.ajax ({
-            type: 'GET',
-            url: URL,
-            data: {id: ID},
-            success: function (resp) {
-                console.log(resp);
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                console.log(errorThrown);
-            }
-        });
-    });
+    
 });

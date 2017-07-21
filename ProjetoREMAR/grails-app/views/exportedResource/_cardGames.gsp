@@ -18,7 +18,7 @@
                             <div class="divider"></div>
                             <span style="color: dimgrey; font-size: 0.9em" class="center">${instance.resource.category.name}</span>
                             <span style="color: dimgrey; font-size: 0.9em" class="center truncate">Feito por:
-                                <a href="#!" style="color: #7d8fff !important; margin-right:10px; cursor:pointer; font-style:normal"  class="user-profile" id="user-id-${instance.owner.id}" >
+                                <a href="#!" style="color: margin-right:10px; cursor:pointer; font-style:normal" class="user-profile" id="user-id-${instance.owner.id}" >
                                     ${instance.owner.username}
                                 </a></span>
                             <span style="color: dimgrey;" class="center">
@@ -100,7 +100,7 @@
                 <div id="modal-group-${instance.id}" class="modal col l6 offset-l3 s6">
                     <div class="modal-content">
                         <ul class="collection with-header">
-                            <g:if test="${!myGroups.empty}"> 
+                            <g:if test="${!myGroups.empty}">
                                 <g:each var="group" in="${myGroups}">
                                     <li class="collection-item">
                                         <div>
@@ -138,8 +138,8 @@
                                     </li>
                                 </g:each>
                             </g:if>
-                            <g:if test="${groupsIAdmin.empty && myGroups.empty}"> 
-                                    <li class="collection-header"><h5>Você não possui grupos disponíveis</h5></li> 
+                            <g:if test="${groupsIAdmin.empty && myGroups.empty}">
+                                    <li class="collection-header"><h5>Você não possui grupos disponíveis</h5></li>
                             </g:if>
                             <g:else>
                                 <input type="hidden" name="exportedresource" value="${instance.id}">
@@ -157,4 +157,3 @@
     </div>
     <g:applyLayout name="pagination"/>
 </main>
-
