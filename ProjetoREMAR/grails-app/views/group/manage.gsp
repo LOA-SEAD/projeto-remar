@@ -58,10 +58,12 @@
                                 <form action="#" id="in-group-form">
                                     <div class="user-list-container">
                                         <g:each var="user" in="${usersInGroup}">
-                                            <span>
-                                                <input id="checkbox-user-${user.id}" data-user-id="${user.id}" type="checkbox" class="filled-in"/>
-                                                <label for="checkbox-user-${user.id}"> ${user.name} (${user.username})</label>
-                                            </span>
+                                            <g:if test="${!(group.owner.id == session.user.id)}">
+                                                <span>
+                                                    <input id="checkbox-user-${user.id}" data-user-id="${user.id}" type="checkbox" class="filled-in"/>
+                                                    <label for="checkbox-user-${user.id}"> ${user.name} (${user.username})</label>
+                                                </span>
+                                            </g:if>
                                         </g:each>
                                     </div>
                                 </form>
@@ -89,10 +91,12 @@
                                 <form action="#" id="off-group-form">
                                     <div class="user-list-container">
                                         <g:each var="user" in="${usersNotInGroup}">
-                                            <span>
-                                                <input id="checkbox-user-${user.id}" data-user-id="${user.id}" type="checkbox" class="filled-in"/>
-                                                <label for="checkbox-user-${user.id}"> ${user.name} (${user.username})</label>
-                                            </span>
+                                            <g:if test="${!(group.owner.id == session.user.id)}">
+                                                <span>
+                                                    <input id="checkbox-user-${user.id}" data-user-id="${user.id}" type="checkbox" class="filled-in"/>
+                                                    <label for="checkbox-user-${user.id}"> ${user.name} (${user.username})</label>
+                                                </span>
+                                            </g:if>
                                         </g:each>
                                     </div>
                                 </form>
