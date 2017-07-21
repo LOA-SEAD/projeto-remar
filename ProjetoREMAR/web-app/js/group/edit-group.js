@@ -108,6 +108,4 @@ $(window).load(function(){
             Materialize.toast("Nome não alterado", 3000, "rounded");
         }
     }
-
-
 });
