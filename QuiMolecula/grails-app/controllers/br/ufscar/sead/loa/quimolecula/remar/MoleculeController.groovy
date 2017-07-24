@@ -26,7 +26,7 @@ class MoleculeController {
         }
         session.user = springSecurityService.currentUser
 
-        def list = Molecule.findAllByAuthor(session.user.username)
+        def list = Molecule.findAllByAuthor(session.user.username, [sort: "name"])
 
         render view: "index", model: [MoleculeInstanceList: list, MoleculeInstanceCount: list.size(),
                                       userName: session.user.username, userId: session.user.id]
