@@ -9,7 +9,17 @@
 <p>Copy this project changing its name into the name of your new application that will be added into Remar.</p>
 <p>You will need however to make a few changes in the code before using it.</p>
 
-### Changes needed:
+### Next steps:
+* Run this command inside this repository's base directory in your computer:
+```
+cp -rf Template/ *your_application_name_here*
+rm *your_application_name_here*/Manual.pdf
+```
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+This will create  a directory with the name of your application.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Then you can open IntelliJ and go to **New->Project from Existing Sources** and select the directory you just created and start working on it :)
+
 * grails-app/conf/**Config.groovy**
 <br> Substitute the *"TemplateName"* to your application's name where you find the following line (2 occurrences)
 ```java
@@ -22,3 +32,6 @@ grails.app.context = "/TemplateName"
 url = "jdbc:mysql://localhost/TemplateName"
 ```
 * Remember that inside the dir "**web-app/remar**"  many other changes will be needed. Those are better explained at the [Manual.pdf](https://github.com/LOA-SEAD/projeto-remar/blob/master/Template/Manual.pdf) file inside this repository.
+
+
+
