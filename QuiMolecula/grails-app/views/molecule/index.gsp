@@ -10,9 +10,6 @@
 
     <g:external dir="css" file="molecule.css"/>
 
-    <g:javascript src="molecule.js"/>
-    <g:javascript src="iframeResizer.contentWindow.min.js"/>
-
     <g:set var="entityName" value="${message(code: 'Molecule.label', default: 'Molecule')}"/>
 </head>
 
@@ -191,6 +188,7 @@
     </div>
 
     <g:javascript src="materialize.min.js"/>
-
+    <g:javascript src="iframeResizer.contentWindow.min.js"/>
+    <g:javascript src="molecule.js"/>
 </body>
 </html>
