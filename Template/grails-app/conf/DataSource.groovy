@@ -17,7 +17,7 @@ environments {
 
         dataSource {
             dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mysql://localhost/TemplateBase"
+            url = "jdbc:mysql://localhost/TemplateName"
         }
         dataSource_remar {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
