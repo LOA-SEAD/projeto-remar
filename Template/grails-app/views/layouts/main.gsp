@@ -7,7 +7,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title><g:layoutTitle default="Grails"/></title>
+	<title><g:layoutTitle default="Remar Template Project"/></title>
 	<!--Import Google Icon Font-->
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!--Import materialize.css-->
@@ -19,11 +19,12 @@
 	<g:layoutHead/>
 </head>
 <body>
-<div class="container">
-	<g:layoutBody/>
-</div>
-<!--Import jQuery before materialize.js-->
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<asset:javascript src="materialize.min.js"/>
+	<div class="container">
+		<g:layoutBody/>
+	</div>
+	<!--Import jQuery before materialize.js-->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<asset:javascript src="materialize.min.js"/>
+	<asset:javascript src="iframeResizer.contentWindow.min.js"/>
 </body>
 </html>
