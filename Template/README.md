@@ -12,6 +12,7 @@
 ### Next steps:
 * Run this command inside this repository's base directory in your computer:
 ```
+cd /path/to/projeto-remar
 cp -rf Template/ *your_application_name_here*
 rm *your_application_name_here*/Manual.pdf
 ```
@@ -33,5 +34,5 @@ url = "jdbc:mysql://localhost/TemplateName"
 ```
 * Remember that inside the dir "**web-app/remar**"  many other changes will be needed. Those are better explained at the [Manual.pdf](https://github.com/LOA-SEAD/projeto-remar/blob/master/Template/Manual.pdf) file inside this repository.
 
-
+* Now you are all set to start working into your grails-app directory and bring your new game to the Remar platform!
 
