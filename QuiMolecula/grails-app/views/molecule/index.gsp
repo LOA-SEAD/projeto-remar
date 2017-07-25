@@ -47,7 +47,7 @@
                     </div>
 
                     <div class="molecule-list-box-button">
-                        <a id="delete-btn" class="waves-effect waves-light btn remar-orange disabled">
+                        <a id="deleteMoleculeButton" class="waves-effect waves-light btn remar-orange disabled">
                             <span>
                                 <p>Remover</p>
                             </span>
@@ -67,7 +67,7 @@
                     </div>
 
                     <div class="molecule-list-box-button">
-                        <a id="send-btn" class="waves-effect waves-light btn remar-orange disabled">
+                        <a id="sendMoleculeButton" class="waves-effect waves-light btn remar-orange disabled">
                             <span>
                                 <p>Enviar</p>
                             </span>

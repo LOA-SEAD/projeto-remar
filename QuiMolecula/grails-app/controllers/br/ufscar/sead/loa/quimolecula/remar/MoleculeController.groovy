@@ -130,7 +130,7 @@ class MoleculeController {
 
         MoleculeInstance.delete flush: true
 
-        if (request.isXhr()) {
+        if (request.xhr) {
             render(contentType: "application/json") {
                 JSON.parse("{\"id\":" + MoleculeInstance.getId() + "}")
             }
