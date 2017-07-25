@@ -14,7 +14,7 @@
 ```
 cd /path/to/projeto-remar
 cp -rf Template/ *your_application_name_here*
-rm *your_application_name_here*/Manual.pdf
+rm *your_application_name_here*/Manual.pdf *your_application_name_here*/README.md
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 This will create  a directory with the name of your application.<br>
