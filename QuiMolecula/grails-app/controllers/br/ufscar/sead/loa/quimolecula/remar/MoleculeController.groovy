@@ -15,7 +15,7 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class MoleculeController {
 
-    static allowedMethods = [newMolecule: "POST", save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [newMolecule: "POST", save: "POST", delete: "DELETE"]
 
     def springSecurityService
 
@@ -31,10 +31,6 @@ class MoleculeController {
         render view: "index", model: [MoleculeInstanceList: list, MoleculeInstanceCount: list.size(),
                                       userName: session.user.username, userId: session.user.id]
 
-    }
-
-    def createMolecule() {
-        render view:"create", model: [userName: session.user.username, userId: session.user.id]
     }
 
     @Transactional
@@ -102,23 +98,6 @@ class MoleculeController {
         }
 
         redirect(action: index())
-    }
-
-    def edit(Molecule MoleculeInstance) {
-        respond MoleculeInstance
-    }
-
-    @Transactional
-    def update() {
-
-        Molecule MoleculeInstance = Molecule.findById(Integer.parseInt(params.MoleculeID))
-
-        MoleculeInstance.statement = params.statement
-        MoleculeInstance.answer = params.answer
-        MoleculeInstance.category = params.category
-        MoleculeInstance.save flush:true
-
-        redirect action: "index"
     }
 
     @Transactional
