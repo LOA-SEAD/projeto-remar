@@ -4,43 +4,36 @@ class GroupExportedResourcesController {
 
     def index() {}
 
-    def delete(){
-        def groupExportedResource = GroupExportedResources.findById(params.id)
-        println groupExportedResource
-        def group = groupExportedResource.group
-        println group
-        if(session.user.id == group.owner.id) {
+    def deleteGroupExportedResources() {
+        def exportedResourceId = ExportedResource.findById(params.exportedresource) // pega o id do jogo
+        def groupId = Group.findById(params.groupid) // pega o id do grupo
+
+        def groupExportedResource =  GroupExportedResources.findByGroupAndExportedResource(groupId, exportedResourceId)
+
+        if (groupExportedResource) { // pesquisa se o jogo ja pertence ao respectivo grupo
             groupExportedResource.delete flush: true
-            render status: 200
-        }else{
+            render status: 200, text: "Jogo descompartilhado com sucesso!"
+        }
+        else { // se não existir, redireciona para erro
             render(view: "../401", status: 401)
         }
     }
 
-    def addGroupExportedResources(){
-        def groupsId
-        groupsId = params.groupsid.split(",")
+    def addGroupExportedResources() {
+        def exportedResourceId = ExportedResource.findById(params.exportedresource) // pega o id do jogo
+        def groupId = Group.findById(params.groupid) // pega o id do grupo
 
-        def exportedResource = ExportedResource.findById(params.exportedresource)
+        def groupExportedResource = new GroupExportedResources() // declara um novo grupo (a ser gravado ou não)
 
-        groupsId.each{
-            def groupExportedResource = new GroupExportedResources()
-            def group = Group.findById("${it}")
+        if (GroupExportedResources.findByGroupAndExportedResource(groupId, exportedResourceId)) // pesquisa se o jogo ja pertence ao respectivo grupo
+            render status: 405, text: "Este jogo já pertence a um grupo!"
+        else { // se não existir, grava
+            groupExportedResource.group = groupId
+            groupExportedResource.exportedResource = exportedResourceId
 
-            if(GroupExportedResources.findByGroupAndExportedResource(group,exportedResource))
-                render status: 405, text: "Jogo já pertence a grupo!"
-            else{
-                groupExportedResource.group = group
-                groupExportedResource.exportedResource = exportedResource
-
-                groupExportedResource.save flush: true
-                render status: 200
-            }
-
-
+            groupExportedResource.save flush: true
+            render status: 200
         }
-
-//        redirect(action: "myGames", controller: "exportedResource")
 
     }
 }

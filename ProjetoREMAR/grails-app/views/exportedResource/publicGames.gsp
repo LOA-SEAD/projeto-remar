@@ -31,6 +31,7 @@
                     <label>Categoria</label>
                 </div>
             </div>
+
             <div style="position:relative; left: 1.2em" id="showCards" class="row ">
                 <g:render template="cardGames" model="${pageScope.variables}" />
             </div>
