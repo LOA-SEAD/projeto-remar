@@ -1,15 +1,19 @@
 var newMoleculeUrl = "/quimolecula/molecule/save"
+
+var EDITOR_TITLE = "Editor"
+
+
 //Variavel que indica quantas moleculas foram cadastradas
-quantidadeDeMoleculas = fases.length-1;
-//Variavel que controla qual o maior nivel que o usuário chegou(indexado a partir do 0)
+quantidadeDeMoleculas = 1;
+//Variavel que controla qual o maior nivel que o usuaio chegou(indexado a partir do 0)
 maxNivel = save.load();
-//Variavel que controla em qual niveis o usuario está fazendo agora
+//Variavel que controla em qual niveis o usuario esta fazendo agora
 nivel = maxNivel;
-//Variavel que controla qual background está sendo mostrado
+//Variavel que controla qual background estasendo mostrado
 backgroundI = 0;
 //Variavel que guarda todos que estao em jogo
 elementosNoJogo = [];
-//Variavel que controla qual atomo está selecionado(usado quando vamos criar ligacoes)
+//Variavel que controla qual atomo esta selecionado(usado quando vamos criar ligacoes)
 atomoSelecionado = null;
 //Variavel que controla qual ligacao foi usada para selecionar o primeiro atomo
 ligacaoAtual = null;
@@ -19,17 +23,79 @@ ligacoesNoJogo = [];
 estaNumerado = false;
 //Guarda a posicao inicial de qualquer elemento que pode ser arrastado
 posicaoInicial = 0;
-//Variaveis que guarda o que está guardado na tecla D(ligacao, atomo ou nada)
+//Variaveis que guarda o que esta guardado na tecla D(ligacao, atomo ou nada)
 var funcaoAtual;
-//Variavel que guarda qual atomo está sendo usado com a tecla D
+//Variavel que guarda qual atomo esta sendo usado com a tecla D
 var atomoAtual;
-//Variavel que guarda qual ligacao ou atomo está selecionado com a tecla D
+//Variavel que guarda qual ligacao ou atomo esta selecionado com a tecla D
 var elementoSelecionado;
 //Variavel que guarda a posicao do mouse na tela
 var mouseObj = new Object();
 
 $(document).ready(function() {
     criarJogo();
+
+    $("#createMoreMoleculesButton").click(function(){
+        reiniciarJogo();
+        $("#name").val("");
+        $("#structure").val("");
+        $("#tip").val("");
+    });
+
+    $("#sendMoleculeButton").click(function(){
+        var strXml = ""
+        var name = $("#name").val();
+        var structure = $("#structure").val();
+        var tip = $("#tip").val();
+
+        strXml += "<?xml version='1.0' encoding='utf-8'?>\n<molecule name='" + name + "'";
+        strXml += " formula = '" + structure + "'";
+        strXml += " dica = '" + tip + "'>\n";
+
+        var a = new Object;
+
+        for(var i=0; i<elementosNoJogo.length;i++)
+        {
+        //elementosNoJogo[i].numero
+            var tipo = elementosNoJogo[i].nome;
+            var cod = elementosNoJogo[i].codigo;
+            a[tipo+cod] = i;
+            strXml += " <atom id='"+i+"' type='"+elementosNoJogo[i].nome+"' number='"+elementosNoJogo[i].numero+"'/>\n";
+        }
+        console.log(a);
+        console.log(a);
+        for(var i=0; i<ligacoesNoJogo.length;i++)
+        {
+            var tipo = ligacoesNoJogo[i].elementos[0].nome;
+            var cod = ligacoesNoJogo[i].elementos[0].codigo;
+            var tipo1 = ligacoesNoJogo[i].elementos[1].nome;
+            var cod1 = ligacoesNoJogo[i].elementos[1].codigo;
+            strXml += " <bond source='"+a[tipo+cod]+"' target='"+a[tipo1+cod1]+"' type='"+ligacoesNoJogo[i].valor+"'/>\n";
+        }
+        strXml+="</molecule>";
+
+
+        newMol = {
+            name: name,
+            structure: structure,
+            tip: tip,
+            xml: strXml
+        };
+
+        $.ajax ({
+            type: "POST",
+            url: newMoleculeUrl,
+            data: newMol,
+            success: function(data) {
+                $("#successModal").openModal();
+            },
+            error: function(xhrElement, error, exceptionThrown) {
+                alert("Um erro ocorreu. Tente novamente.");
+                console.log(data);
+            }
+        });
+
+    })
 });
 
 //Funcao chamada para iniciar o elemento da area central
@@ -37,7 +103,7 @@ function iniciarAreaCentral() {
     $('<div>').attr({'id': 'areaCentral'}).appendTo($('#camadaJogo'));
 }
 
-//Funcao chamada depois que o xml é lido com sucesso para iniciar todo o jogo
+//Funcao chamada depois que o xml eh lido com sucesso para iniciar todo o jogo
 function iniciarJogo() {
 
     iniciarAreaCentral();
@@ -49,9 +115,7 @@ function iniciarJogo() {
     inciarAreaLateral();
 
     atualizarDica();
-
-    if(nivel == 0)
-        iniciarTutorial();
+    iniciarTutorial();
 }
 
 //Funcao chamada para iniciar todos os elementos da area lateral
@@ -59,24 +123,10 @@ function inciarAreaLateral() {
     $('<div>').attr({'id': 'areaLateral'}).appendTo($('#camadaJogo'));
 
 
-    //Inicia a area onde será mostrado o nome da molecula
+    //Inicia a area onde sera mostrado o nome da molecula
     $('<div>').attr('id', 'nomeDaMolecula')
-                .html(function(){
-                    if(moleculaAtual.nome.length > 14)
-                        $(this).css({ 'height': '75px', 'padding-top': '5px' });
-                    else
-                        $(this).css({ 'height': '60px', 'padding-top': '20px' });
-
-                    return moleculaAtual.nome;
-                })
-                .appendTo($('#areaLateral'));
-
-    //Iniciar a area onde será mostrado a formula da molecula
-    $('<div>').attr('id', 'formulaDaMolecula')
-                .html(moleculaAtual.formula)
-                .click(function(){
-                    $(this).css('top', '84px');
-                })
+                .html(EDITOR_TITLE)
+                .css({ 'height': '80px', 'padding-top': '20px' })
                 .appendTo($('#areaLateral'));
 
     $('<div>').attr('id', 'btnNumCarbonos')
@@ -155,12 +205,15 @@ function inciarAreaLateral() {
             $(this).css('z-index', '');
             voltarPosicaoInicial($(this));}}
         });
+    $('<div>').attr('id','btnVerifica')
+                .click(function() {
+                    $("#createModal").openModal();
+                }).appendTo($('#areaLateral'));
 
-      $('<div>').attr('id','btnMenu')
+    $('<div>').attr('id','btnMenu')
                 .click(function(){
                     window.location.pathname = "/quimolecula/molecule/"
-                })
-                .appendTo($('#areaLateral'));
+                }).appendTo($('#areaLateral'));
 }
 
 //Funcao que zera todas as variaveis e limpa a areaCentral
@@ -188,12 +241,12 @@ function iniciarAreaInferior() {
 
         $('<div>')
         .attr({ 'id': 'lixeira', 'class': 'popup' })
-        .html('<p style="position: absolute; width: 350px; left: 25px">Tem certeza que deseja limpar a area de edição?</p>')
+        .html('<p style="position: absolute; width: 350px; left: 25px">Tem certeza que deseja limpar a area de ediÃ§Ã£o?</p>')
         .appendTo($('#camadaJogo.camada'));
 
         $('<div>')
         .attr({ 'id': 'continuar', 'class': 'botao' })
-        .html('Não')
+        .html('N?')
         .click(function(){
             $(this).parent().fadeOut('slow', function(){
                 $(this).remove();
@@ -251,7 +304,7 @@ function iniciarAreaInferior() {
     .appendTo($('#areaInferior'));
 }
 
-//Funcao que verifica se a posicao passada como parametros está vazia
+//Funcao que verifica se a posicao passada como parametros est?vazia
 function posicaoVazia(pos, id) {
     for(var i = 0; i<elementosNoJogo.length; i++)
     {
@@ -267,7 +320,7 @@ function posicaoVazia(pos, id) {
 }
 
 //Funcao que cria um atomo na tela
-//Essa funcao já é reponsavel por todas as checagens, ou seja, só precisamos passar o nome do elementos a ser criado
+//Essa funcao j??reponsavel por todas as checagens, ou seja, s?precisamos passar o nome do elementos a ser criado
 function criarAtomo(_id) {
     var aux = 1;
     if(_id == 'carbono')
@@ -385,7 +438,7 @@ function criarAtomo(_id) {
     }
 }
 
-//Funcao que verifica se a div está dentro da area central(area de edicao da molecula)
+//Funcao que verifica se a div est?dentro da area central(area de edicao da molecula)
 function estaNaAreaDeEdicao(_id) {
 
     var posicao = posicaoAbsoluta(_id);
@@ -520,7 +573,7 @@ function removerElemento(_atomo) {
     }
 }
 
-//Os atomos são alinhados automaticamente a uma grade invisivel
+//Os atomos s? alinhados automaticamente a uma grade invisivel
 //Essa funcao retorna a posicao na grade que que o atomo deve ir a partir da posicao inicial passada como parametro
 function colocarNaGrade(_position) {
 
@@ -546,7 +599,7 @@ function saoVizinhos(e1, e2) {
         return false;
 }
 
-//Funcao usada para selecionar o segundo atomos, ou seja, já temos um atomo selecionado e vamos selecionar o segundo
+//Funcao usada para selecionar o segundo atomos, ou seja, j?temos um atomo selecionado e vamos selecionar o segundo
 //Essa funcao ja cuida das verificacoes para ter certeza que o primeiro atomo esta selecionado e estrutura toda a parte das ligacoes
 function selecionaSegundoAtomo(_div) {
 
@@ -612,7 +665,7 @@ function voltarPosicaoInicial(_div) {
 }
 
 //Funcao que desenha na tela uma ligacao
-//A ligacao realmente ja foi criada, aqui só cuida da parte visual e comportamental da ligacao na tela
+//A ligacao realmente ja foi criada, aqui s?cuida da parte visual e comportamental da ligacao na tela
 function desenharLigacao(atomo1, atomo2, lig) {
 
     var p = {};
@@ -739,7 +792,7 @@ function carbonosEmTela() {
 }
 
 //Funcao chamada quando quermos trocar o numero de um determinado carbono
-//Enviamos como parametro só a div, porque o valor a ser colocado no carbono será pego da caixa de texto
+//Enviamos como parametro s?a div, porque o valor a ser colocado no carbono ser?pego da caixa de texto
 function mudarNumeroCarbono(_div) {
 
     if($(_div).attr('id').split('-')[0] == 'carbono')
@@ -784,7 +837,7 @@ function mudarNumeroCarbono(_div) {
     }
 }
 
-//Funcao que retorna o angulo entre duas divs.(O angulo é multiplo de 45)
+//Funcao que retorna o angulo entre duas divs.(O angulo ?multiplo de 45)
 function calcularAngulo(_p1, _p2)   {
 
     if(Math.abs(_p1.left - _p2.left) <= 5)
@@ -892,9 +945,9 @@ jQuery.fn.compare = function(t) {
     return true;
 };
 
-//Funcao chamada quando o botao de verificar é clicado
+//Funcao chamada quando o botao de verificar ?clicado
 //Essa funcao chamada todas as outras de verificacoes e compara com o gabarito
-//Retorna true se molecula está correte
+//Retorna true se molecula est?correte
 function verificacaoFinal() {
     var vetorAtomos = [];
     for(var i=0;i<elementosNoJogo.length;i++)
@@ -902,7 +955,7 @@ function verificacaoFinal() {
         var vetorLigas = [];
         for(var j=0;j<elementosNoJogo[i].ligacoesFeitas.length;j++)
         {
-            //Nós acessamos cada ligação do elemento através desse loop e para cada ligação comparamos se o primeiro elementos é o nosso elemento em questão. Se for adicionamos o outro ao vetor de ligações. Se for diferente adicionamos esse elemento ao vetor de ligações
+            //N? acessamos cada liga?o do elemento atrav? desse loop e para cada liga?o comparamos se o primeiro elementos ?o nosso elemento em quest?. Se for adicionamos o outro ao vetor de liga?es. Se for diferente adicionamos esse elemento ao vetor de liga?es
             for(var k =0;k<elementosNoJogo[i].ligacoesFeitas[j].valor;k++)
                 if(elementosNoJogo[i].ligacoesFeitas[j].elementos[0].nome == elementosNoJogo[i].nome)
                     vetorLigas.push(elementosNoJogo[i].ligacoesFeitas[j].elementos[1].nome);
@@ -951,67 +1004,11 @@ function compare(a, b) {
 //'D' para criar nova  ligacao ou atomo
 //'B' cria o xml para usar como gabarito(talvez nao esteja na versao final do jogo)
 function debugKeyListeners(evt) {
+    var D_UPPERCASE_KEY_CODE = 100
 
     var evt  = window.event? event : evt;
     var unicode = evt.keyCode? evt.keyCode : evt.charCode;
-    if(unicode == 98)
-    {
-        var strXml = "";
-        var name = prompt("Nome do Composto");
-        var formula = prompt("Fórmula (formato exemplo: Etano é C_2_H_6");
-        var dica = prompt("Dica");
-        strXml += "<?xml version='1.0' encoding='utf-8'?>\n<molecule name='" + name + "'";
-        strXml += " formula = '" + formula + "'";
-        strXml += " dica = '" + dica + "'>\n";
-
-        var a = new Object;
-
-        for(var i=0; i<elementosNoJogo.length;i++)
-        {
-        //elementosNoJogo[i].numero
-            var tipo = elementosNoJogo[i].nome;
-            var cod = elementosNoJogo[i].codigo;
-            a[tipo+cod] = i;
-            strXml += " <atom id='"+i+"' type='"+elementosNoJogo[i].nome+"' number='"+elementosNoJogo[i].numero+"'/>\n";
-        }
-        console.log(a);
-        console.log(a);
-        for(var i=0; i<ligacoesNoJogo.length;i++)
-        {
-            var tipo = ligacoesNoJogo[i].elementos[0].nome;
-            var cod = ligacoesNoJogo[i].elementos[0].codigo;
-            var tipo1 = ligacoesNoJogo[i].elementos[1].nome;
-            var cod1 = ligacoesNoJogo[i].elementos[1].codigo;
-            strXml += " <bond source='"+a[tipo+cod]+"' target='"+a[tipo1+cod1]+"' type='"+ligacoesNoJogo[i].valor+"'/>\n";
-        }
-        strXml+="</molecule>";
-
-
-        newMol = {
-            name: name,
-            structure: formula,
-            tip: dica,
-            xml: strXml
-        };
-
-        $.ajax ({
-            type: "POST",
-            url: newMoleculeUrl,
-            data: newMol,
-            success: function(data) {
-                if (confirm("Criar outra molécula?")) {
-                    reiniciarJogo();
-                }
-            },
-            error: function(data) {
-                alert("Um erro ocorreu. Tente novamente.");
-                console.log(data);
-            }
-        });
-
-        console.log(strXml);
-    }
-    if(unicode == 100)
+    if(unicode == D_UPPERCASE_KEY_CODE)
     {
 
         if(funcaoAtual == "atomo")
@@ -1045,9 +1042,8 @@ function debugKeyListeners(evt) {
     }
 }
 
-//Retorna o atomo sobre o qual o mouse está
+//Retorna o atomo sobre o qual o mouse esta
 function getAtomoEmPos() {
-
     for(var i=0;i<elementosNoJogo.length;i++)
     {
         if(testaColisaoPonto(mouseObj, $(elementosNoJogo[i].div)))
