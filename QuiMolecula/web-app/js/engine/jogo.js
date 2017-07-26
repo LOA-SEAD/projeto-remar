@@ -1,4 +1,4 @@
-var newMoleculeUrl = "/quimolecula/molecule/newMolecule"
+var newMoleculeUrl = "/quimolecula/molecule/save"
 //Variavel que indica quantas moleculas foram cadastradas
 quantidadeDeMoleculas = fases.length-1;
 //Variavel que controla qual o maior nivel que o usuário chegou(indexado a partir do 0)
@@ -27,6 +27,15 @@ var atomoAtual;
 var elementoSelecionado;
 //Variavel que guarda a posicao do mouse na tela
 var mouseObj = new Object();
+
+$(document).ready(function() {
+    criarJogo();
+});
+
+//Funcao chamada para iniciar o elemento da area central
+function iniciarAreaCentral() {
+    $('<div>').attr({'id': 'areaCentral'}).appendTo($('#camadaJogo'));
+}
 
 //Funcao chamada depois que o xml é lido com sucesso para iniciar todo o jogo
 function iniciarJogo() {
@@ -147,129 +156,11 @@ function inciarAreaLateral() {
             voltarPosicaoInicial($(this));}}
         });
 
-    $('<div>').attr('id','btnVerifica')
+      $('<div>').attr('id','btnMenu')
                 .click(function(){
-                    if(verificacaoFinal())
-                    {
-                        moleculaCerta();
-                    }
-                    else
-                    {
-                        moleculaErrada();
-                    }
+                    window.location.pathname = "/quimolecula/molecule/"
                 })
                 .appendTo($('#areaLateral'));
-
-    $('<div>').attr('id','btnMenu')
-                .click(function(){
-                    destruirJogo();
-                    criarMenu();
-                })
-                .appendTo($('#areaLateral'));
-}
-
-function moleculaErrada() {
-    $('<div>')
-    .attr({ 'id': 'errou', 'class': 'popup' })
-    .html('<p style="position: absolute; width: 350px; left: 25px">Que pena, você errou!!</p>')
-    .appendTo($('#camadaJogo.camada'));
-
-    $('<div>')
-    .attr({ 'id': 'continuar', 'class': 'botao' })
-    .html('Continuar tentando!')
-    .click(function(){
-        $(this).parent().fadeOut('slow', function(){
-
-        })
-    })
-    .appendTo($('#errou.popup'));
-
-    $('<div>')
-    .attr({ 'id': 'reiniciar', 'class': 'botao' })
-    .html('Reinicie a molecula!')
-    .click(function(){
-        reiniciarJogo();
-        $(this).parent().fadeOut('slow', function(){
-            $(this).remove();
-        });
-    })
-    .appendTo($('#errou.popup'));
-}
-
-//Funcao que atualiza o jogo quando o jogador acerta a molecula
-function moleculaCerta() {
-    nivel++;
-    if(nivel > quantidadeDeMoleculas)
-    {
-        jogadorGanhou();
-    }
-    else
-    {
-        if(nivel > maxNivel)
-        {
-            maxNivel = nivel;
-        }
-        save.save(maxNivel);
-        reiniciarJogo();
-
-        if(nivel != 1)
-        {
-            $('<div>')
-            .attr({ 'id': 'acertou', 'class': 'popup' })
-            //.html('<p style="position: absolute; width: 350px; left: 25px">Parabéns!!</p>')
-            .appendTo($('#camadaJogo.camada'));
-
-            $('<div>')
-            .attr({ 'id': 'continuar', 'class': 'botao' })
-            .html('Próxima molécula!')
-            .click(function(){
-                $(this).parent().fadeOut('slow', function(){
-                    destruirJogo();
-                    criarJogo();
-                })
-            })
-            .appendTo($('#acertou.popup'));
-
-            $('<div>')
-            .attr({ 'id': 'reiniciar', 'class': 'botao' })
-            .html('Reiniciar molécula!')
-            .click(function(){
-                nivel--;
-                destruirJogo();
-                criarJogo();
-            })
-            .appendTo($('#acertou.popup'));
-        }
-        else
-        {
-            destruirJogo();
-            criarJogo();
-        }
-    }
-}
-
-function jogadorGanhou() {
-    reiniciarJogo();
-    nivel = 1;
-
-    $('<div>')
-    .attr('class', 'camada')
-    .css('z-index', '10')
-    .appendTo('#palco');
-
-    $('<div>')
-    .attr({ 'id': 'terminouJogo', 'class': 'popup' })
-    .css('z-index', '11')
-    .click(function() {
-        $('.camada').remove();
-        criarMenu();
-    })
-    .appendTo('#camadaJogo.camada');
-}
-
-//Funcao chamada para iniciar o elemento da area central
-function iniciarAreaCentral() {
-    $('<div>').attr({'id': 'areaCentral'}).appendTo($('#camadaJogo'));
 }
 
 //Funcao que zera todas as variaveis e limpa a areaCentral
@@ -975,6 +866,13 @@ function lerXML(_nivel) {
     });
 }
 
+function criarJogo() {
+    var pai = $('#ancora').parent();
+    $('<div>').attr("id", "palco").appendTo(pai);
+    $('<div>').attr({'id': 'camadaJogo', 'class': 'camada'}).appendTo($('#palco'));
+    lerXML(nivel);
+}
+
 //Funcao que compara dois vetores(das ligacoes) e verifica se sao iguais
 jQuery.fn.compare = function(t) {
 
@@ -1060,7 +958,7 @@ function debugKeyListeners(evt) {
     {
         var strXml = "";
         var name = prompt("Nome do Composto");
-        var formula = prompt("Fórmula (formato exemplo: Etano é C_2_H_6_");
+        var formula = prompt("Fórmula (formato exemplo: Etano é C_2_H_6");
         var dica = prompt("Dica");
         strXml += "<?xml version='1.0' encoding='utf-8'?>\n<molecule name='" + name + "'";
         strXml += " formula = '" + formula + "'";
@@ -1101,7 +999,7 @@ function debugKeyListeners(evt) {
             url: newMoleculeUrl,
             data: newMol,
             success: function(data) {
-                if (confirm("Criar outra mol&eacute;cula?")) {
+                if (confirm("Criar outra molécula?")) {
                     reiniciarJogo();
                 }
             },
@@ -1170,7 +1068,3 @@ function mouseMove(event) {
         mouseObj.y = theEvent.clientY - offset.top;
     }
 }
-
-
-
-
