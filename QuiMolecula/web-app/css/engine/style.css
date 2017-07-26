@@ -678,7 +678,7 @@ div {
 @font-face
  {
     font-family: "Fonte";
-    src: url(../fonte/SwaggerBold.ttf) format("truetype");
+    src: url(../../fonts/SwaggerBold.ttf) format("truetype");
 }
 
 .textoBotaoTutorial {
