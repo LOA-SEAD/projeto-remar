@@ -47,11 +47,22 @@
                     </div>
 
                     <div class="molecule-list-box-button">
-                        <a id="deleteMoleculeButton" class="waves-effect waves-light btn remar-orange disabled">
-                            <span>
-                                <p>Remover</p>
-                            </span>
-                        </a>
+                        <div class="row">
+                            <div class="col s6">
+                                <a id="createMoleculeButton" class="waves-effect waves-light btn remar-orange" href="${createLink(action: 'create')}">
+                                    <span>
+                                        <p>Adicionar</p>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="col s6">
+                                <a id="deleteMoleculeButton" class="waves-effect waves-light btn remar-orange disabled">
+                                    <span>
+                                        <p>Remover</p>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -67,114 +78,20 @@
                     </div>
 
                     <div class="molecule-list-box-button">
-                        <a id="sendMoleculeButton" class="waves-effect waves-light btn remar-orange disabled">
-                            <span>
-                                <p>Enviar</p>
-                            </span>
-                        </a>
+                        <div class="row">
+                            <div class="col s12">
+                                <a id="sendMoleculeButton" class="waves-effect waves-light btn remar-orange disabled" href="${createLink(action: 'send')}">
+                                    <span>
+                                        <p>Enviar</p>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
         </div>
     </div>
-
-    <div class="cluster-header">
-
-    </div>
-
-
-    <div class="row">
-        <div class="col s3 offset-s9">
-            <input type="text" id="SearchLabel" class="remar-input" placeholder="Buscar"/>
-        </div>
-    </div>
-
-    <table class="highlight" id="table" style="margin-top: -30px;">
-        <thead>
-        <tr>
-            <th>Selecionar
-                <div class="row" style="margin-bottom: -10px;">
-
-                    <button style="margin-left: 3px; background-color: #795548;" class="btn-floating" id="BtnCheckAll"
-                            onclick="check_all()"><i class="material-icons">check_box_outline_blank</i></button>
-                    <button style="margin-left: 3px; background-color: #795548;" class="btn-floating" id="BtnUnCheckAll"
-                            onclick="uncheck_all()"><i class="material-icons">done</i></button>
-                </div>
-            </th>
-            <th>Nome <div class="row" style="margin-bottom: -10px;"><button class="btn-floating"
-                                                                                style="visibility: hidden"></button></div>
-            </th>
-            <th>Estrutura <div class="row" style="margin-bottom: -10px;"><button class="btn-floating"
-                                                                                style="visibility: hidden"></button></div>
-            </th>
-            <th>Dica<div class="row" style="margin-bottom: -10px;"><button class="btn-floating"
-                                                                            style="visibility: hidden"></button></div></th>
-
-            <th>Ação <div class="row" style="margin-bottom: -10px;"><button class="btn-floating"
-                                                                            style="visibility: hidden"></button></div></th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <g:each in="${MoleculeInstanceList}" status="i" var="MoleculeInstance">
-            <tr id="tr${MoleculeInstance.id}" class="selectable_tr ${(i % 2) == 0 ? 'even' : 'odd'} " style="cursor: pointer;"
-                data-id="${fieldValue(bean: MoleculeInstance, field: "id")}"
-                data-owner-id="${fieldValue(bean: MoleculeInstance, field: "ownerId")}"
-                data-checked="false">
-                <g:if test="${MoleculeInstance.author == userName}">
-
-                    <td class="_not_editable"><input class="filled-in" type="checkbox"> <label></label></td>
-
-                    <td name="Molecule_label">${fieldValue(bean: MoleculeInstance, field: "name")}</td>
-
-                    <td>${fieldValue(bean: MoleculeInstance, field: "structure")}</td>
-
-                    <td name="theme" id="theme">${fieldValue(bean: MoleculeInstance, field: "tip")}</td>
-
-
-                    <td><i onclick="_edit($(this.closest('tr')))" style="color: #7d8fff; margin-right:10px;"
-                           class="fa fa-pencil"
-                           ></i></td>
-
-
-                </g:if>
-                <g:else>
-                    <td class="_not_editable"><input class="filled-in" type="checkbox"> <label></label></td>
-
-                    <td name="Molecule_label"
-                        data-MoleculeId="${MoleculeInstance.id}">${fieldValue(bean: MoleculeInstance, field: "name")}</td>
-
-                    <td>${fieldValue(bean: MoleculeInstance, field: "structure")}</td>
-
-                    <td name="theme" id="theme">${fieldValue(bean: MoleculeInstance, field: "tip")}</td>
-
-                    <td><i style="color: gray; margin-right:10px;" class="fa fa-pencil"></i>
-                    </td>
-                </g:else>
-            </tr>
-        </g:each>
-        </tbody>
-    </table>
-
-    <input type="hidden" id="editMoleculeLabel" value=""> <label for="editMoleculeLabel"></label>
-
-    <div class="row">
-        <div class="col s2">
-            <button class="btn waves-effect waves-light my-orange" type="submit" name="save" id="save">Enviar
-            </button>
-        </div>
-
-        <div class="col s1 offset-s6">
-            <a name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" href="/quimolecula/molecule/createMolecule" data-tooltip="Criar moléculas">
-            <i class="material-icons">add</i>Criar moléculas</a>
-        </div>
-
-        <div class="col s1 m1 l1">
-            <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exluir molécula" >
-            <i class="material-icons">delete</i>Excluir moléculas</a>
-        </div>
-    </div>
-
     <!-- InfoModal Structure -->
     <div id="infoModal" class="modal">
         <div class="modal-content">
