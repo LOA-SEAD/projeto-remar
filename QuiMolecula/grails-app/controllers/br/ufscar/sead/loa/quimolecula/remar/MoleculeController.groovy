@@ -15,7 +15,7 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class MoleculeController {
 
-    static allowedMethods = [newMolecule: "POST", save: "POST", delete: "DELETE"]
+    static allowedMethods = [save: "POST", delete: "DELETE"]
 
     def springSecurityService
 
@@ -33,18 +33,22 @@ class MoleculeController {
 
     }
 
+    def create(){
+        render view: "create"
+    }
+
     @Transactional
-    def newMolecule(Molecule MoleculeInstance) {
+    def save(Molecule MoleculeInstance) {
         if (MoleculeInstance.author == null) {
             MoleculeInstance.author = session.user.username
         }
 
         Molecule newMolecule  = new Molecule();
         newMolecule.id        = MoleculeInstance.id
+        newMolecule.xml       = MoleculeInstance.xml
         newMolecule.tip       = MoleculeInstance.tip
         newMolecule.name      = MoleculeInstance.name
         newMolecule.author    = MoleculeInstance.author
-        newMolecule.xml       = MoleculeInstance.xml
         newMolecule.structure = MoleculeInstance.structure
 
         newMolecule.ownerId   = session.user.id
@@ -58,46 +62,13 @@ class MoleculeController {
 
         newMolecule.save flush: true
 
-        if (request.isXhr()) {
+        if (request.xhr) {
             render(contentType: "application/json") {
                 JSON.parse("{\"id\":" + newMolecule.getId() + "}")
             }
         } else {
             // TODO
         }
-
-        render("200 OK")
-    }
-
-    @Transactional
-    def save(Molecule MoleculeInstance) {
-        if (MoleculeInstance == null) {
-            notFound()
-            return
-        }
-
-
-
-
-        if (MoleculeInstance.hasErrors()) {
-            respond MoleculeInstance.errors, view: 'create' //TODO
-            render MoleculeInstance.errors;
-            return
-        }
-
-        MoleculeInstance.taskId = session.taskId as String
-
-        MoleculeInstance.save flush: true
-
-        if (request.isXhr()) {
-            render(contentType: "application/json") {
-                JSON.parse("{\"id\":" + MoleculeInstance.getId() + "}")
-            }
-        } else {
-            // TODO
-        }
-
-        redirect(action: index())
     }
 
     @Transactional
