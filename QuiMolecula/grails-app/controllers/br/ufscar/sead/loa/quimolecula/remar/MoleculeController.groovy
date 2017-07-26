@@ -64,10 +64,8 @@ class MoleculeController {
 
         if (request.xhr) {
             render(contentType: "application/json") {
-                JSON.parse("{\"id\":" + newMolecule.getId() + "}")
+                JSON.parse("{\"status\": \"SUCCESS\" }")
             }
-        } else {
-            // TODO
         }
     }
 
