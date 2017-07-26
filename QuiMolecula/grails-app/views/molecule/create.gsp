@@ -4,12 +4,12 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="layout" content="main">
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta property="user-name" content="${userName}"/>
     <meta property="user-id" content="${userId}"/>
 
     <g:external dir="css" file="molecule.css"/>
-    <g:external dir="css/engine" href="style.css"/>
+    <g:external dir="css/engine" file="style.css"/>
 
     <g:set var="entityName" value="${message(code: 'Molecule.label', default: 'Molecule')}"/>
 </head>
@@ -46,23 +46,45 @@
             <div class="modal-content">
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="name" name="name" type="text" />
+                        <input id="name" class="remar-field validate" name="name" type="text" />
+                        <label for="name">Nome</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="structure" name="structure" type="text" />
+                        <input id="structure" class="remar-field validate tooltiped" name="structure" type="text"
+                               data-position="bottom" data-delay="50" data-tooltip="Exemplo: C_2_H_2"/>
+                        <label for="structure">Estrutura</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="tip" name="tip" type="text" />
+                        <input id="tip" class="remar-field validate" name="tip" type="text" />
+                        <label for="tip">Dica</label>
                     </div>
                 </div>
             </div>
 
             <div class="modal-footer">
-                <button class="btn waves-effect waves-light modal-close my-orange">Entendi</button>
+                <button id="sendMoleculeButton" class="btn waves-effect waves-light modal-close my-orange">Entendi</button>
+            </div>
+        </div>
+
+        <!-- SuccessModal Structure -->
+        <div id="successModal" class="modal">
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col s12">
+                        <p>Deseja criar mais moléculas?</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="createMoreMoleculesButton" class="btn waves-effect waves-light modal-close my-orange">Sim</button>
+                <a href="${createLink(action: 'index')}">
+                    <button class="btn waves-effect waves-light modal-close my-orange">Não</button>
+                </a>
             </div>
         </div>
 
