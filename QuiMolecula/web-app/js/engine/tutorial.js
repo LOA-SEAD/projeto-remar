@@ -1,4 +1,4 @@
-
+var NO_BUTTON_MSG = "N&atilde;o"
 var tutorialAtual,
 animando,
 divTexto,
@@ -22,7 +22,7 @@ function iniciarTutorial() {
 
 	botao2 = $('<div>')
 	.attr({ 'id': 'continuar', 'class': 'botao' })
-	.html('<p class="textoBotaoTutorial">Não</precisamos>')
+	.html('<p class="textoBotaoTutorial">' + NO_BUTTON_MSG + '</p>')
 	.click(function(){
 		$(this).parent().fadeOut('slow', function(){
 			terminarTutorial();
@@ -34,16 +34,16 @@ function iniciarTutorial() {
 	.attr({ 'id': 'reiniciar', 'class': 'botao' })
 	.html('<p class="textoBotaoTutorial">Sim</p>')
 	.click(function(){
-		abilitarBotao();
+		habilitarBotao();
 		tutorialAtual = -1;
 		continuarTutorial();
 	})
-	.appendTo($('#tutorial.popup'));	
+	.appendTo($('#tutorial.popup'));
 }
 
 function continuarTutorial() {
 	$('#reiniciar.botao')
-	.html('<p class="textoBotaoTutorial">Próximo</p>')
+	.html('<p class="textoBotaoTutorial">PrÃ³ximo</p>')
 	.unbind('click')
 	.click(function() {
 		if(!animando)
@@ -64,14 +64,21 @@ function continuarTutorial() {
 function terminarTutorial(){
 	$('#tutorial.camada').remove();
 	reiniciarJogo();
-	moleculaCerta();
 }
 
 function fazerAnimacaoAtomo(nome) {
 	$('#'+nome+'.atomoDisponivel').addClass('moverAtomo').addClass('manterAnimacaoAtomo');
 	setTimeout(function(){
-		criarAtomo(nome);	
+		criarAtomo(nome);
 		$('#'+nome).removeClass('moverAtomo').removeClass('manterAnimacaoAtomo');
+	}, 1950);
+}
+
+function fazerAnimacaoSegundoAtomo(nome) {
+	$('#'+nome+'.atomoDisponivel').addClass('moverAtomo').addClass('manterAnimacaoAtomo2');
+	setTimeout(function(){
+		criarAtomo(nome);
+		$('#'+nome).removeClass('moverAtomo').removeClass('manterAnimacaoAtomo2');
 	}, 1950);
 }
 
@@ -91,20 +98,20 @@ function desabilitarBotao() {
 	botao2.addClass('desabilitado');
 }
 
-function abilitarBotao() {
+function habilitarBotao() {
 	animando = false;
 	botao1.removeClass('desabilitado');
 	botao2.removeClass('desabilitado');
 }
 
 function proximoTutorial() {
-	if(tutorialAtual < 21)
+	if(tutorialAtual < 16)
 		tutorialAtual += 1;
 	else
 		terminarTutorial();
-	
+
 	desabilitarBotao();
-	
+
 	atualizarTexto();
 	window['tutorial'+tutorialAtual]();
 }
@@ -114,93 +121,63 @@ function atualizarTexto() {
 }
 
 function tutorial0 () {
-	abilitarBotao();
+	habilitarBotao();
 }
 
 function tutorial1 () {
-	//Fazer 1	
-	$('#nomeDaMolecula')
-	.css({ 'border-radius': '15px', 'border': 'solid 3px red', 'margin-top': '-3px', 'margin-left': '-3px' });
-
-	abilitarBotao();
-}
-
-function tutorial2 () {
-	//Desfaz 1
-	$('#nomeDaMolecula')
-	.css({ 'border-radius': '0px', 'border': 'solid 0px red', 'margin-top': '0px', 'margin-left': '0px' });
-
-	$('#formulaDaMolecula')
-	.css({ 'border-radius': '15px', 'border': 'solid 3px red', 'margin-top': '-3px', 'margin-left': '-3px' });
-
-	//Desce aba da 
-	setTimeout(function() {		
-		$('#formulaDaMolecula').css('top', '84px');
-		setTimeout(function() {
-			abilitarBotao();
-		}, 1000);
-	}, 2000);
-}
-
-function tutorial3 () {
-	//Desfazer 2
-	$('#formulaDaMolecula')
-	.css({ 'border-radius': '0px', 'border': 'solid 0px red', 'margin-top': '0px', 'margin-left': '0px' });
-
-	//Fazer 3
 	setTimeout(function() {
 		fazerAnimacaoAtomo('hidrogenio');
 
 		setTimeout(function() {
-			abilitarBotao();
+			habilitarBotao();
 		}, 2000);
 	}, 2000);
 }
 
-function tutorial4 () {
+function tutorial2 () {
 	setTimeout(function () {
 		$('#hidrogenio-0')
 		.addClass('moverAtomo')
 		.addClass('manterPrimeiroAtomo');
 
 		setTimeout(function() {
-			abilitarBotao();
-		}, 2000);	
+			habilitarBotao();
+		}, 2000);
 	}, 2000);
 }
 
-function tutorial5 () {	
+function tutorial3 () {
 	$('#hidrogenio-0')
 	.removeClass('moverAtomo')
 
 	setTimeout(function () {
 		fazerAnimacaoAtomo('hidrogenio');
-	
+
 		setTimeout(function () {
-			abilitarBotao();
+			habilitarBotao();
 		}, 2000)
 	}, 2000);
 }
 
-function tutorial6 () {
+function tutorial4 () {
 	setTimeout(function() {
 		fazerAnimacaoLigacao('hidrogenio-1');
 
 		setTimeout(function () {
-			abilitarBotao();
+			habilitarBotao();
 		}, 2000)
 	}, 2000);
 }
 
-function tutorial7 () {
+function tutorial5 () {
 	//Coloca um circulo vermelho ao redor do atomo selecionado
 	$('#hidrogenio-1')
 	.css({ 'border-radius': '25px', 'border': 'solid 3px red', 'margin-top': '-3px', 'margin-left': '-3px' });
 
-	abilitarBotao();
+	habilitarBotao();
 }
 
-function tutorial8 () {
+function tutorial6 () {
 	//Remove selecao do atomo selecionado
 	$('#hidrogenio-1')
 	.css({ 'border-radius': '0px', 'border': 'solid 0px red', 'margin-top': '0px', 'margin-left': '0px' });
@@ -208,121 +185,33 @@ function tutorial8 () {
 	//Efetivamente realiza a ligacao
 	setTimeout(function() {
 		selecionaSegundoAtomo($('#hidrogenio-0')[0]);
-		abilitarBotao();
+		habilitarBotao();
 	}, 2000)
 }
 
-function tutorial9 () {
-	abilitarBotao();
+function tutorial7 () {
+	habilitarBotao();
 }
 
-function tutorial10 () {
-	//Remove os hidrogenios
-	reiniciarJogo();
-
+function tutorial8 () {
 	setTimeout(function() {
-		fazerAnimacaoAtomo('carbono');
+		fazerAnimacaoSegundoAtomo('carbono');
 	}, 2000)
 
-	setTimeout(function() {
-		$('#carbono-0')
-		.addClass('moverAtomo')
-		.addClass('manterSegundoAtomo');
-	}, 4000);
-
-	setTimeout(function () {
-		fazerAnimacaoAtomo('carbono');
-	}, 6000);
-
-	setTimeout(function() {
-		$('#carbono-1')
-		.addClass('moverAtomo')
-		.addClass('manterPrimeiroAtomo');
-	}, 8000);
-
-	setTimeout(function () {
-		fazerAnimacaoAtomo('carbono');
-	}, 10000);
-
-	setTimeout(function() {
-		fazerAnimacaoLigacao('carbono-2');
-	}, 12000);
-
-	setTimeout(function() {
-		selecionaSegundoAtomo($('#carbono-1')[0]);
-		abilitarBotao();
-	}, 15000);
-}
-
-function tutorial11 () {
-	//Seleciona o botao de numerar carbonos
-	$('#btnNumCarbonos')
-	.css({ 'border-radius': '15px', 'height': '49px', 'border': 'solid 3px red', 'margin-top': '-3px', 'margin-left': '-3px' });
-
-	setTimeout(function() {
-		numerarCarbonos();
-		abilitarBotao();
-	}, 2000);
-}
-
-function tutorial12 () {
-	$('#btnNumCarbonos')
-	.css({ 'border-radius': '0px', 'height': '56px', 'border': 'solid 0px red', 'margin-top': '0px', 'margin-left': '0px' });
-
-	setTimeout(function() {
-		$('#tb1')
-		.css({ 'border': 'solid 3px red', 'margin-top': '-1px', 'margin-left': '-1px' });
-
-		$('#tb1').val(2);
-	}, 2000);
-
-	setTimeout(function() {
-		$('#tb1')
-		.css({ 'border-radius': '10px', 'border': 'solid 2px black', 'margin-top': '0px', 'margin-left': '0px' })
-
-		$('#carbono-2')
-		.css({ 'border-radius': '25px', 'border': 'solid 3px red', 'margin-top': '-3px', 'margin-left': '-3px' });
-	}, 4000);
-
-	setTimeout(function() {
-		mudarNumeroCarbono($('#carbono-2')[0])
-
-		$('#carbono-2')
-		.css({ 'border-radius': '0px', 'border': 'solid 0px red', 'margin-top': '0px', 'margin-left': '0px' });
-	}, 6000);
-
-	setTimeout(function() {
-		$('#tb1').val(3);
-
-		$('#carbono-1')
-		.css({ 'border-radius': '25px', 'border': 'solid 3px red', 'margin-top': '-3px', 'margin-left': '-3px' });
-	}, 8000);
-
-	setTimeout(function() {
-		mudarNumeroCarbono($('#carbono-1')[0])
-		
-		$('#carbono-1')
-		.css({ 'border-radius': '0px', 'border': 'solid 0px red', 'margin-top': '0px', 'margin-left': '0px' });
-
-		abilitarBotao();
-	}, 10000);	
-}
-
-function tutorial13 () {
 	setTimeout(function() {
 		$('#carbono-0')
 		.addClass('moverAtomo')
 		.addClass('manterLixeiraAtomo');
-	}, 2000);
-	
+	}, 4000);
+
 
 	setTimeout(function() {
 		$('#carbono-0').remove();
-		abilitarBotao();
-	}, 4000);
+		habilitarBotao();
+	}, 6000);
 }
 
-function tutorial14 () {
+function tutorial9 () {
 	setTimeout(function() {
 		$('#ligacaosimples-1').parent().children('.ligacaoEmEdicao')
 		.addClass('moverAtomo')
@@ -331,49 +220,49 @@ function tutorial14 () {
 
 	setTimeout(function() {
 		$('#ligacaosimples-1').parent().children('.ligacaoEmEdicao').remove();
-	}, 4000);	
+	}, 4000);
 
 	setTimeout(function() {
-		$('#carbono-1')
+		$('#hidrogenio-1')
 		.addClass('moverAtomo')
 		.addClass('manterLixeiraAtomo');
 	}, 6000);
-	
+
 
 	setTimeout(function() {
-		$('#carbono-1').remove();
+		$('#hidrogenio-1').remove();
 	}, 8000);
 
 	setTimeout(function() {
-		$('#carbono-2')
+		$('#hidrogenio-0')
 		.addClass('moverAtomo')
 		.addClass('manterLixeiraAtomo');
 	}, 10000);
-	
+
 
 	setTimeout(function() {
-		$('#carbono-2').remove();
+		$('#hidrogenio-0').remove();
 		reiniciarJogo();
-		abilitarBotao();
+		habilitarBotao();
 	}, 12000);
 }
 
-function tutorial15 () {
-	abilitarBotao();
+function tutorial10 () {
+	habilitarBotao();
 }
 
-function tutorial16 () {
+function tutorial11 () {
 	setTimeout(function() {
 		$('#iodo.atomoDisponivel').addClass('moverAtomo').addClass('manterAnimacaoAtomo');
 	}, 2000);
 
 	setTimeout(function() {
 		criarAtomo('iodo');
-		abilitarBotao();
+		habilitarBotao();
 	}, 4000);
 }
 
-function tutorial17 () {
+function tutorial12 () {
 	setTimeout(function() {
 		$('#iodo.atomoDisponivel')
 		.removeClass('manterAnimacaoAtomo')
@@ -397,65 +286,59 @@ function tutorial17 () {
 		.removeClass('moverAtomo')
 		.removeClass('manterAnimacaoAtomo3');
 
-		abilitarBotao();
-	}, 6000);	
+		habilitarBotao();
+	}, 6000);
 }
 
-function tutorial18 () {
+function tutorial13 () {
 	$('#btnVerifica')
 	.css({ 'border-radius': '15px', 'height': '54px', 'border': 'solid 3px red', 'margin-top': '-3px', 'margin-left': '-3px' });
 
-	abilitarBotao();
+	habilitarBotao();
 }
 
-function tutorial19 () {
+function tutorial14 () {
 	$('#btnVerifica')
 	.css({ 'border-radius': '0px', 'height': '60px', 'border': 'solid 0px red', 'margin-top': '0px', 'margin-left': '0px' });
 
 	$('#btnMenu')
 	.css({ 'border-radius': '15px', 'height': '54px', 'border': 'solid 3px red', 'margin-top': '-3px', 'margin-left': '-3px' });
 
-	abilitarBotao();
+	habilitarBotao();
 }
 
-function tutorial20 () {
+function tutorial15 () {
 	$('#btnMenu')
 	.css({ 'border-radius': '0px', 'height': '60px', 'border': 'solid 0px red', 'margin-top': '0px', 'margin-left': '0px' });
 
 	$('#btnLixeira')
 	.css({ 'border-radius': '15px', 'height': '54px', 'border': 'solid 3px red', 'margin-top': '-3px', 'margin-left': '-3px' });
 
-	abilitarBotao();
+	habilitarBotao();
 }
 
-function tutorial21 () {
+function tutorial16 () {
 	$('#btnLixeira')
 	.css({ 'border-radius': '0px', 'height': '60px', 'border': 'solid 0px red', 'margin-top': '0px', 'margin-left': '0px' });
 
-	abilitarBotao();
+	habilitarBotao();
 }
 
 var textoTutorial = [
-	'Bem vindo ao QuiMolécula. O objetivo é montar moléculas orgânicas.',
-	'Você deve formar uma molécula que tenha esse nome.',
-	'Caso necessite de ajuda, clique na aba preta para ver a fórmula química da molécula.',
-	'Para pegar os átomos, clique e segure com o botão esquerdo do mouse no átomo que desejar e arraste até o tabuleiro. Solte para que ele encaixe na área apropriada.',
-	'Caso queira movê-los, você também pode clicar e arrastar para outra posição.',
-	'Para formar ligações, precisamos de pelos menos dois átomos',
-	'Agora arraste a ligação para cima de um dos átomos que deseja ligar.',
-	'Este, ao ser ativado, ficará maior de modo a se destacar.',
-	'Basta clicar no outro átomo vizinho entre os quais queira firmar uma ligação.',
-	'Lembre-se que há um limite de ligações para cada átomo, respeitando suas respectivas Camadas de Valência.',
-	'Em algumas moléculas, precisamos enumerar os carbonos. Vamos colocar alguns carbonos para ver como enumerá-los.',
-	'Para enumerar carbonos, use esse painel.',
-	'Digite o valor que deseja na caixa de texto e clique sobre algum carbono para atribuir esse valor a ele.',
-	'Para excluir um átomo ou uma ligação, basta arrastá-lo para a Lixeira.',
-	'Se o átomo tiver uma ligação, é necessário excluir a ligação primeiro e só depois excluir o átomo.',
-	'O jogo conta com um mecanismo de repetição. Toda vez que precisar colocar mais de um átomo ou ligação no campo, pressione o botão esquerdo do mouse para pegar o átomo/ligação que deseja mover.',
-	'Posicione o átomo no local desejado, e, mantendo o botão esquerdo do mouse pressionado, tecle D. Um átomo aparecerá no local escolhido.',
- 	'Com o botão esquerdo ainda pressionado, e clicando D em diferentes pontos do tabuleiro, você fará cópias do átomo selecionado em cada lugar sobre o qual você teclou D.',
-	'Clique aqui para verificar se a molécula que você montou está correta.',
-	'Clique aqui para voltar ao menu inicial.',
-	'Clique aqui para limpar a tela excluindo todos os elementos do tabuleiro.',	
-	'Boa sorte!'	
+	'Bem vindo ao editor do QuiMol&eacute;cula. O objetivo montar mol\&eacute;culas org\&acirc;nicas.',
+	'Para pegar os \&aacute;tomos, clique e segure com o bot esquerdo do mouse no \&aacute;tomos que desejar e arraste at\&eacute; o tabuleiro. Solte para que ele encaixe na ea apropriada.',
+	'Caso queira mov\&ecirc;-los, voc&ecirc; tamb\&eacute; pode clicar e arrastar para outra posi\&ccedil;\&atilde;o.',
+	'Para formar liga\&ccedil;\&otilde;es, precisamos de pelos menos dois \&aacute;tomos',
+	'Agora arraste a ligaÃ§Ã£o para cima de um dos \&aacute;tomos que deseja ligar.',
+	'Este, ao ser ativado, ficar\&aacute; maior de modo a se destacar.',
+	'Basta clicar no outro \&aacute;tomos vizinho entre os quais queira firmar uma ligaÃ§Ã£o.',
+	'Lembre-se que hÃ¡ um limite de ligaÃ§Ãµes para cada \&aacute;tomo, respeitando suas respectivas Camadas de ValÃªncia.',
+	'Para excluir um \&aacute;tomos ou uma ligao, basta arrast\&aacute;-lo para a Lixeira.',
+	'Se o \&aacute;tomos tiver uma ligao, necessio excluir a ligao primeiro e sdepois excluir o \&aacute;tomos.',
+	'O jogo conta com um mecanismo de repetiÃ§Ã£o. Toda vez que precisar colocar mais de um \&aacute;tomos ou ligaÃ§Ã£o no campo, pressione o botÃ£o esquerdo do mouse para pegar o \&aacute;tomo/ligaÃ§Ã£o que deseja mover.',
+	'Posicione o \&aacute;tomos no local desejado, e, mantendo o bot esquerdo do mouse pressionado, tecle D. Um \&aacute;tomo aparecerÃ¡ no local escolhido.',
+ 	'Com o botÃ£o esquerdo ainda pressionado, e clicando D em diferentes pontos do tabuleiro, vocÃª farÃ¡ cÃ³pias do \&aacute;tomo selecionado em cada lugar sobre o qual vocÃª teclou D.',
+	'Clique aqui para inserir informaÃ§Ãµes adicionais e salvar a molÃ©cula no banco.',
+	'Clique aqui para voltar Ã  tela inicial.',
+	'Clique aqui para limpar a tela excluindo todos os elementos do tabuleiro.'
 ];
