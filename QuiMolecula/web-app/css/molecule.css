@@ -1,3 +1,8 @@
+ul, li.row {
+    margin: 0;
+    padding: 0;
+}
+
 .remar-input {
     color: #413c3c;
     border-bottom: 1px solid #717171 !important;
@@ -66,13 +71,13 @@ label .required-indicator {
 }
 
 .sortable li {
-    display: flex;
-    align-items: center;
-    margin-top: -1px;
+
     padding: 8px 0;
     cursor: pointer;
 
-    color: #ff9845;
+    width: 100%;
+
+    color: #5d4037;
     background-color: white;
 
     -webkit-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
@@ -82,11 +87,17 @@ label .required-indicator {
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
+.sortable li .molitem {
+    align-self: center;
+    width: 100%;
+    flex-grow: 2;
+}
+
 .sortable li:hover {
     background-color: #ddd;
 }
 
-#available-molecules li.active {
+.sortable li.active {
     color: white;
     font-weight: 400;
     background-color: #ff9845;
@@ -95,12 +106,17 @@ label .required-indicator {
 
 a span p,
 .sortable li i,
-.sortable li p {
+.sortable li span {
     margin: 0 10px;
+}
+
+.sortable li span {
+    vertical-align: middle;
 }
 
 .sortable li i {
     font-size: 1.5rem;
+    vertical-align: middle;
 }
 
 .molecule-management {
