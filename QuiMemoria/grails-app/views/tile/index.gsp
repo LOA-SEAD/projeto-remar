@@ -1,30 +1,117 @@
 
-<%@ page import="br.ufscar.sead.loa.quimemoria.remar.Tile" %>
+<%@ page import="br.ufscar.sead.loa.quimemoria.Tile" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="layout" content="main">
-    <g:external dir="css" file="tiles.css"/>
-    <g:javascript src="scriptTile.js"/>
-    <g:javascript src="iframeResizer.contentWindow.min.js"/>
-    <%--<g:set var="entityName" value="${message(code: 'Tile.label', default: 'Tile')}" /> --%>
 
+    <%--<g:set var="entityName" value="${message(code: 'Tile.label', default: 'Tile')}" /> --%>
 </head>
-	<body>
+
+<body>
     <div class="cluster-header">
         <p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-            QuiMemória - Peças
+            REMemória - Peças
         </p>
     </div>
 
+    %{-- Download peça modelo --}%
     <div class="row">
-        <div>
-            %{--<p> Download peça </p>--}%
-            <p style="margin-left: 10px;">Download do modelo de peças<a class="btn-floating waves-effect waves-light my-orange" href="/quimemoria/samples/tilesample.zip"><i class="material-icons">file_download</i></a>
-            </p>
+        <div class="row col s4 valign-wrapper">
+            <div class="col s8">
+                <p style="margin-left: 10px;">Download do modelo de peças</p>
+            </div>
+            <div class="col s4">
+                <a class="btn-floating waves-effect waves-light my-orange" href="/quimemoria/samples/tilesample.zip">
+                    <i class="material-icons">file_download</i>
+                </a>
+            </div>
         </div>
     </div>
 
+    %{-- Lista de peças do nível fácil --}%
+    <div class="row">
+        <ul class="collection with-header">
+            <li class="collection-header">
+                <h4>Nível Fácil</h4>
+            </li>
+            %{--
+            <g:if test="${easyTilesList.size() < 1 }">
+                <li class="collection-item">
+                    <p>Você ainda não possui nenhuma peça</p>
+                </li>
+            </g:if>
+            <g:else>
+            --}%
+                <g:each in="${easyTilesList}" var="tile">
+                    <li class="collection-item">
+                        <div>
+                            ${tile.content}
+                        </div>
+                    </li>
+                </g:each>
+            %{--
+            </g:else>
+            --}%
+        </ul>
+    </div>
+
+    %{-- Lista de peças do nível médio --}%
+    <div class="row">
+        <ul class="collection with-header">
+            <li class="collection-header">
+                <h4>Nível Médio</h4>
+            </li>
+            %{--
+            <g:if test="${normalTilesList.size() < 1 }">
+                <li class="collection-item">
+                    <p>Você ainda não possui nenhuma peça</p>
+                </li>
+            </g:if>
+            <g:else>
+            --}%
+                <g:each in="${normalTilesList}" var="tile">
+                    <li class="collection-item">
+                        <div>
+                            ${tile.content}
+                        </div>
+                    </li>
+                </g:each>
+            %{--
+            </g:else>
+            --}%
+        </ul>
+    </div>
+
+    %{-- Lista de peças do nível difícil --}%
+    <div class="row">
+        <ul class="collection with-header">
+            <li class="collection-header">
+                <h4>Nível Difícil</h4>
+            </li>
+            %{--
+            <g:if test="${hardTilesList.size() < 1 }">
+                <li class="collection-item">
+                    <p>Você ainda não possui nenhuma peça</p>
+                </li>
+            </g:if>
+            <g:else>
+            --}%
+                <g:each in="${hardTilesList}" var="tile">
+                    <li class="collection-item">
+                        <div>
+                            ${tile.content}
+                        </div>
+                    </li>
+                </g:each>
+            %{--
+            </g:else>
+            --}%
+        </ul>
+    </div>
+
+
+    %{--
     <div class="row">
         <form class="col s12" name="formName">
             <ul class="collapsible" data-collapsible="accordion">
@@ -67,12 +154,15 @@
             <div class="row">
                 <div class="col s12">
                     <g:submitButton name="save" class="save btn btn-success btn-lg my-orange" value="Enviar"/>
-                    <g:link class="btn btn-success btn-lg my-orange" action="create">Nova peça</g:link>
+
                 </div>
             </div>
         </form>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    --}%
 
-    </body>
+    <g:link class="btn btn-success btn-lg my-orange" action="create">Nova peça</g:link>
+
+    <g:javascript src="scriptTile.js"/>
+</body>
 </html>

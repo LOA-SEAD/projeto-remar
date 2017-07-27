@@ -98,3 +98,14 @@ label .required-indicator {
 .dropdown-content li span {
     color: #5D4037;
 }
+
+.valign-wrapper p {
+    margin: 0;
+}
+.image-preview-container {
+    height: 200px;
+}
+
+#image-preview-table {
+    overflow: scroll;
+}

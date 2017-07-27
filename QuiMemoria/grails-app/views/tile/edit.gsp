@@ -1,4 +1,4 @@
-<%@ page import="br.ufscar.sead.loa.quimemoria.remar.Tile" %>
+<%@ page import="br.ufscar.sead.loa.quimemoria.Tile" %>
 <!DOCTYPE html>
 <html>
 	<head>

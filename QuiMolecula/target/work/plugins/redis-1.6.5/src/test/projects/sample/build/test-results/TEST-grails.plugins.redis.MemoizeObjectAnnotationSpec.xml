@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="grails.plugins.redis.MemoizeObjectAnnotationSpec" tests="2" skipped="0" failures="0" errors="0" timestamp="2015-03-19T01:33:30" hostname="thrush.local" time="0.203">
+  <properties/>
+  <testcase name="testMemoizeAnnotationExpire" classname="grails.plugins.redis.MemoizeObjectAnnotationSpec" time="0.196"/>
+  <testcase name="testMemoizeSimpleObject" classname="grails.plugins.redis.MemoizeObjectAnnotationSpec" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

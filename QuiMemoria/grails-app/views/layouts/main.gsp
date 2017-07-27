@@ -7,19 +7,18 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title><g:layoutTitle default="Remar Template Project"/></title>
-	<!--Import Google Icon Font-->
-	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<!--Import materialize.css-->
-	<g:external dir="css" file="materialize.css"/>
-
-	<!--Let browser know website is optimized for mobile-->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-	<!--Import jQuery before materialize.js-->
+	<title><g:layoutTitle default="REMemória"/></title>
+
+	<link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons" >
+	<g:external dir="css" file="materialize.css"/>
+	<g:external dir="css" file="tiles.css"/>
+
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<g:javascript src="materialize.min.js"/>
 	<g:javascript src="iframeResizer.contentWindow.min.js"/>
+	<g:javascript src="rememoria.js"/>
 
 	<g:layoutHead/>
 
