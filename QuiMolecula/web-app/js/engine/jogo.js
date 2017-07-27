@@ -1,101 +1,108 @@
-var newMoleculeUrl = "/quimolecula/molecule/save"
+// URLs used by AJAX calls.
+var NEW_MOLECULE_URL = "/quimolecula/molecule/save";
 
-var EDITOR_TITLE = "Editor"
+// All interface message constants.
+var EDITOR_TITLE = "Editor";
+var SHOW_TUTORIAL_MSG = "Pressione a tecla P para ver o tutorial."
+var EMPTY_NAME_MSG = "Por favor insira um nome para a molécula!";
+var EMPTY_STRUCTURE_MSG = "Por favor insira a estrutura da molécula!";
 
-
-//Variavel que indica quantas moleculas foram cadastradas
-quantidadeDeMoleculas = 1;
-//Variavel que controla qual o maior nivel que o usuaio chegou(indexado a partir do 0)
-maxNivel = save.load();
-//Variavel que controla em qual niveis o usuario esta fazendo agora
-nivel = maxNivel;
-//Variavel que controla qual background estasendo mostrado
-backgroundI = 0;
-//Variavel que guarda todos que estao em jogo
-elementosNoJogo = [];
-//Variavel que controla qual atomo esta selecionado(usado quando vamos criar ligacoes)
-atomoSelecionado = null;
-//Variavel que controla qual ligacao foi usada para selecionar o primeiro atomo
-ligacaoAtual = null;
-//Variavel que guarda todas as ligacoes feitas durante o jogo
-ligacoesNoJogo = [];
-//Variavel que controla se os carbonos estao mostrando o numero ou a letra C
-estaNumerado = false;
-//Guarda a posicao inicial de qualquer elemento que pode ser arrastado
-posicaoInicial = 0;
-//Variaveis que guarda o que esta guardado na tecla D(ligacao, atomo ou nada)
-var funcaoAtual;
-//Variavel que guarda qual atomo esta sendo usado com a tecla D
-var atomoAtual;
-//Variavel que guarda qual ligacao ou atomo esta selecionado com a tecla D
-var elementoSelecionado;
-//Variavel que guarda a posicao do mouse na tela
+// All atoms being used;
+elementsInGame = [];
+// Selected atom to be the first connected atom when creating bonds.
+selectedAtom = null;
+// Bond type being used to connect selectedAtom with another atom.
+currentBond = null;
+// All bonds being used.
+bondsInGame = [];
+// Boolean value that defines if the editor should shoul carbon letters or numeration.
+isNumbered = false;
+// Guarda a posicao inicial de qualquer elemento que pode ser arrastado.
+startingPosition = 0;
+// Which action is being used in duplicate object function (atom or bond).
+var currentAction;
+// Which element atom is selected to be used in "duplicate object" function.
+var currentAtom;
+// Selected element to be used in "duplicate object" function (atom or bond).
+var selectedElement;
+// Mouse position on screen.
 var mouseObj = new Object();
 
 $(document).ready(function() {
-    criarJogo();
+    // Call function to buid editor stage and setup editor behavior.
+    startEditor();
 
+    // Cleanup editor and molecule creation modal after successfully
     $("#createMoreMoleculesButton").click(function(){
-        reiniciarJogo();
+        resetEditor();
         $("#name").val("");
         $("#structure").val("");
         $("#tip").val("");
     });
 
     $("#sendMoleculeButton").click(function(){
-        var strXml = ""
+        var strXml = "";
         var name = $("#name").val();
         var structure = $("#structure").val();
         var tip = $("#tip").val();
 
-        strXml += "<?xml version='1.0' encoding='utf-8'?>\n<molecule name='" + name + "'";
-        strXml += " formula = '" + structure + "'";
-        strXml += " dica = '" + tip + "'>\n";
+        if (!name) {
+            Materialize.toast(EMPTY_NAME_MSG);
+        } else {
+            if (!structure) {
+                Materialize.toast(EMPTY_STRUCTURE_MSG);
+            } else {
+                strXml += "<?xml version='1.0' encoding='utf-8'?>\n<molecule name='" + name + "'";
+                strXml += " formula = '" + structure + "'";
+                strXml += " dica = '" + tip + "'>\n";
 
-        var a = new Object;
+                var a = new Object;
 
-        for(var i=0; i<elementosNoJogo.length;i++)
-        {
-        //elementosNoJogo[i].numero
-            var tipo = elementosNoJogo[i].nome;
-            var cod = elementosNoJogo[i].codigo;
-            a[tipo+cod] = i;
-            strXml += " <atom id='"+i+"' type='"+elementosNoJogo[i].nome+"' number='"+elementosNoJogo[i].numero+"'/>\n";
-        }
-        console.log(a);
-        console.log(a);
-        for(var i=0; i<ligacoesNoJogo.length;i++)
-        {
-            var tipo = ligacoesNoJogo[i].elementos[0].nome;
-            var cod = ligacoesNoJogo[i].elementos[0].codigo;
-            var tipo1 = ligacoesNoJogo[i].elementos[1].nome;
-            var cod1 = ligacoesNoJogo[i].elementos[1].codigo;
-            strXml += " <bond source='"+a[tipo+cod]+"' target='"+a[tipo1+cod1]+"' type='"+ligacoesNoJogo[i].valor+"'/>\n";
-        }
-        strXml+="</molecule>";
+                for(var i=0; i<elementsInGame.length;i++)
+                {
+                    var tipo = elementsInGame[i].nome;
+                    var cod = elementsInGame[i].codigo;
+                    a[tipo+cod] = i;
+                    strXml += " <atom id='"+i+"' type='"+elementsInGame[i].nome+"' number='"+elementsInGame[i].numero+"'/>\n";
+                }
+
+                for(var i=0; i<bondsInGame.length;i++)
+                {
+                    var tipo = bondsInGame[i].elementos[0].nome;
+                    var cod = bondsInGame[i].elementos[0].codigo;
+                    var tipo1 = bondsInGame[i].elementos[1].nome;
+                    var cod1 = bondsInGame[i].elementos[1].codigo;
+                    strXml += " <bond source='"+a[tipo+cod]+"' target='"+a[tipo1+cod1]+"' type='"+bondsInGame[i].valor+"'/>\n";
+                }
+
+                strXml+="</molecule>";
 
 
-        newMol = {
-            name: name,
-            structure: structure,
-            tip: tip,
-            xml: strXml
-        };
+                newMol = {
+                    name: name,
+                    structure: structure,
+                    tip: tip,
+                    xml: strXml
+                };
 
-        $.ajax ({
-            type: "POST",
-            url: newMoleculeUrl,
-            data: newMol,
-            success: function(data) {
-                $("#successModal").openModal();
-            },
-            error: function(xhrElement, error, exceptionThrown) {
-                alert("Um erro ocorreu. Tente novamente.");
-                console.log(data);
+                $.ajax ({
+                    type: "POST",
+                    url: NEW_MOLECULE_URL,
+                    data: newMol,
+                    success: function(data) {
+                        $("#createModal").closeModal();
+                        $("#successModal").openModal();
+                    },
+                    error: function(xhrElement, error, exceptionThrown) {
+                        Materialize.toast("Ocorreu um erro! Tente novamente.");
+                        console.log("Response object: " + xhr);
+                        console.log("Error message: " + error);
+                        console.log("Exception: " + exThrown);
+                    }
+                });
             }
-        });
-
-    })
+        }
+    });
 });
 
 //Funcao chamada para iniciar o elemento da area central
@@ -113,7 +120,6 @@ function iniciarJogo() {
 
     iniciarAreaInferior();
     inciarAreaLateral();
-
     atualizarDica();
     iniciarTutorial();
 }
@@ -166,19 +172,19 @@ function inciarAreaLateral() {
                             containment: "#palco",
                             cursorAt: { top: 22, left: 20},
                             start: function(event, ui) {
-                                funcaoAtual = "atomo";
-                                elementoSelecionado = this;
+                                currentAction = "atomo";
+                                selectedElement = this;
                                 $(this).css('z-index', '16');
-                                posicaoInicial = $('#' + this.id).position()
+                                startingPosition = $('#' + this.id).position()
                             },
 
                             stop: function(event, ui) {
 
                                 criarAtomo(this.id);
                                 voltarPosicaoInicial($(this));
-                                funcaoAtual = "nada";
+                                currentAction = "nada";
                                 $(this).css('z-index', '');
-                                elementoSelecionado = null;
+                                selectedElement = null;
                             }});
 
     //Inicia as ligacoes que podem ser escolhidos
@@ -192,16 +198,16 @@ function inciarAreaLateral() {
         cursorAt: { top: 10, left: 20},
 
         start: function(event, ui) {
-            funcaoAtual = "ligacao";
-            elementoSelecionado = this;
+            currentAction = "ligacao";
+            selectedElement = this;
             $(this).css('z-index', '16');
-            posicaoInicial = $('#' + this.id).position();
+            startingPosition = $('#' + this.id).position();
         },
 
         stop: function(event, ui){
         {
-            funcaoAtual = "nada";
-            elementoSelecionado = null;
+            currentAction = "nada";
+            selectedElement = null;
             $(this).css('z-index', '');
             voltarPosicaoInicial($(this));}}
         });
@@ -217,15 +223,15 @@ function inciarAreaLateral() {
 }
 
 //Funcao que zera todas as variaveis e limpa a areaCentral
-function reiniciarJogo() {
+function resetEditor() {
     $('#areaCentral').remove();
-    ligacoesNoJogo= [];
-    elementosNoJogo = [];
+    bondsInGame= [];
+    elementsInGame = [];
     iniciarAreaCentral();
-    atomoSelecionado = null;
-    ligacaoAtual = null;
-    estaNumerado = false;
-    posicaoInicial = 0;
+    selectedAtom = null;
+    currentBond = null;
+    isNumbered = false;
+    startingPosition = 0;
 }
 
 //Funcao chamada para iniciar todos os elementos da area inferior
@@ -258,7 +264,7 @@ function iniciarAreaInferior() {
         .attr({ 'id': 'reiniciar', 'class': 'botao' })
         .html('Sim')
         .click(function(){
-            reiniciarJogo();
+            resetEditor();
             $(this).parent().fadeOut('slow', function(){
                 $(this).remove();
             });
@@ -272,14 +278,14 @@ function iniciarAreaInferior() {
 
             if($(ui.draggable).attr('class').split(' ')[0] == 'atomoEmEdicao')
             {
-                for(var i = 0; i < elementosNoJogo.length; i++)
+                for(var i = 0; i < elementsInGame.length; i++)
                 {
-                    if(ui.draggable.attr('id') == elementosNoJogo[i].div.attr('id'))
+                    if(ui.draggable.attr('id') == elementsInGame[i].div.attr('id'))
                     {
                         elementoParaExcluir = i;
                     }
                 }
-                removerElemento(elementosNoJogo[elementoParaExcluir]);
+                removerElemento(elementsInGame[elementoParaExcluir]);
             }
 
 
@@ -287,9 +293,9 @@ function iniciarAreaInferior() {
             if($(ui.draggable).attr('class').split(' ')[0] == 'ligacaoEmEdicao')
             {
                 var n = $(ui.draggable).attr('id').split('-')[1];
-                var aux = ligacoesNoJogo[n-1].elementos;
+                var aux = bondsInGame[n-1].elementos;
 
-                ligacoesNoJogo[n-1].desligar();
+                bondsInGame[n-1].desligar();
 
                 if(aux[0].numeroDeLigacoesFeitas == '0')
                 {
@@ -306,11 +312,11 @@ function iniciarAreaInferior() {
 
 //Funcao que verifica se a posicao passada como parametros est?vazia
 function posicaoVazia(pos, id) {
-    for(var i = 0; i<elementosNoJogo.length; i++)
+    for(var i = 0; i<elementsInGame.length; i++)
     {
-        if((Math.abs(elementosNoJogo[i].div.position().top - pos.top) < 5)
-            && (Math.abs(elementosNoJogo[i].div.position().left - pos.left+200) < 5)
-            && (id != elementosNoJogo[i].div.attr('id')))
+        if((Math.abs(elementsInGame[i].div.position().top - pos.top) < 5)
+            && (Math.abs(elementsInGame[i].div.position().left - pos.left+200) < 5)
+            && (id != elementsInGame[i].div.attr('id')))
         {
             return false;
         }
@@ -326,8 +332,8 @@ function criarAtomo(_id) {
     if(_id == 'carbono')
     {
 
-        for(var i = 0; i < elementosNoJogo.length; i++) {
-            if(elementosNoJogo[i].nome == 'carbono') {
+        for(var i = 0; i < elementsInGame.length; i++) {
+            if(elementsInGame[i].nome == 'carbono') {
                 aux++;
             }
         }
@@ -341,9 +347,9 @@ function criarAtomo(_id) {
         var posicao = colocarNaGrade(posicaoAbsoluta(_id));
 
         var cont = 0;
-        for(var i = 0; i < elementosNoJogo.length; i++)
+        for(var i = 0; i < elementsInGame.length; i++)
         {
-            if(elementosNoJogo[i].nome == _id)
+            if(elementsInGame[i].nome == _id)
             {
                 cont++;
             }
@@ -362,7 +368,7 @@ function criarAtomo(_id) {
                                     .appendTo($('#areaCentral'))
                                     .click(function(){
 
-                                        if(atomoSelecionado != null && atomoSelecionado != this)
+                                        if(selectedAtom != null && selectedAtom != this)
                                         {
                                             selecionaSegundoAtomo(this);
                                         }
@@ -375,7 +381,7 @@ function criarAtomo(_id) {
                                         containment: "#palco",
                                         cursorAt: { top: 22, left: 20},
                                         start: function(event, ui) {
-                                            posicaoInicial = $(this).position();
+                                            startingPosition = $(this).position();
                                             $(this).css('z-index', '16');
                                             },
 
@@ -399,18 +405,18 @@ function criarAtomo(_id) {
 
                                             if(ui.draggable.attr('class').split(' ')[0] == 'ligacaoDisponivel')
                                             {
-                                                if(atomoSelecionado == null)
+                                                if(selectedAtom == null)
                                                 {
-                                                    atomoSelecionado = this;
-                                                    ligacaoAtual = ui.draggable.attr('id');
-                                                    $(this).addClass('atomoSelecionado');
+                                                    selectedAtom = this;
+                                                    currentBond = ui.draggable.attr('id');
+                                                    $(this).addClass('selectedAtom');
                                                 }
                                                 else
                                                 {
-                                                    $(atomoSelecionado).removeClass('atomoSelecionado');
-                                                    ligacaoAtual = ui.draggable.attr('id');
-                                                    atomoSelecionado = this;
-                                                    $(this).addClass('atomoSelecionado');
+                                                    $(selectedAtom).removeClass('selectedAtom');
+                                                    currentBond = ui.draggable.attr('id');
+                                                    selectedAtom = this;
+                                                    $(this).addClass('selectedAtom');
                                                 }
                                             }
 
@@ -421,8 +427,8 @@ function criarAtomo(_id) {
 
             colocarElemento(atomo);
 
-            if(estaNumerado && elementosNoJogo[i].nome == 'carbono') {
-                $(elementosNoJogo[i].div).css({'background-image': 'url("' + imgPath + 'atomos/' + 'C_preto.png")'});
+            if(isNumbered && elementsInGame[i].nome == 'carbono') {
+                $(elementsInGame[i].div).css({'background-image': 'url("' + imgPath + 'atomos/' + 'C_preto.png")'});
                 $('<p>').attr({'class': 'numCarbonos'})
                             .css({'text-align': 'center',
                                 'color' : 'white',
@@ -522,7 +528,7 @@ function maximoDeLigacoesPorAtomo(_id) {
 //Funcao que coloca um atomo na variavel global que controla todos os atomos na tela
 function colocarElemento(_atomo) {
 
-    elementosNoJogo[elementosNoJogo.length] = _atomo;
+    elementsInGame[elementsInGame.length] = _atomo;
 }
 
 //Funcao que remove um atomo da variavel global que controla todos os atomos na tela
@@ -535,13 +541,13 @@ function removerElemento(_atomo) {
 
     if((_atomo.nome == 'carbono') && (_atomo.numero != -1))
     {
-        for(var i = 0; i < elementosNoJogo.length; i++)
+        for(var i = 0; i < elementsInGame.length; i++)
         {
-            if(elementosNoJogo[i].nome == 'carbono')
+            if(elementsInGame[i].nome == 'carbono')
             {
-                if(elementosNoJogo[i].numero >= numeroCarb)
+                if(elementsInGame[i].numero >= numeroCarb)
                 {
-                    elementosNoJogo[i].numero--;
+                    elementsInGame[i].numero--;
                 }
             }
         }
@@ -549,24 +555,24 @@ function removerElemento(_atomo) {
         numerarCarbonos();
     }
 
-    for(var i = 0; i < elementosNoJogo.length; i++)
+    for(var i = 0; i < elementsInGame.length; i++)
     {
-        if(elementosNoJogo[i] == _atomo)
+        if(elementsInGame[i] == _atomo)
         {
             _atomo.div.remove();
-            codigo = elementosNoJogo[i].codigo;
-            nome = elementosNoJogo[i].nome;
-            elementosNoJogo.splice(i,1);
+            codigo = elementsInGame[i].codigo;
+            nome = elementsInGame[i].nome;
+            elementsInGame.splice(i,1);
             achou = true;
         }
 
-        if(achou && i < elementosNoJogo.length)
+        if(achou && i < elementsInGame.length)
         {
-            if(elementosNoJogo[i].nome == nome)
+            if(elementsInGame[i].nome == nome)
             {
-                elementosNoJogo[i].codigo = codigo;
+                elementsInGame[i].codigo = codigo;
 
-                $(elementosNoJogo[i].div).attr('id', elementosNoJogo[i].nome + '-' + elementosNoJogo[i].codigo);
+                $(elementsInGame[i].div).attr('id', elementsInGame[i].nome + '-' + elementsInGame[i].codigo);
                 codigo++;
             }
         }
@@ -603,24 +609,24 @@ function saoVizinhos(e1, e2) {
 //Essa funcao ja cuida das verificacoes para ter certeza que o primeiro atomo esta selecionado e estrutura toda a parte das ligacoes
 function selecionaSegundoAtomo(_div) {
 
-    if(saoVizinhos($(atomoSelecionado), $(_div)))
+    if(saoVizinhos($(selectedAtom), $(_div)))
     {
         var atomo1 = null;
         var atomo2 = null;
 
-        for(var i = 0; i < elementosNoJogo.length; i++)
+        for(var i = 0; i < elementsInGame.length; i++)
         {
-            if($(elementosNoJogo[i].div).attr('id') == $(atomoSelecionado).attr('id'))
+            if($(elementsInGame[i].div).attr('id') == $(selectedAtom).attr('id'))
             {
-                atomo1 = elementosNoJogo[i];
+                atomo1 = elementsInGame[i];
             }
-            if($(elementosNoJogo[i].div).attr('id') == $(_div).attr('id'))
+            if($(elementsInGame[i].div).attr('id') == $(_div).attr('id'))
             {
-                atomo2 = elementosNoJogo[i];
+                atomo2 = elementsInGame[i];
             }
         }
         var valor = 0;
-        switch (ligacaoAtual)
+        switch (currentBond)
         {
             case 'ligacaosimples':
                 valor = 1;
@@ -634,21 +640,21 @@ function selecionaSegundoAtomo(_div) {
                 break;
         }
 
-        var lig = new Ligacao(ligacoesNoJogo.length, valor, 0, 0);
+        var lig = new Ligacao(bondsInGame.length, valor, 0, 0);
 
 
         if(lig.ligar(atomo1, atomo2))
         {
-            ligacoesNoJogo[ligacoesNoJogo.length] = lig;
+            bondsInGame[bondsInGame.length] = lig;
             desenharLigacao(atomo1, atomo2, lig);
             $(atomo1.div).draggable({ disabled: true,})
             $(atomo2.div).draggable({ disabled: true,})
         }
     }
 
-    $(atomoSelecionado).removeClass('atomoSelecionado');
-    atomoSelecionado = null;
-    ligacaoAtual = null;
+    $(selectedAtom).removeClass('selectedAtom');
+    selectedAtom = null;
+    currentBond = null;
 }
 
 //Funcao que realiza a colisao entre um ponto(primeiro parametro) e um elemento(segundo parametro)
@@ -661,7 +667,7 @@ function testaColisaoPonto(p, e) {
 //Essa funcao retorna qualquer elemento para posicao original(antes de ser arrastado)
 function voltarPosicaoInicial(_div) {
 
-    _div.css({'top': posicaoInicial.top, 'left': posicaoInicial.left});
+    _div.css({'top': startingPosition.top, 'left': startingPosition.left});
 }
 
 //Funcao que desenha na tela uma ligacao
@@ -674,7 +680,7 @@ function desenharLigacao(atomo1, atomo2, lig) {
 
     var angulo = calcularAngulo($(atomo1.div).position(), $(atomo2.div).position());
 
-    var div = $('<div>').attr({'id': ligacaoAtual + '-' + ligacoesNoJogo.length, 'class': 'ligacaoEmEdicao'})
+    var div = $('<div>').attr({'id': currentBond + '-' + bondsInGame.length, 'class': 'ligacaoEmEdicao'})
                         .css({
                             'z-index': 11,
                             'top': p.top,
@@ -684,22 +690,22 @@ function desenharLigacao(atomo1, atomo2, lig) {
                             containment: "#palco",
                             cursorAt: { top: 10, left: 20},
                             start: function(event, ui) {
-                                posicaoInicial = $(this).position();
+                                startingPosition = $(this).position();
                             },
 
                             stop: function(event, ui) {
 
                                 var n = this.id.split('-')[1];
 
-                                $(this).css({'top': posicaoInicial.top, 'left': posicaoInicial.left});
+                                $(this).css({'top': startingPosition.top, 'left': startingPosition.left});
 
-                                $(ligacoesNoJogo[n-1].image).css({'top': $(this).position().top, 'left': $(this).position().left});
+                                $(bondsInGame[n-1].image).css({'top': $(this).position().top, 'left': $(this).position().left});
 
                             },
 
                             drag: function(event, ui) {
                                 var n = $(this).attr('id').split('-')[1];
-                                $(ligacoesNoJogo[n-1].image).css({'top': $(this).position().top, 'left': $(this).position().left});
+                                $(bondsInGame[n-1].image).css({'top': $(this).position().top, 'left': $(this).position().left});
                             }
                         })
                         .appendTo($('#areaCentral'));
@@ -708,9 +714,9 @@ function desenharLigacao(atomo1, atomo2, lig) {
                 .attr({'class': 'ligacaoEmEdicao'})
                 .css({
                     'z-index': 0,
-                    'top': $('#' + ligacaoAtual + '-' + ligacoesNoJogo.length).position().top,
-                    'left': $('#' + ligacaoAtual + '-' + ligacoesNoJogo.length).position().left,
-                    'background-image': 'url("' + imgPath + 'atomos/' + ligacaoAtual + '.png")',
+                    'top': $('#' + currentBond + '-' + bondsInGame.length).position().top,
+                    'left': $('#' + currentBond + '-' + bondsInGame.length).position().left,
+                    'background-image': 'url("' + imgPath + 'atomos/' + currentBond + '.png")',
                 })
                 .css({
                     /*'-webkit-rotation-point': '0% 50%',
@@ -732,57 +738,40 @@ function desenharLigacao(atomo1, atomo2, lig) {
 
 //Funcao que troca a imagem dos carbonos pelo numero e vice versa
 function numerarCarbonos() {
-    if(!estaNumerado){
-        for(var i = 0; i< elementosNoJogo.length; i++) {
-            if(elementosNoJogo[i].nome == 'carbono') {
-                $(elementosNoJogo[i].div).css({'background-image': 'url("' + imgPath +'atomos/C_preto.png")'});
+    if(!isNumbered){
+        for(var i = 0; i< elementsInGame.length; i++) {
+            if(elementsInGame[i].nome == 'carbono') {
+                $(elementsInGame[i].div).css({'background-image': 'url("' + imgPath +'atomos/C_preto.png")'});
                 $('<p>').attr({'class': 'numCarbonos'})
-                        .html(elementosNoJogo[i].numero)
-                        .appendTo(elementosNoJogo[i].div);
+                        .html(elementsInGame[i].numero)
+                        .appendTo(elementsInGame[i].div);
 
-                estaNumerado = true;
+                isNumbered = true;
             }
         }
     }
     else {
         $('.numCarbonos').remove();
-        for(var i = 0; i< elementosNoJogo.length; i++) {
-            if(elementosNoJogo[i].nome == 'carbono') {
-                $(elementosNoJogo[i].div).css({'background-image': 'url("' + imgPath + 'atomos/carbono.png")'});
+        for(var i = 0; i< elementsInGame.length; i++) {
+            if(elementsInGame[i].nome == 'carbono') {
+                $(elementsInGame[i].div).css({'background-image': 'url("' + imgPath + 'atomos/carbono.png")'});
             }
         }
-        estaNumerado = false;
+        isNumbered = false;
     }
 }
 
 //Funcao que atualiza a dica
 function atualizarDica() {
-    $('#textoDica').html(function(){
-        if(dica[nivel].length > 180)
-        {
-            $(this).css({ 'height': '100px', 'padding-top': '0px' });
-        }
-        else
-        {
-            if(dica[nivel].length > 93)
-            {
-                $(this).css({ 'height': '92px', 'padding-top': '8px' });
-            }
-            else
-            {
-                $(this).css({ 'height': '85px', 'padding-top': '15px' });
-            }
-        }
-        return dica[nivel];
-    });
+    $('#textoDica').html(SHOW_TUTORIAL_MSG).css({ 'height': '100px', 'padding-top': '0px' });
 }
 
 //Funcao que conta quantos carbonos tem na tela
 function carbonosEmTela() {
     var aux = 0;
-    for(var i = 0; i< elementosNoJogo.length;i++)
+    for(var i = 0; i< elementsInGame.length;i++)
     {
-        if(elementosNoJogo[i].nome == 'carbono')
+        if(elementsInGame[i].nome == 'carbono')
         {
             aux++;
         }
@@ -797,19 +786,19 @@ function mudarNumeroCarbono(_div) {
 
     if($(_div).attr('id').split('-')[0] == 'carbono')
     {
-        if(estaNumerado)
+        if(isNumbered)
         {
             console.log('oi');
             var aux;
 
-            for(var i = 0; i < elementosNoJogo.length; i++)
+            for(var i = 0; i < elementsInGame.length; i++)
             {
 
-                    if(elementosNoJogo[i].nome == 'carbono')
+                    if(elementsInGame[i].nome == 'carbono')
                     {
-                        if($(_div).attr('id').split("-")[1] == elementosNoJogo[i].codigo)
+                        if($(_div).attr('id').split("-")[1] == elementsInGame[i].codigo)
                         {
-                            aux = elementosNoJogo[i];
+                            aux = elementsInGame[i];
                         }
                     }
             }
@@ -854,76 +843,11 @@ function calcularAngulo(_p1, _p2)   {
     return (angulo*45);
 }
 
-//Funcao que le o xml e chama iniciarJogo
-//Caso nao seja possivel ler o xml, retornamos ao menu
-function lerXML(_nivel) {
-       var file = xmlPath +_nivel + ".xml";
-    $.ajax({
-        type: "GET",
-        url: file,
-        dataType: "xml",
-        async: false,
-        success: function(xml) {
-
-            atomos = new Array();
-            moleculaAtual = {};
-            var index = 0;
-
-            $(xml).find('molecule').each(function() {
-                moleculaAtual.nome = $(this).attr('name');
-
-                var str = $(this).attr('formula');
-                var formula = new Array();
-                var closed = true;
-                for (i = 0; i < str.length; i++) {
-                    if (str[i] == '_') {
-                        if (closed) {
-                            closed = false;
-                            formula += "<sub>";
-                        } else {
-                            closed = true;
-                            formula += "</sub>";
-                        }
-                    } else {
-                        formula += str[i];
-                    }
-                }
-                moleculaAtual.formula = formula;
-            });
-
-            $(xml).find('atom').each(function(){
-                var type = $(this).attr('type');
-                var num = $(this).attr('number');
-                atomos[index++] = new Data(type, num, new Array());
-            });
-
-            $(xml).find('bond').each(function(){
-                var src = $(this).attr('source');
-                var tgt = $(this).attr('target');
-                var type = $(this).attr('type');
-                for (i = 0; i < type; i++) {
-                    atomos[src].add(atomos[tgt].tipo);
-                    atomos[tgt].add(atomos[src].tipo);
-                }
-            });
-
-            iniciarJogo();
-        },
-
-        error: function() {
-
-            destruirJogo();
-            criarMenu();
-            alert('xml nao encontrado');
-        }
-    });
-}
-
-function criarJogo() {
-    var pai = $('#ancora').parent();
-    $('<div>').attr("id", "palco").appendTo(pai);
+function startEditor() {
+    var parent = $('#ancora').parent();
+    $('<div>').attr("id", "palco").appendTo(parent);
     $('<div>').attr({'id': 'camadaJogo', 'class': 'camada'}).appendTo($('#palco'));
-    lerXML(nivel);
+    iniciarJogo();
 }
 
 //Funcao que compara dois vetores(das ligacoes) e verifica se sao iguais
@@ -950,19 +874,19 @@ jQuery.fn.compare = function(t) {
 //Retorna true se molecula est?correte
 function verificacaoFinal() {
     var vetorAtomos = [];
-    for(var i=0;i<elementosNoJogo.length;i++)
+    for(var i=0;i<elementsInGame.length;i++)
     {
         var vetorLigas = [];
-        for(var j=0;j<elementosNoJogo[i].ligacoesFeitas.length;j++)
+        for(var j=0;j<elementsInGame[i].ligacoesFeitas.length;j++)
         {
             //N? acessamos cada liga?o do elemento atrav? desse loop e para cada liga?o comparamos se o primeiro elementos ?o nosso elemento em quest?. Se for adicionamos o outro ao vetor de liga?es. Se for diferente adicionamos esse elemento ao vetor de liga?es
-            for(var k =0;k<elementosNoJogo[i].ligacoesFeitas[j].valor;k++)
-                if(elementosNoJogo[i].ligacoesFeitas[j].elementos[0].nome == elementosNoJogo[i].nome)
-                    vetorLigas.push(elementosNoJogo[i].ligacoesFeitas[j].elementos[1].nome);
+            for(var k =0;k<elementsInGame[i].ligacoesFeitas[j].valor;k++)
+                if(elementsInGame[i].ligacoesFeitas[j].elementos[0].nome == elementsInGame[i].nome)
+                    vetorLigas.push(elementsInGame[i].ligacoesFeitas[j].elementos[1].nome);
                 else
-                    vetorLigas.push(elementosNoJogo[i].ligacoesFeitas[j].elementos[0].nome);
+                    vetorLigas.push(elementsInGame[i].ligacoesFeitas[j].elementos[0].nome);
         }
-        vetorAtomos.push(new Data(elementosNoJogo[i].nome, elementosNoJogo[i].numero, vetorLigas));
+        vetorAtomos.push(new Data(elementsInGame[i].nome, elementsInGame[i].numero, vetorLigas));
     }
 
     return (compare(atomos.slice(), vetorAtomos));
@@ -1011,30 +935,30 @@ function debugKeyListeners(evt) {
     if(unicode == D_UPPERCASE_KEY_CODE)
     {
 
-        if(funcaoAtual == "atomo")
+        if(currentAction == "atomo")
         {
-            if(elementoSelecionado != null)
+            if(selectedElement != null)
             {
-                criarAtomo(elementoSelecionado.id);
+                criarAtomo(selectedElement.id);
             }
         }
-        else if(funcaoAtual == "ligacao")
+        else if(currentAction == "ligacao")
         {
             var atom = getAtomoEmPos();
 
             if(atom != null)
             {
-                atomoAtual = atom.div;
+                currentAtom = atom.div;
 
-                if(atomoSelecionado == null)
+                if(selectedAtom == null)
                 {
-                    atomoSelecionado = atomoAtual;
-                    ligacaoAtual = elementoSelecionado.id;
-                    $(atomoAtual).addClass('atomoSelecionado');
+                    selectedAtom = currentAtom;
+                    currentBond = selectedElement.id;
+                    $(currentAtom).addClass('selectedAtom');
                 }
-                else if(atomoSelecionado != atomoAtual)
+                else if(selectedAtom != currentAtom)
                 {
-                    selecionaSegundoAtomo(atomoAtual);
+                    selecionaSegundoAtomo(currentAtom);
                 }
             }
         }
@@ -1044,11 +968,11 @@ function debugKeyListeners(evt) {
 
 //Retorna o atomo sobre o qual o mouse esta
 function getAtomoEmPos() {
-    for(var i=0;i<elementosNoJogo.length;i++)
+    for(var i=0;i<elementsInGame.length;i++)
     {
-        if(testaColisaoPonto(mouseObj, $(elementosNoJogo[i].div)))
+        if(testaColisaoPonto(mouseObj, $(elementsInGame[i].div)))
         {
-            return elementosNoJogo[i];
+            return elementsInGame[i];
         }
     }
     return null;
