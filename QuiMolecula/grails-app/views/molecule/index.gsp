@@ -29,18 +29,12 @@
                         <p>Banco de Moléculas</p>
                     </div>
 
-                    <div class="molecule-list-box">
-                        <ul id="available-molecules" class="sortable connected-sortable">
+                    <div class="molecule-list-box row">
+                        <ul id="available-molecules" class="sortable col s12" data-button="deleteMoleculeButton">
                             <g:each in="${MoleculeInstanceList}" status="i" var="MoleculeInstance">
-                                <li class="ui-state-default" data-molecule-id="${fieldValue(bean: MoleculeInstance, field: "id")}" data-owner-id="${fieldValue(bean: MoleculeInstance, field: "ownerId")}">
+                                <li class="row" data-molecule-id="${fieldValue(bean: MoleculeInstance, field: "id")}" data-owner-id="${fieldValue(bean: MoleculeInstance, field: "ownerId")}">
                                     <i class="material-icons">drag_handle</i>
-                                    <p>${fieldValue(bean: MoleculeInstance, field: "name")} ${fieldValue(bean: MoleculeInstance, field: "structure")}</p>
-                                    <!-- ${fieldValue(bean: MoleculeInstance, field: "tip")} -->
-                                    %{-- TODO: permitir que usuário dono edite a molécula
-                                        <td>
-                                            <i onclick="_edit($(this.closest('tr')))" style="color: #7d8fff; margin-right:10px;" class="fa fa-pencil"></i>
-                                        </td>
-                                    --}%
+                                    <span>${fieldValue(bean: MoleculeInstance, field: "name")} ${fieldValue(bean: MoleculeInstance, field: "structure")}</span>
                                 </li>
                             </g:each>
                         </ul>
@@ -72,7 +66,7 @@
                     </div>
 
                     <div class="molecule-list-box">
-                        <ul id="selected-molecules" class="sortable connected-sortable">
+                        <ul id="selected-molecules" class="sortable col s12" data-button="sendMoleculeButton">
 
                         </ul>
                     </div>
