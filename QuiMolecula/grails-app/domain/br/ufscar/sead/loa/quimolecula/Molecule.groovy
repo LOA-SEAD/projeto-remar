@@ -1,4 +1,4 @@
-package br.ufscar.sead.loa.quimolecula.remar
+package br.ufscar.sead.loa.quimolecula
 
 class Molecule {
 
