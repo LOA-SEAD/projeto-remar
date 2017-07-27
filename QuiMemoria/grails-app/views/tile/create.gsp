@@ -2,10 +2,8 @@
 <html>
 <head>
 	<meta name="layout" content="main">
-	<g:javascript src="iframeResizer.contentWindow.min.js"/>
-	<g:javascript src="../assets/js/jquery.min.js"/>
-	<g:set var="entityName" value="${message(code: 'tile.label', default: 'theme')}" />
-	<g:external dir="css" file="themes.css"/>
+	<g:set var="entityName" value="${message(code: 'tile.label', default: 'tile')}" />
+	<g:external dir="css" file="tiles.css"/>
 </head>
 <body>
 
