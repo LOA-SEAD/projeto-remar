@@ -58,6 +58,7 @@
                                         <a style="font-size: 2em; color: black;" target="_blank" href="/published/${instance.processId}/desktop/${instance.resource.uri}-mac.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Mac"><i class="fa fa-apple"></i></a> <br>
                                     </div>
                                 </g:if>
+
                                 <div class="col l4">
                                     <g:if test="${instance.resource.android}">
                                         <a style="font-size: 2em; color: black;" target="_blank" href="/published/${instance.processId}/mobile/${instance.resource.uri}-android.zip" class="tooltipped"  data-position="right" data-delay="50" data-tooltip="Android"><i class="fa fa-android"></i></a> <br>
@@ -112,5 +113,6 @@
 
     </div>
     <g:applyLayout name="pagination"/>
+    <g:javascript src="utility/utility-public-game.js"/>
     <g:javascript src="showShares.js"/>
 </main>
