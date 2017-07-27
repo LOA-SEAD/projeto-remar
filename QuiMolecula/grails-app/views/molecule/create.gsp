@@ -8,8 +8,6 @@
     <meta property="user-name" content="${userName}"/>
     <meta property="user-id" content="${userId}"/>
 
-    <g:javascript src="engine/save.js" />
-    <g:javascript src="engine/fases.js" />
     <g:javascript src="engine/classe.js" />
     <g:javascript src="engine/tutorial.js" />
     <g:javascript src="engine/jogo.js" />

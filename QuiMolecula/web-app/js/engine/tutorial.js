@@ -1,9 +1,15 @@
-var NO_BUTTON_MSG = "N&atilde;o"
-var tutorialAtual,
-animando,
-divTexto,
-botao1,
-botao2;
+
+// All interface message constants.
+var NEXT_BUTTON_MSG = "Próximo";
+var SKIP_BUTTON_MSG = "Pular";
+var YES_BUTTON_MSG = "Sim";
+var NO_BUTTON_MSG = "Não";
+
+var currentTutorialStep,
+	animationIsRunning,
+	textDiv,
+	leftButton,
+	rightButton;
 
 function iniciarTutorial() {
 	//Crio a div popup e os dois botoes.
@@ -15,12 +21,12 @@ function iniciarTutorial() {
 	.attr({ 'id': 'tutorial', 'class': 'popup' })
 	.appendTo($('#tutorial.camada'));
 
-	divTexto = $('<p>')
+	textDiv = $('<p>')
 	.attr('class', 'textoTutorial')
 	.html('Deseja ver o tutorial?')
 	.appendTo($('#tutorial.popup'));
 
-	botao2 = $('<div>')
+	rightButton = $('<div>')
 	.attr({ 'id': 'continuar', 'class': 'botao' })
 	.html('<p class="textoBotaoTutorial">' + NO_BUTTON_MSG + '</p>')
 	.click(function(){
@@ -30,12 +36,12 @@ function iniciarTutorial() {
 	})
 	.appendTo($('#tutorial.popup'));
 
-	botao1 = $('<div>')
+	leftButton = $('<div>')
 	.attr({ 'id': 'reiniciar', 'class': 'botao' })
-	.html('<p class="textoBotaoTutorial">Sim</p>')
+	.html('<p class="textoBotaoTutorial">' + YES_BUTTON_MSG + '</p>')
 	.click(function(){
 		habilitarBotao();
-		tutorialAtual = -1;
+		currentTutorialStep = -1;
 		continuarTutorial();
 	})
 	.appendTo($('#tutorial.popup'));
@@ -43,18 +49,18 @@ function iniciarTutorial() {
 
 function continuarTutorial() {
 	$('#reiniciar.botao')
-	.html('<p class="textoBotaoTutorial">Próximo</p>')
+	.html('<p class="textoBotaoTutorial">' + NEXT_BUTTON_MSG + '</p>')
 	.unbind('click')
 	.click(function() {
-		if(!animando)
+		if(!animationIsRunning)
 			proximoTutorial();
 	});
 
 	$('#continuar.botao')
-	.html('<p class="textoBotaoTutorial">Pular</p>')
+	.html('<p class="textoBotaoTutorial">' + SKIP_BUTTON_MSG + '</p>')
 	.unbind('click')
 	.click(function() {
-		if(!animando)
+		if(!animationIsRunning)
 			terminarTutorial();
 	});
 
@@ -93,31 +99,31 @@ function fazerAnimacaoLigacao(nome) {
 }
 
 function desabilitarBotao() {
-	animando = true;
-	botao1.addClass('desabilitado');
-	botao2.addClass('desabilitado');
+	animationIsRunning = true;
+	leftButton.addClass('desabilitado');
+	rightButton.addClass('desabilitado');
 }
 
 function habilitarBotao() {
-	animando = false;
-	botao1.removeClass('desabilitado');
-	botao2.removeClass('desabilitado');
+	animationIsRunning = false;
+	leftButton.removeClass('desabilitado');
+	rightButton.removeClass('desabilitado');
 }
 
 function proximoTutorial() {
-	if(tutorialAtual < 16)
-		tutorialAtual += 1;
+	if(currentTutorialStep < 16)
+		currentTutorialStep += 1;
 	else
 		terminarTutorial();
 
 	desabilitarBotao();
 
 	atualizarTexto();
-	window['tutorial'+tutorialAtual]();
+	window['tutorial'+currentTutorialStep]();
 }
 
 function atualizarTexto() {
-	divTexto.html(textoTutorial[tutorialAtual]);
+	textDiv.html(textoTutorial[currentTutorialStep]);
 }
 
 function tutorial0 () {
