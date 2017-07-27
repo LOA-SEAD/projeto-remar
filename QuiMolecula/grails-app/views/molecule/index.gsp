@@ -1,4 +1,4 @@
-<%@ page import="br.ufscar.sead.loa.quimolecula.remar.Molecule" %>
+<%@ page import="br.ufscar.sead.loa.quimolecula.Molecule" %>
 <!DOCTYPE html>
 <html>
 <head>

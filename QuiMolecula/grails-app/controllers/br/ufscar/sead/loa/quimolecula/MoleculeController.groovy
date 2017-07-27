@@ -1,4 +1,4 @@
-package br.ufscar.sead.loa.quimolecula.remar
+package br.ufscar.sead.loa.quimolecula
 
 import br.ufscar.sead.loa.remar.User
 import br.ufscar.sead.loa.remar.api.MongoHelper
@@ -97,12 +97,12 @@ class MoleculeController {
         }
     }
 
-    def toJson() {
+    def send() {
         def list = Molecule.getAll(params.id ? params.id.split(',').toList() : null)
         def builder = new JsonBuilder()
         def json = builder(
                 list.collect { p ->
-                    ["palavra"     : p.getAnswer().toUpperCase(),
+                    ["  palavra"     : p.getAnswer().toUpperCase(),
                      "dica"        : p.getStatement(),
                      "contribuicao": p.getAuthor()]
                 }
@@ -129,106 +129,4 @@ class MoleculeController {
 
         redirect uri: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}", params: [files: id]
     }
-
-    def returnInstance(Molecule MoleculeInstance){
-
-        if (MoleculeInstance == null) {
-            notFound()
-        }
-        else{
-            render MoleculeInstance.statement + "%@!" +
-                    MoleculeInstance.answer + "%@!" +
-                    MoleculeInstance.author + "%@!" +
-                    MoleculeInstance.category + "%@!" +
-                    MoleculeInstance.version + "%@!" +
-                    MoleculeInstance.ownerId + "%@!" +
-                    MoleculeInstance.taskId + "%@!" +
-                    MoleculeInstance.id
-        }
-    }
-
-    @Transactional
-    def generateMolecules() {
-        MultipartFile csv = params.csv
-        def user = springSecurityService.getCurrentUser()
-        def userId = user.toString().split(':').toList()
-        String username = User.findById(userId[1].toInteger()).username
-
-        csv.inputStream.toCsvReader(['separatorChar': ';', 'charset':'UTF-8']).eachLine { row ->
-
-            Molecule MoleculeInstance = new Molecule()
-
-            try{
-                String correct = row[6] ?: "NA";
-                int correctAnswer = (correct.toInteger() -1)
-                MoleculeInstance.statement = row[1] ?: "NA";
-                MoleculeInstance.answer = row[(2 + correctAnswer)] ?: "NA";
-                MoleculeInstance.category = row[8] ?: "NA";
-            }
-            catch (ArrayIndexOutOfBoundsException exception){
-                //println("Not default .csv - Model: Title-Answer-Category")
-                MoleculeInstance.statement = row[0] ?: "NA";
-                MoleculeInstance.answer = row[1] ?: "NA";
-                MoleculeInstance.category = row[2] ?: "NA";
-            }
-
-            MoleculeInstance.author = username
-            MoleculeInstance.taskId = session.taskId as String
-            MoleculeInstance.ownerId = session.user.id
-
-            if (MoleculeInstance.hasErrors()) {
-
-            }
-            else{
-                MoleculeInstance.save flush: true
-            }
-
-        }
-
-        redirect(action: index())
-
-    }
-
-    def exportCSV(){
-        /* Função que exporta as questões selecionadas para um arquivo .csv genérico.
-           O arquivo .csv gerado será compatível com os modelos Escola Mágica, Forca e Responda Se Puder.
-           O arquivo gerado possui os seguintes campos na ordem correspondente:
-           Nível, Pergunta, Alternativa1, Alternativa2, Alternativa3, Alternativa4, Alternativa Correta, Dica, Tema.
-           O campo Dica é correspondente ao modelo Responda Se Puder e o campo Tema ao modelo Forca.
-           O separador do arquivo .csv gerado é o ";" (ponto e vírgula)
-        */
-
-        ArrayList<Integer> list_MoleculeId = new ArrayList<Integer>() ;
-        ArrayList<Molecule> MoleculeList = new ArrayList<Molecule>();
-        list_MoleculeId.addAll(params.list_id);
-        for (int i=0; i<list_MoleculeId.size();i++){
-            MoleculeList.add(Molecule.findById(list_MoleculeId[i]));
-
-        }
-
-        //println(MoleculeList)
-        def dataPath = servletContext.getRealPath("/samples")
-        def instancePath = new File("${dataPath}/export")
-        instancePath.mkdirs()
-        log.debug instancePath
-
-        def fw = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream("$instancePath/exportMolecules.csv"), "UTF-8"));
-
-        for(int i=0; i<MoleculeList.size();i++){
-            fw.write("1;" + MoleculeList.getAt(i).statement + ";" + MoleculeList.getAt(i).answer + ";"  + "Alternativa 2;" +
-                    "Alternativa 3;" + "Alternativa 4;" + "1;" + "dica;" + MoleculeList.getAt(i).category +";\n" )
-        }
-        fw.close()
-
-        def port = request.serverPort
-        if (Environment.current == Environment.DEVELOPMENT) {
-            port = 8080
-        }
-
-        render "/forca/samples/export/exportMolecules.csv"
-
-
-    }
-
 }
