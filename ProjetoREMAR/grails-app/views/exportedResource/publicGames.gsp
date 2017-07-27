@@ -47,9 +47,6 @@
                 $('.modal-trigger').leanModal();
             });
         </script>
-
-        <g:javascript src="add-resource-to-group.js"/>
         <g:javascript src="menu.js"/>
-        <g:javascript src="utility/utility-public-game.js"/>
     </body>
 </html>
