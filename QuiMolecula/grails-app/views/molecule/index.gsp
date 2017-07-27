@@ -29,16 +29,25 @@
                         <p>Banco de Moléculas</p>
                     </div>
 
-                    <div class="molecule-list-box row">
-                        <ul id="available-molecules" class="sortable col s12" data-button="deleteMoleculeButton">
-                            <g:each in="${MoleculeInstanceList}" status="i" var="MoleculeInstance">
-                                <li class="row" data-molecule-id="${fieldValue(bean: MoleculeInstance, field: "id")}" data-owner-id="${fieldValue(bean: MoleculeInstance, field: "ownerId")}">
+                    <ul id="available-molecules" class="row molecule-list-box sortable" data-button="deleteMoleculeButton">
+                        <g:each in="${MoleculeInstanceList}" status="i" var="MoleculeInstance">
+                            <li class="row" data-molecule-id="${fieldValue(bean: MoleculeInstance, field: "id")}" data-owner-id="${fieldValue(bean: MoleculeInstance, field: "ownerId")}">
+                                <div class="col s2">
                                     <i class="material-icons">drag_handle</i>
-                                    <span>${fieldValue(bean: MoleculeInstance, field: "name")} ${fieldValue(bean: MoleculeInstance, field: "structure")}</span>
-                                </li>
-                            </g:each>
-                        </ul>
-                    </div>
+                                </div>
+                                <div class="col s5">
+                                    <span>${fieldValue(bean: MoleculeInstance, field: "name")}</span>
+                                </div>
+                                <div class="col s3">
+                                    <span class="molecule-structure">${fieldValue(bean: MoleculeInstance, field: "structure")}</span>
+                                </div>
+                                <div class="col s2">
+                                    <i class="fa fa-info tooltipped"
+                                       data-position="bottom" data-delay="50" data-tooltip="${fieldValue(bean: MoleculeInstance, field: "tip")}"></i>
+                                </div>
+                            </li>
+                        </g:each>
+                    </ul>
 
                     <div class="molecule-list-box-button">
                         <div class="row">
@@ -65,11 +74,9 @@
                         <p>Moléculas Selecionadas</p>
                     </div>
 
-                    <div class="molecule-list-box">
-                        <ul id="selected-molecules" class="sortable col s12" data-button="sendMoleculeButton">
+                    <ul id="selected-molecules" class="row molecule-list-box sortable" data-button="sendMoleculeButton">
 
-                        </ul>
-                    </div>
+                    </ul>
 
                     <div class="molecule-list-box-button">
                         <div class="row">

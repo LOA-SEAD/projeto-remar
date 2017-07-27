@@ -10,6 +10,7 @@ $(document).ready(function () {
         .on('click', 'li', function() {
             $(this).toggleClass('active');
 
+            // Specific behaviour of available molecules list
             if ($(this).closest('ul').attr('id') == 'available-molecules') {
                 var $button = $('#' + $(this).parent().data('button'));
 
@@ -49,12 +50,10 @@ $(document).ready(function () {
                 return helper.append(elements);
             },
             start: function (e, ui) {
-                // TODO: Encontrar uma maneira melhor de pegar a altura correta do objeto do que uma solução hard-coded
-                // ui.item.outerHeight() retorna 40 por algum motivo
                 // Resize placeholder to the size of the objects being dragged
                 var height = ui.item.outerHeight();
                 var length = ui.item.data('multidrag').length;
-                ui.placeholder.height(height * length);
+                ui.placeholder.outerHeight((height - 0.5) * length);
 
                 // To avoid bugs regarding the remove button, we disable it after dropping the element
                 $('#deleteMoleculeButton').addClass('disabled');
@@ -68,6 +67,9 @@ $(document).ready(function () {
                 // Finally, insert the selected items after the 'item', then remove the 'item'
                 //      since item is a duplicate of one of the selected items
                 ui.item.after(elements).remove();
+
+                // Initialize tooltip of dinamically generated tooltips
+                $('.tooltipped').tooltip();
             },
             update: function() {
                 var button = '#' + $(this).data('button');
