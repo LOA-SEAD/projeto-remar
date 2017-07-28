@@ -120,8 +120,6 @@ class MoleculeController {
             port = 8080
         }
 
-        def url = "http://${request.serverName}:${port}/process/task/complete/${session.taskId}?${fileList}"
-
-        redirect uri: url
+        render "http://${request.serverName}:${port}/process/task/complete/${session.taskId}?${fileList}"
     }
 }
