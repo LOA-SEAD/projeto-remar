@@ -5,11 +5,20 @@
  *          Lucas Yuji Suguinoshita.
 **/
 
+// Server URLs used by this script;
 var DELETE_URL = "/quimolecula/molecule/delete";
 var SEND_URL= "/quimolecula/molecule/send";
 
-var REMOVE_SUCCESS_MSG = "Molecula removida com sucesso."
-var ERROR_MSG = "Ocorreu um erro! Tente novamente."
+// Interface messages used as feedback to user.
+var SELECT_MOLECULE_MSG         = "Por favor selecione pelo menos uma molécula.";
+var MAX_MOLECULE_REACHED_MSG    = "Por favor selecione menos moléculas!";
+var REMOVE_SUCCESS_MSG          = "Molecula removida com sucesso.";
+var ERROR_MSG                   = "Ocorreu um erro! Tente novamente.";
+
+// Constants used by this script.
+var MIN_MOLECULE_COUNT = 1;
+var MAX_MOLECULE_COUNT = 20;
+var TOAST_LIFESPAN_MILLI = 4000;
 
 $(document).ready(function () {
 
@@ -88,13 +97,13 @@ $(document).ready(function () {
                         $(button).addClass('disabled');
                     }
                 } else if ($(this).attr('id') == 'selected-molecules') {
-                    // If the number of selected molecules is less or equal zero, disable the send button
-                    // thus preventing the user from sending empty data
-                    if ($(this).children().length <= 0) {
+                    // If the number of selected molecules is less than the minimum or more than the maximum, disable the send button
+                    // thus preventing the user from finishing the task
+                    if ($(this).children().length < MIN_MOLECULE_COUNT || $(this).children().length > MAX_MOLECULE_COUNT) {
                         $(button).addClass('disabled');
-                    } else if ($(this).children().length = 1) {
-                        // If the list has one child after the end of the drag-and-drop event, it means
-                        // that the user wants to send at least one molecule. So we enable the button.
+                    } else if ($(this).children().length = MIN_MOLECULE_COUNT || $(this).children().length == MAX_MOLECULE_COUNT) {
+                        // If the list has the minimum or maximum number of childs after the end of the drag-and-drop event, it means
+                        // that the user has reached the possible number of molecules to send. So we enable the button.
                         $(button).removeClass('disabled');
                     }
                 }
@@ -108,28 +117,38 @@ $(document).ready(function () {
             return $(this).data("moleculeId");
         });
 
-        // Setup the id list as a JSON object to be sent
-        // Grails receives the list in a single parameter that'll be called "id[]"
-        var data = { "id": selectedMolecules.toArray() };
+        if (!($(this).hasClass('disabled'))) {
+            // Setup the id list as a JSON object to be sent
+            // Grails receives the list in a single parameter that'll be called "id[]"
+            var data = { "id": selectedMolecules.toArray() };
 
-        // Perform an AJAX request sending the molecule id list
-        $.ajax({
-            type: 'POST',
-            url: SEND_URL,
-            data: data,
-            success: function(response) {
-                // The server returns a URL to redirect the user to.
-                // This page is supposed to be running in an iframe, so we use window.top to redirect the top/parent frame instead of the iframe.
-                window.top.location.href = response;
-            },
-            error: function(xhr, error, exThrown) {
-                // Use a toast to inform that an error has ocurred to the user.
-                Materialize.toast(ERROR_MSG);
-                console.log("Response object: " + xhr);
-                console.log("Error message: " + error);
-                console.log("Exception: " + exThrown);
+            // Perform an AJAX request sending the molecule id list
+            $.ajax({
+                type: 'POST',
+                url: SEND_URL,
+                data: data,
+                success: function(response) {
+                    // The server returns a URL to redirect the user to.
+                    // This page is supposed to be running in an iframe, so we use window.top to redirect the top/parent frame instead of the iframe.
+                    window.top.location.href = response;
+                },
+                error: function(xhr, error, exThrown) {
+                    // Use a toast to inform that an error has ocurred to the user.
+                    Materialize.toast(ERROR_MSG, TOAST_LIFESPAN_MILLI);
+                    console.log("Response object: " + xhr);
+                    console.log("Error message: " + error);
+                    console.log("Exception: " + exThrown);
+                }
+            })
+        } else {
+            // User hasn't selected an acceptable number of molecules.
+            // Check how many molecules were selected and feedback the user accordingly.
+            if (selectedMolecules.size() < MIN_MOLECULE_COUNT) {
+                Materialize.toast(SELECT_MOLECULE_MSG, TOAST_LIFESPAN_MILLI);
+            } else if (selectedMolecules.size() > MAX_MOLECULE_COUNT) {
+                Materialize.toast(MAX_MOLECULE_REACHED_MSG, TOAST_LIFESPAN_MILLI);
             }
-        })
+        }
     });
 
     // Delete button click function
