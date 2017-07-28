@@ -1,19 +1,133 @@
 {
-  "name": "QuiMolécula",
+  "name": "QuiMolecula",
   "uri": "quimolecula",
   "version": 1,
   "tasks": [
     {
       "name": "Banco de Moléculas",
-      "uri": "question",
+      "uri": "molecule",
       "description": "Criar/editar/selecionar um banco de moléculas para o jogo.",
       "type": "text_database",
       "dependencies": null,
       "outputs": [
         {
-          "name": "palavras.json",
-          "type": "json",
-          "path": "json"
+          "name": "0.xml",
+          "type": "xml",
+          "path": "xml"
+        },
+        {
+          "name": "1.xml",
+          "type": "xml",
+          "path": "xml",
+          "optional": true
+        },
+        {
+          "name": "2.xml",
+          "type": "xml",
+          "path": "xml",
+          "optional": true
+        },
+        {
+          "name": "3.xml",
+          "type": "xml",
+          "path": "xml",
+          "optional": true
+        },
+        {
+          "name": "4.xml",
+          "type": "xml",
+          "path": "xml",
+          "optional": true
+        },
+        {
+          "name": "5.xml",
+          "type": "xml",
+          "path": "xml",
+          "optional": true
+        },
+        {
+          "name": "6.xml",
+          "type": "xml",
+          "path": "xml",
+          "optional": true
+        },
+        {
+          "name": "7.xml",
+          "type": "xml",
+          "path": "xml",
+          "optional": true
+        },
+        {
+          "name": "8.xml",
+          "type": "xml",
+          "path": "xml",
+          "optional": true
+        },
+        {
+          "name": "9.xml",
+          "type": "xml",
+          "path": "xml",
+          "optional": true
+        },
+        {
+          "name": "10.xml",
+          "type": "xml",
+          "path": "xml",
+          "optional": true
+        },
+        {
+          "name": "11.xml",
+          "type": "xml",
+          "path": "xml",
+          "optional": true
+        },
+        {
+          "name": "12.xml",
+          "type": "xml",
+          "path": "xml",
+          "optional": true
+        },
+        {
+          "name": "13.xml",
+          "type": "xml",
+          "path": "xml",
+          "optional": true
+        },
+        {
+          "name": "14.xml",
+          "type": "xml",
+          "path": "xml",
+          "optional": true
+        },
+        {
+          "name": "15.xml",
+          "type": "xml",
+          "path": "xml",
+          "optional": true
+        },
+        {
+          "name": "16.xml",
+          "type": "xml",
+          "path": "xml",
+          "optional": true
+        },
+        {
+          "name": "17.xml",
+          "type": "xml",
+          "path": "xml",
+          "optional": true
+        },
+        {
+          "name": "18.xml",
+          "type": "xml",
+          "path": "xml",
+          "optional": true
+        },
+        {
+          "name": "19.xml",
+          "type": "xml",
+          "path": "xml",
+          "optional": true
         }
       ]
     }
