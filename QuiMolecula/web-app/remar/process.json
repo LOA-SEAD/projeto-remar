@@ -11,15 +11,9 @@
       "dependencies": null,
       "outputs": [
         {
-          "name": "0.xml",
-          "type": "xml",
-          "path": "xml"
-        },
-        {
           "name": "1.xml",
           "type": "xml",
-          "path": "xml",
-          "optional": true
+          "path": "xml"
         },
         {
           "name": "2.xml",
@@ -125,6 +119,12 @@
         },
         {
           "name": "19.xml",
+          "type": "xml",
+          "path": "xml",
+          "optional": true
+        },
+        {
+          "name": "20.xml",
           "type": "xml",
           "path": "xml",
           "optional": true
