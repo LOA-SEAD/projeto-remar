@@ -3,6 +3,7 @@
  */
 
 var DELETE_URL = "/quimolecula/molecule/delete";
+var SEND_URL= "/quimolecula/molecule/send";
 
 $(document).ready(function () {
 
@@ -94,14 +95,38 @@ $(document).ready(function () {
             }
         });
 
+    $("#sendButton").click(function() {
+        var selectedMolecules = $("#selected-molecules li").map(function() {
+            return $(this).data("moleculeId");
+        });
+
+        var data = { "id": selectedMolecules.toArray() };
+        $.ajax({
+            type: 'POST',
+            url: SEND_URL,
+            data: data,
+            success: function(response) {
+                window.top.location.href = response;
+            },
+            error: function(xhr, error, exThrown) {
+                Materialize.toast("Ocorreu um erro! Tente novamente.");
+                console.log("Response object: " + xhr);
+                console.log("Error message: " + error);
+                console.log("Exception: " + exThrown);
+            }
+        })
+    });
+
     // Delete button click function
     $("#deleteMoleculeButton").click(function() {
         if (!($(this).hasClass('disabled'))) {
+            // Capture each selected molecule item.
             $(".molecule-list-box li.active").each(function(){
+                // Set
                 var deleteData = {};
                 deleteData.id = $(this).data("moleculeId");
                 deleteData.ownerId = $(this).data("ownerId");
-                deleteData._method = "DELETE"
+                deleteData._method = "DELETE";
 
                 $.ajax({
                     type:"DELETE",
@@ -110,6 +135,7 @@ $(document).ready(function () {
                     success: function(response) {
                         console.log("Molecula removida com sucesso.");
                         console.log(response);
+                        window.location.reload(true);
                     },
                     error: function(error) {
                         console.log("Um erro ocorreu.");
@@ -117,7 +143,6 @@ $(document).ready(function () {
                     }
                 });
             });
-            window.location.reload(true);
         }
     });
 });

@@ -97,36 +97,31 @@ class MoleculeController {
         }
     }
 
+
     def send() {
-        def list = Molecule.getAll(params.id ? params.id.split(',').toList() : null)
-        def builder = new JsonBuilder()
-        def json = builder(
-                list.collect { p ->
-                    ["  palavra"     : p.getAnswer().toUpperCase(),
-                     "dica"        : p.getStatement(),
-                     "contribuicao": p.getAuthor()]
-                }
-        )
-
-        log.debug builder.toString()
-
+        def i, fileId
+        def fileList = ""
         def dataPath = servletContext.getRealPath("/data")
+        def moleculeList = Molecule.getAll(params["id[]"])
         def userPath = new File(dataPath, "/" + springSecurityService.getCurrentUser().getId() + "/" + session.taskId)
         userPath.mkdirs()
 
-        def fileName = "palavras.json"
-        File file = new File("$userPath/$fileName");
-        PrintWriter pw = new PrintWriter(file);
-        pw.write('{ "nome" : "Forca","palavras":' + builder.toString() + '}');
-        pw.close();
-
-        String id = MongoHelper.putFile(file.absolutePath)
+        for (i = 0; i < moleculeList.size(); i++) {
+            File file = new File(String.format("$userPath/%d.xml", i))
+            PrintWriter pw = new PrintWriter(file)
+            pw.write(moleculeList[i].xml)
+            pw.close()
+            fileId = MongoHelper.putFile(file.absolutePath)
+            fileList += "files=${fileId}&"
+        }
 
         def port = request.serverPort
         if (Environment.current == Environment.DEVELOPMENT) {
             port = 8080
         }
 
-        redirect uri: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}", params: [files: id]
+        def url = "http://${request.serverName}:${port}/process/task/complete/${session.taskId}?${fileList}"
+
+        redirect uri: url
     }
 }
