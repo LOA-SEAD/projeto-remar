@@ -69,7 +69,7 @@ function continuarTutorial() {
 
 function terminarTutorial(){
 	$('#tutorial.camada').remove();
-	reiniciarJogo();
+	resetEditor();
 }
 
 function fazerAnimacaoAtomo(nome) {
@@ -248,7 +248,7 @@ function tutorial9 () {
 
 	setTimeout(function() {
 		$('#hidrogenio-0').remove();
-		reiniciarJogo();
+		resetEditor();
 		habilitarBotao();
 	}, 12000);
 }

@@ -1,6 +1,8 @@
 // URLs used by AJAX calls.
 var NEW_MOLECULE_URL = "/quimolecula/molecule/save";
 
+var IMG_DIR_PATH = "/quimolecula/images/editor/";
+
 // All interface message constants.
 var EDITOR_TITLE = "Editor";
 var SHOW_TUTORIAL_MSG = "Pressione a tecla P para ver o tutorial."
@@ -363,7 +365,7 @@ function criarAtomo(_id) {
                                             'class': 'atomoEmEdicao',})
                                     .css({'top': posicao.top + 'px',
                                             'left': posicao.left - 200 + 'px',
-                                            'background': 'url("' + imgPath + 'atomos/' + _id +'.png")'})
+                                            'background': 'url("' + IMG_DIR_PATH + 'atomos/' + _id +'.png")'})
                                     .hover(function(){tileEmQueMouseEsta = this.id;}, function(){tileEmQueMouseEsta = "";})
                                     .appendTo($('#areaCentral'))
                                     .click(function(){
@@ -428,7 +430,7 @@ function criarAtomo(_id) {
             colocarElemento(atomo);
 
             if(isNumbered && elementsInGame[i].nome == 'carbono') {
-                $(elementsInGame[i].div).css({'background-image': 'url("' + imgPath + 'atomos/' + 'C_preto.png")'});
+                $(elementsInGame[i].div).css({'background-image': 'url("' + IMG_DIR_PATH + 'atomos/' + 'C_preto.png")'});
                 $('<p>').attr({'class': 'numCarbonos'})
                             .css({'text-align': 'center',
                                 'color' : 'white',
@@ -716,7 +718,7 @@ function desenharLigacao(atomo1, atomo2, lig) {
                     'z-index': 0,
                     'top': $('#' + currentBond + '-' + bondsInGame.length).position().top,
                     'left': $('#' + currentBond + '-' + bondsInGame.length).position().left,
-                    'background-image': 'url("' + imgPath + 'atomos/' + currentBond + '.png")',
+                    'background-image': 'url("' + IMG_DIR_PATH + 'atomos/' + currentBond + '.png")',
                 })
                 .css({
                     /*'-webkit-rotation-point': '0% 50%',
@@ -741,7 +743,7 @@ function numerarCarbonos() {
     if(!isNumbered){
         for(var i = 0; i< elementsInGame.length; i++) {
             if(elementsInGame[i].nome == 'carbono') {
-                $(elementsInGame[i].div).css({'background-image': 'url("' + imgPath +'atomos/C_preto.png")'});
+                $(elementsInGame[i].div).css({'background-image': 'url("' + IMG_DIR_PATH +'atomos/C_preto.png")'});
                 $('<p>').attr({'class': 'numCarbonos'})
                         .html(elementsInGame[i].numero)
                         .appendTo(elementsInGame[i].div);
@@ -754,7 +756,7 @@ function numerarCarbonos() {
         $('.numCarbonos').remove();
         for(var i = 0; i< elementsInGame.length; i++) {
             if(elementsInGame[i].nome == 'carbono') {
-                $(elementsInGame[i].div).css({'background-image': 'url("' + imgPath + 'atomos/carbono.png")'});
+                $(elementsInGame[i].div).css({'background-image': 'url("' + IMG_DIR_PATH + 'atomos/carbono.png")'});
             }
         }
         isNumbered = false;
