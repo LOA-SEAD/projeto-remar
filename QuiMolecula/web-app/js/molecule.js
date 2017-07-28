@@ -1,9 +1,15 @@
 /**
- * Created by garciaph on 24/07/17.
- */
+ * Last Update: 28/07/17.
+ * Created by: Pedro Garcia on 24/07/17.
+ * Authors: Pedro Garcia,
+ *          Lucas Yuji Suguinoshita.
+**/
 
 var DELETE_URL = "/quimolecula/molecule/delete";
 var SEND_URL= "/quimolecula/molecule/send";
+
+var REMOVE_SUCCESS_MSG = "Molecula removida com sucesso."
+var ERROR_MSG = "Ocorreu um erro! Tente novamente."
 
 $(document).ready(function () {
 
@@ -95,21 +101,30 @@ $(document).ready(function () {
             }
         });
 
+    // Finish molecule selection button click function
     $("#sendMoleculeButton").click(function() {
+        // Capture all molecules dragged to the selected molecules list and extracter the molecule id
         var selectedMolecules = $("#selected-molecules li").map(function() {
             return $(this).data("moleculeId");
         });
 
+        // Setup the id list as a JSON object to be sent
+        // Grails receives the list in a single parameter that'll be called "id[]"
         var data = { "id": selectedMolecules.toArray() };
+
+        // Perform an AJAX request sending the molecule id list
         $.ajax({
             type: 'POST',
             url: SEND_URL,
             data: data,
             success: function(response) {
+                // The server returns a URL to redirect the user to.
+                // This page is supposed to be running in an iframe, so we use window.top to redirect the top/parent frame instead of the iframe.
                 window.top.location.href = response;
             },
             error: function(xhr, error, exThrown) {
-                Materialize.toast("Ocorreu um erro! Tente novamente.");
+                // Use a toast to inform that an error has ocurred to the user.
+                Materialize.toast(ERROR_MSG);
                 console.log("Response object: " + xhr);
                 console.log("Error message: " + error);
                 console.log("Exception: " + exThrown);
@@ -120,9 +135,9 @@ $(document).ready(function () {
     // Delete button click function
     $("#deleteMoleculeButton").click(function() {
         if (!($(this).hasClass('disabled'))) {
-            // Capture each selected molecule item.
+            // Capture each selected molecule item and run the following code using each one of them inside the "this" variable.
             $(".molecule-list-box li.active").each(function(){
-                // Set
+                // Setup all the necessary content in a JSON to be sent to the server.
                 var deleteData = {};
                 deleteData.id = $(this).data("moleculeId");
                 deleteData.ownerId = $(this).data("ownerId");
@@ -130,16 +145,22 @@ $(document).ready(function () {
 
                 $.ajax({
                     type:"DELETE",
+                    // Call the especific delete URL, which basically overrides the necessity of sending any extra data to the server.
                     url: DELETE_URL + "/" + deleteData.id,
+                    // We send it anyway in case of server-side version changes.
                     data: deleteData,
                     success: function(response) {
-                        console.log("Molecula removida com sucesso.");
-                        console.log(response);
+                        // Alert the user that the molecule has been successfully removed.
+                        Materialize.toast(REMOVE_SUCCESS_MSG);
+                        // Refresh the page to show the updated molecule list.
                         window.location.reload(true);
                     },
-                    error: function(error) {
-                        console.log("Um erro ocorreu.");
-                        console.log(error);
+                    error: function(xhr, error, exThrown) {
+                        // Use a toast to inform that an error has ocurred to the user.
+                        Materialize.toast(ERROR_MSG);
+                        console.log("Response object: " + xhr);
+                        console.log("Error message: " + error);
+                        console.log("Exception: " + exThrown);
                     }
                 });
             });
