@@ -21,7 +21,7 @@
     <div class="row">
         <div class="col s12">
             <div class="page-header">
-                <h1> Criar Moléculas</h1>
+                <h1>Criar Moléculas</h1>
             </div>
         </div>
     </div>
@@ -31,9 +31,7 @@
                 <div class="widget">
                     <div class="widget-content-white glossed">
                         <div class="padded">
-                            <div id="ancora">
-
-                            </div>
+                            <div id="ancora"></div>
                         </div>
                     </div>
                 </div>
@@ -47,7 +45,7 @@
 
                 <div class="row">
                     <div class="required input-field col s12">
-                        <input id="name" class="remar-input validate" name="name" type="text" placeholder="Dióxido de Carbono" />
+                        <input required="" id="name" class="remar-input validate" name="name" type="text" placeholder="Dióxido de Carbono" />
                         <label for="name" class="active">
                             Nome
                             <span class="required-indicator">*</span>
@@ -56,7 +54,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="structure" class="remar-input validate" name="structure" type="text" placeholder="CO2"/>
+                        <input required="" id="structure" class="remar-input validate" name="structure" type="text" placeholder="CO2"/>
                         <label for="structure" class="active">
                             Estrutura
                             <span class="required-indicator">*</span>
@@ -72,7 +70,7 @@
             </div>
 
             <div class="modal-footer">
-                <a href="#!" id="sendMoleculeButton" class="modal-action modal-close btn waves-effect waves-light remar-orange">Enviar</a>
+                <a href="#!" id="sendMoleculeButton" class="modal-action btn waves-effect waves-light remar-orange">Enviar</a>
             </div>
         </div>
 
