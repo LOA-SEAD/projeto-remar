@@ -106,7 +106,7 @@ class MoleculeController {
         def userPath = new File(dataPath, "/" + springSecurityService.getCurrentUser().getId() + "/" + session.taskId)
         userPath.mkdirs()
 
-        for (i = 0; i < moleculeList.size(); i++) {
+        for (i = 1; i <= moleculeList.size(); i++) {
             File file = new File(String.format("$userPath/%d.xml", i))
             PrintWriter pw = new PrintWriter(file)
             pw.write(moleculeList[i].xml)
