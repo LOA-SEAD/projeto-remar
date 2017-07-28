@@ -763,7 +763,7 @@ function numerarCarbonos() {
 
 //Funcao que atualiza a dica
 function atualizarDica() {
-    $('#textoDica').html(SHOW_TUTORIAL_MSG).css({ 'height': '100px', 'padding-top': '0px' });
+    $('#textoDica').html(SHOW_TUTORIAL_MSG).css({ 'height': '85px', 'padding-top': '15px' });
 }
 
 //Funcao que conta quantos carbonos tem na tela
@@ -928,7 +928,8 @@ function compare(a, b) {
 //'D' para criar nova  ligacao ou atomo
 //'B' cria o xml para usar como gabarito(talvez nao esteja na versao final do jogo)
 function debugKeyListeners(evt) {
-    var D_UPPERCASE_KEY_CODE = 100
+    var D_UPPERCASE_KEY_CODE = 100;
+    var P_UPPERCASE_KEY_CODE = 112;
 
     var evt  = window.event? event : evt;
     var unicode = evt.keyCode? evt.keyCode : evt.charCode;
@@ -963,6 +964,8 @@ function debugKeyListeners(evt) {
             }
         }
 
+    } else if (unicode == P_UPPERCASE_KEY_CODE) {
+        iniciarTutorial();
     }
 }
 
