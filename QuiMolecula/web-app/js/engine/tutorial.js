@@ -332,7 +332,7 @@ function tutorial16 () {
 
 var textoTutorial = [
 	'Bem vindo ao editor do QuiMol&eacute;cula. O objetivo montar mol\&eacute;culas org\&acirc;nicas.',
-	'Para pegar os \&aacute;tomos, clique e segure com o bot esquerdo do mouse no \&aacute;tomos que desejar e arraste at\&eacute; o tabuleiro. Solte para que ele encaixe na ea apropriada.',
+	'Para pegar os \&aacute;tomos, clique e segure com o botão esquerdo do mouse no \&aacute;tomos que desejar e arraste at\&eacute; o tabuleiro. Solte para que ele encaixe na área apropriada.',
 	'Caso queira mov\&ecirc;-los, voc&ecirc; tamb\&eacute; pode clicar e arrastar para outra posi\&ccedil;\&atilde;o.',
 	'Para formar liga\&ccedil;\&otilde;es, precisamos de pelos menos dois \&aacute;tomos',
 	'Agora arraste a ligação para cima de um dos \&aacute;tomos que deseja ligar.',
