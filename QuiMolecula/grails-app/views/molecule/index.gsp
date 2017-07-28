@@ -81,7 +81,7 @@
                     <div class="molecule-list-box-button">
                         <div class="row">
                             <div class="col s12">
-                                <a id="sendMoleculeButton" class="waves-effect waves-light btn remar-orange disabled" href="${createLink(action: 'send')}">
+                                <a id="sendMoleculeButton" class="waves-effect waves-light btn remar-orange disabled">
                                     <span>
                                         <p>Enviar</p>
                                     </span>
