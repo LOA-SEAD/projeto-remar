@@ -95,7 +95,7 @@ $(document).ready(function () {
             }
         });
 
-    $("#sendButton").click(function() {
+    $("#sendMoleculeButton").click(function() {
         var selectedMolecules = $("#selected-molecules li").map(function() {
             return $(this).data("moleculeId");
         });
