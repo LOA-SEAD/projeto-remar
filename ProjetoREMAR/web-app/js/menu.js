@@ -25,6 +25,7 @@ function deleteResource(id, processID){
             contentType: false,
             success: function (response) {
                 $("#card"+id).remove();
+                location.reload();
             },
             error: function () {
                 alert("error");
