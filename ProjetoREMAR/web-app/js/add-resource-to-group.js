@@ -1,6 +1,9 @@
 $(document).ready(function() {
+    compartilhaJogo();
+});
 
-    $('input[type="checkbox"]').change(function() {
+function compartilhaJogo() {
+    $('input[type="checkbox"]').change(function () {
         var instanceId = $(this).attr("data-instance_id"); // pega o id do jogo
         var groupId = $(this).attr("data-group_id"); // pega o id do grupo
 
@@ -24,7 +27,7 @@ $(document).ready(function() {
                     }
                 }
             });
-        }else{ // para descompartilhar
+        } else { // para descompartilhar
             $.ajax({
                 type: 'POST',
                 url: url2,
@@ -42,10 +45,7 @@ $(document).ready(function() {
             });
         }
     });
-});
-
-
-
+}
 
 
 

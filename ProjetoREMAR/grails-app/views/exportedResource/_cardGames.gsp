@@ -10,7 +10,7 @@
         <g:else>
             <g:each in="${publicExportedResourcesList}" var="instance">
 
-                <div data-card_id="${instance.id}" class="col l3 s5 fullCard">
+                <div data-instance_id="${instance.id}" class="col l3 s5 fullCard">
                     <div class="card hoverable">
                         <div class="card-image waves-effect waves-light">
                             <img alt="${instance.name}" class="activator" src="/published/${instance.processId}/banner.png">
