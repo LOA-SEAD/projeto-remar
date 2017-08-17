@@ -1,0 +1,28 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<molecule name='Butanona' formula='C_4_H_8_O' dica='A nomenclatura desses compostos é feita fundamentada na dos hidrocarbonetos, apenas trocando o sufixo &quot;o&quot; por &quot;ona&quot;. '>
+  <atom id='0' type='carbono' number='-1'/>
+  <atom id='1' type='carbono' number='-1'/>
+  <atom id='2' type='carbono' number='-1'/>
+  <atom id='3' type='carbono' number='-1'/>
+  <atom id='4' type='oxigenio' number='-1'/>
+  <atom id='5' type='hidrogenio' number='-1'/>
+  <atom id='6' type='hidrogenio' number='-1'/>
+  <atom id='7' type='hidrogenio' number='-1'/>
+  <atom id='8' type='hidrogenio' number='-1'/>
+  <atom id='9' type='hidrogenio' number='-1'/>
+  <atom id='10' type='hidrogenio' number='-1'/>
+  <atom id='11' type='hidrogenio' number='-1'/>
+  <atom id='12' type='hidrogenio' number='-1'/>
+  <bond source='5' target='0' type='1'/>
+  <bond source='6' target='0' type='1'/>
+  <bond source='7' target='0' type='1'/>
+  <bond source='0' target='1' type='1'/>
+  <bond source='8' target='2' type='1'/>
+  <bond source='9' target='2' type='1'/>
+  <bond source='3' target='10' type='1'/>
+  <bond source='3' target='11' type='1'/>
+  <bond source='3' target='12' type='1'/>
+  <bond source='3' target='2' type='1'/>
+  <bond source='1' target='2' type='1'/>
+  <bond source='1' target='4' type='2'/>
+</molecule>

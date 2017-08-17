@@ -23,8 +23,8 @@ $(document).ready(function () {
             var platformCounter;
             var finished = 0;
 
-            $('#progress-text').text('Estamos exportando seu jogo para diversas plataformas, por favor aguarde...');
-            updateProgress(1,100);
+            //$('#progress-text').text('Estamos exportando seu jogo para diversas plataformas, por favor aguarde...');
+            //updateProgress(1,100);
 
             $('#progress-text').text('Estamos exportando seu jogo para diversas plataformas, por favor aguarde...');
             updateProgress(1,100);
@@ -48,7 +48,8 @@ $(document).ready(function () {
 
                         // Mostra o ĩcone clicável
                         var $element = $('#web');
-                        $element.show(1000);
+                        $element.css('width', '100px');
+                        $element.fadeIn('slow');
                         $element.find('a').attr('href', resp.urls.web);
                         $element.find('a').hover(function () {
                             $(this).find('.platform-title').text('Acessar ').append('<i class="fa fa-link"></i>').addClass('platforms-link');
@@ -84,7 +85,8 @@ $(document).ready(function () {
                         for (var i = 0; i < 3; i++) {
                             var $element = $('#' + platforms[i]);
 
-                            $element.show(1000);
+                            $element.css('width', '100px');
+                            $element.fadeIn('slow');
                             $element.find('a').attr('href', resp.urls[platforms[i]]);
                             $element.hover(function () {
                                 $(this).find('a').find('.platform-title').text('Baixar ').append('<i class="fa fa-arrow-circle-down" aria-hidden="true"></i>').addClass('platforms-link');
@@ -117,7 +119,8 @@ $(document).ready(function () {
                         // Mostra o ĩcone clicável
                         var $element = $('#android');
 
-                        $element.show(1000);
+                        $element.css('width', '100px');
+                        $element.fadeIn('slow');
                         $element.find('a').attr('href', resp.urls.android);
                         $element.hover(function () {
                             $(this).find('a').find('.platform-title').text('Baixar ').append('<i class="fa fa-arrow-circle-down" aria-hidden="true"></i>').addClass('platforms-link');
@@ -131,7 +134,7 @@ $(document).ready(function () {
                     }
                 });
             }
-            
+
             // Verifica se o processo de exportação já acabou para esconder a barra de progresso
             var clearProgress = setInterval(function () {
                 if (finished == platformCounter) {
@@ -152,7 +155,7 @@ $(document).ready(function () {
 });
 
 function updateProgress(finished, total) {
-    progressPercentage = ( finished / total ) * 100;
+    progressPercentage = Math.ceil(( finished / total ) * 100);
     percentageString = progressPercentage.toString() + '%';
 
     $('#progress-percentage').html(percentageString);

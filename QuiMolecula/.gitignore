@@ -1,0 +1,43 @@
+######################
+# begin Grails stuff #
+######################
+
+*.iws
+*Db.properties
+*Db.script
+.settings
+stacktrace.log
+/*.zip
+/plugin.xml
+/*.log
+/*DB.*
+/cobertura.ser
+.DS_Store
+/target/
+/out/
+/web-app/plugins
+/web-app/WEB-INF/classes
+/.link_to_grails_plugins/
+/target-eclipse/
+*.iml
+/logs
+.classpath
+.project
+
+# end Grails stuff
+
+##########################################
+# begin IntelliJ/IDEs/Text editors stuff #
+##########################################
+.idea
+
+# end IntelliJ/IDEs/Text editors
+
+#####################
+# begin REMAR stuff #
+#####################
+
+/web-app/data
+/grails-app/conf/env.properties
+
+# end REMAR stuff

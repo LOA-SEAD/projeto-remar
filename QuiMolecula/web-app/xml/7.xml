@@ -1,0 +1,26 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<molecule name='2-Buteno' formula='C_4_H_8_' dica='Todos os Alcenos (duplas ligações) possuem em sua nomenclatura o infixo EN por ex: PentENo.'>
+  <atom id='0' type='carbono' number='-1'/>
+  <atom id='1' type='carbono' number='-1'/>
+  <atom id='2' type='carbono' number='-1'/>
+  <atom id='3' type='carbono' number='-1'/>
+  <atom id='4' type='hidrogenio' number='-1'/>
+  <atom id='5' type='hidrogenio' number='-1'/>
+  <atom id='6' type='hidrogenio' number='-1'/>
+  <atom id='7' type='hidrogenio' number='-1'/>
+  <atom id='8' type='hidrogenio' number='-1'/>
+  <atom id='9' type='hidrogenio' number='-1'/>
+  <atom id='10' type='hidrogenio' number='-1'/>
+  <atom id='11' type='hidrogenio' number='-1'/>
+  <bond source='0' target='1' type='1'/>
+  <bond source='0' target='5' type='1'/>
+  <bond source='4' target='0' type='1'/>
+  <bond source='6' target='0' type='1'/>
+  <bond source='1' target='2' type='2'/>
+  <bond source='7' target='1' type='1'/>
+  <bond source='2' target='3' type='1'/>
+  <bond source='2' target='8' type='1'/>
+  <bond source='9' target='3' type='1'/>
+  <bond source='10' target='3' type='1'/>
+  <bond source='11' target='3' type='1'/>
+</molecule>

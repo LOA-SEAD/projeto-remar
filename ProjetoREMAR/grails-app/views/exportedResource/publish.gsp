@@ -68,11 +68,11 @@
                         Plataformas
                     </div>
                     <div class="collapsible-body">
-                        <div class="row">
-                            <div id="platforms-icons" class="col s12">
+                        <div class="row" style="margin-top: 30px">
+                            <div id="platforms-icons" class="col s12" style="display:flex; justify-content: space-around">
                                 <div id="web" class="platform-icon">
                                     <a style="color: inherit" target="_blank">
-                                        <div class="col s6 m2 platform" data-text="Web" data-name="web">
+                                        <div class="platform" data-text="Web" data-name="web">
                                             <div class="row no-margin-bottom">
                                                 <i class="fa fa-globe big-platform-logo"></i>
                                             </div>
@@ -85,7 +85,7 @@
                                 <g:if test="${exportsTo.desktop}">
                                     <div id="windows" class="platform-icon">
                                         <a style="color: inherit">
-                                            <div class="col s6 m2 platform" data-text="Windows" data-name="windows">
+                                            <div class="platform" data-text="Windows" data-name="windows">
                                                 <div class="row no-margin-bottom">
                                                     <i class="fa fa-windows big-platform-logo"></i>
                                                 </div>
@@ -97,7 +97,7 @@
                                     </div>
                                     <div id="linux" class="platform-icon">
                                         <a style="color: inherit">
-                                            <div class="col s6 m2 platform" data-text="Linux (64 bits)"  data-name="linux">
+                                            <div class="platform" data-text="Linux (64 bits)"  data-name="linux">
                                                 <div class="row no-margin-bottom">
                                                     <i class="fa fa-linux big-platform-logo"></i>
                                                 </div>
@@ -109,7 +109,7 @@
                                     </div>
                                     <div id="mac" class="platform-icon">
                                         <a style="color: inherit">
-                                            <div class="col s6 m2 platform" data-text="MacOS" data-name="mac">
+                                            <div class="platform" data-text="MacOS" data-name="mac">
                                                 <div class="row no-margin-bottom">
                                                     <i class="fa fa-apple big-platform-logo"></i>
                                                 </div>
@@ -123,7 +123,7 @@
                                 <g:if test="${exportsTo.android}">
                                     <div id="android" class="platform-icon">
                                         <a style="color: inherit">
-                                            <div class="col s6 m2 platform" data-text="Android" data-name="android">
+                                            <div class="platform" data-text="Android" data-name="android">
                                                 <div class="row no-margin-bottom">
                                                     <i class="fa fa-android big-platform-logo"></i>
                                                 </div>

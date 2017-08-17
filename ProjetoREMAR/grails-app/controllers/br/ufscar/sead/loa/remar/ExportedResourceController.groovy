@@ -788,6 +788,12 @@ class ExportedResourceController {
 
         render lista as JSON
     }
-    //*/
 
+    def cardInfos() {
+        ExportedResource card = ExportedResource.get(params.id);
+        User user = session.user
+        def group1 = Group.findAllByOwner(user)
+        def group2 = UserGroup.findAllByUserAndAdmin(user,true).group
+        render view: "_cardGamesModal", model: [instance: card, myGroups: group1, groupsIAdmin: group2]
+    }
 }

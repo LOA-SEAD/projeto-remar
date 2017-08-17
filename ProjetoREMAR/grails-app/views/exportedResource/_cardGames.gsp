@@ -1,20 +1,22 @@
 <%@ page import="br.ufscar.sead.loa.remar.GroupExportedResources" %>
-<link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
+<g:external dir="css" file="card.css" />
 
 <main class="cardGames">
     <div class="row">
+
         <g:if test="${publicExportedResourcesList.size() == 0}">
 
         </g:if>
         <g:else>
             <g:each in="${publicExportedResourcesList}" var="instance">
-                <div class="col l3 s5">
+
+                <div data-card_id="${instance.id}" class="col l3 s5 fullCard">
                     <div class="card hoverable">
                         <div class="card-image waves-effect waves-light">
                             <img alt="${instance.name}" class="activator" src="/published/${instance.processId}/banner.png">
                         </div>
                         <div class="card-content">
-                            <span style="font-size: 1.3em;" class="card-title grey-text text-darken-4 activator center-align truncate data-category="${instance.resource.category.id}" title="${instance.name}">${instance.name}</span>
+                            <span style="font-size: 1.3em;" class="card-title grey-text text-darken-4 activator center-align truncate" data-category="${instance.resource.category.id}" title="${instance.name}">${instance.name}</span>
                             <div class="divider"></div>
                             <span style="color: dimgrey; font-size: 0.9em" class="center">${instance.resource.category.name}</span>
                             <span style="color: dimgrey; font-size: 0.9em" class="center truncate">Feito por:
@@ -79,7 +81,7 @@
                                     </div>
                                     <g:if test="${instance.resource.shareable}">
                                         <div class="col l4">
-                                            <a style="font-size: 2em;" href="#modal-group-${instance.id}" class="tooltipped modal-trigger" data-position="down" data-delay="50" data-tooltip="Compartilhar para grupos">
+                                            <a style="font-size: 2em;" href="#modal-group" class="tooltipped compartilhaModal" data-position="down" data-delay="50" data-tooltip="Compartilhar para grupos">
                                                 <i class="fa fa-users" style="color: #FF5722;"></i>
                                             </a>
                                         </div>
@@ -94,66 +96,23 @@
                                 </div>
                             </div>
                         </div>
-                        </div>
-                </div>
-                %{--Modal for groups--}%
-                <div id="modal-group-${instance.id}" class="modal col l6 offset-l3 s6">
-                    <div class="modal-content">
-                        <ul class="collection with-header">
-                            <g:if test="${!myGroups.empty}">
-                                <g:each var="group" in="${myGroups}">
-                                    <li class="collection-item">
-                                        <div>
-                                            <p>${group.name}</p>
-                                            <p>
-                                                Dono: ${group.owner.firstName + " " + group.owner.lastName}<br>
-                                            </p>
-                                        </div>
-                                        <g:if test="${!GroupExportedResources.findByGroupAndExportedResource(group,instance)}">
-                                            <input name="groupsid" class="filled-in" id="groups-${group.id}-instance-${instance.id}" value="${group.id}" type="checkbox" onchange="document.getElementById('groups-${group.id}-instance-${instance.id}').disabled = !this.checked;">
-                                        </g:if>
-                                        <g:else>
-                                            <input name="groupsid2"  checked="checked"  disabled="disabled" type="checkbox" onchange="document.getElementById('groups-${group.id}-instance-${instance.id}').disabled = !this.checked;">
-                                        </g:else>
-                                        <label style="position:relative; bottom: 2em;" for="groups-${group.id}-instance-${instance.id}" class="secondary-content"></label>
-                                    </li>
-                                </g:each>
-                            </g:if>
-                            <g:if test="${!groupsIAdmin.empty}">
-                                <g:each var="group" in="${groupsIAdmin}">
-                                    <li class="collection-item">
-                                        <div>
-                                            <p>${group.name}</p>
-                                            <p>
-                                                Dono: ${group.owner.firstName + " " + group.owner.lastName}<br>
-                                            </p>
-                                        </div>
-                                        <g:if test="${!GroupExportedResources.findByGroupAndExportedResource(group,instance)}">
-                                            <input name="groupsid" class="filled-in" id="groups-${group.id}-instance-${instance.id}" value="${group.id}" type="checkbox" onchange="document.getElementById('groups-${group.id}-instance-${instance.id}').disabled = !this.checked;">
-                                        </g:if>
-                                        <g:else>
-                                            <input name="groupsid2"  checked="checked" disabled="disabled" type="checkbox" onchange="document.getElementById('groups-${group.id}-instance-${instance.id}').disabled = !this.checked;">
-                                        </g:else>
-                                        <label style="position:relative; bottom: 2em;" for="groups-${group.id}-instance-${instance.id}" class="secondary-content"></label>
-                                    </li>
-                                </g:each>
-                            </g:if>
-                            <g:if test="${groupsIAdmin.empty && myGroups.empty}">
-                                    <li class="collection-header"><h5>Você não possui grupos disponíveis</h5></li>
-                            </g:if>
-                            <g:else>
-                                <input type="hidden" name="exportedresource" value="${instance.id}">
-                                <div class="row">
-                                    <button data-instance-id="${instance.id}" style=" top: 0.8em; right: -2.4em; position:relative;" class="btn waves-effect waves-light" type="submit" name="action">Compartilhar
-                                        <i class="material-icons right">send</i>
-                                    </button>
-                                </div>
-                            </g:else>
-                        </ul>
                     </div>
                 </div>
             </g:each>
         </g:else>
+
+    %{--Modal for groups--}%
+        <div id="modal-group" class="modal remar-modal shareModal">
+            <div class="modal-content">
+                %{--Preenchido pelo javascript--}%
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action modal-close btn waves-effect waves-light remar-orange" type="submit" name="action">Fechar</a>
+            </div>
+        </div>
+
     </div>
     <g:applyLayout name="pagination"/>
+    <g:javascript src="utility/utility-public-game.js"/>
+    <g:javascript src="showShares.js"/>
 </main>
