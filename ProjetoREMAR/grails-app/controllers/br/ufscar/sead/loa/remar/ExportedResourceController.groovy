@@ -746,10 +746,13 @@ class ExportedResourceController {
     def saveScore() {
         def data = [:]
         data.timestamp = new Date().toTimestamp()
-        data.userId = params.user as long
-        data.exportedResourceId = params.exportedResourceId
+        data.userId = session.user.id as long
+        data.exportedResourceId = params.exportedResourceId as long
         data.score = params.score
 
+	println "SaveScore : " + data
+
+        
         try {
                 MongoHelper.instance.createCollection("ranking")
                 MongoHelper.instance.insertScoreToRanking(data)
