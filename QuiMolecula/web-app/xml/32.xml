@@ -1,0 +1,22 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<molecule name='Dimetilamina' formula='C_2_H_7_N' dica='Amina secundária- prefixo di. Amina terciária- prefixo tri. O sufixo do composto é “amina”.'>
+  <atom id='0' type='nitrogenio' number='-1'/>
+  <atom id='1' type='carbono' number='-1'/>
+  <atom id='2' type='carbono' number='-1'/>
+  <atom id='3' type='hidrogenio' number='-1'/>
+  <atom id='4' type='hidrogenio' number='-1'/>
+  <atom id='5' type='hidrogenio' number='-1'/>
+  <atom id='6' type='hidrogenio' number='-1'/>
+  <atom id='7' type='hidrogenio' number='-1'/>
+  <atom id='8' type='hidrogenio' number='-1'/>
+  <atom id='9' type='hidrogenio' number='-1'/>
+  <bond source='7' target='1' type='1'/>
+  <bond source='8' target='1' type='1'/>
+  <bond source='9' target='1' type='1'/>
+  <bond source='2' target='4' type='1'/>
+  <bond source='2' target='5' type='1'/>
+  <bond source='2' target='6' type='1'/>
+  <bond source='2' target='0' type='1'/>
+  <bond source='1' target='0' type='1'/>
+  <bond source='3' target='0' type='1'/>
+</molecule>

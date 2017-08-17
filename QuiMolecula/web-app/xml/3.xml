@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<molecule name='Propano' formula='C_3_H_8_' dica='Nomenclatura: Quantia de carbonos e seus prefixos: 1 (Met), 2 (Et), 3 (Prop), 4 (But), 5 (Pent), 6 (Hex), 7 (Hept), 8 (Oct), 9 (Non), 10 (Dec).'>
+  <atom id='0' type='carbono' number='-1'/>
+  <atom id='1' type='carbono' number='-1'/>
+  <atom id='2' type='carbono' number='-1'/>
+  <atom id='3' type='hidrogenio' number='-1'/>
+  <atom id='4' type='hidrogenio' number='-1'/>
+  <atom id='5' type='hidrogenio' number='-1'/>
+  <atom id='6' type='hidrogenio' number='-1'/>
+  <atom id='7' type='hidrogenio' number='-1'/>
+  <atom id='8' type='hidrogenio' number='-1'/>
+  <atom id='9' type='hidrogenio' number='-1'/>
+  <atom id='10' type='hidrogenio' number='-1'/>
+  <bond source='10' target='0' type='1'/>
+  <bond source='1' target='0' type='1'/>
+  <bond source='1' target='2' type='1'/>
+  <bond source='2' target='6' type='1'/>
+  <bond source='2' target='5' type='1'/>
+  <bond source='4' target='1' type='1'/>
+  <bond source='0' target='3' type='1'/>
+  <bond source='0' target='9' type='1'/>
+  <bond source='1' target='8' type='1'/>
+  <bond source='2' target='7' type='1'/>
+</molecule>
