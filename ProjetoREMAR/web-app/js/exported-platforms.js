@@ -7,6 +7,9 @@ $(document).ready(function () {
     var ID = $('#resource-id').val();
     var URL = '/exported-resource/export';
 
+    // Esconde o bloco de compartilhar para grupos, que é mostrado apenas após o compartilhamento à todas as plataformas
+    $('#groups').hide();
+
     // Esconde todos os ícones para acesso às plataformas ja exportadas
     $('.platform-icon').each(function() {
         $(this).hide();
@@ -22,9 +25,6 @@ $(document).ready(function () {
         success: function (resp) {
             var platformCounter;
             var finished = 0;
-
-            //$('#progress-text').text('Estamos exportando seu jogo para diversas plataformas, por favor aguarde...');
-            //updateProgress(1,100);
 
             $('#progress-text').text('Estamos exportando seu jogo para diversas plataformas, por favor aguarde...');
             updateProgress(1,100);
@@ -139,6 +139,28 @@ $(document).ready(function () {
             var clearProgress = setInterval(function () {
                 if (finished == platformCounter) {
                     $('#progress-viewer').hide(1000);
+                    $('#groups').fadeIn('slow');
+
+                    id = $('.infos-exportedResource').data('instance_id');
+
+                    var url = location.origin + "/exportedResource/cardInfos/" + id; // envia o id do jogo para gerar o modal de compartilhamento
+
+                    $.ajax({
+                        type: 'GET',
+                        url:  url,
+                        data: null,
+                        processData: false,
+                        contentType: false,
+                        success: function (data) {
+                            $("#share-container").html(data);
+                            compartilhaJogo();
+                            $("#share-container h4").remove();
+                        },
+                        error: function (request, status, error) {
+                            console.log(error);
+                        }
+                    });
+
                     console.log ('Exportação concluída');
                     clearInterval(clearProgress);
                 } else {
@@ -152,6 +174,7 @@ $(document).ready(function () {
             console.log(errorThrown);
         }
     });
+
 });
 
 function updateProgress(finished, total) {

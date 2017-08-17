@@ -170,18 +170,18 @@
     width: 50% !important;
 }
 
-.shareModal ul {
+.shareModal ul, #share-container ul {
     width: 100%;
 }
 
-.shareModal li{
+.shareModal li, #share-container li{
     background-color: #f0f0f0;
     display: flex;
     margin: 12px 0px 12px 0px !important;
     padding: 5px;
 }
 
-.shareModal li:hover{
+.shareModal li:hover, #share-container li:hover{
     background-color: #e0e0e0;
 }
 
@@ -197,6 +197,7 @@
 }
 
 .shareDesc p{
+    margin: 8px;
     margin: 8px;
     font-size: 12pt;
 }

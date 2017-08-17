@@ -1,6 +1,6 @@
 <%@ page import="br.ufscar.sead.loa.remar.GroupExportedResources" %>
 
-<h4 data-card_id="${instance.name}">Compartilhar para grupos - ${instance.name}</h4>
+<h4 data-instance_id="${instance.name}">Compartilhar para grupos - ${instance.name}</h4>
 
 <div class="shareBlock">
     <ul>

@@ -8,7 +8,7 @@
 <div class="row cluster">
     <div class="cluster-header">
         <p class="text-teal text-darken-3 left-align margin-bottom">
-           ${exportedResourceInstance.name}
+            ${exportedResourceInstance.name}
         </p>
         <div class="divider"></div>
     </div>
@@ -27,7 +27,7 @@
         <div class="row">
             <input type="hidden" name="id" id="resource-id" value="${resourceInstance.id}">
 
-            <ul class="collapsible popout" data-collapsible="expandable">
+            <ul data-instance_id="${exportedResourceInstance.id}" class="collapsible popout infos-exportedResource" data-collapsible="expandable">
                 <li>
                     <div class="collapsible-header active">Informações</div>
                     <div id="info" class="collapsible-body">
@@ -169,70 +169,20 @@
                        <div class="collapsible-body">
                           <ul class="collection with-header">
 
-                            <div class="col l12">
-                                    <a href="#modal-group-${exportedResourceInstance.id}" class="tooltipped modal-trigger" data-position="down" data-delay="50" data-tooltip="Ver grupos">
-                                       Compartilhar para grupo(s)
-                                    </a>
+                            <div id="share-container" class="col l12">
                             </div>
                 </g:if>
-                <g:else>
 
-                </g:else>
-                        </ul>
+            </ul>
             </div>
-                    </li>
-                <div id="modal-group-${exportedResourceInstance.id}" class="modal col l6 offset-l3 s6">
+            </li>
+                %{--Modal for groups--}%
+                <div id="modal-group" class="modal remar-modal shareModal">
                     <div class="modal-content">
-                        <ul class="collection with-header">
-                            <g:if test="${!groupsIOwn.empty}">
-                                <g:each var="group" in="${groupsIOwn}">
-                                    <li class="collection-item">
-                                        <div>
-                                            <p>${group.name}</p>
-                                            <p>
-                                                Dono: ${group.owner.firstName + " " + group.owner.lastName}<br>
-                                            </p>
-                                        </div>
-                                        <g:if test="${!GroupExportedResources.findByGroupAndExportedResource(group,instance)}">
-                                            <input name="groupsid" class="filled-in" id="groups-${group.id}-instance-${exportedResourceInstance.id}" value="${group.id}" type="checkbox">
-                                        </g:if>
-                                        <g:else>
-                                            <input name="groupsid2"  checked="checked" disabled="disabled" type="checkbox">
-                                        </g:else>
-                                        <label style="position:relative; bottom: 2em;" for="groups-${group.id}-instance-${exportedResourceInstance.id}" class="secondary-content"></label>
-                                    </li>
-                                </g:each>
-                            </g:if>
-                            <g:if test="${!groupsIAdmin.empty}">
-                                <g:each var="group" in="${groupsIAdmin}">
-                                    <li class="collection-item">
-                                        <div>
-                                            <p>${group.name}</p>
-                                            <p>
-                                                Dono: ${group.owner.firstName + " " + group.owner.lastName}<br>
-                                            </p>
-                                        </div>
-                                        <g:if test="${!GroupExportedResources.findByGroupAndExportedResource(group,instance)}">
-                                            <input name="groupsid" class="filled-in" id="groups-${group.id}-instance-${exportedResourceInstance.id}" value="${group.id}" type="checkbox" onchange="document.getElementById('groups-${group.id}-instance-${exportedResourceInstance.id}').disabled = !this.checked;">
-                                        </g:if>
-                                        <g:else>
-                                            <input name="groupsid2"  checked="checked" disabled="disabled" type="checkbox" onchange="document.getElementById('groups-${group.id}-instance-${exportedResourceInstance.id}').disabled = !this.checked;">
-                                        </g:else>
-                                        <label style="position:relative; bottom: 2em;" for="groups-${group.id}-instance-${exportedResourceInstance.id}" class="secondary-content"></label>
-                                    </li>
-                                </g:each>
-                            </g:if>
-                            <g:if test="${groupsIAdmin?.empty && groupsIOwn?.empty}">
-                                <li class="collection-header"><h5>Você não possui grupos disponíveis</h5></li>
-                            </g:if>
-                            <g:else>
-                                <input type="hidden" name="exportedresource" value="${exportedResourceInstance.id}">
-                                <div class="row">
-                                    <button data-instance-id="${exportedResourceInstance.id}" style=" top: 0.8em; right: -2.4em; position:relative;" class="btn waves-effect waves-light remar-orange" type="submit" name="action">Compartilhar
-                                    </button>
-                                </div>
-                            </g:else>
-                        </ul>
+                        %{--Preenchido pelo javascript--}%
+                    </div>
+                    <div class="modal-footer">
+                        <a class="modal-action modal-close btn waves-effect waves-light remar-orange" type="submit" name="action">Fechar</a>
                     </div>
                 </div>
             </ul>
@@ -254,8 +204,9 @@
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "export.css")}"/>
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "container.css")}"/>
-<g:javascript src="exported-platforms.js"/>
 <g:javascript src="add-resource-to-group.js"/>
+<g:javascript src="exported-platforms.js"/>
+<g:javascript src="showShares.js"/>
 <g:javascript src="licenseShow.js"/>
 <g:javascript src="imgPreview.js"/>
 <g:javascript src="jquery/jquery.Jcrop.js"/>

@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     $('.compartilhaModal').click(function() {
-        var id = $(this).closest('.fullCard').data('card_id'); // pega o data-card_id interno à classe fullCard mais próxima
+        var id = $(this).closest('.fullCard').data('instance_id');
         var url = location.origin + "/exportedResource/cardInfos/" + id; // envia o id do jogo para gerar o modal de compartilhamento
 
         $.ajax({
