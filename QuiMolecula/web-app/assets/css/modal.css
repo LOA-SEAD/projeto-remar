@@ -1,0 +1,19 @@
+.center{
+    right: auto;
+    left: auto;
+}
+
+.new-size{
+    width: 800px;
+    min-height: 300px;
+    position: fixed;
+    top: 15%;
+    left: 24%;
+
+}
+
+.modal-dialog{
+    left: auto;
+    right: auto;
+    top: 15%;
+}

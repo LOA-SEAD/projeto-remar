@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<molecule name='Ácido tioacético' formula = 'C_2_H_4_OS' dica=''>
+	<atom id='0' type='carbono' number='-1'/>
+	<atom id='1' type='carbono' number='-1'/>
+	<atom id='2' type='enxofre' number='-1'/>
+	<atom id='3' type='hidrogenio' number='-1'/>
+	<atom id='4' type='oxigenio' number='-1'/>
+	<atom id='5' type='hidrogenio' number='-1'/>
+	<atom id='6' type='hidrogenio' number='-1'/>
+	<atom id='7' type='hidrogenio' number='-1'/>
+	<bond source='1' target='4' type='2'/>
+	<bond source='1' target='0' type='1'/>
+	<bond source='1' target='2' type='1'/>
+	<bond source='2' target='3' type='1'/>
+	<bond source='0' target='7' type='1'/>
+	<bond source='5' target='0' type='1'/>
+	<bond source='6' target='0' type='1'/>
+</molecule> 

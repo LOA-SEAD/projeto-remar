@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<molecule name='Flúor-cloro-bromo-metano' formula='CHBrClF' dica=''>
+  <atom id='0' type='carbono' number='-1'/>
+  <atom id='1' type='hidrogenio' number='-1'/>
+  <atom id='2' type='cloro' number='-1'/>
+  <atom id='3' type='fluor' number='-1'/>
+  <atom id='4' type='bromo' number='-1'/>
+  <bond source='1' target='0' type='1'/>
+  <bond source='0' target='2' type='1'/>
+  <bond source='0' target='4' type='1'/>
+  <bond source='0' target='3' type='1'/>
+</molecule>

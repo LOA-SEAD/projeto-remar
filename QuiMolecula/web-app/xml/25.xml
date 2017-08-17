@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<molecule name='Ciclopropano' formula='C_3_H_6_' dica='Compostos aromáticos possuem um ou mais anéis benzênicos nos quais existem ligações simples e duplas alternadamente.'>
+  <atom id='0' type='carbono' number='-1'/>
+  <atom id='1' type='carbono' number='-1'/>
+  <atom id='2' type='carbono' number='-1'/>
+  <atom id='3' type='hidrogenio' number='-1'/>
+  <atom id='4' type='hidrogenio' number='-1'/>
+  <atom id='5' type='hidrogenio' number='-1'/>
+  <atom id='6' type='hidrogenio' number='-1'/>
+  <atom id='7' type='hidrogenio' number='-1'/>
+  <atom id='8' type='hidrogenio' number='-1'/>
+  <bond source='0' target='2' type='1'/>
+  <bond source='0' target='1' type='1'/>
+  <bond source='2' target='1' type='1'/>
+  <bond source='1' target='5' type='1'/>
+  <bond source='1' target='6' type='1'/>
+  <bond source='2' target='8' type='1'/>
+  <bond source='2' target='7' type='1'/>
+  <bond source='0' target='3' type='1'/>
+  <bond source='0' target='4' type='1'/>
+</molecule>

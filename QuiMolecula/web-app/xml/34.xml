@@ -1,0 +1,14 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<molecule name='Metanamida' formula='CH_3_ON' dica='Aminas podem ser : Não-substituídas- Prefixo + Infixo + Amida; Monossubstituídas- N + nome do radical ou N,N + nome dos radicais + prefixo + infixo + amida ou Dissubstituídas-: N + nome do radical ou N,N + nome dos radicais + prefixo + infixo + amida.'>
+  <atom id='0' type='carbono' number='-1'/>
+  <atom id='1' type='hidrogenio' number='-1'/>
+  <atom id='2' type='oxigenio' number='-1'/>
+  <atom id='3' type='nitrogenio' number='-1'/>
+  <atom id='4' type='hidrogenio' number='-1'/>
+  <atom id='5' type='hidrogenio' number='-1'/>
+  <bond source='1' target='0' type='1'/>
+  <bond source='0' target='3' type='1'/>
+  <bond source='3' target='4' type='1'/>
+  <bond source='3' target='5' type='1'/>
+  <bond source='0' target='2' type='2'/>
+</molecule>
