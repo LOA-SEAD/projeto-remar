@@ -8,6 +8,10 @@ class Tile {
     String content
     String description
 
+    static mapping = {
+        description type: "text"
+    }
+
     static constraints = {
         ownerId     blank: false, nullable: false
         taskId      nullable: true

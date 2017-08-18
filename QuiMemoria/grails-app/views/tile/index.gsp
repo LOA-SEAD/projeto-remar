@@ -4,112 +4,102 @@
 <html>
 <head>
     <meta name="layout" content="main">
-
-    <%--<g:set var="entityName" value="${message(code: 'Tile.label', default: 'Tile')}" /> --%>
 </head>
 
 <body>
-    <div class="cluster-header">
-        <p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-            REMemória - Peças
-        </p>
-    </div>
+    <div class="row cluster">
+        <div class="cluster-header">
+            <h4>REMemória - Peças</h4>
+            <div class="divider"></div>
+        </div>
 
-    %{-- Download peça modelo --}%
-    <div class="row">
-        <div class="row col s4 valign-wrapper">
-            <div class="col s8">
-                <p style="margin-left: 10px;">Download do modelo de peças</p>
+        <div class="row show">
+            <div class="row valign-wrapper">
+                %{-- Switch disposição das peças --}%
+                <div class="col s6">
+                    <div class="switch">
+                        <label class="valign-wrapper">
+                            <div>
+                                <p>Vertical</p>
+                                <img class="" src="/quimemoria/images/flipped_v.jpg"/>
+                            </div>
+                            <div>
+                                <input type="checkbox">
+                                <span class="lever"></span>
+                            </div>
+                            <div>
+                                <p>Horizontal</p>
+                                <img class="" src="/quimemoria/images/flipped_h.jpg"/>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                %{-- Download do modelo de peças --}%
+                <div class="col s6">
+                    <div class="row valign-wrapper">
+                        <div class="col s6 right-align">
+                            <p>Download do modelo de peças</p>
+                        </div>
+                        <div class="col s6">
+                            <a id="model-download" class="btn-floating waves-effect waves-light my-orange" href="/quimemoria/samples/tilesample_v.zip">
+                                <i class="material-icons">file_download</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col s4">
-                <a class="btn-floating waves-effect waves-light my-orange" href="/quimemoria/samples/tilesample.zip">
-                    <i class="material-icons">file_download</i>
-                </a>
+
+            %{-- Lista de peças --}%
+            <div class="row">
+                <div class="col s12">
+                    <ul class="collection with-header">
+                        <li class="collection-header">
+                            <div class="row valign-wrapper">
+                                <div class="col s6">
+                                    <h4>
+                                        Nível
+                                        <a id="decrease-level" href="#!" class="tooltipped"
+                                           data-delay="50" data-position="top" data-tooltip="Diminuir">
+                                            <i class="grow material-icons">chevron_left</i>
+                                        </a>
+                                        <div class="center-align">
+                                            <span id="difficulty-level"></span>
+                                        </div>
+                                        <a id="increase-level" href="#!" class="tooltipped"
+                                           data-delay="50" data-position="top" data-tooltip="Aumentar">
+                                            <i class="grow material-icons">chevron_right</i>
+                                        </a>
+                                    </h4>
+                                </div>
+
+                                <div id="difficulty-select-container" class="col s6"></div>
+                            </div>
+                        </li>
+                        <li id="tile-display-container" class="collection-item inactive"></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s3 offset-s7 right-align">
+                    <g:link class="btn btn-success btn-lg my-orange" action="create">Nova peça</g:link>
+                </div>
+                <div class="col s2 right-align">
+                    <a href="#!" id="send" class="btn btn-success btn-lg my-orange">Enviar</a>
+                </div>
             </div>
         </div>
     </div>
 
-    %{-- Lista de peças do nível fácil --}%
-    <div class="row">
-        <ul class="collection with-header">
-            <li class="collection-header">
-                <h4>Nível Fácil</h4>
-            </li>
-            %{--
-            <g:if test="${easyTilesList.size() < 1 }">
-                <li class="collection-item">
-                    <p>Você ainda não possui nenhuma peça</p>
-                </li>
-            </g:if>
-            <g:else>
-            --}%
-                <g:each in="${easyTilesList}" var="tile">
-                    <li class="collection-item">
-                        <div>
-                            ${tile.content}
-                        </div>
-                    </li>
-                </g:each>
-            %{--
-            </g:else>
-            --}%
-        </ul>
+    <div id="fail-modal" class="modal remar-modal">
+        <div class="modal-content">
+            <h4>Não foi possível enviar</h4>
+            <p></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">OK</a>
+        </div>
     </div>
-
-    %{-- Lista de peças do nível médio --}%
-    <div class="row">
-        <ul class="collection with-header">
-            <li class="collection-header">
-                <h4>Nível Médio</h4>
-            </li>
-            %{--
-            <g:if test="${normalTilesList.size() < 1 }">
-                <li class="collection-item">
-                    <p>Você ainda não possui nenhuma peça</p>
-                </li>
-            </g:if>
-            <g:else>
-            --}%
-                <g:each in="${normalTilesList}" var="tile">
-                    <li class="collection-item">
-                        <div>
-                            ${tile.content}
-                        </div>
-                    </li>
-                </g:each>
-            %{--
-            </g:else>
-            --}%
-        </ul>
-    </div>
-
-    %{-- Lista de peças do nível difícil --}%
-    <div class="row">
-        <ul class="collection with-header">
-            <li class="collection-header">
-                <h4>Nível Difícil</h4>
-            </li>
-            %{--
-            <g:if test="${hardTilesList.size() < 1 }">
-                <li class="collection-item">
-                    <p>Você ainda não possui nenhuma peça</p>
-                </li>
-            </g:if>
-            <g:else>
-            --}%
-                <g:each in="${hardTilesList}" var="tile">
-                    <li class="collection-item">
-                        <div>
-                            ${tile.content}
-                        </div>
-                    </li>
-                </g:each>
-            %{--
-            </g:else>
-            --}%
-        </ul>
-    </div>
-
 
     %{--
     <div class="row">
@@ -160,9 +150,5 @@
         </form>
     </div>
     --}%
-
-    <g:link class="btn btn-success btn-lg my-orange" action="create">Nova peça</g:link>
-
-    <g:javascript src="scriptTile.js"/>
 </body>
 </html>

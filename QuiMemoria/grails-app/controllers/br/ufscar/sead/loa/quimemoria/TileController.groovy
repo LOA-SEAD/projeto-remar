@@ -17,21 +17,20 @@ class TileController {
     def springSecurityService
 
     def index() {
-        // Separar as tiles por dificuldade
-        def easyTilesList = Tile.findByDifficulty(1)
-        def normalTilesList = Tile.findByDifficulty(2)
-        def hardTilesList = Tile.findByDifficulty(3)
+        if (params.t) {
+            session.taskId = params.t
+        }
+        session.user = springSecurityService.currentUser
 
-        render  view: "index",
-                model: [
-                    easyTilesList: easyTilesList,
-                    normalTilesList: normalTilesList,
-                    hardTilesList: hardTilesList
-                ]
+        render  view: "index"
     }
 
-    def show(Tile tileInstance) {
-        respond tileInstance
+    def show() {
+        // Verifica se o usuário fez o upload de alguma peça de dada dificuldade
+        render  template: "tile",
+                model: [
+                    tileInstance: Tile.findById(params.id)
+                ]
     }
 
     def create() {
@@ -40,8 +39,6 @@ class TileController {
 
     @Transactional
     def save(Tile tileInstance) {
-        println params
-
         if (tileInstance == null) {
             notFound()
             return
@@ -52,8 +49,7 @@ class TileController {
             return
         }
 
-        def userId = springSecurityService.getCurrentUser().getId()
-        println(userId + " " + session.taskId)
+        def userId = session.user = springSecurityService.currentUser.getId()
         tileInstance.ownerId = userId
         tileInstance.taskId = session.taskId
 
@@ -132,6 +128,94 @@ class TileController {
         }
     }
 
+    def listByDifficulty() {
+        def owner = session.user.id
+        def taskId = session.taskId
+        def difficulty = params.difficulty.toInteger()
+
+        println(owner)
+        println(taskId)
+        println(difficulty)
+
+        render  template: "select",
+                model: [
+                        tileList: Tile.findAllByDifficultyAndOwnerIdAndTaskId(difficulty, owner, taskId)
+                ]
+    }
+
+    def validate() {
+        def owner = springSecurityService.currentUser.getId()
+        def message = new StringBuilder()
+        def difficulties = ['Fácil', 'Médio', 'Difícil']
+        def ok = true
+
+        for (def difficulty = 1; difficulty <= 3; difficulty++) {
+            def min = difficulty * 2 + 2
+            def count = Tile.countByDifficultyAndOwnerIdAndTaskId(difficulty, owner, session.taskId)
+
+            if (count < min) {
+                message << 'A dificuldade <b>' << difficulties[difficulty - 1] << '</b> deve ter no mínimo <b>' << min << ' peças</b> e você fez o upload de <b>' << count << ' peças</b>. <br/>'
+                ok = false
+            }
+        }
+
+        if (!ok) {
+            render message.toString()
+            return
+        } else {
+            // cria o arquivo json das peças
+            createCustomTilesFile("customTiles.json", params.orientation)
+
+            // encontra o endereço do arquivo criado
+            def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
+
+            log.debug folder
+            def ids = []
+            ids << MongoHelper.putFile("${folder}/customTiles.json")
+
+            def port = request.serverPort
+            if (Environment.current == Environment.DEVELOPMENT) {
+                port = 8080
+            }
+
+            // atualiza a tarefa corrente para o status de "completo"
+            render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
+                    "?files=${ids[0]}"
+        }
+    }
+
+    def createCustomTilesFile(filename, orientation) {
+        def dataPath = servletContext.getRealPath("/data")
+        def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
+
+        def owner = session.user.id
+        def easyTilesIdList   = Tile.findAllByDifficultyAndOwnerIdAndTaskId(1, owner, session.taskId)*.id
+        def mediumTilesIdList = Tile.findAllByDifficultyAndOwnerIdAndTaskId(2, owner, session.taskId)*.id
+        def hardTilesIdList   = Tile.findAllByDifficultyAndOwnerIdAndTaskId(3, owner, session.taskId)*.id
+
+        instancePath.mkdirs()
+
+        def file = new File("$instancePath/" + filename)
+        def bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"))
+
+        println instancePath
+
+        bw.write ("{\n")
+        bw.write ("\t\"tiles\" : {\n")
+        // Impressão das peças do nivel fácil
+        bw.write ("\t\t\"easy\" : " + (easyTilesIdList as JSON).toString() + ",\n")
+        // Impressão das peças do nivel médio
+        bw.write ("\t\t\"medium\" : " + (mediumTilesIdList as JSON).toString() + ",\n")
+        // Impressão das peças do nivel difícil
+        bw.write ("\t\t\"hard\" : " + (hardTilesIdList as JSON).toString() + ",\n")
+        bw.write ("\t},\n")
+        // Orientação das peças
+        bw.write ("\t\"orientation\" : \"" + orientation + "\"\n")
+        bw.write ("}\n")
+
+        bw.close()
+    }
+
     def choose() {
 
         def files = ""
@@ -152,6 +236,5 @@ class TileController {
         redirect uri: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}${files}"
 
     }
-
 
 }

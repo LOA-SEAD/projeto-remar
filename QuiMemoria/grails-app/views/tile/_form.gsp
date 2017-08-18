@@ -22,7 +22,7 @@
                             <input data-image="true" type="file" name="tile-a" id="tile-a">
                         </div>
                         <div class="col s10 file-path-wrapper">
-                            <input class="file-path validate" type="text" placeholder="${message(code:'tile.create.tileA')}">
+                            <input required="" class="file-path validate" type="text" placeholder="${message(code:'tile.create.tileA')}">
                         </div>
                     </div>
                     <div class="row file-field input-field">
@@ -31,7 +31,7 @@
                             <input data-image="true" type="file" name="tile-b" id="tile-b">
                         </div>
                         <div class="col s10 file-path-wrapper">
-                            <input class="file-path validate" type="text" placeholder="${message(code:'tile.create.tileB')}">
+                            <input required="" class="file-path validate" type="text" placeholder="${message(code:'tile.create.tileB')}">
                         </div>
                     </div>
                 </td>
@@ -60,7 +60,7 @@
 
 <div class="row">
     <div class="input-field col s12 fieldcontain ${hasErrors(bean: tileInstance, field: 'description', 'error')} required">
-        <textarea id="description" class="materialize-textarea" name="description" maxlength="500" required="" ></textarea>
+        <textarea id="description" class="materialize-textarea" name="description" required="" length="500"></textarea>
         <label for="description">
             <g:message code="tile.description.label"/>
             <span class="required-indicator">*</span>
@@ -68,7 +68,7 @@
     </div>
 </div>
 
-<div class="row center-align">
+<div class="row right-align">
     <input id="upload" type="submit" name="upload" class="btn btn-success my-orange" value="${message(code:'tile.create.sendButton')}"/>
 </div>
 
