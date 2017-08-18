@@ -1,0 +1,32 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<molecule name='3-Metil-2-Propanol' formula='C_4_H_10_O' dica='O grupo hidroxila tem preferência sobre as ligações duplas e triplas, para decidir qual grupo funcional determinará o sufixo. (Solomons p. 406)'>
+  <atom id='0' type='carbono' number='1'/>
+  <atom id='1' type='carbono' number='2'/>
+  <atom id='2' type='carbono' number='3'/>
+  <atom id='3' type='carbono' number='4'/>
+  <atom id='4' type='hidrogenio' number='-1'/>
+  <atom id='5' type='hidrogenio' number='-1'/>
+  <atom id='6' type='hidrogenio' number='-1'/>
+  <atom id='7' type='hidrogenio' number='-1'/>
+  <atom id='8' type='hidrogenio' number='-1'/>
+  <atom id='9' type='hidrogenio' number='-1'/>
+  <atom id='10' type='oxigenio' number='-1'/>
+  <atom id='11' type='hidrogenio' number='-1'/>
+  <atom id='12' type='hidrogenio' number='-1'/>
+  <atom id='13' type='hidrogenio' number='-1'/>
+  <atom id='14' type='hidrogenio' number='-1'/>
+  <bond source='0' target='1' type='1'/>
+  <bond source='0' target='4' type='1'/>
+  <bond source='0' target='5' type='1'/>
+  <bond source='0' target='6' type='1'/>
+  <bond source='1' target='2' type='1'/>
+  <bond source='1' target='7' type='1'/>
+  <bond source='1' target='10' type='1'/>
+  <bond source='2' target='3' type='1'/>
+  <bond source='2' target='8' type='1'/>
+  <bond source='2' target='9' type='1'/>
+  <bond source='3' target='12' type='1'/>
+  <bond source='3' target='13' type='1'/>
+  <bond source='3' target='14' type='1'/>
+  <bond source='10' target='11' type='1'/>
+</molecule>
