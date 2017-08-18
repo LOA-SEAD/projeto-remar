@@ -1,10 +1,10 @@
 <input type="hidden" id="resourceCount" value="${resourceInstanceList.size()}">
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
 <g:each in="${resourceInstanceList}" status="i" var="resourceInstance">
-    <div class=" col l3 m3 s6">
+    <div id="card-id-${resourceInstance.id}" class="col l3 m3 s6">
         <input type="hidden" id="cardStatus${i}" value="${resourceInstance.status}">
 
-        <div id="card${i}" class=" card hoverable card-developer">
+        <div id="card${i}" class="card hoverable card-developer">
             <div class="card-image">
                 <a href="edit/${resourceInstance.id}">
                 <img id="image${resourceInstance.id}" alt="${resourceInstance.name}" class=""  src="/images/${resourceInstance.uri}-banner.png">
