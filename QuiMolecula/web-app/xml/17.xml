@@ -1,0 +1,32 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<molecule name='Etoxietano' formula='C_4_H_10_O' dica='Os Éteres apresentam ligações C-O-C definidas por um ângulo entre as ligações de aproximadamente 120°.'>
+  <atom id='0' type='carbono' number='-1'/>
+  <atom id='1' type='carbono' number='-1'/>
+  <atom id='2' type='carbono' number='-1'/>
+  <atom id='3' type='carbono' number='-1'/>
+  <atom id='4' type='oxigenio' number='-1'/>
+  <atom id='5' type='hidrogenio' number='-1'/>
+  <atom id='6' type='hidrogenio' number='-1'/>
+  <atom id='7' type='hidrogenio' number='-1'/>
+  <atom id='8' type='hidrogenio' number='-1'/>
+  <atom id='9' type='hidrogenio' number='-1'/>
+  <atom id='10' type='hidrogenio' number='-1'/>
+  <atom id='11' type='hidrogenio' number='-1'/>
+  <atom id='12' type='hidrogenio' number='-1'/>
+  <atom id='13' type='hidrogenio' number='-1'/>
+  <atom id='14' type='hidrogenio' number='-1'/>
+  <bond source='4' target='1' type='1'/>
+  <bond source='5' target='0' type='1'/>
+  <bond source='6' target='0' type='1'/>
+  <bond source='7' target='0' type='1'/>
+  <bond source='8' target='1' type='1'/>
+  <bond source='9' target='1' type='1'/>
+  <bond source='0' target='1' type='1'/>
+  <bond source='4' target='2' type='1'/>
+  <bond source='10' target='2' type='1'/>
+  <bond source='11' target='2' type='1'/>
+  <bond source='3' target='2' type='1'/>
+  <bond source='12' target='3' type='1'/>
+  <bond source='13' target='3' type='1'/>
+  <bond source='14' target='3' type='1'/>
+</molecule>

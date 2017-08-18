@@ -1,0 +1,20 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<molecule name='Metóximetano' formula='C_2_H_6_O' dica='Todos os Éteres (C-O-C) possuem em sua nomenclatura o sufixo “Oxi ” seguido da segunda palavra com sufixo “ano” por ex: Ex.: metoxietano.'>
+  <atom id='0' type='carbono' number='-1'/>
+  <atom id='1' type='carbono' number='-1'/>
+  <atom id='2' type='hidrogenio' number='-1'/>
+  <atom id='3' type='hidrogenio' number='-1'/>
+  <atom id='4' type='hidrogenio' number='-1'/>
+  <atom id='5' type='hidrogenio' number='-1'/>
+  <atom id='6' type='hidrogenio' number='-1'/>
+  <atom id='7' type='hidrogenio' number='-1'/>
+  <atom id='8' type='oxigenio' number='-1'/>
+  <bond source='4' target='0' type='1'/>
+  <bond source='3' target='0' type='1'/>
+  <bond source='2' target='0' type='1'/>
+  <bond source='0' target='8' type='1'/>
+  <bond source='1' target='8' type='1'/>
+  <bond source='5' target='1' type='1'/>
+  <bond source='6' target='1' type='1'/>
+  <bond source='7' target='1' type='1'/>
+</molecule>

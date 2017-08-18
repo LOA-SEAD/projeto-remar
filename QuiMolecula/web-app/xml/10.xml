@@ -1,0 +1,16 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<molecule name='Propino' formula='C_3_H_4_' dica='A fórmula geral dos Alcinos é CnH2n-2.'>
+  <atom id='0' type='carbono' number='-1'/>
+  <atom id='1' type='carbono' number='-1'/>
+  <atom id='2' type='carbono' number='-1'/>
+  <atom id='3' type='hidrogenio' number='-1'/>
+  <atom id='4' type='hidrogenio' number='-1'/>
+  <atom id='5' type='hidrogenio' number='-1'/>
+  <atom id='6' type='hidrogenio' number='-1'/>
+  <bond source='4' target='0' type='1'/>
+  <bond source='3' target='0' type='1'/>
+  <bond source='5' target='0' type='1'/>
+  <bond source='0' target='1' type='1'/>
+  <bond source='1' target='2' type='3'/>
+  <bond source='6' target='2' type='1'/>
+</molecule>

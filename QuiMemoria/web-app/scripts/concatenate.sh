@@ -4,8 +4,11 @@
 #$2 = ownerId
 #$3 = destino (facil, medio, dificil)
 usage="$(basename "$0") [-h] [-p l] -- program to calculate the answer to life, the universe and everything
+jk,
 
-where:
+program to concatenate the tiles that comes separatedly to a single file, with 2 rows: one for A pieces, other for B pieces (each pair matches A-B)
+
+the options are:
     -p  portrait
     -l  landscape
 "
@@ -20,6 +23,7 @@ while getopts ':pl:' option; do
        ;;
     l) WIDTH=160
        HEIGHT=120
+       # TODO change this to a texture image that is 160x120
        texture_file="../images/back.png"
        ;;
     :) printf "missing argument for -%s\n" "$OPTARG" >&2

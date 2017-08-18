@@ -1,0 +1,12 @@
+{
+  "collection_name": "forca",
+  "structure": [
+    "enunciado",
+    "alternativaa",
+    "alternativab",
+    "alternativac",
+    "alternativad",
+    "respostacerta",
+    "resposta"
+  ]
+}

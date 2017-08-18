@@ -58,7 +58,7 @@
                                 <form action="#" id="in-group-form">
                                     <div class="user-list-container">
                                         <g:each var="user" in="${usersInGroup}">
-                                            <g:if test="${!(group.owner.id == session.user.id)}">
+                                            <g:if test="${group.owner.id != user.id}">
                                                 <span>
                                                     <input id="checkbox-user-${user.id}" data-user-id="${user.id}" type="checkbox" class="filled-in"/>
                                                     <label for="checkbox-user-${user.id}"> ${user.name} (${user.username})</label>
@@ -91,7 +91,7 @@
                                 <form action="#" id="off-group-form">
                                     <div class="user-list-container">
                                         <g:each var="user" in="${usersNotInGroup}">
-                                            <g:if test="${!(group.owner.id == session.user.id)}">
+                                            <g:if test="${group.owner.id != user.id}">
                                                 <span>
                                                     <input id="checkbox-user-${user.id}" data-user-id="${user.id}" type="checkbox" class="filled-in"/>
                                                     <label for="checkbox-user-${user.id}"> ${user.name} (${user.username})</label>
