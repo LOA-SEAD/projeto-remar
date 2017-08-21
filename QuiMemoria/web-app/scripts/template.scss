@@ -1,0 +1,63 @@
+$char_orienta: "<char_orientacao>";
+$totalParesFacilUpload: <facilPares>;
+$totalParesMedioUpload: <medioPares>;
+$totalParesDificilUpload: <dificilPares>;
+
+$c: ();
+$w_multiplier: ();
+
+@if ($char_orienta == "v") { // portrait
+    $c: "v";
+    $w_multiplier: 80;
+} @else {
+    $c: "h";
+    $w_multiplier: 160;
+}
+
+
+$card-values: ();
+
+// Geração de código para a quantidade de pares fácil
+@for $i from 0 through 1 {
+    @for $j from 0 through ($totalParesFacilUpload - 1) {
+        $w: $w_multiplier * $j;
+        $h: 120*($i+1);
+
+            .card-#{$c}-#{$i}-#{$j} {
+                background-position: -#{$w}px -#{$h}px;
+
+            $card-values: append($card-values, $w, comma);
+        }
+
+    }
+}
+
+// Geração de código para a quantidade de pares medio
+@for $i from 2 through 3 {
+    @for $j from 0 through ($totalParesMedioUpload - 1) {
+        $w: $w_multiplier * $j;
+        $h: 120*($i+1);
+
+            .card-#{$c}-#{$i}-#{$j} {
+                background-position: -#{$w}px -#{$h}px;
+
+            $card-values: append($card-values, $w, comma);
+        }
+
+    }
+}
+
+// Geração de código para a quantidade de pares dificil
+@for $i from 4 through 5 {
+    @for $j from 0 through ($totalParesDificilUpload - 1) {
+        $w: $w_multiplier * $j;
+        $h: 120*($i+1);
+
+            .card-#{$c}-#{$i}-#{$j} {
+                background-position: -#{$w}px -#{$h}px;
+
+            $card-values: append($card-values, $w, comma);
+        }
+
+    }
+}

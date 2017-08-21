@@ -12,7 +12,7 @@ import grails.transaction.Transactional
 class TileController {
 
 
-    static allowedMethods = [choose: "POST", save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def springSecurityService
 
@@ -58,15 +58,32 @@ class TileController {
         def dataPath = servletContext.getRealPath("/data")
         def id = tileInstance.getId()
         def userPath = new File(dataPath, "/" + userId + "/tiles")
+        def script_convert_png = servletContext.getRealPath("/scripts/convert.sh")
         userPath.mkdirs()
 
         def f1Uploaded = request.getFile("tile-a")
         def f2Uploaded = request.getFile("tile-b")
         if (!f1Uploaded.isEmpty() && !f2Uploaded.isEmpty()) {
+
             def f1 = new File("$userPath/tile$id-a.png")
             def f2 = new File("$userPath/tile$id-b.png")
+
             f1Uploaded.transferTo(f1)
             f2Uploaded.transferTo(f2)
+
+            // the convert script will convert the files to png even if they weren't uploaded as such
+            // this was needed because the file wouldn't open as png if uploaded as other format
+            executarShell([
+                    script_convert_png,
+                    f1.absolutePath,
+                    f1.absolutePath
+            ])
+
+            executarShell([
+                    script_convert_png,
+                    f2.absolutePath,
+                    f2.absolutePath
+            ])
         }
 
         redirect(controller: "Tile", action:"index")
@@ -133,9 +150,9 @@ class TileController {
         def taskId = session.taskId
         def difficulty = params.difficulty.toInteger()
 
-        println(owner)
-        println(taskId)
-        println(difficulty)
+        println("OwnerID: " + owner)
+        println("TaskID: " + taskId)
+        println("Difficulty: " + difficulty)
 
         render  template: "select",
                 model: [
@@ -163,15 +180,16 @@ class TileController {
             render message.toString()
             return
         } else {
-            // cria o arquivo json das peças
-            createCustomTilesFile("customTiles.json", params.orientation)
+            // gera os arquivos: output.CSS e cartas.png
+            generateTileSet(params.orientation)
 
             // encontra o endereço do arquivo criado
             def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
 
             log.debug folder
             def ids = []
-            ids << MongoHelper.putFile("${folder}/customTiles.json")
+            ids << MongoHelper.putFile("${folder}/output.css")
+            ids << MongoHelper.putFile("${folder}/tiles/cartas.png")
 
             def port = request.serverPort
             if (Environment.current == Environment.DEVELOPMENT) {
@@ -180,60 +198,121 @@ class TileController {
 
             // atualiza a tarefa corrente para o status de "completo"
             render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
-                    "?files=${ids[0]}"
+                    "?files=${ids[0]}&files=${ids[1]}"
         }
     }
 
-    def createCustomTilesFile(filename, orientation) {
-        def dataPath = servletContext.getRealPath("/data")
-        def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
+    def generateTileSet(orientation) {
 
+        // this method will execute 3 different shell scripts in order to create the cartas.png and the CSS that will be
+        // automatically generated according to what the user has uploaded
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+        // Params concatenate
+        // $1 = -p or -l (-p = portrait = vertical) || (-l = landscape = horizontal)
+        // $2 = ownerId
+        // $3 = destino (facil, medio, dificil)
+        // $4 = path for "tiles" directory
+
+        def dataPath = servletContext.getRealPath("/data")
+        def instancePath = "${dataPath}/${springSecurityService.currentUser.id}"
+        def tilesPath = "${instancePath}/tiles"
         def owner = session.user.id
+
         def easyTilesIdList   = Tile.findAllByDifficultyAndOwnerIdAndTaskId(1, owner, session.taskId)*.id
         def mediumTilesIdList = Tile.findAllByDifficultyAndOwnerIdAndTaskId(2, owner, session.taskId)*.id
         def hardTilesIdList   = Tile.findAllByDifficultyAndOwnerIdAndTaskId(3, owner, session.taskId)*.id
 
-        instancePath.mkdirs()
+        execConcatenate(
+                "-${orientation}",
+                "facil",
+                easyTilesIdList,
+                tilesPath
+        )
 
-        def file = new File("$instancePath/" + filename)
-        def bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"))
+        execConcatenate(
+                "-${orientation}",
+                "medio",
+                mediumTilesIdList,
+                tilesPath
+        )
 
-        println instancePath
+        execConcatenate(
+                "-${orientation}",
+                "dificil",
+                hardTilesIdList,
+                tilesPath
+        )
 
-        bw.write ("{\n")
-        bw.write ("\t\"tiles\" : {\n")
-        // Impressão das peças do nivel fácil
-        bw.write ("\t\t\"easy\" : " + (easyTilesIdList as JSON).toString() + ",\n")
-        // Impressão das peças do nivel médio
-        bw.write ("\t\t\"medium\" : " + (mediumTilesIdList as JSON).toString() + ",\n")
-        // Impressão das peças do nivel difícil
-        bw.write ("\t\t\"hard\" : " + (hardTilesIdList as JSON).toString() + ",\n")
-        bw.write ("\t},\n")
-        // Orientação das peças
-        bw.write ("\t\"orientation\" : \"" + orientation + "\"\n")
-        bw.write ("}\n")
+        ////////////////////////////////////////////////////////////////////////////////////////
+        // Parametros Append
+        // #$1 = tiles folder
+        def script_append = servletContext.getRealPath("/scripts/append.sh")
 
-        bw.close()
+        def l2 = [
+            script_append,
+            tilesPath
+        ]
+
+        println("l2 --> " + l2)
+        executarShell(l2)
+        ////////////////////////////////////////////////////////////////////////////////////////
+        // Parametros sedSASS
+        //#1 - full path for template.scss
+        //#2 - full path for output.css
+        //#3 - parametro que substituirá char_orientacao no script sass
+        //#4 - parametro que substituirá facilPares no script sass
+        //#5 - parametro que substituirá medioPares no script sass
+        //#6 - parametro que substituirá dificilPares no script sass
+        def script_sedSASS = servletContext.getRealPath("/scripts/sed_sass.sh")
+
+        def l3 = [
+            script_sedSASS,
+            servletContext.getRealPath("/scripts/template.scss"),
+            "${instancePath}/output.css",
+            orientation,
+            easyTilesIdList.size(),
+            mediumTilesIdList.size(),
+            hardTilesIdList.size()
+        ]
+
+        println("l3 --> " + l3)
+        executarShell(l3)
     }
 
-    def choose() {
+    def execConcatenate(orient, difficulty, idList, folder) {
 
-        def files = ""
-        def idList = JSON.parse(params.tiles)
-        def folder = servletContext.getRealPath("/data/${Tile.get(idList[0]).ownerId}/tiles/")
+        def script_concatenate_tiles = servletContext.getRealPath("/scripts/concatenate.sh")
+        def l = [
+            script_concatenate_tiles,
+            orient, // $1
+            difficulty, // $2
+            folder // $3
+        ]
 
-        for (id in idList) {
+        // adding parameters to the script (name of the img files to be appended)
+        // this 'for' needs to be done twice because of the order of the param files in the concatenate script
+        for (id in idList)
+            l.add("tile${id}-a.png")
 
-            files += "&files=" + MongoHelper.putFile("${folder}/tile${id}-a.png")
-            files += "&files=" + MongoHelper.putFile("${folder}/tile${id}-b.png")
+        for (id in idList)
+            l.add("tile${id}-b.png")
+
+        executarShell(l)
+
+    }
+
+    // the list has to contain the path to the sh file as its first element
+    // and then the next elements will be the respective params for the script
+    def executarShell(execList){
+        def proc
+
+        proc = execList.execute()
+        proc.waitFor()
+        if (proc.exitValue()) {
+            println "script ${execList.get(0)} gave the following error: "
+            println "[ERROR] ${proc.getErrorStream()}"
         }
-
-        def port = request.serverPort
-        if (Environment.current == Environment.DEVELOPMENT) {
-            port = 8080
-        }
-
-        redirect uri: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}${files}"
 
     }
 
