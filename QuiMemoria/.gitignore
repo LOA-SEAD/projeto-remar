@@ -41,3 +41,14 @@ stacktrace.log
 /grails-app/conf/env.properties
 
 # end REMAR stuff
+
+#####################
+# begin SASS stuff #
+#####################
+
+**.css.map
+**/.sass-cache
+**/.sass-cache/*
+
+# end SASS stuff
+
