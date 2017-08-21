@@ -170,6 +170,9 @@
     width: 50% !important;
 }
 
+#share-container{
+    margin: 10px 0 10px 0;
+}
 .shareModal ul, #share-container ul {
     width: 100%;
 }
@@ -177,7 +180,14 @@
 .shareModal li, #share-container li{
     background-color: #f0f0f0;
     display: flex;
-    margin: 12px 0px 12px 0px !important;
+    margin: 0px 12px 12px 0px !important;
+    padding: 5px;
+}
+
+.shareModal li:last-child, #share-container li:last-child{
+    background-color: #f0f0f0;
+    display: flex;
+    margin: 0px 12px 0px 0px !important;
     padding: 5px;
 }
 
@@ -188,6 +198,8 @@
 .shareBlock{
     display: flex;
     justify-content: center;
+    overflow-y: scroll;
+    max-height:500px;
     width:100%;
 }
 
@@ -206,4 +218,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.no-margin{
+    margin: 0 !important;
 }

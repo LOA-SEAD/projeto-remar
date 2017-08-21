@@ -3,7 +3,7 @@
 <h4 data-instance_id="${instance.name}">Compartilhar para grupos - ${instance.name}</h4>
 
 <div class="shareBlock">
-    <ul>
+    <ul class="no-margin">
         <g:if test="${!myGroups.empty}">
             <g:each var="group" in="${myGroups}">
                 <li class="row">

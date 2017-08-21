@@ -163,28 +163,19 @@
                         </div>
                     </div>
                 </li>
+
                 <g:if test="${exportedResourceInstance.resource.shareable}">
                     <li id="groups">
-                       <div class="collapsible-header active">Compartilhar para grupos </div>
-                       <div class="collapsible-body">
-                          <ul class="collection with-header">
-
-                            <div id="share-container" class="col l12">
-                            </div>
+                        <div class="collapsible-header active">Compartilhar para grupos </div>
+                        <div class="collapsible-body">
+                            <ul class="collection with-header">
+                                <div id="share-container" class="col l12" style="max-height: 300px !important">
+                                </div>
+                            </ul>
+                        </div>
+                    </li>
                 </g:if>
 
-            </ul>
-            </div>
-            </li>
-                %{--Modal for groups--}%
-                <div id="modal-group" class="modal remar-modal shareModal">
-                    <div class="modal-content">
-                        %{--Preenchido pelo javascript--}%
-                    </div>
-                    <div class="modal-footer">
-                        <a class="modal-action modal-close btn waves-effect waves-light remar-orange" type="submit" name="action">Fechar</a>
-                    </div>
-                </div>
             </ul>
         </div>
     </li>
@@ -206,7 +197,6 @@
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "container.css")}"/>
 <g:javascript src="add-resource-to-group.js"/>
 <g:javascript src="exported-platforms.js"/>
-<g:javascript src="showShares.js"/>
 <g:javascript src="licenseShow.js"/>
 <g:javascript src="imgPreview.js"/>
 <g:javascript src="jquery/jquery.Jcrop.js"/>
