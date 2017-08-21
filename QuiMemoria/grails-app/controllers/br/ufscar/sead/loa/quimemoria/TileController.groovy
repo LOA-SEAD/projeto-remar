@@ -208,11 +208,10 @@ class TileController {
         // automatically generated according to what the user has uploaded
 
         ////////////////////////////////////////////////////////////////////////////////////////
-        // Params concatenate
+        // Params script concatenate
         // $1 = -p or -l (-p = portrait = vertical) || (-l = landscape = horizontal)
-        // $2 = ownerId
-        // $3 = destino (facil, medio, dificil)
-        // $4 = path for "tiles" directory
+        // $2 = destino (facil, medio, dificil)
+        // $3 = path for "tiles" directory
 
         def dataPath = servletContext.getRealPath("/data")
         def instancePath = "${dataPath}/${springSecurityService.currentUser.id}"
@@ -245,7 +244,7 @@ class TileController {
         )
 
         ////////////////////////////////////////////////////////////////////////////////////////
-        // Parametros Append
+        // Parametros script Append
         // #$1 = tiles folder
         def script_append = servletContext.getRealPath("/scripts/append.sh")
 
@@ -257,7 +256,7 @@ class TileController {
         println("l2 --> " + l2)
         executarShell(l2)
         ////////////////////////////////////////////////////////////////////////////////////////
-        // Parametros sedSASS
+        // Parametros script sedSASS
         //#1 - full path for template.scss
         //#2 - full path for output.css
         //#3 - parametro que substituirá char_orientacao no script sass
