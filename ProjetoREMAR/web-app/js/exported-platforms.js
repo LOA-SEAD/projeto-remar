@@ -153,8 +153,8 @@ $(document).ready(function () {
                         contentType: false,
                         success: function (data) {
                             $("#share-container").html(data);
-                            compartilhaJogo();
                             $("#share-container h4").remove();
+                            compartilhaJogo();
                         },
                         error: function (request, status, error) {
                             console.log(error);
