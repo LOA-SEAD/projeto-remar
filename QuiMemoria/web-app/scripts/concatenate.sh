@@ -62,8 +62,9 @@ n=$((n/2))
 echo "${WIDTH}x${HEIGHT}"
 mkdir -p $TILES_PATH$2
 destino="$TILES_PATH$2/cartas_difficulty.png"
-montage -mode concatenate -tile ${n}x2 -texture $texture_file -geometry ${WIDTH}x${HEIGHT} ${tile_file_names} $destino
+montage -mode concatenate -tile ${n}x2 -texture $texture_file -geometry "${WIDTH}x${HEIGHT}!" ${tile_file_names} $destino
 
 rm $tile_file_names
+
 # water mark:::
 # composite -dissolve 75% -gravity south wmark_image.png capa.png resultado_wm.png
