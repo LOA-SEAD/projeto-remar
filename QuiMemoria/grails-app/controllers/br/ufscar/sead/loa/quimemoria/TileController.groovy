@@ -184,12 +184,16 @@ class TileController {
             generateTileSet(params.orientation)
 
             // encontra o endereço do arquivo criado
-            def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
+            def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}")
 
             log.debug folder
             def ids = []
             ids << MongoHelper.putFile("${folder}/output.css")
             ids << MongoHelper.putFile("${folder}/tiles/cartas.png")
+
+            //if (! new File(folder).deleteDir()){
+            //    println("Erro em tentar excluir a pasta do usuario")
+            //}
 
             def port = request.serverPort
             if (Environment.current == Environment.DEVELOPMENT) {
