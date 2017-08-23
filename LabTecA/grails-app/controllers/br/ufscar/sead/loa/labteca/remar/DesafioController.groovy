@@ -7,7 +7,7 @@ import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.util.Environment
 
 @Transactional(readOnly = true)
-@Secured('ROLE_ADMIN')
+@Secured(["isAuthenticated()"])
 class DesafioController {
     def springSecurityService
 
