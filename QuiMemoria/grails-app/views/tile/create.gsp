@@ -7,9 +7,8 @@
 
 <body>
 	<div class="cluster-header">
-		<p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-			<g:message code="tile.create.title"/>
-		</p>
+		<h4><g:message code="tile.create.title"/></h4>
+		<div class="divider"></div>
 	</div>
 
 	<div class="row">

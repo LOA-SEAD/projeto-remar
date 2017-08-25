@@ -9,10 +9,11 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-	<title><g:layoutTitle default="REMemória"/></title>
+	<title><g:layoutTitle default="Jogo da Memória"/></title>
 
 	<link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons" >
 	<g:external dir="css" file="materialize.css"/>
+	<g:external dir="css" file="font-awesome.min.css"/>
 	<g:external dir="css" file="tiles.css"/>
 
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

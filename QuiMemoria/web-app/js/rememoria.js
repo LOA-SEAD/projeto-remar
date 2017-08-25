@@ -1,4 +1,12 @@
 /* Created by garciaph */
+
+// TODO: fotos materialbox zoom-out reseta o tamanho da imagem para o original. Consertar.
+// TODO: preview de imagens no upload de uma nova peça
+// TODO: ao criar um novo par de peças, selecionar dificuldade automaticamente e deixar como readonly
+// TODO: mostrar mínimo de pares debaixo (ou próximo) da dificuldade selecionada
+// TODO: se nível fácil -> impedir diminuir dificuldade. se nível difícil, impedir aumentar dificuldade.
+// TODO: implementar loading screen de 0.5~1,0 segundo para permitir o carregamento das imagens sem mostrar uma animação 'bugada' para o usuário
+
 var difficultyList = ['', 'Fácil', 'Médio', 'Difícil'];
 
 $(document).ready(function() {
@@ -20,8 +28,6 @@ $(document).ready(function() {
         if (difficulty > 1) {
             // Set difficulty level
             difficulty = difficulty - 1;
-            $('#tile-display-container').html('').animate({height: 0}, 600, 'easeOutBounce');
-            $('#difficulty-level').html(difficultyList[difficulty]);
             renderSelect(difficulty);
         }
     });
@@ -30,8 +36,6 @@ $(document).ready(function() {
         if (difficulty < 3) {
             // Set difficulty level
             difficulty = difficulty + 1;
-            $('#tile-display-container').html('').animate({height: 0}, 600, 'easeOutBounce');
-            $('#difficulty-level').html(difficultyList[difficulty]);
             renderSelect(difficulty);
         }
     });
@@ -94,6 +98,11 @@ $(document).ready(function() {
 
 function renderSelect (difficulty) {
     var $container = $('#difficulty-select-container');
+    var $display = $('#tile-display');
+
+    $container.empty();
+
+    $('#difficulty-level').html(difficultyList[difficulty]);
 
     // Get the tile list of given difficulty
     $.ajax({
@@ -102,31 +111,67 @@ function renderSelect (difficulty) {
         url: "listByDifficulty",
         success: function (resp) {
             $container.html(resp);
-            $container.children('select').material_select();
+            $container.find('select').material_select();
+
+            // Show first tile
+            renderTile($("select option:first").val());
 
             // After selecting the desired tile from the select in index.gsp,
             // we get the information of that tile and show it in the tile display
-            $('#difficulty-select-container select').change(function() {
+            $('#difficulty-select-container select').change(function () {
                 var id = $(this).val();
                 renderTile(id);
             });
         },
-        error: function (request, status, error) {
-            console.log(error);
+        error: function (xhr, status, text) {
+            switch (xhr.status) {
+                case 412:
+                    $display.animate({opacity: '0'}, function() {
+                        $display
+                            .html(xhr.responseText)
+                            .animate({opacity: '1'});
+                    });
+                    break;
+                default:
+                    console.log(text);
+                    break;
+            }
         }
     });
 }
 
 function renderTile (tileId) {
-    var $container = $('#tile-display-container');
+    var $display = $('#tile-display');
 
     $.ajax({
         type: 'POST',
         data: {id: tileId},
-        url: "show",
+        url: 'show',
         success: function (resp) {
-            $container.html(resp);
-            $container.animate({height: '300'}, 600, 'easeOutBounce');
+            $display.animate({opacity: 0}, function() {
+                // Update display content
+                $display.html(resp);
+
+                // resize images orientation-wise
+                $('.materialboxed').materialbox().each(function () {
+                    $(this).load(function () {
+                        var width = $(this).width();
+                        var height = $(this).height();
+
+                        // note that it must be $.attr instead of $.css because of materialize materialbox
+                        if (width > height) {
+                            // landscape
+                            $(this).attr('width', $('#default-image-sizes').css('width'));
+                        } else {
+                            //portrait
+                            $(this).attr('height', $('#default-image-sizes').css('height'));
+                        }
+                    });
+                });
+
+                // Show the new tile
+                $display.animate({opacity: 1});
+            });
         },
         error: function (request, status, error) {
             console.log(error);
