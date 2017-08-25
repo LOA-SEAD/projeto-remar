@@ -1,5 +1,5 @@
 #!/bin/sh
 
-#$1 = ownerId
-TILES_PATH="../data/$1/tiles"
-convert -append ../images/flipped.jpg ${TILES_PATH}/facil/cartas_new.png ${TILES_PATH}/medio/cartas_new.png ${TILES_PATH}/dificil/cartas_new.png ${TILES_PATH}/cartas_final.png
+#$1 = TILES_PATH , should be something like [..]/data/1/tiles
+TILES_PATH="$1"
+convert -append ${TILES_PATH}/../../../images/flipped.jpg ${TILES_PATH}/facil/cartas_difficulty.png ${TILES_PATH}/medio/cartas_difficulty.png ${TILES_PATH}/dificil/cartas_difficulty.png ${TILES_PATH}/cartas.png

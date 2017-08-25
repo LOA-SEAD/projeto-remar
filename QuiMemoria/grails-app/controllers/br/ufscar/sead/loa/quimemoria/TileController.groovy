@@ -12,7 +12,7 @@ import grails.transaction.Transactional
 class TileController {
 
 
-    static allowedMethods = [choose: "POST", save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def springSecurityService
 
@@ -58,15 +58,32 @@ class TileController {
         def dataPath = servletContext.getRealPath("/data")
         def id = tileInstance.getId()
         def userPath = new File(dataPath, "/" + userId + "/tiles")
+        def script_convert_png = servletContext.getRealPath("/scripts/convert.sh")
         userPath.mkdirs()
 
         def f1Uploaded = request.getFile("tile-a")
         def f2Uploaded = request.getFile("tile-b")
         if (!f1Uploaded.isEmpty() && !f2Uploaded.isEmpty()) {
+
             def f1 = new File("$userPath/tile$id-a.png")
             def f2 = new File("$userPath/tile$id-b.png")
+
             f1Uploaded.transferTo(f1)
             f2Uploaded.transferTo(f2)
+
+            // the convert script will convert the files to png even if they weren't uploaded as such
+            // this was needed because the file wouldn't open as png if uploaded as other format
+            executarShell([
+                    script_convert_png,
+                    f1.absolutePath,
+                    f1.absolutePath
+            ])
+
+            executarShell([
+                    script_convert_png,
+                    f2.absolutePath,
+                    f2.absolutePath
+            ])
         }
 
         redirect(controller: "Tile", action:"index")
@@ -175,6 +192,10 @@ class TileController {
             ids << MongoHelper.putFile("${folder}/output.css")
             ids << MongoHelper.putFile("${folder}/tiles/cartas.png")
 
+            //if (! new File(folder).deleteDir()){
+            //    println("Erro em tentar excluir a pasta do usuario")
+            //}
+
             def port = request.serverPort
             if (Environment.current == Environment.DEVELOPMENT) {
                 port = 8080
@@ -233,8 +254,8 @@ class TileController {
         def script_append = servletContext.getRealPath("/scripts/append.sh")
 
         def l2 = [
-                script_append,
-                tilesPath
+            script_append,
+            tilesPath
         ]
 
         println("l2 --> " + l2)
@@ -250,13 +271,13 @@ class TileController {
         def script_sedSASS = servletContext.getRealPath("/scripts/sed_sass.sh")
 
         def l3 = [
-                script_sedSASS,
-                servletContext.getRealPath("/scripts/template.scss"),
-                "${instancePath}/output.css",
-                orientation,
-                easyTilesIdList.size(),
-                mediumTilesIdList.size(),
-                hardTilesIdList.size()
+            script_sedSASS,
+            servletContext.getRealPath("/scripts/template.scss"),
+            "${instancePath}/output.css",
+            orientation,
+            easyTilesIdList.size(),
+            mediumTilesIdList.size(),
+            hardTilesIdList.size()
         ]
 
         println("l3 --> " + l3)
@@ -267,10 +288,10 @@ class TileController {
 
         def script_concatenate_tiles = servletContext.getRealPath("/scripts/concatenate.sh")
         def l = [
-                script_concatenate_tiles,
-                orient, // $1
-                difficulty, // $2
-                folder // $3
+            script_concatenate_tiles,
+            orient, // $1
+            difficulty, // $2
+            folder // $3
         ]
 
         // adding parameters to the script (name of the img files to be appended)
@@ -287,7 +308,7 @@ class TileController {
 
     // the list has to contain the path to the sh file as its first element
     // and then the next elements will be the respective params for the script
-    def executarShell(execList) {
+    def executarShell(execList){
         def proc
 
         proc = execList.execute()

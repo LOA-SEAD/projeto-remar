@@ -15,12 +15,12 @@ services:
     env_file:
       - .env
     image: tutum/mongodb:3.2
-    volumes: 
+    volumes:
       - 'mongo-data:/data/db'
   remar:
       image: lucasaciole/projeto-remar
       environment:
-        - "TZ=America/Sao_Paulo"
+        - 'TZ=America/Sao_Paulo'
       restart: always
       ports:
         - '80:8080'
