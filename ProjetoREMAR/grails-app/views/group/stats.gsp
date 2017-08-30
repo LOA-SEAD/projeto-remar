@@ -60,9 +60,9 @@
         </table>
     </div>
         <div class="row">
-            <div style="padding-top: 3em; text-align: left" class="col s12 m5 offset-l3">
-                <div class="card-panel teal hoverable">
-                    <div class=" right-align"><i style="cursor: pointer; color: white" class="material-icons close">close</i></div>
+            <div style="padding-top: 3em; text-align: justify" class="col s12 m7 offset-l">
+                <div class="card-panel hoverable remar-brown"> <!-- colocar no css o standardization -->
+                    <div class="right-align"><i style="cursor: pointer; color: white" class="material-icons close">close</i></div>
                     <span class="white-text">
                         Na tabela acima você encontra todas as tentativas (certas ou erradas) dos membros do grupo. Clique no icone embaixo do numero
                         da questão para visualizar todas as tentativas do jogador.
