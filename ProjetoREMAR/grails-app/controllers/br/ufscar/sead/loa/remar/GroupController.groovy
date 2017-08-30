@@ -96,8 +96,6 @@ class GroupController {
             def exportedResource = ExportedResource.findById(params.exp)
             if (exportedResource) {
                 def allUsersGroup = UserGroup.findAllByGroup(group).user
-//                allUsersGroup.add(group.owner)
-//                allUsersGroup.sort{it.id}
                 def queryMongo
                 try{
                     queryMongo = MongoHelper.instance.getStats("stats", exportedResource.id as Integer, allUsersGroup.id.toList())
@@ -117,15 +115,16 @@ class GroupController {
 
                     }
 
-                    if(!allStats.empty) {
+                    /*if(!allStats.empty) {
                         allUsersGroup.each { member ->
                             if (!allStats.find { stat -> stat.get(0) != null && stat.get(0).user.id == member.id }) {
                                 allStats.push(member)
                             }
 
                         }
-                    }
-                    println allStats
+                    }*/
+
+                    allStats.sort({it.get(0).user.getName()})
 
                     render view: "stats", model: [allStats: allStats, group: group, exportedResource: exportedResource]
 

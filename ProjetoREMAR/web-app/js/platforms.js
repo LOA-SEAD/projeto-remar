@@ -235,7 +235,7 @@ $(function () {
             $(imgFile).removeClass().addClass("valid");
         }
 
-        Materialize.toast('Informações básicas salvas com sucesso!', 3000, 'rounded')
+        Materialize.toast('Informações básicas salvas com sucesso!', 3000)
     }
 
     if($("#specific-content").val()!=null || $("#content-area").val()!=null){
