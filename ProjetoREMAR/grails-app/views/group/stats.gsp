@@ -60,7 +60,7 @@
         </table>
     </div>
         <div class="row">
-            <div style="padding-top: 3em; text-align: justify" class="col s12 m7 offset-l">
+            <div style="padding-top: 3em; text-align: justify" class="col s12 m5 offset-l5">
                 <div class="card-panel hoverable remar-brown"> <!-- colocar no css o standardization -->
                     <div class="right-align"><i style="cursor: pointer; color: white" class="material-icons close">close</i></div>
                     <span class="white-text">
