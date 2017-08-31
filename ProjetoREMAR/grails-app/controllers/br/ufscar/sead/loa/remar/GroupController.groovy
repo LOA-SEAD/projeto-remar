@@ -298,14 +298,20 @@ class GroupController {
                     userGroup.group = group
                     userGroup.user = user
                     userGroup.save flush: true
-                    render status: 200, template: "newGroup", model: [group: group]
-                } else
-                    render status: 403, text: "Você já pertence a este grupo."
-            } else
-                render status: 404, text: "Grupo não encontrado"
-        } else
-            render status: 404, text: "Grupo não encontrado"
+                    redirect action: 'show', id: group.id
+                } else {
+                    flash.message = "Você já pertence a este grupo."
+                    redirect action: "list"
+                }
 
+            } else {
+                flash.message = "Grupo não encontrado"
+                redirect action: "list"
+            }
+        } else {
+            flash.message = "Grupo não encontrado"
+            redirect action: "list"
+        }
     }
 
     def addUserById () {
