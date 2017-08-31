@@ -82,7 +82,7 @@
 
                     <div class="row">
                         <div class="input-field center-align">
-                            <div class="g-recaptcha text-center" data-sitekey="6Ldm4CAUAAAAAMs6FsUuQIweiP-bhiCGsnNdrtBb"> </div>
+                            <div class="g-recaptcha text-center" data-sitekey="6Le6wh8UAAAAAP9Gs9OkQEWIZZBcQJDHWht_zYpG"> </div>
                         </div>
                     </div>
 
