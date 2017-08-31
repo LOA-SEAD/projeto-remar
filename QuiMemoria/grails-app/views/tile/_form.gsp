@@ -1,48 +1,67 @@
 <%@ page import="br.ufscar.sead.loa.quimemoria.Tile" %>
 
-<div class="row">
-    <table id="image-preview-table" class="centered">
-        <thead>
-            <tr>
-                <th><g:message code="tile.create.preview"/></th>
-                <th><g:message code="tile.create.file"/></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <div class="row image-preview-container">
-                        <img id="a-preview" class="door" height="200" />
-                    </div>
-                </td>
-                <td>
-                    <div class="row file-field input-field">
-                        <div class="col s2 btn right remar-orange">
-                            <span><g:message code="tile.create.fileButton"/></span>
-                            <input data-image="true" type="file" name="tile-a" id="tile-a">
-                        </div>
-                        <div class="col s10 file-path-wrapper">
-                            <input required="" class="file-path validate" type="text" placeholder="${message(code:'tile.create.tileA')}">
-                        </div>
-                    </div>
-                    <div class="row file-field input-field">
-                        <div class="col s2 btn right remar-orange">
-                            <span><g:message code="tile.create.fileButton"/></span>
-                            <input data-image="true" type="file" name="tile-b" id="tile-b">
-                        </div>
-                        <div class="col s10 file-path-wrapper">
-                            <input required="" class="file-path validate" type="text" placeholder="${message(code:'tile.create.tileB')}">
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<g:if test="${edit}">
+    <g:hiddenField name="id" value="${tileInstance.id}"/>
+</g:if>
+<div id="image-preview-table" class="row">
+    <div id="preview-table-header" class="row no-margin">
+        <div class="col s6">
+            <p class="center-align"><g:message code="tile.create.preview"/></p>
+        </div>
+        <div class="col s6 center-align">
+            <p class="center-align"><g:message code="tile.create.file"/></p>
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="row no-margin">
+        <div class="col s6">
+            <div class="row image-preview-container">
+                <div class="tile-image col no-padding s6">
+                    <label><g:message code="tile.label"/> A</label>
+                    <g:if test="${edit}">
+                        <img id="a-preview" class="materialboxed edit"  src="${resource(dir:"/data/${tileInstance.ownerId}/tiles", file:"tile${tileInstance.id}-a.png")}" alt="${tileInstance.content} - A">
+                    </g:if>
+                    <g:else>
+                        <img id="a-preview" class="materialboxed hidden">
+                    </g:else>
+                </div>
+                <div class="tile-image col no-padding s6">
+                    <label><g:message code="tile.label"/> B</label>
+                    <g:if test="${edit}">
+                        <img id="b-preview" class="materialboxed edit" src="${resource(dir:"/data/${tileInstance.ownerId}/tiles", file:"tile${tileInstance.id}-b.png")}"  alt="${tileInstance.content} - B">
+                    </g:if>
+                    <g:else>
+                        <img id="b-preview" class="materialboxed hidden">
+                    </g:else>
+                </div>
+            </div>
+        </div>
+        <div class="col s6">
+            <div class="row file-field input-field">
+                <div class="col s2 btn right remar-orange">
+                    <span><g:message code="tile.create.fileButton"/></span>
+                    <input data-image="true" type="file" name="tile-a" class="previewed-image" data-preview-target="a-preview">
+                </div>
+                <div class="col s10 file-path-wrapper">
+                    <input ${edit ? '' : 'required'} class="file-path validate remar-input" type="text" placeholder="${message(code:'tile.create.tileA')}">
+                </div>
+            </div>
+            <div class="row file-field input-field">
+                <div class="col s2 btn right remar-orange">
+                    <span><g:message code="tile.create.fileButton"/></span>
+                    <input data-image="true" type="file" name="tile-b" class="previewed-image remar-input" data-preview-target="b-preview">
+                </div>
+                <div class="col s10 file-path-wrapper">
+                    <input ${edit ? '' : 'required'} class="file-path validate remar-input" type="text" placeholder="${message(code:'tile.create.tileB')}">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="row">
     <div class="input-field col s8 fieldcontain ${hasErrors(bean: tileInstance, field: 'content', 'error')} required">
-        <g:textField id="content" name="content" maxlength="50" required="" value="${tileInstance?.content}"/>
+        <g:textField id="content" name="content" class="remar-input" maxlength="50" required="" value="${tileInstance?.content}"/>
         <label for="content">
             <g:message code="tile.content.label"/>
             <span class="required-indicator">*</span>
@@ -50,7 +69,7 @@
     </div>
 
     <div class="input-field col s4 fieldcontain ${hasErrors(bean: tileInstance, field: 'difficulty', 'error')} required">
-        <g:select name="difficulty" from="${tileInstance.constraints.difficulty.inList}" required="" value="${fieldValue(bean: tileInstance, field: 'difficulty')}" valueMessagePrefix="tile.difficulty"/>
+        <g:select name="difficulty" from="${tileInstance.constraints.difficulty.inList}" required="" value="${tileInstance?.difficulty}" valueMessagePrefix="tile.difficulty"/>
         <label for="difficulty">
             <g:message code="tile.difficulty.label" default="Difficulty" />
             <span class="required-indicator">*</span>
@@ -60,7 +79,7 @@
 
 <div class="row">
     <div class="input-field col s12 fieldcontain ${hasErrors(bean: tileInstance, field: 'description', 'error')} required">
-        <textarea id="description" class="materialize-textarea" name="description" required="" length="500"></textarea>
+        <textarea id="description" class="materialize-textarea remar-input" name="description" required="" data-length="500">${tileInstance?.description}</textarea>
         <label for="description">
             <g:message code="tile.description.label"/>
             <span class="required-indicator">*</span>
@@ -69,7 +88,7 @@
 </div>
 
 <div class="row right-align">
-    <input id="upload" type="submit" name="upload" class="btn btn-success my-orange" value="${message(code:'tile.create.sendButton')}"/>
+    <input id="upload" type="submit" name="upload" class="btn btn-success remar-orange" value="${message(code:'tile.create.sendButton')}"/>
 </div>
 
-<g:external dir="css" file="tiles.css"/>
+<g:javascript src="form.js"/>

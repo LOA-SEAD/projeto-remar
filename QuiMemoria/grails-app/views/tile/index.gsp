@@ -7,6 +7,12 @@
 </head>
 
 <body>
+    %{-- Loading Screen --}%
+    <div id="loading-screen">
+        <div class="spinner outer" style="background-image: url(${resource(dir: 'images', file: 'outerspinner.png')});"></div>
+        <img class="spinner inner" src="${resource(dir: 'images', file: 'innerspinner.png')}">
+    </div>
+
     <div class="row cluster">
         <div class="cluster-header">
             <h4>Memória - Peças</h4>
@@ -50,10 +56,18 @@
                                 <div class="col s6">
                                     <div class="row valign-wrapper">
                                         <div class="col s6 right-align">
-                                            <p>Download do modelo de peças</p>
+                                            <div class="row no-margin">
+                                                <p class="no-margin">Download do modelo de peças</p>
+                                            </div>
+                                            <div class="row no-margin">
+                                                <label>
+                                                    Modelo de peças na
+                                                    <b id="model-orientation">vertical</b>
+                                                </label>
+                                            </div>
                                         </div>
                                         <div class="col s6">
-                                            <a id="model-download" class="btn-floating waves-effect waves-light my-orange" href="/quimemoria/samples/tilesample_v.zip">
+                                            <a id="model-download" class="btn-floating waves-effect waves-light remar-orange" href="/quimemoria/samples/tilesample_v.zip">
                                                 <i class="material-icons">file_download</i>
                                             </a>
                                         </div>
@@ -70,12 +84,21 @@
                 <ul class="collection with-header">
                     <li class="collection-header">
                         <div class="row valign-wrapper no-margin">
-                            <div id="tile-display-header" class="col s6">
+                            <div class="col s6">
                                 <label>
                                     O nível selecionado deve ter no mínimo
-                                    <b id="difficulty-minimum">4</b>
-                                     peças.
+                                    <b id="difficulty-minimum"></b>
+                                    pares
                                 </label>
+                            </div>
+                            <div class="col s6">
+                                <div id="difficulty-select-message">
+                                    <label>Escolha um par de peças para visualizar (total: <b id="difficulty-total"></b>)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row valign-wrapper no-margin">
+                            <div id="tile-display-header" class="col s6">
                                 <h4>
                                     Nível
                                     <a id="decrease-level" href="#!" class="tooltipped" style="margin-left: 15px"
@@ -91,7 +114,6 @@
                                     </a>
                                 </h4>
                             </div>
-
                             <div id="difficulty-select-container" class="col s6"></div>
                         </div>
                     </li>
@@ -102,10 +124,10 @@
 
             <div class="row no-margin">
                 <div class="col s3 offset-s7 right-align ">
-                    <g:link class="btn btn-success btn-lg my-orange" action="create">Novo par</g:link>
+                    <g:link class="btn btn-success btn-lg remar-orange" action="create">Novo par</g:link>
                 </div>
                 <div class="col s2 center-align ">
-                    <a href="#!" id="send" class="btn btn-success btn-lg my-orange">Enviar</a>
+                    <a href="#!" id="send" class="btn btn-success btn-lg remar-orange">Enviar</a>
                 </div>
             </div>
         </div>
@@ -121,54 +143,6 @@
         </div>
     </div>
 
-    %{--
-    <div class="row">
-        <form class="col s12" name="formName">
-            <ul class="collapsible" data-collapsible="accordion">
-                <li>
-                    <div class="collapsible-header active"> <b>Minhas Peças </b></div>
-                    <div class="collapsible-body">
-                        <g:if test="${tileInstanceListMy.size() < 1 }">
-                            <p> Você ainda não possui nenhuma peça</p>
-                        </g:if>
-                        <g:else>
-                            <table class="" id="tableMyTile">
-                                <thead>
-                                <tr>
-                                    <th class="simpleTable">Selecionar</th>
-                                    <th class="simpleTable">Peça A</th>
-                                    <th class="simpleTable">Peça B</th>
-                                    <th class="simpleTable">Ação</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <g:each in="${tileInstanceListMy}" status="i" var="tileInstance">
-                                    <tr data-id="${fieldValue(bean: tileInstance, field: "id")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
-                                        <td class="myTile simpleTable" align="center "><input class="with-gap " name="checkbox" type="checkbox" id="myTile${i}" data-tileid="${tileInstance.id}"
-                                                                                              value="${fieldValue(bean: tileInstance, field: "id")}" > <label for="myTile${i}"></label>
-                                        </td>
-                                        <td align="center"><img width="142"
-                                                                src="/quimemoria/data/${fieldValue(bean: tileInstance, field: "ownerId")}/tiles/tile${fieldValue(bean: tileInstance, field: "id")}-a.png"
-                                                                class="img-responsive max"/></td>
-                                        <td align="center"><img width="142"
-                                                                src="/quimemoria/data/${fieldValue(bean: tileInstance, field: "ownerId")}/tiles/tile${fieldValue(bean: tileInstance, field: "id")}-b.png"
-                                                                class="img-responsive max"/></td>
-                                    </tr>
-                                </g:each>
-                                </tbody>
-                            </table>
-                        </g:else>
-                    </div>
-                </li>
-            </ul>
-            <div class="row">
-                <div class="col s12">
-                    <g:submitButton name="save" class="save btn btn-success btn-lg my-orange" value="Enviar"/>
-
-                </div>
-            </div>
-        </form>
-    </div>
-    --}%
+    <g:javascript src="rememoria.js"/>
 </body>
 </html>

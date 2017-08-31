@@ -1,136 +1,128 @@
 /* Created by garciaph */
 
-// TODO: fotos materialbox zoom-out reseta o tamanho da imagem para o original. Consertar.
-// TODO: preview de imagens no upload de uma nova peça
-// TODO: ao criar um novo par de peças, selecionar dificuldade automaticamente e deixar como readonly
-// TODO: mostrar mínimo de pares debaixo (ou próximo) da dificuldade selecionada
-// TODO: se nível fácil -> impedir diminuir dificuldade. se nível difícil, impedir aumentar dificuldade.
 // TODO: implementar loading screen de 0.5~1,0 segundo para permitir o carregamento das imagens sem mostrar uma animação 'bugada' para o usuário
 
 var difficultyList = ['', 'Fácil', 'Médio', 'Difícil'];
 
 $(document).ready(function() {
-    // Initialize materialize elements
+    // Pre-defined loading time
+    setTimeout(function() {
+        $('#loading-screen').fadeOut(1000, function() {
+            $(this).remove();
+        });
+    }, 1000);
+
+    // initialize materialize elements
     $('.tooltipped').tooltip({
         delay: 50,
         position: 'top',
         tooltip: $(this).data('tooltip-msg')
     });
-
     $('select').material_select();
 
-    // Initially load list with easy difficulty
+    // initially load list with easy difficulty
     var difficulty = 1; // 1 = Easy; 2 = Medium; 3 = Hard
     $('#difficulty-level').html('Fácil');
     renderSelect(difficulty);
+    $('#decrease-level').attr('disabled', 'disabled')
 
     $('#decrease-level').click(function() {
         if (difficulty > 1) {
             // Set difficulty level
             difficulty = difficulty - 1;
             renderSelect(difficulty);
+
+            if (difficulty <= 1) $('#decrease-level').attr('disabled', 'disabled');
+            if (difficulty < 3) $('#increase-level').removeAttr('disabled');
         }
     });
 
     $('#increase-level').click(function() {
         if (difficulty < 3) {
-            // Set difficulty level
+            // set difficulty level
             difficulty = difficulty + 1;
             renderSelect(difficulty);
+
+            if (difficulty >= 3) $('#increase-level').attr('disabled', 'disabled');
+            if (difficulty > 1) $('#decrease-level').removeAttr('disabled');
         }
     });
 
-    // Textarea behavior
-    $('textarea')
-        // stops accepting input after reaching it's maximum length
-        .keypress(function(e) {
-            if (e.which < 0x20) {
-                // e.which < 0x20, then it's not a printable character
-                // e.which === 0 - Not a character
-                return;     // Do nothing
-            }
-            if (this.value.length == $(this).attr('length')) {
-                e.preventDefault();
-            } else if (this.value.length > $(this).attr('length')) {
-                // Maximum exceeded
-                this.value = this.value.substring(0, $(this).attr('length'));
-            }
-        })
-        // slices input if pasted content exceeds character limit
-        .on('paste', function(e) {
-            e.clipboardData.getData('text/plain').slice(0, $(this).attr('length'));
-        });
-
-    // Change which model the user will download based on what tile presentation option was chosen
-    // Since it's a checkbox, it has checked or not checked states (true or false)
-    // True = Horizontal
-    // False = Vertical
+    // change which model the user will download based on what tile presentation option was chosen
+    // since it's a checkbox, it has checked or not checked states (true or false)
+    // true = horizontal
+    // false = vertical
     $('.switch :checkbox').change(function() {
         if (this.checked) {
+            fadeInOut($('#model-orientation'), 'horizontal');
             $('#model-download').attr('href', '/quimemoria/samples/tilesample_h.zip');
         } else {
+            fadeInOut($('#model-orientation'), 'vertical');
             $('#model-download').attr('href', '/quimemoria/samples/tilesample_v.zip');
         }
     });
 
-    // Send all tiles to controller
+    // send all tiles to controller
     $('#send').click(function() {
-        // Orientation of tiles. Same as above.
+        // orientation of tiles. Same as above.
         var orientation = $('.switch :checkbox').checked ? 'h' : 'v';
 
-        // Check if there the minimum tile number is achieved for each difficulty
-        // If is its valid, proceed to the json file generation (controller)
-        // Otherwise, show modal with error
+        // check if there the minimum tile number is achieved for each difficulty
+        // if is its valid, proceed to the json file generation (controller)
+        // otherwise, show modal with error
         $.ajax({
             type: 'GET',
             data: {orientation: orientation},
             url: "validate",
             success: function (resp) {
                 $('#fail-modal .modal-content p').html(resp);
-                $('#fail-modal').openModal();
+                $('#fail-modal').modal().modal('open');
             },
-            error: function (request, status, error) {
-                console.log('ERROR');
+            error: function (xhr, status, text) {
+                console.log(text);
             }
         });
     });
 });
 
+// show the selected difficulty select field with all the tiles options
 function renderSelect (difficulty) {
     var $container = $('#difficulty-select-container');
     var $display = $('#tile-display');
 
-    $container.empty();
+    $container.empty(400);
 
+    $('#difficulty-minimum').html(difficulty * 2 + 2);
     $('#difficulty-level').html(difficultyList[difficulty]);
 
-    // Get the tile list of given difficulty
+    // get the tile list of given difficulty
     $.ajax({
         type: 'GET',
         data: {difficulty: difficulty},
-        url: "listByDifficulty",
+        url: 'listByDifficulty',
         success: function (resp) {
-            $container.html(resp);
-            $container.find('select').material_select();
+            $('#difficulty-select-message').fadeIn(0);
+            $container.html(resp).fadeIn().find('select').material_select();
 
-            // Show first tile
+            // show first tile
             renderTile($("select option:first").val());
 
-            // After selecting the desired tile from the select in index.gsp,
+            // after selecting the desired tile from the select in index.gsp,
             // we get the information of that tile and show it in the tile display
             $('#difficulty-select-container select').change(function () {
                 var id = $(this).val();
                 renderTile(id);
             });
+
+            // update total counter
+            $('#difficulty-total').html($('select option').size());
         },
         error: function (xhr, status, text) {
             switch (xhr.status) {
                 case 412:
-                    $display.animate({opacity: '0'}, function() {
-                        $display
-                            .html(xhr.responseText)
-                            .animate({opacity: '1'});
-                    });
+                    // show warning message if there aren't any tiles
+                    $('#difficulty-select-message').fadeOut(0);
+                    fadeInOut($display, xhr.responseText);
                     break;
                 default:
                     console.log(text);
@@ -140,6 +132,7 @@ function renderSelect (difficulty) {
     });
 }
 
+// renders tile pair information inside specified display element
 function renderTile (tileId) {
     var $display = $('#tile-display');
 
@@ -148,33 +141,63 @@ function renderTile (tileId) {
         data: {id: tileId},
         url: 'show',
         success: function (resp) {
-            $display.animate({opacity: 0}, function() {
-                // Update display content
-                $display.html(resp);
-
+            fadeInOut($display, resp, function() {
                 // resize images orientation-wise
-                $('.materialboxed').materialbox().each(function () {
-                    $(this).load(function () {
-                        var width = $(this).width();
-                        var height = $(this).height();
+                var width = $('#default-image-sizes').css('width');
+                var height = $('#default-image-sizes').css('height');
 
-                        // note that it must be $.attr instead of $.css because of materialize materialbox
-                        if (width > height) {
-                            // landscape
-                            $(this).attr('width', $('#default-image-sizes').css('width'));
-                        } else {
-                            //portrait
-                            $(this).attr('height', $('#default-image-sizes').css('height'));
-                        }
-                    });
+                $('.materialboxed').materialbox().each(function () {
+                    resizeImageOrientationWise($(this), height, width);
                 });
 
-                // Show the new tile
-                $display.animate({opacity: 1});
+                // initialize Modal
+                $('#delete-modal').modal();
+
+                // Initializing tooltips
+                $('#tile-options-column').find('.tooltipped').each(function() {
+                    console.log($(this));
+                    $(this).tooltip({
+                        delay: 50,
+                        position: 'left',
+                        tooltip: $(this).data('tooltip-msg')
+                    });
+                });
             });
         },
         error: function (request, status, error) {
             console.log(error);
+        }
+    });
+}
+
+// fade out, change content, do something with the content if necessary and then fade in
+function fadeInOut ($el, content, callback) {
+    // hide element
+    $el.animate({opacity: 0}, function() {
+        // update content
+        $el.html(content);
+
+        // if there is a callback function, execute it
+        callback = callback || null;
+        if (callback) callback();
+
+        // show element with new content
+        $el.animate({opacity: 1});
+    });
+}
+
+function resizeImageOrientationWise($el, height, width) {
+    $el.load(function () {
+        var eWidth = $el.width();
+        var eHeight = $el.height();
+
+        // note that it must be $.attr instead of $.css because of materialize materialbox
+        if (eWidth > eHeight) {
+            // landscape
+            $el.attr('width', width);
+        } else {
+            //portrait
+            $el.attr('height', height);
         }
     });
 }
