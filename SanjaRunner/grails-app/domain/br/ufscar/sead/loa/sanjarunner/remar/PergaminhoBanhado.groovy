@@ -4,7 +4,10 @@ class PergaminhoBanhado {
 
     String[] information = new String[4]
 
+    long ownerId
+    String taskId
+
     static constraints = {
-        information (blank : false, size: 1..100)
+        information (blank : false, size: 1..600)
     }
 }

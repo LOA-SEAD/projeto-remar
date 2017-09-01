@@ -20,7 +20,7 @@
     {
       "name": "Pergaminho Cassiano",
       "uri": "pergaminhoCassiano",
-      "description": "Criar/editar/selecionar um conjunto de informações para o pergaminho do nível Cassiano Ricardo.",
+      "description": "Criar/editar/selecionar um conjunto de informações para o pergaminho do nível Rua 15 de novembro.",
       "type": "text_database",
       "dependencies": null,
       "outputs": [
@@ -48,7 +48,7 @@
     {
       "name": "Pergaminho Santos",
       "uri": "pergaminhoSantos",
-      "description": "Criar/editar/selecionar um conjunto de informações para o pergaminho do nível Santos Dumont.",
+      "description": "Criar/editar/selecionar um conjunto de informações para o pergaminho do nível Parque Santos Dumont.",
       "type": "text_database",
       "dependencies": null,
       "outputs": [
@@ -62,7 +62,7 @@
     {
       "name": "Pergaminho Vicentina",
       "uri": "pergaminhoVicentina",
-      "description": "Criar/editar/selecionar um conjunto de informações para o pergaminho do nível Vicentina Aranha.",
+      "description": "Criar/editar/selecionar um conjunto de informações para o pergaminho do nível Parque Vicentina Aranha.",
       "type": "text_database",
       "dependencies": null,
       "outputs": [
@@ -105,7 +105,7 @@
     {
       "name": "Quiz Cassiano",
       "uri": "quizCassiano",
-      "description": "Criar/editar/selecionar um conjunto de informações para o quiz do nível Cassiano Ricardo.",
+      "description": "Criar/editar/selecionar um conjunto de informações para o quiz do nível Rua 15 de Novembro.",
       "type": "text_database",
       "dependencies": null,
       "outputs": [
@@ -168,7 +168,7 @@
     {
       "name": "Quiz Santos",
       "uri": "quizSantos",
-      "description": "Criar/editar/selecionar um conjunto de informações para o quiz do nível Santos Dumont.",
+      "description": "Criar/editar/selecionar um conjunto de informações para o quiz do nível Parque Santos Dumont.",
       "type": "text_database",
       "dependencies": null,
       "outputs": [
@@ -202,7 +202,7 @@
     {
       "name": "Quiz Vicentina",
       "uri": "quizVicentina",
-      "description": "Criar/editar/selecionar um conjunto de informações para o quiz do nível Vicentina Aranha.",
+      "description": "Criar/editar/selecionar um conjunto de informações para o quiz do nível Parque Vicentina Aranha.",
       "type": "text_database",
       "dependencies": null,
       "outputs": [

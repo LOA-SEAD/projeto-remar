@@ -10,8 +10,8 @@ class QuizMatriz {
     String taskId
 
     static constraints = {
-        question (blank : false, size: 1..100)
-        answers (blank : false, size: 1..100)
+        question (blank : false, size: 1..200)
+        answers (blank : false, size: 1..200)
         correctAnswer (blank : false)
     }
 }
