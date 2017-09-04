@@ -1,3 +1,6 @@
+[submodule "Memoria/web-app/remar/source"]
+        path = Memoria/web-app/remar/source
+        url = https://github.com/LOA-SEAD/memoria
 [submodule "Forca/web-app/remar/source"]
 	path = Forca/web-app/remar/source
 	url = https://github.com/LOA-SEAD/quiforca
@@ -21,6 +24,3 @@
 	path = QuiMolecula/web-app/remar/source
 	url = https://github.com/LOA-SEAD/quimolecula
 	branch = exported
-[submodule "QuiMemoria/web-app/remar/source"]
-	path = QuiMemoria/web-app/remar/source
-	url = https://github.com/LOA-SEAD/memoria
