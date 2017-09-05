@@ -492,7 +492,6 @@ footer.page-footer{
     display: inline-block;
 }
 
-
 .card-content p{
     color: rgba(0, 0, 0, 0.6) !important;
 }
@@ -500,7 +499,6 @@ footer.page-footer{
 .slider {
     margin-top: 0px;
 }
-
 
 .card-developer.approved{
     border: 2px solid #7cb342;
@@ -550,10 +548,10 @@ main {
     flex: 1 0 auto;
 }
 
-.social-button{
+.social-button {
     font-size:18px;
 }
-h6{
+h6 {
     font-size: 25px;
     font-weight: 100;
 }
@@ -563,11 +561,6 @@ h6 span{
 }
 .tasks-list ul > a li:hover{
     background-color: #B6B6B6;
-}
-
-
-table .pending td{
-    /*background-color: #fffde7;*/
 }
 
 .collapsible-body p {
@@ -584,9 +577,7 @@ table .pending td{
 .collapsible-body p[class="title"]{
     margin: 0;
     padding: 0;
-
 }
-
 
 .social-button ul li a{
     font-size: 30px;
@@ -691,30 +682,12 @@ table .pending td{
     display: block;
     padding: 0.5rem 1.5rem; }
 
-/*.my-dropdown li > a > i {*/
-    /*height: inherit;*/
-    /*line-height: inherit; }*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*
-This is the visible area of you carousel.
-Set a width here to define how much items are visible.
-The width can be either fixed in px or flexible in %.
-Position must be relative!*/
+ *  This is the visible area of you carousel.
+ *  Set a width here to define how much items are visible.
+ *  The width can be either fixed in px or flexible in %.
+ *  Position must be relative!
+ */
 .carousel-wrapper {
     float: left;
     border: 10px solid white;
@@ -1126,4 +1099,37 @@ Position must be relative!*/
 
 .remar-green-text {
      color: #4CAF50 !important;
+}
+
+/* ETC */
+.modal-wrapper-10 .remar-modal {
+    width: 10% !important;
+}
+
+.modal-wrapper-20 .remar-modal {
+    width: 20% !important;
+}
+
+.modal-wrapper-30 .remar-modal {
+    width: 30% !important;
+}
+
+.modal-wrapper-40 .remar-modal {
+    width: 40% !important;
+}
+
+.modal-wrapper-50 .remar-modal {
+    width: 50% !important;
+}
+
+.modal-wrapper-60 .remar-modal {
+    width: 60% !important;
+}
+
+.modal-wrapper-70 .remar-modal {
+    width: 70% !important;
+}
+
+.modal-wrapper-80 .remar-modal {
+    width: 80% !important;
 }
