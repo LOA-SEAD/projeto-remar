@@ -36,7 +36,6 @@
                     </g:if>
 
                     %{-- Formulário informações de grupo --}%
-<<<<<<< HEAD
                     <div class="row no-margin">
                         <form action="/group/update" name="group-management-form" class="col s12">
                             <div class="row">
@@ -55,28 +54,6 @@
                             <div class="row no-margin">
                                 <div class="input-field col s12 center-align">
                                     <input id="group-management-submit" type="submit" class="waves-effect waves-light btn" value="Salvar">
-=======
-                    <section class="group-management">
-                        <div class="row">
-                            <form action="/group/update" name="group-management-form" class="col s12">
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input required id="group-name" name="groupname" value="${group.name}" type="text" class="validate">
-                                        <label class="active" for="group-name">Nome do Grupo</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input required id="group-token" name="grouptoken" value="${group.token}" type="text" class="validate">
-                                        <label class="active" for="group-token">Código de Acesso</label>
-                                    </div>
-                                </div>
-                                <input id="group-id" name="groupid" type="hidden" value="${group.id}">
-                                <div class="row">
-                                    <div class="input-field col s12 center-align">
-                                        <input id="group-management-submit" type="submit" class="waves-effect waves-light btn" value="Salvar">
-                                    </div>
->>>>>>> 3e256c8e73a4f68069b335fb195d93b6ff0134b8
                                 </div>
                             </div>
                         </form>
@@ -91,11 +68,7 @@
                 </div>
 
                 %{-- Painel de gerenciamento de usuários --}%
-<<<<<<< HEAD
                 <div id="user-management-panel" class="row show">
-=======
-                <div id="user-management-panel" class="row no-margin">
->>>>>>> 3e256c8e73a4f68069b335fb195d93b6ff0134b8
                     <div class="col s6">
                         <div class="row">
                             <div class="user-list-box-container col s12">
@@ -182,21 +155,13 @@
             </div>
 
             %{-- Painel deleção de grupo --}%
-<<<<<<< HEAD
             <div class="row no-margin">
-=======
-            <div class="row">
->>>>>>> 3e256c8e73a4f68069b335fb195d93b6ff0134b8
                 <div class="row cluster-header">
                     <h4>Remover Grupo</h4>
                     <div class="divider"></div>
                 </div>
 
-<<<<<<< HEAD
                 <div class="row show" id="disable-group-card">
-=======
-                <div class="row" id="disable-group-card">
->>>>>>> 3e256c8e73a4f68069b335fb195d93b6ff0134b8
                     <div class="col s12">
                         <div class="card">
                             <div class="card-header">
@@ -241,10 +206,6 @@
         <g:external dir="css" file="groupManagement.css"/>
         <g:external dir="css" file="jquery.ui.min.css"/>
         <g:javascript src="group/manage-user-group.js"/>
-<<<<<<< HEAD
-=======
-        <g:javascript src="jquery/jquery.validate.js"/>
->>>>>>> 3e256c8e73a4f68069b335fb195d93b6ff0134b8
         <g:javascript src="jquery/jquery.ui.min.js"/>
     </body>
 </html>

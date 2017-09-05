@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .row.show {
     margin-bottom: 30px;
 }
@@ -9,14 +8,6 @@
     padding: 0;
 }
 
-=======
-.sortable {
-    height: 100%;
-    list-style-type: none;
-    padding: 0;
-}
-
->>>>>>> 3e256c8e73a4f68069b335fb195d93b6ff0134b8
 .sortable li {
     width: 100%;
     padding: 10px 0;
@@ -134,7 +125,6 @@ a span p,
 
 #admin-toggle-button-model {
     display: none;
-<<<<<<< HEAD
 }
 
 #disable-group-card {
@@ -157,30 +147,6 @@ a span p,
     border-top: 0px;
 }
 
-=======
-}
-
-#disable-group-card {
-    margin-top: 10px;
-}
-
-#disable-group-card .card .card-header {
-    background-color: #e00011 !important;
-}
-
-#disable-group-card .card-header .card-title {
-    height: 36px;
-}
-
-#disable-group-card .card .card-content {
-    padding-bottom: 20px;
-}
-
-#disable-group-card .card .card-action {
-    border-top: 0px;
-}
-
->>>>>>> 3e256c8e73a4f68069b335fb195d93b6ff0134b8
 #disable-group-card .card .card-action a {
     color: #e00011;
     background-color: #fafbfc;

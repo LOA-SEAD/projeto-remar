@@ -54,8 +54,6 @@
             </div>
             <ul class="collapsible popout" data-collapsible="expandable">
                 <li>
-
-<<<<<<< HEAD
                     <g:if test="${groupsIBelong.empty}">
                         <div class="collapsible-header active">
                     </g:if>
@@ -86,28 +84,6 @@
                             </div>
                             </g:form>
                         </div>
-=======
-                    <div id="info" class="collapsible-body">
-                    <div class="row">
-                        <g:if test="${flash.message}">
-                            ${flash.message}
-                        </g:if>
-                        <g:form action="addUserByToken" method="post">
-                        <div class="col offset-l4 offset-s2 offset-m3">
-                            <!--form id="add-user-form"-->
-                                <div class="input-field col l6 s6">
-                                    <input class="user-input" name="membertoken" id="member-token" type="text" placeholder="Código de acesso" required>
-                                    <label for="member-token"></label>
-                                </div>
-                                <div id="input-bottom" class="col l6 s4 m6">
-                                    <button type="submit" title="Entre com o código de acesso" style="font-size: 0.8em; top: 1.4em; position:relative;"  class="btn waves-effect waves-light remar-orange">Entrar
-
-                                    </button>
-                                </div>
-                            <!--/form-->
-                        </div>
-                        </g:form>
->>>>>>> 3e256c8e73a4f68069b335fb195d93b6ff0134b8
                     </div>
                 </li>
             </ul>
