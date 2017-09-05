@@ -5,16 +5,13 @@ import static org.springframework.http.HttpStatus.*
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.transaction.Transactional
 import grails.util.Environment
-import groovy.json.JsonSlurper
 
 @Secured(["isAuthenticated()"])
 class PergaminhoBanhadoController {
 
     def springSecurityService
-
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", exportLevel: "POST"]
-
-    def beforeInterceptor = [action: this.&check, only: ['index', 'exportLevel']]
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", exportLevel: "POST"]
+    def beforeInterceptor = [action: this.&check, only: ['index', 'exportLevel','save', 'update', 'delete']]
 
     private check() {
         if (springSecurityService.isLoggedIn())
@@ -39,7 +36,17 @@ class PergaminhoBanhadoController {
         if (params.p) {
             session.processId = params.p
         }
-        respond new PergaminhoBanhado(params)
+        //respond new PergaminhoBanhado(params)
+        session.user = springSecurityService.currentUser
+
+        def list = PergaminhoBanhado.findAllByOwnerId(session.user.id)
+
+        if(list.size()==0){
+            new PergaminhoBanhado(information: ["Informação 1", "Informação 2", "Informação 3", "Informação 4"], ownerId:  session.user.id, taskId: session.taskId).save flush: true
+        }
+
+        list = PergaminhoBanhado.findAllByOwnerId(session.user.id)
+        respond list, model: [pergaminhoBanhadoInstanceCount: PergaminhoBanhado.count(), errorImportQuestions:params.errorImportQuestions]
     }
 
     def show(PergaminhoBanhado pergaminhoBanhadoInstance) {
@@ -57,10 +64,10 @@ class PergaminhoBanhadoController {
             return
         }
 
-        if (pergaminhoBanhadoInstance.hasErrors()) {
+        /*if (pergaminhoBanhadoInstance.hasErrors()) {
             respond pergaminhoBanhadoInstance.errors, view:'create'
             return
-        }
+        }*/
 
         pergaminhoBanhadoInstance.information[0]= params.information1
         pergaminhoBanhadoInstance.information[1]= params.information2
@@ -68,8 +75,8 @@ class PergaminhoBanhadoController {
         pergaminhoBanhadoInstance.information[3]= params.information4
         pergaminhoBanhadoInstance.ownerId = session.user.id as long
         pergaminhoBanhadoInstance.taskId = session.taskId as String
-
         pergaminhoBanhadoInstance.save flush:true
+        redirect(action: "index")
 
         /*request.withFormat {
             form multipartForm {
@@ -86,7 +93,7 @@ class PergaminhoBanhadoController {
 
     @Transactional
     def update(PergaminhoBanhado pergaminhoBanhadoInstance) {
-        if (pergaminhoBanhadoInstance == null) {
+        /*if (pergaminhoBanhadoInstance == null) {
             notFound()
             return
         }
@@ -104,7 +111,17 @@ class PergaminhoBanhadoController {
                 redirect pergaminhoBanhadoInstance
             }
             '*'{ respond pergaminhoBanhadoInstance, [status: OK] }
-        }
+        }*/
+
+        //PergaminhoBanhado pergaminhoBanhadoInstance = PergaminhoBanhado.findById(Integer.parseInt(params.pergaminhoBanhadoID))
+        pergaminhoBanhadoInstance.information[0] = params.information1
+        pergaminhoBanhadoInstance.information[1] = params.information2
+        pergaminhoBanhadoInstance.information[2] = params.information3
+        pergaminhoBanhadoInstance.information[3] = params.information4
+        pergaminhoBanhadoInstance.ownerId = session.user.id as long
+        pergaminhoBanhadoInstance.taskId = session.taskId as String
+        pergaminhoBanhadoInstance.save flush:true
+        redirect(action: "index")
     }
 
     @Transactional
@@ -116,14 +133,15 @@ class PergaminhoBanhadoController {
         }
 
         pergaminhoBanhadoInstance.delete flush:true
+        render "delete OK"
 
-        request.withFormat {
+        /*request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'PergaminhoBanhado.label', default: 'PergaminhoBanhado'), pergaminhoBanhadoInstance.id])
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }
-        }
+        }*/
     }
 
     protected void notFound() {
@@ -137,6 +155,22 @@ class PergaminhoBanhadoController {
     }
 
     @Secured(['permitAll'])
+    def returnInstance(PergaminhoBanhado pergaminhoBanhadoInstance){
+        if (pergaminhoBanhadoInstance == null) {
+            //notFound()
+            render "null"
+        }
+        else{
+            render pergaminhoBanhadoInstance.information[0] + "%@!" +
+                    pergaminhoBanhadoInstance.information[1] + "%@!" +
+                    pergaminhoBanhadoInstance.information[2] + "%@!" +
+                    pergaminhoBanhadoInstance.information[3] + "%@!" +
+                    pergaminhoBanhadoInstance.id
+        }
+
+    }
+
+    @Transactional
     def exportLevel(){
         //coleta os valores digitados pelo usuario
         PergaminhoBanhado pergaminhoBanhado = new PergaminhoBanhado()
