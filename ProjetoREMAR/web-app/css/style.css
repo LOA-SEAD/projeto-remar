@@ -1109,6 +1109,7 @@ h6 span{
      color: #4CAF50 !important;
 }
 
+<<<<<<< HEAD
 /* Error Box */
 .error-box, .warning-box, .success-box {
     margin: 10px 15px;
@@ -1132,6 +1133,8 @@ h6 span{
     vertical-align: middle;
 }
 
+=======
+>>>>>>> 3e256c8e73a4f68069b335fb195d93b6ff0134b8
 /* ETC */
 .modal-wrapper-10 .remar-modal {
     width: 10% !important;

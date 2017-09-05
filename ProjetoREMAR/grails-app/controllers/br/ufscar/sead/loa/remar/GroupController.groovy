@@ -310,6 +310,7 @@ class GroupController {
         def group = Group.findById(params.id)
         def userGroup = UserGroup.findByUserAndGroup(user,group)
         userGroup.delete flush: true
+
         redirect status: 200, action: "list"
     }
 
