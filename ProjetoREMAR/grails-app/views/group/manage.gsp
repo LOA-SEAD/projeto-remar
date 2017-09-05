@@ -10,7 +10,7 @@
         <div class="row cluster">
             <div class="row">
                 <div class="row cluster-header">
-                    <h4>Informações de ${group.name}</h4>
+                    <h4>Informações de <a href="/group/show/${group.id}">${group.name}</a></h4>
                     <div class="divider"></div>
                 </div>
 
@@ -22,19 +22,19 @@
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <input required id="group-name" name="groupname" value="${group.name}" type="text" class="validate">
-                                        <label class="active" for="group-name-input">Nome do Grupo</label>
+                                        <label class="active" for="group-name">Nome do Grupo</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <input required id="group-token" name="grouptoken" value="${group.token}" type="text" class="validate">
-                                        <label class="active" for="group-token-input">Código de Acesso</label>
+                                        <label class="active" for="group-token">Código de Acesso</label>
                                     </div>
                                 </div>
                                 <input id="group-id" name="groupid" type="hidden" value="${group.id}">
                                 <div class="row">
-                                    <div class="input-field col">
-                                        <input id="group-management-submit" type="submit" class="waves-effect waves-light btn">
+                                    <div class="input-field col s12 center-align">
+                                        <input id="group-management-submit" type="submit" class="waves-effect waves-light btn" value="Salvar">
                                     </div>
                                 </div>
                             </form>
@@ -49,66 +49,146 @@
                     <div class="divider"></div>
                 </div>
 
-                <div class="row show">
-                    %{-- Painel de gerenciamento de usuários --}%
-                    <section class="user-management">
-                        <div class="user-selection-box-container">
-                            <p>Membros do Grupo</p>
-                            <div class="user-selection-box">
-                                <form action="#" id="in-group-form">
-                                    <div class="user-list-container">
-                                        <g:each var="user" in="${usersInGroup}">
-                                            <g:if test="${group.owner.id != user.id}">
-                                                <span>
-                                                    <input id="checkbox-user-${user.id}" data-user-id="${user.id}" type="checkbox" class="filled-in"/>
-                                                    <label for="checkbox-user-${user.id}"> ${user.name} (${user.username})</label>
-                                                </span>
-                                            </g:if>
-                                        </g:each>
+                %{-- Painel de gerenciamento de usuários --}%
+                <div id="user-management-panel" class="row no-margin">
+                    <div class="col s6">
+                        <div class="row">
+                            <div class="user-list-box-container col s12">
+                                <div class="row no-margin">
+                                    <div class="col s12 center-align user-list-box-title">
+                                        Membros do Grupo
                                     </div>
-                                </form>
+                                </div>
+
+                                <ul id="members" class="row user-list-box sortable">
+                                    <g:each in="${usersInGroup}" status="i" var="user">
+                                        <li class="row no-margin valign-wrapper" data-user-id="${fieldValue(bean: user.userInstance, field: "id")}">
+                                            <div class="col m2 center-align hide-on-small-only valign-wrapper">
+                                                <i class="material-icons">drag_handle</i>
+                                            </div>
+                                            <div class="col s6 m7 left-align">
+                                                <p class="truncate no-padding no-margin">${fieldValue(bean: user.userInstance, field: "name")}</p>
+                                            </div>
+                                            <g:if test="${user.isAdmin}">
+                                                <div class="col s2 offset-s1 center-align valign-wrapper admin-toggle">
+                                                    <a href="#!" class="valign-wrapper active">
+                                                        <i class="click-hungry material-icons no-margin tooltipped" data-position="bottom" data-tooltip="Remover Administrador">
+                                                            verified_user
+                                                        </i>
+                                                    </a>
+                                                </div>
+                                            </g:if>
+                                            <g:else>
+                                                <div class="col s2 offset-s1 center-align valign-wrapper admin-toggle">
+                                                    <a href="#!" class="valign-wrapper">
+                                                        <i class="click-hungry material-icons no-margin tooltipped" data-position="bottom" data-tooltip="Tornar Administrador">
+                                                            verified_user
+                                                        </i>
+                                                    </a>
+                                                </div>
+                                            </g:else>
+                                        </li>
+                                    </g:each>
+                                </ul>
                             </div>
                         </div>
-
-                        <div class="buttons">
-                            <a id="remove-btn" class="waves-effect waves-light btn">
-                                <span>
-                                    <p>Remover</p>
-                                    <i class="fa fa-arrow-right"></i>
-                                </span>
-                            </a>
-                            <a id="add-btn" class="waves-effect waves-light btn">
-                                <span>
-                                    <i class="fa fa-arrow-left"></i>
-                                    <p>Adicionar</p>
-                                </span>
-                            </a>
-                        </div>
-
-                        <div class="user-selection-box-container">
-                            <p>Usuários do REMAR</p>
-                            <div class="user-selection-box">
-                                <form action="#" id="off-group-form">
-                                    <div class="user-list-container">
-                                        <g:each var="user" in="${usersNotInGroup}">
-                                            <g:if test="${group.owner.id != user.id}">
-                                                <span>
-                                                    <input id="checkbox-user-${user.id}" data-user-id="${user.id}" type="checkbox" class="filled-in"/>
-                                                    <label for="checkbox-user-${user.id}"> ${user.name} (${user.username})</label>
-                                                </span>
-                                            </g:if>
-                                        </g:each>
+                    </div>
+                    <div class="col s6">
+                        <div class="row">
+                            <div class="user-list-box-container col s12">
+                                <div class="row no-margin">
+                                    <div class="col s12 center-align user-list-box-title">
+                                        Usuários do REMAR
                                     </div>
-                                </form>
+                                </div>
+
+                                <ul id="available-users" class="row user-list-box sortable">
+                                    <g:each in="${usersNotInGroup}" status="i" var="user">
+                                        <g:if test="${group.owner.id != user.id}">
+                                            <li class="row no-margin valign-wrapper" data-user-id="${fieldValue(bean: user, field: "id")}">
+                                                <div class="col m2 center-align hide-on-small-only valign-wrapper">
+                                                    <i class="material-icons">drag_handle</i>
+                                                </div>
+                                                <div class="col s12 m10 left-align valign-wrapper">
+                                                    <p class="truncate no-padding no-margin">${fieldValue(bean: user, field: "name")}</p>
+                                                </div>
+                                            </li>
+                                        </g:if>
+                                    </g:each>
+                                </ul>
                             </div>
                         </div>
-                    </section>
+                    </div>
+
+                    <div>
+                        <label><b>Clique</b> para selecionar e <b>segure</b> para arrastar.</label>
+                        <label>Múltiplos usuário podem ser arrastados ao mesmo tempo.</label>
+                    </div>
+
+                    <!-- Admin toggle button model -->
+                    <div id="admin-toggle-button-model" class="col s2 offset-s1 center-align valign-wrapper admin-toggle">
+                        <a href="#!" class="valign-wrapper">
+                            <i class="click-hungry material-icons no-margin tooltipped">
+                                verified_user
+                            </i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            %{-- Painel deleção de grupo --}%
+            <div class="row">
+                <div class="row cluster-header">
+                    <h4>Remover Grupo</h4>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="row" id="disable-group-card">
+                    <div class="col s12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title"></div>
+                            </div>
+
+                            <div class="card-content">
+                                <p>Uma vez que você remover o grupo, não há como voltar atrás.</p>
+
+                                <p>Por favor tenha certeza antes de prosseguir.</p>
+                            </div>
+
+                            <div class="card-action">
+                                <a href="#confirm-removal-modal" class="waves-effect btn modal-trigger">
+                                    Remover este grupo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-wrapper-50">
+            <div id="confirm-removal-modal" class="modal remar-modal">
+                <div class="modal-content" id="modalContent">
+                    <h4>Confirmação de Remoção</h4>
+                    <p>Deseja mesmo remover o grupo? Esta ação é irreversível.</p>
+                </div>
+
+                <div class="modal-footer" id="modalFooter">
+                    <a href="${createLink(controller: 'group', action: 'delete', params: [id: group.id])}" class="modal-action modal-close btn waves-effect waves-light remar-orange">
+                        Sim
+                    </a>
+                    <a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">
+                        Não
+                    </a>
                 </div>
             </div>
         </div>
 
         <g:external dir="css" file="groupManagement.css"/>
+        <g:external dir="css" file="jquery.ui.min.css"/>
         <g:javascript src="group/manage-user-group.js"/>
         <g:javascript src="jquery/jquery.validate.js"/>
+        <g:javascript src="jquery/jquery.ui.min.js"/>
     </body>
 </html>

@@ -190,10 +190,10 @@ class GroupController {
     @Transactional
     def delete() {
         def group = Group.findById(params.id)
-        if(group.owner.id == session.user.id){
+        if(group.owner.id == session.user.id) {
             group.delete flush: true
             redirect(action: "list")
-        }else
+        } else
             render (status: 401, view: "../401")
 
     }
@@ -218,39 +218,67 @@ class GroupController {
         def group = Group.findById(params.id)
         def usersInGroup = []
         def usersNotInGroup= []
+        session.groupid = params.id
 
         for (user in User.list()) {
-            if (UserGroup.findByUserAndGroup(user, group))
-                usersInGroup.add(user)
+            def userGroup = UserGroup.findByUserAndGroup(user, group)
+            if (userGroup)
+                usersInGroup.add([
+                    userInstance: user,
+                    isAdmin: userGroup.admin
+                ])
             else
                 usersNotInGroup.add(user)
         }
-
         render view: "manage", model: [group: group, usersInGroup: usersInGroup, usersNotInGroup: usersNotInGroup]
     }
 
     def addUsers() {
-        def group = Group.findById(params.groupid)
+        def group = Group.findById(session.groupid)
 
-        for (id in JSON.parse(params.users)) {
-            def user = User.findById(id)
-            def userGroup = new UserGroup(user: user, group: group)
-            userGroup.save flush: true
+        try {
+            for (id in JSON.parse(params.users)) {
+                def user = User.findById(id)
+                def userGroup = new UserGroup(user: user, group: group)
+                userGroup.save flush: true
+            }
+        } catch (e) {
+            render (status: 410, text: "ERROR: Failed adding user from group")
+            return
         }
 
-        forward action: "edit", id: params.groupid
+        render (status: 200)
     }
 
     def removeUsers() {
-        def group = Group.findById(params.groupid)
+        def group = Group.findById(session.groupid)
 
-        for (id in JSON.parse(params.users)) {
-            def user = User.findById(id)
-            def userGroup = UserGroup.findByUserAndGroup(user, group)
-            userGroup.delete flush: true
+        try {
+            for (id in JSON.parse(params.users)) {
+                def user = User.findById(id)
+                def userGroup = UserGroup.findByUserAndGroup(user, group)
+                userGroup.delete flush: true
+            }
+        } catch (e) {
+            render (status: 410, text: "ERROR: Failed removing user from group")
+            return
         }
 
-        forward action: "edit", id: params.groupid
+        render (status: 200)
+    }
+
+    def toggleUserAdminStatus() {
+        def group = Group.findById(session.groupid)
+
+        try {
+            def user = User.findById(params.userid)
+            def userGroup = UserGroup.findByUserAndGroup(user, group)
+
+            userGroup.admin = !userGroup.admin
+            userGroup.save flush:true
+        } catch (e) {
+            render (status: 410, text: "ERROR: Failed toggling user admin status")
+        }
     }
 
     def leaveGroup(){
@@ -258,7 +286,7 @@ class GroupController {
         def group = Group.findById(params.id)
         def userGroup = UserGroup.findByUserAndGroup(user,group)
         userGroup.delete flush: true
-        redirect(status: 200,action: "list")
+        redirect (status: 200,action: "list")
     }
 
     def addUserAutocomplete() {

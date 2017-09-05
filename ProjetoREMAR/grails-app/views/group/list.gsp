@@ -57,8 +57,8 @@
 
                     <div id="info" class="collapsible-body">
                     <div class="row">
-                        <g:if test="${flash.message }">
-                            ${flash.message }
+                        <g:if test="${flash.message}">
+                            ${flash.message}
                         </g:if>
                         <g:form action="addUserByToken" method="post">
                         <div class="col offset-l4 offset-s2 offset-m3">
