@@ -40,31 +40,37 @@ class GroupController {
     def create(){
         def groupInstance = new Group()
 
-        groupInstance.owner = session.user
-        groupInstance.name = params.groupname
-
-        try {
+        if (!params.groupname || params.groupname.allWhitespace) {
+            request.message = "blank_name"
+            render view: "new"
+            return
+        } else if (params.groupname && Group.findByName(params.groupname)) {
+            request.message = "name_already_exists"
+            render view: "new"
+            return
+        } else {
+            groupInstance.name = params.groupname
+            groupInstance.owner = session.user
             groupInstance.token = RandomStringUtils.random(10, true, true)
-            groupInstance.save flush: true, failOnError: true
 
-        }catch(ValidationException e){
-            //TODO
+            groupInstance.save flush: true, failOnError: true
         }
 
-        render groupInstance.id
-
+        redirect action: "show", id: groupInstance.id
     }
 
     def show(){
         def group = Group.findById(params.id)
         def userGroup = UserGroup.findByUserAndGroup(session.user,group)
 
+        session.group = group
+
         if( group.owner.id == session.user.id ||  userGroup){
             def groupExportedResources = group.groupExportedResources.toList().sort({it.id})
             render(view: "show", model: [group: group, groupExportedResources: groupExportedResources])
             response.status = 200
         }else
-            render (status: 401, view: "../401")
+            render status: 401, view: "../401"
     }
 
     def isLogged(){
@@ -134,11 +140,11 @@ class GroupController {
                 }
 
             }else{
-                render (status: 401, view: "../401")
+                render status: 401, view: "../401"
             }
         }else {
-            println "fobbiden"
-            render(status: 401, view: "../401")
+            println "forbbiden"
+            render status: 401, view: "../401"
         }
 
     }
@@ -201,15 +207,33 @@ class GroupController {
     @Transactional
     def update() {
         def group = Group.findById(params.groupid)
+        def errors = [
+                blank_name: false,
+                name_already_exists: false,
+                blank_token: false
+        ]
 
         if (group == null) {
             println "GroupController.update() could not find group with id: " + params.groupid
             return
         }
 
-        group.name = params.groupname
-        group.token = params.grouptoken
+        if (!params.groupname || params.groupname.allWhitespace) {
+            errors.blank_name = true
+        } else if (params.groupname && Group.findByName(params.groupname)) {
+            errors.name_already_exists = true
+        } else {
+            group.name = params.groupname
+        }
+
+        if (!params.grouptoken || params.grouptoken.allWhitespace) {
+            errors.blank_token = true
+        } else {
+            group.token = params.grouptoken
+        }
+
         group.save flush: true
+        request.error = errors
 
         forward action: "edit", id: params.groupid
     }
@@ -286,7 +310,7 @@ class GroupController {
         def group = Group.findById(params.id)
         def userGroup = UserGroup.findByUserAndGroup(user,group)
         userGroup.delete flush: true
-        redirect (status: 200,action: "list")
+        redirect status: 200, action: "list"
     }
 
     def addUserAutocomplete() {
@@ -352,12 +376,6 @@ class GroupController {
             userGroup.user = user
             userGroup.save flush:true
         }
-    }
-
-    def findGroup(){
-        println(params.name)
-        def group = Group.findByNameAndOwner(params.name, session.user)
-        render group
     }
 
     def rankUsers() {

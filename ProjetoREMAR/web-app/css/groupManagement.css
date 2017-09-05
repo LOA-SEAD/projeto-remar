@@ -1,3 +1,7 @@
+.row.show {
+    margin-bottom: 30px;
+}
+
 .sortable {
     height: 100%;
     list-style-type: none;

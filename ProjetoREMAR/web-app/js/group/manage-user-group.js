@@ -9,36 +9,6 @@ $(document).ready(function () {
     $('.modal-trigger').leanModal();
     $('.tooltipped').tooltip({delay: 50});
 
-    $('input').on('input', function() {
-        $(this).val(function (_, v) {
-            return v.replace(/\s+/g, '');
-        });
-    });
-
-    $('form').validate({
-        rules: {
-            groupname: {
-                required: true
-            },
-            grouptoken: {
-                required: true,
-                minlength: 5
-            }
-        },
-        messages: {
-            groupname: {
-                required: "Por favor, dê um nome ao grupo"
-            },
-            grouptoken: {
-                required: "É necessário haver um código de acesso para o grupo"
-            }
-        },
-        errorElement: 'span',
-        errorClass: 'invalid-input',
-        highlight: highlight,
-        unhighlight: unhighlight
-    });
-
     $('.admin-toggle a').click(function (e) {
         e.stopPropagation();
 
@@ -67,7 +37,6 @@ $(document).ready(function () {
         }
     });
 
-    var selectedObjs;
     $('.sortable')
      .on('click', 'li', function(e) {
          // stops row from turning into 'active' state if clicked on the admin-toggle button
@@ -191,18 +160,3 @@ $(document).ready(function () {
          }
      });
 });
-
-function unhighlight (el) {
-    $(el).removeClass('invalid');
-    $(el).addClass('valid');
-}
-
-function highlight (el) {
-    $(el).removeClass('input-error');
-    $(el).addClass('invalid');
-
-    if($(el).attr("data-done") == "true") {
-        $(el).siblings(".suffix").remove();
-        $(el).removeAttr("data-done");
-    }
-}

@@ -5,8 +5,8 @@
     </head>
     <body>
         <div class="row cluster">
-            <div class="row">
-                <div class="cluster-header">
+            <div class="row show">
+                <div class="row cluster-header">
                     <div id="main-header" class="row" style="margin-bottom: 0px">
                         <div class="col s6 left-align">
                             <h4 id="group-name">${group.name}</h4>
@@ -37,188 +37,53 @@
                     </div>
 
                     <input type="hidden" value="${group.id}" id="group-id" name="groupid">
-
                     <div class="divider"></div>
                 </div>
 
-                <div class="row show">
-                    <!-- Jogos Compartilhados -->
-                    <div class="cardGames">
-                        <div class="row">
-                            <div style="position: relative; left: 1em">
-                                <g:if test="${!groupExportedResources.empty}">
-                                    <g:each var="groupExportedResource" in="${groupExportedResources}">
-                                        <div class="col l3 s5">
-                                            <div id="card-group-exported-resource-${groupExportedResource.id}" class="card hoverable">
-                                                <div class="card-image waves-effect waves-block waves-light">
-                                                    <img class="activator"
-                                                         src="/published/${groupExportedResource.exportedResource.processId}/banner.png">
-                                                </div>
-                                                <div class="card-content">
-                                                    <span style="font-size: 1.3em;"
-                                                          class="card-title grey-text text-darken-4 activator center-align truncate">${groupExportedResource.exportedResource.name}</span>
-                                                    <div class="divider"></div>
-                                                    <span style="color: dimgrey; font-size: 0.9em"
-                                                          class="center">${groupExportedResource.exportedResource.resource.category.name}</span>
-                                                    <span style="color: dimgrey; font-size: 0.9em"
-                                                          class="center truncate">Feito por: ${groupExportedResource.exportedResource.owner.username}</span>
-                                                    <span style="color: dimgrey;" class="center">
-                                                        <i class="fa fa-globe"></i>
-                                                        <g:if test="${groupExportedResource.exportedResource.resource.android}">
-                                                            <i class="fa fa-android" data-tooltip="Android"></i>
-                                                        </g:if>
-                                                        <g:if test="${groupExportedResource.exportedResource.resource.desktop}">
-                                                            <i class="fa fa-windows" data-tooltip="Windows"></i>
-                                                            <i class="tooltipped fa fa-linux" data-position="bottom" data-tooltip="Linux"></i>
-                                                            <i class="fa fa-apple" data-tooltip="Mac"></i>
-                                                        </g:if>
-                                                        <g:if test="${groupExportedResource.exportedResource.resource.moodle}">
-                                                            <i class="fa fa-graduation-cap"></i>
-                                                        </g:if>
-                                                    </span>
-                                                </div>
-                                                <div class="right">
-                                                    <i class="activator material-icons" style="color: black; cursor: pointer">more_vert</i>
-                                                </div>
-                                                <div class="card-reveal">
-                                                    <div class="row">
-                                                        <h5 class="card-title grey-text text-darken-4 col l12 truncate"><small
-                                                                class="left">Jogar:</small><i class="material-icons right">close</i>
-                                                        </h5><br>
-                                                        <div class="col l4">
-                                                            <a style="font-size: 2em; color: black;" target="_blank"
-                                                               href="/published/${groupExportedResource.exportedResource.processId}/web"
-                                                               class="tooltipped" data-position="right" data-delay="50"
-                                                               data-tooltip="Web"><i class="fa fa-globe"></i></a>
-                                                        </div>
-                                                        <g:if test="${groupExportedResource.exportedResource.resource.desktop}">
-                                                            <div class="col l4">
-                                                                <a style="font-size: 2em; color: black;" target="_blank"
-                                                                   href="/published/${groupExportedResource.exportedResource.processId}/desktop/${groupExportedResource.exportedResource.resource.uri}-linux.zip"
-                                                                   class="tooltipped" data-position="right" data-delay="50"
-                                                                   data-tooltip="Linux"><i class="fa fa-linux"></i></a>
-                                                            </div>
-                                                            <div class="col l4">
-                                                                <a style="font-size: 2em; color: black;" target="_blank"
-                                                                   href="/published/${groupExportedResource.exportedResource.processId}/desktop/${groupExportedResource.exportedResource.resource.uri}-windows.zip"
-                                                                   class="tooltipped" data-position="right" data-delay="50"
-                                                                   data-tooltip="Windows"><i class="fa fa-windows"></i></a> <br>
-                                                            </div>
-                                                            <div class="col l4">
-                                                                <a style="font-size: 2em; color: black;" target="_blank"
-                                                                   href="/published/${groupExportedResource.exportedResource.processId}/desktop/${groupExportedResource.exportedResource.resource.uri}-mac.zip"
-                                                                   class="tooltipped" data-position="right" data-delay="50"
-                                                                   data-tooltip="Mac"><i class="fa fa-apple"></i></a> <br>
-                                                            </div>
-                                                        </g:if>
-                                                        <div class="col l4">
-                                                            <g:if test="${groupExportedResource.exportedResource.resource.android}">
-                                                                <a style="font-size: 2em; color: black;" target="_blank"
-                                                                   href="/published/${groupExportedResource.exportedResource.processId}/mobile/${groupExportedResource.exportedResource.resource.uri}-android.zip"
-                                                                   class="tooltipped" data-position="right" data-delay="50"
-                                                                   data-tooltip="Android"><i class="fa fa-android"></i></a> <br>
-                                                            </g:if>
-                                                        </div>
-                                                        <div class="col l4">
-                                                            <g:if test="${groupExportedResource.exportedResource.resource.moodle}">
-                                                                <a style="font-size: 2em; color: black;" class="tooltipped"
-                                                                   data-position="right" data-delay="50"
-                                                                   data-tooltip="Disponível no Moodle"><i class="fa fa-graduation-cap"></i>
-                                                                </a>
-                                                            </g:if>
-                                                        </div>
-                                                    </div>
-                                                    <div class="divider"></div><br>
-                                                    <div class="row">
-                                                        <div class="center">
-                                                            <g:if test="${group.owner.id == session.user.id}">
-                                                                <div class="col l4">
-                                                                    <a class="modal-trigger tooltipped"
-                                                                       href="#modal-confirmation-exported-resource-${groupExportedResource.id}"
-                                                                       style="cursor: pointer"
-                                                                       data-position="bottom" data-delay="50" data-tooltip="Descompartilhar">
-                                                                        <i class="fa fa-trash fa-2x" style="color: #FF5722;"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </g:if>
-                                                            <g:if test="${group.owner.id == session.user.id || UserGroup.findByUserAndAdmin(session.user, true)}">
-                                                                <div class="col l4">
-                                                                    <a class="show-stats tooltipped"
-                                                                       href="/group/stats/${group.id}?exp=${groupExportedResource.exportedResource.id}"
-                                                                       data-exported-resource-id="${groupExportedResource.exportedResource.id}"
-                                                                       style="cursor: pointer"
-                                                                       id="delete-resource-${groupExportedResource.id}"
-                                                                       data-resource-id="${groupExportedResource.id}"
-                                                                       data-position="bottom" data-delay="50" data-tooltip="Estatísticas">
-                                                                        <i class="fa fa-bar-chart fa-2x" style="color: #FF5722;"></i>
-                                                                    </a>
-                                                                </div>
-                                                            </g:if>
-                                                            <div class="col l4">
-                                                                <a id="show-ranking-${groupExportedResource.id}" class="show-ranking tooltipped"
-                                                                   href="/group/rankUsers?groupId=${group.id}&exportedResourceId=${groupExportedResource.exportedResource.id}"
-                                                                   data-exported-resource-id="${groupExportedResource.exportedResource.id}"
-                                                                   data-resource-id="${groupExportedResource.id}"
-                                                                   data-position="bottom" data-delay="50" data-tooltip="Ranking">
-                                                                    <i class="fa fa-trophy fa-2x" style="color: #FF55722;"></i>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Modal de confirmação de exclusão -->
-                                        <div id="modal-confirmation-exported-resource-${groupExportedResource.id}" class="modal">
-                                            <div class="modal-content">
-                                                <p>Tem certeza que deseja realizar esta ação</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Não</a>
-                                                <a id="delete-resource-${groupExportedResource.id}"
-                                                   data-resource-id="${groupExportedResource.id}"
-                                                   class="modal-action modal-close waves-effect waves-green btn-flat remove-resource">Sim</a>
-                                            </div>
-                                        </div>
-                                    </g:each>
-                                </g:if>
-                            </div>
+                <!-- Jogos Compartilhados -->
+                <div id="shared-resources row">
+                    <g:if test="${!groupExportedResources.empty}">
+                        <g:each var="groupExportedResource" in="${groupExportedResources}">
+                            <g:render template="sharedResourceCard" model="[groupExportedResource: groupExportedResource]"/>
+                        </g:each>
+                    </g:if>
+                    <g:else>
+                        <div class="warning-box">
+                            <i class="material-icons tiny">warning</i>
+                            Não há nenhum jogo compartilhado com este grupo.
                         </div>
-                    </div>
+                    </g:else>
                 </div>
             </div>
-        </div>
 
-        <g:if test="${group.owner.id == session.user.id || UserGroup.findByUserAndAdminAndGroup(session.user, true, group)}">
+            <g:if test="${group.owner.id == session.user.id || UserGroup.findByUserAndAdminAndGroup(session.user, true, group)}">
             <!-- Compartilhamento de Jogos -->
-            <div class="row cluster">
+            <div class="row show">
+                <div class="cluster-header">
+                    <h4>Compartilhamento de Jogos</h4>
+                    <div class="divider"></div>
+                </div>
                 <div class="row">
-                    <div class="cluster-header">
-        	            <h4>Compartilhamento de Jogos</h4>
-        	            <div class="divider"></div>
-        	        </div>
-        	        <div class="row show">
-                        <div id="info" style="padding-left: 15px;">
-                            <p align="left">
-                                <u>Informações sobre o compartilhamento de jogos</u>
-                            </p>
-                            <p align="left" style="margin-left: 20px;">
-                                Acesse <g:link controller="exportedResource" action="publicGames">Banco de Jogos</g:link>
-                                ou <g:link controller="exportedResource" action="MyGames">Meus Jogos</g:link>
-                            </p>
-                            <p align="left" style="margin-left: 20px;">
-                                Escolha um Jogo e clique na opção "Compartilhar para grupos" <i class="fa fa-users" style="color: #FF5722;"></i>
-                            </p>
-                            <p align="left" style="margin-left: 20px;">
-                                <span class="bold">Obs:</span> Você também pode compartilhar um jogo ao término de sua customização.
-                            </p>
-                        </div>
-                        <div class="clearfix"></div>
+                    <div id="info" style="padding-left: 15px;">
+                        <p align="left">
+                            <u>Informações sobre o compartilhamento de jogos</u>
+                        </p>
+                        <p align="left" style="margin-left: 20px;">
+                            Acesse <g:link controller="exportedResource" action="publicGames">Banco de Jogos</g:link>
+                            ou <g:link controller="exportedResource" action="MyGames">Meus Jogos</g:link>
+                        </p>
+                        <p align="left" style="margin-left: 20px;">
+                            Escolha um Jogo e clique na opção "Compartilhar para grupos" <i class="fa fa-users" style="color: #FF5722;"></i>
+                        </p>
+                        <p align="left" style="margin-left: 20px;">
+                            <span class="bold">Obs:</span> Você também pode compartilhar um jogo ao término de sua customização.
+                        </p>
                     </div>
+                    <div class="clearfix"></div>
                 </div>
             </div>
-        </g:if>
+            </g:if>
+        </div>
 
         <!-- Modal Structures -->
         <div id="modal-users" class="modal bottom-sheet">
@@ -283,9 +148,6 @@
 
         <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
         <g:javascript src="group/delete-group-resources.js"/>
-        <g:javascript src="group/manage-user-group.js"/>
-        <g:javascript src="group/edit-group.js"/>
-        <g:javascript src="group/group-ranking.js"/>
-        <g:javascript src="jquery/jquery.validate.js"/>
+        <g:javascript src="group/group.js"/>
     </body>
 </html>

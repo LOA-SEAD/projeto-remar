@@ -8,9 +8,7 @@
 <body>
 <div class="row cluster">
     <div class="cluster-header">
-        <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 24px;">
-            Meus Jogos
-        </p>
+        <h4>Meus Jogos</h4>
         <div class="divider"></div>
     </div>
     <div class="row">

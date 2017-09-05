@@ -5,10 +5,10 @@ class GroupExportedResourcesController {
     def index() {}
 
     def deleteGroupExportedResources() {
-        def exportedResourceId = ExportedResource.findById(params.exportedresource) // pega o id do jogo
-        def groupId = Group.findById(params.groupid) // pega o id do grupo
+        def exportedResource = ExportedResource.findById(params.exportedresource)
+        def group = session.group
 
-        def groupExportedResource =  GroupExportedResources.findByGroupAndExportedResource(groupId, exportedResourceId)
+        def groupExportedResource =  GroupExportedResources.findByGroupAndExportedResource(group, exportedResource)
 
         if (groupExportedResource) { // pesquisa se o jogo ja pertence ao respectivo grupo
             groupExportedResource.delete flush: true
@@ -20,8 +20,8 @@ class GroupExportedResourcesController {
     }
 
     def addGroupExportedResources() {
-        def exportedResourceId = ExportedResource.findById(params.exportedresource) // pega o id do jogo
-        def groupId = Group.findById(params.groupid) // pega o id do grupo
+        def exportedResourceId = ExportedResource.findById(params.exportedresource)
+        def groupId = Group.findById(params.groupid)
 
         def groupExportedResource = new GroupExportedResources() // declara um novo grupo (a ser gravado ou não)
 

@@ -8,49 +8,67 @@
 
     <body>
         <div class="row cluster">
-            <div class="row">
+            <div class="row no-margin">
                 <div class="row cluster-header">
                     <h4>Informações de <a href="/group/show/${group.id}">${group.name}</a></h4>
                     <div class="divider"></div>
                 </div>
 
                 <div class="row show">
-                    %{-- Formulário informações de grupo --}%
-                    <section class="group-management">
-                        <div class="row">
-                            <form action="/group/update" name="group-management-form" class="col s12">
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input required id="group-name" name="groupname" value="${group.name}" type="text" class="validate">
-                                        <label class="active" for="group-name">Nome do Grupo</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input required id="group-token" name="grouptoken" value="${group.token}" type="text" class="validate">
-                                        <label class="active" for="group-token">Código de Acesso</label>
-                                    </div>
-                                </div>
-                                <input id="group-id" name="groupid" type="hidden" value="${group.id}">
-                                <div class="row">
-                                    <div class="input-field col s12 center-align">
-                                        <input id="group-management-submit" type="submit" class="waves-effect waves-light btn" value="Salvar">
-                                    </div>
-                                </div>
-                            </form>
+                    %{-- Erros no preenchimento do formulário --}%
+                    <g:if test="${request.error?.blank_name}">
+                        <div class="error-box">
+                            <i class="material-icons tiny">error</i>
+                            Nome do grupo não pode ser vazio.
                         </div>
-                    </section>
+                    </g:if>
+                    <g:if test="${request.error?.name_already_exists}">
+                        <div class="error-box">
+                            <i class="material-icons tiny">error</i>
+                            Um grupo com o mesmo nome já existe.
+                        </div>
+                    </g:if>
+                    <g:if test="${request.error?.blank_token}">
+                        <div class="error-box">
+                            <i class="material-icons tiny">error</i>
+                            Código de acesso não pode ser vazio.
+                        </div>
+                    </g:if>
+
+                    %{-- Formulário informações de grupo --}%
+                    <div class="row no-margin">
+                        <form action="/group/update" name="group-management-form" class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="group-name" name="groupname" value="${group.name}" type="text">
+                                    <label class="active" for="group-name">Nome do Grupo</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="group-token" name="grouptoken" value="${group.token}" type="text">
+                                    <label class="active" for="group-token">Código de Acesso</label>
+                                </div>
+                            </div>
+                            <input id="group-id" name="groupid" type="hidden" value="${group.id}">
+                            <div class="row no-margin">
+                                <div class="input-field col s12 center-align">
+                                    <input id="group-management-submit" type="submit" class="waves-effect waves-light btn" value="Salvar">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row no-margin">
                 <div class="row cluster-header">
                     <h4>Gerenciamento de Membros</h4>
                     <div class="divider"></div>
                 </div>
 
                 %{-- Painel de gerenciamento de usuários --}%
-                <div id="user-management-panel" class="row no-margin">
+                <div id="user-management-panel" class="row show">
                     <div class="col s6">
                         <div class="row">
                             <div class="user-list-box-container col s12">
@@ -137,13 +155,13 @@
             </div>
 
             %{-- Painel deleção de grupo --}%
-            <div class="row">
+            <div class="row no-margin">
                 <div class="row cluster-header">
                     <h4>Remover Grupo</h4>
                     <div class="divider"></div>
                 </div>
 
-                <div class="row" id="disable-group-card">
+                <div class="row show" id="disable-group-card">
                     <div class="col s12">
                         <div class="card">
                             <div class="card-header">
@@ -188,7 +206,6 @@
         <g:external dir="css" file="groupManagement.css"/>
         <g:external dir="css" file="jquery.ui.min.css"/>
         <g:javascript src="group/manage-user-group.js"/>
-        <g:javascript src="jquery/jquery.validate.js"/>
         <g:javascript src="jquery/jquery.ui.min.js"/>
     </body>
 </html>
