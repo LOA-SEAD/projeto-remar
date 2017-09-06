@@ -92,7 +92,7 @@ class PergaminhoBanhadoController {
     }
 
     @Transactional
-    def update(PergaminhoBanhado pergaminhoBanhadoInstance) {
+    def update(/*PergaminhoBanhado pergaminhoBanhadoInstance*/) {
         /*if (pergaminhoBanhadoInstance == null) {
             notFound()
             return
@@ -113,7 +113,7 @@ class PergaminhoBanhadoController {
             '*'{ respond pergaminhoBanhadoInstance, [status: OK] }
         }*/
 
-        //PergaminhoBanhado pergaminhoBanhadoInstance = PergaminhoBanhado.findById(Integer.parseInt(params.pergaminhoBanhadoID))
+        PergaminhoBanhado pergaminhoBanhadoInstance = PergaminhoBanhado.findById(Integer.parseInt(params.pergaminhoBanhadoID))
         pergaminhoBanhadoInstance.information[0] = params.information1
         pergaminhoBanhadoInstance.information[1] = params.information2
         pergaminhoBanhadoInstance.information[2] = params.information3
@@ -204,7 +204,7 @@ class PergaminhoBanhadoController {
         File file = new File("$instancePath/"+fileName);
         def pw = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(file), "UTF-8"))
-        pw.write(pergaminhoBanhado.information[0].replace("\"","\\\"") + "\n" + pergaminhoBanhado.information[1].replace("\"","\\\"") + "\n" + pergaminhoBanhado.information[2].replace("\"","\\\"") + "\n" + pergaminhoBanhado.information[3].replace("\"","\\\"") + "\n")
+        pw.write(pergaminhoBanhado.information[0].replace("\"","\\\"") + "\n" + pergaminhoBanhado.information[1].replace("\"","\\\"") + "\n" + pergaminhoBanhado.information[2].replace("\"","\\\"") + "\n" + pergaminhoBanhado.information[3].replace("\"","\\\""))
         pw.close();
     }
 }

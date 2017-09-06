@@ -62,7 +62,7 @@ function _modal_edit(tr){
 }
 
 //CONSERTAR
-function exportInformations(){
+/*function exportInformations(){
     var list_id = [];
 
     $.each($("input[type=checkbox]:checked"), function(ignored, el) {
@@ -97,27 +97,28 @@ function exportInformations(){
 
             }
         });
-}
+}*/
 
 //CONSERTAR
 function _submit() {
     var list_id = [];
 
     //checa se o usuario selecionou exatamente 4 questoes
-    if($("input[type=checkbox]:checked").size() < 4) {
+    /*if($("input[type=checkbox]:checked").size() < 4) {
         $("#errorSaveModal").openModal();
     } else {
         //cria uma lista com os ids de cada questao selecionada
-        $.each($("input[type=checkbox]:checked"), function (ignored, el) {
+        $.each($("input[type=checkbox]:checked"), function (ignored, el) {*/
             var tr = $(el).parents().eq(1);
+            console.log(tr);
             list_id.push($(tr).attr('data-id'));
-        });
+        //});
 
         //chama o controlador para criar o arquivo json com as informacoes inseridas
         $.ajax({
             type: "POST",
             traditional: true,
-            url: "/santograu/faseCampoMinado/exportQuestions",
+            url: "/sanjarunner/pergaminhoBanhado/exportLevel",
             data: { list_id: list_id},
             success: function(returndata) {
                 window.top.location.href = returndata;
@@ -138,5 +139,5 @@ function _submit() {
                 }
             }
         });
-    }
+    //}
 }
