@@ -8,7 +8,7 @@ $(document).ready(function() {
     // Pre-defined loading time
     setTimeout(function() {
         $('#loading-screen').fadeOut(1000, function() {
-            $(this).remove();
+            $(this).hide();
         });
     }, 1000);
 
@@ -48,41 +48,56 @@ $(document).ready(function() {
         }
     });
 
+
     // change which model the user will download based on what tile presentation option was chosen
     // since it's a checkbox, it has checked or not checked states (true or false)
     // true = horizontal
     // false = vertical
     $('.switch :checkbox').change(function() {
-        if (this.checked) {
+
+        if ($('.switch :checkbox').prop('checked')) {
             fadeInOut($('#model-orientation'), 'horizontal');
             $('#model-download').attr('href', '/memoria/samples/tilesample_h.zip');
+            sessionStorage.setItem("SessionOrientation", "h");
         } else {
             fadeInOut($('#model-orientation'), 'vertical');
             $('#model-download').attr('href', '/memoria/samples/tilesample_v.zip');
+            sessionStorage.setItem("SessionOrientation", "v");
         }
     });
+
+    // if the user had set the orientation to "h" before, we should forcely click
+    // the switch via code whenever the page loads
+    if (sessionStorage.getItem("SessionOrientation") == "h")
+        $('.switch :checkbox').click();
+
 
     // send all tiles to controller
     $('#send').click(function() {
         // orientation of tiles. Same as above.
-        var orientation = $('.switch :checkbox').checked ? 'h' : 'v';
+        var orientation = $('.switch :checkbox').prop('checked') ? 'h' : 'v';
+        // activates load screen
+        $('#loading-screen').show();
 
-        // check if there the minimum tile number is achieved for each difficulty
-        // if is its valid, proceed to the json file generation (controller)
+        // proceed to the img file generation (controller)
         // otherwise, show modal with error
         $.ajax({
             type: 'GET',
+            async: false,
             data: {orientation: orientation},
             url: "validate",
             success: function (resp) {
                 $('#fail-modal .modal-content p').html(resp);
                 $('#fail-modal').modal().modal('open');
+                $('#loading-screen').hide();
             },
             error: function (xhr, status, text) {
                 console.log(text);
             }
         });
     });
+
+
 });
 
 // show the selected difficulty select field with all the tiles options
