@@ -196,7 +196,8 @@ class TileController {
         def ok = true
 
         for (def difficulty = 1; difficulty <= 3; difficulty++) {
-            def min = difficulty * 2 + 2
+            //def min = difficulty * 2 + 2
+            def min = 1
             def count = Tile.countByDifficultyAndOwnerIdAndTaskId(difficulty, owner, session.taskId)
 
             if (count < min) {
@@ -236,16 +237,16 @@ class TileController {
     }
 
     def generateTileSet(orientation) {
-
         // this method will execute 3 different shell scripts in order to create the cartas.png and the CSS that will be
         // automatically generated according to what the user has uploaded
 
         ////////////////////////////////////////////////////////////////////////////////////////
         // Params script concatenate
-        // $1 = -p or -l (-p = portrait = vertical) || (-l = landscape = horizontal)
+        // $1 = -v or -h (vertical or horizontal)
         // $2 = destino (facil, medio, dificil)
         // $3 = path for "tiles" directory
 
+        // this script will create 3 different "decks" in a different image each
         def dataPath = servletContext.getRealPath("/data")
         def instancePath = "${dataPath}/${springSecurityService.currentUser.id}"
         def tilesPath = "${instancePath}/tiles"
@@ -279,11 +280,15 @@ class TileController {
         ////////////////////////////////////////////////////////////////////////////////////////
         // Parametros script Append
         // #$1 = tiles folder
+        // #$2 = orientation
+
+        // this script appends the "flipped" card to the final image
         def script_append = servletContext.getRealPath("/scripts/append.sh")
 
         def l2 = [
             script_append,
-            tilesPath
+            tilesPath,
+            orientation
         ]
 
         println("l2 --> " + l2)
@@ -296,6 +301,8 @@ class TileController {
         //#4 - parametro que substituirá facilPares no script sass
         //#5 - parametro que substituirá medioPares no script sass
         //#6 - parametro que substituirá dificilPares no script sass
+
+        // this script will call the sass script, which will create the css file accordingly to our parameters
         def script_sedSASS = servletContext.getRealPath("/scripts/sed_sass.sh")
 
         def l3 = [
