@@ -244,7 +244,7 @@ class GroupController {
         def usersNotInGroup= []
         session.groupid = params.id
 
-        for (user in User.list()) {
+        for (user in User.list().sort {it.getName().toLowerCase()}) {
             def userGroup = UserGroup.findByUserAndGroup(user, group)
             if (userGroup)
                 usersInGroup.add([
