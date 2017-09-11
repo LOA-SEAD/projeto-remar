@@ -10,8 +10,8 @@ import grails.util.Environment
 class PergaminhoBanhadoController {
 
     def springSecurityService
-    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", exportLevel: "POST"]
-    def beforeInterceptor = [action: this.&check, only: ['index', 'exportLevel','save', 'update', 'delete']]
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", exportInformations: "POST"]
+    def beforeInterceptor = [action: this.&check, only: ['index', 'exportInformations','save', 'update', 'delete']]
 
     private check() {
         if (springSecurityService.isLoggedIn())
@@ -171,7 +171,7 @@ class PergaminhoBanhadoController {
     }
 
     @Transactional
-    def exportLevel(){
+    def exportInformations(){
         //coleta os valores digitados pelo usuario
         PergaminhoBanhado pergaminhoBanhado = new PergaminhoBanhado()
         pergaminhoBanhado.information[0]= params.information1

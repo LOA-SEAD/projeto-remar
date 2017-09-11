@@ -10,8 +10,8 @@ import grails.util.Environment
 class QuizBanhadoController {
 
     def springSecurityService
-    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", exportLevel: "POST"]
-    def beforeInterceptor = [action: this.&check, only: ['index', 'exportLevel','save', 'update', 'delete']]
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", exportQuestions: "POST"]
+    def beforeInterceptor = [action: this.&check, only: ['index', 'exportQuestions','save', 'update', 'delete']]
 
     private check() {
         if (springSecurityService.isLoggedIn())
@@ -43,9 +43,9 @@ class QuizBanhadoController {
 
         if(list.size()==0){
             new QuizBanhado(question: "Questão 1", answers: ["Alternativa A", "Alternativa B", "Alternativa C", "Alternativa D"], correctAnswer: 0, ownerId:  session.user.id, taskId: session.taskId).save flush: true
-            new QuizBanhado(question: "Questão 2", answers: ["Alternativa A", "Alternativa B", "Alternativa C", "Alternativa D"], correctAnswer: 0, ownerId:  session.user.id, taskId: session.taskId).save flush: true
-            new QuizBanhado(question: "Questão 3", answers: ["Alternativa A", "Alternativa B", "Alternativa C", "Alternativa D"], correctAnswer: 0, ownerId:  session.user.id, taskId: session.taskId).save flush: true
-            new QuizBanhado(question: "Questão 4", answers: ["Alternativa A", "Alternativa B", "Alternativa C", "Alternativa D"], correctAnswer: 0, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new QuizBanhado(question: "Questão 2", answers: ["Alternativa A", "Alternativa B", "Alternativa C", "Alternativa D"], correctAnswer: 3, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new QuizBanhado(question: "Questão 3", answers: ["Alternativa A", "Alternativa B", "Alternativa C", "Alternativa D"], correctAnswer: 2, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new QuizBanhado(question: "Questão 4", answers: ["Alternativa A", "Alternativa B", "Alternativa C", "Alternativa D"], correctAnswer: 1, ownerId:  session.user.id, taskId: session.taskId).save flush: true
         }
 
         list = QuizBanhado.findAllByOwnerId(session.user.id)
@@ -140,14 +140,15 @@ class QuizBanhadoController {
         }
 
         quizBanhadoInstance.delete flush:true
+        render "delete OK"
 
-        request.withFormat {
+        /*request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'QuizBanhado.label', default: 'QuizBanhado'), quizBanhadoInstance.id])
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }
-        }
+        }*/
     }
 
     protected void notFound() {
@@ -181,42 +182,22 @@ class QuizBanhadoController {
     @Transactional
     def exportQuestions(){
         //coleta os valores digitados pelo usuario
-        ArrayList<Integer> list_questionId = new ArrayList<Integer>() ;
-        ArrayList<QuizBanhado> questionList = new ArrayList<QuizBanhado>();
-        list_questionId.addAll(params.list_id);
-        for (int i=0; i<list_questionId.size();i++) {
-            //questionList.add(QuizBanhado.findById(list_questionId[i]));
-            //cria o arquivo json
-            createTxtQuestoes("quizBanhado/question" + i + ".txt", QuizBanhado.findById(list_questionId[i]))
+        ArrayList<Integer> list_questionId = new ArrayList<Integer>()
+        ArrayList<QuizBanhado> questionList = new ArrayList<QuizBanhado>()
+        list_questionId.addAll(params.list_id)
+        for (int i=0; i<list_questionId.size();i++)
+            questionList.add(QuizBanhado.findById(list_questionId[i]))
 
-            // Finds the created file path
-            def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
-            String id = MongoHelper.putFile("${folder}/quizBanhado/question" + i + ".txt")
-
-
-            def port = request.serverPort
-            if (Environment.current == Environment.DEVELOPMENT) {
-                port = 8080
-            }
-
-            // Updates current task to 'completed' status
-            render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}?files=${id}"
-        }
-
-        /*CORRIGIR:
-        //cria os arquivos json e html da fase
-        createJsonFileComputadores("computadores.json", faseTecnologia)
-        createHtmlFileTelao("telao.html", faseTecnologia)
+        //cria o arquivo json
+        for (int i=0; i<list_questionId.size();i++)
+            createTxtQuestoes("quizBanhado/question" + i + ".txt", questionList[i])
 
         // Finds the created file path
         def ids = []
         def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
-        def fasesFolder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/processes/${session.processId}")
 
-        log.debug folder
-        ids << MongoHelper.putFile(folder + '/telao.html')
-        ids << MongoHelper.putFile(fasesFolder + '/fases.json')
-        ids << MongoHelper.putFile(folder + '/computadores.json')
+        for (int i=0; i<list_questionId.size();i++)
+            ids << MongoHelper.putFile(folder + "quizBanhado/question" + i + ".txt")
 
         def port = request.serverPort
         if (Environment.current == Environment.DEVELOPMENT) {
@@ -224,8 +205,7 @@ class QuizBanhadoController {
         }
         // Updates current task to 'completed' status
         render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
-                "?files=${ids[0]}&files=${ids[1]}&files=${ids[2]}"
-        */
+                "?files=${ids[0]}&files=${ids[1]}&files=${ids[2]}&files=${ids[3]}"
     }
 
     void createTxtQuestoes(String fileName, QuizBanhado quizBanhado){

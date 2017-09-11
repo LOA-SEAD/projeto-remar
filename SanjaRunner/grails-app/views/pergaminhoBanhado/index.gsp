@@ -50,8 +50,7 @@
 							<tbody>
 							<g:each in="${pergaminhoBanhadoInstanceList}" status="i" var="pergaminhoBanhadoInstance">
 								<tr id="tr${pergaminhoBanhadoInstance.id}" class="selectable_tr" style="cursor: pointer;"
-									data-id="${fieldValue(bean: pergaminhoBanhadoInstance, field: "id")}" data-owner-id="${fieldValue(bean: pergaminhoBanhadoInstance, field: "ownerId")}"
-									data-checked="false">
+									data-id="${fieldValue(bean: pergaminhoBanhadoInstance, field: "id")}" data-owner-id="${fieldValue(bean: pergaminhoBanhadoInstance, field: "ownerId")}">
 									<td class="_not_editable">
 										<input style="background-color: #727272" id="checkbox-${pergaminhoBanhadoInstance.id}" class="filled-in" type="checkbox">
 										<label for="checkbox-${pergaminhoBanhadoInstance.id}"></label>
@@ -149,7 +148,6 @@
 					</div>
 				</div>
 				-->
-
 
 			</div>
 		</div>
