@@ -41,8 +41,8 @@ class BootStrap {
             def admin = new User (
                     username: "admin",
                     password: grailsApplication.config.users.password,
-                    email: "loa@sead.ufscar.br",
-                    firstName: "Equipe LOA",
+                    email: "remar@sead.ufscar.br",
+                    firstName: "Administrador ",
                     lastName: "– REMAR",
                     enabled: true
             )
@@ -51,32 +51,18 @@ class BootStrap {
             UserRole.create admin, Role.findByAuthority("ROLE_ADMIN"), true
             UserRole.create admin, Role.findByAuthority("ROLE_DEV"), true
 
-            10.times {
-                def user = new User (
-                        username: "user${it}",
-                        password: grailsApplication.config.users.password,
-                        email: "loa${it}@sead.ufscar.br",
-                        firstName: "User",
-                        lastName: "${it}",
-                        enabled: true
-                )
+            def loa = new User (
+                    username: "loa",
+                    password: grailsApplication.config.users.password,
+                    email: "loa@sead.ufscar.br",
+                    firstName: "Equipe LOA",
+                    lastName: "– REMAR",
+                    enabled: true
+            )
+            loa.save flush: true
 
-                user.save flush:true
-            }
+            UserRole.create loa, Role.findByAuthority("ROLE_DEV"), true
 
-            def g = new Group(
-                name: "g1",
-                token: "g1",
-                owner: User.findById(1)
-                )
-            g.save flush:true
-
-            5.times {
-                new UserGroup (
-                    group: g,
-                    user: User.findById(it + 2)
-                    ).save flush:true
-            }
             log.debug "Users: ok"
         }
 
