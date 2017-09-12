@@ -238,5 +238,9 @@
     "web",
     "desktop",
     "android"
-  ]
+  ],
+  "vars": {
+    "width": 1280,
+    "height": 720
+  }
 }

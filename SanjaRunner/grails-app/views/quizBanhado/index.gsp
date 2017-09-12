@@ -53,10 +53,6 @@
 							<g:each in="${quizBanhadoInstanceList}" status="i" var="quizBanhadoInstance">
 								<tr id="tr${quizBanhadoInstance.id}" class="selectable_tr" style="cursor: pointer;"
 									data-id="${fieldValue(bean: quizBanhadoInstance, field: "id")}" data-owner-id="${fieldValue(bean: quizBanhadoInstance, field: "ownerId")}">
-									<td class="_not_editable">
-										<input style="background-color: #727272" id="checkbox-${quizBanhadoInstance.id}" class="filled-in" type="checkbox">
-										<label for="checkbox-${quizBanhadoInstance.id}"></label>
-									</td>
 									<td>${fieldValue(bean: quizBanhadoInstance, field: "question")}</td>
 									<td>${fieldValue(bean: quizBanhadoInstance, field: "answers")}</td>
 									<td>${quizBanhadoInstance.answers[quizBanhadoInstance.correctAnswer]}</td>
