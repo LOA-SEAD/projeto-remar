@@ -204,6 +204,7 @@ function _submit() {
         //cria uma lista com os ids de cada questao selecionada
         $.each($("input[type=checkbox]:checked"), function (ignored, el) {
             var tr = $(el).parents().eq(1);
+            console.log(tr);
             list_id.push($(tr).attr('data-id'));
         });
 

@@ -124,13 +124,13 @@ function _submit() {
     //checa se o usuario selecionou exatamente 4 questoes
     /*if($("input[type=checkbox]:checked").size() < 4) {
         $("#errorSaveModal").openModal();
-    } else {
+    } else {*/
         //cria uma lista com os ids de cada questao selecionada
-        $.each($("input[type=checkbox]:checked"), function (ignored, el) {*/
-    var tr = $(el).parents().eq(1);
-    console.log(tr);
-    list_id.push($(tr).attr('data-id'));
-    //});
+    $.each($("input[type=text]"), function (ignored, el) {
+            var tr = $(el).parents().eq(1);
+            console.log(tr);
+            list_id.push($(tr).attr('data-id'));
+    });
 
     //chama o controlador para criar o arquivo txt com as questoes inseridas
     $.ajax({
@@ -147,13 +147,7 @@ function _submit() {
                 //url = url.substr(0,url.indexOf('/',7))
                 window.top.location.href = url //+ "/login/auth"
             } else {
-                if(returndata.status == 401) {
-                    var url = document.referrer;
-                    //url = url.substr(0,url.indexOf('/',7))
-                    window.top.location.href = url //+ "/login/auth"
-                } else {
-                    alert("Error:\n" + returndata.responseText);
-                }
+                alert("Error:\n" + returndata.responseText);
             }
         }
     });

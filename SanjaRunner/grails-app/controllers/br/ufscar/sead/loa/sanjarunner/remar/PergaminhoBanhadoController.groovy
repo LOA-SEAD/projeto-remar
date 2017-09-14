@@ -170,17 +170,26 @@ class PergaminhoBanhadoController {
 
     }
 
-    @Transactional
+    @Secured(['permitAll'])
     def exportInformations(){
         //coleta os valores digitados pelo usuario
-        PergaminhoBanhado pergaminhoBanhado = new PergaminhoBanhado()
+        /*PergaminhoBanhado pergaminhoBanhado = new PergaminhoBanhado()
         pergaminhoBanhado.information[0]= params.information1
         pergaminhoBanhado.information[1]= params.information2
         pergaminhoBanhado.information[2]= params.information3
         pergaminhoBanhado.information[3]= params.information4
 
         //cria o txt do pergaminho da fase do Banhado
-        createTxtPergaminho("pergaminhoBanhado.txt", pergaminhoBanhado)
+        createTxtPergaminho("pergaminhoBanhado.txt", pergaminhoBanhado)*/
+        //popula a lista de questoes a partir do ID de cada uma
+        ArrayList<Integer> list_informationId = new ArrayList<Integer>()
+        ArrayList<PergaminhoBanhado> informationList = new ArrayList<PergaminhoBanhado>()
+        list_informationId.addAll(params.list_id)
+        for (int i=0; i<list_informationId.size();i++)
+            informationList.add(PergaminhoBanhado.findById(list_informationId[i]))
+
+        //cria o txt do pergaminho da fase do Banhado
+        createTxtPergaminho("pergaminhoBanhado.txt", informationList)
 
         // Finds the created file path
         def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
@@ -195,7 +204,7 @@ class PergaminhoBanhadoController {
 
     }
 
-    void createTxtPergaminho(String fileName, PergaminhoBanhado pergaminhoBanhado){
+    /*void createTxtPergaminho(String fileName, PergaminhoBanhado pergaminhoBanhado){
         def dataPath = servletContext.getRealPath("/data")
         def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
 
@@ -205,6 +214,19 @@ class PergaminhoBanhadoController {
         def pw = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(file), "UTF-8"))
         pw.write(pergaminhoBanhado.information[0].replace("\"","\\\"") + "\n" + pergaminhoBanhado.information[1].replace("\"","\\\"") + "\n" + pergaminhoBanhado.information[2].replace("\"","\\\"") + "\n" + pergaminhoBanhado.information[3].replace("\"","\\\""))
+        pw.close();
+    }*/
+
+    void createTxtPergaminho(String fileName, ArrayList<PergaminhoBanhado> informationList){
+        def dataPath = servletContext.getRealPath("/data")
+        def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
+
+        instancePath.mkdirs()
+
+        File file = new File("$instancePath/"+fileName);
+        def pw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(file), "UTF-8"))
+        pw.write(informationList[0].information[0].replace("\"","\\\"") + "\n" + informationList[0].information[1].replace("\"","\\\"") + "\n" + informationList[0].information[2].replace("\"","\\\"") + "\n" + informationList[0].information[3].replace("\"","\\\""))
         pw.close();
     }
 }
