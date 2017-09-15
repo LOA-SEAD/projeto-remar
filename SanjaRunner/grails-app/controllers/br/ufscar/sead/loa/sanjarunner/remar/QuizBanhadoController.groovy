@@ -179,7 +179,7 @@ class QuizBanhadoController {
 
     }
 
-    @Transactional
+    @Secured(['permitAll'])
     def exportQuestions(){
         //coleta os valores digitados pelo usuario
         ArrayList<Integer> list_questionId = new ArrayList<Integer>()

@@ -102,31 +102,18 @@ function _modal_edit(tr){
 function _submit() {
     var list_id = [];
 
-        //cria uma lista com os ids de cada questao selecionada
-        $.each($("input[type=text]"), function (ignored, el) {
-            var tr = $(el).parents().eq(1);
+        //cria uma lista com os ids dos textos
+        $.each($("[class=selectable_tr]"), function (ignored, el) {
+            var tr = $(el);
             console.log(tr);
             list_id.push($(tr).attr('data-id'));
         });
-
-    /*if ($("#information1").val() != "" && $("#information2").val() != ""
-        && $("#information3").val() != ""  && $("#information4").val() != "") {
-        var information1 = $("#information1").valueOf();
-        var information2 = $("#information2").parents().eq(1);
-        var information3 = $("#information3").parents().eq(1);
-        var information4 = $("#information4").val();
-        console.log(information1);
-        console.log(information2);
-        console.log(information3);
-        console.log(information4);
-    }*/
 
         //chama o controlador para criar o arquivo txt com as informacoes inseridas
         $.ajax({
             type: "POST",
             traditional: true,
             url: "/sanjarunner/pergaminhoBanhado/exportInformations",
-            //data: {information1: information1, information2: information2, information3: information3, information4: information4},
             data: { list_id: list_id},
             success: function(returndata) {
                 window.top.location.href = returndata;

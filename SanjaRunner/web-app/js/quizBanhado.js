@@ -121,13 +121,9 @@ function _modal_edit(tr){
 function _submit() {
     var list_id = [];
 
-    //checa se o usuario selecionou exatamente 4 questoes
-    /*if($("input[type=checkbox]:checked").size() < 4) {
-        $("#errorSaveModal").openModal();
-    } else {*/
-        //cria uma lista com os ids de cada questao selecionada
-    $.each($("input[type=text]"), function (ignored, el) {
-            var tr = $(el).parents().eq(1);
+    //cria uma lista com os ids de cada questao
+    $.each($("[class=selectable_tr]"), function (ignored, el) {
+            var tr = $(el);
             console.log(tr);
             list_id.push($(tr).attr('data-id'));
     });
