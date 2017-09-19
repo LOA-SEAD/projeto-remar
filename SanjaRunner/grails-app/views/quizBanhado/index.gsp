@@ -38,7 +38,7 @@
 				<div class="row">
 					<div class="col s12 m12 l12">
 						<table class="highlight" id="table" style="margin-top: -30px;">
-							<!--Cabecalho para editar os textos dos pergaminhos-->
+							<!--Cabecalho para editar os textos das questoes-->
 							<thead>
 							<tr>
 								<th id="titleLabel">Pergunta <div class="row" style="margin-bottom: -10px;"><button  class="btn-floating" style="visibility: hidden"></button></div></th>

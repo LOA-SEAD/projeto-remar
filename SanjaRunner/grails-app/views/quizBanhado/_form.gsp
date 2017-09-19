@@ -7,7 +7,7 @@
 		<g:message code="quizBanhado.question.label" default="Question" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:textField name="question" maxlength="200" required="" value="${quizBanhadoInstance?.question}"/>
+	<g:textField name="question" maxlength="200" required="" value="${quizBanhadoInstance.question}"/>
 
 </div>
 

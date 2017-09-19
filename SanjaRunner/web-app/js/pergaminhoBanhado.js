@@ -66,7 +66,7 @@ function _modal_edit(tr){
     var list_id = [];
 
     $.each($("input[type=checkbox]:checked"), function(ignored, el) {
-        var tr = $(el).parents().eq(1);
+        var tr = $(el);
         list_id.push($(tr).attr('data-id'));
     });
 
