@@ -2,6 +2,8 @@ package br.ufscar.sead.loa.remar
 
 import br.ufscar.sead.loa.propeller.Propeller
 import grails.converters.JSON
+import br.ufscar.sead.loa.remar.statistics.StatisticFactory
+import br.ufscar.sead.loa.remar.statistics.Statistics
 import grails.plugin.springsecurity.annotation.Secured
 import grails.plugins.rest.client.RestBuilder
 import grails.transaction.Transactional
@@ -89,34 +91,15 @@ class ExportedResourceController {
     }
 
     def saveStats(){
-        def data = [:]
-        println params
-        data.timestamp = new Date().toTimestamp()
-        data.userId = session.user.id as long
-        data.exportedResourceId = params.exportedResourceId as int
-        data.levelId = params.levelId as int
-        data.win = Boolean.parseBoolean(params.win)
-        data.gameSize = params.size as int
-        data.gameType = params.gameType
 
-        if(params.gameType == "puzzleWithTime"){
-            data.points = params.points as int
-            data.partialPoints = params.partialPoints as int
-            data.remainingTime = params.remainingTime as int
-            data.end = Boolean.parseBoolean(params.end)
-        } else if(params.gameType == "questionAndAnswer") {
-            data.points = params.points as int
-            data.partialPoints = params.partialPoints as int
-            data.errors = params.errors
-            data.question = params.question
-            data.answer = params.answer
-            data.end = Boolean.parseBoolean(params.end)
-        } else if(params.gameType == "multipleChoice") {
-            data.question = params.question
-            data.answer = params.answer
-            data.choices = params.choices
-            data.choice = params.choice
-        }
+        StatisticFactory factory = StatisticFactory.instance;
+        Statistics statistics = factory.createStatistics(params.gameType as String)
+
+        def data = statistics.getData(params);
+        data.userId = session.user.id as long
+
+        println "data:" + data
+
         try {
                 MongoHelper.instance.createCollection("stats")
                 MongoHelper.instance.insertStats("stats", data)

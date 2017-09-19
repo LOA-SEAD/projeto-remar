@@ -1,5 +1,6 @@
 package br.ufscar.sead.loa.remar
 
+import br.ufscar.sead.loa.propeller.Propeller
 import com.mongodb.Block
 import com.mongodb.DBCursor
 import grails.converters.JSON
@@ -7,6 +8,8 @@ import groovy.json.JsonBuilder
 import org.apache.commons.lang.RandomStringUtils
 import grails.plugin.springsecurity.annotation.Secured
 import org.bson.Document
+import org.bson.types.ObjectId
+
 import java.util.concurrent.TimeUnit;
 import org.grails.datastore.mapping.validation.ValidationException
 import org.springframework.transaction.annotation.Transactional
@@ -92,29 +95,39 @@ class GroupController {
 
     def stats() {
         def group = Group.findById(params.id)
-        if(session.user.id == group.owner.id || UserGroup.findByUserAndAdmin(session.user, true)) {
+        def isMultiple = true
+        def gameIndexName = [:] //usado apenas para games com multiplos gametypes
+
+        if(session.user.id == group.owner.id || UserGroup.findByUserAndAdmin(session.user,true)) {
             def exportedResource = ExportedResource.findById(params.exp)
+            def process = Propeller.instance.getProcessInstanceById(exportedResource.processId as String, session.user.id as long)
             if (exportedResource) {
                 def allUsersGroup = UserGroup.findAllByGroup(group).user
                 def queryMongo
                 try{
                     queryMongo = MongoHelper.instance.getStats("stats", exportedResource.id as Integer, allUsersGroup.id.toList())
-
+                    println queryMongo
                     def allStats = []
                     def _stat
                     for(int i=0; i<queryMongo.size(); i++){
                         def user = allUsersGroup.find { user -> user.id == queryMongo.get(i).userId || group.owner.id == queryMongo.get(i).userId }
-
                         _stat = [[user: user]]
+
                         queryMongo.get(i).stats.each {
-                            if(it.exportedResourceId == exportedResource.id) {
-                                _stat.push([levelId: it.levelId, win: it.win, gameSize: it.gameSize])
+                            isMultiple = false
+                            if (it.exportedResourceId == exportedResource.id) {
+                                _stat.push([levelId: it.levelId, win: it.win, gameSize: it.gameSize, gameIndex: it.gameIndex])
+
+                                if (it.gameIndex) {
+                                    gameIndexName.put(it.gameIndex, process.definition.tasks.get(it.gameIndex as int).name)
+                                    isMultiple = true
+                                }
                             }
                         }
                         allStats.push(_stat)
-
                     }
 
+                    // DESCOMENTAR SE DESEJAR MOSTRAR OS MEMBROS SEM ESTATÍSTICAS
                     /*if(!allStats.empty) {
                         allUsersGroup.each { member ->
                             if (!allStats.find { stat -> stat.get(0) != null && stat.get(0).user.id == member.id }) {
@@ -126,7 +139,7 @@ class GroupController {
 
                     allStats.sort({it.get(0).user.getName()})
 
-                    render view: "stats", model: [allStats: allStats, group: group, exportedResource: exportedResource]
+                    render view: "stats", model: [allStats: allStats, group: group, exportedResource: exportedResource, gameIndexName: gameIndexName, isMultiple: isMultiple]
 
                 }catch (NullPointerException e){
                     System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -144,7 +157,6 @@ class GroupController {
     }
 
     def userStats() {
-        println params
         def user = User.findById(params.id)
         def exportedResource = ExportedResource.findById(params.exp)
         if(user){
@@ -174,7 +186,7 @@ class GroupController {
                                                    gameSize     : it.gameSize, gameType: it.gameType ])
                                 } else if(it.gameType == "multipleChoice"){
                                     allStats.push([timeStamp    : it.timestamp, levelId: it.levelId, win: it.win, choice: it.choice,
-                                                choices: it.choices, errors: it.errors, gameSize: it.gameSize, gameType: it.gameType ])
+                                                   choices: it.choices, errors: it.errors, gameSize: it.gameSize, gameType: it.gameType ])
                                 }
                             }
                         }
