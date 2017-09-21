@@ -95,7 +95,8 @@ class GroupController {
 
     def stats() {
         def group = Group.findById(params.id)
-        def isMultiple = true
+
+        def isMultiple = false
         def gameIndexName = [:] //usado apenas para games com multiplos gametypes
 
         if(session.user.id == group.owner.id || UserGroup.findByUserAndAdmin(session.user,true)) {
@@ -106,26 +107,59 @@ class GroupController {
                 def queryMongo
                 try{
                     queryMongo = MongoHelper.instance.getStats("stats", exportedResource.id as Integer, allUsersGroup.id.toList())
-                    println queryMongo
+
                     def allStats = []
                     def _stat
+
                     for(int i=0; i<queryMongo.size(); i++){
                         def user = allUsersGroup.find { user -> user.id == queryMongo.get(i).userId || group.owner.id == queryMongo.get(i).userId }
                         _stat = [[user: user]]
 
                         queryMongo.get(i).stats.each {
-                            isMultiple = false
                             if (it.exportedResourceId == exportedResource.id) {
-                                _stat.push([levelId: it.levelId, win: it.win, gameSize: it.gameSize, gameIndex: it.gameIndex])
-
                                 if (it.gameIndex) {
                                     gameIndexName.put(it.gameIndex, process.definition.tasks.get(it.gameIndex as int).name)
                                     isMultiple = true
                                 }
+                                _stat.push([levelId: it.levelId, win: it.win, gameSize: it.gameSize, gameIndex: it.gameIndex])
                             }
                         }
                         allStats.push(_stat)
                     }
+
+                    // COMENTAR A PORRA TODA
+                   allStats.each{
+                        it.remove(0)
+                   }
+
+                    def hashFinal = [:]
+
+                    def statsHash = [:]
+
+                    for(int i=0; i<queryMongo.size(); i++) {
+                        def user = allUsersGroup.find { user -> user.id == queryMongo.get(i).userId || group.owner.id == queryMongo.get(i).userId }
+                        _stat = [[user: user]]
+
+                        def fer = allStats.get(i).collect() {
+                            def newHash = [:]
+                            def gInd = it.gameIndex
+                            it.remove("gameIndex")
+                            newHash.put(gInd, it)
+                            newHash
+                        }
+
+                        gameIndexName.keySet().each() {
+                            def gInd = it
+                            def indexList = fer.findAll() { it.containsKey(gInd) }
+                            def valuesList = indexList.collect() { it.get(gInd) }
+                            statsHash.put(gInd, valuesList)
+                        }
+                        hashFinal.put(user.id as int, statsHash)
+                        //println statsHash
+                    }
+
+                    println hashFinal
+                    // JOGAR COM OUTRO USUARIO E RETRATAR O VETOR SE FOR MULTIPLE
 
                     // DESCOMENTAR SE DESEJAR MOSTRAR OS MEMBROS SEM ESTATÍSTICAS
                     /*if(!allStats.empty) {
@@ -137,9 +171,9 @@ class GroupController {
                         }
                     }*/
 
-                    allStats.sort({it.get(0).user.getName()})
+                    //allStats.sort({it.get(0).user.getName()})
 
-                    render view: "stats", model: [allStats: allStats, group: group, exportedResource: exportedResource, gameIndexName: gameIndexName, isMultiple: isMultiple]
+                    render view: "stats", model: [allStats: allStats, hashFinal: hashFinal, group: group, exportedResource: exportedResource, gameIndexName: gameIndexName, isMultiple: isMultiple]
 
                 }catch (NullPointerException e){
                     System.err.println(e.getClass().getName() + ": " + e.getMessage());
