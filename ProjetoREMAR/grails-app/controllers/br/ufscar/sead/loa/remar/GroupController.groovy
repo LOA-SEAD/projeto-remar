@@ -95,9 +95,9 @@ class GroupController {
 
     def stats() {
         def group = Group.findById(params.id)
-
-        def isMultiple = false
-        def gameIndexName = [:] //usado apenas para games com multiplos gametypes
+        def isMultiple = false //Variável para determinar se um jogo é multiplo ou não
+        def hasContent = false //Variável para determinar se foi passado conteúdo à view
+        def gameIndexName = [:] //Usado apenas para games com multiplos gametypes
 
         if(session.user.id == group.owner.id || UserGroup.findByUserAndAdmin(session.user,true)) {
             def exportedResource = ExportedResource.findById(params.exp)
@@ -108,60 +108,87 @@ class GroupController {
                 try{
                     queryMongo = MongoHelper.instance.getStats("stats", exportedResource.id as Integer, allUsersGroup.id.toList())
 
+                    //Array que guardará os stats a serem enviados par a view
                     def allStats = []
+
+                    //Array que guardará os stats especificos a serem guardados no allStats
                     def _stat
 
                     for(int i=0; i<queryMongo.size(); i++){
+                        //Find em todos os usuários do grupo
                         def user = allUsersGroup.find { user -> user.id == queryMongo.get(i).userId || group.owner.id == queryMongo.get(i).userId }
                         _stat = [[user: user]]
 
                         queryMongo.get(i).stats.each {
+                            //Para cada stats obtido, pega apenas o que o jogo para obter os stats for igual aos da consulta
                             if (it.exportedResourceId == exportedResource.id) {
+                                //Popula um map gameIndex para enviar à view.
+                                //Keys: numeros das fases no propeller (apenas as personalizadas)
+                                //Values: respectivos nomes das fases no propeller (apenas as personalizadas)
                                 if (it.gameIndex) {
                                     gameIndexName.put(it.gameIndex, process.definition.tasks.get(it.gameIndex as int).name)
+                                    //Se encontrar um gameIndex, então significa que o jogo é do tipo multiplo
                                     isMultiple = true
                                 }
+                                //Procura stats necessários para jogos NÃO multiplos.
                                 _stat.push([levelId: it.levelId, win: it.win, gameSize: it.gameSize, gameIndex: it.gameIndex])
                             }
                         }
+                        // Ao fim de cada acumulo de estatistica de um respectivo usuario, dá-se o push dele e suas estatisticas no array allStats
                         allStats.push(_stat)
+                        hasContent = true
                     }
 
-                    // COMENTAR A PORRA TODA
-                   allStats.each{
-                        it.remove(0)
-                   }
+                    // Se o jogo for multiplo, o array de estatísticas já obtido anteriormente precisa ser rearranjado.
+                    // Para melhor manipulação na view, este array se tornará um map de maps.
+                    // Main Map: key = user ids // values =  conjunto de estatisticas do usuario
+                    // Sub Maps: key = numero da fase // values = estatisticas da respectiva fase
+                    if (isMultiple) {
 
-                    def hashFinal = [:]
-
-                    def statsHash = [:]
-
-                    for(int i=0; i<queryMongo.size(); i++) {
-                        def user = allUsersGroup.find { user -> user.id == queryMongo.get(i).userId || group.owner.id == queryMongo.get(i).userId }
-                        _stat = [[user: user]]
-
-                        def fer = allStats.get(i).collect() {
-                            def newHash = [:]
-                            def gInd = it.gameIndex
-                            it.remove("gameIndex")
-                            newHash.put(gInd, it)
-                            newHash
+                        // Remove os usuários de cada array presente no array allStats
+                        allStats.each {
+                            it.remove(0)
                         }
 
-                        gameIndexName.keySet().each() {
-                            def gInd = it
-                            def indexList = fer.findAll() { it.containsKey(gInd) }
-                            def valuesList = indexList.collect() { it.get(gInd) }
-                            statsHash.put(gInd, valuesList)
+                        def userStatsMap = [:]
+                        def statsMap = [:]
+
+                        // Novo percorrer da consulta para repopular os usuários, considerando agora o tipo multiplo
+                        for (int i = 0; i < queryMongo.size(); i++) {
+                            def user = allUsersGroup.find { user -> user.id == queryMongo.get(i).userId || group.owner.id == queryMongo.get(i).userId }
+                            _stat = [[user: user]]
+
+                            // Coleção com closure passado para remover os gameindex das estatísticas, de forma que ele seja, agora, uma chave e não um atributo
+                            def removeGI = allStats.get(i).collect() {
+                                def tempMap = [:]
+                                def gInd = it.gameIndex
+                                it.remove("gameIndex")
+                                tempMap.put(gInd, it)
+                                tempMap // retorno do collect()
+                            }
+
+                            //Para cada numero de fase, busca-se na coleção se existe aquela chave, e cria-se um novo hash (combinando repetições), que será:
+                            //Key = numero da fase
+                            //Value = estatísticas da fase
+                            gameIndexName.keySet().each() {
+                                def gInd = it
+                                def indexList = removeGI.findAll() { it.containsKey(gInd) }
+                                def valuesList = indexList.collect() { it.get(gInd) }
+                                statsMap.put(gInd, valuesList)
+                            }
+
+                            // Por fim cria-se um hash cuja key será o id do usuário, e values todos seus stats
+                            userStatsMap.put([[user: user]], statsMap)
+                            hasContent = true
                         }
-                        hashFinal.put(user.id as int, statsHash)
-                        //println statsHash
+                        render view: "stats", model: [userStatsMap: userStatsMap, group: group, exportedResource: exportedResource, gameIndexName: gameIndexName, isMultiple: isMultiple, hasContent: hasContent]
+                    }else{
+                        // Se não for multiplo, manda-se apenas os atributos necessários
+                        render view: "stats", model: [allStats: allStats, group: group, exportedResource: exportedResource, isMultiple: isMultiple, hasContent: hasContent]
                     }
 
-                    println hashFinal
-                    // JOGAR COM OUTRO USUARIO E RETRATAR O VETOR SE FOR MULTIPLE
+                    // Descomentar caso desejar mostrar os membros SEM estatísticas
 
-                    // DESCOMENTAR SE DESEJAR MOSTRAR OS MEMBROS SEM ESTATÍSTICAS
                     /*if(!allStats.empty) {
                         allUsersGroup.each { member ->
                             if (!allStats.find { stat -> stat.get(0) != null && stat.get(0).user.id == member.id }) {
@@ -172,8 +199,6 @@ class GroupController {
                     }*/
 
                     //allStats.sort({it.get(0).user.getName()})
-
-                    render view: "stats", model: [allStats: allStats, hashFinal: hashFinal, group: group, exportedResource: exportedResource, gameIndexName: gameIndexName, isMultiple: isMultiple]
 
                 }catch (NullPointerException e){
                     System.err.println(e.getClass().getName() + ": " + e.getMessage());

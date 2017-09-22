@@ -18,36 +18,71 @@
     </div>
 </div>
 
-<div class="row">
+<%--<g:each in="${gameIndexName}" var="it">
+    <div id="${it.key}" class="row">
 
-<g:each in="${hashFinal}" var="stats">
-    <g:each in="${stats.value}" var="xama">
-        ${xama.value.get(0).gameSize}
-        <br><br>
-    </g:each>
-    <br><br>
-</g:each>
-
-<g:each in="${gameIndexName.keySet()}" var="it">
-
-    <div id="tabelaStats" class="col s12">
-
-        <table class="bordered highlight responsive-table">
-            <thead>
-            <tr>
-                <th style="padding-left: 1.80em;">Usuário</th>
-                <g:each in="${hashFinal.get(0)}" status="i" var="stats">
-                    <th style="padding-left: 1.80em;">${stats}</th>
-                </g:each>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
     </div>
+</g:each>--%>
+
+<!-- Entra-se nos valores da primeira chave do map -->
+<g:each in="${userStatsMap.entrySet().iterator().next()}" var="stats">
+    <!-- Entra-se nos valores (arrays de stats) de cada chave (numero da fase) do map -->
+    <g:each in="${stats.value}" var="statsSingle">
+
+        <div id="tabelaStats" class="col s12">
+            <table class="bordered highlight responsive-table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <g:each in="${1..statsSingle.value.get(0).gameSize}" status="i" var="num">
+                        <th style="padding-left: 1.80em;">${num}</th>
+                    </g:each>
+                </tr>
+                </thead>
+
+                <tbody><tr>
+                <g:each in="${userStatsMap.keySet()}" var="testa">
+                    <tr>
+                        <g:if test="${testa instanceof User}">
+                            <td style="padding-left: 1.80em;">${testa.firstName + " " + testa.lastName}</td>
+                            <g:each in="${1..statsSingle.value.get(0).gameSize}">
+                                <td></td>
+                            </g:each>
+                        </g:if>
+                        <g:else>
+                            <td style="padding-left: 1.80em;">${testa.get(0).user.firstName + " " + testa.get(0).user.lastName}</td>
+                        </g:else>
+
+                        <g:each in="${0..statsSingle.value.get(0).gameSize-1}" var="i">
+
+                            <g:set var="levelWon" value="${statsSingle.value.find { it.levelId == i && it.win == true}}"/>
+                            <g:set var="levelLose" value="${statsSingle.value.find { it.levelId == i && it.win == false}}"/>
+
+                            ${levelWon}
+                            ${levelLose}
+                            <%--<g:if test="${levelWon}">
+                                <td style="padding-left: 1.80em;"> <a href="/group/user-stats/${stats.get(0).user.id}?exp=${exportedResource.id}&level=${levelWon.levelId}"><i style="color: green" class="fa fa-check-square"></i></a> </td>
+                            </g:if>
+
+                            <g:elseif test="${levelLose}">
+                                <td style="padding-left: 1.80em;"> <a href="/group/user-stats/${stats.get(0).user.id}?exp=${exportedResource.id}&level=${levelLose.levelId}"> <i style="color: red" class="fa fa-times"></i> </a></td>
+                            </g:elseif>
+                            <g:else>
+                                <td></td>
+                            </g:else>--%>
+
+                        </g:each>
+
+                    </tr>
+                </g:each>
+
+                </tbody>
+            </table>
+
+        </div>
+    </g:each>
 </g:each>
 
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 <%--<g:each in="${allStats}" var="stats">
     <tr>
         <g:if test="${stats instanceof User}">
