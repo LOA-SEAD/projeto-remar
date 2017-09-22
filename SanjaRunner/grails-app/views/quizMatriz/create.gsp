@@ -2,13 +2,13 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'quizBanhado.label', default: 'QuizBanhado')}" />
+		<g:set var="entityName" value="${message(code: 'quizMatriz.label', default: 'QuizMatriz')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
 	<body>
 		<div class="cluster-header">
 			<p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-				<i class="small material-icons left">grid_on</i>Fase Banhado - Criar quiz
+				<i class="small material-icons left">grid_on</i>Fase Matriz - Criar quiz
 			</p>
 		</div>
 		<div class="row">

@@ -2,13 +2,13 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'quizBanhado.label', default: 'QuizBanhado')}" />
+		<g:set var="entityName" value="${message(code: 'quizVicentina.label', default: 'QuizVicentina')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
 	<body>
 		<div class="cluster-header">
 			<p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-				<i class="small material-icons left">grid_on</i>Fase Banhado - Criar quiz
+				<i class="small material-icons left">grid_on</i>Fase Vicentina - Criar quiz
 			</p>
 		</div>
 		<div class="row">
@@ -18,7 +18,7 @@
 					<input id="editQuestion" name="question" required=""  type="text" class="validate" >
 				</div>
 			</div>
-
+		
 			<div class="row">
 				<div class="input-field col s9">
 					<label id="labelAnswers1" class="active" for="editAnswers0">Alternativa A</label>
@@ -29,7 +29,7 @@
 					<label for="editRadio0">Alternativa correta</label>
 				</div>
 			</div>
-
+		
 			<div class="row">
 				<div class="input-field col s9">
 					<label id="labelAnswers2" class="active" for="editAnswers1">Alternativa B</label>
@@ -40,7 +40,7 @@
 					<label for="editRadio1">Alternativa correta</label>
 				</div>
 			</div>
-
+		
 			<div class="row">
 				<div class="input-field col s9">
 					<label id="labelAnswers3" class="active" for="editAnswers2">Alternativa C</label>
@@ -51,7 +51,7 @@
 					<label for="editRadio2">Alternativa correta</label>
 				</div>
 			</div>
-
+		
 			<div class="row">
 				<div class="input-field col s9">
 					<label id="labelAnswers4" class="active" for="editAnswers3">Alternativa D</label>
@@ -62,7 +62,7 @@
 					<label for="editRadio3">Alternativa correta</label>
 				</div>
 			</div>
-
+		
 			<div class="row">
 				<div class="col s2">
 					<button class="btn waves-effect waves-light my-orange"  name="save" id="submitButton" onclick="_save()">Criar

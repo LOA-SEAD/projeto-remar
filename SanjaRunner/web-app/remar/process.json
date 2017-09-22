@@ -83,22 +83,22 @@
         {
           "name": "question0.txt",
           "type": "txt",
-          "path": "quizBanhado/"
+          "path": "quizBanhado"
         },
         {
           "name": "question1.txt",
           "type": "txt",
-          "path": "quizBanhado/"
+          "path": "quizBanhado"
         },
         {
           "name": "question2.txt",
           "type": "txt",
-          "path": "quizBanhado/"
+          "path": "quizBanhado"
         },
         {
           "name": "question3.txt",
           "type": "txt",
-          "path": "quizBanhado/"
+          "path": "quizBanhado"
         }
       ]
     },
@@ -112,27 +112,27 @@
         {
           "name": "question0.txt",
           "type": "txt",
-          "path": "quizCassiano/"
+          "path": "quizCassiano"
         },
         {
           "name": "question1.txt",
           "type": "txt",
-          "path": "quizCassiano/"
+          "path": "quizCassiano"
         },
         {
           "name": "question2.txt",
           "type": "txt",
-          "path": "quizCassiano/"
+          "path": "quizCassiano"
         },
         {
           "name": "question3.txt",
           "type": "txt",
-          "path": "quizCassiano/"
+          "path": "quizCassiano"
         },
         {
           "name": "question4.txt",
           "type": "txt",
-          "path": "quizCassiano/"
+          "path": "quizCassiano"
         }
       ]
     },
@@ -146,22 +146,22 @@
         {
           "name": "question0.txt",
           "type": "txt",
-          "path": "quizMatriz/"
+          "path": "quizMatriz"
         },
         {
           "name": "question1.txt",
           "type": "txt",
-          "path": "quizMatriz/"
+          "path": "quizMatriz"
         },
         {
           "name": "question2.txt",
           "type": "txt",
-          "path": "quizMatriz/"
+          "path": "quizMatriz"
         },
         {
           "name": "question3.txt",
           "type": "txt",
-          "path": "quizMatriz/"
+          "path": "quizMatriz"
         }
       ]
     },
@@ -175,27 +175,27 @@
         {
           "name": "question0.txt",
           "type": "txt",
-          "path": "quizSantos/"
+          "path": "quizSantos"
         },
         {
           "name": "question1.txt",
           "type": "txt",
-          "path": "quizSantos/"
+          "path": "quizSantos"
         },
         {
           "name": "question2.txt",
           "type": "txt",
-          "path": "quizSantos/"
+          "path": "quizSantos"
         },
         {
           "name": "question3.txt",
           "type": "txt",
-          "path": "quizSantos/"
+          "path": "quizSantos"
         },
         {
           "name": "question4.txt",
           "type": "txt",
-          "path": "quizSantos/"
+          "path": "quizSantos"
         }
       ]
     },
@@ -209,27 +209,27 @@
         {
           "name": "question0.txt",
           "type": "txt",
-          "path": "quizVicentina/"
+          "path": "quizVicentina"
         },
         {
           "name": "question1.txt",
           "type": "txt",
-          "path": "quizVicentina/"
+          "path": "quizVicentina"
         },
         {
           "name": "question2.txt",
           "type": "txt",
-          "path": "quizVicentina/"
+          "path": "quizVicentina"
         },
         {
           "name": "question3.txt",
           "type": "txt",
-          "path": "quizVicentina/"
+          "path": "quizVicentina"
         },
         {
           "name": "question4.txt",
           "type": "txt",
-          "path": "quizVicentina/"
+          "path": "quizVicentina"
         }
       ]
     }

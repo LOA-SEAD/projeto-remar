@@ -10,7 +10,7 @@ import grails.util.Environment
 class PergaminhoBanhadoController {
 
     def springSecurityService
-    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", exportInformations: "POST"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", exportInformations: "POST", returnInstance: "GET"]
     def beforeInterceptor = [action: this.&check, only: ['index', 'exportInformations','save', 'update', 'delete']]
 
     private check() {
@@ -172,15 +172,8 @@ class PergaminhoBanhadoController {
 
     @Secured(['permitAll'])
     def exportInformations(){
-        //coleta os valores digitados pelo usuario
-        /*PergaminhoBanhado pergaminhoBanhado = new PergaminhoBanhado()
-        pergaminhoBanhado.information[0]= params.information1
-        pergaminhoBanhado.information[1]= params.information2
-        pergaminhoBanhado.information[2]= params.information3
-        pergaminhoBanhado.information[3]= params.information4
 
         //cria o txt do pergaminho da fase do Banhado
-        createTxtPergaminho("pergaminhoBanhado.txt", pergaminhoBanhado)*/
         //popula a lista de questoes a partir do ID de cada uma
         ArrayList<Integer> list_informationId = new ArrayList<Integer>()
         ArrayList<PergaminhoBanhado> informationList = new ArrayList<PergaminhoBanhado>()
@@ -203,19 +196,6 @@ class PergaminhoBanhadoController {
         render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}?files=${id}"
 
     }
-
-    /*void createTxtPergaminho(String fileName, PergaminhoBanhado pergaminhoBanhado){
-        def dataPath = servletContext.getRealPath("/data")
-        def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
-
-        instancePath.mkdirs()
-
-        File file = new File("$instancePath/"+fileName);
-        def pw = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream(file), "UTF-8"))
-        pw.write(pergaminhoBanhado.information[0].replace("\"","\\\"") + "\n" + pergaminhoBanhado.information[1].replace("\"","\\\"") + "\n" + pergaminhoBanhado.information[2].replace("\"","\\\"") + "\n" + pergaminhoBanhado.information[3].replace("\"","\\\""))
-        pw.close();
-    }*/
 
     void createTxtPergaminho(String fileName, ArrayList<PergaminhoBanhado> informationList){
         def dataPath = servletContext.getRealPath("/data")

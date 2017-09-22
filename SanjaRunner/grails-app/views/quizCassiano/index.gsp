@@ -1,5 +1,5 @@
 
-<%@ page import="br.ufscar.sead.loa.sanjarunner.remar.QuizBanhado" %>
+<%@ page import="br.ufscar.sead.loa.sanjarunner.remar.QuizCassiano" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,14 +8,14 @@
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<g:javascript src="iframeResizer.contentWindow.min.js"/>
-		<g:external dir="css" file="quizBanhado.css"/>
-		<script type="text/javascript" src="/sanjarunner/js/quizBanhado.js"></script>
+		<g:external dir="css" file="quizCassiano.css"/>
+		<script type="text/javascript" src="/sanjarunner/js/quizCassiano.js"></script>
 	</head>
 	<body>
 		<!--Titulo-->
 		<div class="cluster-header">
 			<p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-				Fase Banhado - Criar quiz
+				Fase Cassiano - Criar quiz
 			</p>
 		</div>
 
@@ -29,7 +29,7 @@
 							 style="width:400px"/>
 					</div>
 				</center>
-				Informe abaixo quatro questões que serão inseridas no quiz do nível Banhado, mantendo a ordem em que as questões aparecerão no jogo.
+				Informe abaixo cinco questões que serão inseridas no quiz do nível Cassiano, mantendo a ordem em que as questões aparecerão no jogo.
 			</div>
 
 			<div id="chooseQuestions" class="col s12 m12 l12">
@@ -50,12 +50,12 @@
 
 							<!--Local para editar as questoes-->
 							<tbody>
-							<g:each in="${quizBanhadoInstanceList}" status="i" var="quizBanhadoInstance">
-								<tr id="tr${quizBanhadoInstance.id}" class="selectable_tr" style="cursor: pointer;"
-									data-id="${fieldValue(bean: quizBanhadoInstance, field: "id")}" data-owner-id="${fieldValue(bean: quizBanhadoInstance, field: "ownerId")}">
-									<td>${fieldValue(bean: quizBanhadoInstance, field: "question")}</td>
-									<td>${fieldValue(bean: quizBanhadoInstance, field: "answers")}</td>
-									<td>${quizBanhadoInstance.answers[quizBanhadoInstance.correctAnswer]}</td>
+							<g:each in="${quizCassianoInstanceList}" status="i" var="quizCassianoInstance">
+								<tr id="tr${quizCassianoInstance.id}" class="selectable_tr" style="cursor: pointer;"
+									data-id="${fieldValue(bean: quizCassianoInstance, field: "id")}" data-owner-id="${fieldValue(bean: quizCassianoInstance, field: "ownerId")}">
+									<td>${fieldValue(bean: quizCassianoInstance, field: "question")}</td>
+									<td>${fieldValue(bean: quizCassianoInstance, field: "answers")}</td>
+									<td>${quizCassianoInstance.answers[quizCassianoInstance.correctAnswer]}</td>
 									<td> <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil " onclick="_modal_edit($(this.closest('tr')))" ></i>
 									</td>
 								</tr>
@@ -89,7 +89,7 @@
 					<div class="modal-content">
 						<h4>Editar Questão</h4>
 						<div class="row">
-							<g:form method="post" action="update" resource="${quizBanhadoInstance}">
+							<g:form method="post" action="update" resource="${quizCassianoInstance}">
 								<!--Campos de edicao-->
 								<div class="row">
 									<div class="input-field col s12">
@@ -143,7 +143,7 @@
 								</div>
 
 
-								<input type="hidden" id="quizBanhadoID" name="quizBanhadoID">
+								<input type="hidden" id="quizCassianoID" name="quizCassianoID">
 								<div class="col l10">
 									<g:submitButton name="update" class="btn btn-success btn-lg my-orange" value="Salvar" />
 								</div>
@@ -153,25 +153,25 @@
 				</div>
 
 				<!--
-					<div id="errorSaveModal" class="modal">
-						<div class="modal-content">
-							Você deve selecionar pelo menos 4 questões para enviar.
-						</div>
-						<div class="modal-footer">
-							<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
-						</div>
-					</div>
+							<div id="errorSaveModal" class="modal">
+								<div class="modal-content">
+									Você deve selecionar pelo menos 4 questões para enviar.
+								</div>
+								<div class="modal-footer">
+									<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
+								</div>
+							</div>
 
 
-					<div id="errorDownloadModal" class="modal">
-						<div class="modal-content">
-							Você deve selecionar ao menos uma questão antes de exportar seu banco de questões.
-						</div>
-						<div class="modal-footer">
-							<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
-						</div>
-					</div>
-					-->
+							<div id="errorDownloadModal" class="modal">
+								<div class="modal-content">
+									Você deve selecionar ao menos uma questão antes de exportar seu banco de questões.
+								</div>
+								<div class="modal-footer">
+									<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
+								</div>
+							</div>
+							-->
 
 			</div>
 		</div>

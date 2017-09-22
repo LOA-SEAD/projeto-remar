@@ -10,7 +10,7 @@ import grails.util.Environment
 class QuizBanhadoController {
 
     def springSecurityService
-    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", exportQuestions: "POST"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", exportQuestions: "POST", returnInstance: "GET"]
     def beforeInterceptor = [action: this.&check, only: ['index', 'exportQuestions','save', 'update', 'delete']]
 
     private check() {
@@ -188,29 +188,17 @@ class QuizBanhadoController {
         for (int i=0; i<list_questionId.size();i++)
             questionList.add(QuizBanhado.findById(list_questionId[i]))
 
-        //cria o arquivo json
+        //cria o arquivo json, sendo que eh passado apenas o nome do arquivo, seu caminho fica no path do web-app/remar/process.json
         for (int i=0; i<list_questionId.size();i++) {
-            createTxtQuestoes("quizBanhado/question" + i + ".txt", questionList[i])
+            createTxtQuestoes("question" + i + ".txt", questionList, i)
         }
 
-        /*createTxtQuestoes("quizBanhado/question0.txt", questionList, 0)
-        createTxtQuestoes("quizBanhado/question1.txt", questionList, 1)
-        createTxtQuestoes("quizBanhado/question2.txt", questionList, 2)
-        createTxtQuestoes("quizBanhado/question3.txt", questionList, 3)*/
-
-        //createTxtQuestoes(questionList)
-
         // Finds the created file path
-        def ids = []
         def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
+        def ids = []
 
-        /*for (int i=0; i<list_questionId.size();i++)
-            ids << MongoHelper.putFile("${folder}/quizBanhado/question" + i + ".txt")*/
-
-        ids << MongoHelper.putFile("${folder}/quizBanhado/question0.txt")
-        ids << MongoHelper.putFile("${folder}/quizBanhado/question1.txt")
-        ids << MongoHelper.putFile("${folder}/quizBanhado/question2.txt")
-        ids << MongoHelper.putFile("${folder}/quizBanhado/question3.txt")
+        for (int i=0; i<list_questionId.size();i++)
+            ids << MongoHelper.putFile("${folder}/question" + i + ".txt")
 
         def port = request.serverPort
         if (Environment.current == Environment.DEVELOPMENT) {
@@ -221,7 +209,7 @@ class QuizBanhadoController {
                 "?files=${ids[0]}&files=${ids[1]}&files=${ids[2]}&files=${ids[3]}"
     }
 
-    /*void createTxtQuestoes(String fileName, ArrayList<QuizBanhado> questionList, int index){
+    void createTxtQuestoes(String fileName, ArrayList<QuizBanhado> questionList, int index){
         def dataPath = servletContext.getRealPath("/data")
         def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
 
@@ -230,35 +218,23 @@ class QuizBanhadoController {
         File file = new File("$instancePath/"+fileName)
         def pw = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(file), "UTF-8"))
-        pw.write(questionList[index].question.replace("\"","\\\"") + "\n" + questionList[index].answers[0].replace("\"","\\\"") + "\n" + questionList[index].answers[1].replace("\"","\\\"") + "\n" + questionList[index].answers[2].replace("\"","\\\"") + "\n" + questionList[index].answers[3].replace("\"","\\\"") + "\n" + questionList[index].correctAnswer)
-        pw.close()
-    }*/
-
-    /*void createTxtQuestoes(ArrayList<QuizBanhado> questionList) {
-        def dataPath = servletContext.getRealPath("/data")
-        def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
-
-        instancePath.mkdirs()
-
-        for(def i=0; i<questionList.size();i++) {
-            File file = new File("$instancePath/" + "quizBanhado/question" + i + ".txt")
-            def pw = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(file), "UTF-8"))
-            pw.write(questionList[i].question.replace("\"", "\\\"") + "\n" + questionList[i].answers[0].replace("\"", "\\\"") + "\n" + questionList[i].answers[1].replace("\"", "\\\"") + "\n" + questionList[i].answers[2].replace("\"", "\\\"") + "\n" + questionList[i].answers[3].replace("\"", "\\\"") + "\n" + questionList[i].correctAnswer)
-            pw.close()
+        pw.write(questionList[index].question.replace("\"","\\\"") + "\n" + questionList[index].answers[0].replace("\"","\\\"") + "\n" + questionList[index].answers[1].replace("\"","\\\"") + "\n" + questionList[index].answers[2].replace("\"","\\\"") + "\n" + questionList[index].answers[3].replace("\"","\\\"") + "\n"/* + Integer.toString(questionList[index].correctAnswer)*/)
+        switch(questionList[index].correctAnswer){
+            case 0:
+                pw.write("0")
+                break;
+            case 1:
+                pw.write("1")
+                break;
+            case 2:
+                pw.write("2")
+                break;
+            case 3:
+                pw.write("3")
+                break;
+            default:
+                println("Erro! Alternativa correta inválida")
         }
-    }*/
-
-    void createTxtQuestoes(String fileName, QuizBanhado questionList) {
-        def dataPath = servletContext.getRealPath("/data")
-        def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
-
-        instancePath.mkdirs()
-
-        File file = new File("$instancePath/" + fileName)
-        def pw = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream(file), "UTF-8"))
-        pw.write(questionList.question.replace("\"", "\\\"") + "\n" + questionList.answers[0].replace("\"", "\\\"") + "\n" + questionList.answers[1].replace("\"", "\\\"") + "\n" + questionList.answers[2].replace("\"", "\\\"") + "\n" + questionList.answers[3].replace("\"", "\\\"") + "\n" + questionList.correctAnswer)
         pw.close()
     }
 }

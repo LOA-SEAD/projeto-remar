@@ -1,5 +1,5 @@
 /**
- * Created by Douglas on 11/09/17.
+ * Created by Douglas on 22/09/17.
  * Based on Santo Grau models (faseCampoMinado and faseTCC)
  */
 
@@ -18,13 +18,13 @@ window.onload = function(){
         });
     });*/
 
-    if($("#errorImportingQuestions").val() == "true") {
-        $("#errorImportingQuestions").openModal();
+    if($("#errorImportingInformations").val() == "true") {
+        $("#errorImportingInformations").openModal();
     }
 };
 
 function _modal_edit(tr){
-    var url = location.origin + '/sanjarunner/quizBanhado/returnInstance/' + $(tr).attr('data-id');
+    var url = location.origin + '/sanjarunner/pergaminhoVicentina/returnInstance/' + $(tr).attr('data-id');
     var data = {_method: 'GET'};
 
     $.ajax({
@@ -32,37 +32,19 @@ function _modal_edit(tr){
             data: data,
             url: url,
             success: function (returndata) {
-                var quizBanhadoInstance = returndata.split("%@!");
-                //quizBanhadoInstance é um vetor com os atributos da classe Question na seguinte ordem:
-                // Question - Answer[0] - Answer[1] - Answer[2] - Answer[3] - CorrectAnswer - ID
+                var pergaminhoVicentinaInstance = returndata.split("%@!");
+                //pergaminhoVicentinaInstance é um vetor com os atributos da classe Information na seguinte ordem:
+                // Information[0] - Information[1] - Information[2] - Information[3] - ID
 
-                switch(quizBanhadoInstance[5]){
-                    case '0':
-                        $("#editRadio0").attr("checked","checked");
-                        break;
-                    case '1':
-                        $("#editRadio1").attr("checked","checked");
-                        break;
-                    case '2':
-                        $("#editRadio2").attr("checked","checked");
-                        break;
-                    case '3':
-                        $("#editRadio3").attr("checked","checked");
-                        break;
-                    default :
-                        console.log("Alternativa correta inválida");
-                }
-                $("#editQuestion").attr("value",quizBanhadoInstance[0]);
-                $("#labelQuestion").attr("class","active");
-                $("#labelAnswers1").attr("class","active");
-                $("#labelAnswers2").attr("class","active");
-                $("#labelAnswers3").attr("class","active");
-                $("#labelAnswers4").attr("class","active");
-                $("#editAnswers0").attr("value",quizBanhadoInstance[1]);
-                $("#editAnswers1").attr("value",quizBanhadoInstance[2]);
-                $("#editAnswers2").attr("value",quizBanhadoInstance[3]);
-                $("#editAnswers3").attr("value",quizBanhadoInstance[4]);
-                $("#quizBanhadoID").attr("value",quizBanhadoInstance[6]);
+                $("#labelInformation1").attr("class","active");
+                $("#labelInformation2").attr("class","active");
+                $("#labelInformation3").attr("class","active");
+                $("#labelInformation4").attr("class","active");
+                $("#editInformation0").attr("value",pergaminhoVicentinaInstance[0]);
+                $("#editInformation1").attr("value",pergaminhoVicentinaInstance[1]);
+                $("#editInformation2").attr("value",pergaminhoVicentinaInstance[2]);
+                $("#editInformation3").attr("value",pergaminhoVicentinaInstance[3]);
+                $("#pergaminhoVicentinaID").attr("value",pergaminhoVicentinaInstance[4]);
                 $("#editModal").openModal();
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -80,7 +62,7 @@ function _modal_edit(tr){
 }
 
 //CONSERTAR
-/*function exportQuestions(){
+/*function exportInformations(){
     var list_id = [];
 
     $.each($("input[type=checkbox]:checked"), function(ignored, el) {
@@ -91,7 +73,7 @@ function _modal_edit(tr){
         $.ajax({
             type: "POST",
             traditional: true,
-            url: "/sanjarunner/quizBanhado/exportCSV",
+            url: "/sanjarunner/pergaminhoVicentina/exportCSV",
             data: { list_id: list_id },
             success: function(returndata) {
                 console.log(returndata);
@@ -120,18 +102,18 @@ function _modal_edit(tr){
 function _submit() {
     var list_id = [];
 
-    //cria uma lista com os ids de cada questao
+    //cria uma lista com os ids dos textos
     $.each($("[class=selectable_tr]"), function (ignored, el) {
-            var tr = $(el);
-            console.log(tr);
-            list_id.push($(tr).attr('data-id'));
+        var tr = $(el);
+        console.log(tr);
+        list_id.push($(tr).attr('data-id'));
     });
 
-    //chama o controlador para criar o arquivo txt com as questoes inseridas
+    //chama o controlador para criar o arquivo txt com as informacoes inseridas
     $.ajax({
         type: "POST",
         traditional: true,
-        url: "/sanjarunner/quizBanhado/exportQuestions",
+        url: "/sanjarunner/pergaminhoVicentina/exportInformations",
         data: { list_id: list_id},
         success: function(returndata) {
             window.top.location.href = returndata;

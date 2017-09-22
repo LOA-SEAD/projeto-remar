@@ -1,19 +1,19 @@
-<%@ page import="br.ufscar.sead.loa.sanjarunner.remar.QuizBanhado" %>
+<%@ page import="br.ufscar.sead.loa.sanjarunner.remar.QuizCassiano" %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'quizBanhado.label', default: 'QuizBanhado')}" />
+		<g:set var="entityName" value="${message(code: 'quizCassiano.label', default: 'QuizCassiano')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
 	</head>
 	<body>
 		<div class="cluster-header">
 			<p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-				<i class="small material-icons left">grid_on</i>Fase Banhado - Editar quiz
+				<i class="small material-icons left">grid_on</i>Fase Cassiano - Editar quiz
 			</p>
 		</div>
 		<div class="row">
-			<g:form method="post" action="update" resource="${quizBanhadoInstance}">
+			<g:form method="post" action="update" resource="${quizCassianoInstance}">
 				<div class="row">
 					<div class="input-field col s12">
 						<label id="labelQuestion" class="active" for="editQuestion">Questão</label>

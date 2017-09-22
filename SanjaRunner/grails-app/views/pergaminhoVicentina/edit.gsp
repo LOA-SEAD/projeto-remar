@@ -1,19 +1,19 @@
-<%@ page import="br.ufscar.sead.loa.sanjarunner.remar.PergaminhoBanhado" %>
+<%@ page import="br.ufscar.sead.loa.sanjarunner.remar.PergaminhoVicentina" %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'pergaminhoBanhado.label', default: 'PergaminhoBanhado')}" />
+		<g:set var="entityName" value="${message(code: 'pergaminhoVicentina.label', default: 'PergaminhoVicentina')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
 	</head>
 	<body>
 		<div class="cluster-header">
 			<p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
-				<i class="small material-icons left">grid_on</i>Fase Banhado - Editar pergaminho
+				<i class="small material-icons left">grid_on</i>Fase Vicentina - Editar pergaminho
 			</p>
 		</div>
 		<div class="row">
-			<g:form method="post" action="update" resource="${pergaminhoBanhadoInstance}">
+			<g:form method="post" action="update" resource="${pergaminhoVicentinaInstance}">
 				<div class="row">
 					<div class="input-field col s12">
 						<label id="labelInformation1" class="active" for="editInformation0">Texto 1</label>
