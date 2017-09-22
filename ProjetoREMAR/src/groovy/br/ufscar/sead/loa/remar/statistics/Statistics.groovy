@@ -6,8 +6,14 @@ abstract class Statistics {
         def data = [:]
         data.timestamp = new Date().toTimestamp()
         data.exportedResourceId = params.exportedResourceId as int
-        data.win = Boolean.parseBoolean(params.win)
-        data.gameSize = params.size as int
+        data.win = Boolean.parseBoolean(params.win as String)
+
+        if (params.gameSize){
+            data.gameSize = params.gameSize as int
+        }else{
+            data.gameSize = params.size as int
+        }
+
         data.gameType = params.gameType
 
         if (params.gameIndex)
@@ -16,3 +22,10 @@ abstract class Statistics {
         return data
     }
 }
+
+
+/*if(!params.win.getClass().equals(Boolean.class)){
+            data.win = Boolean.parseBoolean(params.win)
+        }else{
+            data.win = params.win
+        }*/

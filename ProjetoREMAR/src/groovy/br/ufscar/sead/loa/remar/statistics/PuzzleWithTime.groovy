@@ -10,7 +10,7 @@ class PuzzleWithTime extends Statistics{
         data.points = params.points
         data.partialPoints = params.partialPoints as int
         data.remainingTime = params.remainingTime as int
-        data.end = Boolean.parseBoolean(params.end)
+        data.end = Boolean.parseBoolean(params.end as String)
 
         return data
     }

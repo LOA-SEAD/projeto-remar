@@ -3,17 +3,17 @@
     <thead>
     <tr>
         <th data-field="date">Data</th>
-        <th data-field="points">Pontos</th>
-        <th data-field="time">Tempo Restante</th>
+        <th data-field="points">Sequência Inicial</th>
+        <th data-field="errors">Número de Arrastos</th>
         <th data-field="win">Vitória</th>
     </tr>
     </thead>
     <tbody>
     <g:each in="${allStats}" var="stats">
         <tr>
-            <td><g:formatDate format="dd/MM/yy - HH:mm" date="${stats.timetamp}"/></td>
-            <td>${stats.partialPoints}</td>
-            <td>${stats.remainingTime}</td>
+            <td><g:formatDate format="dd/MM/yy - HH:mm" date="${stats.timestamp}"/></td>
+            <td>${stats.initialSequence}</td>
+            <td>${stats.numberDrag}</td>
             <td>
                 <g:if test="${stats.win}"><i style="color: green" class="fa fa-check-square"></i></g:if>
                 <g:else><i style="color: red" class="fa fa-times"></i></g:else>
@@ -22,4 +22,3 @@
     </g:each>
     </tbody>
 </table>
-            

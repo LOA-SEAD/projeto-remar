@@ -1,6 +1,8 @@
 package br.ufscar.sead.loa.remar
 
 import br.ufscar.sead.loa.propeller.Propeller
+import br.ufscar.sead.loa.remar.statistics.StatisticFactory
+import br.ufscar.sead.loa.remar.statistics.Statistics
 import com.mongodb.Block
 import com.mongodb.DBCursor
 import grails.converters.JSON
@@ -218,6 +220,11 @@ class GroupController {
     def userStats() {
         def user = User.findById(params.id)
         def exportedResource = ExportedResource.findById(params.exp)
+
+        // Os parâmetros abaixo são recebidos apenas quando o jogo é do tipo Multiplo
+        def gameIndex = params.gindex; // Numero da fase
+        def fase = params.fase; // Nome da fase
+
         if(user){
             def queryMongo = MongoHelper.instance.getStats('stats', params.exp as int, user.id)
             def allStats = []
@@ -227,34 +234,28 @@ class GroupController {
                 void apply(Document document) {
                     document.stats.each {
                         if(it.exportedResourceId == exportedResource.id){
-                            if(it.levelId == params.level as int) {
-                                if (question.empty)
-                                    question.push([question: it.question, answer: it.answer, levelId: it.levelId])
+                            //Verificação realizada para filtrar, tambem, pelo gameIndex quando o jogo é multiplo
+                            if(it.gameIndex == gameIndex) {
+                                if (it.levelId == params.level as int) {
+                                    if (question.empty)
+                                        question.push([question: it.question, answer: it.answer, levelId: it.levelId])
 
-                                if(it.gameType == "puzzleWithTime") {
-                                    allStats.push([timeStamp    : it.timestamp, levelId: it.levelId, win: it.win,
-                                                   points       : it.points, partialPoints: it.partialPoints,
-                                                   gameSize     : it.gameSize, gameType: it.gameType,
-                                                   remainingTime: String.format("%d min, %d sec",
-                                                           TimeUnit.SECONDS.toMinutes(it.remainingTime),
-                                                           (it.remainingTime - TimeUnit.MINUTES.toSeconds(TimeUnit.SECONDS.toMinutes(it.remainingTime as long)))
-                                                   )])
-                                } else if(it.gameType == "questionAndAnswer"){
-                                    allStats.push([timeStamp    : it.timestamp, levelId: it.levelId, win: it.win,
-                                                   points       : it.points, partialPoints: it.partialPoints, errors: it.errors,
-                                                   gameSize     : it.gameSize, gameType: it.gameType ])
-                                } else if(it.gameType == "multipleChoice"){
-                                    allStats.push([timeStamp    : it.timestamp, levelId: it.levelId, win: it.win, choice: it.choice,
-                                                   choices: it.choices, errors: it.errors, gameSize: it.gameSize, gameType: it.gameType ])
+                                    // Estratégia utilizada para padronizar a população de dados e o respectivo retorno (economia de ifs e switches)
+                                    StatisticFactory factory = StatisticFactory.instance;
+                                    Statistics statistics = factory.createStatistics(it.gameType as String)
+
+                                    def data = statistics.getData(it);
+                                    data.userId = session.user.id as long
+
+                                    allStats.push(data)
                                 }
                             }
                         }
                     }
-
                 }
             })
 
-            render view: "userStats", model: [allStats: allStats, user: user, question: question, exportedResource: exportedResource]
+            render view: "userStats", model: [allStats: allStats, user: user, question: question, exportedResource: exportedResource, fase: fase]
         }
     }
 
