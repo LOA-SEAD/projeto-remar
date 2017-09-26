@@ -64,7 +64,7 @@
 
 </div>
 
-<g:javascript src="game-info.js"/>
+<g:javascript src="remar/game-info.js"/>
 
 </body>
 </html>

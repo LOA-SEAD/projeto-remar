@@ -93,7 +93,7 @@
             %{-- Preenchido pelo Javascript --}%
         </div>
 
-        <g:javascript src="user/showProfile.js"/>
-        <g:javascript src="layout/dashboard.js"/>
+        <g:javascript src="remar/user/showProfile.js"/>
+        <g:javascript src="remar/layout/dashboard.js"/>
     </body>
 </html>

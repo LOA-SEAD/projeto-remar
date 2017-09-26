@@ -45,7 +45,9 @@
     <div id="userDetailsModal" class="modal" style="width:40%">
         %{-- Preenchido pelo Javascript --}%
     </div>
-    <g:javascript src="menu.js"/>
-    <g:javascript src="/utility/utility-customizable-game.js"/>
+
+    <g:javascript src="jquery/jquery.rateyo.min.js"/>
+    <g:javascript src="remar/menu.js"/>
+    <g:javascript src="/remar/utility/utility-customizable-game.js"/>
 </body>
 </html>

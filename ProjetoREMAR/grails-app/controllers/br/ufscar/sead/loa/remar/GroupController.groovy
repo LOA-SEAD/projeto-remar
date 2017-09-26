@@ -196,7 +196,13 @@ class GroupController {
     @Transactional
     def delete() {
         def group = Group.findById(params.id)
-        if(group.owner.id == session.user.id) {
+
+        if (group.owner.id == session.user.id) {
+            // Delete all user-group relationships from database
+            List<UserGroup> userGroups = UserGroup.findAllByGroup(group)
+            for (int i = 0; i < userGroups.size(); i++)
+                userGroups.get(i).delete()
+
             group.delete flush: true
             redirect(action: "list")
         } else

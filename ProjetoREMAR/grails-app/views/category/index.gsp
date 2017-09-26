@@ -73,6 +73,6 @@
 			</div>
 		</div>
 
-		<g:javascript src="category.js"/>
+		<g:javascript src="remar/category.js"/>
 	</body>
 </html>

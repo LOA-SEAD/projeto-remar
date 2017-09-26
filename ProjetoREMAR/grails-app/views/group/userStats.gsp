@@ -23,13 +23,13 @@
                 <h5 class="center-align">Estatísticas do jogo <i>${exportedResource.name}</i></h5>
                 <div class="divider"></div><br>
                 <g:if test="${allStats.get(0).gameType == "questionAndAnswer" || allStats.get(0).gameType == "multipleChoice"}">
-                    <p><b>Pergunta:</b> ${question.get(0).question}?</p>
-                    <p><b>Resposta:</b> ${question.get(0).answer}</p>
+                    <p><strong>Pergunta:</strong> ${question.get(0).question}?</p>
+                    <p><strong>Resposta:</strong> ${question.get(0).answer}</p>
                 </g:if>
 
                 <g:elseif test="${allStats.get(0).gameType == "puzzleWithTime"}">
                 </g:elseif>
-                <p><b>Fase:</b> ${question.get(0).levelId + 1}</p>
+                <p><strong>Fase:</strong> ${question.get(0).levelId + 1}</p>
 
                 <table class=" centered highlight responsive-table">
                     <thead>

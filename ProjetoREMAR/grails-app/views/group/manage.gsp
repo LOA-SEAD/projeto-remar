@@ -139,7 +139,7 @@
                     </div>
 
                     <div>
-                        <label><b>Clique</b> para selecionar e <b>segure</b> para arrastar.</label>
+                        <label><strong>Clique</strong> para selecionar e <strong>segure</strong> para arrastar.</label>
                         <label>Múltiplos usuário podem ser arrastados ao mesmo tempo.</label>
                     </div>
 
@@ -205,7 +205,7 @@
 
         <g:external dir="css" file="groupManagement.css"/>
         <g:external dir="css" file="jquery.ui.min.css"/>
-        <g:javascript src="group/manage-user-group.js"/>
+        <g:javascript src="remar/group/manage-user-group.js"/>
         <g:javascript src="jquery/jquery.ui.min.js"/>
     </body>
 </html>

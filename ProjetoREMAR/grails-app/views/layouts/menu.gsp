@@ -60,7 +60,10 @@
 
     <sec:ifAllGranted roles="ROLE_ADMIN">
         <li class="waves-effect waves-block waves-light">
-            <a href="/category/index" class=""><i class="material-icons">list</i>Categorias</a>
+            <a href="/admin/dashboard" class="">
+                <i class="material-icons">verified_user</i>
+                Administrador
+            </a>
         </li>
     </sec:ifAllGranted>
 

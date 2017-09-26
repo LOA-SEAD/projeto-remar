@@ -187,9 +187,9 @@
 </div>
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
-<g:javascript src="add-resource-to-group.js"/>
-<g:javascript src="info-share.js"/>
-<g:javascript src="licenseShow.js"/>
+<g:javascript src="remar/group/add-resource-to-group.js"/>
+<g:javascript src="remar/info-share.js"/>
+<g:javascript src="remar/licenseShow.js"/>
 <recaptcha:script/>
 </body>
 </html>

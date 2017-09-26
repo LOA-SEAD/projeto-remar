@@ -2,8 +2,8 @@
 <html>
 <head>
     <meta name="layout" content="base">
-    <link type="text/css" rel="stylesheet" href="${resource(dir: 'css', file: 'jquery.Jcrop.css')}"/>
-    <link type="text/css" rel="stylesheet" href="${resource(dir: 'css', file: 'signup.css')}"/>
+    <link type="text/css" rel="stylesheet" href="${resource(dir: 'css/jquery', file: 'jquery.jcrop.css')}"/>
+    <link type="text/css" rel="stylesheet" href="${resource(dir: 'css/user', file: 'signup.css')}"/>
 
     <title>Registrar-se</title>
 </head>
@@ -114,8 +114,8 @@
 
 <g:javascript src="jquery/jquery.validate.js"/>
 <recaptcha:script/>
-<g:javascript src="user/form.js"/>
-<g:javascript src="user/image-selector.js"/>
-<g:javascript src="jquery/jquery.Jcrop.js"/>
+<g:javascript src="remar/user/form.js"/>
+<g:javascript src="remar/user/image-selector.js"/>
+<g:javascript src="jquery/jquery.jcrop.js"/>
 </body>
 </html>

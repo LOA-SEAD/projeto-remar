@@ -42,6 +42,6 @@
         %{-- Preenchido pelo Javascript --}%
     </div>
 
-    <g:javascript src="game-index.js"/>
+    <g:javascript src="remar/game-index.js"/>
 </body>
 </html>

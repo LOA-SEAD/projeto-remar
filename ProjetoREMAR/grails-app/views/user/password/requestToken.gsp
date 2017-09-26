@@ -9,7 +9,7 @@
 
     <g:javascript src="jquery/jquery.validate.js"/>
     <recaptcha:script/>
-    <g:javascript src="recaptcha.js"/>
+    <g:javascript src="remar/recaptcha.js"/>
     <g:javascript src="../assets/js/jquery.min.js" />
     <g:javascript src="../assets/js/jquery.validate.js" />
     <style>

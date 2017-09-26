@@ -9,21 +9,19 @@
 
         <link rel="shortcut icon" href="${assetPath(src: 'favicon.png')}">
 
-        <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons">
-        <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-        <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/css/swiper.css">
-        <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.css">
+        <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons"/>
+        <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+        <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/css/swiper.css"/>
         <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.slick/1.5.9/slick.css"/>
         <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.slick/1.5.9/slick-theme.css"/>
 
-        <g:external dir="css" file="introjs.min.css" />
-        <g:external dir="css" file="materialize.css" />
+        <g:external dir="css/jquery" file="jquery.introjs.min.css" />
+        <g:external dir="css/libs" file="materialize.css" />
         <g:external dir="css" file="style.css" />
 
         <g:javascript src="jquery/jquery-2.1.4.min.js" />
-        <g:javascript src="jquery/jquery.rateyo.min.js" />
-        <g:javascript src="materialize.min.js" />
-        <g:javascript src="intro.js" />
+        <g:javascript src="libs/materialize.min.js" />
+        <g:javascript src="libs/intro.js" />
 
         <title><g:layoutTitle default="REMAR"/></title>
 

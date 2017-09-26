@@ -183,6 +183,6 @@
 <div id="modal" class="modal">
 </div>
 
-<g:javascript src="dspace/dspace.js"/>
+<g:javascript src="remar/dspace/dspace.js"/>
 </body>
 </html>

@@ -147,7 +147,7 @@
         <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "group.css")}" />
 
         <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-        <g:javascript src="group/delete-group-resources.js"/>
-        <g:javascript src="group/group.js"/>
+        <g:javascript src="remar/group/delete-group-resources.js"/>
+        <g:javascript src="remar/group/group.js"/>
     </body>
 </html>

@@ -63,6 +63,7 @@
     %{-- Preenchido pelo Javascript --}%
 </div>
 
-<g:javascript src="menu.js"/>
+<g:javascript src="jquery/jquery.rateyo.min.js"/>
+<g:javascript src="remar/menu.js"/>
 </body>
 </html>

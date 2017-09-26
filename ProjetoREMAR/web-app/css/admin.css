@@ -1,0 +1,53 @@
+/* admin dashboard */
+.card-image i {
+    font-size: 130px;
+    font-size: 7vw;
+}
+/* end of admin dashboard */
+
+/* user management table row */
+td.valign-wrapper {
+    justify-content: center;
+}
+
+td a {
+    margin: 0 5px;
+}
+
+[type="checkbox"] + label {
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+}
+
+.dev-toggle i {
+    opacity: .5;
+
+    -webkit-transition: color 0.3s ease, opacity 0.3s ease;
+    -moz-transition: color 0.3s ease, opacity 0.3s ease;
+    -ms-transition: color 0.3s ease, opacity 0.3s ease;
+    -o-transition: color 0.3s ease, opacity 0.3s ease;
+    transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.dev-toggle.active i {
+    opacity: 1;
+}
+
+.table-container {
+    min-height: 355px;
+}
+/* end of user management table row */
+
+/* user import table row */
+#user-import {
+    display: none;
+}
+/* end of user import table row */
+
+/* user export table row */
+#user-export {
+    display: none;
+    margin-top: 40px;
+}
+/* end of user import table row */

@@ -37,5 +37,5 @@
     </div>
 </g:each>
 
-<g:javascript src="user/showProfile.js"/>
-<g:javascript src="showResourceStatus.js"/>
+<g:javascript src="remar/user/showProfile.js"/>
+<g:javascript src="remar/showResourceStatus.js"/>

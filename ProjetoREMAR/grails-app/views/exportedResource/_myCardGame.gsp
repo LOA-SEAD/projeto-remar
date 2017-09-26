@@ -118,6 +118,6 @@
 
     </div>
     <g:applyLayout name="pagination"/>
-    <g:javascript src="utility/utility-my-game.js"/>
-    <g:javascript src="showShares.js"/>
+    <g:javascript src="remar/utility/utility-my-game.js"/>
+    <g:javascript src="remar/showShares.js"/>
 </main>

@@ -66,6 +66,21 @@ class BootStrap {
             log.debug "Users: ok"
         }
 
+        for(def i = 10; i < 20; i++) {
+            println "criando usuário " + i
+            def loa = new User(
+                    username: "user" + i,
+                    password: grailsApplication.config.users.password,
+                    email: "user" + i + "@sead.ufscar.br",
+                    firstName: "User",
+                    lastName: i,
+                    enabled: true
+            )
+            loa.save flush: true
+
+            if (loa.hasErrors()) println loa.errors
+        }
+
         Platform.findOrSaveByName('Android')
         Platform.findOrSaveByName('Linux')
         Platform.findOrSaveByName('Web')
@@ -102,7 +117,7 @@ class BootStrap {
         }
 
         for (url in [
-                '/process/deploy', '/process/undeploy', '/category/**', '/category/delete/**', "category/update/**"
+                '/process/deploy', '/process/undeploy', '/category/**', '/category/delete/**', "category/update/**", "/admin/**"
         ]) {
             RequestMap.findOrSaveByUrlAndConfigAttribute(url, 'ROLE_ADMIN')
         }

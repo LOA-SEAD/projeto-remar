@@ -2,13 +2,14 @@ package br.ufscar.sead.loa.remar
 
 import grails.util.Holders
 import groovyx.net.http.HTTPBuilder
+import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 /**
  * Created by matheus on 12/1/15.
  */
 class Util {
 
-    def static later(code) {
+    static later(code) {
         def r = new Runnable() {
             @Override
             void run() {
@@ -18,7 +19,7 @@ class Util {
         new Thread(r).start()
     }
 
-    def static sendEmail(String recipient, String subject, String body) {
+    static sendEmail(String recipient, String subject, body) {
         later {
             def http = new HTTPBuilder("https://api.sendgrid.com")
             http.setHeaders(['Authorization': "Bearer ${Holders.getGrailsApplication().config.sendGridApiKey}"])
@@ -38,8 +39,18 @@ class Util {
         }
     }
 
-    /*
-    * convert uma date no formato 1 August, 2016
-    * */
+    static readCSV(CommonsMultipartFile csv, separatorChar, encoding) {
+        def options = [
+                'separatorChar': separatorChar?: ',',
+                'charset': encoding?: 'UTF-8'
+        ]
+
+        def rows = []
+        csv.inputStream.toCsvReader(options).eachLine { row ->
+            rows.add(row)
+        }
+
+        return rows
+    }
 
 }

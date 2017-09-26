@@ -79,7 +79,7 @@
         </g:form>
     </article>
 </div>
-<g:javascript src="dspace/validateSubmit.js"/>
-<g:javascript src="dspace/item.js"/>
+<g:javascript src="remar/dspace/validateSubmit.js"/>
+<g:javascript src="remar/dspace/item.js"/>
 </body>
 </html>
