@@ -18,11 +18,9 @@
                         <div class="col s6">
                             <div class="row right-align" style="margin-bottom: 0px">
                                 <g:if test="${group.owner.id == session.user.id}">
-                                    <div class="row" style="margin:0px;">
-                                        <g:link action="edit" id="${group.id}" class="tooltipped" data-position="left" data-delay="30" data-tootip="Gerenciar Grupo">
-                                            <i class="fa fa-cog fa-2x"></i>
-                                        </g:link>
-                                    </div>
+                                    <g:link action="edit" id="${group.id}" class="tooltipped" data-position="left" data-delay="30" data-tootip="Gerenciar Grupo">
+                                        <i class="fa fa-cog fa-2x"></i>
+                                    </g:link>
                                 </g:if>
                             </div>
                             <div class="row right-align" style="margin-bottom: 0px">

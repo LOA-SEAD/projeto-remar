@@ -23,10 +23,20 @@ class AdminController {
         render view: "users", model: [users: users]
     }
 
+    def groups() {
+        def groups = Group.list().sort {it.name.toLowerCase()}
+        render view: "groups", model: [groups: groups]
+    }
+
     @Transactional
     deleteUser() {
         deleteUserProc(params.id)
+        render (status: 200)
+    }
 
+    @Transactional
+    deleteGroup() {
+        deleteGroupProc(params.id)
         render (status: 200)
     }
 
@@ -36,6 +46,17 @@ class AdminController {
 
         userIdList.each {
             deleteUserProc(it)
+        }
+
+        render (status: 200)
+    }
+
+    @Transactional
+    deleteGroupBatch() {
+        def groupIdList = JSON.parse(params.groupIdList)
+
+        groupIdList.each {
+            deleteGroupProc(it)
         }
 
         render (status: 200)
@@ -90,7 +111,7 @@ class AdminController {
                     break
             }
         } else {
-            flash.message = g.message(code: "admin.users.import.error.empty")
+            flash.message = g.message(code: "default.errors.fileEmpty")
         }
 
         redirect action: "users"
@@ -161,7 +182,8 @@ class AdminController {
      * @param  id - the id from the user to be removed
      * @return nothing
      */
-    def deleteUserProc(id) {
+    @Transactional
+    deleteUserProc(id) {
         def userInstance = User.findById(id)
 
         if (userInstance == null) {
@@ -191,7 +213,23 @@ class AdminController {
         for (int i = 0; i < groups.size(); i++)
             groups.get(i).delete()
 
+        // Remove user-group relationships
+        UserGroup.removeAllByUser(userInstance, true)
+
         userInstance.delete flush: true
+    }
+
+    /**
+     *
+     */
+    @Transactional
+    deleteGroupProc(id) {
+        def groupInstance = Group.findById(id)
+
+        if (groupInstance == null) {
+            render(status: 410, text: "ERROR: Failed removing group")
+            return
+        }
     }
 
     /**

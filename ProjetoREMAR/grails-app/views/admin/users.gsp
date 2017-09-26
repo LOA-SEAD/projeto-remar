@@ -46,7 +46,7 @@
                     <select class="pager-select">
                         %{-- Preenchido programaticamente por jquery.tablePagination.js --}%
                     </select>
-                    <label><g:message code="admin.users.pager.select"/></label>
+                    <label><g:message code="admin.users.title"/></label>
                 </div>
                 <div class="input-field col s8 offset-s1">
                     <input type="text" id="search-user" class="remar-input" placeholder=" "/>
@@ -67,9 +67,9 @@
                                     </p>
                                 </th>
 
-                                <th><g:message code="admin.users.table.header.name"/></th>
+                                <th><g:message code="admin.table.header.name"/></th>
                                 <th><g:message code="admin.users.table.header.username"/></th>
-                                <th class="center-align"><g:message code="admin.users.table.header.actions"/></th>
+                                <th class="center-align"><g:message code="admin.table.header.actions"/></th>
                             </tr>
                         </thead>
 
@@ -169,7 +169,7 @@
                         <div class="col s12">
                             <div class="file-field input-field">
                                 <div class="btn">
-                                    <span><g:message code="admin.users.import.button"/></span>
+                                    <span><g:message code="default.button.file.label"/></span>
                                     <input type="file" name="spreadsheet-file">
                                 </div>
                                 <div class="file-path-wrapper">

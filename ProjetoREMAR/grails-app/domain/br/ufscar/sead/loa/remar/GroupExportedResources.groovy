@@ -6,4 +6,16 @@ class GroupExportedResources {
 
     static constraints = {
     }
+
+    static void removeAllByGroup(Group g, boolean flush = false) {
+        if (g == null) return
+
+        GroupExportedResources.where {
+            group == Group.load(g.id)
+        }.deleteAll()
+
+        if (flush) {
+            GroupExportedResources.withSession { it.flush() }
+        }
+    }
 }
