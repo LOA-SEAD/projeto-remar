@@ -235,7 +235,6 @@
     }
   ],
   "outputs": [
-    "web",
     "desktop",
     "android"
   ],

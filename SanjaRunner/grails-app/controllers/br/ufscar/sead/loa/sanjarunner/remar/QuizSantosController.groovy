@@ -219,8 +219,8 @@ class QuizSantosController {
         File file = new File("$instancePath/"+fileName)
         def pw = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(file), "UTF-8"))
-        pw.write(questionList[index].question.replace("\"","\\\"") + "\n" + questionList[index].answers[0].replace("\"","\\\"") + "\n" + questionList[index].answers[1].replace("\"","\\\"") + "\n" + questionList[index].answers[2].replace("\"","\\\"") + "\n" + questionList[index].answers[3].replace("\"","\\\"") + "\n"/* + Integer.toString(questionList[index].correctAnswer)*/)
-        switch(questionList[index].correctAnswer){
+        pw.write(questionList[index].question.replace("\"","\\\"") + "\n" + Integer.toString(questionList[index].correctAnswer) + "\n" + questionList[index].answers[0].replace("\"","\\\"") + "\n" + questionList[index].answers[1].replace("\"","\\\"") + "\n" + questionList[index].answers[2].replace("\"","\\\"") + "\n" + questionList[index].answers[3].replace("\"","\\\""))
+        /*switch(questionList[index].correctAnswer){
             case 0:
                 pw.write("0")
                 break;
@@ -235,7 +235,7 @@ class QuizSantosController {
                 break;
             default:
                 println("Erro! Alternativa correta inválida")
-        }
+        }*/
         pw.close()
     }
 }
