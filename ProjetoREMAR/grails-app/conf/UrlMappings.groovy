@@ -58,6 +58,7 @@ class UrlMappings {
         "/resource/saveRating/$id"(controller: "resource", action: "saveRating")
         "/resource/deleteRating/$id"(controller: "resource", action: "deleteRating")
         "/resource/updateRating/$id"(controller: "resource", action: "updateRating")
+        "/resource/uri/$uri"(controller: "resource", action: "showURI")
 
         "/exported-resource/publicGames"(controller:"exportedResource", action:"publicGames")
         "/exported-resource/myGames"(controller:"exportedResource", action:"myGames")
