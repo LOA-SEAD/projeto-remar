@@ -87,11 +87,11 @@ $(document).ready(function() {
             data: {orientation: orientation},
             url: "validate",
             success: function (resp) {
-                $('#fail-modal .modal-content p').html(resp);
-                $('#fail-modal').modal().modal('open');
                 $('#loading-screen').hide();
             },
             error: function (xhr, status, text) {
+                $('#fail-modal .modal-content p').html(resp);
+                $('#fail-modal').modal('open');
                 console.log(text);
             }
         });

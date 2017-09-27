@@ -17,7 +17,7 @@ $w_multiplier: ();
 
 $card-values: ();
 
-// Geração de código para a quantidade de pares fácil
+// Geração de codigo para a quantidade de pares facil
 @for $i from 0 through 1 {
     @for $j from 0 through ($totalParesFacilUpload - 1) {
         $w: $w_multiplier * $j;
@@ -32,7 +32,7 @@ $card-values: ();
     }
 }
 
-// Geração de código para a quantidade de pares medio
+// Geração de codigo para a quantidade de pares medio
 @for $i from 2 through 3 {
     @for $j from 0 through ($totalParesMedioUpload - 1) {
         $w: $w_multiplier * $j;
@@ -47,7 +47,7 @@ $card-values: ();
     }
 }
 
-// Geração de código para a quantidade de pares dificil
+// Geração de codigo para a quantidade de pares dificil
 @for $i from 4 through 5 {
     @for $j from 0 through ($totalParesDificilUpload - 1) {
         $w: $w_multiplier * $j;

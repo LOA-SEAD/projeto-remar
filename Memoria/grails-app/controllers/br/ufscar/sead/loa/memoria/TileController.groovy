@@ -56,30 +56,61 @@ class TileController {
 
         def f1Uploaded = request.getFile("tile-a")
         def f2Uploaded = request.getFile("tile-b")
-        if (!f1Uploaded.isEmpty() && !f2Uploaded.isEmpty()) {
 
-            def f1 = new File("$userPath/tile$id-a.png")
-            def f2 = new File("$userPath/tile$id-b.png")
+        def errors = [
+                not_image_file_a: false,
+                not_image_file_b: false
+        ]
 
-            f1Uploaded.transferTo(f1)
-            f2Uploaded.transferTo(f2)
 
-            // the convert script will convert the files to png even if they weren't uploaded as such
-            // this was needed because the file wouldn't open as png if uploaded as other format
-            executarShell([
-                    script_convert_png,
-                    f1.absolutePath,
-                    f1.absolutePath
-            ])
-
-            executarShell([
-                    script_convert_png,
-                    f2.absolutePath,
-                    f2.absolutePath
-            ])
+        if (! f1Uploaded.fileItem.contentType.startsWith("image/")) {
+            errors.not_image_file_a = true
         }
 
-        redirect(controller: "Tile", action:"index")
+
+        if (! f2Uploaded.fileItem.contentType.startsWith("image/")) {
+            errors.not_image_file_b = true
+        }
+
+        // if any of those files aren't images, we can't convert
+        if (!(errors.not_image_file_a || errors.not_image_file_b)) {
+
+
+            if (!f1Uploaded.isEmpty() && !f2Uploaded.isEmpty()) {
+
+                def f1 = new File("$userPath/tile$id-a.png")
+                def f2 = new File("$userPath/tile$id-b.png")
+
+                f1Uploaded.transferTo(f1)
+                f2Uploaded.transferTo(f2)
+
+                // the convert script will convert the files to png even if they weren't uploaded as such
+                // this was needed because the file wouldn't open as png if uploaded as other format
+                executarShell(
+                        script_convert_png,
+                        [
+                        f1.absolutePath,
+                        f1.absolutePath
+                        ]
+                )
+
+                executarShell(
+                        script_convert_png,
+                        [
+                        f2.absolutePath,
+                        f2.absolutePath
+                        ]
+                )
+            }
+
+
+            redirect(controller: "Tile", action:"index")
+        } else {
+            flash.error = errors
+            println(flash.error)
+            redirect(controller: "Tile", action:"create")
+        }
+
     }
 
     def edit() {
@@ -112,33 +143,61 @@ class TileController {
         def f1Uploaded = request.getFile("tile-a")
         def f2Uploaded = request.getFile("tile-b")
 
-        // Change tile first image if it was uploaded
-        if (!f1Uploaded.isEmpty()) {
-            def f1 = new File("$userPath/tile$id-a.png")
-            f1Uploaded.transferTo(f1)
+        def errors = [
+                not_image_file_a: false,
+                not_image_file_b: false
+        ]
 
-            // convert to png
-            executarShell([
-                    script_convert_png,
-                    f1.absolutePath,
-                    f1.absolutePath
-            ])
+
+        if (! f1Uploaded.fileItem.contentType.startsWith("image/")) {
+            errors.not_image_file_a = true
         }
 
-        // Change tile second image if it was uploaded
-        if (!f2Uploaded.isEmpty()) {
-            def f2 = new File("$userPath/tile$id-b.png")
-            f2Uploaded.transferTo(f2)
 
-            // convert to png
-            executarShell([
-                    script_convert_png,
-                    f2.absolutePath,
-                    f2.absolutePath
-            ])
+        if (! f2Uploaded.fileItem.contentType.startsWith("image/")) {
+            errors.not_image_file_b = true
         }
 
-        redirect(controller: "Tile", action:"index")
+        // if any of those files aren't images, we can't convert
+        if (!(errors.not_image_file_a || errors.not_image_file_b)) {
+
+            // Change tile first image if it was uploaded
+            if (!f1Uploaded.isEmpty()) {
+                def f1 = new File("$userPath/tile$id-a.png")
+                f1Uploaded.transferTo(f1)
+
+                // convert to png
+                executarShell(
+                        script_convert_png,
+                        [
+                        f1.absolutePath,
+                        f1.absolutePath
+                        ]
+                )
+            }
+
+            // Change tile second image if it was uploaded
+            if (!f2Uploaded.isEmpty()) {
+                def f2 = new File("$userPath/tile$id-b.png")
+                f2Uploaded.transferTo(f2)
+
+                // convert to png
+                executarShell(
+                        script_convert_png,
+                        [
+                        f2.absolutePath,
+                        f2.absolutePath
+                        ]
+                )
+            }
+
+            redirect(controller: "Tile", action:"index")
+        } else {
+            request.error = errors
+
+            redirect(controller: "Tile", action:"create")
+        }
+
     }
 
     @Transactional
@@ -196,8 +255,8 @@ class TileController {
         def ok = true
 
         for (def difficulty = 1; difficulty <= 3; difficulty++) {
-            //def min = difficulty * 2 + 2
-            def min = 1
+            def min = difficulty * 2 + 2
+            //def min = 1 //usado para testes
             def count = Tile.countByDifficultyAndOwnerIdAndTaskId(difficulty, owner, session.taskId)
 
             if (count < min) {
@@ -231,7 +290,7 @@ class TileController {
             }
 
             // atualiza a tarefa corrente para o status de "completo"
-            render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
+            redirect  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
                     "?files=${ids[0]}&files=${ids[1]}"
         }
     }
@@ -286,13 +345,12 @@ class TileController {
         def script_append = servletContext.getRealPath("/scripts/append.sh")
 
         def l2 = [
-            script_append,
             tilesPath,
             orientation
         ]
 
         println("l2 --> " + l2)
-        executarShell(l2)
+        executarShell(script_append, l2)
         ////////////////////////////////////////////////////////////////////////////////////////
         // Parametros script sedSASS
         //#1 - full path for template.scss
@@ -306,24 +364,22 @@ class TileController {
         def script_sedSASS = servletContext.getRealPath("/scripts/sed_sass.sh")
 
         def l3 = [
-            script_sedSASS,
             servletContext.getRealPath("/scripts/template.scss"),
             "${instancePath}/output.css",
             orientation,
-            easyTilesIdList.size(),
-            mediumTilesIdList.size(),
-            hardTilesIdList.size()
+            String.valueOf(easyTilesIdList.size()),
+            String.valueOf(mediumTilesIdList.size()),
+            String.valueOf(hardTilesIdList.size())
         ]
 
         println("l3 --> " + l3)
-        executarShell(l3)
+        executarShell(script_sedSASS, l3)
     }
 
     def execConcatenate(orient, difficulty, idList, folder) {
 
         def script_concatenate_tiles = servletContext.getRealPath("/scripts/concatenate.sh")
         def l = [
-            script_concatenate_tiles,
             orient, // $1
             difficulty, // $2
             folder // $3
@@ -337,21 +393,30 @@ class TileController {
         for (id in idList)
             l.add("tile${id}-b.png")
 
-        executarShell(l)
+        executarShell(script_concatenate_tiles, l)
 
     }
 
     // the list has to contain the path to the sh file as its first element
     // and then the next elements will be the respective params for the script
-    def executarShell(execList){
-        def proc
+    def executarShell(scriptName, execList){
+        def ant = new AntBuilder()
 
-        proc = execList.execute()
-        proc.waitFor()
-        if (proc.exitValue()) {
-            println "script ${execList.get(0)} gave the following error: "
-            println "[ERROR] ${proc.getErrorStream()}"
+        def argLine = String.join(" ", execList);
+
+        ant.sequential {
+            chmod(perm: "+x", file: scriptName)
+            exec(executable: scriptName) {
+                arg(line: argLine)
+            }
         }
+        //def proc
+        //proc = execList.execute()
+        //proc.waitFor()
+        //if (proc.exitValue()) {
+        //    println "script ${execList.get(0)} gave the following error: "
+        //    println "[ERROR] ${proc.getErrorStream()}"
+        //}
 
     }
 

@@ -161,3 +161,27 @@ h4 a { display: inline-flex; }
     font-weight: 600;
     margin: 10px 0;
 }
+/* Error Box */
+.error-box, .warning-box, .success-box {
+    margin: 10px 15px;
+    padding: 12px;
+    text-align: left;
+}
+
+.error-box {
+    color: #D8000C;
+    background-color: #FFBABA;
+}
+
+.warning-box {
+    color: #9F6000;
+    background-color: #FEEFB3;
+}
+
+.error-box i, .warning-box i, .success-box i {
+    margin: 0px 22px;
+    font-size: 18px;
+    vertical-align: middle;
+}
+
+
