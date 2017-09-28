@@ -173,6 +173,102 @@
 					</div>
 					-->
 
+				<div id="errorImportingQuestionsModal" class="modal">
+					<div class="modal-content">
+						Erro - Para importar questões, você deve deixá-las no formato indicado.
+					</div>
+					<div class="modal-footer">
+						<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
+					</div>
+				</div>
+
+				<div id="uploadModal" class="modal">
+					<div class="modal-content">
+						<h4>Enviar arquivo .csv</h4>
+						<div class="row">
+							<g:uploadForm  method="post" action="generateQuestions" resource="${quizBanhadoInstance}">
+								<div class="file-field input-field">
+									<div class="btn my-orange">
+										<span>File</span>
+										<input type="file" accept="text/csv" id="csv" name="csv">
+									</div>
+									<div class="file-path-wrapper">
+										<input class="file-path validate" type="text">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col s1 offset-s10">
+										<g:submitButton class="btn my-orange" name="generateQuestions" value="Enviar"/>
+									</div>
+								</div>
+							</g:uploadForm>
+						</div>
+
+						<blockquote>Formatação do arquivo .csv</blockquote>
+						<div class="row">
+							<div class="col s12">
+								<ol>
+									<li>O separador do arquivo .csv deve ser um <b> ';' (ponto e vírgula)</b>  </li>
+									<li>O arquivo deve ser composto apenas por <b>dados</b></li>
+									<li>O arquivo deve representar a estrutura da tabela de exemplo</li>
+								</ol>
+								<ul>
+									<li><a href="/sanjarunner/samples/exemploQuiz.csv">Download do arquivo exemplo</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<table class="center" style="font-size: 12px;">
+									<thead>
+									<tr>
+										<th>Pergunta</th>
+										<th>Alternativa1</th>
+										<th>Alternativa2</th>
+										<th>Alternativa3</th>
+										<th>Alternativa4</th>
+										<th>Resposta</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr>
+										<td>Questão 1</td>
+										<td>Alternativa A</td>
+										<td>Alternativa B</td>
+										<td>Alternativa C</td>
+										<td>Alternativa D</td>
+										<td>0</td>
+									</tr>
+									<tr>
+										<td>Questão 2</td>
+										<td>Alternativa A</td>
+										<td>Alternativa B</td>
+										<td>Alternativa C</td>
+										<td>Alternativa D</td>
+										<td>3</td>
+									</tr>
+									<tr>
+										<td>Questão 3</td>
+										<td>Alternativa A</td>
+										<td>Alternativa B</td>
+										<td>Alternativa C</td>
+										<td>Alternativa D</td>
+										<td>2</td>
+									</tr>
+									<tr>
+										<td>Questão 4</td>
+										<td>Alternativa A</td>
+										<td>Alternativa B</td>
+										<td>Alternativa C</td>
+										<td>Alternativa D</td>
+										<td>1</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	<input type="hidden" id="errorImportingQuestions" name="errorImportingQuestions" value="${errorImportQuestions}">

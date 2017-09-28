@@ -1,6 +1,8 @@
 package br.ufscar.sead.loa.sanjarunner.remar
 
 import grails.plugin.springsecurity.annotation.Secured
+import org.springframework.web.multipart.MultipartFile
+
 import static org.springframework.http.HttpStatus.*
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.transaction.Transactional
@@ -10,8 +12,8 @@ import grails.util.Environment
 class PergaminhoVicentinaController {
 
     def springSecurityService
-    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", exportInformations: "POST", returnInstance: "GET"]
-    def beforeInterceptor = [action: this.&check, only: ['index', 'exportInformations','save', 'update', 'delete']]
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", exportInformations: "POST", returnInstance: "GET", generateInformations: "POST"]
+    def beforeInterceptor = [action: this.&check, only: ['index', 'exportInformations','save', 'update', 'delete', 'generateInformations']]
 
     private check() {
         if (springSecurityService.isLoggedIn())
@@ -26,7 +28,7 @@ class PergaminhoVicentinaController {
     }
 
     @Secured(['permitAll'])
-    def index(Integer max) {
+    def index() {
         //params.max = Math.min(max ?: 10, 100)
         //respond PergaminhoVicentina.list(params), model:[pergaminhoVicentinaInstanceCount: PergaminhoVicentina.count()]
         if (params.t) {
@@ -46,7 +48,7 @@ class PergaminhoVicentinaController {
         }
 
         list = PergaminhoVicentina.findAllByOwnerId(session.user.id)
-        respond list, model: [pergaminhoVicentinaInstanceCount: PergaminhoVicentina.count(), errorImportQuestions:params.errorImportQuestions]
+        respond list, model: [pergaminhoVicentinaInstanceCount: PergaminhoVicentina.count(), errorImportInformations: params.errorImportInformations]
     }
 
     def show(PergaminhoVicentina pergaminhoVicentinaInstance) {
@@ -208,5 +210,61 @@ class PergaminhoVicentinaController {
                 new FileOutputStream(file), "UTF-8"))
         pw.write(informationList[0].information[0].replace("\"","\\\"") + "\n" + informationList[0].information[1].replace("\"","\\\"") + "\n" + informationList[0].information[2].replace("\"","\\\"") + "\n" + informationList[0].information[3].replace("\"","\\\""))
         pw.close();
+    }
+
+    @Transactional
+    def generateInformations(){
+        MultipartFile csv = params.csv
+        def error = false
+
+        csv.inputStream.toCsvReader([ 'separatorChar': ';', 'charset':'UTF-8']).eachLine { row ->
+            if(row.size() == 4) {
+                PergaminhoVicentina pergaminhoVicentinaInstance = PergaminhoVicentina.findById(1)
+                pergaminhoVicentinaInstance.information[0] = row[0] ?: "NA"
+                pergaminhoVicentinaInstance.information[1] = row[1] ?: "NA"
+                pergaminhoVicentinaInstance.information[2] = row[2] ?: "NA"
+                pergaminhoVicentinaInstance.information[3] = row[3] ?: "NA"
+                pergaminhoVicentinaInstance.taskId = session.taskId as String
+                pergaminhoVicentinaInstance.ownerId = session.user.id as long
+                pergaminhoVicentinaInstance.save flush: true
+                println(pergaminhoVicentinaInstance.errors)
+            } else {
+                error = true
+            }
+        }
+
+        redirect(action: index(), params: [errorImportInformations:error])
+    }
+
+    def exportCSV(){
+        /* Funcao que exporta as informacoes selecionadas para um arquivo .csv generico.
+           O arquivo gerado possui os seguintes campos na ordem correspondente:
+           Informacao1, Informacao2, Informacao3, Informacao4.
+           O separador do arquivo .csv gerado eh o ";" (ponto e virgula)
+        */
+
+        ArrayList<Integer> list_informationId = new ArrayList<Integer>()
+        ArrayList<PergaminhoVicentina> informationList = new ArrayList<PergaminhoVicentina>()
+        list_informationId.addAll(params.list_id)
+        for (int i=0; i<list_informationId.size();i++)
+            informationList.add(PergaminhoVicentina.findById(list_informationId[i]))
+
+        def dataPath = servletContext.getRealPath("/samples")
+        def instancePath = new File("${dataPath}/export")
+        instancePath.mkdirs()
+        log.debug instancePath
+
+        def fw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("$instancePath/exportInformationsVicentina.csv"), "UTF-8"))
+
+        fw.write(informationList[0].information[0] + ";" + informationList[0].information[1] + ";" + informationList[0].information[2] + ";" + informationList[0].information[3] + "\n")
+        fw.close()
+
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
+
+        render "/sanjarunner/samples/export/exportInformationsVicentina.csv"
     }
 }

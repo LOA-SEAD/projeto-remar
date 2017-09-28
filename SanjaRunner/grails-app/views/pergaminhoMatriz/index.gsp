@@ -144,7 +144,78 @@
 							</div>
 						</div>
 						-->
-		
+
+				<div id="errorImportingInformationsModal" class="modal">
+					<div class="modal-content">
+						Erro - Para importar textos, você deve deixá-los no formato indicado.
+					</div>
+					<div class="modal-footer">
+						<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
+					</div>
+				</div>
+
+				<div id="uploadModal" class="modal">
+					<div class="modal-content">
+						<h4>Enviar arquivo .csv</h4>
+						<div class="row">
+							<g:uploadForm  method="post" action="generateInformations" resource="${pergaminhoMatrizInstance}">
+								<div class="file-field input-field">
+									<div class="btn my-orange">
+										<span>File</span>
+										<input type="file" accept="text/csv" id="csv" name="csv">
+									</div>
+									<div class="file-path-wrapper">
+										<input class="file-path validate" type="text">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col s1 offset-s10">
+										<g:submitButton class="btn my-orange" name="generateInformations" value="Enviar"/>
+									</div>
+								</div>
+							</g:uploadForm>
+						</div>
+
+						<blockquote>Formatação do arquivo .csv</blockquote>
+						<div class="row">
+							<div class="col s12">
+								<ol>
+									<li>O separador do arquivo .csv deve ser um <b> ';' (ponto e vírgula)</b>  </li>
+									<li>O arquivo deve ser composto apenas por <b>dados</b></li>
+									<li>O arquivo deve representar a estrutura da tabela de exemplo</li>
+								</ol>
+								<ul>
+									<li><a href="/sanjarunner/samples/exemploPergaminho.csv">Download do arquivo exemplo</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<table class="center" style="font-size: 12px;">
+									<thead>
+									<tr>
+										<th>Textos</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr>
+										<td>Informação 1</td>
+									</tr>
+									<tr>
+										<td>Informação 2</td>
+									</tr>
+									<tr>
+										<td>Informação 3</td>
+									</tr>
+									<tr>
+										<td>Informação 4</td>
+									</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	<input type="hidden" id="errorImportingInformations" name="errorImportingInformations" value="${errorImportInformations}">

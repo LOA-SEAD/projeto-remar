@@ -1,6 +1,6 @@
 /**
  * Created by Douglas on 05/09/17.
- * Based on Santo Grau models (faseCampoMinado and faseTCC) Editado 15:00
+ * Based on Santo Grau models (faseCampoMinado and faseTCC)
  */
 
 var list_id_delete = [];
@@ -19,7 +19,7 @@ window.onload = function(){
     });*/
 
     if($("#errorImportingInformations").val() == "true") {
-        $("#errorImportingInformations").openModal();
+        $("#errorImportingInformationsModal").openModal();
     }
 };
 
@@ -61,76 +61,6 @@ function _modal_edit(tr){
     );
 }
 
-//CONSERTAR
-/*function exportInformations(){
-    var list_id = [];
-
-    $.each($("input[type=checkbox]:checked"), function(ignored, el) {
-        var tr = $(el);
-        list_id.push($(tr).attr('data-id'));
-    });
-
-        $.ajax({
-            type: "POST",
-            traditional: true,
-            url: "/sanjarunner/pergaminhoBanhado/exportCSV",
-            data: { list_id: list_id },
-            success: function(returndata) {
-                console.log(returndata);
-                window.open(location.origin + returndata, '_blank');
-            },
-            error: function(returndata) {
-                if(returndata.status == 401) {
-                    var url = document.referrer;
-                    //url = url.substr(0,url.indexOf('/',7))
-                    window.top.location.href = url //+ "/login/auth"
-                } else {
-                    if(returndata.status == 401) {
-                        var url = document.referrer;
-                        //url = url.substr(0,url.indexOf('/',7))
-                        window.top.location.href = url //+ "/login/auth"
-                    } else {
-                        alert("Error:\n" + returndata.responseText);
-                    }
-                }
-
-
-            }
-        });
-}*/
-
-function _submit() {
-    var list_id = [];
-
-        //cria uma lista com os ids dos textos
-        $.each($("[class=selectable_tr]"), function (ignored, el) {
-            var tr = $(el);
-            console.log(tr);
-            list_id.push($(tr).attr('data-id'));
-        });
-
-        //chama o controlador para criar o arquivo txt com as informacoes inseridas
-        $.ajax({
-            type: "POST",
-            traditional: true,
-            url: "/sanjarunner/pergaminhoBanhado/exportInformations",
-            data: { list_id: list_id},
-            success: function(returndata) {
-                window.top.location.href = returndata;
-            },
-            error: function(returndata) {
-                if(returndata.status == 401) {
-                    var url = document.referrer;
-                    //url = url.substr(0,url.indexOf('/',7))
-                    window.top.location.href = url //+ "/login/auth"
-                } else {
-                    alert("Error:\n" + returndata.responseText);
-                }
-            }
-        });
-    //}
-}
-
 function exportInformations(){
     var list_id = [];
 
@@ -140,25 +70,55 @@ function exportInformations(){
         console.log(tr);
         list_id.push($(tr).attr('data-id'));
     });
-        $.ajax({
-            type: "POST",
-            traditional: true,
-            url: "/sanjarunner/pergaminhoBanhado/exportCSV",
-            data: { list_id: list_id },
-            success: function(returndata) {
-                console.log(returndata);
-                window.open(location.origin + returndata, '_blank');
-            },
-            error: function(returndata) {
-                if(returndata.status == 401) {
-                    var url = document.referrer;
-                    //url = url.substr(0,url.indexOf('/',7))
-                    window.top.location.href = url //+ "/login/auth"
-                } else {
-                    alert("Error:\n" + returndata.responseText);
-                }
 
-
+    $.ajax({
+        type: "POST",
+        traditional: true,
+        url: "/sanjarunner/pergaminhoBanhado/exportCSV",
+        data: { list_id: list_id },
+        success: function(returndata) {
+            console.log(returndata);
+            window.open(location.origin + returndata, '_blank');
+        },
+        error: function(returndata) {
+            if(returndata.status == 401) {
+                var url = document.referrer;
+                //url = url.substr(0,url.indexOf('/',7))
+                window.top.location.href = url //+ "/login/auth"
+            } else {
+                alert("Error:\n" + returndata.responseText);
             }
-        });
+        }
+    });
+}
+
+function _submit() {
+    var list_id = [];
+
+    //cria uma lista com os ids dos textos
+    $.each($("[class=selectable_tr]"), function (ignored, el) {
+        var tr = $(el);
+        console.log(tr);
+        list_id.push($(tr).attr('data-id'));
+    });
+
+    //chama o controlador para criar o arquivo txt com as informacoes inseridas
+    $.ajax({
+        type: "POST",
+        traditional: true,
+        url: "/sanjarunner/pergaminhoBanhado/exportInformations",
+        data: { list_id: list_id},
+        success: function(returndata) {
+            window.top.location.href = returndata;
+        },
+        error: function(returndata) {
+            if(returndata.status == 401) {
+                var url = document.referrer;
+                //url = url.substr(0,url.indexOf('/',7))
+                window.top.location.href = url //+ "/login/auth"
+            } else {
+                alert("Error:\n" + returndata.responseText);
+            }
+        }
+    });
 }

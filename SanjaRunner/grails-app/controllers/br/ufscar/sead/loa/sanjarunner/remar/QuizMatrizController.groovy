@@ -1,6 +1,8 @@
 package br.ufscar.sead.loa.sanjarunner.remar
 
 import grails.plugin.springsecurity.annotation.Secured
+import org.springframework.web.multipart.MultipartFile
+
 import static org.springframework.http.HttpStatus.*
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.transaction.Transactional
@@ -10,8 +12,8 @@ import grails.util.Environment
 class QuizMatrizController {
 
     def springSecurityService
-    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", exportQuestions: "POST", returnInstance: "GET"]
-    def beforeInterceptor = [action: this.&check, only: ['index', 'exportQuestions','save', 'update', 'delete']]
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", exportQuestions: "POST", returnInstance: "GET", generateQuestions: "POST"]
+    def beforeInterceptor = [action: this.&check, only: ['index', 'exportQuestions','save', 'update', 'delete', 'generateQuestions']]
 
     private check() {
         if (springSecurityService.isLoggedIn())
@@ -26,7 +28,7 @@ class QuizMatrizController {
     }
 
     @Secured(['permitAll'])
-    def index(Integer max) {
+    def index() {
         //params.max = Math.min(max ?: 10, 100)
         //respond QuizMatriz.list(params), model:[quizMatrizInstanceCount: QuizMatriz.count()]
         if (params.t) {
@@ -219,22 +221,71 @@ class QuizMatrizController {
         def pw = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(file), "UTF-8"))
         pw.write(questionList[index].question.replace("\"","\\\"") + "\n" + Integer.toString(questionList[index].correctAnswer) + "\n" + questionList[index].answers[0].replace("\"","\\\"") + "\n" + questionList[index].answers[1].replace("\"","\\\"") + "\n" + questionList[index].answers[2].replace("\"","\\\"") + "\n" + questionList[index].answers[3].replace("\"","\\\""))
-        /*switch(questionList[index].correctAnswer){
-            case 0:
-                pw.write("0")
-                break;
-            case 1:
-                pw.write("1")
-                break;
-            case 2:
-                pw.write("2")
-                break;
-            case 3:
-                pw.write("3")
-                break;
-            default:
-                println("Erro! Alternativa correta inválida")
-        }*/
         pw.close()
+    }
+
+    @Transactional
+    def generateQuestions(){
+        MultipartFile csv = params.csv
+        def error = false
+        //Para alterar a linha correta
+        int indexQuestion = 1
+
+        csv.inputStream.toCsvReader([ 'separatorChar': ';', 'charset':'UTF-8']).eachLine { row ->
+            if (row.size() == 6) {
+                QuizMatriz quizMatrizInstance = QuizMatriz.findById(indexQuestion)
+                quizMatrizInstance.question = row[0] ?: "NA"
+                quizMatrizInstance.answers[0] = row[1] ?: "NA"
+                quizMatrizInstance.answers[1] = row[2] ?: "NA"
+                quizMatrizInstance.answers[2] = row[3] ?: "NA"
+                quizMatrizInstance.answers[3] = row[4] ?: "NA"
+                String correct = row[5] ?: "NA";
+                quizMatrizInstance.correctAnswer =  (correct.toInteger() - 1)
+                quizMatrizInstance.taskId = session.taskId as String
+                quizMatrizInstance.ownerId = session.user.id as long
+                quizMatrizInstance.save flush: true
+                println(quizMatrizInstance.errors)
+            } else {
+                error = true
+            }
+            //Incrementa o contador de linha
+            indexQuestion += 1
+        }
+
+        redirect(action: index(), params: [errorImportQuestions:error])
+    }
+
+    def exportCSV(){
+        /* Funcao que exporta as questões selecionadas para um arquivo .csv generico.
+           O arquivo gerado possui os seguintes campos na ordem correspondente:
+           Pergunta, Alternativa1, Alternativa2, Alternativa3, Alternativa4, Alternativa Correta.
+           O separador do arquivo .csv gerado eh o ";" (ponto e virgula)
+        */
+
+        ArrayList<Integer> list_questionId = new ArrayList<Integer>()
+        ArrayList<QuizMatriz> questionList = new ArrayList<QuizMatriz>()
+        list_questionId.addAll(params.list_id)
+        for (int i=0; i<list_questionId.size();i++)
+            questionList.add(QuizMatriz.findById(list_questionId[i]))
+
+        def dataPath = servletContext.getRealPath("/samples")
+        def instancePath = new File("${dataPath}/export")
+        instancePath.mkdirs()
+        log.debug instancePath
+
+        def fw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("$instancePath/exportQuestionsMatriz.csv"), "UTF-8"))
+
+        for(int i=0; i<questionList.size();i++) {
+            fw.write(questionList[i].question + ";" + questionList[i].answers[0] + ";" + questionList[i].answers[1] + ";" + questionList[i].answers[2] + ";" + questionList[i].answers[3] + ";" + (questionList[i].correctAnswer + 1) + "\n")
+        }
+        fw.close()
+
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
+
+        render "/sanjarunner/samples/export/exportQuestionsMatriz.csv"
     }
 }

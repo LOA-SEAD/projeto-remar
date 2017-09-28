@@ -1,6 +1,8 @@
 package br.ufscar.sead.loa.sanjarunner.remar
 
 import grails.plugin.springsecurity.annotation.Secured
+import org.springframework.web.multipart.MultipartFile
+
 import static org.springframework.http.HttpStatus.*
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.transaction.Transactional
@@ -10,8 +12,8 @@ import grails.util.Environment
 class PergaminhoSantosController {
 
     def springSecurityService
-    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", exportInformations: "POST", returnInstance: "GET"]
-    def beforeInterceptor = [action: this.&check, only: ['index', 'exportInformations','save', 'update', 'delete']]
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", exportInformations: "POST", returnInstance: "GET", generateInformations: "POST"]
+    def beforeInterceptor = [action: this.&check, only: ['index', 'exportInformations','save', 'update', 'delete', 'generateInformations']]
 
     private check() {
         if (springSecurityService.isLoggedIn())
@@ -26,7 +28,7 @@ class PergaminhoSantosController {
     }
 
     @Secured(['permitAll'])
-    def index(Integer max) {
+    def index() {
         //params.max = Math.min(max ?: 10, 100)
         //respond PergaminhoSantos.list(params), model:[pergaminhoSantosInstanceCount: PergaminhoSantos.count()]
         if (params.t) {
@@ -46,7 +48,7 @@ class PergaminhoSantosController {
         }
 
         list = PergaminhoSantos.findAllByOwnerId(session.user.id)
-        respond list, model: [pergaminhoSantosInstanceCount: PergaminhoSantos.count(), errorImportQuestions:params.errorImportQuestions]
+        respond list, model: [pergaminhoSantosInstanceCount: PergaminhoSantos.count(), errorImportInformations: params.errorImportInformations]
     }
 
     def show(PergaminhoSantos pergaminhoSantosInstance) {
@@ -211,5 +213,62 @@ class PergaminhoSantosController {
                 new FileOutputStream(file), "UTF-8"))
         pw.write(informationList[0].information[0].replace("\"","\\\"") + "\n" + informationList[0].information[1].replace("\"","\\\"") + "\n" + informationList[0].information[2].replace("\"","\\\"") + "\n" + informationList[0].information[3].replace("\"","\\\"") + "\n" + informationList[0].information[4].replace("\"","\\\""))
         pw.close();
+    }
+
+    @Transactional
+    def generateInformations(){
+        MultipartFile csv = params.csv
+        def error = false
+
+        csv.inputStream.toCsvReader([ 'separatorChar': ';', 'charset':'UTF-8']).eachLine { row ->
+            if(row.size() == 5) {
+                PergaminhoSantos pergaminhoSantosInstance = PergaminhoSantos.findById(1)
+                pergaminhoSantosInstance.information[0] = row[0] ?: "NA"
+                pergaminhoSantosInstance.information[1] = row[1] ?: "NA"
+                pergaminhoSantosInstance.information[2] = row[2] ?: "NA"
+                pergaminhoSantosInstance.information[3] = row[3] ?: "NA"
+                pergaminhoSantosInstance.information[4] = row[4] ?: "NA"
+                pergaminhoSantosInstance.taskId = session.taskId as String
+                pergaminhoSantosInstance.ownerId = session.user.id as long
+                pergaminhoSantosInstance.save flush: true
+                println(pergaminhoSantosInstance.errors)
+            } else {
+                error = true
+            }
+        }
+
+        redirect(action: index(), params: [errorImportInformations:error])
+    }
+
+    def exportCSV(){
+        /* Funcao que exporta as informacoes selecionadas para um arquivo .csv generico.
+           O arquivo gerado possui os seguintes campos na ordem correspondente:
+           Informacao1, Informacao2, Informacao3, Informacao4, Informacao5.
+           O separador do arquivo .csv gerado eh o ";" (ponto e virgula)
+        */
+
+        ArrayList<Integer> list_informationId = new ArrayList<Integer>()
+        ArrayList<PergaminhoSantos> informationList = new ArrayList<PergaminhoSantos>()
+        list_informationId.addAll(params.list_id)
+        for (int i=0; i<list_informationId.size();i++)
+            informationList.add(PergaminhoSantos.findById(list_informationId[i]))
+
+        def dataPath = servletContext.getRealPath("/samples")
+        def instancePath = new File("${dataPath}/export")
+        instancePath.mkdirs()
+        log.debug instancePath
+
+        def fw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("$instancePath/exportInformationsSantos.csv"), "UTF-8"))
+
+        fw.write(informationList[0].information[0] + ";" + informationList[0].information[1] + ";" + informationList[0].information[2] + ";" + informationList[0].information[3] + ";" + informationList[0].information[4] + "\n")
+        fw.close()
+
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
+
+        render "/sanjarunner/samples/export/exportInformationsSantos.csv"
     }
 }

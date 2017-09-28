@@ -28,7 +28,7 @@ class PergaminhoBanhadoController {
     }
 
     @Secured(['permitAll'])
-    def index(Integer max) {
+    def index() {
         //params.max = Math.min(max ?: 10, 100)
         //respond PergaminhoBanhado.list(params), model:[pergaminhoBanhadoInstanceCount: PergaminhoBanhado.count()]
         if (params.t) {
@@ -48,7 +48,7 @@ class PergaminhoBanhadoController {
         }
 
         list = PergaminhoBanhado.findAllByOwnerId(session.user.id)
-        respond list, model: [pergaminhoBanhadoInstanceCount: PergaminhoBanhado.count(), errorImportQuestions:params.errorImportQuestions]
+        respond list, model: [pergaminhoBanhadoInstanceCount: PergaminhoBanhado.count(), errorImportInformations: params.errorImportInformations]
     }
 
     def show(PergaminhoBanhado pergaminhoBanhadoInstance) {
@@ -237,10 +237,10 @@ class PergaminhoBanhadoController {
     }
 
     def exportCSV(){
-        /* Função que exporta as questões selecionadas para um arquivo .csv genérico.
+        /* Funcao que exporta as informacoes selecionadas para um arquivo .csv generico.
            O arquivo gerado possui os seguintes campos na ordem correspondente:
            Informacao1, Informacao2, Informacao3, Informacao4.
-           O separador do arquivo .csv gerado é o ";" (ponto e vírgula)
+           O separador do arquivo .csv gerado eh o ";" (ponto e virgula)
         */
 
         ArrayList<Integer> list_informationId = new ArrayList<Integer>()

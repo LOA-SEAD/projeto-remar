@@ -147,7 +147,7 @@
 
 				<div id="errorImportingInformationsModal" class="modal">
 					<div class="modal-content">
-						Erro - Para importar textos, você deve deixá-los no formado indicado.
+						Erro - Para importar textos, você deve deixá-los no formato indicado.
 					</div>
 					<div class="modal-footer">
 						<button class="btn waves-effect waves-light modal-close my-orange" style="margin-right: 10px;">Ok</button>
