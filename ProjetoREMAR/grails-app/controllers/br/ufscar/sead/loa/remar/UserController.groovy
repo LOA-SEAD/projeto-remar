@@ -232,6 +232,10 @@ class UserController {
         user.save flush: true
         session.user = user
 
+        // Pausa necessária para que a foto de perfil seja trocada, a tempo, sem que o refresh sobrescreva a atualização
+        // e volte a mostrar a foto antiga
+        sleep(10)
+
         redirect uri: "/my-profile?photoUpdated=t";
     }
 
