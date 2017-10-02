@@ -9,9 +9,13 @@ class QuizVicentina {
     long ownerId
     String taskId
 
+    static mapping = {
+        answers sqlType: 'blob'
+    }
+
     static constraints = {
         question (blank : false, size: 1..200)
-        answers (blank : false, size: 1..200)
+        answers (blank : false, size: 4..800)
         correctAnswer (blank : false)
     }
 }

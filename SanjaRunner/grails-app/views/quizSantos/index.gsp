@@ -237,7 +237,7 @@
 										<td>Alternativa B</td>
 										<td>Alternativa C</td>
 										<td>Alternativa D</td>
-										<td>0</td>
+										<td>1</td>
 									</tr>
 									<tr>
 										<td>Questão 2</td>
@@ -245,7 +245,7 @@
 										<td>Alternativa B</td>
 										<td>Alternativa C</td>
 										<td>Alternativa D</td>
-										<td>3</td>
+										<td>4</td>
 									</tr>
 									<tr>
 										<td>Questão 3</td>
@@ -253,7 +253,7 @@
 										<td>Alternativa B</td>
 										<td>Alternativa C</td>
 										<td>Alternativa D</td>
-										<td>2</td>
+										<td>3</td>
 									</tr>
 									<tr>
 										<td>Questão 4</td>
@@ -261,7 +261,7 @@
 										<td>Alternativa B</td>
 										<td>Alternativa C</td>
 										<td>Alternativa D</td>
-										<td>1</td>
+										<td>2</td>
 									</tr>
 									<tr>
 										<td>Questão 5</td>
@@ -269,7 +269,7 @@
 										<td>Alternativa B</td>
 										<td>Alternativa C</td>
 										<td>Alternativa D</td>
-										<td>0</td>
+										<td>1</td>
 									</tr>
 									</tbody>
 								</table>

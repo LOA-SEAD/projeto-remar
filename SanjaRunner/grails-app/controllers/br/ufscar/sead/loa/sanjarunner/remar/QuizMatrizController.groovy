@@ -226,13 +226,24 @@ class QuizMatrizController {
 
     @Transactional
     def generateQuestions(){
-        MultipartFile csv = params.csv
-        def error = false
+        String text
+        char [] correctText = new char[200]
         //Para alterar a linha correta
         int indexQuestion = 1
 
+        MultipartFile csv = params.csv
+        def error = false
+
         csv.inputStream.toCsvReader([ 'separatorChar': ';', 'charset':'UTF-8']).eachLine { row ->
-            if (row.size() == 6) {
+            if(row.size() == 6) {
+                //Tratamento para inputs maiores que 200 caracteres
+                for (int i=0; i<(row.size() - 1); i++){
+                    if (row[i].length() > 200){
+                        text = row[i]
+                        text.getChars(0, 200, correctText, 0)
+                        row[i] = new String(correctText)
+                    }
+                }
                 QuizMatriz quizMatrizInstance = QuizMatriz.findById(indexQuestion)
                 quizMatrizInstance.question = row[0] ?: "NA"
                 quizMatrizInstance.answers[0] = row[1] ?: "NA"
@@ -240,7 +251,19 @@ class QuizMatrizController {
                 quizMatrizInstance.answers[2] = row[3] ?: "NA"
                 quizMatrizInstance.answers[3] = row[4] ?: "NA"
                 String correct = row[5] ?: "NA";
-                quizMatrizInstance.correctAnswer =  (correct.toInteger() - 1)
+                //Ve se nao tentou passar uma string ao inves de um inteiro
+                try {
+                    quizMatrizInstance.correctAnswer = (correct.toInteger() - 1)
+                    //Ve se a alternativa nao estah fora do intervalo
+                    if (quizMatrizInstance.correctAnswer < 0 ||
+                            quizMatrizInstance.correctAnswer > 3){
+                        quizMatrizInstance.correctAnswer = 0
+                    }
+                }
+                //Corrige o erro da string
+                catch (NumberFormatException nFE){
+                    quizMatrizInstance.correctAnswer = 0
+                }
                 quizMatrizInstance.taskId = session.taskId as String
                 quizMatrizInstance.ownerId = session.user.id as long
                 quizMatrizInstance.save flush: true

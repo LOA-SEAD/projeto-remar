@@ -227,13 +227,24 @@ class QuizVicentinaController {
 
     @Transactional
     def generateQuestions(){
-        MultipartFile csv = params.csv
-        def error = false
+        String text
+        char [] correctText = new char[200]
         //Para alterar a linha correta
         int indexQuestion = 1
 
+        MultipartFile csv = params.csv
+        def error = false
+
         csv.inputStream.toCsvReader([ 'separatorChar': ';', 'charset':'UTF-8']).eachLine { row ->
-            if (row.size() == 6) {
+            if(row.size() == 6) {
+                //Tratamento para inputs maiores que 200 caracteres
+                for (int i=0; i<(row.size() - 1); i++){
+                    if (row[i].length() > 200){
+                        text = row[i]
+                        text.getChars(0, 200, correctText, 0)
+                        row[i] = new String(correctText)
+                    }
+                }
                 QuizVicentina quizVicentinaInstance = QuizVicentina.findById(indexQuestion)
                 quizVicentinaInstance.question = row[0] ?: "NA"
                 quizVicentinaInstance.answers[0] = row[1] ?: "NA"
@@ -241,7 +252,19 @@ class QuizVicentinaController {
                 quizVicentinaInstance.answers[2] = row[3] ?: "NA"
                 quizVicentinaInstance.answers[3] = row[4] ?: "NA"
                 String correct = row[5] ?: "NA";
-                quizVicentinaInstance.correctAnswer =  (correct.toInteger() - 1)
+                //Ve se nao tentou passar uma string ao inves de um inteiro
+                try {
+                    quizVicentinaInstance.correctAnswer = (correct.toInteger() - 1)
+                    //Ve se a alternativa nao estah fora do intervalo
+                    if (quizVicentinaInstance.correctAnswer < 0 ||
+                            quizVicentinaInstance.correctAnswer > 3){
+                        quizVicentinaInstance.correctAnswer = 0
+                    }
+                }
+                //Corrige o erro da string
+                catch (NumberFormatException nFE){
+                    quizVicentinaInstance.correctAnswer = 0
+                }
                 quizVicentinaInstance.taskId = session.taskId as String
                 quizVicentinaInstance.ownerId = session.user.id as long
                 quizVicentinaInstance.save flush: true

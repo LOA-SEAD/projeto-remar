@@ -7,7 +7,11 @@ class PergaminhoVicentina {
     long ownerId
     String taskId
 
+    static mapping = {
+        information sqlType: 'blob'
+    }
+
     static constraints = {
-        information (blank : false, size: 1..600)
+        information (blank : false, size: 4..2400)
     }
 }

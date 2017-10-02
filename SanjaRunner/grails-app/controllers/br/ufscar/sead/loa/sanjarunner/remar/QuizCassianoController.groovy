@@ -227,13 +227,24 @@ class QuizCassianoController {
 
     @Transactional
     def generateQuestions(){
-        MultipartFile csv = params.csv
-        def error = false
+        String text
+        char [] correctText = new char[200]
         //Para alterar a linha correta
         int indexQuestion = 1
 
+        MultipartFile csv = params.csv
+        def error = false
+
         csv.inputStream.toCsvReader([ 'separatorChar': ';', 'charset':'UTF-8']).eachLine { row ->
-            if (row.size() == 6) {
+            if(row.size() == 6) {
+                //Tratamento para inputs maiores que 200 caracteres
+                for (int i=0; i<(row.size() - 1); i++){
+                    if (row[i].length() > 200){
+                        text = row[i]
+                        text.getChars(0, 200, correctText, 0)
+                        row[i] = new String(correctText)
+                    }
+                }
                 QuizCassiano quizCassianoInstance = QuizCassiano.findById(indexQuestion)
                 quizCassianoInstance.question = row[0] ?: "NA"
                 quizCassianoInstance.answers[0] = row[1] ?: "NA"
@@ -241,7 +252,19 @@ class QuizCassianoController {
                 quizCassianoInstance.answers[2] = row[3] ?: "NA"
                 quizCassianoInstance.answers[3] = row[4] ?: "NA"
                 String correct = row[5] ?: "NA";
-                quizCassianoInstance.correctAnswer =  (correct.toInteger() - 1)
+                //Ve se nao tentou passar uma string ao inves de um inteiro
+                try {
+                    quizCassianoInstance.correctAnswer = (correct.toInteger() - 1)
+                    //Ve se a alternativa nao estah fora do intervalo
+                    if (quizCassianoInstance.correctAnswer < 0 ||
+                            quizCassianoInstance.correctAnswer > 3){
+                        quizCassianoInstance.correctAnswer = 0
+                    }
+                }
+                //Corrige o erro da string
+                catch (NumberFormatException nFE){
+                    quizCassianoInstance.correctAnswer = 0
+                }
                 quizCassianoInstance.taskId = session.taskId as String
                 quizCassianoInstance.ownerId = session.user.id as long
                 quizCassianoInstance.save flush: true

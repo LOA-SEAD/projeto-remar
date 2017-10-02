@@ -214,11 +214,22 @@ class PergaminhoBanhadoController {
 
     @Transactional
     def generateInformations(){
+        String text
+        char [] correctText = new char[600]
+
         MultipartFile csv = params.csv
         def error = false
 
         csv.inputStream.toCsvReader([ 'separatorChar': ';', 'charset':'UTF-8']).eachLine { row ->
             if(row.size() == 4) {
+                //Tratamento para inputs maiores que 600 caracteres
+                for (int i=0; i<row.size(); i++){
+                    if (row[i].length() > 600){
+                        text = row[i]
+                        text.getChars(0, 600, correctText, 0)
+                        row[i] = new String(correctText)
+                    }
+                }
                 PergaminhoBanhado pergaminhoBanhadoInstance = PergaminhoBanhado.findById(1)
                 pergaminhoBanhadoInstance.information[0] = row[0] ?: "NA"
                 pergaminhoBanhadoInstance.information[1] = row[1] ?: "NA"
