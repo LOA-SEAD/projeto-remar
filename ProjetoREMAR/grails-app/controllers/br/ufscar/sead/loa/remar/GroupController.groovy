@@ -153,10 +153,10 @@ class GroupController {
                         }
 
                         def userStatsMap = [:]
-                        def statsMap = [:]
 
                         // Novo percorrer da consulta para repopular os usuários, considerando agora o tipo multiplo
                         for (int i = 0; i < queryMongo.size(); i++) {
+                            def statsMap = [:]
                             def user = allUsersGroup.find { user -> user.id == queryMongo.get(i).userId || group.owner.id == queryMongo.get(i).userId }
                             _stat = [[user: user]]
 
@@ -180,9 +180,10 @@ class GroupController {
                             }
 
                             // Por fim cria-se um hash cuja key será o id do usuário, e values todos seus stats
-                            userStatsMap.put([[user: user]], statsMap)
+                            userStatsMap.put(_stat, statsMap)
                             hasContent = true
                         }
+
                         render view: "stats", model: [userStatsMap: userStatsMap, group: group, exportedResource: exportedResource, gameIndexName: gameIndexName, isMultiple: isMultiple, hasContent: hasContent]
                     }else{
                         // Se não for multiplo, manda-se apenas os atributos necessários
@@ -190,7 +191,6 @@ class GroupController {
                     }
 
                     // Descomentar caso desejar mostrar os membros SEM estatísticas
-
                     /*if(!allStats.empty) {
                         allUsersGroup.each { member ->
                             if (!allStats.find { stat -> stat.get(0) != null && stat.get(0).user.id == member.id }) {

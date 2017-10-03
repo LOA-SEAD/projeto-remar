@@ -18,7 +18,7 @@
             <td>${stats.answer}</td>
             <td>${stats.numberMistake}</td>
             <td>
-                <g:if test="${stats.win}"><i style="color: green" class="fa fa-check-square"></i></g:if>
+                <g:if test="${stats.win}"><i style="color: green" class="fa fa-check"></i></g:if>
                 <g:else><i style="color: red" class="fa fa-times"></i></g:else>
             </td>
         </tr>

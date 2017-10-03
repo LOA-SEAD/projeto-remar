@@ -4,7 +4,7 @@ abstract class Statistics {
 
     Object getData(params) {
         def data = [:]
-        data.timestamp = new Date().toTimestamp()
+        data.timestamp = params.timestamp
         data.exportedResourceId = params.exportedResourceId as int
         data.win = Boolean.parseBoolean(params.win as String)
 
