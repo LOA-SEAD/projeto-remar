@@ -1,6 +1,7 @@
 {
-  "name": "Sanja Runner",
+  "name": "SanjaRunner",
   "uri": "sanjarunner",
+  "type": "unity",
   "version": 1,
   "tasks": [
     {
