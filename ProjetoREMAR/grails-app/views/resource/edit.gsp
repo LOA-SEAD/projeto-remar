@@ -54,7 +54,7 @@
     <script type="text/javascript" src="${resource(dir: 'js', file: 'remar/game-index.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: 'remar/edit.js')}"></script>
     <script type="text/javascript" src="${resource(dir: 'js', file: "remar/imgPreview.js")}"></script>
-    <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.jcrop.js')}"></script>
+    <script type="text/javascript" src="${resource(dir: 'js/libs/jquery', file: 'jquery.jcrop.js')}"></script>
 
 </body>
 </html>

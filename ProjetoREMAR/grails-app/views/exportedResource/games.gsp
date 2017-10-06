@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    <g:javascript src="jquery/jquery.rateyo.min.js"/>
+    <g:javascript src="libs/jquery/jquery.rateyo.min.js"/>
     <g:javascript src="remar/menu.js"/>
     <g:javascript src="remar/utility/utility-public-game.js"/>
 </body>

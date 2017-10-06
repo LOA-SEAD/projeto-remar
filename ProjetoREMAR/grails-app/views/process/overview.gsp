@@ -201,7 +201,7 @@
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
 <g:javascript src="remar/platforms.js"/>
 <g:javascript src="remar/imgPreview.js"/>
-<g:javascript src="jquery/jquery.jcrop.js"/>
+<g:javascript src="libs/jquery/jquery.jcrop.js"/>
 <script>
     $(document).ready(function () {
         $('.collapsible').collapsible({

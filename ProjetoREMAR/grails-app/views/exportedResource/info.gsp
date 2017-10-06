@@ -65,10 +65,10 @@
                 </g:if>
 
                 <li>
-                    <div id="plataforms" class="collapsible-header active" data-exported="true">Plataformas</div>
+                    <div id="platforms" class="collapsible-header active" data-exported="true">Plataformas</div>
                     <div class="collapsible-body">
                         <div class="row" style="margin-top: 30px">
-                            <div id="plataforms-icons" class="col s12" style="display:flex; justify-content: space-around">
+                            <div id="platforms-icons" class="col s12" style="display:flex; justify-content: space-around">
 
                                 <a href="/published/${exportedResourceInstance.processId}/web" style="color: inherit" target="_blank">
                                     <div id="web" class="platform-icon">

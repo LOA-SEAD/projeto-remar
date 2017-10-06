@@ -69,6 +69,10 @@ a[disabled], a[disabled]:hover {
 
 }
 
+.sidenav li a i {
+    margin: 0 5px;
+}
+
 ul.side-nav.leftside-navigation {
     top: 64px;
 }
@@ -489,13 +493,13 @@ span.input-description {
     float: right;
 }
 
-.plataform{
+.platform{
     text-align: left;
     font-size: 1.5em;
     margin-top:20px;
 }
 
-.plataform div {
+.platform div {
     display: inline-block;
 }
 
@@ -569,7 +573,7 @@ span.input-description {
     font-size: 30px;
 }
 
-.plataform-card {
+.platform-card {
     margin-top: 10px;
 }
 
@@ -1162,7 +1166,6 @@ span.input-description {
     color: white;
 }
 /* End of JQUERY Table Pagination Plugin */
-
 
 /* ETC */
 .modal-wrapper-10 .remar-modal {

@@ -112,10 +112,10 @@
     </div>
 </div>
 
-<g:javascript src="jquery/jquery.validate.js"/>
+<g:javascript src="libs/jquery/jquery.validate.js"/>
 <recaptcha:script/>
 <g:javascript src="remar/user/form.js"/>
 <g:javascript src="remar/user/image-selector.js"/>
-<g:javascript src="jquery/jquery.jcrop.js"/>
+<g:javascript src="libs/jquery/jquery.jcrop.js"/>
 </body>
 </html>

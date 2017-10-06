@@ -206,6 +206,6 @@
         <g:external dir="css" file="groupManagement.css"/>
         <g:external dir="css" file="jquery.ui.min.css"/>
         <g:javascript src="remar/group/manage-user-group.js"/>
-        <g:javascript src="jquery/jquery.ui.min.js"/>
+        <g:javascript src="libs/jquery/jquery.ui.min.js"/>
     </body>
 </html>

@@ -48,7 +48,7 @@
             });
         </script>
 
-        <g:javascript src="jquery/jquery.rateyo.min.js"/>
+        <g:javascript src="libs/jquery/jquery.rateyo.min.js"/>
         <g:javascript src="remar/menu.js"/>
     </body>
 </html>

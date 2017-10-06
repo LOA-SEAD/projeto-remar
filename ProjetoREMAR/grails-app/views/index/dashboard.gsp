@@ -94,6 +94,6 @@
         </div>
 
         <g:javascript src="remar/user/showProfile.js"/>
-        <g:javascript src="remar/layout/dashboard.js"/>
+        <g:javascript src="remar/layouts/dashboard.js"/>
     </body>
 </html>

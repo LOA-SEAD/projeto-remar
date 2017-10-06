@@ -82,6 +82,7 @@
 
         <div class="content min-height-size right">
             <g:layoutBody />
+            <g:applyLayout name="report"/>
         </div>
 
     </div>

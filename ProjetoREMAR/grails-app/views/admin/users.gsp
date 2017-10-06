@@ -191,7 +191,7 @@
 
     <g:external dir="css" file="admin.css"/>
 
-    <g:javascript src="jquery/jquery.tablePagination.js"/>
+    <g:javascript src="libs/jquery/jquery.tablePagination.js"/>
     <g:javascript src="remar/admin/admin.users.js"/>
 
     <g:javascript>

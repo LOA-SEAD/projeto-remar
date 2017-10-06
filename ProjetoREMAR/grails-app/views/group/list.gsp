@@ -147,7 +147,7 @@
         </div>
     </div>
 
-    <g:javascript src="jquery/jquery.validate.js"/>
+    <g:javascript src="libs/jquery/jquery.validate.js"/>
     <script>
         $(document).ready(function(){
             $('ul.tabs').tabs();

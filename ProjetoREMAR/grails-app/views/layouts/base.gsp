@@ -1,4 +1,6 @@
 <%@ page import="grails.util.Environment" %>
+<%@ page import="br.ufscar.sead.loa.remar.Report" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,9 +21,11 @@
         <g:external dir="css/libs" file="materialize.css" />
         <g:external dir="css" file="style.css" />
 
-        <g:javascript src="jquery/jquery-2.1.4.min.js" />
-        <g:javascript src="libs/materialize.min.js" />
-        <g:javascript src="libs/intro.js" />
+        <g:javascript src="libs/jquery/jquery-2.1.4.min.js" />
+        <g:javascript src="libs/js/materialize.min.js" />
+        <g:javascript src="libs/js/intro.js" />
+        <g:javascript src="libs/jquery/jquery.finiteStateMachine.js" />
+        <g:javascript src="remar/layouts/base.js" />
 
         <title><g:layoutTitle default="REMAR"/></title>
 
@@ -31,28 +35,33 @@
     <body>
         <g:layoutBody/>
 
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $(".button-collapse").sideNav();
+        %{-- Trigger is in menu.gsp --}%
+        <div class="modal-wrapper-50">
+            <div id="report-modal" class="modal remar-modal">
+                <g:form url="[resource: report, action: 'save']">
+                    <div class="modal-content" style="min-height: 200px;">
+                        <h4>Relatar um Problema</h4>
 
-                $('.dropdown-button').dropdown({
-                    alignment: 'left'
-                });
+                        <g:render template="/report/form"/>
+                    </div>
 
-                $('.collapsible').collapsible();
-
-                $('.tooltipped').tooltip({delay: 50});
-
-                $('select').material_select();
-
-            });
-
-            function startWizard(){
-                if(window.innerWidth > 992) { //desktop
-                    introJs().start();
-                }
-            }
-        </script>
+                    <div class="modal-footer">
+                        <a id="report-fsm-next" href="#!" class="fsm-next btn">
+                            next
+                        </a>
+                        <a id="report-fsm-prev" href="#!" class="fsm-prev btn hidden">
+                            prev
+                        </a>
+                        <g:submitButton id="report-fsm-finish" name="create"
+                                        class="btn btn waves-effect waves-light remar-orange hidden"
+                                        value="${message(code: 'default.button.create.label', default: 'Create').toUpperCase()}"/>
+                        <a id="report-fsm-cancel" href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">
+                            <g:message code="default.button.cancel.label"/>
+                        </a>
+                    </div>
+                </g:form>
+            </div>
+        </div>
 
         <g:if test="${Environment.current != Environment.DEVELOPMENT}">
             <script type="text/javascript">

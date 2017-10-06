@@ -199,6 +199,6 @@
 <g:javascript src="remar/exported-platforms.js"/>
 <g:javascript src="remar/licenseShow.js"/>
 <g:javascript src="remar/imgPreview.js"/>
-<g:javascript src="jquery/jquery.jcrop.js"/>
+<g:javascript src="libs/jquery/jquery.jcrop.js"/>
 </body>
 </html>

@@ -42,7 +42,7 @@
 
 							</div>
 							<div class="col l8 m9">
-								<div class="plataform gray-color">
+								<div class="platform gray-color">
 									<p class="" style="font-size: 16px; display: inline-block;"><strong> Disponível para: </strong></p>
 									<div class="">
 										<i class="fa fa-globe tooltipped" data-position="bottom" data-delay="30" data-tooltip="Web"></i>
@@ -63,7 +63,7 @@
 							</div>
 
 							<div class="col l8 m9">
-								<div class="plataform gray-color">
+								<div class="platform gray-color">
 									<p class="" style="font-size: 16px; display: inline-block;"><strong> Grupos (Compartilhamento): </strong></p>
 									<div class="">
 										<g:if test="${resourceInstance.shareable}">
@@ -228,7 +228,7 @@
 	<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.css">
 	<g:external dir="css" file="resource.css"/>
 
-	<g:javascript src="jquery/jquery.rateyo.min.js"/>
+	<g:javascript src="libs/jquery/jquery.rateyo.min.js"/>
 	<g:javascript src="remar/licenseShow.js"/>
 	<g:javascript src="remar/rating.js" />
 	<g:javascript src="remar/tooltip.js" />

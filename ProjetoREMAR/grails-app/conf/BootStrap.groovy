@@ -40,7 +40,7 @@ class BootStrap {
         if (!User.list()) {
             def admin = new User (
                     username: "admin",
-                    password: grailsApplication.config.users.password,
+                    password: "root",
                     email: "remar@sead.ufscar.br",
                     firstName: "Administrador ",
                     lastName: "– REMAR",
@@ -53,7 +53,7 @@ class BootStrap {
 
             def loa = new User (
                     username: "loa",
-                    password: grailsApplication.config.users.password,
+                    password: "root",
                     email: "loa@sead.ufscar.br",
                     firstName: "Equipe LOA",
                     lastName: "– REMAR",
@@ -70,7 +70,7 @@ class BootStrap {
             println "criando usuário " + i
             def loa = new User(
                     username: "user" + i,
-                    password: grailsApplication.config.users.password,
+                    password: "root",
                     email: "user" + i + "@sead.ufscar.br",
                     firstName: "User",
                     lastName: i,
@@ -99,7 +99,7 @@ class BootStrap {
                 '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/exportedResource/**', '/my-profile',
                 '/user/update', '/userProfile', '/userProfile/**', '/moodle/link/**', '/moodle/unlink/**', '/resource/saveRating/**',
                 '/resource/updateRating/**', '/resource/deleteRating/**', '/group/**', '/group/user-stats/**', '/group/stats/**', '/user-group/**', '/group-exported-resources/**',
-                '/dspace/**', '/resource/customizableGames', '/resource/show/**'
+                '/dspace/**', '/resource/customizableGames', '/resource/show/**', '/report/**'
         ]) {
             RequestMap.findOrSaveByUrlAndConfigAttribute(url, 'isAuthenticated()')
         }

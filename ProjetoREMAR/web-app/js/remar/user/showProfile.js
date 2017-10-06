@@ -11,8 +11,8 @@ $(document).ready(function() {
             processData: false,
             contentType: false,
             success: function (data) {
-                $(".modal").html(data);
-                $(".modal").openModal();
+                $("#userDetailsModal").html(data);
+                $("#userDetailsModal").openModal();
             },
             error: function (request, status, error) {
                 console.log(error);

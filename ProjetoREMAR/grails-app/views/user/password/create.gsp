@@ -41,7 +41,7 @@
         </div> <!-- card -->
     </div> <!-- row -->
 </div> <!-- container -->
-<g:javascript src="jquery/jquery.validate.js"/>
+<g:javascript src="libs/jquery/jquery.validate.js"/>
 <script>
     $(function () {
         var existUser = false;
