@@ -29,11 +29,11 @@ class UrlMappings {
         // end user mappings
 
         // begin password mappings
-        name developerForm: "/developer/new"            (view: "/static/formDeveloper")
-        name infoPage: "/index/info"                    (view: "index/info")
-        name project: "/index/project"                  (view: "index/index")
-        name recoverAccount: "/user/accountRecover"     (view: "user/accountRecover")
-        name newGroup: "/group/new"                     (view: "group/new")
+        name project       : "/index"                   (controller: "index", action: "index")
+        name developerForm : "/developer/new"           (view: "/static/formDeveloper")
+        name infoPage      : "/index/info"              (view: "/index/info")
+        name recoverAccount: "/user/accountRecover"     (view: "/user/accountRecover")
+        name newGroup      : "/group/new"               (view: "/group/new")
         // end password mappings
 
         // begin admin endpoints

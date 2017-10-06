@@ -29,7 +29,7 @@
 
 	</div>
 
-<script>
+<g:javascript>
 	function fsmEval() {
 	    // 1 - Type select
 		// 2 - Description
@@ -47,4 +47,4 @@
 				return 4;
 		}
 	}
-</script>
+</g:javascript>

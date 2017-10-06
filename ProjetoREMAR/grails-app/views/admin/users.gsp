@@ -46,7 +46,7 @@
                     <select class="pager-select">
                         %{-- Preenchido programaticamente por jquery.tablePagination.js --}%
                     </select>
-                    <label><g:message code="admin.users.title"/></label>
+                    <label><g:message code="admin.pager.select"/></label>
                 </div>
                 <div class="input-field col s8 offset-s1">
                     <input type="text" id="search-user" class="remar-input" placeholder=" "/>
@@ -107,7 +107,7 @@
                 </div>
             </div>
             <div class="row valign-wrapper">
-                <div id="users-table-buttons" class="col s6 left-align">
+                <div id="users-table-buttons" class="col s3 center-align">
                     <a id="import-button" class="btn-floating waves-effect waves-light remar-orange tooltipped"
                        data-tooltip="${message(code: 'admin.users.buttons.import')}">
                         <i class="material-icons">file_upload</i>
@@ -123,13 +123,13 @@
                         <i class="material-icons">delete</i>
                     </a>
                 </div>
-                <div class="col s6">
-                    <ul class="pagination pager no-margin" id="users-table-pager"></ul>
+                <div class="col s3 offset-s6">
+                    <ul class="pagination pager no-margin center-align" id="users-table-pager"></ul>
                 </div>
             </div>
 
             <div id="user-export" class="row no-margin-bottom">
-                <div class="row no-margin valign-wrapper input-field">
+                <div class="row no-margin valign-wrapper input-field center-align">
                     <div class="col s12">
                         <select id="format-select">
                             <option value="csv">Comma-separated values (.csv)</option>
@@ -193,7 +193,6 @@
 
     <g:javascript src="libs/jquery/jquery.tablePagination.js"/>
     <g:javascript src="remar/admin/admin.users.js"/>
-
     <g:javascript>
         %{--
             Este trecho de código precisa estar no .gsp por causa das mensagens de I18N

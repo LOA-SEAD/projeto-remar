@@ -63,9 +63,17 @@
             </div>
         </div>
 
-        <g:if test="${Environment.current != Environment.DEVELOPMENT}">
-            <script type="text/javascript">
+        <g:javascript>
+            $(".button-collapse").sideNav();
+            $('.dropdown-button').dropdown({
+                alignment: 'left'
+            });
+            $('.collapsible').collapsible();
+            $('.tooltipped').tooltip({delay: 50});
+        </g:javascript>
 
+        <g:if test="${Environment.current != Environment.DEVELOPMENT}">
+            <g:javascript>
                 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
                         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -73,7 +81,7 @@
 
                 ga('create', 'UA-47156714-2', 'auto');
                 ga('send', 'pageview');
-            </script>
+            </g:javascript>
         </g:if>
     </body>
 </html>

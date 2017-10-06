@@ -7,7 +7,16 @@
             </div>
             <div class="col l4 offset-l2 hide-on-med-and-down social-button">
                 <ul>
-                    <li><a class="grey-text text-lighten-3" href="https://www.facebook.com/LOA.UFSCar/?fref=ts"><i class="fa fa-facebook-official"></i></a></li>
+                    <li>
+                        <a class="grey-text text-lighten-3" href="https://www.facebook.com/LOA.UFSCar/?fref=ts">
+                            <i class="fa fa-facebook-official"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="grey-text text-lighten-3" href="https://github.com/LOA-SEAD">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

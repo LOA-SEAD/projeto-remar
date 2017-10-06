@@ -92,7 +92,7 @@
     <li class="waves-effect waves-block waves-light"
         data-intro="Aqui você pode relatar qualquer tipo de problema na plataforma, como um bug ou um abuso, para que nós possamos analisar."
         data-step="9">
-        <a href="#report-modal" class="modal-trigger">
+        <a id="report-modal-trigger" href="#report-modal" class="modal-trigger">
             <i class="medium material-icons">error</i>
             Relatar um problema
         </a>

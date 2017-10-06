@@ -1,15 +1,5 @@
 $(document).ready(function () {
-    $(".button-collapse").sideNav();
-
-    $('.dropdown-button').dropdown({
-        alignment: 'left'
-    });
-
-    $('.collapsible').collapsible();
-
-    $('.tooltipped').tooltip({delay: 50});
-
-    $('select').material_select();
+    // Select workaround
 
     var $prevState;
     $('.fsm').finiteStateMachine({
