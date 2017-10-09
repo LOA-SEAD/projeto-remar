@@ -22,10 +22,10 @@
 		<div class="row">
 			<!--Texto explicacao-->
 			<div style=" margin-bottom: 10px; color:#333333">
-				Se desejar, acesse o <a href="https://goo.gl/sTbtFX" target="_blank">tutorial</a> para customizar essa fase.
+				Se desejar, acesse o <a href="https://goo.gl/M2LEJp" target="_blank">tutorial</a> para customizar essa fase.
 				<center>
 					<div style="margin-top:20px;margin-bottom:15px">
-						<img src="https://files.readme.io/617b2c1-campo_minado2.jpg"
+						<img src="https://files.readme.io/400adcc-matriz.png"
 							 style="width:400px"/>
 					</div>
 				</center>
