@@ -2,3 +2,4 @@
 */.slcache/
 logs/
 .idea
+*/target/
