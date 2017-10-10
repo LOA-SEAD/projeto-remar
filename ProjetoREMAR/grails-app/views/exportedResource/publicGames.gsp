@@ -41,13 +41,6 @@
             %{-- Preenchido pelo Javascript --}%
         </div>
 
-
-        <script>
-            $(document).ready(function(){
-                $('.modal-trigger').leanModal();
-            });
-        </script>
-
         <g:javascript src="libs/jquery/jquery.rateyo.min.js"/>
         <g:javascript src="remar/menu.js"/>
     </body>

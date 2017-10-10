@@ -1,6 +1,5 @@
 $(document).ready(function () {
     Materialize.updateTextFields();
-    $('.modal-trigger').leanModal();
     $('.tooltipped').tooltip({delay: 50});
 
     $('.admin-toggle a').click(function (e) {

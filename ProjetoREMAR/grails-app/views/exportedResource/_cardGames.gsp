@@ -24,14 +24,14 @@
                                     ${instance.owner.username}
                                 </a></span>
                             <span style="color: dimgrey;" class="center">
-                                <i class="fa fa-globe"></i>
+                                <i class="fa fa-globe tooltipped" data-tooltip="Web"></i>
                                 <g:if test="${instance.resource.android}">
-                                    <i class="fa fa-android" data-tooltip="Android"></i>
+                                    <i class="fa fa-android tooltipped" data-tooltip="Android"></i>
                                 </g:if>
                                 <g:if test="${instance.resource.desktop}">
-                                    <i class="fa fa-windows" data-tooltip="Windows"></i>
-                                    <i class="fa fa-linux" data-tooltip="Linux"></i>
-                                    <i class="fa fa-apple" data-tooltip="Mac"></i>
+                                    <i class="fa fa-windows tooltipped" data-tooltip="Windows"></i>
+                                    <i class="fa fa-linux tooltipped" data-tooltip="Linux"></i>
+                                    <i class="fa fa-apple tooltipped" data-tooltip="Mac"></i>
                                 </g:if>
                                 <g:if test="${instance.resource.moodle}">
                                     <i class="fa fa-graduation-cap"></i>

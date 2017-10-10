@@ -26,9 +26,6 @@ $(document).ready(function(){
     });
 
     $('.slider').slider();
-    $('.modal-trigger').leanModal({
-        complete: function() { $(".lean-overlay").remove(); }
-    });
 
     $("#rateYo").rateYo({
         precision: 0,

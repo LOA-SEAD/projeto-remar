@@ -18,8 +18,8 @@
                         <div class="col s6">
                             <div class="row right-align" style="margin-bottom: 0px">
                                 <g:if test="${group.owner.id == session.user.id}">
-                                    <g:link action="edit" id="${group.id}" class="tooltipped" data-position="left" data-delay="30" data-tootip="Gerenciar Grupo">
-                                        <i class="fa fa-cog fa-2x"></i>
+                                    <g:link action="edit" id="${group.id}">
+                                        <i class="tooltipped fa fa-cog fa-2x" data-position="left" data-tooltip="Gerenciar Grupo"></i>
                                     </g:link>
                                 </g:if>
                             </div>
@@ -146,6 +146,5 @@
 
         <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
         <g:javascript src="remar/group/delete-group-resources.js"/>
-        <g:javascript src="remar/group/group.js"/>
     </body>
 </html>

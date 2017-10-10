@@ -53,7 +53,9 @@
                             <input id="group-id" name="groupid" type="hidden" value="${group.id}">
                             <div class="row no-margin">
                                 <div class="input-field col s12 center-align">
-                                    <input id="group-management-submit" type="submit" class="waves-effect waves-light btn" value="Salvar">
+                                    <button id="group-management-submit" type="submit" class="waves-effect waves-light btn">
+                                        Salvar
+                                    </button>
                                 </div>
                             </div>
                         </form>

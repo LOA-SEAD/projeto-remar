@@ -4,10 +4,6 @@
 <head>
     <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
     <meta name="layout" content="materialize-layout">
-    <style>
-        .toast { line-height: 20px !important; }
-        .row .cluster p { font-size: 24px; }
-    </style>
 </head>
 <body>
     <div class="row cluster">
@@ -38,7 +34,7 @@
         </ul>
     </footer>
 
-    <div id="user-details-modal" class="modal">
+    <div id="userDetailsModal" class="modal">
         %{-- Preenchido pelo Javascript --}%
     </div>
 

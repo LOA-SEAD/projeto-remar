@@ -2,9 +2,7 @@
 
 <main class="cardGames">
     <article class="row">
-        <g:if test="${resourceInstanceList.size() == 0}">
-        </g:if>
-        <g:else>
+        <g:if test="${resourceInstanceList.size() != 0}">
             <g:each in="${resourceInstanceList}" var="resourceInstance">
                 <div class="col l3 s5">
                     <div style="position: relative; left: 1em" class="card hoverable">
@@ -14,13 +12,19 @@
                         <div class="card-content">
                             <span style="font-size: 1.3em;" class="card-title grey-text text-darken-4 activator center-align truncate data-category="${resourceInstance.category.id}" title="${resourceInstance.name}">${resourceInstance.name}</span>
                             <div class="divider"></div>
-                            <span style="color: dimgrey; font-size: 0.9em" class="center">${resourceInstance.category.name}</span>
-                            <span style="color: dimgrey; font-size: 0.9em" class="center truncate">Feito por:
-                                <a href="#!" style="color: #FF5722 !important; margin-right:10px; cursor:pointer; font-style:normal"  class="user-profile" id="user-id-${resourceInstance.owner.id}" >
+
+                            <div style="color: dimgrey; font-size: 0.9em" class="row no-margin center-align">
+                                ${resourceInstance.category.name}
+                            </div>
+
+                            <div style="color: dimgrey; font-size: 0.9em" class="row no-margin center-align truncate">Feito por:
+                                <a href="#userDetailsModal" class="user-profile" id="user-id-${resourceInstance.owner.id}" >
                                     ${resourceInstance.owner.username}
-                                </a></span>
-                            <span style="color: dimgrey;" class="center">
-                                <i class="fa fa-globe"></i>
+                                </a>
+                            </div>
+
+                            <div style="color: dimgrey;" class="row no-margin center-align">
+                                <i class="tooltipped fa fa-globe" data-tooltip="Web"></i>
                                 <g:if test="${resourceInstance.android}">
                                     <i class="tooltipped fa fa-android" data-tooltip="Android"></i>
                                 </g:if>
@@ -32,13 +36,32 @@
                                 <g:if test="${resourceInstance.moodle}">
                                     <i class="fa fa-graduation-cap"></i>
                                 </g:if>
-                            </span>
+                            </div>
+                            <div style="color: dimgrey;" class="row no-margin center-align">
+                                <g:if test="${resourceInstance.shareable}">
+                                    <i class="tooltipped fa fa-users" data-tooltip="${g.message(code:'tooltips.shareable')}"></i>
+                                </g:if>
+                                <g:else>
+                                    <br>
+                                </g:else>
+                            </div>
+
+                            <div class="row no-margin center-align">
+                                <g:if test="${resourceInstance.sumUser == 0}">
+                                    <div class="rating-dashboard" data-stars="0"></div>
+                                </g:if>
+                                <g:else>
+                                    <div class="rating-dashboard"
+                                         data-stars="${resourceInstance.sumStars / resourceInstance.sumUser}"></div>
+                                </g:else>
+                            </div>
                         </div>
                     </div>
                 </div>
             </g:each>
-        </g:else>
+        </g:if>
     </article>
+
     <g:applyLayout name="pagination"/>
 </main>
 

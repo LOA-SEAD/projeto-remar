@@ -13,7 +13,8 @@
             <div class="card-content">
                 <a class="title truncate" title="${resourceInstance.name}" aria-hidden="true" tabindex="-1" >${resourceInstance.name}</a>
                 <p style="font-size: 1.0em;" class="center">Feito por:
-                    <a href="#!" data-user-id="${resourceInstance.owner.id}" class="user-profile-anchor" href="#user-details-modal" >
+                    <a href="#user-details-modal" id="user-id-${resourceInstance.owner.id}" class="user-profile"
+                       data-user-id="${resourceInstance.owner.id}">
                         ${resourceInstance.owner.username}
                     </a>
                 </p>

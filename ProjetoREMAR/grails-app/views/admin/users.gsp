@@ -67,7 +67,9 @@
                                     </p>
                                 </th>
 
-                                <th><g:message code="admin.table.header.name"/></th>
+                                <th>
+                                    <g:message code="admin.table.header.name"/>
+                                </th>
                                 <th><g:message code="admin.users.table.header.username"/></th>
                                 <th class="center-align"><g:message code="admin.table.header.actions"/></th>
                             </tr>
@@ -82,7 +84,11 @@
                                             <label class="no-padding" for="user-${userInstance.id}-checkbox"></label>
                                         </td>
 
-                                        <td class="user-name"> ${userInstance.getName()} </td>
+                                        <td class="user-name">
+                                            <a href="#!" class="user-profile" id="user-id-${userInstance.id}">
+                                                ${userInstance.getName()}
+                                            </a>
+                                        </td>
                                         <td class="user-username"> ${userInstance.username} </td>
                                         <td class="valign-wrapper">
                                             <g:if test="${userInstance.authorities.any {it.authority == 'ROLE_DEV'}}">
@@ -187,6 +193,10 @@
                 </g:form>
             </div>
         </div>
+    </div>
+
+    <div id="userDetailsModal" class="modal" style="width:40%">
+        %{-- Preenchido pelo Javascript --}%
     </div>
 
     <g:external dir="css" file="admin.css"/>

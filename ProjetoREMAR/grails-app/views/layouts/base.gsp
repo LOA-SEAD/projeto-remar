@@ -40,37 +40,24 @@
             <div id="report-modal" class="modal remar-modal">
                 <g:form url="[resource: report, action: 'save']">
                     <div class="modal-content" style="min-height: 200px;">
-                        <h4>Relatar um Problema</h4>
+                        <h4><g:message code="report.modal.title"/></h4>
 
                         <g:render template="/report/form"/>
                     </div>
 
                     <div class="modal-footer">
-                        <a id="report-fsm-next" href="#!" class="fsm-next btn">
-                            next
-                        </a>
-                        <a id="report-fsm-prev" href="#!" class="fsm-prev btn hidden">
-                            prev
-                        </a>
-                        <g:submitButton id="report-fsm-finish" name="create"
-                                        class="btn btn waves-effect waves-light remar-orange hidden"
-                                        value="${message(code: 'default.button.create.label', default: 'Create').toUpperCase()}"/>
-                        <a id="report-fsm-cancel" href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">
+                        <a id="report-fsm-cancel" href="#!"
+                           class="modal-action modal-close btn waves-effect waves-light remar-orange">
                             <g:message code="default.button.cancel.label"/>
+                        </a>
+                        <a id="report-fsm-prev" href="#!"
+                           class="btn waves-effect waves-light remar-orange hidden">
+                            <g:message code="default.button.previous.label"/>
                         </a>
                     </div>
                 </g:form>
             </div>
         </div>
-
-        <g:javascript>
-            $(".button-collapse").sideNav();
-            $('.dropdown-button').dropdown({
-                alignment: 'left'
-            });
-            $('.collapsible').collapsible();
-            $('.tooltipped').tooltip({delay: 50});
-        </g:javascript>
 
         <g:if test="${Environment.current != Environment.DEVELOPMENT}">
             <g:javascript>

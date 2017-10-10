@@ -3,15 +3,19 @@
 <g:set var="report" value="${new Report()}"/>
 
 <div class="fsm">
-	<div class="fsm-state fsm-initial" data-state="1" data-evaluator="fsmEval">
-		<select id="type-select" name="type-select">
-			<g:each var="type" in="${report.constraints.type.inList}">
-				<option value="${it}"><g:message code="report.type.${type}"/></option>
-			</g:each>
-		</select>
+	<div id="s1" class="fsm-state fsm-initial" data-state="1" data-evaluator="fsmEval">
+		<g:each var="type" in="${report.constraints.type.inList}">
+			<div class="row">
+				<div class="col s12">
+					<a href="#!" class="report-fsm-next"><g:message code="report.type.${type}"/></a>
+					<br/>
+					<label><g:message code="report.type.${type}.description"/></label>
+				</div>
+			</div>
+		</g:each>
 	</div>
 
-	<div class="fsm-state" data-state="2" data-evaluator="fsmEval">
+	<div id="s2" class="fsm-state" data-state="2" data-evaluator="fsmEval">
 		<div class="fieldcontain ${hasErrors(bean: report, field: 'description', 'error')} required">
 			<label for="description">
 				<g:message code="report.description.label" default="Description" />
@@ -30,6 +34,9 @@
 	</div>
 
 <g:javascript>
+	$(document).ready(function() {
+	    $('#type-select').material_select();
+	});
 	function fsmEval() {
 	    // 1 - Type select
 		// 2 - Description

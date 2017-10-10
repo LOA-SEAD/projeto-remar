@@ -1,7 +1,4 @@
-$(document).ready(function(){
-
-    $('.modal-trigger').leanModal();
-
+$(document).ready(function() {
     $('#save').on("click",function(){
         var formData = new FormData();
         formData.append('name',$("#name").val());
