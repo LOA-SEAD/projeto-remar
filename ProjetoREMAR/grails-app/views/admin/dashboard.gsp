@@ -90,7 +90,7 @@
                 <div class="row">
                     <div class="col s12">
                         <div class="card no-margin hoverable">
-                            <a href="/category/index" class="card-image waves-effect waves-block waves-light">
+                            <a href="/admin/categories" class="card-image waves-effect waves-block waves-light">
                                 <i class="material-icons">list</i>
                             </a>
 

@@ -40,6 +40,7 @@ class UrlMappings {
         "/admin/dashboard"                              (controller: "admin", action: "index")
         "/admin/users"                                  (controller: "admin", action: "users")
         "/admin/groups"                                 (controller: "admin", action: "groups")
+        "/admin/categories"                             (controller: "admin", action: "categories")
         "/admin/games"                                  (controller: "admin", action: "games")
         "/admin/exportCSV"                              (controller: "admin", action: "exportCSV")
         // end admin endpoints

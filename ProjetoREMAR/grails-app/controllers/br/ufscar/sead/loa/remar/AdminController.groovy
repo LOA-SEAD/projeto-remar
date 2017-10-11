@@ -28,20 +28,29 @@ class AdminController {
         render view: "groups", model: [groups: groups]
     }
 
-    @Transactional
-    deleteUser() {
+    def categories() {
+        def categories = Category.list().sort {it.name.toLowerCase()}
+        render view: "categories", model: [categories: categories]
+    }
+
+    def deleteUser() {
         deleteUserProc(params.id)
         render (status: 200)
     }
 
-    @Transactional
-    deleteGroup() {
+    def deleteGroup() {
         deleteGroupProc(params.id)
         render (status: 200)
     }
 
-    @Transactional
-    deleteUserBatch() {
+
+    def deleteCategory() {
+        deleteCategoryProc(params.id)
+        render (status: 200)
+    }
+
+
+    def deleteUserBatch() {
         def userIdList = JSON.parse(params.userIdList)
 
         userIdList.each {
@@ -51,14 +60,63 @@ class AdminController {
         render (status: 200)
     }
 
-    @Transactional
-    deleteGroupBatch() {
+    def deleteGroupBatch() {
         def groupIdList = JSON.parse(params.groupIdList)
 
         groupIdList.each {
             deleteGroupProc(it)
         }
 
+        render (status: 200)
+    }
+
+    def deleteCategoryBatch() {
+        def categoryIdList = JSON.parse(params.categoryIdList)
+
+        def checkNull = 0
+
+        if (categoryIdList.size() == 1){
+            deleteCategoryProc(categoryIdList.get(0))
+        }else {
+            categoryIdList.each {
+                def resource = Resource.findByCategory(Category.findById(it))
+
+                if (!resource) {
+                    deleteCategoryProc(it)
+                } else {
+                    checkNull = 1
+                }
+            }
+        }
+
+        render (status: 200, checkNull)
+    }
+
+    @Transactional
+    saveCategory() {
+        Category category = new Category(params)
+
+        if (category == null) {
+            notFound()
+            return
+        }
+
+        category.save flush:true
+
+        render category as JSON
+    }
+
+    @Transactional
+    editCategory(Category categoryInstance) {
+
+        if (categoryInstance == null) {
+            render(status: 410, text: "ERROR: Failed editing category")
+            return
+        }
+
+        categoryInstance.name = params.name
+
+        categoryInstance.save flush:true
         render (status: 200)
     }
 
@@ -220,7 +278,9 @@ class AdminController {
     }
 
     /**
-     *
+     * @desc   Procedure to remove an category
+     * @param  id - the id from the category to be removed
+     * @return nothing
      */
     @Transactional
     deleteGroupProc(id) {
@@ -230,6 +290,18 @@ class AdminController {
             render(status: 410, text: "ERROR: Failed removing group")
             return
         }
+    }
+
+    @Transactional
+    deleteCategoryProc(id) {
+        def categoryInstance = Category.findById(id)
+
+        if (categoryInstance == null) {
+            render(status: 410, text: "ERROR: Failed removing category")
+            return
+        }
+
+        categoryInstance.delete flush: true
     }
 
     /**
