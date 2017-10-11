@@ -255,8 +255,8 @@ class TileController {
         def ok = true
 
         for (def difficulty = 1; difficulty <= 3; difficulty++) {
-            def min = difficulty * 2 + 2
-            //def min = 1 //usado para testes
+            //def min = difficulty * 2 + 2
+            def min = 1 //usado para testes
             def count = Tile.countByDifficultyAndOwnerIdAndTaskId(difficulty, owner, session.taskId)
 
             if (count < min) {
@@ -290,7 +290,10 @@ class TileController {
             }
 
             // atualiza a tarefa corrente para o status de "completo"
-            redirect  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
+
+            //redirect uri: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
+            //        "?files=${ids[0]}&files=${ids[1]}"
+            render "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
                     "?files=${ids[0]}&files=${ids[1]}"
         }
     }
