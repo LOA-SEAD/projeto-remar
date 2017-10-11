@@ -88,9 +88,10 @@ $(document).ready(function() {
             url: "validate",
             success: function (resp) {
                 $('#loading-screen').hide();
+                window.top.location.href = resp;
             },
             error: function (xhr, status, text) {
-                $('#fail-modal .modal-content p').html(resp);
+                $('#fail-modal .modal-content p').html(text);
                 $('#fail-modal').modal('open');
                 console.log(text);
             }
@@ -107,7 +108,7 @@ function renderSelect (difficulty) {
 
     $container.empty(400);
 
-    $('#difficulty-minimum').html(difficulty * 2 + 2);
+    $('#difficulty-minimum').html(difficulty);
     $('#difficulty-level').html(difficultyList[difficulty]);
 
     // get the tile list of given difficulty

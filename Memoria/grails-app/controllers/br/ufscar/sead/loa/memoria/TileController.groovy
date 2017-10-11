@@ -266,7 +266,8 @@ class TileController {
         }
 
         if (!ok) {
-            render message.toString()
+            render(status: 503, text: message.toString())
+            //render message.toString()
             return
         } else {
             // gera os arquivos: output.CSS e cartas.png
