@@ -91,8 +91,9 @@ $(document).ready(function() {
                 window.top.location.href = resp;
             },
             error: function (xhr, status, text) {
+                $('#loading-screen').hide();
                 $('#fail-modal .modal-content p').html(text);
-                $('#fail-modal').modal('open');
+                $('#fail-modal').modal();
                 console.log(text);
             }
         });

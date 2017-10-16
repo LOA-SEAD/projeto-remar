@@ -19,14 +19,17 @@
           "name": "output.css",
           "type": "text/css",
           "path": "css"
+        },
+        {
+          "name": "descricao.json",
+          "type": "text/json",
+          "path": "json"
         }
       ]
     }
   ],
   "outputs": [
-    "web",
-    "desktop",
-    "android"
+    "web"
   ],
   "vars": {
     "width": 816,
