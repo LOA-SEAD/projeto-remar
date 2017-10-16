@@ -73,23 +73,20 @@ class AdminController {
     def deleteCategoryBatch() {
         def categoryIdList = JSON.parse(params.categoryIdList)
 
-        def checkNull = 0
+        def categoryRemoved = []
 
-        if (categoryIdList.size() == 1){
-            deleteCategoryProc(categoryIdList.get(0))
-        }else {
-            categoryIdList.each {
-                def resource = Resource.findByCategory(Category.findById(it))
+        categoryIdList.each {
+            def resource = Resource.findByCategory(Category.findById(it))
 
-                if (!resource) {
-                    deleteCategoryProc(it)
-                } else {
-                    checkNull = 1
-                }
+            if (!resource) {
+                deleteCategoryProc(it)
+                categoryRemoved.add(it)
             }
         }
 
-        render (status: 200, checkNull)
+        println "Categorias removidas:" + categoryRemoved
+
+        render categoryRemoved as JSON
     }
 
     @Transactional

@@ -221,12 +221,24 @@ enquanto que arquivos .js são interpretados pelo cliente.
                     data: {categoryIdList: JSON.stringify(categoryIdList)},
                     success: function (resp) {
 
-                        $('#categories-table input:checkbox:checked').closest('tr').each(function() {
-                            $(this).remove();
-                        });
+                        if(resp.length > 0){
+                            $('#categories-table input:checkbox:checked').closest('tr').each(function() {
+                                for(i = 0; i < resp.length; i++){
+                                    if($(this).data('category-id') == resp[i])
+                                        $(this).remove();
+                                }
+                            });
+                            if(resp.length == categoryIdList.length)
+                                Materialize.toast('${message(code: 'admin.categories.removed.batch')}', 2000);
+                            else{
+                                Materialize.toast('${message(code: 'admin.categories.removed.partialBatch')}', 2000);
+                            }
+                        }else{
+                            Materialize.toast('${message(code :'admin.categories.notremoved.batch')}', 2000);
+                        }
 
                         $('#categories-table').reloadMe();
-                        Materialize.toast('${message(code: 'admin.categories.removed.batch')}', 2000);
+
                         $('.warning-box').slideUp(500);
                     },
                     error: function(req, res, err) {
