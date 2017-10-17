@@ -85,15 +85,20 @@ $(document).ready(function() {
             type: 'GET',
             async: false,
             data: {orientation: orientation},
-            url: "validate",
-            success: function (resp) {
-                $('#loading-screen').hide();
-                window.top.location.href = resp;
+            url: "/memoria/tile/validate",
+            success: function (resp, status, xhr) {
+                if (xhr.status == 200) {
+                    console.log(resp);
+                    window.location.href = resp;
+                } else {
+                    $('#loading-screen').hide();
+                    $('#fail-modal .modal-content p').html(resp);
+                    $('#fail-modal').modal();
+                    $('#fail-modal').modal('open');
+                }
             },
             error: function (xhr, status, text) {
                 $('#loading-screen').hide();
-                $('#fail-modal .modal-content p').html(text);
-                $('#fail-modal').modal();
                 console.log(text);
             }
         });
@@ -116,7 +121,7 @@ function renderSelect (difficulty) {
     $.ajax({
         type: 'GET',
         data: {difficulty: difficulty},
-        url: 'listByDifficulty',
+        url: "/memoria/tile/listByDifficulty",
         success: function (resp) {
             $('#difficulty-select-message').fadeIn(0);
             $container.html(resp).fadeIn().find('select').material_select();
@@ -156,7 +161,7 @@ function renderTile (tileId) {
     $.ajax({
         type: 'POST',
         data: {id: tileId},
-        url: 'show',
+        url: "/memoria/tile/show",
         success: function (resp) {
             fadeInOut($display, resp, function() {
                 // resize images orientation-wise

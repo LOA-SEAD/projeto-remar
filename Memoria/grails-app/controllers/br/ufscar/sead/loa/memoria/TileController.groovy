@@ -256,7 +256,7 @@ class TileController {
 
         for (def difficulty = 1; difficulty <= 3; difficulty++) {
             //def min = difficulty * 2 + 2
-            def min = 1 //usado para testes
+            def min = 1
             def count = Tile.countByDifficultyAndOwnerIdAndTaskId(difficulty, owner, session.taskId)
 
             if (count < min) {
@@ -266,8 +266,7 @@ class TileController {
         }
 
         if (!ok) {
-            render(status: 503, text: message.toString())
-            //render message.toString()
+            render message.toString()
             return
         } else {
             // gera os arquivos: output.CSS e cartas.png
@@ -292,10 +291,13 @@ class TileController {
 
             // atualiza a tarefa corrente para o status de "completo"
 
-            //redirect uri: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
-            //        "?files=${ids[0]}&files=${ids[1]}"
-            render "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
+            println "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
                     "?files=${ids[0]}&files=${ids[1]}"
+
+            render (status: 200, text: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
+                    "?files=${ids[0]}&files=${ids[1]}")
+            //render "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
+            //        "?files=${ids[0]}&files=${ids[1]}"
         }
     }
 
