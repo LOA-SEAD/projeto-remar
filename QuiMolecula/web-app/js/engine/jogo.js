@@ -328,7 +328,7 @@ function posicaoVazia(pos, id) {
 }
 
 //Funcao que cria um atomo na tela
-//Essa funcao j??reponsavel por todas as checagens, ou seja, s?precisamos passar o nome do elementos a ser criado
+//Essa funcao já é reponsavel por todas as checagens, ou seja, só precisamos passar o nome do elementos a ser criado
 function criarAtomo(_id) {
     var aux = 1;
     if(_id == 'carbono')
@@ -411,14 +411,14 @@ function criarAtomo(_id) {
                                                 {
                                                     selectedAtom = this;
                                                     currentBond = ui.draggable.attr('id');
-                                                    $(this).addClass('selectedAtom');
+                                                    $(this).addClass('atomoSelecionado');
                                                 }
                                                 else
                                                 {
-                                                    $(selectedAtom).removeClass('selectedAtom');
+                                                    $(selectedAtom).removeClass('atomoSelecionado');
                                                     currentBond = ui.draggable.attr('id');
                                                     selectedAtom = this;
-                                                    $(this).addClass('selectedAtom');
+                                                    $(this).addClass('atomoSelecionado');
                                                 }
                                             }
 
@@ -957,7 +957,7 @@ function debugKeyListeners(evt) {
                 {
                     selectedAtom = currentAtom;
                     currentBond = selectedElement.id;
-                    $(currentAtom).addClass('selectedAtom');
+                    $(currentAtom).addClass('atomoSelecionado');
                 }
                 else if(selectedAtom != currentAtom)
                 {
