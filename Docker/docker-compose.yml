@@ -18,7 +18,7 @@ services:
     volumes:
       - 'mongo-data:/data/db'
   remar:
-      image: lucasaciole/projeto-remar
+      image: loaufscar/projeto-remar
       environment:
         - 'TZ=America/Sao_Paulo'
       restart: always
