@@ -255,8 +255,8 @@ class TileController {
         def ok = true
 
         for (def difficulty = 1; difficulty <= 3; difficulty++) {
-            //def min = difficulty * 2 + 2
-            def min = 0
+            def min = difficulty * 2 + 2
+
             def count = Tile.countByDifficultyAndOwnerIdAndTaskId(difficulty, owner, session.taskId)
 
             if (count < min) {

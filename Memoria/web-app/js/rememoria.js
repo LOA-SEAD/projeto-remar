@@ -113,7 +113,7 @@ function renderSelect (difficulty) {
 
     $container.empty(400);
 
-    $('#difficulty-minimum').html(difficulty);
+    $('#difficulty-minimum').html(difficulty * 2 + 2);
     $('#difficulty-level').html(difficultyList[difficulty]);
 
     // get the tile list of given difficulty
