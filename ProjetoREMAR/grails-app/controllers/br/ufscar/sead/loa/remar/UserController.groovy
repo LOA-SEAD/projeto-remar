@@ -70,7 +70,7 @@ class UserController {
                 } else {
                     render view: "/user/password/create", model: [user: token.owner, token: params.t]
                 }
-            } else { // User has clicked "forgot passowrd" link
+            } else { // User has clicked "forgot password" link
                 render view: "/user/password/requestToken"
             }
 
@@ -116,10 +116,13 @@ class UserController {
 
                         render view: "/user/password/emailSent", model: [email: user.email]
                     } else {
-                        flash.message = 'email not found'
+                        flash.message = message(code: "error.mail")
                         render view: "/user/password/requestToken"
                     }
-
+                // User hasn't fullfiled the captcha.
+                } else {
+                    flash.message = message(code: "error.captcha")
+                    render view: "/user/password/requestToken"
                 }
             }
         }
