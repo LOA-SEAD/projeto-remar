@@ -21,6 +21,9 @@ This will create  a directory with the name of your application.<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Then you can open IntelliJ and go to **New->Project from Existing Sources** and select the directory you just created and start working on it :)
 
+* application.properties**
+<br> Substitute the *"Template"* to your application's name<br>
+
 * grails-app/conf/**Config.groovy**
 <br> Substitute the *"TemplateName"* to your application's name where you find the following line (2 occurrences)
 ```java

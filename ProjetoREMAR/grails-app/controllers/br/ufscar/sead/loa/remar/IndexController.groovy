@@ -55,6 +55,8 @@ class IndexController {
                 model.uri = "http://localhost:8060${model.uri}"
             } else if (model.uri.indexOf('labteca') != -1) {
                 model.uri = "http://localhost:8070${model.uri}"
+            } else if (model.uri.indexOf('memoria') != -1) {
+                model.uri = "http://localhost:8090${model.uri}"
             }
 
         }
