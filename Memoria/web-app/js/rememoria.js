@@ -88,8 +88,7 @@ $(document).ready(function() {
             url: "/memoria/tile/validate",
             success: function (resp, status, xhr) {
                 if (xhr.status == 200) {
-                    console.log(resp);
-                    window.location.href = resp;
+                    window.top.location.href = resp;
                 } else {
                     $('#loading-screen').hide();
                     $('#fail-modal .modal-content p').html(resp);

@@ -18,12 +18,12 @@ class TileController {
         }
         session.user = springSecurityService.currentUser
 
-        render  view: "index"
+        render view: "index"
     }
 
     def show() {
-        render  template: "tile",
-                model: [ tileInstance: Tile.findById(params.id) ]
+        render template: "tile",
+                model: [tileInstance: Tile.findById(params.id)]
     }
 
     def create() {
@@ -38,7 +38,7 @@ class TileController {
         }
 
         if (tileInstance.hasErrors()) {
-            respond tileInstance.errors, view:'create'
+            respond tileInstance.errors, view: 'create'
             return
         }
 
@@ -63,12 +63,12 @@ class TileController {
         ]
 
 
-        if (! f1Uploaded.fileItem.contentType.startsWith("image/")) {
+        if (!f1Uploaded.fileItem.contentType.startsWith("image/")) {
             errors.not_image_file_a = true
         }
 
 
-        if (! f2Uploaded.fileItem.contentType.startsWith("image/")) {
+        if (!f2Uploaded.fileItem.contentType.startsWith("image/")) {
             errors.not_image_file_b = true
         }
 
@@ -89,26 +89,26 @@ class TileController {
                 executarShell(
                         script_convert_png,
                         [
-                        f1.absolutePath,
-                        f1.absolutePath
+                                f1.absolutePath,
+                                f1.absolutePath
                         ]
                 )
 
                 executarShell(
                         script_convert_png,
                         [
-                        f2.absolutePath,
-                        f2.absolutePath
+                                f2.absolutePath,
+                                f2.absolutePath
                         ]
                 )
             }
 
 
-            redirect(controller: "Tile", action:"index")
+            redirect(controller: "Tile", action: "index")
         } else {
             flash.error = errors
             println(flash.error)
-            redirect(controller: "Tile", action:"create")
+            redirect(controller: "Tile", action: "create")
         }
 
     }
@@ -116,10 +116,10 @@ class TileController {
     def edit() {
         def tileInstance = Tile.findById(params.id)
 
-        render  view: "edit",
+        render view: "edit",
                 model: [
-                    tileInstance: tileInstance,
-                    edit: true
+                        tileInstance: tileInstance,
+                        edit        : true
                 ]
     }
 
@@ -130,7 +130,7 @@ class TileController {
         tileInstance.description = params.description
         tileInstance.difficulty = params.difficulty.toInteger()
 
-        tileInstance.save flush:true
+        tileInstance.save flush: true
 
         if (tileInstance.hasErrors()) {
             println tileInstance.errors
@@ -149,12 +149,12 @@ class TileController {
         ]
 
 
-        if (! f1Uploaded.fileItem.contentType.startsWith("image/")) {
+        if (!f1Uploaded.fileItem.contentType.startsWith("image/")) {
             errors.not_image_file_a = true
         }
 
 
-        if (! f2Uploaded.fileItem.contentType.startsWith("image/")) {
+        if (!f2Uploaded.fileItem.contentType.startsWith("image/")) {
             errors.not_image_file_b = true
         }
 
@@ -170,8 +170,8 @@ class TileController {
                 executarShell(
                         script_convert_png,
                         [
-                        f1.absolutePath,
-                        f1.absolutePath
+                                f1.absolutePath,
+                                f1.absolutePath
                         ]
                 )
             }
@@ -185,17 +185,17 @@ class TileController {
                 executarShell(
                         script_convert_png,
                         [
-                        f2.absolutePath,
-                        f2.absolutePath
+                                f2.absolutePath,
+                                f2.absolutePath
                         ]
                 )
             }
 
-            redirect(controller: "Tile", action:"index")
+            redirect(controller: "Tile", action: "index")
         } else {
             request.error = errors
 
-            redirect(controller: "Tile", action:"create")
+            redirect(controller: "Tile", action: "create")
         }
 
     }
@@ -217,9 +217,9 @@ class TileController {
         f1.delete()
         f2.delete()
 
-        tileInstance.delete flush:true
+        tileInstance.delete flush: true
 
-        redirect(controller: "Tile", action:"index")
+        redirect(controller: "Tile", action: "index")
     }
 
     protected void notFound() {
@@ -228,7 +228,7 @@ class TileController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'tile.label', default: 'Tile'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 
@@ -242,9 +242,9 @@ class TileController {
         if (tileList == null || tileList.empty) {
             // status 412: precondition_failed
             // uma ou mais condições testadas pelo servidos foram avaliadas como falsas ou falharam
-            render (status: 412, template: "empty")
+            render(status: 412, template: "empty")
         } else {
-            render (status: 200, template: "select", model: [tileList: tileList])
+            render(status: 200, template: "select", model: [tileList: tileList])
         }
     }
 
@@ -256,7 +256,7 @@ class TileController {
 
         for (def difficulty = 1; difficulty <= 3; difficulty++) {
             //def min = difficulty * 2 + 2
-            def min = 1
+            def min = 0
             def count = Tile.countByDifficultyAndOwnerIdAndTaskId(difficulty, owner, session.taskId)
 
             if (count < min) {
@@ -266,7 +266,7 @@ class TileController {
         }
 
         if (!ok) {
-            render message.toString()
+            render(status: 201, text: message.toString())
             return
         } else {
             // gera os arquivos: output.CSS e cartas.png
@@ -275,10 +275,37 @@ class TileController {
             // encontra o endereço do arquivo criado
             def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}")
 
+            def levels = ['Facil', 'Medio', 'Dificil']
+
+            def fileName = "descricao.json"
+
+            def fw = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream("$folder/$fileName"), "UTF-8"));
+
+            def conteudo = new StringBuilder()
+            conteudo << '{\n"descreveSobreGeral" : "Memória",\n'
+
+            if (params.orientation == "v") {
+                conteudo << '"direcao" : "vertical",\n'
+            } else {
+                conteudo << '"direcao" : "horizontal",\n'
+            }
+
+            for (def difficulty = 1; difficulty <= 3; difficulty++) {
+                def count = Tile.countByDifficultyAndOwnerIdAndTaskId(difficulty, owner, session.taskId)
+                conteudo << '"totalPares' + levels[difficulty - 1] + 'Upload" : ' + count + ',\n'
+            }
+            conteudo << '"tempoCarta" : ' + 500 + '\n}'
+            fw.write(conteudo.toString());
+            fw.close();
+
+            println conteudo.toString()
+
             log.debug folder
             def ids = []
             ids << MongoHelper.putFile("${folder}/output.css")
             ids << MongoHelper.putFile("${folder}/tiles/cartas.png")
+            ids << MongoHelper.putFile("${folder}/descricao.json")
 
             //if (! new File(folder).deleteDir()){
             //    println("Erro em tentar excluir a pasta do usuario")
@@ -291,12 +318,10 @@ class TileController {
 
             // atualiza a tarefa corrente para o status de "completo"
 
-            println "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
-                    "?files=${ids[0]}&files=${ids[1]}"
+            render(status: 200, text: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
+                    "?files=${ids[0]}&files=${ids[1]}&files=${ids[2]}")
 
-            render (status: 200, text: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
-                    "?files=${ids[0]}&files=${ids[1]}")
-            //render "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
+            //redirect uri: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
             //        "?files=${ids[0]}&files=${ids[1]}"
         }
     }
@@ -317,9 +342,9 @@ class TileController {
         def tilesPath = "${instancePath}/tiles"
         def owner = session.user.id
 
-        def easyTilesIdList   = Tile.findAllByDifficultyAndOwnerIdAndTaskId(1, owner, session.taskId)*.id
+        def easyTilesIdList = Tile.findAllByDifficultyAndOwnerIdAndTaskId(1, owner, session.taskId)*.id
         def mediumTilesIdList = Tile.findAllByDifficultyAndOwnerIdAndTaskId(2, owner, session.taskId)*.id
-        def hardTilesIdList   = Tile.findAllByDifficultyAndOwnerIdAndTaskId(3, owner, session.taskId)*.id
+        def hardTilesIdList = Tile.findAllByDifficultyAndOwnerIdAndTaskId(3, owner, session.taskId)*.id
 
         execConcatenate(
                 "-${orientation}",
@@ -351,8 +376,8 @@ class TileController {
         def script_append = servletContext.getRealPath("/scripts/append.sh")
 
         def l2 = [
-            tilesPath,
-            orientation
+                tilesPath,
+                orientation
         ]
 
         println("l2 --> " + l2)
@@ -370,12 +395,12 @@ class TileController {
         def script_sedSASS = servletContext.getRealPath("/scripts/sed_sass.sh")
 
         def l3 = [
-            servletContext.getRealPath("/scripts/template.scss"),
-            "${instancePath}/output.css",
-            orientation,
-            String.valueOf(easyTilesIdList.size()),
-            String.valueOf(mediumTilesIdList.size()),
-            String.valueOf(hardTilesIdList.size())
+                servletContext.getRealPath("/scripts/template.scss"),
+                "${instancePath}/output.css",
+                orientation,
+                String.valueOf(easyTilesIdList.size()),
+                String.valueOf(mediumTilesIdList.size()),
+                String.valueOf(hardTilesIdList.size())
         ]
 
         println("l3 --> " + l3)
@@ -386,9 +411,9 @@ class TileController {
 
         def script_concatenate_tiles = servletContext.getRealPath("/scripts/concatenate.sh")
         def l = [
-            orient, // $1
-            difficulty, // $2
-            folder // $3
+                orient, // $1
+                difficulty, // $2
+                folder // $3
         ]
 
         // adding parameters to the script (name of the img files to be appended)
@@ -405,7 +430,7 @@ class TileController {
 
     // the list has to contain the path to the sh file as its first element
     // and then the next elements will be the respective params for the script
-    def executarShell(scriptName, execList){
+    def executarShell(scriptName, execList) {
         def ant = new AntBuilder()
 
         def argLine = String.join(" ", execList);
@@ -431,8 +456,8 @@ class TileController {
         def userPath = servletContext.getRealPath("/data/" + tileInstance.ownerId.toString() + "/tiles")
         def id = tileInstance.getId()
         def images = [
-            "a": "$userPath/tile$id-a.png",
-            "b": "$userPath/tile$id-b.png"
+                "a": "$userPath/tile$id-a.png",
+                "b": "$userPath/tile$id-b.png"
         ]
 
         return images
