@@ -1,0 +1,39 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<molecule name='Dimetilbenzeno' formula='C_8_H_10_' dica='A única diferença entre os hidrocarbonetos de cadeia aberta e os de cadeia cíclica é a presença do prefixo “ciclo”.'>
+  <atom id='0' type='carbono' number='-1'/>
+  <atom id='1' type='carbono' number='-1'/>
+  <atom id='2' type='carbono' number='-1'/>
+  <atom id='3' type='carbono' number='-1'/>
+  <atom id='4' type='carbono' number='-1'/>
+  <atom id='5' type='carbono' number='-1'/>
+  <atom id='6' type='carbono' number='-1'/>
+  <atom id='7' type='carbono' number='-1'/>
+  <atom id='8' type='hidrogenio' number='-1'/>
+  <atom id='9' type='hidrogenio' number='-1'/>
+  <atom id='10' type='hidrogenio' number='-1'/>
+  <atom id='11' type='hidrogenio' number='-1'/>
+  <atom id='12' type='hidrogenio' number='-1'/>
+  <atom id='13' type='hidrogenio' number='-1'/>
+  <atom id='14' type='hidrogenio' number='-1'/>
+  <atom id='15' type='hidrogenio' number='-1'/>
+  <atom id='16' type='hidrogenio' number='-1'/>
+  <atom id='17' type='hidrogenio' number='-1'/>
+  <bond source='6' target='8' type='1'/>
+  <bond source='6' target='9' type='1'/>
+  <bond source='6' target='10' type='1'/>
+  <bond source='6' target='0' type='1'/>
+  <bond source='5' target='17' type='1'/>
+  <bond source='7' target='11' type='1'/>
+  <bond source='7' target='12' type='1'/>
+  <bond source='7' target='13' type='1'/>
+  <bond source='7' target='4' type='1'/>
+  <bond source='3' target='14' type='1'/>
+  <bond source='2' target='15' type='1'/>
+  <bond source='2' target='1' type='1'/>
+  <bond source='1' target='16' type='1'/>
+  <bond source='0' target='5' type='1'/>
+  <bond source='4' target='3' type='1'/>
+  <bond source='3' target='2' type='2'/>
+  <bond source='1' target='0' type='2'/>
+  <bond source='4' target='5' type='2'/>
+</molecule>

@@ -1,5 +1,0 @@
-h1. asset-clean
-
-h2. Description
-
-Cleans the directory where precompiled assets are stored (@target/assets@).

@@ -746,10 +746,13 @@ class ExportedResourceController {
     def saveScore() {
         def data = [:]
         data.timestamp = new Date().toTimestamp()
-        data.userId = params.user as long
-        data.exportedResourceId = params.exportedResourceId
+        data.userId = session.user.id as long
+        data.exportedResourceId = params.exportedResourceId as long
         data.score = params.score
 
+	println "SaveScore : " + data
+
+        
         try {
                 MongoHelper.instance.createCollection("ranking")
                 MongoHelper.instance.insertScoreToRanking(data)
@@ -788,6 +791,12 @@ class ExportedResourceController {
 
         render lista as JSON
     }
-    //*/
 
+    def cardInfos() {
+        ExportedResource card = ExportedResource.get(params.id);
+        User user = session.user
+        def group1 = Group.findAllByOwner(user)
+        def group2 = UserGroup.findAllByUserAndAdmin(user,true).group
+        render view: "_cardGamesModal", model: [instance: card, myGroups: group1, groupsIAdmin: group2]
+    }
 }

@@ -1,0 +1,38 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<molecule name='Pentanamida' formula='C_5_H_11_ON' dica='Amidas são caracterizadas pela molécula(NH3) e pela ligação direta do nitrogênio com um grupo carbonila (C=O).'>
+  <atom id='0' type='carbono' number='-1'/>
+  <atom id='1' type='carbono' number='-1'/>
+  <atom id='2' type='carbono' number='-1'/>
+  <atom id='3' type='carbono' number='-1'/>
+  <atom id='4' type='carbono' number='-1'/>
+  <atom id='5' type='nitrogenio' number='-1'/>
+  <atom id='6' type='oxigenio' number='-1'/>
+  <atom id='7' type='hidrogenio' number='-1'/>
+  <atom id='8' type='hidrogenio' number='-1'/>
+  <atom id='9' type='hidrogenio' number='-1'/>
+  <atom id='10' type='hidrogenio' number='-1'/>
+  <atom id='11' type='hidrogenio' number='-1'/>
+  <atom id='12' type='hidrogenio' number='-1'/>
+  <atom id='13' type='hidrogenio' number='-1'/>
+  <atom id='14' type='hidrogenio' number='-1'/>
+  <atom id='15' type='hidrogenio' number='-1'/>
+  <atom id='16' type='hidrogenio' number='-1'/>
+  <atom id='17' type='hidrogenio' number='-1'/>
+  <bond source='0' target='1' type='1'/>
+  <bond source='0' target='7' type='1'/>
+  <bond source='0' target='8' type='1'/>
+  <bond source='0' target='9' type='1'/>
+  <bond source='1' target='10' type='1'/>
+  <bond source='1' target='11' type='1'/>
+  <bond source='1' target='2' type='1'/>
+  <bond source='2' target='12' type='1'/>
+  <bond source='2' target='13' type='1'/>
+  <bond source='2' target='3' type='1'/>
+  <bond source='3' target='14' type='1'/>
+  <bond source='3' target='15' type='1'/>
+  <bond source='3' target='4' type='1'/>
+  <bond source='4' target='6' type='2'/>
+  <bond source='4' target='5' type='1'/>
+  <bond source='5' target='16' type='1'/>
+  <bond source='5' target='17' type='1'/>
+</molecule>

@@ -98,3 +98,8 @@ label .required-indicator {
 .dropdown-content li span {
     color: #5D4037;
 }
+
+[type="radio"]:checked + label:after{
+    border: 2px solid #FF5722 !important;
+    background-color: #FF5722 !important;
+}

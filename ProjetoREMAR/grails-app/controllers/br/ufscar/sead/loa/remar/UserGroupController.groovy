@@ -14,8 +14,6 @@ class UserGroupController {
             } else
                 render(status: 401, view: "../401")
 
-
-
         }
     }
 

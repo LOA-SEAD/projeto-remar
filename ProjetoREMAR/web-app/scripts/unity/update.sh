@@ -15,9 +15,15 @@ cd ${root}/published/$3/desktop/windows/resources/app
 
 for FILE in *;
 do
-    cp -v ${FILE} ${base}/windows/Assets/Resources/${FILE}
-    cp -v ${FILE} ${base}/linux/Assets/Resources/${FILE}
-    cp -v ${FILE} ${base}/mac/$4.app/Contents/Data/Resources/${FILE}
+	if [ -d "${FILE}" ] ; then
+		mkdir -p ${base}/windows/Assets/Resources/${FILE} && cp -v ${FILE}/* ${base}/windows/Assets/Resources/${FILE}
+		mkdir -p ${base}/linux/Assets/Resources/${FILE} && cp -v ${FILE}/* ${base}/linux/Assets/Resources/${FILE}
+		mkdir -p ${base}/mac/$4.app/Contents/Data/Resources/${FILE} && cp -v ${FILE}/* ${base}/mac/$4.app/Contents/Data/Resources/${FILE}
+	else
+	    cp -v ${FILE} ${base}/windows/Assets/Resources/${FILE}
+	    cp -v ${FILE} ${base}/linux/Assets/Resources/${FILE}
+	    cp -v ${FILE} ${base}/mac/$4.app/Contents/Data/Resources/${FILE}
+	fi
 done
 
 # With all files in their places, zip the source again
@@ -33,7 +39,7 @@ cd ${root}/published/$3/desktop/windows/resources/app
 
 for FILE in *;
 do
-    rm -v ${base}/windows/Assets/Resources/${FILE}
-    rm -v ${base}/linux/Assets/Resources/${FILE}
-    rm -v ${base}/mac/$4.app/Contents/Data/Resources/${FILE}
+    rm -rv ${base}/windows/Assets/Resources/${FILE}
+    rm -rv ${base}/linux/Assets/Resources/${FILE}
+    rm -rv ${base}/mac/$4.app/Contents/Data/Resources/${FILE}
 done

@@ -17,3 +17,7 @@
 	path = SantoGrau/web-app/remar/source
 	url = https://github.com/LOA-SEAD/santo-grau
 	branch = exported
+[submodule "QuiMolecula/web-app/remar/source"]
+	path = QuiMolecula/web-app/remar/source
+	url = https://github.com/LOA-SEAD/quimolecula
+	branch = exported

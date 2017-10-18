@@ -57,9 +57,12 @@
 
                     <div id="info" class="collapsible-body">
                     <div class="row">
-                        %{--<g:form action="addUser" method="post">--}%
+                        <g:if test="${flash.message }">
+                            ${flash.message }
+                        </g:if>
+                        <g:form action="addUserByToken" method="post">
                         <div class="col offset-l4 offset-s2 offset-m3">
-                            <form id="add-user-form">
+                            <!--form id="add-user-form"-->
                                 <div class="input-field col l6 s6">
                                     <input class="user-input" name="membertoken" id="member-token" type="text" placeholder="Código de acesso" required>
                                     <label for="member-token"></label>
@@ -69,9 +72,9 @@
 
                                     </button>
                                 </div>
-                            </form>
+                            <!--/form-->
                         </div>
-                        %{--</g:form>--}%
+                        </g:form>
                     </div>
                 </div>
             </li>

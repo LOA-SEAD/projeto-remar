@@ -214,8 +214,7 @@ $(function(){
                         Materialize.toast($toastContent, 4000);
                         break;
                     default:
-                        location.reload();
-
+                        $("#card-id-"+id).remove();
                 }
             },
             error: function(req, status, err) {

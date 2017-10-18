@@ -17,9 +17,9 @@
         <div class="row">
             <input type="hidden" name="id" id="resource-id" value="${resourceInstance.id}">
 
-            <ul class="collapsible popout" data-collapsible="expandable">
+            <ul data-instance_id="${exportedResourceInstance.id}" class="collapsible popout infos-exportedResource" data-collapsible="expandable">
                 <li>
-                    <div class="collapsible-header active"> <i class="material-icons">feedback</i>Informações</div>
+                    <div class="collapsible-header active">Informações</div>
                     <div id="info" class="collapsible-body">
                         <div class="row">
                             <img id="img1Preview" class="my-orange right materialboxed" width="100" height="100"
@@ -45,6 +45,7 @@
                         <div class="clearfix"></div>
                     </div>
                 </li>
+
                 <g:if test="${!handle.isEmpty()}">
                     <li>
                         <div class="collapsible-header active"> <i class="material-icons">cloud</i>Repositório</div>
@@ -61,19 +62,16 @@
                             <div class="clearfix"></div>
                         </div>
                     </li>
-
                 </g:if>
+
                 <li>
-                    <div id="plataforms" class="collapsible-header active" data-exported="true">
-                        <i class="material-icons">view_column</i>Plataformas
-                    </div>
+                    <div id="plataforms" class="collapsible-header active" data-exported="true">Plataformas</div>
                     <div class="collapsible-body">
+                        <div class="row" style="margin-top: 30px">
+                            <div id="plataforms-icons" class="col s12" style="display:flex; justify-content: space-around">
 
-
-                        <div id="plataforms-icons" class="row" style="margin: 0;">
-                            <div class="col s12">
                                 <a href="/published/${exportedResourceInstance.processId}/web" style="color: inherit" target="_blank">
-                                    <div id="web" class="col s6 m2">
+                                    <div id="web" class="platform-icon">
                                         <div class="row no-margin-bottom">
                                             <i class="fa fa-globe big-platform-logo" data-tooltip="Web"></i>
                                         </div>
@@ -82,9 +80,10 @@
                                         </div>
                                     </div>
                                 </a>
+
                                 <g:if test="${exportsTo.desktop}">
                                     <a href="/published/${exportedResourceInstance.processId}/desktop/${exportedResourceInstance.resource.uri}-windows.zip" style="color: inherit">
-                                        <div class="col s6 m2 platform" data-text="Windows" data-name="windows">
+                                        <div class="platform-icon" data-text="Windows" data-name="windows">
                                             <div class="row no-margin-bottom">
                                                 <i class="fa fa-windows big-platform-logo" data-tooltip="Windows"></i>
                                             </div>
@@ -94,7 +93,7 @@
                                         </div>
                                     </a>
                                     <a href="/published/${exportedResourceInstance.processId}/desktop/${exportedResourceInstance.resource.uri}-linux.zip" style="color: inherit">
-                                        <div class="col s6 m2 platform" data-text="Linux (64 bits)"  data-name="linux">
+                                        <div class="platform-icon" data-text="Linux (64 bits)"  data-name="linux">
                                             <div class="row no-margin-bottom">
                                                 <i class="fa fa-linux big-platform-logo" data-tooltip="Linux"></i>
                                             </div>
@@ -105,7 +104,7 @@
                                     </a>
 
                                     <a href="/published/${exportedResourceInstance.processId}/desktop/${exportedResourceInstance.resource.uri}-mac.zip" style="color: inherit">
-                                        <div class="col s6 m2 platform" data-text="macOS" data-name="mac">
+                                        <div class="platform-icon" data-text="macOS" data-name="mac">
                                             <div class="row no-margin-bottom">
                                                 <i class="fa fa-apple big-platform-logo" data-tooltip="Mac"></i>
                                             </div>
@@ -118,7 +117,7 @@
 
                                 <g:if test="${exportsTo.android}">
                                     <a href="/published/${exportedResourceInstance.processId}/mobile/${exportedResourceInstance.resource.uri}-android.zip" style="color: inherit">
-                                        <div class="col s6 m2 platform" data-text="Android" data-name="android">
+                                        <div class="platform-icon" data-text="Android" data-name="android">
                                             <div class="row no-margin-bottom">
                                                 <i class="fa fa-android big-platform-logo" data-tooltip="Android"></i>
                                             </div>
@@ -128,69 +127,26 @@
                                         </div>
                                     </a>
                                 </g:if>
+
                             </div>
                         </div>
                     </div>
                 </li>
+
                 <g:if test="${exportedResourceInstance.resource.shareable}">
-                <li id="groups">
-                    <div class="collapsible-header active"><i class="material-icons">people</i>Compartilhar para grupos </div>
-    
+                    <li id="groups">
+                        <div class="collapsible-header active">Compartilhar para grupos </div>
                         <div class="collapsible-body">
                             <ul class="collection with-header">
-                            <g:if test="${!groupsIOwn.empty}">
-                                <g:each var="group" in="${groupsIOwn}">
-                                    <li class="collection-item">
-                                        <div class="left-align">
-                                            <p>${group.name}</p>
-                                        </div>
-                                        <p>
-                                            Dono: ${group.owner.firstName + " " + group.owner.lastName}<br>
-                                        </p>
-                                        <g:if test="${!GroupExportedResources.findByGroupAndExportedResource(group,exportedResourceInstance)}">
-                                            <input name="groupsid" class="group-input" id="groups-${group.id}-instance-${exportedResourceInstance.id}" value="${group.id}" type="checkbox">
-                                        </g:if>
-                                        <g:else>
-                                            <input name="groupsid2" id="groups-${group.id}-instance-${exportedResourceInstance.id}" checked="checked" disabled="disabled" type="checkbox">
-                                        </g:else>
-                                        <label style="position:relative; bottom: 2em;" for="groups-${group.id}-instance-${exportedResourceInstance.id}" class="secondary-content"></label>
-                                    </li>
-                                </g:each>
-                            </g:if>
-                                <g:if test="${!groupsIAdmin.empty}">                           
-                                    <g:each var="group" in="${groupsIAdmin}">
-                                        <li class="collection-item">
-                                            <div>
-                                                <p>${group.name}</p>
-                                                <p>
-                                                    Dono: ${group.owner.firstName + " " + group.owner.lastName}<br>
-                                                </p>
-                                            </div>
-                                            <g:if test="${!GroupExportedResources.findByGroupAndExportedResource(group,exportedResourceInstance)}">
-                                                <input name="groupsid" id="groups-${group.id}-instance-${exportedResourceInstance.id}" value="${group.id}" type="checkbox">
-                                            </g:if>
-                                            <g:else>
-                                                <input name="groupsid2"  checked="checked" disabled="disabled" type="checkbox">
-                                            </g:else>
-                                            <label style="position:relative; bottom: 2em;" for="groups-${group.id}-instance-${exportedResourceInstance.id}" class="secondary-content"></label>
-                                        </li>
-                                    </g:each>
-                                </g:if>
-                                <g:if test="${groupsIOwn.empty && groupsIAdmin.empty}">
-                                    <li class="collection-header"><h5>Você não possui grupos disponíveis</h5></li> 
-                                </g:if>
-                                <g:else>
-                                    <div class="row">                                   
-                                        <button data-instance-id="${exportedResourceInstance.id}" style="left:2.8em; top: 0.8em; position:relative;" class="btn waves-effect waves-light my-orange" type="submit" name="action">Compartilhar</button>
-                                       
-                                    </div>
-                                </g:else>                       
+                                <div id="share-container" class="col l12" style="max-height: 300px !important">
+                                </div>
                             </ul>
                         </div>
                     </li>
-                    </g:if>
+                </g:if>
+
                 <li id="reportAbuse">
-                    <div class="collapsible-header"><i class="material-icons">block</i>Reportar abuso</div>
+                    <div class="collapsible-header">Reportar abuso</div>
                     <div class="collapsible-body"><p>Se este conteúdo te incomodou de alguma forma, ou se você o achou ofensivo, por favor entre em contato
                     com a equipe REMAR. Utilize o campo texto abaixo para descrever o que lhe incomodou e como podemos lhe ajudar.</p>
 
@@ -204,7 +160,7 @@
                             </div>
                             <div class="row">
                                 <div class="input-field col s6 m7 offset-m3 l7 offset-l3">
-                                    <div class="g-recaptcha text-center" data-sitekey="6Ldm4CAUAAAAAMs6FsUuQIweiP-bhiCGsnNdrtBb"> </div>
+                                    <div class="g-recaptcha text-center" data-sitekey="6Le6wh8UAAAAAP9Gs9OkQEWIZZBcQJDHWht_zYpG"> </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -230,7 +186,9 @@
     </div>
 </div>
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
+<link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
 <g:javascript src="add-resource-to-group.js"/>
+<g:javascript src="info-share.js"/>
 <g:javascript src="licenseShow.js"/>
 <recaptcha:script/>
 </body>

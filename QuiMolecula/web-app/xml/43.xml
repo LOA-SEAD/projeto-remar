@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<molecule name='1-bromo-1,2-etanodiol' formula='C_2_H_5_BrO_2_' dica=''>
+	<atom id='0' type='carbono' number='1'/>
+	<atom id='1' type='carbono' number='2'/>
+	<atom id='2' type='oxigenio' number='-1'/>
+	<atom id='3' type='oxigenio' number='-1'/>
+	<atom id='4' type='bromo' number='-1'/>
+	<atom id='5' type='hidrogenio' number='-1'/>
+	<atom id='6' type='hidrogenio' number='-1'/>
+	<atom id='7' type='hidrogenio' number='-1'/>
+	<atom id='8' type='hidrogenio' number='-1'/>
+	<atom id='9' type='hidrogenio' number='-1'/>
+	<bond source='9' target='2' type='1'/>
+	<bond source='2' target='0' type='1'/>
+	<bond source='0' target='4' type='1'/>
+	<bond source='0' target='5' type='1'/>
+	<bond source='0' target='1' type='1'/>
+	<bond source='1' target='7' type='1'/>
+	<bond source='1' target='6' type='1'/>
+	<bond source='1' target='3' type='1'/>
+	<bond source='3' target='8' type='1'/>
+</molecule>

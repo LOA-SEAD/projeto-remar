@@ -65,13 +65,6 @@
     %{-- Preenchido pelo Javascript --}%
 </div>
 
-<script>
-    $(document).ready(function(){
-        $('.modal-trigger').leanModal();
-    });
-</script>
 <g:javascript src="menu.js"/>
-<g:javascript src="utility/utility-my-game.js"/>
-
 </body>
 </html>

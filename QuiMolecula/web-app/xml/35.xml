@@ -1,0 +1,20 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<molecule name='Etanamida' formula='C_2_H_5_ON' dica='A presença do grupo C=O confere às amidas um caráter polar.  O nylon é uma poliamida muito importante dentre os polímeros.'>
+  <atom id='0' type='carbono' number='-1'/>
+  <atom id='1' type='carbono' number='-1'/>
+  <atom id='2' type='hidrogenio' number='-1'/>
+  <atom id='3' type='hidrogenio' number='-1'/>
+  <atom id='4' type='hidrogenio' number='-1'/>
+  <atom id='5' type='nitrogenio' number='-1'/>
+  <atom id='6' type='oxigenio' number='-1'/>
+  <atom id='7' type='hidrogenio' number='-1'/>
+  <atom id='8' type='hidrogenio' number='-1'/>
+  <bond source='7' target='5' type='1'/>
+  <bond source='8' target='5' type='1'/>
+  <bond source='5' target='1' type='1'/>
+  <bond source='1' target='0' type='1'/>
+  <bond source='0' target='3' type='1'/>
+  <bond source='2' target='0' type='1'/>
+  <bond source='0' target='4' type='1'/>
+  <bond source='1' target='6' type='2'/>
+</molecule>
