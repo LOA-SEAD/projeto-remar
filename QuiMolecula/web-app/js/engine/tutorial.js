@@ -91,7 +91,7 @@ function fazerAnimacaoSegundoAtomo(nome) {
 function fazerAnimacaoLigacao(nome) {
 	$('#ligacaosimples.ligacaoDisponivel').addClass('animacaoLigacao');
 	setTimeout(function(){
-		atomoSelecionado = $('#'+nome)[0];
+		selectedAtom = $('#'+nome)[0];
 		ligacaoAtual = 'ligacaosimples';
 		$('#'+nome).addClass('atomoSelecionado');
 		$('#ligacaosimples.ligacaoDisponivel').removeClass('animacaoLigacao');

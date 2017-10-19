@@ -3,6 +3,7 @@
 <html>
 <head>
     <meta name="layout" content="base">
+
     <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
     <title>Recuperar senha</title>
 
@@ -65,6 +66,13 @@
 
                     <form method='POST' class='cssform' autocomplete='on'>
                         <div class="row" style="padding-top: 30px;">
+                                <g:if test='${flash.message}'>
+                                    <div id="form-errors" class="error hidden">
+                                        <span>${flash.message}</span>
+                                    </div>
+                                </g:if>
+                        </div>
+                        <div class="row">
                             <div class="input-field col s12">
                                 <div id="div-email" class="">
                                     <i class="material-icons prefix">email</i>
@@ -84,23 +92,6 @@
                             </div>
                         </div>
                     </form>
-
-                    <g:if test='${flash.message}'>
-                        <script>
-                            $('#div-email').addClass('has-error')
-                                .after($("<div/>")
-                                    .attr("id","div-email-error")
-                                    .addClass("help-block")
-                                    .text("Esse email não está cadastrado"));
-
-                            $("#email").focus(function(){
-                                $('#div-email').removeClass('has-error');
-                                $('.help-block').remove();
-                                $('#email').off("focus");
-                            });
-
-                        </script>
-                    </g:if>
                 </div>
             </div>
         </div>
