@@ -19,7 +19,7 @@ Time: 09:55
 <div class="content">
     <div class="row show">
         <div class="col s12">
-            <iframe id='frame' src="${uri}" frameBorder="0" style="width: 992px; height: 950px;"></iframe>
+            <iframe id='frame' src="${uri}" frameBorder="0"></iframe>
         </div>
     </div>
 </div>

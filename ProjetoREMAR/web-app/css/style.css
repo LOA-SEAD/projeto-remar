@@ -23,27 +23,6 @@ h6 span {
     font-weight: 300;
 }
 
-nav {
-    background-color: #5D4037;
-}
-
-nav img.logo {
-    height: 44px;
-}
-
-nav ul li a {
-    height: 64px;
-}
-
-nav ul li a img {
-    margin-top: 0px;
-}
-
-nav ul li ul li a {
-    color: #212121;
-    line-height: 4.5em;
-}
-
 script {
     display: none;
 }
@@ -338,92 +317,6 @@ span.input-description {
     background-color: #B6B6B6;
 }
 /* end left navbar */
-
-@media only screen and (min-width: 601px) {
-    nav i {
-        font-size: 30px !important;
-        line-height: 64px !important;
-    }
-
-    .remar-max-size {
-        width: 992px;
-    }
-
-    .min-height-size {
-        min-height: 300px;
-    }
-
-    .content {
-        width: calc(992px - 200px);
-    }
-
-    .logo-icon {
-        height: 64px;
-    }
-
-    .card.show-personalize > .card-content button{
-        margin-top: -63px !important;
-    }
-
-    .my-left {
-        left: 215px;
-    }
-}
-
-@media only screen and (max-width: 992px) {
-    .remar-max-size {
-        width: 100%;
-        flex: 1 0 auto;
-    }
-
-    .small-logo {
-        height: 56px;
-    }
-
-    .logo-icon {
-        height: 56px;
-    }
-
-    .side-nav {
-        width: 215px;
-    }
-
-    .side-nav li a i {
-        line-height: inherit;
-        width: 2rem;
-        font-size: 1.6rem;
-        float: left;
-        margin-right: 1rem;
-    }
-
-    .content {
-        width: 100%;
-    }
-
-    .my-position {
-        right: 45px;
-        bottom: 45px;
-    }
-
-    .my-left {
-        left: 30%;
-    }
-}
-
-@media only screen and (max-width: 992px) and (min-width: 601px) {
-    .logo-icon {
-        height: 64px;
-    }
-}
-
-@media only screen and (min-width: 992px) {
-    .my-position {
-        right: calc((100% - 992px)/2);
-        bottom: 45px;
-    }
-}
-
-
 /* end header for all pages */
 
 .btn.my-orange:hover {
@@ -690,27 +583,6 @@ span.input-description {
     -webkit-box-shadow: 0 0 2px #999;
     -moz-box-shadow: 0 0 2px #999;
     box-shadow: 0 0 2px #999;
-}
-
-/* medium displays only */
-@media only screen and (max-width: 992px) and (min-width: 601px) {
-
-    .carousel-wrapper {
-        width: 86%;
-    }
-}
-
-/* large display only */
-@media only screen and (min-width: 992px) {
-    .carousel-wrapper {
-        width: 90%;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .carousel-wrapper {
-        width: 78%;
-    }
 }
 
 .swiper-container {
@@ -1167,6 +1039,39 @@ span.input-description {
 }
 /* End of JQUERY Table Pagination Plugin */
 
+/* Top Navigation Bar */
+nav { background-color: #5D4037; }
+nav img.logo { height: 44px; }
+nav img.small-logo { height: 40px; }
+nav ul li a { height: 64px; }
+nav ul li a img { margin-top: 0px; }
+
+nav ul li ul li a {
+    color: #212121;
+    line-height: 4.5em;
+}
+
+.nav-wrapper .user-thumbnail li,
+.nav-wrapper .user-thumbnail li a p,
+.nav-wrapper .user-thumbnail li a img {
+    float: right;
+}
+
+.nav-wrapper .hide-on-large-only #small-and-medium-logo {
+    height: 56px;
+    justify-content: flex-end;
+}
+
+.nav-wrapper .hide-on-large-only #small-and-medium-logo a {
+    display: flex;
+}
+
+.nav-wrapper .user-thumbnail li a p {
+    padding: 0 15px;
+}
+
+/* End of Top Navigation Bar */
+
 /* ETC */
 .modal-wrapper-10 .remar-modal {
     width: 10% !important;
@@ -1203,3 +1108,117 @@ span.input-description {
 .hidden {
     display: none;
 }
+/* End of ETC Styles */
+
+/* Screensize specific styles */
+    /* Small Screen */
+    @media only screen and (max-width: 600px) {
+        .carousel-wrapper {
+            width: 78%;
+        }
+    }
+
+    /* Small and Medium Screens */
+    @media only screen and (max-width: 992px) {
+        .remar-max-size {
+            width: 100%;
+            flex: 1 0 auto;
+        }
+
+        .small-logo {
+            height: 56px;
+        }
+
+        .logo-icon {
+            height: 56px;
+        }
+
+        .side-nav {
+            width: 215px;
+        }
+
+        .side-nav li a i {
+            line-height: inherit;
+            width: 2rem;
+            font-size: 1.6rem;
+            float: left;
+            margin-right: 1rem;
+        }
+
+        .content {
+            width: 100%;
+        }
+
+        .my-position {
+            right: 45px;
+            bottom: 45px;
+        }
+
+        .my-left {
+            left: 30%;
+        }
+    }
+
+    /* Medium Screens */
+    @media only screen and (max-width: 992px) and (min-width: 601px) {
+        .logo-icon {
+            height: 64px;
+        }
+
+        .carousel-wrapper {
+            width: 86%;
+        }
+    }
+
+    /* Medium and Large Screens */
+    @media only screen and (min-width: 601px) {
+        nav i {
+            font-size: 30px !important;
+            line-height: 64px !important;
+        }
+
+        .remar-max-size {
+            width: 992px;
+        }
+
+        .min-height-size {
+            min-height: 300px;
+        }
+
+        .content {
+            width: calc(992px - 200px);
+        }
+
+        .logo-icon {
+            height: 64px;
+        }
+
+        .card.show-personalize > .card-content button {
+            margin-top: -63px !important;
+        }
+
+        .my-left {
+            left: 215px;
+        }
+    }
+
+    /* Large Screens */
+    @media only screen and (min-width: 992px) {
+        .my-position {
+            right: calc((100% - 992px) / 2);
+            bottom: 45px;
+        }
+
+        .carousel-wrapper {
+            width: 90%;
+        }
+
+        .page-footer .social-button .social-button-wrapper {
+            flex-direction: row-reverse;
+        }
+
+        .page-footer .social-button a .social-button-user {
+            text-align: right;
+        }
+    }
+/* End of screensize specific styles */

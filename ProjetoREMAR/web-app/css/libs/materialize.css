@@ -2180,22 +2180,28 @@ ul.staggered-list li {
 
 @media only screen and (max-width : 992px) {
   .show-on-medium-and-down {
-    display: initial !important; } }
+    display: initial !important;
+  }
+}
 
 @media only screen and (max-width : 600px) {
   .center-on-small-only {
-    text-align: center; } }
+    text-align: center;
+  }
+}
 
 footer.page-footer {
-  margin-top: 20px;
   padding-top: 20px;
-  background-color: #FF5722; }
-  footer.page-footer .footer-copyright {
-    overflow: hidden;
-    height: 50px;
-    line-height: 50px;
-    color: rgba(255, 255, 255, 0.8);
-    background-color: rgba(51, 51, 51, 0.08); }
+  background-color: #FF5722;
+}
+
+footer.page-footer .footer-copyright {
+  overflow: hidden;
+  height: 50px;
+  line-height: 50px;
+  color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(51, 51, 51, 0.08);
+}
 
 table, th, td {
   border: none; }
@@ -5382,7 +5388,7 @@ nav {
 .navbar-fixed {
   position: relative;
   height: 56px;
-  z-index: 998; }
+  z-index: 990; }
   .navbar-fixed nav {
     position: fixed; }
 

@@ -66,6 +66,7 @@ class BootStrap {
             log.debug "Users: ok"
         }
 
+        /*
         for(def i = 10; i < 20; i++) {
             println "criando usuário " + i
             def loa = new User(
@@ -80,6 +81,7 @@ class BootStrap {
 
             if (loa.hasErrors()) println loa.errors
         }
+        */
 
         Platform.findOrSaveByName('Android')
         Platform.findOrSaveByName('Linux')
