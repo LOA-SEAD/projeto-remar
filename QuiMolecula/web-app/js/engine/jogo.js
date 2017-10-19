@@ -654,7 +654,7 @@ function selecionaSegundoAtomo(_div) {
         }
     }
 
-    $(selectedAtom).removeClass('selectedAtom');
+    $(selectedAtom).removeClass('atomoSelecionado');
     selectedAtom = null;
     currentBond = null;
 }
