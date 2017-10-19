@@ -282,7 +282,7 @@
                     return $(this).data('user-id');
                 }).get()
             );
-            var extension = $('#format-select').val()
+            var extension = $('#format-select').val();
 
             var url = '${createLink(controller: "admin", action: "exportUsers")}'
                     + '?userIdList=' + userIdList

@@ -4,7 +4,6 @@
 
 var list_id_delete = [];
 
-
 window.onload = function(){
     $("#title").characterCounter();
     $('#BtnUnCheckAll').hide();

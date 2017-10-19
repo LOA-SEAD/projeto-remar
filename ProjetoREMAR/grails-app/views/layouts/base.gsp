@@ -46,6 +46,10 @@
                     </div>
 
                     <div class="modal-footer">
+                        <a id="report-fsm-next" href="#!"
+                           class="btn waves-effect waves-light remar-orange hidden">
+                            <g:message code="default.button.next.label"/>
+                        </a>
                         <a id="report-fsm-cancel" href="#!"
                            class="modal-action modal-close btn waves-effect waves-light remar-orange">
                             <g:message code="default.button.cancel.label"/>

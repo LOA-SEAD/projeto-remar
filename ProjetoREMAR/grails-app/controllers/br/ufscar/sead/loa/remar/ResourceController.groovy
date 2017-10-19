@@ -375,12 +375,17 @@ class ResourceController {
         render view: "show", model: [resourceInstance: instance, today: new Date()]
     }
 
+    def showURI() {
+        def instance = Resource.findByUri(params.uri)
+        render view: "show", model: [resourceInstance: instance, today: new Date()]
+    }
+
     def customizableGames() {
         def model = [:]
         def threshold = 12
 
-        params.order = "desc"
-        params.sort = "id"
+        params.order = "asc"
+        params.sort = "name"
 
         params.max = params.max ? Integer.valueOf(params.max) : threshold
         params.offset = params.offset ? Integer.valueOf(params.offset) : 0

@@ -89,7 +89,8 @@
             });
         } else {
             // Complex machine behavior
-            var stateStack = [];
+            var stateStack  = [];
+            var $prev_state = null;
             var $curr_state = $fsm.find(settings.initialSelector);
 
             $curr_state.show().addClass('active-state');
@@ -109,8 +110,7 @@
                     if ($(settings.finalSelector).is($curr_state))
                         $next_button.prop('disabled', true);
 
-                    if (settings.callback)
-                        settings.callback();
+                    reportChangeButtons();
                 });
             });
 
@@ -127,8 +127,7 @@
                     if ($(settings.initialSelector).is($curr_state))
                         $prev_button.prop('disabled', true);
 
-                    if (settings.callback)
-                        settings.callback();
+                    reportChangeButtons();
                 });
             });
         }
@@ -146,17 +145,37 @@
                         .addClass('active-state')
                         .fadeIn(settings.fadeSpeed);
                 });
+            $prev_state = $curr_state;
             $curr_state = $next_state;
         }
 
         function getState (index) {
             return $fsm.find('.fsm-state[data-state="' + index + '"]').first();
         }
+
+        function reportChangeButtons() {
+            if ($prev_state.hasClass('fsm-initial')) {
+                fadeInOut($('#report-fsm-cancel'), $('#report-fsm-prev'));
+                $('#report-fsm-next').show();
+            } else if ($prev_state.hasClass('fsm-final')) {
+                fadeInOut($('#report-fsm-finish'), $('#report-fsm-next'));
+            } else if ($curr_state.hasClass('fsm-initial')) {
+                fadeInOut($('#report-fsm-prev'), $('#report-fsm-cancel'));
+                $('#report-fsm-next').hide();
+            } else if ($curr_state.hasClass('fsm-final')) {
+                fadeInOut($('#report-fsm-next'), $('#report-fsm-finish'));
+            }
+        }
+
+        function fadeInOut($foEl, $fiEl) {
+            // hide element
+            $foEl.hide();
+            $fiEl.show();
+        }
     };
 
     $.fn.getCurrentState = function () {
-        console.log(this.find('.fsm-state.active-state'));
-        return this.find('.fsm-state.active-state');
+        return $(this).find('.fsm-state.active-state');
     };
 
 }(jQuery));

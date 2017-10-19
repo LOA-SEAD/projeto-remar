@@ -1,0 +1,100 @@
+.remar-orange {
+    background-color: #FF5722 !important;
+}
+
+.remar-orange-text {
+    color: #FF5722 !important;
+}
+
+
+.remar-red {
+    background-color: #F70000 !important;
+}
+
+.remar-red-text {
+    color: #F70000 !important;
+}
+
+
+.remar-brown {
+    background-color: #5D4037 !important;
+}
+
+.remar-brown-text {
+    color: #5D4037 !important;
+}
+
+
+.remar-black {
+    background-color: #212121 !important;
+}
+
+.remar-black-text {
+    color: #212121 !important;
+}
+
+
+.remar-green {
+    background-color: #4CAF50 !important;
+}
+
+.remar-green-text {
+    color: #4CAF50 !important;
+}
+
+
+.remar-modal {
+    text-align: center;
+}
+
+.remar-modal .modal-content h4 {
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.remar-modal .modal-footer a {
+    margin-right: 10px !important;
+}
+
+.remar-input {
+    color: #413c3c;
+    border-bottom: 1px solid #717171 !important;
+}
+
+.remar-input + label {
+    color: #717171 !important;
+}
+
+.remar-input:focus:not([readonly]) + label {
+    color: #5D4037 !important;
+}
+
+.remar-input:focus {
+    border-bottom: 1px solid #5D4037 !important;
+    box-shadow: 0 1px 0 0 #5D4037 !important;
+}
+
+.remar-input.valid + label {
+    color: #5D4037 !important;
+}
+
+.remar-input.valid {
+    border-bottom: 1px solid #5D4037 !important;
+    box-shadow: 0 1px 0 0 #5D4037 !important;
+}
+
+.remar-input.invalid + label {
+    color: #F70000 !important;
+}
+
+.remar-input.invalid {
+    border-bottom: 1px solid #F70000 !important;
+    box-shadow: 0 1px 0 0 #F70000 !important;
+}
+
+label .required-indicator {
+    color: #F70000 !important;
+}
+
+.dropdown-content li span {
+    color: #5D4037;
+}

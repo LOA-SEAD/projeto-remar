@@ -18,8 +18,7 @@
 	<div id="s2" class="fsm-state" data-state="2" data-evaluator="fsmEval">
 		<div class="fieldcontain ${hasErrors(bean: report, field: 'description', 'error')} required">
 			<label for="description">
-				<g:message code="report.description.label" default="Description" />
-				<span class="required-indicator">*</span>
+				<g:message code="report.description.message" default="Description" />
 			</label>
 			<g:textField name="description" required="" value="${report?.description}"/>
 		</div>
@@ -38,6 +37,8 @@
 	    $('#type-select').material_select();
 	});
 	function fsmEval() {
+	    var type = null;
+
 	    // 1 - Type select
 		// 2 - Description
 		// 3 - Screenshot

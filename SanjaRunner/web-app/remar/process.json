@@ -1,0 +1,245 @@
+{
+  "name": "SanjaRunner",
+  "uri": "sanjarunner",
+  "type": "unity",
+  "version": 1,
+  "tasks": [
+    {
+      "name": "Pergaminho Banhado",
+      "uri": "pergaminhoBanhado",
+      "description": "Criar/editar/selecionar um conjunto de informações para o pergaminho do nível Banhado.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "pergaminhoBanhado.txt",
+          "type": "txt",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "name": "Pergaminho Cassiano",
+      "uri": "pergaminhoCassiano",
+      "description": "Criar/editar/selecionar um conjunto de informações para o pergaminho do nível Rua 15 de novembro.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "pergaminhoCassiano.txt",
+          "type": "txt",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "name": "Pergaminho Matriz",
+      "uri": "pergaminhoMatriz",
+      "description": "Criar/editar/selecionar um conjunto de informações para o pergaminho do nível Igreja Matriz.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "pergaminhoMatriz.txt",
+          "type": "txt",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "name": "Pergaminho Santos",
+      "uri": "pergaminhoSantos",
+      "description": "Criar/editar/selecionar um conjunto de informações para o pergaminho do nível Parque Santos Dumont.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "pergaminhoSantos.txt",
+          "type": "txt",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "name": "Pergaminho Vicentina",
+      "uri": "pergaminhoVicentina",
+      "description": "Criar/editar/selecionar um conjunto de informações para o pergaminho do nível Parque Vicentina Aranha.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "pergaminhoVicentina.txt",
+          "type": "txt",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "name": "Quiz Banhado",
+      "uri": "quizBanhado",
+      "description": "Criar/editar/selecionar um conjunto de informações para o quiz do nível Banhado.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "question0.txt",
+          "type": "txt",
+          "path": "quizBanhado"
+        },
+        {
+          "name": "question1.txt",
+          "type": "txt",
+          "path": "quizBanhado"
+        },
+        {
+          "name": "question2.txt",
+          "type": "txt",
+          "path": "quizBanhado"
+        },
+        {
+          "name": "question3.txt",
+          "type": "txt",
+          "path": "quizBanhado"
+        }
+      ]
+    },
+    {
+      "name": "Quiz Cassiano",
+      "uri": "quizCassiano",
+      "description": "Criar/editar/selecionar um conjunto de informações para o quiz do nível Rua 15 de Novembro.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "question0.txt",
+          "type": "txt",
+          "path": "quizCassiano"
+        },
+        {
+          "name": "question1.txt",
+          "type": "txt",
+          "path": "quizCassiano"
+        },
+        {
+          "name": "question2.txt",
+          "type": "txt",
+          "path": "quizCassiano"
+        },
+        {
+          "name": "question3.txt",
+          "type": "txt",
+          "path": "quizCassiano"
+        },
+        {
+          "name": "question4.txt",
+          "type": "txt",
+          "path": "quizCassiano"
+        }
+      ]
+    },
+    {
+      "name": "Quiz Matriz",
+      "uri": "quizMatriz",
+      "description": "Criar/editar/selecionar um conjunto de informações para o quiz do nível Igreja Matriz.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "question0.txt",
+          "type": "txt",
+          "path": "quizMatriz"
+        },
+        {
+          "name": "question1.txt",
+          "type": "txt",
+          "path": "quizMatriz"
+        },
+        {
+          "name": "question2.txt",
+          "type": "txt",
+          "path": "quizMatriz"
+        },
+        {
+          "name": "question3.txt",
+          "type": "txt",
+          "path": "quizMatriz"
+        }
+      ]
+    },
+    {
+      "name": "Quiz Santos",
+      "uri": "quizSantos",
+      "description": "Criar/editar/selecionar um conjunto de informações para o quiz do nível Parque Santos Dumont.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "question0.txt",
+          "type": "txt",
+          "path": "quizSantos"
+        },
+        {
+          "name": "question1.txt",
+          "type": "txt",
+          "path": "quizSantos"
+        },
+        {
+          "name": "question2.txt",
+          "type": "txt",
+          "path": "quizSantos"
+        },
+        {
+          "name": "question3.txt",
+          "type": "txt",
+          "path": "quizSantos"
+        },
+        {
+          "name": "question4.txt",
+          "type": "txt",
+          "path": "quizSantos"
+        }
+      ]
+    },
+    {
+      "name": "Quiz Vicentina",
+      "uri": "quizVicentina",
+      "description": "Criar/editar/selecionar um conjunto de informações para o quiz do nível Parque Vicentina Aranha.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "question0.txt",
+          "type": "txt",
+          "path": "quizVicentina"
+        },
+        {
+          "name": "question1.txt",
+          "type": "txt",
+          "path": "quizVicentina"
+        },
+        {
+          "name": "question2.txt",
+          "type": "txt",
+          "path": "quizVicentina"
+        },
+        {
+          "name": "question3.txt",
+          "type": "txt",
+          "path": "quizVicentina"
+        },
+        {
+          "name": "question4.txt",
+          "type": "txt",
+          "path": "quizVicentina"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    "desktop"
+  ],
+  "vars": {
+    "width": 1280,
+    "height": 720
+  }
+}
