@@ -45,7 +45,9 @@
                                             </a>
                                         </span>
                                         <span style="color: dimgrey;" class="center">
-                                            <i class="fa fa-globe"></i>
+                                            <g:if test="${resourceInstance.web}">
+                                                <i class="tooltipped fa fa-globe" data-tooltip="Web"></i>
+                                            </g:if>
                                             <g:if test="${resourceInstance.android}">
                                                 <i class="fa fa-android" data-tooltip="Android"></i>
                                             </g:if>
