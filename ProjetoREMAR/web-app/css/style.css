@@ -146,8 +146,16 @@ span.description-error{
 }
 /* end dashboard page */
 
-footer.page-footer{
+footer.page-footer {
     background-color: #5D4037;
+}
+
+footer.page-footer p {
+    display: inline-block;
+}
+
+footer.page-footer img {
+    padding: 0 10px;
 }
 
 /* header for all pages */
@@ -396,8 +404,34 @@ span.input-description {
     display: inline-block;
 }
 
-.card-content p {
-    color: rgba(0, 0, 0, 0.6) !important;
+.card-content span {
+    color: dimgrey;
+    font-size: 0.9em;
+}
+
+.card-content span:first-child {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-content .stars {
+    margin: 10px 0 0 0;
+}
+
+.card-reveal a {
+    font-size: 2em;
+}
+
+span.card-title {
+    padding: 10px;
+}
+
+.card-title i {
+    color: black;
+}
+
+.card-reveal h6 {
+    font-weight: 300;
 }
 
 .slider {
@@ -439,7 +473,22 @@ span.input-description {
 }
 
 .social-button {
-    font-size:18px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size:2vw;
+}
+
+.social-button a:first-child {
+    padding-left: 0px;
+}
+
+.social-button a {
+    padding: 0 15px;
+}
+
+.social-button a:last-child {
+    padding-right: 0px;
 }
 
 .tasks-list ul > a li:hover{
@@ -460,10 +509,6 @@ span.input-description {
 .collapsible-body p[class="title"] {
     margin: 0;
     padding: 0;
-}
-
-.social-button ul li a {
-    font-size: 30px;
 }
 
 .platform-card {
@@ -1204,6 +1249,10 @@ nav ul li ul li a {
 
     /* Large Screens */
     @media only screen and (min-width: 992px) {
+        .content {
+            margin-bottom: 130px;
+        }
+
         .my-position {
             right: calc((100% - 992px) / 2);
             bottom: 45px;
@@ -1211,6 +1260,14 @@ nav ul li ul li a {
 
         .carousel-wrapper {
             width: 90%;
+        }
+
+        .page-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
         }
 
         .page-footer .social-button .social-button-wrapper {

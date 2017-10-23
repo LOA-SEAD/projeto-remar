@@ -21,6 +21,7 @@ import grails.transaction.Transactional
 class ResourceController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE"]
+
     def springSecurityService
     def beforeInterceptor = [action: this.&check, only: ['index']]
 
@@ -46,7 +47,7 @@ class ResourceController {
     }
 
     @Transactional
-    def update(Resource instance) {
+    update(Resource instance) {
         def path = new File(servletContext.getRealPath("/data/resources/assets/${instance.uri}"))
         path.mkdirs()
 
@@ -75,7 +76,7 @@ class ResourceController {
     }
 
     @Transactional
-    def save(Resource resourceInstance) { // saves and verifies WAR file
+    save(Resource resourceInstance) { // saves and verifies WAR file
         String username = session.user.username
         MultipartFile submitedWar = params.war
         String fileName = MessageDigest.getInstance("MD5").digest(submitedWar.bytes).encodeHex().toString()
@@ -195,7 +196,7 @@ class ResourceController {
     def newDeveloper() {}
 
     @SuppressWarnings("GroovyUnreachableStatement")
-    def review() {
+    review() {
         def resourceInstance = Resource.findById(params.id)
         String status = params.status
         String comment = params.comment
@@ -301,7 +302,7 @@ class ResourceController {
     }
 
     @Transactional
-    def delete(Resource resourceInstance) {
+    delete(Resource resourceInstance) {
         if (resourceInstance == null) {
             log.debug "Trying to delete a resource, but that was not found."
             response.status = 404
@@ -408,7 +409,7 @@ class ResourceController {
     }
 
     @SuppressWarnings("GroovyAssignabilityCheck")
-    def searchResource(){
+    searchResource(){
         def model = [:]
 
         def threshold = 12
@@ -444,7 +445,7 @@ class ResourceController {
 
         log.debug(model.resourceInstanceList.size())
 
-        render view: "_custCards", model: model
+        render view: "_gameModelCard", model: model
     }
 
 
@@ -462,12 +463,13 @@ class ResourceController {
         render r;
     }
 
-    def saveRating(Resource instance) {
+    @Transactional
+    saveRating(Resource instance) {
         log.debug(params)
 
-        Rating r = new Rating(user: session.user, stars: params.stars, comment: params.commentRating, date: new Date())
+        Rating r = new Rating(user: session.user, stars: params.stars * 0.5 , comment: params.commentRating, date: new Date())
         instance.addToRatings(r)
-        instance.sumStars += r.stars;
+        instance.sumStars += r.stars * 0.5
         instance.sumUser++
 
         instance.save flush: true
@@ -476,14 +478,15 @@ class ResourceController {
                                          sumUsers: instance.sumUser, today: new Date()]
     }
 
-    def updateRating(Rating rating) {
+    @Transactional
+    asyncSaveRating() {
+        println('save')
+    }
+
+    @Transactional
+    updateRating(Rating rating) {
 
         def old_stars = rating.getPersistentValue("stars")
-
-        print(rating.getPersistentValue("comment"))
-        print(old_stars)
-        print(rating)
-        print(params)
 
         // atualiza a data do rating
         rating.date = new Date()
@@ -492,7 +495,7 @@ class ResourceController {
         rating.resource.sumStars -= old_stars
 
         // soma a nova quantidade de estrelas a soma de estrelas do rating
-        rating.resource.sumStars += rating.stars
+        rating.resource.sumStars += rating.stars * 0.5
 
         rating.save flush: true
 
@@ -502,7 +505,22 @@ class ResourceController {
     }
 
     @Transactional
-    def deleteRating() {
+    asyncUpdateRating() {
+        def user = User.findById(params.userid)
+        def resource = Resource.findById(params.resourceid)
+        def rating = Rating.findByUserAndResource(user, resource)
+
+        resource.sumStars += (params.rating - rating.stars)
+        console.log(resource.sumStars)
+
+
+        println(rating.stars)
+    }
+
+
+
+    @Transactional
+    deleteRating() {
 
         int id = Integer.parseInt(params.id)
         Rating rating = Rating.findById(id)

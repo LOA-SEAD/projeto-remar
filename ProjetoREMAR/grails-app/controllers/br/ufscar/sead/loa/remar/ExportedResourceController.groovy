@@ -621,7 +621,7 @@ class ExportedResourceController {
         model.hasNextPage = params.offset + threshold < model.instanceCount
         model.hasPreviousPage = params.offset > 0
         log.debug(maxInstances)
-        render view: "_cardGames", model: model
+        render view: "_customizedGameCard", model: model
     }
 
     @SuppressWarnings("GroovyAssignabilityCheck")
@@ -694,7 +694,7 @@ class ExportedResourceController {
         model.hasNextPage = params.offset + threshold < model.instanceCount
         model.hasPreviousPage = params.offset > 0
         log.debug(maxInstances)
-        render view: "_myCardGame", model: model
+        render view: "_customizedGameCard", model: model
     }
 
     def info(ExportedResource instance){

@@ -5,7 +5,7 @@ class Rating {
     static belongsTo = [user: User, resource: Resource]
     float stars
     String comment
-    Date date;
+    Date date
 
     static constraints = {
         stars nullable: false

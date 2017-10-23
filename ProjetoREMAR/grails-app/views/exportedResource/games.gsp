@@ -43,7 +43,7 @@
         </div>
 
         <div style="position:relative; left: 1.2em" id="showCards" class="row ">
-            <g:render template="cardGames" model="${pageScope.variables}" />
+            <g:render template="customizedGameCard" model="${pageScope.variables}" />
         </div>
     </div>
 

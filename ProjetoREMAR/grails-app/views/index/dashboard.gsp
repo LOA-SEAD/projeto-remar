@@ -14,18 +14,14 @@
     </head>
     <body>
         <div class="row cluster">
+            <div class="cluster-header">
+                <h4>Confira os modelos disponíveis para customização!</h4>
+
+                <div class="divider"></div>
+            </div>
             <div class="row show">
-                <div class="subtitle">
-                    <p class="text-teal text-darken-3 left-align margin-bottom">
-                         <h5>
-                            Confira os modelos disponíveis para customização!
-                         </h5>
-                    </p>
-                </div>
                 <div class="row">
-                    <div class="center">
-                        <g:render template="/resource/custCards" model="${resourceInstanceList}"/>
-                    </div>
+                    <g:render template="/resource/gameModelCard" model="${resourceInstanceList}"/>
                 </div>
             </div>
         </div>

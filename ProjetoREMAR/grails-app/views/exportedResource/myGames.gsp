@@ -14,8 +14,8 @@
     <div class="row">
         <div class="col s12">
             <ul class="tabs">
-                <li class="tab col s3"><a href="#test2">Em customização</a></li>
                 <li class="tab col s3"><a class="active" href="#test1">Publicados</a></li>
+                <li class="tab col s3"><a href="#test2">Em customização</a></li>
             </ul>
         </div>
         <section id="test1" class="col s12"> <!-- start my published games -->
@@ -38,7 +38,7 @@
             </div>
             <div id="showCards" class="row">
                 <article class="row">
-                    <g:render template="myCardGame" model="[myExportedResourcesList:myExportedResourcesList]" />
+                    <g:render template="customizedGameCard" model="[publicExportedResourcesList:myExportedResourcesList]" />
                 </article>
             </div>
         </section> <!-- finished my published games-->
@@ -47,7 +47,9 @@
             <div class="row search">
                 <div class="input-field col s12">
                     <input id="search-processes" type="text" class="validate">
-                    <label for="search-processes"><i class="fa fa-search" data-tooltip="Buscar"></i></label>
+                    <label for="search-processes">
+                        <i class="fa fa-search" data-tooltip="Buscar"></i>
+                    </label>
                 </div>
             </div>
             <div id="showCardsProcess" class="row">

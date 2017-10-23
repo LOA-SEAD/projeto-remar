@@ -6,15 +6,14 @@
         <meta name="layout" content="materialize-layout">
     </head>
     <body>
-        <div class="row">
+        <div class="row cluster">
             <div class="cluster-header">
-                <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 24px;">
-                   Banco de Jogos
-                </p>
+                <h4>Banco de Jogos</h4>
 
                 <div class="divider"></div>
             </div>
-            <div class="row search">
+
+            <div class="row show search">
                 <div class="input-field col s6">
                     <input id="search" type="text" placeholder="Buscar jogo" class="validate" autocomplete="off">
                     <label for="search"><i class="fa fa-search" ></i></label>
@@ -32,8 +31,8 @@
                 </div>
             </div>
 
-            <div style="position:relative; left: 1.2em" id="showCards" class="row ">
-                <g:render template="cardGames" model="${pageScope.variables}" />
+            <div id="showCards" class="row">
+                <g:render template="customizedGameCard" model="${pageScope.variables}" />
             </div>
         </div>
 

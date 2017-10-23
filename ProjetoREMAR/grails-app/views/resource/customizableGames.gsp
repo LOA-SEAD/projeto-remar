@@ -39,7 +39,7 @@
             </div>
         </div>
         <div id="resourcesShow" class="row">
-            <g:render template="custCards" model="${pageScope.variables}" />
+            <g:render template="gameModelCard" model="${pageScope.variables}" />
         </div>
     </div>
     <div id="userDetailsModal" class="modal" style="width:40%">
