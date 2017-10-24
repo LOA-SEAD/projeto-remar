@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#$1 = TILES_PATH , should be something like [..]/data/1/tiles
+#$1 = TILES_PATH , should be something like [..]/data/ownerId/taskId/tiles
 #$2 = ORIENTATION, should be "v" or "h"
 TILES_PATH="$1"
 ORIENTATION="$2"

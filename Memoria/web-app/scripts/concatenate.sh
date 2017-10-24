@@ -5,7 +5,7 @@
 
 #$1 = -p or -l
 #$2 = destino (facil, medio, dificil)
-#$3 = tiles_path
+#$3 = tiles_path -> should be something like [..]/data/ownerId/taskId/tiles
 usage="$(basename "$0") [-v h] -- program to calculate the answer to life, the universe and everything
 jk,
 
@@ -22,11 +22,11 @@ while getopts ':vh' option; do
     #   ;;
     v) WIDTH=68
        HEIGHT=108
-       border_file="$3/../../../images/back.png"
+       border_file="$3/../../../../images/back.png"
        ;;
     h) WIDTH=148
        HEIGHT=108
-       border_file="$3/../../../images/carta_virada.png"
+       border_file="$3/../../../../images/carta_virada.png"
        ;;
     :) printf "missing argument for -%s\n" "$OPTARG" >&2
        echo "$usage" >&2

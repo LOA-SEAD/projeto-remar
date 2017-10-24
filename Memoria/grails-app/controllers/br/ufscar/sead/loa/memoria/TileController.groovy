@@ -49,7 +49,7 @@ class TileController {
         tileInstance.save flush: true
 
         def id = tileInstance.getId()
-        def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/tiles")
+        def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/" + tileInstance.taskId.toString() + "/tiles")
         def userFolder = new File(userPath)
         def script_convert_png = servletContext.getRealPath("/scripts/convert.sh")
         userFolder.mkdirs()
@@ -134,7 +134,7 @@ class TileController {
         }
 
         def id = tileInstance.getId()
-        def userPath = servletContext.getRealPath("/data/" + tileInstance.ownerId.toString() + "/tiles")
+        def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/" + tileInstance.taskId.toString() + "/tiles")
         def script_convert_png = servletContext.getRealPath("/scripts/convert.sh")
 
         def f1Uploaded = request.getFile("tile-a")
@@ -270,7 +270,7 @@ class TileController {
             generateTileSet(params.orientation)
 
             // encontra o endereço do arquivo criado
-            def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}")
+            def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
 
             def levels = ['Facil', 'Medio', 'Dificil']
 
@@ -335,13 +335,14 @@ class TileController {
 
         // this script will create 3 different "decks" in a different image each
         def dataPath = servletContext.getRealPath("/data")
-        def instancePath = "${dataPath}/${springSecurityService.currentUser.id}"
-        def tilesPath = "${instancePath}/tiles"
         def owner = session.user.id
+        def taskID = session.taskId
+        def instancePath = "${dataPath}/${springSecurityService.currentUser.id}/${taskID}"
+        def tilesPath = "${instancePath}/tiles"
 
-        def easyTilesIdList = Tile.findAllByDifficultyAndOwnerIdAndTaskId(1, owner, session.taskId)*.id
-        def mediumTilesIdList = Tile.findAllByDifficultyAndOwnerIdAndTaskId(2, owner, session.taskId)*.id
-        def hardTilesIdList = Tile.findAllByDifficultyAndOwnerIdAndTaskId(3, owner, session.taskId)*.id
+        def easyTilesIdList = Tile.findAllByDifficultyAndOwnerIdAndTaskId(1, owner, taskID)*.id
+        def mediumTilesIdList = Tile.findAllByDifficultyAndOwnerIdAndTaskId(2, owner, taskID)*.id
+        def hardTilesIdList = Tile.findAllByDifficultyAndOwnerIdAndTaskId(3, owner, taskID)*.id
 
         execConcatenate(
                 "-${orientation}",
@@ -377,7 +378,6 @@ class TileController {
                 orientation
         ]
 
-        println("l2 --> " + l2)
         executarShell(script_append, l2)
         ////////////////////////////////////////////////////////////////////////////////////////
         // Parametros script sedSASS
@@ -400,7 +400,6 @@ class TileController {
                 String.valueOf(hardTilesIdList.size())
         ]
 
-        println("l3 --> " + l3)
         executarShell(script_sedSASS, l3)
     }
 
@@ -450,7 +449,7 @@ class TileController {
 
     // return list with filenames for images related to a tile pair
     def getTilesImages(tileInstance) {
-        def userPath = servletContext.getRealPath("/data/" + tileInstance.ownerId.toString() + "/tiles")
+        def userPath = servletContext.getRealPath("/data/" + tileInstance.ownerId.toString() + "/" + tileInstance.taskId.toString() + "/tiles")
         def id = tileInstance.getId()
         def images = [
                 "a": "$userPath/tile$id-a.png",
