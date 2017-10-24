@@ -3,6 +3,12 @@
  */
 
 $(document).ready(function() {
+
+    // Disable send button after submit the form
+    $('form.sendForm').submit(function(){
+        $(this).find(':input[type=submit]').prop('disabled', true);
+    });
+
     $('select').material_select();
 
     // textarea behavior

@@ -2,7 +2,7 @@
 %{-- Tile image --}%
 <div id="default-image-sizes" class="hidden"></div>
 <div class="row no-margin">
-    <div class="col s4">
+    <div class="col s6">
         <div class="row no-margin">
             <div class="tile-image col no-padding s6">
                 <label>${tileInstance.content} - A</label>
@@ -15,7 +15,7 @@
         </div>
     </div>
     %{-- Tile info --}%
-    <div id="tile-info-column" class="col s6 offset-s1">
+    <div id="tile-info-column" class="col s4">
         <div class="row">
             <div class="input-field col s12">
                 <label class="active">Conteúdo</label>

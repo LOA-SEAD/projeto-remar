@@ -62,7 +62,6 @@ class TileController {
                 not_image_file_b: false
         ]
 
-
         if (!f1Uploaded.fileItem.contentType.startsWith("image/")) {
             errors.not_image_file_a = true
         }
@@ -74,7 +73,6 @@ class TileController {
 
         // if any of those files aren't images, we can't convert
         if (!(errors.not_image_file_a || errors.not_image_file_b)) {
-
 
             if (!f1Uploaded.isEmpty() && !f2Uploaded.isEmpty()) {
 
@@ -103,11 +101,10 @@ class TileController {
                 )
             }
 
-
             redirect(controller: "Tile", action: "index")
         } else {
             flash.error = errors
-            println(flash.error)
+            tileInstance.delete(flush:true)
             redirect(controller: "Tile", action: "create")
         }
 
@@ -193,8 +190,8 @@ class TileController {
 
             redirect(controller: "Tile", action: "index")
         } else {
-            request.error = errors
-
+            flash.error = errors
+            tileInstance.delete(flush:true)
             redirect(controller: "Tile", action: "create")
         }
 
