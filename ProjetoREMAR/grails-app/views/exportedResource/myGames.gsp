@@ -25,7 +25,7 @@
                     <label for="search"><i class="fa fa-search" data-tooltip="Buscar"></i></label>
                 </div>
                 <div class="input-field col s6">
-                    <select>
+                    <select class="material-select">
                         <option class="option" value="-1" selected>Todas</option>
                         <g:if test="${categories.size() > 0}">
                             <g:each in="${categories}" var="category">
@@ -65,7 +65,6 @@
     %{-- Preenchido pelo Javascript --}%
 </div>
 
-<g:javascript src="libs/jquery/jquery.rateyo.min.js"/>
 <g:javascript src="remar/menu.js"/>
 </body>
 </html>

@@ -19,7 +19,7 @@
                     <label for="search"><i class="fa fa-search" ></i></label>
                 </div>
                 <div class="input-field col s6">
-                    <select>
+                    <select class="material-select">
                         <option class="option" value="-1" selected>Todas</option>
                         <g:if test="${categories.size() > 0}">
                             <g:each in="${categories}" var="category">

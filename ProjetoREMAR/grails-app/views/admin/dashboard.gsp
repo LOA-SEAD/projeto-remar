@@ -104,7 +104,7 @@
             %{---------------------}%
 
             %{-- Reports card --}%
-            <div class="col s4 l2">
+            <div class="col s4 l2 hidden">
                 <div class="row">
                     <div class="col s12">
                         <div class="card no-margin hoverable">

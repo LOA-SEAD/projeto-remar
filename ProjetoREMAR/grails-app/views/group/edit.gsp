@@ -164,8 +164,8 @@
                 </div>
 
                 <div class="row show" id="disable-group-card">
-                    <div class="col s12">
-                        <div class="card">
+                    <div class="col s12 m6 l6 offset-m3 offset-l3">
+                        <div class="card center">
                             <div class="card-header">
                                 <div class="card-title"></div>
                             </div>

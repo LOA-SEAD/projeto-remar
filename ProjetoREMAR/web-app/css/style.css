@@ -137,6 +137,10 @@ span.description-error{
     width: 100%;
 }
 
+.card-front-button i {
+    padding-top: 20px;
+}
+
 .tiny-stars img {
     margin-left: -6px;
 }
@@ -198,6 +202,10 @@ footer.page-footer img {
     display: none;
     min-width: 373px;
     margin-top: 4rem;
+}
+
+#dropdown-user .collection-item p.title {
+    color: black;
 }
 
 #dropdown-settings .collection-item {
@@ -412,7 +420,7 @@ span.input-description {
 
 .card-content span:first-child {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .card-content .stars {
@@ -1089,17 +1097,13 @@ span.card-title {
 nav { background-color: #5D4037; }
 nav img.logo { height: 44px; }
 nav img.small-logo { height: 40px; }
+nav ul li { float: none; }
 nav ul li a { height: 64px; }
-nav ul li a img { margin-top: 0px; }
+nav ul li a img { margin-top: 0; }
 
-nav ul li ul li a {
-    color: #212121;
-    line-height: 4.5em;
-}
-
-.nav-wrapper .user-thumbnail li,
-.nav-wrapper .user-thumbnail li a p,
-.nav-wrapper .user-thumbnail li a img {
+.nav-wrapper .user-thumbnail > li,
+.nav-wrapper .user-thumbnail > li a p,
+.nav-wrapper .user-thumbnail > li a img {
     float: right;
 }
 

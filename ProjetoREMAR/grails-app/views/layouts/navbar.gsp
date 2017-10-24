@@ -45,15 +45,15 @@
                                 </li>
 
                                 <li class="collection-item">
-                                    <div class="row">
+                                    <div class="row no-margin">
                                         <div class="col s6">
-                                            <a href="/my-profile" class="waves-effect btn-flat left">
+                                            <a href="/my-profile" class="waves-effect btn-flat remar-orange-text">
                                                 Meu Perfil
                                             </a>
                                         </div>
 
                                         <div class="col s6">
-                                            <a href="/logout/index" class="waves-effect btn-flat right">
+                                            <a href="/logout/index" class="waves-effect btn-flat remar-orange-text">
                                                 Sair
                                             </a>
                                         </div>

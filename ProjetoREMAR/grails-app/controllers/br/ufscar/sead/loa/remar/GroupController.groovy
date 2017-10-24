@@ -1,17 +1,12 @@
 package br.ufscar.sead.loa.remar
 
 import com.mongodb.Block
-import com.mongodb.DBCursor
 import grails.converters.JSON
-import groovy.json.JsonBuilder
 import org.apache.commons.lang.RandomStringUtils
-import grails.plugin.springsecurity.annotation.Secured
 import org.bson.Document
-import java.util.concurrent.TimeUnit;
-import org.grails.datastore.mapping.validation.ValidationException
-import org.springframework.transaction.annotation.Transactional
-import static java.util.Arrays.asList;
+import java.util.concurrent.TimeUnit
 
+import org.springframework.transaction.annotation.Transactional
 
 class GroupController {
 
@@ -260,7 +255,7 @@ class GroupController {
             else
                 usersNotInGroup.add(user)
         }
-        render view: "manage", model: [group: group, usersInGroup: usersInGroup, usersNotInGroup: usersNotInGroup]
+        render view: "edit", model: [group: group, usersInGroup: usersInGroup, usersNotInGroup: usersNotInGroup]
     }
 
     def addUsers() {
