@@ -92,7 +92,7 @@ function fazerAnimacaoLigacao(nome) {
 	$('#ligacaosimples.ligacaoDisponivel').addClass('animacaoLigacao');
 	setTimeout(function(){
 		selectedAtom = $('#'+nome)[0];
-		ligacaoAtual = 'ligacaosimples';
+		currentBond = 'ligacaosimples';
 		$('#'+nome).addClass('atomoSelecionado');
 		$('#ligacaosimples.ligacaoDisponivel').removeClass('animacaoLigacao');
 	}, 1950);
@@ -178,7 +178,7 @@ function tutorial4 () {
 function tutorial5 () {
 	//Coloca um circulo vermelho ao redor do atomo selecionado
 	$('#hidrogenio-1')
-	.css({ 'border-radius': '25px', 'border': 'solid 3px red', 'margin-top': '-3px', 'margin-left': '-3px' });
+	.css({ 'border-radius': '25px', 'border': 'solid 3px red', 'margin-top': '-3px', 'margin-left': '-4px', 'box-sizing': 'content-box' });
 
 	habilitarBotao();
 }

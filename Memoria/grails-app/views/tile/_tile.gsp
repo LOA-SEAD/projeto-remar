@@ -2,20 +2,20 @@
 %{-- Tile image --}%
 <div id="default-image-sizes" class="hidden"></div>
 <div class="row no-margin">
-    <div class="col s4">
+    <div class="col s6">
         <div class="row no-margin">
             <div class="tile-image col no-padding s6">
                 <label>${tileInstance.content} - A</label>
-                <img class="materialboxed" alt="${tileInstance.content} - A" data-caption="${tileInstance.content} - A" src="/memoria/data/${tileInstance.ownerId}/tiles/tile${tileInstance.id}-a.png"/>
+                <img class="materialboxed" alt="${tileInstance.content} - A" data-caption="${tileInstance.content} - A" src="/memoria/data/${tileInstance.ownerId}/${tileInstance.taskId}/tiles/tile${tileInstance.id}-a.png"/>
             </div>
             <div class="tile-image col no-padding s6">
                 <label>${tileInstance.content} - B</label>
-                <img class="materialboxed" alt="${tileInstance.content} - B" data-caption="${tileInstance.content} - B" src="/memoria/data/${tileInstance.ownerId}/tiles/tile${tileInstance.id}-b.png" class="img-responsive max"/>
+                <img class="materialboxed" alt="${tileInstance.content} - B" data-caption="${tileInstance.content} - B" src="/memoria/data/${tileInstance.ownerId}/${tileInstance.taskId}/tiles/tile${tileInstance.id}-b.png" class="img-responsive max"/>
             </div>
         </div>
     </div>
     %{-- Tile info --}%
-    <div id="tile-info-column" class="col s6 offset-s1">
+    <div id="tile-info-column" class="col s4">
         <div class="row">
             <div class="input-field col s12">
                 <label class="active">Conteúdo</label>

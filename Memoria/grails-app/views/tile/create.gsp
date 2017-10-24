@@ -29,7 +29,7 @@
     </div>
 
 	<div class="row">
-		<g:form class="col s12" controller="tile" action="save" enctype="multipart/form-data">
+		<g:form class="col s12 sendForm" controller="tile" action="save" enctype="multipart/form-data">
 			<g:render template="form"/>
 		</g:form>
 	</div>
