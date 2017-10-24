@@ -153,7 +153,7 @@ $.fn.pageMe = function(opts) {
 $.fn.reloadMe = function() {
     if (!this.hasClass('active')) return;
 
-    var $select = this.closest('.table-container').siblings().find('select');
+    var $select = this.closest('.table-container').siblings().find('.pager-select');
     var $pager  = this.closest('.table-container').siblings().find('.pager');
 
     $select.material_select('destroy');

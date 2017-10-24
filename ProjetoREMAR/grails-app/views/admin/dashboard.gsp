@@ -22,9 +22,9 @@
             <div class="divider"></div>
         </div>
 
-        <div class="row show no-margin">
+        <div class="row show no-margin center-align">
             %{-- Users card --}%
-            <div class="col s4">
+            <div class="col s4 l2">
                 <div class="row">
                     <div class="col s12">
                         <div class="card no-margin hoverable">
@@ -44,7 +44,7 @@
             %{----------------}%
 
             %{-- Groups card --}%
-            <div class="col s4">
+            <div class="col s4 l2">
                 <div class="row">
                     <div class="col s12">
                         <div class="card no-margin hoverable">
@@ -64,7 +64,7 @@
             %{-----------------}%
 
             %{-- Games card --}%
-            <div class="col s4">
+            <div class="col s4 l2">
                 <div class="row">
                     <div class="col s12">
                         <div class="card no-margin hoverable">
@@ -82,11 +82,9 @@
                 </div>
             </div>
             %{----------------}%
-        </div>
 
-        <div class="row show">
             %{-- Categories card --}%
-            <div class="col s4">
+            <div class="col s4 l2">
                 <div class="row">
                     <div class="col s12">
                         <div class="card no-margin hoverable">
@@ -106,7 +104,7 @@
             %{---------------------}%
 
             %{-- Reports card --}%
-            <div class="col s4">
+            <div class="col s4 l2">
                 <div class="row">
                     <div class="col s12">
                         <div class="card no-margin hoverable">

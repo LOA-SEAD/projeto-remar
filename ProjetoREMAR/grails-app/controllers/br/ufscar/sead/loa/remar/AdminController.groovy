@@ -33,6 +33,11 @@ class AdminController {
         render view: "categories", model: [categories: categories]
     }
 
+    def games() {
+        def games = ExportedResource.list().sort {it.getName().toLowerCase()}
+        render view: "games", model: [games: games]
+    }
+
     def deleteUser() {
         deleteUserProc(params.id)
         render (status: 200)
@@ -43,9 +48,13 @@ class AdminController {
         render (status: 200)
     }
 
-
     def deleteCategory() {
         deleteCategoryProc(params.id)
+        render (status: 200)
+    }
+
+    def deleteGame() {
+        deleteGameProc(params.id)
         render (status: 200)
     }
 
@@ -84,9 +93,17 @@ class AdminController {
             }
         }
 
-        println "Categorias removidas:" + categoryRemoved
-
         render categoryRemoved as JSON
+    }
+
+    def deleteGameBatch() {
+        def gameIdList = JSON.parse(params.gameIdList)
+
+        gameIdList.each {
+            deleteGameProc(it)
+        }
+
+        render (status: 200)
     }
 
     @Transactional
@@ -274,11 +291,6 @@ class AdminController {
         userInstance.delete flush: true
     }
 
-    /**
-     * @desc   Procedure to remove an category
-     * @param  id - the id from the category to be removed
-     * @return nothing
-     */
     @Transactional
     deleteGroupProc(id) {
         def groupInstance = Group.findById(id)
@@ -289,6 +301,28 @@ class AdminController {
         }
     }
 
+    /**
+     * @desc   Procedure to remove an category
+     * @param  id - the id from the category to be removed
+     * @return nothing
+     */
+    @Transactional
+    deleteGameProc(id) {
+        def gameInstance = ExportedResource.findById(id)
+
+        if (gameInstance == null) {
+            render(status: 410, text: "ERROR: Failed removing game")
+            return
+        }
+
+        gameInstance.delete flush: true
+    }
+
+    /**
+     * @desc   Procedure to remove an category
+     * @param  id - the id from the category to be removed
+     * @return nothing
+     */
     @Transactional
     deleteCategoryProc(id) {
         def categoryInstance = Category.findById(id)

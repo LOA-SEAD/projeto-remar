@@ -412,7 +412,7 @@ span.input-description {
 
 .card-content span:first-child {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .card-content .stars {
