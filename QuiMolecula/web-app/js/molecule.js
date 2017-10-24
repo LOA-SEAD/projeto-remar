@@ -97,14 +97,14 @@ $(document).ready(function () {
                         $(button).addClass('disabled');
                     }
                 } else if ($(this).attr('id') == 'selected-molecules') {
-                    // If the number of selected molecules is less than the minimum or more than the maximum, disable the send button
-                    // thus preventing the user from finishing the task
-                    if ($(this).children().length < MIN_MOLECULE_COUNT || $(this).children().length > MAX_MOLECULE_COUNT) {
-                        $(button).addClass('disabled');
-                    } else if ($(this).children().length == MIN_MOLECULE_COUNT || $(this).children().length == MAX_MOLECULE_COUNT) {
-                        // If the list has the minimum or maximum number of childs after the end of the drag-and-drop event, it means
-                        // that the user has reached the possible number of molecules to send. So we enable the button.
+                    // If the list has the minimum or maximum number of childs after the end of the drag-and-drop event, it means
+                    // that the user has reached the possible number of molecules to send. So we enable the button.
+                    if ($(this).children().length >= MIN_MOLECULE_COUNT && $(this).children().length <= MAX_MOLECULE_COUNT) {
                         $(button).removeClass('disabled');
+                    } else {
+                        // If the number of selected molecules is less than the minimum or more than the maximum, disable the send button
+                        // thus preventing the user from finishing the task
+                        $(button).addClass('disabled');
                     }
                 }
             }
