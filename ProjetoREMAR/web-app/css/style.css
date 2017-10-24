@@ -116,6 +116,10 @@
 
 footer.page-footer{
     background-color: #5D4037;
+    Position: fixed;
+    bottom: 0;
+    Left: 0;
+    Width: 100%;
 }
 
 
@@ -551,7 +555,7 @@ main {
 }
 
 .social-button{
-    font-size:18px;
+    font-size:24px;
 }
 h6{
     font-size: 25px;
