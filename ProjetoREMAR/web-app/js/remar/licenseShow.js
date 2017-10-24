@@ -2,30 +2,30 @@
  * Created by marcus on 11/05/16.
  */
 $(function () {
-    $('.materialboxed').materialbox();
 
-    var license = document.getElementById("licenseValue").value;
-    var comercial = "cc-by-sa";
-    var notComercial = "cc-by-nc-sa";
+    $('.license-info').each(function() {
+        var $el = $(this);
+        var license = $(this).data('license');
+        var img, href;
 
-    if(license==comercial){
-        $("#licenseInfo").empty();
-        $("#licenseInfo").append(" <div class='row center-align'> <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'>" +
-            " <img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by-sa/4.0/88x31.png' /> " +
-            " </a>");
-        $("#licenseInfo").append("Esta obra está licenciada com uma Licença <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'>Creative Commons Atribuição-CompartilhaIgual 4.0 Internacional</a>.</div>");
-
-    }
-    else{
-        if(license==notComercial){
-            $("#licenseInfo").empty();
-            $("#licenseInfo").append(" <div class='row center-align'> <a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/4.0/'> " +
-                "<img alt='Creative Commons License' style='border-width:0' src='https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png' />" +
-                "</a> ");
-            $("#licenseInfo").append("Esta obra está licenciada com uma Licença <a rel='license' href='http://creativecommons.org/licenses/by-nc-sa/4.0/'>Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional</a>.</div>");
-
+        if (license == "cc-by-sa") {
+            img = 'https://i.creativecommons.org/l/by-sa/4.0/88x31.png';
+            href = 'http://creativecommons.org/licenses/by-sa/4.0/';
+        } else if (license == "cc-by-nc-sa") {
+            img = 'https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png';
+            href = 'http://creativecommons.org/licenses/by-nc-sa/4.0/';
         }
-    }
+
+        $el
+        .empty()
+        .append('<a rel="license" href="' + href + '">'
+            + '<img alt="Creative Commons License" src="' + img + '">'
+            + '</a>');
+
+        if (!$el.hasClass('license-image-only')) {
+            $el.append('Esta obra está licenciada com uma Licença <a rel="license" href="' + href + '">Creative Commons Atribuição-CompartilhaIgual 4.0 Internacional</a>.');
+        }
+    });
 });
 
 $('#submit').on('click', function() {

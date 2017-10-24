@@ -38,9 +38,8 @@
                             <p><span class="bold">Baseado no modelo: </span>${exportedResourceInstance.resource.name}</p>
                             <p><span class="bold">Área de conteúdo: </span>${exportedResourceInstance.contentArea}</p>
                             <p><span class="bold">Conteúdo específico: </span>${exportedResourceInstance.specificContent}</p>
-                            <input type="hidden" id="licenseValue" value="${exportedResourceInstance.license}">
-                            <br>
-                            <div id="licenseInfo"></div>
+
+                            <div class="license-info" data-license="${exportedResourceInstance.license}"></div>
                         </div>
                         <div class="clearfix"></div>
                     </div>

@@ -65,8 +65,8 @@ class GroupController {
 
         session.group = group
 
-        if( group.owner.id == session.user.id ||  userGroup){
-            def groupExportedResources = group.groupExportedResources.toList().sort({it.id})
+        if(group.owner.id == session.user.id || userGroup){
+            def groupExportedResources = group.groupExportedResources.toList()
             render(view: "show", model: [group: group, groupExportedResources: groupExportedResources])
             response.status = 200
         }else

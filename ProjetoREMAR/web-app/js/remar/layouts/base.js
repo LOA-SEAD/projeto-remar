@@ -8,6 +8,7 @@ $(document).ready(function () {
     });
     $('.collapsible').collapsible();
     $('.material-select').material_select();
+    $('.materialboxed').materialbox();
 
     var $prevState;
     $('.fsm').finiteStateMachine({

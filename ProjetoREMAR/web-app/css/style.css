@@ -147,6 +147,7 @@ span.description-error{
 /* end dashboard page */
 
 footer.page-footer {
+    padding: 10px 0;
     background-color: #5D4037;
 }
 

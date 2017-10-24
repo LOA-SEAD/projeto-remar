@@ -7,7 +7,7 @@
 * */
 $(function(){
     var select = $("select");
-    $(select).material_select();
+
     $("#search").on("keyup",function(){
         var catSelected = $(select).val();
         var formData = new FormData();
@@ -26,7 +26,6 @@ $(function(){
                 $(".next-page").each(function() {
                     $(this).on("click",listerNextPage)
                 });
-                addMaterializeDepedences();
             },
             error: function () {
                 alert("error");
@@ -54,7 +53,6 @@ $(function(){
                 $(".next-page").each(function() {
                     $(this).on("click",listerNextPage)
                 });
-                addMaterializeDepedences();
             },
             error: function () {
                 alert("error");
@@ -112,9 +110,3 @@ $(function(){
         });
     }
 });
-
-function addMaterializeDepedences(){
-    //inicializa componentes bootstrap
-    $('.dropdown-button').dropdown();
-    $('.tooltipped').tooltip({delay: 50});
-}

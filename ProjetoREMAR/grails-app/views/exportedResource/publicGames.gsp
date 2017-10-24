@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <title>Jogos Públicados</title>
+        <title>Banco de Jogos</title>
         <meta name="layout" content="materialize-layout">
     </head>
     <body>
@@ -32,7 +32,7 @@
             </div>
 
             <div id="showCards" class="row">
-                <g:render template="customizedGameCard" model="${pageScope.variables}" />
+                <g:render template="customizedGameCard" model="[publicExportedResourcesList: publicExportedResourcesList, mode: 'public']" />
             </div>
         </div>
 
@@ -40,7 +40,6 @@
             %{-- Preenchido pelo Javascript --}%
         </div>
 
-        <g:javascript src="libs/jquery/jquery.rateyo.min.js"/>
         <g:javascript src="remar/menu.js"/>
     </body>
 </html>

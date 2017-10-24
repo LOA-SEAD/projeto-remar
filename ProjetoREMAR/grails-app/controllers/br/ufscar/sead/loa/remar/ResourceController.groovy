@@ -465,8 +465,6 @@ class ResourceController {
 
     @Transactional
     saveRating(Resource instance) {
-        log.debug(params)
-
         Rating r = new Rating(user: session.user, stars: params.stars * 0.5 , comment: params.commentRating, date: new Date())
         instance.addToRatings(r)
         instance.sumStars += r.stars * 0.5
@@ -480,8 +478,24 @@ class ResourceController {
 
     @Transactional
     asyncSaveRating() {
-        println('save')
+        def user = User.findById(params.userid)
+        def resource = Resource.findById(params.resourceid)
+        def rating = new Rating()
+
+        rating.user = user
+        rating.resource = resource
+        rating.stars = Float.parseFloat(params.rating)
+        rating.comment = '' /* TODO */
+        rating.date = new Date()
+        rating.save flush:true
+
+        resource.sumStars += Float.parseFloat(params.rating)
+        resource.sumUser++
+
+        render status: 200, text: 'save'
     }
+
+
 
     @Transactional
     updateRating(Rating rating) {
@@ -510,11 +524,10 @@ class ResourceController {
         def resource = Resource.findById(params.resourceid)
         def rating = Rating.findByUserAndResource(user, resource)
 
-        resource.sumStars += (params.rating - rating.stars)
-        console.log(resource.sumStars)
+        resource.sumStars += (Float.parseFloat(params.rating) - rating.stars)
+        rating.stars = Float.parseFloat(params.rating)
 
-
-        println(rating.stars)
+        render status: 200, text: 'update'
     }
 
 

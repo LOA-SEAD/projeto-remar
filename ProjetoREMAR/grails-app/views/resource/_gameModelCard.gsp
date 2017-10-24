@@ -54,7 +54,7 @@
                                             <div class="rating-field"
                                                  data-user-id="${session.user.id}"
                                                  data-resource-id="${resourceInstance.id}"
-                                                 data-user-rating="${Rating.findByUserAndResource(session.user, resourceInstance).stars / 20}"></div>
+                                                 data-user-rating="${Rating.findByUserAndResource(session.user, resourceInstance).stars / 10}"></div>
                                     </div>
                                 </div>
                             </g:if>

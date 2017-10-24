@@ -41,9 +41,7 @@
                 <!-- Jogos Compartilhados -->
                 <div id="shared-resources row">
                     <g:if test="${!groupExportedResources.empty}">
-                        <g:each var="groupExportedResource" in="${groupExportedResources}">
-                            <g:render template="sharedResourceCard" model="[groupExportedResource: groupExportedResource]"/>
-                        </g:each>
+                        <g:render template="sharedResourceCard" model="[groupExportedResources: groupExportedResources]"/>
                     </g:if>
                     <g:else>
                         <div class="warning-box">
@@ -144,7 +142,7 @@
         <link type="text/css" rel="stylesheet" href="${resource(dir: "css/user", file: "profile.css")}" />
         <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "group.css")}" />
 
-        <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
         <g:javascript src="remar/group/delete-group-resources.js"/>
     </body>
 </html>
