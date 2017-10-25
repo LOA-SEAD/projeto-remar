@@ -14,8 +14,14 @@
     <div class="row">
         <div class="col s12">
             <ul class="tabs">
-                <li class="tab col s3"><a class="active" href="#test1">Publicados</a></li>
-                <li class="tab col s3"><a href="#test2">Em customização</a></li>
+                <g:if test="${mode == 1}">
+                    <li class="tab col s3"><a class="active" href="#test1">Publicados</a></li>
+                    <li class="tab col s3"><a href="#test2">Em customização</a></li>
+                </g:if>
+                <g:else>
+                    <li class="tab col s3"><a href="#test1">Publicados</a></li>
+                    <li class="tab col s3"><a class="active" href="#test2">Em customização</a></li>
+                </g:else>
             </ul>
         </div>
         <section id="test1" class="col s12"> <!-- start my published games -->
