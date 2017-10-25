@@ -136,17 +136,6 @@
                                     </g:else>
                                 </div>
                             </div>
-
-                            <!--div class="divider"></div><br>
-
-                            <div class="row"></div>
-                            <input type="hidden" id="licenseValue" class="license-img-only" value="${instance.resource.license}">
-
-                            <div class="row">
-                                <div class="col s12 m12 l12" id="licenseInfo">
-
-                                </div>
-                            </div-->
                         </div>
                     </div>
                 </div>
@@ -168,6 +157,5 @@
     </div>
     <g:applyLayout name="pagination"/>
     <g:javascript src="utility/utility-public-game.js"/>
-    <g:javascript src="licenseShow.js"/>
     <g:javascript src="showShares.js"/>
 </main>
