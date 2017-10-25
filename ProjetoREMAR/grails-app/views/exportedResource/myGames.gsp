@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col s12">
             <ul class="tabs">
-                <g:if test="${mode == 1}">
+                <g:if test="${mode == "1"}">
                     <li class="tab col s3"><a class="active" href="#test1">Publicados</a></li>
                     <li class="tab col s3"><a href="#test2">Em customização</a></li>
                 </g:if>

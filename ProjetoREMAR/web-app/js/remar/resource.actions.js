@@ -19,4 +19,9 @@ $(document).ready(function() {
             }
         });
     });
+
+    $('.deleteExportedResource').click(function(){
+        var id = $(this).closest('.fullCard').data('instance_id');
+        $('#confirmDeleteExpResource').attr('href', '/exported-resource/delete?id=' + id + '&mode=1');
+    });
 });
