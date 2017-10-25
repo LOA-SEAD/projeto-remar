@@ -108,9 +108,10 @@ class MoleculeController {
 
         for (i = 0; i < moleculeList.size(); i++) {
             File file = new File(String.format("$userPath/%d.xml", i + 1))
-            PrintWriter pw = new PrintWriter(file)
-            pw.write(moleculeList[i].xml)
-            pw.close()
+            def bw = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(file), "UTF-8"))
+            bw.write(moleculeList[i].xml)
+            bw.close()
             fileId = MongoHelper.putFile(file.absolutePath)
             fileList += "files=${fileId}&"
         }
