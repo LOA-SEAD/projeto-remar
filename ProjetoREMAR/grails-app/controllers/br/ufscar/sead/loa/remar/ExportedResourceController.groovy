@@ -264,6 +264,7 @@ class ExportedResourceController {
             if (android) platformList.add("android")
             if (moodle) platformList.add("moodle")
             if (web) platformList.add("web")
+
             //if ([plataforma]) platformList.add("[plataforma]")
             def params = [
             /* 0 */    processType,

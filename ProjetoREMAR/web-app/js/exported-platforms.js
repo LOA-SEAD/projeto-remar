@@ -23,7 +23,8 @@ $(document).ready(function () {
         url: URL,
         data: {id: ID},
         success: function (resp) {
-            var platformCounter;
+            // Seta a variável contadora de plataformas para usar na função de acompanhamento do progresso
+            var platformCounter = resp.platforms.length;
             var finished = 0;
 
             $('#progress-text').text('Estamos exportando seu jogo para diversas plataformas, por favor aguarde...');
@@ -42,9 +43,6 @@ $(document).ready(function () {
                         // Atualiza barra de progresso e feedback ao usuário
                         finished = finished + 1;
                         updateProgress (finished, resp.platforms.length);
-
-                        // Seta a variável contadora de plataformas para usar na função de acompanhamento do progresso
-                        platformCounter = resp.platforms.length;
 
                         // Mostra o ĩcone clicável
                         var $element = $('#web');
