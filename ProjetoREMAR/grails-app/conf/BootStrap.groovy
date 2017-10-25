@@ -40,7 +40,7 @@ class BootStrap {
         if (!User.list()) {
             def admin = new User (
                     username: "admin",
-                    password: grailsApplication.config.users.password,
+                    password: "root",
                     email: "remar@sead.ufscar.br",
                     firstName: "Administrador ",
                     lastName: "– REMAR",
@@ -53,7 +53,7 @@ class BootStrap {
 
             def loa = new User (
                     username: "loa",
-                    password: grailsApplication.config.users.password,
+                    password: "root",
                     email: "loa@sead.ufscar.br",
                     firstName: "Equipe LOA",
                     lastName: "– REMAR",
@@ -65,6 +65,23 @@ class BootStrap {
 
             log.debug "Users: ok"
         }
+
+        /*
+        for(def i = 10; i < 20; i++) {
+            println "criando usuário " + i
+            def loa = new User(
+                    username: "user" + i,
+                    password: "root",
+                    email: "user" + i + "@sead.ufscar.br",
+                    firstName: "User",
+                    lastName: i,
+                    enabled: true
+            )
+            loa.save flush: true
+
+            if (loa.hasErrors()) println loa.errors
+        }
+        */
 
         Platform.findOrSaveByName('Android')
         Platform.findOrSaveByName('Linux')
@@ -83,8 +100,8 @@ class BootStrap {
         for (url in [
                 '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/exportedResource/**', '/my-profile',
                 '/user/update', '/userProfile', '/userProfile/**', '/moodle/link/**', '/moodle/unlink/**', '/resource/saveRating/**',
-                '/resource/updateRating/**', '/resource/deleteRating/**', '/group/**', '/group/user-stats/**', '/group/stats/**', '/user-group/**', '/group-exported-resources/**',
-                '/dspace/**', '/resource/customizableGames', '/resource/show/**'
+                '/resource/updateRating/**', '/resource/asyncSaveRating', '/resource/asyncUpdateRating', '/resource/deleteRating/**', '/group/**', '/group/user-stats/**', '/group/stats/**', '/user-group/**', '/group-exported-resources/**',
+                '/dspace/**', '/resource/customizableGames', '/resource/show/**', '/report/**'
         ]) {
             RequestMap.findOrSaveByUrlAndConfigAttribute(url, 'isAuthenticated()')
         }
@@ -102,7 +119,7 @@ class BootStrap {
         }
 
         for (url in [
-                '/process/deploy', '/process/undeploy', '/category/**', '/category/delete/**', "category/update/**"
+                '/process/deploy', '/process/undeploy', '/category/**', '/category/delete/**', "category/update/**", "/admin/**"
         ]) {
             RequestMap.findOrSaveByUrlAndConfigAttribute(url, 'ROLE_ADMIN')
         }

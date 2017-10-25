@@ -431,28 +431,14 @@ class ExportedResourceController {
     }
 
     @SuppressWarnings("GroovyAssignabilityCheck")
-    def publicGames() {
-        User user = session.user
-        def model = [:]
-        model.myGroups = Group.findAllByOwner(user)
-        model.groupsIAdmin = UserGroup.findAllByUserAndAdmin(user,true).group
-        def threshold = 12
-        params.max = params.max ? Integer.valueOf(params.max) : threshold
-        params.offset = params.offset ? Integer.valueOf(params.offset) : 0
-        model.max = params.max
-        model.threshold = threshold
-        params.order = "desc"
-        params.sort = "id"
-        model.publicExportedResourcesList = ExportedResource.findAllByType('public', params)
-        model.pageCount = Math.ceil(ExportedResource.count / params.max) as int
-        model.currentPage = (params.offset + threshold) / threshold
-        model.hasNextPage = params.offset + threshold < model.instanceCount
-        model.hasPreviousPage = params.offset > 0
-        model.categories = Category.list(sort: "name")
+    publicGames() {
+        def publicExportedResourcesList = ExportedResource.findAllByType('public', params)
+        def categories = Category.list(sort: "name")
+
         if(session.user==null)
-            render view: "games", model: model
+            render view: "games", model: [publicExportedResourcesList: publicExportedResourcesList, categories: categories]
         else
-            render view: "publicGames", model: model
+            render view: "publicGames", model: [publicExportedResourcesList: publicExportedResourcesList, categories: categories]
     }
 
     def myGames() {
@@ -621,7 +607,7 @@ class ExportedResourceController {
         model.hasNextPage = params.offset + threshold < model.instanceCount
         model.hasPreviousPage = params.offset > 0
         log.debug(maxInstances)
-        render view: "_cardGames", model: model
+        render view: "_customizedGameCard", model: model
     }
 
     @SuppressWarnings("GroovyAssignabilityCheck")
@@ -694,7 +680,7 @@ class ExportedResourceController {
         model.hasNextPage = params.offset + threshold < model.instanceCount
         model.hasPreviousPage = params.offset > 0
         log.debug(maxInstances)
-        render view: "_myCardGame", model: model
+        render view: "_customizedGameCard", model: model
     }
 
     def info(ExportedResource instance){

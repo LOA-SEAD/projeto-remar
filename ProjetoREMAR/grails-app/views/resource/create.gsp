@@ -160,10 +160,10 @@
 			</div>
 		</div>
 		<g:external dir="css" file="resource.css"/>
-		<script type="text/javascript" src="${resource(dir: 'js', file: "imgPreview.js")}"></script>
-		<script type="text/javascript" src="${resource(dir: 'js', file: 'game-index.js')}"></script>
-	    <script type="text/javascript" src="${resource(dir: 'js', file: 'validate.js')}"></script>
-    	<script type="text/javascript" src="${resource(dir: 'js', file: 'license.js')}"></script>
-	    <script type="text/javascript" src="${resource(dir: 'js/jquery', file: 'jquery.Jcrop.js')}"></script>
+		<script type="text/javascript" src="${resource(dir: 'js', file: "remar/imgPreview.js")}"></script>
+		<script type="text/javascript" src="${resource(dir: 'js', file: 'remar/game-index.js')}"></script>
+	    <script type="text/javascript" src="${resource(dir: 'js', file: 'remar/validate.js')}"></script>
+    	<script type="text/javascript" src="${resource(dir: 'js', file: 'remar/license.js')}"></script>
+	    <script type="text/javascript" src="${resource(dir: 'js/libs/jquery', file: 'jquery.jcrop.js')}"></script>
     </body>
 </html>

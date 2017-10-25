@@ -39,13 +39,15 @@
             </div>
         </div>
         <div id="resourcesShow" class="row">
-            <g:render template="custCards" model="${pageScope.variables}" />
+            <g:render template="gameModelCard" model="${pageScope.variables}" />
         </div>
     </div>
     <div id="userDetailsModal" class="modal" style="width:40%">
         %{-- Preenchido pelo Javascript --}%
     </div>
-    <g:javascript src="menu.js"/>
-    <g:javascript src="/utility/utility-customizable-game.js"/>
+
+    <g:javascript src="libs/jquery/jquery.rateyo.min.js"/>
+    <g:javascript src="remar/menu.js"/>
+    <g:javascript src="/remar/utility/utility-customizable-game.js"/>
 </body>
 </html>

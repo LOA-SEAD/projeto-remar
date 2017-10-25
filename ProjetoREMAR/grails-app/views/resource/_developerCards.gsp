@@ -1,7 +1,7 @@
 <input type="hidden" id="resourceCount" value="${resourceInstanceList.size()}">
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
 <g:each in="${resourceInstanceList}" status="i" var="resourceInstance">
-    <div id="card-id-${resourceInstance.id}" class="col l3 m3 s6">
+    <div id="card-id-${resourceInstance.id}" class="col l2 m4 s6">
         <input type="hidden" id="cardStatus${i}" value="${resourceInstance.status}">
 
         <div id="card${i}" class="card hoverable card-developer">
@@ -13,7 +13,8 @@
             <div class="card-content">
                 <a class="title truncate" title="${resourceInstance.name}" aria-hidden="true" tabindex="-1" >${resourceInstance.name}</a>
                 <p style="font-size: 1.0em;" class="center">Feito por:
-                    <a href="#!" data-user-id="${resourceInstance.owner.id}" class="user-profile-anchor" href="#user-details-modal" >
+                    <a href="#user-details-modal" id="user-id-${resourceInstance.owner.id}" class="user-profile"
+                       data-user-id="${resourceInstance.owner.id}">
                         ${resourceInstance.owner.username}
                     </a>
                 </p>
@@ -37,5 +38,5 @@
     </div>
 </g:each>
 
-<g:javascript src="user/showProfile.js"/>
-<g:javascript src="showResourceStatus.js"/>
+<g:javascript src="remar/user/showProfile.js"/>
+<g:javascript src="remar/showResourceStatus.js"/>

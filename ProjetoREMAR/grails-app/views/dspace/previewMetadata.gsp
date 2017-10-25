@@ -111,6 +111,6 @@
     </div>
 </div>
 
-<g:javascript src="dspace/warningDspace.js"/>
+<g:javascript src="remar/dspace/warningDspace.js"/>
 </body>
 </html>

@@ -18,7 +18,12 @@
 .user-profile-card-content {
   width: 85%;
   margin: 35px auto;
-  text-align: left;
+}
+
+.user-profile-card-content h3,
+.user-profile-card-content h4,
+.user-profile-card-content p {
+  text-align: left !important;
 }
 
 .user-profile-card-content h3 {

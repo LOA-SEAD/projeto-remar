@@ -195,10 +195,10 @@
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "export.css")}"/>
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "container.css")}"/>
-<g:javascript src="add-resource-to-group.js"/>
-<g:javascript src="exported-platforms.js"/>
-<g:javascript src="licenseShow.js"/>
-<g:javascript src="imgPreview.js"/>
-<g:javascript src="jquery/jquery.Jcrop.js"/>
+<g:javascript src="remar/group/add-resource-to-group.js"/>
+<g:javascript src="remar/exported-platforms.js"/>
+<g:javascript src="remar/licenseShow.js"/>
+<g:javascript src="remar/imgPreview.js"/>
+<g:javascript src="libs/jquery/jquery.jcrop.js"/>
 </body>
 </html>

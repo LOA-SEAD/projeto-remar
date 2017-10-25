@@ -1,10 +1,10 @@
 <ul class="collapsible" data-collapsible="expandable" id="collapsible-to-change-css">
     <li class="c">
         <div class="collapsible-header">
-            <div class="my-div centered"><b>Usuário</b></div>
-            <div class="my-div centered"><b>Acertos</b></div>
-            <div class="my-div centered"><b>Erros</b></div>
-            <div class="my-div centered"><b>Aproveitamento</b></div>
+            <div class="my-div centered"><strong>Usuário</strong></div>
+            <div class="my-div centered"><strong>Acertos</strong></div>
+            <div class="my-div centered"><strong>Erros</strong></div>
+            <div class="my-div centered"><strong>Aproveitamento</strong></div>
         </div>
     </li>
     <g:each in="${users}" var="user">

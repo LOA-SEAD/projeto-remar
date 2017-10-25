@@ -5,9 +5,9 @@
   Time: 13:32
 --%>
 <g:applyLayout name="materialize-layout-index">
-    <div class="row"  style="padding: 20px;">
+    <div class="row">
         <div class="col-lg-12">
-            <div style="margin-bottom: 30px;">
+            <div class="row">
                 <a href="http://www.loa.sead.ufscar.br/" target="_blank">
                     <img src="../images/logo/loa-topo.png"/>
                 </a>

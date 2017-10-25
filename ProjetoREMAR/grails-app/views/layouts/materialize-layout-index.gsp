@@ -1,13 +1,4 @@
 <g:applyLayout name="base">
-    <script>
-        $(document).ready(function() {
-            $('.dropdown-button').dropdown({
-                alignment: 'left'
-            });
-
-            $(".button-collapse").sideNav();
-        });
-    </script>
     <header>
         <div class="navbar-fixed">
             <nav class="valign-wrapper">
@@ -15,7 +6,7 @@
                     <!-- Menu for large displays -->
                     <ul class="left">
                         <li>
-                            <a href="project" class="valign-wrapper">
+                            <a href="/index" class="valign-wrapper">
                                 <img src="/images/logo/logo-remar-branco-transparente.png" class="logo" />
                             </a>
                         </li>
@@ -40,6 +31,7 @@
                         </ul>
                     </ul>
                 </div>
+
                 <div class="hide-on-large-only remar-max-size">
                     <ul class="left">
                         <a id="button-collapse" href="#" data-activates="slide-out" class="button-collapse top-nav full hide-on-large-only">
@@ -48,7 +40,7 @@
                     </ul>
                     <ul class="right">
                         <li class="logo-icon">
-                            <a href="project">
+                            <a href="/index">
                                 <img src="/images/logo/logo-remar-branco-transparente.png" alt="Logo" class="small-logo" />
                             </a>
                         </li>
@@ -57,6 +49,7 @@
             </nav>
         </div>
     </header>
+
     <div class="remar-max-size center min-height-size margin-top">
         <ul id="slide-out" class="side-nav" style="text-align: left;">
             <li>
@@ -91,5 +84,15 @@
             </li>
         </ul>
         <g:layoutBody />
+
+        <g:javascript>
+            $(document).ready(function () {
+                $('.dropdown-button').dropdown({
+                    alignment: 'left'
+                });
+
+                $(".button-collapse").sideNav();
+            });
+        </g:javascript>
     </div>
 </g:applyLayout>

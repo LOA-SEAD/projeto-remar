@@ -1,0 +1,39 @@
+.rating-field-wrapper {
+    margin: 10px 0 0 0;
+}
+
+.rating-field {
+    display: flex;
+    justify-content: flex-start;
+    margin: 5px 0;
+}
+
+.rating-field .rating--score,
+.rating-field .rating--new,
+.rating-field .rating--background {
+    font-size: 2rem;
+}
+
+.rating-field .rating--score {
+    color: #abd000;
+}
+
+.rating-field .rating--new {
+    color: #ff9845;
+}
+
+.rating-field .rating--background {
+    color: #9a9a9a;
+}
+
+.rating-editable {
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 600px) {
+    .rating-field .rating--score,
+    .rating-field .rating--new,
+    .rating-field .rating--background {
+        font-size: 1rem;
+    }
+}

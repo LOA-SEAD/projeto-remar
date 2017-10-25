@@ -9,21 +9,23 @@ grails.config.locations = ["classpath:env.properties","classpath:env-dspace.prop
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 
 // The ACCEPT header will not be used for content negotiation for user agents containing the following strings (defaults to the 4 major rendering engines)
-grails.mime.disable.accept.header.userAgents = ['Gecko', 'WebKit', 'Presto', 'Trident']
+grails.mime.disable.accept.header.userAgents = ["Gecko", "WebKit", "Presto", "Trident"]
 grails.mime.types = [ // the first one is the default format
-                      all          : '*/*', // 'all' maps to '*' or the first available format in withFormat
-                      atom         : 'application/atom+xml',
-                      css          : 'text/css',
-                      csv          : 'text/csv',
-                      form         : 'application/x-www-form-urlencoded',
-                      html         : ['text/html', 'application/xhtml+xml'],
-                      js           : 'text/javascript',
-                      json         : ['application/json', 'text/json'],
-                      multipartForm: 'multipart/form-data',
-                      rss          : 'application/rss+xml',
-                      text         : 'text/plain',
-                      hal          : ['application/hal+json', 'application/hal+xml'],
-                      xml          : ['text/xml', 'application/xml']
+                      all          : "*/*", // "all" maps to "*" or the first available format in withFormat
+                      atom         : "application/atom+xml",
+                      css          : "text/css",
+                      csv          : "text/csv",
+                      form         : "application/x-www-form-urlencoded",
+                      html         : ["text/html", "application/xhtml+xml"],
+                      js           : "text/javascript",
+                      json         : ["application/json", "text/json"],
+                      multipartForm: "multipart/form-data",
+                      rss          : "application/rss+xml",
+                      text         : "text/plain",
+                      hal          : ["application/hal+json", "application/hal+xml"],
+                      xls          : "application/vnd.ms-excel",
+                      xlsx         : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                      xml          : ["text/xml", "application/xml"]
 ]
 
 // URL Mapping Cache Max Size, defaults to 5000
@@ -34,23 +36,23 @@ grails.views.default.codec = "html"
 
 // The default scope for controllers. May be prototype, session or singleton.
 // If unspecified, controllers are prototype scoped.
-grails.controllers.defaultScope = 'prototype' //singleton
+grails.controllers.defaultScope = "prototype" //singleton
 
 // GSP settings
 grails {
     views {
         gsp {
-            encoding = 'UTF-8'
-            htmlcodec = 'xml' // use xml escaping instead of HTML4 escaping
+            encoding = "UTF-8"
+            htmlcodec = "xml" // use xml escaping instead of HTML4 escaping
             codecs {
-                expression = 'html' // escapes values inside ${}
-                scriptlet = 'html' // escapes output from scriptlets in GSPs
-                taglib = 'none' // escapes output from taglibs
-                staticparts = 'none' // escapes output from static template parts
+                expression = "html" // escapes values inside ${}
+                scriptlet = "html" // escapes output from scriptlets in GSPs
+                taglib = "none" // escapes output from taglibs
+                staticparts = "none" // escapes output from static template parts
             }
         }
         // escapes all not-encoded output at final stage of outputting
-        // filteringCodecForContentType.'text/html' = 'html'
+        // filteringCodecForContentType."text/html" = "html"
     }
 }
 
@@ -58,11 +60,11 @@ grails {
 grails.converters.encoding = "UTF-8"
 grails.converters.json.default.deep = true
 // scaffolding templates configuration
-//grails.scaffolding.templates.domainSuffix = 'Instance'    
+//grails.scaffolding.templates.domainSuffix = "Instance"    
 grails.web.disable.multipart = true
 // twitter bootstrap
 grails.plugins.twitterbootstrap.fixtaglib = true
-grails.plugins.twitterbootstrap.defaultBundle = 'false'
+grails.plugins.twitterbootstrap.defaultBundle = "false"
 
 // Set to false to use the new Grails 1.2 JSONBuilder in the render method
 grails.json.legacy.builder = false
@@ -74,12 +76,12 @@ grails.spring.bean.packages = []
 grails.web.disable.multipart = false
 
 // request parameters to mask when logging exceptions
-grails.exceptionresolver.params.exclude = ['password']
+grails.exceptionresolver.params.exclude = ["password"]
 
-// configure auto-caching of queries by default (if false you can cache individual queries with 'cache: true')
+// configure auto-caching of queries by default (if false you can cache individual queries with "cache: true")
 grails.hibernate.cache.queries = false
 
-// configure passing transaction's read-only attribute to Hibernate session, queries and criterias
+// configure passing transaction"s read-only attribute to Hibernate session, queries and criterias
 // set "singleSession = false" OSIV mode in hibernate configuration after enabling
 grails.hibernate.pass.readonly = false
 // configure passing read-only to OSIV session by default, requires "singleSession = false" OSIV mode
@@ -109,12 +111,12 @@ environments {
 
         log4j = {
             appenders {
-                console name: 'console',
-                        layout: pattern(conversionPattern: '%d [%p] %c{2} - %m%n')
+                console name: "console",
+                        layout: pattern(conversionPattern: "%d [%p] %c{2} - %m%n")
 
             }
-            error additivity: false, 'console'
-            all additivity: false, 'console': ['grails.app.controllers.br.ufscar.sead.loa.remar', 'grails.app.conf', 'grails.app.domain']
+            error additivity: false, "console"
+            all additivity: false, "console": ["grails.app.controllers.br.ufscar.sead.loa.remar", "grails.app.conf", "grails.app.domain"]
         }
     }
     production {
@@ -137,40 +139,40 @@ environments {
         log4j = {
             appenders {
                 appender new DailyRollingFileAppender(
-                        name: 'dailyAppender',
-                        datePattern: "'.'yyyy-MM-dd",  // See the API for all patterns.
-                        fileName: "../logs/${grails.util.Metadata.current.'app.name'}.log",
-                        layout: pattern(conversionPattern: '%d [%p] %c{2} - %m%n'))
+                        name: "dailyAppender",
+                        datePattern: ""."yyyy-MM-dd",  // See the API for all patterns.
+                        fileName: "../logs/${grails.util.Metadata.current."app.name"}.log",
+                        layout: pattern(conversionPattern: "%d [%p] %c{2} - %m%n"))
                 console name: "stdout" // TODO: define a pattern/layout
             }
 
             root {
-                info 'dailyAppender'
+                info "dailyAppender"
             }
 
-            error 'org.codehaus.groovy.grails.web.servlet',        // controllers
-                    'org.codehaus.groovy.grails.web.pages',          // GSP
-                    'org.codehaus.groovy.grails.web.sitemesh',       // layouts
-                    'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
-                    'org.codehaus.groovy.grails.web.mapping',        // URL mapping
-                    'org.codehaus.groovy.grails.commons',            // core / classloading
-                    'org.codehaus.groovy.grails.plugins',            // plugins
-                    'org.codehaus.groovy.grails.orm.hibernate',      // hibernate integration
-                    'org.springframework',
-                    'org.hibernate',
-                    'net.sf.ehcache.hibernate'
-            debug additivity: false, stdout: ['grails.app.controllers.br.ufscar.sead.loa.remar', 'grails.app.conf', 'grails.app.domain']
+            error "org.codehaus.groovy.grails.web.servlet",        // controllers
+                    "org.codehaus.groovy.grails.web.pages",          // GSP
+                    "org.codehaus.groovy.grails.web.sitemesh",       // layouts
+                    "org.codehaus.groovy.grails.web.mapping.filter", // URL mapping
+                    "org.codehaus.groovy.grails.web.mapping",        // URL mapping
+                    "org.codehaus.groovy.grails.commons",            // core / classloading
+                    "org.codehaus.groovy.grails.plugins",            // plugins
+                    "org.codehaus.groovy.grails.orm.hibernate",      // hibernate integration
+                    "org.springframework",
+                    "org.hibernate",
+                    "net.sf.ehcache.hibernate"
+            debug additivity: false, stdout: ["grails.app.controllers.br.ufscar.sead.loa.remar", "grails.app.conf", "grails.app.domain"]
         }
     }
 }
 
 grails.plugin.springsecurity.securityConfigType = SecurityConfigType.Requestmap
-grails.plugin.springsecurity.requestMap.className = 'br.ufscar.sead.loa.remar.RequestMap'
+grails.plugin.springsecurity.requestMap.className = "br.ufscar.sead.loa.remar.RequestMap"
 
 grails.plugin.springsecurity.logout.postOnly = false
-grails.plugin.springsecurity.userLookup.userDomainClassName = 'br.ufscar.sead.loa.remar.User'
-grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'br.ufscar.sead.loa.remar.UserRole'
-grails.plugin.springsecurity.authority.className = 'br.ufscar.sead.loa.remar.Role'
+grails.plugin.springsecurity.userLookup.userDomainClassName = "br.ufscar.sead.loa.remar.User"
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = "br.ufscar.sead.loa.remar.UserRole"
+grails.plugin.springsecurity.authority.className = "br.ufscar.sead.loa.remar.Role"
 grails.plugin.springsecurity.useSecurityEventListener = true
 grails.plugin.springsecurity.rememberMe.tokenValiditySeconds = TimeUnit.HOURS.toSeconds(8)
 grails.plugin.springsecurity.rememberMe.alwaysRemember = true
@@ -180,4 +182,4 @@ grails.plugin.springsecurity.onInteractiveAuthenticationSuccessEvent = { e, cont
     session.user = context.getBean("springSecurityService").currentUser
 }
 
-grails.web.url.converter = 'hyphenated'
+grails.web.url.converter = "hyphenated"

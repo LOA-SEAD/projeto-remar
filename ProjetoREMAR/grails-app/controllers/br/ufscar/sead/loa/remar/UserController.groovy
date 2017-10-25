@@ -94,7 +94,7 @@ class UserController {
                         def token = new Token(token: RandomStringUtils.random(50, true, true), owner: user, type: 'password_reset')
                         token.save flush: true
                         log.debug token.errors
-                        def url = "http://${request.serverName}:${request.serverPort}/user/password/reset?t=${token.token}"
+                        def url = "http://${request.serverName}/user/password/reset?t=${token.token}"
                         def mensagem = "<h3>Prezado(a) ${user.firstName} ${user.lastName},  </h3> <br>" +
                                 "<p>Voc&ecirc; encontra-se cadastrado(a) com o username: ${user.username} </p> <br>" +
                                 "<p>Para dar continuidade a sua solicita&ccedil;&atilde;o, acesse o link  abaixo. </p> <br>" +

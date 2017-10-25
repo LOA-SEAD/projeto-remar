@@ -49,6 +49,6 @@
         </div>
 
         <g:external dir="css" file="ranking.css"/>
-        <g:javascript src="user/showProfile.js"/>
+        <g:javascript src="remar/user/showProfile.js"/>
     </body>
 </html>

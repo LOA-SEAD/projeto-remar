@@ -38,9 +38,8 @@
                             <p><span class="bold">Baseado no modelo: </span>${exportedResourceInstance.resource.name}</p>
                             <p><span class="bold">Área de conteúdo: </span>${exportedResourceInstance.contentArea}</p>
                             <p><span class="bold">Conteúdo específico: </span>${exportedResourceInstance.specificContent}</p>
-                            <input type="hidden" id="licenseValue" value="${exportedResourceInstance.license}">
-                            <br>
-                            <div id="licenseInfo"></div>
+
+                            <div class="license-info" data-license="${exportedResourceInstance.license}"></div>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -65,10 +64,10 @@
                 </g:if>
 
                 <li>
-                    <div id="plataforms" class="collapsible-header active" data-exported="true">Plataformas</div>
+                    <div id="platforms" class="collapsible-header active" data-exported="true">Plataformas</div>
                     <div class="collapsible-body">
                         <div class="row" style="margin-top: 30px">
-                            <div id="plataforms-icons" class="col s12" style="display:flex; justify-content: space-around">
+                            <div id="platforms-icons" class="col s12" style="display:flex; justify-content: space-around">
 
                                 <a href="/published/${exportedResourceInstance.processId}/web" style="color: inherit" target="_blank">
                                     <div id="web" class="platform-icon">
@@ -187,9 +186,9 @@
 </div>
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
-<g:javascript src="add-resource-to-group.js"/>
-<g:javascript src="info-share.js"/>
-<g:javascript src="licenseShow.js"/>
+<g:javascript src="remar/group/add-resource-to-group.js"/>
+<g:javascript src="remar/info-share.js"/>
+<g:javascript src="remar/licenseShow.js"/>
 <recaptcha:script/>
 </body>
 </html>

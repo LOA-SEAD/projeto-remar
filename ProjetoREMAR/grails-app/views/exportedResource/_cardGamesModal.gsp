@@ -58,5 +58,5 @@
     </ul>
 </div>
 
-<g:javascript src="add-resource-to-group.js" />
+<g:javascript src="remar/group/add-resource-to-group.js" />
 <g:external dir="css" file="card.css" />

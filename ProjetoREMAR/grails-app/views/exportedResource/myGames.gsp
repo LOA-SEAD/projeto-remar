@@ -8,16 +8,14 @@
 <body>
 <div class="row cluster">
     <div class="cluster-header">
-        <p id="title-page" class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 24px;">
-            Meus Jogos
-        </p>
+        <h4>Meus Jogos</h4>
         <div class="divider"></div>
     </div>
     <div class="row">
         <div class="col s12">
             <ul class="tabs">
-                <li class="tab col s3"><a href="#test2">Em customização</a></li>
                 <li class="tab col s3"><a class="active" href="#test1">Publicados</a></li>
+                <li class="tab col s3"><a href="#test2">Em customização</a></li>
             </ul>
         </div>
         <section id="test1" class="col s12"> <!-- start my published games -->
@@ -27,7 +25,7 @@
                     <label for="search"><i class="fa fa-search" data-tooltip="Buscar"></i></label>
                 </div>
                 <div class="input-field col s6">
-                    <select>
+                    <select class="material-select">
                         <option class="option" value="-1" selected>Todas</option>
                         <g:if test="${categories.size() > 0}">
                             <g:each in="${categories}" var="category">
@@ -40,7 +38,7 @@
             </div>
             <div id="showCards" class="row">
                 <article class="row">
-                    <g:render template="myCardGame" model="[myExportedResourcesList:myExportedResourcesList]" />
+                    <g:render template="customizedGameCard" model="[publicExportedResourcesList:myExportedResourcesList]" />
                 </article>
             </div>
         </section> <!-- finished my published games-->
@@ -49,7 +47,9 @@
             <div class="row search">
                 <div class="input-field col s12">
                     <input id="search-processes" type="text" class="validate">
-                    <label for="search-processes"><i class="fa fa-search" data-tooltip="Buscar"></i></label>
+                    <label for="search-processes">
+                        <i class="fa fa-search" data-tooltip="Buscar"></i>
+                    </label>
                 </div>
             </div>
             <div id="showCardsProcess" class="row">
@@ -65,6 +65,6 @@
     %{-- Preenchido pelo Javascript --}%
 </div>
 
-<g:javascript src="menu.js"/>
+<g:javascript src="remar/menu.js"/>
 </body>
 </html>

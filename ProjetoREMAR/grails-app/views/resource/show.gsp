@@ -42,8 +42,8 @@
 
 							</div>
 							<div class="col l8 m9">
-								<div class="plataform gray-color">
-									<p class="" style="font-size: 16px; display: inline-block;"><b> Disponível para: </b></p>
+								<div class="platform gray-color">
+									<p class="" style="font-size: 16px; display: inline-block;"><strong> Disponível para: </strong></p>
 									<div class="">
 										<i class="fa fa-globe tooltipped" data-position="bottom" data-delay="30" data-tooltip="Web"></i>
 										<g:if test="${resourceInstance.android}">
@@ -63,8 +63,8 @@
 							</div>
 
 							<div class="col l8 m9">
-								<div class="plataform gray-color">
-									<p class="" style="font-size: 16px; display: inline-block;"><b> Grupos (Compartilhamento): </b></p>
+								<div class="platform gray-color">
+									<p class="" style="font-size: 16px; display: inline-block;"><strong> Grupos (Compartilhamento): </strong></p>
 									<div class="">
 										<g:if test="${resourceInstance.shareable}">
 											<p class="" style="font-size: 16px; display: inline-block;">Sim</p>
@@ -98,31 +98,31 @@
 
 					<div class="row">
 						<div class="col s12 m12 l12">
-							<p class="description" style="text-align: justify"><b>Descrição:</b> ${resourceInstance.description}</p>
+							<p class="description" style="text-align: justify"><strong>Descrição:</strong> ${resourceInstance.description}</p>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col s12 m12 l12">
-							<p style="text-align: justify"><b>Itens customizáveis:</b> ${resourceInstance.customizableItems}</p>
+							<p style="text-align: justify"><strong>Itens customizáveis:</strong> ${resourceInstance.customizableItems}</p>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col s12 m12 l12">
 							<g:if test="${resourceInstance.videoLink == null}">
-								<p><b>Vídeo Tutorial:</b> Não Disponível</p>
+								<p><strong>Vídeo Tutorial:</strong> Não Disponível</p>
 							</g:if>
 							<g:else>
-								<p><b>Vídeo Tutorial:</b><a target="_blank" href="${resourceInstance.videoLink}"> Clique aqui</a> </p>
+								<p><strong>Vídeo Tutorial:</strong><a target="_blank" href="${resourceInstance.videoLink}"> Clique aqui</a> </p>
 							</g:else>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col s12 m12 l12" id="documentation">
 							<g:if test="${resourceInstance.documentation == null}">
-								<p><b>Documentação do Modelo:</b> Não Disponível</p>
+								<p><strong>Documentação do Modelo:</strong> Não Disponível</p>
 							</g:if>
 							<g:else>
-								<p><b>Documentação do Modelo:</b><a target="_blank" href="${resourceInstance.documentation}"> ${resourceInstance.name}</a> </p>
+								<p><strong>Documentação do Modelo:</strong><a target="_blank" href="${resourceInstance.documentation}"> ${resourceInstance.name}</a> </p>
 							</g:else>
 						</div>
 					</div>
@@ -225,13 +225,13 @@
 		</div>
 	</div>
 
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.css">
+	<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.css">
 	<g:external dir="css" file="resource.css"/>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.0.1/jquery.rateyo.min.js"></script>
-	<g:javascript src="licenseShow.js"/>
-	<g:javascript src="rating.js" />
-	<g:javascript src="tooltip.js" />
+	<g:javascript src="libs/jquery/jquery.rateyo.min.js"/>
+	<g:javascript src="remar/licenseShow.js"/>
+	<g:javascript src="remar/rating.js" />
+	<g:javascript src="remar/tooltip.js" />
 </body>
 </html>
 
