@@ -16,7 +16,7 @@
 	<g:external dir="css" file="materialize.min.css"/>
 	<g:external dir="css" file="tiles.css"/>
 
-	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<g:javascript src="jquery-3.2.1.min.js"/>
 	<g:javascript src="iframeResizer.contentWindow.min.js"/>
 	<g:javascript src="materialize.min.js"/>
 

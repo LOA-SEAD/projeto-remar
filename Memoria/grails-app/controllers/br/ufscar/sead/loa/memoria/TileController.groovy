@@ -133,6 +133,7 @@ class TileController {
             println tileInstance.errors
         }
 
+        def userId = session.user.id
         def id = tileInstance.getId()
         def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/" + tileInstance.taskId.toString() + "/tiles")
         def script_convert_png = servletContext.getRealPath("/scripts/convert.sh")

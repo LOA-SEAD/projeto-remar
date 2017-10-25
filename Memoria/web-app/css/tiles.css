@@ -50,7 +50,6 @@ h4 a { display: inline-flex; }
 .row.show, .tile-container-title { padding-top: 20px; }
 .switch label .lever { background-color: #FF9845 !important; }
 .switch label div { display: table; }
-.tile-display-container { height: 450px; }
 .tile-display-container .collection-header .row { min-height: unset !important;}
 #difficulty-level { font-weight: 100; }
 #image-preview-table .divider { margin-bottom: 10px; }
