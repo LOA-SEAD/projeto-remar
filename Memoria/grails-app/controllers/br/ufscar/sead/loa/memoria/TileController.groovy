@@ -138,22 +138,27 @@ class TileController {
         def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/" + tileInstance.taskId.toString() + "/tiles")
         def script_convert_png = servletContext.getRealPath("/scripts/convert.sh")
 
+
         def f1Uploaded = request.getFile("tile-a")
+
         def f2Uploaded = request.getFile("tile-b")
+
 
         def errors = [
                 not_image_file_a: false,
                 not_image_file_b: false
         ]
 
-
-        if (!f1Uploaded.fileItem.contentType.startsWith("image/")) {
-            errors.not_image_file_a = true
+        if (! f1Uploaded.isEmpty()){
+            if (!f1Uploaded.fileItem.contentType.startsWith("image/")) {
+                errors.not_image_file_a = true
+            }
         }
 
-
-        if (!f2Uploaded.fileItem.contentType.startsWith("image/")) {
-            errors.not_image_file_b = true
+        if (! f2Uploaded.isEmpty()){
+            if (!f2Uploaded.fileItem.contentType.startsWith("image/")) {
+                errors.not_image_file_b = true
+            }
         }
 
         // if any of those files aren't images, we can't convert
