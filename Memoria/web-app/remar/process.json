@@ -4,7 +4,7 @@
   "version": 1,
   "tasks": [
     {
-      "name": "cartas",
+      "name": "Cartas",
       "uri": "tile",
       "description": "Enviar a imagem das duplas de peças para o jogo.",
       "type": "image",
@@ -29,7 +29,9 @@
     }
   ],
   "outputs": [
-    "web"
+    "web",
+    "android",
+    "desktop"
   ],
   "vars": {
     "width": 816,
