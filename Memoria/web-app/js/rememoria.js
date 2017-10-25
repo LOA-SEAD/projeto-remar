@@ -83,7 +83,7 @@ $(document).ready(function() {
         // otherwise, show modal with error
         $.ajax({
             type: 'GET',
-            async: false,
+            //async: false, commented to show loading screen properly
             data: {orientation: orientation},
             url: "/memoria/tile/validate",
             success: function (resp, status, xhr) {
@@ -101,6 +101,7 @@ $(document).ready(function() {
                 console.log(text);
             }
         });
+
     });
 
 
