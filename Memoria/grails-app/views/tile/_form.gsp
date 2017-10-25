@@ -88,6 +88,8 @@
 </div>
 
 <div class="row right-align">
+    <a id="back" name="back" class="btn btn-success remar-orange">${message(code:'tile.create.backButton')}</a>
+
     <input id="upload" type="submit" name="upload" class="btn btn-success remar-orange" value="${message(code:'tile.create.sendButton')}"/>
 </div>
 

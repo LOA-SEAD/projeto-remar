@@ -29,7 +29,9 @@
     }
   ],
   "outputs": [
-    "web"
+    "web",
+    "android",
+    "desktop"
   ],
   "vars": {
     "width": 816,
