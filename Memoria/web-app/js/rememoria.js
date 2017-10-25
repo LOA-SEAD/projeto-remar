@@ -208,17 +208,15 @@ function fadeInOut ($el, content, callback) {
 }
 
 function resizeImageOrientationWise($el, height, width) {
-    $el.load(function () {
-        var eWidth = $el.width();
-        var eHeight = $el.height();
+    var eWidth = $el.width();
+    var eHeight = $el.height();
 
-        // note that it must be $.attr instead of $.css because of materialize materialbox
-        if (eWidth > eHeight) {
-            // landscape
-            $el.attr('width', width);
-        } else {
-            //portrait
-            $el.attr('height', height);
-        }
-    });
+    // note that it must be $.attr instead of $.css because of materialize materialbox
+    if (eWidth > eHeight) {
+        // landscape
+        $el.attr('width', width);
+    } else {
+        //portrait
+        $el.attr('height', height);
+    }
 }

@@ -3,7 +3,6 @@
  */
 
 $(document).ready(function() {
-
     // Disable send button after submit the form
     $('form.sendForm').submit(function(){
         $(this).find(':input[type=submit]').prop('disabled', true);
@@ -64,15 +63,13 @@ function readURL($input, previewTarget) {
 }
 
 function resizeImageOrientationWise($el, height, width) {
-    $el.load(function () {
-        if ($el.width() > $el.height()) {
-            // landscape
-            $el.removeAttr('height');
-            $el.attr('width', width);
-        } else {
-            //portrait or square
-            $el.removeAttr('width');
-            $el.attr('height', height);
-        }
-    });
+    if ($el.width() > $el.height()) {
+        // landscape
+        $el.removeAttr('height');
+        $el.attr('width', width);
+    } else {
+        //portrait or square
+        $el.removeAttr('width');
+        $el.attr('height', height);
+    }
 }
