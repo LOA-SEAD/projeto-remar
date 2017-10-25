@@ -83,7 +83,7 @@ $(document).ready(function() {
         // otherwise, show modal with error
         $.ajax({
             type: 'GET',
-            async: false,
+            //async: false, commented to show loading screen properly
             data: {orientation: orientation},
             url: "/memoria/tile/validate",
             success: function (resp, status, xhr) {
@@ -101,6 +101,7 @@ $(document).ready(function() {
                 console.log(text);
             }
         });
+
     });
 
 
@@ -136,7 +137,7 @@ function renderSelect (difficulty) {
             });
 
             // update total counter
-            $('#difficulty-total').html($('select option').size());
+            $('#difficulty-total').html($('select option').length);
         },
         error: function (xhr, status, text) {
             switch (xhr.status) {
@@ -208,15 +209,18 @@ function fadeInOut ($el, content, callback) {
 }
 
 function resizeImageOrientationWise($el, height, width) {
-    var eWidth = $el.width();
-    var eHeight = $el.height();
 
     // note that it must be $.attr instead of $.css because of materialize materialbox
-    if (eWidth > eHeight) {
-        // landscape
-        $el.attr('width', width);
-    } else {
-        //portrait
-        $el.attr('height', height);
-    }
+    $el.on('load', function(){
+        var eWidth = $el.width();
+        var eHeight = $el.height();
+
+        if (eWidth > eHeight) {
+            // landscape
+            $el.attr('width', width);
+        } else {
+            //portrait
+            $el.attr('height', height);
+        }
+    });
 }

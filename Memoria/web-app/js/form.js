@@ -63,13 +63,18 @@ function readURL($input, previewTarget) {
 }
 
 function resizeImageOrientationWise($el, height, width) {
-    if ($el.width() > $el.height()) {
-        // landscape
-        $el.removeAttr('height');
-        $el.attr('width', width);
-    } else {
-        //portrait or square
-        $el.removeAttr('width');
-        $el.attr('height', height);
-    }
+
+    // note that it must be $.attr instead of $.css because of materialize materialbox
+    $el.on('load', function(){
+        var eWidth = $el.width();
+        var eHeight = $el.height();
+
+        if (eWidth > eHeight) {
+            // landscape
+            $el.attr('width', width);
+        } else {
+            //portrait
+            $el.attr('height', height);
+        }
+    });
 }
