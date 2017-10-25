@@ -253,7 +253,6 @@ class TileController {
 
         for (def difficulty = 1; difficulty <= 3; difficulty++) {
             def min = difficulty * 2 + 2
-
             def count = Tile.countByDifficultyAndOwnerIdAndTaskId(difficulty, owner, session.taskId)
 
             if (count < min) {
@@ -272,7 +271,6 @@ class TileController {
             // encontra o endereço do arquivo criado
             def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
 
-            def levels = ['Facil', 'Medio', 'Dificil']
 
             def fileName = "descricao.json"
 
@@ -288,11 +286,40 @@ class TileController {
                 conteudo << '"direcao" : "horizontal",\n'
             }
 
-            for (def difficulty = 1; difficulty <= 3; difficulty++) {
-                def count = Tile.countByDifficultyAndOwnerIdAndTaskId(difficulty, owner, session.taskId)
-                conteudo << '"totalPares' + levels[difficulty - 1] + 'Upload" : ' + count + ',\n'
+            def facilTiles = Tile.findAllByDifficultyAndOwnerIdAndTaskId(1, owner, session.taskId)
+            def medioTiles = Tile.findAllByDifficultyAndOwnerIdAndTaskId(2, owner, session.taskId)
+            def dificilTiles = Tile.findAllByDifficultyAndOwnerIdAndTaskId(3, owner, session.taskId)
+
+            conteudo << '"totalParesFacilUpload" : ' + facilTiles.size() + ',\n'
+            conteudo << '"totalParesMedioUpload" : ' + medioTiles.size() + ',\n'
+            conteudo << '"totalParesDificilUpload" : ' + dificilTiles.size() + ',\n'
+
+
+            conteudo << '"tempoCarta" : ' + 500 + ',\n'
+
+            def stringNomes = new StringBuilder()
+            stringNomes << '"nomeCarta": ['
+
+            def stringDescricoes = new StringBuilder()
+            stringDescricoes << '"descricaoCarta": ['
+
+            def allTiles = new ArrayList<Tile>()
+            allTiles.addAll(facilTiles)
+            allTiles.addAll(medioTiles)
+            allTiles.addAll(dificilTiles)
+
+            for (Tile t : allTiles){
+                stringNomes << '"' + t.content +'", '
+                stringDescricoes << '"' + t.description + '", '
             }
-            conteudo << '"tempoCarta" : ' + 500 + '\n}'
+            stringNomes.setLength(stringNomes.length() - 2) // deleting last space and comma
+            stringNomes << ']'
+            stringDescricoes.setLength(stringDescricoes.length() - 2) // deleting last space and comma
+            stringDescricoes << ']'
+
+            conteudo << stringNomes + ',\n'
+            conteudo << stringDescricoes + '\n}'
+
             fw.write(conteudo.toString());
             fw.close();
 
