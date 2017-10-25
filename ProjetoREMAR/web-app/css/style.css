@@ -1133,3 +1133,12 @@ Position must be relative!*/
 .remar-green-text {
      color: #4CAF50 !important;
 }
+
+#static-slider {
+     background-color: #ffffff;
+}
+
+#static-slider h3, #static-slider h5 {
+     color: #333333;
+}
+
