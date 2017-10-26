@@ -19,7 +19,7 @@
                             <span style="font-size: 1.3em" class="card-title grey-text text-darken-4 activator center-align truncate" data-category="${instance.resource.category.id}" title="${instance.name}">${instance.name}</span>
                             <div class="divider"></div>
                             <span style="color: dimgrey; font-size: 0.9em" class="center">${instance.resource.category.name}</span>
-                            <span style="color: dimgrey; font-size: 0.9em" class="center truncate">Feito por:
+                            <span style="color: dimgrey; font-size: 0.9em" class="center truncate">Customizado por:
                                 <a href="#!" style="margin-right:10px; cursor:pointer; font-style:normal" class="user-profile" id="user-id-${instance.owner.id}" >
                                     ${instance.owner.username}
                                 </a></span>

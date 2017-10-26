@@ -126,6 +126,16 @@
 							</g:else>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col s12 m12 l12" id="info">
+							<g:if test="${resourceInstance.info == null}">
+								<p><b>Info do Modelo:</b> Não Disponível</p>
+							</g:if>
+							<g:else>
+								<p><b>Info do Modelo:</b> ${resourceInstance.info}</p>
+							</g:else>
+						</div>
+					</div>
 					<div class="row"></div>
 					<div class="row"></div>
 					<input type="hidden" id="licenseValue" value="${resourceInstance.license}">
