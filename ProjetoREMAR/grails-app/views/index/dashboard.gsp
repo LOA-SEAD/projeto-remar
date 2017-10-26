@@ -39,7 +39,7 @@
                                         <div class="divider"></div>
                                         <span style="color: dimgrey; font-size: 0.9em" class="center">${resourceInstance.category.name}</span>
                                         <span style="color: dimgrey; font-size: 0.9em" class="center truncate">
-                                            Feito por:
+                                            Implantado por:
                                             <a href="#!" data-user-id="${resourceInstance.owner.id}" class="user-profile-anchor" href="#user-details-modal">
                                                 ${resourceInstance.owner.username}
                                             </a>

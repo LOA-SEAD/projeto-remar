@@ -24,11 +24,9 @@
                                   title="${instance.name}">${instance.name}</span>
 
                             <div class="divider"></div>
-                            <span style="color: dimgrey; font-size: 0.9em"
-                                  class="center">${instance.resource.category.name}</span>
-                            <span style="color: dimgrey; font-size: 0.9em" class="center truncate">Feito por:
-                                <a href="#!" style="margin-right:10px; cursor:pointer; font-style:normal"
-                                   class="user-profile" id="user-id-${instance.owner.id}">
+                            <span style="color: dimgrey; font-size: 0.9em" class="center">${instance.resource.category.name}</span>
+                            <span style="color: dimgrey; font-size: 0.9em" class="center truncate">Customizado por:
+                                <a href="#!" style="margin-right:10px; cursor:pointer; font-style:normal" class="user-profile" id="user-id-${instance.owner.id}" >
                                     ${instance.owner.username}
                                 </a></span>
                             <span style="color: dimgrey;" class="center">
