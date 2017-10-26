@@ -40,6 +40,17 @@ $(document).ready(function() {
     $("img.edit").materialbox().each(function() {
        resizeImageOrientationWise($(this), 180, 180);
     });
+
+
+    $('#back').click(function() {
+        var getUrl = window.location;
+        var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+
+        window.location.href = baseUrl + "/tile/index";
+
+    });
+
+
 });
 
 // function used in image preview
