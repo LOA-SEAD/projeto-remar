@@ -22,5 +22,5 @@ echo "Starting automatic docker-compose up from boot (CRONTAB)" >> $REMAR_DIR/co
 sudo convoy daemon --drivers devicemapper --driver-opts dm.datadev=/dev/loop5 --driver-opts dm.metadatadev=/dev/loop6 >> $REMAR_DIR/convoy.log &
 
 cd $DOCKER_DIR
-sudo docker service start
+sudo service docker start
 sudo docker-compose up
