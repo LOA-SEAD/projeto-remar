@@ -18,11 +18,11 @@ do
 	if [ -d "${FILE}" ] ; then
 		mkdir -p ${base}/windows/Assets/Resources/${FILE} && cp -v ${FILE}/* ${base}/windows/Assets/Resources/${FILE}
 		mkdir -p ${base}/linux/Assets/Resources/${FILE} && cp -v ${FILE}/* ${base}/linux/Assets/Resources/${FILE}
-		mkdir -p ${base}/mac/$4.app/Contents/Data/Resources/${FILE} && cp -v ${FILE}/* ${base}/mac/$4.app/Contents/Data/Resources/${FILE}
+		mkdir -p ${base}/mac/$4.app/Contents/Data/Resources/${FILE} && cp -v ${FILE}/* ${base}/mac/$4.app/Contents/Data/Assets/Resources/${FILE}
 	else
 	    cp -v ${FILE} ${base}/windows/Assets/Resources/${FILE}
 	    cp -v ${FILE} ${base}/linux/Assets/Resources/${FILE}
-	    cp -v ${FILE} ${base}/mac/$4.app/Contents/Data/Resources/${FILE}
+	    cp -v ${FILE} ${base}/mac/$4.app/Contents/Data/Assets/Resources/${FILE}
 	fi
 done
 
@@ -41,5 +41,5 @@ for FILE in *;
 do
     rm -rv ${base}/windows/Assets/Resources/${FILE}
     rm -rv ${base}/linux/Assets/Resources/${FILE}
-    rm -rv ${base}/mac/$4.app/Contents/Data/Resources/${FILE}
+    rm -rv ${base}/mac/$4.app/Contents/Data/Assets/Resources/${FILE}
 done
