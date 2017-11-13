@@ -39,12 +39,15 @@ class ExportedResourceController {
 
     def delete(int id) {
         //Deleta a instância do Exported Resource e o diretório criado também
+        def mode = (params.mode) ? params.mode : 1;
         ExportedResource instance = ExportedResource.findById(id)
         instance.delete flush: true
         def root = servletContext.getRealPath("/")
         def mainDir = new File(root + '/published/' + instance.processId)
         mainDir.deleteDir()
-        myGames()
+
+        redirect uri: '/exported-resource/myGames', params:[mode: mode]
+        //myGames()
     }
 
     // to test the moodle list
@@ -485,6 +488,7 @@ class ExportedResourceController {
         model.tCurrentPage = (params.tOffset + threshold) / threshold
         model.tHasNextPage = params.tOffset + threshold < temporary.size()
         model.tHasPreviousPage = params.tOoffset > 0
+        model.mode = (params.mode) ? params.mode : 1
         println model.tPageCount
         render view: "myGames", model: model
     }

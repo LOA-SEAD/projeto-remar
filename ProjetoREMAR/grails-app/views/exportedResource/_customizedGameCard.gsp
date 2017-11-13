@@ -130,8 +130,8 @@
                                             </div>
                                         </div>
                                     </g:else>
-                                    <div class="col s6 m4 l3">
-                                        <a href="#!" onclick="deleteResource(${instance.id})" class="tooltipped"
+                                    <div class="col s6 m4 l3 ">
+                                        <a href="#modal-delete-exported-resource" class="tooltipped modal-trigger deleteExportedResource"
                                            data-position="bottom" data-delay="50" data-tooltip="Excluir">
                                             <i class="fa fa-trash"></i>
                                         </a>
@@ -149,7 +149,7 @@
             </g:each>
         </g:if>
 
-    %{--Modal for groups--}%
+        %{--Modal for groups--}%
         <div id="modal-group" class="modal remar-modal shareModal">
             <div class="modal-content">
                 %{--Preenchido pelo javascript--}%
@@ -159,9 +159,25 @@
             </div>
         </div>
 
+        %{--Modal for delete--}%
+        <div class="modal-wrapper-50">
+            <div id="modal-delete-exported-resource" class="modal remar-modal">
+                <div class="modal-content">
+                    <h4>Excluir Jogo em Customização</h4>
+
+                    <p>Tem certeza que deseja realizar esta ação</p>
+                </div>
+
+                <div class="modal-footer">
+                    <a id="confirmDeleteExpResource" class="modal-action modal-close btn waves-effect waves-light remar-orange">Sim</a>
+                    <a class="modal-action modal-close btn waves-effect waves-light remar-orange">Não</a>
+                </div>
+            </div>
+        </div>
+
     </div>
     <g:applyLayout name="pagination"/>
     <g:javascript src="remar/utility/utility-public-game.js"/>
     <g:javascript src="remar/licenseShow.js"/>
-    <g:javascript src="remar/showShares.js"/>
+    <g:javascript src="remar/resource.actions.js"/>
 </main>

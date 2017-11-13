@@ -1,5 +1,6 @@
 <main class="cardGames">
     <div class="row">
+        <g:if test="${processes}">
         <g:each in="${processes}" var="process">
             <div id="card${process.id}" data-instance_id="${process.id}" class="col l2 m4 s6 fullCard">
                 <div class="card hoverable">
@@ -73,12 +74,16 @@
 
                     <div class="modal-footer">
                         <a class="modal-action modal-close btn waves-effect waves-light remar-orange"
-                           href="/process/delete/${process.id}">Sim</a>
+                           href="/process/delete?id=${process.id}&mode=2">Sim</a>
                         <a class="modal-action modal-close btn waves-effect waves-light remar-orange">Não</a>
                     </div>
                 </div>
             </div>
         </g:each>
+        </g:if>
+        <g:else>
+            <h5>Atualmente não existem jogos em customização.</h5>
+        </g:else>
     </div>
 </main>
 
