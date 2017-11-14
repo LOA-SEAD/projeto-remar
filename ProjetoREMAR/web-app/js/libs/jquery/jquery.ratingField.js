@@ -25,7 +25,6 @@ $.fn.ratingField = function(opt) {
     function initializeStars(rating) {
         // Star initialization
         var ratingInteger = Math.floor(rating);
-        console.log(rating);
         if (ratingInteger == rating) /* if rating is x.0 */ {
             // fill stars entirely up to the x-th star
             for (i = 1; i <= rating; i++) {

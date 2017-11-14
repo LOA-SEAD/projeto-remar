@@ -5,7 +5,6 @@
   Time: 10:32
 --%>
 <ul class="sidenav" id="side-nav">
-
     <div class="hide-on-large-only">
         <div class="row no-margin-bottom valign-wrapper">
             <div class="col s4">
@@ -89,7 +88,7 @@
         </a>
     </li>
 
-    <li class="hidden waves-effect waves-block waves-light"
+    <li class="waves-effect waves-block waves-light"
         data-intro="Aqui você pode relatar qualquer tipo de problema na plataforma, como um bug ou um abuso, para que nós possamos analisar."
         data-step="9">
         <a id="report-modal-trigger" href="#report-modal" class="modal-trigger">

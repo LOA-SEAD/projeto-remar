@@ -1123,42 +1123,31 @@ nav ul li a img { margin-top: 0; }
 /* End of Top Navigation Bar */
 
 /* ETC */
-.modal-wrapper-10 .remar-modal {
-    width: 10% !important;
-}
-
-.modal-wrapper-20 .remar-modal {
-    width: 20% !important;
-}
-
-.modal-wrapper-30 .remar-modal {
-    width: 30% !important;
-}
-
-.modal-wrapper-40 .remar-modal {
-    width: 40% !important;
-}
-
-.modal-wrapper-50 .remar-modal {
-    width: 50% !important;
-}
-
-.modal-wrapper-60 .remar-modal {
-    width: 60% !important;
-}
-
-.modal-wrapper-70 .remar-modal {
-    width: 70% !important;
-}
-
-.modal-wrapper-80 .remar-modal {
-    width: 80% !important;
-}
-
 .hidden {
     display: none;
 }
 /* End of ETC Styles */
+
+/* Report Form */
+#report-form input[type="radio"] + label:before,
+#report-form input[type="radio"] + label:after {
+    display: none;
+}
+
+#report-form textarea::-webkit-resizer {
+    color: #FF5722;
+}
+
+#report-form canvas {
+    max-width: 100%;
+    max-height: 30vh;
+    border: 1px solid #5D4037;
+}
+
+#report-form .screenshot-preview .screenshot-preview-placeholder {
+    background-color: lightgrey;
+}
+/* End of report form */
 
 /* Screensize specific styles */
     /* Small Screen */
@@ -1250,6 +1239,40 @@ nav ul li a img { margin-top: 0; }
         .my-left {
             left: 215px;
         }
+
+        /* Modal wrappers */
+        .modal-wrapper-10 .remar-modal {
+            width: 10% !important;
+        }
+
+        .modal-wrapper-20 .remar-modal {
+            width: 20% !important;
+        }
+
+        .modal-wrapper-30 .remar-modal {
+            width: 30% !important;
+        }
+
+        .modal-wrapper-40 .remar-modal {
+            width: 40% !important;
+        }
+
+        .modal-wrapper-50 .remar-modal {
+            width: 50% !important;
+        }
+
+        .modal-wrapper-60 .remar-modal {
+            width: 60% !important;
+        }
+
+        .modal-wrapper-70 .remar-modal {
+            width: 70% !important;
+        }
+
+        .modal-wrapper-80 .remar-modal {
+            width: 80% !important;
+        }
+        /* End of modal wrappers */
     }
 
     /* Large Screens */

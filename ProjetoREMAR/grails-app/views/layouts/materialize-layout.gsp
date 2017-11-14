@@ -4,7 +4,7 @@
         <g:applyLayout name="navbar" />
     </header>
 
-    <div id="slide-out" class="hide-on-large-only side-nav" style="text-align: left;">
+    <div id="slide-out" class="hide-on-large-only side-nav" data-html2canvas-ignore="true">
         <g:applyLayout name="menu" />
     </div>
 

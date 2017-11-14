@@ -221,7 +221,7 @@
 		<div class="modal-footer">
 			<a href="#!" id="create-rating" class="modal-action modal-close btn waves-effect waves-light remar-orange">Enviar</a>
 			<a href="#!" id="edit-rating" class="modal-action modal-close btn waves-effect waves-light remar-orange">Salvar</a>
-			<a href="#!" class="odal-action modal-close btn waves-effect waves-light remar-orange">Cancelar</a>
+			<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Cancelar</a>
 		</div>
 	</div>
 
@@ -231,7 +231,6 @@
 	<g:javascript src="libs/jquery/jquery.rateyo.min.js"/>
 	<g:javascript src="remar/licenseShow.js"/>
 	<g:javascript src="remar/rating.js" />
-	<g:javascript src="remar/tooltip.js" />
 </body>
 </html>
 

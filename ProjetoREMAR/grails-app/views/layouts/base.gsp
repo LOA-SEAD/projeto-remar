@@ -22,6 +22,7 @@
         <g:external dir="css" file="style.css" />
 
         <g:javascript src="libs/jquery/jquery-2.1.4.min.js" />
+        <g:javascript src="libs/js/html2canvas.min.js" />
         <g:javascript src="libs/js/materialize.min.js" />
         <g:javascript src="libs/js/intro.js" />
         <g:javascript src="libs/jquery/jquery.finiteStateMachine.js" />
@@ -32,34 +33,38 @@
         <g:layoutHead/>
     </head>
 
-    <body>
+    <body id="target">
         <g:layoutBody/>
 
         %{-- Trigger is in menu.gsp --}%
-        <div class="modal-wrapper-50">
+        <div data-html2canvas-ignore="true" class="modal-wrapper-50">
             <div id="report-modal" class="modal remar-modal">
-                <g:form url="[resource: report, action: 'save']">
-                    <div class="modal-content" style="min-height: 200px;">
-                        <h4><g:message code="report.modal.title"/></h4>
+                <div class="modal-content">
+                    <h4><g:message code="report.modal.title"/></h4>
 
+                    <g:form url="[controller: 'report', action: 'save']">
                         <g:render template="/report/form"/>
-                    </div>
+                    </g:form>
+                </div>
 
-                    <div class="modal-footer">
-                        <a id="report-fsm-next" href="#!"
-                           class="btn waves-effect waves-light remar-orange hidden">
-                            <g:message code="default.button.next.label"/>
-                        </a>
-                        <a id="report-fsm-cancel" href="#!"
-                           class="modal-action modal-close btn waves-effect waves-light remar-orange">
-                            <g:message code="default.button.cancel.label"/>
-                        </a>
-                        <a id="report-fsm-prev" href="#!"
-                           class="btn waves-effect waves-light remar-orange hidden">
-                            <g:message code="default.button.previous.label"/>
-                        </a>
-                    </div>
-                </g:form>
+                <div class="modal-footer">
+                    <a id="report-fsm-finish" href="#!"
+                       class="modal-close btn waves-effect waves-light remar-orange hidden">
+                        <g:message code="default.button.submit.label"/>
+                    </a>
+                    <a id="report-fsm-next" href="#!"
+                       class="report-fsm-next btn waves-effect waves-light remar-orange hidden">
+                        <g:message code="default.button.next.label"/>
+                    </a>
+                    <a id="report-fsm-prev" href="#!"
+                       class="btn waves-effect waves-light remar-orange hidden">
+                        <g:message code="default.button.previous.label"/>
+                    </a>
+                    <a id="report-fsm-cancel" href="#!"
+                       class="modal-action modal-close btn waves-effect waves-light remar-orange">
+                        <g:message code="default.button.cancel.label"/>
+                    </a>
+                </div>
             </div>
         </div>
 

@@ -6,16 +6,49 @@ class ReportController {
 
     def springSecurityService
 
-    def index() { }
+    def index() {
+        def reports = Report.list(sort: "date")
+
+
+    }
 
     @Transactional
-    save(Report reportInstance) {
+    save() {
+        def reportInstance = new Report()
         reportInstance.who = User.findById(springSecurityService.getCurrentUser().getId())
         reportInstance.date = new Date()
+        reportInstance.url = params.url
+        reportInstance.description = params.description
+        reportInstance.type = params.type
+        reportInstance.browser = params.browser
         reportInstance.seen = false
-        reportInstance.url = request.getRequestURL().substring(0, request.getRequestURL().indexOf("/", 8))
+        reportInstance.screenshot = (params.screenshot) ? true : false
+        reportInstance.save flush:true
 
-        //TODO: salvar screenshots e setar reportInstance.screenshot de acordo (true ou false)
+        if (reportInstance.screenshot) {
+            // Split string sent by html2canvas from js into it's header and encoded content
+            def (header, encoded) = params.screenshot.tokenize(',')
+
+            // Clean the encoded string
+            encoded = encoded.replaceAll("[\r\n]", "")
+
+            // Decode it
+            byte[] decoded = encoded.decodeBase64()
+
+            // Write the file
+            def filename = servletContext.getRealPath("/data/report-screenshots/" + reportInstance.id + ".png")
+            def file = new File(filename)
+
+            // If parent directory doesn't exist yet, create it
+            if (!file.getParentFile().exists()) file.getParentFile().mkdirs()
+
+            // Write decoded string to file, becoming a png image
+            file.withOutputStream {
+                it.write(decoded)
+            }
+
+            log.debug reportInstance.id + " screenshot saved"
+        }
     }
 
     @Transactional

@@ -8,131 +8,171 @@
 
 (function ($) {
 
-    $.fn.finiteStateMachine = function (options) {
-        var settings = $.extend({
-            stateSelector  : '.fsm-state',
-            nextSelector   : '.fsm-next',
-            prevSelector   : '.fsm-prev',
-            initialSelector: '.fsm-initial',
-            finalSelector  : '.fsm-final',
-            fadeSpeed      : 300,
-            linear         : false,
-            before         : null,
-            after          : null,
-            callback       : null
-        }, options);
+    var fsmConfigs = {};
 
-        var $fsm         = this;
-        var $states      = $fsm.find(settings.stateSelector);
-        var $next_button = $(settings.nextSelector);
-        var $prev_button = $(settings.prevSelector);
+    $.fn.finiteStateMachine = function (action_or_settings) {
+        var settings = fsmConfigs[this];
+        var $curr_state;
 
-        var stateData = $states.map(function () {
-            return $(this).hide().data('state');
-        }).get();
+        switch (action_or_settings) {
+            case 'reload':
+                if (settings) {
+                    var $fsm = this;
+                    var $fsmClone = this.clone();
 
-        if (settings.linear) {
-            // Simple machine behavior
-            var start      = Math.min.apply(Math, stateData);
-            var end        = Math.max.apply(Math, stateData);
-            var curr_state = start;
+                    $fsm.find(settings.nextSelector)
+                        .unbind();
+                    $fsm.find(settings.prevSelector)
+                        .unbind();
+                    $fsm.find('.active-state')
+                        .removeClass('active-state');
 
-            getState(curr_state).show();
-            $prev_button.prop('disabled', true);
+                    $fsmClone
+                        .insertAfter($fsm)
+                        .finiteStateMachine(settings);
 
-            $next_button.click(function () {
-                if (settings.before)
-                    settings.before();
+                    $fsm
+                        .remove();
+                }
+                break;
+            case 'getCurrentState':
+                return this.find('.active-state');
+                break;
+            default:
+                // Set the default options
+                var defaults = {
+                    stateSelector  : '.fsm-state',
+                    nextSelector   : '.fsm-next',
+                    prevSelector   : '.fsm-prev',
+                    initialSelector: '.fsm-initial',
+                    finalSelector  : '.fsm-final',
+                    fadeSpeed      : 300,
+                    linear         : false,
+                    before         : null,
+                    after          : null,
+                    callback       : null
+                };
 
-                $prev_button.prop('disabled', false);
+                // Merge the user defined options with the default options
+                settings = $.extend(defaults, action_or_settings);
 
-                getState(curr_state).fadeOut(settings.fadeSpeed, function () {
-                    do {
-                        curr_state++;
-                    } while (getState(curr_state).length == 0);
+                var $fsm         = this;
+                var $states      = $fsm.find(settings.stateSelector);
+                var $next_button = $(settings.nextSelector);
+                var $prev_button = $(settings.prevSelector);
 
-                    if (settings.after)
-                        settings.after();
+                fsmConfigs[$fsm] = settings;
 
-                    getState(curr_state).fadeIn(settings.fadeSpeed);
+                var stateData = $states.map(function () {
+                    return $(this).hide().data('state');
+                }).get();
 
-                    if (curr_state == end)
-                        $next_button.prop('disabled', true);
+                if (settings.linear) {
+                    // Simple machine behavior
+                    var start      = Math.min.apply(Math, stateData);
+                    var end        = Math.max.apply(Math, stateData);
+                    var curr_state = start;
 
-                    if (settings.callback)
-                        settings.callback();
-                });
-            });
+                    getState(curr_state).show();
+                    $prev_button.prop('disabled', true);
 
-            $prev_button.click(function () {
-                if (settings.before)
-                    settings.before();
+                    $next_button.click(function () {
+                        if (settings.before)
+                            settings.before();
 
-                $next_button.prop('disabled', false);
+                        $prev_button.prop('disabled', false);
 
-                getState(curr_state).fadeOut(settings.fadeSpeed, function () {
-                    do {
-                        curr_state--;
-                    } while (getState(curr_state).length == 0);
+                        getState(curr_state).fadeOut(settings.fadeSpeed, function () {
+                            do {
+                                curr_state++;
+                            } while (getState(curr_state).length == 0);
 
-                    if (settings.after)
-                        settings.after();
+                            if (settings.after)
+                                settings.after();
 
-                    getState(curr_state).fadeIn(settings.fadeSpeed);
+                            getState(curr_state).fadeIn(settings.fadeSpeed);
 
-                    if (curr_state == start)
-                        $prev_button.prop('disabled', true);
+                            if (curr_state == end)
+                                $next_button.prop('disabled', true);
 
-                    if (settings.callback)
-                        settings.callback();
-                });
-            });
-        } else {
-            // Complex machine behavior
-            var stateStack  = [];
-            var $prev_state = null;
-            var $curr_state = $fsm.find(settings.initialSelector);
+                            if (settings.callback)
+                                settings.callback();
+                        });
+                    });
 
-            $curr_state.show().addClass('active-state');
-            $prev_button.prop('disabled', true);
+                    $prev_button.click(function () {
+                        if (settings.before)
+                            settings.before();
 
-            $next_button.click(function () {
-                if (settings.before)
-                    settings.before();
+                        $next_button.prop('disabled', false);
 
-                stateStack.push($curr_state);
-                $prev_button.prop('disabled', false);
+                        getState(curr_state).fadeOut(settings.fadeSpeed, function () {
+                            do {
+                                curr_state--;
+                            } while (getState(curr_state).length == 0);
 
-                var next_state = window[$curr_state.data('evaluator')]();
-                $curr_state.fadeOut(settings.fadeSpeed, function () {
-                    changeState(getState(next_state));
+                            if (settings.after)
+                                settings.after();
 
-                    if ($(settings.finalSelector).is($curr_state))
-                        $next_button.prop('disabled', true);
+                            getState(curr_state).fadeIn(settings.fadeSpeed);
 
-                    reportChangeButtons();
-                });
-            });
+                            if (curr_state == start)
+                                $prev_button.prop('disabled', true);
 
-            $prev_button.click(function () {
-                if (settings.before)
-                    settings.before();
+                            if (settings.callback)
+                                settings.callback();
+                        });
+                    });
+                } else {
+                    // Complex machine behavior
+                    var $prev_state = null;
+                    var stateStack  = [];
 
-                $next_button.prop('disabled', false);
+                    $curr_state = $fsm.find(settings.initialSelector);
+                    $curr_state.show().addClass('active-state');
+                    $fsm.data('curr_state', $curr_state);
+                    $prev_button.prop('disabled', true);
 
-                var $next_state = stateStack.pop();
-                $curr_state.fadeOut(settings.fadeSpeed, function () {
-                    changeState($next_state);
+                    $next_button.click(function () {
+                        if (settings.before)
+                            settings.before();
 
-                    if ($(settings.initialSelector).is($curr_state))
-                        $prev_button.prop('disabled', true);
+                        stateStack.push($curr_state);
+                        $prev_button.prop('disabled', false);
 
-                    reportChangeButtons();
-                });
-            });
+                        var next_state = window[$curr_state.data('evaluator')]();
+                        $curr_state.fadeOut(settings.fadeSpeed, function () {
+                            changeState(getState(next_state));
+
+                            if ($(settings.finalSelector).is($curr_state))
+                                $next_button.prop('disabled', true);
+
+                            reportChangeButtons();
+                        });
+                    });
+
+                    $prev_button.click(function () {
+                        if (settings.before)
+                            settings.before();
+
+                        $next_button.prop('disabled', false);
+
+                        var $next_state = stateStack.pop();
+
+                        $curr_state.fadeOut(settings.fadeSpeed, function () {
+                            changeState($next_state);
+
+                            if ($(settings.initialSelector).is($curr_state))
+                                $prev_button.prop('disabled', true);
+
+                            reportChangeButtons();
+                        });
+                    });
+                }
+
+                $fsm.addClass('fsmachined');
+                break;
         }
-
-        $fsm.addClass('fsmachined');
 
         function changeState ($next_state) {
             $curr_state
@@ -147,6 +187,7 @@
                 });
             $prev_state = $curr_state;
             $curr_state = $next_state;
+            $fsm.data('curr_state', $curr_state);
         }
 
         function getState (index) {
@@ -155,12 +196,12 @@
 
         function reportChangeButtons() {
             if ($prev_state.hasClass('fsm-initial')) {
-                fadeInOut($('#report-fsm-cancel'), $('#report-fsm-prev'));
+                $('#report-fsm-prev').show();
                 $('#report-fsm-next').show();
             } else if ($prev_state.hasClass('fsm-final')) {
                 fadeInOut($('#report-fsm-finish'), $('#report-fsm-next'));
             } else if ($curr_state.hasClass('fsm-initial')) {
-                fadeInOut($('#report-fsm-prev'), $('#report-fsm-cancel'));
+                $('#report-fsm-prev').hide();
                 $('#report-fsm-next').hide();
             } else if ($curr_state.hasClass('fsm-final')) {
                 fadeInOut($('#report-fsm-next'), $('#report-fsm-finish'));
@@ -172,10 +213,5 @@
             $foEl.hide();
             $fiEl.show();
         }
-    };
-
-    $.fn.getCurrentState = function () {
-        return $(this).find('.fsm-state.active-state');
-    };
-
-}(jQuery));
+    }
+})(jQuery);

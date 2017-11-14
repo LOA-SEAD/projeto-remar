@@ -1,21 +1,18 @@
+// Initialization of base elements, like materialize components
+
 $(document).ready(function () {
-    // Materialize Inits
-    $('.modal-trigger').leanModal();
+    $('.dropdown-button').dropdown({alignment: 'left'});
     $('.tooltipped').tooltip({delay: 50});
-    $(".button-collapse").sideNav();
-    $('.dropdown-button').dropdown({
-        alignment: 'left'
-    });
     $('.collapsible').collapsible();
     $('.material-select').material_select();
     $('.materialboxed').materialbox();
+    $('.button-collapse').sideNav();
+    $('.modal-trigger').leanModal();
 
-    var $prevState;
     $('.fsm').finiteStateMachine({
         nextSelector: '.report-fsm-next',
         prevSelector: '#report-fsm-prev'
     });
-
 });
 
 function startWizard() {
