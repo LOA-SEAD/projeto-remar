@@ -1,0 +1,28 @@
+{
+  "name": "TemplateName",
+  "uri": "templatename",
+  "version": 1,
+  "tasks": [
+    {
+      "name": "Task Template 1",
+      "uri": "tasktemplate1",
+      "description": "Description of task template 1.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "tasktemplate.json",
+          "type": "json",
+          "path": ""
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    "web"
+  ],
+  "vars": {
+    "width": 1280,
+    "height": 720
+  }
+}
