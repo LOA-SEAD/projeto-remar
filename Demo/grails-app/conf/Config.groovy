@@ -88,7 +88,7 @@ grails.hibernate.osiv.readonly = false
 environments {
     development {
         grails.config.locations = ["classpath:env.properties"]
-        grails.app.context = "/TemplateName"
+        grails.app.context = "/demo"
         grails.logging.jul.usebridge = true
 
         // in development, we can use the same credential/api keys that REMAR uses
@@ -117,7 +117,7 @@ environments {
     production {
         grails.config.locations = ["classpath:env.properties"]
         grails.logging.jul.usebridge = false
-        grails.app.context = "/TemplateName"
+        grails.app.context = "/demo"
     }
 }
 
