@@ -1,28 +1,43 @@
 {
-  "name": "TemplateName",
-  "uri": "templatename",
-  "version": 1,
-  "tasks": [
-    {
-      "name": "Task Template 1",
-      "uri": "tasktemplate1",
-      "description": "Description of task template 1.",
-      "type": "text_database",
-      "dependencies": null,
-      "outputs": [
+    "name": "Demo",
+    "uri": "demo",
+    "version": 1,
+    "tasks": [
         {
-          "name": "tasktemplate.json",
-          "type": "json",
-          "path": ""
+            "name": "Banco de Frases",
+            "uri": "phrase",
+            "description": "Criar/editar/selecionar frases para o demo.",
+            "type": "text_database",
+            "dependencies": null,
+            "outputs": [
+                {
+                    "name": "frases.json",
+                    "type": "json",
+                    "path": "json"
+                }
+            ]
+        },
+        {
+            "name": "Imagem de Fundo",
+            "uri": "theme",
+            "description": "Criar/editar/selecionar imagem (background) para o demo.",
+            "type": "image",
+            "dependencies": null,
+            "optional": true,
+            "outputs": [
+                {
+                    "name": "bg.png",
+                    "type": "image",
+                    "path": "img"
+                }
+            ]
         }
-      ]
+    ],
+    "outputs": [
+        "web"
+    ],
+    "vars": {
+        "width": 1280,
+        "height": 720
     }
-  ],
-  "outputs": [
-    "web"
-  ],
-  "vars": {
-    "width": 1280,
-    "height": 720
-  }
 }
