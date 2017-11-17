@@ -5,6 +5,9 @@ import grails.plugin.springsecurity.annotation.Secured
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+import br.ufscar.sead.loa.remar.api.MongoHelper
+import grails.util.Environment
+
 @Secured(["isAuthenticated()"])
 @Transactional(readOnly = true)
 class ThemeController {
@@ -42,7 +45,14 @@ class ThemeController {
 
         def userId = session.user.getId()
 
-        def theme = new Theme(ownerId: userId, taskId: session.taskId).save flush: true
+        def theme = new Theme()
+
+        theme.ownerId = userId
+        //theme.taskId = session.taskId as String
+
+        theme.save flush: true
+
+        println theme
 
         if (theme.hasErrors()) {
             respond theme.errors, view:'create'
@@ -51,17 +61,17 @@ class ThemeController {
 
         def dataPath = servletContext.getRealPath("/data")
         def userPath = new File(dataPath, "/" + userId + "/themes/" + theme.getId())
+        println userPath
         userPath.mkdirs()
 
         def backgroundUploaded = request.getFile('background')
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'theme.label', default: 'Theme'), themeInstance.id])
-                redirect themeInstance
-            }
-            '*' { respond themeInstance, [status: CREATED] }
+        if(!backgroundUploaded.isEmpty()) {
+            def originalBackgroundUploaded = new File("$userPath/bg.png")
+            backgroundUploaded.transferTo(originalBackgroundUploaded)
         }
+
+        redirect action: "index"
     }
 
     def edit(Theme themeInstance) {
@@ -108,6 +118,20 @@ class ThemeController {
             }
             '*'{ render status: NO_CONTENT }
         }
+    }
+
+    def finish() {
+        def theme = Theme.findById(params.id);
+        def folder = servletContext.getRealPath("/data/${theme.ownerId}/themes/${theme.id}")
+        def id = MongoHelper.putFile(folder + '/bg.png')
+
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
+
+        redirect uri: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
+                "?files=${id}"
     }
 
     protected void notFound() {

@@ -20,12 +20,12 @@ class PhraseController {
 
     def index(Integer max) {
 
-	if (params.t) {
+        if (params.t) {
             session.taskId = params.t
         }
-	session.user = springSecurityService.currentUser
+        session.user = springSecurityService.currentUser
 
-	def list = Phrase.findAllByAuthor(session.user.username)
+        def list = Phrase.findAllByAuthor(session.user.username)
 
         render view: "index", model: [phraseInstanceList: list, phraseInstanceCount: list.size()]
     }
@@ -35,8 +35,7 @@ class PhraseController {
     }
 
     def create() {
-	Phrase phrase = new Phrase(params)
-        respond phrase
+        respond new Phrase(params)
     }
 
     @Transactional
@@ -46,17 +45,17 @@ class PhraseController {
             return
         }
 
-	Phrase phrase = new Phrase();
+        Phrase phrase = new Phrase();
         phrase.id = phraseInstance.id
         phrase.content = phraseInstance.content
 
-	if (phraseInstance.author == null) {
+        if (phraseInstance.author == null) {
             phraseInstance.author = session.user.username
-	}
-        
+        }
+
         phrase.author = phraseInstance.author
-        phrase.taskId    = session.taskId as String
-	phrase.ownerId = session.user.id
+        phrase.taskId = session.taskId as String
+        phrase.ownerId = session.user.id
 
         if (phrase.hasErrors()) {
             respond phrase.errors, view:'create'
