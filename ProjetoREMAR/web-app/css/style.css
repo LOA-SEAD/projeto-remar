@@ -116,6 +116,11 @@
 
 footer.page-footer{
     background-color: #5D4037;
+    Position: fixed;
+    bottom: 0;
+    Left: 0;
+    Width: 100%;
+    z-index: 998;
 }
 
 
@@ -544,6 +549,7 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    margin-bottom: 130px
 }
 
 main {
@@ -551,7 +557,7 @@ main {
 }
 
 .social-button{
-    font-size:18px;
+    font-size:24px;
 }
 h6{
     font-size: 25px;
@@ -1127,3 +1133,12 @@ Position must be relative!*/
 .remar-green-text {
      color: #4CAF50 !important;
 }
+
+#static-slider {
+     background-color: #ffffff;
+}
+
+#static-slider h3, #static-slider h5 {
+     color: #333333;
+}
+

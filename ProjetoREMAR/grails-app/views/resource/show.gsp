@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="layout" content="materialize-layout">
-	<link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
-	<title>${resourceInstance.name}</title>
+    <meta name="layout" content="materialize-layout">
+    <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
+    <title>${resourceInstance.name}</title>
 </head>
 
 <body>

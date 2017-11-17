@@ -18,7 +18,7 @@
     <div id="tile-info-column" class="col s4">
         <div class="row">
             <div class="input-field col s12">
-                <label class="active">Conteúdo</label>
+                <label class="active">Rótulo</label>
                 <p class="wrapped">${tileInstance.content}</p>
             </div>
         </div>

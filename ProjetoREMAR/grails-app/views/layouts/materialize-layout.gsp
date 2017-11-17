@@ -7,7 +7,7 @@
 
                     <ul class="left">
                         <li>
-                            <a href="/index/project" class="valign-wrapper">
+                            <a href="/" class="valign-wrapper">
                                 <img src="/images/logo/logo-remar-branco-transparente.png" class="logo" />
                             </a>
                         </li>
