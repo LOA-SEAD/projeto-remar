@@ -7,7 +7,6 @@ class Phrase {
     long ownerId
     String taskId
 
-
     static constraints = {
         content blank: false, maxSize: 150
         author blank: false
