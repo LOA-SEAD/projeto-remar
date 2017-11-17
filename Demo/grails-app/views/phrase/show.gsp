@@ -8,12 +8,9 @@
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#show-phrase" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
 		<div id="show-phrase" class="content scaffold-show" role="main">
@@ -28,24 +25,6 @@
 					<span id="content-label" class="property-label"><g:message code="phrase.content.label" default="Content" /></span>
 					
 						<span class="property-value" aria-labelledby="content-label"><g:fieldValue bean="${phraseInstance}" field="content"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${phraseInstance?.ownerId}">
-				<li class="fieldcontain">
-					<span id="ownerId-label" class="property-label"><g:message code="phrase.ownerId.label" default="Owner Id" /></span>
-					
-						<span class="property-value" aria-labelledby="ownerId-label"><g:fieldValue bean="${phraseInstance}" field="ownerId"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${phraseInstance?.taskId}">
-				<li class="fieldcontain">
-					<span id="taskId-label" class="property-label"><g:message code="phrase.taskId.label" default="Task Id" /></span>
-					
-						<span class="property-value" aria-labelledby="taskId-label"><g:fieldValue bean="${phraseInstance}" field="taskId"/></span>
 					
 				</li>
 				</g:if>

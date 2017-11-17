@@ -11,9 +11,18 @@ class PhraseController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    def springSecurityService
+
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond Phrase.list(params), model:[phraseInstanceCount: Phrase.count()]
+
+	if (params.t) {
+            session.taskId = params.t
+        }
+	session.user = springSecurityService.currentUser
+
+	def list = Phrase.findAllByAuthor(session.user.username)
+
+        render view: "index", model: [phraseInstanceList: list, phraseInstanceCount: list.size()]
     }
 
     def show(Phrase phraseInstance) {
@@ -21,7 +30,8 @@ class PhraseController {
     }
 
     def create() {
-        respond new Phrase(params)
+	Phrase phrase = new Phrase(params)
+        respond phrase
     }
 
     @Transactional
@@ -31,20 +41,26 @@ class PhraseController {
             return
         }
 
-        if (phraseInstance.hasErrors()) {
-            respond phraseInstance.errors, view:'create'
+	Phrase phrase = new Phrase();
+        phrase.id = phraseInstance.id
+        phrase.content = phraseInstance.content
+
+	if (phraseInstance.author == null) {
+            phraseInstance.author = session.user.username
+	}
+        
+        phrase.author = phraseInstance.author
+        phrase.taskId    = session.taskId as String
+	phrase.ownerId = session.user.id
+
+        if (phrase.hasErrors()) {
+            respond phrase.errors, view:'create'
             return
         }
 
-        phraseInstance.save flush:true
+        phrase.save flush:true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'phrase.label', default: 'Phrase'), phraseInstance.id])
-                redirect phraseInstance
-            }
-            '*' { respond phraseInstance, [status: CREATED] }
-        }
+        redirect(action: 'index')
     }
 
     def edit(Phrase phraseInstance) {
@@ -65,13 +81,7 @@ class PhraseController {
 
         phraseInstance.save flush:true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'Phrase.label', default: 'Phrase'), phraseInstance.id])
-                redirect phraseInstance
-            }
-            '*'{ respond phraseInstance, [status: OK] }
-        }
+        redirect(action: 'index')
     }
 
     @Transactional
