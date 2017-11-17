@@ -18,26 +18,55 @@
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<table>
+			<table id="generalTable">
 			<thead>
 					<tr>
-					
-						<g:sortableColumn property="content" title="${message(code: 'phrase.content.label', default: 'Content')}" />
+						<th><input type="checkbox" class="filled-in interno" id="checkAll" /><label for="checkAll"></label></th>
+						<th>Frase</th>
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${phraseInstanceList}" status="i" var="phraseInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
+					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}" data-id="${phraseInstance.id}">
+						<td><input type="checkbox" class="filled-in" id="filled-in-box-${phraseInstance.id}" /><label for="filled-in-box-${phraseInstance.id}"></label></td>
 						<td><g:link action="show" id="${phraseInstance.id}">${fieldValue(bean: phraseInstance, field: "content")}</g:link></td>
-										
 					</tr>
 				</g:each>
 				</tbody>
 			</table>
+
+			<a class="waves-effect waves-light btn" id="save">Enviar</a>
+
 			<div class="pagination">
 				<g:paginate total="${phraseInstanceCount ?: 0}" />
 			</div>
 		</div>
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+	<script>
+        $("#checkAll").click(function(){
+            $('input:checkbox').not(this).prop('checked', this.checked);
+        });
+
+        $('#save').click(function(){
+            var params = "";
+
+            var trs = $("#generalTable").children('tbody').children('tr');
+
+            $('input:checkbox:checked').each(function() {
+                params += $(this).closest("tr").attr('data-id') + ',';
+            });
+
+            if(params.length) {
+                params = params.substr(0, params.length -1);
+                window.top.location.href = "/demo/phrase/toJson/" + params;
+            }
+            else{
+				alert("Selecione pelo menos uma para enviar")
+            }
+
+        });
+	</script>
 	</body>
 </html>

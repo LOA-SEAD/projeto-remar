@@ -5,6 +5,11 @@ import grails.plugin.springsecurity.annotation.Secured
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+import groovy.json.JsonBuilder
+import br.ufscar.sead.loa.remar.api.MongoHelper
+import grails.util.Environment
+
+
 @Secured(["isAuthenticated()"])
 @Transactional(readOnly = true)
 class PhraseController {
@@ -111,5 +116,37 @@ class PhraseController {
             }
             '*'{ render status: NOT_FOUND }
         }
+    }
+
+    def toJson() {
+        def list = Phrase.getAll(params.id ? params.id.split(',').toList() : null)
+        def builder = new JsonBuilder()
+        def json = builder(
+                list.collect { p ->
+                    ["frase"   : p.getContent().toUpperCase(),
+                     "autor"   : p.getAuthor()]
+                }
+        )
+
+        log.debug builder.toString()
+
+        def dataPath = servletContext.getRealPath("/data")
+        def userPath = new File(dataPath, "/" + springSecurityService.getCurrentUser().getId() + "/" + session.taskId)
+        userPath.mkdirs()
+
+        def fileName = "frases.json"
+        File file = new File("$userPath/$fileName");
+        PrintWriter pw = new PrintWriter(file);
+        pw.write('{ "frases":' + builder.toString() + '}');
+        pw.close();
+
+        String id = MongoHelper.putFile(file.absolutePath)
+
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8080
+        }
+
+        redirect uri: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}", params: [files: id]
     }
 }

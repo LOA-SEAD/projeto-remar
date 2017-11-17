@@ -33,7 +33,7 @@ var pai = document.getElementById("ancora").parentNode;
 
        for (var i = 0; i < demo.frases.length; i++) {
 var h3 = document.createElement("h3");
-       h3.innerHTML=demo.frases[i];
+       h3.innerHTML=demo.frases[i].frase;
        div.appendChild(h3);
        }       
        
