@@ -217,6 +217,15 @@ class ResourceController {
             def rootPath = servletContext.getRealPath('/')
             def scriptElectron = "${rootPath}/scripts/electron/build.sh"
             def scriptUnity = "${rootPath}/scripts/unity/decompress.sh"
+            def scriptCreateDatabase = "${rootPath}/scripts/create_game_database.sh"
+
+            log.debug "Running Script for Creating DataBase ${resourceInstance.uri}."
+            ant.sequential {
+                chmod(perm: "+x", file: scriptCreateDatabase)
+                exec(executable: scriptCreateDatabase) {
+                    arg(value: resourceInstance.uri)
+                }
+            }
 
             // Pré-processamento do código-fonte do jogo dependente do tipo
             if (resourceInstance.desktop && resourceInstance.comment != "test") {
