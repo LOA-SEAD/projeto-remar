@@ -11,9 +11,18 @@ class ThemeController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    def springSecurityService
+
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond Theme.list(params), model:[themeInstanceCount: Theme.count()]
+
+        if (params.t) {
+            session.taskId = params.t
+        }
+        session.user = springSecurityService.currentUser
+
+        def list = Theme.findAllByOwnerId(session.user.id)
+
+        render view: "index", model: [themeInstanceList: list, themeInstanceCount: list.size()]
     }
 
     def show(Theme themeInstance) {
@@ -31,12 +40,20 @@ class ThemeController {
             return
         }
 
-        if (themeInstance.hasErrors()) {
-            respond themeInstance.errors, view:'create'
+        def userId = session.user.getId()
+
+        def theme = new Theme(ownerId: userId, taskId: session.taskId).save flush: true
+
+        if (theme.hasErrors()) {
+            respond theme.errors, view:'create'
             return
         }
 
-        themeInstance.save flush:true
+        def dataPath = servletContext.getRealPath("/data")
+        def userPath = new File(dataPath, "/" + userId + "/themes/" + theme.getId())
+        userPath.mkdirs()
+
+        def backgroundUploaded = request.getFile('background')
 
         request.withFormat {
             form multipartForm {

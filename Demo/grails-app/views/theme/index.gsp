@@ -11,7 +11,6 @@
 		<a href="#list-theme" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
@@ -25,9 +24,7 @@
 					<tr>
 					
 						<g:sortableColumn property="ownerId" title="${message(code: 'theme.ownerId.label', default: 'Owner Id')}" />
-					
-						<g:sortableColumn property="processId" title="${message(code: 'theme.processId.label', default: 'Process Id')}" />
-					
+
 						<g:sortableColumn property="taskId" title="${message(code: 'theme.taskId.label', default: 'Task Id')}" />
 					
 					</tr>
@@ -37,8 +34,6 @@
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
 						<td><g:link action="show" id="${themeInstance.id}">${fieldValue(bean: themeInstance, field: "ownerId")}</g:link></td>
-					
-						<td>${fieldValue(bean: themeInstance, field: "processId")}</td>
 					
 						<td>${fieldValue(bean: themeInstance, field: "taskId")}</td>
 					
