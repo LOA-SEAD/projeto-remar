@@ -48,11 +48,8 @@ class ThemeController {
         def theme = new Theme()
 
         theme.ownerId = userId
-        //theme.taskId = session.taskId as String
 
         theme.save flush: true
-
-        println theme
 
         if (theme.hasErrors()) {
             respond theme.errors, view:'create'
