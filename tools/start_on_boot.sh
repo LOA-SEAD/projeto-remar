@@ -1,9 +1,9 @@
 #!/bin/bash
 
-REMAR_DIR=/home/hugo/projeto-remar
-DATA_FILE=$REMAR_DIR/data.vol
-METADATA_FILE=$REMAR_DIR/metadata.vol
-DOCKER_DIR=/srv/source/Docker
+REMAR_DIR=/home/delano/projeto-remar
+DATA_FILE=/home/delano/data.vol
+METADATA_FILE=/home/delano/metadata.vol
+DOCKER_DIR=$REMAR_DIR/Docker
 
 if [ ! -f $DATA_FILE ]; then
 	echo "Creating $DATA_FILE."
