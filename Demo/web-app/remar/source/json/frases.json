@@ -1,2 +1,5 @@
-{ "frases" : ["teste", "teste2", "teste3", "teste4" ]   
+{ "frases" : [{"frase" : "teste" , "autor": "admin"}, 
+              {"frase" : "teste2", "autor": "admin"},
+              {"frase" : "teste3", "autor": "admin"},
+	      {"frase" : "teste4", "autor": "admin"}]   
 }
