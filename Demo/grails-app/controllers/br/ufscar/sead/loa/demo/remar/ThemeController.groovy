@@ -28,10 +28,6 @@ class ThemeController {
         render view: "index", model: [themeInstanceList: list, themeInstanceCount: list.size()]
     }
 
-    def show(Theme themeInstance) {
-        respond themeInstance
-    }
-
     def create() {
         respond new Theme(params)
     }
@@ -58,7 +54,6 @@ class ThemeController {
 
         def dataPath = servletContext.getRealPath("/data")
         def userPath = new File(dataPath, "/" + userId + "/themes/" + theme.getId())
-        println userPath
         userPath.mkdirs()
 
         def backgroundUploaded = request.getFile('background')
@@ -69,52 +64,6 @@ class ThemeController {
         }
 
         redirect action: "index"
-    }
-
-    def edit(Theme themeInstance) {
-        respond themeInstance
-    }
-
-    @Transactional
-    def update(Theme themeInstance) {
-        if (themeInstance == null) {
-            notFound()
-            return
-        }
-
-        if (themeInstance.hasErrors()) {
-            respond themeInstance.errors, view:'edit'
-            return
-        }
-
-        themeInstance.save flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'Theme.label', default: 'Theme'), themeInstance.id])
-                redirect themeInstance
-            }
-            '*'{ respond themeInstance, [status: OK] }
-        }
-    }
-
-    @Transactional
-    def delete(Theme themeInstance) {
-
-        if (themeInstance == null) {
-            notFound()
-            return
-        }
-
-        themeInstance.delete flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'Theme.label', default: 'Theme'), themeInstance.id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
     }
 
     def finish() {
