@@ -86,7 +86,9 @@
 
 <g:javascript>
     $(document).ready(function() {
-        $('.rating-field').ratingField('init');
+        $('.rating-field').each(function() {
+            $(this).ratingField('init');
+        });
     });
 </g:javascript>
 

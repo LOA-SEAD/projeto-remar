@@ -175,7 +175,7 @@
 											<p class="title">${rating.user.firstName} <small>- <g:formatDate format="HH:mm" date="${rating.date}"/></small></p>
 										</g:else>
 										<p class="rating-desc">${rating.comment}</p>
-										<div id="rateYo${rating.id}" class="left rating-stars" style="display: inline-block;" data-stars="${rating.stars}"
+										<div id="rateYo${rating.id}" class="left rating-stars" style="display: inline-block;" data-stars="${rating.stars * 2}"
 											 data-rating-id="${rating.id}" data-medium-stars="" data-sum-users="">
 										</div>
 										<p class="stars-font">(0)</p>

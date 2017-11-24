@@ -9,34 +9,55 @@
 (function ($) {
 
     var fsmConfigs = {};
+    var fsmStateStacks = {};
 
-    $.fn.finiteStateMachine = function (action_or_settings) {
+    $.fn.finiteStateMachine = function (action_or_settings, params) {
         var settings = fsmConfigs[this];
-        var $curr_state;
+        var stateStack = fsmStateStacks[this];
+        var $fsm = this;
+        var $curr_state = this.find('.active-state');
 
         switch (action_or_settings) {
             case 'reload':
                 if (settings) {
-                    var $fsm = this;
-                    var $fsmClone = this.clone();
-
                     $fsm.find(settings.nextSelector)
                         .unbind();
+
                     $fsm.find(settings.prevSelector)
                         .unbind();
+
                     $fsm.find('.active-state')
                         .removeClass('active-state');
 
-                    $fsmClone
-                        .insertAfter($fsm)
+                    $fsm.clone()
+                        .insertAfter(this)
                         .finiteStateMachine(settings);
 
-                    $fsm
-                        .remove();
+                    $fsm.remove();
+
+                    return 0;
+                } else {
+                    return 1;
                 }
                 break;
             case 'getCurrentState':
-                return this.find('.active-state');
+                return $fsm.data('curr_state');
+                break;
+            case 'changeState':
+                if (!settings.linear) {
+                    do {
+                        var $state = stateStack.pop();
+
+                        if ($state.data('state') == params) {
+                            changeState($state);
+                            return 0;
+                        }
+                    } while ($state != null);
+
+                    return 1;
+                } else {
+                    // TODO
+                }
                 break;
             default:
                 // Set the default options
@@ -56,7 +77,6 @@
                 // Merge the user defined options with the default options
                 settings = $.extend(defaults, action_or_settings);
 
-                var $fsm         = this;
                 var $states      = $fsm.find(settings.stateSelector);
                 var $next_button = $(settings.nextSelector);
                 var $prev_button = $(settings.prevSelector);
@@ -126,7 +146,8 @@
                 } else {
                     // Complex machine behavior
                     var $prev_state = null;
-                    var stateStack  = [];
+
+                    fsmStateStacks[$fsm] = stateStack = [];
 
                     $curr_state = $fsm.find(settings.initialSelector);
                     $curr_state.show().addClass('active-state');
@@ -141,14 +162,18 @@
                         $prev_button.prop('disabled', false);
 
                         var next_state = window[$curr_state.data('evaluator')]();
-                        $curr_state.fadeOut(settings.fadeSpeed, function () {
-                            changeState(getState(next_state));
+                        var $next_state = getState(next_state);
 
-                            if ($(settings.finalSelector).is($curr_state))
-                                $next_button.prop('disabled', true);
+                        if ($next_state.length > 0) {
+                            $curr_state.fadeOut(settings.fadeSpeed, function () {
+                                changeState($next_state);
 
-                            reportChangeButtons();
-                        });
+                                if ($(settings.finalSelector).is($curr_state))
+                                    $next_button.prop('disabled', true);
+
+                                reportChangeButtons();
+                            });
+                        }
                     });
 
                     $prev_button.click(function () {
@@ -201,6 +226,7 @@
             } else if ($prev_state.hasClass('fsm-final')) {
                 fadeInOut($('#report-fsm-finish'), $('#report-fsm-next'));
             } else if ($curr_state.hasClass('fsm-initial')) {
+
                 $('#report-fsm-prev').hide();
                 $('#report-fsm-next').hide();
             } else if ($curr_state.hasClass('fsm-final')) {

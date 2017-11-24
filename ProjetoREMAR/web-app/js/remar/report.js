@@ -3,41 +3,46 @@
  */
 
 $(document).ready(function () {
-    $('#report-fsm-cancel').click(resetFormStateMachine);
+    $('textarea', '#report-form').characterCounter();
+
+    $('#report-form.fsm', '#report-modal').finiteStateMachine({
+        nextSelector: '.report-fsm-next',
+        prevSelector: '#report-fsm-prev'
+    });
 
     $('#ss-btn').click(initHTML2canvas);
 
-    $('#report-modal form').on('submit', function (e) {
-        // catch submit event and prevent it, not refreshing the page
-        e.preventDefault();
-
-        $.ajax({
-            url    : $(this).attr('action'),
-            type   : 'POST',
-            data   : {
-                type: $('[type="radio"]:checked', '#report-modal').val(),
-                description: $('[name="description"]', '#report-modal').val(),
-                url: window.location.href,
-                browser: detectBrowser(),
-                screenshot: $('#img-val', '#report-modal').val()
-            }
-        });
+    $('#report-fsm-cancel').click(function() {
+        resetFormStateMachine();
     });
 
-    $('#report-fsm-finish').click(function() {
-        $('#report-modal form').submit();
-        resetFormStateMachine();
+    $('#report-fsm-prev').click(function() {
+        // If it comes from state 2, it means that we are now at the initial state
+        // So reload the machine
+        if ($('.active-state', '#report-form').data('state') == 2) {
+            $('#report-form').fadeOut(function() {
+                resetFormStateMachine();
+            });
+        }
     });
 });
 
-function initHTML2canvas() {
-    var el = $('#target').get(0);
+$.fn.copy = function () {
+    var $clone = this.clone();
 
+    $clone.insertAfter(this);
+    this.remove();
+
+    return $clone;
+};
+
+function initHTML2canvas() {
     $('#sidenav-overlay').attr('data-html2canvas-ignore', 'true');
     $('.lean-overlay').attr('data-html2canvas-ignore', 'true');
     $('.drag-target').attr('data-html2canvas-ignore', 'true');
 
-    html2canvas(el, {
+    html2canvas(document.body, {
+        type: 'view',
         onrendered: function (canvas) {
             $('#img-val').val(canvas.toDataURL('image/png'));
             $('div.screenshot-preview', '#report-form').html(canvas);
@@ -46,13 +51,46 @@ function initHTML2canvas() {
 }
 
 function resetFormStateMachine() {
-    $('#report-modal .fsm').finiteStateMachine('reload');
-    $('#report-modal #report-fsm-finish').hide();
-    $('#report-modal #report-fsm-next').hide();
-    $('#report-modal #report-fsm-prev').hide();
-    $('#report-modal canvas').addClass('screenshot-preview-placeholder');
+    // Reload buttons
+    $('#report-fsm-prev').copy()
+        .hide()
+        .click(function() {
+            if ($('.active-state', '#report-form').data('state') == 2) {
+                $('#report-form').fadeOut(function () {
+                    resetFormStateMachine();
+                });
+            }
+        });
+    $('#report-fsm-next').copy()
+        .hide();
+    $('#report-fsm-finish').hide();
 
-    $('#ss-btn').click(initHTML2canvas);
+    // Reload form state machine
+    $('#report-form').finiteStateMachine('reload');
+
+    // New canvas
+    $('canvas', '#report-modal').remove();
+    $('.screenshot-preview', '#report-modal').append('<canvas class="screenshot-preview-placeholder" width="1855" height="985"></canvas>');
+    $('canvas', '#report-modal').addClass('screenshot-preview-placeholder');
+
+    // Reinitialize screenshot button
+    $('#ss-btn')
+        .unbind()
+        .click(initHTML2canvas);
+
+    // Clear fields
+    $('textarea', '#report-form').val('');
+
+
+    // GAMBIARRA
+    $('.fsm-initial', '#report-form').removeAttr('style');
+    $('#report-final-message').removeClass('hide');
+    $('#report-modal .modal-footer').removeClass('hide');
+    $('#report-loading').addClass('hide');
+    $('.error-box', '#report-form').addClass('hide');
+    // END OF GAMBIARRA
+
+    $('#report-form').fadeIn();
 }
 
 function detectBrowser() {
@@ -78,6 +116,7 @@ function fsmEval() {
     // 2 - Description
     // 3 - Screenshot
     // 4 - Finish
+    // X - Non-existent: do nothing
     switch ($('#report-form').finiteStateMachine('getCurrentState').data('state')) {
         case 1:
             return 2;
@@ -88,5 +127,35 @@ function fsmEval() {
                 return 3;
         case 3:
             return 4;
+        case 4:
+            if ($('[name="description"]', '#report-modal').val() == '') {
+                $('.error-box', '#report-form').removeClass('hide');
+                return 2;
+            } else {
+                $('#report-final-message').addClass('hide');
+                $('.modal-footer', '#report-modal').addClass('hide');
+                $('#report-loading').removeClass('hide');
+
+                // send information via ajax
+                $.ajax({
+                    url    : $('#report-form').parent().attr('action'),
+                    type   : 'POST',
+                    data   : {
+                        type       : $('[type="radio"]:checked', '#report-modal').val(),
+                        description: $('[name="description"]', '#report-modal').val(),
+                        url        : window.location.href,
+                        browser    : detectBrowser(),
+                        screenshot : $('#img-val', '#report-modal').val()
+                    },
+                    success: function (resp) {
+                        // On success, just close modal and reset it afterwards
+                        $('#report-modal').closeModal();
+                        resetFormStateMachine();
+                    }
+                });
+
+                return 'x';
+            }
+            break;
     }
 }

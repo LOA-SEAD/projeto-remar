@@ -7,11 +7,8 @@ $(document).ready(function () {
     $('.material-select').material_select();
     $('.materialboxed').materialbox();
     $('.button-collapse').sideNav();
-    $('.modal-trigger').leanModal();
-
-    $('.fsm').finiteStateMachine({
-        nextSelector: '.report-fsm-next',
-        prevSelector: '#report-fsm-prev'
+    $('.modal-trigger').leanModal({
+        dismissible: false
     });
 });
 

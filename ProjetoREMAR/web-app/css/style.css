@@ -999,7 +999,6 @@ span.card-title {
 
 /* Error Box */
 .error-box, .warning-box, .success-box {
-    margin: 10px 15px;
     padding: 12px;
     text-align: left;
 }
@@ -1147,7 +1146,64 @@ nav ul li a img { margin-top: 0; }
 #report-form .screenshot-preview .screenshot-preview-placeholder {
     background-color: lightgrey;
 }
+
+#report-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20vh;
+}
 /* End of report form */
+
+/* Loading Spinner */
+.spinner.outer {
+    position: absolute;
+    display: block;
+    height: 65px;
+    width: 99px;
+
+    -webkit-animation: spin 1.5s linear infinite;
+    -moz-animation: spin 1.5s linear infinite;
+    animation: spin 1.5s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    50% {
+        -webkit-transform: rotate(180deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@-moz-keyframes spin {
+    0% {
+        -moz-transform: rotate(0deg);
+    }
+    50% {
+        -moz-transform: rotate(180deg);
+    }
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* End of loading spinner */
 
 /* Screensize specific styles */
     /* Small Screen */

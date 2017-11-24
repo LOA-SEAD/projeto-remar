@@ -8,21 +8,29 @@ class ReportController {
 
     def index() {
         def reports = Report.list(sort: "date")
-
-
     }
 
     @Transactional
     save() {
         def reportInstance = new Report()
+
+        // Check if description is not empty
+        if (!params.description || params.description.allWhitespace) {
+            // 422: Unprocessable Entity -> server understands action, understands data but don't let it be processed
+            render status: 422
+            return
+        } else {
+            reportInstance.description = params.description
+        }
+
         reportInstance.who = User.findById(springSecurityService.getCurrentUser().getId())
         reportInstance.date = new Date()
         reportInstance.url = params.url
-        reportInstance.description = params.description
         reportInstance.type = params.type
         reportInstance.browser = params.browser
         reportInstance.seen = false
         reportInstance.screenshot = (params.screenshot) ? true : false
+
         reportInstance.save flush:true
 
         if (reportInstance.screenshot) {
@@ -49,6 +57,8 @@ class ReportController {
 
             log.debug reportInstance.id + " screenshot saved"
         }
+
+        render status:200
     }
 
     @Transactional

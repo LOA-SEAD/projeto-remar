@@ -91,14 +91,14 @@ $.fn.ratingField = function(opt) {
             var rating = $(this).data('score');
 
             for (i = 1; i <= rating; i++) {
-                $('.score-icon:nth-child(' + i + ')')
+                $('.score-icon:nth-child(' + i + ')', $field)
                 .html('star')
                 .removeClass(bgClass)
                 .addClass(newClass);
             }
 
             for (i = rating + 1; i <= 5; i++) {
-                $('.score-icon:nth-child(' + i + ')')
+                $('.score-icon:nth-child(' + i + ')', $field)
                 .html((userRating >= i) ? 'star' : 'star_border')
                 .removeClass(newClass)
                 .addClass((userRating >= i) ? scoreClass : bgClass);

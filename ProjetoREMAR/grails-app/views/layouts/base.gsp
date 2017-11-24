@@ -33,7 +33,7 @@
         <g:layoutHead/>
     </head>
 
-    <body id="target">
+    <body id="html2canvas-target">
         <g:layoutBody/>
 
         %{-- Trigger is in menu.gsp --}%
@@ -49,7 +49,7 @@
 
                 <div class="modal-footer">
                     <a id="report-fsm-finish" href="#!"
-                       class="modal-close btn waves-effect waves-light remar-orange hidden">
+                       class="report-fsm-next btn waves-effect waves-light remar-orange hidden">
                         <g:message code="default.button.submit.label"/>
                     </a>
                     <a id="report-fsm-next" href="#!"
