@@ -208,17 +208,22 @@ $(function(){
                             '<br />Existem jogos customizados a partir desse modelo.</p>');
                         Materialize.toast($toastContent, 4000);
                         break;
+
                     case "pendingProcessError":
                         var $toastContent = $('<p style="line-height: 20px;"><strong>Não foi possível excluir!</strong>' +
                             '<br />Existem jogos em customização a partir desse modelo.</p>');
                         Materialize.toast($toastContent, 4000);
                         break;
+
                     default:
+                        var $toastContent = $('<p>Modelo de jogo removido com sucesso!</p>');
+                        Materialize.toast($toastContent, 4000);
                         $("#card-id-"+id).remove();
                 }
             },
             error: function(req, status, err) {
                 console.log(req.responseText);
+                console.log("deu erro");
             }
         })
     });

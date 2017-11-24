@@ -167,6 +167,7 @@ class ExportedResourceController {
         def exportsTo = [:]
         def handle = [:]
         def groupsIOwn = Group.findAllByOwner(session.user)
+        exportsTo.web = instance.resource.web
         exportsTo.desktop = instance.resource.desktop
         exportsTo.android = instance.resource.android
         exportsTo.moodle = instance.resource.moodle

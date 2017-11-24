@@ -153,6 +153,11 @@ span.description-error{
 footer.page-footer {
     padding: 10px 0;
     background-color: #5D4037;
+    Position: fixed;
+    bottom: 0;
+    Left: 0;
+    Width: 100%;
+    z-index: 998;
 }
 
 footer.page-footer p {
@@ -1067,7 +1072,7 @@ span.card-title {
 }
 
 .pager {
-    justify-content: flex-end;
+    justify-content: center;
 }
 
 .pagination li a {
@@ -1363,3 +1368,11 @@ nav ul li a img { margin-top: 0; }
         }
     }
 /* End of screensize specific styles */
+
+#static-slider {
+     background-color: #ffffff;
+}
+
+#static-slider h3, #static-slider h5 {
+     color: #333333;
+}

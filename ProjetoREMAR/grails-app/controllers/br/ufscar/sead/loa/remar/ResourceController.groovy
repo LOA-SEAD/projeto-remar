@@ -218,6 +218,15 @@ class ResourceController {
             def rootPath = servletContext.getRealPath('/')
             def scriptElectron = "${rootPath}/scripts/electron/build.sh"
             def scriptUnity = "${rootPath}/scripts/unity/decompress.sh"
+            def scriptCreateDatabase = "${rootPath}/scripts/create_game_database.sh"
+
+            log.debug "Running Script for Creating DataBase ${resourceInstance.uri}."
+            ant.sequential {
+                chmod(perm: "+x", file: scriptCreateDatabase)
+                exec(executable: scriptCreateDatabase) {
+                    arg(value: resourceInstance.uri)
+                }
+            }
 
             // Pré-processamento do código-fonte do jogo dependente do tipo
             if (resourceInstance.desktop && resourceInstance.comment != "test") {
@@ -586,6 +595,37 @@ class ResourceController {
         render Resource.findByName(params.name)
     }
 
+    @Transactional
+    importData() {
+        CommonsMultipartFile file = request.getFile("spreadsheet-file")
+        def dataFill = []
+
+        if (!file.empty) {
+            switch (file.contentType) {
+                case "application/vnd.ms-excel":
+                case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+                    ///ExcelUtil converter = new ExcelUtil()
+                    converter.getObjectsFromExcelFile(file).each {
+                        dataFill.add(it)
+                    }
+                    break
+                case "text/csv":
+                    Util.readCSV(file, ';', 'UTF-8').each {
+                        dataFill.add(it)
+                    }
+                    break
+                default:
+                    flash.message = g.message("Erro de importação de conteúdo")
+                    //flash.message = g.message(code: "admin.users.import.error.contentType")
+                    break
+            }
+        } else {
+            flash.message = g.message("Arquivo vazio")
+            //flash.message = g.message(code: "default.errors.fileEmpty")
+        }
+
+        render dataFill as JSON
+    }
 
 
 }

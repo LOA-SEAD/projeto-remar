@@ -17,6 +17,12 @@
 	</div>
 	<div class="row">
 		<div class="input-field col s12">
+			<textarea id="info" class="materialize-textarea" length="250" name="info">${resourceInstance?.info}</textarea>
+			<label for="info">Info</label>
+		</div>
+	</div>
+	<div class="row">
+		<div class="input-field col s12">
 			<textarea id="customizableItems" class="materialize-textarea" name="customizableItems" required >${resourceInstance?.customizableItems}</textarea>
 			<label for="customizableItems">Itens customizáveis <span class="required-indicator">*</span></label>
 		</div>

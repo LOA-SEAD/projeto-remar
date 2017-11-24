@@ -1,0 +1,3 @@
+# $1 = database_name
+
+mysql -u$MYSQL_USER -p$MYSQL_ROOT_PASSWORD -hmysql -e "CREATE DATABASE IF NOT EXISTS $1 DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci; GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'";

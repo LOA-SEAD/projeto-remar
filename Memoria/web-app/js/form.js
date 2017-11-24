@@ -40,6 +40,17 @@ $(document).ready(function() {
     $("img.edit").materialbox().each(function() {
        resizeImageOrientationWise($(this), 180, 180);
     });
+
+
+    $('#back').click(function() {
+        var getUrl = window.location;
+        var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+
+        window.location.href = baseUrl + "/tile/index";
+
+    });
+
+
 });
 
 // function used in image preview
@@ -63,13 +74,18 @@ function readURL($input, previewTarget) {
 }
 
 function resizeImageOrientationWise($el, height, width) {
-    if ($el.width() > $el.height()) {
-        // landscape
-        $el.removeAttr('height');
-        $el.attr('width', width);
-    } else {
-        //portrait or square
-        $el.removeAttr('width');
-        $el.attr('height', height);
-    }
+
+    // note that it must be $.attr instead of $.css because of materialize materialbox
+    $el.on('load', function(){
+        var eWidth = $el.width();
+        var eHeight = $el.height();
+
+        if (eWidth > eHeight) {
+            // landscape
+            $el.attr('width', width);
+        } else {
+            //portrait
+            $el.attr('height', height);
+        }
+    });
 }

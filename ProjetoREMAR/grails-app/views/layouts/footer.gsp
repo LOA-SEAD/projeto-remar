@@ -30,7 +30,7 @@
                         <i class="fa fa-facebook-official"></i>
                     </a>
 
-                    <a class="grey-text text-lighten-3" href="https://github.com/LOA-SEAD">
+                    <a class="grey-text text-lighten-3" href="https://www.youtube.com/user/loaufscar">
                         <i class="fa fa-youtube"></i>
                     </a>
 
@@ -46,3 +46,4 @@
         </div>
     </div>
 </footer>
+

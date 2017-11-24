@@ -38,20 +38,20 @@
         </div>
         <div class="col s6">
             <div class="row file-field input-field">
-                <div class="col s2 btn right remar-orange">
+                <div class="col s3 btn right remar-orange">
                     <span><g:message code="tile.create.fileButton"/></span>
                     <input data-image="true" type="file" name="tile-a" class="previewed-image" data-preview-target="a-preview">
                 </div>
-                <div class="col s10 file-path-wrapper">
+                <div class="col s9 file-path-wrapper">
                     <input ${edit ? '' : 'required'} class="file-path validate remar-input" type="text" placeholder="${message(code:'tile.create.tileA')}">
                 </div>
             </div>
             <div class="row file-field input-field">
-                <div class="col s2 btn right remar-orange">
+                <div class="col s3 btn right remar-orange">
                     <span><g:message code="tile.create.fileButton"/></span>
                     <input data-image="true" type="file" name="tile-b" class="previewed-image remar-input" data-preview-target="b-preview">
                 </div>
-                <div class="col s10 file-path-wrapper">
+                <div class="col s9 file-path-wrapper">
                     <input ${edit ? '' : 'required'} class="file-path validate remar-input" type="text" placeholder="${message(code:'tile.create.tileB')}">
                 </div>
             </div>
@@ -88,6 +88,8 @@
 </div>
 
 <div class="row right-align">
+    <a id="back" name="back" class="btn btn-success remar-orange">${message(code:'tile.create.backButton')}</a>
+
     <input id="upload" type="submit" name="upload" class="btn btn-success remar-orange" value="${message(code:'tile.create.sendButton')}"/>
 </div>
 

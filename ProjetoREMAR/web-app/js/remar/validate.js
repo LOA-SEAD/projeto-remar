@@ -47,6 +47,7 @@ function validateSubmit(){
                 //formData.append('id', $(this).data('id'));
                 formData.append('name', document.getElementById("name").value);
                 formData.append('description', document.getElementById("description").value);
+                formData.append('info', document.getElementById("info").value);
                 formData.append('documentation', document.getElementById("documentation").value);
                 formData.append('customizableItems', document.getElementById("customizableItems").value);
                 formData.append('videoLink', document.getElementById("videoLink").value);

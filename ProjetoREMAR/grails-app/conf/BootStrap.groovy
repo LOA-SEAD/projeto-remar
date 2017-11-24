@@ -109,7 +109,8 @@ class BootStrap {
         RequestMap.findOrSaveByUrlAndConfigAttribute('/frame/**', 'IS_AUTHENTICATED_FULLY')
 
         for (url in [
-                '/', '/index', '/index/project', '/index/info', '/doc/**', '/assets/**',
+                '/', '/index', '/index/apresentacao', '/index/arquitetura', '/index/equipe', '/index/publicacoes',
+                '/index/contato', '/doc/**', '/assets/**',
                 '/exportedResource/publicGames', '/exported-resource/searchGameByCategoryAndName', '/**/js/**', '/**/css/**',
                 '/**/images/**', '/**/favicon.ico', '/data/**', '/**/scss/**', '/**/less/**', '/**/fonts/**',
                 '/**/font/**', '/password/**', '/moodle/**', '/exportedGame/**', '/static/**', '/login/**',
