@@ -20,7 +20,7 @@ class ProcessController {
         def process
         def ant = new AntBuilder()
 
-        params.uri = params.id
+        //params.uri = params.id
         def logMsg = "pi-${session.user.username}"
         log.debug "${logMsg} STARTED; uri: ${params.uri}"
 
@@ -46,7 +46,8 @@ class ProcessController {
         process.putVariable("resourceId", resource.id as String, true)
         process.putVariable("tasksSendToDspace", null, true)
 
-        redirect uri: "/process/overview/${process.id}"
+        render text: "/process/overview/${process.id}"
+
         log.debug "${logMsg} ENDED; success – redirecting to overview"
     }
 

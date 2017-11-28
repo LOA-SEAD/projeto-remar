@@ -16,9 +16,8 @@
 <body>
     <div class="row cluster">
         <div class="cluster-header">
-            <p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 24px;">
-               Customizar
-            </p>
+            <h4>Customizar</h4>
+
             <div class="divider"></div>
         </div>
         <div class="row search">
