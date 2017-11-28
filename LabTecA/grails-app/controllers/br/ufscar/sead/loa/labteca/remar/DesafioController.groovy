@@ -9,16 +9,29 @@ import grails.util.Environment
 @Transactional(readOnly = true)
 @Secured(["isAuthenticated()"])
 class DesafioController {
-    def springSecurityService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+
+    def beforeInterceptor = [action: this.&check, only: ['index']]
+
+    def springSecurityService
+
+    private check() {
+        if (springSecurityService.isLoggedIn())
+            session.user = springSecurityService.currentUser
+        else {
+            log.debug "Logout: session.user is NULL !"
+            session.user = null
+            redirect controller: "login", action: "index"
+
+            return false
+        }
+    }
 
     def index(Integer max) {
         if (params.t) session.taskId = params.t
 
         if (params.p) session.processId = params.p
-
-        session.user = springSecurityService.currentUser
 
         def compostos = Composto.findAll()
         def tipos = [Composto.SAL, Composto.BASE, Composto.ACIDO, Composto.ORGANICO, Composto.ETC]

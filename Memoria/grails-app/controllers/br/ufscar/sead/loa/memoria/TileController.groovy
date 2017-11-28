@@ -10,13 +10,26 @@ import grails.transaction.Transactional
 @Secured(['isAuthenticated()'])
 class TileController {
 
+    def beforeInterceptor = [action: this.&check, only: ['index']]
+
     def springSecurityService
+
+    private check() {
+        if (springSecurityService.isLoggedIn())
+            session.user = springSecurityService.currentUser
+        else {
+            log.debug "Logout: session.user is NULL !"
+            session.user = null
+            redirect controller: "login", action: "index"
+
+            return false
+        }
+    }
 
     def index() {
         if (params.t) {
             session.taskId = params.t
         }
-        session.user = springSecurityService.currentUser
 
         render view: "index"
     }
