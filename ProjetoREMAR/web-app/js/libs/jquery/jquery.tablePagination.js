@@ -39,18 +39,20 @@ $.fn.pageMe = function(opts) {
 
     $pager.data("curr", 1);
 
-    if (settings.showPrevNext) {
-        $('<li class="prev_link"><a href="#!" title="' + settings.prevText + '"><i class="material-icons">chevron_left</i></a></li>').appendTo($pager);
-    }
+    if(numPages > 1) {
+        if (settings.showPrevNext) {
+            $('<li class="prev_link"><a href="#!" title="' + settings.prevText + '"><i class="material-icons">chevron_left</i></a></li>').appendTo($pager);
+        }
 
-    var curr = 0;
-    while (numPages > curr && (settings.hidePageNumbers == false)) {
-        $('<li class="page_link waves-effect waves-light"><a href="#!">' + (curr + 1) + '</a></li>').appendTo($pager);
-        curr++;
-    }
+        var curr = 0;
+        while (numPages > curr && (settings.hidePageNumbers == false)) {
+            $('<li class="page_link waves-effect waves-light"><a href="#!">' + (curr + 1) + '</a></li>').appendTo($pager);
+            curr++;
+        }
 
-    if (settings.showPrevNext) {
-        $('<li class="next_link"><a href="#!" title="' + settings.nextText + '"><i class="material-icons">chevron_right</i></a></li>').appendTo($pager);
+        if (settings.showPrevNext) {
+            $('<li class="next_link"><a href="#!" title="' + settings.nextText + '"><i class="material-icons">chevron_right</i></a></li>').appendTo($pager);
+        }
     }
 
     $pager.find('.page_link:first').addClass('active');

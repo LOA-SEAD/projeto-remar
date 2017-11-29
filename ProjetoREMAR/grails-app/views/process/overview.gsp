@@ -11,13 +11,18 @@
     <title>Customizando Jogo</title>
 </head>
 <body>
+
+<div class="row show">
+
+</div>
+
 <div class="row cluster">
-    <div class="cluster-header">
-        <p id="start" class="text-teal text-darken-3 left-align margin-bottom">
-            <i class="small material-icons left">list</i>Etapas de customização
-        </p>
+
+    <div class="row cluster-header">
+        <h4 id="start">Etapas de customização - Modelo de jogo <strong>${process.definition.name}</strong></h4>
         <div class="divider"></div>
     </div>
+
     <div class="row show">
         <article class="row">
             <g:if test="${params.toast}">
@@ -26,13 +31,9 @@
                 </script>
             </g:if>
             <div class="subtitle space">
-                <h3 class="text-teal text-darken-3 center truncate">
-                    ${process.definition.name}
-                </h3>
-                <h5 class="center date">
-                    <i class="fa fa-clock-o"></i> Iniciado em <g:formatDate format="dd/MM/yy HH:mm"
-                                                                            date="${process.createdAt}"/>
-                </h5>
+                <p class="date">
+                    <i class="fa fa-clock-o"></i> Customização iniciada em: <g:formatDate format="dd/MM/yy HH:mm" date="${process.createdAt}"/>
+                </p>
             </div>
             <div class="row">
                 <p>
@@ -42,13 +43,13 @@
             <g:form action="finish" method="POST">
                 <ul class="collapsible popout" data-collapsible="accordion">
                     <!-- 1 Etapa - informações básicas -->
-                    <li>
-                    <g:if test="${!process.getVariable("updated")}">
-                        <div class="collapsible-header active">Informações básicas</div>
-                    </g:if>
-                    <g:else>
-                        <div class="collapsible-header">Informações básicas</div>
-                    </g:else>
+                    <li class="no-margin" style="width: 100% !important">
+                        <g:if test="${!process.getVariable("updated")}">
+                            <div class="collapsible-header active">Informações básicas</div>
+                        </g:if>
+                        <g:else>
+                            <div class="collapsible-header">Informações básicas</div>
+                        </g:else>
 
                         <div id="info" class="collapsible-body"
                              data-basic-info="${process.getVariable("updated")}">
@@ -63,11 +64,11 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col s2 m2 l2 img-preview">
-                                    <img id="img1Preview" class="materialboxed my-orange" width="100" height="100" src="/data/processes/${process.id}/banner.png?${new java.util.Date()}" />
+                                <div class="col s12 m2 l2 img-preview">
+                                    <img id="img1Preview" class="materialboxed my-orange" width="180" height="180" src="/data/processes/${process.id}/banner.png?${new java.util.Date()}" />
                                     <span style="font-size: 0.8rem">180 x 180 pixels</span>
                                 </div>
-                                <div class="col s8 offset-s2 m10 l10">
+                                <div class="col s12 m10 l10">
                                     <div class="file-field input-field">
                                         <div id="file" class="btn waves-effect waves-light my-orange">
                                             <span>Arquivo</span>
@@ -92,7 +93,7 @@
                 <!-- Fim 1 Etapa - informações básicas -->
                     <g:if test="${process.getVariable("showTasks")}">
                         <!-- 2 Etapa - tarefas -->
-                        <li>
+                        <li class="no-margin" style="width: 100% !important">
                             <g:if test="${tasks.size() != 0}">
                                 <div id="tasks-header-sim" class="collapsible-header active">
                             </g:if>
@@ -100,18 +101,18 @@
                                 <div id="tasks-header-nao" class="collapsible-header">
                             </g:else>
 
-                                Tarefas
-                                <g:if test="${process.getVariable("hasOptionalTasks")}">
-                                    <br/>
-                                    <tr>
-                                        <td colspan="2">
-                                            <span>
-                                                Atenção: Tarefas marcadas com <span class="required-indicator">*</span> são obrigatórias
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </g:if>
-                            </div>
+                            Tarefas
+                            <g:if test="${process.getVariable("hasOptionalTasks")}">
+                                <br/>
+                                <tr>
+                                    <td colspan="2">
+                                        <span>
+                                            Atenção: Tarefas marcadas com <span class="required-indicator">*</span> são obrigatórias
+                                        </span>
+                                    </td>
+                                </tr>
+                            </g:if>
+                        </div>
                             <div class="collapsible-body">
                                 <main id="tasks"
                                       data-all-tasks-completed="${process.status == br.ufscar.sead.loa.propeller.domain.ProcessInstance.STATUS_ALL_TASKS_COMPLETED}">

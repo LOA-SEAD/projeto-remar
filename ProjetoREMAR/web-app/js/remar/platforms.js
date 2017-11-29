@@ -209,9 +209,7 @@ $(function () {
         // Remove "link" from the ID
         id = id.replace("link", "");
         // Scroll
-        $('html,body').animate({
-                scrollTop: $("#"+id).offset().top},
-            'slow');
+        $('html,body').animate({ scrollTop: $("#"+id).offset().top}, 'slow');
     }
 
     if(tasks.data("all-tasks-completed") != null &&
