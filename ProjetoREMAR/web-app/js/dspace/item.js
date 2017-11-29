@@ -52,4 +52,7 @@ $(document).ready(function () {
             '  </div>');
     });
 
+    $('.remove-author').on('click', function(){
+        $(this).parent().remove()
+    });
 });
