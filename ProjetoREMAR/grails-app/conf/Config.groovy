@@ -58,7 +58,7 @@ grails {
 grails.converters.encoding = "UTF-8"
 grails.converters.json.default.deep = true
 // scaffolding templates configuration
-//grails.scaffolding.templates.domainSuffix = 'Instance'    
+//grails.scaffolding.templates.domainSuffix = 'Instance'
 grails.web.disable.multipart = true
 // twitter bootstrap
 grails.plugins.twitterbootstrap.fixtaglib = true
@@ -139,7 +139,7 @@ environments {
                 appender new DailyRollingFileAppender(
                         name: 'dailyAppender',
                         datePattern: "'.'yyyy-MM-dd",  // See the API for all patterns.
-                        fileName: "../logs/${grails.util.Metadata.current.'app.name'}.log",
+                        fileName: "${System.properties['catalina.home']}/logs/${grails.util.Metadata.current.'app.name'}.log",
                         layout: pattern(conversionPattern: '%d [%p] %c{2} - %m%n'))
                 console name: "stdout" // TODO: define a pattern/layout
             }
