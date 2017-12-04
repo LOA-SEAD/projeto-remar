@@ -604,7 +604,7 @@ class ResourceController {
             switch (file.contentType) {
                 case "application/vnd.ms-excel":
                 case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
-                    ///ExcelUtil converter = new ExcelUtil()
+                    ExcelUtil converter = new ExcelUtil()
                     converter.getObjectsFromExcelFile(file).each {
                         dataFill.add(it)
                     }

@@ -1018,6 +1018,11 @@ span.card-title {
     background-color: #FEEFB3;
 }
 
+.success-box {
+    color: #3c763d;
+    background-color: #dff0d8;
+}
+
 .error-box i, .warning-box i, .success-box i {
     margin: 0px 22px;
     font-size: 18px;
@@ -1048,6 +1053,28 @@ span.card-title {
 .warning-box .btn-flat:focus {
     background-color: transparent !important;
 }
+
+.success-box .btn-flat {
+    height: auto;
+    line-height: unset;
+    color: #3C763D;
+    font-weight: 600;
+
+    -webkit-transition: color 0.3s ease;
+    -moz-transition: color 0.3s ease;
+    -ms-transition: color 0.3s ease;
+    -o-transition: color 0.3s ease;
+    transition: color 0.3s ease;
+}
+
+.success-box .btn-flat:hover {
+    color: #4CAF50;
+}
+
+.success-box .btn-flat:focus {
+    background-color: transparent !important;
+}
+
 /* End of Error Box */
 
 
