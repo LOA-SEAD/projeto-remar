@@ -9,6 +9,7 @@
             <g:each in="${resourceInstanceList}" var="resourceInstance">
                 <div id="card${resourceInstance.id}" data-instance_id="${resourceInstance.id}" class="col l2 m4 s6 fullCard">
                     <div class="card hoverable">
+
                         <div class="card-image waves-effect waves-light">
                             <a href="/resource/show/${resourceInstance.id}">
                                 <img alt="${resourceInstance.name}" src="/images/${resourceInstance.uri}-banner.png">

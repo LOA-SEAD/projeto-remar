@@ -5,35 +5,67 @@
         <input type="hidden" id="cardStatus${i}" value="${resourceInstance.status}">
 
         <div id="card${i}" class="card hoverable card-developer">
+
             <div class="card-image">
                 <a href="edit/${resourceInstance.id}">
-                <img id="image${resourceInstance.id}" alt="${resourceInstance.name}" class=""  src="/images/${resourceInstance.uri}-banner.png">
+                    <img id="image${resourceInstance.id}" alt="${resourceInstance.name}" class=""  src="/images/${resourceInstance.uri}-banner.png">
                 </a>
             </div>
+
             <div class="card-content">
-                <a class="title truncate" title="${resourceInstance.name}" aria-hidden="true" tabindex="-1" >${resourceInstance.name}</a>
-                <p style="font-size: 1.0em;" class="center">Feito por:
-                    <a href="#user-details-modal" id="user-id-${resourceInstance.owner.id}" class="user-profile"
-                       data-user-id="${resourceInstance.owner.id}">
+                <span class="card-title flow-text grey-text text-darken-4 valign-wrapper no-padding"
+                      data-category="${resourceInstance.category.id}" title="${resourceInstance.name}">
+                    <p class="truncate no-margin">${resourceInstance.name}</p>
+                </span>
+
+                <div class="divider"></div>
+
+                <span class="truncate">
+                    Feito por:
+                    <a href="#userDetailsModal" class="user-profile" id="user-id-${resourceInstance.owner.id}">
                         ${resourceInstance.owner.username}
                     </a>
-                </p>
-                <div class="divider"></div>
+                </span>
+
                 <sec:ifAllGranted roles="ROLE_ADMIN">
-                    <input type="text" class="comment truncate" placeholder="Comentário"  value="${resourceInstance.comment}" data-id="${resourceInstance.id}">
+                    <span class="truncate">
+                        Status: ${resourceInstance.comment}
+                    </span>
                 </sec:ifAllGranted>
+
                 <sec:ifNotGranted roles="ROLE_ADMIN">
                     <input type="text"  value="${resourceInstance.comment}" class="comment" data-id="${resourceInstance.id}" disabled>
                 </sec:ifNotGranted>
+
+
                 <sec:ifAllGranted roles="ROLE_ADMIN">
-                    <div class="col s3 m3 l3">
-                       <a href="#" id="conteudo${i}" class="tooltipped review"  data-review="approve" data-id="${resourceInstance.id}" data-position="bottom" data-delay="5" data-tooltip="Aprovar" style="color: green; padding-left: 20px"><i class="material-icons">done</i></a>
+                    <div class="row no-margin">
+                        <g:if test="${resourceInstance.comment != "Aprovado"}">
+                            <div class="col s6 m6 l6 center">
+                                <a href="#" id="conteudo${i}" class="tooltipped review card-front-button"  data-review="approve" data-id="${resourceInstance.id}" data-position="bottom" data-delay="5" data-tooltip="Aprovar"><i class="fa fa-2x fa-check"></i></a>
+                            </div>
+                            <div class="col s6 m6 l6 center">
+                                <a href="#" class="tooltipped deleteExportedResource card-front-button" data-id="${resourceInstance.id}"  data-position="bottom" data-delay="5" data-tooltip="Excluir"><i class="fa fa-2x fa-trash"></i></a>
+                            </div>
+                        </g:if>
+                        <g:else>
+                            <div class="col s12 m12 l12 center">
+                                <a href="#" class="tooltipped deleteExportedResource card-front-button" data-id="${resourceInstance.id}"  data-position="bottom" data-delay="5" data-tooltip="Excluir"><i class="fa fa-2x fa-trash"></i></a>
+                            </div>
+                        </g:else>
                     </div>
                 </sec:ifAllGranted>
-                <div class="">
-                    <a href="#" class="tooltipped delete" data-id="${resourceInstance.id}"  data-position="bottom" data-delay="5" data-tooltip="Excluir" style="color: gray; padding-right: 3px"><i class="material-icons">delete</i></a>
-                </div>
+
+                <sec:ifNotGranted roles="ROLE_ADMIN">
+                    <div class="row no-margin">
+                        <div class="col s12 m12 l12 center">
+                            <a href="#" class="tooltipped deleteExportedResource card-front-button" data-id="${resourceInstance.id}"  data-position="bottom" data-delay="5" data-tooltip="Excluir"><i class="fa fa-2x fa-trash"></i></a>
+                        </div>
+                    </div>
+                </sec:ifNotGranted>
+
             </div>
+
         </div>
     </div>
 </g:each>

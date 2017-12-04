@@ -7,10 +7,12 @@
 </head>
 <body>
     <div class="row cluster">
+
         <div class="cluster-header">
-            <h4>Gerenciar Jogos</h4>
+            <h4>Desenvolvedor</h4>
             <div class="divider"></div>
         </div>
+
         <div class="row show">
             <main class="cardGames">
                 <div class="row">
