@@ -45,12 +45,12 @@
                                 <a href="#" id="conteudo${i}" class="tooltipped review card-front-button"  data-review="approve" data-id="${resourceInstance.id}" data-position="bottom" data-delay="5" data-tooltip="Aprovar"><i class="fa fa-2x fa-check"></i></a>
                             </div>
                             <div class="col s6 m6 l6 center">
-                                <a href="#" class="tooltipped deleteExportedResource card-front-button" data-id="${resourceInstance.id}"  data-position="bottom" data-delay="5" data-tooltip="Excluir"><i class="fa fa-2x fa-trash"></i></a>
+                                <a href="#" class="tooltipped delete card-front-button" data-id="${resourceInstance.id}"  data-position="bottom" data-delay="5" data-tooltip="Excluir"><i class="fa fa-2x fa-trash"></i></a>
                             </div>
                         </g:if>
                         <g:else>
                             <div class="col s12 m12 l12 center">
-                                <a href="#" class="tooltipped deleteExportedResource card-front-button" data-id="${resourceInstance.id}"  data-position="bottom" data-delay="5" data-tooltip="Excluir"><i class="fa fa-2x fa-trash"></i></a>
+                                <a href="#" class="tooltipped delete card-front-button" data-id="${resourceInstance.id}"  data-position="bottom" data-delay="5" data-tooltip="Excluir"><i class="fa fa-2x fa-trash"></i></a>
                             </div>
                         </g:else>
                     </div>
@@ -59,7 +59,7 @@
                 <sec:ifNotGranted roles="ROLE_ADMIN">
                     <div class="row no-margin">
                         <div class="col s12 m12 l12 center">
-                            <a href="#" class="tooltipped deleteExportedResource card-front-button" data-id="${resourceInstance.id}"  data-position="bottom" data-delay="5" data-tooltip="Excluir"><i class="fa fa-2x fa-trash"></i></a>
+                            <a href="#" class="tooltipped delete card-front-button" data-id="${resourceInstance.id}"  data-position="bottom" data-delay="5" data-tooltip="Excluir"><i class="fa fa-2x fa-trash"></i></a>
                         </div>
                     </div>
                 </sec:ifNotGranted>
