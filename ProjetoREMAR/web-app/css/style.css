@@ -1304,16 +1304,8 @@ nav ul li a img { margin-top: 0; }
             line-height: 64px !important;
         }
 
-        .remar-max-size {
-            width: 992px;
-        }
-
         .min-height-size {
             min-height: 300px;
-        }
-
-        .content {
-            width: calc(992px - 200px);
         }
 
         .logo-icon {
@@ -1402,4 +1394,10 @@ nav ul li a img { margin-top: 0; }
 
 #static-slider h3, #static-slider h5 {
      color: #333333;
+}
+
+iframe{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
