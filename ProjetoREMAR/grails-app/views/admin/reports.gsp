@@ -69,8 +69,8 @@
             </div>
         </div>
 
-        <div class="row table-container">
-            <div class="col s12">
+        <div class="row table-container no-margin">
+            <div class="col s12 no-padding">
                 <table class="highlight">
                     <thead>
                     <tr>
@@ -93,11 +93,15 @@
                     <tbody id="reports-table">
                     <g:each in="${reports}" status="i" var="reportInstance">
                         <tr class="${reportInstance.seen ? 'grey-text text-darken-1' : ''}" data-report-id="${reportInstance.id}">
-                            <td class="valign-wrapper">
+                            <td class="center">
                                 <input id="report-${reportInstance.id}-checkbox" class="filled-in" type="checkbox"/>
                                 <label class="no-padding" for="report-${reportInstance.id}-checkbox"></label>
                             </td>
-                            <td class="id-field"><a href="#!" class="hover-underlined">${reportInstance.id}</a></td>
+                            <td class="id-field">
+                                <a href="#!" class="hover-underlined" data-id="${reportInstance.id}">
+                                    ${reportInstance.id}
+                                </a>
+                            </td>
                             <td>${reportInstance.who.getName()}</td>
                             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${reportInstance.date}"/></td>
                             <td class="hide-on-small-only"><g:message code="report.type.${reportInstance.type}"/></td>
@@ -130,7 +134,8 @@
 
                                 <g:if test="${reportInstance.screenshot}">
                                     <a id="screenshot-report-${reportInstance.id}" class="tooltipped valign-wrapper"
-                                       href="/data/report-screenshots/${reportInstance.id}.png" download="screenshot-entrada-${reportInstance.id}.png"
+                                       href="/data/report-screenshots/${reportInstance.id}.png"
+                                       download="screenshot-${message(code: 'br.ufscar.sead.loa.remar.Report')}-${reportInstance.id}.png"
                                        data-tooltip="${message(code: 'admin.reports.screenshotButton.label')}">
                                         <i class="material-icons">photo</i>
                                     </a>
@@ -143,7 +148,7 @@
         </div>
 
         <div class="row valign-wrapper">
-            <div id="reports-table-buttons" class="col s3 center-align">
+            <div id="reports-table-buttons" class="col s6 m6 l3 center-align">
                 <a id="batch-remove-button" disabled="disabled"
                    class="btn-floating waves-effect waves-light remar-orange tooltipped toggleable"
                    data-tooltip="${message(code: 'admin.reports.buttons.remove')}">
@@ -175,17 +180,66 @@
                 </a>
             </div>
 
-            <div class="col s3 offset-s6">
+            <div class="col s6 m6 l3 offset-l6">
                 <ul class="pagination pager no-margin" id="reports-table-pager"></ul>
             </div>
         </div>
     </div>
 </div>
 
-<div id="report-information" class="modal">
+<div id="report-information-modal" class="modal remar-modal">
     <div class="modal-content">
-        <h4>Header</h4>
-        <p>Content</p>
+        <h4><g:message code="br.ufscar.sead.loa.remar.Report"/> #<strong id="modal-report-id"></strong></h4>
+        <div class="row no-margin valign-wrapper">
+            <div class="col s12 m6 l6 left-align">
+                <div class="row">
+                    <p class="no-margin"><strong><g:message code="admin.reports.modal.sentBy"/></strong></p>
+                    <p id="modal-report-user" class="no-margin-top"></p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="row">
+                    <p class="no-margin"><strong><g:message code="admin.reports.date"/></strong></p>
+                    <p id="modal-report-date" class="no-margin-top"></p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="row">
+                    <p class="no-margin"><strong><g:message code="admin.reports.browser"/></strong></p>
+                    <p id="modal-report-browser" class="no-margin-top"></p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="row">
+                    <p class="no-margin"><strong>URL</strong></p>
+                    <p id="modal-report-url" class="no-margin-top"></p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="row">
+                    <p class="no-margin"><strong><g:message code="admin.reports.type"/></strong></p>
+                    <p id="modal-report-type" class="no-margin-top"></p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="row">
+                    <p class="no-margin"><strong><g:message code="admin.reports.description"/></strong></p>
+                    <p id="modal-report-description" class="no-margin-top"></p>
+                    <div class="divider hide-on-med-and-up"></div>
+                </div>
+            </div>
+            <div id="modal-report-ss-container" class="col s12 m6 l6 center">
+                <a class="tooltipped"
+                   data-tooltip="${message(code: 'admin.reports.screenshotButton.label')}">
+                    <img id="modal-report-ss" class="responsive-img"/>
+                </a>
+
+                <a class="btn waves-effect waves-light remar-orange tooltipped hide-on-med-and-up"
+                   data-tooltip="${message(code: 'admin.reports.screenshotButton.label')}">
+                    Download
+                </a>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
         <a class="modal-action modal-close btn waves-effect waves-light remar-orange">
@@ -254,6 +308,7 @@
     $('.seen-toggle', '#reports-table').click(function() {
         var $button = $(this);
         var $row = $(this).closest('tr');
+        var $statusField = $row.find('.solved-status-field');
         var id = $row.data('report-id');
 
         $.ajax({
@@ -268,6 +323,16 @@
                 } else if (resp == 'unseen') {
                     $row.removeClass('grey-text text-darken-1');
                     $button.removeClass('active');
+
+                    if ($('.solved-toggle', $row).hasClass('active')) {
+                        $('.solved-toggle', $row).removeClass('active');
+
+                        $statusField.fadeOut(function() {
+                            $statusField.html('<i class="material-icons remar-red-text">close</i>');
+                            $statusField.fadeIn();
+                        });
+                    }
+
                     Materialize.toast('${message(code: 'admin.reports.markedAsUnseen.toast')}', 2000);
                 }
             },
@@ -292,10 +357,15 @@
                 if (resp == 'solved') {
                     $row.addClass('grey-text text-darken-1');
                     $button.addClass('active');
+
                     $statusField.fadeOut(function() {
                         $statusField.html('<i class="material-icons remar-green-text">check</i>');
                         $statusField.fadeIn();
                     });
+
+                    if (!$('.seen-toggle', $row).hasClass('active'))
+                        $('.seen-toggle', $row).addClass('active');
+
                     Materialize.toast('${message(code: 'admin.reports.markedAsSolved.toast')}', 2000);
                 } else if (resp == 'unsolved') {
                     $button.removeClass('active');
@@ -312,6 +382,119 @@
             }
         });
     });
+
+    $('#batch-markAsSeen-button').click(function() {
+        var reportIdList = [];
+
+        $('#reports-table input:checkbox:checked').closest('tr').each(function() {
+            $(this).addClass('grey-text text-darken-1');
+            $('.seen-toggle', this).addClass('active');
+            reportIdList.push($(this).data('report-id'));
+        });
+
+        $.ajax({
+            url: '${createLink(controller: "report", action: "batchMarkAsSeen")}',
+            type: 'get',
+            data: {reportIdList: JSON.stringify(reportIdList)},
+            success: function (resp) {
+                var $toastContent = $('<span>' + resp + ' ${message(code: 'admin.reports.markAsSeen.batch')}</span>');
+                $toastContent.add('aaaaa');
+                Materialize.toast($toastContent, 10000);
+            }
+        });
+    });
+
+    $('#batch-markAsUnseen-button').click(function() {
+        var reportIdList = [];
+
+        $('#reports-table input:checkbox:checked').closest('tr').each(function() {
+            var $statusField = $('.solved-status-field', this);
+
+            $(this).removeClass('grey-text text-darken-1');
+            $('.seen-toggle', this).removeClass('active');
+
+            if ($('.solved-toggle', this).hasClass('active')) {
+                $('.solved-toggle', this).removeClass('active');
+
+                $statusField.fadeOut(function() {
+                    $statusField.html('<i class="material-icons remar-red-text">close</i>');
+                    $statusField.fadeIn();
+                });
+            }
+
+            reportIdList.push($(this).data('report-id'));
+        });
+
+        $.ajax({
+            url: '${createLink(controller: "report", action: "batchMarkAsUnseen")}',
+            type: 'get',
+            data: {reportIdList: JSON.stringify(reportIdList)},
+            success: function (resp) {
+                var $toastContent = $('<span>' + resp + ' ${message(code: 'admin.reports.markAsUnseen.batch')}</span>')
+                                    .add($('<button class="btn-flat toast-action">${message(code: 'default.button.undo.label')}</button>'));
+                Materialize.toast($toastContent, 10000);
+            }
+        });
+    });
+
+    $('#batch-markAsSolved-button').click(function() {
+         var reportIdList = [];
+
+        $('#reports-table input:checkbox:checked').closest('tr').each(function() {
+            var $statusField = $('.solved-status-field', this);
+
+            $(this).addClass('grey-text text-darken-1');
+            $('.solved-toggle', this).addClass('active');
+
+            $statusField.fadeOut(function() {
+                $statusField.html('<i class="material-icons remar-green-text">check</i>');
+                $statusField.fadeIn();
+            });
+
+            if (!$('.seen-toggle', this).hasClass('active'))
+                $('.seen-toggle', this).addClass('active');
+
+            reportIdList.push($(this).data('report-id'));
+        });
+
+        $.ajax({
+            url: '${createLink(controller: "report", action: "batchMarkAsSolved")}',
+            type: 'get',
+            data: {reportIdList: JSON.stringify(reportIdList)},
+            success: function (resp) {
+                var $toastContent = $('<span>' + resp + ' ${message(code: 'admin.reports.markAsSolved.batch')}</span>')
+                                    .add($('<button class="btn-flat toast-action">${message(code: 'default.button.undo.label')}</button>'));
+                Materialize.toast($toastContent, 10000);
+            }
+        });
+    });
+
+    $('#batch-markAsUnsolved-button').click(function() {
+         var reportIdList = [];
+
+        $('#reports-table input:checkbox:checked').closest('tr').each(function() {
+            var $statusField = $('.solved-status-field', this);
+
+            $statusField.fadeOut(function() {
+                $statusField.html('<i class="material-icons remar-red-text">close</i>');
+                $statusField.fadeIn();
+            });
+
+            reportIdList.push($(this).data('report-id'));
+        });
+
+        $.ajax({
+            url: '${createLink(controller: "report", action: "batchMarkAsUnsolved")}',
+            type: 'get',
+            data: {reportIdList: JSON.stringify(reportIdList)},
+            success: function (resp) {
+                var $toastContent = $('<span>' + resp + ' ${message(code: 'admin.reports.markAsUnsolved.batch')}</span>')
+                                    .add($('<button class="btn-flat toast-action">${message(code: 'default.button.undo.label')}</button>'));
+                Materialize.toast($toastContent, 10000);
+            }
+        });
+    });
+
 </g:javascript>
 </body>
 </html>

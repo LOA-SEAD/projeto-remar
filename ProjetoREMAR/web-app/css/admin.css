@@ -56,3 +56,13 @@ td a.hover-underlined:hover {
 #reports-table td.valign-wrapper {
     justify-content: flex-start;
 }
+
+#report-information-modal a img {
+    border: 1px solid #FF5722;
+}
+
+@media only screen and (max-width: 600px) {
+    #report-information-modal .row.valign-wrapper {
+        flex-direction: column;
+    }
+}

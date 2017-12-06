@@ -1248,6 +1248,15 @@ nav ul li a img { margin-top: 0; }
         .carousel-wrapper {
             width: 78%;
         }
+
+        .remar-modal {
+            top: 0 !important;
+            left: 0 !important;
+            bottom: 0 !important;
+            right: 0 !important;
+            min-height: 100vh !important;
+            width: 100vw !important;
+        }
     }
 
     /* Small and Medium Screens */

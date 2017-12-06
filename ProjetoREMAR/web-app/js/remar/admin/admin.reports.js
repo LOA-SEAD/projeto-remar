@@ -47,7 +47,43 @@ $(document).ready(function () {
         }
     });
 
-    $('')
+    $('.id-field a').click(function() {
+        var reportId = $(this).data('id');
+        $.ajax({
+            url    : '/report/getReport',
+            type   : 'get',
+            data   : {id: reportId},
+            dataType: 'json',
+            success: function (resp) {
+                $('#modal-report-id').html(reportId);
+                $('#modal-report-user').html(resp.who.firstName + ' ' + resp.who.lastName);
+                $('#modal-report-date').html(resp.date);
+                $('#modal-report-browser').html(resp.browser);
+                $('#modal-report-url').html(resp.url);
+                $('#modal-report-type').html(resp.type);
+                $('#modal-report-description').html(resp.description);
+
+                Materialize.updateTextFields();
+
+                if (resp.hasScreenshot) {
+                    var filename = '/data/report-screenshots/' + reportId + '.png';
+                    var downloadFilename = reportId +'-screenshot.png';
+
+                    $('#modal-report-ss').attr('src', filename);
+                    $('a', '#modal-report-ss-container')
+                        .attr('href', filename)
+                        .attr('download', downloadFilename);
+                    $('#modal-report-ss-container').show();
+                } else {
+                    $('#modal-report-ss-container').hide();
+                }
+
+                $('#report-information-modal').openModal({
+                    dismissible: false
+                });
+            }
+        });
+    });
 });
 
 $.fn.domDisable = function () {

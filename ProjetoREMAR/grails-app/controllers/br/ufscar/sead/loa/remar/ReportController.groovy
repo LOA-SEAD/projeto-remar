@@ -1,6 +1,7 @@
 package br.ufscar.sead.loa.remar
 
 import grails.transaction.Transactional
+import grails.converters.JSON
 
 class ReportController {
 
@@ -80,10 +81,107 @@ class ReportController {
         }
 
         reportInstance.seen = !reportInstance.seen
-        if (reportInstance.solved && !reportInstance.seen) reportInstance.solved = false
+
+        if (reportInstance.solved && !reportInstance.seen)
+            reportInstance.solved = false
+
         reportInstance.save flush:true
 
         render status: 200, text: reportInstance.seen ? "seen" : "unseen"
+    }
+
+    @Transactional
+    batchMarkAsSeen() {
+        def reportIdList = JSON.parse(params.reportIdList)
+        def changedCounter = 0
+
+        reportIdList.each {
+            def reportInstance = Report.findById(it)
+
+            if (!reportInstance) {
+                render status: 422, text: ("ERROR: Report instance not found for id: " + params.id.toString())
+                return
+            } else if (!reportInstance.seen) {
+                reportInstance.seen = true
+                reportInstance.save flush: true
+
+                changedCounter++
+            }
+        }
+
+        render(status: 200, text: changedCounter.toString())
+    }
+
+    @Transactional
+    batchMarkAsUnseen() {
+        def reportIdList = JSON.parse(params.reportIdList)
+        def changedCounter = 0
+
+        reportIdList.each {
+            def reportInstance = Report.findById(it)
+
+            if (!reportInstance) {
+                render status: 422, text: ("ERROR: Report instance not found for id: " + params.id.toString())
+                return
+            } else if (reportInstance.seen) {
+                reportInstance.seen = false
+
+                if (reportInstance.solved)
+                    reportInstance.solved = false
+
+                reportInstance.save flush: true
+                changedCounter++
+            }
+        }
+
+        render(status: 200, text: changedCounter.toString())
+    }
+
+    @Transactional
+    batchMarkAsSolved() {
+        def reportIdList = JSON.parse(params.reportIdList)
+        def changedCounter = 0
+
+        reportIdList.each {
+            def reportInstance = Report.findById(it)
+
+            if (!reportInstance) {
+                render status: 422, text: ("ERROR: Report instance not found for id: " + params.id.toString())
+                return
+            } else if (!reportInstance.solved) {
+                reportInstance.solved = true
+
+                if (!reportInstance.seen)
+                    reportInstance.seen = true
+
+                reportInstance.save flush: true
+                changedCounter++
+            }
+        }
+
+        render(status: 200, text: changedCounter.toString())
+    }
+
+    @Transactional
+    batchMarkAsUnsolved() {
+        def reportIdList = JSON.parse(params.reportIdList)
+        def changedCounter = 0
+
+        reportIdList.each {
+            def reportInstance = Report.findById(it)
+
+            if (!reportInstance) {
+                render status: 422, text: ("ERROR: Report instance not found for id: " + params.id.toString())
+                return
+            } else if (reportInstance.solved) {
+                reportInstance.solved = false
+                reportInstance.save flush: true
+
+                changedCounter++
+            }
+        }
+
+        render(status: 200, text: changedCounter.toString())
     }
 
     @Transactional
@@ -104,5 +202,22 @@ class ReportController {
     /* Not transactional methods */
     def create() {
         respond new Report(params)
+    }
+
+    def getReport() {
+        def reportInstance = Report.findById(params.id)
+        def reportDataObject = [:]
+
+        println reportInstance.who
+
+        reportDataObject['who'] = reportInstance.who.getName()
+        reportDataObject['date'] = g.formatDate(date: reportInstance.date, format: 'EEEE, dd/MM/yyyy')
+        reportDataObject['browser'] = reportInstance.browser
+        reportDataObject['url'] = reportInstance.url
+        reportDataObject['type'] = g.message(code: "report.type.${reportInstance.type}")
+        reportDataObject['description'] = reportInstance.description
+        reportDataObject['hasScreenshot'] = reportInstance.screenshot
+
+        render reportDataObject as JSON
     }
 }
