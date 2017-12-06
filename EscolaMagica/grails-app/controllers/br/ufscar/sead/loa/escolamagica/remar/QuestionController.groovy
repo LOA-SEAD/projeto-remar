@@ -11,15 +11,28 @@ import grails.transaction.Transactional
 @Secured(["isAuthenticated()"])
 class QuestionController {
 
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE" ]
+
+    def beforeInterceptor = [action: this.&check, only: ['index']]
+
     def springSecurityService
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE" ]
+    private check() {
+        if (springSecurityService.isLoggedIn())
+            session.user = springSecurityService.currentUser
+        else {
+            log.debug "Logout: session.user is NULL !"
+            session.user = null
+            redirect controller: "login", action: "index"
+
+            return false
+        }
+    }
 
     def index(Integer max) {
         if (params.t) {
             session.taskId = params.t
         }
-        session.user = springSecurityService.currentUser
 
         def list = Question.findAllByOwnerId(session.user.id)
         if(!list) {

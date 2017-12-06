@@ -7,7 +7,6 @@ import grails.plugin.springsecurity.annotation.Secured
 import grails.util.Environment
 import groovy.json.JsonBuilder
 import org.springframework.web.multipart.MultipartFile
-
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -17,13 +16,26 @@ class QuestionController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    def beforeInterceptor = [action: this.&check, only: ['index']]
+
     def springSecurityService
+
+    private check() {
+        if (springSecurityService.isLoggedIn())
+            session.user = springSecurityService.currentUser
+        else {
+            log.debug "Logout: session.user is NULL !"
+            session.user = null
+            redirect controller: "login", action: "index"
+
+            return false
+        }
+    }
 
     def index(Integer max) {
         if (params.t) {
             session.taskId = params.t
         }
-        session.user = springSecurityService.currentUser
 
         def list = Question.findAllByAuthor(session.user.username)
 

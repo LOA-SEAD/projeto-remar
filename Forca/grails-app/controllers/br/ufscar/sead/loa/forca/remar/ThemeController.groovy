@@ -4,25 +4,37 @@ import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.util.Environment
 import org.imgscalr.Scalr
 import org.springframework.security.access.annotation.Secured
-
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
-
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+
 @Secured(['isAuthenticated()'])
 @Transactional(readOnly = true)
 class ThemeController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    def beforeInterceptor = [action: this.&check, only: ['index']]
+
     def springSecurityService
+
+    private check() {
+        if (springSecurityService.isLoggedIn())
+            session.user = springSecurityService.currentUser
+        else {
+            log.debug "Logout: session.user is NULL !"
+            session.user = null
+            redirect controller: "login", action: "index"
+
+            return false
+        }
+    }
 
     def index(Integer max) {
         if (params.t) {
             session.taskId = params.t
         }
-        session.user = springSecurityService.currentUser
 
         def list = Theme.findAllByOwnerId(session.user.id)
         def listPublic = Theme.findAll() - list
