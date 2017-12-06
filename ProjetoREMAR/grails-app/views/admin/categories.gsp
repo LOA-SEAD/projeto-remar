@@ -104,7 +104,7 @@
         </div>
 
         <div class="row valign-wrapper">
-            <div id="categories-table-buttons" class="col s6 center-align">
+            <div id="categories-table-buttons" class="col s3 center-align">
 
                 <a href="#addCategory" id="batch-add-button"
                    class="btn-floating waves-effect waves-light remar-orange tooltipped modal-trigger"

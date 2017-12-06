@@ -10,7 +10,7 @@
 				<p class="center">
 					<input value="${type}" type="radio" id="${type}-radio"/>
 					<label for="${type}-radio" class="no-padding report-fsm-next remar-orange-text">
-						<g:message code="report.type.${type}"/>
+						<g:message code="${(type == 'bug') ? ('report.type.' + type + '.alternative') : ('report.type.' + type)}"/>
 					</label>
 				</p>
 
@@ -80,4 +80,4 @@
 	</div>
 </div>
 
-<g:javascript src="remar/report.js" />
+<g:javascript src="remar/layouts/report.js" />

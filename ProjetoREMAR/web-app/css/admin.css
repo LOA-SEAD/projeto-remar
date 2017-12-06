@@ -1,17 +1,19 @@
-/* admin dashboard */
 .card-image i {
     font-size: 130px;
     font-size: 7vw;
 }
-/* end of admin dashboard */
 
-/* user management table row */
-td.valign-wrapper {
+td.valign-wrapper,
+#reports-table td.valign-wrapper:first-child {
     justify-content: center;
 }
 
 td a {
     margin: 0 5px;
+}
+
+td a.hover-underlined:hover {
+    text-decoration: underline;
 }
 
 [type="checkbox"] + label {
@@ -20,7 +22,9 @@ td a {
     vertical-align: middle;
 }
 
-.dev-toggle i {
+.dev-toggle i,
+.seen-toggle i,
+.solved-toggle i {
     opacity: .5;
 
     -webkit-transition: color 0.3s ease, opacity 0.3s ease;
@@ -30,24 +34,25 @@ td a {
     transition: color 0.3s ease, opacity 0.3s ease;
 }
 
-.dev-toggle.active i {
+.dev-toggle.active i,
+.seen-toggle.active i,
+.solved-toggle.active i {
     opacity: 1;
 }
 
 .table-container {
     min-height: 355px;
 }
-/* end of user management table row */
 
-/* user import table row */
-#user-import {
-    display: none;
-}
-/* end of user import table row */
-
-/* user export table row */
+#user-import,
 #user-export {
     display: none;
+}
+
+#user-export {
     margin-top: 40px;
 }
-/* end of user import table row */
+
+#reports-table td.valign-wrapper {
+    justify-content: flex-start;
+}

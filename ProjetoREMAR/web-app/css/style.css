@@ -3,6 +3,7 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    background-color: white;
 }
 
 main {
@@ -129,6 +130,10 @@ span.description-error{
 
 .card .card-content .card-title{
     line-height: 20px;
+}
+
+.card .card-content p.card-title {
+    padding: 10px 0;
 }
 
 .card .subtitle-container, .card .stars-container {

@@ -101,7 +101,7 @@
         </div>
 
         <div class="row valign-wrapper">
-            <div id="groups-table-buttons" class="col s6 left-align">
+            <div id="groups-table-buttons" class="col s3 center-align">
                 <a id="batch-remove-button"
                    class="btn-floating waves-effect waves-light remar-orange tooltipped toggleable"
                    data-tooltip="${message(code: 'admin.groups.buttons.remove')}">
@@ -109,7 +109,7 @@
                 </a>
             </div>
 
-            <div class="col s6">
+            <div class="col s3 offset-s6">
                 <ul class="pagination pager no-margin" id="groups-table-pager"></ul>
             </div>
         </div>

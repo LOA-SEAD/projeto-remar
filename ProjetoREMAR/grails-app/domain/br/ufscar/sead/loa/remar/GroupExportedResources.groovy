@@ -18,4 +18,16 @@ class GroupExportedResources {
             GroupExportedResources.withSession { it.flush() }
         }
     }
+
+    static void removeAllByExportedResource(ExportedResource er, boolean flush = false) {
+        if (er == null) return
+
+        GroupExportedResources.where {
+            exportedResource == ExportedResource.load(er.id)
+        }.deleteAll()
+
+        if (flush) {
+            GroupExportedResources.withSession { it.flush() }
+        }
+    }
 }

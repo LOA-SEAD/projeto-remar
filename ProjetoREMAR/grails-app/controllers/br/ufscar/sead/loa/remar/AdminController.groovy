@@ -14,8 +14,9 @@ class AdminController {
     static allowedMethods = [deleteUser: "POST"]
 
     def index() {
-        render view: "dashboard"
+        def unseenReports = Report.countBySeen(false)
 
+        render view: "dashboard", model: [unseenReports: unseenReports]
     }
 
     def users() {
@@ -38,6 +39,12 @@ class AdminController {
         render view: "games", model: [games: games]
     }
 
+    def reports() {
+        def reports = Report.list().sort {it.date}
+        reports.reverse(true)
+        render view: "reports", model: [reports: reports]
+    }
+
     def deleteUser() {
         deleteUserProc(params.id)
         render (status: 200)
@@ -58,6 +65,10 @@ class AdminController {
         render (status: 200)
     }
 
+    def deleteReport() {
+        deleteReportProc(params.id)
+        render (status: 200)
+    }
 
     def deleteUserBatch() {
         def userIdList = JSON.parse(params.userIdList)
@@ -104,6 +115,16 @@ class AdminController {
         }
 
         render (status: 200)
+    }
+
+    def deleteReportBatch() {
+        def reportIdList = JSON.parse(params.reportIdList)
+
+        reportIdList.each {
+            deleteReportProc(it)
+        }
+
+        render(status: 200)
     }
 
     @Transactional
@@ -259,7 +280,8 @@ class AdminController {
         def userInstance = User.findById(id)
 
         if (userInstance == null) {
-            render(status: 410, text: "ERROR: Failed removing user")
+            log.debug("ERROR @ deleteUserProc: User instance [id: ${id}] not found")
+            render status: 410
             return
         }
 
@@ -291,19 +313,33 @@ class AdminController {
         userInstance.delete flush: true
     }
 
+    /**
+     * @desc Procedure to remove a group
+     * @param id - the id from the user to be removed
+     * @return nothing
+     */
     @Transactional
     deleteGroupProc(id) {
         def groupInstance = Group.findById(id)
 
         if (groupInstance == null) {
-            render(status: 410, text: "ERROR: Failed removing group")
+            log.debug("ERROR @ deleteGroupProc: Group instance [id: ${id}] not found")
+            render status: 410
             return
         }
+
+        // Remove user-group relationships
+        UserGroup.removeAllByGroup(groupInstance, true)
+
+        // Remove group-exportedResource relationships
+        GroupExportedResources.removeAllByGroup(groupInstance, true)
+
+        groupInstance.delete flush:true
     }
 
     /**
-     * @desc   Procedure to remove an category
-     * @param  id - the id from the category to be removed
+     * @desc   Procedure to remove a game
+     * @param  id - the id from the game to be removed
      * @return nothing
      */
     @Transactional
@@ -311,15 +347,19 @@ class AdminController {
         def gameInstance = ExportedResource.findById(id)
 
         if (gameInstance == null) {
-            render(status: 410, text: "ERROR: Failed removing game")
+            log.debug("ERROR @ deleteGameProc: ExportedResource instance [id: ${id}] not found")
+            render status: 410
             return
         }
+
+        // Remove group-exportedResource relationships
+        GroupExportedResources.removeAllByExportedResource(gameInstance, true)
 
         gameInstance.delete flush: true
     }
 
     /**
-     * @desc   Procedure to remove an category
+     * @desc   Procedure to remove a category
      * @param  id - the id from the category to be removed
      * @return nothing
      */
@@ -328,11 +368,41 @@ class AdminController {
         def categoryInstance = Category.findById(id)
 
         if (categoryInstance == null) {
-            render(status: 410, text: "ERROR: Failed removing category")
+            log.debug("ERROR @ deleteCategoryProc: Category instance [id: ${id}] not found")
+            render status: 410
             return
         }
 
         categoryInstance.delete flush: true
+    }
+
+    /**
+     * @desc Procedure to remove a group
+     * @param id - the id from the user to be removed
+     * @return nothing
+     */
+    @Transactional
+    deleteReportProc(id) {
+        def reportInstance = Report.findById(id)
+
+        if (reportInstance == null) {
+            log.debug("ERROR @ deleteReportProc: Report instance [id: ${id}] not found")
+            render status: 410
+            return
+        }
+
+        if (reportInstance.screenshot) {
+            def filename = servletContext.getRealPath("/data/report-screenshots/" + reportInstance.id + ".png")
+            def fileSuccessfullyDeleted = new File(filename).delete()
+
+            if (!fileSuccessfullyDeleted) {
+                log.debug("ERROR @ deleteReportProc: Failed deleting Report instance screenshot file")
+                render status: 410
+                return
+            }
+        }
+
+        reportInstance.delete flush: true
     }
 
     /**

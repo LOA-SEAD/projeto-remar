@@ -15,5 +15,6 @@ class Report {
     String  type                // comment, bug or abuse?
     String  browser             // what browser was the user using
     Boolean seen                // has it already been seen by the admin?
+    Boolean solved              // has it already been solved?
     Boolean screenshot          // does it have any screenshots related?
 }

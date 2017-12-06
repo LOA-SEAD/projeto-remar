@@ -111,14 +111,12 @@
         </div>
 
         <div class="row valign-wrapper">
-            <div id="games-table-buttons" class="col s6 center-align">
-
+            <div id="games-table-buttons" class="col s3 center-align">
                 <a id="batch-remove-button"
                    class="btn-floating waves-effect waves-light remar-orange tooltipped toggleable"
                    data-tooltip="${message(code: 'admin.games.buttons.remove')}">
                     <i class="material-icons">delete</i>
                 </a>
-
             </div>
 
             <div class="col s3 offset-s6">

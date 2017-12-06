@@ -10,6 +10,11 @@ $(document).ready(function () {
     $('.modal-trigger').leanModal({
         dismissible: false
     });
+
+    // Close warning-boxes
+    $('button.close-warning').click(function() {
+        $(this).closest('.warning-box').slideUp();
+    });
 });
 
 function startWizard() {

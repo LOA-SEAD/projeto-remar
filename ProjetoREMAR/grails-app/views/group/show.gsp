@@ -124,43 +124,6 @@
     </div>
 </div>
 
-<g:if test="${group.owner.id == session.user.id || UserGroup.findByUserAndAdminAndGroup(session.user, true, group)}">
-    <!-- Compartilhamento de Jogos -->
-    <div class="row cluster">
-        <div class="row">
-            <div class="cluster-header">
-                <h4>Compartilhamento de Jogos</h4>
-
-                <div class="divider"></div>
-            </div>
-
-            <div class="row show">
-                <div id="info" style="padding-left: 15px;">
-                    <p align="left">
-                        <u>Informações sobre o compartilhamento de jogos</u>
-                    </p>
-
-                    <p align="left" style="margin-left: 20px;">
-                        Acesse <g:link controller="exportedResource" action="publicGames">Banco de Jogos</g:link>
-                        ou <g:link controller="exportedResource" action="MyGames">Meus Jogos</g:link>
-                    </p>
-
-                    <p align="left" style="margin-left: 20px;">
-                        Escolha um Jogo e clique na opção "Compartilhar para grupos" <i class="fa fa-users"
-                                                                                        style="color: #FF5722;"></i>
-                    </p>
-
-                    <p align="left" style="margin-left: 20px;">
-                        <span class="bold">Obs:</span> Você também pode compartilhar um jogo ao término de sua customização.
-                    </p>
-                </div>
-
-                <div class="clearfix"></div>
-            </div>
-        </div>
-    </div>
-</g:if>
-
 <!-- Modal Structures -->
 <div id="modal-users" class="modal bottom-sheet">
     <div class="modal-content">
