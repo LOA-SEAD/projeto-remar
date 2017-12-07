@@ -56,7 +56,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (resp) {
                 $('#modal-report-id').html(reportId);
-                $('#modal-report-user').html(resp.who.firstName + ' ' + resp.who.lastName);
+                $('#modal-report-user').html(resp.who);
                 $('#modal-report-date').html(resp.date);
                 $('#modal-report-browser').html(resp.browser);
                 $('#modal-report-url').html(resp.url);
@@ -83,6 +83,50 @@ $(document).ready(function () {
                 });
             }
         });
+    });
+
+    $('[name="sort-reports"]').change(function() {
+        var $table = $('#reports-table').parent(),
+            tableFields = [
+                'date-field',       // 0
+                'id-field',         // 1
+                'name-field',       // 2
+                'browser-field',    // 3
+                'type-field',       // 4
+                'solved-field',     // 5
+                'action-field'      // 6
+            ],
+            keySelector = 'td.';
+
+        if (this.value < 5) {
+            keySelector += tableFields[this.value];
+
+            $table.tableSort({
+                keySelector: keySelector
+            });
+        } else if (this.value < 7) {
+            // Sort by 'solved' and 'not solved'
+            keySelector += tableFields[5];
+
+            $table.tableSort({
+                keySelector: keySelector,
+                mode: (this.value == 5) ? 'decreasing' : 'increasing',
+                origin: 'data',
+                dataLabel: 'solved'
+            });
+        } else {
+            // Sort by 'seen' and 'not seen'
+            keySelector += tableFields[6];
+
+            $table.tableSort({
+                keySelector: keySelector,
+                mode: (this.value == 7) ? 'decreasing' : 'increasing',
+                origin: 'data',
+                dataLabel: 'seen'
+            });
+        }
+
+
     });
 });
 

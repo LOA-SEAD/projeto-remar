@@ -208,8 +208,6 @@ class ReportController {
         def reportInstance = Report.findById(params.id)
         def reportDataObject = [:]
 
-        println reportInstance.who
-
         reportDataObject['who'] = reportInstance.who.getName()
         reportDataObject['date'] = g.formatDate(date: reportInstance.date, format: 'EEEE, dd/MM/yyyy')
         reportDataObject['browser'] = reportInstance.browser

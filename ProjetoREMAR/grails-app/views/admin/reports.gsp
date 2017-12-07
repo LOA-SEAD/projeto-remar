@@ -46,21 +46,22 @@
 
             <div class="input-field col s6 offset-s1 hide-on-small-only">
                 <select name="sort-reports" class="material-select">
-                    <option value="1" selected><g:message code="admin.reports.date"/></option>
+                    <option value="0" selected><g:message code="admin.reports.date"/></option>
+                    <option value="1"><g:message code="admin.reports.id"/></option>
                     <option value="2"><g:message code="admin.reports.user"/></option>
                     <option value="3"><g:message code="admin.reports.browser"/></option>
                     <option value="4"><g:message code="admin.reports.type"/></option>
-                    <option value="5"><g:message code="admin.reports.seen"/></option>
-                    <option value="6"><g:message code="admin.reports.notseen"/></option>
-                    <option value="7"><g:message code="admin.reports.solved"/>s</option>
-                    <option value="8"><g:message code="admin.reports.notsolved"/></option>
+                    <option value="5"><g:message code="admin.reports.solved"/>s</option>
+                    <option value="6"><g:message code="admin.reports.notsolved"/></option>
+                    <option value="7"><g:message code="admin.reports.seen"/></option>
+                    <option value="8"><g:message code="admin.reports.notseen"/></option>
                 </select>
                 <label><g:message code="admin.reports.sort"/></label>
             </div>
 
             <div class="input-field col s6 offset-s1 hide-on-med-and-up">
                 <select name="sort-reports" class="material-select">
-                    <option value="1" selected><g:message code="admin.reports.date"/></option>
+                    <option value="0" selected><g:message code="admin.reports.date"/></option>
                     <option value="2"><g:message code="admin.reports.user"/></option>
                     <option value="5"><g:message code="admin.reports.seen"/></option>
                     <option value="6"><g:message code="admin.reports.notseen"/></option>
@@ -102,11 +103,11 @@
                                     ${reportInstance.id}
                                 </a>
                             </td>
-                            <td>${reportInstance.who.getName()}</td>
-                            <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${reportInstance.date}"/></td>
-                            <td class="hide-on-small-only"><g:message code="report.type.${reportInstance.type}"/></td>
-                            <td class="hide-on-small-only">${reportInstance.browser}</td>
-                            <td class="solved-status-field hide-on-small-only">
+                            <td class="name-field">${reportInstance.who.getName()}</td>
+                            <td class="date-field"><g:formatDate format="dd-MM-yyyy HH:mm" date="${reportInstance.date}"/></td>
+                            <td class="type-field hide-on-small-only"><g:message code="report.type.${reportInstance.type}"/></td>
+                            <td class="browser-field hide-on-small-only">${reportInstance.browser}</td>
+                            <td class="solved-field hide-on-small-only" data-solved="${reportInstance.solved}">
                                 <g:if test="${reportInstance.solved}">
                                     <i class="material-icons remar-green-text">check</i>
                                 </g:if>
@@ -115,7 +116,7 @@
                                 </g:else>
                             </td>
 
-                            <td class="valign-wrapper">
+                            <td class="action-field valign-wrapper" data-seen="${reportInstance.seen}">
                                 <a href="#!" class="tooltipped valign-wrapper seen-toggle ${reportInstance.seen ? 'active' : ''}"
                                    data-tooltip="${message(code: reportInstance.seen ? 'admin.reports.markAsUnseenButton.label' : 'admin.reports.markAsSeenButton.label')}">
                                     <i class="fa fa-eye fa-lg"></i>
@@ -251,6 +252,7 @@
 <g:external dir="css" file="admin.css"/>
 
 <g:javascript src="libs/jquery/jquery.tablePagination.js"/>
+<g:javascript src="libs/jquery/jquery.tableSort.js"/>
 <g:javascript src="remar/admin/admin.reports.js"/>
 
 <g:javascript>
