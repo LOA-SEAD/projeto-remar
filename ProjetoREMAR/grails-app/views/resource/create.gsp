@@ -235,7 +235,7 @@
 					<li class="collection-item">Link de Vídeo Tutorial</li>
 					<li class="collection-item">Documentação</li>
 				</ul>
-				<p>Então insira um arquivo <strong>.csv</strong>, <strong>.xls</strong> ou <strong>.xlsx</strong> no campo abaixo (<a href="">baixe o modelo padrão</a>):</p>
+				<p>Então insira um arquivo <strong>.csv</strong>, <strong>.xls</strong> ou <strong>.xlsx</strong> no campo abaixo (<a href="/samples/ModeloPreencheDesenvolvedor.xlsx">baixe o modelo padrão</a>):</p>
 				<div class="row no-margin valign-wrapper">
 					<div class="col s12">
 						<div class="file-field input-field">
