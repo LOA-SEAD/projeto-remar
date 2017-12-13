@@ -271,7 +271,7 @@ class ResourceController {
                 return
             }
 
-            def http = new HTTPBuilder("http://root:${grailsApplication.config.users.password}@localhost:8080")
+            def http = new HTTPBuilder("http://root:root@localhost:8080")
             def resp = http.get(path: '/manager/text/deploy',
                     query: [path: "/${resourceInstance.uri}",
                             war : servletContext.getRealPath("/wars/${resourceInstance.owner.username}/${resourceInstance.uri}.war")])
@@ -346,7 +346,7 @@ class ResourceController {
                if (ds.createQuery(ProcessDefinition.class).field('uri').equal(resourceInstance.uri).get()) {
                    Propeller.instance.undeploy(resourceInstance.uri)
 
-                   def http = new HTTPBuilder("http://root:${grailsApplication.config.users.password}@localhost:8080")
+                   def http = new HTTPBuilder("http://root:root@localhost:8080")
                    def resp = http.get(path: '/manager/text/undeploy', query: [path: "/${resourceInstance.uri}"])
                    resp = GrailsIOUtils.toString(resp)
                    if (resp.indexOf('OK') != -1) log.debug "Resource successfully undeployed"
