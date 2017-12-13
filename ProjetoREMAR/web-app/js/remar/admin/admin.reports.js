@@ -1,9 +1,13 @@
 /**
  * Created by garciaph on 11/09/17.
+ *
+ *
+ * ALL VARIABLES STARTING WITH "m_" ARE DECLARED IN THE .GSP FILE
  */
 
 $(document).ready(function () {
     var $table        = $('#reports-table');
+    var $archiveTable = $('#archived-reports-table');
     var $tableButtons = $('.toggleable');
 
     $table.pageMe({
@@ -18,10 +22,333 @@ $(document).ready(function () {
         $('.warning-box').slideUp(500);
     });
 
+    // Remove Button Behaviour
+    $('a[id^="remove-report"]').click(function () {
+        var $row           = $(this).closest('tr');
+        var id             = $row.data('report-id');
+        var warningMessage = m_adminReportsWarning + '&nbsp;<strong>' + id + '</strong>?';
+
+        $('#warning-box-message').html(warningMessage);
+        $('.warning-box .btn-flat:first-child').unbind().click(function () {
+            $.ajax({
+                url    : "/admin/deleteReport",
+                type   : 'post',
+                data   : {id: id},
+                success: function (resp) {
+                    $row.remove();
+                    $('#reports-table').reloadMe();
+                    Materialize.toast(m_adminReportsRemoved, 2000);
+                    $('.warning-box').slideUp(500);
+                }
+            });
+        });
+        $('.warning-box').slideDown(500);
+    });
+
+    // Batch Remove Button Behaviour
+    $('a#batch-remove-button').click(function () {
+        $('#warning-box-message').html(m_adminReportsWarningBatch);
+        $('.warning-box .btn-flat:first-child').unbind().click(function () {
+            var reportIdList = [];
+
+            $('input:checkbox:checked', '#reports-table').closest('tr').each(function () {
+                $(this).remove();
+                reportIdList.push($(this).data('report-id'));
+            });
+
+            $.ajax({
+                url    : '/admin/deleteReportBatch',
+                type   : 'get',
+                data   : {reportIdList: JSON.stringify(reportIdList)},
+                success: function (resp) {
+                    $('#reports-table').reloadMe();
+                    Materialize.toast(m_adminReportsRemovedBatch, 2000);
+                    $('.warning-box').slideUp(500);
+                }
+            });
+        });
+        $('.warning-box').slideDown(500);
+    });
+
+    // Seen Toggle Behaviour
+    $('.seen-toggle', '#reports-table').click(function () {
+        var $button      = $(this);
+        var $row         = $(this).closest('tr');
+        var $statusField = $row.find('.solved-field');
+        var id           = $row.data('report-id');
+
+        $.ajax({
+            url    : '/report/toggleSeenStatus',
+            type   : 'post',
+            data   : {id: id},
+            success: function (resp) {
+                if (resp == 'seen') {
+                    $row.addClass('grey-text text-darken-1');
+                    $button.addClass('active');
+                    Materialize.toast(m_adminReportsMarkedAsSeenToast, 2000);
+                } else if (resp == 'unseen') {
+                    $row.removeClass('grey-text text-darken-1');
+                    $button.removeClass('active');
+
+                    if ($('.solved-toggle', $row).hasClass('active')) {
+                        $('.solved-toggle', $row).removeClass('active');
+
+                        $statusField.fadeOut(function () {
+                            $statusField.html('<i class="material-icons remar-red-text">close</i>');
+                            $statusField.fadeIn();
+                        });
+                    }
+
+                    Materialize.toast(m_adminReportsMarkedAsUnseenToast, 2000);
+                }
+            },
+            error  : function (xhr, text, error) {
+                if (xhr.status == 422)
+                    Materialize.toast(m_adminReportsToggleSeenFailToast, 2000);
+            }
+        });
+    });
+
+    // Solved Toggle Behaviour
+    $('.solved-toggle', '#reports-table').click(function () {
+        var $button      = $(this);
+        var $row         = $(this).closest('tr');
+        var $statusField = $row.find('.solved-field');
+        var id           = $row.data('report-id');
+
+        $.ajax({
+            url    : '/report/toggleSolvedStatus',
+            type   : 'post',
+            data   : {id: id},
+            success: function (resp) {
+                if (resp == 'solved') {
+                    $row.addClass('grey-text text-darken-1');
+                    $button.addClass('active');
+
+                    $statusField.fadeOut(function () {
+                        $statusField.html('<i class="material-icons remar-green-text">check</i>');
+                        $statusField.fadeIn();
+                    });
+
+                    if (!$('.seen-toggle', $row).hasClass('active'))
+                        $('.seen-toggle', $row).addClass('active');
+
+                    Materialize.toast(m_adminReportsMarkedAsSolvedToast, 2000);
+                } else if (resp == 'unsolved') {
+                    $button.removeClass('active');
+                    $statusField.fadeOut(function () {
+                        $statusField.html('<i class="material-icons remar-red-text">close</i>');
+                        $statusField.fadeIn();
+                    });
+                    Materialize.toast(m_adminReportsMarkedAsUnsolvedToast, 2000);
+                }
+            },
+            error  : function (xhr, text, error) {
+                if (xhr.status == 422)
+                    Materialize.toast(m_adminReportsToggleSolvedFailToast, 2000);
+            }
+        });
+    });
+
+    // Batch Mark as Seen Behaviour
+    $('#batch-markAsSeen-button').click(function () {
+        var reportIdList = [];
+
+        $('input:checkbox:checked', '#reports-table').closest('tr').each(function () {
+            $(this).addClass('grey-text text-darken-1');
+            $('.seen-toggle', this).addClass('active');
+            reportIdList.push($(this).data('report-id'));
+        });
+
+        $.ajax({
+            url    : '/report/batchMarkAsSeen',
+            type   : 'get',
+            data   : {reportIdList: JSON.stringify(reportIdList)},
+            success: function (resp) {
+                var $toastContent = $('<span>' + resp + ' ' + m_adminReportsMarkAsSeenBatch + '</span>');
+                Materialize.toast($toastContent, 2000);
+            }
+        });
+    });
+
+    // Batch Mark as Unseen Behaviour
+    $('#batch-markAsUnseen-button').click(function () {
+        var reportIdList = [];
+
+        $('input:checkbox:checked', '#reports-table').closest('tr').each(function () {
+            var $statusField = $('.solved-status-field', this);
+
+            $(this).removeClass('grey-text text-darken-1');
+            $('.seen-toggle', this).removeClass('active');
+
+            if ($('.solved-toggle', this).hasClass('active')) {
+                $('.solved-toggle', this).removeClass('active');
+
+                $statusField.fadeOut(function () {
+                    $statusField.html('<i class="material-icons remar-red-text">close</i>');
+                    $statusField.fadeIn();
+                });
+            }
+
+            reportIdList.push($(this).data('report-id'));
+        });
+
+        $.ajax({
+            url    : '/report/batchMarkAsUnseen',
+            type   : 'get',
+            data   : {reportIdList: JSON.stringify(reportIdList)},
+            success: function (resp) {
+                var $toastContent = $('<span>' + resp + ' ' + m_adminReportsMarkAsUnseenBatch + '</span>');
+                Materialize.toast($toastContent, 2000);
+            }
+        });
+    });
+
+    // Batch Mark as Solved Behaviour
+    $('#batch-markAsSolved-button').click(function () {
+        var reportIdList = [];
+
+        $('input:checkbox:checked', '#reports-table').closest('tr').each(function () {
+            var $statusField = $('.solved-status-field', this);
+
+            $(this).addClass('grey-text text-darken-1');
+            $('.solved-toggle', this).addClass('active');
+
+            $statusField.fadeOut(function () {
+                $statusField.html('<i class="material-icons remar-green-text">check</i>');
+                $statusField.fadeIn();
+            });
+
+            if (!$('.seen-toggle', this).hasClass('active'))
+                $('.seen-toggle', this).addClass('active');
+
+            reportIdList.push($(this).data('report-id'));
+        });
+
+        $.ajax({
+            url    : '/report/batchMarkAsSolved',
+            type   : 'get',
+            data   : {reportIdList: JSON.stringify(reportIdList)},
+            success: function (resp) {
+                var $toastContent = $('<span>' + resp + ' ' + m_adminReportsMarkAsSolvedBatch + '</span>');
+                Materialize.toast($toastContent, 10000);
+            }
+        });
+    });
+
+    // Batch Mark as Unsolved Behaviour
+    $('#batch-markAsUnsolved-button').click(function () {
+        var reportIdList = [];
+
+        $('input:checkbox:checked', '#reports-table').closest('tr').each(function () {
+            var $statusField = $('.solved-status-field', this);
+
+            $statusField.fadeOut(function () {
+                $statusField.html('<i class="material-icons remar-red-text">close</i>');
+                $statusField.fadeIn();
+            });
+
+            reportIdList.push($(this).data('report-id'));
+        });
+
+        $.ajax({
+            url    : '/report/batchMarkAsUnsolved',
+            type   : 'get',
+            data   : {reportIdList: JSON.stringify(reportIdList)},
+            success: function (resp) {
+                var $toastContent = $('<span>' + resp + ' ' + m_adminReportsMarkAsUnsolvedToast + '</span>');
+                Materialize.toast($toastContent, 2000);
+            }
+        });
+    });
+
+    // Archive Button Behaviour
+    $('.archive-button', '#reports-table').click(function () {
+        var $row = $(this).closest('tr');
+        var id   = $row.data('report-id');
+
+        $.ajax({
+            url    : '/report/archive',
+            type   : 'post',
+            data   : {id: id},
+            success: function () {
+                $row.remove();
+                $('#reports-table').reloadMe();
+                Materialize.toast(m_adminReportsArchived, 2000);
+            },
+            error  : function () {
+                if (xhr.status == 422)
+                    Materialize.toast(m_adminReportsToggleArchivedFailToast, 2000);
+            }
+        });
+    });
+
+    // Unarchive Button Behaviour
+    $('.unarchive-button', '#reports-table').click(function () {
+        var $row = $(this).closest('tr');
+        var id   = $row.data('report-id');
+
+        $.ajax({
+            url    : '/report/unarchive',
+            type   : 'post',
+            data   : {id: id},
+            success: function () {
+                $row.remove();
+                $('#reports-table').reloadMe();
+                Materialize.toast(m_adminReportsUnarchived, 2000);
+            },
+            error  : function () {
+                if (xhr.status == 422)
+                    Materialize.toast(m_adminReportsToggleArchivedFailToast, 2000);
+            }
+        });
+    });
+
+    // Batch Archive Button Behaviour
+    $('#batch-archive-button').click(function() {
+        var reportIdList = [];
+
+        $('input:checkbox:checked', '#reports-table').closest('tr').each(function () {
+            $(this).remove();
+            reportIdList.push($(this).data('report-id'));
+        });
+
+        $.ajax({
+            url    : '/report/batchArchive',
+            type   : 'get',
+            data   : {reportIdList: JSON.stringify(reportIdList)},
+            success: function (resp) {
+                var $toastContent = $('<span>' + resp + ' ' + m_adminReportsArchiveBatch + '</span>');
+                Materialize.toast($toastContent, 2000);
+            }
+        });
+    });
+
+    // Batch Unarchive Button Behaviour
+    $('#batch-unarchive-button').click(function () {
+        var reportIdList = [];
+
+        $('input:checkbox:checked', '#reports-table').closest('tr').each(function () {
+            $(this).remove();
+            reportIdList.push($(this).data('report-id'));
+        });
+
+        $.ajax({
+            url    : '/report/batchUnarchive',
+            type   : 'get',
+            data   : {reportIdList: JSON.stringify(reportIdList)},
+            success: function (resp) {
+                var $toastContent = $('<span>' + resp + ' ' + m_adminReportsUnarchiveBatch + '</span>');
+                Materialize.toast($toastContent, 2000);
+            }
+        });
+    });
+
+    // Select all checkbox behaviour
     $('#select-all-checkbox').change(function () {
         var checked = this.checked;
 
-        $('#reports-table td input[type="checkbox"]').each(function () {
+        $('td input[type="checkbox"]', '#reports-table').each(function () {
             $(this).prop('checked', checked);
         });
 
@@ -29,9 +356,9 @@ $(document).ready(function () {
         else $tableButtons.domDisable();
     });
 
-    $('#reports-table td input[type="checkbox"]').change(function () {
-        var checkedCB   = $('#reports-table input:checkbox:checked').length;
-        var totalCB     = $('#reports-table input:checkbox').length;
+    $('td input[type="checkbox"]', '#reports-table').change(function () {
+        var checkedCB   = $('input:checkbox:checked', '#reports-table').length;
+        var totalCB     = $('input:checkbox', '#reports-table').length;
         var uncheckedCB = totalCB - checkedCB;
 
         if (!this.checked) {
@@ -49,6 +376,9 @@ $(document).ready(function () {
 
     $('.id-field a').click(function() {
         var reportId = $(this).data('id');
+        var $row = $(this).closest('tr');
+        var $button = $('.seen-toggle', $row);
+
         $.ajax({
             url    : '/report/getReport',
             type   : 'get',
@@ -80,6 +410,17 @@ $(document).ready(function () {
 
                 $('#report-information-modal').openModal({
                     dismissible: false
+                });
+
+                // Mark as seen
+                $.ajax({
+                    url: '/report/markAsSeen',
+                    type: 'get',
+                    data: {id: reportId},
+                    success: function (resp) {
+                        $row.addClass('grey-text text-darken-1');
+                        $button.addClass('active');
+                    }
                 });
             }
         });

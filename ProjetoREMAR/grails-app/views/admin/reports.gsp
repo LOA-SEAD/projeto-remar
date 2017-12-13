@@ -133,6 +133,11 @@
                                     <i class="material-icons">delete_forever</i>
                                 </a>
 
+                                <a href="#!" class="tooltipped valign-wrapper archive-button"
+                                    data-tooltip="${message(code: 'default.button.archive.label')}">
+                                    <i class="material-icons">archive</i>
+                                </a>
+
                                 <g:if test="${reportInstance.screenshot}">
                                     <a id="screenshot-report-${reportInstance.id}" class="tooltipped valign-wrapper"
                                        href="/data/report-screenshots/${reportInstance.id}.png"
@@ -179,6 +184,12 @@
                    data-tooltip="${message(code: 'admin.reports.buttons.markAsUnsolved')}">
                     <i class="material-icons">close</i>
                 </a>
+
+                <a id="batch-archive-button" disabled="disabled"
+                   class="btn-floating waves-effect waves-light remar-orange tooltipped toggleable"
+                   data-tooltip="${message(code: 'default.button.archive.label')}">
+                    <i class="material-icons">archive</i>
+                </a>
             </div>
 
             <div class="col s6 m6 l3 offset-l6">
@@ -187,6 +198,17 @@
         </div>
     </div>
 </div>
+
+<ul class="collapsible" data-collapsible="accordion">
+    <li>
+        <a href="/admin/reportArchive" target="_blank">
+            <div class="collapsible-header">
+                <i class="material-icons">archive</i>
+                <g:message code="admin.reports.archive.label"/>
+            </div>
+        </a>
+    </li>
+</ul>
 
 <div id="report-information-modal" class="modal remar-modal">
     <div class="modal-content">
@@ -261,241 +283,24 @@
     que são decodificadas pelo próprio servidor antes de renderizar a página,
     enquanto que arquivos .js são interpretados pelo cliente.
 --}%
-    $('a[id^="remove-report"]').click(function () {
-        var $row = $(this).closest('tr');
-        var id = $row.data('report-id');
-        var warningMessage = '${message(code: "admin.reports.warning")}&nbsp;<strong>' + id + '</strong>?' ;
-
-        $('#warning-box-message').html(warningMessage);
-        $('.warning-box .btn-flat:first-child').unbind().click(function () {
-            $.ajax({
-                url: "${createLink(controller: 'admin', action: 'deleteReport')}",
-                type: 'post',
-                data: {id: id},
-                success: function (resp) {
-                    $row.remove();
-                    $('#reports-table').reloadMe();
-                    Materialize.toast('${message(code: 'admin.reports.removed')}', 2000);
-                    $('.warning-box').slideUp(500);
-                }
-            });
-        });
-        $('.warning-box').slideDown(500);
-    });
-
-    $('a#batch-remove-button').click(function() {
-        $('#warning-box-message').html('${message(code: "admin.reports.warning.batch")}');
-        $('.warning-box .btn-flat:first-child').unbind().click(function () {
-            var reportIdList = [];
-
-            $('#reports-table input:checkbox:checked').closest('tr').each(function() {
-                $(this).remove();
-                reportIdList.push($(this).data('report-id'));
-            });
-
-            $.ajax({
-                url: '${createLink(controller: "admin", action: "deleteReportBatch")}',
-                type: 'get',
-                data: {reportIdList: JSON.stringify(reportIdList)},
-                success: function (resp) {
-                    $('#reports-table').reloadMe();
-                    Materialize.toast('${message(code: 'admin.reports.removed.batch')}', 2000);
-                    $('.warning-box').slideUp(500);
-                }
-            });
-        });
-        $('.warning-box').slideDown(500);
-    });
-
-    $('.seen-toggle', '#reports-table').click(function() {
-        var $button = $(this);
-        var $row = $(this).closest('tr');
-        var $statusField = $row.find('.solved-status-field');
-        var id = $row.data('report-id');
-
-        $.ajax({
-            url: "${createLink(controller: 'report', action: 'toggleSeenStatus')}",
-            type: 'post',
-            data: {id: id},
-            success: function (resp) {
-                if (resp == 'seen') {
-                    $row.addClass('grey-text text-darken-1');
-                    $button.addClass('active');
-                    Materialize.toast('${message(code: 'admin.reports.markedAsSeen.toast')}', 2000);
-                } else if (resp == 'unseen') {
-                    $row.removeClass('grey-text text-darken-1');
-                    $button.removeClass('active');
-
-                    if ($('.solved-toggle', $row).hasClass('active')) {
-                        $('.solved-toggle', $row).removeClass('active');
-
-                        $statusField.fadeOut(function() {
-                            $statusField.html('<i class="material-icons remar-red-text">close</i>');
-                            $statusField.fadeIn();
-                        });
-                    }
-
-                    Materialize.toast('${message(code: 'admin.reports.markedAsUnseen.toast')}', 2000);
-                }
-            },
-            error: function (xhr, text, error) {
-                if (xhr.status == 422)
-                    Materialize.toast('${message(code: 'admin.reports.toggleSeenFail.toast')}', 2000);
-            }
-        });
-    });
-
-    $('.solved-toggle', '#reports-table').click(function() {
-        var $button = $(this);
-        var $row = $(this).closest('tr');
-        var $statusField = $row.find('.solved-status-field');
-        var id = $row.data('report-id');
-
-        $.ajax({
-            url: "${createLink(controller: 'report', action: 'toggleSolvedStatus')}",
-            type: 'post',
-            data: {id: id},
-            success: function (resp) {
-                if (resp == 'solved') {
-                    $row.addClass('grey-text text-darken-1');
-                    $button.addClass('active');
-
-                    $statusField.fadeOut(function() {
-                        $statusField.html('<i class="material-icons remar-green-text">check</i>');
-                        $statusField.fadeIn();
-                    });
-
-                    if (!$('.seen-toggle', $row).hasClass('active'))
-                        $('.seen-toggle', $row).addClass('active');
-
-                    Materialize.toast('${message(code: 'admin.reports.markedAsSolved.toast')}', 2000);
-                } else if (resp == 'unsolved') {
-                    $button.removeClass('active');
-                    $statusField.fadeOut(function() {
-                        $statusField.html('<i class="material-icons remar-red-text">close</i>');
-                        $statusField.fadeIn();
-                    });
-                    Materialize.toast('${message(code: 'admin.reports.markedAsUnsolved.toast')}', 2000);
-                }
-            },
-            error: function (xhr, text, error) {
-                if (xhr.status == 422)
-                    Materialize.toast('${message(code: 'admin.reports.toggleSolvedFail.toast')}', 2000);
-            }
-        });
-    });
-
-    $('#batch-markAsSeen-button').click(function() {
-        var reportIdList = [];
-
-        $('#reports-table input:checkbox:checked').closest('tr').each(function() {
-            $(this).addClass('grey-text text-darken-1');
-            $('.seen-toggle', this).addClass('active');
-            reportIdList.push($(this).data('report-id'));
-        });
-
-        $.ajax({
-            url: '${createLink(controller: "report", action: "batchMarkAsSeen")}',
-            type: 'get',
-            data: {reportIdList: JSON.stringify(reportIdList)},
-            success: function (resp) {
-                var $toastContent = $('<span>' + resp + ' ${message(code: 'admin.reports.markAsSeen.batch')}</span>');
-                $toastContent.add('aaaaa');
-                Materialize.toast($toastContent, 10000);
-            }
-        });
-    });
-
-    $('#batch-markAsUnseen-button').click(function() {
-        var reportIdList = [];
-
-        $('#reports-table input:checkbox:checked').closest('tr').each(function() {
-            var $statusField = $('.solved-status-field', this);
-
-            $(this).removeClass('grey-text text-darken-1');
-            $('.seen-toggle', this).removeClass('active');
-
-            if ($('.solved-toggle', this).hasClass('active')) {
-                $('.solved-toggle', this).removeClass('active');
-
-                $statusField.fadeOut(function() {
-                    $statusField.html('<i class="material-icons remar-red-text">close</i>');
-                    $statusField.fadeIn();
-                });
-            }
-
-            reportIdList.push($(this).data('report-id'));
-        });
-
-        $.ajax({
-            url: '${createLink(controller: "report", action: "batchMarkAsUnseen")}',
-            type: 'get',
-            data: {reportIdList: JSON.stringify(reportIdList)},
-            success: function (resp) {
-                var $toastContent = $('<span>' + resp + ' ${message(code: 'admin.reports.markAsUnseen.batch')}</span>')
-                                    .add($('<button class="btn-flat toast-action">${message(code: 'default.button.undo.label')}</button>'));
-                Materialize.toast($toastContent, 10000);
-            }
-        });
-    });
-
-    $('#batch-markAsSolved-button').click(function() {
-         var reportIdList = [];
-
-        $('#reports-table input:checkbox:checked').closest('tr').each(function() {
-            var $statusField = $('.solved-status-field', this);
-
-            $(this).addClass('grey-text text-darken-1');
-            $('.solved-toggle', this).addClass('active');
-
-            $statusField.fadeOut(function() {
-                $statusField.html('<i class="material-icons remar-green-text">check</i>');
-                $statusField.fadeIn();
-            });
-
-            if (!$('.seen-toggle', this).hasClass('active'))
-                $('.seen-toggle', this).addClass('active');
-
-            reportIdList.push($(this).data('report-id'));
-        });
-
-        $.ajax({
-            url: '${createLink(controller: "report", action: "batchMarkAsSolved")}',
-            type: 'get',
-            data: {reportIdList: JSON.stringify(reportIdList)},
-            success: function (resp) {
-                var $toastContent = $('<span>' + resp + ' ${message(code: 'admin.reports.markAsSolved.batch')}</span>')
-                                    .add($('<button class="btn-flat toast-action">${message(code: 'default.button.undo.label')}</button>'));
-                Materialize.toast($toastContent, 10000);
-            }
-        });
-    });
-
-    $('#batch-markAsUnsolved-button').click(function() {
-         var reportIdList = [];
-
-        $('#reports-table input:checkbox:checked').closest('tr').each(function() {
-            var $statusField = $('.solved-status-field', this);
-
-            $statusField.fadeOut(function() {
-                $statusField.html('<i class="material-icons remar-red-text">close</i>');
-                $statusField.fadeIn();
-            });
-
-            reportIdList.push($(this).data('report-id'));
-        });
-
-        $.ajax({
-            url: '${createLink(controller: "report", action: "batchMarkAsUnsolved")}',
-            type: 'get',
-            data: {reportIdList: JSON.stringify(reportIdList)},
-            success: function (resp) {
-                var $toastContent = $('<span>' + resp + ' ${message(code: 'admin.reports.markAsUnsolved.batch')}</span>')
-                                    .add($('<button class="btn-flat toast-action">${message(code: 'default.button.undo.label')}</button>'));
-                Materialize.toast($toastContent, 10000);
-            }
-        });
-    });
+    var m_adminReportsWarning = '${message(code: 'admin.reports.warning')}';
+    var m_adminReportsRemoved = '${message(code: 'admin.reports.removed')}';
+    var m_adminReportsWarningBatch = '${message(code: 'admin.reports.warning.batch')}';
+    var m_adminReportsRemovedBatch = '${message(code: 'admin.reports.removed.batch')}';
+    var m_adminReportsMarkedAsSeenToast = '${message(code: 'admin.reports.markedAsSeen.toast')}';
+    var m_adminReportsMarkedAsUnseenToast = '${message(code: 'admin.reports.markedAsUnseen.toast')}';
+    var m_adminReportsToggleSeenFailToast = '${message(code: 'admin.reports.toggleSeenFail.toast')}';
+    var m_adminReportsMarkedAsSolvedToast = '${message(code: 'admin.reports.markedAsSolved.toast')}';
+    var m_adminReportsMarkedAsUnsolvedToast = '${message(code: 'admin.reports.markedAsUnsolved.toast')}';
+    var m_adminReportsToggleSolvedFailToast = '${message(code: 'admin.reports.toggleSolvedFail.toast')}';
+    var m_adminReportsMarkAsSeenBatch = '${message(code: 'admin.reports.markAsSeen.batch')}';
+    var m_adminReportsMarkAsUnseenBatch = '${message(code: 'admin.reports.markAsUnseen.batch')}';
+    var m_adminReportsMarkAsSolvedBatch = '${message(code: 'admin.reports.markAsSolved.batch')}';
+    var m_adminReportsMarkAsUnsolvedBatch = '${message(code: 'admin.reports.markAsUnsolved.batch')}';
+    var m_adminReportsArchived = '${message(code: 'admin.reports.archived')}';
+    var m_adminReportsUnarchived = '${message(code: 'admin.reports.unarchived')}';
+    var m_adminReportsToggleArchivedFailToast = '${message(code: 'admin.reports.toggleArchivedFail.toast')}';
+    var m_adminReportsArchiveBatch = '${message(code: 'admin.reports.archive.batch')}';
 
 </g:javascript>
 </body>

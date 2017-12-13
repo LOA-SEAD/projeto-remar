@@ -857,6 +857,10 @@ span.card-title {
     margin-bottom: 0 !important;
 }
 
+.no-border {
+    border: none !important;
+}
+
 .icon-metadata-done{
     width: 80px;
 }
@@ -1410,7 +1414,7 @@ nav ul li a img { margin-top: 0; }
      color: #333333;
 }
 
-iframe{
+iframe {
     width: 100%;
     height: 100%;
     overflow: hidden;

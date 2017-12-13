@@ -16,6 +16,19 @@ td a.hover-underlined:hover {
     text-decoration: underline;
 }
 
+span.badge.new {
+    font-weight: 500;
+}
+
+span.badge.new:after {
+    content: "";
+}
+
+.card-content span:first-child {
+    display: flex;
+    justify-content: center;
+}
+
 [type="checkbox"] + label {
     height: 20px;
     width: 20px;
@@ -62,6 +75,17 @@ td a.hover-underlined:hover {
 }
 
 @media only screen and (max-width: 600px) {
+    .card-content {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 10px !important;
+    }
+
+    .card-content i {
+        margin: 0 30px 0 15px;
+    }
+
     #report-information-modal .row.valign-wrapper {
         flex-direction: column;
     }

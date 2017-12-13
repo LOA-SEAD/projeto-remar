@@ -22,41 +22,22 @@
         <div class="divider"></div>
     </div>
 
-    <g:if test="${unseenReports > 0}">
-        <div class="row no-margin">
-            <div class="col s12">
-                <div class="warning-box row valign-wrapper">
-                    <div class="col s1 center-align">
-                        <i class="material-icons tiny no-margin">warning</i>
-                    </div>
-
-                    <div id="warning-box-message" class="col s8">
-                        <g:message code="admin.dashboard.reports.unseen" args="[unseenReports]"/>
-                    </div>
-
-                    <div class="col s3 right-align">
-                        <button class="btn-flat close-warning">Fechar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </g:if>
-
-
-%{-- Display for medium and large screens --}%
+    %{-- Display for medium and large screens --}%
     <div class="row hide-on-small-only">
         %{-- Users card --}%
         <div class="col m2">
             <div class="card no-margin hoverable">
-                <a href="/admin/users" class="card-image waves-effect waves-block waves-light center-align">
-                    <i class="material-icons">person</i>
-                </a>
+                <a href="/admin/users" class="waves-effect waves-block waves-light center-align">
+                    <div class="card-image">
+                        <i class="material-icons">person</i>
+                    </div>
 
-                <div class="card-content">
-                    <p class="card-title grey-text text-darken-4">
-                        <g:message code="admin.dashboard.users"/>
-                    </p>
-                </div>
+                    <div class="card-content">
+                        <p class="card-title grey-text text-darken-4">
+                            <g:message code="admin.dashboard.users"/>
+                        </p>
+                    </div>
+                </a>
             </div>
         </div>
         %{----------------}%
@@ -64,15 +45,18 @@
         %{-- Groups card --}%
         <div class="col m2">
             <div class="card no-margin hoverable">
-                <a href="/admin/groups" class="card-image waves-effect waves-block waves-light center-align">
-                    <i class="material-icons">group</i>
-                </a>
+                <a href="/admin/groups" class=" waves-effect waves-block waves-light center-align">
+                    <div class="card-image">
+                        <i class="material-icons">group</i>
+                    </div>
 
-                <div class="card-content">
-                    <p class="card-title grey-text text-darken-4">
-                        <g:message code="admin.dashboard.groups"/>
-                    </p>
-                </div>
+
+                    <div class="card-content">
+                        <p class="card-title grey-text text-darken-4">
+                            <g:message code="admin.dashboard.groups"/>
+                        </p>
+                    </div>
+                </a>
             </div>
         </div>
         %{-----------------}%
@@ -80,15 +64,18 @@
         %{-- Games card --}%
         <div class="col m2">
             <div class="card no-margin hoverable">
-                <a href="/admin/games" class="card-image waves-effect waves-block waves-light center-align">
-                    <i class="material-icons">games</i>
-                </a>
+                <a href="/admin/games" class="waves-effect waves-block waves-light center-align">
+                    <div class="card-image">
+                        <i class="material-icons">games</i>
+                    </div>
 
-                <div class="card-content">
-                    <p class="card-title grey-text text-darken-4">
-                        <g:message code="admin.dashboard.games"/>
-                    </p>
-                </div>
+
+                    <div class="card-content">
+                        <p class="card-title grey-text text-darken-4">
+                            <g:message code="admin.dashboard.games"/>
+                        </p>
+                    </div>
+                </a>
             </div>
         </div>
         %{----------------}%
@@ -96,15 +83,18 @@
         %{-- Categories card --}%
         <div class="col m2">
             <div class="card no-margin hoverable">
-                <a href="/admin/categories" class="card-image waves-effect waves-block waves-light center-align">
-                    <i class="material-icons">list</i>
-                </a>
+                <a href="/admin/categories" class="waves-effect waves-block waves-light center-align">
+                    <div class="card-image">
+                        <i class="material-icons">list</i>
+                    </div>
 
-                <div class="card-content">
-                    <p class="card-title grey-text text-darken-4">
-                        <g:message code="admin.dashboard.categories"/>
-                    </p>
-                </div>
+
+                    <div class="card-content">
+                        <p class="card-title grey-text text-darken-4">
+                            <g:message code="admin.dashboard.categories"/>
+                        </p>
+                    </div>
+                </a>
             </div>
         </div>
         %{---------------------}%
@@ -112,15 +102,19 @@
         %{-- Reports card --}%
         <div class="col m2">
             <div class="card no-margin hoverable">
-                <a href="/admin/reports" class="card-image waves-effect waves-block waves-light center-align">
-                    <i class="material-icons">report</i>
-                </a>
+                <a href="/admin/reports" class="waves-effect waves-block waves-light center-align">
+                    <div class="card-image">
+                        <i class="material-icons">report</i>
+                    </div>
 
-                <div class="card-content">
-                    <p class="card-title grey-text text-darken-4">
-                        <g:message code="admin.dashboard.reports"/>
-                    </p>
-                </div>
+
+                    <div class="card-content collection no-margin no-border">
+                        <p class="card-title grey-text text-darken-4 collection-item">
+                            <span class="new badge remar-orange">${unseenReports}</span>
+                            <g:message code="admin.dashboard.reports"/>
+                        </p>
+                    </div>
+                </a>
             </div>
         </div>
         %{---------------------}%
@@ -132,15 +126,14 @@
         <div class="row">
             <div class="col s12 no-padding">
                 <div class="card no-margin hoverable">
-                    <a href="/admin/users" class="card-image waves-effect waves-block waves-light center-align">
-                        <i class="material-icons">person</i>
+                    <a href="/admin/users" class="waves-effect waves-block waves-light center-align">
+                        <div class="card-content">
+                            <i class="material-icons">person</i>
+                            <p class="card-title grey-text text-darken-4">
+                                <g:message code="admin.dashboard.users"/>
+                            </p>
+                        </div>
                     </a>
-
-                    <div class="card-content">
-                        <p class="card-title grey-text text-darken-4">
-                            <g:message code="admin.dashboard.users"/>
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -150,15 +143,14 @@
         <div class="row">
             <div class="col s12 no-padding">
                 <div class="card no-margin hoverable">
-                    <a href="/admin/groups" class="card-image waves-effect waves-block waves-light center-align">
-                        <i class="material-icons">group</i>
+                    <a href="/admin/groups" class="waves-effect waves-block waves-light center-align">
+                        <div class="card-content">
+                            <i class="material-icons">group</i>
+                            <p class="card-title grey-text text-darken-4">
+                                <g:message code="admin.dashboard.groups"/>
+                            </p>
+                        </div>
                     </a>
-
-                    <div class="card-content">
-                        <p class="card-title grey-text text-darken-4">
-                            <g:message code="admin.dashboard.groups"/>
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -168,15 +160,14 @@
         <div class="row">
             <div class="col s12 no-padding">
                 <div class="card no-margin hoverable">
-                    <a href="/admin/games" class="card-image waves-effect waves-block waves-light center-align">
-                        <i class="material-icons">games</i>
+                    <a href="/admin/games" class="waves-effect waves-block waves-light center-align">
+                        <div class="card-content">
+                            <i class="material-icons">games</i>
+                            <p class="card-title grey-text text-darken-4">
+                                <g:message code="admin.dashboard.games"/>
+                            </p>
+                        </div>
                     </a>
-
-                    <div class="card-content">
-                        <p class="card-title grey-text text-darken-4">
-                            <g:message code="admin.dashboard.games"/>
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -186,15 +177,14 @@
         <div class="row">
             <div class="col s12 no-padding">
                 <div class="card no-margin hoverable">
-                    <a href="/admin/categories" class="card-image waves-effect waves-block waves-light center-align">
-                        <i class="material-icons">list</i>
+                    <a href="/admin/categories" class="waves-effect waves-block waves-light center-align">
+                        <div class="card-content">
+                            <i class="material-icons">list</i>
+                            <p class="card-title grey-text text-darken-4">
+                                <g:message code="admin.dashboard.categories"/>
+                            </p>
+                        </div>
                     </a>
-
-                    <div class="card-content">
-                        <p class="card-title grey-text text-darken-4">
-                            <g:message code="admin.dashboard.categories"/>
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -204,15 +194,15 @@
         <div class="row">
             <div class="col s12 no-padding">
                 <div class="card no-margin hoverable">
-                    <a href="/admin/reports" class="card-image waves-effect waves-block waves-light center-align">
-                        <i class="material-icons">report</i>
+                    <a href="/admin/reports" class="waves-effect waves-block waves-light center-align">
+                        <div class="card-content">
+                            <i class="material-icons">report</i>
+                            <p class="card-title grey-text text-darken-4">
+                                <span class="new badge remar-orange">${unseenReports}</span>
+                                <g:message code="admin.dashboard.reports"/>
+                            </p>
+                        </div>
                     </a>
-
-                    <div class="card-content">
-                        <p class="card-title grey-text text-darken-4">
-                            <g:message code="admin.dashboard.reports"/>
-                        </p>
-                    </div>
                 </div>
             </div>
         </div>

@@ -28,6 +28,7 @@ class ReportController {
         reportInstance.browser = params.browser
         reportInstance.seen = false
         reportInstance.solved = false
+        reportInstance.archived = false
         reportInstance.screenshot = (params.screenshot) ? true : false
 
         reportInstance.save flush:true
@@ -88,6 +89,21 @@ class ReportController {
         reportInstance.save flush:true
 
         render status: 200, text: reportInstance.seen ? "seen" : "unseen"
+    }
+
+    @Transactional
+    markAsSeen() {
+        def reportInstance = Report.findById(params.id)
+
+        if (!reportInstance) {
+            render status: 422, text: ("ERROR: Report instance not found for id: " + params.id.toString())
+        }
+
+        reportInstance.seen = true
+
+        reportInstance.save flush: true
+
+        render status: 200
     }
 
     @Transactional
@@ -202,6 +218,77 @@ class ReportController {
     /* Not transactional methods */
     def create() {
         respond new Report(params)
+    }
+
+    @Transactional
+    archive() {
+        def reportInstance = Report.findById(params.id)
+
+        if (!reportInstance) {
+            render status: 422, text: ("ERROR: Report instance not found for id: " + params.id.toString())
+        }
+
+        reportInstance.archived = true
+        reportInstance.seen = true
+        reportInstance.save flush: true
+        render status: 200
+    }
+
+    @Transactional
+    unarchive() {
+        def reportInstance = Report.findById(params.id)
+
+        if (!reportInstance) {
+            render status: 422, text: ("ERROR: Report instance not found for id: " + params.id.toString())
+        }
+
+        reportInstance.archived = false
+        reportInstance.save flush: true
+        render status: 200
+    }
+
+    @Transactional
+    batchArchive() {
+        def reportIdList = JSON.parse(params.reportIdList)
+        def changedCounter = 0
+
+        reportIdList.each {
+            def reportInstance = Report.findById(it)
+
+            if (!reportInstance) {
+                render status: 422, text: ("ERROR: Report instance not found for id: " + params.id.toString())
+                return
+            } else if (!reportInstance.archived) {
+                reportInstance.archived = true
+                reportInstance.save flush: true
+
+                changedCounter++
+            }
+        }
+
+        render(status: 200, text: changedCounter.toString())
+    }
+
+    @Transactional
+    batchUnarchive() {
+        def reportIdList = JSON.parse(params.reportIdList)
+        def changedCounter = 0
+
+        reportIdList.each {
+            def reportInstance = Report.findById(it)
+
+            if (!reportInstance) {
+                render status: 422, text: ("ERROR: Report instance not found for id: " + params.id.toString())
+                return
+            } else if (reportInstance.archived) {
+                reportInstance.archived = false
+                reportInstance.save flush: true
+
+                changedCounter++
+            }
+        }
+
+        render(status: 200, text: changedCounter.toString())
     }
 
     def getReport() {

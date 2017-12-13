@@ -40,9 +40,15 @@ class AdminController {
     }
 
     def reports() {
-        def reports = Report.list().sort {it.date}
+        def reports = Report.findAllByArchived(false, [sort: "date"])
         reports.reverse(true)
         render view: "reports", model: [reports: reports]
+    }
+
+    def reportArchive() {
+        def reports = Report.findAllByArchived(true, [sort: "date"])
+        reports.reverse(true)
+        render view: "/report/archive", model: [reports: reports]
     }
 
     def deleteUser() {
