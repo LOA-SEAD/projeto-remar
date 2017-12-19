@@ -146,7 +146,7 @@ $(function () {
             image.onload = function() {
                 var el = $('#crop-preview');
                 $(el).attr('src', event.target.result);
-                $("#modal-picture").openModal({
+                $("#modal-picture").modal({
                     dismissible: true,
                     complete: function () {
                         jcrop.destroy();
@@ -163,7 +163,7 @@ $(function () {
 
                         saveCrop(formData, updateImg);
                     }
-                });
+                }).modal('open');
                 $(el).Jcrop({
                     aspectRatio: 1,
                     setSelect: [0, 0, Math.max(this.width, this.height), Math.max(this.width, this.height)],

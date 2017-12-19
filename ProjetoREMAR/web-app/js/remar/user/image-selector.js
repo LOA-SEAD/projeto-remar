@@ -33,9 +33,7 @@ $('#file').on('change', function() {
             var el = $('#crop-preview');
             $(el).attr('src', event.target.result);
 
-            $('#modal-profile-picture').openModal({
-                dismissible: false
-            });
+            $('#modal-profile-picture').modal('open');
 
             // Ação a ser feita caso o botão para aceitar seja clicado
             $('#accept-picture').unbind('click');

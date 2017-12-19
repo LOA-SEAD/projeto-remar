@@ -71,7 +71,7 @@ $(function(){
             contentType: false,
             success    : function (data) {
                 $("#userDetailsModal").html(data);
-                $("#userDetailsModal").openModal();
+                $("#userDetailsModal").modal('open');
             },
             error      : function (XMLHttpRequest, textStatus, errorThrown) {
                 console.log(textStatus + "\n" + errorThrown);

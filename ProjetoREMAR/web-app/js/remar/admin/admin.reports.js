@@ -408,9 +408,7 @@ $(document).ready(function () {
                     $('#modal-report-ss-container').hide();
                 }
 
-                $('#report-information-modal').openModal({
-                    dismissible: false
-                });
+                $('#report-information-modal').modal('open');
 
                 // Mark as seen
                 $.ajax({

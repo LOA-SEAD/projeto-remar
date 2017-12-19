@@ -7,7 +7,7 @@ $(document).ready(function () {
     $('.material-select').material_select();
     $('.materialboxed').materialbox();
     $('.button-collapse').sideNav();
-    $('.modal-trigger').leanModal({
+    $('.modal').modal({
         dismissible: false
     });
 

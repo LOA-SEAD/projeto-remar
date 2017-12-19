@@ -15,7 +15,7 @@ $(document).ready(function() {
         if (localStorage.DoNotShowMessageAgain && localStorage.DoNotShowMessageAgain === "true") {
             // user doesn't want to see the message again, so handle accordingly
         }else{
-            // $('#messenger').openModal();
+            // $('#messenger').modal('open');
         }
     }
 

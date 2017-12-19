@@ -86,39 +86,50 @@
         </div>
 
         <!-- Modal Structures -->
-        <div id="modal-users" class="modal bottom-sheet">
+        <div id="modal-users" class="modal bottom-sheet modal-fixed-footer">
             <div class="modal-content">
-                <h4 class="left-align">Membros do grupo</h4>
-                <ul class="collection users-collection">
-                    <li class="collection-item avatar left-align">
-                        <img src="/data/users/${group.owner.username}/profile-picture" class="circle">
-                        <span class="title">${group.owner.firstName + " " + group.owner.lastName + " (Dono do grupo)"}</span>
-                        <p class="">Usuário: ${group.owner.username}</p>
-                    </li>
-                    <g:if test="${group.userGroups.size() == 0 && group.owner.id == session.user.id}">
-                        <li id="no-users" class="collection-item">Nenhum usuário foi adicionado à este grupo.</li>
-                    </g:if>
-                    <g:else>
-                        <g:each var="userGroup" in="${group.userGroups.sort { it.user.firstName }}">
-                            <li id="user-group-card-${userGroup.id}" class="collection-item avatar left-align">
-                                <img alt src="/data/users/${userGroup.user.username}/profile-picture" class="circle">
-                                <span class="title">${userGroup.user.firstName + " " + userGroup.user.lastName}</span>
-                                <span class="admin-text" id="admin-${userGroup.id}-text"><g:if
-                                        test="${userGroup.admin}">(Administrador)</g:if>
-                                <g:else></g:else>
-                                </span>
-                                <p class="">Usuário: ${userGroup.user.username}</p>
-                                <g:if test="${group.owner.id != session.user.id}">
-                                    <g:if test='${userGroup.user.id == session.user.id}'>
-                                        <a class="tooltipped modal-trigger secondary-content" data-tooltip="Sair do grupo"
-                                           style=" color: black;" href="#leave-group"><i class="fa fa-sign-out fa-2x"
-                                                                                         aria-hidden="true"></i></a>
+                <h4 class="left-align">
+                    Membros do grupo
+                </h4>
+
+                <div class="group-members-collection-container">
+                    <ul class="collection users-collection">
+                        <li class="collection-item avatar left-align">
+                            <img src="/data/users/${group.owner.username}/profile-picture" class="circle">
+                            <span class="title">${group.owner.firstName + " " + group.owner.lastName + " (Dono do grupo)"}</span>
+                            <p class="">Usuário: ${group.owner.username}</p>
+                        </li>
+                        <g:if test="${group.userGroups.size() == 0 && group.owner.id == session.user.id}">
+                            <li id="no-users" class="collection-item">Nenhum usuário foi adicionado à este grupo.</li>
+                        </g:if>
+                        <g:else>
+                            <g:each var="userGroup" in="${group.userGroups.sort { it.user.firstName }}">
+                                <li id="user-group-card-${userGroup.id}" class="collection-item avatar left-align">
+                                    <img alt src="/data/users/${userGroup.user.username}/profile-picture" class="circle">
+                                    <span class="title">${userGroup.user.firstName + " " + userGroup.user.lastName}</span>
+                                    <span class="admin-text" id="admin-${userGroup.id}-text"><g:if
+                                            test="${userGroup.admin}">(Administrador)</g:if>
+                                    <g:else></g:else>
+                                    </span>
+                                    <p class="">Usuário: ${userGroup.user.username}</p>
+                                    <g:if test="${group.owner.id != session.user.id}">
+                                        <g:if test='${userGroup.user.id == session.user.id}'>
+                                            <a class="tooltipped modal-trigger secondary-content" data-tooltip="Sair do grupo"
+                                               style=" color: black;" href="#leave-group"><i class="fa fa-sign-out fa-2x"
+                                                                                             aria-hidden="true"></i></a>
+                                        </g:if>
                                     </g:if>
-                                </g:if>
-                            </li>
-                        </g:each>
-                    </g:else>
-                </ul>
+                                </li>
+                            </g:each>
+                        </g:else>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect btn">
+                    <g:message code="default.button.close.label"/>
+                </a>
             </div>
         </div>
     </div>

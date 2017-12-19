@@ -20,7 +20,7 @@
 
         <script>
             $(document).ready(function() {
-            	$("#modal").openModal();
+            	$("#modal").modal('open');
             });
         </script>
     </g:if>
@@ -217,19 +217,7 @@
                     ", porém você pode resgatar sua conta à qualquer momento. </p>");
             $("#modalFooter").append("<a href='user/disableAccount' class='btn btn-large modal-close'>Desativar minha conta</button>");
             $("#modalFooter").append("<a class='btn btn-large modal-close disabled'>Cancelar</a>");
-            $("#confirmModal").openModal({
-                dismissible:false
-            });
-        }
-        function deleteUser(){
-            $("#modalContent").empty();
-            $("#modalFooter").empty();
-            $("#modalContent").append("<p> Ao excluir sua conta, todos os seus dados serão deletados permanentemente (usuário, modelos e jogos customizados) e você não poderá recuperar sua conta posteriormente</p>");
-            $("#modalFooter").append("<a href='user/deleteAccount' class='btn btn-large modal-close'>Excluir minha conta</button>");
-            $("#modalFooter").append("<a class='btn btn-large modal-close disabled'>Cancelar</a>");
-            $("#confirmModal").openModal({
-                dismissible:false
-            });
+            $("#confirmModal").modal('open');
         }
     </script>
     <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}" />

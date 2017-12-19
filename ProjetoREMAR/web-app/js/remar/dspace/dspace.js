@@ -20,7 +20,7 @@ $(document).ready(function(){
             success: function(data){
                 $(modal).empty();
                 $(modal).append(data);
-                $(modal).openModal();
+                $(modal).modal('open');
             },
             error: function(data){
                 console.log("deu erros do modal");

@@ -196,7 +196,7 @@ $(document).ready(function(){
         var stars = Number(parent.find(".rating-stars").attr("data-stars"));
         var commentArea = $("#comment-area");
 
-        $('#modal-comment').openModal();
+        $('#modal-comment').modal('open');
 
         $("#create-rating").hide();
         $('#edit-rating').show();

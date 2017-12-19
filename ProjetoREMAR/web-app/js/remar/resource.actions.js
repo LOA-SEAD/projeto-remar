@@ -12,7 +12,7 @@ $(document).ready(function() {
             contentType: false,
             success: function (data) {
                 $(".modal-content").html(data); // coloca os dados gerados, na view _cardGamesModal dentro de modal-content
-                $(".shareModal").openModal(); // abre o modal com a classe shareModal
+                $(".shareModal").modal('open'); // abre o modal com a classe shareModal
             },
             error: function (request, status, error) {
                 console.log(error);

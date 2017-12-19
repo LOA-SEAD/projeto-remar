@@ -4,9 +4,7 @@
 
 function openThisModal(modalName){
     name = "#"+modalName;
-    $(name).openModal({
-        dismissible: false
-    });
+    $(name).modal('open');
 }
 
 function validateWar(){
@@ -243,7 +241,7 @@ $(function(){
                 var el = $('#crop-preview');
                 $(el).attr('src', event.target.result);
                 //$('#crop-preview').Jcrop();
-                $("#modal-picture").openModal({
+                $("#modal-picture").modal({
                     dismissible: false,
                     complete: function () {
                         jcrop.destroy();
@@ -259,7 +257,8 @@ $(function(){
                         formData.append('h', coordinates.h);
                         saveCrop(formData, updateImg);
                     }
-                });
+                }).modal('open');
+
                 $(el).Jcrop({
                     aspectRatio: 1.8,
                     setSelect: [0, 0, Math.max(this.width, this.height), Math.max(this.width, this.height)],
@@ -330,7 +329,7 @@ $(function(){
             contentType: false,
             success    : function (data) {
                 $("#userDetailsModal").html(data);
-                $("#userDetailsModal").openModal();
+                $("#userDetailsModal").modal('open');
             },
             error      : function (XMLHttpRequest, textStatus, errorThrown) {
                 console.log(textStatus + "\n" + errorThrown);

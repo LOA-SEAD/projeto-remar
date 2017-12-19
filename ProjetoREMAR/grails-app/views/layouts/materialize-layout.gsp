@@ -4,13 +4,15 @@
         <g:applyLayout name="navbar" />
     </header>
 
-    <div id="slide-out" class="hide-on-large-only side-nav" data-html2canvas-ignore="true">
+    <ul id="slide-out" class="hide-on-large-only side-nav" data-html2canvas-ignore="true">
         <g:applyLayout name="menu" />
-    </div>
+    </ul>
 
     <main class="row no-margin">
-        <div class="col l2 left-sidebar-nav hide-on-med-and-down">
-            <g:applyLayout name="menu" />
+        <div class="col l2 no-padding hide-on-med-and-down">
+            <ul id="side-nav" class="sidenav">
+                <g:applyLayout name="menu" />
+            </ul>
         </div>
 
         <div class="col s12 m12 l10 content">

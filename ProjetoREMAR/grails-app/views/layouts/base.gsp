@@ -15,9 +15,10 @@
         <g:external dir="css/libs" file="swiper.css" />
         <g:external dir="css/libs" file="slick.css" />
         <g:external dir="css/libs" file="slick-theme.css" />
-        <g:external dir="css/libs" file="materialize.css" />
+        <g:external dir="css/libs" file="materialize.min.css" />
         <g:external dir="css/libs" file="font-awesome.min.css" />
         <g:external dir="css/libs" file="materialize-material-icons.css" />
+        <g:external dir="css" file="materialize-tweaks.css"/>
         <g:external dir="css" file="style.css" />
 
         <g:javascript src="libs/jquery/jquery-2.1.4.min.js" />
