@@ -1,42 +1,106 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: marcus
-  Date: 26/08/15
-  Time: 13:32
---%>
-<g:applyLayout name="materialize-layout-index">
-    <div class="row">
+<head>
+    <meta name="layout" content="materialize-layout-index">
+    <g:javascript src="static/home.js"/>
+</head>
+
+<body>
+    <ul id="slide-out" class="side-nav" style="text-align: left;">
+
+        <li>
+            <a href="/index" class="waves-effect">
+                <i class="material-icons">info</i>
+                GT-REMAR
+            </a>
+        </li>
+        <li>
+            <a href="/index/apresentacao" class="waves-effect">
+                <i class="material-icons">description</i>
+                Apresentação
+            </a>
+        </li>
+        <li>
+            <a href="/index/arquitetura" class="waves-effect">
+                <i class="material-icons">dashboard</i>
+                Arquitetura
+            </a>
+        </li>
+        <li>
+            <a href="/index/equipe" class="waves-effect">
+                <i class="fa fa-users"></i>
+                Equipe
+            </a>
+        </li>
+
+        <li>
+            <a href="/index/publicacoes" class="waves-effect">
+                <i class="material-icons">import_contacts</i>
+                Publicações
+            </a>
+        </li>
+
+        <li>
+            <a href="/index/contato" class="waves-effect">
+                <i class="material-icons">email</i>
+                Contato
+            </a>
+        </li>
+
+
+        <li>
+            <a href="/login" class="waves-effect">
+                <i class="fa fa-sign-in"></i>
+                Acessar
+            </a>
+        </li>
+    </ul>
+
+    <div class="row" style="padding: 20px;">
         <div class="col-lg-12">
-            <div class="row">
-                <a href="http://www.loa.sead.ufscar.br/" target="_blank">
-                    <img src="../images/logo/loa-topo.png"/>
-                </a>
+
+            <div class="slider">
+                <ul class="slides" id="static-slider">
+                    <li>
+                        <img src="images/slider/slider1.png">
+                        <div class="caption center-align">
+                        </div>
+                    </li>
+                    <li>
+                        <img src="images/slider/slider2.png">
+                        <div class="caption left-align">
+                            <h3 class="alternative-text">Projeto Piloto na Rede Municipal de Ensino de Batatais</h3>
+                            <h5 class="alternative-text">Conheça mais sobre o Projeto Piloto de Matemática de Batatais
+                                <a href="http://educacao.batatais.sp.gov.br/?p=2292" target="_blank">aqui</a>!</h5>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="images/slider/slider3.png">
+                        <div class="caption right-align">
+                            <h3 class="alternative-text">Cursos e Oficinas</h3>
+                            <h5 class="alternative-text">Acesse os cursos oferecidos pelo Laboratório <a
+                                    href="http://www.loa.sead.ufscar.br/oficinas.php" target="_blank">aqui</a>!</h5>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="images/slider/slider4.png">
+                        <div class="caption center-align">
+                            <h3 class="alternative-text">Jogos customizados</h3>
+                            <h5 class="alternative-text">Conheça alguns exemplos de jogos customizados utilizando a
+                                plataforma REMAR <a href="http://www.loa.sead.ufscar.br/customizados.php"
+                                                    target="_blank">aqui</a>!</h5>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="images/slider/slider5.png"> <!-- random image -->
+                        <div class="caption left-align">
+                            <h3 class="alternative-text">Notícias</h3>
+                            <h5 class="alternative-text">Confira as novidades da Plataforma REMAR na nossa <a
+                                    href="http://www.facebook.com/loaufscar" target="_blank">Página do Facebook</a>!
+                            </h5>
+                        </div>
+                    </li>
+                </ul>
             </div>
-
-            <div>
-                <img src="/assets/img/logo/logo-remar-preto-transparente.png" width="395" align="center" class="responsive-img" />
-            </div>
-
-            <p class="center">Recursos Educacionais Multiplataforma Abertos na Rede</p>
-            <br>
-            <br>
-            <div class="video-container">
-                <iframe width="500" height="300" src="https://www.youtube.com/embed/VQTO3txJbM4" frameborder="0" allowfullscreen></iframe>
-            </div>
-
-            %{--<h3 style="text-align: left;">GT-REMAR</h3>--}%
-            %{--<p style="text-align: justify">--}%
-                %{--Este projeto encontra-se no contexto dos grupos de trabalho (GTs) Temáticos em EAD (sub-tema: Universidade Aberta OnLine) da RNP.--}%
-                %{--O GT-REMAR tem como objetivo facilitar e ampliar a construção e o reuso de recursos educacionais abertos (REA), por meio de um serviço,--}%
-                %{--na forma de uma plataforma web, que ofereça ferramentas que facilitem a construção e a customização de REA, seguindo diretrizes que favoreçam--}%
-                %{--o reuso, a disponibilização desses recursos em diferentes plataformas, bem como a integração com ambientes virtuais de aprendizagem. Espera-se obter--}%
-                %{--como resultados: (i) um conjunto de diretrizes para o desenvolvimento de REA reutilizáveis, adaptáveis, multiplataforma e acessíveis; (ii) um protótipo--}%
-                %{--da plataforma, que deverá ser testado e validado por meio do desenvolvimento e adaptação de REA pelo grupo proponente, em conjunto com instituições parceiras.--}%
-            %{--</p>--}%
-
+            </br></br>
         </div>
     </div>
-    <footer>
-        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Licença Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />Exceto onde indicado de outra forma, todos os conteúdos disponibilizados neste website são licenciados sob uma licença  <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Atribuição 4.0 Internacional</a>.
-    </footer>
-</g:applyLayout>
+</body>

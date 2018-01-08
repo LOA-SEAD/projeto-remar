@@ -1,98 +1,75 @@
 <g:applyLayout name="base">
     <header>
         <div class="navbar-fixed">
-            <nav class="valign-wrapper">
-                <div class="hide-on-med-and-down remar-max-size center">
-                    <!-- Menu for large displays -->
-                    <ul class="left">
-                        <li>
-                            <a href="/index" class="valign-wrapper">
-                                <img src="/images/logo/logo-remar-branco-transparente.png" class="logo" />
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="right">
-                        <ul class="right hide-on-med-and-down">
+            <nav>
+                <div class="nav-wrapper">
+                    <div class="hide-on-med-and-down remar-max-size center">
+                        <!-- Menu for large displays -->
+                        <ul class="left">
                             <li>
-                                <a href="/index/info">GT-REMAR</a>
-                            </li>
-                            <li>
-                                <a target="_blank" href="http://www.loa.sead.ufscar.br/publicacoes.php">Publicações</a>
-                            </li>
-                            <li>
-                                <a target="_blank" href="https://remar.readme.io/docs">Documentação</a>
-                            </li>
-                            <li>
-                                <a href="/exportedResource/publicGames">Banco de Jogos</a>
-                            </li>
-                            <li>
-                                <a href="/login">Acessar</a>
+                                <a href="/" class="valign-wrapper">
+                                    <img src="/images/logo/logo-remar-branco-transparente.png" class="logo"/>
+                                </a>
                             </li>
                         </ul>
-                    </ul>
-                </div>
-
-                <div class="hide-on-large-only remar-max-size">
-                    <ul class="left">
-                        <a id="button-collapse" href="#" data-activates="slide-out" class="button-collapse top-nav full hide-on-large-only">
-                            <i class="material-icons small">menu</i>
-                        </a>
-                    </ul>
-                    <ul class="right">
-                        <li class="logo-icon">
-                            <a href="/index">
-                                <img src="/images/logo/logo-remar-branco-transparente.png" alt="Logo" class="small-logo" />
+                        <ul class="hide-on-med-and-down">
+                            <li style="float:right;"><a href="/index/apresentacao">Apresentação</a></li>
+                            <li style="float:right;"><a href="/index/arquitetura">Arquitetura</a></li>
+                            <li style="float:right;"><a href="/index/equipe">Equipe</a></li>
+                            <li style="float:right;"><a href="/index/publicacoes">Publicações</a></li>
+                            <li style="float:right;"><a href="/index/contato">Contato</a></li>
+                            <li style="float:right;"><a href="/login">Acessar</a></li>
+                        </ul>
+                    </div>
+                    <div class="hide-on-large-only remar-max-size">
+                        <ul class="left">
+                            <a id="button-collapse" href="#" data-activates="slide-out"
+                               class="button-collapse top-nav full hide-on-large-only">
+                                <i class="material-icons small">menu</i>
                             </a>
-                        </li>
-                    </ul>
+                        </ul>
+                        <ul class="right">
+                            <li class="logo-icon">
+                                <a href="/">
+                                    <img src="/images/logo/logo-remar-branco-transparente.png" alt="Logo" class="small-logo"/>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </nav>
         </div>
     </header>
 
-    <div class="remar-max-size center min-height-size margin-top">
-        <ul id="slide-out" class="side-nav" style="text-align: left;">
-            <li>
-                <a href="/index/info" class="waves-effect">
-                    <i class="material-icons">info</i>
-                    GT-REMAR
-                </a>
-            </li>
-            <li>
-                <a href="http://www.loa.sead.ufscar.br/publicacoes.php" target="_blank" class="waves-effect">
-                    <i class="material-icons">library_books</i>
-                    Publicações
-                </a>
-            </li>
-            <li>
-                <a href="https://remar.readme.io/docs" target="_blank" class="waves-effect">
-                    <i class="material-icons">description</i>
-                    Documentação
-                </a>
-            </li>
-            <li>
-                <a href="/exportedResource/publicGames" class="waves-effect">
-                    <i class="material-icons">videogame_asset</i>
-                    Jogos Públicos
-                </a>
-            </li>
-            <li>
-                <a href="/login" class="waves-effect">
-                    <i class="fa fa-sign-in"></i>
-                    Entrar
-                </a>
-            </li>
-        </ul>
+    <div class="container remar-max-size center min-height-size margin-top">
         <g:layoutBody />
-
-        <g:javascript>
-            $(document).ready(function () {
-                $('.dropdown-button').dropdown({
-                    alignment: 'left'
-                });
-
-                $(".button-collapse").sideNav();
-            });
-        </g:javascript>
     </div>
+
+    <g:javascript>
+        $(document).ready(function () {
+            $(".button-collapse").sideNav();
+
+            $('.dropdown-button').dropdown({
+                alignment: 'left'
+            });
+
+            $('.collapsible').collapsible();
+
+            $('.tooltipped').tooltip({delay: 50});
+
+            $('select').material_select();
+
+        });
+
+        function startWizard() {
+            if (window.innerWidth > 992) { //desktop
+                introJs().start();
+            }
+        }
+    </g:javascript>
+
+    <div class="clear"></div>
+
+    <g:applyLayout name="footer" />
+
 </g:applyLayout>
