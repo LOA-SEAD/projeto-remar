@@ -1,6 +1,5 @@
 <head>
     <meta name="layout" content="materialize-layout-index">
-    <g:javascript src="static/home.js"/>
 </head>
 
 <body>
@@ -103,4 +102,5 @@
             </br></br>
         </div>
     </div>
+<g:javascript src="static/home.js"/>
 </body>
