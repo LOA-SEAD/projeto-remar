@@ -4,6 +4,7 @@ body {
     min-height: 100vh;
     flex-direction: column;
     background-color: white;
+    margin-bottom: 130px;
 }
 
 main {

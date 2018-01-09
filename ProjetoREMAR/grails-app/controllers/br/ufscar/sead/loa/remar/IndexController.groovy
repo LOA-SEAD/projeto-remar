@@ -21,25 +21,15 @@ class IndexController {
         }
     }
 
-    def apresentacao() {
-        renderHTML('apresentacao.html')
-    }
+    def introduction() {}
 
-    def arquitetura() {
-        renderHTML('arquitetura.html')
-    }
+    def architecture() {}
 
-    def equipe() {
-        renderHTML('equipe.html')
-    }
+    def team() {}
 
-    def publicacoes() {
-        renderHTML('publicacoes.html')
-    }
+    def publications() {}
 
-    def contato() {
-        renderHTML('contato.html')
-    }
+    def contact() {}
 
     def renderHTML(String fileName) {
         def dir = servletContext.getRealPath("/static")

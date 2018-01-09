@@ -12,13 +12,13 @@
                                 </a>
                             </li>
                         </ul>
-                        <ul class="hide-on-med-and-down">
-                            <li style="float:right;"><a href="/index/apresentacao">Apresentação</a></li>
-                            <li style="float:right;"><a href="/index/arquitetura">Arquitetura</a></li>
-                            <li style="float:right;"><a href="/index/equipe">Equipe</a></li>
-                            <li style="float:right;"><a href="/index/publicacoes">Publicações</a></li>
-                            <li style="float:right;"><a href="/index/contato">Contato</a></li>
-                            <li style="float:right;"><a href="/login">Acessar</a></li>
+                        <ul class="right">
+                            <li class="left"><a href="/index/introduction">Apresentação</a></li>
+                            <li class="left"><a href="/index/architecture">Arquitetura</a></li>
+                            <li class="left"><a href="/index/team">Equipe</a></li>
+                            <li class="left"><a href="/index/publications">Publicações</a></li>
+                            <li class="left"><a href="/index/contact">Contato</a></li>
+                            <li class="left"><a href="/login">Acessar</a></li>
                         </ul>
                     </div>
                     <div class="hide-on-large-only remar-max-size">
@@ -40,8 +40,57 @@
             </nav>
         </div>
     </header>
-
+    <main>
     <div class="container remar-max-size center min-height-size margin-top">
+
+        <ul id="slide-out" class="side-nav" style="text-align: left;">
+            <li>
+                <a href="/index" class="waves-effect">
+                    <i class="material-icons">info</i>
+                    GT-REMAR
+                </a>
+            </li>
+            <li>
+                <a href="/index/apresentacao" class="waves-effect">
+                    <i class="material-icons">description</i>
+                    Apresentação
+                </a>
+            </li>
+            <li>
+                <a href="/index/arquitetura" class="waves-effect">
+                    <i class="material-icons">dashboard</i>
+                    Arquitetura
+                </a>
+            </li>
+            <li>
+                <a href="/index/equipe" class="waves-effect">
+                    <i class="fa fa-users"></i>
+                    Equipe
+                </a>
+            </li>
+
+            <li>
+                <a href="/index/publicacoes" class="waves-effect">
+                    <i class="material-icons">import_contacts</i>
+                    Publicações
+                </a>
+            </li>
+
+            <li>
+                <a href="/index/contato" class="waves-effect">
+                    <i class="material-icons">email</i>
+                    Contato
+                </a>
+            </li>
+
+
+            <li>
+                <a href="/login" class="waves-effect">
+                    <i class="fa fa-sign-in"></i>
+                    Acessar
+                </a>
+            </li>
+        </ul>
         <g:layoutBody />
     </div>
 
@@ -69,7 +118,7 @@
     </g:javascript>
 
     <div class="clear"></div>
-
+    </main>
     <g:applyLayout name="footer" />
 
 </g:applyLayout>
