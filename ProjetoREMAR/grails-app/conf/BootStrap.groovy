@@ -120,7 +120,7 @@ class BootStrap {
         }
 
         for (url in [
-                '/process/deploy', '/process/undeploy', '/category/**', '/category/delete/**', "category/update/**", "/admin/**"
+                '/process/deploy', '/process/undeploy', '/category/**', '/category/delete/**', "category/update/**", "/admin/**", "/announcement/**"
         ]) {
             RequestMap.findOrSaveByUrlAndConfigAttribute(url, 'ROLE_ADMIN')
         }

@@ -1,4 +1,4 @@
-<%--
+    <%--
   Created by IntelliJ IDEA.
   User: garciaph
   Date: 06/09/17
@@ -92,6 +92,25 @@
                     <div class="card-content">
                         <p class="card-title grey-text text-darken-4">
                             <g:message code="admin.dashboard.categories"/>
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        %{---------------------}%
+
+        %{-- Announcements card --}%
+        <div class="col m2">
+            <div class="card no-margin hoverable">
+                <a href="/announcement/index" class="waves-effect waves-block waves-light center-align">
+                    <div class="card-image">
+                        <i class="material-icons">message</i>
+                    </div>
+
+
+                    <div class="card-content">
+                        <p class="card-title grey-text text-darken-4">
+                            <g:message code="admin.dashboard.announcements"/>
                         </p>
                     </div>
                 </a>
