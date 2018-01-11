@@ -19,6 +19,12 @@ class AdminController {
         render view: "dashboard", model: [unseenReports: unseenReports]
     }
 
+    def announcements() {
+        def announcements = Announcement.list().sort { it.dateCreated }
+        render view: "announcements", model: [announcements: announcements, announcementCount: Announcement.count()]
+    }
+
+
     def users() {
         def users = User.list().sort {it.getName().toLowerCase()}
         render view: "users", model: [users: users]
