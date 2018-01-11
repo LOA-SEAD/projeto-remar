@@ -1,6 +1,5 @@
-
 <p class="no-margin valign-wrapper">
-    <i class="tiny material-icons">explore</i><b>&nbspFase:&nbsp</b> ${question.get(0).levelId + 1}
+    <i class="tiny material-icons">explore</i><b>&nbspFase:&nbsp</b> ${allStats.get(0).levelId + 1}
 </p>
 
 <table class=" centered highlight responsive-table">
@@ -15,7 +14,7 @@
     <tbody>
     <g:each in="${allStats}" var="stats">
         <tr>
-            <td><g:formatDate format="dd/MM/yy - HH:mm" date="${stats.timetamp}"/></td>
+            <td><g:formatDate format="dd/MM/yy - HH:mm" date="${stats.timestamp}"/></td>
             <td>${stats.partialPoints}</td>
             <td>${stats.remainingTime}</td>
             <td>

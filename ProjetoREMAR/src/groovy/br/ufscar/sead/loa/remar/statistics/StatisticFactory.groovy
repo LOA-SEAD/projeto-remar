@@ -5,16 +5,17 @@ class StatisticFactory {
 
     Statistics createStatistics(String gameType) {
 
-        if (gameType == 'questionAndAnswer')
+        if (gameType == 'questionAndAnswer') {
             return new QuestionAndAnswer()
-        else if (gameType == 'multipleChoice')
+        } else if (gameType == 'multipleChoice') {
             return new MultipleChoice()
-        else if (gameType == 'puzzleWithTime')
+        } else if (gameType == 'puzzleWithTime') {
             return new PuzzleWithTime()
-        else if (gameType == 'shuffleWord')
+        } else if (gameType == 'shuffleWord') {
             return new ShuffleWord()
-        else if (gameType == 'dragPictures')
+        } else if (gameType == 'dragPictures') {
             return new DragPictures()
+        }
 
         return null
     }

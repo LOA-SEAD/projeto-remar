@@ -9,6 +9,12 @@ class DragPictures extends Statistics{
         data.numberDrag = params.numberDrag
         data.initialSequence = params.initialSequence
 
+        if (params.numberPictures) {
+            data.numberPictures = params.numberPictures
+        } else {
+            data.numberPictures = params.initialSequence.split(',').length
+        }
+
         return data
     }
 

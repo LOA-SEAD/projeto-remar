@@ -15,8 +15,11 @@ realização de uma manutenção mais facilmente.
 <%@ page import="br.ufscar.sead.loa.remar.User" contentType="text/html;charset=UTF-8" %>
 
 <div class="cluster-header">
-    <p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 24px;">
+    <p class="text-teal text-darken-3 center-align margin-bottom" style="font-size: 24px;">
         Estatísticas do Jogo
+    </p>
+    <p class="text-teal text-darken-3 center-align margin-bottom" style="font-size: 24px;">
+        <b>${exportedResource.name}</b>
     </p>
     <div class="divider"></div>
 </div>

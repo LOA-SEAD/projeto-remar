@@ -228,7 +228,6 @@ class GroupController {
         if(user){
             def queryMongo = MongoHelper.instance.getStats('stats', params.exp as int, user.id)
             def allStats = []
-            def question = []
             queryMongo.forEach(new Block<Document>() {
                 @Override
                 void apply(Document document) {
@@ -237,8 +236,6 @@ class GroupController {
                             //Verificação realizada para filtrar, tambem, pelo gameIndex quando o jogo é multiplo
                             if(it.gameIndex == gameIndex) {
                                 if (it.levelId == params.level as int) {
-                                    if (question.empty)
-                                        question.push([question: it.question, answer: it.answer, levelId: it.levelId])
 
                                     // Estratégia utilizada para padronizar a população de dados e o respectivo retorno (economia de ifs e switches)
                                     StatisticFactory factory = StatisticFactory.instance;
@@ -254,7 +251,7 @@ class GroupController {
                 }
             })
 
-            render view: "userStats", model: [allStats: allStats, user: user, question: question, exportedResource: exportedResource, fase: fase]
+            render view: "userStats", model: [allStats: allStats, user: user, exportedResource: exportedResource, fase: fase]
         }
     }
 

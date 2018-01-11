@@ -8,7 +8,8 @@ class ShuffleWord extends Statistics{
 
         data.word = params.word
         data.answer = params.answer
-        data.numberMistake = params.numberMistake
+        data.correctAnswer = params.correctAnswer
+        data.numberTries = params.numberTries
 
         return data
     }

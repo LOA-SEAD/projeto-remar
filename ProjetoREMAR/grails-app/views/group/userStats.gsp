@@ -20,13 +20,21 @@
                     </div>
                 </div>
                 <div class="divider"></div>
-                <h5 class="center-align">Estatísticas do jogo <b>${exportedResource.name}</b></h5>
 
-                <g:if test="${fase}">
-                    <p class="center-align" style="font-size:15pt; margin: 10px"><i>${fase}</i></p>
-                </g:if>
+                <div class="cluster-header">
+                    <p class="text-teal text-darken-3 center-align margin-bottom" style="font-size: 24px;">
+                        Estatísticas do Jogo
+                    </p>
+                    <p class="text-teal text-darken-3 center-align margin-bottom" style="font-size: 24px;">
+                        <b>${exportedResource.name}</b>
+                    </p>
+                    <g:if test="${fase}">
+                        <p class="center-align" style="font-size:15pt; margin: 10px"><i>${fase}</i></p>
+                    </g:if>
+                    <div class="divider"></div><br>
+                    <p></p>
+                </div>
 
-                <div class="divider"></div><br>
                 <g:render template="userGameTypes/${allStats.get(0).gameType}" />
             </li>
         </ul>
