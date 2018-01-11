@@ -140,6 +140,29 @@ class AdminController {
     }
 
     @Transactional
+    saveAnnouncement() {
+        Announcement announcement = new Announcement(params)
+
+        if (announcement == null) {
+            notFound()
+            return
+        }
+
+        if (announcement.author == null) {
+            announcement.author = springSecurityService.getCurrentUser();
+        }
+
+        if (announcement.hasErrors()) {
+            respond error: 500
+            return
+        }
+
+        announcement.save flush:true
+
+        render announcement as JSON
+    }
+
+    @Transactional
     saveCategory() {
         Category category = new Category(params)
 

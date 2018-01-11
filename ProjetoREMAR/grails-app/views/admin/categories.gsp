@@ -18,7 +18,7 @@
         <div class="divider"></div>
     </div>
 
-%{-- Erros e Avisos --}%
+    %{-- Erros e Avisos --}%
     <g:if test="${flash.message}">
         <div class="error-box row">
             <i class="material-icons tiny">error</i>

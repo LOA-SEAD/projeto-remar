@@ -102,7 +102,7 @@
         %{-- Announcements card --}%
         <div class="col m2">
             <div class="card no-margin hoverable">
-                <a href="/announcement/index" class="waves-effect waves-block waves-light center-align">
+                <a href="/admin/announcements" class="waves-effect waves-block waves-light center-align">
                     <div class="card-image">
                         <i class="material-icons">message</i>
                     </div>
