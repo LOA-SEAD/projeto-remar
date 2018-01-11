@@ -245,7 +245,6 @@ class GroupController {
                                     Statistics statistics = factory.createStatistics(it.gameType as String)
 
                                     def data = statistics.getData(it);
-                                    data.userId = session.user.id as long
 
                                     allStats.push(data)
                                 }

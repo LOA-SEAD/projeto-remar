@@ -98,7 +98,7 @@ class ExportedResourceController {
         def data = statistics.getData(params);
         data.userId = session.user.id as long
 
-        println "data:" + data
+        println "data: " + data
 
         try {
                 MongoHelper.instance.createCollection("stats")
@@ -748,29 +748,6 @@ class ExportedResourceController {
 
     def getRanking() {
         def lista = MongoHelper.instance.getRanking(params.exportedResourceId as Long)
-
-        render lista as JSON
-    }
-
-    def testScore() {
-        10.times {
-            def data = [:]
-            data.timestamp = new Date().toTimestamp()
-            data.userId = it + 2
-            data.exportedResourceId = 1
-            data.score = it + 100
-
-            try {
-                    MongoHelper.instance.createCollection("ranking")
-                    MongoHelper.instance.insertScoreToRanking(data)
-
-                } catch (Exception  e) {
-                    System.err.println(e.getClass().getName() + ": " + e.getMessage());
-                }
-            println data.userId + " " + data.score
-        }
-
-        def lista = MongoHelper.instance.getRanking(1)
 
         render lista as JSON
     }
