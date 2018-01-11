@@ -17,7 +17,7 @@ class IndexController {
                 //model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id), [max: 8, sort: "id", order: "desc"])
                 render view: "dashboard", model: model
         } else {
-            render view: "index"
+            respond Announcement.list(max: 4, sort: "dateCreated")
         }
     }
 
