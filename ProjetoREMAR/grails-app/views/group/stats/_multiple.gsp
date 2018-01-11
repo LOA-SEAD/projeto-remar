@@ -75,7 +75,7 @@ realização de uma manutenção mais facilmente.
 
                                     <g:if test="${(levelLose?.levelId!=null) && (levelWon?.levelId!=null)}">
                                         <td style="padding-left: 1.80em;"> <a class="tooltipped" data-position="top" data-delay="30" data-tooltip="Acertou com erros" href="/group/user-stats/${usuario.get(0).user.id}?exp=${exportedResource.id}&level=${levelWon.levelId}&gindex=${statsGameIndex.key}&fase=${gameIndexName.getAt(statsGameIndex.key as String)}">
-                                            <i style="color: #ff9800; margin-left: 2px" class="fa fa-exclamation"></i></a></td>
+                                            <i style="color: #ff9800; margin-left: 2px" class="fa fa-check"></i></a></td>
                                     </g:if>
                                     <g:else>
                                         <g:if test="${levelWon}">
