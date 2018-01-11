@@ -31,6 +31,10 @@
             </li>
         </ul>
     </div>
+
+    <div class="right">
+        <a id="backButton" name="Back" class="btn my-orange" href="javascript:history.back()"> Voltar </a>
+    </div>
 </div>
 
 </body>
