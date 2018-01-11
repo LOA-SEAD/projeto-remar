@@ -6,7 +6,6 @@ class PuzzleWithTime extends Statistics{
 
         def data = super.getData(params)
 
-        data.levelId = params.levelId as int
         data.points = params.points
         data.partialPoints = params.partialPoints as int
         data.remainingTime = params.remainingTime as int

@@ -8,7 +8,6 @@ class QuestionAndAnswer extends Statistics{
 
         data.points = params.points as int
         data.partialPoints = params.partialPoints as int
-        data.levelId = params.levelId as int
         data.errors = params.errors
         data.question = params.question
         data.answer = params.answer

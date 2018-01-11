@@ -20,6 +20,7 @@ abstract class Statistics {
             data.gameSize = params.size as int
         }
 
+        data.levelId = params.levelId as int
         data.gameType = params.gameType
 
         if (params.gameIndex)

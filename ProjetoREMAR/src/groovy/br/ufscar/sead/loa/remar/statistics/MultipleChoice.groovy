@@ -6,7 +6,6 @@ class MultipleChoice extends Statistics{
 
         def data = super.getData(params)
 
-        data.levelId = params.levelId as int
         data.question = params.question
         data.answer = params.answer
         data.choices = params.choices
