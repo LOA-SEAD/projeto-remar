@@ -4,7 +4,7 @@
     <p class="text-teal text-darken-3 center-align margin-bottom" style="font-size: 24px;">
         Estatísticas do Jogo
     </p>
-    <p class="text-teal text-darken-3 center-align margin-bottom" style="font-size: 24px;">
+    <p class="text-teal text-darken-3 center-align margin-bottom" style="font-size: 20px;">
         <b>${exportedResource.name}</b>
     </p>
 
