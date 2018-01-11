@@ -56,116 +56,20 @@ class MongoHelper {
     def insertStats(String collection, Object data){
         def selectedCollection = db.getCollection(collection);
 
+        Document doc = new Document(data)
+
         if(selectedCollection.find(new Document('userId', data.userId)).size() != 0) {
             println "updating"
             println data.gameType
-            if(data.gameType == 'puzzleWithTime') {
-                selectedCollection.updateOne(new Document("userId", data.userId), new Document('$push', new Document("stats",
-                        new Document()
-                                .append("points", data.points)
-                                .append("partialPoints", data.partialPoints)
-                                .append("win", data.win)
-                                .append("levelId", data.levelId)
-                                .append("remainingTime", data.remainingTime)
-                                .append("gameSize", data.gameSize)
-                                .append("exportedResourceId", data.exportedResourceId)
-                                .append("timestamp", data.timestamp)
-                                .append("gameType", data.gameType)
-                )))
-            } else if(data.gameType == 'questionAndAnswer') {
-                selectedCollection.updateOne(new Document("userId", data.userId), new Document('$push', new Document("stats",
-                        new Document()
-                                .append("points", data.points)
-                                .append("partialPoints", data.partialPoints)
-                                .append("errors", data.errors)
-                                .append("question", data.question)
-                                .append("answer", data.answer)
-                                .append("win", data.win)
-                                .append("levelId", data.levelId)
-                                .append("gameSize", data.gameSize)
-                                .append("exportedResourceId", data.exportedResourceId)
-                                .append("timestamp", data.timestamp)
-                                .append("gameType", data.gameType)
-                )))
-            } else if(data.gameType == 'multipleChoice'){
-                selectedCollection.updateOne(new Document("userId", data.userId), new Document('$push', new Document("stats",
-                        new Document()
-                                .append("question", data.question)
-                                .append("answer", data.answer)
-                                .append("choices", data.choices)
-                                .append("choice", data.choice)
-                                .append("win", data.win)
-                                .append("levelId", data.levelId)
-                                .append("exportedResourceId", data.exportedResourceId)
-                                .append("timestamp", data.timestamp)
-                                .append("gameType", data.gameType)
-                                .append("gameSize", data.gameSize)
-                )))
-            } else if(data.gameType == 'ranking') {
-                selectedCollection.updateOne(new Document("userId", data.userId).append("stats",
-                        asList(new Document()
-                            .append("gameType", data.gameType)
-                            .append("exportedResourceId", data.exportedResourceId)
-                            .append("score", data.score)
-                        )))
-            }
+
+            selectedCollection.updateOne(new Document("userId", data.userId), new Document('$push', new Document("stats", doc)))
 
         }else{
             println "creating"
             println data.gameType
 
-            if(data.gameType == 'puzzleWithTime'){
-                selectedCollection.insertOne(new Document("userId", data.userId).append("stats",
-                        asList(new Document()
-                                .append("points", data.points)
-                                .append("partialPoints", data.partialPoints)
-                                .append("win", data.win)
-                                .append("levelId", data.levelId)
-                                .append("remainingTime", data.remainingTime)
-                                .append("gameSize", data.gameSize)
-                                .append("exportedResourceId", data.exportedResourceId)
-                                .append("timestamp", data.timestamp)
-                                .append("gameType", data.gameType)
+            selectedCollection.insertOne(new Document("userId", data.userId).append("stats", asList(doc)))
 
-                        )))
-            } else if(data.gameType == 'questionAndAnswer') {
-                selectedCollection.insertOne(new Document("userId", data.userId).append("stats",
-                        asList(new Document()
-                                .append("points", data.points)
-                                .append("partialPoints", data.partialPoints)
-                                .append("errors", data.errors)
-                                .append("question", data.question)
-                                .append("answer", data.answer)
-                                .append("win", data.win)
-                                .append("levelId", data.levelId)
-                                .append("gameSize", data.gameSize)
-                                .append("exportedResourceId", data.exportedResourceId)
-                                .append("timestamp", data.timestamp)
-                                .append("gameType", data.gameType)
-
-                        )))
-            } else if(data.gameType == 'multipleChoice') {
-                selectedCollection.insertOne(new Document("userId", data.userId).append("stats",
-                        asList(new Document()
-                                .append("question", data.question)
-                                .append("answer", data.answer)
-                                .append("choices", data.choices)
-                                .append("choice", data.choice)
-                                .append("win", data.win)
-                                .append("levelId", data.levelId)
-                                .append("exportedResourceId", data.exportedResourceId)
-                                .append("timestamp", data.timestamp)
-                                .append("gameType", data.gameType)
-                                .append("gameSize", data.gameSize)
-                        )))
-            } else if(data.gameType == 'ranking') {
-                selectedCollection.insertOne(new Document("userId", data.userId).append("stats",
-                        asList(new Document()
-                            .append("gameType", data.gameType)
-                            .append("exportedResourceId", data.exportedResourceId)
-                            .append("score", data.score)
-                        )))
-            }
         }
     }
 

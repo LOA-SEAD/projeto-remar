@@ -1,5 +1,8 @@
 package br.ufscar.sead.loa.remar
 
+import br.ufscar.sead.loa.propeller.Propeller
+import br.ufscar.sead.loa.remar.statistics.StatisticFactory
+import br.ufscar.sead.loa.remar.statistics.Statistics
 import com.mongodb.Block
 import com.mongodb.DBCursor
 import grails.converters.JSON
@@ -7,6 +10,8 @@ import groovy.json.JsonBuilder
 import org.apache.commons.lang.RandomStringUtils
 import grails.plugin.springsecurity.annotation.Secured
 import org.bson.Document
+import org.bson.types.ObjectId
+
 import java.util.concurrent.TimeUnit;
 import org.grails.datastore.mapping.validation.ValidationException
 import org.springframework.transaction.annotation.Transactional
@@ -92,29 +97,100 @@ class GroupController {
 
     def stats() {
         def group = Group.findById(params.id)
-        if(session.user.id == group.owner.id || UserGroup.findByUserAndAdmin(session.user, true)) {
+        def isMultiple = false //Variável para determinar se um jogo é multiplo ou não
+        def hasContent = false //Variável para determinar se foi passado conteúdo à view
+        def gameIndexName = [:] //Usado apenas para games com multiplos gametypes
+
+        if(session.user.id == group.owner.id || UserGroup.findByUserAndAdmin(session.user,true)) {
             def exportedResource = ExportedResource.findById(params.exp)
+            def process = Propeller.instance.getProcessInstanceById(exportedResource.processId as String, session.user.id as long)
             if (exportedResource) {
                 def allUsersGroup = UserGroup.findAllByGroup(group).user
                 def queryMongo
                 try{
                     queryMongo = MongoHelper.instance.getStats("stats", exportedResource.id as Integer, allUsersGroup.id.toList())
 
+                    //Array que guardará os stats a serem enviados par a view
                     def allStats = []
-                    def _stat
-                    for(int i=0; i<queryMongo.size(); i++){
-                        def user = allUsersGroup.find { user -> user.id == queryMongo.get(i).userId || group.owner.id == queryMongo.get(i).userId }
 
+                    //Array que guardará os stats especificos a serem guardados no allStats
+                    def _stat
+
+                    for(int i=0; i<queryMongo.size(); i++){
+                        //Find em todos os usuários do grupo
+                        def user = allUsersGroup.find { user -> user.id == queryMongo.get(i).userId || group.owner.id == queryMongo.get(i).userId }
                         _stat = [[user: user]]
+
                         queryMongo.get(i).stats.each {
-                            if(it.exportedResourceId == exportedResource.id) {
-                                _stat.push([levelId: it.levelId, win: it.win, gameSize: it.gameSize])
+                            //Para cada stats obtido, pega apenas o que o jogo para obter os stats for igual aos da consulta
+                            if (it.exportedResourceId == exportedResource.id) {
+                                //Popula um map gameIndex para enviar à view.
+                                //Keys: numeros das fases no propeller (apenas as personalizadas)
+                                //Values: respectivos nomes das fases no propeller (apenas as personalizadas)
+                                if (it.gameIndex) {
+                                    gameIndexName.put(it.gameIndex, process.definition.tasks.get(it.gameIndex as int).name)
+                                    //Se encontrar um gameIndex, então significa que o jogo é do tipo multiplo
+                                    isMultiple = true
+                                }
+                                //Procura stats necessários para jogos NÃO multiplos.
+                                _stat.push([levelId: it.levelId, win: it.win, gameSize: it.gameSize, gameIndex: it.gameIndex])
                             }
                         }
+                        // Ao fim de cada acumulo de estatistica de um respectivo usuario, dá-se o push dele e suas estatisticas no array allStats
                         allStats.push(_stat)
-
+                        hasContent = true
                     }
 
+                    // Se o jogo for multiplo, o array de estatísticas já obtido anteriormente precisa ser rearranjado.
+                    // Para melhor manipulação na view, este array se tornará um map de maps.
+                    // Main Map: key = user ids // values =  conjunto de estatisticas do usuario
+                    // Sub Maps: key = numero da fase // values = estatisticas da respectiva fase
+                    if (isMultiple) {
+
+                        // Remove os usuários de cada array presente no array allStats
+                        allStats.each {
+                            it.remove(0)
+                        }
+
+                        def userStatsMap = [:]
+
+                        // Novo percorrer da consulta para repopular os usuários, considerando agora o tipo multiplo
+                        for (int i = 0; i < queryMongo.size(); i++) {
+                            def statsMap = [:]
+                            def user = allUsersGroup.find { user -> user.id == queryMongo.get(i).userId || group.owner.id == queryMongo.get(i).userId }
+                            _stat = [[user: user]]
+
+                            // Coleção com closure passado para remover os gameindex das estatísticas, de forma que ele seja, agora, uma chave e não um atributo
+                            def removeGI = allStats.get(i).collect() {
+                                def tempMap = [:]
+                                def gInd = it.gameIndex
+                                it.remove("gameIndex")
+                                tempMap.put(gInd, it)
+                                tempMap // retorno do collect()
+                            }
+
+                            //Para cada numero de fase, busca-se na coleção se existe aquela chave, e cria-se um novo hash (combinando repetições), que será:
+                            //Key = numero da fase
+                            //Value = estatísticas da fase
+                            gameIndexName.keySet().each() {
+                                def gInd = it
+                                def indexList = removeGI.findAll() { it.containsKey(gInd) }
+                                def valuesList = indexList.collect() { it.get(gInd) }
+                                statsMap.put(gInd, valuesList)
+                            }
+
+                            // Por fim cria-se um hash cuja key será o id do usuário, e values todos seus stats
+                            userStatsMap.put(_stat, statsMap)
+                            hasContent = true
+                        }
+
+                        render view: "stats", model: [userStatsMap: userStatsMap, group: group, exportedResource: exportedResource, gameIndexName: gameIndexName, isMultiple: isMultiple, hasContent: hasContent]
+                    }else{
+                        // Se não for multiplo, manda-se apenas os atributos necessários
+                        render view: "stats", model: [allStats: allStats, group: group, exportedResource: exportedResource, isMultiple: isMultiple, hasContent: hasContent]
+                    }
+
+                    // Descomentar caso desejar mostrar os membros SEM estatísticas
                     /*if(!allStats.empty) {
                         allUsersGroup.each { member ->
                             if (!allStats.find { stat -> stat.get(0) != null && stat.get(0).user.id == member.id }) {
@@ -124,9 +200,7 @@ class GroupController {
                         }
                     }*/
 
-                    allStats.sort({it.get(0).user.getName()})
-
-                    render view: "stats", model: [allStats: allStats, group: group, exportedResource: exportedResource]
+                    //allStats.sort({it.get(0).user.getName()})
 
                 }catch (NullPointerException e){
                     System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -144,46 +218,40 @@ class GroupController {
     }
 
     def userStats() {
-        println params
         def user = User.findById(params.id)
         def exportedResource = ExportedResource.findById(params.exp)
+
+        // Os parâmetros abaixo são recebidos apenas quando o jogo é do tipo Multiplo
+        def gameIndex = params.gindex; // Numero da fase
+        def fase = params.fase; // Nome da fase
+
         if(user){
             def queryMongo = MongoHelper.instance.getStats('stats', params.exp as int, user.id)
             def allStats = []
-            def question = []
             queryMongo.forEach(new Block<Document>() {
                 @Override
                 void apply(Document document) {
                     document.stats.each {
                         if(it.exportedResourceId == exportedResource.id){
-                            if(it.levelId == params.level as int) {
-                                if (question.empty)
-                                    question.push([question: it.question, answer: it.answer, levelId: it.levelId])
+                            //Verificação realizada para filtrar, tambem, pelo gameIndex quando o jogo é multiplo
+                            if(it.gameIndex == gameIndex) {
+                                if (it.levelId == params.level as int) {
 
-                                if(it.gameType == "puzzleWithTime") {
-                                    allStats.push([timeStamp    : it.timestamp, levelId: it.levelId, win: it.win,
-                                                   points       : it.points, partialPoints: it.partialPoints,
-                                                   gameSize     : it.gameSize, gameType: it.gameType,
-                                                   remainingTime: String.format("%d min, %d sec",
-                                                           TimeUnit.SECONDS.toMinutes(it.remainingTime),
-                                                           (it.remainingTime - TimeUnit.MINUTES.toSeconds(TimeUnit.SECONDS.toMinutes(it.remainingTime as long)))
-                                                   )])
-                                } else if(it.gameType == "questionAndAnswer"){
-                                    allStats.push([timeStamp    : it.timestamp, levelId: it.levelId, win: it.win,
-                                                   points       : it.points, partialPoints: it.partialPoints, errors: it.errors,
-                                                   gameSize     : it.gameSize, gameType: it.gameType ])
-                                } else if(it.gameType == "multipleChoice"){
-                                    allStats.push([timeStamp    : it.timestamp, levelId: it.levelId, win: it.win, choice: it.choice,
-                                                choices: it.choices, errors: it.errors, gameSize: it.gameSize, gameType: it.gameType ])
+                                    // Estratégia utilizada para padronizar a população de dados e o respectivo retorno (economia de ifs e switches)
+                                    StatisticFactory factory = StatisticFactory.instance;
+                                    Statistics statistics = factory.createStatistics(it.gameType as String)
+
+                                    def data = statistics.getData(it);
+
+                                    allStats.push(data)
                                 }
                             }
                         }
                     }
-
                 }
             })
 
-            render view: "userStats", model: [allStats: allStats, user: user, question: question, exportedResource: exportedResource]
+            render view: "userStats", model: [allStats: allStats, user: user, exportedResource: exportedResource, fase: fase]
         }
     }
 
