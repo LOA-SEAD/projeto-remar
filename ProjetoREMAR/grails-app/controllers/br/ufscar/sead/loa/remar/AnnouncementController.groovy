@@ -1,7 +1,5 @@
 package br.ufscar.sead.loa.remar
 
-
-
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -10,9 +8,9 @@ class AnnouncementController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond Announcement.list(params), model:[announcementCount: Announcement.count()]
+    def index() {
+        def announcements = Announcement.list().sort { it.createdDate }
+        respond model:[announcements: announcements, announcementCount: Announcement.count()]
     }
 
     def show(Announcement announcement) {
@@ -28,6 +26,10 @@ class AnnouncementController {
         if (announcement == null) {
             notFound()
             return
+        }
+
+        if (announcement.author == null) {
+            announcement.author == User.findById(springSecurityService.getCurrentUser().getId())
         }
 
         if (announcement.hasErrors()) {

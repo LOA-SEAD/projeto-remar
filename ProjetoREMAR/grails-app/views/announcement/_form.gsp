@@ -1,7 +1,5 @@
 <%@ page import="br.ufscar.sead.loa.remar.Announcement" %>
 
-
-
 <div class="fieldcontain ${hasErrors(bean: announcement, field: 'title', 'error')} required">
 	<label for="title">
 		<g:message code="announcement.title.label" default="Title" />
@@ -17,15 +15,6 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<g:select name="type" from="${announcement.constraints.type.inList}" required="" value="${announcement?.type}" valueMessagePrefix="announcement.type"/>
-
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: announcement, field: 'author', 'error')} required">
-	<label for="author">
-		<g:message code="announcement.author.label" default="Author" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="author" name="author.id" from="${br.ufscar.sead.loa.remar.User.list()}" optionKey="id" required="" value="${announcement?.author?.id}" class="many-to-one"/>
 
 </div>
 
