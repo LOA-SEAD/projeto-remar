@@ -5,13 +5,13 @@
 $(document).ready(function() {
     $('#type-announcement').material_select();
 
-    var $table = $('#annoucements-table');
+    var $table = $('#announcements-table');
     var $tableButtons = $('.toggleable');
 
     $tableButtons.domDisable();
 
     $table.pageMe({
-        pagerSelector: '#annoucements-table-pager',
+        pagerSelector: '#announcements-table-pager',
         activeColor: '#5d4037',
         showPrevNext: true,
         hidePageNumbers: false,
@@ -41,7 +41,7 @@ $(document).ready(function() {
     $('#select-all-checkbox').change(function() {
         var checked = this.checked;
 
-        $('#annoucements-table td input[type="checkbox"]').each(function() {
+        $('#announcements-table td input[type="checkbox"]').each(function() {
             $(this).prop('checked', checked);
         });
 
@@ -49,9 +49,9 @@ $(document).ready(function() {
         else $tableButtons.domDisable();
     });
 
-    $('#annoucements-table td input[type="checkbox"]').change(function() {
-        var checkedCB = $('#annoucements-table input:checkbox:checked').length;
-        var totalCB = $('#annoucements-table input:checkbox').length;
+    $('#announcements-table td input[type="checkbox"]').change(function() {
+        var checkedCB = $('#announcements-table input:checkbox:checked').length;
+        var totalCB = $('#announcements-table input:checkbox').length;
         var uncheckedCB = totalCB - checkedCB;
 
         if (!this.checked) {
