@@ -48,7 +48,11 @@ $(document).ready(function () {
         $('.div-author .input-field').last().after(' <div class="input-field col s12"> ' +
             '   <input name="author" id="author" type="text" class="validate"> ' +
             '   <label for="author">Autor:</label> ' +
+            '   <span class="btn-orange remove-author">remover autor</span> ' +
             '  </div>');
     });
 
+    $('.remove-author').on('click', function(){
+        $(this).parent().remove()
+    });
 });
