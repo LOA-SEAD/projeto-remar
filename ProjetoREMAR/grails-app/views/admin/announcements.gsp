@@ -221,10 +221,10 @@ enquanto que arquivos .js são interpretados pelo cliente.
 --}%
     $('a[id^="remove-announcement"]').click(function () {
         var $row = $(this).closest('tr');
-        var name = $row.children('.announcement-name').text();
+        var title = $row.children('.announcement-title').text();
         var id = $row.data('announcement-id');
         $('#warning-box-message').html(
-        '${message(code: "admin.announcements.warning")} <span id="warning-announcement">' + name + '</span> ?');
+        '${message(code: "admin.announcements.warning")} <span id="warning-announcement">' + title + '</span> ?');
             $('.warning-box .btn-flat:first-child').unbind().click(function () {
                 $.ajax({
                     url: "${createLink(controller: 'admin', action: 'deleteAnnouncement')}",
@@ -292,7 +292,7 @@ enquanto que arquivos .js são interpretados pelo cliente.
             $('.warning-box').slideDown(500);
         });
 
-        // Abrir modal para edição já com o nome da categoria
+        // Abrir modal para edição já com as infos do anúncio
         $('a[id^="edit-announcement"]').click(function () {
             var $row = $(this).closest('tr');
             var id = $row.data('announcement-id');
