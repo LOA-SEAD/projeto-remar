@@ -57,6 +57,11 @@ class AdminController {
         render view: "/report/archive", model: [reports: reports]
     }
 
+    def deleteAnnouncement() {
+        deleteAnnouncementProc(params.id)
+        render (status: 200)
+    }
+
     def deleteUser() {
         deleteUserProc(params.id)
         render (status: 200)
