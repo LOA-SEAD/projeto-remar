@@ -306,6 +306,24 @@ class AdminController {
     }
 
     /**
+     * @desc   Procedure to remove a category
+     * @param  id - the id from the announcement to be removed
+     * @return nothing
+     */
+    @Transactional
+    deleteAnnouncementProc(id) {
+        def announcementInstace = Announcement.findById(id)
+
+        if (announcementInstace == null) {
+            log.debug("ERROR @ deleteAnnouncementProc: Announcement instance [id: ${id}] not found")
+            render status: 410
+            return
+        }
+
+        announcementInstace.delete flush: true
+    }
+
+    /**
      * @desc   Procedure to remove an user and all data related to him
      * @param  id - the id from the user to be removed
      * @return nothing
