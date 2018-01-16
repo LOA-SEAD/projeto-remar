@@ -9,6 +9,22 @@
 </head>
 
 <body>
+    <g:javascript>
+        GMS = {};
+        GMS.SAVE_URL                        = "${createLink(controller: 'admin', action: 'saveAnnouncement')}";
+        GMS.EDIT_URL                        = "${createLink(controller: 'admin', action: 'editAnnouncement')}";
+        GMS.DELETE_URL                      = "${createLink(controller: 'admin', action: 'deleteAnnouncement')}";
+        GMS.DELETE_BATCH_URL                = "${createLink(controller: 'admin', action: 'deleteAnnouncementBatch')}";
+
+        GMS.SAVED_MESSAGE                   = "${message(code: 'admin.announcements.created')}";
+        GMS.REMOVED_MESSAGE                 = "${message(code: 'admin.announcements.removed')}";
+        GMS.NOT_REMOVED_MESSAGE             = "${message(code: 'admin.announcements.notremoved')}";
+        GMS.BATCH_REMOVED_MESSAGE           = "${message(code: 'admin.announcements.removed.batch')}";
+        GMS.REMOVE_WARNING_MESSAGE          = "${message(code: 'admin.announcements.warning')}";
+        GMS.NOT_REMOVED_BATCH_MESSAGE       = "${message(code: 'admin.announcements.notremoved.batch')}";
+        GMS.PARTIALLY_REMOVED_BATCH_MESSAGE = "${message(code: 'admin.announcements.removed.partialBatch')}";
+    </g:javascript>
+
     <div class="row cluster">
         <div class="row cluster-header">
             <h4><g:message code="admin.table.title" args="[entityName]"/></h4>
