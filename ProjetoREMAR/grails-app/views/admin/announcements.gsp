@@ -209,8 +209,8 @@
                 </div>
                 <div class="row">
                     <div class="required input-field col s12">
-                        <g:textField id="body-announcement" name="body" required="" value="${announcement?.body}" class="remar-input validate"/>
-                        <label for="body-announcement">
+                        <g:textField id="edit-body-announcement" name="body" required="" value="${announcement?.body}" class="remar-input validate"/>
+                        <label for="edit-body-announcement">
                             <g:message code="announcement.body.label" default="Corpo" />
                             <span class="required-indicator">*</span>
                         </label>
