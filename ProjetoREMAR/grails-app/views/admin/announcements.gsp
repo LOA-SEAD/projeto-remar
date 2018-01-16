@@ -228,12 +228,5 @@
 <g:javascript src="libs/jquery/jquery.tablePagination.js"/>
 <g:javascript src="remar/admin/admin.announcements.js"/>
 
-<g:javascript>
-%{--
-Este trecho de código precisa estar no .gsp por causa das mensagens de I18N
-que são decodificadas pelo próprio servidor antes de renderizar a página,
-enquanto que arquivos .js são interpretados pelo cliente.
---}%
-</g:javascript>
 </body>
 </html>
