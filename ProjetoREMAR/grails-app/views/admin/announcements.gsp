@@ -20,7 +20,6 @@
         GMS.REMOVED_MESSAGE                 = "${message(code: 'admin.announcements.removed')}";
         GMS.NOT_REMOVED_MESSAGE             = "${message(code: 'admin.announcements.notremoved')}";
         GMS.BATCH_REMOVED_MESSAGE           = "${message(code: 'admin.announcements.removed.batch')}";
-        GMS.REMOVE_WARNING_MESSAGE          = "${message(code: 'admin.announcements.warning')}";
         GMS.NOT_REMOVED_BATCH_MESSAGE       = "${message(code: 'admin.announcements.notremoved.batch')}";
         GMS.PARTIALLY_REMOVED_BATCH_MESSAGE = "${message(code: 'admin.announcements.removed.partialBatch')}";
     </g:javascript>
@@ -235,91 +234,6 @@ Este trecho de código precisa estar no .gsp por causa das mensagens de I18N
 que são decodificadas pelo próprio servidor antes de renderizar a página,
 enquanto que arquivos .js são interpretados pelo cliente.
 --}%
-    $('a[id^="remove-announcement"]').click(function () {
-        var $row = $(this).closest('tr');
-        var title = $row.children('.announcement-title').text();
-        var id = $row.data('announcement-id');
-        $('#warning-box-message').html(
-        '${message(code: "admin.announcements.warning")} <span id="warning-announcement">' + title + '</span> ?');
-            $('.warning-box .btn-flat:first-child').unbind().click(function () {
-                $.ajax({
-                    url: "${createLink(controller: 'admin', action: 'deleteAnnouncement')}",
-                    type: 'post',
-                    data: {id: id},
-                    success: function (resp) {
-                        $row.remove();
-                        $('#announcements-table').reloadMe();
-                        Materialize.toast('${message(code :'admin.announcements.removed')}', 2000);
-                        $('.warning-box').slideUp(500);
-                    },
-                    error: function(req, res, err) {
-                        Materialize.toast('${message(code :'admin.announcements.notremoved')}', 2000);
-                        $('.warning-box').slideUp(500);
-                    }
-                });
-            });
-            $('.warning-box').slideDown(500);
-        });
-
-        $('a#batch-remove-button').click(function() {
-            $('#warning-box-message').html('${message(code: "admin.announcements.warning.batch")}');
-            $('.warning-box .btn-flat:first-child').unbind().click(function () {
-
-                var announcementIdList = [];
-
-                $('#announcements-table input:checkbox:checked').closest('tr').each(function() {
-                    announcementIdList.push($(this).data('announcement-id'));
-                });
-
-
-                $.ajax({
-                    url: '${createLink(controller: "admin", action: "deleteAnnouncementBatch")}',
-                    type: 'get',
-                    data: {announcementIdList: JSON.stringify(announcementIdList)},
-                    success: function (resp) {
-
-                        if(resp.length > 0){
-                            $('#announcements-table input:checkbox:checked').closest('tr').each(function() {
-                                for(i = 0; i < resp.length; i++){
-                                    if($(this).data('announcement-id') == resp[i])
-                                        $(this).remove();
-                                }
-                            });
-                            if(resp.length == announcementIdList.length)
-                                Materialize.toast('${message(code: 'admin.announcements.removed.batch')}', 2000);
-                            else{
-                                Materialize.toast('${message(code: 'admin.announcements.removed.partialBatch')}', 2000);
-                            }
-                        }else{
-                            Materialize.toast('${message(code :'admin.announcements.notremoved.batch')}', 2000);
-                        }
-
-                        $('#announcements-table').reloadMe();
-
-                        $('.warning-box').slideUp(500);
-                    },
-                    error: function(req, res, err) {
-
-                        Materialize.toast('${message(code :'admin.announcements.notremoved.batch')}', 2000);
-                        $('.warning-box').slideUp(500);
-                    }
-                });
-            });
-            $('.warning-box').slideDown(500);
-        });
-
-        // Abrir modal para edição já com as infos do anúncio
-        $('a[id^="edit-announcement"]').click(function () {
-            var $row = $(this).closest('tr');
-            var id = $row.data('announcement-id');
-
-            $("#edit-title-announcement").addClass("valid");
-            $("label[for='"+$("#edit-title-announcement").attr('id')+"']").addClass("active");
-
-            $("#edit-title-announcement").val($row.find('td').eq(1).text());
-            $("#editAnnouncement").attr("modal-announcement-id", id);
-        });
-
 </g:javascript>
 </body>
 </html>

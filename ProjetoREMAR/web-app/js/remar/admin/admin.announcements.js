@@ -77,16 +77,16 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: location.origin + "/admin/saveAnnouncement",
+            url: GSM.SAVE_URL,
             data: formData,
             processData: false,
             contentType: false,
             success: function (data) {
                 location.reload();
-                Materialize.toast('Anúncio salvo com sucesso!', 3000);
+                Materialize.toast(GSM.SAVED_MESSAGE, 3000);
             },
             error: function(req, res, err) {
-                Materialize.toast('Problema na criação do anúncio.', 3000);
+                Materialize.toast(GSM.NOT_SAVED_MESSAGE, 3000);
             }
         });
     });
@@ -99,7 +99,7 @@ $(document).ready(function() {
         formData.append('body',$("#body-announcement").val());
 
         $.ajax({
-            url: location.origin + "/admin/editAnnouncement/"+id,
+            url: GSM.EDIT_URL + id,
             type: 'POST',
             data: formData,
             processData: false,
@@ -108,17 +108,102 @@ $(document).ready(function() {
                 console.log(data);
                 // Trocar o reload por alterar a td respectiva com o novo valor
                 location.reload();
-                Materialize.toast('Ańuncio editado com sucesso!', 3000);
+                Materialize.toast(GSM.EDITED_MESSAGE, 3000);
             },
             error: function(req, res, err) {
                 console.log(req);
                 console.log(res);
                 console.log(err);
-                Materialize.toast('Problema na edição do anúncio.', 3000);
+                Materialize.toast(GSM.NOT_EDITED_MESSAGE, 3000);
             }
         });
     });
 
+    $('a[id^="remove-announcement"]').click(function () {
+        var $row = $(this).closest('tr');
+        var title = $row.children('.announcement-title').text();
+        var id = $row.data('announcement-id');
+        $('#warning-box-message').html(
+        GSM.REMOVE_WARNING + '<span id="warning-announcement">' + title + '</span> ?');
+        $('.warning-box .btn-flat:first-child').unbind().click(function () {
+            $.ajax({
+                url: GSM.DELETE_URL,
+                type: 'post',
+                data: {id: id},
+                success: function (resp) {
+                    $row.remove();
+                    $('#announcements-table').reloadMe();
+                    Materialize.toast(GSM.REMOVED_MESSAGE, 2000);
+                    $('.warning-box').slideUp(500);
+                },
+                error: function(req, res, err) {
+                    Materialize.toast(GSM.NOT_REMOVED_MESSAGE, 2000);
+                    $('.warning-box').slideUp(500);
+                }
+            });
+        });
+        $('.warning-box').slideDown(500);
+    });
+
+    $('a#batch-remove-button').click(function() {
+        $('#warning-box-message').html('${message(code: "admin.announcements.warning.batch")}');
+        $('.warning-box .btn-flat:first-child').unbind().click(function () {
+
+            var announcementIdList = [];
+
+            $('#announcements-table input:checkbox:checked').closest('tr').each(function() {
+                announcementIdList.push($(this).data('announcement-id'));
+            });
+
+
+            $.ajax({
+                url: GSM.DELETE_BATCH_URL,
+                type: 'get',
+                data: {announcementIdList: JSON.stringify(announcementIdList)},
+                success: function (resp) {
+                    if (resp.length > 0) {
+                        $('#announcements-table input:checkbox:checked').closest('tr').each(function() {
+                            for (i = 0; i < resp.length; i++) {
+                                if ($(this).data('announcement-id') == resp[i]) {
+                                    $(this).remove();
+                                }
+                            }
+                        });
+
+                        if (resp.length == announcementIdList.length) {
+                            Materialize.toast(GSM.REMOVED_BATCH_MESSAGE, 2000);
+                        } else {
+                            Materialize.toast(GSM.PARTIALLY_REMOVED_BATCH_MESSAGE, 2000);
+                        }
+                    }else{
+                        Materialize.toast(GSM.NOT_REMOVED_BATCH_MESSAGE, 2000);
+                    }
+
+                    $('#announcements-table').reloadMe();
+
+                    $('.warning-box').slideUp(500);
+                },
+                error: function(req, res, err) {
+
+                    Materialize.toast(GSM.NOT_REMOVED_BATCH_MESSAGE, 2000);
+                    $('.warning-box').slideUp(500);
+                }
+            });
+        });
+        $('.warning-box').slideDown(500);
+    });
+
+    // Abrir modal para edição já com as infos do anúncio
+    $('a[id^="edit-announcement"]').click(function () {
+        var $row = $(this).closest('tr');
+        var id = $row.data('announcement-id');
+
+        $("#edit-title-announcement").addClass("valid");
+        $("label[for='"+$("#edit-title-announcement").attr('id')+"']").addClass("active");
+
+        $("#edit-title-announcement").val($row.find('td').eq(1).text());
+        $("#editAnnouncement").attr("modal-announcement-id", id);
+    });
 });
 
 $.fn.domDisable = function() {
