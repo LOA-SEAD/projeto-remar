@@ -77,16 +77,16 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: GSM.SAVE_URL,
+            url: GMS.SAVE_URL,
             data: formData,
             processData: false,
             contentType: false,
             success: function (data) {
                 location.reload();
-                Materialize.toast(GSM.SAVED_MESSAGE, 3000);
+                Materialize.toast(GMS.SAVED_MESSAGE, 3000);
             },
             error: function(req, res, err) {
-                Materialize.toast(GSM.NOT_SAVED_MESSAGE, 3000);
+                Materialize.toast(GMS.NOT_SAVED_MESSAGE, 3000);
             }
         });
     });
@@ -99,7 +99,7 @@ $(document).ready(function() {
         formData.append('body',$("#body-announcement").val());
 
         $.ajax({
-            url: GSM.EDIT_URL + id,
+            url: GMS.EDIT_URL + id,
             type: 'POST',
             data: formData,
             processData: false,
@@ -108,13 +108,13 @@ $(document).ready(function() {
                 console.log(data);
                 // Trocar o reload por alterar a td respectiva com o novo valor
                 location.reload();
-                Materialize.toast(GSM.EDITED_MESSAGE, 3000);
+                Materialize.toast(GMS.EDITED_MESSAGE, 3000);
             },
             error: function(req, res, err) {
                 console.log(req);
                 console.log(res);
                 console.log(err);
-                Materialize.toast(GSM.NOT_EDITED_MESSAGE, 3000);
+                Materialize.toast(GMS.NOT_EDITED_MESSAGE, 3000);
             }
         });
     });
@@ -124,20 +124,20 @@ $(document).ready(function() {
         var title = $row.children('.announcement-title').text();
         var id = $row.data('announcement-id');
         $('#warning-box-message').html(
-        GSM.REMOVE_WARNING + '<span id="warning-announcement">' + title + '</span> ?');
+        GMS.REMOVE_WARNING + '<span id="warning-announcement">' + title + '</span> ?');
         $('.warning-box .btn-flat:first-child').unbind().click(function () {
             $.ajax({
-                url: GSM.DELETE_URL,
+                url: GMS.DELETE_URL,
                 type: 'post',
                 data: {id: id},
                 success: function (resp) {
                     $row.remove();
                     $('#announcements-table').reloadMe();
-                    Materialize.toast(GSM.REMOVED_MESSAGE, 2000);
+                    Materialize.toast(GMS.REMOVED_MESSAGE, 2000);
                     $('.warning-box').slideUp(500);
                 },
                 error: function(req, res, err) {
-                    Materialize.toast(GSM.NOT_REMOVED_MESSAGE, 2000);
+                    Materialize.toast(GMS.NOT_REMOVED_MESSAGE, 2000);
                     $('.warning-box').slideUp(500);
                 }
             });
@@ -157,7 +157,7 @@ $(document).ready(function() {
 
 
             $.ajax({
-                url: GSM.DELETE_BATCH_URL,
+                url: GMS.DELETE_BATCH_URL,
                 type: 'get',
                 data: {announcementIdList: JSON.stringify(announcementIdList)},
                 success: function (resp) {
@@ -171,12 +171,12 @@ $(document).ready(function() {
                         });
 
                         if (resp.length == announcementIdList.length) {
-                            Materialize.toast(GSM.REMOVED_BATCH_MESSAGE, 2000);
+                            Materialize.toast(GMS.REMOVED_BATCH_MESSAGE, 2000);
                         } else {
-                            Materialize.toast(GSM.PARTIALLY_REMOVED_BATCH_MESSAGE, 2000);
+                            Materialize.toast(GMS.PARTIALLY_REMOVED_BATCH_MESSAGE, 2000);
                         }
                     }else{
-                        Materialize.toast(GSM.NOT_REMOVED_BATCH_MESSAGE, 2000);
+                        Materialize.toast(GMS.NOT_REMOVED_BATCH_MESSAGE, 2000);
                     }
 
                     $('#announcements-table').reloadMe();
@@ -185,7 +185,7 @@ $(document).ready(function() {
                 },
                 error: function(req, res, err) {
 
-                    Materialize.toast(GSM.NOT_REMOVED_BATCH_MESSAGE, 2000);
+                    Materialize.toast(GMS.NOT_REMOVED_BATCH_MESSAGE, 2000);
                     $('.warning-box').slideUp(500);
                 }
             });
