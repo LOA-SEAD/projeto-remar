@@ -182,6 +182,22 @@ class AdminController {
     }
 
     @Transactional
+    editAnnouncement(Announcement announcementInstance) {
+
+        if (announcementInstance == null) {
+            render(status: 410, text: "ERROR: Failed editing announcement")
+            return
+        }
+
+        announcementInstance.title = params.title
+        announcementInstance.body = params.body
+        announcementInstance.type = params.type
+
+        announcementInstance.save flush:true
+        render (status: 200)
+    }
+
+    @Transactional
     editCategory(Category categoryInstance) {
 
         if (categoryInstance == null) {
