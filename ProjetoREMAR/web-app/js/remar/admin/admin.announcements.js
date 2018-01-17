@@ -67,18 +67,33 @@ $(document).ready(function() {
         }
     });
 
-    // Função para adicionar um novo anúncio
+    // New Announcement button fetches modal content from server;
+    $('#add-button').on("click",function(){
+        $.ajax({
+            type: 'GET',
+            url: GMS.CREATE_URL,
+            dataType: 'html',
+            success: function (data) {
+                $("#addAnnouncement .modal-content").html(data);
+            },
+            error: function(req, res, err) {
+                Materialize.toast(GMS.NOT_SAVED_MESSAGE, 3000);
+            }
+        });
+    });
+
+    // Push new Announcement to server
     $('#saveAnnouncement').on("click",function(){
         var formData = new FormData();
 
         formData.append('title',$("#title-announcement").val());
         formData.append('body',$("#body-announcement").val());
-        formData.append('type',$("#type-announcement").val());
 
         $.ajax({
             type: 'POST',
             url: GMS.SAVE_URL,
             data: formData,
+            dataType: 'json',
             processData: false,
             contentType: false,
             success: function (data) {
@@ -99,7 +114,7 @@ $(document).ready(function() {
         formData.append('body',$("#body-announcement").val());
 
         $.ajax({
-            url: GMS.EDIT_URL + id,
+            url: GMS.EDIT_URL + "/" + id,
             type: 'POST',
             data: formData,
             processData: false,
@@ -124,7 +139,7 @@ $(document).ready(function() {
         var title = $row.children('.announcement-title').text();
         var id = $row.data('announcement-id');
         $('#warning-box-message').html(
-        GMS.REMOVE_WARNING + '<span id="warning-announcement">' + title + '</span> ?');
+        GMS.CONFIRM_REMOVE_MESSAGE + '<span id="warning-announcement">' + title + '</span> ?');
         $('.warning-box .btn-flat:first-child').unbind().click(function () {
             $.ajax({
                 url: GMS.DELETE_URL,
@@ -146,7 +161,7 @@ $(document).ready(function() {
     });
 
     $('a#batch-remove-button').click(function() {
-        $('#warning-box-message').html('${message(code: "admin.announcements.warning.batch")}');
+        $('#warning-box-message').html(GMS.CONFIRM_REMOVE_BATCH_MESSAGE);
         $('.warning-box .btn-flat:first-child').unbind().click(function () {
 
             var announcementIdList = [];
@@ -198,11 +213,20 @@ $(document).ready(function() {
         var $row = $(this).closest('tr');
         var id = $row.data('announcement-id');
 
-        $("#edit-title-announcement").addClass("valid");
-        $("label[for='"+$("#edit-title-announcement").attr('id')+"']").addClass("active");
+        $.ajax({
+            url: GMS.EDIT_URL + "/" + id,
+            type: 'GET',
+            success: function (resp) {
+                $("#editAnnouncement .modal-content").html(resp);
+                Materialize.updateTextFields();
+                $("#editAnnouncement").attr("modal-announcement-id", id);
+            },
+            error: function(req, res, err) {
 
-        $("#edit-title-announcement").val($row.find('td').eq(1).text());
-        $("#editAnnouncement").attr("modal-announcement-id", id);
+                Materialize.toast(GMS.NOT_REMOVED_BATCH_MESSAGE, 2000);
+                $('.warning-box').slideUp(500);
+            }
+        });
     });
 });
 

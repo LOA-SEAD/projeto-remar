@@ -11,7 +11,7 @@ import static org.springframework.http.HttpStatus.*
 class AdminController {
 
     def springSecurityService
-    static allowedMethods = [deleteUser: "POST"]
+    static allowedMethods = [updateAnnouncement: "POST", saveAnnouncement: "POST", deleteUser: "POST"]
 
     def index() {
         def unseenReports = Report.countBySeen(false)
@@ -144,22 +144,19 @@ class AdminController {
         render(status: 200)
     }
 
-    @Transactional
-    saveAnnouncement() {
-        Announcement announcement = new Announcement(params)
+    def createAnnouncement() {
+        respond new Announcement(params), view:'_announcementForm'
+    }
 
+    @Transactional
+    saveAnnouncement(Announcement announcement) {
         if (announcement == null) {
-            notFound()
+            respond error: 500
             return
         }
 
         if (announcement.author == null) {
             announcement.author = springSecurityService.getCurrentUser();
-        }
-
-        if (announcement.hasErrors()) {
-            respond error: 500
-            return
         }
 
         announcement.save flush:true
@@ -182,19 +179,36 @@ class AdminController {
     }
 
     @Transactional
-    editAnnouncement(Announcement announcementInstance) {
-
+    def editAnnouncement(Announcement announcementInstance) {
         if (announcementInstance == null) {
             render(status: 410, text: "ERROR: Failed editing announcement")
             return
         }
 
-        announcementInstance.title = params.title
-        announcementInstance.body = params.body
-        announcementInstance.type = params.type
+        respond announcementInstance, view: "_announcementForm"
+    }
 
-        announcementInstance.save flush:true
-        render (status: 200)
+    @Transactional
+    def updateAnnouncement(Announcement announcement) {
+        if (announcement == null) {
+            notFound()
+            return
+        }
+
+        if (announcement.hasErrors()) {
+            respond announcement.errors, view:'edit'
+            return
+        }
+
+        announcement.save flush:true
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'Announcement.label', default: 'Announcement'), announcement.id])
+                redirect announcement
+            }
+            '*'{ respond announcement, [status: OK] }
+        }
     }
 
     @Transactional
@@ -210,6 +224,8 @@ class AdminController {
         categoryInstance.save flush:true
         render (status: 200)
     }
+
+
 
     @Transactional
     toggleUserDeveloperStatus() {
