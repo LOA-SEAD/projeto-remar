@@ -3,7 +3,6 @@ package br.ufscar.sead.loa.remar
 class Announcement {
     String title
     String body
-    String type
     Date dateCreated
     User author
 
@@ -11,6 +10,5 @@ class Announcement {
     static constraints = {
     	title blank: false
         body blank: false
-    	type inList: ["Simples", "Imagem", "Widget"]
     }
 }
