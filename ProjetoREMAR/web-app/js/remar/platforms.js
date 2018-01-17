@@ -40,7 +40,13 @@ $(function () {
                     image.onload = function () {
                         var formData = new FormData();
                         formData.append('banner', file);
-                        formData.append('name', $(name).val());
+			
+                        if(($(name).val().length) <= 50){
+                                        formData.append('name', $(name).val());
+                        }
+                        else{
+                            formData.append('name', $(name).val().slice(0, 50));
+                        }
                         formData.append('img1',$("#img1Preview").attr("src"));
 
                         $.ajax({
@@ -70,7 +76,13 @@ $(function () {
             } else { //atualiza somente o nome
                 var formData = new FormData();
                 //formData.append('banner', file);
-                formData.append('name', $(name).val());
+
+                if(($(name).val().length) <= 50){
+                                formData.append('name', $(name).val());
+                }
+                else{
+                    formData.append('name', $(name).val().slice(0, 50));
+                }
 
                 $.ajax({
                     type: 'POST',
@@ -102,7 +114,7 @@ $(function () {
 
 
     $('#content-area').on('input', function() {
-        var contentArea = $('#content-area').val() ;
+        var contentArea = $('#content-area').val();
         if(contentArea!=""){
             $("#content-area-error").hide();
             $('#content-area').removeClass("invalid").addClass("valid");

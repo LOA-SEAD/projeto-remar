@@ -57,7 +57,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <i class="material-icons suffix green-text active">done</i>
-                                    <input value="${process.name}" id="name" type="text"
+                                    <input value="${process.name}" id="name" type="text" maxlength="50"
                                            class="validate" data-resource-id="${process.getVariable("resourceId")}" data-process-id="${process.id}">
                                     <label class="active" for="name" data-error="" data-success="">Nome do jogo</label>
                                     <span id="name-error" class="invalid-input" style="left: 0.75rem">Já existe um jogo com esse nome!</span>
