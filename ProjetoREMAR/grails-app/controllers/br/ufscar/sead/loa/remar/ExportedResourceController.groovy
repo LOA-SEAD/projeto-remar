@@ -47,7 +47,6 @@ class ExportedResourceController {
         mainDir.deleteDir()
 
         redirect uri: '/exported-resource/myGames', params:[mode: mode]
-        //myGames()
     }
 
     // to test the moodle list
@@ -489,8 +488,7 @@ class ExportedResourceController {
         model.tCurrentPage = (params.tOffset + threshold) / threshold
         model.tHasNextPage = params.tOffset + threshold < temporary.size()
         model.tHasPreviousPage = params.tOoffset > 0
-        model.mode = (params.mode) ? params.mode : 1
-        println model.tPageCount
+        model.mode = (params.mode) ? params.mode : '1'
         render view: "myGames", model: model
     }
 
