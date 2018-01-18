@@ -91,7 +91,7 @@
                                 <g:message code="admin.table.header.title"/>
                             </th>
                             <th>
-                                <g:message code="admin.table.header.body"/>
+                                <g:message code="admin.table.header.author"/>
                             </th>
                             <th class="center-align">
                                 <g:message code="admin.table.header.actions"/>
@@ -111,7 +111,7 @@
                                     ${announcementInstance.getTitle()}
                                 </td>
                                 <td class="announcement-name">
-                                    ${announcementInstance.getBody()}
+                                    ${announcementInstance.getAuthor().getName()}
                                 </td>
                                 <td class="valign-wrapper">
                                     <a href="#editAnnouncement" id="edit-announcement-${announcementInstance.id}"
