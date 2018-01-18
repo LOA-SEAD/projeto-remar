@@ -282,9 +282,11 @@ class UserController {
 
     @Transactional
     def makeDeveloper() {
-        UserRole.create(springSecurityService.getCurrentUser() as User, Role.findByAuthority("ROLE_DEV"), true)
+        def user = springSecurityService.getCurrentUser() as User
+        UserRole.create(user, Role.findByAuthority("ROLE_DEV"), true)
         log.debug("Usuário " + springSecurityService.getCurrentUser().firstName + " adicionado como desenvolvedor.")
-        render(view: "/static/newDeveloper")
+        springSecurityService.reauthenticate user.username
+        redirect(url: "/my-profile", params: [success: true])
     }
 
     @Transactional
@@ -294,8 +296,10 @@ class UserController {
 
     @Transactional
     def unmakeDeveloper() {
-        UserRole.remove(springSecurityService.getCurrentUser() as User, Role.findByAuthority("ROLE_DEV"), true)
+        def user = springSecurityService.getCurrentUser() as User
+        UserRole.remove(user, Role.findByAuthority("ROLE_DEV"), true)
         log.debug("Usuário " + springSecurityService.getCurrentUser().firstName + " não é mais um desenvolvedor")
+        springSecurityService.reauthenticate user.username
         redirect(url: "/my-profile", params: [success: true])
     }
 

@@ -138,7 +138,7 @@
 				<sec:ifNotGranted roles="ROLE_DEV">
 					<div style="padding-left: 15px;">
 						<p><u>Você ainda não é um desenvolvedor do REMAR</u></p>
-						<a hred="/developer/new" class="waves-effect btn">
+						<a href="/user/makeDeveloper" class="waves-effect btn">
 							Tornar-se desenvolvedor
 						</a>
 					</div>
