@@ -14,7 +14,7 @@
                         </div>
                     </li>
                     <g:each in="${announcementList}" status="i" var="announcementInstance">
-                            <g:render template="simpleAnnouncement" model= "['announcement': announcementInstance, 'i': i+2]"/>
+                        <g:render template="announcement" model= "['announcement': announcementInstance, 'i': i+2]"/>
                     </g:each>
                 </ul>
             </div>
