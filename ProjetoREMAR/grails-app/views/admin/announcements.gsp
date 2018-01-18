@@ -91,7 +91,7 @@
                                 <g:message code="admin.table.header.title"/>
                             </th>
                             <th>
-                                <g:message code="admin.table.header.type"/>
+                                <g:message code="admin.table.header.body"/>
                             </th>
                             <th class="center-align">
                                 <g:message code="admin.table.header.actions"/>

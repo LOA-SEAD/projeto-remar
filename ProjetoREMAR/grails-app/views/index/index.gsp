@@ -14,9 +14,7 @@
                         </div>
                     </li>
                     <g:each in="${announcementList}" status="i" var="announcementInstance">
-                        <g:if test="${announcementInstance.type == "Simples"}">
                             <g:render template="simpleAnnouncement" model= "['announcement': announcementInstance, 'i': i+2]"/>
-                        </g:if>
                     </g:each>
                 </ul>
             </div>
