@@ -34,7 +34,7 @@
                             <div class="col l3 s6 m3 offset-s3">
                                 <div style="padding-bottom: 8.0em; position: relative; left: 0.6em;;" class="card white hoverable">
                                     <div style="top: 3.2em; position: relative;" class="card-content">
-                                        <p>${group.name}</p>
+                                        <p class="truncate center-align remar-black-text">${group.name}</p>
                                     </div>
 
                                 </div>
@@ -100,11 +100,11 @@
                     <g:else>
                         <g:if test="${!groupsIOwn.empty}">
                             <g:each var="group" in="${groupsIOwn}">
-                                <a href="/group/show/${group.id}" style="color: black;">
+                                <a href="/group/show/${group.id}">
                                     <div class="col l3 s6 m3 offset-s3">
                                         <div style="padding-bottom: 8.0em;" class="card white hoverable">
                                             <div style="top: 3.2em; position: relative;" class="card-content">
-                                                <span class="truncate">${group.name}</span>
+                                                <p class="truncate center-align remar-black-text">${group.name}</p>
                                             </div>
 
                                         </div>
@@ -114,11 +114,11 @@
                         </g:if>
                         <g:if test="${!groupsIAdmin.empty}">
                             <g:each var="group" in="${groupsIAdmin}">
-                                <a href="/group/show/${group.id}" style="color: black;">
+                                <a href="/group/show/${group.id}">
                                     <div class="col l3 s6 m3 offset-s3">
                                         <div style="padding-bottom: 8.0em;" class="card white hoverable">
                                             <div style="top: 3.2em; position: relative;" class="card-content">
-                                                <span class="truncate">${group.name}</span>
+                                                <p class="truncate center-align remar-black-text">${group.name}</p>
                                             </div>
 
                                         </div>
