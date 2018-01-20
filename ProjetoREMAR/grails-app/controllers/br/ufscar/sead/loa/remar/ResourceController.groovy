@@ -25,7 +25,7 @@ class ResourceController {
     def springSecurityService
     def beforeInterceptor = [action: this.&check, only: ['index']]
 
-    static final int THRESHOLD = 12
+    static final int THRESHOLD = 6
 
     private check() {
         if (!session.user) {
@@ -441,27 +441,29 @@ class ResourceController {
 
         model.resourceInstanceList = null
 
+        def query
+
         if (!params.category.equals("-1")) {
-            Category c = Category.findById(Integer.valueOf(params.category))
             log.debug("searchByCategoria");
-            model.resourceInstanceList = Resource.findAllByStatusAndCategoryAndNameIlike(
-                    'approved', c, "%" + params.text + "%", params)
-            maxInstances = Resource.findAllByStatusAndCategoryAndNameIlike(
-                    'approved', c, "%" + params.text + "%").size()
+            Category c = Category.findById(Integer.valueOf(params.category))
+
+            query = Resource.where {
+                (status == 'approved' && category == c && name =~ "%" + params.text + "%")
+            }
         } else {
             log.debug("searchAll");
-            model.resourceInstanceList = Resource.findAllByStatusAndNameIlike (
-                    'approved', "%" + params.text + "%", params)
-            maxInstances = Resource.findAllByStatusAndNameIlike(
-                    'approved', "%" + params.text + "%").size()
+            query = Resource.where {
+                (status == 'approved' && name =~ "%" + params.text + "%")
+            }
         }
+
+        model.resourceInstanceList = query.list(params)
+        maxInstances = query.count()
 
         model.pageCount = Math.ceil(maxInstances / params.max) as int
         model.currentPage = (params.offset + threshold) / threshold
         model.hasNextPage = params.offset + threshold < model.instanceCount
         model.hasPreviousPage = params.offset > 0
-
-        log.debug(model.resourceInstanceList.size())
 
         render view: "_gameModelCard", model: model
     }
