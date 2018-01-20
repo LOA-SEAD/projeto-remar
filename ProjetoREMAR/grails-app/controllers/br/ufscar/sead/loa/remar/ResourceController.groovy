@@ -25,6 +25,8 @@ class ResourceController {
     def springSecurityService
     def beforeInterceptor = [action: this.&check, only: ['index']]
 
+    static final int THRESHOLD = 12
+
     private check() {
         if (!session.user) {
             log.debug "Logout: session.user is NULL !"
@@ -51,7 +53,7 @@ class ResourceController {
         def path = new File(servletContext.getRealPath("/data/resources/assets/${instance.uri}"))
         path.mkdirs()
 
-        if(params.shareable == "yes")
+        if (params.shareable == "yes")
             instance.shareable = true;
 
         if (params.img1 != null && params.img1 != "") {
@@ -238,7 +240,7 @@ class ResourceController {
                             exec(executable: scriptElectron) {
                                 arg(value: rootPath)
                                 arg(value: resourceInstance.uri)
-                                arg(value: resourceInstance.name.replaceAll("\\s+",""))
+                                arg(value: resourceInstance.name.replaceAll("\\s+", ""))
                             }
                         }
                         break
@@ -285,11 +287,11 @@ class ResourceController {
 
                 if (resourceInstance.owner.username != 'admin') {
 
-                	// noinspection GroovyAssignabilityCheck
-                	Util.sendEmail(resourceInstance.owner.email,
-                        	"REMAR – O seu WAR \"${resourceInstance.name}\" foi aprovado!",
-                        	"<h3>O seu WAR \"${resourceInstance.name}\" foi aprovado! :)</h3> <br>"
-                	)
+                    // noinspection GroovyAssignabilityCheck
+                    Util.sendEmail(resourceInstance.owner.email,
+                            "REMAR – O seu WAR \"${resourceInstance.name}\" foi aprovado!",
+                            "<h3>O seu WAR \"${resourceInstance.name}\" foi aprovado! :)</h3> <br>"
+                    )
                 }
 
                 redirect controller: "process", action: "deploy", id: resourceInstance.uri
@@ -321,51 +323,50 @@ class ResourceController {
 
         if (resourceInstance.owner == session.user || session.user.username == 'admin') {
 
-           try {
-               // Verifica se não há jogos "em customização" do modelo
-               def processes = Propeller.instance.getProcessInstancesByOwner(session.user.id as long)
+            try {
+                // Verifica se não há jogos "em customização" do modelo
+                def processes = Propeller.instance.getProcessInstancesByOwner(session.user.id as long)
 
-               for (process in processes) {
-                   if (process.definition.uri == resourceInstance.uri &&
-                       process.getVariable("inactive") != "1" &&
-                       process.getVariable("exportedResourceId") == null) {
-                       // Se houver algum jogo em customização, lança uma exceção
-                       throw new Exception("pendingProcessError")
-                   }
-               }
+                for (process in processes) {
+                    if (process.definition.uri == resourceInstance.uri &&
+                            process.getVariable("inactive") != "1" &&
+                            process.getVariable("exportedResourceId") == null) {
+                        // Se houver algum jogo em customização, lança uma exceção
+                        throw new Exception("pendingProcessError")
+                    }
+                }
 
-               resourceInstance.delete flush: true
+                resourceInstance.delete flush: true
 
-               new AntBuilder().sequential {
-                   delete(dir: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}"))
-                   delete(dir: servletContext.getRealPath("/propeller/${resourceInstance.uri}"))
-               }
+                new AntBuilder().sequential {
+                    delete(dir: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}"))
+                    delete(dir: servletContext.getRealPath("/propeller/${resourceInstance.uri}"))
+                }
 
-               // Só realiza o undeploy se o deploy foi dado de fato (quando é aprovado)
-               Datastore ds = Propeller.instance.getDs()
-               if (ds.createQuery(ProcessDefinition.class).field('uri').equal(resourceInstance.uri).get()) {
-                   Propeller.instance.undeploy(resourceInstance.uri)
+                // Só realiza o undeploy se o deploy foi dado de fato (quando é aprovado)
+                Datastore ds = Propeller.instance.getDs()
+                if (ds.createQuery(ProcessDefinition.class).field('uri').equal(resourceInstance.uri).get()) {
+                    Propeller.instance.undeploy(resourceInstance.uri)
 
-                   def http = new HTTPBuilder("http://root:root@localhost:8080")
-                   def resp = http.get(path: '/manager/text/undeploy', query: [path: "/${resourceInstance.uri}"])
-                   resp = GrailsIOUtils.toString(resp)
-                   if (resp.indexOf('OK') != -1) log.debug "Resource successfully undeployed"
-                   else log.debug "ERROR: Failed trying to undeploy resource"
-               }
-               else log.debug "WARNING: Skipped undeploy"
+                    def http = new HTTPBuilder("http://root:root@localhost:8080")
+                    def resp = http.get(path: '/manager/text/undeploy', query: [path: "/${resourceInstance.uri}"])
+                    resp = GrailsIOUtils.toString(resp)
+                    if (resp.indexOf('OK') != -1) log.debug "Resource successfully undeployed"
+                    else log.debug "ERROR: Failed trying to undeploy resource"
+                } else log.debug "WARNING: Skipped undeploy"
 
-               if(grailsApplication.config.dspace.restUrl) { //se existir dspace
-                   MongoHelper.instance.removeDataFromUri('resource_dspace',resourceInstance.uri)
-               }
+                if (grailsApplication.config.dspace.restUrl) { //se existir dspace
+                    MongoHelper.instance.removeDataFromUri('resource_dspace', resourceInstance.uri)
+                }
 
-               response.status = 205
-               render 205
-           } catch (Exception e) {
-               if (e.message == "pendingProcessError")
-                   render "pendingProcessError"
-               else
-                   render "sqlError"
-           }
+                response.status = 205
+                render 205
+            } catch (Exception e) {
+                if (e.message == "pendingProcessError")
+                    render "pendingProcessError"
+                else
+                    render "sqlError"
+            }
         } else {
             log.debug "WARNING: Someone is trying to delete a resource that belongs to other user"
         }
@@ -392,7 +393,7 @@ class ResourceController {
 
     def customizableGames() {
         def model = [:]
-        def threshold = 12
+        def threshold = THRESHOLD
 
         params.order = "asc"
         params.sort = "name"
@@ -400,17 +401,19 @@ class ResourceController {
         params.max = params.max ? Integer.valueOf(params.max) : threshold
         params.offset = params.offset ? Integer.valueOf(params.offset) : 0
 
+        println params
+
         model.max = params.max
         model.threshold = threshold
 
-        model.resourceInstanceList = Resource.findAllByStatus('approved',params) // change to #findAllByActive?
+        model.resourceInstanceList = Resource.findAllByStatus('approved', params) // change to #findAllByActive?
 
-        model.pageCount = Math.ceil(model.resourceInstanceList.size() / params.max) as int
+        model.pageCount = Math.ceil(Resource.count() / params.max) as int
         model.currentPage = (params.offset + threshold) / threshold
         model.hasNextPage = params.offset + threshold < model.instanceCount
         model.hasPreviousPage = params.offset > 0
 
-        model.categories = Category.list(sort:"name")
+        model.categories = Category.list(sort: "name")
 
         log.debug(model.resourceInstanceList.size())
 
@@ -418,33 +421,39 @@ class ResourceController {
     }
 
     @SuppressWarnings("GroovyAssignabilityCheck")
-    searchResource(){
+    searchResource() {
         def model = [:]
 
-        def threshold = 12
+        def threshold = THRESHOLD
         def maxInstances = 0
 
-        params.order = "desc"
-        params.sort = "id"
+        params.order = "asc"
+        params.sort = "name"
         params.max = params.max ? Integer.valueOf(params.max) : threshold
         params.offset = params.offset ? Integer.valueOf(params.offset) : 0
 
         model.max = params.max
         model.threshold = threshold
 
-        log.debug("type: " + params.typeSearch)
-        log.debug("text: " +params.text)
+        log.debug(params)
+        log.debug("text: " + params.text)
+        log.debug("category: " + params.category)
 
         model.resourceInstanceList = null
 
-        if(params.category.equals("-1")){ // busca pelo nome
-            model.resourceInstanceList = Resource.findAllByStatusAndNameIlike('approved', "%${params.text}%",params)
-            maxInstances = Resource.findAllByStatusAndNameIlike('approved', "%${params.text}%").size()
-        }
-        else{
-            Category c = Category.findById(params.category)
-            model.resourceInstanceList = Resource.findAllByCategoryAndNameIlike(c, "%${params.text}%" ,params)
-            maxInstances = model.resourceInstanceList.size()
+        if (!params.category.equals("-1")) {
+            Category c = Category.findById(Integer.valueOf(params.category))
+            log.debug("searchByCategoria");
+            model.resourceInstanceList = Resource.findAllByStatusAndCategoryAndNameIlike(
+                    'approved', c, "%" + params.text + "%", params)
+            maxInstances = Resource.findAllByStatusAndCategoryAndNameIlike(
+                    'approved', c, "%" + params.text + "%").size()
+        } else {
+            log.debug("searchAll");
+            model.resourceInstanceList = Resource.findAllByStatusAndNameIlike (
+                    'approved', "%" + params.text + "%", params)
+            maxInstances = Resource.findAllByStatusAndNameIlike(
+                    'approved', "%" + params.text + "%").size()
         }
 
         model.pageCount = Math.ceil(maxInstances / params.max) as int
@@ -474,7 +483,7 @@ class ResourceController {
 
     @Transactional
     saveRating(Resource instance) {
-        Rating r = new Rating(user: session.user, stars: params.stars * 0.5 , comment: params.commentRating, date: new Date())
+        Rating r = new Rating(user: session.user, stars: params.stars * 0.5, comment: params.commentRating, date: new Date())
         instance.addToRatings(r)
         instance.sumStars += r.stars * 0.5
         instance.sumUser++
@@ -496,14 +505,13 @@ class ResourceController {
         rating.stars = Float.parseFloat(params.rating)
         rating.comment = '' /* TODO */
         rating.date = new Date()
-        rating.save flush:true
+        rating.save flush: true
 
         resource.sumStars += Float.parseFloat(params.rating)
         resource.sumUser++
 
         render status: 200, text: 'save'
     }
-
 
 
     @Transactional
@@ -540,14 +548,13 @@ class ResourceController {
     }
 
 
-
     @Transactional
     deleteRating() {
 
         int id = Integer.parseInt(params.id)
         Rating rating = Rating.findById(id)
 
-        if(rating!=null){
+        if (rating != null) {
             Resource resource = rating.resource
 
             // retira da soma de estrelas a quantidade de estrelas anterior do rating
@@ -557,13 +564,12 @@ class ResourceController {
             resource.save flush: true
 
             render resource as JSON
-        }
-        else
+        } else
             render "null"
 
     }
 
-    def croppicture(){
+    def croppicture() {
         def root = servletContext.getRealPath("/")
         def f = new File("${root}data/tmp")
         f.mkdirs()

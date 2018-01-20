@@ -1,11 +1,7 @@
-/**
- * Created by lucasbocanegra on 17/05/16.
- */
 /*
-* Script contém o código que controla a busca e o pagination da
-* página publicGames
-* */
-
+ * Script contém o código que controla a busca e o pagination da
+ * página publicGames
+ * */
 
 $(function(){
     var select = $("select");
@@ -97,15 +93,20 @@ $(function(){
     });
 
     function listerNextPage(){
+
+        var select = $("select");
+        $(select).material_select();
+        var catSelected = $(select).val();
+
         var formData = new FormData();
-        formData.append('typeSearch','name');
+        formData.append('category', catSelected);
         formData.append('text', $("#search").val());
 
         console.log("max="+$(this).attr("data-max"));
         console.log("offset="+$(this).attr("data-offset"));
 
         $.ajax({
-            url: "/exported-resource/searchGame?max="+$(this).attr("data-max")+"&offset="+$(this).attr("data-offset"),
+            url: "/resource/searchResource?max="+$(this).attr("data-max")+"&offset="+$(this).attr("data-offset"),
             type: 'POST',
             data: formData,
             processData: false,
@@ -148,4 +149,3 @@ function initStars(){
         });
     });
 }
-
