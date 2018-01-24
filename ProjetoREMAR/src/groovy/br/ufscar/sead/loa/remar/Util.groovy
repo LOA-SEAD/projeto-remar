@@ -56,4 +56,5 @@ class Util {
         return rows
     }
 
+    public static final int THRESHOLD = 6
 }

@@ -19,14 +19,14 @@ import java.security.MessageDigest
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+import static br.ufscar.sead.loa.remar.Util.THRESHOLD
+
 class ResourceController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE"]
 
     def springSecurityService
     def beforeInterceptor = [action: this.&check, only: ['index']]
-
-    static final int THRESHOLD = 6
 
     private check() {
         if (!session.user) {
@@ -415,7 +415,7 @@ class ResourceController {
                 (status == 'approved' && category == c && name =~ "%" + params.text + "%")
             }
         } else {
-            log.debug("searchAll");
+            log.debug("searchByName");
             query = Resource.where {
                 (status == 'approved' && name =~ "%" + params.text + "%")
             }
