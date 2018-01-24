@@ -14,9 +14,10 @@ $(function(){
         var formData = new FormData();
         formData.append('category', catSelected);
         formData.append('text', text);
+        formData.append('mode', 'search');
 
         $.ajax({
-            url: "/resource/searchResource",
+            url: "/resource/customizableGames",
             type: 'POST',
             data: formData,
             processData: false,
@@ -46,9 +47,10 @@ $(function(){
         var formData = new FormData();
         formData.append('category', catSelected);
         formData.append('text', text);
+        formData.append('mode', 'search');
 
         $.ajax({
-            url: "/resource/searchResource",
+            url: "/resource/customizableGames",
             type: 'POST',
             data: formData,
             processData: false,
@@ -101,12 +103,13 @@ $(function(){
         var formData = new FormData();
         formData.append('category', catSelected);
         formData.append('text', $("#search").val());
+        formData.append('mode', 'pagination');
 
         console.log("max="+$(this).attr("data-max"));
         console.log("offset="+$(this).attr("data-offset"));
 
         $.ajax({
-            url: "/resource/searchResource?max="+$(this).attr("data-max")+"&offset="+$(this).attr("data-offset"),
+            url: "/resource/customizableGames?max="+$(this).attr("data-max")+"&offset="+$(this).attr("data-offset"),
             type: 'POST',
             data: formData,
             processData: false,

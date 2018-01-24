@@ -2,6 +2,7 @@ package br.ufscar.sead.loa.remar
 
 import br.ufscar.sead.loa.propeller.Propeller
 import br.ufscar.sead.loa.propeller.domain.ProcessDefinition
+import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import org.mongodb.morphia.Datastore
 import grails.converters.JSON
 import grails.util.Environment
@@ -393,57 +394,20 @@ class ResourceController {
 
     def customizableGames() {
         def model = [:]
-        def threshold = THRESHOLD
 
         params.order = "asc"
         params.sort = "name"
-
-        params.max = params.max ? Integer.valueOf(params.max) : threshold
+        params.max = params.max ? Integer.valueOf(params.max) : THRESHOLD
         params.offset = params.offset ? Integer.valueOf(params.offset) : 0
+        params.text = params.text ? params.text : ''
+        params.category = params.category ? Integer.valueOf(params.category) : -1
+        params.mode = params.mode ? params.mode : 'firstAccess'
 
-        println params
-
-        model.max = params.max
-        model.threshold = threshold
-
-        model.resourceInstanceList = Resource.findAllByStatus('approved', params) // change to #findAllByActive?
-
-        model.pageCount = Math.ceil(Resource.count() / params.max) as int
-        model.currentPage = (params.offset + threshold) / threshold
-        model.hasNextPage = params.offset + threshold < model.instanceCount
-        model.hasPreviousPage = params.offset > 0
-
-        model.categories = Category.list(sort: "name")
-
-        log.debug(model.resourceInstanceList.size())
-
-        render view: "customizableGames", model: model
-    }
-
-    @SuppressWarnings("GroovyAssignabilityCheck")
-    searchResource() {
-        def model = [:]
-
-        def threshold = THRESHOLD
-        def maxInstances = 0
-
-        params.order = "asc"
-        params.sort = "name"
-        params.max = params.max ? Integer.valueOf(params.max) : threshold
-        params.offset = params.offset ? Integer.valueOf(params.offset) : 0
-
-        model.max = params.max
-        model.threshold = threshold
-
-        log.debug(params)
-        log.debug("text: " + params.text)
-        log.debug("category: " + params.category)
-
-        model.resourceInstanceList = null
+        log.debug("params = " + params)
 
         def query
 
-        if (!params.category.equals("-1")) {
+        if (params.category != -1) {
             log.debug("searchByCategoria");
             Category c = Category.findById(Integer.valueOf(params.category))
 
@@ -458,16 +422,28 @@ class ResourceController {
         }
 
         model.resourceInstanceList = query.list(params)
-        maxInstances = query.count()
 
+        log.debug("resourceList = " + model.resourceInstanceList)
+
+        int maxInstances =  query.count()
+
+        log.debug("maxInstances = " + maxInstances)
+
+        model.max = params.max
+        model.threshold = THRESHOLD
         model.pageCount = Math.ceil(maxInstances / params.max) as int
-        model.currentPage = (params.offset + threshold) / threshold
-        model.hasNextPage = params.offset + threshold < model.instanceCount
+        model.currentPage = (params.offset + THRESHOLD) / THRESHOLD
+        model.hasNextPage = params.offset + THRESHOLD < model.resourceInstanceList.size()
         model.hasPreviousPage = params.offset > 0
 
-        render view: "_gameModelCard", model: model
-    }
+        model.categories = Category.list(sort: "name")
 
+        if (params.mode == 'firstAccess') {
+            render view: "customizableGames", model: model
+        } else {
+            render view: "_gameModelCard", model: model
+        }
+    }
 
     def edit(Resource resourceInstance) {
         def resourceJson = resourceInstance as JSON
