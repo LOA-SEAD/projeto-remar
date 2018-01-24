@@ -30,7 +30,7 @@ $(function(){
                     $(this).on("click",listerNextPage)
                 });
 
-                addMaterializeDepedences();
+                addMaterializeDependences();
 
                 initStars();
             },
@@ -64,7 +64,7 @@ $(function(){
                     $(this).on("click",listerNextPage)
                 });
 
-                addMaterializeDepedences();
+                addMaterializeDependences();
                 initStars();
             },
             error: function () {
@@ -122,7 +122,7 @@ $(function(){
                     $(this).on("click",listerNextPage)
                 });
 
-                addMaterializeDepedences();
+                addMaterializeDependences();
 
                 goToByScroll("title-page");
             },
@@ -133,7 +133,7 @@ $(function(){
     }
 });
 
-function addMaterializeDepedences(){
+function addMaterializeDependences(){
 
     //inicializa componentes bootstrap
     $('.dropdown-button').dropdown();
