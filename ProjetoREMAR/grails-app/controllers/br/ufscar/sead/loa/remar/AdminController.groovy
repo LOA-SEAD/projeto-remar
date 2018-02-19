@@ -375,10 +375,10 @@ class AdminController {
             return
         }
 
-        UserRole.removeAll(userInstance, true)
+        //UserRole.removeAll(userInstance, true)
 
         // Remove Tokens that belong to the user
-        List<Token> tokens = Token.findAllByOwner(userInstance)
+        /*List<Token> tokens = Token.findAllByOwner(userInstance)
         for (int i = 0; i < tokens.size(); i++)
             tokens.get(i).delete()
 
@@ -398,9 +398,15 @@ class AdminController {
             groups.get(i).delete()
 
         // Remove user-group relationships
-        UserGroup.removeAllByUser(userInstance, true)
+        UserGroup.removeAllByUser(userInstance, true)*/
 
-        userInstance.delete flush: true
+        //userInstance.delete flush: true
+
+
+
+        userInstance.enabled = false
+        userInstance.save flush: true
+	redirect uri: "/admin/users"
     }
 
     /**

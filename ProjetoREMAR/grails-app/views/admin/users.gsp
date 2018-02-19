@@ -90,6 +90,14 @@
                                             </a>
                                         </td>
                                         <td class="user-username"> ${userInstance.username} </td>
+
+                                        <g:if test="${userInstance.enabled}">
+                                            <td class="user-username"> ativo </td>
+                                        </g:if>
+                                        <g:else>
+                                            <td class="user-username"> inativo </td>
+                                        </g:else>
+
                                         <td class="valign-wrapper">
                                             <g:if test="${userInstance.authorities.any {it.authority == 'ROLE_DEV'}}">
                                                 <a href="#!" class="tooltipped dev-toggle valign-wrapper active" data-tooltip="${message(code:'admin.users.developer.off')}">
