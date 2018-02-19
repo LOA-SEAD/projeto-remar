@@ -70,7 +70,12 @@
                                 <th>
                                     <g:message code="admin.table.header.name"/>
                                 </th>
-                                <th><g:message code="admin.users.table.header.username"/></th>
+                                <th>
+					<g:message code="admin.users.table.header.username"/>
+				</th>
+				<th>
+                                    <g:message code="admin.table.header.status"/>
+                                </th>
                                 <th class="center-align"><g:message code="admin.table.header.actions"/></th>
                             </tr>
                         </thead>
@@ -109,10 +114,14 @@
                                                     <i class="material-icons">code</i>
                                                 </a>
                                             </g:else>
-                                            <a href="#!" id="remove-user-${userInstance.id}" class="tooltipped valign-wrapper modal-trigger"
-                                               data-tooltip="${message(code: 'default.button.delete.label')}">
-                                                <i class="material-icons">delete_forever</i>
-                                            </a>
+					    <g:if test="${userInstance.enabled}">
+                                            	<a href="#!" id="remove-user-${userInstance.id}" class="tooltipped valign-wrapper modal-trigger"
+                                               		data-tooltip="${message(code: 'default.button.delete.label')}">
+                                                    <i class="material-icons">delete_forever</i>
+                                            	</a>
+                                            </g:if>
+                                            <g:else>
+                                            </g:else>
                                         </td>
                                     </tr>
                                 </g:if>
