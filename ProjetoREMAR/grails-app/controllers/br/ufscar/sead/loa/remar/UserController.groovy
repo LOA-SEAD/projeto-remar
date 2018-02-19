@@ -386,11 +386,7 @@ class UserController {
 
     @Transactional
     def disableAccount() {
-        User userInstance = springSecurityService.getCurrentUser()
-        /*userInstance.enabled = false
-        userInstance.save flush: true*/
-	
-
+	User userInstance = springSecurityService.getCurrentUser()
 
         UserRole.removeAll(userInstance, true)
 
@@ -418,14 +414,8 @@ class UserController {
         UserGroup.removeAllByUser(userInstance, true)
 
         userInstance.delete flush: true
+	redirect uri: "/logout/index"
 
-
-
-        userInstance.enabled = false
-        //userInstance.save flush: true
-        redirect uri: "/admin/users"
-
-        redirect uri: "/logout/index"
     }
 
     @Transactional

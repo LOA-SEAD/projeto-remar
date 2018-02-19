@@ -375,35 +375,6 @@ class AdminController {
             return
         }
 
-        //UserRole.removeAll(userInstance, true)
-
-        // Remove Tokens that belong to the user
-        /*List<Token> tokens = Token.findAllByOwner(userInstance)
-        for (int i = 0; i < tokens.size(); i++)
-            tokens.get(i).delete()
-
-        // Remove Resources that belong to the user
-        List<Resource> resources = Resource.findAllByOwner(userInstance)
-        for (int i = 0; i < resources.size(); i++)
-            resources.get(i).delete()
-
-        // Remove Exported Resources that belong to the user
-        List<ExportedResource> exportedResources = ExportedResource.findAllByOwner(userInstance)
-        for (int i = 0; i < exportedResources.size(); i++)
-            exportedResources.get(i).delete()
-
-        // Remove groups that belong to the user
-        List<Group> groups = Group.findAllByOwner(userInstance)
-        for (int i = 0; i < groups.size(); i++)
-            groups.get(i).delete()
-
-        // Remove user-group relationships
-        UserGroup.removeAllByUser(userInstance, true)*/
-
-        //userInstance.delete flush: true
-
-
-
         userInstance.enabled = false
         userInstance.save flush: true
 	redirect uri: "/admin/users"
