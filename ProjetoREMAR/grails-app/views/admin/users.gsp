@@ -97,10 +97,10 @@
                                         <td class="user-username"> ${userInstance.username} </td>
 
                                         <g:if test="${userInstance.enabled}">
-                                            <td class="user-username"> ativo </td>
+                                            <td class="user-username"> <g:message code="admin.table.active"/> </td>
                                         </g:if>
                                         <g:else>
-                                            <td class="user-username"> inativo </td>
+                                            <td class="user-username"> <g:message code="admin.table.inactive"/> </td>
                                         </g:else>
 
                                         <td class="valign-wrapper">
@@ -116,11 +116,15 @@
                                             </g:else>
 					    <g:if test="${userInstance.enabled}">
                                             	<a href="#!" id="remove-user-${userInstance.id}" class="tooltipped valign-wrapper modal-trigger"
-                                               		data-tooltip="${message(code: 'default.button.delete.label')}">
-                                                    <i class="material-icons">delete_forever</i>
+                                               		data-tooltip="${message(code: 'default.button.block.label')}">
+                                                    <i class="material-icons">lock_outline</i>
                                             	</a>
                                             </g:if>
                                             <g:else>
+                                            	<a href="#!" id="remove-user-${userInstance.id}" class="tooltipped valign-wrapper modal-trigger"
+                                               		data-tooltip="${message(code: 'default.button.reactivate.label')}">
+                                                    <i class="material-icons">lock_open</i>
+                                            	</a>
                                             </g:else>
                                         </td>
                                     </tr>
@@ -275,7 +279,7 @@
                 var userIdList = [];
 
                 $('#users-table input:checkbox:checked').closest('tr').each(function() {
-                    $(this).remove();
+                    //$(this).remove();
                     userIdList.push($(this).data('user-id'));
                 });
 
@@ -284,7 +288,7 @@
                     type: 'get',
                     data: {userIdList: JSON.stringify(userIdList)},
                     success: function (resp) {
-                        $('#users-table').reloadMe();
+                        //$('#users-table').reloadMe();
                         Materialize.toast('${message(code: 'admin.users.removed.batch')}', 2000);
                         $('.warning-box').slideUp(500);
                     }

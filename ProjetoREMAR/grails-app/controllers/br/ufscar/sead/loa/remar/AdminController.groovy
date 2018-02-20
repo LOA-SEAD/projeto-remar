@@ -377,7 +377,7 @@ class AdminController {
 
         userInstance.enabled = false
         userInstance.save flush: true
-	redirect uri: "/admin/users"
+	//redirect uri: "/admin/users"
     }
 
     /**
