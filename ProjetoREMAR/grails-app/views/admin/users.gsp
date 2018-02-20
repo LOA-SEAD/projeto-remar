@@ -237,8 +237,8 @@
                     type: 'post',
                     data: {id: id},
                     success: function (resp) {
-                        $row.remove();
-                        $('#users-table').reloadMe();
+			location.reload();
+                        //$('#users-table').reloadMe();
                         Materialize.toast('${message(code:'admin.users.removed')}', 2000);
                         $('.warning-box').slideUp(500);
                     }
