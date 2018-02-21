@@ -13,13 +13,13 @@ function backup {
 	touch backup_urls
 
 	MYSQL_SNAP="$(convoy snapshot create docker_mysql-data)"
-	convoy backup create $MYSQL_SNAP --dest vfs://$BACKUP_DIR >> backup_urls
+	convoy backup create $MYSQL_SNAP --dest vfs://$BACKUP_DIR >> $BACKUP_DIR/backup_urls
 
 	echo "Generated MYSQL backup on ${DATE} from snapshot ${MYSQL_SNAP}"
 
 
 	MONGO_SNAP="$(convoy snapshot create docker_mongo-data)"
-	convoy backup create $MONGO_SNAP --dest vfs://$BACKUP_DIR >> backup_urls
+	convoy backup create $MONGO_SNAP --dest vfs://$BACKUP_DIR >> $BACKUP_DIR/backup_urls
 
 	echo "Generated MongoDB backup on ${DATE} from snapshot ${MONGO_SNAP}"
 
@@ -32,10 +32,13 @@ function restore {
 	head backup_urls | {
 		read -r CURRENT_BACKUP;
 		convoy delete docker_mysql-data;
-		convoy create docker_mysql-data --backup CURRENT_BACKUP;
+		convoy create docker_mysql-data --backup "${CURRENT_BACKUP}";
 		read -r CURRENT_BACKUP;
 		convoy delete docker_mongo-data;
-		convoy create docker_mongo-data --backup CURRENT_BACKUP;
+		convoy create docker_mongo-data --backup "${CURRENT_BACKUP}";
+
+		cp -rf $BACKUP_DIR/volume_docker_remar %HOME/volume_docker_remar
+
 	}
 }
 
