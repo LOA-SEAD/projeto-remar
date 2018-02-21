@@ -8,6 +8,23 @@
     <title>
         <g:message code="admin.users.title"/>
     </title>
+
+    <g:javascript>
+        GMS = {};
+        GMS.REMOVE_USER_URL = ${createLink(controller: 'admin', action: 'deleteUser')};
+        GMS.EXPORT_USERS_LINK = ${createLink(controller: "admin", action: "exportUsers")}
+        GMS.DISABLE_USER_BATCH_LINK = ${createLink(controller: "admin", action: "deleteUserBatch")}
+        GMS.TOGGLE_DEVELOPMENT_ROLE_LINK = ${createLink(controller: 'admin', action: 'toggleUserDeveloperStatus')};
+        GMS.DISABLED_USER_MSG = ${message(code:'admin.users.removed')};
+        GMS.DEVELOPMENT_ROLE_ON_MSG = ${message(code: 'admin.users.developer.on')};
+        GMS.DISABLED_USER_BATCH_MSG = ${message(code: 'admin.users.removed.batch')};
+        GMS.DISABLE_USER_WARNING_MSG = ${message(code:"admin.users.warning")};
+        GMS.DEVELOPMENT_ROLE_OFF_MSG = ${message(code: 'admin.users.developer.off')};
+        GMS.DEVELOPMENT_ROLE_GRANTED_MSG = ${message(code: 'admin.users.developer.new')};
+        GMS.DEVELOPMENT_ROLE_REVOKED_MSG = ${message(code: 'admin.users.developer.del')};
+        GMS.DISABLE_USER_BATCH_WARNING_MSG = ${message(code: "admin.users.warning.batch")};
+    </g:javascript>
+
 </head>
 
 <body>
@@ -224,93 +241,6 @@
 
     <g:javascript src="libs/jquery/jquery.tablePagination.js"/>
     <g:javascript src="remar/admin/admin.users.js"/>
-    <g:javascript>
-        %{--
-            Este trecho de código precisa estar no .gsp por causa das mensagens de I18N
-            que são decodificadas pelo próprio servidor antes de renderizar a página,
-            enquanto que arquivos .js são interpretados pelo cliente.
-        --}%
-        $('a[id^="remove-user"]').click(function () {
-            var $row = $(this).closest('tr');
-            var name = $row.children('.user-name').text();
-            var id = $row.data('user-id');
-            $('#warning-box-message').html('${message(code:"admin.users.warning")} <span id="warning-user">' + name + '</span> ?');
-            $('.warning-box .btn-flat:first-child').unbind().click(function () {
-                $.ajax({
-                    url: "${createLink(controller: 'admin', action: 'deleteUser')}",
-                    type: 'post',
-                    data: {id: id},
-                    success: function (resp) {
-			location.reload();
-                        //$('#users-table').reloadMe();
-                        Materialize.toast('${message(code:'admin.users.removed')}', 2000);
-                        $('.warning-box').slideUp(500);
-                    }
-                });
-            });
-            $('.warning-box').slideDown(500);
-        });
 
-        $('a.dev-toggle').click(function() {
-            var $button = $(this);
-            var name = $(this).closest('tr').children('.user-name').text();
-            var id = $button.closest('tr').data('user-id');
-            $.ajax({
-                url: "${createLink(controller: 'admin', action: 'toggleUserDeveloperStatus')}",
-                type: 'get',
-                data: {id: id},
-                success: function (resp) {
-                    $button.tooltip('remove');
-                    $button.toggleClass('active');
-
-                    var tooltipMessage = (resp == 'true') ? '${message(code: 'admin.users.developer.off')}' : '${message(code: 'admin.users.developer.on')}';
-                    $button.attr('data-tooltip', tooltipMessage);
-                    $button.tooltip();
-
-                    var toastMessage = (resp == 'true') ? '${message(code: 'admin.users.developer.new')}' : '${message(code: 'admin.users.developer.del')}';
-                    Materialize.toast(toastMessage, 2000);
-                }
-            });
-        });
-
-        $('a#batch-remove-button').click(function() {
-            $('#warning-box-message').html('${message(code: "admin.users.warning.batch")}');
-            $('.warning-box .btn-flat:first-child').unbind().click(function () {
-                var userIdList = [];
-
-                $('#users-table input:checkbox:checked').closest('tr').each(function() {
-                    //$(this).remove();
-                    userIdList.push($(this).data('user-id'));
-                });
-
-                $.ajax({
-                    url: '${createLink(controller: "admin", action: "deleteUserBatch")}',
-                    type: 'get',
-                    data: {userIdList: JSON.stringify(userIdList)},
-                    success: function (resp) {
-                        //$('#users-table').reloadMe();
-                        Materialize.toast('${message(code: 'admin.users.removed.batch')}', 2000);
-                        $('.warning-box').slideUp(500);
-                    }
-                });
-            });
-            $('.warning-box').slideDown(500);
-        });
-
-        $('a#submit-export').click(function(e) {
-            var userIdList = JSON.stringify(
-                $('#users-table input:checkbox:checked').closest('tr').map(function() {
-                    return $(this).data('user-id');
-                }).get()
-            );
-            var extension = $('#format-select').val();
-
-            var url = '${createLink(controller: "admin", action: "exportUsers")}'
-                    + '?userIdList=' + userIdList
-                    + '&ext=' + extension;
-
-            window.open(url, '_blank');
-        });
-    </g:javascript>
 </body>
 </html>
