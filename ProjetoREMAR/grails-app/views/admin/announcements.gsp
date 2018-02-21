@@ -23,8 +23,8 @@
         GMS.NOT_REMOVED_MESSAGE             = "${message(code: 'admin.announcements.notremoved')}";
         GMS.BATCH_REMOVED_MESSAGE           = "${message(code: 'admin.announcements.removed.batch')}";
         GMS.CONFIRM_REMOVE_MESSAGE          = "${message(code: 'admin.announcements.remove.warning')}";
-        GMS.CONFIRM_REMOVE_BATCH_MESSAGE    = "${message(code: 'admin.announcements.remove.warning.batch')}";
         GMS.NOT_REMOVED_BATCH_MESSAGE       = "${message(code: 'admin.announcements.notremoved.batch')}";
+        GMS.CONFIRM_REMOVE_BATCH_MESSAGE    = "${message(code: 'admin.announcements.remove.warning.batch')}";
         GMS.PARTIALLY_REMOVED_BATCH_MESSAGE = "${message(code: 'admin.announcements.removed.partialBatch')}";
     </g:javascript>
 

@@ -9,25 +9,25 @@
         <g:message code="admin.users.title"/>
     </title>
 
-    <g:javascript>
-        GMS = {};
-        GMS.REMOVE_USER_URL = ${createLink(controller: 'admin', action: 'deleteUser')};
-        GMS.EXPORT_USERS_LINK = ${createLink(controller: "admin", action: "exportUsers")}
-        GMS.DISABLE_USER_BATCH_LINK = ${createLink(controller: "admin", action: "deleteUserBatch")}
-        GMS.TOGGLE_DEVELOPMENT_ROLE_LINK = ${createLink(controller: 'admin', action: 'toggleUserDeveloperStatus')};
-        GMS.DISABLED_USER_MSG = ${message(code:'admin.users.removed')};
-        GMS.DEVELOPMENT_ROLE_ON_MSG = ${message(code: 'admin.users.developer.on')};
-        GMS.DISABLED_USER_BATCH_MSG = ${message(code: 'admin.users.removed.batch')};
-        GMS.DISABLE_USER_WARNING_MSG = ${message(code:"admin.users.warning")};
-        GMS.DEVELOPMENT_ROLE_OFF_MSG = ${message(code: 'admin.users.developer.off')};
-        GMS.DEVELOPMENT_ROLE_GRANTED_MSG = ${message(code: 'admin.users.developer.new')};
-        GMS.DEVELOPMENT_ROLE_REVOKED_MSG = ${message(code: 'admin.users.developer.del')};
-        GMS.DISABLE_USER_BATCH_WARNING_MSG = ${message(code: "admin.users.warning.batch")};
-    </g:javascript>
-
 </head>
 
 <body>
+    <g:javascript>
+        GMS = {};
+        GMS.REMOVE_USER_URL                = "${createLink(controller: 'admin', action: 'deleteUser')}";
+        GMS.EXPORT_USERS_LINK              = "${createLink(controller: 'admin', action: 'exportUsers')}";
+        GMS.DISABLE_USER_BATCH_LINK        = "${createLink(controller: 'admin', action: 'deleteUserBatch')}";
+        GMS.TOGGLE_DEVELOPMENT_ROLE_LINK   = "${createLink(controller: 'admin', action: 'toggleUserDeveloperStatus')}";
+
+        GMS.DISABLED_USER_MSG              = "${message(code: 'admin.users.removed')}";
+        GMS.DEVELOPMENT_ROLE_ON_MSG        = "${message(code: 'admin.users.developer.on')}";
+        GMS.DISABLED_USER_BATCH_MSG        = "${message(code: 'admin.users.removed.batch')}";
+        GMS.DISABLE_USER_WARNING_MSG       = "${message(code: 'admin.users.warning')}";
+        GMS.DEVELOPMENT_ROLE_OFF_MSG       = "${message(code: 'admin.users.developer.off')}";
+        GMS.DEVELOPMENT_ROLE_GRANTED_MSG   = "${message(code: 'admin.users.developer.new')}";
+        GMS.DEVELOPMENT_ROLE_REVOKED_MSG   = "${message(code: 'admin.users.developer.del')}";
+        GMS.DISABLE_USER_BATCH_WARNING_MSG = "${message(code: 'admin.users.warning.batch')}";
+    </g:javascript>
     <div class="row cluster">
         <div class="row cluster-header">
             <h4><g:message code="admin.users.title"/></h4>
