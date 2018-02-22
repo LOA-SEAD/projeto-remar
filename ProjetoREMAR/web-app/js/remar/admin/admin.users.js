@@ -69,7 +69,7 @@ $(document).ready(function() {
 
                     // Update button icon
                     icon = (resp == 'true') ? "lock_outline" : "lock_open";
-                    $button.children(".material-icons").val(icon);
+                    $button.children(".material-icons").html(icon);
 
                     // Show toast to feedback user with response
                     var toastMessage = (resp == 'true') ? GMS.USER_ENABLED_MSG : GMS.USER_DISABLED_MSG;
