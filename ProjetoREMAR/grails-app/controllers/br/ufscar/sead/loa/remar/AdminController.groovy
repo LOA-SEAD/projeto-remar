@@ -62,9 +62,8 @@ class AdminController {
         render (status: 200)
     }
 
-    def deleteUser() {
-        deleteUserProc(params.id)
-        render (status: 200)
+    def toggleUser() {
+        render toggleUserProc(params.id)
     }
 
     def deleteGroup() {
@@ -87,11 +86,11 @@ class AdminController {
         render (status: 200)
     }
 
-    def deleteUserBatch() {
+    def toggleUserBatch() {
         def userIdList = JSON.parse(params.userIdList)
 
         userIdList.each {
-            deleteUserProc(it)
+            toggleUserProc(it)
         }
 
         render (status: 200)
@@ -366,18 +365,19 @@ class AdminController {
      * @return nothing
      */
     @Transactional
-    deleteUserProc(id) {
+    toggleUserProc(id) {
         def userInstance = User.findById(id)
 
         if (userInstance == null) {
-            log.debug("ERROR @ deleteUserProc: User instance [id: ${id}] not found")
+            log.debug("ERROR @ toggleUserProc: User instance [id: ${id}] not found")
             render status: 410
             return
         }
 
-        userInstance.enabled = false
+        userInstance.enabled = !(userInstance.enabled)
         userInstance.save flush: true
-	//redirect uri: "/admin/users"
+
+        return userInstance.enabled
     }
 
     /**

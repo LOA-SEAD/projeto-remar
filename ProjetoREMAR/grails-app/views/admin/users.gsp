@@ -14,12 +14,17 @@
 <body>
     <g:javascript>
         GMS = {};
-        GMS.REMOVE_USER_URL                = "${createLink(controller: 'admin', action: 'deleteUser')}";
+        GMS.TOGGLE_USER_URL                = "${createLink(controller: 'admin', action: 'toggleUser')}";
         GMS.EXPORT_USERS_LINK              = "${createLink(controller: 'admin', action: 'exportUsers')}";
-        GMS.DISABLE_USER_BATCH_LINK        = "${createLink(controller: 'admin', action: 'deleteUserBatch')}";
+        GMS.DISABLE_USER_BATCH_LINK        = "${createLink(controller: 'admin', action: 'toggleUserBatch')}";
         GMS.TOGGLE_DEVELOPMENT_ROLE_LINK   = "${createLink(controller: 'admin', action: 'toggleUserDeveloperStatus')}";
 
-        GMS.DISABLED_USER_MSG              = "${message(code: 'admin.users.removed')}";
+        GMS.ENABLE_USER_MSG                = "${message(code: 'admin.users.enable')}";
+        GMS.DISABLE_USER_MSG               = "${message(code: 'admin.users.disable')}";
+        GMS.ENABLED_USER_STATUS            = "${message(code: 'admin.users.status.enabled')}";
+        GMS.DISABLED_USER_STATUS           = "${message(code: 'admin.users.status.disabled')}";
+        GMS.USER_ENABLED_MSG               = "${message(code: 'admin.users.enabled')}";
+        GMS.USER_DISABLED_MSG              = "${message(code: 'admin.users.disabled')}";
         GMS.DEVELOPMENT_ROLE_ON_MSG        = "${message(code: 'admin.users.developer.on')}";
         GMS.DISABLED_USER_BATCH_MSG        = "${message(code: 'admin.users.removed.batch')}";
         GMS.DISABLE_USER_WARNING_MSG       = "${message(code: 'admin.users.warning')}";
@@ -114,31 +119,31 @@
                                         <td class="user-username"> ${userInstance.username} </td>
 
                                         <g:if test="${userInstance.enabled}">
-                                            <td class="user-username"> <g:message code="admin.table.active"/> </td>
+                                            <td class="user-status"> <g:message code="admin.table.active"/> </td>
                                         </g:if>
                                         <g:else>
-                                            <td class="user-username"> <g:message code="admin.table.inactive"/> </td>
+                                            <td class="user-status"> <g:message code="admin.table.inactive"/> </td>
                                         </g:else>
 
                                         <td class="valign-wrapper">
                                             <g:if test="${userInstance.authorities.any {it.authority == 'ROLE_DEV'}}">
-                                                <a href="#!" class="tooltipped dev-toggle valign-wrapper active" data-tooltip="${message(code:'admin.users.developer.off')}">
+                                                <a class="tooltipped dev-toggle valign-wrapper active" data-tooltip="${message(code:'admin.users.developer.off')}">
                                                     <i class="material-icons">code</i>
                                                 </a>
                                             </g:if>
                                             <g:else>
-                                                <a href="#!" class="tooltipped dev-toggle valign-wrapper" data-tooltip="${message(code: 'admin.users.developer.on')}">
+                                                <a class="tooltipped dev-toggle valign-wrapper" data-tooltip="${message(code: 'admin.users.developer.on')}">
                                                     <i class="material-icons">code</i>
                                                 </a>
                                             </g:else>
-					    <g:if test="${userInstance.enabled}">
-                                            	<a href="#!" id="remove-user-${userInstance.id}" class="tooltipped valign-wrapper modal-trigger"
-                                               		data-tooltip="${message(code: 'default.button.block.label')}">
+					                        <g:if test="${userInstance.enabled}">
+                                            	<a id="user-toggle-${userInstance.id}" class="tooltipped valign-wrapper"
+                                               		data-tooltip="${message(code: 'default.button.block.label')}" >
                                                     <i class="material-icons">lock_outline</i>
                                             	</a>
                                             </g:if>
                                             <g:else>
-                                            	<a href="#!" id="remove-user-${userInstance.id}" class="tooltipped valign-wrapper modal-trigger"
+                                            	<a id="user-toggle-${userInstance.id}" class="tooltipped valign-wrapper"
                                                		data-tooltip="${message(code: 'default.button.reactivate.label')}">
                                                     <i class="material-icons">lock_open</i>
                                             	</a>

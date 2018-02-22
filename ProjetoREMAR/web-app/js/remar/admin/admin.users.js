@@ -35,20 +35,46 @@ $(document).ready(function() {
         $table.reloadMe();
     });
 
-    $('a[id^="remove-user"]').click(function () {
+
+    //
+    $('a[id^="user-toggle"]').click(function () {
+        // Find elements used on function
+        var $button = $(this);
         var $row = $(this).closest('tr');
         var name = $row.children('.user-name').text();
         var id = $row.data('user-id');
+
+        // Show warning box for action confirmation
         $('#warning-box-message').html(' <span id="warning-user">' + GMS.DISABLE_USER_WARNING_MSG + name + '</span> ?');
+
+        // Bind the click behavior to the confirmation button
         $('.warning-box .btn-flat:first-child').unbind().click(function () {
             $.ajax({
-                url: GMS.REMOVE_USER_URL,
+                url: GMS.TOGGLE_USER_URL,
                 type: 'post',
                 data: {id: id},
                 success: function (resp) {
-                    location.reload();
-                    Materialize.toast(GMS.USER_REMOVE_MSG, 2000);
+                    // Update "user-toggling button" tooltip
+                    $button.tooltip('remove');
+                    var tooltipMessage = (resp == 'true') ? GMS.DISABLE_USER_MSG : GMS.ENABLE_USER_MSG;
+                    $button.attr('data-tooltip', tooltipMessage);
+                    $button.tooltip();
+
+                    // Update user status column
+                    userStatus = (resp == 'true') ? GMS.ENABLED_USER_STATUS : GMS.DISABLED_USER_STATUS;
+                    $row.children('.user-status').text(userStatus);
+
+                    // Update button icon
+                    icon = (resp == 'true') ? "lock_outline" : "lock_open";
+                    $button.children(".material-icons").val(icon);
+
+                    // Show toast to feedback user with response
+                    var toastMessage = (resp == 'true') ? GMS.USER_ENABLED_MSG : GMS.USER_DISABLED_MSG;
+                    Materialize.toast(toastMessage, 2000);
                     $('.warning-box').slideUp(500);
+                },
+                error: function (resp) {
+                  Materialize.toast(GMS.ERROR_MSG, 2000);
                 }
             });
         });
@@ -83,7 +109,6 @@ $(document).ready(function() {
             var userIdList = [];
 
             $('#users-table input:checkbox:checked').closest('tr').each(function() {
-                //$(this).remove();
                 userIdList.push($(this).data('user-id'));
             });
 
