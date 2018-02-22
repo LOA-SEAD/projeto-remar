@@ -169,9 +169,13 @@
                         <i class="material-icons">file_download</i>
                     </a>
 
-                    <a id="batch-remove-button" class="btn-floating waves-effect waves-light remar-orange tooltipped toggleable"
-                       data-tooltip="${message(code: 'admin.users.buttons.remove')}">
-                        <i class="material-icons">delete</i>
+                    <a id="batch-enable-button" class="btn-floating waves-effect waves-light remar-orange tooltipped toggleable"
+                       data-tooltip="${message(code: 'admin.users.buttons.enable')}">
+                        <i class="material-icons">lock_open</i>
+                    </a>
+                    <a id="batch-disable-button" class="btn-floating waves-effect waves-light remar-orange tooltipped toggleable"
+                       data-tooltip="${message(code: 'admin.users.buttons.disable')}">
+                        <i class="material-icons">lock_outline</i>
                     </a>
                 </div>
                 <div class="col s3 offset-s6">
