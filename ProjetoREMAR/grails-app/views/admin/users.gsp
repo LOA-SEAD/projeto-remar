@@ -16,22 +16,31 @@
         GMS = {};
         GMS.TOGGLE_USER_URL                = "${createLink(controller: 'admin', action: 'toggleUser')}";
         GMS.EXPORT_USERS_LINK              = "${createLink(controller: 'admin', action: 'exportUsers')}";
-        GMS.DISABLE_USER_BATCH_LINK        = "${createLink(controller: 'admin', action: 'toggleUserBatch')}";
+        GMS.ENABLE_USER_BATCH_LINK         = "${createLink(controller: 'admin', action: 'enableUserBatch')}";
+        GMS.DISABLE_USER_BATCH_LINK        = "${createLink(controller: 'admin', action: 'disableUserBatch')}";
         GMS.TOGGLE_DEVELOPMENT_ROLE_LINK   = "${createLink(controller: 'admin', action: 'toggleUserDeveloperStatus')}";
 
-        GMS.ENABLE_USER_MSG                = "${message(code: 'admin.users.buttons.enable')}";
-        GMS.DISABLE_USER_MSG               = "${message(code: 'admin.users.buttons.enable')}";
+        // User table messages
+        GMS.ENABLE_USER_TOOLTIP            = "${message(code: 'admin.users.buttons.enable')}";
+        GMS.DISABLE_USER_TOOLTIP           = "${message(code: 'admin.users.buttons.enable')}";
         GMS.ENABLED_USER_STATUS            = "${message(code: 'admin.table.active')}";
         GMS.DISABLED_USER_STATUS           = "${message(code: 'admin.table.inactive')}";
+
+        // User toggling messages
         GMS.USER_ENABLED_MSG               = "${message(code: 'admin.users.enabled')}";
         GMS.USER_DISABLED_MSG              = "${message(code: 'admin.users.disabled')}";
-        GMS.DEVELOPMENT_ROLE_ON_MSG        = "${message(code: 'admin.users.developer.on')}";
-        GMS.DISABLED_USER_BATCH_MSG        = "${message(code: 'admin.users.disabled.batch')}";
         GMS.ENABLE_USER_WARNING_MSG        = "${message(code: 'admin.users.warning.enable')}";
         GMS.DISABLE_USER_WARNING_MSG       = "${message(code: 'admin.users.warning.disable')}";
+
+        // Dev role messages
+        GMS.DEVELOPMENT_ROLE_ON_MSG        = "${message(code: 'admin.users.developer.on')}";
         GMS.DEVELOPMENT_ROLE_OFF_MSG       = "${message(code: 'admin.users.developer.off')}";
         GMS.DEVELOPMENT_ROLE_GRANTED_MSG   = "${message(code: 'admin.users.developer.new')}";
         GMS.DEVELOPMENT_ROLE_REVOKED_MSG   = "${message(code: 'admin.users.developer.del')}";
+
+        // Batch messages
+        GMS.ENABLED_USER_BATCH_MSG        =  "${message(code: 'admin.users.enabled.batch')}";
+        GMS.DISABLED_USER_BATCH_MSG        = "${message(code: 'admin.users.disabled.batch')}";
         GMS.ENABLE_USER_BATCH_WARNING_MSG  = "${message(code: 'admin.users.warning.enable.batch')}";
         GMS.DISABLE_USER_BATCH_WARNING_MSG = "${message(code: 'admin.users.warning.disable.batch')}";
     </g:javascript>

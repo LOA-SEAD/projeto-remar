@@ -106,7 +106,7 @@ $(document).ready(function() {
         });
     });
 
-    $('a#batch-remove-button').click(function() {
+    $('a#batch-disable-button').click(function() {
         $('#warning-box-message').html(GMS.DISABLE_USER_BATCH_WARNING_MSG);
         $('.warning-box .btn-flat:first-child').unbind().click(function () {
             var userIdList = [];
@@ -117,6 +117,27 @@ $(document).ready(function() {
 
             $.ajax({
                 url: GMS.DISABLE_USER_BATCH_LINK,
+                type: 'get',
+                data: {userIdList: JSON.stringify(userIdList)},
+                success: function (resp) {
+                    location.reload();
+                }
+            });
+        });
+        $('.warning-box').slideDown(500);
+    });
+
+    $('a#batch-enable-button').click(function() {
+        $('#warning-box-message').html(GMS.ENABLE_USER_BATCH_WARNING_MSG);
+        $('.warning-box .btn-flat:first-child').unbind().click(function () {
+            var userIdList = [];
+
+            $('#users-table input:checkbox:checked').closest('tr').each(function() {
+                userIdList.push($(this).data('user-id'));
+            });
+
+            $.ajax({
+                url: GMS.ENABLE_USER_BATCH_LINK,
                 type: 'get',
                 data: {userIdList: JSON.stringify(userIdList)},
                 success: function (resp) {

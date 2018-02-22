@@ -66,6 +66,29 @@ class AdminController {
         def user = User.findById(params.id)
         render toggleUserProc(user)
     }
+
+    def disableUserBatch() {
+        def userList = User.getAll(JSON.parse(params.userIdList))
+
+        userList.each {
+            if (it.enabled == true) {
+                toggleUserProc(it)
+            }
+        }
+
+        render (status: 200)
+    }
+
+    def enableUserBatch() {
+        def userList = User.getAll(JSON.parse(params.userIdList))
+
+        userList.each {
+            if (it.enabled == false) {
+                toggleUserProc(it)
+            }
+        }
+
+        render (status: 200)
     }
 
     def deleteGroup() {
@@ -85,16 +108,6 @@ class AdminController {
 
     def deleteReport() {
         deleteReportProc(params.id)
-        render (status: 200)
-    }
-
-    def toggleUserBatch() {
-        def userIdList = JSON.parse(params.userIdList)
-
-        userIdList.each {
-            toggleUserProc(it)
-        }
-
         render (status: 200)
     }
 
