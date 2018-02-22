@@ -63,7 +63,9 @@ class AdminController {
     }
 
     def toggleUser() {
-        render toggleUserProc(params.id)
+        def user = User.findById(params.id)
+        render toggleUserProc(user)
+    }
     }
 
     def deleteGroup() {
@@ -365,19 +367,17 @@ class AdminController {
      * @return nothing
      */
     @Transactional
-    toggleUserProc(id) {
-        def userInstance = User.findById(id)
-
-        if (userInstance == null) {
+    toggleUserProc(user) {
+        if (user == null) {
             log.debug("ERROR @ toggleUserProc: User instance [id: ${id}] not found")
             render status: 410
             return
         }
 
-        userInstance.enabled = !(userInstance.enabled)
-        userInstance.save flush: true
+        user.enabled = !(user.enabled)
+        user.save flush: true
 
-        return userInstance.enabled
+        return user.enabled
     }
 
     /**
