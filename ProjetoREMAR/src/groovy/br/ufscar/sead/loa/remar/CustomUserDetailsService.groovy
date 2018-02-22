@@ -20,10 +20,11 @@ class CustomUserDetailsService implements GrailsUserDetailsService {
             throws UsernameNotFoundException {
         return loadUserByUsername(username)
     }
-    @Transactional(readOnly=true, noRollbackFor=[IllegalArgumentException, UsernameNotFoundException])
+
+    @Transactional(readOnly = true, noRollbackFor = [IllegalArgumentException, UsernameNotFoundException])
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = User.findByUsernameOrEmail(username, username) // The second argument is the e-mail
+        User user = User.findByUsername(username)
         if (!user) throw new NoStackUsernameNotFoundException()
 
         def roles = user.authorities
