@@ -93,7 +93,7 @@ $(document).ready(function() {
                 $button.tooltip('remove');
                 $button.toggleClass('active');
 
-                var tooltipMessage = (resp == 'true') ? GMS.DEVELOPMENT_ROLE_OFF_MSG : GMS.DEVELOPMENT_ROLE_OFF_MSG;
+                var tooltipMessage = (resp == 'true') ? GMS.DEVELOPMENT_ROLE_OFF_MSG : GMS.DEVELOPMENT_ROLE_ON_MSG;
                 $button.attr('data-tooltip', tooltipMessage);
                 $button.tooltip();
 
