@@ -19,19 +19,21 @@
         GMS.DISABLE_USER_BATCH_LINK        = "${createLink(controller: 'admin', action: 'toggleUserBatch')}";
         GMS.TOGGLE_DEVELOPMENT_ROLE_LINK   = "${createLink(controller: 'admin', action: 'toggleUserDeveloperStatus')}";
 
-        GMS.ENABLE_USER_MSG                = "${message(code: 'admin.users.enable')}";
-        GMS.DISABLE_USER_MSG               = "${message(code: 'admin.users.disable')}";
-        GMS.ENABLED_USER_STATUS            = "${message(code: 'admin.users.status.enabled')}";
-        GMS.DISABLED_USER_STATUS           = "${message(code: 'admin.users.status.disabled')}";
+        GMS.ENABLE_USER_MSG                = "${message(code: 'admin.users.buttons.enable')}";
+        GMS.DISABLE_USER_MSG               = "${message(code: 'admin.users.buttons.enable')}";
+        GMS.ENABLED_USER_STATUS            = "${message(code: 'admin.table.active')}";
+        GMS.DISABLED_USER_STATUS           = "${message(code: 'admin.table.inactive')}";
         GMS.USER_ENABLED_MSG               = "${message(code: 'admin.users.enabled')}";
         GMS.USER_DISABLED_MSG              = "${message(code: 'admin.users.disabled')}";
         GMS.DEVELOPMENT_ROLE_ON_MSG        = "${message(code: 'admin.users.developer.on')}";
-        GMS.DISABLED_USER_BATCH_MSG        = "${message(code: 'admin.users.removed.batch')}";
-        GMS.DISABLE_USER_WARNING_MSG       = "${message(code: 'admin.users.warning')}";
+        GMS.DISABLED_USER_BATCH_MSG        = "${message(code: 'admin.users.disabled.batch')}";
+        GMS.ENABLE_USER_WARNING_MSG        = "${message(code: 'admin.users.warning.enable')}";
+        GMS.DISABLE_USER_WARNING_MSG       = "${message(code: 'admin.users.warning.disable')}";
         GMS.DEVELOPMENT_ROLE_OFF_MSG       = "${message(code: 'admin.users.developer.off')}";
         GMS.DEVELOPMENT_ROLE_GRANTED_MSG   = "${message(code: 'admin.users.developer.new')}";
         GMS.DEVELOPMENT_ROLE_REVOKED_MSG   = "${message(code: 'admin.users.developer.del')}";
-        GMS.DISABLE_USER_BATCH_WARNING_MSG = "${message(code: 'admin.users.warning.batch')}";
+        GMS.ENABLE_USER_BATCH_WARNING_MSG  = "${message(code: 'admin.users.warning.enable.batch')}";
+        GMS.DISABLE_USER_BATCH_WARNING_MSG = "${message(code: 'admin.users.warning.disable.batch')}";
     </g:javascript>
     <div class="row cluster">
         <div class="row cluster-header">
