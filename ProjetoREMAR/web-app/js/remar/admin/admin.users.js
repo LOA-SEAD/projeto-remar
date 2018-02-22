@@ -92,9 +92,7 @@ $(document).ready(function() {
                 type: 'get',
                 data: {userIdList: JSON.stringify(userIdList)},
                 success: function (resp) {
-                    //$('#users-table').reloadMe();
-                    Materialize.toast(GMS.DISABLED_USER_BATCH_MSG, 2000);
-                    $('.warning-box').slideUp(500);
+                    location.reload();
                 }
             });
         });
