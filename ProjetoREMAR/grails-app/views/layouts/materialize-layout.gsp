@@ -25,7 +25,7 @@
                             <li class="collection-item left">
                                 <div class="row no-margin-bottom">
                                     <div class="col s8 center">
-                                        <p class="title truncate">${session.user.firstName} ${session.user.lastName}</p>
+                                        <p class="secondary-color truncate">${session.user.firstName} ${session.user.lastName}</p>
                                         <p class="secondary-color truncate" title="${session.user.email}">${session.user.email}</p>
                                     </div>
                                     <div class="col s4">

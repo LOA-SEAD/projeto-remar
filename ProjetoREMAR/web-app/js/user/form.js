@@ -15,8 +15,7 @@ $(document).ready(function() {
             },
             email: {
                 email: true,
-                required: true,
-                remote: '/user/email-available'
+                required: true
             },
             username: {
                 minlength: 3,
@@ -43,8 +42,7 @@ $(document).ready(function() {
             },
             email: {
                 required: requiredMsg,
-                email: 'Digite um email no formato nome@exemplo.com',
-                remote: 'Esse email já está em uso'
+                email: 'Digite um email no formato nome@exemplo.com'
             },
             username: {
                 required: requiredMsg,
