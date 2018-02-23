@@ -22,7 +22,7 @@
 
         // User table messages
         GMS.ENABLE_USER_TOOLTIP            = "${message(code: 'admin.users.buttons.enable')}";
-        GMS.DISABLE_USER_TOOLTIP           = "${message(code: 'admin.users.buttons.enable')}";
+        GMS.DISABLE_USER_TOOLTIP           = "${message(code: 'admin.users.buttons.disable')}";
         GMS.ENABLED_USER_STATUS            = "${message(code: 'admin.table.active')}";
         GMS.DISABLED_USER_STATUS           = "${message(code: 'admin.table.inactive')}";
 
@@ -43,6 +43,7 @@
         GMS.DISABLED_USER_BATCH_MSG        = "${message(code: 'admin.users.disabled.batch')}";
         GMS.ENABLE_USER_BATCH_WARNING_MSG  = "${message(code: 'admin.users.warning.enable.batch')}";
         GMS.DISABLE_USER_BATCH_WARNING_MSG = "${message(code: 'admin.users.warning.disable.batch')}";
+
     </g:javascript>
     <div class="row cluster">
         <div class="row cluster-header">

@@ -45,7 +45,7 @@ $(document).ready(function() {
         var id = $row.data('user-id');
 
         // Show warning box for action confirmation
-        if ($row.children('.user-status').html() == " Ativo ") {
+        if ($row.children('.user-status').html() == "Ativo") {
             $('#warning-box-message').html(' <span id="warning-user">' + GMS.DISABLE_USER_WARNING_MSG + name + '</span> ?');
         } else {
             $('#warning-box-message').html(' <span id="warning-user">' + GMS.ENABLE_USER_WARNING_MSG + name + '</span> ?');
@@ -59,7 +59,7 @@ $(document).ready(function() {
                 success: function (resp) {
                     // Update "user-toggling button" tooltip
                     $button.tooltip('remove');
-                    var tooltipMessage = (resp == 'true') ? GMS.DISABLE_USER_MSG : GMS.ENABLE_USER_MSG;
+                    var tooltipMessage = (resp == 'true') ? GMS.DISABLE_USER_TOOLTIP : GMS.ENABLE_USER_TOOLTIP;
                     $button.attr('data-tooltip', tooltipMessage);
                     $button.tooltip();
 
