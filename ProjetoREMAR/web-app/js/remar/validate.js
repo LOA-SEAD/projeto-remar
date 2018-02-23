@@ -70,7 +70,7 @@ function validateSubmit(){
                     processData: false,
                     contentType: false,
                     success: function (response) {
-                        window.location.href = "../../index"
+                        window.location.href = "index"
                     },
                     error: function () {
                         alert("error");
