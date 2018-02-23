@@ -8,6 +8,7 @@
     }
     </style>
     <meta name="layout" content="materialize-layout">
+    <link type="text/css" rel="stylesheet" href="${resource(dir: 'css/jquery', file: 'jquery.jcrop.css')}"/>
     <title>Customizando Jogo</title>
 </head>
 <body>
@@ -199,7 +200,6 @@
     </div>
 </div>
 <g:external dir="css" file="process.css"/>
-<link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
 <g:javascript src="remar/platforms.js"/>
 <g:javascript src="remar/imgPreview.js"/>
 <g:javascript src="libs/jquery/jquery.jcrop.js"/>
