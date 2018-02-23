@@ -38,7 +38,7 @@ class BootStrap {
         }
 
         if (!User.list()) {
-            def admin = new User (
+            def admin = new User(
                     username: "admin",
                     password: "root",
                     email: "remar@sead.ufscar.br",
@@ -51,7 +51,7 @@ class BootStrap {
             UserRole.create admin, Role.findByAuthority("ROLE_ADMIN"), true
             UserRole.create admin, Role.findByAuthority("ROLE_DEV"), true
 
-            def loa = new User (
+            def loa = new User(
                     username: "loa",
                     password: "root",
                     email: "loa@sead.ufscar.br",
@@ -63,25 +63,24 @@ class BootStrap {
 
             UserRole.create loa, Role.findByAuthority("ROLE_DEV"), true
 
+            /* for (def i = 1; i <= 400; i++) {
+                println "criando usuário " + i
+                def user = new User(
+                        username: "user" + i,
+                        password: "root",
+                        email: "user" + i + "@sead.ufscar.br",
+                        firstName: "User",
+                        lastName: i,
+                        enabled: true
+                )
+                user.save flush: true
+
+                if (user.hasErrors()) println user.errors
+            } */
+
             log.debug "Users: ok"
-        }
 
-        /*
-        for(def i = 10; i < 20; i++) {
-            println "criando usuário " + i
-            def loa = new User(
-                    username: "user" + i,
-                    password: "root",
-                    email: "user" + i + "@sead.ufscar.br",
-                    firstName: "User",
-                    lastName: i,
-                    enabled: true
-            )
-            loa.save flush: true
-
-            if (loa.hasErrors()) println loa.errors
         }
-        */
 
         Platform.findOrSaveByName('Android')
         Platform.findOrSaveByName('Linux')

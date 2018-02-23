@@ -188,7 +188,7 @@
                         <i class="material-icons">lock_outline</i>
                     </a>
                 </div>
-                <div class="col s3 offset-s6">
+                <div class="col s12">
                     <ul class="pagination pager no-margin center-align" id="users-table-pager"></ul>
                 </div>
             </div>

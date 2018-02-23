@@ -9,7 +9,7 @@ $.fn.pageMe = function(opts) {
             nextText: '',
             prevText: '',
             hidePageNumbers: false,
-            perPageOptions: [5, 10, 15]
+            perPageOptions: [10, 20]
         },
         settings = $.extend(defaults, opts);
     var $pager         = $('.pager');

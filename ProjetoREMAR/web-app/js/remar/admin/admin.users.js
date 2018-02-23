@@ -13,7 +13,7 @@ $(document).ready(function() {
         activeColor: '#5d4037',
         showPrevNext: true,
         hidePageNumbers: false,
-        perPage: 5
+        perPage: 10
     });
 
     $('#search-user').keyup(function () {
