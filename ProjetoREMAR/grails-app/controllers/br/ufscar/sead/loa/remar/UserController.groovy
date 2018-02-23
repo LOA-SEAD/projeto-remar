@@ -157,7 +157,7 @@ class UserController {
                                     "<hr>"
                         }
 
-                        Util.sendEmail(user.email, "Recuperar dados cadastrados", message)
+                        Util.sendEmail(params.email, "Recuperar dados cadastrados", message)
                         render view: "/user/password/emailSent", model: [email: params.email]
 
                     } else {
