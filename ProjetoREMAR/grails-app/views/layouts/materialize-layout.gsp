@@ -1,26 +1,32 @@
 <g:applyLayout name="base">
+    <html>
+        <head>
+            <title><g:layoutTitle /></title>
+            <g:layoutHead/>
+        </head>
+        <body>
+            <header>
+                <g:applyLayout name="navbar" />
+            </header>
 
-    <header>
-        <g:applyLayout name="navbar" />
-    </header>
+            <div id="slide-out" class="hide-on-large-only side-nav" data-html2canvas-ignore="true">
+                <g:applyLayout name="menu" />
+            </div>
 
-    <div id="slide-out" class="hide-on-large-only side-nav" data-html2canvas-ignore="true">
-        <g:applyLayout name="menu" />
-    </div>
+            <main class="row no-margin">
+                <div class="col l2 left-sidebar-nav hide-on-med-and-down">
+                    <g:applyLayout name="menu" />
+                </div>
 
-    <main class="row no-margin">
-        <div class="col l2 left-sidebar-nav hide-on-med-and-down">
-            <g:applyLayout name="menu" />
-        </div>
+                <div class="col s12 m12 l10 content">
+                    <g:layoutBody />
+                </div>
 
-        <div class="col s12 m12 l10 content">
-            <g:layoutBody />
-        </div>
+            </main>
 
-    </main>
+            <div class="clear"></div>
 
-    <div class="clear"></div>
-
-    <g:applyLayout name="footer" />
-
+            <g:applyLayout name="footer" />
+        </body>
+    </html>
 </g:applyLayout>
