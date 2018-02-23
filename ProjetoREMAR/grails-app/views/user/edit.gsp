@@ -232,7 +232,7 @@
             });
         }
     </script>
-    <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}" />
+    <link type="text/css" rel="stylesheet" href="${resource(dir: "css/jquery", file: "jquery.jcrop.css")}" />
 	<link type="text/css" rel="stylesheet" href="${resource(dir: "css/user", file: "profile.css")}" />
 	<g:javascript src="remar/user/image-selector.js" />
 	<g:javascript src="remar/user/update-validator.js" />
