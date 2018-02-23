@@ -39,7 +39,7 @@
         <div id="userDetailsModal" class="modal remar-modal">
             %{-- Preenchido pelo Javascript --}%
         </div>
-
+        <!--g:applyLayout name="pagination"/-->
         <g:javascript src="remar/menu.js"/>
     </body>
 </html>

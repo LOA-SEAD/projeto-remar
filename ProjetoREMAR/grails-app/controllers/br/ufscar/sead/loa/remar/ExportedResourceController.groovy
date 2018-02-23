@@ -11,6 +11,7 @@ import org.apache.commons.lang.RandomStringUtils
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 import javax.imageio.ImageIO
 import java.awt.image.BufferedImage
+import static br.ufscar.sead.loa.remar.Util.THRESHOLD
 
 @Secured(['ROLE_ADMIN'])
 class ExportedResourceController {
@@ -436,13 +437,25 @@ class ExportedResourceController {
 
     @SuppressWarnings("GroovyAssignabilityCheck")
     publicGames() {
-        def publicExportedResourcesList = ExportedResource.findAllByType('public', params)
-        def categories = Category.list(sort: "name")
+        params.order = "desc"
+        params.sort = "id"
+        params.max = params.max ? Integer.valueOf(params.max) : THRESHOLD
+        params.offset = params.offset ? Integer.valueOf(params.offset) : 0
+        params.type = "public"
+        def pageCount = Math.ceil(ExportedResource.count / params.max) as int
+        def publicGamesList = ExportedResource.list(params)
+        def currentPage = (params.offset + THRESHOLD) / THRESHOLD
 
-        if(session.user==null)
-            render view: "games", model: [publicExportedResourcesList: publicExportedResourcesList, categories: categories]
-        else
-            render view: "publicGames", model: [publicExportedResourcesList: publicExportedResourcesList, categories: categories]
+        //Colocando todos os atributos necessários para fazer a paginação/aparecer os cards em "model"
+        def model = [:]
+        model.publicExportedResourcesList = publicGamesList
+        model.totalCount = publicGamesList.totalCount
+        model.categories = Category.list(sort:"name")
+        model.pageCount = pageCount
+        model.currentPage = currentPage
+        model.threshold = THRESHOLD
+
+        render view: "publicGames", model: model
     }
 
     def myGames() {
@@ -742,7 +755,7 @@ class ExportedResourceController {
 
 	println "SaveScore : " + data
 
-        
+
         try {
                 MongoHelper.instance.createCollection("ranking")
                 MongoHelper.instance.insertScoreToRanking(data)
