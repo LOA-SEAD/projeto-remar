@@ -144,8 +144,8 @@
 		<input type="hidden" name="id" value="${resourceInstance.id}" id="hiddenId">
 
 		<div class="row">
-			<div class="col s10">
-				<div class="slider">
+			<div class="col s7">
+				<div class="slider" style="width: 800px; margin: 0 auto;"> <!-- Tornar responsivo! -->
 					<ul class="slides">
 						%{--Imagens devem ter 720x400 pixels --}%
 						<li><img src="/data/resources/assets/${resourceInstance.uri}/description-1" width="auto" height="400px"></li>
@@ -157,7 +157,7 @@
 		</div>
 
 		<div class="row">
-			<div class="col s12 m12 l12">
+			<div class="col s12 m12 l7">
 				<g:if test="${resourceInstance.description == null}">
 					<p><strong>Descrição:</strong> Não Disponível</p>
 				</g:if>
@@ -168,7 +168,7 @@
 		</div>
 
 		<div class="row">
-			<div class="col s12 m12 l12">
+			<div class="col s12 m12 l7">
 				<g:if test="${resourceInstance.customizableItems == null}">
 					<p><strong>Itens customizáveis:</strong> Não Disponível</p>
 				</g:if>
@@ -179,7 +179,7 @@
 		</div>
 
 		<div class="row">
-			<div class="col s12 m12 l12">
+			<div class="col s12 m12 l7">
 				<g:if test="${resourceInstance.videoLink == null}">
 					<p><strong>Vídeo Tutorial:</strong> Não Disponível</p>
 				</g:if>
@@ -190,7 +190,7 @@
 		</div>
 
 		<div class="row">
-			<div class="col s12 m12 l12" id="documentation">
+			<div class="col s12 m12 l7" id="documentation">
 				<g:if test="${resourceInstance.documentation == null}">
 					<p><strong>Documentação do Modelo:</strong> Não Disponível</p>
 				</g:if>
@@ -201,7 +201,7 @@
 		</div>
 
 		<div class="row">
-			<div class="col s12 m12 l12" id="info">
+			<div class="col s12 m12 l7" id="info">
 				<g:if test="${resourceInstance.info == null}">
 					<p><b>Info do Modelo:</b> Não Disponível</p>
 				</g:if>
