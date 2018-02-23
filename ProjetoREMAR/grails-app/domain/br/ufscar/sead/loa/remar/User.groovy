@@ -29,7 +29,7 @@ class User {
         password blank: false, nullable: false
         firstName blank: false
         lastName blank: true
-        email email: true
+        email blank: false, email: true
         facebookId nullable: true
         moodleUsername nullable: true
         firstAccess blank: true, nullable: true
