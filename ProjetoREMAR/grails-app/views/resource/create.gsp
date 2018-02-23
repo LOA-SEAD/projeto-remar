@@ -2,6 +2,9 @@
 <html>
 <head>
 	<meta name="layout" content="materialize-layout">
+	<link type="text/css" rel="stylesheet" href="${resource(dir: 'css/jquery', file: 'jquery.jcrop.css')}"/>
+	<link type="text/css" rel="stylesheet" href="${resource(dir: 'css', file: 'resource.css')}"/>
+
 	<title>Novo Jogo</title>
 </head>
 
@@ -211,7 +214,7 @@
 
 <div id="modal-picture" class="modal remar-modal">
 	<div class="modal-content">
-		<h4>Upload de Imagem</h4>
+		<h4>Envio de Imagem</h4>
 		<div class="img-container">
 			<img id="crop-preview" class="responsive-img">
 		</div>
@@ -257,8 +260,6 @@
 		</div>
 	</div>
 </div>
-
-<g:external dir="css" file="resource.css"/>
 
 <script type="text/javascript" src="${resource(dir: 'js', file: "remar/imgPreview.js")}"></script>
 <script type="text/javascript" src="${resource(dir: 'js', file: 'remar/game-index.js')}"></script>
