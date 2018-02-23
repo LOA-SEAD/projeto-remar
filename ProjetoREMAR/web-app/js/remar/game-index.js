@@ -3,7 +3,7 @@
  */
 
 function openThisModal(modalName){
-    name = "#"+modalName;
+    var name = "#"+modalName;
     $(name).openModal({
         dismissible: false
     });
@@ -244,8 +244,8 @@ $(function(){
                 $(el).attr('src', event.target.result);
                 //$('#crop-preview').Jcrop();
                 $("#modal-picture").openModal({
-                    dismissible: false,
-                    complete: function () {
+                    dismissible: false,                    // Modal won't close when clicked out of it
+                    complete: function () {                // 'Complete' option: what will happen when modal is closed
                         jcrop.destroy();
                         $(".jcrop-holder").remove();
                         $(el).removeAttr("style");
@@ -260,11 +260,13 @@ $(function(){
                         saveCrop(formData, updateImg);
                     }
                 });
+
                 $(el).Jcrop({
-                    aspectRatio: 1.8,
+                    aspectRatio: 2,
                     setSelect: [0, 0, Math.max(this.width, this.height), Math.max(this.width, this.height)],
                     boxHeight: 400,
-                    trueSize: [this.width, this.height]
+                    trueSize: [this.width, this.height],
+                    allowSelect: false
                 }, function () {
                     jcrop = this;
                 });
