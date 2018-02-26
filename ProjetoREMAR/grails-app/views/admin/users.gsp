@@ -150,13 +150,13 @@
                                             </g:else>
 					                        <g:if test="${userInstance.enabled}">
                                             	<a id="user-toggle-${userInstance.id}" class="tooltipped valign-wrapper"
-                                               		data-tooltip="${message(code: 'default.button.block.label')}" >
+                                               		data-tooltip="${message(code: 'admin.users.buttons.disable')}" >
                                                     <i class="material-icons">lock_outline</i>
                                             	</a>
                                             </g:if>
                                             <g:else>
                                             	<a id="user-toggle-${userInstance.id}" class="tooltipped valign-wrapper"
-                                               		data-tooltip="${message(code: 'default.button.reactivate.label')}">
+                                               		data-tooltip="${message(code: 'admin.users.buttons.enable')}">
                                                     <i class="material-icons">lock_open</i>
                                             	</a>
                                             </g:else>
