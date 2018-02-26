@@ -45,10 +45,10 @@ $(document).ready(function() {
         var id = $row.data('user-id');
 
         // Show warning box for action confirmation
-        if ($row.children('.user-status').html() == "Ativo") {
-            $('#warning-box-message').html(' <span id="warning-user">' + GMS.DISABLE_USER_WARNING_MSG + name + '</span> ?');
+        if ($row.children('.user-status').html().search(/ativo/i) >= 0) {
+            $('#warning-box-message').html('<span id="warning-user">' + GMS.DISABLE_USER_WARNING_MSG + name + '</span> ?');
         } else {
-            $('#warning-box-message').html(' <span id="warning-user">' + GMS.ENABLE_USER_WARNING_MSG + name + '</span> ?');
+            $('#warning-box-message').html('<span id="warning-user">' + GMS.ENABLE_USER_WARNING_MSG + name + '</span> ?');
         }
         // Bind the click behavior to the confirmation button
         $('.warning-box .btn-flat:first-child').unbind().click(function () {
