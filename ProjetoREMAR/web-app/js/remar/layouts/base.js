@@ -7,7 +7,8 @@ $(document).ready(function () {
     $('.material-select').material_select();
     $('.materialboxed').materialbox();
     $('.button-collapse').sideNav();
-    $('.modal-trigger').leanModal({
+    $('.modal-trigger').not("#report-modal-trigger").leanModal();
+    $('#report-modal-trigger.modal-trigger').leanModal({
         dismissible: false
     });
 
