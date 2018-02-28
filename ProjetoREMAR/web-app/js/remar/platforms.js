@@ -3,9 +3,9 @@
  */
 
 $(function () {
-    var nameErr = $("#name-error");
+    var nameErr = $("#name-error");        // error: "Ja existe um jogo com esse nome!"
     var loader = $("#preloader-wrapper");
-    var name = $("#name");
+    var name = $("#name");                 // <input> where the name of the custom game is typed
     var imgFile = $("#img-1-text");
     var publish = $("#publish");
     var tasks = $("#tasks");
@@ -21,13 +21,17 @@ $(function () {
         $(this).prev().hide();
     });
 
-    $("#send").on("click", function () {
+    $("#send").on("click", function () {  // When ENVIAR is clicked
 
         goToByScroll("start");
 
-        if ($(name).val()) {
+        // This var gets the value of #name <input> and trims it.
+        // The function $.trim() from JQuery take out whitespaces from both ends
+        var nameTrimmed = $.trim(name.val());
+
+        if (nameTrimmed !== '') { // Checks that name input has at least some char
             var file = $("#img-1").prop('files')[0];
-            if (file != null) { //se a imagem de preview foi mudada
+            if (file != null) {  // If preview image was changed
                 var fr = new FileReader();
                 fr.readAsDataURL(file);
                 fr.onload = function (event) {
@@ -41,11 +45,11 @@ $(function () {
                         var formData = new FormData();
                         formData.append('banner', file);
 			
-                        if(($(name).val().length) <= 50){
-                                        formData.append('name', $(name).val());
+                        if((nameTrimmed.length) <= 50){
+                            formData.append('name', nameTrimmed);
                         }
                         else{
-                            formData.append('name', $(name).val().slice(0, 50));
+                            formData.append('name', nameTrimmed.slice(0, 50));
                         }
                         formData.append('img1',$("#img1Preview").attr("src"));
 
@@ -73,15 +77,15 @@ $(function () {
                         });
                     }
                 }
-            } else { //atualiza somente o nome
+            } else {  // Else it only updates the name
                 var formData = new FormData();
                 //formData.append('banner', file);
 
-                if(($(name).val().length) <= 50){
-                                formData.append('name', $(name).val());
+                if((nameTrimmed.length) <= 50){
+                                formData.append('name', nameTrimmed);
                 }
                 else{
-                    formData.append('name', $(name).val().slice(0, 50));
+                    formData.append('name', nameTrimmed.slice(0, 50));
                 }
 
                 $.ajax({
