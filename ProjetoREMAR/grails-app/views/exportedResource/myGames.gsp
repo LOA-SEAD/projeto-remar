@@ -44,7 +44,7 @@
             </div>
             <div id="showCards" class="row">
                 <article class="row">
-                    <g:render template="customizedGameCard" model="[publicExportedResourcesList:myExportedResourcesList]" />
+                    <g:render template="customizedGameCard" model="[publicExportedResourcesList:myExportedResourcesList, page:'myGames']" />
                 </article>
             </div>
         </section> <!-- finished my published games-->

@@ -177,7 +177,12 @@
 
     </div>
     <g:applyLayout name="pagination"/>
+    <g:if test='${page == 'myGames'}'>
+    <g:javascript src="remar/utility/utility-my-game.js"/>
+  </g:if>
+  <g:else>
     <g:javascript src="remar/utility/utility-public-game.js"/>
+  </g:else>
     <g:javascript src="remar/licenseShow.js"/>
     <g:javascript src="remar/resource.actions.js"/>
 </main>
