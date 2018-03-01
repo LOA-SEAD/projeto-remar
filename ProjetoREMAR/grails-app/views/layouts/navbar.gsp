@@ -46,15 +46,15 @@
 
                                 <li class="collection-item">
                                     <div class="row no-margin">
-                                        <div class="col s6">
+                                        <div class="col s7">
                                             <a href="/my-profile" class="waves-effect btn-flat remar-orange-text">
-                                                Meu Perfil
+                                                ${message (code: 'menu.button.profile.label')}
                                             </a>
                                         </div>
 
-                                        <div class="col s6">
+                                        <div class="col s5">
                                             <a href="/logout/index" class="waves-effect btn-flat remar-orange-text">
-                                                Sair
+                                                ${message (code: 'menu.button.logout.label')}
                                             </a>
                                         </div>
                                     </div>
