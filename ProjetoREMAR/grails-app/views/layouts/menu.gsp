@@ -28,7 +28,7 @@
     </div>
 
     <li>
-        <a class="waves-effect waves-block waves-light" href="/" class=""><i class="medium mdi-action-dashboard"></i>${message (code: 'menu.button.home.label')}</a>
+        <a class="waves-effect waves-block waves-light" href="/" class=""><i class="medium mdi-action-dashboard"></i>${message (code: 'default.home.label')}</a>
     </li>
     <li data-intro="${message(code:'tutorial.step.one')}" data-step="1">
         <a class="waves-effect waves-block waves-light" href="/exportedResource/publicGames" class=""><i class="medium material-icons">videogame_asset</i>${message (code: 'menu.button.game.database.label')}</a>
