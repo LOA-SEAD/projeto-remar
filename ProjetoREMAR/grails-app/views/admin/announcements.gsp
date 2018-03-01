@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta name="layout" content="materialize-layout">
-    <g:set var="entityName" value="${message(code: 'announcement.label', default: 'Anúncio')}" />
+    <g:set var="entityName" value="${message(code: 'br.ufscar.sead.loa.remar.Announcement', default: 'Anúncio')}" />
     <title><g:message code="admin.table.title" args="[entityName]"/></title>
 </head>
 

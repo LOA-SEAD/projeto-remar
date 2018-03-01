@@ -14,21 +14,21 @@
             </div>
             <div class="col s8">
                 <p class="no-margin-bottom">${session.user.firstName} ${session.user.lastName}</p>
-                <p style="margin-top: 0px; margin-left: 20px;">(<u><a class="no-padding" href="/logout" style="display: inline;">Sair</a></u>)</p>
+                <p style="margin-top: 0px; margin-left: 20px;">(<u><a class="no-padding" href="/logout" style="display: inline;">${message (code: 'menu.button.logout.label')}</a></u>)</p>
             </div>
         </div>
 
         <div class="divider"></div>
 
         <li>
-            <a class="waves-effect waves-block waves-light" href="/my-profile"><i class="medium material-icons">account_circle</i>Meu perfil</a>
+            <a class="waves-effect waves-block waves-light" href="/my-profile"><i class="medium material-icons">account_circle</i>${message (code: 'menu.button.profile.label')}</a>
         </li>
 
         <div class="divider"></div>
     </div>
 
     <li>
-        <a class="waves-effect waves-block waves-light" href="/" class=""><i class="medium mdi-action-dashboard"></i>Início</a>
+        <a class="waves-effect waves-block waves-light" href="/" class=""><i class="medium mdi-action-dashboard"></i>${message (code: 'menu.button.home.label')}</a>
     </li>
     <li data-intro="${message(code:'tutorial.step.one')}" data-step="1">
         <a class="waves-effect waves-block waves-light" href="/exportedResource/publicGames" class=""><i class="medium material-icons">videogame_asset</i>${message (code: 'menu.button.game.database.label')}</a>
@@ -44,28 +44,28 @@
         <ul class="collapsible collapsible-accordion">
             <li class="no-margin" data-intro="${message(code:'tutorial.step.three')}"
         data-step="3">
-                <a class="collapsible-header waves-effect waves-block waves-light"><i class="medium material-icons">recent_actors</i>Meus Jogos</a>
+                <a class="collapsible-header waves-effect waves-block waves-light"><i class="medium material-icons">recent_actors</i>${message (code: 'menu.button.my.games.label')}</a>
                 <div class="collapsible-body no-padding">
                     <ul>
                         <li class="no-margin">
-                            <a href="/exportedResource/myGames"><i class="medium material-icons">format_paint</i>Customizando</a>
+                            <a href="/exportedResource/myGames"><i class="medium material-icons">format_paint</i>${message (code: 'menu.button.my.games.customization.label')}</a>
                         </li>
                         <li class="no-margin">
-                            <a href="/exportedResource/myGames"><i class="medium material-icons">public</i>Publicados</a>
+                            <a href="/exportedResource/myGames"><i class="medium material-icons">public</i>${message (code: 'menu.button.my.published.games.label')}</a>
                         </li>
                     </ul>
                 </div>
             </li>
             <li class="no-margin" data-intro="${message(code:'tutorial.step.four')}"
                 data-step="4">
-                <a class="collapsible-header waves-effect waves-block waves-light"><i class="material-icons">people</i>Meus Grupos</a>
+                <a class="collapsible-header waves-effect waves-block waves-light"><i class="material-icons">people</i>${message (code: 'menu.button.my.groups.label')}</a>
                 <div class="collapsible-body no-padding">
                     <ul class="no-margin">
                         <li class="no-margin">
-                            <a href="/group/list"><i class="medium material-icons">accessibility</i>Sou Membro</a>
+                            <a href="/group/list"><i class="medium material-icons">accessibility</i>${message (code: 'menu.button.my.groups.member.label')}</a>
                         </li>
                         <li class="no-margin">
-                            <a  href="/group/list"><i class="medium material-icons">build</i>Administro</a>
+                            <a  href="/group/list"><i class="medium material-icons">build</i>${message (code: 'menu.button.my.groups.admin.label')}</a>
                         </li>
                     </ul>
                 </div>
@@ -75,13 +75,13 @@
     <g:if test="${grailsApplication.config.dspace.restUrl}">
         <li data-intro="${message(code:'tutorial.step.five')}"
             data-step="5">
-            <a class="waves-effect waves-block waves-light" href="/dspace/repository" class=""><i class="material-icons">cloud</i>Repositório</a>
+            <a class="waves-effect waves-block waves-light" href="/dspace/repository" class=""><i class="material-icons">cloud</i>${message (code: 'menu.button.repository.label')}</a>
         </li>
     </g:if>
     <sec:ifAllGranted roles="ROLE_DEV">
         <li data-intro="${message(code:'tutorial.step.six')}"
             data-step="6">
-            <a class="waves-effect waves-block waves-light" href="/resource/index" class=""><i class="medium material-icons">code</i>Desenvolvedor</a>
+            <a class="waves-effect waves-block waves-light" href="/resource/index" class=""><i class="medium material-icons">code</i>${message (code: 'menu.button.developer.label')}</a>
         </li>
     </sec:ifAllGranted>
 
@@ -90,7 +90,7 @@
             data-step="7">
             <a class="waves-effect waves-block waves-light" href="/admin/dashboard" class="">
                 <i class="material-icons">verified_user</i>
-                Administrador
+                ${message (code: 'menu.button.admin.label')}
             </a>
         </li>
     </sec:ifAllGranted>
@@ -102,7 +102,7 @@
         data-step="8">
         <a class="waves-effect waves-block waves-light" href="https://remar.readme.io/docs" target="_blank">
             <i class="medium material-icons">description</i>
-            Documentação
+            ${message (code: 'menu.button.documentation.label')}
         </a>
     </li>
 
@@ -110,7 +110,7 @@
         data-step="9">
         <a class="waves-effect waves-block waves-light" id="report-modal-trigger" href="#report-modal" class="modal-trigger">
             <i class="medium material-icons">error</i>
-            Relatar um problema
+            ${message (code: 'menu.button.report.label')}
         </a>
         %{-- modal is in base.gsp --}%
     </li>
@@ -119,7 +119,7 @@
         data-step="10">
         <a onclick="startWizard()" class="waves-effect waves-block waves-light">
             <i class="medium material-icons">help</i>
-            Ajuda na navegação
+            ${message (code: 'menu.button.help.label')}
         </a>
     </li>
 
