@@ -320,9 +320,8 @@ span.input-description {
     box-shadow: none;
 }
 
-#side-nav * {
-    color: #212121;
-    font-size: 14.5px;
+#side-nav .collapsible-accordion {
+    background: #FFF;
 }
 
 #side-nav .collapsible-header {
@@ -330,7 +329,7 @@ span.input-description {
 }
 
 #side-nav li, #side-nav .collapsible-body li {
-    margin: 5px;
+    margin: 0 5px 0;
     line-height: 42px;
     padding: 0px;
 }
@@ -339,20 +338,15 @@ span.input-description {
     line-height: inherit;
     width: 2rem;
     font-size: 1.6rem;
-    display: block;
     float: left;
     margin-right: 1rem;
 }
 
 #side-nav a, #side-nav .collapsible-body a {
-    line-height: 42px;
-    height: 42px;
+    line-height: 48px;
+    height: 48px;
     font-size: 14px;
     display: block;
-}
-
-#side-nav li:hover {
-    background-color: #B6B6B6;
 }
 /* end left navbar */
 /* end header for all pages */
