@@ -8,6 +8,16 @@
     <title>
         <g:message code="admin.groups.title"/>
     </title>
+    <g:javascript>
+        GMS = {};
+        GMS.REMOVE_GROUP_LINK = "${createLink(controller: 'admin', action: 'deleteGroup')}";
+        GMS.REMOVE_GROUP_BATCH_LINK = '${createLink(controller: "admin", action: "deleteGroupBatch")}';
+
+        GMS.REMOVED_GROUP_MSG = "${message(code :'admin.groups.removed')}";
+        GMS.REMOVED_GROUP_BATCH_MSG = "${message(code: 'admin.groups.removed.batch')}";
+        GMS.REMOVE_GROUP_WARNING = "${message(code: 'admin.groups.warning')}";
+        GMS.REMOVE_GROUP_BATCH_WARNING = '${message(code: "admin.groups.warning.batch")}';
+    </g:javascript>
 </head>
 
 <body>
@@ -88,8 +98,8 @@
                             <td class="group-name">${groupInstance.getName()}</td>
                             <td>${UserGroup.countByGroup(groupInstance)}</td>
                             <td class="valign-wrapper">
-                                <a href="#!" id="remove-group-${groupInstance.id}"
-                                   class="tooltipped valign-wrapper modal-trigger"
+                                <a id="remove-group-${groupInstance.id}"
+                                   class="tooltipped valign-wrapper"
                                    data-tooltip="${message(code: 'default.button.delete.label')}">
                                     <i class="material-icons">delete_forever</i>
                                 </a>
@@ -120,58 +130,5 @@
 
 <g:javascript src="libs/jquery/jquery.tablePagination.js"/>
 <g:javascript src="remar/admin/admin.groups.js"/>
-
-<g:javascript>
-%{--
-    Este trecho de código precisa estar no .gsp por causa das mensagens de I18N
-    que são decodificadas pelo próprio servidor antes de renderizar a página,
-    enquanto que arquivos .js são interpretados pelo cliente.
---}%
-    $('a[id^="remove-group"]').click(function () {
-        var $row = $(this).closest('tr');
-        var name = $row.children('.group-name').text();
-        var id = $row.data('group-id');
-        $('#warning-box-message').html(
-        '${message(code: "admin.groups.warning")} <span id="warning-group">' + name + '</span> ?');
-            $('.warning-box .btn-flat:first-child').unbind().click(function () {
-                $.ajax({
-                    url: "${createLink(controller: 'admin', action: 'deleteGroup')}",
-                    type: 'post',
-                    data: {id: id},
-                    success: function (resp) {
-                        $row.remove();
-                        $('#groups-table').reloadMe();
-                        Materialize.toast('${message(code :'admin.groups.removed')}', 2000);
-                        $('.warning-box').slideUp(500);
-                    }
-                });
-            });
-            $('.warning-box').slideDown(500);
-        });
-
-        $('a#batch-remove-button').click(function() {
-            $('#warning-box-message').html('${message(code: "admin.groups.warning.batch")}');
-            $('.warning-box .btn-flat:first-child').unbind().click(function () {
-                var groupIdList = [];
-
-                $('#groups-table input:checkbox:checked').closest('tr').each(function() {
-                    $(this).remove();
-                    groupIdList.push($(this).data('group-id'));
-                });
-
-                $.ajax({
-                    url: '${createLink(controller: "admin", action: "deleteGroupBatch")}',
-                    type: 'get',
-                    data: {groupIdList: JSON.stringify(groupIdList)},
-                    success: function (resp) {
-                        $('#groups-table').reloadMe();
-                        Materialize.toast('${message(code: 'admin.groups.removed.batch')}', 2000);
-                        $('.warning-box').slideUp(500);
-                    }
-                });
-            });
-            $('.warning-box').slideDown(500);
-        });
-</g:javascript>
 </body>
 </html>
