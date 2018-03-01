@@ -53,8 +53,8 @@
             </div>
 
             <div class="col s4 right-align">
-                <button class="btn-flat"><g:message code="default.boolean.true"/></button>
-                <button class="btn-flat"><g:message code="default.boolean.false"/></button>
+                <button class="btn-flat"><g:message code="default.button.yes.label"/></button>
+                <button class="btn-flat"><g:message code="default.button.no.label"/></button>
             </div>
         </div>
         %{--------------------}%
