@@ -314,18 +314,28 @@ span.input-description {
     text-align: left;
 }
 
+#side-nav {
+    position: static;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
 #side-nav * {
     color: #212121;
     font-size: 14.5px;
 }
 
-#side-nav li {
+#side-nav .collapsible-header {
+    margin: 0;
+}
+
+#side-nav li, #side-nav .collapsible-body li {
     margin: 5px;
-    height: 42px;
+    line-height: 42px;
     padding: 0px;
 }
 
-#side-nav li a i {
+#side-nav li a i, #side-nav .collapsible-body ul li a i {
     line-height: inherit;
     width: 2rem;
     font-size: 1.6rem;
@@ -334,7 +344,7 @@ span.input-description {
     margin-right: 1rem;
 }
 
-#side-nav a {
+#side-nav a, #side-nav .collapsible-body a {
     line-height: 42px;
     height: 42px;
     font-size: 14px;

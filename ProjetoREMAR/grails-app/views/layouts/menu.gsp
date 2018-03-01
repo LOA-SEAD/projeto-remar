@@ -4,7 +4,7 @@
   Date: 26/11/15
   Time: 10:32
 --%>
-<ul class="sidenav" id="side-nav">
+<ul id="side-nav" class="side-nav">
     <div class="hide-on-large-only">
         <div class="row no-margin-bottom valign-wrapper">
             <div class="col s4">
@@ -40,15 +40,42 @@
 
     <div class="divider"></div>
 
-    <li class="waves-effect waves-block waves-light"
+    <li class="no-padding"
         data-intro="Aqui você encontra todos os seus jogos (customizados ou em processo de customização)."
         data-step="3">
-        <a href="/exportedResource/myGames" class=""><i class="medium material-icons">recent_actors</i>Meus Jogos</a>
+        <ul class="collapsible collapsible-accordion">
+            <li>
+            <a class="collapsible-header waves-effect waves-block waves-light"><i class="medium material-icons">recent_actors</i>Meus Jogos</a>
+            <div class="collapsible-body no-padding">
+                <ul class="no-margin">
+                <li class="no-margin">
+                    <a href="/exportedResource/myGames" class="waves-effect waves-block waves-light"><i class="medium material-icons">format_paint</i>Customizando</a>
+                </li>
+                <li class="no-margin">
+                    <a href="/exportedResource/myGames" class="waves-effect waves-block waves-light"><i class="medium material-icons">public</i>Publicados</a>
+                </li>
+                </ul>
+            </div>
+            </li>
+        </ul>
     </li>
-    <li class="waves-effect waves-block waves-light"
-        data-intro="Aqui você encontra todos os seus grupos criados."
+    <li data-intro="Aqui você encontra todos os seus grupos criados."
         data-step="4">
-        <a href="/group/list" class=""><i class="material-icons">people</i>Meus Grupos</a>
+        <ul class="collapsible collapsible-accordion">
+            <li>
+            <a class="collapsible-header waves-effect waves-block waves-light"><i class="material-icons">people</i>Meus Grupos</a>
+            <div class="collapsible-body no-padding">
+                <ul class="no-margin">
+                <li class="no-margin">
+                    <a href="/group/list" class="waves-effect waves-block waves-light"><i class="medium material-icons">accessibility</i>Sou Membro</a>
+                </li>
+                <li class="no-margin">
+                    <a  href="/group/list" class="waves-effect waves-block waves-light"><i class="medium material-icons">build</i>Administro</a>
+                </li>
+                </ul>
+            </div>
+            </li>
+        </ul>
     </li>
     <g:if test="${grailsApplication.config.dspace.restUrl}">
         <li class="waves-effect waves-block waves-light"
