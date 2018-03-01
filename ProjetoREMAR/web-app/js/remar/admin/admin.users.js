@@ -123,6 +123,10 @@ $(document).ready(function() {
                     location.reload();
                 }
             });
+            $('#users-table td input[type="checkbox"]').each(function() {
+                $(this).prop('checked', false);
+            });
+            $('#select-all-checkbox').prop('checked', false);
         });
         $('.warning-box').slideDown(500);
     });
@@ -144,6 +148,10 @@ $(document).ready(function() {
                     location.reload();
                 }
             });
+            $('#users-table td input[type="checkbox"]').each(function() {
+                $(this).prop('checked', false);
+            });
+            $('#select-all-checkbox').prop('checked', false);
         });
         $('.warning-box').slideDown(500);
     });
