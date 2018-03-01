@@ -65,7 +65,7 @@
                             <a href="/group/list"><i class="medium material-icons">accessibility</i>${message (code: 'menu.button.my.groups.member.label')}</a>
                         </li>
                         <li class="no-margin">
-                            <a  href="/group/list"><i class="medium material-icons">build</i>${message (code: 'menu.button.my.groups.admin.label')}</a>
+                            <a  href="/group/admin"><i class="medium material-icons">build</i>${message (code: 'menu.button.my.groups.admin.label')}</a>
                         </li>
                     </ul>
                 </div>
