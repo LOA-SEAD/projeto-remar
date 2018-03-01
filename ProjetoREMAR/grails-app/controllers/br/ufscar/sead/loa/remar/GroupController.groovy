@@ -26,10 +26,18 @@ class GroupController {
         def model = [:]
 
         model.groupsIOwn = Group.findAllByOwner(session.user)
-        model.groupsIAdmin = UserGroup.findAllByAdminAndUser(true, session.user).group
         model.groupsIBelong = UserGroup.findAllByAdminAndUser(false, session.user).group
 
         render view: "list", model: model
+    }
+
+    def admin() {
+        def model = [:]
+
+        model.groupsIOwn = Group.findAllByOwner(session.user)
+        model.groupsIAdmin = UserGroup.findAllByAdminAndUser(true, session.user).group
+
+        render view: "admin", model: model
     }
 
     def create(){
