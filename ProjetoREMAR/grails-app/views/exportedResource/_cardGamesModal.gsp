@@ -1,6 +1,6 @@
 <%@ page import="br.ufscar.sead.loa.remar.GroupExportedResources" %>
 
-<h4 data-instance_id="${instance.name}">Compartilhar para grupos - ${instance.name}</h4>
+<h4 data-instance_id="${instance.name}"><g:message code="exportedResource.label.shareWithGroups" default="Compartilhar para grupos"/> - ${instance.name}</h4>
 
 <div class="shareBlock">
     <ul class="no-margin">
@@ -8,10 +8,10 @@
             <g:each var="group" in="${myGroups}">
                 <li class="row">
                     <div class="col s10 shareDesc">
-                        <p><strong>Nome do grupo:</strong>
+                        <p><strong><g:message code="exportedResource.label.groupName" default="Nome do grupo:"/></strong>
                             ${group.name}</p>
                         <p>
-                            <strong>Dono:</strong> ${group.owner.firstName + " " + group.owner.lastName}<br>
+                            <strong><g:message code="exportedResource.label.owner" default="Dono:"/>:</strong> ${group.owner.firstName + " " + group.owner.lastName}<br>
                         </p>
                     </div>
                     <div class="col s2 shareCheck">

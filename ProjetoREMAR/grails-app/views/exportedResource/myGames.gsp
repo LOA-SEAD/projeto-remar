@@ -1,27 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Meus jogos</title>
+    <title><g:message code="exportedResource.label.myGames" default="Meus Jogos" /></title>
     <meta name="layout" content="materialize-layout">
 </head>
 
 <body>
 <div class="row cluster">
     <div class="cluster-header">
-        <h4>Meus Jogos</h4>
+        <h4><g:message code="exportedResource.label.myGames" default="Meus Jogos" /></h4>
         <div class="divider"></div>
     </div>
     <div class="row">
         <div class="col s12">
             <ul class="tabs">
-                <g:if test="${mode == '1'}">
-                    <li class="tab col s3"><a class="active" href="#test1">Publicados</a></li>
-                    <li class="tab col s3"><a href="#test2">Em customização</a></li>
-                </g:if>
-                <g:else>
-                    <li class="tab col s3"><a href="#test1">Publicados</a></li>
-                    <li class="tab col s3"><a class="active" href="#test2">Em customização</a></li>
-                </g:else>
+                    <li class="tab col s3"><a class="active" href="#test1"><g:message code="exportedResource.label.published" default="Publicados"/></a></li>
             </ul>
         </div>
         <section id="test1" class="col s12"> <!-- start my published games -->
@@ -32,14 +25,14 @@
                 </div>
                 <div class="input-field col s6">
                     <select class="material-select">
-                        <option class="option" value="-1" selected>Todas</option>
+                        <option class="option" value="-1" selected><g:message code="exportedResource.label.all" default="Todas"/></option>
                         <g:if test="${categories.size() > 0}">
                             <g:each in="${categories}" var="category">
                                 <option class="option" value="${category.id}">${category.name}</option>
                             </g:each>
                         </g:if>
                     </select>
-                    <label>Categoria</label>
+                    <label><g:message code="exportedResource.label.category" default="Categoria"/></label>
                 </div>
             </div>
             <div id="showCards" class="row">
