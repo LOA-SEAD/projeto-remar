@@ -27,7 +27,9 @@ $(function () {
 
         // This var gets the value of #name <input> and trims it.
         // The function $.trim() from JQuery take out whitespaces from both ends
-        var nameTrimmed = $.trim(name.val());
+        //var nameTrimme = $.trim(name.val());
+
+        var nameTrimmed = $.trim(name.val()).replace(/( )+/g, ' ');
 
         if (nameTrimmed !== '') { // Checks that name input has at least some char
             var file = $("#img-1").prop('files')[0];
@@ -82,7 +84,7 @@ $(function () {
                 //formData.append('banner', file);
 
                 if((nameTrimmed.length) <= 50){
-                                formData.append('name', nameTrimmed);
+                    formData.append('name', nameTrimmed);
                 }
                 else{
                     formData.append('name', nameTrimmed.slice(0, 50));
