@@ -1,14 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title><g:message code="exportedResource.label.myGames" default="Meus Jogos" /></title>
+    <title><g:message code="exportedResource.label.myGames" default="Publicados" /></title>
     <meta name="layout" content="materialize-layout">
 </head>
 
 <body>
 <div class="row cluster">
     <div class="cluster-header">
-        <h4><g:message code="exportedResource.label.myGames" default="Meus Jogos" /></h4>
+        <h4><g:message code="exportedResource.label.myGames" default="Publicados" /></h4>
         <div class="divider"></div>
     </div>
     <div class="row">

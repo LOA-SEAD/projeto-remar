@@ -6,6 +6,12 @@
   </head>
 
   <body>
+
+  <div class="cluster-header">
+      <h4><g:message code="exportedResource.label.myGames" default="Em Customização" /></h4>
+      <div class="divider"></div>
+  </div>
+
     <section id="test2" class="col s12"> <!-- start processes-->
         <div class="row search">
             <div class="input-field col s12">
