@@ -12,11 +12,6 @@
         <div class="divider"></div>
     </div>
     <div class="row">
-      <div class='col s12'>
-        <ul class="tabs">
-          <li class="tab col s3"><a class="active" href="#test1"><g:message code='exportedResource.label.published' default='Publicados'/></li>
-        </ul>
-      </div>
 
         <section id="test1" class="col s12"> <!-- start my published games -->
             <div class="row search">
