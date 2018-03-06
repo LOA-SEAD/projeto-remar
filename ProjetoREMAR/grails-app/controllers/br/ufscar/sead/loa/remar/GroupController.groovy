@@ -43,7 +43,7 @@ class GroupController {
     def create(){
         def groupInstance = new Group()
 
-        params.groupname = params.groupname.trim()
+        params.groupname = params.groupname.trim().replaceAll(" +"," ")
 
         if (!params.groupname || params.groupname.allWhitespace) {
             request.message = "blank_name"
