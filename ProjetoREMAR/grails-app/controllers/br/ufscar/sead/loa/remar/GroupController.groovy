@@ -43,6 +43,8 @@ class GroupController {
     def create(){
         def groupInstance = new Group()
 
+        params.groupname = params.groupname.trim()
+
         if (!params.groupname || params.groupname.allWhitespace) {
             request.message = "blank_name"
             render view: "new"
