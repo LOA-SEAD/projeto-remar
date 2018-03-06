@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Estatísticas</title>
+    <title><g:message code='exportedResource.title.stats' default='Estatísticas'/></title>
     <meta name="layout" content="materialize-layout">
 </head>
 
@@ -18,7 +18,7 @@
 
     <div class="cluster-header">
         <p class="text-teal text-darken-3 left-align margin-bottom">
-            <i class="small material-icons left">assessment</i>Estatísticas
+            <i class="small material-icons left">assessment</i><g:message code='exportedResource.title.stats' default='Estatísticas'/>
         </p>
         <div class="divider"></div>
     </div>
@@ -54,7 +54,7 @@
 
         <div class="row">
             <br />
-            <h5>Dados</h5>
+            <h5><g:message code='exportedResource.label.data' default='Dados'/></h5>
 
             <div class="game-stat">
 

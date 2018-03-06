@@ -2,13 +2,13 @@
 
 <html>
     <head>
-        <title>Banco de Jogos</title>
+        <title><g:message code='menu.button.game.database.label' default='Banco de Jogos'/></title>
         <meta name="layout" content="materialize-layout">
     </head>
     <body>
         <div class="row cluster">
             <div class="cluster-header">
-                <h4>Banco de Jogos</h4>
+                <h4><g:message code='menu.button.game.database.label' default='Banco de Jogos'/></h4>
 
                 <div class="divider"></div>
             </div>
@@ -20,14 +20,14 @@
                 </div>
                 <div class="input-field col s6">
                     <select class="material-select">
-                        <option class="option" value="-1" selected>Todas</option>
+                        <option class="option" value="-1" selected><g:message code='exportedResource.label.all' default='Todas' /></option>
                         <g:if test="${categories.size() > 0}">
                             <g:each in="${categories}" var="category">
                                 <option class="option" value="${category.id}">${category.name}</option>
                             </g:each>
                         </g:if>
                     </select>
-                    <label>Categoria</label>
+                    <label><g:message code='exportedResource.label.category' default='Categoria'/></label>
                 </div>
             </div>
 

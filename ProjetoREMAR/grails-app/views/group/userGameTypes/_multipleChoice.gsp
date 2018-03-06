@@ -1,20 +1,20 @@
 
 <img class="circle" src="/data/users/${user.username}/profile-picture">
 <span class="title">${user.firstName + " " + user.lastName}</span>
-<p class="">Usuário: ${user.username}</p><br>
+<p class=""><g:message code='group.label.user' default='Usuário'/>: ${user.username}</p><br>
 <div class="divider"></div>
-<h5 class="center-align">Estatísticas do jogo <i>${exportedResource.name}</i></h5>
+<h5 class="center-align"><g:message code='Estatísticas do jogo' default='Estatísticas do jogo'/> <i>${exportedResource.name}</i></h5>
 <div class="divider"></div><br>
-<p><b>Pergunta:</b> ${question.get(0).question}?</p>
-<p><b>Resposta:</b> ${question.get(0).answer}</p>
-<p><b>Fase:</b> ${question.get(0).levelId + 1}</p>
+<p><b><g:message code="group.label.question" default="Pergunta"/>:</b> ${question.get(0).question}?</p>
+<p><b><g:message code="group.label.answer" default="Resposta"/>:</b> ${question.get(0).answer}</p>
+<p><b><g:message code="group.label.stage" default="Fase"/>:</b> ${question.get(0).levelId + 1}</p>
 <table class=" centered highlight responsive-table">
     <thead>
     <tr>
-        <th data-field="date">Data</th>
-        <th data-field="choices">Alternativas</th>
-        <th data-field="choice">Alternativa Escolhida</th>
-        <th data-field="win">Vitória</th>
+        <th data-field="date"><g:message code="group.label.date" default="Data"/></th>
+        <th data-field="choices"><g:message code="group.label.choice" default="Alternativas"/></th>
+        <th data-field="choice"><g:message code="group.label.chosenChoice" default="Alternativa Escolhida"/></th>
+        <th data-field="win"><g:message code="group.label.victory" default="Vitória"/></th>
     </tr>
     </thead>
     <tbody>
@@ -31,4 +31,3 @@
     </g:each>
     </tbody>
 </table>
-            

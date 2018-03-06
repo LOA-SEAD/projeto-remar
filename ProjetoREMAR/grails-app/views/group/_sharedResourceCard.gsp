@@ -24,7 +24,7 @@
                             <div class="divider"></div>
                             <span>${groupExportedResource.exportedResource.resource.category.name}</span>
                             <span class="truncate">
-                                Feito por:
+                                <g:message code="group.label.madeBy" default="Feito por"/>:
                                 <a href="#!" class="user-profile" id="user-id-${groupExportedResource.exportedResource.owner.id}">
                                     ${groupExportedResource.exportedResource.owner.username}
                                 </a>
@@ -49,7 +49,7 @@
                             <div class="row no-margin">
                                 <div class="col s6 no-padding">
                                     <h6 class="grey-text text-darken-4 no-margin">
-                                        Jogar
+                                        <g:message code="group.label.play" default="Jogar"/>
                                     </h6>
                                 </div>
 
@@ -163,9 +163,9 @@
                     <div id="modal-confirmation-exported-resource-${groupExportedResource.id}"
                          class="modal remar-modal">
                         <div class="modal-content">
-                            <h4>Excluir Recurso</h4>
+                            <h4><g:message code="group.label.deleteResource" default="Excluir Recurso"/></h4>
 
-                            <p>Tem certeza que deseja realizar esta ação</p>
+                            <p><g:message code="group.message.confirmAction" default="Tem certeza que deseja realizar esta ação?"/></p>
                         </div>
 
                         <div class="modal-footer">
@@ -186,7 +186,7 @@
 
             <div class="modal-footer">
                 <a class="modal-action modal-close btn waves-effect waves-light remar-orange" type="submit"
-                   name="action">Fechar</a>
+                   name="action"><g:message code="group.label.close" default="Fechar"/></a>
             </div>
         </div>
 
@@ -195,4 +195,3 @@
     <g:javascript src="remar/utility/utility-public-game.js"/>
     <g:javascript src="remar/licenseShow.js"/>
 </main>
-

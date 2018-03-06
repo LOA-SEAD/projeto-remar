@@ -3,7 +3,7 @@
     <img alt src="/data/users/${userGroup.user.username}/profile-picture" class="circle">
     <span class="title">${userGroup.user.firstName + " " + userGroup.user.lastName}</span>
     <span class="admin-text" id="admin-${userGroup.id}-text"> <g:if test="${userGroup.admin}">(Administrador)</g:if></span>
-        <p class="">Usuário: ${userGroup.user.username}</p>
+        <p class=""><g:message code="group.label.user" default="Usuário"/>: ${userGroup.user.username}</p>
     <g:if test="${userGroup.group.owner.id == session.user.id}">
         <a href="#" id="${userGroup.id}" style="position: relative; top: -2.5em; left: -1.6em;" class="secondary-content delete-modal"><i class="material-icons">delete</i></a>
         <g:if test="${!userGroup.admin}">

@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
   <head>
-    <title>Em Customização</title>
+    <title><g:message code='exportedResource.label.customizing' default='Em Customização'/></title>
     <meta name="layout" content="materialize-layout">
   </head>
 
