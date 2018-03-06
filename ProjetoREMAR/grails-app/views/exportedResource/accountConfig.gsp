@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Configurando um Recurso para o Moodle</title>
+		<title><g:message code="exportedResource.label.settingMoodleResource" default="Configurando um Recurso para o Moodle"/></title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 		<script type="text/javascript">
@@ -88,7 +88,7 @@
 					style: 'margin-left: 20px;',
 					id: 'deleteButton'+local
 				});
-				
+
 				$('#account-list').append(mainDiv);
 				$('#main-div'+local).append(label1);
 				$('#main-div'+local).append(select);
@@ -120,10 +120,10 @@
 	</head>
 	<body>
 		<div>
-			<h3>R.E.A disponível para as contas do Moodle:</h3>
+			<h3><g:message code="exportedResource.label.reaAvailable" default="R.E.A disponível para as contas do Moodle:"/></h3>
 			<g:form url="[action:'accountSave']" id="form">
 				<div id="account-list">
-					
+
 				</div>
 
 				<div style="margin-top: 10px;">

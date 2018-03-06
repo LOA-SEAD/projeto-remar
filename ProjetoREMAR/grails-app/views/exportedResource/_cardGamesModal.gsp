@@ -8,10 +8,10 @@
             <g:each var="group" in="${myGroups}">
                 <li class="row">
                     <div class="col s10 shareDesc">
-                        <p><strong><g:message code="exportedResource.label.groupName" default="Nome do grupo:"/></strong>
+                        <p><strong><g:message code="exportedResource.label.groupName"/></strong>
                             ${group.name}</p>
                         <p>
-                            <strong><g:message code="exportedResource.label.owner" default="Dono:"/>:</strong> ${group.owner.firstName + " " + group.owner.lastName}<br>
+                            <strong><g:message code="exportedResource.label.owner"/></strong> ${group.owner.firstName + " " + group.owner.lastName}<br>
                         </p>
                     </div>
                     <div class="col s2 shareCheck">
@@ -32,10 +32,10 @@
             <g:each var="group" in="${groupsIAdmin}">
                 <li class="row">
                     <div class="col s10 shareDesc">
-                        <p><strong>Nome do grupo:</strong>
+                        <p><strong><g:message code="exportedResource.label.groupName"/></strong>
                             ${group.name}</p>
                         <p>
-                            <strong>Dono:</strong> ${group.owner.firstName + " " + group.owner.lastName}<br>
+                            <strong><g:message code="exportedResource.label.owner"/></strong> ${group.owner.firstName + " " + group.owner.lastName}<br>
                         </p>
                     </div>
                     <div class="col s2 shareCheck">
@@ -53,7 +53,7 @@
             </g:each>
         </g:if>
         <g:if test="${groupsIAdmin.empty && myGroups.empty}">
-            <li class="collection-header"><h5>Você não possui grupos disponíveis</h5></li>
+            <li class="collection-header"><h5><g:message code="exportedResource.label.notAvailableGroups" /></h5></li>
         </g:if>
     </ul>
 </div>

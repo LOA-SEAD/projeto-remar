@@ -1,10 +1,10 @@
 <ul class="collapsible" data-collapsible="expandable" id="collapsible-to-change-css">
     <li class="c">
         <div class="collapsible-header">
-            <div class="my-div centered"><strong>Usuário</strong></div>
-            <div class="my-div centered"><strong>Acertos</strong></div>
-            <div class="my-div centered"><strong>Erros</strong></div>
-            <div class="my-div centered"><strong>Aproveitamento</strong></div>
+            <div class="my-div centered"><strong><g:message code="exportedResource.label.user" default="Usuário"/></strong></div>
+            <div class="my-div centered"><strong><g:message code="exportedResource.label.rightAnswers" default="Acertos"/></strong></div>
+            <div class="my-div centered"><strong><g:message code="exportedResource.label.wrongAnswers" default="Erros"/></strong></div>
+            <div class="my-div centered"><strong><g:message code="exportedResource.label.performance" default="Aproveitamento"/></strong></div>
         </div>
     </li>
     <g:each in="${users}" var="user">

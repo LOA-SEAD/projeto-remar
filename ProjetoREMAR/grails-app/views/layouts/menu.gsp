@@ -48,7 +48,7 @@
                 <div class="collapsible-body no-padding">
                     <ul>
                         <li class="no-margin">
-                            <a href="/exportedResource/myGames"><i class="medium material-icons">format_paint</i>${message (code: 'menu.button.my.games.customization.label')}</a>
+                            <a href="/exportedResource/myProcesses"><i class="medium material-icons">format_paint</i>${message (code: 'menu.button.my.games.customization.label')}</a>
                         </li>
                         <li class="no-margin">
                             <a href="/exportedResource/myGames"><i class="medium material-icons">public</i>${message (code: 'menu.button.my.published.games.label')}</a>

@@ -21,7 +21,7 @@
                 <g:else>
                     <div class="input-field col s12">
                         <input name="author" id="author" type="text" class="validate" value="${session.user.name}">
-                        <span id="author-error" class="invalid-textarea" style="left: 0.75rem; top: 45px;">Este campo não pode ser vazio!</span>
+                        <span id="author-error" class="invalid-textarea" style="left: 0.75rem; top: 45px;"><g:message code="default.errors.emptyField"/></span>
                         <label for="author">
                             <g:message code="dspace.metadata.author"/>
                         </label>
@@ -51,4 +51,3 @@
         </div>
     </div>
 </section>
-

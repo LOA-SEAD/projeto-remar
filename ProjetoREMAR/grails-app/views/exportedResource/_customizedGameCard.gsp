@@ -24,7 +24,7 @@
 
                             <span>${instance.resource.category.name}</span>
                             <span class="truncate">
-                                Feito por:
+                                <g:message code="exportedResource.label.madeBy" default="Feito por:"/>
                                 <a href="#!" class="user-profile" id="user-id-${instance.owner.id}">
                                     ${instance.owner.username}
                                 </a>
@@ -49,7 +49,7 @@
                             <div class="row no-margin">
                                 <div class="col s6 no-padding">
                                     <h6 class="grey-text text-darken-4 no-margin">
-                                        Jogar
+                                        <g:message code="exportedResource.label.play" default="Jogar"/>
                                     </h6>
                                 </div>
                                 <div class="col s6 no-padding">
@@ -163,9 +163,9 @@
         <div class="modal-wrapper-50">
             <div id="modal-delete-exported-resource" class="modal remar-modal">
                 <div class="modal-content">
-                    <h4>Excluir Jogo em Customização</h4>
+                    <h4><g:message code="exportedResource.label.deleteCustomizingGame" default="Excluir Jogo em Customização"/></h4>
 
-                    <p>Tem certeza que deseja realizar esta ação</p>
+                    <p><g:message code="exportedResource.label.confirmAction" default="Tem certeza que deseja realizar esta ação?"/></p>
                 </div>
 
                 <div class="modal-footer">
@@ -176,6 +176,7 @@
         </div>
 
     </div>
+
     <g:applyLayout name="pagination"/>
     <g:if test='${page == 'myGames'}'>
     <g:javascript src="remar/utility/utility-my-game.js"/>

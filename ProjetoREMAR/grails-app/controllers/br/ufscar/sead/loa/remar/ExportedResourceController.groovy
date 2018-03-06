@@ -481,28 +481,38 @@ class ExportedResourceController {
         model.hasNextPage = params.offset + threshold < ExportedResource.count
         model.hasPreviousPage = params.offset > 0
         model.categories = Category.list(sort: "name")
-        // Retorna o processo
-        params.tMax = params.tMax ? Integer.valueOf(params.tMax) : threshold
-        params.tOffset = params.tOffset ? Integer.valueOf(params.tOffset) : 0
-        def processes = Propeller.instance.getProcessInstancesByOwner(session.user.id as long)
-        def temporary = []
-        for (def i = processes.size() - 1; i >= 0; i--) {
-            // lista todos os processos que estiver ativo e existir tarefas pendentes
-            if (processes.get(i).getVariable('inactive') != "1"
-                    && (processes.get(i).getVariable("exportedResourceId") == null)) {
-
-                temporary.add(processes.get(i))
-            }
-        }
-        model.tMax = params.tMax
-        model.tThreshold = threshold
-        model.processes = temporary
-        model.tPageCount = Math.ceil(temporary.size() / params.tMax) as int
-        model.tCurrentPage = (params.tOffset + threshold) / threshold
-        model.tHasNextPage = params.tOffset + threshold < temporary.size()
-        model.tHasPreviousPage = params.tOffset > 0
-        model.mode = (params.mode) ? params.mode : '1'
         render view: "myGames", model: model
+    }
+
+    def myProcesses(){
+      def model = [:]
+      User user = session.user
+      def threshold = THRESHOLD
+      // Retorna o processo
+      params.sort="id"
+      params.order="desc"
+      params.max = params.max ? Integer.valueOf(params.max) : threshold
+      params.offset = params.offset ? Integer.valueOf(params.offset) : 0
+      def processes = Propeller.instance.getProcessInstancesByOwner(session.user.id as long)
+      log.debug("!!!PROCESSES!!!"+processes+"\n")
+      def temporary = []
+      for (def i = processes.size() - 1; i>= 0; i--) {
+          // lista todos os processos que estiver ativo e existir tarefas pendentes
+          if (processes.get(i).getVariable('inactive') != "1"
+                  && (processes.get(i).getVariable("exportedResourceId") == null)) {
+
+              temporary.add(processes.get(i))
+          }
+      }
+      model.max = params.max
+      model.threshold = threshold
+      model.processes = temporary
+      model.pageCount = Math.ceil(temporary.size() / params.max) as int
+      model.currentPage = (params.offset + threshold) / threshold
+      model.hasNextPage = params.offset + threshold < temporary.size()
+      model.hasPreviousPage = params.offset > 0
+
+      render view:"myProcesses", model: model
     }
 
     def saveGameInfo() {
@@ -630,7 +640,7 @@ class ExportedResourceController {
     @SuppressWarnings("GroovyAssignabilityCheck")
     def searchProcesses() {
         def model = [:]
-        def threshold = 12
+        def threshold = THRESHOLD
         def maxInstances = 0
         params.order = "desc"
         params.sort = "id"
@@ -655,7 +665,7 @@ class ExportedResourceController {
         model.tPageCount = Math.ceil(temporary.size() / params.tMax) as int
         model.tCurrentPage = (params.tOffset + threshold) / threshold
         model.tHasNextPage = params.tOffset + threshold < model.instanceCount
-        model.tHasPreviousPage = params.tOoffset > 0
+        model.tHasPreviousPage = params.tOffset > 0
         log.debug("amount process: " + model.processes.size())
         render view: "/process/_process", model: model
     }
