@@ -9,14 +9,14 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Modelos</title>
+    <title><g:message code="customizable.title" /></title>
     <meta name="layout" content="materialize-layout">
 </head>
 
 <body>
     <div class="row cluster">
         <div class="cluster-header">
-            <h4>Customizar</h4>
+            <h4><g:message code="customizable.label.title" /></h4>
 
             <div class="divider"></div>
         </div>
@@ -27,14 +27,14 @@
             </div>
             <div class="input-field col s6">
                 <select>
-                    <option class="option" value="-1" selected>Todas</option>
+                    <option class="option" value="-1" selected><g:message code="customizable.label.option" /></option>
                     <g:if test="${categories.size() > 0}">
                         <g:each in="${categories}" var="category">
                             <option class="option" value="${category.id}">${category.name}</option>
                         </g:each>
                     </g:if>
                 </select>
-                <label>Categoria</label>
+                <label><g:message code="customizable.label.category" /></label>
             </div>
         </div>
         <div id="resourcesShow" class="row">
