@@ -7,14 +7,14 @@
     <body>
     <div class="row cluster">
         <div class="cluster-header">
-            <h4>Meus Grupos</h4>
+            <h4><g:message code='group.label.myGroups'/></h4>
             <div class="divider"></div>
         </div>
     <div class="row" id="belong">
     <g:if test="${groupsIBelong.empty}">
         <div class="warning-box">
             <i class="material-icons tiny">warning</i>
-            Você ainda não pertence a nenhum grupo.
+            <g:message code='group.message.noGroup'/>
         </div>
     </g:if>
     <g:else>
@@ -49,7 +49,7 @@
         <g:else>
             <div class="collapsible-header">
         </g:else>
-           Código de Acesso
+        <g:message code='group.label.code'/>
         </div>
 
             <div id="info" class="collapsible-body">
