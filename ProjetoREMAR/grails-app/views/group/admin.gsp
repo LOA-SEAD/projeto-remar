@@ -6,7 +6,9 @@
 <body>
     <div class="row cluster">
         <div class="cluster-header">
-            <h4>Meus Grupos - Administração</h4>
+            <h4>
+                <g:message code='group.label.myGroupsAdmin'/>
+            </h4>
             <div class="divider"></div>
         </div>
     <div class="row" id="belong">
@@ -14,7 +16,7 @@
         <g:if test="${groupsIOwn.empty && groupsIAdmin.empty}">
             <div class="warning-box">
                 <i class="material-icons tiny">warning</i>
-                Você ainda não possui ou administra nenhum grupo.
+                <g:message code='group.message.noGroupAdmin'/>
             </div>
         </g:if>
             <a style="color: black;" class="" href="/group/new">
