@@ -15,7 +15,7 @@
     <div class="row cluster">
 
         <div class="row cluster-header">
-            <h4>Criar novo grupo</h4>
+            <h4><g:message code='group.label.newGroup'/></h4>
             <div class="divider"></div>
         </div>
 
@@ -24,13 +24,13 @@
             <g:if test="${request?.message == 'blank_name'}">
                 <div class="error-box">
                     <i class="material-icons tiny">error</i>
-                    Nome do grupo não pode ser vazio.
+                    <g:message code='group.label.noName'/>
                 </div>
             </g:if>
             <g:elseif test="${request?.message == 'name_already_exists'}">
                 <div class="error-box">
                     <i class="material-icons tiny">error</i>
-                    Um grupo com o mesmo nome já existe.
+                    <g:message code='group.label.sameName'/>
                 </div>
             </g:elseif>
 
@@ -43,7 +43,9 @@
                                     <div class="row">
                                         <div class="input-field col s12">
                                             <input id="group-name" name="groupname" type="text">
-                                            <label for="group-name">Nome do Grupo</label>
+                                            <label for="group-name">
+                                                <g:message code='group.label.groupName'/>
+                                            </label>
                                         </div>
                                     </div>
 
