@@ -18,12 +18,12 @@ $(function () {
 
         $el
         .empty()
-        .append('<a rel="license" href="' + href + '">'
+        .append('<a target='_blank' rel="license" href="' + href + '">'
             + '<img alt="Creative Commons License" src="' + img + '">'
             + '</a>');
 
         if (!$el.hasClass('license-image-only')) {
-            $el.append('Esta obra está licenciada com uma Licença <a rel="license" href="' + href + '">Creative Commons Atribuição-CompartilhaIgual 4.0 Internacional</a>.');
+            $el.append('Esta obra está licenciada com uma Licença <a target='_blank' rel="license" href="' + href + '">Creative Commons Atribuição-CompartilhaIgual 4.0 Internacional</a>.');
         }
     });
 });
