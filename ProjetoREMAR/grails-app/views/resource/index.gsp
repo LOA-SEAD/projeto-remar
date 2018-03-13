@@ -9,7 +9,7 @@
     <div class="row cluster">
 
         <div class="cluster-header">
-            <h4>Desenvolvedor</h4>
+            <h4><g:message code="resource.index.label.title" /></h4>
             <div class="divider"></div>
         </div>
 
@@ -20,7 +20,7 @@
                         <g:render template="developerCards" model="[resourceInstanceList:resourceInstanceList]" />
                     </g:if>
                     <g:else>
-                        <p>Você ainda não submeteu nenhum jogo. Nos envie um agora mesmo!</p>
+                        <p><g:message code="resource.index.message.noGame" /></p>
                     </g:else>
                     <div class="col s1 offset-s10">
                         <a href="/resource/create"  name="create"
