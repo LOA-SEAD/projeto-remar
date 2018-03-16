@@ -56,3 +56,13 @@
 #info-add-container {
     display: none;
 }
+
+/* Ja existe uma classe 'invalid' no materialize so para forms invalido,
+   mas por precaucao criei estas regras para nao mexer no materialize.css.
+   Dar uma olhada depois para ver se realmente nao tem problema modificar a classe invalid
+   e remover regras abaixo.
+ */
+
+.invalid-form {
+    border-bottom: 1px solid #db1313 !important;
+}

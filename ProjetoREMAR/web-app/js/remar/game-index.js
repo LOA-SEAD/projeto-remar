@@ -91,30 +91,15 @@ $(function(){
     var name = $("#name");
     var nameErr = $("#name-error");
     var desc = $("#description");
-    var documentation = $("#documentation");
-
     var descErr = $("#desc-error");
+    var custom = $("#customizableItems");
+    var customizableErr = $("#customizableErr");
 
     $(name).prev().hide();
-    $(documentation).prev().hide();
-    $(desc).prev().hide();
     $(nameErr).hide();
+    $(desc).prev().hide();
     $(descErr).hide();
-    $("#documentation-error").hide();
-    $("#customizableItems-error").hide();
-    $("#customizableItems").prev().hide();
-
-    //console.log($(name).val());
-    if($(name).val() != null && $(name).val() != ""){
-        //console.log("entrou aki");
-        $(name).removeClass().addClass("valid");
-        $(name).prev().show(500);
-    }
-
-    if($(desc).val() != null && $(name).val() != ""){
-        $(desc).addClass("valid");
-        $(desc).prev().show(500);
-    }
+    $(customizableErr).hide();
 
     $('textarea#textarea1').characterCounter();
     $('select').material_select();
@@ -319,6 +304,12 @@ $(function(){
         $(desc).prev().hide();
         $(descErr).hide();
         $(desc).removeClass().addClass("materialize-textarea");
+    });
+
+    $(custom).on("focus",function() {
+        $(custom).prev().hide();
+        $(customizableErr).hide();
+        $(custom).removeClass().addClass("materialize-textarea");
     });
 
     $(".user-profile").click(function () {

@@ -4,32 +4,33 @@ function validateSubmit(){
     var description = document.getElementById("description");
     var customizableItems = document.getElementById("customizableItems");
 
-
     var nameErr = $("#name-error");
     var descErr = $("#desc-error");
-    var customizableErr = $("#customizableItems-error");
+    var customizableErr = $("#customizableErr");
 
 
-    if($(name).val()==null || $(name).val() == "") {
+    if($.trim($(name).val()) == null || $.trim($(name).val()) == ""){
         $(nameErr).show(500);
         $(name).prev().hide();
-        $(name).removeClass().addClass('invalid');
+        $(name).removeClass().addClass('invalid-form');
         ok = ok+1;
     }
 
-    if($(description).val()==null || $(description).val()==""){
+    if($.trim($(description).val()) == null || $.trim($(description).val()) == ""){
         $(descErr).show(500);
         $(description).prev().hide();
-        $(description).removeClass('valid').addClass('invalid');
+        $(description).removeClass('valid').addClass('invalid-form');
         ok = ok+1;
     }
 
-    if($(customizableItems).val()==null || $(customizableItems).val()==""){
+    if($.trim($(customizableItems).val()) == null || $.trim($(customizableItems).val()) == ""){
         $(customizableErr).show(500);
         $(customizableItems).prev().hide();
-        $(customizableItems).removeClass('valid').addClass('invalid');
+        $(customizableItems).removeClass('valid').addClass('invalid-form');
         ok = ok+1;
     }
+
+    scrollToFirstError('.invalid-form');
 
     if(ok == 0) {
             if(validateImageFile("img-1") && validateImageFile("img-2") && validateImageFile("img-3")){
@@ -99,5 +100,18 @@ function validateImageFile(File){
     }
     else{
         return false;
+    }
+}
+
+// Existem muitas definições de funções de scroll em diferentes arquivos .js, causando redundância.
+// Refatorar e fazer pack num .js só dessas funções mais gerais.
+function scrollToFirstError(elem){
+    if($(elem).length) {
+        console.log("Input: " + $(elem).first().offset().top);
+        console.log("Input's height: " + $(elem).height());
+        console.log("Minus: " + $(elem).first().offset().top - $(elem).height());
+        $('html, body').animate({
+            scrollTop: $(elem).first().offset().top - ($(elem).height() + $(elem).next().height())
+        }, 500);
     }
 }
