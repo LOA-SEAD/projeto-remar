@@ -20,7 +20,10 @@
                         <g:render template="developerCards" model="[resourceInstanceList:resourceInstanceList]" />
                     </g:if>
                     <g:else>
-                        <p><g:message code="resource.index.message.noGame" default="Você ainda não submeteu nenhum jogo. Nos envie um agora mesmo!"/></p>
+                        <div class="warning-box">
+                            <i class="material-icons tiny">warning</i>
+                            <g:message code="resource.index.message.noGame" default="Você ainda não submeteu nenhum jogo. Nos envie um agora mesmo!"/>
+                        </div>
                     </g:else>
                     <div class="col s1 offset-s10">
                         <a href="/resource/create"  name="create"

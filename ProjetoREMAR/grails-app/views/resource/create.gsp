@@ -116,8 +116,7 @@
 									<div id="license-container" style="display: none">
 										<input type="hidden" name="license" value="cc-by" id="licenseValue" >
 										<div class="row">
-											<div class="col s12" id="licenseImage">
-											</div>
+											<div class="col s12" id="licenseImage"></div>
 										</div>
 									</div>
 								</div>
@@ -129,10 +128,6 @@
 								</div>
 							</div>
 
-							<!-- Botão Enviar -->
-							<div class="buttons col s1 m1 l1 offset-s8 offset-m10 offset-l10" style="margin-top:20px">
-
-							</div>
 						</div>
 						<br class="clear" />
 					</div>
@@ -207,8 +202,8 @@
 		</div>
 	</div>
 	<div class="modal-footer">
-		<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" onclick="submit()" style="margin-right: 10px;">Sim</a>
 		<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" onclick="return false;" style="margin-right: 10px;">Não</a>
+		<a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange" onclick="submit()" style="margin-right: 10px;">Sim</a>
 	</div>
 </div>
 
