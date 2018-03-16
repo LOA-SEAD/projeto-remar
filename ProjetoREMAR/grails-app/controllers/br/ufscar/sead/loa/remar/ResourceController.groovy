@@ -72,6 +72,7 @@ class ResourceController {
             def img3 = new File(servletContext.getRealPath("${params.img3}"))
             img3.renameTo(new File(path, "description-3"))
         }
+
         instance.comment = "Em avaliação"
 
         instance.save flush: true
@@ -576,7 +577,7 @@ class ResourceController {
     }
 
     def findResource() {
-        render Resource.findByName(params.name)
+        render Resource.findByName(params.name) as JSON
     }
 
     @Transactional

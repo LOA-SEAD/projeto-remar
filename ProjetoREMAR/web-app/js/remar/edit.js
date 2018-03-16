@@ -4,47 +4,47 @@
 $(function(){
 
 
-    var name = document.getElementById("name");
-    var description = document.getElementById("description");
-    var customizableItems = document.getElementById("customizableItems");
+    var name = document.getElementById("name");  // Nome do jogo
+    var description = document.getElementById("description");  // Descricao
+    var customizableItems = document.getElementById("customizableItems");  // Itens customizaveis
+    document.getElementById("shareable").disabled = true;
 
+    var nameErr = $("#name-error");  // Ainda tenho que descobrir qual tipo de erro deveria ser esse
+    var nameErr2 = $("#name-error2");  // Erro para nome já sendo utilizado
 
-    //var name = $("#name");
-    var nameErr = $("#name-error");
-    var nameErr2 = $("#name-error2");
-    nameErr2.hide();
+    // nameErr esta sendo escondido em game-index.js
+    nameErr2.hide();  // Esconde o erro numero 2
 
-    //var desc = $("#description");
-    var descErr = $("#desc-error");
-    var customizableErr = $("#customizableItems-error");
-
-
+    var descErr = $("#desc-error");  // Era pra ter algum erro de descricao q simplesmente n existe
+    var customizableErr = $("#customizableItems-error");  // Aparentemente, era pra ter erro de itens customizaveis tbm
 
     $.ajax({
-        type: 'POST',
-        url: location.origin + "/resource/getResourceInstance/"+$("#hidden").val(),
-        data: {name: $("#name").val()},
-        processData: false,
-        contentType: false,
-        success: function (data) {
+        type: 'POST',  // Eh aqui q o formulario eh preenchido com os seus valores salvos
+        url: location.origin + "/resource/getResourceInstance/" + $("#hidden").val(),  // #hidden vem de um <input> logo antes do form, pq?
+        data: {name: $("#name").val()},  // Dados enviados ao servidor. Sao enviados em par chave/valor, no caso, name: #name.val().
+        processData: false,  // Pesquisar sobre o que ser falso acarreta
+        contentType: false,  // Pesquisar sobre o que ser falso acarreta
+        success: function (data) {  // Em caso de sucesso
 
-            $("#name").val(data.name)
+            $("#name").val(data.name)  // Seta valor do campo do Nome do Jogo
                 .next().addClass("active");
 
-            $("#description").val(data.description)
+            $("#description").val(data.description)  // Seta valor do campo da Descricao, mas isso nao eh enviado ao servidouro
                 .next().addClass("active");
 
-            $("#documentation").val(data.documentation)
-                .next().addClass("active");
-            $("#customizableItems").val(data.customizableItems)
+            $("#documentation").val(data.documentation)  // Seta valor do campo da Documentacao, mas isso nao eh enviado ao servidouro
                 .next().addClass("active");
 
-            if(data.shareable == true) {
+            $("#customizableItems").val(data.customizableItems)  // Seta valor do campo de Itens Customizaveis, mas isso nao eh enviado ao servidouro
+                .next().addClass("active");
+
+            if(data.shareable === true) {  // Seta o checkbox de acordo
                 $('#shareable').attr('checked', 'checked');
                 $('#shareable').attr('disabled', 'disabled');
             }
 
-
+            // Seta imagens buscadas. Talvez mudar essa frase pra continuar sendo o nome do arquivo.
+            // Talvez n de pra por o nome do arquivo? Pesquisar
             $("#img1Preview").attr("src", "/data/resources/assets/"+data.uri+"/description-1");
             $("#img-1-text").prop('placeholder',"Carregue uma nova imagem!");
 
@@ -61,20 +61,12 @@ $(function(){
         }
     });
 
-    $("#upload").on("click",function(){
-
+    $("#upload").on("click",function(){  // Quando clicar em ENVIAR setará os campos de acordo com as mudancas
 
         var ok = 0;
-        var formData = new FormData();
+        var formData = new FormData();  // Dados do formulario
 
-        //var image1 = $("#img-1").prop('files')[0];
-        //var image2 = $("#img-2").prop('files')[0];
-        //var image3 = $("#img-3").prop('files')[0];
-        //console.log(image1);
-        //console.log(image2);
-        //console.log(image3);
-        //console.log($(this).data('id'));
-
+        // Abaixo faz um append de todos os campos no formData para ser enviado
         formData.append('name', document.getElementById("name").value);
         formData.append('description', document.getElementById("description").value);
         formData.append('documentation', document.getElementById("documentation").value);
@@ -85,6 +77,7 @@ $(function(){
         formData.append('img2',$("#img2Preview").attr("src"));
         formData.append('img3',$("#img3Preview").attr("src"));
         formData.append('category', $("select").val());
+
         if($('#shareable').is(':checked'))
             formData.append('shareable', 'yes');
         else
@@ -136,7 +129,7 @@ $(function(){
 
                             },
                             error: function () {
-
+                                console.log("nao realizou update!");
                             }
                         });
                     }
@@ -149,7 +142,7 @@ $(function(){
 
             },
             error: function () {
-
+                console.log("nao conseguiu GET!");
             }
         });
 
