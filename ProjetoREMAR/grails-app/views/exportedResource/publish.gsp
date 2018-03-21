@@ -18,7 +18,7 @@
     <div class="row space">
         <g:if test="${params.toast}">
             <p>
-                <g:message code='exportedResource.message.publishedWithSuccess'/>
+                <g:message code='exportedResource.message.publishedWithSuccess' default='O seu jogo foi publicado com sucesso! Agora ele já esta disponível no menu'/>
                 <span class="chip">
                     <a class="center" href="/exported-resource/publicGames"><g:message code='menu.button.game.database.label' default='Banco de jogos'/></a>
                     <i class="medium material-icons">videogame_asset</i>
