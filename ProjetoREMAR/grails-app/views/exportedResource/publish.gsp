@@ -34,7 +34,7 @@
             <ul data-instance_id="${exportedResourceInstance.id}" class="collapsible popout infos-exportedResource"
                 data-collapsible="expandable">
                 <li>
-                    <div class="collapsible-header active"><g:message code='exportedResource.label.info' deafault='Infromações'/></div>
+                    <div class="collapsible-header active"><g:message code='exportedResource.label.info' default='Informações'/></div>
 
                     <div id="info" class="collapsible-body">
                         <div class="row">
