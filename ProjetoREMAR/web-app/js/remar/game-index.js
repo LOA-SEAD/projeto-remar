@@ -126,43 +126,58 @@ $(function(){
         }
     }
 
+    $('body').on('click', '[disabled]', function(event) {
+        event.preventDefault();
+    });
+
     $('.review').on('click', function() {
-        var id = $(this).data('id');
-        var status = $(this).data('review');
-        var _this = this;
 
-        var img = $("#image"+id);
-        var imgSrc = $(img).attr('src');
-        console.log(imgSrc);
+        if (!$(this).is("[disabled]")) {
 
-        $(img).attr('src', '/images/loading_spinner.gif');
+            $(this).attr("disabled", "disabled");
 
-        var url = location.origin + '/resource/review/' + id + "/" + status;
+            var id = $(this).data('id');
+            var status = $(this).data('review');
+            var _this = this;
 
-        $.ajax({
-            type:'POST',
-            url: url,
-            success:function(data){
-                console.log(data);
+            var img = $("#image" + id);
+            var imgSrc = $(img).attr('src');
+            console.log(imgSrc);
 
-                var tr = $(_this).parents().eq(4);
-                $(tr).removeClass('pending approved rejected');
-                if (status == 'approve') {
-                    $(tr).addClass('approved');
-                } else {
-                    $(tr).addClass('rejected');
+            $(img).attr('src', '/images/loading_spinner.gif');
+
+            var url = location.origin + '/resource/review/' + id + "/" + status;
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                success: function (data) {
+                    console.log(data);
+
+                    var tr = $(_this).parents().eq(4);
+                    $(tr).removeClass('pending approved rejected');
+
+                    if (status == 'approve') {
+                        $(tr).addClass('approved');
+
+                    } else {
+                        $(tr).addClass('rejected');
+                    }
+
+                    $(img).attr('src', imgSrc);
+
+                    $(this).removeAttr("disabled");
+
+                    window.location.reload();
+                },
+
+                error: function (req, status, err) {
+                    console.log(req.responseText);
+                    $(img).attr('src', imgSrc);
+                    window.location.reload();
                 }
-                $(img).attr('src', imgSrc);
-
-                window.location.reload();
-
-            },
-            error:function(req, status, err){
-                console.log(req.responseText);
-                $(img).attr('src', imgSrc);
-                window.location.reload();
-
-            }});
+            });
+        }
     });
 
     $('.comment').on('focusout', function() {

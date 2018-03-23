@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
     <meta name="layout" content="materialize-layout">
+    <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
 </head>
 <body>
     <div class="row cluster">

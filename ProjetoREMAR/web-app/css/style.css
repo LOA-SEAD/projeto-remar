@@ -36,9 +36,12 @@ a, button {
     transition: all 0.3s ease;
 }
 
+
+/*Rules below are for disabling anchor tag (<a>)
+from being clickable*/
 a[disabled], a[disabled]:hover {
     pointer-events: none;
-    background-color: #dfdfdf !important;
+    color: #dfdfdf !important;
     box-shadow: none;
     cursor: default;
 }
