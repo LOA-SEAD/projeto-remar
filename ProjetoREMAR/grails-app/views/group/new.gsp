@@ -15,7 +15,7 @@
     <div class="row cluster">
 
         <div class="row cluster-header">
-            <h4><g:message code='group.label.newGroup'/></h4>
+            <h4><g:message code='group.label.newGroup' default="Criar novo grupo"/></h4>
             <div class="divider"></div>
         </div>
 
