@@ -38,12 +38,6 @@ function validateSubmit(){
                 var image1 = $("#img-1").prop('files')[0];
                 var image2 = $("#img-2").prop('files')[0];
                 var image3 = $("#img-3").prop('files')[0];
-                console.log(image1);
-                console.log(image2);
-                console.log(image3);
-                console.log($(this).data('id'));
-                //console.log("SELECT "+$("select").find(":selected").text());
-
 
                 //formData.append('id', $(this).data('id'));
                 formData.append('name', document.getElementById("name").value);
@@ -107,9 +101,6 @@ function validateImageFile(File){
 // Refatorar e fazer pack num .js só dessas funções mais gerais.
 function scrollToFirstError(elem){
     if($(elem).length) {
-        console.log("Input: " + $(elem).first().offset().top);
-        console.log("Input's height: " + $(elem).height());
-        console.log("Minus: " + $(elem).first().offset().top - $(elem).height());
         $('html, body').animate({
             scrollTop: $(elem).first().offset().top - ($(elem).height() + $(elem).next().height())
         }, 500);
