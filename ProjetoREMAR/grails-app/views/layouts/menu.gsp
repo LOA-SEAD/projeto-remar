@@ -108,7 +108,7 @@
 
     <li data-intro="${message(code:'tutorial.step.nine')}"
         data-step="9">
-        <a class="waves-effect waves-block waves-light" id="report-modal-trigger" href="#report-modal" class="modal-trigger">
+        <a class="modal-trigger waves-effect waves-block waves-light" id="report-modal-trigger" href="#report-modal">
             <i class="medium material-icons">error</i>
             ${message (code: 'menu.button.report.label')}
         </a>
