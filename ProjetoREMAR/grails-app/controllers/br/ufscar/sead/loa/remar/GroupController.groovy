@@ -99,7 +99,7 @@ class GroupController {
         def group = Group.findById(params.id)
         def isMultiple = false //Variável para determinar se um jogo é multiplo ou não
         def hasContent = false //Variável para determinar se foi passado conteúdo à view
-        def gameIndexName = [:] //Usado apenas para games com multiplos gametypes
+        def gameLevelName = [:] //Usado apenas para games com multiplos levels
 
         if(session.user.id == group.owner.id || UserGroup.findByUserAndAdmin(session.user,true)) {
             def exportedResource = ExportedResource.findById(params.exp)
@@ -124,16 +124,16 @@ class GroupController {
                         queryMongo.get(i).stats.each {
                             //Para cada stats obtido, pega apenas o que o jogo para obter os stats for igual aos da consulta
                             if (it.exportedResourceId == exportedResource.id) {
-                                //Popula um map gameIndex para enviar à view.
+                                //Popula um map gameLevel para enviar à view.
                                 //Keys: numeros das fases no propeller (apenas as personalizadas)
                                 //Values: respectivos nomes das fases no propeller (apenas as personalizadas)
-                                if (it.gameIndex) {
-                                    gameIndexName.put(it.gameIndex, process.definition.tasks.get(it.gameIndex as int).name)
-                                    //Se encontrar um gameIndex, então significa que o jogo é do tipo multiplo
+                                if (it.gameLevel) {
+                                    gameLevelName.put(it.gameLevel, it.gameLevelName)
+                                    //Se encontrar um gameLevel, então significa que o jogo é do tipo multiplo
                                     isMultiple = true
                                 }
                                 //Procura stats necessários para jogos NÃO multiplos.
-                                _stat.push([levelId: it.levelId, win: it.win, gameSize: it.gameSize, gameIndex: it.gameIndex])
+                                _stat.push([challengeId: it.challengeId, win: it.win, gameSize: it.gameSize, gameLevel: it.gameLevel])
                             }
                         }
                         // Ao fim de cada acumulo de estatistica de um respectivo usuario, dá-se o push dele e suas estatisticas no array allStats
@@ -160,11 +160,11 @@ class GroupController {
                             def user = allUsersGroup.find { user -> user.id == queryMongo.get(i).userId || group.owner.id == queryMongo.get(i).userId }
                             _stat = [[user: user]]
 
-                            // Coleção com closure passado para remover os gameindex das estatísticas, de forma que ele seja, agora, uma chave e não um atributo
+                            // Coleção com closure passado para remover os gameLevel das estatísticas, de forma que ele seja, agora, uma chave e não um atributo
                             def removeGI = allStats.get(i).collect() {
                                 def tempMap = [:]
-                                def gInd = it.gameIndex
-                                it.remove("gameIndex")
+                                def gInd = it.gameLevel
+                                it.remove("gameLevel")
                                 tempMap.put(gInd, it)
                                 tempMap // retorno do collect()
                             }
@@ -172,7 +172,7 @@ class GroupController {
                             //Para cada numero de fase, busca-se na coleção se existe aquela chave, e cria-se um novo hash (combinando repetições), que será:
                             //Key = numero da fase
                             //Value = estatísticas da fase
-                            gameIndexName.keySet().each() {
+                            gameLevelName.keySet().each() {
                                 def gInd = it
                                 def indexList = removeGI.findAll() { it.containsKey(gInd) }
                                 def valuesList = indexList.collect() { it.get(gInd) }
@@ -184,7 +184,7 @@ class GroupController {
                             hasContent = true
                         }
 
-                        render view: "stats", model: [userStatsMap: userStatsMap, group: group, exportedResource: exportedResource, gameIndexName: gameIndexName, isMultiple: isMultiple, hasContent: hasContent]
+                        render view: "stats", model: [userStatsMap: userStatsMap, group: group, exportedResource: exportedResource, gameLevelName: gameLevelName, isMultiple: isMultiple, hasContent: hasContent]
                     }else{
                         // Se não for multiplo, manda-se apenas os atributos necessários
                         render view: "stats", model: [allStats: allStats, group: group, exportedResource: exportedResource, isMultiple: isMultiple, hasContent: hasContent]
@@ -222,7 +222,7 @@ class GroupController {
         def exportedResource = ExportedResource.findById(params.exp)
 
         // Os parâmetros abaixo são recebidos apenas quando o jogo é do tipo Multiplo
-        def gameIndex = params.gindex; // Numero da fase
+        def gameLevel = params.gindex; // Numero da fase
         def fase = params.fase; // Nome da fase
 
         if(user){
@@ -233,9 +233,9 @@ class GroupController {
                 void apply(Document document) {
                     document.stats.each {
                         if(it.exportedResourceId == exportedResource.id){
-                            //Verificação realizada para filtrar, tambem, pelo gameIndex quando o jogo é multiplo
-                            if(it.gameIndex == gameIndex) {
-                                if (it.levelId == params.level as int) {
+                            //Verificação realizada para filtrar, tambem, pelo gameLevel quando o jogo é multiplo
+                            if(it.gameLevel == gameLevel) {
+                                if (it.challengeId == params.level as int) {
 
                                     // Estratégia utilizada para padronizar a população de dados e o respectivo retorno (economia de ifs e switches)
                                     StatisticFactory factory = StatisticFactory.instance;
