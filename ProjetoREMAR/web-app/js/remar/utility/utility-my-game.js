@@ -14,7 +14,6 @@ $(function(){
         var formData = new FormData();
         formData.append('text', $(this).val());
         formData.append('category', catSelected);
-        console.log($(this).val());
         $.ajax({
             url: "/exported-resource/searchMyGames",
             type: 'POST',
@@ -24,9 +23,7 @@ $(function(){
             success: function (response) {
                 $(".cardGames").remove();
                 $("#showCards").append(response);
-                $(".next-page").each(function() {
-                    $(this).on("click",listerNextPage)
-                });
+                $(".next-page").on("click",listerNextPage);
                 addMaterializeDepedences();
             },
             error: function () {
@@ -38,11 +35,9 @@ $(function(){
     $(select).change(function(){
         var catSelected = $(select).val();
         var text = $("#search").val();
-
         var formData = new FormData();
         formData.append('category', catSelected);
         formData.append('text', text);
-        console.log($(this).val());
         $.ajax({
             url: "/exported-resource/searchMyGames",
             type: 'POST',
@@ -52,38 +47,11 @@ $(function(){
             success: function (response) {
                 $(".cardGames").remove();
                 $("#showCards").append(response);
-                $(".next-page").each(function() {
-                    $(this).on("click",listerNextPage)
-                });
+                $(".next-page").on("click",listerNextPage);
                 addMaterializeDepedences();
             },
             error: function () {
                 alert("error");
-            }
-        });
-    });
-
-    $("#search-processes").on("keyup",function(){
-        var formData = new FormData();
-        formData.append('typeSearch','processes');
-        formData.append('text', $(this).val());
-        console.log($(this).val());
-        $.ajax({
-            url: "/exported-resource/searchProcesses",
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                $(".cardProcess").remove();
-                $("#showCardsProcess").append(response);
-                $(".tab-next-page").each(function() {
-                    $(this).on("click",listerTabNextPage);
-                });
-                addMaterializeDepedences();
-            },
-            error: function () {
-                console.log("Error on search processes");
             }
         });
     });
@@ -97,6 +65,7 @@ $(function(){
         var formData = new FormData();
         formData.append('category', catSelected);
         formData.append('text', text);
+        console.log("category= "+ $(this).attr("category"));
         console.log("max="+$(this).attr("data-max"));
         console.log("offset="+$(this).attr("data-offset"));
         $.ajax({
@@ -108,9 +77,7 @@ $(function(){
             success: function (response) {
                 $(".cardGames").remove();
                 $("#showCards").append(response);
-                $(".next-page").each(function() {
-                    $(this).on("click",listerNextPage)
-                });
+                $(".next-page").on("click",listerNextPage);
                 //inicializa componentes materialize
                 addMaterializeDepedences();
                 goToByScroll("title-page");
@@ -139,9 +106,7 @@ $(function(){
             success: function (response) {
                 $(".cardProcesses").remove();
                 $("#showCardsProcess").append(response);
-                $(".tab-next-page").each(function() {
-                    $(this).on("click",listerTabNextPage)
-                });
+                $(".tab-next-page").on("click",listerTabNextPage);
                 //inicializa componentes materialize
                 addMaterializeDepedences();
                 goToByScroll("title-page");

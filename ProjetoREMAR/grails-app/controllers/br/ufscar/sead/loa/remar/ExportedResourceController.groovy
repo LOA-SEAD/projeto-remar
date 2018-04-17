@@ -494,7 +494,6 @@ class ExportedResourceController {
       params.max = params.max ? Integer.valueOf(params.max) : threshold
       params.offset = params.offset ? Integer.valueOf(params.offset) : 0
       def processes = Propeller.instance.getProcessInstancesByOwner(session.user.id as long)
-      log.debug("!!!PROCESSES!!!"+processes+"\n")
       def temporary = []
       for (def i = processes.size() - 1; i>= 0; i--) {
           // lista todos os processos que estiver ativo e existir tarefas pendentes
@@ -602,7 +601,7 @@ class ExportedResourceController {
         User user = session.user
         model.myGroups = Group.findAllByOwner(user)
         model.groupsIAdmin = UserGroup.findAllByUserAndAdmin(user,true).group
-        def threshold = 12
+        def threshold = THRESHOLD
         def maxInstances = 0
         params.order = "desc"
         params.sort = "id"
@@ -614,6 +613,7 @@ class ExportedResourceController {
         model.publicExportedResourcesList = null
         if(params.category.equals("-1")){
             // exibe os jogos de todas as categorias
+
             model.publicExportedResourcesList = ExportedResource.findAllByTypeAndNameIlike('public', "%${params.text}%", params)
             maxInstances = ExportedResource.findAllByTypeAndNameIlike('public', "%${params.text}%").size()
         }
@@ -695,11 +695,11 @@ class ExportedResourceController {
             Category c = Category.findById(params.category)
             myExportedResourcesList = []
             maxInstances = 0
-            for (r in Resource.findAllByCategory(c)) {
+          for (r in Resource.findAllByCategory(c)) {
                 // get all resources belong
                 myExportedResourcesList.addAll(
                         ExportedResource.findAllByTypeAndResourceAndOwnerAndNameIlike('public', r, user, "%${params.text}%", params))
-                maxInstances += ExportedResource.findAllByTypeAndResourceAndOwnerAndNameIlike('public', r, user, "%${params.text}%").size()
+                maxInstances += ExportedResource.countByTypeAndResourceAndOwnerAndNameIlike('public', r, user, "%${params.text}%")
             }
         }
         model.publicExportedResourcesList = myExportedResourcesList
@@ -707,8 +707,7 @@ class ExportedResourceController {
         model.currentPage = (params.offset + threshold) / threshold
         model.hasNextPage = params.offset + threshold < model.instanceCount
         model.hasPreviousPage = params.offset > 0
-        model.page = 'myGames'
-        log.debug(maxInstances)
+        log.debug("maxInstances final: "+maxInstances)
         render view: "_customizedGameCard", model:model
     }
 

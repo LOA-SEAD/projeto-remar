@@ -181,9 +181,9 @@
     <g:if test='${page == 'myGames'}'>
     <g:javascript src="remar/utility/utility-my-game.js"/>
   </g:if>
-  <g:else>
+    <g:elseif test="${page == 'publicGames'}">
     <g:javascript src="remar/utility/utility-public-game.js"/>
-  </g:else>
+  </g:elseif>
     <g:javascript src="remar/licenseShow.js"/>
     <g:javascript src="remar/resource.actions.js"/>
 </main>
