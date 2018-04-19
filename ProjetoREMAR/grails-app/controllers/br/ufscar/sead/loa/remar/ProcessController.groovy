@@ -54,8 +54,6 @@ class ProcessController {
     def delete() {
         def process
 
-        def mode = (params.mode) ? params.mode : 1;
-
         if (!params.id) {
             render 400
             return response.status = 400
@@ -75,7 +73,7 @@ class ProcessController {
 
         process.putVariable('inactive', "1", true) // TEMPORARY
 
-        redirect uri: '/exported-resource/myGames', params: [mode: mode]
+        redirect uri: '/exported-resource/myProcesses'
     }
 
     // Can be called with resource id or name

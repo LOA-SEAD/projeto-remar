@@ -40,14 +40,13 @@ class ExportedResourceController {
 
     def delete(int id) {
         //Deleta a instância do Exported Resource e o diretório criado também
-        def mode = (params.mode) ? params.mode : 1;
         ExportedResource instance = ExportedResource.findById(id)
         instance.delete flush: true
         def root = servletContext.getRealPath("/")
         def mainDir = new File(root + '/published/' + instance.processId)
         mainDir.deleteDir()
 
-        redirect uri: '/exported-resource/myGames', params:[mode: mode]
+        redirect uri: '/exported-resource/myGames'
     }
 
     // to test the moodle list
