@@ -219,6 +219,7 @@ $(function(){
                         var $toastContent = $('<p>Modelo de jogo removido com sucesso!</p>');
                         Materialize.toast($toastContent, 4000);
                         $("#card-id-"+id).remove();
+                        $('main.cardGames').load(document.URL +  ' main.cardGames'); // Reload just part of the page
                 }
             },
             error: function(req, status, err) {

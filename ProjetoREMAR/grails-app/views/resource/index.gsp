@@ -25,7 +25,7 @@
                             <g:message code="resource.index.message.noGame" default="Você ainda não submeteu nenhum jogo. Nos envie um agora mesmo!"/>
                         </div>
                     </g:else>
-                    <div class="col s1 offset-s10">
+                    <div class="col s1 offset-s10" style="margin-top:10px">
                         <a href="/resource/create"  name="create"
                            class="btn-floating btn-large waves-effect waves-light my-orange tooltipped modal-trigger"
                            data-tooltip="Adicionar modelo de jogo"><i class="material-icons">add</i></a>

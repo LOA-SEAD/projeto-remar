@@ -132,9 +132,9 @@ span.description-error{
     margin-top: 12px;
 }
 
-.card .card-content .card-title{
+/*.card .card-content .card-title{
     line-height: 20px;
-}
+}*/
 
 .card .card-content p.card-title {
     padding: 10px 0;
@@ -477,9 +477,9 @@ span.card-title {
     border: 2px solid #d50000;
 }
 
-.card .card-content {
+/*.card .card-content {
     padding-bottom: 1px
-}
+}*/
 
 .collapsible-body{
     padding: 10px;

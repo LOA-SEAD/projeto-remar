@@ -82,7 +82,10 @@
         </g:each>
         </g:if>
         <g:else>
-            <h5>Atualmente não existem jogos em customização.</h5>
+            <div class="warning-box">
+                <i class="material-icons tiny">warning</i>
+                <g:message code="exportedResource.message.noCustomGames" default="Atualmente não existem jogos em customização."/>
+            </div>
         </g:else>
     </div>
 </main>
