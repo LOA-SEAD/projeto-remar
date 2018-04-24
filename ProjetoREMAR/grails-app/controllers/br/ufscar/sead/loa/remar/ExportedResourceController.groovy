@@ -120,6 +120,16 @@ class ExportedResourceController {
         render buffer
     }
 
+def showStats(){
+        def lista = MongoHelper.instance.getData("stats")
+        StringBuffer buffer = new StringBuffer();
+        for (Object o: lista) {
+            buffer.append(o.toString());
+            buffer.append("<br><br>");
+        }
+        render buffer
+    }
+
     def savePlayStats(){
         if (GroupExportedResources.findAllByExportedResource(ExportedResource.get(params.exportedResourceId)).size != 0) {
             // Game exportado para um grupo
@@ -129,7 +139,7 @@ class ExportedResourceController {
             data.exportedResourceId = params.exportedResourceId as int
             data.level = params.level as int
             data.sector = params.sector as int
-            data.monster = params.monster as int
+            data.damage = params.damage as int
             data.gameType = params.gameType
             try {
                 MongoHelper.instance.createCollection("playStats")

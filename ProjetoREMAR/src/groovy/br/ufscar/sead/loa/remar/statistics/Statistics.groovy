@@ -24,7 +24,7 @@ abstract class Statistics {
         data.gameType = params.gameType
 
         if (params.gameLevel) {
-            data.gameLevel = params.gameLevel
+            data.gameLevel = params.gameLevel as int
             data.gameLevelName = params.gameLevelName
         }
 
