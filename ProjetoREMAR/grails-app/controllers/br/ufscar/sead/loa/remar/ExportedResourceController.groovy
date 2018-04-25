@@ -110,8 +110,18 @@ class ExportedResourceController {
             render status: 200
     }
 
-    def showPlayStats(){
-        def lista = MongoHelper.instance.getData("playStats")
+    def showDamageStats(){
+        def lista = MongoHelper.instance.getData("damageStats")
+        StringBuffer buffer = new StringBuffer();
+        for (Object o: lista) {
+            buffer.append(o.toString());
+            buffer.append("<br><br>");
+        }
+        render buffer
+    }
+
+def showTimeStats(){
+        def lista = MongoHelper.instance.getData("timeStats")
         StringBuffer buffer = new StringBuffer();
         for (Object o: lista) {
             buffer.append(o.toString());
@@ -130,6 +140,16 @@ def showStats(){
         render buffer
     }
 
+def showRanking(){
+        def lista = MongoHelper.instance.getData("ranking")
+        StringBuffer buffer = new StringBuffer();
+        for (Object o: lista) {
+            buffer.append(o.toString());
+            buffer.append("<br><br>");
+        }
+        render buffer
+    }
+
     def savePlayStats(){
         if (GroupExportedResources.findAllByExportedResource(ExportedResource.get(params.exportedResourceId)).size != 0) {
             // Game exportado para um grupo
@@ -137,15 +157,33 @@ def showStats(){
             data.timestamp = new Date().toTimestamp()
             data.userId = session.user.id as long
             data.exportedResourceId = params.exportedResourceId as int
-            data.level = params.level as int
-            data.sector = params.sector as int
-            data.damage = params.damage as int
-            data.gameType = params.gameType
-            try {
-                MongoHelper.instance.createCollection("playStats")
-                MongoHelper.instance.insertPlayStats("playStats", data)
-            } catch (Exception  e) {
-                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+println params
+            if (params.damage) {
+	    	data.level = params.level as int
+            	data.sector = params.sector as int
+            	data.damage = params.damage as int
+            	data.gameType = params.gameType
+            	try {
+                	MongoHelper.instance.createCollection("damageStats")
+                	MongoHelper.instance.insertDamageStats("damageStats", data)
+            	} catch (Exception  e) {
+                	System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            	}
+            } else {
+               data.time = params.time
+               data.type = params.type
+               data.gameId = params.gameId
+               if (params.gameLevel)
+                  data.gameLevel = params.gameLevel
+               if (params.challengeId)
+                  data.challengeId = params.challengeId
+               data.gameType = params.gameType
+            	try {
+                	MongoHelper.instance.createCollection("timeStats")
+                	MongoHelper.instance.insertTimeStats("timeStats", data)
+            	} catch (Exception  e) {
+                	System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            	}
             }
         } else {
             log.debug "Stats skipped. Game was not published to a group."

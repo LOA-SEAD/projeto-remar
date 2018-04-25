@@ -73,14 +73,14 @@ class MongoHelper {
         }
     }
 
-    def insertPlayStats(String collection, Object data){
+    def insertDamageStats(String collection, Object data){
         def selectedCollection = db.getCollection(collection);
 
-        println "insertPlayStats: " + data
+        println "insertDamageStats: " + data
 
         if(selectedCollection.find(new Document('userId', data.userId)).size() != 0) {
 
-            selectedCollection.updateOne(new Document("userId", data.userId), new Document('$push', new Document("playStats",
+            selectedCollection.updateOne(new Document("userId", data.userId), new Document('$push', new Document("damageStats",
                     new Document()
                             .append("level", data.level)
                             .append("sector", data.sector)
@@ -91,7 +91,7 @@ class MongoHelper {
             )))
         }else {
 
-            selectedCollection.insertOne(new Document("userId", data.userId).append("playStats",
+            selectedCollection.insertOne(new Document("userId", data.userId).append("damageStats",
                     asList(new Document()
                             .append("level", data.level)
                             .append("sector", data.sector)
@@ -101,12 +101,37 @@ class MongoHelper {
                             .append("gameType", data.gameType)
                     )))
         }
+    }
 
-        /* def lista = db.getCollection(collection).find()
+    def insertTimeStats(String collection, Object data){
+        def selectedCollection = db.getCollection(collection);
 
-        for (Object o: lista) {
-            println o
-        } */
+        println "insertTimeStats: " + data
+
+        if(selectedCollection.find(new Document('userId', data.userId)).size() != 0) {
+
+            selectedCollection.updateOne(new Document("userId", data.userId), new Document('$push', new Document("timeStats",
+                    new Document()
+                            .append("time", data.time)
+                            .append("type", data.type)
+                            .append("gameId", data.gameId)
+                            .append("gameLevel", data.gameLevel)
+                            .append("challengeId", data.challengeId)
+                            .append("exportedResourceId", data.exportedResourceId)
+                            .append("gameType", data.gameType)
+            )))
+        }else {
+
+            selectedCollection.insertOne(new Document("userId", data.userId).append("timeStats",
+                    asList(new Document()
+			    .append("time", data.time)
+                            .append("type", data.type)
+                            .append("gameId", data.gameId)
+                            .append("gameLevel", data.gameLevel)
+                            .append("challengeId", data.challengeId)
+                            .append("exportedResourceId", data.exportedResourceId)
+                            .append("gameType", data.gameType)                    )))
+        }
     }
 
     String[] getFilePaths(String... ids) {
