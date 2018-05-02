@@ -183,7 +183,6 @@ class GroupController {
                             userStatsMap.put(_stat, statsMap)
                             hasContent = true
                         }
-
                         render view: "stats", model: [userStatsMap: userStatsMap, group: group, exportedResource: exportedResource, gameLevelName: gameLevelName, isMultiple: isMultiple, hasContent: hasContent]
                     }else{
                         // Se não for multiplo, manda-se apenas os atributos necessários
@@ -234,7 +233,7 @@ class GroupController {
                     document.stats.each {
                         if(it.exportedResourceId == exportedResource.id){
                             //Verificação realizada para filtrar, tambem, pelo gameLevel quando o jogo é multiplo
-                            if(it.gameLevel == gameLevel) {
+                            if(it.gameLevel == gameLevel as int) {
                                 if (it.challengeId == params.level as int) {
 
                                     // Estratégia utilizada para padronizar a população de dados e o respectivo retorno (economia de ifs e switches)
