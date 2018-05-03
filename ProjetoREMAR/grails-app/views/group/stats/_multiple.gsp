@@ -77,16 +77,16 @@ realização de uma manutenção mais facilmente.
                                     <g:set var="levelLose" value="${statsgameLevel.value.find { it.challengeId == i && it.win == false}}"/>
 
                                     <g:if test="${(levelLose?.challengeId!=null) && (levelWon?.challengeId!=null)}">
-                                        <td style="padding-left: 1.80em;"> <a class="tooltipped" data-position="top" data-delay="30" data-tooltip="Acertou com erros" href="/group/user-stats/${usuario.get(0).user.id}?exp=${exportedResource.id}&level=${levelWon.challengeId}&gindex=${statsgameLevel.key}&fase=${gameLevelName.getAt(statsgameLevel.key)}">
+                                        <td style="padding-left: 1.80em;"> <a class="tooltipped" data-position="top" data-delay="30" data-tooltip="Acertou com erros" href="/group/user-stats/${usuario.get(0).user.id}?exp=${exportedResource.id}&challenge=${levelWon.challengeId}&level=${statsgameLevel.key}&levelName=${gameLevelName.getAt(statsgameLevel.key)}">
                                             <i style="color: #ff9800; margin-left: 2px" class="fa fa-check"></i></a></td>
                                     </g:if>
                                     <g:else>
                                         <g:if test="${levelWon}">
-                                            <td style="padding-left: 1.80em;"> <a class="tooltipped" data-position="top" data-delay="30" data-tooltip="Acertou sem erros" href="/group/user-stats/${usuario.get(0).user.id}?exp=${exportedResource.id}&level=${levelWon.challengeId}&gindex=${statsgameLevel.key}&fase=${gameLevelName.getAt(statsgameLevel.key)}"><i style="color: green" class="fa fa-check"></i></a> </td>
+                                            <td style="padding-left: 1.80em;"> <a class="tooltipped" data-position="top" data-delay="30" data-tooltip="Acertou sem erros" href="/group/user-stats/${usuario.get(0).user.id}?exp=${exportedResource.id}&challenge=${levelWon.challengeId}&level=${statsgameLevel.key}&levelName=${gameLevelName.getAt(statsgameLevel.key)}"><i style="color: green" class="fa fa-check"></i></a> </td>
                                         </g:if>
 
                                         <g:elseif test="${levelLose}">
-                                            <td style="padding-left: 1.80em;"> <a class="tooltipped" data-position="top" data-delay="30" data-tooltip="Errou" href="/group/user-stats/${usuario.get(0).user.id}?exp=${exportedResource.id}&level=${levelLose.challengeId}&gindex=${statsgameLevel.key}&fase=${gameLevelName.getAt(statsgameLevel.key)}"> <i style="color: red" class="fa fa-times"></i> </a></td>
+                                            <td style="padding-left: 1.80em;"> <a class="tooltipped" data-position="top" data-delay="30" data-tooltip="Errou" href="/group/user-stats/${usuario.get(0).user.id}?exp=${exportedResource.id}&challenge=${levelLose.challengeId}&level=${statsgameLevel.key}&levelName=${gameLevelName.getAt(statsgameLevel.key)}"> <i style="color: red" class="fa fa-times"></i> </a></td>
                                         </g:elseif>
                                         <g:else>
                                             <td></td>
