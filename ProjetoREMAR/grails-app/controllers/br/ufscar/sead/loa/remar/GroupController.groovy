@@ -99,7 +99,7 @@ class GroupController {
         def group = Group.findById(params.id)
         def isMultiple = false //Variável para determinar se um jogo é multiplo ou não
         def hasContent = false //Variável para determinar se foi passado conteúdo à view
-        def gameLevelName = [:] //Usado apenas para games com multiplos levels
+        def gameLevel = [:] //Usado apenas para games com multiplos levels
 
         if (session.user.id == group.owner.id || UserGroup.findByUserAndAdmin(session.user, true)) {
             def exportedResource = ExportedResource.findById(params.exp)
@@ -128,7 +128,7 @@ class GroupController {
                                 //Keys: numeros das fases no propeller (apenas as personalizadas)
                                 //Values: respectivos nomes das fases no propeller (apenas as personalizadas)
                                 if (it.gameLevel) {
-                                    gameLevelName.put(it.gameLevel, it.gameLevelName)
+                                    gameLevel.put(it.gameLevel, [name: it.gameLevelName, size: it.gameSize])
                                     //Se encontrar um gameLevel, então significa que o jogo é do tipo multiplo
                                     isMultiple = true
                                 }
@@ -172,7 +172,7 @@ class GroupController {
                             //Para cada numero de fase, busca-se na coleção se existe aquela chave, e cria-se um novo hash (combinando repetições), que será:
                             //Key = numero da fase
                             //Value = estatísticas da fase
-                            gameLevelName.keySet().each() {
+                            gameLevel.keySet().each() {
                                 def gInd = it
                                 def indexList = removeGI.findAll() { it.containsKey(gInd) }
                                 def valuesList = indexList.collect() { it.get(gInd) }
@@ -183,7 +183,9 @@ class GroupController {
                             userStatsMap.put(_stat, statsMap)
                             hasContent = true
                         }
-                        render view: "stats", model: [userStatsMap: userStatsMap, group: group, exportedResource: exportedResource, gameLevelName: gameLevelName, isMultiple: isMultiple, hasContent: hasContent]
+
+                        render view: "stats", model: [userStatsMap: userStatsMap, group: group, exportedResource: exportedResource,
+                                                      gameLevel: gameLevel, isMultiple: isMultiple, hasContent: hasContent]
                     } else {
                         // Se não for multiplo, manda-se apenas os atributos necessários
                         render view: "stats", model: [allStats: allStats, group: group, exportedResource: exportedResource, isMultiple: isMultiple, hasContent: hasContent]
@@ -436,3 +438,5 @@ class GroupController {
         render(view: "ranking", model: [ranking: groupRanking, resource: resourceName])
     }
 }
+
+
