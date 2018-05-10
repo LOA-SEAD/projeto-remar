@@ -127,12 +127,12 @@ class GroupController {
                                 //Popula um map gameLevel para enviar à view.
                                 //Keys: numeros das fases no propeller (apenas as personalizadas)
                                 //Values: respectivos nomes das fases no propeller (apenas as personalizadas)
+
                                 if (it.gameLevel) {
                                     gameLevel.put(it.gameLevel, [name: it.gameLevelName, size: it.gameSize])
                                     //Se encontrar um gameLevel, então significa que o jogo é do tipo multiplo
                                     isMultiple = true
                                 }
-                                //Procura stats necessários para jogos NÃO multiplos.
                                 _stat.push([challengeId: it.challengeId, win: it.win, gameSize: it.gameSize, gameLevel: it.gameLevel])
                             }
                         }
@@ -152,9 +152,20 @@ class GroupController {
                             it.remove(0)
                         }
 
-                        def userStatsMap = [:]
+                        // TreeMap (chave de ordenação nome do usuário)
+
+                        def userStatsMap = new TreeMap(new Comparator() {
+                            @Override
+                            int compare(Object o1, Object o2) {
+                                User u1 = ((ArrayList) o1).get(0).user;
+                                User u2 = ((ArrayList) o2).get(0).user;
+
+                                return u1.firstName.compareToIgnoreCase(u2.firstName)
+                            }
+                        })
 
                         // Novo percorrer da consulta para repopular os usuários, considerando agora o tipo multiplo
+
                         for (int i = 0; i < queryMongo.size(); i++) {
                             def statsMap = [:]
                             def user = allUsersGroup.find { user -> user.id == queryMongo.get(i).userId || group.owner.id == queryMongo.get(i).userId }
@@ -185,9 +196,23 @@ class GroupController {
                         }
 
                         render view: "stats", model: [userStatsMap: userStatsMap, group: group, exportedResource: exportedResource,
-                                                      gameLevel: gameLevel, isMultiple: isMultiple, hasContent: hasContent]
+                                                      gameLevel   : gameLevel, isMultiple: isMultiple, hasContent: hasContent]
                     } else {
+
+                        // Ordena a lista antes de envio para a visão (chave de ordenação - nome do usuário)
+
+                        Collections.sort(allStats, new Comparator() {
+                            @Override
+                            public int compare(Object o1, Object o2) {
+                                User u1 = ((ArrayList) o1).get(0).user;
+                                User u2 = ((ArrayList) o2).get(0).user;
+
+                                return u1.firstName.compareToIgnoreCase(u2.firstName)
+                            }
+                        });
+
                         // Se não for multiplo, manda-se apenas os atributos necessários
+
                         render view: "stats", model: [allStats: allStats, group: group, exportedResource: exportedResource, isMultiple: isMultiple, hasContent: hasContent]
                     }
 
@@ -254,8 +279,8 @@ class GroupController {
                 }
             })
 
-            render view: "userStats", model: [allStats: allStats, user: user, exportedResource: exportedResource,
-                                              levelName    : levelName]
+            render view: "userStats", model: [allStats : allStats, user: user, exportedResource: exportedResource,
+                                              levelName: levelName]
         }
     }
 
