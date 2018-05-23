@@ -34,21 +34,21 @@
                 <td style="padding-left: 1.80em;">${stats.get(0).user.firstName + " " + stats.get(0).user.lastName}</td>
                 <g:each in="${0..allStats.get(0).get(1).gameSize-1}" var="i">
 
-                    <g:set var="levelWon" value="${stats.find { it.levelId == i && it.win == true}}"/>
-                    <g:set var="levelLose" value="${stats.find { it.levelId == i && it.win == false}}"/>
+                    <g:set var="levelWon" value="${stats.find { it.challengeId == i && it.win == true}}"/>
+                    <g:set var="levelLose" value="${stats.find { it.challengeId == i && it.win == false}}"/>
 
 
-                    <g:if test="${(levelLose?.levelId!=null) && (levelWon?.levelId!=null)}">
-                        <td style="padding-left: 1.80em;"> <a class="tooltipped" data-position="top" data-delay="30" data-tooltip="Acertou com erros" href="/group/user-stats/${stats.get(0).user.id}?exp=${exportedResource.id}&level=${levelWon.levelId}"><i style="color: #ff9800; margin-left: 2px" class="fa fa-check"></i></a></td>
+                    <g:if test="${(levelLose?.challengeId!=null) && (levelWon?.challengeId!=null)}">
+                        <td style="padding-left: 1.80em;"> <a class="tooltipped" data-position="top" data-delay="30" data-tooltip="Acertou com erros" href="/group/user-stats/${stats.get(0).user.id}?exp=${exportedResource.id}&challenge=${levelWon.challengeId}"><i style="color: #ff9800; margin-left: 2px" class="fa fa-check"></i></a></td>
                     </g:if>
                     <g:else>
 
                         <g:if test="${levelWon}">
-                            <td style="padding-left: 1.80em;"> <a class="tooltipped" data-position="top" data-delay="30" data-tooltip="Acertou sem erros" href="/group/user-stats/${stats.get(0).user.id}?exp=${exportedResource.id}&level=${levelWon.levelId}"><i style="color: green" class="fa fa-check"></i></a> </td>
+                            <td style="padding-left: 1.80em;"> <a class="tooltipped" data-position="top" data-delay="30" data-tooltip="Acertou sem erros" href="/group/user-stats/${stats.get(0).user.id}?exp=${exportedResource.id}&challenge=${levelWon.challengeId}"><i style="color: green" class="fa fa-check"></i></a> </td>
                         </g:if>
 
                         <g:elseif test="${levelLose}">
-                            <td style="padding-left: 1.80em;"> <a class="tooltipped" data-position="top" data-delay="30" data-tooltip="Errou" href="/group/user-stats/${stats.get(0).user.id}?exp=${exportedResource.id}&level=${levelLose.levelId}"> <i style="color: red" class="fa fa-times"></i> </a></td>
+                            <td style="padding-left: 1.80em;"> <a class="tooltipped" data-position="top" data-delay="30" data-tooltip="Errou" href="/group/user-stats/${stats.get(0).user.id}?exp=${exportedResource.id}&challenge=${levelLose.challengeId}"> <i style="color: red" class="fa fa-times"></i> </a></td>
                         </g:elseif>
                         <g:else>
                             <td></td>

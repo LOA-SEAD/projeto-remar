@@ -20,11 +20,12 @@ abstract class Statistics {
             data.gameSize = params.size as int
         }
 
-        data.levelId = params.levelId as int
+        data.challengeId = params.challengeId as int
         data.gameType = params.gameType
 
-        if (params.gameIndex) {
-            data.gameIndex = params.gameIndex
+        if (params.gameLevel) {
+            data.gameLevel = params.gameLevel as int
+            data.gameLevelName = params.gameLevelName
         }
 
         return data

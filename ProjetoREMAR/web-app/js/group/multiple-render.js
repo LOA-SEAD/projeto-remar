@@ -14,13 +14,13 @@ $(document).ready(function() {
     });
 
     $("#select-multiple").change(function(){
-        var gameIndex = $(this).find(":selected").val();
-        renderMultiple(gameIndex);
+        var gameLevel = $(this).find(":selected").val();
+        renderMultiple(gameLevel);
     });
 
-    function renderMultiple(gameIndex){
+    function renderMultiple(gameLevel){
         $(".tabelaStats").each(function(){
-            if($(this).attr('num-fase') == gameIndex){
+            if($(this).attr('num-fase') == gameLevel){
                 $(this).css("display", "block");
             }else {
                 $(this).css("display", "none");

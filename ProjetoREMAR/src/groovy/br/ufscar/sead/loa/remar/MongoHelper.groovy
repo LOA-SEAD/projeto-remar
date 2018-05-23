@@ -53,60 +53,55 @@ class MongoHelper {
         db.getCollection(collection).insertOne(doc)
     }
 
-    def insertStats(String collection, Object data){
+    def insertStats(String collection, Object data) {
+
+        println "insertStats: " + data
+
         def selectedCollection = db.getCollection(collection);
 
         Document doc = new Document(data)
 
-        if(selectedCollection.find(new Document('userId', data.userId)).size() != 0) {
-            println "updating"
-            println data.gameType
-
-            selectedCollection.updateOne(new Document("userId", data.userId), new Document('$push', new Document("stats", doc)))
-
-        }else{
-            println "creating"
-            println data.gameType
-
+        if (selectedCollection.find(new Document('userId', data.userId)).size() != 0) {
+            selectedCollection.updateOne(new Document("userId", data.userId), new Document('$push',
+                    new Document("stats", doc)))
+        } else {
             selectedCollection.insertOne(new Document("userId", data.userId).append("stats", asList(doc)))
-
         }
     }
 
-    def insertPlayStats(String collection, Object data){
+    def insertDamageStats(String collection, Object data) {
+
+        println "insertDamageStats: " + data
+
         def selectedCollection = db.getCollection(collection);
 
-        println "insertPlayStats: " + data
+        Document doc = new Document(data)
 
-        if(selectedCollection.find(new Document('userId', data.userId)).size() != 0) {
-
-            selectedCollection.updateOne(new Document("userId", data.userId), new Document('$push', new Document("playStats",
-                    new Document()
-                            .append("level", data.level)
-                            .append("sector", data.sector)
-                            .append("monster", data.monster)
-                            .append("timestamp", data.timestamp)
-                            .append("exportedResourceId", data.exportedResourceId)
-                            .append("gameType", data.gameType)
-            )))
-        }else {
-
-            selectedCollection.insertOne(new Document("userId", data.userId).append("playStats",
-                    asList(new Document()
-                            .append("level", data.level)
-                            .append("sector", data.sector)
-                            .append("monster", data.monster)
-                            .append("timestamp", data.timestamp)
-                            .append("exportedResourceId", data.exportedResourceId)
-                            .append("gameType", data.gameType)
-                    )))
+        if (selectedCollection.find(new Document('userId', data.userId)).size() != 0) {
+            selectedCollection.updateOne(new Document("userId", data.userId), new Document('$push',
+                    new Document("damageStats", doc)))
+        } else {
+            selectedCollection.insertOne(new Document("userId", data.userId).append("damageStats",
+                    asList(doc)))
         }
+    }
 
-        /* def lista = db.getCollection(collection).find()
+    def insertTimeStats(String collection, Object data) {
 
-        for (Object o: lista) {
-            println o
-        } */
+        println "insertTimeStats: " + data
+
+        def selectedCollection = db.getCollection(collection);
+
+        Document doc = new Document(data)
+
+        if (selectedCollection.find(new Document('userId', data.userId)).size() != 0) {
+
+            selectedCollection.updateOne(new Document("userId", data.userId), new Document('$push',
+                    new Document("timeStats", doc)))
+        } else {
+            selectedCollection.insertOne(new Document("userId", data.userId).append("timeStats",
+                    asList(doc)))
+        }
     }
 
     String[] getFilePaths(String... ids) {
@@ -130,26 +125,28 @@ class MongoHelper {
     }
 
     def getData(String collection, int resourceId, int userId) {
-        return db.getCollection(collection).find(new Document ("game", resourceId).append("user", userId))
+        return db.getCollection(collection).find(new Document("game", resourceId).append("user", userId))
     }
 
     def getStats(String collection, int exportedResourceId, List<Long> userGroup) {
-        return db.getCollection(collection).find(new Document('userId', new Document('$in', userGroup)).append("stats.exportedResourceId", exportedResourceId)).sort{userId: 1}
+        return db.getCollection(collection).find(new Document('userId', new Document('$in', userGroup)).append("stats.exportedResourceId", exportedResourceId)).sort {
+            userId: 1
+        }
     }
 
     def getStats(String collection, int exportedResourceId, Long userId) {
         return db.getCollection(collection).find(new Document('userId', userId).append("stats.exportedResourceId", exportedResourceId))
     }
 
-    def getCollectionForId(String collection,String id){
+    def getCollectionForId(String collection, String id) {
         return db.getCollection(collection).find(new Document("_id", new ObjectId(id)))
     }
 
-    def getCollection(String collection,Long id){
+    def getCollection(String collection, Long id) {
         return db.getCollection(collection).find(new Document("id", id))
     }
 
-    def addCollection(String name){
+    def addCollection(String name) {
         def dbExists = false;
 
         db.listCollectionNames().each {
@@ -166,8 +163,8 @@ class MongoHelper {
         return false
     }
 
-    def removeDataFromUri(String collectionName, String value){
-        db.getCollection(collectionName).deleteOne(Filters.in("uri",value))
+    def removeDataFromUri(String collectionName, String value) {
+        db.getCollection(collectionName).deleteOne(Filters.in("uri", value))
     }
 
     /*
@@ -202,11 +199,11 @@ class MongoHelper {
                         def selector = "ranking." + pos
 
                         rankingCollection.updateOne(new Document("exportedResourceId", data.exportedResourceId),
-                            new Document('$set', new Document(selector, new Document()
-                                .append("userId", data.userId)
-                                .append("score", data.score as double)
-                                .append("timestamp", data.timestamp)
-                            )))
+                                new Document('$set', new Document(selector, new Document()
+                                        .append("userId", data.userId)
+                                        .append("score", data.score as double)
+                                        .append("timestamp", data.timestamp)
+                                )))
                     } else
                         println "no score to update for user " + data.userId
 
@@ -214,22 +211,22 @@ class MongoHelper {
                     println "creating user " + data.userId + " score"
                     // Senão, cria a entrada para esse usuário
                     rankingCollection.updateOne(new Document("exportedResourceId", data.exportedResourceId),
-                        new Document('$push', new Document("ranking", new Document()
-                            .append("userId", data.userId)
-                            .append("score", data.score as double)
-                            .append("timestamp", data.timestamp)
-                        )))
+                            new Document('$push', new Document("ranking", new Document()
+                                    .append("userId", data.userId)
+                                    .append("score", data.score as double)
+                                    .append("timestamp", data.timestamp)
+                            )))
                 }
             }
         } else {
             println "creating resource " + data.exportedResourceId + " ranking entry"
 
             rankingCollection.insertOne(new Document("exportedResourceId", data.exportedResourceId).append("ranking",
-                asList(new Document()
-                    .append("userId", data.userId)
-                    .append("score", data.score as double)
-                    .append("timestamp", data.timestamp)
-                )))
+                    asList(new Document()
+                            .append("userId", data.userId)
+                            .append("score", data.score as double)
+                            .append("timestamp", data.timestamp)
+                    )))
         }
     }
 

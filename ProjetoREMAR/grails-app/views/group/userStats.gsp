@@ -28,8 +28,8 @@
                     <p class="text-teal text-darken-3 center-align margin-bottom" style="font-size: 19px;">
                         <b>${exportedResource.name}</b>
                     </p>
-                    <g:if test="${fase}">
-                        <p class="center-align" style="font-size: 17px; margin: 10px"><i>${fase}</i></p>
+                    <g:if test="${levelName}">
+                        <p class="center-align" style="font-size: 17px; margin: 10px"><i>${levelName}</i></p>
                     </g:if>
                     <div class="divider"></div><br>
                     <p></p>

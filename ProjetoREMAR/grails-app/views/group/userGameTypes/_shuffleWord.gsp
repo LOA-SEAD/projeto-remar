@@ -2,10 +2,6 @@
     <i class="tiny material-icons">check_circle</i><b>&nbspPalavra:&nbsp</b> ${allStats.get(0).correctAnswer?.toUpperCase()}
 </p>
 
-<%--p class="no-margin valign-wrapper">
-    <i class="tiny material-icons">explore</i><b>&nbspFase:&nbsp</b> ${allStats.get(0).levelId + 1}
-</p--%>
-
 <table class=" centered highlight responsive-table">
     <thead>
     <tr>
