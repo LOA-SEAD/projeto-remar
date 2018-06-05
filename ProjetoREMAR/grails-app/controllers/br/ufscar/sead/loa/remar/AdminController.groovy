@@ -26,22 +26,22 @@ class AdminController {
 
 
     def users() {
-        def users = User.list().sort {it.getName().toLowerCase()}
+        def users = User.list().sort { it.getName().toLowerCase() }
         render view: "users", model: [users: users]
     }
 
     def groups() {
-        def groups = Group.list().sort {it.name.toLowerCase()}
+        def groups = Group.list().sort { it.name.toLowerCase() }
         render view: "groups", model: [groups: groups]
     }
 
     def categories() {
-        def categories = Category.list().sort {it.name.toLowerCase()}
+        def categories = Category.list().sort { it.name.toLowerCase() }
         render view: "categories", model: [categories: categories]
     }
 
     def games() {
-        def games = ExportedResource.list().sort {it.getName().toLowerCase()}
+        def games = ExportedResource.list().sort { it.getName().toLowerCase() }
         render view: "games", model: [games: games]
     }
 
@@ -59,7 +59,7 @@ class AdminController {
 
     def deleteAnnouncement() {
         deleteAnnouncementProc(params.id)
-        render (status: 200)
+        render(status: 200)
     }
 
     def toggleUser() {
@@ -76,7 +76,7 @@ class AdminController {
             }
         }
 
-        render (status: 200)
+        render(status: 200)
     }
 
     def enableUserBatch() {
@@ -88,27 +88,27 @@ class AdminController {
             }
         }
 
-        render (status: 200)
+        render(status: 200)
     }
 
     def deleteGroup() {
         deleteGroupProc(params.id)
-        render (status: 200)
+        render(status: 200)
     }
 
     def deleteCategory() {
         deleteCategoryProc(params.id)
-        render (status: 200)
+        render(status: 200)
     }
 
     def deleteGame() {
         deleteGameProc(params.id)
-        render (status: 200)
+        render(status: 200)
     }
 
     def deleteReport() {
         deleteReportProc(params.id)
-        render (status: 200)
+        render(status: 200)
     }
 
     def deleteGroupBatch() {
@@ -118,7 +118,7 @@ class AdminController {
             deleteGroupProc(it)
         }
 
-        render (status: 200)
+        render(status: 200)
     }
 
     def deleteCategoryBatch() {
@@ -145,7 +145,7 @@ class AdminController {
             deleteGameProc(it)
         }
 
-        render (status: 200)
+        render(status: 200)
     }
 
     def deleteReportBatch() {
@@ -159,7 +159,7 @@ class AdminController {
     }
 
     def createAnnouncement() {
-        respond new Announcement(params), view:'_announcementForm'
+        respond new Announcement(params), view: '_announcementForm'
     }
 
     @Transactional
@@ -173,7 +173,7 @@ class AdminController {
             announcement.author = springSecurityService.getCurrentUser();
         }
 
-        announcement.save flush:true
+        announcement.save flush: true
 
         render announcement as JSON
     }
@@ -187,7 +187,7 @@ class AdminController {
             return
         }
 
-        category.save flush:true
+        category.save flush: true
 
         render category as JSON
     }
@@ -210,18 +210,18 @@ class AdminController {
         }
 
         if (announcement.hasErrors()) {
-            respond announcement.errors, view:'edit'
+            respond announcement.errors, view: 'edit'
             return
         }
 
-        announcement.save flush:true
+        announcement.save flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Announcement.label', default: 'Announcement'), announcement.id])
                 redirect announcement
             }
-            '*'{ respond announcement, [status: OK] }
+            '*' { respond announcement, [status: OK] }
         }
     }
 
@@ -235,10 +235,9 @@ class AdminController {
 
         categoryInstance.name = params.name
 
-        categoryInstance.save flush:true
-        render (status: 200)
+        categoryInstance.save flush: true
+        render(status: 200)
     }
-
 
 
     @Transactional
@@ -262,44 +261,48 @@ class AdminController {
     }
 
     /**
-     * @desc   register a batch of new users from a spreadsheet file
+     * @desc register a batch of new users from a spreadsheet file
      *         .csv, .xls and .xlxs files are accepted
-     * @param  file - the file from which users will be imported
+     * @param file - the file from which users will be imported
      * @return a message if something goes wrong, otherwise a redirect
      */
     @Transactional
     importUsers() {
         CommonsMultipartFile file = request.getFile("spreadsheet-file")
 
-        if (!file.empty) {
-            switch (file.contentType) {
-                case "application/vnd.ms-excel":
-                case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
-                    ExcelUtil converter = new ExcelUtil()
-                    converter.getObjectsFromExcelFile(file).each {
-                        registerUser(it[0] /* username */, it[1] /* email */, it[2] /* firstName */, it[3] /* lastName */)
-                    }
-                    break
-                case "text/csv":
-                    Util.readCSV(file, ';', 'UTF-8').each {
-                        registerUser(it[0] /* username */, it[1] /* email */, it[2] /* firstName */, it[3] /* lastName */)
-                    }
-                    break
-                default:
-                    flash.message = g.message(code: "admin.users.import.error.contentType")
-                    break
+        try {
+            if (!file.empty) {
+                switch (file.contentType) {
+                    case "application/vnd.ms-excel":
+                    case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+                        ExcelUtil converter = new ExcelUtil()
+                        converter.getObjectsFromExcelFile(file).each {
+                            registerUser(it[0] /* username */, it[1] /* email */, it[2] /* firstName */, it[3] /* lastName */)
+                        }
+                        break
+                    case "text/csv":
+                        Util.readCSV(file, ';', 'UTF-8').each {
+                            registerUser(it[0] /* username */, it[1] /* email */, it[2] /* firstName */, it[3] /* lastName */)
+                        }
+                        break
+                    default:
+                        flash.message = g.message(code: "admin.users.import.error.contentType")
+                        break
+                }
+            } else {
+                flash.message = g.message(code: "default.errors.fileEmpty")
             }
-        } else {
-            flash.message = g.message(code: "default.errors.fileEmpty")
+        } catch (Exception e) {
+            e.printStackTrace()
         }
 
         redirect action: "users"
     }
 
     /**
-     * @desc    export selected users to a .csv, .xls or .xlsx file
-     * @params  params - an object containing parameters from ajax call
-     * @return  path to download file
+     * @desc export selected users to a .csv, .xls or .xlsx file
+     * @params params - an object containing parameters from ajax call
+     * @return path to download file
      */
     def exportUsers() {
         def date = new Date()
@@ -357,8 +360,8 @@ class AdminController {
     }
 
     /**
-     * @desc   Procedure to remove a category
-     * @param  id - the id from the announcement to be removed
+     * @desc Procedure to remove a category
+     * @param id - the id from the announcement to be removed
      * @return nothing
      */
     @Transactional
@@ -375,8 +378,8 @@ class AdminController {
     }
 
     /**
-     * @desc   Procedure to remove an user and all data related to him
-     * @param  id - the id from the user to be removed
+     * @desc Procedure to remove an user and all data related to him
+     * @param id - the id from the user to be removed
      * @return nothing
      */
     @Transactional
@@ -414,12 +417,12 @@ class AdminController {
         // Remove group-exportedResource relationships
         GroupExportedResources.removeAllByGroup(groupInstance, true)
 
-        groupInstance.delete flush:true
+        groupInstance.delete flush: true
     }
 
     /**
-     * @desc   Procedure to remove a game
-     * @param  id - the id from the game to be removed
+     * @desc Procedure to remove a game
+     * @param id - the id from the game to be removed
      * @return nothing
      */
     @Transactional
@@ -439,8 +442,8 @@ class AdminController {
     }
 
     /**
-     * @desc   Procedure to remove a category
-     * @param  id - the id from the category to be removed
+     * @desc Procedure to remove a category
+     * @param id - the id from the category to be removed
      * @return nothing
      */
     @Transactional
@@ -486,28 +489,50 @@ class AdminController {
     }
 
     /**
-     * @desc   create an user with randomly generated password and send an email prompting to change that password
-     * @param  username - created user username
-     * @param  email - created user email
-     * @param  firstName - created user first name
-     * @param  lastName - created user last name
+     * @desc create an user with randomly generated password and send an email prompting to change that password
+     * @param username - created user username
+     * @param email - created user email
+     * @param firstName - created user first name
+     * @param lastName - created user last name
      * @return nothing
      */
     def registerUser(String username, String email, String firstName, String lastName) {
         User user = new User()
+
         user.username = username
         user.email = email
         user.firstName = firstName
         user.lastName = lastName
         user.password = RandomStringUtils.random(8, true, true)
+        user.enabled = true
 
         user.save flush: true
 
         if (user.hasErrors()) {
             log.debug(user.errors)
         } else {
-            def html = g.render(template: "newUserEmail", model: ["user": user])
-            Util.sendEmail(email, "Bem-vindo ao REMAR", html)
+            def mensagem = "<h3>Prezado(a) ${user.firstName} ${user.lastName}, bem-vindo ao REMAR!</h3>\n" +
+                    "<br/>\n" +
+                    "<p>Você foi cadastrado pelo administrador da plataforma com as seguintes credenciais:</p>\n" +
+                    "<br/>\n" +
+                    "<p><strong>Nome de usuário:</strong> ${user.username}</p>\n" +
+                    "<p><strong>Senha:</strong> ${user.password}</p>\n" +
+                    "<br/>\n" +
+                    "<p>Clique <a href=\"http://${request.serverName}\">aqui</a> para acessar o REMAR ou <a href=\"http://${request.serverName}/my-profile\">aqui</a> se deseja mudar sua senha.</p>\n" +
+                    "<br/>\n" +
+                    "<p>Atenciosamente,</p>\n" +
+                    "<p>Equipe REMAR</p>\n" +
+                    "<p>Recursos Educacionais Multiplataforma Abertos na Rede</p>\n" +
+                    "<br/>\n" +
+                    "<br/>\n" +
+                    "<br/>\n" +
+                    "<p>**********************************************************************</p>\n" +
+                    "<p>Este é um e-mail automático. Não é necessário respondê-lo.</p>\n" +
+                    "<p>Caso tenha recebido esta mensagem por engano, por favor, apague-a.</p>\n" +
+                    "<p>Agradecemos sua cooperação.</p>\n" +
+                    "<p>**********************************************************************</p>"
+            Util.sendEmail(email, "Bem-vindo ao REMAR", mensagem)
         }
+
     }
 }

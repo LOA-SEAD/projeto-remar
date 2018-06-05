@@ -105,7 +105,7 @@
                                     <g:message code="admin.table.header.name"/>
                                 </th>
                                 <th>
-					<g:message code="admin.users.table.header.username"/>
+					<g:message code="admin.table.header.username"/>
 				</th>
 				<th>
                                     <g:message code="admin.table.header.status"/>
