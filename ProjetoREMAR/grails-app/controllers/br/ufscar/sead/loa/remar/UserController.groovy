@@ -116,7 +116,7 @@ class UserController {
                                     "<br>" +
                                     "Agradecemos sua coopera&ccedil;&atilde;o. <br>" +
                                     "<hr>"
-                       } else {
+                        } else {
                             message += "<h3>Prezado(a), </h3> <br>" +
                                     "<p>Seu email <b>${params.email}</b> encontra-se associado a diferentes usu&aacute;rios.</p><br>" +
                                     "<p>Para dar continuidade a sua solicita&ccedil;&atilde;o, acesse o <i>link</i> correspondente ao(s) usu&aacute;rio(s) desejado(s).</p> <br>" +
@@ -496,5 +496,57 @@ class UserController {
     def userProfile() {
         User user = User.get(params.id);
         render view: "_userProfileModal", model: [user: user]
+    }
+
+    @Transactional
+    def initUsers() {
+
+        new File(servletContext.getRealPath("csv/users.csv")).splitEachLine(";") { fields ->
+            println fields[0] + ", " + fields[1] + ", " + fields[2] + ", " + fields[3]
+            def user = new User(
+                    username: fields[0],
+                    password: "batatais",
+                    email: fields[1],
+                    firstName: fields[2],
+                    lastName: fields[3],
+                    enabled: true
+            )
+
+            user.save flush: true
+
+            if (user.hasErrors()) {
+                println user.errors
+            }
+        }
+
+        File dir = new File(servletContext.getRealPath("csv/grupos"))
+
+        for (final File fileEntry : dir.listFiles()) {
+            String fileName = fileEntry.getName();
+            String groupName = fileName.substring(0, fileName.size()-4)
+            println "fileName = " + fileName
+            def owner = User.findById(1)
+            Group group = new Group(name: groupName, owner: owner, token: groupName)
+            group.save flush: true
+
+            if (group.hasErrors()) {
+                println group.errors
+            } else {
+                new File(servletContext.getRealPath("csv/grupos/" + fileName)).splitEachLine(";") { fields ->
+                    def userName = fields[0]
+                    println groupName + ", " + userName
+                    def user = User.findByUsername(userName)
+
+                    if (user) {
+                        def userGroup = new UserGroup()
+                        userGroup.group = group
+                        userGroup.user = user
+                        userGroup.save flush: true
+                    }
+                }
+            }
+        }
+
+        render "ok"
     }
 }
