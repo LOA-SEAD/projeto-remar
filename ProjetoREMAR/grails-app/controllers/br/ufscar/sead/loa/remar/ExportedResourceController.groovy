@@ -2,6 +2,8 @@ package br.ufscar.sead.loa.remar
 
 import br.ufscar.sead.loa.propeller.Propeller
 import grails.converters.JSON
+import br.ufscar.sead.loa.remar.statistics.StatisticFactory
+import br.ufscar.sead.loa.remar.statistics.Statistics
 import grails.plugin.springsecurity.annotation.Secured
 import grails.plugins.rest.client.RestBuilder
 import grails.transaction.Transactional
@@ -90,71 +92,103 @@ class ExportedResourceController {
         redirect uri: "/exported-resource/moodle/${exportedResourceInstance.id}"
     }
 
-    def saveStats(){
-        def data = [:]
-        println params
-        data.timestamp = new Date().toTimestamp()
+    def saveStats() {
+
+        StatisticFactory factory = StatisticFactory.instance;
+        Statistics statistics = factory.createStatistics(params.gameType as String)
+
+        def data = statistics.getData(params);
         data.userId = session.user.id as long
-        data.exportedResourceId = params.exportedResourceId as int
-        data.levelId = params.levelId as int
-        data.win = Boolean.parseBoolean(params.win)
-        data.gameSize = params.size as int
-        data.gameType = params.gameType
 
-        if(params.gameType == "puzzleWithTime"){
-            data.points = params.points as int
-            data.partialPoints = params.partialPoints as int
-            data.remainingTime = params.remainingTime as int
-            data.end = Boolean.parseBoolean(params.end)
-        } else if(params.gameType == "questionAndAnswer") {
-            data.points = params.points as int
-            data.partialPoints = params.partialPoints as int
-            data.errors = params.errors
-            data.question = params.question
-            data.answer = params.answer
-            data.end = Boolean.parseBoolean(params.end)
-        } else if(params.gameType == "multipleChoice") {
-            data.question = params.question
-            data.answer = params.answer
-            data.choices = params.choices
-            data.choice = params.choice
-        }
+        println "data: " + data
+
         try {
-                MongoHelper.instance.createCollection("stats")
-                MongoHelper.instance.insertStats("stats", data)
+            MongoHelper.instance.createCollection("stats")
+            MongoHelper.instance.insertStats("stats", data)
 
-            } catch (Exception  e) {
-                System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            }
-            render status: 200
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        render status: 200
     }
 
-    def showPlayStats(){
-        def lista = MongoHelper.instance.getData("playStats")
+    def showDamageStats() {
+        def lista = MongoHelper.instance.getData("damageStats")
         StringBuffer buffer = new StringBuffer();
-        for (Object o: lista) {
+        for (Object o : lista) {
             buffer.append(o.toString());
             buffer.append("<br><br>");
         }
         render buffer
     }
 
-    def savePlayStats(){
+    def showTimeStats() {
+        def lista = MongoHelper.instance.getData("timeStats")
+        StringBuffer buffer = new StringBuffer();
+        for (Object o : lista) {
+            buffer.append(o.toString());
+            buffer.append("<br><br>");
+        }
+        render buffer
+    }
+
+    def showStats() {
+        def lista = MongoHelper.instance.getData("stats")
+        StringBuffer buffer = new StringBuffer();
+        for (Object o : lista) {
+            buffer.append(o.toString());
+            buffer.append("<br><br>");
+        }
+        render buffer
+    }
+
+    def showRanking() {
+        def lista = MongoHelper.instance.getData("ranking")
+        StringBuffer buffer = new StringBuffer();
+        for (Object o : lista) {
+            buffer.append(o.toString());
+            buffer.append("<br><br>");
+        }
+        render buffer
+    }
+
+    def savePlayStats() {
+
         if (GroupExportedResources.findAllByExportedResource(ExportedResource.get(params.exportedResourceId)).size != 0) {
             // Game exportado para um grupo
             def data = [:]
             data.timestamp = new Date().toTimestamp()
             data.userId = session.user.id as long
             data.exportedResourceId = params.exportedResourceId as int
-            data.level = params.level as int
-            data.sector = params.sector as int
-            data.monster = params.monster as int
-            data.gameType = params.gameType
-            try {
-                MongoHelper.instance.createCollection("playStats")
-                MongoHelper.instance.insertPlayStats("playStats", data)
-            } catch (Exception  e) {
-                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+
+            if (params.damage) {
+
+                data.level = params.level as int
+                data.sector = params.sector as int
+                data.damage = params.damage as int
+                data.gameType = params.gameType
+                try {
+                    MongoHelper.instance.createCollection("damageStats")
+                    MongoHelper.instance.insertDamageStats("damageStats", data)
+                } catch (Exception e) {
+                    System.err.println(e.getClass().getName() + ": " + e.getMessage());
+                }
+            } else {
+
+                data.time = params.time
+                data.type = params.type
+                data.gameId = params.gameId
+                if (params.gameLevel)
+                    data.gameLevel = params.gameLevel
+                if (params.challengeId)
+                    data.challengeId = params.challengeId
+                data.gameType = params.gameType
+                try {
+                    MongoHelper.instance.createCollection("timeStats")
+                    MongoHelper.instance.insertTimeStats("timeStats", data)
+                } catch (Exception e) {
+                    System.err.println(e.getClass().getName() + ": " + e.getMessage());
+                }
             }
         } else {
             log.debug "Stats skipped. Game was not published to a group."
@@ -170,18 +204,18 @@ class ExportedResourceController {
         exportsTo.desktop = instance.resource.desktop
         exportsTo.android = instance.resource.android
         exportsTo.moodle = instance.resource.moodle
-        def groupsIAdmin = UserGroup.findAllByUserAndAdmin(session.user,true).group
+        def groupsIAdmin = UserGroup.findAllByUserAndAdmin(session.user, true).group
         def baseUrl = "/published/${instance.processId}"
         def process = Propeller.instance.getProcessInstanceById(instance.processId as String, session.user.id as long)
         instance.name = process.name
         RequestMap.findOrSaveWhere(url: "${baseUrl}/**", configAttribute: 'permitAll')
-        process.completedTasks.each {task ->
-            if(task.getVariable('handle') != null){
+        process.completedTasks.each { task ->
+            if (task.getVariable('handle') != null) {
                 handle.put(task.definition.name, task.getVariable('handle'))
             }
         }
-        render view: 'publish', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl, groupsIAdmin: groupsIAdmin,
-                                            exportedResourceInstance: instance,createdAt: process.createdAt, groupsIOwn: groupsIOwn, handle: handle]
+        render view: 'publish', model: [resourceInstance        : instance, exportsTo: exportsTo, baseUrl: baseUrl, groupsIAdmin: groupsIAdmin,
+                                        exportedResourceInstance: instance, createdAt: process.createdAt, groupsIOwn: groupsIOwn, handle: handle]
     }
 
     def export(ExportedResource instance) {
@@ -250,7 +284,7 @@ class ExportedResourceController {
                 }
             }
             def builder = new JsonBuilder()
-            def remarJson = builder{
+            def remarJson = builder {
                 exportedResourceId instance.id
             }
             def jsonName = "remar.json"
@@ -269,15 +303,15 @@ class ExportedResourceController {
 
             //if ([plataforma]) platformList.add("[plataforma]")
             def params = [
-            /* 0 */    processType,
-            /* 1 */    root,
-            /* 2 */    instance.resource.id,
-            /* 3 */    instance.id,
-            /* 4 */    desktopFolder,
-            /* 5 */    mobileFolder,
-            /* 6 */    webFolder
+                    /* 0 */ processType,
+                    /* 1 */ root,
+                    /* 2 */ instance.resource.id,
+                    /* 3 */ instance.id,
+                    /* 4 */ desktopFolder,
+                    /* 5 */ mobileFolder,
+                    /* 6 */ webFolder
             ]
-            render ([platforms:platformList, params:params, urls:urls] as JSON)
+            render([platforms: platformList, params: params, urls: urls] as JSON)
             return
         }
         render urls as JSON
@@ -286,6 +320,7 @@ class ExportedResourceController {
     /*
      * Tratamento de publicação do jogo para plataformas Desktop
      */
+
     def exportDesktop(params) {
         def exp = params.get("params[]");
         def resource = Resource.findById(exp[2])
@@ -297,7 +332,7 @@ class ExportedResourceController {
         def scriptUpdateUnity = "${root}/scripts/unity/update.sh"
         def scriptUpdateElectron = "${root}/scripts/electron/update.sh"
         switch (processType) {
-            case "unity" :
+            case "unity":
                 log.debug "Started Unity Desktop Script"
                 ant.sequential {
                     chmod(perm: "+x", file: scriptUpdateUnity)
@@ -310,7 +345,7 @@ class ExportedResourceController {
                 }
                 log.debug "Finished exporting Unity Desktop project"
                 break
-            default /* HTML */ :
+            default /* HTML */:
                 log.debug "Started Electron Script"
                 ant.sequential {
                     chmod(perm: "+x", file: scriptUpdateElectron)
@@ -328,6 +363,7 @@ class ExportedResourceController {
     /*
      * Tratamento de publicação do jogo para Android
      */
+
     def exportAndroid(params) {
         def exp = params.get("params[]");
         def resource = Resource.findById(exp[2])
@@ -369,7 +405,7 @@ class ExportedResourceController {
         def root = exp[1]
         def webFolder = exp[5]
         switch (processType) {
-            case "unity" :
+            case "unity":
                 log.debug "Started Unity Web Script"
                 def scriptBuildWeb = "${root}/scripts/unity/buildweb.sh"
                 ant.sequential {
@@ -382,10 +418,10 @@ class ExportedResourceController {
                 }
                 log.debug "Finished exporting Unity Web project"
                 break
-            default /* HTML */ :
+            default /* HTML */:
                 def jsonPathWeb = "${root}/published/${instance.processId}/web"
                 def builder = new JsonBuilder()
-                def remarJson = builder{
+                def remarJson = builder {
                     exportedResourceId instance.id
                 }
                 def jsonName = "remar.json"
@@ -610,13 +646,12 @@ class ExportedResourceController {
         model.threshold = threshold
         log.debug("category: " + params.category)
         model.publicExportedResourcesList = null
-        if(params.category.equals("-1")){
+        if (params.category.equals("-1")) {
             // exibe os jogos de todas as categorias
 
             model.publicExportedResourcesList = ExportedResource.findAllByTypeAndNameIlike('public', "%${params.text}%", params)
             maxInstances = ExportedResource.findAllByTypeAndNameIlike('public', "%${params.text}%").size()
-        }
-        else{
+        } else {
             Category c = Category.findById(params.category)
             model.publicExportedResourcesList = []
             maxInstances = 0
@@ -689,8 +724,7 @@ class ExportedResourceController {
             // exibe os jogos de todas as categorias
             myExportedResourcesList = ExportedResource.findAllByTypeAndOwnerAndNameIlike('public', user, "%${params.text}%", params)
             maxInstances = ExportedResource.findAllByTypeAndOwnerAndNameIlike('public', user, "%${params.text}%").size()
-        }
-        else{
+        } else {
             Category c = Category.findById(params.category)
             myExportedResourcesList = []
             maxInstances = 0
@@ -710,36 +744,35 @@ class ExportedResourceController {
         render view: "_customizedGameCard", model:model
     }
 
-    def info(ExportedResource instance){
+    def info(ExportedResource instance) {
         def exportsTo = [:]
         def handle = [:]
         def groupsOwnedByMe = Group.findAllByOwner(session.user)
         exportsTo.desktop = instance.resource.desktop
         exportsTo.android = instance.resource.android
         exportsTo.moodle = instance.resource.moodle
-        def groupsAdministeredByMe = UserGroup.findAllByUserAndAdmin(session.user,true).group
+        def groupsAdministeredByMe = UserGroup.findAllByUserAndAdmin(session.user, true).group
         def baseUrl = "/published/${instance.processId}"
         def process = Propeller.instance.getProcessInstanceById(instance.processId as String, instance.ownerId as long)
         instance.name = process.name
         RequestMap.findOrSaveWhere(url: "${baseUrl}/**", configAttribute: 'permitAll')
-        process.completedTasks.each {task ->
-            if(task.getVariable('handle') != null){
+        process.completedTasks.each { task ->
+            if (task.getVariable('handle') != null) {
                 handle.put(task.definition.name, task.getVariable('handle'))
             }
         }
-        render view: 'info', model: [resourceInstance: instance, exportsTo: exportsTo, baseUrl: baseUrl, groupsIAdmin: groupsAdministeredByMe,
-                                     exportedResourceInstance: instance, createdAt: process.createdAt, groupsIOwn: groupsOwnedByMe, handle : handle]
+        render view: 'info', model: [resourceInstance        : instance, exportsTo: exportsTo, baseUrl: baseUrl, groupsIAdmin: groupsAdministeredByMe,
+                                     exportedResourceInstance: instance, createdAt: process.createdAt, groupsIOwn: groupsOwnedByMe, handle: handle]
     }
 
-    def reportAbuse(){
+    def reportAbuse() {
         def userIP = request.getRemoteAddr()
         def recaptchaResponse = params.get("g-recaptcha-response")
         def rest = new RestBuilder()
         def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?" +
                 "secret=${grailsApplication.config.recaptchaSecret}&response=${recaptchaResponse}&remoteip=${userIP}")
         if (resp.json.success) {
-            if(params.exportedResourceId!=null)
-            {
+            if (params.exportedResourceId != null) {
                 ExportedResource exportedResource = ExportedResource.findById(Integer.parseInt(params.exportedResourceId))
                 User user = session.user
                 String text = params.text
@@ -763,17 +796,16 @@ class ExportedResourceController {
         data.exportedResourceId = params.exportedResourceId as long
         data.score = params.score
 
-	println "SaveScore : " + data
-
+        println "SaveScore : " + data
 
         try {
-                MongoHelper.instance.createCollection("ranking")
-                MongoHelper.instance.insertScoreToRanking(data)
+            MongoHelper.instance.createCollection("ranking")
+            MongoHelper.instance.insertScoreToRanking(data)
 
-            } catch (Exception  e) {
-                System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            }
-            render status: 200
+        } catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        }
+        render status: 200
     }
 
     def getRanking() {
@@ -782,34 +814,11 @@ class ExportedResourceController {
         render lista as JSON
     }
 
-    def testScore() {
-        10.times {
-            def data = [:]
-            data.timestamp = new Date().toTimestamp()
-            data.userId = it + 2
-            data.exportedResourceId = 1
-            data.score = it + 100
-
-            try {
-                    MongoHelper.instance.createCollection("ranking")
-                    MongoHelper.instance.insertScoreToRanking(data)
-
-                } catch (Exception  e) {
-                    System.err.println(e.getClass().getName() + ": " + e.getMessage());
-                }
-            println data.userId + " " + data.score
-        }
-
-        def lista = MongoHelper.instance.getRanking(1)
-
-        render lista as JSON
-    }
-
     def cardInfos() {
         ExportedResource card = ExportedResource.get(params.id);
         User user = session.user
         def group1 = Group.findAllByOwner(user)
-        def group2 = UserGroup.findAllByUserAndAdmin(user,true).group
+        def group2 = UserGroup.findAllByUserAndAdmin(user, true).group
         render view: "_cardGamesModal", model: [instance: card, myGroups: group1, groupsIAdmin: group2]
     }
 }

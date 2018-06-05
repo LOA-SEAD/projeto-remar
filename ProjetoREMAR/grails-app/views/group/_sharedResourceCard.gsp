@@ -1,4 +1,6 @@
 <%@ page import="br.ufscar.sead.loa.remar.GroupExportedResources" %>
+<%@ page import="br.ufscar.sead.loa.remar.UserGroup" %>
+
 <g:external dir="css" file="card.css"/>
 
 <main class="cardGames">

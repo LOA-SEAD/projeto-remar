@@ -12,17 +12,7 @@ $(document).ready(function() {
             },
             email: {
                 email: true,
-                required: true,
-                remote: {
-                    url: "/user/update-email-verifier",
-                    type: 'POST',
-                    data: {
-                        email: function() {
-                            return $('#email').val();
-                        },
-                        userId: $("form").attr("data-user-id")
-                    }
-                }
+                required: true
             },
             password: {
                 minlength: 8
@@ -40,8 +30,7 @@ $(document).ready(function() {
             },
             email: {
                 required: requiredMsg,
-                email: "Digite um email no formato nome@exemplo.com",
-                remote: "Esse email já está em uso"
+                email: "Digite um email no formato nome@exemplo.com"
             },
             password: {
                 minlength: "A nova senha deve ter no mínimo 8 caracteres"

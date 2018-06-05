@@ -89,37 +89,81 @@ class UserController {
 
                 def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?secret=${grailsApplication.config.recaptchaSecret}&response=${captcha}&remoteip=${userIP}")
                 if (resp.json.success == true) {
-                    def user = User.findByEmail(params.email)
-                    if (user) {
-                        def token = new Token(token: RandomStringUtils.random(50, true, true), owner: user, type: 'password_reset')
-                        token.save flush: true
-                        log.debug token.errors
-                        def url = "http://${request.serverName}/user/password/reset?t=${token.token}"
-                        def mensagem = "<h3>Prezado(a) ${user.firstName} ${user.lastName},  </h3> <br>" +
-                                "<p>Voc&ecirc; encontra-se cadastrado(a) com o username: ${user.username} </p> <br>" +
-                                "<p>Para dar continuidade a sua solicita&ccedil;&atilde;o, acesse o link  abaixo. </p> <br>" +
-                                "<p> ${url} </p> <br>" +
-                                "Atenciosamente, <br>" +
-                                "<br>" +
-                                "Equipe REMAR <br>" +
-                                "Recursos Educacionais Multiplataforma Abertos na Rede <br>" +
-                                "<br>" +
-                                "**********************************************************************<br>" +
-                                "Este &eacute; um e-mail autom&aacute;tico. N&atilde;o &eacute; necess&aacute;rio respond&ecirc;-lo. <br>" +
-                                "<br>" +
-                                "Caso tenha recebido esta mensagem por engano, por favor, apague-a.  <br>" +
-                                "<br>" +
-                                "Agradecemos sua coopera&ccedil;&atilde;o. <br>" +
-                               "**********************************************************************"
+                    def userList = User.findAllByEmail(params.email)
+                    if (userList.size() > 0) {
+                        String message = "";
 
-                        Util.sendEmail(user.email, "Recuperar dados cadastrados", mensagem)
+                        if (userList.size() == 1) {
+                            def user = userList.get(0)
+                            def token = new Token(token: RandomStringUtils.random(50, true, true), owner: user, type: 'password_reset')
+                            token.save flush: true
+                            log.debug token.errors
+                            def url = "http://${request.serverName}/user/password/reset?t=${token.token}"
 
-                        render view: "/user/password/emailSent", model: [email: user.email]
+                            message += "<h3>Prezado(a) ${user.firstName} ${user.lastName},  </h3> <br>" +
+                                    "<p>Voc&ecirc; encontra-se cadastrado(a) com o <i>Login:</i> <b>${user.username}</b> </p> <br>" +
+                                    "<p>Para dar continuidade a sua solicita&ccedil;&atilde;o, acesse o <i>link</i>  abaixo. </p> <br>" +
+                                    "<p> ${url} </p> <br>" +
+                                    "Atenciosamente, <br>" +
+                                    "<br>" +
+                                    "Equipe REMAR <br>" +
+                                    "Recursos Educacionais Multiplataforma Abertos na Rede <br>" +
+                                    "<br>" +
+                                    "<hr>" +
+                                    "Este &eacute; um e-mail autom&aacute;tico. N&atilde;o &eacute; necess&aacute;rio respond&ecirc;-lo. <br>" +
+                                    "<br>" +
+                                    "Caso tenha recebido esta mensagem por engano, por favor, apague-a.  <br>" +
+                                    "<br>" +
+                                    "Agradecemos sua coopera&ccedil;&atilde;o. <br>" +
+                                    "<hr>"
+                       } else {
+                            message += "<h3>Prezado(a), </h3> <br>" +
+                                    "<p>Seu email <b>${params.email}</b> encontra-se associado a diferentes usu&aacute;rios.</p><br>" +
+                                    "<p>Para dar continuidade a sua solicita&ccedil;&atilde;o, acesse o <i>link</i> correspondente ao(s) usu&aacute;rio(s) desejado(s).</p> <br>" +
+                                    "<table style=\"border: 1px solid black;\" border=\"1\">" +
+                                    "<tbody>" +
+                                    "<tr>" +
+                                    "<td align=\"center\"><i>Login</i></td>" +
+                                    "<td align=\"center\">Nome</td>" +
+                                    "<td align=\"center\"><i>Link</i></td>" +
+                                    "</tr>"
+
+                            userList.each { user ->
+                                def token = new Token(token: RandomStringUtils.random(50, true, true), owner: user, type: 'password_reset')
+                                token.save flush: true
+                                log.debug token.errors
+                                def url = "http://${request.serverName}/user/password/reset?t=${token.token}"
+                                message += "<tr>" +
+                                        "<td align=\"center\">${user.username}</td>" +
+                                        "<td>${user.firstName} ${user.lastName}</td>" +
+                                        "<td>${url}</td>" +
+                                        "</tr>"
+                            }
+
+                            message += "</tbody>" +
+                                    "</table>" +
+                                    "<br>" +
+                                    "Atenciosamente, <br>" +
+                                    "<br>" +
+                                    "Equipe REMAR <br>" +
+                                    "Recursos Educacionais Multiplataforma Abertos na Rede <br>" +
+                                    "<br>" +
+                                    "<hr>" +
+                                    "Este &eacute; um e-mail autom&aacute;tico. N&atilde;o &eacute; necess&aacute;rio respond&ecirc;-lo. <br>" +
+                                    "<br>" +
+                                    "Caso tenha recebido esta mensagem por engano, por favor, apague-a.  <br>" +
+                                    "<br>" +
+                                    "Agradecemos sua coopera&ccedil;&atilde;o. <br>" +
+                                    "<hr>"
+                        }
+
+                        Util.sendEmail(params.email, "Recuperar dados cadastrados", message)
+                        render view: "/user/password/emailSent", model: [email: params.email]
                     } else {
                         flash.message = message(code: "error.mail")
                         render view: "/user/password/requestToken"
                     }
-                // User hasn't fullfiled the captcha.
+                    // User hasn't fullfiled the captcha.
                 } else {
                     flash.message = message(code: "error.captcha")
                     render view: "/user/password/requestToken"
@@ -169,27 +213,27 @@ class UserController {
             instance.save flush: true
             def token = new Token(token: RandomStringUtils.random(50, true, true), owner: instance, type: 'email_confirmation')
             token.save flush: true
-            def link = "http://${request.serverName}:${request.serverPort}/user/account/confirm/${token.token}"
+            def link = "http://${request.serverName}/user/account/confirm/${token.token}"
 
             // noinspection GroovyAssignabilityCheck
-	   def mensagem =      "<h3>Prezado(a) ${instance.firstName} ${instance.lastName},  </h3> <br>" +
-                                "<p>Seu cadastro, username ${instance.username}, foi realizado com sucesso.</p> <br>" +
-                                "<p>Para confirmar seu cadastro, acesse o link  abaixo. </p> <br>" +
-                                "${link} <br><br>" +
-                                "Atenciosamente, <br>" +
-                                "<br>" +
-                                "Equipe REMAR <br>" +
-                                "Recursos Educacionais Multiplataforma Abertos na Rede <br>" +
-                                "<br>" +
-                                "**********************************************************************<br>" +
-                                "Este &eacute; um e-mail autom&aacute;tico. N&atilde;o &eacute; necess&aacute;rio respond&ecirc;-lo. <br>" +
-                                "<br>" +
-                                "Caso tenha recebido esta mensagem por engano, por favor, apague-a.  <br>" +
-                                "<br>" +
-                                "Agradecemos sua coopera&ccedil;&atilde;o. <br>" +
-                               "**********************************************************************"
+            def message = "<h3>Prezado(a) ${instance.firstName} ${instance.lastName},  </h3> <br>" +
+                    "<p>Seu cadastro, <i>Login:</i> <b>${instance.username}</b>, foi realizado com sucesso.</p> <br>" +
+                    "<p>Para confirmar seu cadastro, acesse o <i>link</i>  abaixo. </p> <br>" +
+                    "${link} <br><br>" +
+                    "Atenciosamente, <br>" +
+                    "<br>" +
+                    "Equipe REMAR <br>" +
+                    "Recursos Educacionais Multiplataforma Abertos na Rede <br>" +
+                    "<br>" +
+                    "<hr>" +
+                    "Este &eacute; um e-mail autom&aacute;tico. N&atilde;o &eacute; necess&aacute;rio respond&ecirc;-lo. <br>" +
+                    "<br>" +
+                    "Caso tenha recebido esta mensagem por engano, por favor, apague-a.  <br>" +
+                    "<br>" +
+                    "Agradecemos sua coopera&ccedil;&atilde;o. <br>" +
+                    "<hr>"
 
-            Util.sendEmail(instance.email, "Cadastro - REMAR", mensagem)
+            Util.sendEmail(instance.email, "Cadastro - REMAR", message)
             redirect uri: "/signup/success/$instance.id"
         } else {
             // TODO
@@ -312,17 +356,17 @@ class UserController {
             def firstName = User.findAllByFirstNameRlike(params.query, params.query, params.query)
             def lastName = User.findAllByLastNameRlike(params.query, params.query, params.query)
             def userName = User.findAllByUsernameRlike(params.query, params.query, params.query)
-            def allUsers = ((firstName + lastName + userName) as Set).sort{it.firstName.toUpperCase()}
+            def allUsers = ((firstName + lastName + userName) as Set).sort { it.firstName.toUpperCase() }
 
             def group = Group.findById(params.group)
             def list = allUsers.collect {
                 def inGroup = UserGroup.findByUserAndGroup(it, group) ? true : false
-                    [
-                            label: "${it.firstName} ${it.lastName} ($it.username)",
-                            value: it.id,
-                            inGroup: inGroup
-                    ]
-                }
+                [
+                        label  : "${it.firstName} ${it.lastName} ($it.username)",
+                        value  : it.id,
+                        inGroup: inGroup
+                ]
+            }
 
             render list as JSON
 
@@ -386,7 +430,7 @@ class UserController {
 
     @Transactional
     def disableAccount() {
-	User userInstance = springSecurityService.getCurrentUser()
+        User userInstance = springSecurityService.getCurrentUser()
 
         UserRole.removeAll(userInstance, true)
 
@@ -414,8 +458,7 @@ class UserController {
         UserGroup.removeAllByUser(userInstance, true)
 
         userInstance.delete flush: true
-	redirect uri: "/logout/index"
-
+        redirect uri: "/logout/index"
     }
 
     @Transactional
