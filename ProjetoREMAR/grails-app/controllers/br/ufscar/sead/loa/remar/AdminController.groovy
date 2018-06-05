@@ -503,7 +503,8 @@ class AdminController {
         user.email = email
         user.firstName = firstName
         user.lastName = lastName
-        user.password = RandomStringUtils.random(8, true, true)
+        def password = RandomStringUtils.random(8, true, true)
+        user.password = password
         user.enabled = true
 
         user.save flush: true
@@ -511,14 +512,17 @@ class AdminController {
         if (user.hasErrors()) {
             log.debug(user.errors)
         } else {
+            def url = "http://${request.serverName}"
             def mensagem = "<h3>Prezado(a) ${user.firstName} ${user.lastName}, bem-vindo ao REMAR!</h3>\n" +
                     "<br/>\n" +
-                    "<p>Você foi cadastrado pelo administrador da plataforma com as seguintes credenciais:</p>\n" +
+                    "<p>Voc&ecirc; foi cadastrado pelo administrador da plataforma com as seguintes credenciais:</p>\n" +
                     "<br/>\n" +
-                    "<p><strong>Nome de usuário:</strong> ${user.username}</p>\n" +
-                    "<p><strong>Senha:</strong> ${user.password}</p>\n" +
+                    "<p><strong>Nome de usu&aacute;rio:</strong> ${user.username}</p>\n" +
+                    "<p><strong>Senha:</strong> ${password}</p>\n" +
                     "<br/>\n" +
-                    "<p>Clique <a href=\"http://${request.serverName}\">aqui</a> para acessar o REMAR ou <a href=\"http://${request.serverName}/my-profile\">aqui</a> se deseja mudar sua senha.</p>\n" +
+                    "<p>Para acessar o REMAR: <a href=\"http://${request.serverName}\">http://${request.serverName}</a></p>\n" +
+                    "<p>" +
+                    "<p>Para alterar sua senha: <a href=\"http://${request.serverName}/my-profile\">http://${request.serverName}/my-profile</a></p>\n" +
                     "<br/>\n" +
                     "<p>Atenciosamente,</p>\n" +
                     "<p>Equipe REMAR</p>\n" +
@@ -526,11 +530,13 @@ class AdminController {
                     "<br/>\n" +
                     "<br/>\n" +
                     "<br/>\n" +
-                    "<p>**********************************************************************</p>\n" +
-                    "<p>Este é um e-mail automático. Não é necessário respondê-lo.</p>\n" +
-                    "<p>Caso tenha recebido esta mensagem por engano, por favor, apague-a.</p>\n" +
-                    "<p>Agradecemos sua cooperação.</p>\n" +
-                    "<p>**********************************************************************</p>"
+                    "**********************************************************************<br>" +
+                    "Este &eacute; um e-mail autom&aacute;tico. N&atilde;o &eacute; necess&aacute;rio respond&ecirc;-lo. <br>" +
+                    "<br>" +
+                    "Caso tenha recebido esta mensagem por engano, por favor, apague-a.  <br>" +
+                    "<br>" +
+                    "Agradecemos sua coopera&ccedil;&atilde;o. <br>" +
+                    "**********************************************************************"
             Util.sendEmail(email, "Bem-vindo ao REMAR", mensagem)
         }
 
