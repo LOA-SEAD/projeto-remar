@@ -116,7 +116,7 @@ class UserController {
                                     "<br>" +
                                     "Agradecemos sua coopera&ccedil;&atilde;o. <br>" +
                                     "<hr>"
-                       } else {
+                        } else {
                             message += "<h3>Prezado(a), </h3> <br>" +
                                     "<p>Seu email <b>${params.email}</b> encontra-se associado a diferentes usu&aacute;rios.</p><br>" +
                                     "<p>Para dar continuidade a sua solicita&ccedil;&atilde;o, acesse o <i>link</i> correspondente ao(s) usu&aacute;rio(s) desejado(s).</p> <br>" +
@@ -497,4 +497,5 @@ class UserController {
         User user = User.get(params.id);
         render view: "_userProfileModal", model: [user: user]
     }
+
 }

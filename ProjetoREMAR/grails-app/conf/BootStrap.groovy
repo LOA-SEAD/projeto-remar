@@ -17,11 +17,11 @@ class BootStrap {
 
     def init = { servletContext ->
 
-        MongoHelper.instance.init([dbHost: grailsApplication.config.dataSource.dbHost,
+        MongoHelper.instance.init([dbHost  : grailsApplication.config.dataSource.dbHost,
                                    username: grailsApplication.config.dataSource.username,
                                    password: grailsApplication.config.dataSource.password])
 
-        Propeller.instance.init([dbHost: grailsApplication.config.dataSource.dbHost, dbName  : 'remar-propeller', wipeDb: false,
+        Propeller.instance.init([dbHost  : grailsApplication.config.dataSource.dbHost, dbName: 'remar-propeller', wipeDb: false,
                                  username: grailsApplication.config.dataSource.username,
                                  authDb  : 'admin',
                                  password: grailsApplication.config.dataSource.password])
@@ -38,7 +38,7 @@ class BootStrap {
         }
 
         if (!User.list()) {
-            def admin = new User (
+            def admin = new User(
                     username: "admin",
                     password: grailsApplication.config.users.password,
                     email: "remar@sead.ufscar.br",
@@ -51,7 +51,7 @@ class BootStrap {
             UserRole.create admin, Role.findByAuthority("ROLE_ADMIN"), true
             UserRole.create admin, Role.findByAuthority("ROLE_DEV"), true
 
-            def loa = new User (
+            def loa = new User(
                     username: "loa",
                     password: grailsApplication.config.users.password,
                     email: "loa@sead.ufscar.br",
@@ -64,6 +64,55 @@ class BootStrap {
             UserRole.create loa, Role.findByAuthority("ROLE_DEV"), true
 
             log.debug "Users: ok"
+
+            File csvDir = new File(servletContext.getRealPath("csv"))
+
+            if (csvDir.exists()) {
+                new File(servletContext.getRealPath("csv/users.csv")).splitEachLine(";") { fields ->
+                    def user = new User(
+                            username: fields[0],
+                            password: "batatais",
+                            email: fields[1],
+                            firstName: fields[2],
+                            lastName: fields[3],
+                            enabled: true
+                    )
+
+                    user.save flush: true
+
+                    if (user.hasErrors()) {
+                        println user.errors
+                    }
+                }
+
+                File dir = new File(servletContext.getRealPath("csv/grupos"))
+
+                for (final File fileEntry : dir.listFiles()) {
+                    String fileName = fileEntry.getName();
+                    String groupName = fileName.substring(0, fileName.size() - 4)
+                    def owner = User.findById(1)
+                    Group group = new Group(name: groupName, owner: owner, token: groupName)
+                    group.save flush: true
+
+                    if (group.hasErrors()) {
+                        println group.errors
+                    } else {
+                        new File(servletContext.getRealPath("csv/grupos/" + fileName)).splitEachLine(";") { fields ->
+                            def userName = fields[0]
+                            def user = User.findByUsername(userName)
+
+                            if (user) {
+                                def userGroup = new UserGroup()
+                                userGroup.group = group
+                                userGroup.user = user
+                                userGroup.admin = (fields[1].toUpperCase() == 'S')
+                                userGroup.save flush: true
+                            }
+                        }
+                    }
+                }
+                log.debug "Users & Groups (via csv): ok"
+            }
         }
 
         Platform.findOrSaveByName('Android')
