@@ -313,11 +313,10 @@ class GroupController {
 
     def edit() {
         def group = Group.findById(params.id)
+        def usersInGroup = []
+        def usersNotInGroup = []
 
-        def usersInGroup = new ArrayList()
-        def usersNotInGroup = new ArrayList()
-
-        for (user in User.list(sort: "firstName")) {
+        for (user in User.list()) {
             if (UserGroup.findByUserAndGroup(user, group))
                 usersInGroup.add(user)
             else

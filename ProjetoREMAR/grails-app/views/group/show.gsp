@@ -286,8 +286,8 @@
 
                         <p class="">Usuário: ${userGroup.user.username}</p>
                         <g:if test="${group.owner.id == session.user.id}">
-                            <!--a href="#" id="${userGroup.id}" style="position: relative; top: -2.5em; left: -1.6em;"
-                               class="secondary-content delete-modal"><i class="material-icons">delete</i></a-->
+                            <a href="#" id="${userGroup.id}" style="position: relative; top: -2.5em; left: -1.6em;"
+                               class="secondary-content delete-modal"><i class="material-icons">delete</i></a>
                             <g:if test="${!userGroup.admin}">
                                 <a id="make-admin-${userGroup.id}" data-user-group-id="${userGroup.id}" href="#"
                                    data-position="left" data-tooltip="Tornar admin"
