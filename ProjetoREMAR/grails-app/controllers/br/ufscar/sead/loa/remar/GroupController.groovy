@@ -348,6 +348,7 @@ class GroupController {
 
     def edit() {
         def group = Group.findById(params.id)
+
         def usersInGroup = []
         def usersNotInGroup = []
         session.groupid = params.id
