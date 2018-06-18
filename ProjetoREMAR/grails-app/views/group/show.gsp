@@ -15,7 +15,7 @@
                                     <a href="/group/admin" class="breadcrumb black-text"><g:message code='menu.button.my.groups.admin.label' default="Sou Admin"/></a>
                                 </g:if>
                                 <g:else>
-                                    <a href="/group/admin" class="breadcrumb black-text"><g:message code='menu.button.my.groups.member.label' default="Sou Membro"/></a>
+                                    <a href="/group/admin" class="breadcrumb orange-text text-darken-2"><g:message code='menu.button.my.groups.member.label' default="Sou Membro"/></a>
                                 </g:else>
                                 <a href="/group/show/${group.id}" class="breadcrumb orange-text text-darken-2">${group.name}</a>
                                 <br/>

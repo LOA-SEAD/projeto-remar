@@ -9,7 +9,7 @@
         <div class="cluster-header">
             <div class="col s12" style="font-size: 1.6em;">
               <a href="#!" class="first-breadcrumb dropdown-button black-text"><g:message code='group.label.myGroups' default="Meus Grupos"/></a>
-              <a href="#!" class="breadcrumb black-text"><g:message code='menu.button.my.groups.label' default="Sou Membro"/></a>
+              <a href="#!" class="breadcrumb black-text"><g:message code='menu.button.my.groups.member.label' default="Sou Membro"/></a>
             </div>
             <div class="divider"></div>
         </div>
