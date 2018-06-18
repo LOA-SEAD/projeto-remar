@@ -8,11 +8,18 @@
             <div class="row show">
                 <div class="row cluster-header">
                     <div id="main-header" class="row" style="margin-bottom: 0px">
-                        <div class="col s6" style="font-size: 1.6em;">
-                            <a href="#!" class="first-breadcrumb dropdown-button black-text"><g:message code='group.label.myGroups' default="Meus Grupos"/></a>
-                            <a href="#!" class="breadcrumb black-text"><g:message code='menu.button.my.groups.admin.label' default="Sou Admin"/></a>
-                            <a href="#!" class="breadcrumb orange-text text-darken-2">${group.name}</a>
-                            <a href="#!" class="breadcrumb orange-text text-darken-2"><g:message code='menu.button.my.groups.edit.label' default="Configurações"/></a>
+                        <div class="col s6">
+                            <div style="font-size: 1.6em;">
+                                <a href="#!" class="first-breadcrumb dropdown-button black-text"><g:message code='group.label.myGroups' default="Meus Grupos"/></a>
+                                <g:if test="${group.owner.id == session.user.id}">
+                                    <a href="/group/admin" class="breadcrumb black-text"><g:message code='menu.button.my.groups.admin.label' default="Sou Admin"/></a>
+                                </g:if>
+                                <g:else>
+                                    <a href="/group/admin" class="breadcrumb black-text"><g:message code='menu.button.my.groups.member.label' default="Sou Membro"/></a>
+                                </g:else>
+                                <a href="/group/show/${group.id}" class="breadcrumb orange-text text-darken-2">${group.name}</a>
+                                <br/>
+                            </div>
                             <g:if test="${group.owner.id == session.user.id}">
                                 <h7>Código de acesso: ${group.token}</h7>
                             </g:if>
