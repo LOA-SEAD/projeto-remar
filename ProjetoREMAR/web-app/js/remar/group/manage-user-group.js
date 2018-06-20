@@ -102,7 +102,8 @@ $(document).ready(function () {
                  $.ajax ({
                      method: 'POST',
                      data: { users: JSON.stringify(users) },
-                     url: '/group/addUsers'
+                     url: '/group/addUsers',
+                     success: function(e) { Materialize.toast(GMS.USER_ADDED_TO_GROUP_MESSAGE)}
                  });
 
                  var $toggle = $('#admin-toggle-button-model');
