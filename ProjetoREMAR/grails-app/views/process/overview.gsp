@@ -159,7 +159,7 @@
                                                 <g:if test="${task.status == 1}">
                                                     <td>
                                                         <a href="/frame/${process.definition.uri}/${task.definition.uri}?t=${task.id}&p=${process.id}">
-                                                            <g:message code="overview.label.waiting" default="Pendente"/>
+                                                            <g:message code="overview.label.pending" default="Pendente"/>
                                                         </a>
                                                     </td>
                                                 </g:if>
