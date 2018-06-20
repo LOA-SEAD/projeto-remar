@@ -139,7 +139,8 @@ $(document).ready(function () {
                  $.ajax ({
                      method: 'POST',
                      data: { users: JSON.stringify(users) },
-                     url: '/group/removeUsers'
+                     url: '/group/removeUsers',
+                     success: function(e) { Materialize.toast(GMS.USER_REMOVED_FROM_GROUP_MESSAGE)}
                  });
 
                  // remove admin toggle button and resize whole row

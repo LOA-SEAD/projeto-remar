@@ -6,7 +6,8 @@
         <meta name="layout" content="materialize-layout">
         <g:javascript>
             GMS = {};
-            GMS.USER_ADDED_TO_GROUP_MESSAGE = "${message(code: 'group.message.user.add.success')}";
+            GMS.USER_ADDED_TO_GROUP_MESSAGE     = "${message(code: 'group.message.user.add.success')}";
+            GMS.USER_REMOVED_FROM_GROUP_MESSAGE = "${message(code: 'group.message.user.removed.success')}";
         </g:javascript>
     </head>
 
