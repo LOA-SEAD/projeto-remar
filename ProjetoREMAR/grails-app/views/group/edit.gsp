@@ -10,7 +10,15 @@
         <div class="row cluster">
             <div class="row no-margin">
                 <div class="row cluster-header">
-                    <h4>Informações de <a href="/group/show/${group.id}">${group.name}</a></h4>
+                    <div class="col s12">
+                        <div style="font-size: 1.6em;">
+                            <a href="#!" class="first-breadcrumb dropdown-button black-text"><g:message code='group.label.myGroups' default="Meus Grupos"/></a>
+                            <a href="/group/admin" class="breadcrumb orange-text text-darken-2"><g:message code='menu.button.my.groups.admin.label' default="Sou Admin"/></a>
+                            <a href="/group/show/${group.id}" class="breadcrumb orange-text text-darken-2">${group.name}</a>
+                            <a href="#!" class="breadcrumb black-text">Configurações</a>
+                            <br/>
+                        </div>
+                    </div>
                     <div class="divider"></div>
                 </div>
 
