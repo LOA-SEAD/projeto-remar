@@ -113,7 +113,6 @@
                                         <i class="fa fa-info-circle"></i>
                                     </a>
                                 </div>
-                                <g:if test="${!(mode == 'public')}">
                                     <g:if test="${instance.resource.shareable}">
                                         <div class="col s6 m4 l3">
                                             <a href="#modal-group" class="tooltipped compartilhaModal"
@@ -130,13 +129,14 @@
                                             </div>
                                         </div>
                                     </g:else>
+                                    <g:if test="${!(mode == 'public')}">
                                     <div class="col s6 m4 l3 ">
                                         <a href="#modal-delete-exported-resource" class="tooltipped modal-trigger deleteExportedResource"
                                            data-position="bottom" data-delay="50" data-tooltip="Excluir">
                                             <i class="fa fa-trash"></i>
                                         </a>
                                     </div>
-                                </g:if>
+                                  </g:if>
                             </div>
 
                             <div class="divider"></div>
