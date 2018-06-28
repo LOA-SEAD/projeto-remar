@@ -3,6 +3,7 @@
   <head>
     <title><g:message code='exportedResource.label.customizing' default='Em Customização'/></title>
     <meta name="layout" content="materialize-layout">
+    <g:javascript src="remar/utility/utility-my-processes.js"/>
   </head>
 
   <body>
