@@ -6,10 +6,12 @@
 
     <body>
     <div class="row cluster">
-        <div class="cluster-header">
-            <div class="col s12" style="font-size: 1.6em;">
-              <a href="#!" class="first-breadcrumb black-text"><g:message code='group.label.myGroups' default="Meus Grupos"/></a>
-              <a href="#!" class="breadcrumb black-text"><g:message code='menu.button.my.groups.member.label' default="Sou Membro"/></a>
+        <div class="row show">
+            <div class="cluster-header">
+                <div id="main-header" class="row" style="font-size: 1.6em;">
+                  <a href="#!" class="first-breadcrumb black-text"><g:message code='group.label.myGroups' default="Meus Grupos"/></a>
+                  <a href="#!" class="breadcrumb black-text"><g:message code='menu.button.my.groups.member.label' default="Sou Membro"/></a>
+                </div>
             </div>
             <div class="divider"></div>
         </div>
