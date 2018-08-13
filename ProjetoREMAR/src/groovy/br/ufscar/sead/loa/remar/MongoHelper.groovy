@@ -2,6 +2,7 @@ package br.ufscar.sead.loa.remar
 
 import com.mongodb.MongoCredential
 import com.mongodb.ServerAddress
+import com.mongodb.client.FindIterable
 import com.mongodb.client.MongoDatabase
 import com.mongodb.MongoClient
 import com.mongodb.client.model.Filters
@@ -247,4 +248,39 @@ class MongoHelper {
         return ranking
     }
 
+
+    static void main(String... args) {
+
+        MongoHelper.instance.init([dbHost  : 'alfa.remar.online',
+                                   username: 'root',
+                                   password: 'root'])
+
+        /*
+
+        // Retorna todos os stats
+
+        FindIterable<Document> docs = MongoHelper.instance.getData('stats')
+        for (Document doc : docs) {
+            println doc
+        }
+
+        */
+
+        FindIterable<Document> docs = MongoHelper.instance.getStats('stats', 4, 76)
+        def winners = []
+
+        for (Document doc : docs) {
+            println doc
+            println "Usuário: " + doc.userId
+            println "Stats: " + doc.stats
+            for (Object o: doc.stats) {
+                if (o.win) {
+                    winners.add(o)
+                }
+            }
+            println "Tamanho: " + doc.stats.size()
+            println "Winners: " + winners
+            println "Contador win: " + winners.size()
+        }
+    }
 }
