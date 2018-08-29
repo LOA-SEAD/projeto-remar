@@ -740,6 +740,7 @@ class ExportedResourceController {
         exportsTo.desktop = instance.resource.desktop
         exportsTo.android = instance.resource.android
         exportsTo.moodle = instance.resource.moodle
+        exportsTo.web = instance.resource.web
         def groupsAdministeredByMe = UserGroup.findAllByUserAndAdmin(session.user, true).group
         def baseUrl = "/published/${instance.processId}"
         def process = Propeller.instance.getProcessInstanceById(instance.processId as String, instance.ownerId as long)
