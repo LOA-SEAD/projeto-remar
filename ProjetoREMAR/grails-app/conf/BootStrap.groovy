@@ -133,7 +133,7 @@ class BootStrap {
                 '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/exportedResource/**', '/my-profile',
                 '/user/update', '/userProfile', '/userProfile/**', '/moodle/link/**', '/moodle/unlink/**', '/resource/saveRating/**',
                 '/resource/updateRating/**', '/resource/deleteRating/**', '/group/**', '/group/user-stats/**', '/group/stats/**', '/user-group/**', '/group-exported-resources/**',
-                '/dspace/**', '/resource/customizableGames', '/resource/show/**'
+                '/dspace/**', '/resource/customizableGames', '/resource/show/**', '/stats/**'
         ]) {
             RequestMap.findOrSaveByUrlAndConfigAttribute(url, 'isAuthenticated()')
         }
