@@ -220,7 +220,7 @@ class QuestionController {
                 default:
                     println("Erro! Alternativa correta inválida")
             }
-            bw.write("\""+ questionList.getAt(i).hint +"\"],\n")
+            bw.write("\""+ questionList.getAt(i).hint.replace("\"","\\\"") +"\"],\n")
         }
 
         bw.write("\"" + (i+1) + "\": [\"" + questionList.getAt(i).title + "\", ")
