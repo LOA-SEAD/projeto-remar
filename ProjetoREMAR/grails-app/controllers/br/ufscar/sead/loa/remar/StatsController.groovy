@@ -53,7 +53,7 @@ class StatsController {
 
             for (o in resourceTime) {
                 if (userGroups.find { it.user.id == o.userId } != null) {
-                    groupTime.add( [User.findById(o.userId).name, o.conclusionTime] )
+                    groupTime.add( [User.findById(o.userId).name, o.conclusionTime.round()] )
                 }
             }
 
@@ -94,15 +94,15 @@ class StatsController {
         }
     }
 
-/*    def levelsAttempts() {
-        *//*
+    def levelsAttempts() {
+        /*
          *  Retorna um JSON com quantidade de tentativas por nivel
          *  [[nivel, tentativas]]
          *
          *  Parâmetros:
          *      groupId            -> identificador do grupo
          *      exportedResourceId -> identificador do recurso exportado
-         *//*
+         */
 
         if (params.groupId && params.exportedResourceId) {
 
@@ -111,11 +111,61 @@ class StatsController {
             def users = userGroups.collect {
                 it.user.id
             }
-            log.debug(users)
-            def resourceLevels = MongoHelper.instance.getLevelsAttempts(params.exportedResourceId as Long, users)
+
+            def resourceLevels = MongoHelper.instance.getLevelsAttempts(params.exportedResourceId as Long, users as Long[])
+
+            println resourceLevels
+
+            render resourceLevels as JSON
 
         } else {
             // TODO: render erro nos parametros
         }
-    }*/
+    }
+
+    def averageLevelTime() {
+        /*
+         *  Retorna um JSON com tempo médio gasto por nivel
+         *  [[nivel, tempo]]
+         *
+         *  OBS: É pego o menor tempo de cada usuário do grupo
+         *  e depois calculada a média com esse conjunto.
+         *
+         *  Parâmetros:
+         *      groupId            -> identificador do grupo
+         *      exportedResourceId -> identificador do recurso exportado
+         */
+
+        if (params.groupId && params.exportedResourceId) {
+
+            def group = Group.findById(params.groupId)
+            def userGroups = UserGroup.findAllByGroup(group)
+            def users = userGroups.collect {
+                it.user.id
+            }
+
+            def groupTimeLevel = MongoHelper.instance.getTempoNivel(params.exportedResourceId as Long, users as Long[])
+
+            def avgTimeLevel = []
+            def sum = 0.0
+            def avg
+
+            groupTimeLevel.each { level ->
+
+                level.value.each { time ->
+                    sum += time.value
+                }
+
+                avg = sum / ( level.value.size() )
+                avgTimeLevel.add([ level.key, avg ])
+                sum = 0.0
+            }
+
+            render avgTimeLevel as JSON
+
+        } else {
+            // TODO: render erro nos parametros
+        }
+    }
+
 }

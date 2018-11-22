@@ -95,7 +95,7 @@ class ExportedResourceController {
         StatisticFactory factory = StatisticFactory.instance;
         Statistics statistics = factory.createStatistics(params.gameType as String)
 
-        def data = statistics.getData(params);
+        def data = statistics.getData(params)
         data.userId = session.user.id as long
 
         println "data: " + data
