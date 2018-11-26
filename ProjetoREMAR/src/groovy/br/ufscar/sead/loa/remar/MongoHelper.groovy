@@ -282,23 +282,24 @@ class MongoHelper {
         // Lista de mapas
         def usersTime = [] // [ [usuarioID: , conclusionTime: y] ]
         def index
+        def timeAsDouble
 
         for (Document doc : docs) {
             for (Object o: doc.timeStats) {
-                if (o.exportedResourceId == exportedResourceId && o.type == 0 && o.time != 0.0) {
+                if (o.exportedResourceId == exportedResourceId && o.type == '0' && (o.time as double) > 0.0) {
 
                     // Se usuario ja esta na lista de mapas
                     index = usersTime.findIndexOf { it.userId == o.userId }
                     if(index != -1) {
 
                         // e o valor do tempo eh menor, atualiza
-                        if(usersTime[index]["conclusionTime"] > o.time) {
-                            usersTime[index]["conclusionTime"] = o.time
+                        if(usersTime[index]["conclusionTime"] > (o.time as double)) {
+                            usersTime[index]["conclusionTime"] = o.time as double
                         }
 
                     // se nao esta no lista, coloca
                     } else {
-                        usersTime.add( ["userId" : o.userId, "conclusionTime" : o.time] )
+                        usersTime.add( ["userId" : o.userId, "conclusionTime" : o.time as double] )
                     }
                 }
             }
@@ -360,11 +361,6 @@ class MongoHelper {
                 .projection([ _id: 0, 'timeStats.userId': 1, 'timeStats.exportedResourceId': 1,
                               'timeStats.time': 1, 'timeStats.type': 1, 'timeStats.gameLevel' : 1 ] as BasicDBObject)
 
-        def statsCollection = db.getCollection("stats")
-                .find( [ 'stats.exportedResourceId' : exportedResourceId ] as BasicDBObject)
-                .projection([ _id: 0, 'stats.exportedResourceId': 1,
-                              'stats.gameLevel' : 1, 'stats.gameLevelName' : 1] as BasicDBObject)
-
         def levelAttempts = [:]
 
         for (Document doc : timeCollection) {
@@ -373,7 +369,7 @@ class MongoHelper {
                         && o.time == '0'
                         && o.type == '1'
                         && o.userId in users) {
-                    println o
+
                     if(levelAttempts.containsKey(o.gameLevel as int)) {
                         levelAttempts[o.gameLevel as int] += 1
                     } else {
@@ -384,6 +380,12 @@ class MongoHelper {
         }
 
         if (levelAttempts.size() > 0) {
+
+            def statsCollection = db.getCollection("stats")
+                    .find( [ 'stats.exportedResourceId' : exportedResourceId ] as BasicDBObject)
+                    .projection([ _id: 0, 'stats.exportedResourceId': 1,
+                                  'stats.gameLevel' : 1, 'stats.gameLevelName' : 1] as BasicDBObject)
+
             for (Document doc : statsCollection) {
                 for (Object o : doc.stats) {
                     if (o.exportedResourceId == exportedResourceId) {
@@ -407,7 +409,7 @@ class MongoHelper {
             }
 
             // Para DEBUG -> descomente as linhas abaixo
-            println "levelAttempts: " + levelAttempts
+            //println "levelAttempts: " + levelAttempts
 
             return levelAttempts
 
@@ -449,14 +451,16 @@ class MongoHelper {
     }
 
     //TEMPO DE CONCLUSÃO DE CADA NÍVEL
-    def getTempoNivel (Long exportedResourceId, Long[] users) {
+    def getLevelTime (Long exportedResourceId, Long[] users) {
 
         def timeCollection = db.getCollection("timeStats")
-                .find(new Document('timeStats.exportedResourceId', exportedResourceId))
-        def statsCollection = db.getCollection("stats")
-                .find( [ 'stats.exportedResourceId' : exportedResourceId ] as BasicDBObject)
+                .find([ 'timeStats.exportedResourceId' : exportedResourceId ] as BasicDBObject)
+                .projection([ _id: 0, 'timeStats.userId': 1, 'timeStats.exportedResourceId': 1,
+                              'timeStats.time': 1, 'timeStats.type': 1, 'timeStats.gameLevel' : 1 ] as BasicDBObject)
 
-        def tempoPorNivel = [:]
+        def timePerLevel = [:]
+        def levelInt
+        def timeDouble
 
         for (Document doc : timeCollection) {
             for (Object o: doc.timeStats) {
@@ -465,50 +469,57 @@ class MongoHelper {
                     && o.time as double != 0
                     && o.userId in users) {
 
-                    if(tempoPorNivel[o.gameLevel]) {
-                        if (tempoPorNivel[o.gameLevel][o.userId]) {
-                            if (tempoPorNivel[o.gameLevel][o.userId] > (o.time as double)) {
-                                tempoPorNivel[o.gameLevel][o.userId] = o.time as double
+                    levelInt = o.gameLevel as int
+                    timeDouble = o.time as double
+
+                    if(timePerLevel[levelInt]) {
+                        if (timePerLevel[levelInt][o.userId]) {
+                            if (timePerLevel[levelInt][o.userId] > (timeDouble)) {
+                                timePerLevel[levelInt][o.userId] = timeDouble
                             }
                         } else {
-                            tempoPorNivel[o.gameLevel].put(o.userId, o.time as double)
+                            timePerLevel[levelInt].put(o.userId, timeDouble)
                         }
                     } else {
-                        tempoPorNivel.put(o.gameLevel, [(o.userId): (o.time as double)])
+                        timePerLevel.put(levelInt, [(o.userId): (timeDouble)])
                     }
                 }
             }
         }
 
-        if (tempoPorNivel.size() > 0) {
+        if (timePerLevel.size() > 0) {
+
+            def statsCollection = db.getCollection("stats")
+                    .find( [ 'stats.exportedResourceId' : exportedResourceId ] as BasicDBObject)
+                    .projection([ _id: 0, 'stats.exportedResourceId': 1,
+                                  'stats.gameLevel' : 1, 'stats.gameLevelName' : 1] as BasicDBObject)
 
             for (Document doc : statsCollection) {
                 for (Object o : doc.stats) {
                     if (o.exportedResourceId == exportedResourceId) {
 
-                        if (tempoPorNivel.containsKey(o.gameLevel)) {
-
-                            tempoPorNivel.put(o.gameLevelName, tempoPorNivel[o.gameLevel])
-                            tempoPorNivel.remove(o.gameLevel)
+                        if (timePerLevel.containsKey(o.gameLevel)) {
+                            timePerLevel.put(o.gameLevelName, timePerLevel[o.gameLevel])
+                            timePerLevel.remove(o.gameLevel)
                         }
                     }
                 }
             }
 
-            if (tempoPorNivel.containsKey(5)) {
-                tempoPorNivel.put("Fase Refeitório", tempoPorNivel[5])
-                tempoPorNivel.remove(5)
+            if (timePerLevel.containsKey(5)) {
+                timePerLevel.put("Fase Refeitório", timePerLevel[5])
+                timePerLevel.remove(5)
             }
 
-            if (tempoPorNivel.containsKey(1)) {
-                tempoPorNivel.put("Fase Galeria", tempoPorNivel[1])
-                tempoPorNivel.remove(1)
+            if (timePerLevel.containsKey(1)) {
+                timePerLevel.put("Fase Galeria", timePerLevel[1])
+                timePerLevel.remove(1)
             }
 
             // Para DEBUG -> descomente a linha abaixo
-            println "tempoPorNivel: " + tempoPorNivel
+            //println "timePerLevel: " + timePerLevel
 
-            return tempoPorNivel
+            return timePerLevel
 
         } else {
             // TODO: Deveria enviar erro ao inves de printar
@@ -576,7 +587,7 @@ class MongoHelper {
         //MongoHelper.instance.getRanking(12)
 
         //chamando o método para mostrar o tempo gasto para conclusão do jogo
-        //MongoHelper.instance.getGameConclusionTime(4)
+        //MongoHelper.instance.getGameConclusionTime(9)
 
         //chamando o método para mostrar a quantidade de alunos por nível
         //MongoHelper.instance.getUsersInLevels(3)
@@ -588,7 +599,7 @@ class MongoHelper {
         //MongoHelper.instance.getChallengesAttempts(3,1)
 
         //chamando o método para mostrar o tempo gasto para conclusão de cada nível
-        //MongoHelper.instance.getTempoNivel(5)
+        //MongoHelper.instance.getLevelTime(5, [3, 68, 2, 195] as Long[])
 
         //chamando o método para mostrar o tempo gasto para conclusão de cada desafio
         //MongoHelper.instance.getTempoDesafio(3)

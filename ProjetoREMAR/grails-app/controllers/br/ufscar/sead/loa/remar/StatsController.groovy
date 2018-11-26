@@ -111,19 +111,21 @@ class StatsController {
             def users = userGroups.collect {
                 it.user.id
             }
-
             def resourceLevels = MongoHelper.instance.getLevelsAttempts(params.exportedResourceId as Long, users as Long[])
+            def groupLevelAtt = []
 
-            println resourceLevels
+            for(lvl in resourceLevels) {
+                groupLevelAtt.add([lvl.key, lvl.value])
+            }
 
-            render resourceLevels as JSON
+            render groupLevelAtt as JSON
 
         } else {
             // TODO: render erro nos parametros
         }
     }
 
-    def averageLevelTime() {
+    def avgLevelTime() {
         /*
          *  Retorna um JSON com tempo médio gasto por nivel
          *  [[nivel, tempo]]
@@ -144,7 +146,7 @@ class StatsController {
                 it.user.id
             }
 
-            def groupTimeLevel = MongoHelper.instance.getTempoNivel(params.exportedResourceId as Long, users as Long[])
+            def groupTimeLevel = MongoHelper.instance.getLevelTime(params.exportedResourceId as Long, users as Long[])
 
             def avgTimeLevel = []
             def sum = 0.0
