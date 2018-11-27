@@ -53,7 +53,7 @@ class StatsController {
 
             for (o in resourceTime) {
                 if (userGroups.find { it.user.id == o.userId } != null) {
-                    groupTime.add( [User.findById(o.userId).name, o.conclusionTime.round()] )
+                    groupTime.add( [User.findById(o.userId).name, (Double.parseDouble(o.conclusionTime))/60] )
                 }
             }
 
