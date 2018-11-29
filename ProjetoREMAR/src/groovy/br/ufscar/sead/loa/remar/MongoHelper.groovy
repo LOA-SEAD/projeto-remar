@@ -450,8 +450,7 @@ class MongoHelper {
         return challAttempts
     }
 
-    //TEMPO DE CONCLUSÃO DE CADA NÍVEL
-    def getLevelTime (Long exportedResourceId, Long[] users) {
+    def getAvgLevelTime (Long exportedResourceId, Long[] users) {
 
         def timeCollection = db.getCollection("timeStats")
                 .find([ 'timeStats.exportedResourceId' : exportedResourceId ] as BasicDBObject)
@@ -465,9 +464,9 @@ class MongoHelper {
         for (Document doc : timeCollection) {
             for (Object o: doc.timeStats) {
                 if (o.exportedResourceId == exportedResourceId
-                    && o.type as int == 1
-                    && o.time as double != 0
-                    && o.userId in users) {
+                    && (o.type as int) == 1
+                    && (o.time as double) > 0.0
+                    && (o.userId in users)) {
 
                     levelInt = o.gameLevel as int
                     timeDouble = o.time as double
@@ -482,6 +481,77 @@ class MongoHelper {
                         }
                     } else {
                         timePerLevel.put(levelInt, [(o.userId): (timeDouble)])
+                    }
+                }
+            }
+        }
+
+        if (timePerLevel.size() > 0) {
+
+            def statsCollection = db.getCollection("stats")
+                    .find( [ 'stats.exportedResourceId' : exportedResourceId ] as BasicDBObject)
+                    .projection([ _id: 0, 'stats.exportedResourceId': 1,
+                                  'stats.gameLevel' : 1, 'stats.gameLevelName' : 1] as BasicDBObject)
+
+            for (Document doc : statsCollection) {
+                for (Object o : doc.stats) {
+                    if (o.exportedResourceId == exportedResourceId) {
+
+                        if (timePerLevel.containsKey(o.gameLevel)) {
+                            timePerLevel.put(o.gameLevelName, timePerLevel[o.gameLevel])
+                            timePerLevel.remove(o.gameLevel)
+                        }
+                    }
+                }
+            }
+
+            if (timePerLevel.containsKey(5)) {
+                timePerLevel.put("Fase Refeitório", timePerLevel[5])
+                timePerLevel.remove(5)
+            }
+
+            if (timePerLevel.containsKey(1)) {
+                timePerLevel.put("Fase Galeria", timePerLevel[1])
+                timePerLevel.remove(1)
+            }
+
+            // Para DEBUG -> descomente a linha abaixo
+            //println "shorterTimePerLevel: " + timePerLevel
+
+            return timePerLevel
+
+        } else {
+            // TODO: Deveria enviar erro ao inves de printar
+            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+        }
+    }
+
+
+    def getLevelTime (Long exportedResourceId, Long[] users) {
+
+        def timeCollection = db.getCollection("timeStats")
+                .find([ 'timeStats.exportedResourceId' : exportedResourceId ] as BasicDBObject)
+                .projection([ _id: 0, 'timeStats.userId': 1, 'timeStats.exportedResourceId': 1,
+                              'timeStats.time': 1, 'timeStats.type': 1, 'timeStats.gameLevel' : 1 ] as BasicDBObject)
+
+        def timePerLevel = [:]
+        def levelInt
+        def timeDouble
+
+        for (Document doc : timeCollection) {
+            for (Object o: doc.timeStats) {
+                if (o.exportedResourceId == exportedResourceId
+                        && (o.type as int) == 1
+                        && (o.time as double) > 0.0
+                        && (o.userId in users)) {
+
+                    levelInt = o.gameLevel as int
+                    timeDouble = o.time as double
+
+                    if(timePerLevel[levelInt]) {
+                        timePerLevel[levelInt].add([o.userId, timeDouble])
+                    } else {
+                        timePerLevel.put(levelInt, [[(o.userId), (timeDouble)]])
                     }
                 }
             }
@@ -593,13 +663,15 @@ class MongoHelper {
         //MongoHelper.instance.getUsersInLevels(3)
 
         //chamando o método para mostrar o número de tentativas por nível
-        MongoHelper.instance.getLevelsAttempts(5, [2, 3, 68, 195] as Long[])
+        //MongoHelper.instance.getLevelsAttempts(5, [2, 3, 68, 195] as Long[])
 
         //chamando o método para mostrar o número de tentativas por desafio
         //MongoHelper.instance.getChallengesAttempts(3,1)
 
         //chamando o método para mostrar o tempo gasto para conclusão de cada nível
         //MongoHelper.instance.getLevelTime(5, [3, 68, 2, 195] as Long[])
+
+        //MongoHelper.instance.getAvgLevelTime(5, [3, 68, 2, 195] as Long[])
 
         //chamando o método para mostrar o tempo gasto para conclusão de cada desafio
         //MongoHelper.instance.getTempoDesafio(3)
