@@ -171,7 +171,7 @@ class ExportedResourceController {
                 } catch (Exception e) {
                     System.err.println(e.getClass().getName() + ": " + e.getMessage());
                 }
-            } else {
+            } else if(params.time) {
 
                 data.time = params.time
                 data.type = params.type
