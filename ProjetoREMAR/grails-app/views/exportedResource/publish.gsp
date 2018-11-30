@@ -41,14 +41,14 @@
                             <img id="img1Preview" class="my-orange right" width="100" height="100"
                                  src="/published/${exportedResourceInstance.processId}/banner.png"/>
 
-                            <p><span class="bold">Nome do jogo:</span>${exportedResourceInstance.name}</p>
+                            <p><span class="bold">Nome do jogo: </span>${exportedResourceInstance.name}</p>
 
-                            <p><span class="bold">Categoria:</span>${exportedResourceInstance.resource.category.name}
+                            <p><span class="bold">Categoria: </span>${exportedResourceInstance.resource.category.name}
                             </p>
 
-                            <p><span class="bold">Autor:</span>${exportedResourceInstance.owner.username}</p>
+                            <p><span class="bold">Autor: </span>${exportedResourceInstance.owner.username}</p>
 
-                            <p><span class="bold">Customizado em:</span>
+                            <p><span class="bold">Customizado em: </span>
                                 <g:formatDate format="dd/MM/yyyy HH:mm"
                                               date="${createdAt}"/></p>
 
