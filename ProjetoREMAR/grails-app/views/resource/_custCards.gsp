@@ -41,6 +41,16 @@
                                 </g:if>
                             </span>
                         </div>
+                        <div class="card-content">
+                            <span style="color: dimgrey;" class="center">
+                                <g:if test="${resourceInstance.shareable}">
+                                    <i class="fa fa-users"></i>
+                                </g:if>
+                                <g:else>
+                                    <br>
+                                </g:else>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </g:each>
