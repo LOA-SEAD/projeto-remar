@@ -13,8 +13,8 @@
                         <div class="caption center-align">
                         </div>
                     </li>
-                    <g:each in="${announcementList}" status="i" var="announcementInstance">
-                        <g:render template="announcement" model= "['announcement': announcementInstance, 'i': i+2]"/>
+                    <g:each in="${attrNames}" status="i" var="name">
+                        <p>${name}: ${request.getAttribute(name)}</p>
                     </g:each>
                 </ul>
             </div>
