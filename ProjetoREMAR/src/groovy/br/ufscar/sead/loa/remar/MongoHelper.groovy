@@ -1,20 +1,14 @@
 package br.ufscar.sead.loa.remar
 
 import com.mongodb.BasicDBObject
-import com.mongodb.Block
 import com.mongodb.MongoCredential
 import com.mongodb.ServerAddress
-import com.mongodb.client.FindIterable
 import com.mongodb.client.MongoDatabase
 import com.mongodb.MongoClient
-import com.mongodb.client.MongoIterable
 import com.mongodb.client.model.Filters
-import com.mongodb.FindIterableImpl
 import org.bson.Document
 import org.bson.types.ObjectId
-
 import static java.util.Arrays.asList
-import static java.util.Arrays.parallelSetAll;
 
 @Singleton
 class MongoHelper {
@@ -148,9 +142,10 @@ class MongoHelper {
     }
 
     def getStats(String collection, int exportedResourceId, List<Long> userGroup) {
-        return db.getCollection(collection).find(new Document('userId', new Document('$in', userGroup)).append("stats.exportedResourceId", exportedResourceId)).sort {
-            userId: 1
-        }
+        return db.getCollection(collection)
+                .find(
+                    [ '$and': [ [ 'userId' : [ '$in' : userGroup] ], [ (collection + '.exportedResourceId') : exportedResourceId ] ] ] as BasicDBObject
+                )
     }
 
     def getStats(String collection, int exportedResourceId, Long userId) {
@@ -273,140 +268,172 @@ class MongoHelper {
     ==========================================
     **/
 
-    //TEMPO DE CONCLUSÃO DE JOGO
-    def getGameConclusionTime (Long exportedResourceId) {
+    //NOMEIA LEVELS A PARTIR DO STATS COLLECTION
+    def nameLevels(int exportedResourceId, List<Long> users, Map map, String gameName) {
 
-        def timeCollection = db.getCollection("timeStats")
-        def docs = timeCollection.find(new Document('timeStats.exportedResourceId', exportedResourceId))
+        def statsCollection = getStats("stats", exportedResourceId, users)
 
-        // Lista de mapas
-        def usersTime = [] // [ [usuarioID: , conclusionTime: y] ]
-        def index
-        def timeAsDouble
+        for (Document doc : statsCollection) {
+            for (Object o : doc.stats) {
+                if (o.exportedResourceId == exportedResourceId) {
 
-        for (Document doc : docs) {
-            for (Object o: doc.timeStats) {
-                if (o.exportedResourceId == exportedResourceId && o.type == '0' && (o.time as double) > 0.0) {
-
-                    // Se usuario ja esta na lista de mapas
-                    index = usersTime.findIndexOf { it.userId == o.userId }
-                    if(index != -1) {
-
-                        // e o valor do tempo eh menor, atualiza
-                        if(usersTime[index]["conclusionTime"] > (o.time as double)) {
-                            usersTime[index]["conclusionTime"] = o.time as double
-                        }
-
-                    // se nao esta no lista, coloca
-                    } else {
-                        usersTime.add( ["userId" : o.userId, "conclusionTime" : o.time as double] )
+                    if (map.containsKey(o.gameLevel)) {
+                        map.put(o.gameLevelName, map[o.gameLevel])
+                        map.remove(o.gameLevel)
                     }
                 }
             }
         }
 
-        // Para DEBUG -> descomente a linha abaixo
-        //println "usersTime: " + usersTime
+        // TODO: Isso nem deveria ser preciso. Novamente é erro de como os dados estão sendo enviados
+        if (gameName == "SantoGrau") {
+            if (map.containsKey(5)) {
+                map.put("Fase Refeitório", map[5])
+                map.remove(5)
+            }
 
-        // TODO: Deveria enviar erro ao inves de printar
-        if (usersTime.size() == 0) println "ERROR: Could not return conclusion time for resource " + exportedResourceId
-        return usersTime
+            if (map.containsKey(1)) {
+                map.put("Fase Galeria", map[1])
+                map.remove(1)
+            }
+        }
+    }
+
+    //TEMPO DE CONCLUSÃO DE JOGO
+    def getGameConclusionTime (int exportedResourceId, List<Long> users) {
+
+        def timeCollection = getStats("timeStats", exportedResourceId, users)
+
+        def usersTime = [:] // [ usuarioID: conclusionTime ]
+        def time
+
+        if(timeCollection.size() > 0) {
+
+            for (Document doc : timeCollection) {
+                for (Object o : doc.timeStats) {
+                    if (o.exportedResourceId == exportedResourceId && o.type == '0' && (o.time as double) > 0.0) {
+
+                        // Conversão necessária por erro na hora de salvar os parametros em timeStats
+                        // Não foi modificado ainda por não poder mexer no banco do alfa.remar.online
+                        time = o.time as double
+
+                        // Se usuario ja esta no mapa
+                        if (usersTime.containsKey(o.userId)) {
+
+                            // e o valor do tempo eh menor, atualiza
+                            if (usersTime[o.userId] > time) {
+                                usersTime[o.userId] = time
+                            }
+
+                        // se nao esta no mapa, coloca
+                        } else {
+                            usersTime.put(o.userId, time)
+                        }
+                    }
+                }
+            }
+
+            // Para DEBUG -> descomente a linha abaixo
+            //println "usersTime: " + usersTime
+
+            return usersTime.sort {it.value}
+
+        } else {
+            // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
+            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            return null
+        }
     }
 
     //NÚMERO DE ALUNOS EM CADA NÍVEL
-    def getUsersInLevels(Long exportedResourceId) {
+    def getQntInLevels(int exportedResourceId, List<Long> users) {
 
-        def statsCollection = db.getCollection("stats")
+        def timeCollection = getStats("timeStats", exportedResourceId, users)
 
-        def docs = statsCollection.find(new Document('stats.exportedResourceId', exportedResourceId))
+        if (timeCollection.size() > 0) {
 
-        // Lista de mapas
-        def usersInLevel = [] // [ [gameLevel: , gameLevelName: , usersId: [(lista dos ids)] ] ]
-        def index
+            def usersInLevel = [:] // [ gameLevel: [lista dos userIds] ]
+            def level
+            def gameName = ""
 
-        for (Document doc : docs) {
-            for (Object o: doc.stats) {
-                if (o.exportedResourceId == exportedResourceId) {
+            for (Document doc : timeCollection) {
+                for (Object o: doc.timeStats) {
 
-                    // Se level ja esta na lista de mapas
-                    index = usersInLevel.findIndexOf { it.gameLevel == o.gameLevel }
-                    if(index != -1) {
+                    if ( (o.exportedResourceId == exportedResourceId)
+                            && (o.type == '1')) {
 
-                        // e o usuario nao esta na lista de usuarios que jogaram, adiciona
-                        if(!usersInLevel[index]["usersId"].contains(o.userId)) {
-                            usersInLevel[index]["usersId"].add(o.userId)
+                        // Conversão necessária por erro na hora de salvar os parametros em timeStats
+                        // Não foi modificado ainda por não poder mexer no banco do alfa.remar.online
+                        level = o.gameLevel as int
+
+                        if (gameName == "")
+                            gameName = o.gameId
+
+                        // Se level ja esta no mapa
+                        if (usersInLevel.containsKey(level)) {
+
+                            // e o usuario nao esta na lista de usuarios que jogaram, adiciona
+                            if ( ! usersInLevel[level].contains(o.userId) ) {
+                                usersInLevel[level].add(o.userId)
+                            }
+
+                        // se nao esta no mapa, coloca
+                        } else {
+                            usersInLevel.put(level, [o.userId])
                         }
-
-                    // se nao esta na lista, coloca
-                    } else {
-                        usersInLevel.add( ["gameLevel" : o.gameLevel, "gameLevelName": o.gameLevelName, "usersId" : [o.userId]] )
                     }
                 }
             }
+
+            nameLevels(exportedResourceId, users, usersInLevel, gameName)
+
+            // Para DEBUG -> descomente a linha abaixo
+            //println "usersInLevel: " + usersInLevel
+
+            return usersInLevel
+
+        } else {
+            // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
+            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            return null
         }
-
-        // Para DEBUG -> descomente a linha abaixo
-        //println "usersInLevel: " + usersInLevel
-
-        // TODO: Deveria enviar erro ao inves de printar
-        if (usersInLevel.size() == 0) println "ERROR: Could not return conclusion time for resource " + exportedResourceId
-        return usersInLevel
     }
 
     //NÚMERO DE TENTATIVAS POR NÍVEL
-    def getLevelsAttempts (Long exportedResourceId, Long[] users) {
+    def getLevelAttempt (int exportedResourceId, List<Long> users) {
 
-        def timeCollection = db.getCollection("timeStats")
-                .find([ 'timeStats.exportedResourceId' : exportedResourceId ] as BasicDBObject)
-                .projection([ _id: 0, 'timeStats.userId': 1, 'timeStats.exportedResourceId': 1,
-                              'timeStats.time': 1, 'timeStats.type': 1, 'timeStats.gameLevel' : 1 ] as BasicDBObject)
+        def timeCollection = getStats("timeStats", exportedResourceId, users)
 
-        def levelAttempts = [:]
+        if(timeCollection.size() > 0) {
 
-        for (Document doc : timeCollection) {
-            for (Object o: doc.timeStats) {
-                if (o.exportedResourceId == exportedResourceId
-                        && o.time == '0'
-                        && o.type == '1'
-                        && o.userId in users) {
+            def levelAttempts = [:]
+            def level
+            def gameName = ""
 
-                    if(levelAttempts.containsKey(o.gameLevel as int)) {
-                        levelAttempts[o.gameLevel as int] += 1
-                    } else {
-                        levelAttempts.put(o.gameLevel as int, 1)
-                    }
-                }
-            }
-        }
+            for (Document doc : timeCollection) {
+                for (Object o : doc.timeStats) {
 
-        if (levelAttempts.size() > 0) {
+                    if (o.exportedResourceId == exportedResourceId
+                            && o.time == '0'
+                            && o.type == '1') {
 
-            def statsCollection = db.getCollection("stats")
-                    .find( [ 'stats.exportedResourceId' : exportedResourceId ] as BasicDBObject)
-                    .projection([ _id: 0, 'stats.exportedResourceId': 1,
-                                  'stats.gameLevel' : 1, 'stats.gameLevelName' : 1] as BasicDBObject)
+                        // Conversão necessária por erro na hora de salvar os parametros em timeStats
+                        // Não foi modificado ainda por não poder mexer no banco do alfa.remar.online
+                        level = o.gameLevel as int
 
-            for (Document doc : statsCollection) {
-                for (Object o : doc.stats) {
-                    if (o.exportedResourceId == exportedResourceId) {
+                        if (gameName == "")
+                            gameName = o.gameId
 
-                        if (levelAttempts.containsKey(o.gameLevel)) {
-                            levelAttempts.put(o.gameLevelName, levelAttempts[o.gameLevel])
-                            levelAttempts.remove(o.gameLevel)
+                        if (levelAttempts.containsKey(level)) {
+                            levelAttempts[level] += 1
+                        } else {
+                            levelAttempts.put(level, 1)
                         }
                     }
                 }
             }
 
-            if (levelAttempts.containsKey(5)) {
-                levelAttempts.put("Fase Refeitório", levelAttempts[5])
-                levelAttempts.remove(5)
-            }
-
-            if (levelAttempts.containsKey(1)) {
-                levelAttempts.put("Fase Galeria", levelAttempts[1])
-                levelAttempts.remove(1)
-            }
+            nameLevels(exportedResourceId, users, levelAttempts, gameName)
 
             // Para DEBUG -> descomente as linhas abaixo
             //println "levelAttempts: " + levelAttempts
@@ -414,13 +441,187 @@ class MongoHelper {
             return levelAttempts
 
         } else {
-            // TODO: Deveria enviar erro ao inves de printar
+            // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
             println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            return null
+        }
+    }
+
+    //TEMPO MÉDIO GASTO POR NÍVEL, MENOR E MAIOR TEMPO EM CONSIDERAÇÃO
+    def getAvgLevelTime (int exportedResourceId, List<Long> users) {
+
+        def timeCollection = getStats("timeStats", exportedResourceId, users)
+
+        if(timeCollection.size() > 0) {
+
+            def timePerLevel = [:] // [ level : [ [user1: [time1, time2, time3] ], [user2: [time1, time2] ] ] ]
+            def level
+            def time
+            def gameName = ""
+
+            for (Document doc : timeCollection) {
+                for (Object o : doc.timeStats) {
+                    if (o.exportedResourceId == exportedResourceId
+                            && o.type == '1'
+                            && (o.time as double) > 0.0) {
+
+                        level = o.gameLevel as int
+                        time = o.time as double
+
+                        if (gameName == "")
+                            gameName = o.gameId
+
+                        if (timePerLevel.containsKey(level)) {
+
+                            if ( timePerLevel[level].containsKey(o.userId) ) {
+                                timePerLevel[level][o.userId].add( time )
+                            } else {
+                                timePerLevel[level].put( o.userId, [time] )
+                            }
+                        } else {
+                            timePerLevel.put( level, [(o.userId): [time]] )
+                        }
+                    }
+                }
+            }
+
+            nameLevels(exportedResourceId, users, timePerLevel, gameName)
+
+            // Para DEBUG -> descomente a linha abaixo
+            //println "timePerLevel: " + timePerLevel
+
+            return timePerLevel
+
+        } else {
+            // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
+            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            return null
+        }
+    }
+
+    //TODOS OS TEMPOS GASTOS DE TODOS DO GRUPO EM CADA LEVEL
+    def getLevelTime (int exportedResourceId, List<Long> users) {
+
+        def timeCollection = getStats("timeStats", exportedResourceId, users)
+
+        if(timeCollection.size() > 0) {
+
+            def timePerLevel = [:]
+            def level, time // utilizados pra conversão
+
+            // TODO: gameName é necessário por erro de design do banco e/ou problema com SantoGrau
+            // OBS: Leia sobre os erros encontrados com o Miguel
+            def gameName = ""
+
+            for (Document doc : timeCollection) {
+                for (Object o : doc.timeStats) {
+                    if (o.exportedResourceId == exportedResourceId
+                            && o.type == '1'
+                            && (o.time as double) > 0.0) {
+
+                        level = o.gameLevel as int
+                        time = o.time as double
+
+                        if (gameName == "")
+                            gameName = o.gameId
+
+                        if (timePerLevel.containsKey(level)) {
+                            timePerLevel[level].add( [o.userId, time] )
+                        } else {
+                            timePerLevel.put( level, [ [o.userId, time] ] )
+                        }
+                    }
+                }
+            }
+
+            nameLevels(exportedResourceId, users, timePerLevel, gameName)
+
+            // Para DEBUG -> descomente a linha abaixo
+            //println "timePerLevel: " + timePerLevel
+
+            return timePerLevel
+
+        } else {
+            // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
+            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            return null
+        }
+    }
+
+    //TEMPO DE CONCLUSÃO DE CADA DESAFIO
+    def getAvgChallTime (int exportedResourceId, List<Long> users) {
+
+        def timeCollection = getStats("timeStats", exportedResourceId, users)
+
+        if(timeCollection.size() > 0) {
+
+            def timePerChallenge = [:]
+            def time  // utilizado pra conversão string->double
+            def tuple // tupla [level, challenge, user] como chave do mapa. OBS: user é long
+
+            for (Document doc : timeCollection) {
+                for (Object o : doc.timeStats) {
+
+                    time = o.time as double
+
+                    if (o.exportedResourceId == exportedResourceId
+                            && o.type == '2'
+                            && time > 0.0) {
+
+                        // Conversão de tipos, já que foram salvos como strings no mongo.
+                        // 'userId' não precisa de conversão - já é salvo como long.
+                        tuple = new Tuple (o.gameLevel as int, o.challengeId as int)
+
+                        if ( timePerChallenge.containsKey( tuple ) ) {
+
+                            if ( timePerChallenge[tuple].containsKey( o.userId ) ) {
+                                timePerChallenge[tuple][o.userId].add(time)
+                            } else {
+                                timePerChallenge[tuple].put( o.userId, [time] )
+                            }
+
+                        } else {
+                            timePerChallenge.put( tuple, [(o.userId): [time]] )
+                        }
+                    }
+                }
+            }
+
+            def statsCollection = getStats("stats", exportedResourceId, users)
+
+            for (Document doc : statsCollection) {
+                for (Object o : doc.stats) {
+                    if (o.exportedResourceId == exportedResourceId) {
+
+                        // it.key.get(0) basicamente pega primeiro elemento de cada tupla (chave do mapa)
+                        tuple = timePerChallenge.find { it.key.get(0) == (o.gameLevel as int) }
+
+                        // Se achou a tupla
+                        if(tuple != null) {
+                            // Coloca mesma tupla mas substituindo com o nome do level e com string 'Desafio X'
+                            // Isso é para efeito de substituir o valor da chave
+                            timePerChallenge.put( new Tuple( o.gameLevelName, ("Desafio " + tuple.key.get(1)) ), tuple.value )
+                            timePerChallenge.remove(tuple.key)
+                        }
+                    }
+                }
+            }
+
+            // Para DEBUG -> descomente a linha abaixo
+            //println "timePerChallenge: " + timePerChallenge
+
+            return timePerChallenge
+
+        } else {
+            // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
+            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            return null
         }
     }
 
     //NÚMERO DE TENTATIVAS POR DESAFIO
     def getChallengesAttempts (Long exportedResourceId, int gameLevel) {
+
         def timeCollection = db.getCollection("timeStats").find({ exportedResourceId: exportedResourceId })
         //def docs = timeCollection.find(new Document('timeStats.exportedResourceId', exportedResourceId))
 
@@ -448,169 +649,6 @@ class MongoHelper {
         // TODO: Deveria enviar erro ao inves de printar
         if (challAttempts.size() == 0) println "ERROR: Could not return conclusion time for resource " + exportedResourceId
         return challAttempts
-    }
-
-    def getAvgLevelTime (Long exportedResourceId, Long[] users) {
-
-        def timeCollection = db.getCollection("timeStats")
-                .find([ 'timeStats.exportedResourceId' : exportedResourceId ] as BasicDBObject)
-                .projection([ _id: 0, 'timeStats.userId': 1, 'timeStats.exportedResourceId': 1,
-                              'timeStats.time': 1, 'timeStats.type': 1, 'timeStats.gameLevel' : 1 ] as BasicDBObject)
-
-        def timePerLevel = [:]
-        def levelInt
-        def timeDouble
-
-        for (Document doc : timeCollection) {
-            for (Object o: doc.timeStats) {
-                if (o.exportedResourceId == exportedResourceId
-                    && (o.type as int) == 1
-                    && (o.time as double) > 0.0
-                    && (o.userId in users)) {
-
-                    levelInt = o.gameLevel as int
-                    timeDouble = o.time as double
-
-                    if(timePerLevel[levelInt]) {
-                        if (timePerLevel[levelInt][o.userId]) {
-                            if (timePerLevel[levelInt][o.userId] > (timeDouble)) {
-                                timePerLevel[levelInt][o.userId] = timeDouble
-                            }
-                        } else {
-                            timePerLevel[levelInt].put(o.userId, timeDouble)
-                        }
-                    } else {
-                        timePerLevel.put(levelInt, [(o.userId): (timeDouble)])
-                    }
-                }
-            }
-        }
-
-        if (timePerLevel.size() > 0) {
-
-            def statsCollection = db.getCollection("stats")
-                    .find( [ 'stats.exportedResourceId' : exportedResourceId ] as BasicDBObject)
-                    .projection([ _id: 0, 'stats.exportedResourceId': 1,
-                                  'stats.gameLevel' : 1, 'stats.gameLevelName' : 1] as BasicDBObject)
-
-            for (Document doc : statsCollection) {
-                for (Object o : doc.stats) {
-                    if (o.exportedResourceId == exportedResourceId) {
-
-                        if (timePerLevel.containsKey(o.gameLevel)) {
-                            timePerLevel.put(o.gameLevelName, timePerLevel[o.gameLevel])
-                            timePerLevel.remove(o.gameLevel)
-                        }
-                    }
-                }
-            }
-
-            if (timePerLevel.containsKey(5)) {
-                timePerLevel.put("Fase Refeitório", timePerLevel[5])
-                timePerLevel.remove(5)
-            }
-
-            if (timePerLevel.containsKey(1)) {
-                timePerLevel.put("Fase Galeria", timePerLevel[1])
-                timePerLevel.remove(1)
-            }
-
-            // Para DEBUG -> descomente a linha abaixo
-            //println "shorterTimePerLevel: " + timePerLevel
-
-            return timePerLevel
-
-        } else {
-            // TODO: Deveria enviar erro ao inves de printar
-            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
-        }
-    }
-
-
-    def getLevelTime (Long exportedResourceId, Long[] users) {
-
-        def timeCollection = db.getCollection("timeStats")
-                .find([ 'timeStats.exportedResourceId' : exportedResourceId ] as BasicDBObject)
-                .projection([ _id: 0, 'timeStats.userId': 1, 'timeStats.exportedResourceId': 1,
-                              'timeStats.time': 1, 'timeStats.type': 1, 'timeStats.gameLevel' : 1 ] as BasicDBObject)
-
-        def timePerLevel = [:]
-        def levelInt
-        def timeDouble
-
-        for (Document doc : timeCollection) {
-            for (Object o: doc.timeStats) {
-                if (o.exportedResourceId == exportedResourceId
-                        && (o.type as int) == 1
-                        && (o.time as double) > 0.0
-                        && (o.userId in users)) {
-
-                    levelInt = o.gameLevel as int
-                    timeDouble = o.time as double
-
-                    if(timePerLevel[levelInt]) {
-                        timePerLevel[levelInt].add([o.userId, timeDouble])
-                    } else {
-                        timePerLevel.put(levelInt, [[(o.userId), (timeDouble)]])
-                    }
-                }
-            }
-        }
-
-        if (timePerLevel.size() > 0) {
-
-            def statsCollection = db.getCollection("stats")
-                    .find( [ 'stats.exportedResourceId' : exportedResourceId ] as BasicDBObject)
-                    .projection([ _id: 0, 'stats.exportedResourceId': 1,
-                                  'stats.gameLevel' : 1, 'stats.gameLevelName' : 1] as BasicDBObject)
-
-            for (Document doc : statsCollection) {
-                for (Object o : doc.stats) {
-                    if (o.exportedResourceId == exportedResourceId) {
-
-                        if (timePerLevel.containsKey(o.gameLevel)) {
-                            timePerLevel.put(o.gameLevelName, timePerLevel[o.gameLevel])
-                            timePerLevel.remove(o.gameLevel)
-                        }
-                    }
-                }
-            }
-
-            if (timePerLevel.containsKey(5)) {
-                timePerLevel.put("Fase Refeitório", timePerLevel[5])
-                timePerLevel.remove(5)
-            }
-
-            if (timePerLevel.containsKey(1)) {
-                timePerLevel.put("Fase Galeria", timePerLevel[1])
-                timePerLevel.remove(1)
-            }
-
-            // Para DEBUG -> descomente a linha abaixo
-            //println "timePerLevel: " + timePerLevel
-
-            return timePerLevel
-
-        } else {
-            // TODO: Deveria enviar erro ao inves de printar
-            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
-        }
-    }
-
-    //TEMPO DE CONCLUSÃO DE CADA DESAFIO
-    def getTempoDesafio (Long exportedResourceId) {
-        def timeCollection = db.getCollection("timeStats")
-        def docs = timeCollection.find(new Document('timeStats.exportedResourceId', exportedResourceId))
-
-        println "Usuário, Nível, Desafio, Tempo"
-
-        for (Document doc : docs) {
-            for (Object o: doc.timeStats) {
-                if (o.exportedResourceId == exportedResourceId && o.type as int == 2 && o.time as double != 0) {
-                    println o.userId + ", " + o.gameLevel + ", " + o.challengeId + ", "+ o.time
-                }
-            }
-        }
     }
 
     //DESAFIOS COM MAIOR TAXA DE ERRO
@@ -649,32 +687,33 @@ class MongoHelper {
     //PRINCIPAL
     static void main(String... args) {
 
-        MongoHelper.instance.init([dbHost  : 'alfa.remar.online',
+        MongoHelper.instance.init([dbHost  : '172.18.0.4:27017',
                                    username: 'root',
                                    password: 'root'])
 
-        //chamando o método para mostrar o ranking dos alunos que concluíram o jogo
+        // ranking dos alunos que concluíram o jogo
         //MongoHelper.instance.getRanking(12)
 
-        //chamando o método para mostrar o tempo gasto para conclusão do jogo
-        //MongoHelper.instance.getGameConclusionTime(9)
+        // tempo gasto para conclusão do jogo
+        //MongoHelper.instance.getGameConclusionTime(1, [2,3,4] as List<Long>)
 
-        //chamando o método para mostrar a quantidade de alunos por nível
-        //MongoHelper.instance.getUsersInLevels(3)
+        // quantidade de alunos por nível
+        //MongoHelper.instance.getQntInLevels(2, [2,3,4] as List<Long>)
 
-        //chamando o método para mostrar o número de tentativas por nível
-        //MongoHelper.instance.getLevelsAttempts(5, [2, 3, 68, 195] as Long[])
+        // número de tentativas por nível
+        //MongoHelper.instance.getLevelAttempt(1, [2, 3, 4] as List<Long>)
+
+        // tempo médio gasto para conclusão de cada nível
+        //MongoHelper.instance.getAvgLevelTime(2, [2, 3, 4] as List<Long>)
+
+        // lista de tempos gasto para conclusão de cada nível
+        //MongoHelper.instance.getLevelTime(2, [2, 3, 4] as List<Long>)
+
+        // tempo gasto para conclusão de cada desafio
+        MongoHelper.instance.getAvgChallTime(2, [2, 3, 4] as List<Long>)
 
         //chamando o método para mostrar o número de tentativas por desafio
         //MongoHelper.instance.getChallengesAttempts(3,1)
-
-        //chamando o método para mostrar o tempo gasto para conclusão de cada nível
-        //MongoHelper.instance.getLevelTime(5, [3, 68, 2, 195] as Long[])
-
-        //MongoHelper.instance.getAvgLevelTime(5, [3, 68, 2, 195] as Long[])
-
-        //chamando o método para mostrar o tempo gasto para conclusão de cada desafio
-        //MongoHelper.instance.getTempoDesafio(3)
 
         //chamando o método para mostrar os desafios com maior taxa de erro
         //MongoHelper.instance.getTaxaErrosDesafio(1)

@@ -173,6 +173,10 @@ class ExportedResourceController {
                 }
             } else if(params.time) {
 
+                // TODO: salvar os parâmetros com o tipo correto (int, long, float, etc)
+                // OBS: Antes de ser feito, o alfa.remar.online está com dados salvos de maneira errada,
+                // tome cuidado para não perder os dados anteriores.
+
                 data.time = params.time
                 data.type = params.type
                 data.gameId = params.gameId

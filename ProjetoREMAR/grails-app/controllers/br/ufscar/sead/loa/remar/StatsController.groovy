@@ -21,9 +21,12 @@ class StatsController {
             def resourceRanking = MongoHelper.instance.getRanking(params.exportedResourceId as Long)
             def groupRanking = []
 
-            for (o in resourceRanking) {
-                if (userGroups.find { it.user.id == o.userId } != null) {
-                    groupRanking.add( [User.findById(o.userId).name, o.score] )
+            if (resourceRanking != null) {
+
+                for (o in resourceRanking) {
+                    if (userGroups.find { it.user.id == o.userId } != null) {
+                        groupRanking.add([User.findById(o.userId).name, o.score])
+                    }
                 }
             }
 
@@ -48,23 +51,28 @@ class StatsController {
 
             def group = Group.findById(params.groupId)
             def userGroups = UserGroup.findAllByGroup(group)
-            def resourceTime = MongoHelper.instance.getGameConclusionTime(params.exportedResourceId as Long)
-            def groupTime = []
+            def users = userGroups.collect {
+                it.user.id
+            }
 
-            for (o in resourceTime) {
-                if (userGroups.find { it.user.id == o.userId } != null) {
-                    groupTime.add( [User.findById(o.userId).name, o.conclusionTime/60] )
+            def resourceTime = MongoHelper.instance.getGameConclusionTime(params.exportedResourceId as int, users)
+            def usersTime = []
+
+            if (resourceTime != null) {
+
+                for(o in resourceTime) {
+                    usersTime.add([User.findById(o.key).name, o.value / 60])
                 }
             }
 
-            render groupTime as JSON
+            render usersTime as JSON
 
         } else {
             // TODO: render erro nos parametros
         }
     }
 
-    def usersInLevels() {
+    def quantityLevel() {
         /*
          *  Retorna um JSON com quantidade de jogadores por nivel
          *  [[nivel, quantidade]]
@@ -78,23 +86,28 @@ class StatsController {
 
             def group = Group.findById(params.groupId)
             def userGroups = UserGroup.findAllByGroup(group)
-            def resourceLevels = MongoHelper.instance.getUsersInLevels(params.exportedResourceId as Long)
-            def groupUsersLevel = []
-            def users
-
-            for (o in resourceLevels) {
-                users = userGroups.collectMany { it.user.id in o.usersId ? [it.user.id] : [] }
-                groupUsersLevel.add( [o.gameLevelName, users.size()] )
+            def users = userGroups.collect {
+                it.user.id
             }
 
-            render groupUsersLevel as JSON
+            def resourceLevels = MongoHelper.instance.getQntInLevels(params.exportedResourceId as int, users)
+            def usersLevel = []
+
+            if (resourceLevels != null) {
+
+                for (o in resourceLevels) {
+                    usersLevel.add([o.key, o.value.size()])
+                }
+            }
+
+            render usersLevel as JSON
 
         } else {
             // TODO: render erro nos parametros
         }
     }
 
-    def levelsAttempts() {
+    def levelAttempt() {
         /*
          *  Retorna um JSON com quantidade de tentativas por nivel
          *  [[nivel, tentativas]]
@@ -111,11 +124,14 @@ class StatsController {
             def users = userGroups.collect {
                 it.user.id
             }
-            def resourceLevels = MongoHelper.instance.getLevelsAttempts(params.exportedResourceId as Long, users as Long[])
+            def resourceAtt = MongoHelper.instance.getLevelAttempt(params.exportedResourceId as int, users)
             def groupLevelAtt = []
 
-            for(lvl in resourceLevels) {
-                groupLevelAtt.add([lvl.key, lvl.value])
+            if (resourceAtt != null) {
+
+                for (lvl in resourceAtt) {
+                    groupLevelAtt.add([lvl.key, lvl.value])
+                }
             }
 
             render groupLevelAtt as JSON
@@ -128,10 +144,11 @@ class StatsController {
     def avgLevelTime() {
         /*
          *  Retorna um JSON com tempo médio gasto por nivel
-         *  [[nivel, tempo]]
+         *  [[nivel, tempo1, tempo2]]
          *
-         *  OBS: É pego o menor tempo de cada usuário do grupo
-         *  e depois calculada a média com esse conjunto.
+         *  OBS: É pego o menor tempo de conclusão cada usuário do grupo
+         *  e depois calculada a média com esse conjunto para o tempo1.
+         *  O mesmo ocorre com o tempo2, mas pegando o maior tempo de conclusão.
          *
          *  Parâmetros:
          *      groupId            -> identificador do grupo
@@ -146,21 +163,33 @@ class StatsController {
                 it.user.id
             }
 
-            def groupTimeLevel = MongoHelper.instance.getAvgLevelTime(params.exportedResourceId as Long, users as Long[])
-
+            def groupTimeLevel = MongoHelper.instance.getAvgLevelTime(params.exportedResourceId as int, users)
             def avgTimeLevel = []
-            def sum = 0.0
-            def avg
 
-            for(level in groupTimeLevel) {
-                for(time in level.value) {
-                    sum += time.value
+            if (groupTimeLevel != null) {
+
+                def sum1 = 0.0 // shortest time
+                def sum2 = 0.0 // longest  time
+                def avg1, avg2
+
+                for (level in groupTimeLevel) {
+
+                    for (time in level.value) { // Percorre mapa usuario:[array de tempos]
+                        time.value.sort() // Ordena tempos de conclusão desse level
+
+                        sum1 += time.value.first() // Soma menor tempo
+                        sum2 += time.value.last()  // Soma maior tempo
+                    }
+
+                    // Média calculada e dividida por 60 para dar em minutos
+                    avg1 = sum1 / ((level.value.size()) * 60)
+                    avg2 = sum2 / ((level.value.size()) * 60)
+
+                    avgTimeLevel.add([level.key, avg1, avg2])
+
+                    sum1 = 0.0
+                    sum2 = 0.0
                 }
-
-                // Média calculada e dividida por 60 para dar em minutos
-                avg = sum / ( ( level.value.size() ) * 60 )
-                avgTimeLevel.add([ level.key, avg ])
-                sum = 0.0
             }
 
             render avgTimeLevel as JSON
@@ -172,7 +201,7 @@ class StatsController {
 
     def levelTime() {
         /*
-         *  Retorna um JSON com os tempos médio gasto por nivel
+         *  Retorna um JSON com os tempos gastos por nivel
          *  [[nivel, tempo]]
          *
          *  Parâmetros:
@@ -188,18 +217,92 @@ class StatsController {
                 it.user.id
             }
 
-            def groupTimeLevel = MongoHelper.instance.getLevelTime(params.exportedResourceId as Long, users as Long[])
-
+            def groupTimeLevel = MongoHelper.instance.getLevelTime(params.exportedResourceId as int, users)
             def timeLevel = []
 
-            groupTimeLevel.each { level ->
+            if (groupTimeLevel != null) {
 
-                level.value.each { time ->
-                    timeLevel.add([ level.key, time[1] ])
+                for (level in groupTimeLevel) {
+
+                    for (time in level.value) {
+                        timeLevel.add([level.key, time[1]])
+                    }
                 }
             }
 
             render timeLevel as JSON
+
+        } else {
+            // TODO: render erro nos parametros
+        }
+    }
+
+    def avgChallTime() {
+        /*
+         *  Retorna um JSON com tempo médio gasto por desafio
+         *  [level:[desafio, tempo1, tempo2]]
+         *
+         *  OBS: É pego o menor tempo de conclusão cada usuário do grupo
+         *  e depois calculada a média com esse conjunto para o tempo1.
+         *  O mesmo ocorre com o tempo2, mas pegando o maior tempo de conclusão.
+         *
+         *  Parâmetros:
+         *      groupId            -> identificador do grupo
+         *      exportedResourceId -> identificador do recurso exportado
+         */
+
+        if (params.groupId && params.exportedResourceId) {
+
+            def group = Group.findById(params.groupId)
+            def userGroups = UserGroup.findAllByGroup(group)
+            def users = userGroups.collect {
+                it.user.id
+            }
+
+            def groupTimeChall = MongoHelper.instance.getAvgChallTime(params.exportedResourceId as int, users)
+            def avgChall = [:]
+
+            if(groupTimeChall != null) {
+
+                def level, challenge
+
+                def sum1 = 0.0 // shortest time
+                def sum2 = 0.0 // longest  time
+                def avg1, avg2
+
+                // [level, desafio]:usuario:[tempos]
+                for (entry in groupTimeChall) {
+
+                    level     = entry.key.get(0)
+                    challenge = entry.key.get(1)
+
+                    for(time in entry.value) {
+
+                        time.value.sort()
+
+                        sum1 += time.value.first() // Soma menor tempo
+                        sum2 += time.value.last()  // Soma maior tempo
+                    }
+
+                    // Média calculada e dividida por 60 para dar em minutos
+                    avg1 = sum1 / (entry.value.size() * 60)
+                    avg2 = sum2 / (entry.value.size() * 60)
+
+                    //println "[" + level + "," + challenge + "]: MENOR = " + sum1 + ", MAIOR = " + sum2 + ", AVG1 = " + avg1 + ", AVG2 = " + avg2
+
+                    if(avgChall.containsKey(level)) {
+                        avgChall[level].add( [challenge, avg1, avg2] )
+                    } else {
+                        avgChall.put(level, [[challenge, avg1, avg2]])
+                    }
+
+                    sum1 = 0.0
+                    sum2 = 0.0
+                }
+
+            }
+
+            render avgChall as JSON
 
         } else {
             // TODO: render erro nos parametros
