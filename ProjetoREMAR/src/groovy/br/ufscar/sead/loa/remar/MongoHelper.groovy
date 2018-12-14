@@ -558,6 +558,7 @@ class MongoHelper {
             def timePerChallenge = [:]
             def time  // utilizado pra conversão string->double
             def tuple // tupla [level, challenge, user] como chave do mapa. OBS: user é long
+            def gameName = ""
 
             for (Document doc : timeCollection) {
                 for (Object o : doc.timeStats) {
@@ -567,6 +568,9 @@ class MongoHelper {
                     if (o.exportedResourceId == exportedResourceId
                             && o.type == '2'
                             && time > 0.0) {
+
+                        if (gameName == "")
+                            gameName = o.gameId
 
                         // Conversão de tipos, já que foram salvos como strings no mongo.
                         // 'userId' não precisa de conversão - já é salvo como long.
@@ -604,6 +608,22 @@ class MongoHelper {
                             timePerChallenge.remove(tuple.key)
                         }
                     }
+                }
+            }
+
+            // TODO: Isso nem deveria ser preciso. Novamente é erro de como os dados estão sendo enviados
+            if (gameName == "SantoGrau") {
+
+                tuple = new Tuple(1,0)
+                if ( timePerChallenge.containsKey( tuple ) ) {
+                    timePerChallenge.put( new Tuple( "Fase Galeria", "Desafio 0" ), timePerChallenge[tuple] )
+                    timePerChallenge.remove( tuple )
+                }
+
+                tuple = new Tuple(1,1)
+                if ( timePerChallenge.containsKey( tuple ) ) {
+                    timePerChallenge.put( new Tuple( "Fase Galeria", "Desafio 1" ), timePerChallenge[tuple] )
+                    timePerChallenge.remove( tuple )
                 }
             }
 
@@ -687,7 +707,7 @@ class MongoHelper {
     //PRINCIPAL
     static void main(String... args) {
 
-        MongoHelper.instance.init([dbHost  : '172.18.0.4:27017',
+        MongoHelper.instance.init([dbHost  : '172.18.0.3:27017',
                                    username: 'root',
                                    password: 'root'])
 
@@ -710,7 +730,7 @@ class MongoHelper {
         //MongoHelper.instance.getLevelTime(2, [2, 3, 4] as List<Long>)
 
         // tempo gasto para conclusão de cada desafio
-        MongoHelper.instance.getAvgChallTime(2, [2, 3, 4] as List<Long>)
+        MongoHelper.instance.getAvgChallTime(1, [2, 3, 4] as List<Long>)
 
         //chamando o método para mostrar o número de tentativas por desafio
         //MongoHelper.instance.getChallengesAttempts(3,1)
