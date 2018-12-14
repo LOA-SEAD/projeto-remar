@@ -288,8 +288,6 @@ class StatsController {
                     avg1 = sum1 / (entry.value.size() * 60)
                     avg2 = sum2 / (entry.value.size() * 60)
 
-                    //println "[" + level + "," + challenge + "]: MENOR = " + sum1 + ", MAIOR = " + sum2 + ", AVG1 = " + avg1 + ", AVG2 = " + avg2
-
                     if(avgChall.containsKey(level)) {
                         avgChall[level].add( [challenge, avg1, avg2] )
                     } else {

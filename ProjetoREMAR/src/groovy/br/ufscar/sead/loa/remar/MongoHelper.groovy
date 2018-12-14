@@ -563,11 +563,11 @@ class MongoHelper {
             for (Document doc : timeCollection) {
                 for (Object o : doc.timeStats) {
 
-                    time = o.time as double
-
                     if (o.exportedResourceId == exportedResourceId
                             && o.type == '2'
-                            && time > 0.0) {
+                            && (o.time as double) > 0.0) {
+
+                        time = o.time as double
 
                         if (gameName == "")
                             gameName = o.gameId
@@ -707,11 +707,18 @@ class MongoHelper {
     //PRINCIPAL
     static void main(String... args) {
 
-        MongoHelper.instance.init([dbHost  : '172.18.0.3:27017',
+        MongoHelper.instance.init([dbHost  : 'alfa.remar.online',
                                    username: 'root',
                                    password: 'root'])
 
-        // ranking dos alunos que concluíram o jogo
+        // IDs do grupo 3 do alfa.remar.online - usar para testes
+        def grupo3doalfa = [58, 30, 32, 31, 38, 39, 36, 41, 33, 37,
+                            45, 42, 35, 34, 47, 43, 44, 40, 49, 53,
+                            55, 48, 59, 51, 60, 62, 63, 52, 61, 64,
+                            65, 66, 67, 46, 71, 70, 73, 72, 76, 58, 54]
+
+
+                // ranking dos alunos que concluíram o jogo
         //MongoHelper.instance.getRanking(12)
 
         // tempo gasto para conclusão do jogo
@@ -730,7 +737,7 @@ class MongoHelper {
         //MongoHelper.instance.getLevelTime(2, [2, 3, 4] as List<Long>)
 
         // tempo gasto para conclusão de cada desafio
-        MongoHelper.instance.getAvgChallTime(1, [2, 3, 4] as List<Long>)
+        MongoHelper.instance.getAvgChallTime(3, grupo3doalfa)
 
         //chamando o método para mostrar o número de tentativas por desafio
         //MongoHelper.instance.getChallengesAttempts(3,1)
