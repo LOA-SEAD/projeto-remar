@@ -644,7 +644,7 @@ class MongoHelper {
     //NÚMERO DE TENTATIVAS POR DESAFIO
     def getChallAttempt (int exportedResourceId, List<Long> users) {
 
-        def timeCollection = getStats("timeStats", exportedResourceId, users)
+        def timeCollection = getStats("stats", exportedResourceId, users)
 
         if(timeCollection.size() > 0) {
 
@@ -759,11 +759,11 @@ class MongoHelper {
             }
 
             if (santograu) {
-                challMistakes.put( new Tuple("Fase Galeria", null), null)
+                challMistakes.put( new Tuple("Fase Galeria", ""), null)
             }
 
             // Para DEBUG -> descomente a linha abaixo
-            println "challMistakes: " + challMistakes
+            //println "challMistakes: " + challMistakes
 
             return challMistakes
 

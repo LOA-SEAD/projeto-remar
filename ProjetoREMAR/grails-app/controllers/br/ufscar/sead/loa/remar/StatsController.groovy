@@ -296,10 +296,11 @@ class StatsController {
 
                     sum1 = 0.0
                     sum2 = 0.0
-
-                    avgChall[level].each { println it[0] }
                 }
 
+                avgChall.each { desafio ->
+                    desafio.value.sort { it[0] }
+                }
             }
 
             render avgChall as JSON
