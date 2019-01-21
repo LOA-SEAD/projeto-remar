@@ -262,7 +262,7 @@ class StatsController {
             def groupTimeChall = MongoHelper.instance.getAvgChallTime(params.exportedResourceId as int, users)
             def avgChall = [:]
 
-            if(groupTimeChall != null) {
+            if (groupTimeChall != null) {
 
                 def level, challenge
 
@@ -276,7 +276,7 @@ class StatsController {
                     level     = entry.key.get(0)
                     challenge = entry.key.get(1)
 
-                    for(time in entry.value) {
+                    for (time in entry.value) {
 
                         time.value.sort()
 
@@ -288,7 +288,7 @@ class StatsController {
                     avg1 = sum1 / (entry.value.size() * 60)
                     avg2 = sum2 / (entry.value.size() * 60)
 
-                    if(avgChall.containsKey(level)) {
+                    if (avgChall.containsKey(level)) {
                         avgChall[level].add( [challenge, avg1, avg2] )
                     } else {
                         avgChall.put(level, [[challenge, avg1, avg2]])
@@ -296,11 +296,120 @@ class StatsController {
 
                     sum1 = 0.0
                     sum2 = 0.0
+
+                    avgChall[level].each { println it[0] }
                 }
 
             }
 
             render avgChall as JSON
+
+        } else {
+            // TODO: render erro nos parametros
+        }
+    }
+
+    def challAttempt() {
+        /*
+         *  Retorna um JSON com tempo médio gasto por desafio
+         *  [level:[desafio, tempo1, tempo2]]
+         *
+         *  OBS: É pego o menor tempo de conclusão cada usuário do grupo
+         *  e depois calculada a média com esse conjunto para o tempo1.
+         *  O mesmo ocorre com o tempo2, mas pegando o maior tempo de conclusão.
+         *
+         *  Parâmetros:
+         *      groupId            -> identificador do grupo
+         *      exportedResourceId -> identificador do recurso exportado
+         */
+
+        if (params.groupId && params.exportedResourceId) {
+
+            def group = Group.findById(params.groupId)
+            def userGroups = UserGroup.findAllByGroup(group)
+            def users = userGroups.collect {
+                it.user.id
+            }
+
+            def resourceAtt = MongoHelper.instance.getChallAttempt(params.exportedResourceId as int, users)
+            def groupChallAtt = [:]
+
+            if (resourceAtt != null) {
+
+                def level, challenge, attempt
+
+                for (entry in resourceAtt) {
+
+                    level     = entry.key.get(0)
+                    challenge = entry.key.get(1)
+                    attempt   = entry.value
+
+                    if(groupChallAtt.containsKey(level)) {
+                        groupChallAtt[level].add( [challenge, attempt] )
+                    } else {
+                        groupChallAtt.put(level, [[challenge, attempt]])
+                    }
+                }
+
+                groupChallAtt.each {
+                    it.value.sort()
+                }
+            }
+
+            render groupChallAtt as JSON
+
+        } else {
+            // TODO: render erro nos parametros
+        }
+    }
+
+    def challMistake  () {
+        /*
+         *  Retorna um JSON com tempo médio gasto por desafio
+         *  [level:[desafio, tempo1, tempo2]]
+         *
+         *  OBS: É pego o menor tempo de conclusão cada usuário do grupo
+         *  e depois calculada a média com esse conjunto para o tempo1.
+         *  O mesmo ocorre com o tempo2, mas pegando o maior tempo de conclusão.
+         *
+         *  Parâmetros:
+         *      groupId            -> identificador do grupo
+         *      exportedResourceId -> identificador do recurso exportado
+         */
+
+        if (params.groupId && params.exportedResourceId) {
+
+            def group = Group.findById(params.groupId)
+            def userGroups = UserGroup.findAllByGroup(group)
+            def users = userGroups.collect {
+                it.user.id
+            }
+
+            def resourceMiss = MongoHelper.instance.getChallMistakes(params.exportedResourceId as int, users)
+            def groupChallMiss = [:]
+
+            if (resourceMiss != null) {
+
+                def level, challenge, mistake
+
+                for (entry in resourceMiss) {
+
+                    level     = entry.key.get(0)
+                    challenge = entry.key.get(1)
+                    mistake   = entry.value
+
+                    if(groupChallMiss.containsKey(level)) {
+                        groupChallMiss[level].add( [challenge, mistake] )
+                    } else {
+                        groupChallMiss.put(level, [[challenge, mistake]])
+                    }
+                }
+
+                groupChallMiss.sort()*.key
+                groupChallMiss.sort { it.value }
+            }
+
+            render groupChallMiss as JSON
 
         } else {
             // TODO: render erro nos parametros
