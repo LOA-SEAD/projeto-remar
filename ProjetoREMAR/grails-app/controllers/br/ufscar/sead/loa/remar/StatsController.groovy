@@ -405,11 +405,12 @@ class StatsController {
                     }
                 }
 
-                groupChallMiss.sort()*.key
-                groupChallMiss.sort { it.value }
+                groupChallMiss.each {
+                    it.value.sort()
+                }
             }
 
-            render groupChallMiss as JSON
+            render groupChallMiss.sort() as JSON
 
         } else {
             // TODO: render erro nos parametros
