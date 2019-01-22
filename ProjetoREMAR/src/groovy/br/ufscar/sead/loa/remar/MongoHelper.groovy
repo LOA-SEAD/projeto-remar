@@ -644,26 +644,30 @@ class MongoHelper {
     //NÚMERO DE TENTATIVAS POR DESAFIO
     def getChallAttempt (int exportedResourceId, List<Long> users) {
 
-        def timeCollection = getStats("stats", exportedResourceId, users)
+        def statsCollection = getStats("stats", exportedResourceId, users)
 
-        if(timeCollection.size() > 0) {
+        if(statsCollection.size() > 0) {
 
             def challAttempts = [:]
             def tuple
-            def gameName = ""
+            def santograu = false
 
-            for (Document doc : timeCollection) {
-                for (Object o : doc.timeStats) {
+            // Contadores de tentativas
+            // para cada desafio da Fase Galeria
+            def galeria1 = 0
+            def galeria2 = 0
 
-                    if (o.exportedResourceId == exportedResourceId
-                            && o.type == '2' && o.time == '0') {
+            for (Document doc : statsCollection) {
+                for (Object o : doc.stats) {
 
-                        if (gameName == "")
-                            gameName = o.gameId
+                    if (o.exportedResourceId == exportedResourceId) {
 
-                        // Conversão de tipos, já que foram salvos como strings no mongo.
-                        // 'userId' não precisa de conversão - já é salvo como long.
-                        tuple = new Tuple (o.gameLevel as int, o.challengeId as int)
+                        if (o.gameLevelName == "Fase Tecnologia"     || o.gameLevelName == "Fase Campo Minado" ||
+                                o.gameLevelName == "Fase Blocos de Gelo" || o.gameLevelName == "Fase TCC") {
+                            santograu = true
+                        }
+
+                        tuple = new Tuple (o.gameLevelName, "Desafio " + o.challengeId)
 
                         if (challAttempts.containsKey(tuple)) {
                             challAttempts[tuple] += 1
@@ -674,46 +678,31 @@ class MongoHelper {
                 }
             }
 
-            def statsCollection = getStats("stats", exportedResourceId, users)
+            // TODO: Isso nem deveria ser preciso. Novamente é erro de como os dados estão sendo enviados
+            if(santograu) {
 
-            def elem
+                def timeCollection = getStats("timeStats", exportedResourceId, users)
 
-            for (Document doc : statsCollection) {
-                for (Object o : doc.stats) {
-                    if (o.exportedResourceId == exportedResourceId) {
+                for (Document doc : timeCollection) {
+                    for (Object o : doc.timeStats) {
 
-                        // it.key.get(0) basicamente pega primeiro elemento de cada tupla (chave do mapa)
-                        elem = challAttempts.find { it.key.get(0) == (o.gameLevel as int) }
+                        if (o.exportedResourceId == exportedResourceId && o.gameId == 'SantoGrau'
+                                && o.time == '0' && o.type == '2' && o.gameLevel == '1') {
 
-                        // Se achou a tupla
-                        if(elem != null) {
-                            // Coloca mesma tupla mas substituindo com o nome do level e com string 'Desafio X'
-                            // Isso é para efeito de substituir o valor da chave
-                            challAttempts.put( new Tuple( o.gameLevelName, ("Desafio " + elem.key.get(1)) ), elem.value )
-                            challAttempts.remove(elem.key)
+                            if(o.challengeId == '0')
+                                galeria1++
+                            else if(o.challengeId == '1')
+                                galeria2++
                         }
                     }
                 }
-            }
 
-            // TODO: Isso nem deveria ser preciso. Novamente é erro de como os dados estão sendo enviados
-            if (gameName == "SantoGrau") {
-
-                tuple = new Tuple(1,0)
-                if ( challAttempts.containsKey( tuple ) ) {
-                    challAttempts.put( new Tuple( "Fase Galeria", "Desafio 0" ), challAttempts[tuple] )
-                    challAttempts.remove( tuple )
-                }
-
-                tuple = new Tuple(1,1)
-                if ( challAttempts.containsKey( tuple ) ) {
-                    challAttempts.put( new Tuple( "Fase Galeria", "Desafio 1" ), challAttempts[tuple] )
-                    challAttempts.remove( tuple )
-                }
+                challAttempts.put( new Tuple("Fase Galeria", "Desafio 1"), galeria1)
+                challAttempts.put( new Tuple("Fase Galeria", "Desafio 2"), galeria2)
             }
 
             // Para DEBUG -> descomente a linha abaixo
-            //println "challAttempts: " + challAttempts
+            println "challAttempts: " + challAttempts
 
             return challAttempts
 
@@ -759,7 +748,7 @@ class MongoHelper {
             }
 
             if (santograu) {
-                challMistakes.put( new Tuple("Fase Galeria", ""), null)
+                challMistakes.put( new Tuple("Fase Galeria", 0), 0)
             }
 
             // Para DEBUG -> descomente a linha abaixo
@@ -795,7 +784,7 @@ class MongoHelper {
     //PRINCIPAL
     static void main(String... args) {
 
-        MongoHelper.instance.init([dbHost  : 'alfa.remar.online',
+        MongoHelper.instance.init([dbHost  : '172.18.0.4:27017',
                                    username: 'root',
                                    password: 'root'])
 
@@ -830,11 +819,11 @@ class MongoHelper {
         //MongoHelper.instance.getAvgChallTime(3, grupo3doalfa)
 
         // número de tentativas por desafio
-        //MongoHelper.instance.getChallAttempt(2, [2, 3, 4] as List<Long>)
+        MongoHelper.instance.getChallAttempt(1, [2, 3, 4] as List<Long>)
 
         // taxas de erro total por desafio
         //MongoHelper.instance.getChallMistakes(2, [2, 3, 4] as List<Long>)
-        MongoHelper.instance.getChallMistakes(9, grupo3doalfa as List<Long>)
+        //MongoHelper.instance.getChallMistakes(9, grupo3doalfa as List<Long>)
 
         //chamando o método para mostrar a frequência de escolhas por desafio
         //MongoHelper.instance.getFrequenciaEscolhaDesafio(3)
