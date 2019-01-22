@@ -160,6 +160,30 @@ class ResourceController {
             redirect action: "index"
             return
         } else {
+
+            File propsFile = new File("${expandedWarPath}/remar/source/source.properties")
+
+            if (propsFile.exists()) {
+
+                Properties props = new Properties()
+                propsFile.withInputStream {
+                    props.load it
+                }
+
+                println "Iniciando o download do codigo fonte -- ${props.url}"
+
+                def file = new File("${expandedWarPath}/remar/source.zip")
+                def fos = new FileOutputStream(file)
+                def out = new BufferedOutputStream(fos)
+                out << new URL(props.url).openStream()
+                out.close()
+                println "Download do codigo fonte - Finalizado"
+
+                ant.unzip(src: file.path, dest: tmp, overwrite: true)
+                file.delete()
+                propsFile.delete()
+            }
+
             ant.copy(todir: servletContext.getRealPath("/data/resources/sources/${resourceInstance.uri}/base")) {
                 fileset(dir: tmp)
             }
@@ -391,7 +415,7 @@ class ResourceController {
 
     def customizableGames() {
         def model = [:]
-        def threshold = 12
+        def threshold = 16
 
         params.order = "asc"
         params.sort = "name"
