@@ -255,23 +255,15 @@ class ExportedResourceController {
             ant.sequential {
                 mkdir(dir: desktopFolder)
                 mkdir(dir: mobileFolder)
-                if (processType == "html") {
-                    if (desktop) {
-                        copy(file: "${sourceFolder}/windows.zip", tofile: "${desktopFolder}/windows.zip", failonerror: false)
-                        copy(file: "${sourceFolder}/linux.zip", tofile: "${desktopFolder}/linux.zip", failonerror: false)
-                        copy(file: "${sourceFolder}/mac.zip", tofile: "${desktopFolder}/mac.zip", failonerror: false)
-                    }
-
-                    if (mobile) {
-                        copy(file: "${sourceFolder}/android/${resourceURI}-arm.apk", tofile: "${mobileFolder}/${resourceURI}-arm.apk", failonerror: false)
-                        copy(file: "${sourceFolder}/android/${resourceURI}-x86.apk", tofile: "${mobileFolder}/${resourceURI}-x86.apk", failonerror: false)
-                    }
-
-                    mkdir(dir: folders[0])
-                    mkdir(dir: folders[1])
-                    mkdir(dir: folders[2])
-                    mkdir(dir: folders[3])
-                }
+                copy(file: "${sourceFolder}/windows.zip", tofile: "${desktopFolder}/windows.zip", failonerror: false)
+                copy(file: "${sourceFolder}/linux.zip", tofile: "${desktopFolder}/linux.zip", failonerror: false)
+                copy(file: "${sourceFolder}/mac.zip", tofile: "${desktopFolder}/mac.zip", failonerror: false)
+                copy(file: "${sourceFolder}/android/${resourceURI}-arm.apk", tofile: "${mobileFolder}/${resourceURI}-arm.apk", failonerror: false)
+                copy(file: "${sourceFolder}/android/${resourceURI}-x86.apk", tofile: "${mobileFolder}/${resourceURI}-x86.apk", failonerror: false)
+                mkdir(dir: folders[0])
+                mkdir(dir: folders[1])
+                mkdir(dir: folders[2])
+                mkdir(dir: folders[3])
             }
 
             process.completedTasks.outputs.each { outputs ->
