@@ -10,7 +10,7 @@ services:
       - 'mysql-data:/var/lib/mysql'
       - './database:/tmp/db'
       - './mysqld_charset.cnf:/etc/mysql/conf.d/mysqld_charset.cnf'
-    command: mysqld --init-file="/tmp/db/db_startup.sql"
+    command: mysqld --init-file="/tmp/db/db_startup.sql" --max-connections=500
   mongodb:
     env_file:
       - .env

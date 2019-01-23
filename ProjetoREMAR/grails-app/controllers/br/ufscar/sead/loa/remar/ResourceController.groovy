@@ -170,14 +170,36 @@ class ResourceController {
                     props.load it
                 }
 
-                println "Iniciando o download do codigo fonte -- ${props.url}"
+                def url = new URL("${props.url}")
+
+                println "Iniciando o download do codigo fonte -- ${url}"
 
                 def file = new File("${expandedWarPath}/remar/source.zip")
+                int fileSize = url.openConnection().getContentLength()
+
+                int bufferSize = 2097152 // 2 MB
+
+                def is = url.openStream()
                 def fos = new FileOutputStream(file)
-                def out = new BufferedOutputStream(fos)
-                out << new URL(props.url).openStream()
+                def out = new BufferedOutputStream(fos, bufferSize)
+                byte[] data = new byte[bufferSize];
+
+                int totalDataRead = 0;
+                int i;
+                int ten = 1;
+
+                while((i=is.read(data, 0, bufferSize)) >= 0) {
+                    totalDataRead = totalDataRead + i;
+                    out.write(data, 0, i);
+                    float per = (totalDataRead * 100.0) / fileSize
+                    if (((int) per) > 10 * ten) {
+                        println "Download Progress " + (10 * ten) + "% "
+                        ten = ((int) per) / 10 + 1
+                    }
+                }
+
+                println "Download Progress " + (10 * ten) + "% "
                 out.close()
-                println "Download do codigo fonte - Finalizado"
 
                 ant.unzip(src: file.path, dest: tmp, overwrite: true)
                 file.delete()
