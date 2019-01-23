@@ -171,7 +171,7 @@ class ExportedResourceController {
                 } catch (Exception e) {
                     System.err.println(e.getClass().getName() + ": " + e.getMessage());
                 }
-            } else if(params.time) {
+            } else if (params.time) {
 
                 // TODO: salvar os parâmetros com o tipo correto (int, long, float, etc)
                 // OBS: Antes de ser feito, o alfa.remar.online está com dados salvos de maneira errada,
@@ -245,24 +245,35 @@ class ExportedResourceController {
             def ant = new AntBuilder()
             def process = Propeller.instance.getProcessInstanceById(instance.processId, session.user.id as long)
             def processType = process.definition.type
+
             def folders = []
             folders << "${desktopFolder}/windows/resources/app"
             folders << "${desktopFolder}/linux/resources/app"
             folders << "${desktopFolder}/mac/${resourceURI}.app/Contents/Resources/app"
             folders << "${mobileFolder}/assets/www"
+
             ant.sequential {
                 mkdir(dir: desktopFolder)
                 mkdir(dir: mobileFolder)
-                copy(file: "${sourceFolder}/windows.zip", tofile: "${desktopFolder}/windows.zip", failonerror: false)
-                copy(file: "${sourceFolder}/linux.zip", tofile: "${desktopFolder}/linux.zip", failonerror: false)
-                copy(file: "${sourceFolder}/mac.zip", tofile: "${desktopFolder}/mac.zip", failonerror: false)
-                copy(file: "${sourceFolder}/android/${resourceURI}-arm.apk", tofile: "${mobileFolder}/${resourceURI}-arm.apk", failonerror: false)
-                copy(file: "${sourceFolder}/android/${resourceURI}-x86.apk", tofile: "${mobileFolder}/${resourceURI}-x86.apk", failonerror: false)
-                mkdir(dir: folders[0])
-                mkdir(dir: folders[1])
-                mkdir(dir: folders[2])
-                mkdir(dir: folders[3])
+                if (processType == "html") {
+                    if (desktop) {
+                        copy(file: "${sourceFolder}/windows.zip", tofile: "${desktopFolder}/windows.zip", failonerror: false)
+                        copy(file: "${sourceFolder}/linux.zip", tofile: "${desktopFolder}/linux.zip", failonerror: false)
+                        copy(file: "${sourceFolder}/mac.zip", tofile: "${desktopFolder}/mac.zip", failonerror: false)
+                    }
+
+                    if (mobile) {
+                        copy(file: "${sourceFolder}/android/${resourceURI}-arm.apk", tofile: "${mobileFolder}/${resourceURI}-arm.apk", failonerror: false)
+                        copy(file: "${sourceFolder}/android/${resourceURI}-x86.apk", tofile: "${mobileFolder}/${resourceURI}-x86.apk", failonerror: false)
+                    }
+
+                    mkdir(dir: folders[0])
+                    mkdir(dir: folders[1])
+                    mkdir(dir: folders[2])
+                    mkdir(dir: folders[3])
+                }
             }
+
             process.completedTasks.outputs.each { outputs ->
                 outputs.each { output ->
                     ant.sequential {
@@ -285,6 +296,7 @@ class ExportedResourceController {
                     }
                 }
             }
+
             def builder = new JsonBuilder()
             def remarJson = builder {
                 exportedResourceId instance.id
