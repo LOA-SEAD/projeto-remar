@@ -312,12 +312,8 @@ class StatsController {
 
     def challAttempt() {
         /*
-         *  Retorna um JSON com tempo médio gasto por desafio
-         *  [level:[desafio, tempo1, tempo2]]
-         *
-         *  OBS: É pego o menor tempo de conclusão cada usuário do grupo
-         *  e depois calculada a média com esse conjunto para o tempo1.
-         *  O mesmo ocorre com o tempo2, mas pegando o maior tempo de conclusão.
+         *  Retorna um JSON com total de tentativas por desafio
+         *  [level:[desafio, tentivas]]
          *
          *  Parâmetros:
          *      groupId            -> identificador do grupo
@@ -366,12 +362,8 @@ class StatsController {
 
     def challMistake  () {
         /*
-         *  Retorna um JSON com tempo médio gasto por desafio
-         *  [level:[desafio, tempo1, tempo2]]
-         *
-         *  OBS: É pego o menor tempo de conclusão cada usuário do grupo
-         *  e depois calculada a média com esse conjunto para o tempo1.
-         *  O mesmo ocorre com o tempo2, mas pegando o maior tempo de conclusão.
+         *  Retorna um JSON com total de erros por desafio
+         *  [level:[desafio, erros]]
          *
          *  Parâmetros:
          *      groupId            -> identificador do grupo
@@ -412,6 +404,57 @@ class StatsController {
             }
 
             render groupChallMiss.sort() as JSON
+
+        } else {
+            // TODO: render erro nos parametros
+        }
+    }
+
+    def choiceFrequency  () {
+        /*
+         *  Retorna um JSON com frequencia de escolhas por desafio
+         *  [level:[desafio, tentivas]]
+         *
+         *  Parâmetros:
+         *      groupId            -> identificador do grupo
+         *      exportedResourceId -> identificador do recurso exportado
+         */
+
+        if (params.groupId && params.exportedResourceId) {
+
+            def group = Group.findById(params.groupId)
+            def userGroups = UserGroup.findAllByGroup(group)
+            def users = userGroups.collect {
+                it.user.id
+            }
+
+            def resourceFreq = MongoHelper.instance.getChoiceFrequency(params.exportedResourceId as int, users)
+            def groupChoiceFreq = [:]
+
+            if (resourceFreq != null) {
+
+                def level, challenge, answer, freq
+
+                for (entry in resourceFreq) {
+
+                    level     = entry.key.get(0)
+                    challenge = entry.key.get(1)
+                    answer    = entry.key.get(2)
+                    freq      = entry.value
+
+                    if(groupChoiceFreq.containsKey(level)) {
+                        if(groupChoiceFreq[level].containsKey(challenge)) {
+                            groupChoiceFreq[level][challenge].add( [answer, freq] )
+                        } else {
+                            groupChoiceFreq[level].put(challenge, [[answer, freq]])
+                        }
+                    } else {
+                        groupChoiceFreq.put(level, [ (challenge): [[answer, freq]] ] )
+                    }
+                }
+            }
+
+            render groupChoiceFreq as JSON
 
         } else {
             // TODO: render erro nos parametros

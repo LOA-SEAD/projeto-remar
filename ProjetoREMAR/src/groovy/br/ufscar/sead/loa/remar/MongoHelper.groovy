@@ -345,7 +345,7 @@ class MongoHelper {
         }
     }
 
-    //NÚMERO DE ALUNOS EM CADA NÍVEL
+    //NÚMERO DE JOGADORES EM CADA NÍVEL
     def getQntInLevels(int exportedResourceId, List<Long> users) {
 
         def timeCollection = getStats("timeStats", exportedResourceId, users)
@@ -394,7 +394,7 @@ class MongoHelper {
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            println "ERROR: Could not return quantity of players per level for resource " + exportedResourceId
             return null
         }
     }
@@ -442,7 +442,7 @@ class MongoHelper {
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            println "ERROR: Could not return level attempts for resource " + exportedResourceId
             return null
         }
     }
@@ -494,7 +494,7 @@ class MongoHelper {
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            println "ERROR: Could not return average conclusion time for resource " + exportedResourceId
             return null
         }
     }
@@ -636,7 +636,7 @@ class MongoHelper {
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            println "ERROR: Could not return average challenge time for resource " + exportedResourceId
             return null
         }
     }
@@ -708,7 +708,7 @@ class MongoHelper {
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            println "ERROR: Could not return challenge attempts for resource " + exportedResourceId
             return null
         }
     }
@@ -721,7 +721,6 @@ class MongoHelper {
         if (statsCollection.size() > 0) {
 
             def challMistakes = [:]
-            def challenge
             def tuple
             def santograu = false
 
@@ -735,8 +734,7 @@ class MongoHelper {
                             santograu = true
                         }
 
-                        challenge = o.challengeId as int
-                        tuple = new Tuple( o.gameLevelName, ("Desafio " + challenge) )
+                        tuple = new Tuple( o.gameLevelName, ("Desafio " + o.challengeId) )
 
                         if (challMistakes.containsKey(tuple)) {
                             challMistakes[tuple] += 1
@@ -758,33 +756,66 @@ class MongoHelper {
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            println "ERROR: Could not return challenge mistakes for resource " + exportedResourceId
             return null
         }
 
     }
 
     //FREQUÊNCIA DE ESCOLHAS POR DESAFIO
-    def getFrequenciaEscolhaDesafio (Long exportedResourceId) {
-        def statsCollection = db.getCollection("stats")
-        def docs = statsCollection.find(new Document('stats.exportedResourceId', exportedResourceId))
+    def getChoiceFrequency (int exportedResourceId, List<Long> users) {
 
-        println "Nível, Desafio, Escolha, Frequência"
+        def statsCollection = getStats("stats", exportedResourceId, users)
 
-        for (Document doc : docs) {
-            for (Object o: doc.stats) {
-                if (o.exportedResourceId == exportedResourceId) {
-                    println o.gameLevelName + ", " + o.challengeId + ", " + o.choice
+        if (statsCollection.size() > 0) {
+
+            def choiceFrequency = [:]
+            def tuple
+
+            for (Document doc : statsCollection) {
+                for (Object o : doc.stats) {
+
+                    if (o.exportedResourceId == exportedResourceId) {
+
+                        if(o.gameType == 'shuffleWord') {
+
+                            //println "Gametype: " + o.gameType + ", Level: " + o.gameLevelName + ", Desafio: " + o.challengeId + ", Answer: " + o.answer
+                            tuple = new Tuple( o.gameLevelName, ("Desafio " + o.challengeId),  o.answer.toLowerCase())
+
+                        } else if(o.gameType == 'multipleChoice') {
+
+                            //println "Gametype: " + o.gameType + ", Level: " + o.gameLevelName + ", Desafio: " + o.challengeId + ", Choice: " + o.choice
+                            tuple = new Tuple( o.gameLevelName, ("Desafio " + o.challengeId),  o.choice)
+
+                        }
+
+                        if (choiceFrequency.containsKey(tuple)) {
+                            choiceFrequency[tuple] += 1
+                        } else {
+                            choiceFrequency.put(tuple, 1)
+                        }
+                    }
                 }
             }
+
+            // Para DEBUG -> descomente a linha abaixo
+            println "choiceFrequency: " + choiceFrequency
+
+            return choiceFrequency
+
+        } else {
+            // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
+            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            return null
         }
+
     }
 
 
     //PRINCIPAL
     static void main(String... args) {
 
-        MongoHelper.instance.init([dbHost  : '172.18.0.4:27017',
+        MongoHelper.instance.init([dbHost  : '172.18.0.2:27017',
                                    username: 'root',
                                    password: 'root'])
 
@@ -797,13 +828,13 @@ class MongoHelper {
                             65, 66, 67, 46, 71, 70, 73, 72, 76, 58, 54]
 
 
-        // ranking dos alunos que concluíram o jogo
+        // ranking dos jogadores que concluíram o jogo
         //MongoHelper.instance.getRanking(12)
 
         // tempo gasto para conclusão do jogo
         //MongoHelper.instance.getGameConclusionTime(1, [2,3,4] as List<Long>)
 
-        // quantidade de alunos por nível
+        // quantidade de jogadores por nível
         //MongoHelper.instance.getQntInLevels(2, [2,3,4] as List<Long>)
 
         // número de tentativas por nível
@@ -819,13 +850,12 @@ class MongoHelper {
         //MongoHelper.instance.getAvgChallTime(3, grupo3doalfa)
 
         // número de tentativas por desafio
-        MongoHelper.instance.getChallAttempt(1, [2, 3, 4] as List<Long>)
+        //MongoHelper.instance.getChallAttempt(1, [2, 3, 4] as List<Long>)
 
         // taxas de erro total por desafio
         //MongoHelper.instance.getChallMistakes(2, [2, 3, 4] as List<Long>)
-        //MongoHelper.instance.getChallMistakes(9, grupo3doalfa as List<Long>)
 
-        //chamando o método para mostrar a frequência de escolhas por desafio
-        //MongoHelper.instance.getFrequenciaEscolhaDesafio(3)
+        // frequência de escolhas por desafio
+        MongoHelper.instance.getChoiceFrequency(1, [2, 3, 4] as List<Long>)
     }
 }
