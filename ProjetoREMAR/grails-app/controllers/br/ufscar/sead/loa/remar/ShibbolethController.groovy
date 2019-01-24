@@ -20,7 +20,7 @@ class ShibbolethController {
             "Shib-Session-Index",					 -- unique session identifier
         */
 
-        log.info "Starting Shibboleth Authentication;"
+        log.info "Starting Shibboleth Authentication for" + request.getAttribute("Shib-eduPerson-eduPersonPrincipalName");
 
         def u = request.getAttribute("Shib-eduPerson-eduPersonPrincipalName")? User.findByUsername(request.getAttribute("Shib-eduPerson-eduPersonPrincipalName")) : null;
 
@@ -38,11 +38,13 @@ class ShibbolethController {
                 email: request.getAttribute("Shib-inetOrgPerson-mail"),
                 firstName: request.getAttribute("Shib-inetOrgPerson-cn"),
                 lastName: request.getAttribute("Shib-inetOrgPerson-sn"),
+                ssl_cipher: "???",
                 firsAccess: true,
                 enabled: true
             )
 
             if (u.save(flush: true)) {
+            	UserRole.create u, Role.findByAuthority("ROLE_USER"), true
             	session.user = u;
 
             	log.info "Successfully created new Shibboleth-authenticated user;"
