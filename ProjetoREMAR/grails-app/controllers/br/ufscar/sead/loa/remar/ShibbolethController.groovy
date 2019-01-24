@@ -19,38 +19,37 @@ class ShibbolethController {
             "Shib-AuthnContext-Class",
             "Shib-Session-Index",					 -- unique session identifier
         */
-
         log.info "Starting Shibboleth Authentication for" + request.getAttribute("Shib-eduPerson-eduPersonPrincipalName");
 
-        def u = request.getAttribute("Shib-eduPerson-eduPersonPrincipalName")? User.findByUsername(request.getAttribute("Shib-eduPerson-eduPersonPrincipalName")) : null;
+        def user = request.getAttribute("Shib-eduPerson-eduPersonPrincipalName")? User.findByUsername(request.getAttribute("Shib-eduPerson-eduPersonPrincipalName")) : null;
 
-        if (u) {
-        	session.user = u;
+        if (user) {
+        	session.user = user;
 
 			log.info "Successfully logged in using Shibboleth Authentication;"
 
-        	render view: "success", model: [user: u]
+        	render view: "success", model: [user: user]
         } else{
         	log.info "Creating new Shibboleth-authenticated user;"
-        	u = new User(
+        	user = new User(
         		username: request.getAttribute("Shib-eduPerson-eduPersonPrincipalName"),
                 password: request.getAttribute("Shib-Session-ID"),
                 email: request.getAttribute("Shib-inetOrgPerson-mail"),
                 firstName: request.getAttribute("Shib-inetOrgPerson-cn"),
                 lastName: request.getAttribute("Shib-inetOrgPerson-sn"),
-                ssl_cipher: "???",
                 firsAccess: true,
                 enabled: true
             )
+            user.save(flush: true)
 
-            if (u.save(flush: true)) {
-            	UserRole.create u, Role.findByAuthority("ROLE_USER"), true
-            	session.user = u;
+            if (!user.hasErrors()) {
+            	UserRole.create user, Role.findByAuthority("ROLE_USER"), true
+            	session.user = user;
 
             	log.info "Successfully created new Shibboleth-authenticated user;"
-            	render view: "success", model: [user: u]
+            	render view: "success", model: [user: user]
             } else {
-            	respond status: 500
+            	render user.errors
             }
         }
 
