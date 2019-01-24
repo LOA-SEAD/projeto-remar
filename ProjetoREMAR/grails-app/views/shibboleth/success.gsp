@@ -10,13 +10,12 @@
 			<h1>Application Status</h1>
 			<table>
                 <tr>
-                    <td>Key</td>
-                    <td>Value</td>
+                    <td>Hello</td>
+                    <td>World</td>
                 </tr>
-			<g:each var='attr' in="${requestAttrs}">
                 <tr>
-                    <td>${attr.key}</td>
-                    <td>${attr.value}</td>
+                    <td>Logged in as: ${user.username}</td>
+                    <td>${user.email}</td>
                 </tr>
 			</g:each>
 			</table>
