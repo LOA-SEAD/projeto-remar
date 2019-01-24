@@ -26,7 +26,9 @@ services:
       restart: always
       ports:
         - '80:8080'
+        - '8009:8009'
       volumes:
+          - './conf/server.xml:/usr/local/tomcat/conf/server.xml'
           - '~/volume_docker_remar:/usr/local/tomcat/webapps'
           - '~/electron_docker:/root/.electron'
       links:
