@@ -702,7 +702,7 @@ class MongoHelper {
             }
 
             // Para DEBUG -> descomente a linha abaixo
-            println "challAttempts: " + challAttempts
+            //println "challAttempts: " + challAttempts
 
             return challAttempts
 
@@ -799,7 +799,7 @@ class MongoHelper {
             }
 
             // Para DEBUG -> descomente a linha abaixo
-            println "choiceFrequency: " + choiceFrequency
+            //println "choiceFrequency: " + choiceFrequency
 
             return choiceFrequency
 
