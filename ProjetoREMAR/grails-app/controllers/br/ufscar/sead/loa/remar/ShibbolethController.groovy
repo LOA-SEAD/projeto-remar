@@ -4,32 +4,45 @@ class ShibbolethController {
 
     def connect() {
 
-    	def shib_attributes = [
-            "Shib-brEduPerson-brEduAffiliationType",
-            "Shib-eduPerson-eduPersonAffiliation",
-            "Shib-eduPerson-eduPersonPrincipalName",
-            "Shib-inetOrgPerson-cn",
-            "Shib-inetOrgPerson-mail",
-            "Shib-inetOrgPerson-sn",
+    	/* Shibboleth attributes available:
+            "Shib-brEduPerson-brEduAffiliationType", -- userType : [student, teacher, employee, ...];
+            "Shib-eduPerson-eduPersonAffiliation",   -- userType custom identifier
+            "Shib-eduPerson-eduPersonPrincipalName", -- UNIQUE name identifier for user within the federation; Used as username;
+            "Shib-inetOrgPerson-cn",			     -- user complete name
+            "Shib-inetOrgPerson-mail",				 -- user email
+            "Shib-inetOrgPerson-sn",				 -- user surname
             "Shib-Application-ID",
             "Shib-Session-ID",
-            "Shib-Identity-Provider",
-            "Shib-Authentication-Instant",
-            "Shib-Authentication-Method",
+            "Shib-Identity-Provider",				 -- Authorizing IDP identifier
+            "Shib-Authentication-Instant",           -- Authentication timestamp
+            "Shib-Authentication-Method",            -- Auth method
             "Shib-AuthnContext-Class",
-            "Shib-Session-Index",
-            "uid"
-        ];
+            "Shib-Session-Index",					 -- unique session identifier
+        */
 
-        def requestAttrs = []
-        request.each {
-            requestAttrs << it
+        def u = User.findByLogin(request.getAttribute("Shib-eduPerson-eduPersonPrincipalName"))
+
+        if (u) {
+        	session.user = u;
+        	render view: "success", model: [user: u]
+        } else{
+        	u = new User(
+        		username: request.getAttribute("Shib-eduPerson-eduPersonPrincipalName"),
+                password: request.getAttribute("Shib-Session-ID"),
+                email: request.getAttribute("Shib-inetOrgPerson-mail"),
+                firstName: request.getAttribute("Shib-inetOrgPerson-cn"),
+                lastName: request.getAttribute("Shib-inetOrgPerson-sn"),
+                firsAccess: true,
+                enabled: true
+            )
+
+            if (u.save(flush: true)) {
+            	session.user = u;
+            	render view: "success", model: [user: u]
+            } else {
+            	respond status: 500
+            }
         }
 
-        shib_attributes.each {
-            requestAttrs << [key: it, value: request.getAttribute(it)]
-        }
-
-        render view: "index", model: [requestAttrs: requestAttrs]
     }
 }
