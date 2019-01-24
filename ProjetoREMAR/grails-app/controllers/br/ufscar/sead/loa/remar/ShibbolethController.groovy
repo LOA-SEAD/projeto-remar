@@ -20,12 +20,18 @@ class ShibbolethController {
             "Shib-Session-Index",					 -- unique session identifier
         */
 
-        def u = User.findByLogin(request.getAttribute("Shib-eduPerson-eduPersonPrincipalName"))
+        log.info "Starting Shibboleth Authentication;"
+
+        def u = request.getAttribute("Shib-eduPerson-eduPersonPrincipalName")? User.findByUsername(request.getAttribute("Shib-eduPerson-eduPersonPrincipalName")) : null;
 
         if (u) {
         	session.user = u;
+
+			log.info "Successfully logged in using Shibboleth Authentication;"
+
         	render view: "success", model: [user: u]
         } else{
+        	log.info "Creating new Shibboleth-authenticated user;"
         	u = new User(
         		username: request.getAttribute("Shib-eduPerson-eduPersonPrincipalName"),
                 password: request.getAttribute("Shib-Session-ID"),
@@ -38,6 +44,8 @@ class ShibbolethController {
 
             if (u.save(flush: true)) {
             	session.user = u;
+
+            	log.info "Successfully created new Shibboleth-authenticated user;"
             	render view: "success", model: [user: u]
             } else {
             	respond status: 500
