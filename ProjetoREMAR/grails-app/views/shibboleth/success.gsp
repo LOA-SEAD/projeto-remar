@@ -17,7 +17,6 @@
                     <td>Logged in as: ${user.username}</td>
                     <td>${user.email}</td>
                 </tr>
-			</g:each>
 			</table>
 		</div>
 	</body>
