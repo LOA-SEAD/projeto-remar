@@ -60,7 +60,7 @@ class ShibbolethController {
     def authorize() {
 		log.info "User: ${request.params["username"]} issued login with password ${request.params["password"]};"
 
-		springSecurityService.reauthenticate(request.params["username"], request.params["password"])
+		springSecurityService.reauthenticate(request["username"], request["password"])
 
 		log.info "Shibboleth flow succesfully authorized;"
 
