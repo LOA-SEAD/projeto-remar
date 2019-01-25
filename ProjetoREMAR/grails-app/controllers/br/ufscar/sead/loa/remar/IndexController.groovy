@@ -8,9 +8,6 @@ class IndexController {
     def springSecurityService
 
     def index() {
-        attrNames = request.getAttributeNames()
-        respond model:[attrNames: attrNames, request: request]
-        /*
         if (springSecurityService.isLoggedIn()) {
                 def model = [:]
 
@@ -21,10 +18,8 @@ class IndexController {
                 render view: "dashboard", model: model
         } else {
             respond Announcement.list(max: 4, sort: "dateCreated")
-        }*/
+        }
     }
-
-    def idptest() {}
 
     def introduction() {}
 
