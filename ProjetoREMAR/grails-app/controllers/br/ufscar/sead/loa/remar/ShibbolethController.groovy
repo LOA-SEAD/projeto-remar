@@ -27,7 +27,7 @@ class ShibbolethController {
 
         if (user) {
         	session.user = user;
-
+        	flash.user = user;
 			log.info "Successfully logged in using Shibboleth Authentication;"
 
         	render view: "success", model: [user: user, redirectUrl: redirectUrl]
@@ -47,6 +47,7 @@ class ShibbolethController {
             if (!user.hasErrors()) {
             	UserRole.create user, Role.findByAuthority("ROLE_USER"), true
             	session.user = user;
+            	flash.user = user;
             	log.info "Successfully created new Shibboleth-authenticated user;"
             	log.info "${user.username}, ${user.password}"
             	render view: "success", model: [user: user, redirectUrl: redirectUrl]
@@ -57,10 +58,11 @@ class ShibbolethController {
 
     }
 
-    def authorize() {
-		log.info "User: ${request["username"]} issued login with password ${request["password"]};"
+    def authorize(username, password) {
+    	def user = flash.user;
+		log.info "User: ${user?.username} issued login with password ${user?.password};"
 
-		springSecurityService.reauthenticate(request["username"], request["password"])
+		springSecurityService.reauthenticate(user?.username, user?.password)
 
 		log.info "Shibboleth flow succesfully authorized;"
 
