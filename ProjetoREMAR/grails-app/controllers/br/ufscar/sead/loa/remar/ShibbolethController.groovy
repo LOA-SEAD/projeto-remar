@@ -22,7 +22,7 @@ class ShibbolethController {
             "Shib-Session-Index",					 -- unique session identifier
         */
         log.info "Starting Shibboleth Authentication for " + request.getAttribute("Shib-eduPerson-eduPersonPrincipalName");
-        def redirectUrl = "http://alfa.remar.online/j_spring_security_check"
+        def redirectUrl = "http://alfa.remar.online/shibboleth/authorize"
         def user = request.getAttribute("Shib-eduPerson-eduPersonPrincipalName")? User.findByUsername(request.getAttribute("Shib-eduPerson-eduPersonPrincipalName")) : null;
 
         if (user) {
@@ -55,5 +55,15 @@ class ShibbolethController {
             }
         }
 
+    }
+
+    def authorize() {
+		log.info "User: ${request.params["username"]} issued login with password ${request.params["password"]};"
+
+		springSecurityService.reauthenticate(request.params["username"], request.params["password"])
+
+		log.info "Shibboleth flow succesfully authorized;"
+
+		redirect(controller: "index", action: "index")
     }
 }
