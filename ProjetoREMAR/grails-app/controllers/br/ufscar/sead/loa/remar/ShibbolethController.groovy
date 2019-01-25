@@ -47,9 +47,6 @@ class ShibbolethController {
             if (!user.hasErrors()) {
             	UserRole.create user, Role.findByAuthority("ROLE_USER"), true
             	session.user = user;
-
-                springSecurityService.reauthenticate(user.username, user.password)
-
             	log.info "Successfully created new Shibboleth-authenticated user;"
             	render view: "success", model: [user: user]
             } else {
