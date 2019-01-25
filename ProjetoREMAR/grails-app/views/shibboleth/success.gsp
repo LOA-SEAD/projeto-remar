@@ -5,19 +5,14 @@
 		<title>Welcome to Grails</title>
 	</head>
 	<body>
-		<h1> Hello Grails! </h1>
 		<div id="status" role="complementary">
-			<h1>Application Status</h1>
-			<table>
-                <tr>
-                    <td>Hello</td>
-                    <td>World</td>
-                </tr>
-                <tr>
-                    <td>Logged in as: ${user.username}</td>
-                    <td>${user.email}</td>
-                </tr>
-			</table>
+			<h1>Autenticando...</h1>
+			<form name="shiblogin" action="/j_spring_security_check">
+				<input type="hidden" name="username" value="${user.username}">
+				<input type="password" style="display:none;" name="password" value="${user.password}">
+				<p><a type="submit" href="#">Clique aqui</a> caso não seja redirecionado automaticamente.</p>
+			</form>
 		</div>
+		<script type="text/javascript">document.forms.shiblogin.submit()</script>
 	</body>
 </html>
