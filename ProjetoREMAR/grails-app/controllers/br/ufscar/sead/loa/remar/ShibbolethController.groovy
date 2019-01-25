@@ -22,7 +22,7 @@ class ShibbolethController {
             "Shib-Session-Index",					 -- unique session identifier
         */
         log.info "Starting Shibboleth Authentication for" + request.getAttribute("Shib-eduPerson-eduPersonPrincipalName");
-        def redirectUrl = "alfa.remar.online/j_spring_security_check"
+        def redirectUrl = "http://alfa.remar.online/j_spring_security_check"
         def user = request.getAttribute("Shib-eduPerson-eduPersonPrincipalName")? User.findByUsername(request.getAttribute("Shib-eduPerson-eduPersonPrincipalName")) : null;
 
         if (user) {
