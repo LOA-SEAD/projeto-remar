@@ -58,8 +58,7 @@ class ShibbolethController {
 
     }
 
-    def authorize() {
-    	def user = flash.user;
+    def authorize(LoginShibboleth user) {
 		log.info "User: ${user.username} issued login with password ${user.password};"
 
 		springSecurityService.reauthenticate(user.username, user.password)
@@ -68,4 +67,9 @@ class ShibbolethController {
 
 		redirect(controller: "index", action: "index")
     }
+
+	private class LoginShibboleth {
+		String username;
+		String password;
+	}
 }
