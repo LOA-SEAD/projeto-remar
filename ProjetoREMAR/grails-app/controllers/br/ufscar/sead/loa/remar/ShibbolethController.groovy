@@ -58,11 +58,11 @@ class ShibbolethController {
 
     }
 
-    def authorize(username, password) {
+    def authorize() {
     	def user = flash.user;
-		log.info "User: ${user?.username} issued login with password ${user?.password};"
+		log.info "User: ${user.username} issued login with password ${user.password};"
 
-		springSecurityService.reauthenticate(user?.username, user?.password)
+		springSecurityService.reauthenticate(user.username, user.password)
 
 		log.info "Shibboleth flow succesfully authorized;"
 
