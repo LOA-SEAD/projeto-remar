@@ -7,7 +7,7 @@
 	<body>
 		<div id="status" role="complementary">
 			<h1>Autenticando...</h1>
-			<form name="shiblogin" action="/j_spring_security_check">
+			<form name="shiblogin" action="${redirectUrl}" method="POST">
 				<input type="hidden" name="username" value="${user.username}">
 				<input type="password" style="display:none;" name="password" value="${user.password}">
 				<p><a type="submit" href="#">Clique aqui</a> caso não seja redirecionado automaticamente.</p>
