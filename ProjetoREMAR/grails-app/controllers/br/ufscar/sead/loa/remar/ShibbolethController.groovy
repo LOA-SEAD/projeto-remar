@@ -29,14 +29,13 @@ class ShibbolethController {
             "Shib-Session-Index",					 -- unique session identifier
         */
         log.info "Starting Shibboleth Authentication for " + request.getAttribute("Shib-eduPerson-eduPersonPrincipalName");
-        def redirectUrl = "http://alfa.remar.online/shibboleth/authorize"
-
+        def redirectUrl = "http://alfa.remar.online/j_spring_security_check"
         def user = request.getAttribute("Shib-eduPerson-eduPersonPrincipalName") ? User.findByUsername(request.getAttribute("Shib-eduPerson-eduPersonPrincipalName")) : null;
 
         if (user) {
             log.info "Successfully logged in using Shibboleth Authentication;"
 
-            render view: "success", model: [user: user, redirectUrl: redirectUrl]
+            render view: "success", model: [user: user, password: "changeit", redirectUrl: redirectUrl]
         } else {
             log.info "Creating new Shibboleth-authenticated user;"
             user = new User(
@@ -53,7 +52,7 @@ class ShibbolethController {
             if (!user.hasErrors()) {
                 UserRole.create user, Role.findByAuthority("ROLE_USER"), true
                 log.info "Successfully created new Shibboleth-authenticated user;"
-                render view: "success", model: [user: user, redirectUrl: redirectUrl]
+                render view: "success", model: [user: user, password: "changeit", redirectUrl: redirectUrl]
             } else {
                 render user.errors
             }

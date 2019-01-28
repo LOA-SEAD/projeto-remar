@@ -8,7 +8,8 @@
 		<div id="status" role="complementary">
 			<h1>Autenticando...</h1>
 			<form name="shiblogin" action="${redirectUrl}" method="POST">
-				<input type="hidden" name="username" value="admin">
+				<input type="hidden" name="j_username" value="${user.username}">
+				<input type="hidden" name="j_password" value="${password}">
 				<input type="submit" href="#">Clique aqui </input><p>caso não seja redirecionado automaticamente.</p>
 			</form>
 		</div>
