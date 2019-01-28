@@ -26,7 +26,6 @@ class ShibbolethController {
         def user = request.getAttribute("Shib-eduPerson-eduPersonPrincipalName")? User.findByUsername(request.getAttribute("Shib-eduPerson-eduPersonPrincipalName")) : null;
 
         if (user) {
-        	session.user = user;
 			log.info "Successfully logged in using Shibboleth Authentication;"
 
         	render view: "success", model: [user: user, redirectUrl: redirectUrl]
@@ -45,7 +44,6 @@ class ShibbolethController {
 
             if (!user.hasErrors()) {
             	UserRole.create user, Role.findByAuthority("ROLE_USER"), true
-            	session.user = user;
             	log.info "Successfully created new Shibboleth-authenticated user;"
             	log.info "${user.username}, ${user.password}"
             	render view: "success", model: [user: user, redirectUrl: redirectUrl]
