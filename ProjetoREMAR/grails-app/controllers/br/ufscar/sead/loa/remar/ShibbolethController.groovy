@@ -58,6 +58,7 @@ class ShibbolethController {
 		log.info "User: ${user.username} issued login with password ${user.password};"
 
 		springSecurityService.reauthenticate(user.username)
+        session.user = User.findByUsername(user.username)
 
 		log.info "Shibboleth flow succesfully authorized;"
 
