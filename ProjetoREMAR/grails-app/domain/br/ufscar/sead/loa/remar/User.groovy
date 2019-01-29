@@ -20,6 +20,7 @@ class User {
     String facebookId
     String moodleUsername
     boolean firstAccess
+    boolean cafeUser
 
 
     static transients = ['springSecurityService']
@@ -33,6 +34,7 @@ class User {
         facebookId nullable: true
         moodleUsername nullable: true
         firstAccess blank: true, nullable: true
+        cafeUser blank: true, nullable: true
     }
 
     static mapping = {
