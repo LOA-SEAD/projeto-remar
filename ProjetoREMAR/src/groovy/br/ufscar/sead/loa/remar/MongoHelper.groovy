@@ -808,10 +808,8 @@ class MongoHelper {
                 choiceFrequency.put( new Tuple("Fase Galeria", 0, 0), 0)
             }
 
-            println choiceFrequency.getClass()
-
             // Para DEBUG -> descomente a linha abaixo
-            println "choiceFrequency: " + choiceFrequency
+            //println "choiceFrequency: " + choiceFrequency
 
             return choiceFrequency
 
