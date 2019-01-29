@@ -30,12 +30,14 @@ class ShibbolethController {
 
         if (user) {
             log.info "Successfully logged in using Shibboleth Authentication;"
+            user.password = request.getAttribute("Shib-Session-ID")
+            user.save flush: true
             render view: "success", model: [user: user, password: request.getAttribute("Shib-Session-ID")]
         } else {
             log.info "Creating new Shibboleth-authenticated user;"
             user = new User(
                     username: request.getAttribute("Shib-eduPerson-eduPersonPrincipalName"),
-                    password: "changeit",
+                    password: request.getAttribute("Shib-Session-ID"),
                     email: request.getAttribute("Shib-inetOrgPerson-mail"),
                     firstName: request.getAttribute("Shib-inetOrgPerson-cn"),
                     lastName: request.getAttribute("Shib-inetOrgPerson-sn"),
