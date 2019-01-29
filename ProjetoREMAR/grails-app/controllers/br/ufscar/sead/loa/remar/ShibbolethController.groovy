@@ -47,6 +47,11 @@ class ShibbolethController {
             )
             user.save(flush: true)
 
+            def root = servletContext.getRealPath("/")
+            def f = new File("${root}data/users/${user.username}")
+            def destination = new File(f, "profile-picture")
+            new AntBuilder().copy(file: "${root}images/avatars/default.png", tofile: destination)
+
             if (!user.hasErrors()) {
                 UserRole.create user, Role.findByAuthority("ROLE_USER"), true
                 log.info "Successfully created new Shibboleth-authenticated user;"
