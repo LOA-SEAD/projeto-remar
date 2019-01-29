@@ -461,4 +461,50 @@ class StatsController {
         }
     }
 
+    def playerLevelAttempt() {
+        /*
+         *  Retorna um JSON com quantidade de tentativas por nivel
+         *  [[nivel, tentativas]]
+         *
+         *  Parâmetros:
+         *      groupId            -> identificador do grupo
+         *      exportedResourceId -> identificador do recurso exportado
+         */
+
+        if (params.groupId && params.exportedResourceId) {
+
+            def group = Group.findById(params.groupId)
+            def userGroups = UserGroup.findAllByGroup(group)
+            def users = userGroups.collect {
+                it.user.id
+            }
+
+            def resourceAtt = MongoHelper.instance.getPlayerLevelAttempt(params.exportedResourceId as int, users)
+            def playersLevelAtt = [:]
+
+            if (resourceAtt != null) {
+
+                def user, level, attempts
+
+                for (entry in resourceAtt) {
+
+                    user     = User.findById(entry.key.get(0)).name
+                    level    = entry.key.get(1)
+                    attempts = entry.value
+
+                    if(playersLevelAtt.containsKey(user)) {
+                        playersLevelAtt[user].add( [level, attempts] )
+                    } else {
+                        playersLevelAtt.put(user, [[level, attempts]])
+                    }
+                }
+            }
+
+            render playersLevelAtt as JSON
+
+        } else {
+            // TODO: render erro nos parametros
+        }
+    }
+
 }

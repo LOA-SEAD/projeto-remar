@@ -771,11 +771,17 @@ class MongoHelper {
 
             def choiceFrequency = [:]
             def tuple
+            def santograu = false
 
             for (Document doc : statsCollection) {
                 for (Object o : doc.stats) {
 
                     if (o.exportedResourceId == exportedResourceId) {
+
+                        if (o.gameLevelName == "Fase Tecnologia"     || o.gameLevelName == "Fase Campo Minado" ||
+                                o.gameLevelName == "Fase Blocos de Gelo" || o.gameLevelName == "Fase TCC") {
+                            santograu = true
+                        }
 
                         if(o.gameType == 'shuffleWord') {
 
@@ -798,8 +804,14 @@ class MongoHelper {
                 }
             }
 
+            if (santograu) {
+                choiceFrequency.put( new Tuple("Fase Galeria", 0, 0), 0)
+            }
+
+            println choiceFrequency.getClass()
+
             // Para DEBUG -> descomente a linha abaixo
-            //println "choiceFrequency: " + choiceFrequency
+            println "choiceFrequency: " + choiceFrequency
 
             return choiceFrequency
 
@@ -811,11 +823,78 @@ class MongoHelper {
 
     }
 
+    //NÚMERO DE TENTATIVAS EM CADA NÍVEL POR JOGADOR
+    def getPlayerLevelAttempt (int exportedResourceId, List<Long> users) {
+
+        def timeCollection = getStats("timeStats", exportedResourceId, users)
+
+        if(timeCollection.size() > 0) {
+
+            def levelAttempts = [:]
+            def level
+            def tuple
+
+            for (Document doc : timeCollection) {
+                for (Object o : doc.timeStats) {
+
+                    if (o.exportedResourceId == exportedResourceId
+                            && o.time == '0'
+                            && o.type == '1') {
+
+                        // Conversão necessária por erro na hora de salvar os parametros em timeStats
+                        // Não foi modificado ainda por não poder mexer no banco do alfa.remar.online
+                        level = o.gameLevel as int
+
+                        if(o.gameId == "SantoGrau" && level == 5) {
+                            tuple = new Tuple(o.userId, "Fase Refeitório")
+                        } else if(o.gameId == "SantoGrau" && level == 1) {
+                            tuple = new Tuple(o.userId, "Fase Galeria")
+                        } else {
+                            tuple = new Tuple(o.userId, level)
+                        }
+
+                        if (levelAttempts.containsKey(tuple)) {
+                            levelAttempts[tuple] += 1
+                        } else {
+                            levelAttempts.put(tuple, 1)
+                        }
+                    }
+                }
+            }
+
+            def statsCollection = getStats("stats", exportedResourceId, users)
+
+            for (Document doc : statsCollection) {
+                for (Object o : doc.stats) {
+                    if (o.exportedResourceId == exportedResourceId) {
+
+                        tuple = new Tuple(o.userId, o.gameLevel)
+
+                        if (levelAttempts.containsKey(tuple)) {
+                            levelAttempts.put(new Tuple(o.userId, o.gameLevelName), levelAttempts[tuple])
+                            levelAttempts.remove(tuple)
+                        }
+                    }
+                }
+            }
+
+            // Para DEBUG -> descomente as linhas abaixo
+            //println "playerLevelAttempts: " + levelAttempts
+
+            return levelAttempts
+
+        } else {
+            // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
+            println "ERROR: Could not return level attempts for resource " + exportedResourceId
+            return null
+        }
+    }
+
 
     //PRINCIPAL
     static void main(String... args) {
 
-        MongoHelper.instance.init([dbHost  : '172.18.0.2:27017',
+        MongoHelper.instance.init([dbHost  : '172.18.0.4:27017',
                                    username: 'root',
                                    password: 'root'])
 
@@ -856,6 +935,9 @@ class MongoHelper {
         //MongoHelper.instance.getChallMistakes(2, [2, 3, 4] as List<Long>)
 
         // frequência de escolhas por desafio
-        MongoHelper.instance.getChoiceFrequency(1, [2, 3, 4] as List<Long>)
+        //MongoHelper.instance.getChoiceFrequency(1, [2, 3, 4] as List<Long>)
+
+        // número de tentativas em cada nível por jogador
+        MongoHelper.instance.getPlayerLevelAttempt(1, [2, 3, 4] as List<Long>)
     }
 }
