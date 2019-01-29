@@ -7,10 +7,6 @@ import org.springframework.security.core.context.SecurityContext
 import org.springframework.security.core.context.SecurityContextHolder
 
 class ShibbolethController {
-
-    def AuthenticationManager authenticationManager;
-    def springSecurityService
-
     def connect() {
 
     	/* Shibboleth attributes available:
@@ -29,13 +25,12 @@ class ShibbolethController {
             "Shib-Session-Index",					 -- unique session identifier
         */
         log.info "Starting Shibboleth Authentication for " + request.getAttribute("Shib-eduPerson-eduPersonPrincipalName");
-        def redirectUrl = "http://alfa.remar.online/j_spring_security_check"
+
         def user = request.getAttribute("Shib-eduPerson-eduPersonPrincipalName") ? User.findByUsername(request.getAttribute("Shib-eduPerson-eduPersonPrincipalName")) : null;
 
         if (user) {
             log.info "Successfully logged in using Shibboleth Authentication;"
-
-            render view: "success", model: [user: user, password: "changeit", redirectUrl: redirectUrl]
+            render view: "success", model: [user: user, password: request.getAttribute("Shib-Session-ID")]
         } else {
             log.info "Creating new Shibboleth-authenticated user;"
             user = new User(
@@ -45,37 +40,18 @@ class ShibbolethController {
                     firstName: request.getAttribute("Shib-inetOrgPerson-cn"),
                     lastName: request.getAttribute("Shib-inetOrgPerson-sn"),
                     firsAccess: true,
-                    enabled: true
+                    enabled: true,
+                    cafeUser: true
             )
             user.save(flush: true)
 
             if (!user.hasErrors()) {
                 UserRole.create user, Role.findByAuthority("ROLE_USER"), true
                 log.info "Successfully created new Shibboleth-authenticated user;"
-                render view: "success", model: [user: user, password: "changeit", redirectUrl: redirectUrl]
+                render view: "success", model: [user: user, password: request.getAttribute("Shib-Session-ID")]
             } else {
                 render user.errors
             }
         }
     }
-
-    def authorize(LoginShibboleth user) {
-		log.info "User: ${user.username} issued Shibboleth login;"
-
-        UsernamePasswordAuthenticationToken authReq = new UsernamePasswordAuthenticationToken(user.username, "changeit");
-        Authentication auth = authenticationManager.authenticate(authReq);
-        SecurityContext sc = SecurityContextHolder.getContext();
-        sc.setAuthentication(auth);
-
-        session.user = User.findByUsername(user.username);
-
-		log.info "Shibboleth flow succesfully authorized;"
-
-		redirect(controller: "index", action: "index")
-    }
-
-}
-
-class LoginShibboleth {
-	String username;
 }
