@@ -40,9 +40,14 @@
                                 <label for="password">Senha</label>
                             </div> <!-- input-field -->
                         </div>
-                        <div class="row no-margin-bottom">
+                        <div class="row">
                             <div class="input-field center col s12">
                                 <button type="submit" class="btn waves-effect waves-light my-orange">Entrar</button>
+                            </div>
+                        </div>
+                        <div class="row no-margin-bottom">
+                            <div class="input-field center col s12">
+                                <a class="btn waves-effect waves-light my-orange" href="${grailsApplication.config.sp.url}">Entrar via CAFe</a>
                             </div>
                         </div>
                         <div class="row no-margin-bottom">
