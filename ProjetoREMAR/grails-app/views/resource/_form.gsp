@@ -1,23 +1,21 @@
-<head>
-	<link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
-</head>
 <div id="formResource" class="fieldcontain ${hasErrors(bean: deployInstance, field: 'war', 'error')} required">
 	<div class="row">
 		<div class="input-field col s12">
 			<input id="name" type="text" class="validate" value="${resourceInstance?.name}" required name="name">
 			<label for="name">Nome do jogo <span class="required-indicator">*</span></label>
-			<span id="name-error2" class="invalid-input" style="left: 0.75rem">Este nome não é válido!</span>
+			<span id="name-error" class="invalid-input" style="left: 0.75rem">Este campo deve ser preenchido!</span>
 		</div>
 	</div>
 	<div class="row">
 		<div class="input-field col s12">
-			<textarea id="description" class="materialize-textarea" length="250" name="description" required >${resourceInstance?.description}</textarea>
+			<textarea id="description" class="materialize-textarea" data-length="250" name="description" required >${resourceInstance?.description}</textarea>
 			<label for="description">Descrição <span class="required-indicator">*</span></label>
+			<span id="desc-error" class="invalid-textarea" style="left: 0.75rem">Este campo deve ser preenchido!</span>
 		</div>
 	</div>
 	<div class="row">
 		<div class="input-field col s12">
-			<textarea id="info" class="materialize-textarea" length="250" name="info">${resourceInstance?.info}</textarea>
+			<textarea id="info" class="materialize-textarea" data-length="250" name="info">${resourceInstance?.info}</textarea>
 			<label for="info">Info</label>
 		</div>
 	</div>
@@ -25,6 +23,7 @@
 		<div class="input-field col s12">
 			<textarea id="customizableItems" class="materialize-textarea" name="customizableItems" required >${resourceInstance?.customizableItems}</textarea>
 			<label for="customizableItems">Itens customizáveis <span class="required-indicator">*</span></label>
+			<span id="customizableErr" class="invalid-textarea" style="left: 0.75rem">Este campo deve ser preenchido!</span>
 		</div>
 	</div>
 	<div class="row">
@@ -69,10 +68,10 @@
 	</div>
 	<!-- Imagens -->
 	<div class="row">
-		<div class="col s4 m4 l4 img-preview">
-			<img id="img1Preview" class="materialboxed" width="180px" height="100px"/>
+		<div class="col s2 m2 l2 img-preview">
+			<img id="img1Preview" class="materialboxed" width="200px" height="120px"/>
 		</div>
-		<div class="col s8 m8 l8">
+		<div class="col s10 m10 l10">
 			<div class="file-field input-field">
 				<div class="btn waves-effect waves-light my-orange">
 					<span>Arquivo</span>
@@ -86,10 +85,10 @@
 	</div>
 
 	<div class="row">
-		<div class="col s4 m4 l4 img-preview">
-			<img id="img2Preview" class="materialboxed " width="180px" height="100px" />
+		<div class="col s2 m2 l2 img-preview">
+			<img id="img2Preview" class="materialboxed " width="200px" height="120px" />
 		</div>
-		<div class="col s8 m8 l8" >
+		<div class="col s10 m10 l10" >
 			<div class="file-field input-field">
 				<div class="btn waves-effect waves-light my-orange">
 					<span>Arquivo</span>
@@ -103,10 +102,10 @@
 	</div>
 
 	<div class="row">
-		<div class="col s4 m4 l4 img-preview">
-			<img id="img3Preview" class="materialboxed" width="180px" height="100px" />
+		<div class="col s2 m2 l2 img-preview">
+			<img id="img3Preview" class="materialboxed" width="200px" height="120px" />
 		</div>
-		<div class="col s8 m8 l8">
+		<div class="col s10 m10 l10">
 			<div class="file-field input-field">
 				<div class="btn waves-effect waves-light my-orange">
 					<span>Arquivo</span>
@@ -119,12 +118,57 @@
 		</div>
 	</div>
 
-	<!-- Botão Enviar PAdronizado-->
-	<div class="buttons col s1 m1 l1 offset-s8 offset-m10 offset-l10" style="margin-top:20px">
-		<button class="btn waves-effect waves-light my-orange" onclick="validateSubmit()" type="submit" name="save" id="upload">
-			Enviar
-		</button>
+	<div class="row">
+		<div class="col s12 m12 l12" style="margin-top:20px">
+			<button class="btn btn-large waves-effect waves-light my-orange right" onclick="validateSubmit()" type="submit" name="save" id="upload" style="height: 3rem; line-height: 3rem">Enviar</button>
+		</div>
 	</div>
-
-	<br class="clear" />
 </div>
+
+<script>
+    $(document).ready(function(){
+        $("#send-import").click(function(){
+
+            var formData = new FormData();
+            formData.append('spreadsheet-file', $("#arquivo")[0].files[0]);
+
+            $.ajax({
+                url: '/resource/importData',
+                method: "POST",
+                dataType: 'json',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(resp){
+
+                    $("label[for='description']").addClass("validate active");
+                    $("#description").val(resp[1][0]);
+
+                    $("label[for='info']").addClass("validate active");
+                    $("#info").val(resp[1][1]);
+
+                    $("label[for='customizableItems']").addClass("validate active");
+                    $("#customizableItems").val(resp[1][2]);
+
+                    $("label[for='videoLink']").addClass("validate active");
+                    $("#videoLink").val(resp[1][3]);
+
+                    $("label[for='documentation']").addClass("validate active");
+                    $("#documentation").val(resp[1][4]);
+
+                    $("#cancel-import").click();
+
+                    $('.success-box').slideDown(500);
+                },
+                error: function(er){
+                    alert("Erro! Problema na importação.");
+                }
+            });
+
+        });
+
+        $("#close-success").click(function(){
+            $('.success-box').slideUp(500);
+		})
+    });
+</script>

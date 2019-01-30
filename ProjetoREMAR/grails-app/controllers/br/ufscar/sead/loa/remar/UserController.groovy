@@ -159,7 +159,6 @@ class UserController {
 
                         Util.sendEmail(params.email, "Recuperar dados cadastrados", message)
                         render view: "/user/password/emailSent", model: [email: params.email]
-
                     } else {
                         flash.message = message(code: "error.mail")
                         render view: "/user/password/requestToken"
@@ -460,7 +459,6 @@ class UserController {
 
         userInstance.delete flush: true
         redirect uri: "/logout/index"
-
     }
 
     @Transactional

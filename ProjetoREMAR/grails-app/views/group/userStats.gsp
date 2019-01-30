@@ -7,7 +7,7 @@
 
 <body>
 <div class="row">
-    <div class="col l12 offset-l1">
+    <div class="col l12">
         <ul class="collection">
             <li class="collection-item left-align">
                 <div class="row valign-wrapper" style="margin-bottom: 10px !important">
@@ -44,6 +44,5 @@
         <a id="backButton" name="Back" class="btn my-orange" href="javascript:history.back()"> Voltar </a>
     </div>
 </div>
-
 </body>
 </html>

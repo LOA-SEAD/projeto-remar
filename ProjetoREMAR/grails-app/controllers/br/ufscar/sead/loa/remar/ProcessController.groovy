@@ -20,7 +20,7 @@ class ProcessController {
         def process
         def ant = new AntBuilder()
 
-        params.uri = params.id
+        //params.uri = params.id
         def logMsg = "pi-${session.user.username}"
         log.debug "${logMsg} STARTED; uri: ${params.uri}"
 
@@ -46,7 +46,8 @@ class ProcessController {
         process.putVariable("resourceId", resource.id as String, true)
         process.putVariable("tasksSendToDspace", null, true)
 
-        redirect uri: "/process/overview/${process.id}"
+        render text: "/process/overview/${process.id}"
+
         log.debug "${logMsg} ENDED; success – redirecting to overview"
     }
 
@@ -72,7 +73,7 @@ class ProcessController {
 
         process.putVariable('inactive', "1", true) // TEMPORARY
 
-        redirect uri: '/exported-resource/myGames'
+        redirect uri: '/exported-resource/myProcesses'
     }
 
     // Can be called with resource id or name
@@ -103,7 +104,7 @@ class ProcessController {
 
         if (process.deployed) {
             //salvar resource_dspace para o resource submetido
-            if(grailsApplication.config.dspace.restUrl) { //se existir dspace
+            if (grailsApplication.config.dspace.restUrl) { //se existir dspace
                 redirect uri: "/dspace/createStructure/${resource.id}"
             } else {
                 log.debug "${logMsg} ENDED: success – 201"
@@ -154,7 +155,7 @@ class ProcessController {
     def update() {
 
         def process = Propeller.instance.getProcessInstanceById(params.id as String, session.user.id as long)
-        def hasOptionalTasks = (process.completedTasks + process.pendingTasks).any {task -> task.definition.optional}
+        def hasOptionalTasks = (process.completedTasks + process.pendingTasks).any { task -> task.definition.optional }
         def path = new File("${servletContext.getRealPath("/data/processes/${process.id}")}/")
 
         // se a imagem foi atualizada
@@ -165,17 +166,41 @@ class ProcessController {
 
         response.status = 200
 
-        def i = ExportedResource.findByName(params.name)
-        if (i) {
+        // Checa jogo publicado com mesmo nome
+
+        def res = ExportedResource.findByNameAndOwner(params.name, session.user)
+        if (res) {
             response.status = 409 // conflited error
         } else {
-            process.name = params.name
 
-            process.putVariable("updated", "true", true)
-            process.putVariable("showTasks", "true", true)
-            process.putVariable("hasOptionalTasks", "${hasOptionalTasks}", true)
+            // Checa jogo em customização com mesmo nome
 
-            redirect controller: "process", action: "overview"
+            boolean ok = true;
+            def processes = Propeller.instance.getProcessInstancesByOwner(session.user.id as long)
+            for (def i = processes.size() - 1; i >= 0 && ok; i--) {
+
+                def p = processes.get(i)
+
+                // verifica repetição nome: processos ativos e tarefas pendentes
+
+                if ((p.getId().toString() != params.id) && (p.getName().equals(params.name)) &&
+                        (p.getVariable('inactive') != "1") && (p.getVariable("exportedResourceId") == null)) {
+
+                    ok = false;
+                }
+            }
+
+            if (ok) {
+                process.name = params.name
+
+                process.putVariable("updated", "true", true)
+                process.putVariable("showTasks", "true", true)
+                process.putVariable("hasOptionalTasks", "${hasOptionalTasks}", true)
+
+                redirect controller: "process", action: "overview"
+            } else {
+                response.status = 409 // conflited error
+            }
         }
     }
 
@@ -238,7 +263,7 @@ class ProcessController {
         process.putVariable('contentArea', params.contentArea, true)
         process.putVariable('specificContent', params.specificContent, true)
 
-        if(grailsApplication.config.dspace.restUrl && resource.repository) { //se existir dspace
+        if (grailsApplication.config.dspace.restUrl && resource.repository) { //se existir dspace
             redirect uri: "/dspace/overview?id=${params.id}"
         } else {
             publishProcess()
@@ -246,8 +271,7 @@ class ProcessController {
     }
 
 
-
-    def publishProcess(){
+    def publishProcess() {
         def exportsTo = [:]
         log.debug("ID DO PROCESSO --->" + params.id)
         def process = Propeller.instance.getProcessInstanceById(params.id, session.user.id as long)
@@ -270,7 +294,7 @@ class ProcessController {
         exportedResourceInstance.processId = process.id
         exportedResourceInstance.license = resource.license
         exportedResourceInstance.contentArea = process.getVariable('contentArea')
-        exportedResourceInstance.specificContent =  process.getVariable('specificContent')
+        exportedResourceInstance.specificContent = process.getVariable('specificContent')
 
         exportedResourceInstance.save flush: true
 

@@ -8,20 +8,19 @@ Time: 09:55
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <meta name="layout" content="materialize-layout-frame">
+    <meta name="layout" content="materialize-layout">
     <script type="text/javascript" src="${resource(dir: 'assets/js', file: 'jquery.min.js')}"></script>
-    <g:javascript src="iframe-resizer.js"/>
-    <g:javascript src="frame.js"/>
-    <title></title>
 </head>
 
 <body>
 <div class="content">
     <div class="row show">
         <div class="col s12">
-            <iframe id='frame' src="${uri}" frameBorder="0" style="width: 992px; height: 950px;"></iframe>
+            <iframe id="frame" src="${uri}" scrolling="no" frameBorder="0"></iframe>
         </div>
     </div>
 </div>
+<g:javascript src="libs/js/iframe-resizer.js"/>
+<g:javascript src="remar/frame.js"/>
 </body>
 </html>

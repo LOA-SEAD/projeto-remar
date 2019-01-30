@@ -1,4 +1,4 @@
-<!--<%@ page import="br.ufscar.sead.loa.remar.User; br.ufscar.sead.loa.remar.UserController" %>-->
+<%@ page import="br.ufscar.sead.loa.remar.User; br.ufscar.sead.loa.remar.UserController" %>
 
 <!DOCTYPE html>
 <html>
@@ -140,7 +140,7 @@
 				<sec:ifNotGranted roles="ROLE_DEV">
 					<div style="padding-left: 15px;">
 						<p><u>Você ainda não é um desenvolvedor do REMAR</u></p>
-						<a hred="/developer/new" class="waves-effect btn">
+						<a href="/user/makeDeveloper" class="waves-effect btn">
 							Tornar-se desenvolvedor
 						</a>
 					</div>
@@ -234,11 +234,11 @@
             });
         }
     </script>
-    <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}" />
+    <link type="text/css" rel="stylesheet" href="${resource(dir: "css/jquery", file: "jquery.jcrop.css")}" />
 	<link type="text/css" rel="stylesheet" href="${resource(dir: "css/user", file: "profile.css")}" />
-	<g:javascript src="user/image-selector.js" />
-	<g:javascript src="user/update-validator.js" />
-    <g:javascript src="jquery/jquery.validate.js" />
-    <g:javascript src="jquery/jquery.Jcrop.js" />
+	<g:javascript src="remar/user/image-selector.js" />
+	<g:javascript src="remar/user/update-validator.js" />
+    <g:javascript src="libs/jquery/jquery.validate.js" />
+    <g:javascript src="libs/jquery/jquery.jcrop.js" />
 </body>
 </html>

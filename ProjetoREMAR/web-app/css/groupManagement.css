@@ -1,14 +1,73 @@
-span {
-    white-space: nowrap;
+.row.show {
+    margin-bottom: 30px;
 }
 
-a span p {
-    margin: 0px;
+.sortable {
+    height: 100%;
+    list-style-type: none;
+    padding: 0;
+}
+
+.sortable li {
+    width: 100%;
+    padding: 10px 0;
+    margin-left: 0 !important;
+    cursor: pointer;
+    color: #5d4037;
+    background-color: white;
+
+    -webkit-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    -moz-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    -ms-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    -o-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.sortable li:hover {
+    background-color: #ddd;
+}
+
+.sortable li.selected,
+.sortable li.selected .admin-toggle i {
+    color: white !important;
+}
+
+.sortable li.selected {
+    font-weight: 400;
+    background-color: #ff9845;
+    border-color: #ff9845;
+}
+
+a span p,
+.sortable li i,
+.sortable li span {
+    margin: 0 10px;
+}
+
+.sortable li i {
+    font-size: 20px;
+}
+
+.sortable li .admin-toggle a i {
+    z-index: 2;
+    font-size: 24px;
+    opacity: .5;
+    color: #FF5722;
+
+    -webkit-transition: color 0.3s ease, opacity 0.3s ease;
+    -moz-transition: color 0.3s ease, opacity 0.3s ease;
+    -ms-transition: color 0.3s ease, opacity 0.3s ease;
+    -o-transition: color 0.3s ease, opacity 0.3s ease;
+    transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.sortable li .admin-toggle a.active i {
+    opacity: 1;
 }
 
 .user-management {
     width: 100%;
-    height: 400px;
+    height: 600px;
     margin: auto;
 
     display: flex;
@@ -18,32 +77,32 @@ a span p {
     border-radius: 8px;
 }
 
-.user-selection-box-container {
-    width: 60%;
+.user-list-box-container {
     height: 100%;
-    margin: 10px;
 
-    float: left;
     background-color: #5d4037;
     border-radius: 8px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
 }
 
-.user-selection-box-container p {
-    margin: 10px 0 10px 0;
-    color: white;
+.user-list-box-title,
+.user-list-box {
+    width: 100%;
+}
+
+.user-list-box-title {
+    height: 7.5%;
+    text-transform: uppercase;
     font-weight: 500;
-    font-size: 20px;
+    color: white;
+    margin-top: 15px;
 }
 
-.user-selection-box {
-    height: 84%;
-    width: 95%;
-    padding: 10px;
+.user-list-box-title p {
+    margin: 0;
+}
+
+.user-list-box {
+    height: 400px;
 
     background-color: white;
     overflow: auto;
@@ -56,34 +115,64 @@ a span p {
     text-align: left;
 }
 
-.buttons .btn {
-    width: 95%;
-    margin: 15px 0;
-    padding: 0px 15px;
+.user-list-box-button {
+    height: 12.5%;
 }
 
-.btn span {
-    display: flex;
-    justify-content: space-between;
+.user-structure {
+    font-weight: 300;
 }
 
-.group-management {
-    width: 100%;
-    margin-bottom: auto;
-    display: flex;
-    justify-content: flex-start;
+#admin-toggle-button-model {
+    display: none;
 }
 
-.group-management > div.row {
-    margin-left: 0px;
+#disable-group-card {
+    margin-top: 10px;
+}
+
+#disable-group-card .card .card-header {
+    background-color: #e00011 !important;
+}
+
+#disable-group-card .card-header .card-title {
+    height: 36px;
+}
+
+#disable-group-card .card .card-content {
+    padding-bottom: 20px;
+}
+
+#disable-group-card .card .card-action {
+    border-top: 0px;
+}
+
+#disable-group-card .card .card-action a {
+    color: #e00011;
+    background-color: #fafbfc;
+    background-image: -webkit-linear-gradient(270deg, #fafbfc 0%, #eff3f6 90%);
+    background-image: linear-gradient(-180deg, #fafbfc 0%, #eff3f6 90%);
+    background-size: 110% 110%;
     margin-right: 0px;
 }
 
-.group-management form {
-    display: flex;
-    flex-direction: column;
+#disable-group-card .card .card-action a:hover {
+    color: #fafbfc;
+    background-color: #e00011;
+    background-image: -webkit-linear-gradient(270deg, #e00011 0%, #cb2431 90%);
+    background-image: linear-gradient(-180deg, #e00011 0%, #cb2431 90%);
+    border-color: rgba(27, 31, 35, 0.5);
 }
 
-.group-management form div.row {
-    width: 30em;
+#disable-group-card .card .card-action a:active,
+#disable-group-card .card .card-action a:selected {
+    color: #fff;
+    background-color: #b5202c;
+    background-image: none;
+    border-color: rgba(27, 31, 35, 0.5);
+    box-shadow: inset 0 0.15em 0.3em rgba(27, 31, 35, 0.15);
+}
+
+#user-management-panel > .col {
+    padding: 5px;
 }

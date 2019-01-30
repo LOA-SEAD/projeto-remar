@@ -1,39 +1,91 @@
-    <main class="cardProcess">
-        <article class="row">
-            <g:each in="${processes}" var="process">
-                <div class="col l3 s5">
-                        <div  class="card hoverable">
-                            <a href="/process/overview/${process.id}">
-                                <div class="card-image waves-effect waves-block waves-light">
-                                   <img alt="${process.definition.name}" class="activator "
-                                        src="/data/processes/${process.id}/banner.png?${new java.util.Date()}">
-                                </div>
-                            </a>
-                            <div class="card-content">
-                                <span style="font-size: 1.3em;" class="card-title grey-text text-darken-4 activator center-align truncate">${process.name}</span>
-                                <div class="divider"></div>
-                                <p style="font-size: 1.0em;" class="truncate"> <i class="fa fa-pencil" aria-hidden="true"></i>${process.definition.name}</p>
-                                <p style="font-size: 1.0em;"><i class="fa fa-clock-o"></i> <g:formatDate format="dd/MM/yyyy HH:mm"
-                                                                                                                date="${process.createdAt}"/></p>
-                            </div>
-                            <div class="card-reveal">
-                                <div class="row">
-                                    <div class="col l4">
-                                        <a class="tooltipped delete" onclick=" if(confirm('Deseja mesmo excluir este processo?')){ href='/process/delete/${process.id}'}"
-                                           data-position="right" data-delay="50" data-tooltip="Excluir" style="color: gray; cursor: pointer;">
-                                            <i class="fa fa-trash fa-2x" data-tooltip="Excluir" style="color: #FF5722;"></i>
-                                        </a>
-                                    </div>
-                                    <h5 class="card-title grey-text text-darken-4 col l8"><i class="material-icons right">close</i></h5><br>
+<main class="cardGames">
+    <div class="row">
+        <g:if test="${processes}">
+        <g:each in="${processes}" var="process">
+            <div id="card${process.id}" data-instance_id="${process.id}" class="col l2 m4 s6 fullCard">
+                <div class="card hoverable">
 
-                                </div>
+                    <div class="card-image waves-effect waves-light">
+                        <img alt="${process.definition.name}" class="activator"
+                             src="/data/processes/${process.id}/banner.png?${new java.util.Date()}">
+                    </div>
+
+                    <div class="card-content">
+                        <span class="card-title flow-text grey-text text-darken-4 activator valign-wrapper truncate no-padding" title="${process.name}">
+                            <p class="no-margin truncate">${process.name}</p>
+                        </span>
+
+                        <div class="divider"></div>
+
+                        <div class="row no-margin valign-wrapper">
+                            <div class="col s2 no-padding center">
+                                <span>
+                                    <i class="material-icons tiny">games</i>
+                                </span>
                             </div>
-                                <div class="right">
-                                    <i class="activator material-icons" style="color: black; cursor: pointer">more_vert</i>
-                                </div>
+                            <div class="col s10">
+                                <span>
+                                    ${process.definition.name}
+                                </span>
+                            </div>
                         </div>
-                </div>
-            </g:each>
-        </article>
-    </main>
 
+                        <div class="row no-margin valign-wrapper">
+                            <div class="col s2 no-padding center">
+                                <span>
+                                    <i class="material-icons tiny">access_time</i>
+                                </span>
+                            </div>
+                            <div class="col s12">
+                                <span>
+                                    <g:formatDate format="dd/MM/yyyy HH:mm" date="${process.createdAt}"/>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="row no-margin">
+                            <div class="col s6 center">
+                                <a class="tooltipped modal-trigger card-front-button" href="/process/overview/${process.id}"
+                                   data-position="right" data-delay="50" data-tooltip="Continuar Editando">
+                                    <i class="fa fa-pencil fa-2x"></i>
+                                </a>
+                            </div>
+                            <div class="col s6 center">
+                                <a class="tooltipped modal-trigger card-front-button" href="#modal-confirmation-process-${process.id}"
+                                   data-position="right" data-delay="50" data-tooltip="Excluir">
+                                    <i class="fa fa-trash fa-2x"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal de confirmação de exclusão -->
+            <div class="modal-wrapper-50">
+                <div id="modal-confirmation-process-${process.id}"
+                     class="modal remar-modal">
+                    <div class="modal-content">
+                        <h4>Excluir Jogo em Customização</h4>
+
+                        <p>Tem certeza que deseja realizar esta ação</p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <a class="modal-action modal-close btn waves-effect waves-light remar-orange"
+                           href="/process/delete?id=${process.id}&mode=2">Sim</a>
+                        <a class="modal-action modal-close btn waves-effect waves-light remar-orange">Não</a>
+                    </div>
+                </div>
+            </div>
+        </g:each>
+        </g:if>
+        <g:else>
+            <div class="warning-box">
+                <i class="material-icons tiny">warning</i>
+                <g:message code="exportedResource.message.noCustomGames" default="Atualmente não existem jogos em customização."/>
+            </div>
+        </g:else>
+    </div>
+</main>

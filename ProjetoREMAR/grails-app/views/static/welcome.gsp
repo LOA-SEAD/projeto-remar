@@ -3,7 +3,7 @@
 <head>
     <meta name="layout" content="base">
     <title>REMAR</title>
-    <g:javascript src="static/welcome.js"/>
+    <g:javascript src="remar/static/welcome.js"/>
 </head>
 <body>
 <div class="container">

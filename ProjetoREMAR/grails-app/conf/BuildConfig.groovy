@@ -26,12 +26,12 @@ grails.server.port.http = 8080
 
 grails.project.dependency.resolver = "maven" // or ivy
 grails.project.dependency.resolution = {
-    // inherit Grails' default dependencies
+    // inherit Grails" default dependencies
     inherits("global") {
         // specify dependency exclusions here; for example, uncomment this to disable ehcache:
-        // excludes 'ehcache'
+        // excludes "ehcache"
     }
-    log "error" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
+    log "error" // log level of Ivy resolver, either "error", "warn", "info", "debug" or "verbose"
     checksums true // Whether to verify checksums on resolve
     legacyResolve false // whether to do a secondary resolve on plugin installation, not advised and here for backwards compatibility
 
@@ -46,13 +46,11 @@ grails.project.dependency.resolution = {
     }
 
     dependencies {
-        runtime 'mysql:mysql-connector-java:5.1.29'
-        // test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
-        compile 'org.apache.ant:ant:1.9.6'
-        compile 'org.apache.ant:ant-launcher:1.9.6'
-        compile 'org.mongodb:mongodb-driver:3.2.1'
-        compile 'org.mongodb:bson:3.0.4'
-
+        runtime "mysql:mysql-connector-java:5.1.29"
+        compile "org.apache.ant:ant:1.9.6"
+        compile "org.apache.ant:ant-launcher:1.9.6"
+        compile "org.mongodb:mongodb-driver:3.2.1"
+        compile "org.mongodb:bson:3.0.4"
     }
 
     plugins {
@@ -60,13 +58,14 @@ grails.project.dependency.resolution = {
         build ":tomcat:7.0.55"
 
         // plugins for the compile step
-        compile ":scaffolding:2.1.2"
-        compile ':cache:1.1.8'
         compile ":asset-pipeline:1.9.9"
-        compile ':spring-security-core:2.0-RC5'
+        compile ":cache:1.1.8"
         compile ":quartz:1.0.2"
         compile ":recaptcha:1.2.0"
         compile ":rest-client-builder:2.0.0"
+        compile ":scaffolding:2.1.2"
+        compile ":spring-security-core:2.0-RC5"
+        compile "org.grails.plugins:csv:0.3.1"
         compile "org.grails.plugins:rest:0.8"
 
         // plugins needed at runtime but not for compilation

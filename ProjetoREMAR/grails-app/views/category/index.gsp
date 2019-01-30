@@ -9,9 +9,7 @@
 	<body>
 	<div class="row cluster">
 		<div class="cluster-header">
-			<p id="title-page" class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 24px;">
-				Categorias
-			</p>
+			<h4>Categorias</h4>
 
 			<div class="divider"></div>
 		</div>
@@ -74,7 +72,5 @@
 				<a id="edit-save" href="#!" data-category-id="" class=" modal-action modal-close waves-effect waves-green btn-flat">Salvar</a>
 			</div>
 		</div>
-
-		<g:javascript src="category.js"/>
 	</body>
 </html>

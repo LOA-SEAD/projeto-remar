@@ -23,30 +23,30 @@
             <ul data-instance_id="${exportedResourceInstance.id}" class="collapsible popout infos-exportedResource"
                 data-collapsible="expandable">
                 <li>
-                    <div class="collapsible-header active">Informações</div>
+                    <div class="collapsible-header active"><g:message code='exportedResource.label.info' default='Informações'/></div>
 
                     <div id="info" class="collapsible-body">
                         <div class="row">
                             <img id="img1Preview" class="my-orange right materialboxed" width="100" height="100"
                                  src="/published/${exportedResourceInstance.processId}/banner.png"/>
 
-                            <p><span class="bold">Nome do jogo: </span>${exportedResourceInstance.name}</p>
+                            <p><span class="bold"><g:message code='exportedResource.label.gameName' default='Nome do jogo'/>: </span>${exportedResourceInstance.name}</p>
 
-                            <p><span class="bold">Categoria: </span>${exportedResourceInstance.resource.category.name}
+                            <p><span class="bold"><g:message code='exportedResource.label.category' default='Category'/>: </span>${exportedResourceInstance.resource.category.name}
                             </p>
 
-                            <p><span class="bold">Autor: </span>${exportedResourceInstance.owner.username}</p>
+                            <p><span class="bold"><g:message code='exportedResource.label.author' default='Autor'/>: </span>${exportedResourceInstance.owner.username}</p>
 
-                            <p><span class="bold">Customizado em:</span>
+                            <p><span class="bold"><g:message code='exportedResource.label.customizedIn' default='Customizado em'/>:</span>
                                 <g:formatDate format="dd/MM/yyyy HH:mm"
                                               date="${createdAt}"/></p>
 
-                            <p><span class="bold">Baseado no modelo: </span>${exportedResourceInstance.resource.name}</p>
+                            <p><span class="bold"><g:message code='exportedResource.label.basedInModel' default='Baseado no modelo' />: </span>${exportedResourceInstance.resource.name}</p>
 
-                            <p><span class="bold">Área de conteúdo: </span>${exportedResourceInstance.contentArea}</p>
+                            <p><span class="bold"><g:message code='exportedResource.label.contentFild' default='Área de conteúdo'/>: </span>${exportedResourceInstance.contentArea}</p>
 
-                            <p><span class="bold">Conteúdo específico: </span>${exportedResourceInstance.specificContent}
-                            </p>
+                            <p><span class="bold"><g:message code='exportedResource.label.specificContent' default='Conteúdo específico'/>: </span>${exportedResourceInstance.specificContent}</p>
+
                             <input type="hidden" id="licenseValue" value="${exportedResourceInstance.license}">
                             <br>
 
@@ -63,7 +63,7 @@
 
                         <div class="collapsible-body">
                             <div class="row">
-                                <blockquote>Abaixo estão os artefatos customizados enviados para o repositório digital.</blockquote>
+                                <blockquote><g:message code='exportedResource.message.artifactsBellow' default='Abaixo estão os artefatos customizados enviados para o repositório digital'/>.</blockquote>
 
                                 <g:each in="${handle}" var="h">
                                     <p><span class="bold">${h.key}:</span>
@@ -78,12 +78,10 @@
                 </g:if>
 
                 <li>
-                    <div id="plataforms" class="collapsible-header active" data-exported="true">Plataformas</div>
-
+                    <div id="platforms" class="collapsible-header active" data-exported="true">Plataformas</div>
                     <div class="collapsible-body">
                         <div class="row" style="margin-top: 30px">
-                            <div id="plataforms-icons" class="col s12"
-                                 style="display:flex; justify-content: space-around">
+                            <div id="platforms-icons" class="col s12" style="display:flex; justify-content: space-around">
 
                                 <g:if test="${exportsTo.web}">
                                     <a href="/published/${exportedResourceInstance.processId}/web"
@@ -174,10 +172,9 @@
                 </g:if>
 
                 <li id="reportAbuse">
-                    <div class="collapsible-header">Reportar abuso</div>
+                    <div class="collapsible-header"><g:message code='exportedResource.label.reportAbuse' default='Reportar abuso' /></div>
 
-                    <div class="collapsible-body"><p>Se este conteúdo te incomodou de alguma forma, ou se você o achou ofensivo, por favor entre em contato
-                    com a equipe REMAR. Utilize o campo texto abaixo para descrever o que lhe incomodou e como podemos lhe ajudar.</p>
+                    <div class="collapsible-body"><p><g:message code='exportedResource.message.reportAbuseDisclaimer' /></p>
 
                         <g:form action="reportAbuse">
                             <input type="hidden" name="exportedResourceId" value="${exportedResourceInstance.id}">
@@ -185,7 +182,7 @@
                             <div class="row">
                                 <div class="input-field col s12 m12 l12">
                                     <textarea id="message" name="text" class="materialize-textarea"></textarea>
-                                    <label for="message">Mensagem</label>
+                                    <label for="message"><g:message code='exportedResource.label.message' default='Mensagem'/></label>
                                 </div>
                             </div>
 
@@ -216,14 +213,14 @@
     </div>
 
     <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect btn-flat">Enviar</a>
+        <a href="#!" class="modal-action modal-close waves-effect btn-flat"><g:message code='exportedResource.label.send' default='Enviar' /></a>
     </div>
 </div>
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "jquery.Jcrop.css")}"/>
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
-<g:javascript src="add-resource-to-group.js"/>
-<g:javascript src="info-share.js"/>
-<g:javascript src="licenseShow.js"/>
+<g:javascript src="remar/group/add-resource-to-group.js"/>
+<g:javascript src="remar/info-share.js"/>
+<g:javascript src="remar/licenseShow.js"/>
 <recaptcha:script/>
 </body>
 </html>

@@ -120,8 +120,8 @@
     </div>
 </div>
 
-<g:javascript src="dspace/dspace.js"/>
-<g:javascript src="dspace/checkMetadata.js"/>
+<g:javascript src="remar/dspace/dspace.js"/>
+<g:javascript src="remar/dspace/checkMetadata.js"/>
 
 </body>
 </html>

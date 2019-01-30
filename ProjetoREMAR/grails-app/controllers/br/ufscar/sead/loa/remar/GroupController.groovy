@@ -4,19 +4,17 @@ import br.ufscar.sead.loa.propeller.Propeller
 import br.ufscar.sead.loa.remar.statistics.StatisticFactory
 import br.ufscar.sead.loa.remar.statistics.Statistics
 import com.mongodb.Block
-import com.mongodb.DBCursor
 import grails.converters.JSON
-import groovy.json.JsonBuilder
 import org.apache.commons.lang.RandomStringUtils
-import grails.plugin.springsecurity.annotation.Secured
 import org.bson.Document
+import java.util.concurrent.TimeUnit
 import org.bson.types.ObjectId
-
 import java.util.concurrent.TimeUnit;
 import org.grails.datastore.mapping.validation.ValidationException
 import org.springframework.transaction.annotation.Transactional
 import static java.util.Arrays.asList;
 
+import org.springframework.transaction.annotation.Transactional
 
 class GroupController {
 
@@ -36,40 +34,56 @@ class GroupController {
         def model = [:]
 
         model.groupsIOwn = Group.findAllByOwner(session.user)
-        model.groupsIAdmin = UserGroup.findAllByAdminAndUser(true, session.user).group
         model.groupsIBelong = UserGroup.findAllByAdminAndUser(false, session.user).group
 
         render view: "list", model: model
     }
 
-    def create() {
-        def groupInstance = new Group()
+    def admin() {
+        def model = [:]
 
-        groupInstance.owner = session.user
-        groupInstance.name = params.groupname
+        model.groupsIOwn = Group.findAllByOwner(session.user)
+        model.groupsIAdmin = UserGroup.findAllByAdminAndUser(true, session.user).group
 
-        try {
-            groupInstance.token = RandomStringUtils.random(10, true, true)
-            groupInstance.save flush: true, failOnError: true
-
-        } catch (ValidationException e) {
-            //TODO
-        }
-
-        render groupInstance.id
-
+        render view: "admin", model: model
     }
 
-    def show() {
-        def group = Group.findById(params.id)
-        def userGroup = UserGroup.findByUserAndGroup(session.user, group)
+    def create(){
+        def groupInstance = new Group()
 
-        if (group.owner.id == session.user.id || userGroup) {
-            def groupExportedResources = group.groupExportedResources.toList().sort({ it.id })
+        params.groupname = params.groupname.trim().replaceAll(" +"," ")
+
+        if (!params.groupname || params.groupname.allWhitespace) {
+            request.message = "blank_name"
+            render view: "new"
+            return
+        } else if (params.groupname && Group.findByName(params.groupname)) {
+            request.message = "name_already_exists"
+            render view: "new"
+            return
+        } else {
+            groupInstance.name = params.groupname
+            groupInstance.owner = session.user
+            groupInstance.token = RandomStringUtils.random(10, true, true)
+
+            groupInstance.save flush: true, failOnError: true
+        }
+
+        redirect action: "show", id: groupInstance.id
+    }
+
+    def show(){
+        def group = Group.findById(params.id)
+        def userGroup = UserGroup.findByUserAndGroup(session.user,group)
+
+        session.group = group
+
+        if(group.owner.id == session.user.id || userGroup){
+            def groupExportedResources = group.groupExportedResources.toList()
             render(view: "show", model: [group: group, groupExportedResources: groupExportedResources])
             response.status = 200
-        } else
-            render(status: 401, view: "../401")
+        }else
+            render status: 401, view: "../401"
     }
 
     def isLogged() {
@@ -232,15 +246,13 @@ class GroupController {
                     System.err.println(e.getClass().getName() + ": " + e.getMessage());
 //                    redirect(action: 'stats', id: params.id)
                 }
-
-            } else {
-                render(status: 401, view: "../401")
+            }else{
+                render status: 401, view: "../401"
             }
-        } else {
-            println "fobbiden"
-            render(status: 401, view: "../401")
+        }else {
+            println "forbbiden"
+            render status: 401, view: "../401"
         }
-
     }
 
     def userStats() {
@@ -287,26 +299,49 @@ class GroupController {
     @Transactional
     def delete() {
         def group = Group.findById(params.id)
+
         if (group.owner.id == session.user.id) {
+            // Delete all user-group relationships from database
+            List<UserGroup> userGroups = UserGroup.findAllByGroup(group)
+            for (int i = 0; i < userGroups.size(); i++)
+                userGroups.get(i).delete()
+
             group.delete flush: true
             redirect(action: "list")
         } else
-            render(status: 401, view: "../401")
-
+            render (status: 401, view: "../401")
     }
 
     @Transactional
     def update() {
         def group = Group.findById(params.groupid)
+        def errors = [
+                blank_name: false,
+                name_already_exists: false,
+                blank_token: false
+        ]
 
         if (group == null) {
             println "GroupController.update() could not find group with id: " + params.groupid
             return
         }
 
-        group.name = params.groupname
-        group.token = params.grouptoken
+        if (!params.groupname || params.groupname.allWhitespace) {
+            errors.blank_name = true
+        } else if (params.groupname && Group.findByName(params.groupname)) {
+            errors.name_already_exists = true
+        } else {
+            group.name = params.groupname
+        }
+
+        if (!params.grouptoken || params.grouptoken.allWhitespace) {
+            errors.blank_token = true
+        } else {
+            group.token = params.grouptoken
+        }
+
         group.save flush: true
+        request.error = errors
 
         forward action: "edit", id: params.groupid
     }
@@ -316,39 +351,67 @@ class GroupController {
 
         def usersInGroup = []
         def usersNotInGroup = []
+        session.groupid = params.id
 
-        for (user in User.list(sort: "firstName")) {
-            if (UserGroup.findByUserAndGroup(user, group))
-                usersInGroup.add(user)
+        for (user in User.list().sort {it.getName().toLowerCase()}) {
+            def userGroup = UserGroup.findByUserAndGroup(user, group)
+            if (userGroup)
+                usersInGroup.add([
+                    userInstance: user,
+                    isAdmin: userGroup.admin
+                ])
             else
                 usersNotInGroup.add(user)
         }
-
-        render view: "manage", model: [group: group, usersInGroup: usersInGroup, usersNotInGroup: usersNotInGroup]
+        render view: "edit", model: [group: group, usersInGroup: usersInGroup, usersNotInGroup: usersNotInGroup]
     }
 
     def addUsers() {
-        def group = Group.findById(params.groupid)
+        def group = Group.findById(session.groupid)
 
-        for (id in JSON.parse(params.users)) {
-            def user = User.findById(id)
-            def userGroup = new UserGroup(user: user, group: group)
-            userGroup.save flush: true
+        try {
+            for (id in JSON.parse(params.users)) {
+                def user = User.findById(id)
+                def userGroup = new UserGroup(user: user, group: group)
+                userGroup.save flush: true
+            }
+        } catch (e) {
+            render (status: 410, text: "ERROR: Failed adding user from group")
+            return
         }
 
-        forward action: "edit", id: params.groupid
+        render (status: 200)
     }
 
     def removeUsers() {
-        def group = Group.findById(params.groupid)
+        def group = Group.findById(session.groupid)
 
-        for (id in JSON.parse(params.users)) {
-            def user = User.findById(id)
-            def userGroup = UserGroup.findByUserAndGroup(user, group)
-            userGroup.delete flush: true
+        try {
+            for (id in JSON.parse(params.users)) {
+                def user = User.findById(id)
+                def userGroup = UserGroup.findByUserAndGroup(user, group)
+                userGroup.delete flush: true
+            }
+        } catch (e) {
+            render (status: 410, text: "ERROR: Failed removing user from group")
+            return
         }
 
-        forward action: "edit", id: params.groupid
+        render (status: 200)
+    }
+
+    def toggleUserAdminStatus() {
+        def group = Group.findById(session.groupid)
+
+        try {
+            def user = User.findById(params.userid)
+            def userGroup = UserGroup.findByUserAndGroup(user, group)
+
+            userGroup.admin = !userGroup.admin
+            userGroup.save flush:true
+        } catch (e) {
+            render (status: 410, text: "ERROR: Failed toggling user admin status")
+        }
     }
 
     def leaveGroup() {
@@ -356,7 +419,8 @@ class GroupController {
         def group = Group.findById(params.id)
         def userGroup = UserGroup.findByUserAndGroup(user, group)
         userGroup.delete flush: true
-        redirect(status: 200, action: "list")
+
+        redirect status: 200, action: "list"
     }
 
     def addUserAutocomplete() {

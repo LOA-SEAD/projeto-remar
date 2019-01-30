@@ -2,19 +2,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
     <meta name="layout" content="materialize-layout">
-    <style>
-        .toast { line-height: 20px !important; }
-        .row .cluster p { font-size: 24px; }
-    </style>
+    <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
 </head>
 <body>
     <div class="row cluster">
+
         <div class="cluster-header">
-            <h4>Gerenciar Jogos</h4>
+            <h4><g:message code="resource.index.label.title" default="Desenvolvedor"/></h4>
             <div class="divider"></div>
         </div>
+
         <div class="row show">
             <main class="cardGames">
                 <div class="row">
@@ -22,9 +20,12 @@
                         <g:render template="developerCards" model="[resourceInstanceList:resourceInstanceList]" />
                     </g:if>
                     <g:else>
-                        <p>Você ainda não submeteu nenhum jogo. Nos envie um agora mesmo!</p>
+                        <div class="warning-box">
+                            <i class="material-icons tiny">warning</i>
+                            <g:message code="resource.index.message.noGame" default="Você ainda não submeteu nenhum jogo. Nos envie um agora mesmo!"/>
+                        </div>
                     </g:else>
-                    <div class="col s1 offset-s10">
+                    <div class="col s1 offset-s10" style="margin-top:10px">
                         <a href="/resource/create"  name="create"
                            class="btn-floating btn-large waves-effect waves-light my-orange tooltipped modal-trigger"
                            data-tooltip="Adicionar modelo de jogo"><i class="material-icons">add</i></a>
@@ -38,10 +39,10 @@
         </ul>
     </footer>
 
-    <div id="user-details-modal" class="modal">
+    <div id="userDetailsModal" class="modal">
         %{-- Preenchido pelo Javascript --}%
     </div>
 
-    <g:javascript src="game-index.js"/>
+    <g:javascript src="remar/game-index.js"/>
 </body>
 </html>

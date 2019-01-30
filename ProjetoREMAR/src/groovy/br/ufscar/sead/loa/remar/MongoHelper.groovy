@@ -3,6 +3,7 @@ package br.ufscar.sead.loa.remar
 import com.mongodb.BasicDBObject
 import com.mongodb.MongoCredential
 import com.mongodb.ServerAddress
+import com.mongodb.client.FindIterable
 import com.mongodb.client.MongoDatabase
 import com.mongodb.MongoClient
 import com.mongodb.client.model.Filters

@@ -1,6 +1,6 @@
 <%@ page import="br.ufscar.sead.loa.remar.GroupExportedResources" %>
 
-<h4 data-instance_id="${instance.name}">Compartilhar para grupos - ${instance.name}</h4>
+<h4 data-instance_id="${instance.name}"><g:message code="exportedResource.label.shareWithGroups" default="Compartilhar para grupos"/> - ${instance.name}</h4>
 
 <div class="shareBlock">
     <ul class="no-margin">
@@ -8,10 +8,10 @@
             <g:each var="group" in="${myGroups}">
                 <li class="row">
                     <div class="col s10 shareDesc">
-                        <p><strong>Nome do grupo:</strong>
+                        <p><strong><g:message code="exportedResource.label.groupName"/></strong>
                             ${group.name}</p>
                         <p>
-                            <strong>Dono:</strong> ${group.owner.firstName + " " + group.owner.lastName}<br>
+                            <strong><g:message code="exportedResource.label.owner"/></strong> ${group.owner.firstName + " " + group.owner.lastName}<br>
                         </p>
                     </div>
                     <div class="col s2 shareCheck">
@@ -32,10 +32,10 @@
             <g:each var="group" in="${groupsIAdmin}">
                 <li class="row">
                     <div class="col s10 shareDesc">
-                        <p><strong>Nome do grupo:</strong>
+                        <p><strong><g:message code="exportedResource.label.groupName"/></strong>
                             ${group.name}</p>
                         <p>
-                            <strong>Dono:</strong> ${group.owner.firstName + " " + group.owner.lastName}<br>
+                            <strong><g:message code="exportedResource.label.owner"/></strong> ${group.owner.firstName + " " + group.owner.lastName}<br>
                         </p>
                     </div>
                     <div class="col s2 shareCheck">
@@ -53,10 +53,10 @@
             </g:each>
         </g:if>
         <g:if test="${groupsIAdmin.empty && myGroups.empty}">
-            <li class="collection-header"><h5>Você não possui grupos disponíveis</h5></li>
+            <li class="collection-header"><h5><g:message code="exportedResource.label.notAvailableGroups" /></h5></li>
         </g:if>
     </ul>
 </div>
 
-<g:javascript src="add-resource-to-group.js" />
+<g:javascript src="remar/group/add-resource-to-group.js" />
 <g:external dir="css" file="card.css" />

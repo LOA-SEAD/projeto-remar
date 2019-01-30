@@ -40,7 +40,7 @@ class BootStrap {
         if (!User.list()) {
             def admin = new User(
                     username: "admin",
-                    password: grailsApplication.config.users.password,
+                    password: "root",
                     email: "remar@sead.ufscar.br",
                     firstName: "Administrador ",
                     lastName: "– REMAR",
@@ -53,7 +53,7 @@ class BootStrap {
 
             def loa = new User(
                     username: "loa",
-                    password: grailsApplication.config.users.password,
+                    password: "root",
                     email: "loa@sead.ufscar.br",
                     firstName: "Equipe LOA",
                     lastName: "– REMAR",
@@ -157,8 +157,8 @@ class BootStrap {
         for (url in [
                 '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/exportedResource/**', '/my-profile',
                 '/user/update', '/userProfile', '/userProfile/**', '/moodle/link/**', '/moodle/unlink/**', '/resource/saveRating/**',
-                '/resource/updateRating/**', '/resource/deleteRating/**', '/group/**', '/group/user-stats/**', '/group/stats/**', '/user-group/**', '/group-exported-resources/**',
-                '/dspace/**', '/resource/customizableGames', '/resource/show/**', '/stats/**'
+                '/resource/updateRating/**', '/resource/asyncSaveRating', '/resource/asyncUpdateRating', '/resource/deleteRating/**', '/group/**', '/group/user-stats/**', '/group/stats/**', '/user-group/**', '/group-exported-resources/**',
+                '/dspace/**', '/resource/customizableGames', '/resource/show/**', '/report/**'
         ]) {
             RequestMap.findOrSaveByUrlAndConfigAttribute(url, 'isAuthenticated()')
         }
@@ -166,8 +166,8 @@ class BootStrap {
         RequestMap.findOrSaveByUrlAndConfigAttribute('/frame/**', 'IS_AUTHENTICATED_FULLY')
 
         for (url in [
-                '/', '/index', '/index/apresentacao', '/index/arquitetura', '/index/equipe', '/index/publicacoes',
-                '/index/contato', '/doc/**', '/assets/**',
+                '/', '/index', '/index/introduction', '/index/architecture', '/index/team', '/index/publications',
+                '/index/contact', '/doc/**', '/assets/**',
                 '/exportedResource/publicGames', '/exported-resource/searchGameByCategoryAndName', '/**/js/**', '/**/css/**',
                 '/**/images/**', '/**/favicon.ico', '/data/**', '/**/scss/**', '/**/less/**', '/**/fonts/**',
                 '/**/font/**', '/password/**', '/moodle/**', '/exportedGame/**', '/static/**', '/login/**',
@@ -177,7 +177,7 @@ class BootStrap {
         }
 
         for (url in [
-                '/process/deploy', '/process/undeploy', '/category/**', '/category/delete/**', "category/update/**"
+                '/process/deploy', '/process/undeploy', '/category/**', '/category/delete/**', "category/update/**", "/admin/**", "/announcement/**"
         ]) {
             RequestMap.findOrSaveByUrlAndConfigAttribute(url, 'ROLE_ADMIN')
         }

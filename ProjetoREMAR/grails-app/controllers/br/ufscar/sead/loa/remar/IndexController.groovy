@@ -17,29 +17,19 @@ class IndexController {
                 //model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id), [max: 8, sort: "id", order: "desc"])
                 render view: "dashboard", model: model
         } else {
-            renderHTML('index.html')
+            respond Announcement.list(max: 4, sort: "dateCreated")
         }
     }
 
-    def apresentacao() {
-        renderHTML('apresentacao.html')
-    }
+    def introduction() {}
 
-    def arquitetura() {
-        renderHTML('arquitetura.html')
-    }
+    def architecture() {}
 
-    def equipe() {
-        renderHTML('equipe.html')
-    }
+    def team() {}
 
-    def publicacoes() {
-        renderHTML('publicacoes.html')
-    }
+    def publications() {}
 
-    def contato() {
-        renderHTML('contato.html')
-    }
+    def contact() {}
 
     def renderHTML(String fileName) {
         def dir = servletContext.getRealPath("/static")

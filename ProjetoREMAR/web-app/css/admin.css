@@ -1,0 +1,92 @@
+.card-image i {
+    font-size: 130px;
+    font-size: 7vw;
+}
+
+td.valign-wrapper,
+#reports-table td.valign-wrapper:first-child {
+    justify-content: center;
+}
+
+td a {
+    margin: 0 5px;
+}
+
+td a.hover-underlined:hover {
+    text-decoration: underline;
+}
+
+span.badge.new {
+    font-weight: 500;
+}
+
+span.badge.new:after {
+    content: "";
+}
+
+.card-content span:first-child {
+    display: flex;
+    justify-content: center;
+}
+
+[type="checkbox"] + label {
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+}
+
+.dev-toggle i,
+.seen-toggle i,
+.solved-toggle i {
+    opacity: .5;
+
+    -webkit-transition: color 0.3s ease, opacity 0.3s ease;
+    -moz-transition: color 0.3s ease, opacity 0.3s ease;
+    -ms-transition: color 0.3s ease, opacity 0.3s ease;
+    -o-transition: color 0.3s ease, opacity 0.3s ease;
+    transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.dev-toggle.active i,
+.seen-toggle.active i,
+.solved-toggle.active i {
+    opacity: 1;
+}
+
+.table-container {
+    min-height: 355px;
+}
+
+#user-import,
+#user-export {
+    display: none;
+}
+
+#user-export {
+    margin-top: 40px;
+}
+
+#reports-table td.valign-wrapper {
+    justify-content: flex-start;
+}
+
+#report-information-modal a img {
+    border: 1px solid #FF5722;
+}
+
+@media only screen and (max-width: 600px) {
+    .card-content {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 10px !important;
+    }
+
+    .card-content i {
+        margin: 0 30px 0 15px;
+    }
+
+    #report-information-modal .row.valign-wrapper {
+        flex-direction: column;
+    }
+}

@@ -55,7 +55,6 @@
                         <div class="row no-margin-bottom">
                             <div class="input-field col s6 m6 l6">
                                 <g:link class="margin" mapping="resetPassword">Não consigo acessar!</g:link> <br>
-                                <g:link mapping="recoverAccount"> Reativar minha conta </g:link>
                             </div>
                             <div class="input-field col s6 m6 l6 right-align">
                                 <g:link mapping="signup">Cadastre-se</g:link>

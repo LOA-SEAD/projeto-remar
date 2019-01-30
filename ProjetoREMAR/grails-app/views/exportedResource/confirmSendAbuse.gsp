@@ -16,7 +16,7 @@ Time: 09:55
 <div class="row cluster">
     <div class="cluster-header">
         <p class="text-teal text-darken-3 left-align margin-bottom">
-            <i class="small material-icons left">block</i>Reportar abuso
+            <i class="small material-icons left">block</i><g:message code="exportedResource.label.reportAbuse" default="Reportar Abuso"/>
         </p>
         <div class="divider"></div>
     </div>
@@ -26,11 +26,11 @@ Time: 09:55
             <ul class="collapsible popout" data-collapsible="expandable">
                 <li>
                     <div class="collapsible-header active">
-                        <i class="material-icons">feedback</i>Confirmação de mensagem
+                        <i class="material-icons">feedback</i><g:message code="exportedResource.label.confirmMessage" default="Confirmação de mensagem"/>
                     </div>
                     <div id="info" class="collapsible-body">
                         <div class="row">
-                            <h5>Sua mensagem foi enviada com sucesso!</h5>
+                            <h5><g:message code="exportedResource.label.sentMessageSuccess" default="Sua mensagem foi enviada com sucesso!"/></h5>
                             <div class="clearfix"></div>
                         </div>
                     </div>

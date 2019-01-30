@@ -18,9 +18,9 @@
     <div class="row space">
         <g:if test="${params.toast}">
             <p>
-                O seu jogo foi publicado com <span class="bold">sucesso</span>! Agora ele já esta disponível no menu
+                <g:message code='exportedResource.message.publishedWithSuccess' default='O seu jogo foi publicado com sucesso! Agora ele já esta disponível no menu'/>
                 <span class="chip">
-                    <a class="center" href="/exported-resource/publicGames">Banco de jogos</a>
+                    <a class="center" href="/exported-resource/publicGames"><g:message code='menu.button.game.database.label' default='Banco de jogos'/></a>
                     <i class="medium material-icons">videogame_asset</i>
                 </span>
             </p>
@@ -34,29 +34,29 @@
             <ul data-instance_id="${exportedResourceInstance.id}" class="collapsible popout infos-exportedResource"
                 data-collapsible="expandable">
                 <li>
-                    <div class="collapsible-header active">Informações</div>
+                    <div class="collapsible-header active"><g:message code='exportedResource.label.info' default='Informações'/></div>
 
                     <div id="info" class="collapsible-body">
                         <div class="row">
                             <img id="img1Preview" class="my-orange right" width="100" height="100"
                                  src="/published/${exportedResourceInstance.processId}/banner.png"/>
+                            <p><span class="bold"><g:message code='exportedResource.label.gameName' default='Nome do jogo'/>: </span>${exportedResourceInstance.name}</p>
 
-                            <p><span class="bold">Nome do jogo: </span>${exportedResourceInstance.name}</p>
-
-                            <p><span class="bold">Categoria: </span>${exportedResourceInstance.resource.category.name}
+                            <p><span class="bold"><g:message code='exportedResource.label.category' default='Categoria'/>: </span>${exportedResourceInstance.resource.category.name}
                             </p>
 
-                            <p><span class="bold">Autor: </span>${exportedResourceInstance.owner.username}</p>
+                            <p><span class="bold"><g:message code='exportedResource.label.author' default='Autor'/>: </span>${exportedResourceInstance.owner.username}</p>
 
-                            <p><span class="bold">Customizado em: </span>
+                            <p><span class="bold"><g:message code='exportedResource.label.customizedIn' default='Customizado em'/>:</span>
+
                                 <g:formatDate format="dd/MM/yyyy HH:mm"
                                               date="${createdAt}"/></p>
 
-                            <p><span class="bold">Baseado no modelo: </span>${exportedResourceInstance.resource.name}</p>
+                            <p><span class="bold"><g:message code='exportedResource.label.basedInModel' default='Baseado no modelo'/>: </span>${exportedResourceInstance.resource.name}</p>
 
-                            <p><span class="bold">Área de conteúdo: </span>${exportedResourceInstance.contentArea}</p>
+                            <p><span class="bold"><g:message code='exportedResource.label.contentField' default='Área de conteúdo'/>: </span>${exportedResourceInstance.contentArea}</p>
 
-                            <p><span class="bold">Conteúdo específico: </span>${exportedResourceInstance.specificContent}
+                            <p><span class="bold"><g:message code='exportedResource.label.specificContent' default='Conteúdo específico'/>: </span>${exportedResourceInstance.specificContent}
                             </p>
 
                             <div class="row"></div>
@@ -80,7 +80,7 @@
 
                         <div class="collapsible-body">
                             <div class="row">
-                                <blockquote>Abaixo estão os artefatos customizados enviados para o repositório digital.</blockquote>
+                                <blockquote><g:message code='exportedResource.message.artifactsBellow' default='Abaixo estão os artefatos customizados enviados para o repositório digital'/>.</blockquote>
                                 <g:each in="${handle}" var="h">
                                     <p><span class="bold">${h.key}:</span>
                                         <a href="${h.value}" target="_blank">${h.value}</a>
@@ -94,7 +94,7 @@
                 </g:if>
                 <li>
                     <div id="platforms" class="collapsible-header active" data-exported="true">
-                        Plataformas
+                        <g:message code='exportedResource.label.plataforms' default='Plataformas'/>
                     </div>
 
                     <div class="collapsible-body">
@@ -210,7 +210,7 @@
 
                 <g:if test="${exportedResourceInstance.resource.shareable}">
                     <li id="groups">
-                        <div class="collapsible-header active">Compartilhar para grupos</div>
+                        <div class="collapsible-header active"><g:message code='exportedResource.label.shareWithGroups' default='Compartilhar para grupos'/></div>
 
                         <div class="collapsible-body">
                             <ul class="collection with-header">
@@ -241,10 +241,10 @@
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "export.css")}"/>
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "card.css")}"/>
 <link type="text/css" rel="stylesheet" href="${resource(dir: "css", file: "container.css")}"/>
-<g:javascript src="add-resource-to-group.js"/>
-<g:javascript src="exported-platforms.js"/>
-<g:javascript src="licenseShow.js"/>
-<g:javascript src="imgPreview.js"/>
-<g:javascript src="jquery/jquery.Jcrop.js"/>
+<g:javascript src="remar/group/add-resource-to-group.js"/>
+<g:javascript src="remar/exported-platforms.js"/>
+<g:javascript src="remar/licenseShow.js"/>
+<g:javascript src="remar/imgPreview.js"/>
+<g:javascript src="libs/jquery/jquery.jcrop.js"/>
 </body>
 </html>
