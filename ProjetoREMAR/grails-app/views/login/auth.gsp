@@ -45,11 +45,13 @@
                                 <button type="submit" class="btn waves-effect waves-light my-orange">Entrar</button>
                             </div>
                         </div>
-                        <div class="row no-margin-bottom">
-                            <div class="input-field center col s12">
-                                <a class="btn waves-effect waves-light my-orange" href="${grailsApplication.config.sp.url}">Entrar via CAFe</a>
+                        <g:if test="${grailsApplication.config.sp.url}">
+                            <div class="row no-margin-bottom">
+                                <div class="input-field center col s12">
+                                    <a class="btn waves-effect waves-light my-orange" href="${grailsApplication.config.sp.url}">Entrar via CAFe</a>
+                                </div>
                             </div>
-                        </div>
+                        </g:if>
                         <div class="row no-margin-bottom">
                             <div class="input-field col s6 m6 l6">
                                 <g:link class="margin" mapping="resetPassword">Não consigo acessar!</g:link> <br>
