@@ -181,6 +181,17 @@
                                                                    style="color: #FF5722;"></i>
                                                             </a>
                                                         </div>
+                                                        <div class="col l4">
+                                                            <a class="show-stats tooltipped"
+                                                               href="/published/analise/?groupId=${group.id}&exportedResourceId=${groupExportedResource.exportedResource.id}"
+                                                               data-exported-resource-id="${groupExportedResource.exportedResource.id}"
+                                                               style="cursor: pointer"
+                                                               data-resource-id="${groupExportedResource.id}"
+                                                               data-position="bottom" data-delay="50"
+                                                               data-tooltip="Estatísticas">
+                                                                <img src="/images/fred.jpg" style="width: 2em; height: 2em">
+                                                            </a>
+                                                        </div>
                                                     </g:if>
                                                     <div class="col l4">
                                                         <a id="show-ranking-${groupExportedResource.id}"
