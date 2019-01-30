@@ -66,6 +66,80 @@ class BootStrap {
             log.debug "Users: ok"
         }
 
+
+        File csvDir = new File(servletContext.getRealPath("csv"))
+
+        if (csvDir.exists()) {
+
+            int lines = 0;
+            int created = 0;
+            int exists = 0;
+
+            new File(servletContext.getRealPath("csv/users.csv")).splitEachLine(";") { fields ->
+
+                lines++;
+                if (User.countByUsername(fields[0]) == 0) {
+
+                    def user = new User(
+                            username: fields[0],
+                            password: fields[1],
+                            email: fields[2],
+                            firstName: fields[3],
+                            lastName: fields[4],
+                            enabled: true
+                    )
+
+                    user.save flush: true
+
+                    if (user.hasErrors()) {
+                        println user.errors
+                    } else {
+                        created++;
+                    }
+                } else {
+                    exists++;
+                }
+            }
+
+            log.debug 'Users & Groups (via csv): ' + created + ' usuários criados (arquivo csv com ' + lines + ' linhas)'
+            log.debug 'Users & Groups (via csv): ' + exists + ' usuários já existentes (arquivo csv com ' + lines + ' linhas)'
+
+            File dir = new File(servletContext.getRealPath("csv/grupos"))
+
+            for (final File fileEntry : dir.listFiles()) {
+                String fileName = fileEntry.getName();
+                String groupName = fileName.substring(0, fileName.size() - 4)
+                def owner = User.findById(1)
+                if (Group.countByNameAndOwner(groupName, owner) == 0) {
+                    Group group = new Group(name: groupName, owner: owner, token: groupName)
+                    group.save flush: true
+
+                    if (group.hasErrors()) {
+                        println group.errors
+                    } else {
+                        lines = 0;
+                        new File(servletContext.getRealPath("csv/grupos/" + fileName)).splitEachLine(";") { fields ->
+                            def userName = fields[0]
+                            def user = User.findByUsername(userName)
+
+                            if (user) {
+                                def userGroup = new UserGroup()
+                                userGroup.group = group
+                                userGroup.user = user
+                                userGroup.admin = (fields[1].toUpperCase() == 'S')
+                                userGroup.save flush: true
+                                lines++
+                            }
+                        }
+                        log.debug 'Users & Groups (via csv): Grupo ' + groupName + ' criado com ' + lines + ' usuários.'
+                    }
+                } else {
+                    log.debug 'Users & Groups (via csv): Grupo ' + groupName + ' já existe.'
+                }
+            }
+            log.debug "Users & Groups (via csv): ok"
+        }
+
         Platform.findOrSaveByName('Android')
         Platform.findOrSaveByName('Linux')
         Platform.findOrSaveByName('Web')
@@ -97,7 +171,7 @@ class BootStrap {
                 '/exportedResource/publicGames', '/exported-resource/searchGameByCategoryAndName', '/**/js/**', '/**/css/**',
                 '/**/images/**', '/**/favicon.ico', '/data/**', '/**/scss/**', '/**/less/**', '/**/fonts/**',
                 '/**/font/**', '/password/**', '/moodle/**', '/exportedGame/**', '/static/**', '/login/**',
-                '/logout/**', '/signup/**', '/user/**', '/facebook/**', '/published/**', '/group/isLogged', '/samples/**'
+                '/logout/**', '/signup/**', '/user/**', '/facebook/**', '/published/**', '/group/isLogged', '/shibboleth/**'
         ]) {
             RequestMap.findOrSaveByUrlAndConfigAttribute(url, 'permitAll')
         }

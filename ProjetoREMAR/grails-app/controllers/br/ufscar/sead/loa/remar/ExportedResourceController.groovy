@@ -97,7 +97,7 @@ class ExportedResourceController {
         StatisticFactory factory = StatisticFactory.instance;
         Statistics statistics = factory.createStatistics(params.gameType as String)
 
-        def data = statistics.getData(params);
+        def data = statistics.getData(params)
         data.userId = session.user.id as long
 
         println "data: " + data
@@ -173,7 +173,11 @@ class ExportedResourceController {
                 } catch (Exception e) {
                     System.err.println(e.getClass().getName() + ": " + e.getMessage());
                 }
-            } else {
+            } else if (params.time) {
+
+                // TODO: salvar os parâmetros com o tipo correto (int, long, float, etc)
+                // OBS: Antes de ser feito, o alfa.remar.online está com dados salvos de maneira errada,
+                // tome cuidado para não perder os dados anteriores.
 
                 data.time = params.time
                 data.type = params.type
@@ -243,11 +247,13 @@ class ExportedResourceController {
             def ant = new AntBuilder()
             def process = Propeller.instance.getProcessInstanceById(instance.processId, session.user.id as long)
             def processType = process.definition.type
+
             def folders = []
             folders << "${desktopFolder}/windows/resources/app"
             folders << "${desktopFolder}/linux/resources/app"
             folders << "${desktopFolder}/mac/${resourceURI}.app/Contents/Resources/app"
             folders << "${mobileFolder}/assets/www"
+
             ant.sequential {
                 mkdir(dir: desktopFolder)
                 mkdir(dir: mobileFolder)
@@ -261,6 +267,7 @@ class ExportedResourceController {
                 mkdir(dir: folders[2])
                 mkdir(dir: folders[3])
             }
+
             process.completedTasks.outputs.each { outputs ->
                 outputs.each { output ->
                     ant.sequential {
@@ -283,6 +290,7 @@ class ExportedResourceController {
                     }
                 }
             }
+
             def builder = new JsonBuilder()
             def remarJson = builder {
                 exportedResourceId instance.id
@@ -751,6 +759,7 @@ class ExportedResourceController {
         exportsTo.desktop = instance.resource.desktop
         exportsTo.android = instance.resource.android
         exportsTo.moodle = instance.resource.moodle
+        exportsTo.web = instance.resource.web
         def groupsAdministeredByMe = UserGroup.findAllByUserAndAdmin(session.user, true).group
         def baseUrl = "/published/${instance.processId}"
         def process = Propeller.instance.getProcessInstanceById(instance.processId as String, instance.ownerId as long)

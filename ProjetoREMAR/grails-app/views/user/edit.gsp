@@ -76,18 +76,20 @@
 			                        <label for="username">Nome de Usuário</label>
 			                    </div>
 							</div>
-							<div class="row">
-			                    <div class="input-field col s12 m6">
-			                        <i class="material-icons prefix">lock</i>
-			                        <input id="password" name="password" type="password"/>
-			                        <label for="password">Nova senha</label>
-			                    </div>
-			                    <div class="input-field col s12 m6">
-			                        <i class="material-icons prefix">lock</i>
-			                        <input id="confirm-password" name="confirm_password" type="password"/>
-			                        <label for="confirm-password">Confirme sua nova senha</label>
-			                    </div>
-							</div>
+							<g:if test="${!session.user.isCafeUser()}">
+								<div class="row">
+									<div class="input-field col s12 m6">
+										<i class="material-icons prefix">lock</i>
+										<input id="password" name="password" type="password"/>
+										<label for="password">Nova senha</label>
+									</div>
+									<div class="input-field col s12 m6">
+										<i class="material-icons prefix">lock</i>
+										<input id="confirm-password" name="confirm_password" type="password"/>
+										<label for="confirm-password">Confirme sua nova senha</label>
+									</div>
+								</div>
+							</g:if>
 		                    <div class="clearfix"></div>
 							<div class="row">
 			                    <div id="submitButton" class="input-field">
@@ -152,7 +154,7 @@
 				</sec:ifAnyGranted>
 			</div>
 		</div>
-		
+
 		<!-- Card para DESABILITAR uma conta -->
 		<div class="row" style="margin-top: 50px;">
 			<div class="cluster-header">

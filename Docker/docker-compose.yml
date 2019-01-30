@@ -10,11 +10,13 @@ services:
       - 'mysql-data:/var/lib/mysql'
       - './database:/tmp/db'
       - './mysqld_charset.cnf:/etc/mysql/conf.d/mysqld_charset.cnf'
-    command: mysqld --init-file="/tmp/db/db_startup.sql"
+    command: mysqld --init-file="/tmp/db/db_startup.sql" --max-connections=500
   mongodb:
     env_file:
       - .env
     image: tutum/mongodb:3.2
+    ports:
+      - '27017:27017'
     volumes:
       - 'mongo-data:/data/db'
     ports:
@@ -26,7 +28,9 @@ services:
       restart: always
       ports:
         - '80:8080'
+        - '8009:8009'
       volumes:
+          - './conf/server.xml:/usr/local/tomcat/conf/server.xml'
           - '~/volume_docker_remar:/usr/local/tomcat/webapps'
           - '~/electron_docker:/root/.electron'
       links:
