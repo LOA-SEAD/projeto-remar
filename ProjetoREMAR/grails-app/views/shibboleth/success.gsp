@@ -10,7 +10,7 @@
 			<form name="shiblogin" action="http://${grailsApplication.config.host.url}/j_spring_security_check" method="POST">
 				<input type="hidden" name="j_username" value="${user.username}">
 				<input type="hidden" name="j_password" value="${password}">
-				<input type="submit" href="#">Clique aqui </input><p>caso não seja redirecionado automaticamente.</p>
+				<p><input type="submit" value="Clique aqui"> caso não seja redirecionado automaticamente.</p>
 			</form>
 		</div>
 		<script type="text/javascript">document.forms.shiblogin.submit()</script>
