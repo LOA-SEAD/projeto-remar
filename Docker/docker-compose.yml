@@ -36,7 +36,6 @@ services:
       links:
         - mongodb
         - mysql
-      tty: true
 volumes:
   mongo-data:
     driver: convoy
