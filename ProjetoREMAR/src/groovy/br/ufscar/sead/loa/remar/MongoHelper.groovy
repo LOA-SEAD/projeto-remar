@@ -999,7 +999,7 @@ class MongoHelper {
                         time = o.time as double
                         level = o.gameLevel as int
 
-                        if(o.gameId == "SantoGrau") {
+                        if(gameName == "SantoGrau") {
                             tuple = new Tuple(o.userId, santograuinfo.level[level])
                         } else {
                             tuple = new Tuple (o.userId, level)
@@ -1099,7 +1099,75 @@ class MongoHelper {
             println "ERROR: Could not return challenge mistakes for resource " + exportedResourceId
             return null
         }
+    }
 
+    //TEMPO DE CONCLUSÃO DE CADA DESAFIO
+    def getPlayerChallTime (int exportedResourceId, List<Long> users) {
+
+        def timeCollection = getStats("timeStats", exportedResourceId, users)
+
+        if(timeCollection.size() > 0) {
+
+            def timePerChallenge = [:]
+            def time, level
+            def tuple
+            def gameName = ""
+
+            for (Document doc : timeCollection) {
+                for (Object o : doc.timeStats) {
+
+                    if (o.exportedResourceId == exportedResourceId
+                            && o.type == '2'
+                            && (o.time as double) > 0.0) {
+
+                        gameName = o.gameId
+                        time = o.time as double
+                        level = o.gameLevel as int
+
+                        if(gameName == "SantoGrau") {
+                            tuple = new Tuple (o.userId, santograuinfo.level[level], "Desafio " + o.challengeId)
+                        } else {
+                            tuple = new Tuple (o.userId, level, "Desafio " + o.challengeId)
+                        }
+
+                        if (timePerChallenge.containsKey(tuple)) {
+                             timePerChallenge[tuple].add(time)
+                        } else {
+                            timePerChallenge.put( tuple, [time] )
+                        }
+                    }
+                }
+            }
+
+            if(gameName != "SantoGrau") {
+
+                def statsCollection = getStats("stats", exportedResourceId, users)
+
+                for (Document doc : statsCollection) {
+                    for (Object o : doc.stats) {
+                        if (o.exportedResourceId == exportedResourceId) {
+
+                            tuple = new Tuple( o.userId, o.gameLevel, ("Desafio " + o.challengeId) )
+
+                            if (timePerChallenge.containsKey(tuple)) {
+                                timePerChallenge.put(new Tuple(o.userId, o.gameLevelName, ("Desafio " + o.challengeId)), timePerChallenge[tuple])
+                                timePerChallenge.remove(timePerChallenge[tuple])
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Para DEBUG -> descomente a linha abaixo
+            //println "timePerChallenge: " + timePerChallenge
+
+            return timePerChallenge
+
+        } else {
+            // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
+            println "ERROR: Could not return average challenge time for resource " + exportedResourceId
+            return null
+        }
     }
 
     //PRINCIPAL
@@ -1159,9 +1227,12 @@ class MongoHelper {
         //MongoHelper.instance.getPlayerChallAttempt(1, [2, 3, 4] as List<Long>)
 
         // lista de tempos gasto por cada jogador para conclusão de cada nível
-        MongoHelper.instance.getPlayerLevelTime(1, [2, 3, 4] as List<Long>)
+        //MongoHelper.instance.getPlayerLevelTime(1, [2, 3, 4] as List<Long>)
 
         // total de erros por desafio de cada jogador
         //MongoHelper.instance.getPlayerChallMistakes(1, [2, 3, 4] as List<Long>)
+
+        // maior e menor tempo gastos para conclusão de cada desafio por jogador
+        MongoHelper.instance.getPlayerChallTime(1, [2, 3, 4] as List<Long>)
     }
 }

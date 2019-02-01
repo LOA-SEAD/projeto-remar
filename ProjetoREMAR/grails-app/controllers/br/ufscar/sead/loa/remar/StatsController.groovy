@@ -4,6 +4,23 @@ import grails.converters.JSON
 
 class StatsController {
 
+    def groupUsers() {
+
+        if (params.groupId) {
+
+            def group = Group.findById(params.groupId)
+            def userGroups = UserGroup.findAllByGroup(group)
+            def users = userGroups.collect {
+                User.findById(it.user.id).name
+            }
+
+            render users as JSON
+
+        } else {
+            // TODO: render erro nos parametros
+        }
+    }
+
     def ranking() {
         /*
          *  Retorna um JSON com maior pontuação dos jogadores
@@ -694,8 +711,6 @@ class StatsController {
             if (groupTimeLevel != null) {
 
                 def user, level, times
-                def sum = 0
-                def avg
 
                 for (entry in groupTimeLevel) {
 
@@ -703,23 +718,76 @@ class StatsController {
                     level = entry.key.get(1)
                     times = entry.value
 
-                    for(time in times) {
-                        sum += time
-                    }
-
-                    avg = sum / (times.size() * 60)
-                    sum = 0
+                    times.sort()
 
                     if(timeLevel.containsKey(user)) {
-                        timeLevel[user].put(level, avg)
+                        timeLevel[user].put(level, [times.first(), times.last()])
                     } else {
-                        timeLevel.put(user, [ (level): avg ] )
+                        timeLevel.put(user, [ (level): [times.first(), times.last()] ] )
                     }
-
                 }
             }
 
             render timeLevel as JSON
+
+        } else {
+            // TODO: render erro nos parametros
+        }
+    }
+
+    def playerChallTime() {
+        /*
+         *  Retorna um JSON com maior e menor tempo gastos de cada desafio por aluno
+         *  [level:[desafio, tempo1, tempo2]]
+         *
+         *  OBS: É pego o menor tempo de conclusão cada usuário do grupo
+         *  e depois calculada a média com esse conjunto para o tempo1.
+         *  O mesmo ocorre com o tempo2, mas pegando o maior tempo de conclusão.
+         *
+         *  Parâmetros:
+         *      groupId            -> identificador do grupo
+         *      exportedResourceId -> identificador do recurso exportado
+         */
+
+        if (params.groupId && params.exportedResourceId) {
+
+            def group = Group.findById(params.groupId)
+            def userGroups = UserGroup.findAllByGroup(group)
+            def users = userGroups.collect {
+                it.user.id
+            }
+
+            def groupTimeChall = MongoHelper.instance.getPlayerChallTime(params.exportedResourceId as int, users)
+            def challTime = [:]
+
+            if (groupTimeChall != null) {
+
+                def user, level, challenge, times
+
+                // [level, desafio]:usuario:[tempos]
+                for (entry in groupTimeChall) {
+
+                    user      = User.findById(entry.key.get(0)).name
+                    level     = entry.key.get(1)
+                    challenge = entry.key.get(2)
+                    times     = entry.value
+
+                    times.sort()
+
+                    if (challTime.containsKey(user)) {
+
+                        if(challTime[user].containsKey(level)) {
+                            challTime[user][level].put(challenge, [times.first(), times.last()])
+                        } else {
+                            challTime[user].put(level,  [ (challenge) : [times.first(), times.last()] ])
+                        }
+                    } else {
+                        challTime.put(user, [ (level) : [ (challenge) : [times.first(), times.last()] ] ])
+                    }
+                }
+            }
+
+            render challTime as JSON
 
         } else {
             // TODO: render erro nos parametros
