@@ -72,7 +72,7 @@ class FaseCampoMinadoController {
         questionFaseCampoMinadoInstance.taskId = session.taskId as String
         questionFaseCampoMinadoInstance.save flush:true
 
-         redirect(action: "index")
+        redirect(action: "index")
     }
 
     def edit(QuestionFaseCampoMinado questionFaseCampoMinadoInstance) {
