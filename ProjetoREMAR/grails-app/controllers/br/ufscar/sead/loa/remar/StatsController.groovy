@@ -463,7 +463,7 @@ class StatsController {
 
     def playerLevelAttempt() {
         /*
-         *  Retorna um JSON com quantidade de tentativas por nivel
+         *  Retorna um JSON com quantidade de tentativas por nivel de cada aluno
          *  [[nivel, tentativas]]
          *
          *  Parâmetros:
@@ -501,6 +501,118 @@ class StatsController {
             }
 
             render playersLevelAtt as JSON
+
+        } else {
+            // TODO: render erro nos parametros
+        }
+    }
+
+    def playerChallAttempt() {
+        /*
+         *  Retorna um JSON com total de tentativas por desafio de cada aluno
+         *  [level:[desafio, tentivas]]
+         *
+         *  Parâmetros:
+         *      groupId            -> identificador do grupo
+         *      exportedResourceId -> identificador do recurso exportado
+         */
+
+        if (params.groupId && params.exportedResourceId) {
+
+            def group = Group.findById(params.groupId)
+            def userGroups = UserGroup.findAllByGroup(group)
+            def users = userGroups.collect {
+                it.user.id
+            }
+
+            def resourceAtt = MongoHelper.instance.getPlayerChallAttempt(params.exportedResourceId as int, users)
+            def groupChallAtt = [:]
+
+            if (resourceAtt != null) {
+
+                def user, level, challenge, attempt
+
+                for (entry in resourceAtt) {
+
+                    user      = User.findById(entry.key.get(0)).name
+                    level     = entry.key.get(1)
+                    challenge = entry.key.get(2)
+                    attempt   = entry.value
+
+                    if(groupChallAtt.containsKey(user)) {
+                        if(groupChallAtt[user].containsKey(level)) {
+                            groupChallAtt[user][level].add( [challenge, attempt] )
+                        } else {
+                            groupChallAtt[user].put(level, [[challenge, attempt]])
+                        }
+                    } else {
+                        groupChallAtt.put(user, [ (level): [[challenge, attempt]] ] )
+                    }
+                }
+
+            }
+
+            render groupChallAtt as JSON
+
+        } else {
+            // TODO: render erro nos parametros
+        }
+    }
+
+    def playerLevelTime() {
+        /*
+         *  Retorna um JSON com os tempos gastos de cada aluno por nivel
+         *  [[nivel, tempo]]
+         *
+         *  Parâmetros:
+         *      groupId            -> identificador do grupo
+         *      exportedResourceId -> identificador do recurso exportado
+         */
+
+        if (params.groupId && params.exportedResourceId) {
+
+            def group = Group.findById(params.groupId)
+            def userGroups = UserGroup.findAllByGroup(group)
+            def users = userGroups.collect {
+                it.user.id
+            }
+
+            def groupTimeLevel = MongoHelper.instance.getPlayerLevelTime(params.exportedResourceId as int, users)
+            def timeLevel = [:]
+
+            if (groupTimeLevel != null) {
+
+                def user, level, times
+                def attemptCount = 1
+
+                for (entry in groupTimeLevel) {
+
+                    user  = User.findById(entry.key.get(0)).name
+                    level = entry.key.get(1)
+                    times = entry.value
+
+                    for(time in times) {
+
+                        time = (time/60) // transforma em minutos
+
+                        if(timeLevel.containsKey(user)) {
+                            if(timeLevel[user].containsKey(level)) {
+                                timeLevel[user][level].add( [attemptCount, time] )
+                            } else {
+                                timeLevel[user].put(level, [[attemptCount, time]])
+                            }
+                        } else {
+                            timeLevel.put(user, [ (level): [[attemptCount, time]] ] )
+                        }
+
+                        attemptCount++
+                    }
+
+                    attemptCount = 1
+                }
+            }
+
+            render timeLevel as JSON
 
         } else {
             // TODO: render erro nos parametros

@@ -3,12 +3,13 @@ package br.ufscar.sead.loa.remar
 import com.mongodb.BasicDBObject
 import com.mongodb.MongoCredential
 import com.mongodb.ServerAddress
-import com.mongodb.client.FindIterable
 import com.mongodb.client.MongoDatabase
 import com.mongodb.MongoClient
+import com.mongodb.client.MongoIterable
 import com.mongodb.client.model.Filters
 import org.bson.Document
 import org.bson.types.ObjectId
+
 import static java.util.Arrays.asList
 
 @Singleton
@@ -17,12 +18,15 @@ class MongoHelper {
     MongoClient mongoClient
     MongoDatabase db
 
+    def santograuinfo = [name: "Santo Grau", level: ["Fase Tecnologia", "Fase Galeria", "Fase Campo Minado", "Fase Blocos de Gelo", "Fase TCC", "Fase Refeitório"], challenges: [] ]
+
     def init(Map options) {
         def credential = MongoCredential.createCredential(options.username as String, 'admin', options.password as char[])
 
         this.mongoClient = new MongoClient(new ServerAddress(options.dbHost as String), asList(credential))
         this.db = mongoClient.getDatabase('remar')
-        /*MongoIterable<String> names = db.listCollectionNames()
+
+        /*MongoIterable<String> names = propellerDB.listCollectionNames()
 
         for(String name : names) {
             println name
@@ -360,12 +364,17 @@ class MongoHelper {
             for (Document doc : timeCollection) {
                 for (Object o: doc.timeStats) {
 
-                    if ( (o.exportedResourceId == exportedResourceId)
-                            && (o.type == '1')) {
+                    if ( o.exportedResourceId == exportedResourceId
+                            && o.time == '0'
+                            && o.type == '1') {
 
                         // Conversão necessária por erro na hora de salvar os parametros em timeStats
                         // Não foi modificado ainda por não poder mexer no banco do alfa.remar.online
                         level = o.gameLevel as int
+
+                        if(level == 1) {
+                            println o
+                        }
 
                         if (gameName == "")
                             gameName = o.gameId
@@ -389,7 +398,7 @@ class MongoHelper {
             nameLevels(exportedResourceId, users, usersInLevel, gameName)
 
             // Para DEBUG -> descomente a linha abaixo
-            //println "usersInLevel: " + usersInLevel
+            println "usersInLevel: " + usersInLevel
 
             return usersInLevel
 
@@ -889,11 +898,158 @@ class MongoHelper {
         }
     }
 
+    //NÚMERO DE TENTATIVAS POR DESAFIO
+    def getPlayerChallAttempt (int exportedResourceId, List<Long> users) {
+
+        def statsCollection = getStats("stats", exportedResourceId, users)
+
+        if(statsCollection.size() > 0) {
+
+            def challAttempts = [:]
+            def tuple
+            def santograu = false
+            def user
+
+            // Contadores de tentativas
+            // para cada desafio da Fase Galeria
+            def galeria1 = 0
+            def galeria2 = 0
+
+            for (Document doc : statsCollection) {
+                for (Object o : doc.stats) {
+
+                    if (o.exportedResourceId == exportedResourceId) {
+
+                        if (o.gameLevelName == "Fase Tecnologia"     || o.gameLevelName == "Fase Campo Minado" ||
+                                o.gameLevelName == "Fase Blocos de Gelo" || o.gameLevelName == "Fase TCC") {
+                            santograu = true
+                        }
+
+                        tuple = new Tuple (o.userId, o.gameLevelName, "Desafio " + o.challengeId)
+
+                        if (challAttempts.containsKey(tuple)) {
+                            challAttempts[tuple] += 1
+                        } else {
+                            challAttempts.put(tuple, 1)
+                        }
+                    }
+                }
+            }
+
+            // TODO: Isso nem deveria ser preciso. Novamente é erro de como os dados estão sendo enviados
+            if(santograu) {
+
+                def timeCollection = getStats("timeStats", exportedResourceId, users)
+
+                for (Document doc : timeCollection) {
+                    for (Object o : doc.timeStats) {
+
+                        user = o.userId
+
+                        if (o.exportedResourceId == exportedResourceId && o.gameId == 'SantoGrau'
+                                && o.time == '0' && o.type == '2' && o.gameLevel == '1') {
+
+                            if(o.challengeId == '0')
+                                galeria1++
+                            else if(o.challengeId == '1')
+                                galeria2++
+                        }
+                    }
+
+                    challAttempts.put( new Tuple(user, "Fase Galeria", "Desafio 1"), galeria1)
+                    challAttempts.put( new Tuple(user, "Fase Galeria", "Desafio 2"), galeria2)
+                }
+            }
+
+            // Para DEBUG -> descomente a linha abaixo
+            //println "challAttempts: " + challAttempts
+
+            return challAttempts
+
+        } else {
+            // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
+            println "ERROR: Could not return challenge attempts for resource " + exportedResourceId
+            return null
+        }
+    }
+
+    //TODOS OS TEMPOS GASTOS DE CADA JOGADOR DO GRUPO EM CADA LEVEL
+    def getPlayerLevelTime (int exportedResourceId, List<Long> users) {
+
+        def timeCollection = getStats("timeStats", exportedResourceId, users)
+
+        if(timeCollection.size() > 0) {
+
+            def timePerLevel = [:]
+            def tuple
+            def time, level
+
+            // TODO: gameName é necessário por erro de design do banco e/ou problema com SantoGrau
+            // OBS: Leia sobre os erros encontrados com o Miguel
+            def gameName = ""
+
+            for (Document doc : timeCollection) {
+                for (Object o : doc.timeStats) {
+
+                    if (o.exportedResourceId == exportedResourceId
+                            && o.type == '1'
+                            && (o.time as double) > 0.0) {
+
+                        gameName = o.gameId
+                        time = o.time as double
+                        level = o.gameLevel as int
+
+                        if(o.gameId == "SantoGrau") {
+                            tuple = new Tuple(o.userId, santograuinfo.level[level])
+                        } else {
+                            tuple = new Tuple (o.userId, level)
+                        }
+
+                        if (timePerLevel.containsKey(tuple)) {
+                            timePerLevel[tuple].add( time )
+                        } else {
+                            timePerLevel.put( tuple, [time] )
+                        }
+                    }
+                }
+            }
+
+            if(gameName != "SantoGrau") {
+
+                def statsCollection = getStats("stats", exportedResourceId, users)
+
+                for (Document doc : statsCollection) {
+                    for (Object o : doc.stats) {
+                        if (o.exportedResourceId == exportedResourceId) {
+
+                            tuple = new Tuple(o.userId, o.gameLevel)
+
+                            if (timePerLevel.containsKey(tuple)) {
+                                timePerLevel.put(new Tuple(o.userId, o.gameLevelName), timePerLevel[tuple])
+                                timePerLevel.remove(tuple)
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            // Para DEBUG -> descomente a linha abaixo
+            //println "timePerLevel: " + timePerLevel
+
+            return timePerLevel
+
+        } else {
+            // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
+            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            return null
+        }
+    }
 
     //PRINCIPAL
     static void main(String... args) {
 
-        MongoHelper.instance.init([dbHost  : '172.18.0.4:27017',
+        MongoHelper.instance.init([dbHost  : '172.18.0.2:27017',
                                    username: 'root',
                                    password: 'root'])
 
@@ -905,6 +1061,10 @@ class MongoHelper {
                             55, 48, 59, 51, 60, 62, 63, 52, 61, 64,
                             65, 66, 67, 46, 71, 70, 73, 72, 76, 58, 54]
 
+        def grupo2doalfa = [1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+                            13, 14, 15, 16, 17, 18, 19, 20, 21,
+                            22, 23, 24, 25, 26, 27, 28, 29, 69]
+
 
         // ranking dos jogadores que concluíram o jogo
         //MongoHelper.instance.getRanking(12)
@@ -913,7 +1073,7 @@ class MongoHelper {
         //MongoHelper.instance.getGameConclusionTime(1, [2,3,4] as List<Long>)
 
         // quantidade de jogadores por nível
-        //MongoHelper.instance.getQntInLevels(2, [2,3,4] as List<Long>)
+        //MongoHelper.instance.getQntInLevels(9, grupo2doalfa as List<Long>)
 
         // número de tentativas por nível
         //MongoHelper.instance.getLevelAttempt(1, [2, 3, 4] as List<Long>)
@@ -937,6 +1097,12 @@ class MongoHelper {
         //MongoHelper.instance.getChoiceFrequency(1, [2, 3, 4] as List<Long>)
 
         // número de tentativas em cada nível por jogador
-        MongoHelper.instance.getPlayerLevelAttempt(1, [2, 3, 4] as List<Long>)
+        //MongoHelper.instance.getPlayerLevelAttempt(3, grupo3doalfa as List<Long>)
+
+        // número de tentativas em cada desafio por jogador
+        //MongoHelper.instance.getPlayerChallAttempt(1, [2, 3, 4] as List<Long>)
+
+        // lista de tempos gasto por cada jogador para conclusão de cada nível
+        MongoHelper.instance.getPlayerLevelTime(1, [2, 3, 4] as List<Long>)
     }
 }
