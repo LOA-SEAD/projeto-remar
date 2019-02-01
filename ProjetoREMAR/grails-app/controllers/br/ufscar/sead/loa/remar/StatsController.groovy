@@ -710,7 +710,7 @@ class StatsController {
 
             if (groupTimeLevel != null) {
 
-                def user, level, times
+                def user, level, times, shorter, longer
 
                 for (entry in groupTimeLevel) {
 
@@ -720,10 +720,13 @@ class StatsController {
 
                     times.sort()
 
+                    shorter = times.first() / 60
+                    longer = times.last() / 60
+
                     if(timeLevel.containsKey(user)) {
-                        timeLevel[user].put(level, [times.first(), times.last()])
+                        timeLevel[user].add( [level, shorter, longer] )
                     } else {
-                        timeLevel.put(user, [ (level): [times.first(), times.last()] ] )
+                        timeLevel.put(user, [ [level, shorter, longer] ] )
                     }
                 }
             }
@@ -777,12 +780,13 @@ class StatsController {
                     if (challTime.containsKey(user)) {
 
                         if(challTime[user].containsKey(level)) {
-                            challTime[user][level].put(challenge, [times.first(), times.last()])
+                            challTime[user][level].add( [challenge, times.first(), times.last()] )
                         } else {
-                            challTime[user].put(level,  [ (challenge) : [times.first(), times.last()] ])
+                            challTime[user].put(level,  [[ challenge, times.first(), times.last() ]] )
                         }
+
                     } else {
-                        challTime.put(user, [ (level) : [ (challenge) : [times.first(), times.last()] ] ])
+                        challTime.put(user, [ (level) : [[ challenge, times.first(), times.last() ]] ])
                     }
                 }
             }
