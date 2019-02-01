@@ -619,4 +619,111 @@ class StatsController {
         }
     }
 
+    def playerChallMistake  () {
+        /*
+         *  Retorna um JSON com total de erros por desafio
+         *  [level:[desafio, erros]]
+         *
+         *  Parâmetros:
+         *      groupId            -> identificador do grupo
+         *      exportedResourceId -> identificador do recurso exportado
+         */
+
+        if (params.groupId && params.exportedResourceId) {
+
+            def group = Group.findById(params.groupId)
+            def userGroups = UserGroup.findAllByGroup(group)
+            def users = userGroups.collect {
+                it.user.id
+            }
+
+            def resourceMiss = MongoHelper.instance.getPlayerChallMistakes(params.exportedResourceId as int, users)
+            def groupChallMiss = [:]
+
+            if (resourceMiss != null) {
+
+                def user, level, challenge, mistake
+
+                for (entry in resourceMiss) {
+
+                    user      = User.findById(entry.key.get(0)).name
+                    level     = entry.key.get(1)
+                    challenge = entry.key.get(2)
+                    mistake   = entry.value
+
+                    if(groupChallMiss.containsKey(user)) {
+                        if(groupChallMiss[user].containsKey(level)) {
+                            groupChallMiss[user][level].add( [challenge, mistake] )
+                        } else {
+                            groupChallMiss[user].put(level, [[challenge, mistake]])
+                        }
+                    } else {
+                        groupChallMiss.put(user, [ (level): [[challenge, mistake]] ] )
+                    }
+                }
+            }
+
+            render groupChallMiss as JSON
+
+        } else {
+            // TODO: render erro nos parametros
+        }
+    }
+
+    def playerLevelTime2() {
+        /*
+         *  Retorna um JSON com os tempos gastos de cada aluno por nivel
+         *  [[nivel, tempo]]
+         *
+         *  Parâmetros:
+         *      groupId            -> identificador do grupo
+         *      exportedResourceId -> identificador do recurso exportado
+         */
+
+        if (params.groupId && params.exportedResourceId) {
+
+            def group = Group.findById(params.groupId)
+            def userGroups = UserGroup.findAllByGroup(group)
+            def users = userGroups.collect {
+                it.user.id
+            }
+
+            def groupTimeLevel = MongoHelper.instance.getPlayerLevelTime(params.exportedResourceId as int, users)
+            def timeLevel = [:]
+
+            if (groupTimeLevel != null) {
+
+                def user, level, times
+                def sum = 0
+                def avg
+
+                for (entry in groupTimeLevel) {
+
+                    user  = User.findById(entry.key.get(0)).name
+                    level = entry.key.get(1)
+                    times = entry.value
+
+                    for(time in times) {
+                        sum += time
+                    }
+
+                    avg = sum / (times.size() * 60)
+                    sum = 0
+
+                    if(timeLevel.containsKey(user)) {
+                        timeLevel[user].put(level, avg)
+                    } else {
+                        timeLevel.put(user, [ (level): avg ] )
+                    }
+
+                }
+            }
+
+            render timeLevel as JSON
+
+        } else {
+            // TODO: render erro nos parametros
+        }
+    }
+
 }

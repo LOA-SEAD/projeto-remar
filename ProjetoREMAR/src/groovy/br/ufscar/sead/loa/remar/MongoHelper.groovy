@@ -723,7 +723,7 @@ class MongoHelper {
         }
     }
 
-    //TAXAS DE ERRO TOTAL POR DESAFIO
+    //TOTAL DE ERROS POR DESAFIO
     def getChallMistakes(int exportedResourceId, List<Long> users) {
 
         def statsCollection = getStats("stats", exportedResourceId, users)
@@ -1046,6 +1046,62 @@ class MongoHelper {
         }
     }
 
+    //TOTAL DE ERROS DE CADA JOGADOR POR DESAFIO
+    def getPlayerChallMistakes(int exportedResourceId, List<Long> users) {
+
+        def statsCollection = getStats("stats", exportedResourceId, users)
+
+        if (statsCollection.size() > 0) {
+
+            def challMistakes = [:]
+            def tuple
+            def santograu = false
+            def user
+
+            for (Document doc : statsCollection) {
+                for (Object o : doc.stats) {
+
+                    if (o.exportedResourceId == exportedResourceId && o.win == false) {
+
+                        user = o.userId
+
+                        if (o.gameLevelName == "Fase Tecnologia"     || o.gameLevelName == "Fase Campo Minado" ||
+                                o.gameLevelName == "Fase Blocos de Gelo" || o.gameLevelName == "Fase TCC") {
+                            santograu = true
+                        }
+
+                        tuple = new Tuple( o.userId, o.gameLevelName, ("Desafio " + o.challengeId) )
+
+                        if (challMistakes.containsKey(tuple)) {
+                            challMistakes[tuple] += 1
+                        } else {
+                            challMistakes.put(tuple, 1)
+                        }
+                    }
+                }
+
+                if (santograu) {
+                    challMistakes.put( new Tuple(user,"Fase Galeria", 0), 0)
+                }
+            }
+
+            // Para DEBUG -> descomente a linha abaixo
+            //println "challMistakes: " + challMistakes
+
+            challMistakes.each {
+                println it
+            }
+
+            return challMistakes
+
+        } else {
+            // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
+            println "ERROR: Could not return challenge mistakes for resource " + exportedResourceId
+            return null
+        }
+
+    }
+
     //PRINCIPAL
     static void main(String... args) {
 
@@ -1090,7 +1146,7 @@ class MongoHelper {
         // número de tentativas por desafio
         //MongoHelper.instance.getChallAttempt(1, [2, 3, 4] as List<Long>)
 
-        // taxas de erro total por desafio
+        // total de erros por desafio
         //MongoHelper.instance.getChallMistakes(2, [2, 3, 4] as List<Long>)
 
         // frequência de escolhas por desafio
@@ -1104,5 +1160,8 @@ class MongoHelper {
 
         // lista de tempos gasto por cada jogador para conclusão de cada nível
         MongoHelper.instance.getPlayerLevelTime(1, [2, 3, 4] as List<Long>)
+
+        // total de erros por desafio de cada jogador
+        //MongoHelper.instance.getPlayerChallMistakes(1, [2, 3, 4] as List<Long>)
     }
 }
