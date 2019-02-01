@@ -1151,7 +1151,7 @@ class MongoHelper {
 
                             if (timePerChallenge.containsKey(tuple)) {
                                 timePerChallenge.put(new Tuple(o.userId, o.gameLevelName, ("Desafio " + o.challengeId)), timePerChallenge[tuple])
-                                timePerChallenge.remove(timePerChallenge[tuple])
+                                timePerChallenge.remove(tuple)
                             }
                         }
                     }
@@ -1160,6 +1160,9 @@ class MongoHelper {
 
             // Para DEBUG -> descomente a linha abaixo
             //println "timePerChallenge: " + timePerChallenge
+            timePerChallenge.each {
+                println it
+            }
 
             return timePerChallenge
 
@@ -1173,7 +1176,7 @@ class MongoHelper {
     //PRINCIPAL
     static void main(String... args) {
 
-        MongoHelper.instance.init([dbHost  : '172.18.0.2:27017',
+        MongoHelper.instance.init([dbHost  : '172.18.0.3:27017',
                                    username: 'root',
                                    password: 'root'])
 
@@ -1233,6 +1236,6 @@ class MongoHelper {
         //MongoHelper.instance.getPlayerChallMistakes(1, [2, 3, 4] as List<Long>)
 
         // maior e menor tempo gastos para conclusão de cada desafio por jogador
-        MongoHelper.instance.getPlayerChallTime(1, [2, 3, 4] as List<Long>)
+        MongoHelper.instance.getPlayerChallTime(2, [2, 3, 4] as List<Long>)
     }
 }
