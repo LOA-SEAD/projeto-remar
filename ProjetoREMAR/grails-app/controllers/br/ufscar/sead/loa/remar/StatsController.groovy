@@ -4,6 +4,10 @@ import grails.converters.JSON
 
 class StatsController {
 
+    def index() {
+
+    }
+
     def groupUsers() {
 
         if (params.groupId) {
@@ -78,7 +82,7 @@ class StatsController {
             if (resourceTime != null) {
 
                 for(o in resourceTime) {
-                    usersTime.add([User.findById(o.key).name, o.value / 60])
+                    usersTime.add([User.findById(o.key).name, o.value.first() / 60, o.value.last() / 60])
                 }
             }
 

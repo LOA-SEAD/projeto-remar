@@ -322,17 +322,10 @@ class MongoHelper {
                         // Não foi modificado ainda por não poder mexer no banco do alfa.remar.online
                         time = o.time as double
 
-                        // Se usuario ja esta no mapa
                         if (usersTime.containsKey(o.userId)) {
-
-                            // e o valor do tempo eh menor, atualiza
-                            if (usersTime[o.userId] > time) {
-                                usersTime[o.userId] = time
-                            }
-
-                        // se nao esta no mapa, coloca
+                            usersTime[o.userId].add(time)
                         } else {
-                            usersTime.put(o.userId, time)
+                            usersTime[o.userId] = [time]
                         }
                     }
                 }
@@ -341,7 +334,9 @@ class MongoHelper {
             // Para DEBUG -> descomente a linha abaixo
             //println "usersTime: " + usersTime
 
-            return usersTime.sort {it.value}
+            usersTime.each { it.value.sort() }
+
+            return usersTime
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
@@ -1176,7 +1171,7 @@ class MongoHelper {
     //PRINCIPAL
     static void main(String... args) {
 
-        MongoHelper.instance.init([dbHost  : '172.18.0.3:27017',
+        MongoHelper.instance.init([dbHost  : '172.18.0.4:27017',
                                    username: 'root',
                                    password: 'root'])
 
@@ -1197,7 +1192,7 @@ class MongoHelper {
         //MongoHelper.instance.getRanking(12)
 
         // tempo gasto para conclusão do jogo
-        //MongoHelper.instance.getGameConclusionTime(1, [2,3,4] as List<Long>)
+        MongoHelper.instance.getGameConclusionTime(1, [2,3,4] as List<Long>)
 
         // quantidade de jogadores por nível
         //MongoHelper.instance.getQntInLevels(9, grupo2doalfa as List<Long>)
@@ -1236,6 +1231,6 @@ class MongoHelper {
         //MongoHelper.instance.getPlayerChallMistakes(1, [2, 3, 4] as List<Long>)
 
         // maior e menor tempo gastos para conclusão de cada desafio por jogador
-        MongoHelper.instance.getPlayerChallTime(2, [2, 3, 4] as List<Long>)
+        //MongoHelper.instance.getPlayerChallTime(2, [2, 3, 4] as List<Long>)
     }
 }
