@@ -1,4 +1,4 @@
-<%@ page import="br.ufscar.sead.loa.memoria.Tile" %>
+    <%@ page import="br.ufscar.sead.loa.memoria.Tile" %>
 
 <g:if test="${edit}">
     <g:hiddenField name="id" value="${tileInstance.id}"/>
@@ -9,7 +9,7 @@
             <p class="center-align"><g:message code="tile.create.preview"/></p>
         </div>
         <div class="col s6 center-align">
-            <p class="center-align"><g:message code="tile.create.file"/></p>
+            <p class="center-align"><g:message code="tile.create.image.header"/></p>
         </div>
     </div>
     <div class="divider"></div>
@@ -55,6 +55,21 @@
                     <input ${edit ? '' : 'required'} class="file-path validate remar-input" type="text" placeholder="${message(code:'tile.create.tileB')}">
                 </div>
             </div>
+            <div class="row">
+                <div class="col s9">
+                    <div id="controls">
+                        <a class="btn waves-effect waves-light remar-orange" id="recordButton">Record</a>
+                        <a class="btn waves-effect waves-light remar-orange" id="pauseButton" disabled>Pause</a>
+                        <a class="btn waves-effect waves-light remar-orange" id="stopButton" disabled>Stop</a>
+                    </div>
+                </div>
+                <div>
+                    <h3>Recordings</h3>
+                    <ol id="recordingsList"></ol>
+                    <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -93,4 +108,5 @@
     <input id="upload" type="submit" name="upload" class="btn btn-success remar-orange" value="${message(code:'tile.create.sendButton')}"/>
 </div>
 
+<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
 <g:javascript src="form.js"/>
