@@ -505,4 +505,20 @@ class TileController {
         return images
     }
 
+    def recording() {
+        def userId = session.user.getId()
+        def dataPath = servletContext.getRealPath("/data")
+        def userPath = new File("${dataPath}/${userId}/${session.taskId}/recordings") // o nome do arquivo vai ser necessariamente audio.wav nessa configuração
+        userPath.mkdirs()
+
+        def audioUploaded = request.getFile('audio_data')
+
+        if(!audioUploaded.isEmpty()) {
+            def originalAudioUploaded = new File("$userPath/audio.wav")
+            audioUploaded.transferTo(originalAudioUploaded)
+        }
+
+        render(status: 200, text: "http://${request.serverName}:${request.serverPort}/memoria/tile")
+    }
 }
+
