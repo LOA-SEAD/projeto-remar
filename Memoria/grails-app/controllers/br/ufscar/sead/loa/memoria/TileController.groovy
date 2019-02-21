@@ -120,7 +120,6 @@ class TileController {
             tileInstance.delete(flush:true)
             redirect(controller: "Tile", action: "create")
         }
-
     }
 
     def edit() {
@@ -289,7 +288,6 @@ class TileController {
 
             // encontra o endereço do arquivo criado
             def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
-
 
             def fileName = "descricao.json"
 
