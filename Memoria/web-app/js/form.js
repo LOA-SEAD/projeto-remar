@@ -2,6 +2,8 @@
  * Created by garciaph on 29/08/17.
  */
 
+ var count = 1;
+
 $(document).ready(function() {
     // Disable send button after submit the form
     $('form.sendForm').submit(function(){
@@ -192,21 +194,33 @@ function stopRecording() {
 
 function createDownloadLink(blob) {
 
+    // Generate a unique ID to be used in the radio button and its label;
+    var uniqueID = "audioA" + count;
+
+    // Generate new DOM elements to display the new audio sound
     var url = URL.createObjectURL(blob);
+    var div = document.createElement('div');
+    var p = document.createElement('span');
+    var label = document.createElement('label');
+    var span = document.createElement('span');
     var au = document.createElement('audio');
-    var li = document.createElement('li');
-    var link = document.createElement('a');
+    var input = document.createElement('input');
+
+    // Insert them into a set hierarchy
+    $(input).attr('type', 'radio').attr('id', uniqueID).attr('name', 'audioA');
+    $(div).append(p);
+    $(p).append(input);
+    $(p).append(label);
+    $(div).append(au);
+    $(label).attr("for",uniqueID).html("Audio " + count);
 
     //add controls to the <audio> element
     au.controls = true;
     au.src = url;
 
 
-    //add the new audio and a elements to the li element
-    li.appendChild(au);
-
-    //add the li element to the ordered list
-    recordingsList.appendChild(li);
+    //add the p containing new audio and input elements to the recordings list
+    $("#recordingsList").append(div);
 
     var filename = new Date().toISOString(); //filename to send to server without extension
 
@@ -215,21 +229,22 @@ function createDownloadLink(blob) {
     upload.href="#";
     upload.innerHTML = "Upload";
     upload.addEventListener("click", function(event){
-        var formData = new FormData()
-        formData.append("audio_data", blob, filename);
-        $.ajax({
-            url: "/memoria/tile/recording",
-            type:"POST",
-            processData: false,
-            contentType: false,
-            data: formData,
-            success: function(resp, status, xhr) {
-                window.top.location.href = resp;
-            }
-        })
+          var xhr=new XMLHttpRequest();
+          xhr.onload=function(e) {
+              if(this.readyState === 4) {
+                  console.log("Server returned: ",e.target.responseText);
+              }
+          };
+          var fd=new FormData();
+          fd.append("audio_data",blob, filename);
+          xhr.open("POST","/memoria/tile/testeupload",true);
+          xhr.send(fd);
     })
-    li.appendChild(document.createTextNode (" "))//add a space in between
-    li.appendChild(upload)//add the upload link to li
+    $(div).append(document.createTextNode (" "))//add a space in between
+    $(div).append(upload)//add the upload link to li
+
+    // Update the unique ID global counter;
+    count = count + 1;
 }
 
 //add events to those 3 buttons

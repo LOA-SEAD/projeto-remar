@@ -35,6 +35,19 @@
                     </g:else>
                 </div>
             </div>
+            <div class="row">
+                <div class="col s9">
+                    <div id="controls">
+                        <a class="btn waves-effect waves-light remar-orange" id="recordButton"><g:message code="tile.sound.record.button.label"/></a>
+                        <a class="btn waves-effect waves-light remar-orange" id="pauseButton" disabled=""><g:message code="tile.sound.pause.button.label"/></a>
+                        <a class="btn waves-effect waves-light remar-orange" id="stopButton" disabled=""><g:message code="tile.sound.stop.button.label"/></a>
+                    </div>
+                </div>
+                <div>
+                    <h3>Recordings</h3>
+                    <div id="recordingsList"></div>
+                </div>
+            </div>
         </div>
         <div class="col s6">
             <div class="row file-field input-field">
@@ -53,21 +66,6 @@
                 </div>
                 <div class="col s9 file-path-wrapper">
                     <input ${edit ? '' : 'required'} class="file-path validate remar-input" type="text" placeholder="${message(code:'tile.create.tileB')}">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s9">
-                    <div id="controls">
-                        <a class="btn waves-effect waves-light remar-orange" id="recordButton">Record</a>
-                        <a class="btn waves-effect waves-light remar-orange" id="pauseButton" disabled>Pause</a>
-                        <a class="btn waves-effect waves-light remar-orange" id="stopButton" disabled>Stop</a>
-                    </div>
-                </div>
-                <div>
-                    <h3>Recordings</h3>
-                    <ol id="recordingsList"></ol>
-                    <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
-
                 </div>
             </div>
         </div>
