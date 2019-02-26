@@ -146,11 +146,17 @@ class MongoHelper {
         return db.getCollection(collection).find(new Document("game", resourceId).append("user", userId))
     }
 
-    def getStats(String collection, int exportedResourceId, List<Long> userGroup) {
+    /*def getStats(String collection, int exportedResourceId, List<Long> userGroup) {
         return db.getCollection(collection)
                 .find(
                     [ '$and': [ [ 'userId' : [ '$in' : userGroup] ], [ (collection + '.exportedResourceId') : exportedResourceId ] ] ] as BasicDBObject
                 )
+    }*/
+
+    def getStats(String collection, int exportedResourceId, List<Long> userGroup) {
+        return db.getCollection(collection).find(new Document('userId', new Document('$in', userGroup)).append("${collection}.exportedResourceId", exportedResourceId)).sort {
+            userId: 1
+        }
     }
 
     def getStats(String collection, int exportedResourceId, Long userId) {
@@ -323,9 +329,11 @@ class MongoHelper {
                         time = o.time as double
 
                         if (usersTime.containsKey(o.userId)) {
-                            usersTime[o.userId].add(time)
+                            if (usersTime[o.userId] > time) {
+                                usersTime[o.userId] = time
+                            }
                         } else {
-                            usersTime[o.userId] = [time]
+                            usersTime[o.userId] = time
                         }
                     }
                 }
@@ -333,8 +341,6 @@ class MongoHelper {
 
             // Para DEBUG -> descomente a linha abaixo
             //println "usersTime: " + usersTime
-
-            usersTime.each { it.value.sort() }
 
             return usersTime
 
@@ -393,7 +399,7 @@ class MongoHelper {
             nameLevels(exportedResourceId, users, usersInLevel, gameName)
 
             // Para DEBUG -> descomente a linha abaixo
-            println "usersInLevel: " + usersInLevel
+            //println "usersInLevel: " + usersInLevel
 
             return usersInLevel
 
@@ -893,6 +899,79 @@ class MongoHelper {
         }
     }
 
+    //TOTAL DE TENTATIVAS E TENTATIVAS CONCLUÍDAS EM CADA NÍVEL POR JOGADOR
+    def getPlayerLevelAttempt2 (int exportedResourceId, List<Long> users) {
+
+        def timeCollection = getStats("timeStats", exportedResourceId, users)
+
+        if(timeCollection.size() > 0) {
+
+            def levelAttempts = [:]
+            def level, time
+            def tuple
+
+            for (Document doc : timeCollection) {
+                for (Object o : doc.timeStats) {
+
+                    if (o.exportedResourceId == exportedResourceId
+                            && o.type == '1') {
+
+                        // Conversão necessária por erro na hora de salvar os parametros em timeStats
+                        // Não foi modificado ainda por não poder mexer no banco do alfa.remar.online
+                        level = o.gameLevel as int
+                        time = o.time as double
+
+                        if(o.gameId == "SantoGrau" && level == 5) {
+                            tuple = new Tuple(o.userId, "Fase Refeitório")
+                        } else if(o.gameId == "SantoGrau" && level == 1) {
+                            tuple = new Tuple(o.userId, "Fase Galeria")
+                        } else {
+                            tuple = new Tuple(o.userId, level)
+                        }
+
+                        if (levelAttempts.containsKey(tuple)) {
+
+                            if(time > 0.0) {
+                                levelAttempts[tuple][1] += 1
+                            }
+
+                            levelAttempts[tuple][0] += 1
+
+                        } else {
+                            levelAttempts.put(tuple, [1,0])
+                        }
+                    }
+                }
+            }
+
+            def statsCollection = getStats("stats", exportedResourceId, users)
+
+            for (Document doc : statsCollection) {
+                for (Object o : doc.stats) {
+                    if (o.exportedResourceId == exportedResourceId) {
+
+                        tuple = new Tuple(o.userId, o.gameLevel)
+
+                        if (levelAttempts.containsKey(tuple)) {
+                            levelAttempts.put(new Tuple(o.userId, o.gameLevelName), levelAttempts[tuple])
+                            levelAttempts.remove(tuple)
+                        }
+                    }
+                }
+            }
+
+            // Para DEBUG -> descomente as linhas abaixo
+            //println "playerLevelAttempts: " + levelAttempts
+
+            return levelAttempts
+
+        } else {
+            // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
+            println "ERROR: Could not return level attempts for resource " + exportedResourceId
+            return null
+        }
+    }
+
     //NÚMERO DE TENTATIVAS POR DESAFIO
     def getPlayerChallAttempt (int exportedResourceId, List<Long> users) {
 
@@ -1171,7 +1250,7 @@ class MongoHelper {
     //PRINCIPAL
     static void main(String... args) {
 
-        MongoHelper.instance.init([dbHost  : '172.18.0.4:27017',
+        MongoHelper.instance.init([dbHost  : '172.18.0.3:27017',
                                    username: 'root',
                                    password: 'root'])
 
@@ -1192,7 +1271,7 @@ class MongoHelper {
         //MongoHelper.instance.getRanking(12)
 
         // tempo gasto para conclusão do jogo
-        MongoHelper.instance.getGameConclusionTime(1, [2,3,4] as List<Long>)
+        //MongoHelper.instance.getGameConclusionTime(1, [2,3,4] as List<Long>)
 
         // quantidade de jogadores por nível
         //MongoHelper.instance.getQntInLevels(9, grupo2doalfa as List<Long>)
@@ -1220,6 +1299,9 @@ class MongoHelper {
 
         // número de tentativas em cada nível por jogador
         //MongoHelper.instance.getPlayerLevelAttempt(3, grupo3doalfa as List<Long>)
+
+        // número de tentativas em cada nível por jogador
+        MongoHelper.instance.getPlayerLevelAttempt2(1, [2, 3, 4] as List<Long>)
 
         // número de tentativas em cada desafio por jogador
         //MongoHelper.instance.getPlayerChallAttempt(1, [2, 3, 4] as List<Long>)
