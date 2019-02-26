@@ -160,7 +160,7 @@ class MongoHelper {
     }
 
     def getStats(String collection, int exportedResourceId, Long userId) {
-        return db.getCollection(collection).find(new Document('userId', userId).append("stats.exportedResourceId", exportedResourceId))
+        return db.getCollection(collection).find(new Document('userId', userId).append("${collection}.exportedResourceId", exportedResourceId))
     }
 
     def getCollectionForId(String collection, String id) {
