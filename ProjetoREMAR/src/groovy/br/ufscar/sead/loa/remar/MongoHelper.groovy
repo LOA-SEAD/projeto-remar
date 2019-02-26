@@ -933,9 +933,9 @@ class MongoHelper {
 
                             if(time > 0.0) {
                                 levelAttempts[tuple][1] += 1
+                            } else {
+                                levelAttempts[tuple][0] += 1
                             }
-
-                            levelAttempts[tuple][0] += 1
 
                         } else {
                             levelAttempts.put(tuple, [1,0])
@@ -1250,7 +1250,7 @@ class MongoHelper {
     //PRINCIPAL
     static void main(String... args) {
 
-        MongoHelper.instance.init([dbHost  : '172.18.0.3:27017',
+        MongoHelper.instance.init([dbHost  : '172.18.0.4:27017',
                                    username: 'root',
                                    password: 'root'])
 
@@ -1301,7 +1301,7 @@ class MongoHelper {
         //MongoHelper.instance.getPlayerLevelAttempt(3, grupo3doalfa as List<Long>)
 
         // número de tentativas em cada nível por jogador
-        MongoHelper.instance.getPlayerLevelAttempt2(1, [2, 3, 4] as List<Long>)
+        //MongoHelper.instance.getPlayerLevelAttempt2(1, [2, 3, 4] as List<Long>)
 
         // número de tentativas em cada desafio por jogador
         //MongoHelper.instance.getPlayerChallAttempt(1, [2, 3, 4] as List<Long>)
