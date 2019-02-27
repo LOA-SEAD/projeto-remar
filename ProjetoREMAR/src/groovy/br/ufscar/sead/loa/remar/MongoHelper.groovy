@@ -1180,10 +1180,6 @@ class MongoHelper {
             // Para DEBUG -> descomente a linha abaixo
             //println "challMistakes: " + challMistakes
 
-            challMistakes.each {
-                println it
-            }
-
             return challMistakes
 
         } else {
