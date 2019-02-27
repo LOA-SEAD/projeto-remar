@@ -165,6 +165,53 @@ class StatsController {
         }
     }
 
+    def levelAttemptRatio() {
+        /*
+         *  Retorna um JSON com total de tentativas e tentativas concluídas por nível de cada aluno
+         *  [[jogador, tentativas, tent. concluídas]]
+         *
+         *  Parâmetros:
+         *      groupId            -> identificador do grupo
+         *      exportedResourceId -> identificador do recurso exportado
+         */
+
+        if (params.groupId && params.exportedResourceId) {
+
+            def group = Group.findById(params.groupId)
+            def userGroups = UserGroup.findAllByGroup(group)
+            def users = userGroups.collect {
+                it.user.id
+            }
+
+            def resourceAtt = MongoHelper.instance.getLevelAttemptRatio(params.exportedResourceId as int, users)
+            def playersLevelAtt = [:]
+
+            if (resourceAtt != null) {
+
+                def user, level, conclAttempts, notConclAttempts
+
+                for (entry in resourceAtt) {
+
+                    user             = User.findById(entry.key.get(0)).name
+                    level            = entry.key.get(1)
+                    conclAttempts    = entry.value.get(1)
+                    notConclAttempts = entry.value.get(0) - conclAttempts
+
+                    if(playersLevelAtt.containsKey(level)) {
+                        playersLevelAtt[level].add( [user, notConclAttempts, conclAttempts] )
+                    } else {
+                        playersLevelAtt.put(level, [[user, notConclAttempts, conclAttempts]])
+                    }
+                }
+            }
+
+            render playersLevelAtt as JSON
+
+        } else {
+            // TODO: render erro nos parametros
+        }
+    }
+
     def avgLevelTime() {
         /*
          *  Retorna um JSON com tempo médio gasto por nivel
@@ -434,6 +481,63 @@ class StatsController {
         }
     }
 
+    def challMistakeRatio() {
+        /*
+         *  Retorna um JSON com total de tentativas e tentativas concluídas por desafio de cada aluno
+         *  [level:
+         *    [
+         *      desafio : [jogador, tentativas, tent. concluídas]
+         *    ]
+         *  ]
+         *
+         *
+         *  Parâmetros:
+         *      groupId            -> identificador do grupo
+         *      exportedResourceId -> identificador do recurso exportado
+         */
+
+        if (params.groupId && params.exportedResourceId) {
+
+            def group = Group.findById(params.groupId)
+            def userGroups = UserGroup.findAllByGroup(group)
+            def users = userGroups.collect {
+                it.user.id
+            }
+
+            def resourceAtt = MongoHelper.instance.getChallMistakesRatio(params.exportedResourceId as int, users)
+            def playersMissRatio = [:]
+
+            if (resourceAtt != null) {
+
+                def user, level, challenge, hits, mistakes
+
+                for (entry in resourceAtt) {
+
+                    user       = User.findById(entry.key.get(0)).name
+                    level      = entry.key.get(1)
+                    challenge  = entry.key.get(2)
+                    hits       = entry.value.get(0)
+                    mistakes   = entry.value.get(1)
+
+                    if(playersMissRatio.containsKey(level)) {
+                        if(playersMissRatio[level].containsKey(challenge)) {
+                            playersMissRatio[level][challenge].add( [user, hits, mistakes] )
+                        } else {
+                            playersMissRatio[level].put( challenge, [[user, hits, mistakes]] )
+                        }
+                    } else {
+                        playersMissRatio.put(level, [ (challenge): [[user, hits, mistakes]] ] )
+                    }
+                }
+            }
+
+            render playersMissRatio.sort { it.value } as JSON
+
+        } else {
+            // TODO: render erro nos parametros
+        }
+    }
+
     def choiceFrequency  () {
         /*
          *  Retorna um JSON com frequencia de escolhas por desafio
@@ -520,53 +624,6 @@ class StatsController {
                         playersLevelAtt[user].add( [level, attempts] )
                     } else {
                         playersLevelAtt.put(user, [[level, attempts]])
-                    }
-                }
-            }
-
-            render playersLevelAtt as JSON
-
-        } else {
-            // TODO: render erro nos parametros
-        }
-    }
-
-    def playerLevelAttempt2() {
-        /*
-         *  Retorna um JSON com total de tentativas e tentativas concluídas por nível de cada aluno
-         *  [[jogador, tentativas, tent. concluídas]]
-         *
-         *  Parâmetros:
-         *      groupId            -> identificador do grupo
-         *      exportedResourceId -> identificador do recurso exportado
-         */
-
-        if (params.groupId && params.exportedResourceId) {
-
-            def group = Group.findById(params.groupId)
-            def userGroups = UserGroup.findAllByGroup(group)
-            def users = userGroups.collect {
-                it.user.id
-            }
-
-            def resourceAtt = MongoHelper.instance.getPlayerLevelAttempt2(params.exportedResourceId as int, users)
-            def playersLevelAtt = [:]
-
-            if (resourceAtt != null) {
-
-                def user, level, conclAttempts, notConclAttempts
-
-                for (entry in resourceAtt) {
-
-                    user     = User.findById(entry.key.get(0)).name
-                    level    = entry.key.get(1)
-                    conclAttempts = entry.value.get(1)
-                    notConclAttempts = entry.value.get(0) - conclAttempts
-
-                    if(playersLevelAtt.containsKey(level)) {
-                        playersLevelAtt[level].add( [user, notConclAttempts, conclAttempts] )
-                    } else {
-                        playersLevelAtt.put(level, [[user, notConclAttempts, conclAttempts]])
                     }
                 }
             }
