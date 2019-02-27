@@ -6,9 +6,12 @@ class StatsController {
 
      //MUDAR //def allUsersGroup = UserGroup.findAllByGroup(group).user
 
-
     def index() {
 
+    }
+
+    def valerio() {
+        render params as JSON
     }
 
     def groupUsers() {
@@ -201,6 +204,53 @@ class StatsController {
                         playersLevelAtt[level].add( [user, notConclAttempts, conclAttempts] )
                     } else {
                         playersLevelAtt.put(level, [[user, notConclAttempts, conclAttempts]])
+                    }
+                }
+            }
+
+            render playersLevelAtt as JSON
+
+        } else {
+            // TODO: render erro nos parametros
+        }
+    }
+
+    def playerAttemptRatio() {
+        /*
+         *  Retorna um JSON com total de tentativas e tentativas concluídas por nível de cada aluno
+         *  [[jogador, tentativas, tent. concluídas]]
+         *
+         *  Parâmetros:
+         *      groupId            -> identificador do grupo
+         *      exportedResourceId -> identificador do recurso exportado
+         */
+
+        if (params.groupId && params.exportedResourceId) {
+
+            def group = Group.findById(params.groupId)
+            def userGroups = UserGroup.findAllByGroup(group)
+            def users = userGroups.collect {
+                it.user.id
+            }
+
+            def resourceAtt = MongoHelper.instance.getLevelAttemptRatio(params.exportedResourceId as int, users)
+            def playersLevelAtt = [:]
+
+            if (resourceAtt != null) {
+
+                def user, level, conclAttempts, notConclAttempts
+
+                for (entry in resourceAtt) {
+
+                    user             = User.findById(entry.key.get(0)).name
+                    level            = entry.key.get(1)
+                    conclAttempts    = entry.value.get(1)
+                    notConclAttempts = entry.value.get(0) - conclAttempts
+
+                    if(playersLevelAtt.containsKey(user)) {
+                        playersLevelAtt[user].add( [level, notConclAttempts, conclAttempts] )
+                    } else {
+                        playersLevelAtt.put(user, [[level, notConclAttempts, conclAttempts]])
                     }
                 }
             }
