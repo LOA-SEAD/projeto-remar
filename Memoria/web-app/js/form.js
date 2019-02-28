@@ -18,7 +18,60 @@ $(document).ready(function() {
         window.location.href = baseUrl + "/tile/index";
 
     });
+
+    // autoplay selected audio
+    $("#recordingsListA, #recordingsListB").delegate("input[type=radio]", "change", function (){
+       $(this).parent().siblings("audio")[0].play();
+    });
+
+    // Submit form button click function
+    $("#submit").click(function() {
+        fd = new FormData();
+
+
+        var audioAurl = $("input[name=audioA]:checked").parent().siblings("audio")[0].src;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', audioAurl);
+        xhr.responseType = 'blob';
+        xhr.onload = function(e) { recoverBlobB(xhr.response) };
+        xhr.send();
+    });
 });
+
+function recoverBlobB(blobA) {
+
+    var audioBurl = $("input[name=audioB]:checked").parent().siblings("audio")[0].src;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', audioBurl);
+    xhr.responseType = 'blob';
+    xhr.onload = function(e) { sendFormData(blobA, xhr.response) };
+    xhr.send();
+}
+
+function sendFormData(blobA, blobB) {
+    var textA = $("input[name=textA]").val();
+    var textB = $("input[name=textB]").val();
+
+    var fd = new FormData();
+    fd.append("audioA", blobA, new Date().toISOString());
+    fd.append("audioB", blobB, new Date().toISOString());
+    fd.append("textA", textA);
+    fd.append("textB", textB);
+
+    $.ajax({
+       url: "/memoria/tile/save",
+       method: "POST",
+       cache : false,
+       processData: false,
+       data: fd,
+       success: function() {
+           window.top.top.location.href = response;
+       }
+
+    });
+}
+
 
 //webkitURL is deprecated but nevertheless
 URL = window.URL || window.webkitURL;
@@ -193,27 +246,6 @@ function createDownloadLink(blob) {
     //add controls to the <audio> element
     au.controls = true;
     au.src = url;
-
-    var filename = new Date().toISOString(); //filename to send to server without extension
-
-    //upload link
-    var upload = document.createElement('a');
-    upload.href="#";
-    upload.innerHTML = "Upload";
-    upload.addEventListener("click", function(event){
-          var xhr=new XMLHttpRequest();
-          xhr.onload=function(e) {
-              if(this.readyState === 4) {
-                  console.log("Server returned: ",e.target.responseText);
-              }
-          };
-          var fd=new FormData();
-          fd.append("audio_data",blob, filename);
-          xhr.open("POST","/memoria/tile/testeupload",true);
-          xhr.send(fd);
-    })
-    $(div).append(document.createTextNode (" "))//add a space in between
-    $(div).append(upload)//add the upload link to li
 }
 
 //add events to all 6 buttons

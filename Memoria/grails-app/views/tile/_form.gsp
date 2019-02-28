@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div>
-                <h3>Recordings</h3>
+                <h3><g:message code="tile.recordings.list.header"/></h3>
                 <div id="recordingsListA"></div>
             </div>
         </div>
@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div>
-                <h3>Recordings</h3>
+                <h3><g:message code="tile.recordings.list.header"/></h3>
                 <div id="recordingsListB"></div>
             </div>
         </div>
@@ -72,7 +72,7 @@
 <div class="row right-align">
     <a id="back" name="back" class="btn btn-success remar-orange">${message(code:'tile.create.backButton')}</a>
 
-    <input id="upload" type="submit" name="upload" class="btn btn-success remar-orange" value="${message(code:'tile.create.sendButton')}"/>
+    <input id="submit" type="button" name="submit" class="btn btn-success remar-orange" value="${message(code:'tile.create.sendButton')}"/>
 </div>
 
 <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
