@@ -164,6 +164,55 @@ class StatsController {
         }
     }
 
+    def levelAttempt2() {
+        /*
+         *  Retorna um JSON com quantidade de tentativas por nivel
+         *  [[nivel, tentativas]]
+         *
+         *  Parâmetros:
+         *      groupId            -> identificador do grupo
+         *      exportedResourceId -> identificador do recurso exportado
+         */
+
+        if (params.groupId && params.exportedResourceId) {
+
+            def group = Group.findById(params.groupId)
+            def userGroups = UserGroup.findAllByGroup(group)
+            def users = userGroups.collect {
+                it.user.id
+            }
+            def resourceAtt = MongoHelper.instance.getLevelAttemptRatio(params.exportedResourceId as int, users)
+            def groupLevelAtt = []
+
+            if (resourceAtt != null) {
+
+                def level, attempts, conclAttempts
+                def index
+
+                for (entry in resourceAtt) {
+
+                    level         = entry.key.get(1)
+                    attempts      = entry.value.get(0)
+                    conclAttempts = entry.value.get(1)
+
+                    index = groupLevelAtt.findIndexOf { it[0] == level }
+
+                    if(index != -1) {
+                        groupLevelAtt[index][1] += attempts
+                        groupLevelAtt[index][2] += conclAttempts
+                    } else {
+                        groupLevelAtt.add([level, attempts, conclAttempts])
+                    }
+                }
+            }
+
+            render groupLevelAtt as JSON
+
+        } else {
+            // TODO: render erro nos parametros
+        }
+    }
+
     def levelAttemptRatio() {
         /*
          *  Retorna um JSON com total de tentativas e tentativas concluídas por nível de cada aluno
