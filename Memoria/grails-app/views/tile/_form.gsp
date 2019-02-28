@@ -38,26 +38,6 @@
                 <div id="recordingsListB"></div>
             </div>
         </div>
-        <div class="col s6">
-            <div class="row file-field input-field">
-                <div class="col s3 btn right remar-orange">
-                    <span><g:message code="tile.create.fileButton"/></span>
-                    <input data-image="true" type="file" name="tile-a" class="previewed-image" data-preview-target="a-preview">
-                </div>
-                <div class="col s9 file-path-wrapper">
-                    <input ${edit ? '' : 'required'} class="file-path validate remar-input" type="text" placeholder="${message(code:'tile.create.tileA')}">
-                </div>
-            </div>
-            <div class="row file-field input-field">
-                <div class="col s3 btn right remar-orange">
-                    <span><g:message code="tile.create.fileButton"/></span>
-                    <input data-image="true" type="file" name="tile-b" class="previewed-image remar-input" data-preview-target="b-preview">
-                </div>
-                <div class="col s9 file-path-wrapper">
-                    <input ${edit ? '' : 'required'} class="file-path validate remar-input" type="text" placeholder="${message(code:'tile.create.tileB')}">
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
