@@ -1,52 +1,41 @@
-    <%@ page import="br.ufscar.sead.loa.memoria.Tile" %>
-
+<%@ page import="br.ufscar.sead.loa.memoria.Tile" %>
+<g:javascript>
+    GMS = {};
+    GMS.RECORDINGS_RESUME_BUTTON_LABEL = "${message(code: 'tile.sound.resume.button.label')}";
+    GMS.RECORDINGS_PAUSE_BUTTON_LABEL = "${message(code: 'tile.sound.pause.button.label')}";
+</g:javascript>
 <g:if test="${edit}">
     <g:hiddenField name="id" value="${tileInstance.id}"/>
 </g:if>
 <div id="image-preview-table" class="row">
-    <div id="preview-table-header" class="row no-margin">
-        <div class="col s6">
-            <p class="center-align"><g:message code="tile.create.preview"/></p>
-        </div>
-        <div class="col s6 center-align">
-            <p class="center-align"><g:message code="tile.create.image.header"/></p>
-        </div>
-    </div>
-    <div class="divider"></div>
+
     <div class="row no-margin">
         <div class="col s6">
-            <div class="row image-preview-container">
-                <div class="tile-image col no-padding s6">
-                    <label><g:message code="tile.label"/> A</label>
-                    <g:if test="${edit}">
-                        <img id="a-preview" class="materialboxed edit"  src="${resource(dir:"/data/${tileInstance.ownerId}/${tileInstance.taskId}/tiles", file:"tile${tileInstance.id}-a.png")}" alt="${tileInstance.content} - A">
-                    </g:if>
-                    <g:else>
-                        <img id="a-preview" class="materialboxed hidden">
-                    </g:else>
-                </div>
-                <div class="tile-image col no-padding s6">
-                    <label><g:message code="tile.label"/> B</label>
-                    <g:if test="${edit}">
-                        <img id="b-preview" class="materialboxed edit" src="${resource(dir:"/data/${tileInstance.ownerId}/${tileInstance.taskId}/tiles", file:"tile${tileInstance.id}-b.png")}"  alt="${tileInstance.content} - B">
-                    </g:if>
-                    <g:else>
-                        <img id="b-preview" class="materialboxed hidden">
-                    </g:else>
+            <div>
+                <h3><g:message code="tile.audioA.label"/></h3>
+                <div id="controlsA">
+                    <a class="btn waves-effect waves-light remar-orange" id="recordButtonA"><g:message code="tile.sound.record.button.label"/></a>
+                    <a class="btn waves-effect waves-light remar-orange" id="pauseButtonA" disabled=""><g:message code="tile.sound.pause.button.label"/></a>
+                    <a class="btn waves-effect waves-light remar-orange" id="stopButtonA" disabled=""><g:message code="tile.sound.stop.button.label"/></a>
                 </div>
             </div>
-            <div class="row">
-                <div class="col s9">
-                    <div id="controls">
-                        <a class="btn waves-effect waves-light remar-orange" id="recordButton"><g:message code="tile.sound.record.button.label"/></a>
-                        <a class="btn waves-effect waves-light remar-orange" id="pauseButton" disabled=""><g:message code="tile.sound.pause.button.label"/></a>
-                        <a class="btn waves-effect waves-light remar-orange" id="stopButton" disabled=""><g:message code="tile.sound.stop.button.label"/></a>
-                    </div>
+            <div>
+                <h3>Recordings</h3>
+                <div id="recordingsListA"></div>
+            </div>
+        </div>
+        <div class="col s6">
+            <div>
+                <h3><g:message code="tile.audioB.label"/></h3>
+                <div id="controlsB">
+                    <a class="btn waves-effect waves-light remar-orange" id="recordButtonB"><g:message code="tile.sound.record.button.label"/></a>
+                    <a class="btn waves-effect waves-light remar-orange" id="pauseButtonB" disabled=""><g:message code="tile.sound.pause.button.label"/></a>
+                    <a class="btn waves-effect waves-light remar-orange" id="stopButtonB" disabled=""><g:message code="tile.sound.stop.button.label"/></a>
                 </div>
-                <div>
-                    <h3>Recordings</h3>
-                    <div id="recordingsList"></div>
-                </div>
+            </div>
+            <div>
+                <h3>Recordings</h3>
+                <div id="recordingsListB"></div>
             </div>
         </div>
         <div class="col s6">
@@ -74,17 +63,17 @@
 
 <div class="row">
     <div class="input-field col s8 fieldcontain ${hasErrors(bean: tileInstance, field: 'content', 'error')} required">
-        <g:textField id="content" name="content" class="remar-input" maxlength="50" required="" value="${tileInstance?.content}"/>
+        <g:textField id="textA" name="textA" class="remar-input" maxlength="50" required="" value="${tileInstance?.textA}"/>
         <label for="content">
-            <g:message code="tile.content.label"/>
+            <g:message code="tile.textA.label" default="Texto Primeira Carta" />
             <span class="required-indicator">*</span>
         </label>
     </div>
 
     <div class="input-field col s4 fieldcontain ${hasErrors(bean: tileInstance, field: 'difficulty', 'error')} required">
-        <g:select name="difficulty" from="${tileInstance.constraints.difficulty.inList}" required="" value="${tileInstance?.difficulty}" valueMessagePrefix="tile.difficulty"/>
+        <g:textField id="textB" name="textB" class="remar-input" maxlength="50" required="" value="${tileInstance?.textB}"/>
         <label for="difficulty">
-            <g:message code="tile.difficulty.label" default="Difficulty" />
+            <g:message code="tile.textB.label" default="Texto Segunda Carta" />
             <span class="required-indicator">*</span>
         </label>
     </div>

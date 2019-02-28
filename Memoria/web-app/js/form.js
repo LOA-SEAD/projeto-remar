@@ -2,47 +2,14 @@
  * Created by garciaph on 29/08/17.
  */
 
- var count = 1;
+var countA = 1;
+var countB = 1;
 
 $(document).ready(function() {
     // Disable send button after submit the form
     $('form.sendForm').submit(function(){
         $(this).find(':input[type=submit]').prop('disabled', true);
     });
-
-    $('select').material_select();
-
-    // textarea behavior
-    $('textarea')
-    // stops accepting input after reaching it's maximum length
-        .keypress(function(e) {
-            if (e.which < 0x20) {
-                // e.which < 0x20, then it's not a printable character
-                // e.which === 0 - Not a character
-                return;     // Do nothing
-            }
-            if (this.value.length == $(this).data('length')) {
-                e.preventDefault();
-            } else if (this.value.length > $(this).data('length')) {
-                // Maximum exceeded
-                this.value = this.value.substring(0, $(this).data('length'));
-            }
-        })
-        // slices input if pasted content exceeds character limit
-        .on('paste', function(e) {
-            e.clipboardData.getData('text/plain').slice(0, $(this).data('length'));
-        });
-
-    // preview selected image on form's image input section
-    $(".previewed-image").change(function() {
-        readURL($(this), $(this).data('preview-target'));
-    });
-
-    // resize already initialized images (edit mode)
-    $("img.edit").materialbox().each(function() {
-       resizeImageOrientationWise($(this), 180, 180);
-    });
-
 
     $('#back').click(function() {
         var getUrl = window.location;
@@ -51,46 +18,7 @@ $(document).ready(function() {
         window.location.href = baseUrl + "/tile/index";
 
     });
-
-
 });
-
-// function used in image preview
-function readURL($input, previewTarget) {
-    var $preview = $('#' + previewTarget);
-
-    // read filename from file input and create a new file reader to it
-    if ($input.prop('files') && $input.prop('files')[0]) {
-        var reader = new FileReader();
-
-        // load file and change 'src' attribute of preview <img> element
-        reader.onload = function (e) {
-            $preview.attr('src', e.target.result);
-            // resize to 180px height (if portrait) or 180px width (if landscape)s
-            resizeImageOrientationWise($preview, 180, 180);
-            $preview.show();
-        };
-
-        reader.readAsDataURL($input.prop('files')[0]);
-    }
-}
-
-function resizeImageOrientationWise($el, height, width) {
-
-    // note that it must be $.attr instead of $.css because of materialize materialbox
-    $el.on('load', function(){
-        var eWidth = $el.width();
-        var eHeight = $el.height();
-
-        if (eWidth > eHeight) {
-            // landscape
-            $el.attr('width', width);
-        } else {
-            //portrait
-            $el.attr('height', height);
-        }
-    });
-}
 
 //webkitURL is deprecated but nevertheless
 URL = window.URL || window.webkitURL;
@@ -103,12 +31,15 @@ var input; //MediaStreamAudioSourceNode we'll be recording
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioContext = new AudioContext; //new audio context to help us record
 
-var recordButton = document.getElementById("recordButton");
-var stopButton = document.getElementById("stopButton");
-var pauseButton = document.getElementById("pauseButton");
+var recordButton = document.getElementById("recordButtonA");
+var stopButton = document.getElementById("stopButtonA");
+var pauseButton = document.getElementById("pauseButtonA");
+var recordButtonB = document.getElementById("recordButtonB");
+var stopButtonB = document.getElementById("stopButtonB");
+var pauseButtonB = document.getElementById("pauseButtonB");
 
 function startRecording() {
-    console.log("recordButton clicked");
+    console.log("Recording requested.");
 
     /*
     Simple constraints object, for more advanced audio features see
@@ -121,9 +52,17 @@ function startRecording() {
     Disable the record button until we get a success or fail from getUserMedia()
     */
 
-    $(recordButton).attr("disabled","");
-    $(pauseButton).removeAttr("disabled");
-    $(stopButton).removeAttr("disabled");
+    if (this.id == "recordButtonA") {
+        $(recordButton).attr("disabled", "");
+        $(recordButtonB).attr("disabled", "");
+        $(pauseButton).removeAttr("disabled");
+        $(stopButton).removeAttr("disabled");
+    } else {
+        $(recordButton).attr("disabled", "");
+        $(recordButtonB).attr("disabled", "");
+        $(pauseButtonB).removeAttr("disabled");
+        $(stopButtonB).removeAttr("disabled");
+    }
 
     /*
     We're using the standard promise based getUserMedia()
@@ -131,7 +70,7 @@ function startRecording() {
     */
 
     navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
-        console.log("getUserMedia() success, stream created, initializing Recorder.js ...");
+        console.log("Starting recording stream...");
 
         /* assign to gumStream for later use */
         gumStream = stream;
@@ -151,6 +90,7 @@ function startRecording() {
         console.log("Recording started");
 
     }).catch(function(err) {
+        Materialize.toast("Não foi possivel acessar seu microfone. Utilize o upload de arquivo para enviar seu som.", 3000);
         //enable the record button if getUserMedia() fails
         $(recordButton).removeAttr("disabled");
         $(pauseButton).attr("disabled","");
@@ -159,28 +99,25 @@ function startRecording() {
 }
 
 function pauseRecording(){
-    console.log("pauseButton clicked rec.recording=",rec.recording );
     if (rec.recording){
         //pause
         rec.stop();
-        pauseButton.innerHTML="Resume";
+        pauseButton.innerHTML=GMS.RECORDINGS_RESUME_BUTTON_LABEL;
     }else{
         //resume
         rec.record()
-        pauseButton.innerHTML="Pause";
+        pauseButton.innerHTML=GMS.RECORDINGS_PAUSE_BUTTON_LABEL;
     }
 }
 
 function stopRecording() {
-    console.log("stopButton clicked");
-
-    //disable the stop button, enable the record too allow for new recordings
+    //disable the stop but'ton, enable the record too allow for new recordings
     $(recordButton).removeAttr("disabled");
     $(pauseButton).attr("disabled","");
     $(stopButton).attr("disabled","");
 
     //reset button just in case the recording is stopped while paused
-    pauseButton.innerHTML="Pause";
+    pauseButton.innerHTML= GMS.RECORDINGS_PAUSE_BUTTON_LABEL;
 
     //tell the recorder to stop the recording
     rec.stop();
@@ -247,7 +184,10 @@ function createDownloadLink(blob) {
     count = count + 1;
 }
 
-//add events to those 3 buttons
+//add events to all 6 buttons
 recordButton.addEventListener("click", startRecording);
 stopButton.addEventListener("click", stopRecording);
 pauseButton.addEventListener("click", pauseRecording);
+recordButtonB.addEventListener("click", startRecording);
+stopButtonB.addEventListener("click", stopRecording);
+pauseButtonB.addEventListener("click", pauseRecording);
