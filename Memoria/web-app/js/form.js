@@ -4,7 +4,7 @@
 
 var countA = 1;
 var countB = 1;
-
+var currentRecordingCard = "A";
 $(document).ready(function() {
     // Disable send button after submit the form
     $('form.sendForm').submit(function(){
@@ -53,11 +53,13 @@ function startRecording() {
     */
 
     if (this.id == "recordButtonA") {
+        currentRecordingCard = "A";
         $(recordButton).attr("disabled", "");
         $(recordButtonB).attr("disabled", "");
         $(pauseButton).removeAttr("disabled");
         $(stopButton).removeAttr("disabled");
     } else {
+        currentRecordingCard = "B";
         $(recordButton).attr("disabled", "");
         $(recordButtonB).attr("disabled", "");
         $(pauseButtonB).removeAttr("disabled");
@@ -102,19 +104,34 @@ function pauseRecording(){
     if (rec.recording){
         //pause
         rec.stop();
-        pauseButton.innerHTML=GMS.RECORDINGS_RESUME_BUTTON_LABEL;
+        if (this.id == "pauseButtonA") {
+            pauseButton.innerHTML=GMS.RECORDINGS_RESUME_BUTTON_LABEL;
+        } else {
+            pauseButtonB.innerHTML=GMS.RECORDINGS_RESUME_BUTTON_LABEL;
+        }
     }else{
         //resume
         rec.record()
-        pauseButton.innerHTML=GMS.RECORDINGS_PAUSE_BUTTON_LABEL;
+        if (this.id == "pauseButtonA") {
+            pauseButton.innerHTML = GMS.RECORDINGS_PAUSE_BUTTON_LABEL;
+        } else {
+            pauseButtonB.innerHTML = GMS.RECORDINGS_PAUSE_BUTTON_LABEL;
+        }
     }
 }
 
 function stopRecording() {
     //disable the stop but'ton, enable the record too allow for new recordings
     $(recordButton).removeAttr("disabled");
-    $(pauseButton).attr("disabled","");
-    $(stopButton).attr("disabled","");
+    $(recordButtonB).removeAttr("disabled");
+    if (this.id == "stopButtonA") {
+        $(pauseButton).attr("disabled","");
+        $(stopButton).attr("disabled","");
+    } else {
+        $(pauseButtonB).attr("disabled","");
+        $(stopButtonB).attr("disabled","");
+    }
+
 
     //reset button just in case the recording is stopped while paused
     pauseButton.innerHTML= GMS.RECORDINGS_PAUSE_BUTTON_LABEL;
@@ -132,7 +149,7 @@ function stopRecording() {
 function createDownloadLink(blob) {
 
     // Generate a unique ID to be used in the radio button and its label;
-    var uniqueID = "audioA" + count;
+    var uniqueID;
 
     // Generate new DOM elements to display the new audio sound
     var url = URL.createObjectURL(blob);
@@ -143,21 +160,39 @@ function createDownloadLink(blob) {
     var au = document.createElement('audio');
     var input = document.createElement('input');
 
+    if (currentRecordingCard == "A") {
+        uniqueID = "audioA" + countA;
+        $(input).attr('type', 'radio').attr('id', uniqueID).attr('name', 'audioA');
+        $(label).attr("for",uniqueID).html("Audio " + countA);
+
+        //add the p containing new audio and input elements to the recordings list
+        $("#recordingsListA").append(div);
+
+        // Update the unique ID global counter;
+        countA = countA + 1;
+    } else {
+        uniqueID = "audioB" + countB;
+        $(input).attr('type', 'radio').attr('id', uniqueID).attr('name', 'audioB');
+        $(label).attr("for",uniqueID).html("Audio " + countB);
+
+        //add the p containing new audio and input elements to the recordings list
+        $("#recordingsListB").append(div);
+
+        // Update the unique ID global counter;
+        countB = countB + 1;
+    }
+
+
+
     // Insert them into a set hierarchy
-    $(input).attr('type', 'radio').attr('id', uniqueID).attr('name', 'audioA');
     $(div).append(p);
     $(p).append(input);
     $(p).append(label);
     $(div).append(au);
-    $(label).attr("for",uniqueID).html("Audio " + count);
 
     //add controls to the <audio> element
     au.controls = true;
     au.src = url;
-
-
-    //add the p containing new audio and input elements to the recordings list
-    $("#recordingsList").append(div);
 
     var filename = new Date().toISOString(); //filename to send to server without extension
 
@@ -179,9 +214,6 @@ function createDownloadLink(blob) {
     })
     $(div).append(document.createTextNode (" "))//add a space in between
     $(div).append(upload)//add the upload link to li
-
-    // Update the unique ID global counter;
-    count = count + 1;
 }
 
 //add events to all 6 buttons
