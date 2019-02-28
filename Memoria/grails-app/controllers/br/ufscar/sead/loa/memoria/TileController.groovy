@@ -31,7 +31,9 @@ class TileController {
             session.taskId = params.t
         }
 
-        render view: "index"
+        def tilesList = Tile.findAllByOwnerId(session.user.id)
+
+        render view: "index", model: [tilesList: tilesList, tilesCount: tilesList.count]
     }
 
     def show() {
