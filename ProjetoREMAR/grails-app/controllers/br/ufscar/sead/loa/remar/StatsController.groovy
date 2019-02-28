@@ -10,14 +10,6 @@ class StatsController {
 
     }
 
-    def salveValerio() {
-        session["dados"] = params
-    }
-
-    def resgateValerio() {
-        render session["dados"] as JSON
-    }
-
     def groupUsers() {
 
         if (params.groupId) {
