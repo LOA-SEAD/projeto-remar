@@ -10,8 +10,12 @@ class StatsController {
 
     }
 
-    def valerio() {
-        render params as JSON
+    def salveValerio() {
+        session["dados"] = params
+    }
+
+    def resgateValerio() {
+        render session["dados"] as JSON
     }
 
     def groupUsers() {
