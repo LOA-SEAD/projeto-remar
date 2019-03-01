@@ -57,6 +57,10 @@
                     <a href="${createLink(action: "create", controller: "tile")}"
                        class="btn-floating btn-success btn-large waves-effect waves-light remar-orange tooltipped" action="create" data-tooltip="Criar novo par"><i class="material-icons">add</i></a>
                 </div>
+                <div class="col s1 offset-s1 m1 l1">
+                    <a class="modal-trigger btn btn-floating btn-large waves-effect waves-light remar-orange tooltipped" href="#deleteModal" data-tooltip="Exluir pares selecionados" ><i class="material-icons">delete</i></a>
+                </div>
+
                 </div>
                 <div class="col s2 center-align ">
                     <a href="#!" id="send" class="btn btn-success btn-lg remar-orange">Enviar</a>
@@ -72,6 +76,16 @@
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">OK</a>
+        </div>
+    </div>
+
+    <div id="deleteModal" class="modal remar-modal">
+        <div class="modal-content">
+            <h4> Tem certeza que deseja remover esses pares?</h4>
+        </div>
+        <div class="modal-footer">
+            <a id="removeSelected" href="#!" class="modal-action modal-close waves-effect waves-light remar-orange">Sim</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-light remar-orange">Não</a>
         </div>
     </div>
 
