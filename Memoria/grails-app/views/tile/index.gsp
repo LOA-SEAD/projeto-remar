@@ -53,8 +53,10 @@
             </div>
 
             <div class="row no-margin">
-                <div class="col s3 offset-s7 right-align ">
-                    <g:link class="btn btn-success btn-lg remar-orange" action="create">Novo par</g:link>
+                <div class="col s1 m1 l1 offset-s4">
+                    <a href="${createLink(action: "create", controller: "tile")}"
+                       class="btn-floating btn-success btn-large waves-effect waves-light remar-orange tooltipped" action="create" data-tooltip="Criar novo par"><i class="material-icons">add</i></a>
+                </div>
                 </div>
                 <div class="col s2 center-align ">
                     <a href="#!" id="send" class="btn btn-success btn-lg remar-orange">Enviar</a>
