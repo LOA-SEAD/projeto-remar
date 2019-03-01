@@ -18,73 +18,23 @@ $(document).ready(function() {
         position: 'top',
         tooltip: $(this).data('tooltip-msg')
     });
-    $('select').material_select();
-
-    // initially load list with easy difficulty
-    var difficulty = 1; // 1 = Easy; 2 = Medium; 3 = Hard
-    $('#difficulty-level').html('Fácil');
-    renderSelect(difficulty);
-    $('#decrease-level').attr('disabled', 'disabled')
-
-    $('#decrease-level').click(function() {
-        if (difficulty > 1) {
-            // Set difficulty level
-            difficulty = difficulty - 1;
-            renderSelect(difficulty);
-
-            if (difficulty <= 1) $('#decrease-level').attr('disabled', 'disabled');
-            if (difficulty < 3) $('#increase-level').removeAttr('disabled');
-        }
-    });
-
-    $('#increase-level').click(function() {
-        if (difficulty < 3) {
-            // set difficulty level
-            difficulty = difficulty + 1;
-            renderSelect(difficulty);
-
-            if (difficulty >= 3) $('#increase-level').attr('disabled', 'disabled');
-            if (difficulty > 1) $('#decrease-level').removeAttr('disabled');
-        }
-    });
-
-
-    // change which model the user will download based on what tile presentation option was chosen
-    // since it's a checkbox, it has checked or not checked states (true or false)
-    // true = horizontal
-    // false = vertical
-    $('.switch :checkbox').change(function() {
-
-        if ($('.switch :checkbox').prop('checked')) {
-            fadeInOut($('#model-orientation'), 'horizontal');
-            $('#model-download').attr('href', '/memoria/samples/tilesample_h.zip');
-            sessionStorage.setItem("SessionOrientation", "h");
-        } else {
-            fadeInOut($('#model-orientation'), 'vertical');
-            $('#model-download').attr('href', '/memoria/samples/tilesample_v.zip');
-            sessionStorage.setItem("SessionOrientation", "v");
-        }
-    });
-
-    // if the user had set the orientation to "h" before, we should forcely click
-    // the switch via code whenever the page loads
-    if (sessionStorage.getItem("SessionOrientation") == "h")
-        $('.switch :checkbox').click();
-
 
     // send all tiles to controller
     $('#send').click(function() {
-        // orientation of tiles. Same as above.
-        var orientation = $('.switch :checkbox').prop('checked') ? 'h' : 'v';
         // activates load screen
         $('#loading-screen').show();
+
+        var ids = [];
+        $.each($("input[type=checkbox]:checked"), function (ignored, el) {
+            ids.push($(el).attr('data-id'));
+        });
 
         // proceed to the img file generation (controller)
         // otherwise, show modal with error
         $.ajax({
-            type: 'GET',
-            //async: false, commented to show loading screen properly
-            data: {orientation: orientation},
+            type: "POST",
+            traditional: true,
+            data: {id: ids},
             url: "/memoria/tile/validate",
             success: function (resp, status, xhr) {
                 if (xhr.status == 200) {
