@@ -48,6 +48,28 @@ class StatsController {
         }
     }
 
+    // APAGAR EVENTUALMENTE QUANDO FRED DECIDIR
+    def gameInfo2() {
+
+        if(params.exportedResourceId) {
+
+            def info = MongoHelper.instance.getGameInfo2(params.exportedResourceId as int)
+            def infoJSON = [:]
+
+            if (info != null) {
+
+                info.each { level, desafios ->
+                    infoJSON[level] = desafios.collect { id, desafio -> desafio }
+                }
+            }
+
+            render infoJSON as JSON
+
+        } else {
+            // TODO: render erro nos parametros
+        }
+    }
+
     def ranking() {
         /*
          *  Retorna um JSON com maior pontuação dos jogadores

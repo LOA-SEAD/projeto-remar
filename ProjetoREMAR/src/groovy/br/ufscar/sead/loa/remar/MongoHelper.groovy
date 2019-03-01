@@ -329,6 +329,58 @@ class MongoHelper {
         }
     }
 
+    def getGameInfo2(int exportedResourceId) {
+
+        def statsCollection = db.getCollection("stats")
+                .find( [ 'stats.exportedResourceId' : exportedResourceId ] as BasicDBObject )
+
+        if(statsCollection.size() > 0) {
+
+            def gameInfo = [:]
+            def question, answer
+
+            for (Document doc : statsCollection) {
+                for (Object o : doc.stats) {
+                    if(o.exportedResourceId == exportedResourceId) {
+
+                        if(o.gameType == "multipleChoice") {
+                            question = o.question
+                            answer = o.answer
+                        } else {
+                            question = o.word
+                            answer = o.correctAnswer
+                        }
+
+                        if(gameInfo.containsKey(o.gameLevelName)) {
+
+                            if( !(gameInfo[o.gameLevelName].containsKey(o.challengeId)) ) {
+                                gameInfo[o.gameLevelName].put( o.challengeId,  ["Desafio ${o.challengeId}", question, answer])
+                            }
+
+                        } else {
+                            gameInfo.put(o.gameLevelName, [ (o.challengeId): ["Desafio ${o.challengeId}", question, answer] ] )
+                        }
+
+                    }
+                }
+            }
+
+            gameInfo.each { level, desafios ->
+                gameInfo[level] = desafios.sort()
+            }
+
+            // Para DEBUG -> descomente a linha abaixo
+            //println "gameInfo: " + gameInfo
+
+            return gameInfo
+
+        } else {
+            // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
+            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            return null
+        }
+    }
+
     //NOMEIA LEVELS A PARTIR DO STATS COLLECTION
     def nameLevels(int exportedResourceId, List<Long> users, Map map, String gameName) {
 
@@ -1284,7 +1336,7 @@ class MongoHelper {
 
 
         // legenda com infos do jogo (desafios)
-        MongoHelper.instance.getGameInfo(2)
+        //MongoHelper.instance.getGameInfo(1)
 
         // ranking dos jogadores que concluíram o jogo
         //MongoHelper.instance.getRanking(12)
