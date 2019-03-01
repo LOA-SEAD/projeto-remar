@@ -193,7 +193,7 @@ class TileController {
         }
 
         // delete tile images before removing them from database
-        def tiles = getTilesImages(tileInstance)
+        def tiles = getTilesAudios(tileInstance)
 
         def f1 = new File(tiles.a)
         def f2 = new File(tiles.b)
@@ -460,12 +460,12 @@ class TileController {
     }
 
     // return list with filenames for images related to a tile pair
-    def getTilesImages(tileInstance) {
-        def userPath = servletContext.getRealPath("/data/" + tileInstance.ownerId.toString() + "/" + tileInstance.taskId.toString() + "/tiles")
+    def getTilesAudios(tileInstance) {
+        def userPath = servletContext.getRealPath("/data/" + tileInstance.ownerId.toString())
         def id = tileInstance.getId()
         def images = [
-                "a": "$userPath/tile$id-a.png",
-                "b": "$userPath/tile$id-b.png"
+                "a": "$userPath/audio$id-a.png",
+                "b": "$userPath/audio$id-b.png"
         ]
 
         return images
