@@ -80,6 +80,14 @@ class TileController {
 
         f1Uploaded.transferTo(f1)
         f2Uploaded.transferTo(f2)
+
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8090
+        }
+
+        render(status: 200, text: "http://${request.serverName}:${port}/memoria/tile/")
+
     }
 
     def edit() {
