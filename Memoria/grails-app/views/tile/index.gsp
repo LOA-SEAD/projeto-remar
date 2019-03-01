@@ -33,8 +33,15 @@
                     </thead>
                     <tbody>
                         <g:if test="${tilesCount}">
-                            <g:each var="tile" in="tilesList">
-
+                            <g:each var="tile" in="${tilesList}">
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" id="tile-${tile.id}" name="id" class="filled-in" data-id="${tile.id}"/>
+                                        <label for="tile-${tile.id}"></label>
+                                    </td>
+                                    <td>${tile.textA}</td>
+                                    <td>${tile.textB}</td>
+                                </tr>
                             </g:each>
                         </g:if>
                         <g:else>
