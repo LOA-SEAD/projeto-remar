@@ -22,10 +22,14 @@
         <div class="row show">
             %{-- Lista de peças --}%
             <div class="row tile-display-container">
-                <table>
+                <table id="table">
                     <thead>
                     <tr>
-                        <th><g:message code="tile.table.id.header"/></th>
+                        <th>Selecionar
+                            <div class="row" style="margin-bottom: -10px;">
+                                <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnCheckAll" onclick="check_all()"><i  class="material-icons">check_box_outline_blank</i></button>
+                                <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnUnCheckAll" onclick="uncheck_all()"><i  class="material-icons">done</i></button>
+                            </div></th>
                         <th><g:message code="tile.table.textA.header"/></th>
                         <th><g:message code="tile.table.textB.header"/></th>
                         <th><g:message code="tile.table.actions.header"/></th>
@@ -55,8 +59,11 @@
                 </table>
             </div>
 
-            <div class="row no-margin">
-                <div class="col s1 m1 l1 offset-s4">
+            <div class="row">
+                <div class="col s2">
+                    <a href="#!" id="send" class="btn btn-success btn-lg remar-orange">Enviar</a>
+                </div>
+                <div class="col offset-s6">
                     <a href="${createLink(action: "create", controller: "tile")}"
                        class="btn-floating btn-success btn-large waves-effect waves-light remar-orange tooltipped" action="create" data-tooltip="Criar novo par"><i class="material-icons">add</i></a>
                 </div>
@@ -64,9 +71,6 @@
                     <a class="modal-trigger btn btn-floating btn-large waves-effect waves-light remar-orange tooltipped" href="#deleteModal" data-tooltip="Exluir pares selecionados" ><i class="material-icons">delete</i></a>
                 </div>
 
-                </div>
-                <div class="col s2 center-align ">
-                    <a href="#!" id="send" class="btn btn-success btn-lg remar-orange">Enviar</a>
                 </div>
             </div>
         </div>

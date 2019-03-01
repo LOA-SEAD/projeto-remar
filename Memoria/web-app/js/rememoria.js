@@ -7,7 +7,7 @@ var difficultyList = ['', 'Fácil', 'Médio', 'Difícil'];
 
 
 $(document).ready(function() {
-
+    $('#BtnUnCheckAll').hide();
     // Pre-defined loading time
     setTimeout(function() {
         $('#loading-screen').fadeOut(1000, function() {
@@ -96,19 +96,36 @@ $(document).ready(function() {
     $('.modal').modal();
 });
 
-// fade out, change content, do something with the content if necessary and then fade in
-function fadeInOut ($el, content, callback) {
-    // hide element
-    $el.animate({opacity: 0}, function() {
-        // update content
-        $el.html(content);
+function check_all(){
+    var CheckAll = document.getElementById("BtnCheckAll");
+    var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
+    $(".filled-in:visible").prop('checked', 'checked');
 
-        // if there is a callback function, execute it
-        callback = callback || null;
-        if (callback) callback();
 
-        // show element with new content
-        $el.animate({opacity: 1});
-    });
+    for (var i = 0; i < trs.length; i++) {
+        if($(trs[i]).is(':visible')) {
+            $(trs[i]).attr('data-checked', "true");
+        }
+    }
+
+    $('#BtnCheckAll').hide();
+    $('#BtnUnCheckAll').show();
+
 }
 
+function uncheck_all(){
+    var UnCheckAll = document.getElementById("BtnUnCheckAll");
+    var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
+    $(".filled-in:visible").prop('checked', false);
+
+
+    for (var i = 0; i < trs.length; i++) {
+        if($(trs[i]).is(':visible')) {
+            $(trs[i]).attr('data-checked', "false");
+        }
+    }
+
+    $('#BtnUnCheckAll').hide();
+    $('#BtnCheckAll').show();
+
+}
