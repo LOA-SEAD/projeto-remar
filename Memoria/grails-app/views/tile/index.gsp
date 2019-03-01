@@ -41,6 +41,9 @@
                                     </td>
                                     <td>${tile.textA}</td>
                                     <td>${tile.textB}</td>
+                                    <td>
+                                        <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil edit" data-id="${tile.id}"></i>
+                                    </td>
                                 </tr>
                             </g:each>
                         </g:if>
