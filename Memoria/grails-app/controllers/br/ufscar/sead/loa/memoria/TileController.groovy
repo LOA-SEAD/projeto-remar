@@ -47,6 +47,7 @@ class TileController {
 
     @Transactional
     def save(Tile tileInstance) {
+
         if (tileInstance == null) {
             notFound()
             return
@@ -57,71 +58,28 @@ class TileController {
             return
         }
 
+
         def userId = session.user.id
         tileInstance.ownerId = userId
-        tileInstance.taskId = session.taskId
-
         tileInstance.save flush: true
 
         def id = tileInstance.getId()
-        def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/" + tileInstance.taskId.toString() + "/tiles")
+        // id = id do tileInstance = userId declarado acima = id do usuário da sessão >>> 4 itens armazenando a mesma coisa? pq?
+        //def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/" + tileInstance.taskId.toString() + "/tiles")
+        def userPath = servletContext.getRealPath("/data/" + userId.toString())
         def userFolder = new File(userPath)
-        def script_convert_png = servletContext.getRealPath("/scripts/convert.sh")
+        //def script_convert_png = servletContext.getRealPath("/scripts/convert.sh")
         userFolder.mkdirs()
 
-        def f1Uploaded = request.getFile("tile-a")
-        def f2Uploaded = request.getFile("tile-b")
-
-        def errors = [
-                not_image_file_a: false,
-                not_image_file_b: false
-        ]
-
-        if (!f1Uploaded.fileItem.contentType.startsWith("image/")) {
-            errors.not_image_file_a = true
-        }
+        def f1Uploaded = request.getFile("audioA")
+        def f2Uploaded = request.getFile("audioB")
 
 
-        if (!f2Uploaded.fileItem.contentType.startsWith("image/")) {
-            errors.not_image_file_b = true
-        }
+        def f1 = new File("$userPath/audio$id-a.wav")
+        def f2 = new File("$userPath/audio$id-b.wav")
 
-        // if any of those files aren't images, we can't convert
-        if (!(errors.not_image_file_a || errors.not_image_file_b)) {
-
-            if (!f1Uploaded.isEmpty() && !f2Uploaded.isEmpty()) {
-
-                def f1 = new File("$userPath/tile$id-a.png")
-                def f2 = new File("$userPath/tile$id-b.png")
-
-                f1Uploaded.transferTo(f1)
-                f2Uploaded.transferTo(f2)
-
-                // the convert script will convert the files to png even if they weren't uploaded as such
-                // this was needed because the file wouldn't open as png if uploaded as other format
-                executarShell(
-                        script_convert_png,
-                        [
-                                f1.absolutePath,
-                                f1.absolutePath
-                        ]
-                )
-
-                executarShell(
-                        script_convert_png,
-                        [
-                                f2.absolutePath,
-                                f2.absolutePath
-                        ]
-                )
-            }
-
-            redirect(controller: "Tile", action: "index")
-        } else {
-            flash.error = errors
-            tileInstance.delete(flush:true)
-            redirect(controller: "Tile", action: "create")
-        }
+        f1Uploaded.transferTo(f1)
+        f2Uploaded.transferTo(f2)
     }
 
     def edit() {

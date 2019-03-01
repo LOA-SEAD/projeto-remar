@@ -59,16 +59,6 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="input-field col s12 fieldcontain ${hasErrors(bean: tileInstance, field: 'description', 'error')} required">
-        <textarea id="description" class="materialize-textarea remar-input" name="description" required="" data-length="500">${tileInstance?.description}</textarea>
-        <label for="description">
-            <g:message code="tile.description.label"/>
-            <span class="required-indicator">*</span>
-        </label>
-    </div>
-</div>
-
 <div class="row right-align">
     <a id="back" name="back" class="btn btn-success remar-orange">${message(code:'tile.create.backButton')}</a>
 

@@ -60,9 +60,9 @@ function sendFormData(blobA, blobB) {
     fd.append("textB", textB);
 
     $.ajax({
-       url: "/memoria/tile/save",
-       method: "POST",
-       cache : false,
+        method: "POST",
+        url: "/memoria/tile/save",
+       contentType: false,
        processData: false,
        data: fd,
        success: function() {

@@ -32,7 +32,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <g:if test="${tilesCount > 0}">
+                        <g:if test="${tilesCount}">
                             <g:each var="tile" in="tilesList">
 
                             </g:each>
