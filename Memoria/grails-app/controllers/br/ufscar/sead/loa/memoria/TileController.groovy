@@ -65,10 +65,8 @@ class TileController {
 
         def id = tileInstance.getId()
         // id = id do tileInstance = userId declarado acima = id do usuário da sessão >>> 4 itens armazenando a mesma coisa? pq?
-        //def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/" + tileInstance.taskId.toString() + "/tiles")
         def userPath = servletContext.getRealPath("/data/" + userId.toString())
         def userFolder = new File(userPath)
-        //def script_convert_png = servletContext.getRealPath("/scripts/convert.sh")
         userFolder.mkdirs()
 
         def f1Uploaded = request.getFile("audioA")
@@ -233,105 +231,89 @@ class TileController {
 
     def validate() {
         def owner = springSecurityService.currentUser.getId()
+
+        // Getting all the selected tiles
+        def tileList = Tile.getAll(params.id)
         def message = new StringBuilder()
-        def difficulties = ['Fácil', 'Médio', 'Difícil']
         def ok = true
 
-        for (def difficulty = 1; difficulty <= 3; difficulty++) {
-            def min = difficulty * 2 + 2
-            def count = Tile.countByDifficultyAndOwnerIdAndTaskId(difficulty, owner, session.taskId)
 
-            if (count < min) {
-                message << 'A dificuldade <b>' << difficulties[difficulty - 1] << '</b> deve ter no mínimo <b>' << min << ' peças</b> e você fez o upload de <b>' << count << ' peças</b>. <br/>'
-                ok = false
-            }
-        }
 
         if (!ok) {
             render(status: 201, text: message.toString())
             return
         } else {
-            // gera os arquivos: output.CSS e cartas.png
-            generateTileSet(params.orientation)
-
             // encontra o endereço do arquivo criado
             def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
+            def newPath = new File(folder)
+            newPath.mkdirs()
 
-            def fileName = "descricao.json"
 
+            def f1Uploaded = request.getFile(getTilesAudios(tileList[0]).a)
+            def f2Uploaded = request.getFile(getTilesAudios(tileList[0]).b)
+            def f3Uploaded = request.getFile(getTilesAudios(tileList[1]).a)
+            def f4Uploaded = request.getFile(getTilesAudios(tileList[1]).b)
+            def f5Uploaded = request.getFile(getTilesAudios(tileList[2]).a)
+            def f6Uploaded = request.getFile(getTilesAudios(tileList[2]).b)
+
+
+            def f1 = new File("$folder/L1A1.wav")
+            def f2 = new File("$folder/L1A2.wav")
+            def f3 = new File("$folder/L1A3.wav")
+            def f4 = new File("$folder/L1A4.wav")
+            def f5 = new File("$folder/L1A5.wav")
+            def f6 = new File("$folder/L1A6.wav")
+
+            f1Uploaded.transferTo(f1)
+            f2Uploaded.transferTo(f2)
+            f3Uploaded.transferTo(f3)
+            f4Uploaded.transferTo(f4)
+            f5Uploaded.transferTo(f5)
+            f6Uploaded.transferTo(f6)
+
+
+            def fileName = "level1.json"
             def fw = new BufferedWriter(new OutputStreamWriter(
                     new FileOutputStream("$folder/$fileName"), "UTF-8"));
 
-            def conteudo = new StringBuilder()
-            conteudo << '{\n"descreveSobreGeral" : "Memória",\n'
-
-            if (params.orientation == "v") {
-                conteudo << '"direcao" : "vertical",\n'
-            } else {
-                conteudo << '"direcao" : "horizontal",\n'
-            }
-
-            def facilTiles = Tile.findAllByDifficultyAndOwnerIdAndTaskId(1, owner, session.taskId)
-            def medioTiles = Tile.findAllByDifficultyAndOwnerIdAndTaskId(2, owner, session.taskId)
-            def dificilTiles = Tile.findAllByDifficultyAndOwnerIdAndTaskId(3, owner, session.taskId)
-
-            conteudo << '"totalParesFacilUpload" : ' + facilTiles.size() + ',\n'
-            conteudo << '"totalParesMedioUpload" : ' + medioTiles.size() + ',\n'
-            conteudo << '"totalParesDificilUpload" : ' + dificilTiles.size() + ',\n'
-
-
-            conteudo << '"tempoCarta" : ' + 500 + ',\n'
-
-            def stringNomes = new StringBuilder()
-            stringNomes << '"nomeCarta": ['
-
-            def stringDescricoes = new StringBuilder()
-            stringDescricoes << '"descricaoCarta": ['
-
-            def allTiles = new ArrayList<Tile>()
-            allTiles.addAll(facilTiles)
-            allTiles.addAll(medioTiles)
-            allTiles.addAll(dificilTiles)
-
-            for (Tile t : allTiles){
-                stringNomes << '"' + t.content +'", '
-                stringDescricoes << '"' + t.description + '", '
-            }
-            stringNomes.setLength(stringNomes.length() - 2) // deleting last space and comma
-            stringNomes << ']'
-            stringDescricoes.setLength(stringDescricoes.length() - 2) // deleting last space and comma
-            stringDescricoes << ']'
-
-            conteudo << stringNomes + ',\n'
-            conteudo << stringDescricoes + '\n}'
-
-            fw.write(conteudo.toString());
-            fw.close();
-
-            println conteudo.toString()
-
-            log.debug folder
-            def ids = []
-            ids << MongoHelper.putFile("${folder}/output.css")
-            ids << MongoHelper.putFile("${folder}/tiles/cartas.png")
-            ids << MongoHelper.putFile("${folder}/descricao.json")
-
-            //if (! new File(folder).deleteDir()){
-            //    println("Erro em tentar excluir a pasta do usuario")
-            //}
-
             def port = request.serverPort
             if (Environment.current == Environment.DEVELOPMENT) {
-                port = 8080
+                port = 8090
+            }
+            def fullUrl ="http://${request.serverName}:${port}/process/task/complete/${session.taskId}?"
+
+
+
+
+
+            for (def i=0; i<tileList.size(); i++) {
+                def cardContador = i+1
+                fw.write("{")
+                fw.write("\"cardNumber\": " + cardContador + ", ")
+                fw.write("\"cardText\": \"" + tileList[i].textA + "\", ")
+                fw.write("\"audioName\": " + "\"audio" + tileList[i].id + "-a.wav\"")
+                fw.write("}\n")
+
+                fw.write("{")
+                fw.write("\"cardNumber\": " + cardContador + ", ")
+                fw.write("\"cardText\": \"" + tileList[i].textB + "\", ")
+                fw.write("\"audioName\": " + "\"audio" + tileList[i].id + "-b.wav\"")
+                fw.write("}\n")
+
+                fullUrl += "files=${MongoHelper.putFile("${folder}/audio${tileList[i].id}-a.wav")}&"
+                fullUrl += "files=${MongoHelper.putFile("${folder}/audio${tileList[i].id}-b.wav")}&"
             }
 
+
+            fw.close();
+
+
+            log.debug folder
+            fullUrl += "files=${MongoHelper.putFile("${folder}/level1.json")}"
+
             // atualiza a tarefa corrente para o status de "completo"
+            render(status: 200, text: fullUrl)
 
-            render(status: 200, text: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
-                    "?files=${ids[0]}&files=${ids[1]}&files=${ids[2]}")
-
-            //redirect uri: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
-            //        "?files=${ids[0]}&files=${ids[1]}"
         }
     }
 
@@ -461,7 +443,7 @@ class TileController {
 
     // return list with filenames for images related to a tile pair
     def getTilesAudios(tileInstance) {
-        def userPath = servletContext.getRealPath("/data/" + tileInstance.ownerId.toString())
+        def userPath = servletContext.getRealPath("/data/" + tileInstance.ownerId.toString() + "/" + ${session.taskId})
         def id = tileInstance.getId()
         def images = [
                 "a": "$userPath/audio$id-a.png",
