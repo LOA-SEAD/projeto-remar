@@ -15,12 +15,8 @@ services:
     env_file:
       - .env
     image: tutum/mongodb:3.2
-    ports:
-      - '27017:27017'
     volumes:
       - 'mongo-data:/data/db'
-    ports:
-      - '27017:27017'
   remar:
       image: loaufscar/projeto-remar
       env_file:
