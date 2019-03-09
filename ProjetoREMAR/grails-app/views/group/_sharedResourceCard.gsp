@@ -125,7 +125,7 @@
                                         <i class="fa fa-trophy remar-orange-text"></i>
                                     </a>
                                 </div>
-                                <div class="col s6 m4 l3">
+                                <%--div class="col s6 m4 l3">
                                     <a class="show-stats tooltipped"
                                        href="/published/analise/?groupId=${group.id}&exportedResourceId=${groupExportedResource.exportedResource.id}"
                                        data-exported-resource-id="${groupExportedResource.exportedResource.id}"
@@ -135,7 +135,7 @@
                                        data-tooltip="Estatísticas">
                                         <img src="/images/fred.jpg" style="width: 1.2em; height: 1.2em">
                                     </a>
-                                </div>
+                                </div--%>
                                 <g:if test="${group.owner.id == session.user.id}">
                                     <div class="col s6 m4 l3">
                                         <a class="modal-trigger tooltipped"

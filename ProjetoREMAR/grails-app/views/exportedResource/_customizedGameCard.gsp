@@ -121,14 +121,14 @@
                                             </a>
                                         </div>
                                     </g:if>
-                                    <g:else>
+                                    <%-- g:else>
                                         <div class="col s6 m4 l3">
                                             <div class="tooltipped"
                                                  data-position="bottom" data-delay="50" data-tooltip="Sem compartilharmento para grupos">
                                                 <i class="fa fa-users"></i>
                                             </div>
                                         </div>
-                                    </g:else>
+                                    </g:else --%>
                                     <g:if test="${!(mode == 'public')}">
                                     <div class="col s6 m4 l3 ">
                                         <a href="#modal-delete-exported-resource" class="tooltipped modal-trigger deleteExportedResource"
