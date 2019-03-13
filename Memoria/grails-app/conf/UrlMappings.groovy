@@ -9,8 +9,6 @@ class UrlMappings {
 
         "/"(view:"/index")
         "500"(view:'/error')
-        "/memoria/tile/validate"(controller: "tile", action: "validate")
-        "/memoria/tile/show"(controller: "tile", action: "show")
-        "/memoria/tile/listByDifficulty"(controller: "tile", action: "listByDifficulty")
+        "/tile/level/$level?"(controller:"tile", action: "index")
 	}
 }
