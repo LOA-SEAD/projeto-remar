@@ -2,10 +2,13 @@ package br.ufscar.sead.loa.memoria
 
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.util.Environment
+
+import java.nio.file.Path
+
 import static org.springframework.http.HttpStatus.*
 import org.springframework.security.access.annotation.Secured
 import grails.transaction.Transactional
-
+import java.nio.file.Files
 
 @Secured(['isAuthenticated()'])
 class TileController {
@@ -29,6 +32,10 @@ class TileController {
     def index() {
         if (params.t) {
             session.taskId = params.t
+        }
+
+        if (params.level) {
+            session.level = params.level
         }
 
         def tilesList = Tile.findAllByOwnerId(session.user.id)
@@ -219,104 +226,83 @@ class TileController {
         // Getting all the selected tiles
         def tileList = Tile.getAll(params.id)
         def message = new StringBuilder()
-        def ok = true
+
+        // encontra o endereço do arquivo criado
+        def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
+        def newPath = new File(folder)
+        newPath.mkdirs()
+
+        def f1 = new File(getTilesAudios(tileList[0]).a)
+        def f2 = new File(getTilesAudios(tileList[0]).b)
+        def f3 = new File(getTilesAudios(tileList[1]).a)
+        def f4 = new File(getTilesAudios(tileList[1]).b)
+        def f5 = new File(getTilesAudios(tileList[2]).a)
+        def f6 = new File(getTilesAudios(tileList[2]).b)
+        def d1 = new File("$folder/L1A1.wav")
+        def d2 = new File("$folder/L1A2.wav")
+        def d3 = new File("$folder/L1A3.wav")
+        def d4 = new File("$folder/L1A4.wav")
+        def d5 = new File("$folder/L1A5.wav")
+        def d6 = new File("$folder/L1A6.wav")
+
+        Files.copy(f1.toPath(), d1.toPath())
+        Files.copy(f2.toPath(), d2.toPath())
+        Files.copy(f3.toPath(), d3.toPath())
+        Files.copy(f4.toPath(), d4.toPath())
+        Files.copy(f5.toPath(), d5.toPath())
+        Files.copy(f6.toPath(), d6.toPath())
 
 
+        def fileName = "level1.json"
 
-        if (!ok) {
-            render(status: 201, text: message.toString())
-            return
-        } else {
-            // encontra o endereço do arquivo criado
-            def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
-            def newPath = new File(folder)
-            newPath.mkdirs()
+        def fw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream("$folder/$fileName"), "UTF-8"));
 
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8090
+        }
+        def fullUrl ="http://${request.serverName}:${port}/process/task/complete/${session.taskId}?"
 
-            def f1Uploaded = request.getFile(getTilesAudios(tileList[0]).a)
-            def f2Uploaded = request.getFile(getTilesAudios(tileList[0]).b)
-            def f3Uploaded = request.getFile(getTilesAudios(tileList[1]).a)
-            def f4Uploaded = request.getFile(getTilesAudios(tileList[1]).b)
-            def f5Uploaded = request.getFile(getTilesAudios(tileList[2]).a)
-            def f6Uploaded = request.getFile(getTilesAudios(tileList[2]).b)
+        def cardContador = 1
+        for (def i = 0; i < tileList.size(); i++) {
+            fw.write("{")
+            fw.write("\"cardNumber\": " + cardContador + ", ")
+            fw.write("\"cardText\": \"" + tileList[i].textA + "\", ")
+            fw.write("\"audioName\": " + "\"L1A" + cardContador + ".wav\"")
+            fw.write("}\n")
 
+            fullUrl += "files=${MongoHelper.putFile("${folder}/L1A${cardContador}.wav")}&"
 
-            def f1 = new File("$folder/L1A1.wav")
-            def f2 = new File("$folder/L1A2.wav")
-            def f3 = new File("$folder/L1A3.wav")
-            def f4 = new File("$folder/L1A4.wav")
-            def f5 = new File("$folder/L1A5.wav")
-            def f6 = new File("$folder/L1A6.wav")
+            cardContador++;
 
-            f1Uploaded.transferTo(f1)
-            f2Uploaded.transferTo(f2)
-            f3Uploaded.transferTo(f3)
-            f4Uploaded.transferTo(f4)
-            f5Uploaded.transferTo(f5)
-            f6Uploaded.transferTo(f6)
+            fw.write("{")
+            fw.write("\"cardNumber\": " + cardContador + ", ")
+            fw.write("\"cardText\": \"" + tileList[i].textB + "\", ")
+            fw.write("\"audioName\": " + "\"L1A" + cardContador +".wav\"")
+            fw.write("}\n")
 
+            fullUrl += "files=${MongoHelper.putFile("${folder}/L1A${cardContador}.wav")}&"
 
-            def fileName = "level1.json"
-            def fw = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream("$folder/$fileName"), "UTF-8"));
-
-            def port = request.serverPort
-            if (Environment.current == Environment.DEVELOPMENT) {
-                port = 8090
-            }
-            def fullUrl ="http://${request.serverName}:${port}/process/task/complete/${session.taskId}?"
-
-
-
-
-
-            for (def i=0; i<tileList.size(); i++) {
-                def cardContador = i+1
-                fw.write("{")
-                fw.write("\"cardNumber\": " + cardContador + ", ")
-                fw.write("\"cardText\": \"" + tileList[i].textA + "\", ")
-                fw.write("\"audioName\": " + "\"audio" + tileList[i].id + "-a.wav\"")
-                fw.write("}\n")
-
-                fw.write("{")
-                fw.write("\"cardNumber\": " + cardContador + ", ")
-                fw.write("\"cardText\": \"" + tileList[i].textB + "\", ")
-                fw.write("\"audioName\": " + "\"audio" + tileList[i].id + "-b.wav\"")
-                fw.write("}\n")
-
-                fullUrl += "files=${MongoHelper.putFile("${folder}/audio${tileList[i].id}-a.wav")}&"
-                fullUrl += "files=${MongoHelper.putFile("${folder}/audio${tileList[i].id}-b.wav")}&"
-            }
-
-
-            fw.close();
-
-
-            log.debug folder
-            fullUrl += "files=${MongoHelper.putFile("${folder}/level1.json")}"
-
-            // atualiza a tarefa corrente para o status de "completo"
-            render(status: 200, text: fullUrl)
-
+            cardContador++;
         }
 
+        fw.close();
 
+        log.debug folder
+        fullUrl += "files=${MongoHelper.putFile("${folder}/level1.json")}"
 
-
-
-
-
-
-
+        // atualiza a tarefa corrente para o status de "completo"
+        render(status: 200, text: fullUrl)
     }
 
     // return list with filenames for images related to a tile pair
     def getTilesAudios(tileInstance) {
-        def userPath = servletContext.getRealPath("/data/" + tileInstance.ownerId.toString() + "/" + ${session.taskId})
-        def id = tileInstance.getId()
+        def userPath = servletContext.getRealPath("/data/${tileInstance.ownerId.toString()}")
+        def id = tileInstance.id
         def images = [
-                "a": "$userPath/audio$id-a.png",
-                "b": "$userPath/audio$id-b.png"
+                "a": "$userPath/audio$id-a.wav".toString(),
+                "b": "$userPath/audio$id-b.wav".toString()
         ]
 
         return images
