@@ -213,22 +213,6 @@ class TileController {
         }
     }
 
-    def listByDifficulty() {
-        def owner = session.user.id
-        def taskId = session.taskId
-        def difficulty = params.difficulty.toInteger()
-        def tileList = Tile.findAllByDifficultyAndOwnerIdAndTaskId(difficulty, owner, taskId)
-
-        // se a lista de peças não for vazia, renderiza o select com as peças
-        if (tileList == null || tileList.empty) {
-            // status 412: precondition_failed
-            // uma ou mais condições testadas pelo servidos foram avaliadas como falsas ou falharam
-            render(status: 412, template: "empty")
-        } else {
-            render(status: 200, template: "select", model: [tileList: tileList])
-        }
-    }
-
     def validate() {
         def owner = springSecurityService.currentUser.getId()
 
@@ -315,129 +299,14 @@ class TileController {
             render(status: 200, text: fullUrl)
 
         }
-    }
 
-    def generateTileSet(orientation) {
-        // this method will execute 3 different shell scripts in order to create the cartas.png and the CSS that will be
-        // automatically generated according to what the user has uploaded
 
-        ////////////////////////////////////////////////////////////////////////////////////////
-        // Params script concatenate
-        // $1 = -v or -h (vertical or horizontal)
-        // $2 = destino (facil, medio, dificil)
-        // $3 = path for "tiles" directory
 
-        // this script will create 3 different "decks" in a different image each
-        def dataPath = servletContext.getRealPath("/data")
-        def owner = session.user.id
-        def taskID = session.taskId
-        def instancePath = "${dataPath}/${springSecurityService.currentUser.id}/${taskID}"
-        def tilesPath = "${instancePath}/tiles"
 
-        def easyTilesIdList = Tile.findAllByDifficultyAndOwnerIdAndTaskId(1, owner, taskID)*.id
-        def mediumTilesIdList = Tile.findAllByDifficultyAndOwnerIdAndTaskId(2, owner, taskID)*.id
-        def hardTilesIdList = Tile.findAllByDifficultyAndOwnerIdAndTaskId(3, owner, taskID)*.id
 
-        execConcatenate(
-                "-${orientation}",
-                "facil",
-                easyTilesIdList,
-                tilesPath
-        )
 
-        execConcatenate(
-                "-${orientation}",
-                "medio",
-                mediumTilesIdList,
-                tilesPath
-        )
 
-        execConcatenate(
-                "-${orientation}",
-                "dificil",
-                hardTilesIdList,
-                tilesPath
-        )
 
-        ////////////////////////////////////////////////////////////////////////////////////////
-        // Parametros script Append
-        // #$1 = tiles folder
-        // #$2 = orientation
-
-        // this script appends the "flipped" card to the final image
-        def script_append = servletContext.getRealPath("/scripts/append.sh")
-
-        def l2 = [
-                tilesPath,
-                orientation
-        ]
-
-        executarShell(script_append, l2)
-        ////////////////////////////////////////////////////////////////////////////////////////
-        // Parametros script sedSASS
-        //#1 - full path for template.scss
-        //#2 - full path for output.css
-        //#3 - parametro que substituirá char_orientacao no script sass
-        //#4 - parametro que substituirá facilPares no script sass
-        //#5 - parametro que substituirá medioPares no script sass
-        //#6 - parametro que substituirá dificilPares no script sass
-
-        // this script will call the sass script, which will create the css file accordingly to our parameters
-        def script_sedSASS = servletContext.getRealPath("/scripts/sed_sass.sh")
-
-        def l3 = [
-                servletContext.getRealPath("/scripts/template.scss"),
-                "${instancePath}/output.css",
-                orientation,
-                String.valueOf(easyTilesIdList.size()),
-                String.valueOf(mediumTilesIdList.size()),
-                String.valueOf(hardTilesIdList.size())
-        ]
-
-        executarShell(script_sedSASS, l3)
-    }
-
-    def execConcatenate(orient, difficulty, idList, folder) {
-
-        def script_concatenate_tiles = servletContext.getRealPath("/scripts/concatenate.sh")
-        def l = [
-                orient, // $1
-                difficulty, // $2
-                folder // $3
-        ]
-
-        // adding parameters to the script (name of the img files to be appended)
-        // this 'for' needs to be done twice because of the order of the param files in the concatenate script
-        for (id in idList)
-            l.add("tile${id}-a.png")
-
-        for (id in idList)
-            l.add("tile${id}-b.png")
-
-        executarShell(script_concatenate_tiles, l)
-
-    }
-
-    // the list has to contain the path to the sh file as its first element
-    // and then the next elements will be the respective params for the script
-    def executarShell(scriptName, execList) {
-        def ant = new AntBuilder()
-
-        def argLine = String.join(" ", execList);
-
-        ant.sequential {
-            chmod(perm: "+x", file: scriptName)
-            exec(executable: scriptName) {
-                arg(line: argLine)
-            }
-        }
-        //def proc
-        //proc = execList.execute()
-        //proc.waitFor()
-        //if (proc.exitValue()) {
-        //    println "script ${execList.get(0)} gave the following error: "
-        //    println "[ERROR] ${proc.getErrorStream()}"
-        //}
 
     }
 
@@ -451,22 +320,6 @@ class TileController {
         ]
 
         return images
-    }
-
-    def recording() {
-        def userId = session.user.getId()
-        def dataPath = servletContext.getRealPath("/data")
-        def userPath = new File("${dataPath}/${userId}/${session.taskId}/recordings") // o nome do arquivo vai ser necessariamente audio.wav nessa configuração
-        userPath.mkdirs()
-
-        def audioUploaded = request.getFile('audio_data')
-
-        if(!audioUploaded.isEmpty()) {
-            def originalAudioUploaded = new File("$userPath/audio.wav")
-            audioUploaded.transferTo(originalAudioUploaded)
-        }
-
-        render(status: 200, text: "http://${request.serverName}:${request.serverPort}/memoria/tile")
     }
 }
 
