@@ -2,36 +2,178 @@
   "name": "Memoria",
   "uri": "memoria",
   "version": 1,
-  "tasks": [
-    {
-      "name": "Cartas",
-      "uri": "tile",
-      "description": "Enviar a imagem das duplas de peças para o jogo.",
-      "type": "image",
+  "tasks": [{
+      "name": "Primeira Fase",
+      "uri": "tile/level/level1",
+      "description": "Criar e/ou selecionar as cartas da primeira fase do jogo.",
+      "type": "text_database",
       "dependencies": null,
-      "outputs": [
-        {
-          "name": "cartas.png",
-          "type": "image",
-          "path": "imgs"
+      "outputs": [{
+          "name": "level1.json",
+          "type": "text/json",
+          "path": "json"
         },
         {
-          "name": "output.css",
-          "type": "text/css",
+          "name": "L1A1.wav",
+          "type": "audio/wav",
           "path": "css"
         },
         {
-          "name": "descricao.json",
+          "name": "L1A2.wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L1A3.wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L1A4.wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L1A5.wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L1A6.wav",
+          "type": "audio/wav",
+          "path": "css"
+        }
+      ]
+    },
+    {
+      "name": "Segunda Fase",
+      "uri": "tile/level/level2",
+      "description": "Criar e/ou selecionar as cartas da segunda fase do jogo.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [{
+          "name": "level2.json",
           "type": "text/json",
           "path": "json"
+        },
+        {
+          "name": "L2A1.wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L2A2.wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L2A3.wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L2A4.wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L2A5.wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L2A6.wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L2A7.wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L2A8.wav",
+          "type": "audio/wav",
+          "path": "css"
+        }
+      ]
+    },
+    {
+      "name": "Terceira Fase",
+      "uri": "tile/level/level3",
+      "description": "Criar e/ou selecionar as cartas da terceira fase do jogo.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [{
+          "name": "level3.json",
+          "type": "text/json",
+          "path": "json"
+        },
+        {
+          "name": "L3A1.wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L3A2.wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L3A3.wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L3A4.wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L3A5.wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L3A6.wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L3A7.wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L3A8.wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L3A9.wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L3A1..wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L3A1..wav",
+          "type": "audio/wav",
+          "path": "css"
+        },
+        {
+          "name": "L3A1..wav",
+          "type": "audio/wav",
+          "path": "css"
         }
       ]
     }
   ],
   "outputs": [
-    "web",
-    "android",
-    "desktop"
+    "web"
   ],
   "vars": {
     "width": 816,
