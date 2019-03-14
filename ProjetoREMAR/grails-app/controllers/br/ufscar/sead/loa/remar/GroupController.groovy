@@ -142,7 +142,7 @@ class GroupController {
                                 //Keys: numeros das fases no propeller (apenas as personalizadas)
                                 //Values: respectivos nomes das fases no propeller (apenas as personalizadas)
 
-                                if (it.gameLevel) {
+                                if (it.containsKey("gameLevel")) {
                                     gameLevel.put(it.gameLevel, [name: it.gameLevelName, size: it.gameSize])
                                     //Se encontrar um gameLevel, então significa que o jogo é do tipo multiplo
                                     isMultiple = true

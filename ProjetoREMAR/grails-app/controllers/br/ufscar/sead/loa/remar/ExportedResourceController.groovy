@@ -94,13 +94,15 @@ class ExportedResourceController {
 
     def saveStats() {
 
+        log.debug "params: " + params
+
         StatisticFactory factory = StatisticFactory.instance;
         Statistics statistics = factory.createStatistics(params.gameType as String)
 
         def data = statistics.getData(params)
         data.userId = session.user.id as long
 
-        println "data: " + data
+        log.debug "data: " + data
 
         try {
             MongoHelper.instance.createCollection("stats")
