@@ -64,7 +64,16 @@ $(document).ready(function() {
             ids.push($(el).attr('data-id'));
         });
 
-        if (ids.length == 3) {
+        var count = 0;
+
+        switch(level){
+            case 1: count = 3; break;
+            case 2: count = 4; break;
+            case 3: count = 6; break;
+            default: count = 3;
+        }
+
+        if (ids.length == count) {
             // Proceed to task submission
             $.ajax({
                 type: "POST",
@@ -87,7 +96,7 @@ $(document).ready(function() {
                 }
             });
         } else {
-            Materialize.toast("Por favor, selecione exatamente 3 pares!", 4000)
+            Materialize.toast("Por favor, selecione exatamente " + count + " pares!", 4000)
             $('#loading-screen').hide();
         }
 

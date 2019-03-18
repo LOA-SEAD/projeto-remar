@@ -96,6 +96,9 @@
         </div>
     </div>
 
+    <g:javascript>
+        level = ${level};
+    </g:javascript>
     <g:javascript src="rememoria.js"/>
 </body>
 </html>
