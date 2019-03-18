@@ -66,7 +66,7 @@ function sendFormData(blobA, blobB) {
        processData: false,
        data: fd,
        success: function(response) {
-           window.top.top.location.href = response;
+           window.location.href = response;
        }
 
     });
