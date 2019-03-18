@@ -29,7 +29,6 @@
         }
       ]
     },
-
     {
       "name": "Fase Galeria",
       "uri": "faseGaleria",
@@ -115,7 +114,6 @@
 
       ]
     },
-
     {
       "name": "Fase Campo Minado",
       "uri": "faseCampoMinado",
@@ -130,37 +128,6 @@
         }
       ]
     },
-
-    {
-      "name": "Fase Campo Futebol",
-      "uri": "faseCampoFutebol",
-      "description": "Criar/editar/selecionar um banco de questões para o nivel Campo Futebol.",
-      "type": "text_database",
-      "dependencies": null,
-      "outputs": [
-        {
-          "name": "campo.json",
-          "type": "json",
-          "path": ""
-        }
-      ]
-    },
-
-    {
-      "name": "Fase Biblioteca",
-      "uri": "faseBiblioteca",
-      "description": "Criar/editar/selecionar um banco de questões para o nivel Biblioteca.",
-      "type": "text_database",
-      "dependencies": null,
-      "outputs": [
-        {
-          "name": "biblioteca.json",
-          "type": "json",
-          "path": ""
-        }
-      ]
-    },
-
     {
       "name": "Fase Bloco de Gelo",
       "uri": "faseBlocoGelo",
@@ -175,7 +142,6 @@
         }
       ]
     },
-
     {
       "name": "Fase TCC",
       "uri": "faseTCC",
