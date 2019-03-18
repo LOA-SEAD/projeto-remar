@@ -15,62 +15,119 @@
 
     <div class="row cluster">
         <div class="cluster-header">
-            <h4>Memória - Fase 3x2</h4>
+            <h4>Memória - Peças</h4>
             <div class="divider"></div>
         </div>
 
         <div class="row show">
-            %{-- Lista de peças --}%
-            <div class="row tile-display-container">
-                <table id="table">
-                    <thead>
-                    <tr>
-                        <th>Selecionar
-                            <div class="row" style="margin-bottom: -10px;">
-                                <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnCheckAll" onclick="check_all()"><i  class="material-icons">check_box_outline_blank</i></button>
-                                <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnUnCheckAll" onclick="uncheck_all()"><i  class="material-icons">done</i></button>
-                            </div></th>
-                        <th><g:message code="tile.table.textA.header"/></th>
-                        <th><g:message code="tile.table.textB.header"/></th>
-                        <th><g:message code="tile.table.actions.header"/></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <g:if test="${tilesCount}">
-                            <g:each var="tile" in="${tilesList}">
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" id="tile-${tile.id}" name="id" class="filled-in" data-id="${tile.id}"/>
-                                        <label for="tile-${tile.id}"></label>
-                                    </td>
-                                    <td>${tile.textA}</td>
-                                    <td>${tile.textB}</td>
-                                    <td>
-                                        <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil edit" data-id="${tile.id}"></i>
-                                    </td>
-                                </tr>
-                            </g:each>
-                        </g:if>
-                        <g:else>
-                            <td colspan="3">Não há pares cadastrados!</td>
-                        </g:else>
-
-                    </tbody>
-                </table>
+            %{-- Orientação das peças --}%
+            <div class="row">
+                <ul class="collection with-header">
+                    <li class="collection-header">
+                        <div class="row valign-wrapper no-margin">
+                            <div class="col s12">
+                                <h4>Orientação das Peças</h4>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="collection-item row">
+                        <div class="col s12">
+                            <div class="row no-margin valign-wrapper">
+                                %{-- Switch disposição das peças --}%
+                                <div class="col s6">
+                                    <div class="switch">
+                                        <label class="valign-wrapper">
+                                            <div>
+                                                <p class="no-margin">Vertical</p>
+                                                <img class="" src="/memoria/images/flipped_v.jpg"/>
+                                            </div>
+                                            <div>
+                                                <input type="checkbox">
+                                                <span class="lever"></span>
+                                            </div>
+                                            <div>
+                                                <p class="no-margin">Horizontal</p>
+                                                <img class="" src="/memoria/images/flipped_h.jpg"/>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                %{-- Download do modelo de peças --}%
+                                <div class="col s6">
+                                    <div class="row valign-wrapper">
+                                        <div class="col s6 right-align">
+                                            <div class="row no-margin">
+                                                <p class="no-margin">Download do modelo de peças</p>
+                                            </div>
+                                            <div class="row no-margin">
+                                                <label>
+                                                    Modelo de peças na
+                                                    <b id="model-orientation">vertical</b>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col s6">
+                                            <a id="model-download" class="btn-floating waves-effect waves-light remar-orange" href="/memoria/samples/tilesample_v.zip">
+                                                <i class="material-icons">file_download</i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
 
-            <div class="row">
-                <div class="col s2">
-                    <a href="#!" id="send" class="btn btn-success btn-lg remar-orange">Enviar</a>
-                </div>
-                <div class="col offset-s6">
-                    <a href="${createLink(action: "create", controller: "tile")}"
-                       class="btn-floating btn-success btn-large waves-effect waves-light remar-orange tooltipped" action="create" data-tooltip="Criar novo par"><i class="material-icons">add</i></a>
-                </div>
-                <div class="col s1 offset-s1 m1 l1">
-                    <a class="modal-trigger btn btn-floating btn-large waves-effect waves-light remar-orange tooltipped" href="#deleteModal" data-tooltip="Exluir pares selecionados" ><i class="material-icons">delete</i></a>
-                </div>
+            %{-- Lista de peças --}%
+            <div class="row tile-display-container">
+                <ul class="collection with-header">
+                    <li class="collection-header">
+                        <div class="row valign-wrapper no-margin">
+                            <div class="col s6">
+                                <label>
+                                    O nível selecionado deve ter no mínimo
+                                    <b id="difficulty-minimum"></b>
+                                    pares
+                                </label>
+                            </div>
+                            <div class="col s6">
+                                <div id="difficulty-select-message">
+                                    <label>Escolha um par de peças para visualizar (total: <b id="difficulty-total"></b>)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row valign-wrapper no-margin">
+                            <div id="tile-display-header" class="col s6">
+                                <h4>
+                                    Nível
+                                    <a id="decrease-level" href="#!" class="tooltipped" style="margin-left: 15px"
+                                       data-delay="50" data-position="top" data-tooltip="Diminuir">
+                                        <i class="grow material-icons">chevron_left</i>
+                                    </a>
+                                    <div class="center-align">
+                                        <span id="difficulty-level"></span>
+                                    </div>
+                                    <a id="increase-level" href="#!" class="tooltipped"
+                                       data-delay="50" data-position="top" data-tooltip="Aumentar">
+                                        <i class="grow material-icons">chevron_right</i>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="difficulty-select-container" class="col s6"></div>
+                        </div>
+                    </li>
+                    <li id="tile-display" class="collection-item inactive">
+                    </li>
+                </ul>
+            </div>
 
+            <div class="row no-margin">
+                <div class="col s3 offset-s7 right-align ">
+                    <g:link class="btn btn-success btn-lg remar-orange" action="create">Novo par</g:link>
+                </div>
+                <div class="col s2 center-align ">
+                    <a href="#!" id="send" class="btn btn-success btn-lg remar-orange">Enviar</a>
                 </div>
             </div>
         </div>
@@ -86,19 +143,6 @@
         </div>
     </div>
 
-    <div id="deleteModal" class="modal remar-modal">
-        <div class="modal-content">
-            <h4> Tem certeza que deseja remover esses pares?</h4>
-        </div>
-        <div class="modal-footer">
-            <a id="removeSelected" href="#!" class="modal-action modal-close waves-effect waves-light remar-orange">Sim</a>
-            <a href="#!" class="modal-action modal-close waves-effect waves-light remar-orange">Não</a>
-        </div>
-    </div>
-
-    <g:javascript>
-        level = ${level};
-    </g:javascript>
     <g:javascript src="rememoria.js"/>
 </body>
 </html>

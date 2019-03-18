@@ -3,6 +3,7 @@ package br.ufscar.sead.loa.remar
 import org.springframework.security.core.GrantedAuthority
 
 class User {
+
     transient springSecurityService
 
     String username
@@ -14,11 +15,8 @@ class User {
     String email
     String firstName
     String lastName
-    String facebookId
     String moodleUsername
     boolean firstAccess
-    boolean cafeUser
-
 
     static transients = ['springSecurityService']
 
@@ -27,11 +25,10 @@ class User {
         password blank: false, nullable: false
         firstName blank: false
         lastName blank: true
-        email blank: false, email: true
-        facebookId nullable: true
+        email blank: false, email: true, unique: true
         moodleUsername nullable: true
         firstAccess blank: true, nullable: true
-        cafeUser blank: true, nullable: true
+
     }
 
     static mapping = {
@@ -43,10 +40,6 @@ class User {
 
     Set<Role> getAuthorities() {
         UserRole.findAllByUser(this).collect { it.role }
-    }
-
-    String getName() {
-        return firstName + " " + lastName
     }
 
     def beforeInsert() {
@@ -79,5 +72,4 @@ class User {
         } as Set<Role>
         return auths
     }
-
 }

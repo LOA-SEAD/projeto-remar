@@ -16,28 +16,28 @@ environments {
     development {
 
         dataSource {
-            dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mysql://mysql/memoria"
+            dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
+            url = "jdbc:mysql://localhost/memoria"
         }
         dataSource_remar {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mysql://mysql/remar"
+            url = "jdbc:mysql://localhost/remar"
         }
     }
     test {
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mysql://mysql/memoria"
+            url = "jdbc:mysql://localhost/memoria"
         }
         dataSource_remar {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mysql://mysql/remar"
+            url = "jdbc:mysql://localhost/remar"
         }
     }
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:mysql://mysql/memoria"
+            url = "jdbc:mysql://localhost/memoria"
             properties {
                 // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                 jmxEnabled = true
@@ -61,7 +61,7 @@ environments {
         }
         dataSource_remar {
             dbCreate = "update"
-            url = "jdbc:mysql://mysql/remar"
+            url = "jdbc:mysql://localhost/remar"
             properties {
                 // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                 jmxEnabled = true

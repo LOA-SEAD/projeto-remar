@@ -2,13 +2,10 @@ package br.ufscar.sead.loa.memoria
 
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.util.Environment
-
-import java.nio.file.Path
-
 import static org.springframework.http.HttpStatus.*
 import org.springframework.security.access.annotation.Secured
 import grails.transaction.Transactional
-import java.nio.file.Files
+
 
 @Secured(['isAuthenticated()'])
 class TileController {
@@ -34,13 +31,7 @@ class TileController {
             session.taskId = params.t
         }
 
-        if (params.level) {
-            session.level = params.level
-        }
-
-        def tilesList = Tile.findAllByOwnerId(session.user.id)
-
-        render view: "index", model: [tilesList: tilesList, tilesCount: tilesList.count, level: session.level]
+        render view: "index"
     }
 
     def show() {
@@ -54,7 +45,6 @@ class TileController {
 
     @Transactional
     def save(Tile tileInstance) {
-
         if (tileInstance == null) {
             notFound()
             return
@@ -65,33 +55,71 @@ class TileController {
             return
         }
 
-
         def userId = session.user.id
         tileInstance.ownerId = userId
+        tileInstance.taskId = session.taskId
+
         tileInstance.save flush: true
 
         def id = tileInstance.getId()
-        // id = id do tileInstance = userId declarado acima = id do usuário da sessão >>> 4 itens armazenando a mesma coisa? pq?
-        def userPath = servletContext.getRealPath("/data/" + userId.toString())
+        def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/" + tileInstance.taskId.toString() + "/tiles")
         def userFolder = new File(userPath)
+        def script_convert_png = servletContext.getRealPath("/scripts/convert.sh")
         userFolder.mkdirs()
 
-        def f1Uploaded = request.getFile("audioA")
-        def f2Uploaded = request.getFile("audioB")
+        def f1Uploaded = request.getFile("tile-a")
+        def f2Uploaded = request.getFile("tile-b")
 
+        def errors = [
+                not_image_file_a: false,
+                not_image_file_b: false
+        ]
 
-        def f1 = new File("$userPath/audio$id-a.wav")
-        def f2 = new File("$userPath/audio$id-b.wav")
-
-        f1Uploaded.transferTo(f1)
-        f2Uploaded.transferTo(f2)
-
-        def port = request.serverPort
-        if (Environment.current == Environment.DEVELOPMENT) {
-            port = 8090
+        if (!f1Uploaded.fileItem.contentType.startsWith("image/")) {
+            errors.not_image_file_a = true
         }
 
-        render(status: 200, text: "http://${request.serverName}:${port}/memoria/tile/")
+
+        if (!f2Uploaded.fileItem.contentType.startsWith("image/")) {
+            errors.not_image_file_b = true
+        }
+
+        // if any of those files aren't images, we can't convert
+        if (!(errors.not_image_file_a || errors.not_image_file_b)) {
+
+            if (!f1Uploaded.isEmpty() && !f2Uploaded.isEmpty()) {
+
+                def f1 = new File("$userPath/tile$id-a.png")
+                def f2 = new File("$userPath/tile$id-b.png")
+
+                f1Uploaded.transferTo(f1)
+                f2Uploaded.transferTo(f2)
+
+                // the convert script will convert the files to png even if they weren't uploaded as such
+                // this was needed because the file wouldn't open as png if uploaded as other format
+                executarShell(
+                        script_convert_png,
+                        [
+                                f1.absolutePath,
+                                f1.absolutePath
+                        ]
+                )
+
+                executarShell(
+                        script_convert_png,
+                        [
+                                f2.absolutePath,
+                                f2.absolutePath
+                        ]
+                )
+            }
+
+            redirect(controller: "Tile", action: "index")
+        } else {
+            flash.error = errors
+            tileInstance.delete(flush:true)
+            redirect(controller: "Tile", action: "create")
+        }
 
     }
 
@@ -198,7 +226,7 @@ class TileController {
         }
 
         // delete tile images before removing them from database
-        def tiles = getTilesAudios(tileInstance)
+        def tiles = getTilesImages(tileInstance)
 
         def f1 = new File(tiles.a)
         def f2 = new File(tiles.b)
@@ -220,87 +248,261 @@ class TileController {
         }
     }
 
+    def listByDifficulty() {
+        def owner = session.user.id
+        def taskId = session.taskId
+        def difficulty = params.difficulty.toInteger()
+        def tileList = Tile.findAllByDifficultyAndOwnerIdAndTaskId(difficulty, owner, taskId)
+
+        // se a lista de peças não for vazia, renderiza o select com as peças
+        if (tileList == null || tileList.empty) {
+            // status 412: precondition_failed
+            // uma ou mais condições testadas pelo servidos foram avaliadas como falsas ou falharam
+            render(status: 412, template: "empty")
+        } else {
+            render(status: 200, template: "select", model: [tileList: tileList])
+        }
+    }
+
     def validate() {
         def owner = springSecurityService.currentUser.getId()
-
-        // Getting all the selected tiles
-        def tileList = Tile.getAll(params.id)
         def message = new StringBuilder()
+        def difficulties = ['Fácil', 'Médio', 'Difícil']
+        def ok = true
 
-        // encontra o endereço do arquivo criado
-        def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
-        def newPath = new File(folder)
-        newPath.mkdirs()
+        for (def difficulty = 1; difficulty <= 3; difficulty++) {
+            def min = difficulty * 2 + 2
+            def count = Tile.countByDifficultyAndOwnerIdAndTaskId(difficulty, owner, session.taskId)
 
-        switch (session.level) {
-            case 1: if (tileList.size() != 3) render(500); break;
-            case 2: if (tileList.size() != 4) render(500); break;
-            case 3: if (tileList.size() != 6) render(500); break;
+            if (count < min) {
+                message << 'A dificuldade <b>' << difficulties[difficulty - 1] << '</b> deve ter no mínimo <b>' << min << ' peças</b> e você fez o upload de <b>' << count << ' peças</b>. <br/>'
+                ok = false
+            }
         }
 
-        def fileName = "level${session.level}.json"
+        if (!ok) {
+            render(status: 201, text: message.toString())
+            return
+        } else {
+            // gera os arquivos: output.CSS e cartas.png
+            generateTileSet(params.orientation)
 
-        def fw = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream("$folder/$fileName"), "UTF-8"));
+            // encontra o endereço do arquivo criado
+            def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
 
-        def port = request.serverPort
-        if (Environment.current == Environment.DEVELOPMENT) {
-            port = 8090
+
+            def fileName = "descricao.json"
+
+            def fw = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream("$folder/$fileName"), "UTF-8"));
+
+            def conteudo = new StringBuilder()
+            conteudo << '{\n"descreveSobreGeral" : "Memória",\n'
+
+            if (params.orientation == "v") {
+                conteudo << '"direcao" : "vertical",\n'
+            } else {
+                conteudo << '"direcao" : "horizontal",\n'
+            }
+
+            def facilTiles = Tile.findAllByDifficultyAndOwnerIdAndTaskId(1, owner, session.taskId)
+            def medioTiles = Tile.findAllByDifficultyAndOwnerIdAndTaskId(2, owner, session.taskId)
+            def dificilTiles = Tile.findAllByDifficultyAndOwnerIdAndTaskId(3, owner, session.taskId)
+
+            conteudo << '"totalParesFacilUpload" : ' + facilTiles.size() + ',\n'
+            conteudo << '"totalParesMedioUpload" : ' + medioTiles.size() + ',\n'
+            conteudo << '"totalParesDificilUpload" : ' + dificilTiles.size() + ',\n'
+
+
+            conteudo << '"tempoCarta" : ' + 500 + ',\n'
+
+            def stringNomes = new StringBuilder()
+            stringNomes << '"nomeCarta": ['
+
+            def stringDescricoes = new StringBuilder()
+            stringDescricoes << '"descricaoCarta": ['
+
+            def allTiles = new ArrayList<Tile>()
+            allTiles.addAll(facilTiles)
+            allTiles.addAll(medioTiles)
+            allTiles.addAll(dificilTiles)
+
+            for (Tile t : allTiles){
+                stringNomes << '"' + t.content +'", '
+                stringDescricoes << '"' + t.description + '", '
+            }
+            stringNomes.setLength(stringNomes.length() - 2) // deleting last space and comma
+            stringNomes << ']'
+            stringDescricoes.setLength(stringDescricoes.length() - 2) // deleting last space and comma
+            stringDescricoes << ']'
+
+            conteudo << stringNomes + ',\n'
+            conteudo << stringDescricoes + '\n}'
+
+            fw.write(conteudo.toString());
+            fw.close();
+
+            println conteudo.toString()
+
+            log.debug folder
+            def ids = []
+            ids << MongoHelper.putFile("${folder}/output.css")
+            ids << MongoHelper.putFile("${folder}/tiles/cartas.png")
+            ids << MongoHelper.putFile("${folder}/descricao.json")
+
+            //if (! new File(folder).deleteDir()){
+            //    println("Erro em tentar excluir a pasta do usuario")
+            //}
+
+            def port = request.serverPort
+            if (Environment.current == Environment.DEVELOPMENT) {
+                port = 8080
+            }
+
+            // atualiza a tarefa corrente para o status de "completo"
+
+            render(status: 200, text: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
+                    "?files=${ids[0]}&files=${ids[1]}&files=${ids[2]}")
+
+            //redirect uri: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
+            //        "?files=${ids[0]}&files=${ids[1]}"
         }
-        def fullUrl ="http://${request.serverName}:${port}/process/task/complete/${session.taskId}?"
+    }
 
-        def cardCounter = 1
-        for (def i = 0; i < tileList.size(); i++) {
+    def generateTileSet(orientation) {
+        // this method will execute 3 different shell scripts in order to create the cartas.png and the CSS that will be
+        // automatically generated according to what the user has uploaded
 
-            def currFile = new File(getTilesAudios(tileList[i]).a)
-            def destFile = new File("$folder/L${session.level}A${cardCounter}.wav")
-            Files.copy(currFile.toPath(), destFile.toPath())
+        ////////////////////////////////////////////////////////////////////////////////////////
+        // Params script concatenate
+        // $1 = -v or -h (vertical or horizontal)
+        // $2 = destino (facil, medio, dificil)
+        // $3 = path for "tiles" directory
 
+        // this script will create 3 different "decks" in a different image each
+        def dataPath = servletContext.getRealPath("/data")
+        def owner = session.user.id
+        def taskID = session.taskId
+        def instancePath = "${dataPath}/${springSecurityService.currentUser.id}/${taskID}"
+        def tilesPath = "${instancePath}/tiles"
 
-            fw.write("{")
-            fw.write("\"cardNumber\": " + cardCounter + ", ")
-            fw.write("\"cardText\": \"" + tileList[i].textA + "\", ")
-            fw.write("\"audioName\": " + "\"L" + session.level + "A" + cardCounter +".wav\"")
-            fw.write("}\n")
+        def easyTilesIdList = Tile.findAllByDifficultyAndOwnerIdAndTaskId(1, owner, taskID)*.id
+        def mediumTilesIdList = Tile.findAllByDifficultyAndOwnerIdAndTaskId(2, owner, taskID)*.id
+        def hardTilesIdList = Tile.findAllByDifficultyAndOwnerIdAndTaskId(3, owner, taskID)*.id
 
-            fullUrl += "files=${MongoHelper.putFile("${folder}/L${session.level}A${cardCounter}.wav")}&"
+        execConcatenate(
+                "-${orientation}",
+                "facil",
+                easyTilesIdList,
+                tilesPath
+        )
 
-            cardCounter++;
+        execConcatenate(
+                "-${orientation}",
+                "medio",
+                mediumTilesIdList,
+                tilesPath
+        )
 
-            currFile = new File(getTilesAudios(tileList[i]).b)
-            destFile = new File("$folder/L${session.level}A${cardCounter}.wav")
-            Files.copy(currFile.toPath(), destFile.toPath())
+        execConcatenate(
+                "-${orientation}",
+                "dificil",
+                hardTilesIdList,
+                tilesPath
+        )
 
-            fw.write("{")
-            fw.write("\"cardNumber\": " + (cardCounter-1) + ", ")
-            fw.write("\"cardText\": \"" + tileList[i].textB + "\", ")
-            fw.write("\"audioName\": " + "\"L" + session.level + "A" + cardCounter +".wav\"")
-            fw.write("}\n")
+        ////////////////////////////////////////////////////////////////////////////////////////
+        // Parametros script Append
+        // #$1 = tiles folder
+        // #$2 = orientation
 
-            fullUrl += "files=${MongoHelper.putFile("${folder}/L${session.level}A${cardCounter}.wav")}&"
+        // this script appends the "flipped" card to the final image
+        def script_append = servletContext.getRealPath("/scripts/append.sh")
 
-            cardCounter++;
+        def l2 = [
+                tilesPath,
+                orientation
+        ]
+
+        executarShell(script_append, l2)
+        ////////////////////////////////////////////////////////////////////////////////////////
+        // Parametros script sedSASS
+        //#1 - full path for template.scss
+        //#2 - full path for output.css
+        //#3 - parametro que substituirá char_orientacao no script sass
+        //#4 - parametro que substituirá facilPares no script sass
+        //#5 - parametro que substituirá medioPares no script sass
+        //#6 - parametro que substituirá dificilPares no script sass
+
+        // this script will call the sass script, which will create the css file accordingly to our parameters
+        def script_sedSASS = servletContext.getRealPath("/scripts/sed_sass.sh")
+
+        def l3 = [
+                servletContext.getRealPath("/scripts/template.scss"),
+                "${instancePath}/output.css",
+                orientation,
+                String.valueOf(easyTilesIdList.size()),
+                String.valueOf(mediumTilesIdList.size()),
+                String.valueOf(hardTilesIdList.size())
+        ]
+
+        executarShell(script_sedSASS, l3)
+    }
+
+    def execConcatenate(orient, difficulty, idList, folder) {
+
+        def script_concatenate_tiles = servletContext.getRealPath("/scripts/concatenate.sh")
+        def l = [
+                orient, // $1
+                difficulty, // $2
+                folder // $3
+        ]
+
+        // adding parameters to the script (name of the img files to be appended)
+        // this 'for' needs to be done twice because of the order of the param files in the concatenate script
+        for (id in idList)
+            l.add("tile${id}-a.png")
+
+        for (id in idList)
+            l.add("tile${id}-b.png")
+
+        executarShell(script_concatenate_tiles, l)
+
+    }
+
+    // the list has to contain the path to the sh file as its first element
+    // and then the next elements will be the respective params for the script
+    def executarShell(scriptName, execList) {
+        def ant = new AntBuilder()
+
+        def argLine = String.join(" ", execList);
+
+        ant.sequential {
+            chmod(perm: "+x", file: scriptName)
+            exec(executable: scriptName) {
+                arg(line: argLine)
+            }
         }
+        //def proc
+        //proc = execList.execute()
+        //proc.waitFor()
+        //if (proc.exitValue()) {
+        //    println "script ${execList.get(0)} gave the following error: "
+        //    println "[ERROR] ${proc.getErrorStream()}"
+        //}
 
-        fw.close();
-
-        log.debug folder
-        fullUrl += "files=${MongoHelper.putFile("${folder}/level${session.level}.json")}"
-
-        // atualiza a tarefa corrente para o status de "completo"
-        render(status: 200, text: fullUrl)
     }
 
     // return list with filenames for images related to a tile pair
-    def getTilesAudios(tileInstance) {
-        def userPath = servletContext.getRealPath("/data/${tileInstance.ownerId.toString()}")
-        def id = tileInstance.id
+    def getTilesImages(tileInstance) {
+        def userPath = servletContext.getRealPath("/data/" + tileInstance.ownerId.toString() + "/" + tileInstance.taskId.toString() + "/tiles")
+        def id = tileInstance.getId()
         def images = [
-                "a": "$userPath/audio$id-a.wav".toString(),
-                "b": "$userPath/audio$id-b.wav".toString()
+                "a": "$userPath/tile$id-a.png",
+                "b": "$userPath/tile$id-b.png"
         ]
 
         return images
     }
-}
 
+}

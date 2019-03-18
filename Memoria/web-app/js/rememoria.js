@@ -4,10 +4,7 @@
 
 var difficultyList = ['', 'Fácil', 'Médio', 'Difícil'];
 
-
-
 $(document).ready(function() {
-    $('#BtnUnCheckAll').hide();
     // Pre-defined loading time
     setTimeout(function() {
         $('#loading-screen').fadeOut(1000, function() {
@@ -21,120 +18,209 @@ $(document).ready(function() {
         position: 'top',
         tooltip: $(this).data('tooltip-msg')
     });
+    $('select').material_select();
 
-    $("#removeSelected").click(function () {
+    // initially load list with easy difficulty
+    var difficulty = 1; // 1 = Easy; 2 = Medium; 3 = Hard
+    $('#difficulty-level').html('Fácil');
+    renderSelect(difficulty);
+    $('#decrease-level').attr('disabled', 'disabled')
 
-        $('#loading-screen').show();
+    $('#decrease-level').click(function() {
+        if (difficulty > 1) {
+            // Set difficulty level
+            difficulty = difficulty - 1;
+            renderSelect(difficulty);
 
-        var ids = [];
-        $.each($("input[type=checkbox]:checked"), function (ignored, el) {
-            ids.push($(el).attr('data-id'));
-        });
-
-        for(var i=0;i<ids.length;i++) {
-            // Delete each selected tile
-            $.ajax({
-                async: false,
-                type:"DELETE",
-                data: {_method: "DELETE"},
-                url: "/memoria/tile/delete/" + ids[i],
-                success: function (resp, status, xhr) {
-                    if (xhr.status == 200) {
-                        $("#tile-"+ids[i]).parent().parent().remove();
-                    }
-                },
-                error: function (xhr, status, text) {
-                    $('#loading-screen').hide();
-                    console.log(text);
-                }
-            });
+            if (difficulty <= 1) $('#decrease-level').attr('disabled', 'disabled');
+            if (difficulty < 3) $('#increase-level').removeAttr('disabled');
         }
-
-        $('#loading-screen').hide();
-        Materialize.toast("Par(es) removido(s) com sucesso!", 4000);
     });
+
+    $('#increase-level').click(function() {
+        if (difficulty < 3) {
+            // set difficulty level
+            difficulty = difficulty + 1;
+            renderSelect(difficulty);
+
+            if (difficulty >= 3) $('#increase-level').attr('disabled', 'disabled');
+            if (difficulty > 1) $('#decrease-level').removeAttr('disabled');
+        }
+    });
+
+
+    // change which model the user will download based on what tile presentation option was chosen
+    // since it's a checkbox, it has checked or not checked states (true or false)
+    // true = horizontal
+    // false = vertical
+    $('.switch :checkbox').change(function() {
+
+        if ($('.switch :checkbox').prop('checked')) {
+            fadeInOut($('#model-orientation'), 'horizontal');
+            $('#model-download').attr('href', '/memoria/samples/tilesample_h.zip');
+            sessionStorage.setItem("SessionOrientation", "h");
+        } else {
+            fadeInOut($('#model-orientation'), 'vertical');
+            $('#model-download').attr('href', '/memoria/samples/tilesample_v.zip');
+            sessionStorage.setItem("SessionOrientation", "v");
+        }
+    });
+
+    // if the user had set the orientation to "h" before, we should forcely click
+    // the switch via code whenever the page loads
+    if (sessionStorage.getItem("SessionOrientation") == "h")
+        $('.switch :checkbox').click();
+
 
     // send all tiles to controller
     $('#send').click(function() {
+        // orientation of tiles. Same as above.
+        var orientation = $('.switch :checkbox').prop('checked') ? 'h' : 'v';
         // activates load screen
         $('#loading-screen').show();
 
-        var ids = [];
-        $.each($("input[type=checkbox]:checked"), function (ignored, el) {
-            ids.push($(el).attr('data-id'));
-        });
-
-        var count = 0;
-
-        switch(level){
-            case 1: count = 3; break;
-            case 2: count = 4; break;
-            case 3: count = 6; break;
-            default: count = 3;
-        }
-
-        if (ids.length == count) {
-            // Proceed to task submission
-            $.ajax({
-                type: "POST",
-                traditional: true,
-                data: {id: ids},
-                url: "/memoria/tile/validate",
-                success: function (resp, status, xhr) {
-                    if (xhr.status == 200) {
-                        window.top.location.href = resp;
-                    } else {
-                        $('#loading-screen').hide();
-                        $('#fail-modal .modal-content p').html(resp);
-                        $('#fail-modal').modal();
-                        $('#fail-modal').modal('open');
-                    }
-                },
-                error: function (xhr, status, text) {
+        // proceed to the img file generation (controller)
+        // otherwise, show modal with error
+        $.ajax({
+            type: 'GET',
+            //async: false, commented to show loading screen properly
+            data: {orientation: orientation},
+            url: "/memoria/tile/validate",
+            success: function (resp, status, xhr) {
+                if (xhr.status == 200) {
+                    window.top.location.href = resp;
+                } else {
                     $('#loading-screen').hide();
-                    console.log(text);
+                    $('#fail-modal .modal-content p').html(resp);
+                    $('#fail-modal').modal();
+                    $('#fail-modal').modal('open');
                 }
-            });
-        } else {
-            Materialize.toast("Por favor, selecione exatamente " + count + " pares!", 4000)
-            $('#loading-screen').hide();
-        }
+            },
+            error: function (xhr, status, text) {
+                $('#loading-screen').hide();
+                console.log(text);
+            }
+        });
 
     });
 
-    $('.modal').modal();
+
 });
 
-function check_all(){
-    var CheckAll = document.getElementById("BtnCheckAll");
-    var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
-    $(".filled-in:visible").prop('checked', 'checked');
+// show the selected difficulty select field with all the tiles options
+function renderSelect (difficulty) {
+    var $container = $('#difficulty-select-container');
+    var $display = $('#tile-display');
 
+    $container.empty(400);
 
-    for (var i = 0; i < trs.length; i++) {
-        if($(trs[i]).is(':visible')) {
-            $(trs[i]).attr('data-checked', "true");
+    $('#difficulty-minimum').html(difficulty * 2 + 2);
+    $('#difficulty-level').html(difficultyList[difficulty]);
+
+    // get the tile list of given difficulty
+    $.ajax({
+        type: 'GET',
+        data: {difficulty: difficulty},
+        url: "/memoria/tile/listByDifficulty",
+        success: function (resp) {
+            $('#difficulty-select-message').fadeIn(0);
+            $container.html(resp).fadeIn().find('select').material_select();
+
+            // show first tile
+            renderTile($("select option:first").val());
+
+            // after selecting the desired tile from the select in index.gsp,
+            // we get the information of that tile and show it in the tile display
+            $('#difficulty-select-container select').change(function () {
+                var id = $(this).val();
+                renderTile(id);
+            });
+
+            // update total counter
+            $('#difficulty-total').html($('select option').length);
+        },
+        error: function (xhr, status, text) {
+            switch (xhr.status) {
+                case 412:
+                    // show warning message if there aren't any tiles
+                    $('#difficulty-select-message').fadeOut(0);
+                    fadeInOut($display, xhr.responseText);
+                    break;
+                default:
+                    console.log(text);
+                    break;
+            }
         }
-    }
-
-    $('#BtnCheckAll').hide();
-    $('#BtnUnCheckAll').show();
-
+    });
 }
 
-function uncheck_all(){
-    var UnCheckAll = document.getElementById("BtnUnCheckAll");
-    var trs = document.getElementById('table').getElementsByTagName("tbody")[0].getElementsByTagName('tr');
-    $(".filled-in:visible").prop('checked', false);
+// renders tile pair information inside specified display element
+function renderTile (tileId) {
+    var $display = $('#tile-display');
 
+    $.ajax({
+        type: 'POST',
+        data: {id: tileId},
+        url: "/memoria/tile/show",
+        success: function (resp) {
+            fadeInOut($display, resp, function() {
+                // resize images orientation-wise
+                var width = $('#default-image-sizes').css('width');
+                var height = $('#default-image-sizes').css('height');
 
-    for (var i = 0; i < trs.length; i++) {
-        if($(trs[i]).is(':visible')) {
-            $(trs[i]).attr('data-checked', "false");
+                $('.materialboxed').materialbox().each(function () {
+                    resizeImageOrientationWise($(this), height, width);
+                });
+
+                // initialize Modal
+                $('#delete-modal').modal();
+
+                // Initializing tooltips
+                $('#tile-options-column').find('.tooltipped').each(function() {
+                    console.log($(this));
+                    $(this).tooltip({
+                        delay: 50,
+                        position: 'left',
+                        tooltip: $(this).data('tooltip-msg')
+                    });
+                });
+            });
+        },
+        error: function (request, status, error) {
+            console.log(error);
         }
-    }
+    });
+}
 
-    $('#BtnUnCheckAll').hide();
-    $('#BtnCheckAll').show();
+// fade out, change content, do something with the content if necessary and then fade in
+function fadeInOut ($el, content, callback) {
+    // hide element
+    $el.animate({opacity: 0}, function() {
+        // update content
+        $el.html(content);
 
+        // if there is a callback function, execute it
+        callback = callback || null;
+        if (callback) callback();
+
+        // show element with new content
+        $el.animate({opacity: 1});
+    });
+}
+
+function resizeImageOrientationWise($el, height, width) {
+
+    // note that it must be $.attr instead of $.css because of materialize materialbox
+    $el.on('load', function(){
+        var eWidth = $el.width();
+        var eHeight = $el.height();
+
+        if (eWidth > eHeight) {
+            // landscape
+            $el.attr('width', width);
+        } else {
+            //portrait
+            $el.attr('height', height);
+        }
+    });
 }
