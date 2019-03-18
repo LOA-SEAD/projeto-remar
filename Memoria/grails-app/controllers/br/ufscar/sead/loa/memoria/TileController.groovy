@@ -272,7 +272,7 @@ class TileController {
             Files.copy(currFile.toPath(), destFile.toPath())
 
             fw.write("{")
-            fw.write("\"cardNumber\": " + cardCounter + ", ")
+            fw.write("\"cardNumber\": " + (cardCounter-1) + ", ")
             fw.write("\"cardText\": \"" + tileList[i].textB + "\", ")
             fw.write("\"audioName\": " + "\"L" + session.level + "A" + cardCounter +".wav\"")
             fw.write("}\n")
