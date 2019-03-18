@@ -1,0 +1,201 @@
+{
+  "name": "Em Busca do Santo Grau",
+  "uri": "santograu",
+  "version": 1,
+  "tasks": [
+    {
+      "name": "Fase Tecnologia",
+      "uri": "faseTecnologia",
+      "optional": true,
+      "description": "Configurar um conteúdo multimídia com 3 palavras-chaves relacionadas ao conteúdo, que serão embaralhadas em anagramas.",
+      "type": "media_list",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "telao.html",
+          "type": "html",
+          "path": ""
+        },
+        {
+          "name": "fases.json",
+          "type": "json",
+          "path": "",
+          "shareable": false
+        },
+        {
+          "name": "computadores.json",
+          "type": "json",
+          "path": ""
+        }
+      ]
+    },
+
+    {
+      "name": "Fase Galeria",
+      "uri": "faseGaleria",
+      "optional": true,
+      "description": "Criar/editar/selecionar um tema de imagens para o nivel Galeria.",
+      "type": "image_collection",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "quadros.json",
+          "type": "json",
+          "path": "",
+          "shareable": false
+        },
+        {
+          "name": "fases.json",
+          "type": "json",
+          "path": "",
+          "shareable": false
+        },
+        {
+          "name": "1.png",
+          "type": "image",
+          "path": ""
+        },
+        {
+          "name": "2.png",
+          "type": "image",
+          "path": ""
+        },
+        {
+          "name": "3.png",
+          "type": "image",
+          "path": ""
+        },
+        {
+          "name": "4.png",
+          "type": "image",
+          "path": ""
+        },
+        {
+          "name": "5.png",
+          "type": "image",
+          "path": "",
+          "optional": true
+
+        },
+        {
+          "name": "6.png",
+          "type": "image",
+          "path": "",
+          "optional": true
+
+        },
+        {
+          "name": "7.png",
+          "type": "image",
+          "path": "",
+          "optional": true
+
+        },
+        {
+          "name": "8.png",
+          "type": "image",
+          "path": "",
+          "optional": true
+
+        },
+        {
+          "name": "9.png",
+          "type": "image",
+          "path": "",
+          "optional": true
+
+        },
+        {
+          "name": "10.png",
+          "type": "image",
+          "path": "",
+          "optional": true
+
+        }
+
+      ]
+    },
+
+    {
+      "name": "Fase Campo Minado",
+      "uri": "faseCampoMinado",
+      "description": "Criar/editar/selecionar um banco de questões para o nivel Campo Minado.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "questoescm.json",
+          "type": "json",
+          "path": ""
+        }
+      ]
+    },
+
+    {
+      "name": "Fase Campo Futebol",
+      "uri": "faseCampoFutebol",
+      "description": "Criar/editar/selecionar um banco de questões para o nivel Campo Futebol.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "campo.json",
+          "type": "json",
+          "path": ""
+        }
+      ]
+    },
+
+    {
+      "name": "Fase Biblioteca",
+      "uri": "faseBiblioteca",
+      "description": "Criar/editar/selecionar um banco de questões para o nivel Biblioteca.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "biblioteca.json",
+          "type": "json",
+          "path": ""
+        }
+      ]
+    },
+
+    {
+      "name": "Fase Bloco de Gelo",
+      "uri": "faseBlocoGelo",
+      "description": "Criar/editar/selecionar um banco de questões para o nivel Bloco de Gelo.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "questoesbn.json",
+          "type": "json",
+          "path": ""
+        }
+      ]
+    },
+
+    {
+      "name": "Fase TCC",
+      "uri": "faseTCC",
+      "description": "Criar/editar/selecionar um banco de questões  para o nivel final TCC.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "questoestcc.json",
+          "type": "json",
+          "path": ""
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    "web"
+  ],
+  "vars": {
+    "width": 1280,
+    "height": 720
+  }
+}
