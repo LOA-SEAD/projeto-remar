@@ -232,28 +232,13 @@ class TileController {
         def newPath = new File(folder)
         newPath.mkdirs()
 
-        def f1 = new File(getTilesAudios(tileList[0]).a)
-        def f2 = new File(getTilesAudios(tileList[0]).b)
-        def f3 = new File(getTilesAudios(tileList[1]).a)
-        def f4 = new File(getTilesAudios(tileList[1]).b)
-        def f5 = new File(getTilesAudios(tileList[2]).a)
-        def f6 = new File(getTilesAudios(tileList[2]).b)
-        def d1 = new File("$folder/L1A1.wav")
-        def d2 = new File("$folder/L1A2.wav")
-        def d3 = new File("$folder/L1A3.wav")
-        def d4 = new File("$folder/L1A4.wav")
-        def d5 = new File("$folder/L1A5.wav")
-        def d6 = new File("$folder/L1A6.wav")
+        switch (session.level) {
+            case 1: if (tileList.size() != 3) render(500); break;
+            case 2: if (tileList.size() != 4) render(500); break;
+            case 3: if (tileList.size() != 6) render(500); break;
+        }
 
-        Files.copy(f1.toPath(), d1.toPath())
-        Files.copy(f2.toPath(), d2.toPath())
-        Files.copy(f3.toPath(), d3.toPath())
-        Files.copy(f4.toPath(), d4.toPath())
-        Files.copy(f5.toPath(), d5.toPath())
-        Files.copy(f6.toPath(), d6.toPath())
-
-
-        def fileName = "level1.json"
+        def fileName = "level${session.level}.json"
 
         def fw = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream("$folder/$fileName"), "UTF-8"));
@@ -264,33 +249,43 @@ class TileController {
         }
         def fullUrl ="http://${request.serverName}:${port}/process/task/complete/${session.taskId}?"
 
-        def cardContador = 1
+        def cardCounter = 1
         for (def i = 0; i < tileList.size(); i++) {
+
+            def currFile = new File(getTilesAudios(tileList[i]).a)
+            def destFile = new File("$folder/L${session.level}A${cardCounter}.wav")
+            Files.copy(currFile.toPath(), destFile.toPath())
+
+
             fw.write("{")
-            fw.write("\"cardNumber\": " + cardContador + ", ")
+            fw.write("\"cardNumber\": " + cardCounter + ", ")
             fw.write("\"cardText\": \"" + tileList[i].textA + "\", ")
-            fw.write("\"audioName\": " + "\"L1A" + cardContador + ".wav\"")
+            fw.write("\"audioName\": " + "\"L" + session.level + "A" + cardCounter +".wav\"")
             fw.write("}\n")
 
-            fullUrl += "files=${MongoHelper.putFile("${folder}/L1A${cardContador}.wav")}&"
+            fullUrl += "files=${MongoHelper.putFile("${folder}/L${session.level}A${cardCounter}.wav")}&"
 
-            cardContador++;
+            cardCounter++;
+
+            currFile = new File(getTilesAudios(tileList[i]).b)
+            destFile = new File("$folder/L${session.level}A${cardCounter}.wav")
+            Files.copy(currFile.toPath(), destFile.toPath())
 
             fw.write("{")
-            fw.write("\"cardNumber\": " + cardContador + ", ")
+            fw.write("\"cardNumber\": " + cardCounter + ", ")
             fw.write("\"cardText\": \"" + tileList[i].textB + "\", ")
-            fw.write("\"audioName\": " + "\"L1A" + cardContador +".wav\"")
+            fw.write("\"audioName\": " + "\"L" + session.level + "A" + cardCounter +".wav\"")
             fw.write("}\n")
 
-            fullUrl += "files=${MongoHelper.putFile("${folder}/L1A${cardContador}.wav")}&"
+            fullUrl += "files=${MongoHelper.putFile("${folder}/L${session.level}A${cardCounter}.wav")}&"
 
-            cardContador++;
+            cardCounter++;
         }
 
         fw.close();
 
         log.debug folder
-        fullUrl += "files=${MongoHelper.putFile("${folder}/level1.json")}"
+        fullUrl += "files=${MongoHelper.putFile("${folder}/level${session.level}.json")}"
 
         // atualiza a tarefa corrente para o status de "completo"
         render(status: 200, text: fullUrl)
