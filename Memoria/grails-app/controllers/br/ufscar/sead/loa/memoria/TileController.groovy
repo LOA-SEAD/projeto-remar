@@ -40,7 +40,7 @@ class TileController {
 
         def tilesList = Tile.findAllByOwnerId(session.user.id)
 
-        render view: "index", model: [tilesList: tilesList, tilesCount: tilesList.count]
+        render view: "index", model: [tilesList: tilesList, tilesCount: tilesList.count, level: session.level]
     }
 
     def show() {
