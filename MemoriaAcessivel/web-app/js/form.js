@@ -61,7 +61,7 @@ function sendFormData(blobA, blobB) {
 
     $.ajax({
         method: "POST",
-        url: "/memoria/tile/save",
+        url: "/memoriaacessivel/tile/save",
        contentType: false,
        processData: false,
        data: fd,

@@ -1,4 +1,4 @@
-<%@ page import="br.ufscar.sead.loa.memoria.Tile" %>
+<%@ page import="br.ufscar.sead.loa.memoriaacessivel.Tile" %>
 <g:javascript>
     GMS = {};
     GMS.RECORDINGS_RESUME_BUTTON_LABEL = "${message(code: 'tile.sound.resume.button.label')}";

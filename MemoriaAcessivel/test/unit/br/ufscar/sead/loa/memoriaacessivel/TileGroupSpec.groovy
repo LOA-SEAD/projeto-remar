@@ -1,4 +1,4 @@
-package br.ufscar.sead.loa.memoria
+package br.ufscar.sead.loa.memoriaacessivel
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification

@@ -1,4 +1,4 @@
-package br.ufscar.sead.loa.memoria
+package br.ufscar.sead.loa.memoriaacessivel
 
 class Tile {
 

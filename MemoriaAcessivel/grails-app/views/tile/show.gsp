@@ -1,5 +1,5 @@
 
-<%@ page import="br.ufscar.sead.loa.memoria.Tile" %>
+<%@ page import="br.ufscar.sead.loa.memoriaacessivel.Tile" %>
 <!DOCTYPE html>
 <html>
 	<head>

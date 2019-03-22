@@ -1,4 +1,4 @@
-<%@ page import="br.ufscar.sead.loa.memoria.Tile" %>
+<%@ page import="br.ufscar.sead.loa.memoriaacessivel.Tile" %>
 
 <g:if test="${tileList}">
     <div class="row valign-wrapper no-margin full-height">

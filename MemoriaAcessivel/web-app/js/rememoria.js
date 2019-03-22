@@ -37,7 +37,7 @@ $(document).ready(function() {
                 async: false,
                 type:"DELETE",
                 data: {_method: "DELETE"},
-                url: "/memoria/tile/delete/" + ids[i],
+                url: "/memoriaacessivel/tile/delete/" + ids[i],
                 success: function (resp, status, xhr) {
                     if (xhr.status == 200) {
                         $("#tile-"+ids[i]).parent().parent().remove();
@@ -79,7 +79,7 @@ $(document).ready(function() {
                 type: "POST",
                 traditional: true,
                 data: {id: ids},
-                url: "/memoria/tile/validate",
+                url: "/memoriaacessivel/tile/validate",
                 success: function (resp, status, xhr) {
                     if (xhr.status == 200) {
                         window.top.location.href = resp;

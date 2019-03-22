@@ -1,9 +1,7 @@
-package br.ufscar.sead.loa.memoria
+package br.ufscar.sead.loa.memoriaacessivel
 
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.util.Environment
-
-import java.nio.file.Path
 
 import static org.springframework.http.HttpStatus.*
 import org.springframework.security.access.annotation.Secured
@@ -91,7 +89,7 @@ class TileController {
             port = 8090
         }
 
-        render(status: 200, text: "http://${request.serverName}:${port}/memoria/tile/")
+        render(status: 200, text: "http://${request.serverName}:${port}/memoriaacessivel/tile/")
 
     }
 
