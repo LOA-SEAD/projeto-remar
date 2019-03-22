@@ -11,31 +11,38 @@
       "dependencies": null,
       "outputs": [{
           "name": "level1.json",
-          "type": "text/json"
+          "type": "text/json",
+          "path": ""
         },
         {
           "name": "L1A1.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L1A2.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L1A3.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L1A4.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L1A5.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L1A6.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         }
       ]
     },
@@ -47,39 +54,48 @@
       "dependencies": null,
       "outputs": [{
           "name": "level2.json",
-          "type": "text/json"
+          "type": "text/json",
+          "path": ""
         },
         {
           "name": "L2A1.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L2A2.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L2A3.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L2A4.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L2A5.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L2A6.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L2A7.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L2A8.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         }
       ]
     },
@@ -91,55 +107,68 @@
       "dependencies": null,
       "outputs": [{
           "name": "level3.json",
-          "type": "text/json"
+          "type": "text/json",
+          "path": ""
         },
         {
           "name": "L3A1.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L3A2.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L3A3.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L3A4.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L3A5.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L3A6.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L3A7.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L3A8.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L3A9.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L3A10.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L3A11.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         },
         {
           "name": "L3A12.wav",
-          "type": "audio/wav"
+          "type": "audio/wav",
+          "path": ""
         }
       ]
     }
