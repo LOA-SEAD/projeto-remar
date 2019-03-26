@@ -20,7 +20,7 @@
 <div class="row cluster">
 
     <div class="row cluster-header">
-        <h4 id="start"><g:message code="overview.custom" default="Etapas de customização - Modelo de jogo "/><strong>${process.definition.name}</strong></h4>
+        <h4 id="start"><g:message code="overview.custom" default="Etapas de customização - Modelo de jogo"/> <strong>${process.definition.name}</strong></h4>
         <div class="divider"></div>
     </div>
 
