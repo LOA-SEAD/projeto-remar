@@ -131,7 +131,7 @@ class StatsController {
                 }
             }
 
-            render usersTime as JSON
+            render usersTime.sort { it.value } as JSON
 
         } else {
             // TODO: render erro nos parametros
@@ -289,9 +289,9 @@ class StatsController {
                     notConclAttempts = entry.value.get(0) - conclAttempts
 
                     if(playersLevelAtt.containsKey(level)) {
-                        playersLevelAtt[level].add( [user, notConclAttempts, conclAttempts] )
+                        playersLevelAtt[level].add( [user, conclAttempts, notConclAttempts] )
                     } else {
-                        playersLevelAtt.put(level, [[user, notConclAttempts, conclAttempts]])
+                        playersLevelAtt.put(level, [[user, conclAttempts, notConclAttempts]])
                     }
                 }
             }
@@ -336,9 +336,9 @@ class StatsController {
                     notConclAttempts = entry.value.get(0) - conclAttempts
 
                     if(playersLevelAtt.containsKey(user)) {
-                        playersLevelAtt[user].add( [level, notConclAttempts, conclAttempts] )
+                        playersLevelAtt[user].add( [level, conclAttempts, notConclAttempts] )
                     } else {
-                        playersLevelAtt.put(user, [[level, notConclAttempts, conclAttempts]])
+                        playersLevelAtt.put(user, [[level, conclAttempts, notConclAttempts]])
                     }
                 }
             }
