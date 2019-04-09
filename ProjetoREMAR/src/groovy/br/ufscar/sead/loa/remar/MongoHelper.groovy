@@ -18,7 +18,7 @@ class MongoHelper {
     MongoClient mongoClient
     MongoDatabase db
 
-    def santograuinfo = ["Tecnologia", "Galeria", "Campo Minado", "Blocos de Gelo", "TCC", "Refeitório"]
+    def santograuinfo = ["Fase Tecnologia", "Fase Galeria", "Fase Campo Minado", "Fase Blocos de Gelo", "Fase TCC", "Fase Refeitório"]
     def escolamagicainfo = ["", "Porta 1", "Porta 2", "Porta 3"]
 
     def init(Map options) {
@@ -311,65 +311,8 @@ class MongoHelper {
         }
     }
 
-    //INFOS DO JOGO: NÍVEIS E SEUS DESAFIOS
-    def getGameInfo(int exportedResourceId) {
-
-        def timeCollection = db.getCollection("timeStats")
-                .find( [ 'timeStats.exportedResourceId' : exportedResourceId ] as BasicDBObject )
-
-        if(timeCollection.size() > 0) {
-
-            def gameInfo = [:]
-            def level, desafio
-
-            for (Document doc : timeCollection) {
-                for (Object o : doc.timeStats) {
-                    if(o.exportedResourceId == exportedResourceId
-                            && o.time == '0'
-                            && o.type == '2') {
-
-                        if(o.gameId == "SantoGrau")
-                            level = santograuinfo[o.gameLevel as int]
-                        else if(o.gameId == "EscolaMagica")
-                            level = escolamagicainfo[o.gameLevel as int]
-
-                        desafio = "Desafio ${o.challengeId}"
-
-                        if(gameInfo.containsKey(level)) {
-
-                            if( !(gameInfo[level].find { it == desafio }) ) {
-                                gameInfo[level].add( desafio )
-                            }
-
-                        } else {
-                            gameInfo.put(level, [desafio])
-                        }
-
-                    }
-                }
-            }
-
-            gameInfo.each { lvl, desafios ->
-                gameInfo[lvl] = desafios.sort()
-            }
-
-            // Para DEBUG -> descomente a linha abaixo
-            //println "gameInfo: " + gameInfo
-            gameInfo.each {
-                println it
-            }
-
-            return gameInfo
-
-        } else {
-            // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
-            return null
-        }
-    }
-
     //INFOS DO JOGO: NÍVEIS, SEUS DESAFIOS E RESPOSTA CERTA
-    def getGameInfo2(int exportedResourceId) {
+    def getGameInfo(int exportedResourceId) {
 
         def statsCollection = db.getCollection("stats")
                 .find( [ 'stats.exportedResourceId' : exportedResourceId ] as BasicDBObject )
@@ -394,11 +337,11 @@ class MongoHelper {
                         if(gameInfo.containsKey(o.gameLevelName)) {
 
                             if( !(gameInfo[o.gameLevelName].containsKey(o.challengeId)) ) {
-                                gameInfo[o.gameLevelName].put( o.challengeId,  ["Desafio ${o.challengeId}", question, answer])
+                                gameInfo[o.gameLevelName].put( o.challengeId,  ["Desafio ${o.challengeId + 1}", question, answer])
                             }
 
                         } else {
-                            gameInfo.put(o.gameLevelName, [ (o.challengeId): ["Desafio ${o.challengeId}", question, answer] ] )
+                            gameInfo.put(o.gameLevelName, [ (o.challengeId): ["Desafio ${o.challengeId + 1}", question, answer] ] )
                         }
 
                     }
@@ -411,9 +354,6 @@ class MongoHelper {
 
             // Para DEBUG -> descomente a linha abaixo
             //println "gameInfo: " + gameInfo
-            gameInfo.each {
-                println it
-            }
 
             return gameInfo
 
@@ -456,7 +396,7 @@ class MongoHelper {
             // Para DEBUG -> descomente a linha abaixo
             //println "usersTime: " + usersTime
 
-            return usersTime
+            return usersTime.sort { it.value }
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
@@ -605,7 +545,7 @@ class MongoHelper {
             }
 
             // Para DEBUG -> descomente as linhas abaixo
-            println "levelAttemptRatio: " + levelAttempts
+            //println "levelAttemptRatio: " + levelAttempts
 
             return levelAttempts
 
@@ -699,9 +639,6 @@ class MongoHelper {
 
             // Para DEBUG -> descomente a linha abaixo
             //println "timePerLevel: " + timePerLevel
-            timePerLevel.each {
-                println it
-            }
 
             return timePerLevel
 
@@ -720,7 +657,7 @@ class MongoHelper {
         if(timeCollection.size() > 0) {
 
             def timePerChallenge = [:]
-            def level
+            def level, chall
             def time  // utilizado pra conversão string->double
             def tuple // tupla [level, challenge, user] como chave do mapa. OBS: user é long
 
@@ -732,13 +669,13 @@ class MongoHelper {
                             && (o.time as double) > 0.0) {
 
                         time = o.time as double
+                        level = o.gameLevel as int
+                        chall = "Desafio ${(o.challengeId as int) + 1}"
 
                         if(o.gameId == "SantoGrau")
-                            level = santograuinfo[o.gameLevel as int]
+                            tuple = new Tuple (santograuinfo[level], chall)
                         else if(o.gameId == "EscolaMagica")
-                            level = escolamagicainfo[o.gameLevel as int]
-
-                        tuple = new Tuple (level, "Desafio " + o.challengeId)
+                            tuple = new Tuple (escolamagicainfo[level], chall)
 
                         if ( timePerChallenge.containsKey( tuple ) ) {
 
@@ -757,10 +694,6 @@ class MongoHelper {
 
             // Para DEBUG -> descomente a linha abaixo
             //println "timePerChallenge: " + timePerChallenge
-            timePerChallenge.each {
-                println it
-            }
-
 
             return timePerChallenge
 
@@ -797,7 +730,7 @@ class MongoHelper {
                             santograu = true
                         }
 
-                        tuple = new Tuple (o.gameLevelName, "Desafio " + o.challengeId)
+                        tuple = new Tuple (o.gameLevelName, "Desafio ${o.challengeId + 1}")
 
                         if (challAttempts.containsKey(tuple)) {
                             challAttempts[tuple] += 1
@@ -858,7 +791,7 @@ class MongoHelper {
 
                     if (o.exportedResourceId == exportedResourceId && o.win == false) {
 
-                        tuple = new Tuple( o.gameLevelName, ("Desafio " + o.challengeId) )
+                        tuple = new Tuple( o.gameLevelName, ("Desafio ${o.challengeId + 1}") )
 
                         if (challMistakes.containsKey(tuple)) {
                             challMistakes[tuple] += 1
@@ -898,7 +831,7 @@ class MongoHelper {
 
                     if (o.exportedResourceId == exportedResourceId) {
 
-                        tuple = new Tuple( o.userId, o.gameLevelName, ("Desafio " + o.challengeId) )
+                        tuple = new Tuple( o.userId, o.gameLevelName, ("Desafio " + (o.challengeId + 1)) )
 
                         if(o.win) {
                             hitOrMiss = 0
@@ -946,9 +879,9 @@ class MongoHelper {
                     if (o.exportedResourceId == exportedResourceId) {
 
                         if(o.gameType == 'shuffleWord')
-                            tuple = new Tuple( o.gameLevelName, ("Desafio " + o.challengeId),  o.answer.toLowerCase())
+                            tuple = new Tuple( o.gameLevelName, ("Desafio ${o.challengeId + 1}"),  o.answer.toLowerCase())
                         else if(o.gameType == 'multipleChoice')
-                            tuple = new Tuple( o.gameLevelName, ("Desafio " + o.challengeId),  o.choice)
+                            tuple = new Tuple( o.gameLevelName, ("Desafio ${o.challengeId + 1}"),  o.choice)
 
 
                         if (choiceFrequency.containsKey(tuple))
@@ -1052,7 +985,7 @@ class MongoHelper {
                             santograu = true
                         }
 
-                        tuple = new Tuple (o.userId, o.gameLevelName, "Desafio " + o.challengeId)
+                        tuple = new Tuple (o.userId, o.gameLevelName, "Desafio ${o.challengeId + 1}")
 
                         if (challAttempts.containsKey(tuple)) {
                             challAttempts[tuple] += 1
@@ -1190,7 +1123,7 @@ class MongoHelper {
 
                         user = o.userId
 
-                        tuple = new Tuple( o.userId, o.gameLevelName, ("Desafio " + o.challengeId) )
+                        tuple = new Tuple( o.userId, o.gameLevelName, ("Desafio ${o.challengeId + 1}") )
 
                         if (challMistakes.containsKey(tuple)) {
                             challMistakes[tuple] += 1
@@ -1262,7 +1195,7 @@ class MongoHelper {
                             tuple = new Tuple( o.userId, o.gameLevel, ("Desafio " + o.challengeId) )
 
                             if (timePerChallenge.containsKey(tuple)) {
-                                timePerChallenge.put(new Tuple(o.userId, o.gameLevelName, ("Desafio " + o.challengeId)), timePerChallenge[tuple])
+                                timePerChallenge.put(new Tuple(o.userId, o.gameLevelName, ("Desafio ${o.challengeId + 1}")), timePerChallenge[tuple])
                                 timePerChallenge.remove(tuple)
                             }
                         }
@@ -1304,13 +1237,10 @@ class MongoHelper {
                             22, 23, 24, 25, 26, 27, 28, 29, 69]
 
         def grupolocal = [2,3,4]
-        def exportedResourceId = 6
-
-        // infos do jogo: níveis e seus desafios
-        //MongoHelper.instance.getGameInfo(exportedResourceId)
+        def exportedResourceId = 5
 
         // infos do jogo: níveis, seus desafios e resposta certa
-        //MongoHelper.instance.getGameInfo2(exportedResourceId)
+        //MongoHelper.instance.getGameInfo(exportedResourceId)
 
         // ranking dos jogadores que concluíram o jogo
         //MongoHelper.instance.getRanking(exportedResourceId)
@@ -1346,7 +1276,7 @@ class MongoHelper {
         //MongoHelper.instance.getChallMistakesRatio(exportedResourceId, grupolocal)
 
         // frequência de escolhas por desafio
-        //MongoHelper.instance.getChoiceFrequency(exportedResourceId, grupolocal)
+        MongoHelper.instance.getChoiceFrequency(exportedResourceId, grupolocal)
 
         // número de tentativas em cada nível por jogador
         //MongoHelper.instance.getPlayerLevelAttempt(exportedResourceId, grupolocal)

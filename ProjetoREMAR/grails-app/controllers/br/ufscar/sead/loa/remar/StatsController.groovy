@@ -20,7 +20,7 @@ class StatsController {
                 User.findById(it.user.id).name
             }
 
-            render users as JSON
+            render users.sort() as JSON
 
         } else {
             // TODO: render erro nos parametros
@@ -32,28 +32,6 @@ class StatsController {
         if(params.exportedResourceId) {
 
             def info = MongoHelper.instance.getGameInfo(params.exportedResourceId as int)
-            def infoJSON = [:]
-
-            if (info != null) {
-
-                info.each { level, desafios ->
-                    infoJSON[level] = desafios.collect { id, desafio -> desafio }
-                }
-            }
-
-            render infoJSON as JSON
-
-        } else {
-            // TODO: render erro nos parametros
-        }
-    }
-
-    // APAGAR EVENTUALMENTE QUANDO FRED DECIDIR
-    def gameInfo2() {
-
-        if(params.exportedResourceId) {
-
-            def info = MongoHelper.instance.getGameInfo2(params.exportedResourceId as int)
             def infoJSON = [:]
 
             if (info != null) {
@@ -131,7 +109,7 @@ class StatsController {
                 }
             }
 
-            render usersTime.sort { it.value } as JSON
+            render usersTime as JSON
 
         } else {
             // TODO: render erro nos parametros
@@ -669,7 +647,7 @@ class StatsController {
                 }
             }
 
-            render playersMissRatio.sort { it.value } as JSON
+            render playersMissRatio as JSON
 
         } else {
             // TODO: render erro nos parametros
