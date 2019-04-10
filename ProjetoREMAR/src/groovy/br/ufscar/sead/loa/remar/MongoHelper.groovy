@@ -871,6 +871,7 @@ class MongoHelper {
         if (statsCollection.size() > 0) {
 
             def choiceFrequency = [:]
+            def challenge
             def tuple
 
             for (Document doc : statsCollection) {
@@ -878,10 +879,12 @@ class MongoHelper {
 
                     if (o.exportedResourceId == exportedResourceId) {
 
+                        challenge = o.challengeId + 1
+
                         if(o.gameType == 'shuffleWord')
-                            tuple = new Tuple( o.gameLevelName, ("Desafio ${o.challengeId + 1}"),  o.answer.toLowerCase())
+                            tuple = new Tuple( o.gameLevelName, ("Desafio " + challenge),  o.answer.toLowerCase())
                         else if(o.gameType == 'multipleChoice')
-                            tuple = new Tuple( o.gameLevelName, ("Desafio ${o.challengeId + 1}"),  o.choice)
+                            tuple = new Tuple( o.gameLevelName, ("Desafio " + challenge),  o.choice)
 
 
                         if (choiceFrequency.containsKey(tuple))
