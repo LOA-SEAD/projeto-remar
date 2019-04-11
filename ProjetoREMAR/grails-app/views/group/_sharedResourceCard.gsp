@@ -146,6 +146,17 @@
                                     </div>
                                 </g:if>
                                 <g:if test="${group.owner.id == session.user.id || UserGroup.findByUserAndAdmin(session.user, true)}">
+                                    <div class="col l4">
+                                        <a class="show-stats tooltipped"
+                                           href="/stats/analysis/?groupId=${group.id}&exportedResourceId=${groupExportedResource.exportedResource.id}"
+                                           data-exported-resource-id="${groupExportedResource.exportedResource.id}"
+                                           style="cursor: pointer"
+                                           data-resource-id="${groupExportedResource.id}"
+                                           data-position="bottom" data-delay="50"
+                                           data-tooltip="Estatísticas">
+                                            <img src="/images/fred.jpg" style="width: 2em; height: 2em">
+                                        </a>
+                                    </div>
                                     <div class="col s6 m4 l3">
                                         <a class="show-stats tooltipped"
                                            href="/group/stats/${group.id}?exp=${groupExportedResource.exportedResource.id}"
