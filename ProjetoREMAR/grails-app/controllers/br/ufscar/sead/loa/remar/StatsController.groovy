@@ -10,6 +10,10 @@ class StatsController {
 
     }
 
+    def analysis() {
+
+    }
+
     def groupUsers() {
 
         if (params.groupId) {
