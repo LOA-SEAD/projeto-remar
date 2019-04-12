@@ -2,9 +2,9 @@
   Adaptado da API Google Charts, por Frederico Cardoso
   **/
 
- $(document).ready(function() {
-    pegaDados();
-  }
+$(document).ready(function() {
+  pegaDados();
+});
 
 var jogo = "";
 var grupo = "";
