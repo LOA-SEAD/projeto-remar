@@ -14,32 +14,6 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-    <!-- Scripts do AnyChart -->
-    <!--<script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js" type="text/javascript"></script>-->
-
-    <script type="text/javascript"  src="https://www.gstatic.com/charts/loader.js"></script>
-
-    <!-- script para chamar os construtores dos gráficos -->
-    <script type="text/javascript">
-      // Carregando a API de visualização e os pacotes de gráficos
-      google.charts.load('current', {'packages':['corechart', 'table', 'line']});
-
-      // Definindo a chamada de função a ser executada quando a API Google for carregada
-      /*google.charts.setOnLoadCallback(drawRanking);
-      google.charts.setOnLoadCallback(drawConclusionTime);
-      google.charts.setOnLoadCallback(drawUsersInLevels);
-      google.charts.setOnLoadCallback(drawLevelsAttempts);
-      google.charts.setOnLoadCallback(drawAvarageLevels);
-      google.charts.setOnLoadCallback(drawChallengesAttempts);
-      google.charts.setOnLoadCallback(drawChallengesErrors);
-      google.charts.setOnLoadCallback(drawAvarageChallenges);
-      google.charts.setOnLoadCallback(drawFrequenceChoice);
-      google.charts.setOnLoadCallback(drawUserLevelsAttempts);*/
-
-      // Definindo a chamada de função a ser executada quando a API AnyChart for carregada
-      // anychart.onDocumentReady(drawTeste);
-    </script>
-
     <title>REMAR - Dashaboard</title>
   </head>
   <body style="overflow-x: hidden">
@@ -260,15 +234,16 @@
     </div>
 
     <!-- JavaScript (Opcional) -->
-    <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Inclusão do Popper.js, depois Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-    <!-- Load the AJAX API -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript"  src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <!-- script para chamar os construtores dos gráficos -->
+    <script type="text/javascript">
+      // Carregando a API de visualização e os pacotes de gráficos
+      google.charts.load('current', {'packages':['corechart', 'table', 'line']});
+    </script>
 
     <!-- Aponta onde estão as funções javascript -->
     <g:javascript src="remar/stats/monta_graficos.js"></g:javascript>
