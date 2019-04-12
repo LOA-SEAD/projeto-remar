@@ -2,6 +2,10 @@
   Adaptado da API Google Charts, por Frederico Cardoso
   **/
 
+ $(document).ready(function() {
+    pegaDados();
+  }
+
 var jogo = "";
 var grupo = "";
 var nivel = "";

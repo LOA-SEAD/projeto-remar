@@ -42,7 +42,7 @@
 
     <title>REMAR - Dashaboard</title>
   </head>
-  <body style="overflow-x: hidden" onload="pegaDados()">
+  <body style="overflow-x: hidden">
     <!-- container do título e botão voltar -->
     <div class="container-fluid" style="text-align: center">
       <div class="row align-items-center">
