@@ -11,19 +11,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" href="/assets/favicon-3b33691d9fab5d6485becec8667d7307.png">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
     <title>REMAR - Dashaboard</title>
   </head>
   <body style="overflow-x: hidden">
     <!-- container do título e botão voltar -->
     <div class="container-fluid" style="text-align: center">
       <div class="row align-items-center">
-        <div class="col-sm-1">
+        <div class="col sm1">
           <a href="javascript:window.history.go(-1)"><< voltar</a>
         </div>
-        <div class="col-sm-11">
+        <div class="col sm11">
           <h1 class="display-6 text-center font-weight-bold">ESTATÍSTICAS</h1>
         </div>
       </div>
@@ -53,10 +50,10 @@
       <!-- container dos gráficos de ranking e tempo de conclusão -->
       <div class="container-fluid" style="justify-content: center">
         <div class="row align-items-center">
-          <div id="rankingDiv" class="col-sm-4">
+          <div id="rankingDiv" class="col sm4">
             <!-- Ranking de Pontuação -->
           </div>
-          <div id="conclusionTimeDiv" class="col-sm-8">
+          <div id="conclusionTimeDiv" class="col sm8">
             <!-- Tempo de conclusão do jogo -->
           </div>
         </div>
@@ -65,13 +62,13 @@
       <!-- container dos gráficos de número de alunos por nível e número de tentativas por nível -->
       <div class="container-fluid">
         <div class="row align-items-center">
-          <div id="usersLevelsDiv" class="col-sm-4 text-white">
+          <div id="usersLevelsDiv" class="col sm4 text-white">
             <!-- Número de alunos por nível -->
           </div>
-          <div id="levelsAttemptsDiv" class="col-sm-4 text-white">
+          <div id="levelsAttemptsDiv" class="col sm4 text-white">
             <!-- Número de tentativas por nível -->
           </div>
-          <div id="avarageLevelTimeDiv" class="col-sm-4 text-white">
+          <div id="avarageLevelTimeDiv" class="col sm4 text-white">
             <!-- Tempo médio de conlusão por nível -->
           </div>
         </div>
@@ -96,20 +93,20 @@
         <!-- container dos gráficos de número de erros, tentativas e tempo por desafio -->
         <div class="container-fluid">
           <div class="row align-items-center" id="challengersDiv">
-            <div id="levelDetailDiv" class="col-sm-5" style="border-right-color: gray; border-right: 1px dotted">
+            <div id="levelDetailDiv" class="col sm5" style="border-right-color: gray; border-right: 1px dotted">
             <!-- Número de alunos por nível, suas tentativas não concluídas e concluídas -->
             </div>
-            <div class="col-sm-7">
+            <div class="col sm7">
               <div class="row align-items-center">
-                <div id="challengesErrorsDiv" class="col-sm-7" style="margin-left: 25px; margin-right: -25px">
+                <div id="challengesErrorsDiv" class="col sm7" style="margin-left: 25px; margin-right: -25px">
                 <!-- Número de erros por desafio -->
                 </div>
-                <div id="challengesAttemptsDiv" class="col-sm-5">
+                <div id="challengesAttemptsDiv" class="col sm5">
                   <!-- Número de tentativas por desafio -->
                 </div>
               </div>
               <div class="row align-items-center">
-                <div id="avarageChallengeTimeDiv" class="col-sm-12">
+                <div id="avarageChallengeTimeDiv" class="col sm12">
                   <!-- Tempo de conlusão por desafio -->
                 </div>
               </div>
@@ -135,10 +132,10 @@
         <!-- container dos gráficos de frequencia de escolhas por desafio -->
         <div class="container-fluid" style="margin-top: 10px">
           <div class="row align-items-center" id="choicesChallengesDiv" style="margin-bottom: 10px">
-            <div id="challengeDetailDiv" class="col-sm-5" style="border-right-color: gray; border-right: 1px dotted">
+            <div id="challengeDetailDiv" class="col sm5" style="border-right-color: gray; border-right: 1px dotted">
               <!-- Número de alunos por desafio, quantos erros e acertos tiveram -->
             </div>
-            <div id="frequenceChoiceDiv" class="col-sm-7">
+            <div id="frequenceChoiceDiv" class="col sm7">
               <!-- Frequência de escolhas por desafio -->
             </div>
           </div>
@@ -151,7 +148,7 @@
           <p style="color: orange; font-weight: bold; font-size: 14pt">Legendas <font size="1">(Escolha um nível para visualizar as legendas)</font></p>
         </div>
         <div class="row align-items-center">
-          <div id="legendDiv" class="col-sm">
+          <div id="legendDiv" class="col sm1">
              <!--Legenda dos desafios -->
           </div>
         </div>
@@ -170,10 +167,10 @@
       <div class="container-fluid">
         <!-- div dos gráficos de número de tentativas e tempo por nível de cada aluno -->
         <div class="row align-items-center">
-          <div id="playerLevelAttemptDiv" class="col-sm-6">
+          <div id="playerLevelAttemptDiv" class="col sm6">
             <!-- Número de tentativas por nível -->
           </div>
-          <div id="playerTimeLevelDiv" class="col-sm-6">
+          <div id="playerTimeLevelDiv" class="col sm6">
             <!-- tempo de conclusão por nível -->
           </div>
         </div>
@@ -198,13 +195,13 @@
         <div class="container-fluid">
           <!-- div dos gráficos de número de erros, tentativas e tempo por desafio de cada aluno -->
           <div class="row align-items-center" id="challengersUserDiv">
-            <div id="playerChallAttemptDiv" class="col-sm-4">
+            <div id="playerChallAttemptDiv" class="col sm4">
               <!-- Número de tentativas por desafio -->
             </div>
-            <div id="playerChallErrosDiv" class="col-sm-4">
+            <div id="playerChallErrosDiv" class="col sm4">
               <!-- Número de erros por desafio -->
             </div>
-            <div id="playerChallTimeDiv" class="col-sm-4">
+            <div id="playerChallTimeDiv" class="col sm4">
               <!-- Tempo de conlusão por desafio -->
             </div>
           </div>
@@ -217,7 +214,7 @@
           <p style="color: orange; font-weight: bold; font-size: 14pt">Legendas <font size="1">(Escolha um nível para visualizar as legendas)</font></p>
         </div>
         <div class="row align-items-center">
-          <div id="legendUserDiv" class="col-sm">
+          <div id="legendUserDiv" class="col sm1">
             <!-- Legenda dos desafios -->
           </div>
         </div>
