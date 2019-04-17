@@ -238,5 +238,11 @@
 
     <!-- Aponta onde estão as funções javascript -->
     <g:javascript src="remar/stats/monta_graficos.js"></g:javascript>
+
+    <script type="text/javascript">
+      // Carregando a API de visualização e os pacotes de gráficos
+      google.charts.load('current', {'packages':['corechart', 'table', 'line']});
+      google.charts.setOnLoadCallback(pegaDados);
+    </script>
   </body>
 </html>
