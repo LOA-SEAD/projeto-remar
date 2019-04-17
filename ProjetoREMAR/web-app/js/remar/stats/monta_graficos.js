@@ -2,7 +2,7 @@
   Adaptado da API Google Charts, por Frederico Cardoso
   **/
 
-windows.onload = function() {
+window.onload = function() {
   // Carregando a API de visualização e os pacotes de gráficos
   google.charts.load('current', {'packages':['corechart', 'table', 'line']});
 
