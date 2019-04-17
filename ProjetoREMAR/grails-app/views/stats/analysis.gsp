@@ -60,14 +60,18 @@
       </div>
 
       <!-- container dos gráficos de número de alunos por nível e número de tentativas por nível -->
-      <div class="container-fluid">
-        <div class="row">
+      <div class="row">
+        <div class="container-fluid">
           <div id="usersLevelsDiv" class="col sm4 text-white">
             <!-- Número de alunos por nível -->
           </div>
+        </div>
+        <div class="container-fluid">
           <div id="levelsAttemptsDiv" class="col sm4 text-white">
             <!-- Número de tentativas por nível -->
           </div>
+        </div>
+        <div class="container-fluid">
           <div id="avarageLevelTimeDiv" class="col sm4 text-white">
             <!-- Tempo médio de conlusão por nível -->
           </div>
