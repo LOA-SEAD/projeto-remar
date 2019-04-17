@@ -236,12 +236,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
     <script type="text/javascript"  src="https://www.gstatic.com/charts/loader.js"></script>
 
-    <!-- script para chamar os construtores dos gráficos -->
-    <script type="text/javascript">
-      // Carregando a API de visualização e os pacotes de gráficos
-      google.charts.load('current', {'packages':['corechart', 'table', 'line']});
-    </script>
-
     <!-- Aponta onde estão as funções javascript -->
     <g:javascript src="remar/stats/monta_graficos.js"></g:javascript>
   </body>

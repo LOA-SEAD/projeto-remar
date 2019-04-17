@@ -3,6 +3,9 @@
   **/
 
 windows.onload = function() {
+  // Carregando a API de visualização e os pacotes de gráficos
+  google.charts.load('current', {'packages':['corechart', 'table', 'line']});
+
   pegaDados();
 };
 
