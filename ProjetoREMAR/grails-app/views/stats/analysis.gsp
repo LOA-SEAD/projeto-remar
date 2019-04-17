@@ -50,11 +50,15 @@
       <!-- container dos gráficos de ranking e tempo de conclusão -->
       <div class="container-fluid" style="justify-content: center">
         <div class="row">
-          <div id="rankingDiv" class="col sm4">
-            <!-- Ranking de Pontuação -->
+          <div class="container-fluid">
+            <div id="rankingDiv" class="col sm4">
+              <!-- Ranking de Pontuação -->
+            </div>
           </div>
-          <div id="conclusionTimeDiv" class="col sm8">
-            <!-- Tempo de conclusão do jogo -->
+          <div class="container-fluid">
+            <div id="conclusionTimeDiv" class="col sm8">
+              <!-- Tempo de conclusão do jogo -->
+            </div>
           </div>
         </div>
       </div>
@@ -80,15 +84,17 @@
 
       <div style="border: 1px solid; border-color: gray; border-radius: 5px; margin-top: 5px; margin-right: 5px; margin-left: 5px">
         <!-- container da seleção de nível para filtro -->
-        <div class="container-fluid" style="justify-content: center; /*margin-bottom: -20px;*/ margin-top: 10px">
+        <div class="row">
           <!-- inicio do formulário de níveis -->
           <form class="bd-example">
             <fieldset>
               <p style="text-align: center; font-size: 10pt">
-                <label for="selectLevel">Escolha um nível para obter informações detalhadas:</label>
-                <select class="w-25" id="cmbSelectLevel" required onchange="selectLevel()">
-                  <option id="defaultSelectLevel">Selecione...</option>
-                </select>
+                <div class="input-field col s12">
+                  <label for="selectLevel">Escolha um nível para obter informações detalhadas:</label>
+                  <select class="w-25" id="cmbSelectLevel" required onchange="selectLevel()">
+                    <option id="defaultSelectLevel">Selecione...</option>
+                  </select>
+                </div>
               </p>
             </fieldset>
           </form>
@@ -124,10 +130,12 @@
           <form id="comboDesafio" class="bd-example">
             <fieldset>
               <p style="text-align: center; font-size: 10pt">
-                <label for="selectChallenge">Escolha um desafio para obter informações detalhadas:</label>
-                <select class="w-25" id="cmbSelectChallenge" required onchange="selectChallenge()">
-                  <option id="defaultSelectChallenge" selected="selected">Selecione...</option>
-                </select>
+                <div class="input-field col s12">
+                  <label for="selectChallenge">Escolha um desafio para obter informações detalhadas:</label>
+                  <select class="w-25" id="cmbSelectChallenge" required onchange="selectChallenge()">
+                    <option id="defaultSelectChallenge" selected="selected">Selecione...</option>
+                  </select>
+                </div>
               </p>
             </fieldset>
           </form>
@@ -187,10 +195,12 @@
           <form class="bd-example">
             <fieldset>
               <p style="text-align: center; font-size: 10pt">
-                <label for="selectLevel">Escolha um nível para obter informações detalhadas:</label>
-                <select class="w-25" id="cmbSelectLevelUser" required onchange="selectLevelUser()">
-                  <option id="defaultSelectLevelUser">Selecione...</option>
-                </select>
+                <div class="input-field col s12">
+                  <label for="selectLevel">Escolha um nível para obter informações detalhadas:</label>
+                  <select class="w-25" id="cmbSelectLevelUser" required onchange="selectLevelUser()">
+                    <option id="defaultSelectLevelUser">Selecione...</option>
+                  </select>
+                </div>
               </p>
             </fieldset>
           </form>
