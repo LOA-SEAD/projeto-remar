@@ -20,7 +20,7 @@ class StatsController {
                 User.findById(it.user.id).name
             }
 
-            render users as JSON
+            render users.sort() as JSON
 
         } else {
             // TODO: render erro nos parametros
@@ -32,28 +32,6 @@ class StatsController {
         if(params.exportedResourceId) {
 
             def info = MongoHelper.instance.getGameInfo(params.exportedResourceId as int)
-            def infoJSON = [:]
-
-            if (info != null) {
-
-                info.each { level, desafios ->
-                    infoJSON[level] = desafios.collect { id, desafio -> desafio }
-                }
-            }
-
-            render infoJSON as JSON
-
-        } else {
-            // TODO: render erro nos parametros
-        }
-    }
-
-    // APAGAR EVENTUALMENTE QUANDO FRED DECIDIR
-    def gameInfo2() {
-
-        if(params.exportedResourceId) {
-
-            def info = MongoHelper.instance.getGameInfo2(params.exportedResourceId as int)
             def infoJSON = [:]
 
             if (info != null) {
@@ -289,9 +267,9 @@ class StatsController {
                     notConclAttempts = entry.value.get(0) - conclAttempts
 
                     if(playersLevelAtt.containsKey(level)) {
-                        playersLevelAtt[level].add( [user, notConclAttempts, conclAttempts] )
+                        playersLevelAtt[level].add( [user, conclAttempts, notConclAttempts] )
                     } else {
-                        playersLevelAtt.put(level, [[user, notConclAttempts, conclAttempts]])
+                        playersLevelAtt.put(level, [[user, conclAttempts, notConclAttempts]])
                     }
                 }
             }
@@ -336,9 +314,9 @@ class StatsController {
                     notConclAttempts = entry.value.get(0) - conclAttempts
 
                     if(playersLevelAtt.containsKey(user)) {
-                        playersLevelAtt[user].add( [level, notConclAttempts, conclAttempts] )
+                        playersLevelAtt[user].add( [level, conclAttempts, notConclAttempts] )
                     } else {
-                        playersLevelAtt.put(user, [[level, notConclAttempts, conclAttempts]])
+                        playersLevelAtt.put(user, [[level, conclAttempts, notConclAttempts]])
                     }
                 }
             }
@@ -669,7 +647,7 @@ class StatsController {
                 }
             }
 
-            render playersMissRatio.sort { it.value } as JSON
+            render playersMissRatio as JSON
 
         } else {
             // TODO: render erro nos parametros
