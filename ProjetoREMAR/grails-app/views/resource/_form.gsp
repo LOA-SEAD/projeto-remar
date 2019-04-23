@@ -13,6 +13,15 @@
 			<span id="desc-error" class="invalid-textarea" style="left: 0.75rem">Este campo deve ser preenchido!</span>
 		</div>
 	</div>
+
+	<div class="row">
+		<div class="input-field col s12">
+			<input id="authorship" type="text" class="validate" required name="authorship">
+			<label for="authorship">Autoria <span class="required-indicator">*</span></label>
+			<span id="authorship-error" class="invalid-input" style="left: 0.75rem">Este campo deve ser preenchido!</span>
+		</div>
+	</div>
+
 	<div class="row">
 		<div class="input-field col s12">
 			<textarea id="info" class="materialize-textarea" data-length="250" name="info">${resourceInstance?.info}</textarea>

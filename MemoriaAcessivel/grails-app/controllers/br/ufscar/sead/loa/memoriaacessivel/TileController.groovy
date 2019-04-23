@@ -1,7 +1,9 @@
-package br.ufscar.sead.loa.memoriaacessivel
+package br.ufscar.sead.loa.memoria
 
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.util.Environment
+
+import java.nio.file.Path
 
 import static org.springframework.http.HttpStatus.*
 import org.springframework.security.access.annotation.Secured

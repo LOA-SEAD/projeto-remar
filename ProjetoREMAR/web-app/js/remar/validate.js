@@ -7,6 +7,7 @@ function validateSubmit(){
     var nameErr = $("#name-error");
     var descErr = $("#desc-error");
     var customizableErr = $("#customizableErr");
+    var authorshipErr = $("#authorship-error");
 
 
     if($.trim($(name).val()) == null || $.trim($(name).val()) == ""){
