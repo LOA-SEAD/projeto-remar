@@ -290,7 +290,7 @@ function drawConclusionTime() {
         titleTextStyle: { color: "orange",
                           bold: true
                         },
-        legend: { position: 'none' },
+        legend: { position: 'right' },
         height: 350,
         vAxis: { title: 'Tempo (min)' },
         connectSteps: false,

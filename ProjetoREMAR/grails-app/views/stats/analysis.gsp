@@ -25,15 +25,15 @@
   </head>
   <body style="overflow-x: hidden">
     <!-- container do título e botão voltar -->
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-top:10px;">
       <div class="row">
         <div class="col s12 m1 l1">
           <p class="center-align"><a href="javascript:history.go(-1)"><< voltar</a></p>
         </div>
-        <div class="col s12 m10 l10">
-          <h2 class="center-align" style="margin:0">ESTATÍSTICAS</h2>
+        <div class="col s12 m9 l9">
+          <h4 class="center-align" style="margin:0; font-weight:bold">ESTATÍSTICAS</h4>
         </div>
-        <div class="col s12 m1 l1">
+        <div class="col s12 m2 l2">
           <p class="center-align">
             <a href="#" onclick="window.location.replace('http://alfa.remar.online/group/stats/' + grupo2 + '?exp=' + jogo2)" target="_self" alt="Versão em tabela">versão em tabela <img src="/images/tabela.png" alt="versão em tabela" width=11 height=11 /></a>
           </p>
