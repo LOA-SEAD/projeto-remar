@@ -35,7 +35,7 @@
         </div>
         <div class="col s12 m1 l1">
           <p class="center-align">
-            <a href="#" onclick="window.location.replace('http://alfa.remar.online/group/stats/' + grupo2 + '?exp=' + jogo2)" target="_self" alt="Versão em tabela">versão em tabela <img src="./tabela.png" alt="versão em tabela" width=11 height=11 /></a>
+            <a href="#" onclick="window.location.replace('http://alfa.remar.online/group/stats/' + grupo2 + '?exp=' + jogo2)" target="_self" alt="Versão em tabela">versão em tabela <img src="/images/tabela.png" alt="versão em tabela" width=11 height=11 /></a>
           </p>
         </div>
       </div>
