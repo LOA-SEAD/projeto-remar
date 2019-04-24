@@ -8,6 +8,9 @@ var nivel = "";
 var desafio = "";
 var usuario = "";
 
+var grupo2 = "";
+var jogo2 = "";
+
 ///////////////////////////
 //função para pegar o valor do jogo e grupo
 ///////////////////////////
@@ -21,6 +24,13 @@ function pegaDados() {
 
   grupo = array.grupo;        //pega o valor do grupo passado na url
   jogo = array.jogo;          //pega o valor do jogo passado na url
+
+  //definindo as variáveis para chamar a url de estátistica por tabela
+  var teste = jogo.split("=");
+  jogo2 = teste[1];
+
+  var teste = grupo.split("=");
+  grupo2 = teste[1];
 
   //chama função para montar combo de usuários
   montaComboUser();
@@ -282,7 +292,7 @@ function drawConclusionTime() {
         connectSteps: false,
         //colors: ['#3568c9', '#ff7f27'],
       };
-      var chart = new google.visualization.ColumnChart(document.getElementById('conclusionTimeDiv'));
+      var chart = new google.visualization.AreaChart(document.getElementById('conclusionTimeDiv'));
 
       chart.draw(data, options);
     }
@@ -413,7 +423,7 @@ function drawLevelDetail(nivel) {
         titleTextStyle: { color: "orange",
                           bold: true
                         },
-        height: 400,
+        height: 450,
         chartArea: {width: '50%'},
         legend: { position: 'right' },
         vAxis: { title: 'Tentativas' },
