@@ -12,7 +12,7 @@
     <link rel="shortcut icon" href="/assets/favicon-3b33691d9fab5d6485becec8667d7307.png">
 
     <!-- Aponta onde estão as funções javascript -->
-    <script type="text/javascript" src="monta_graficos.js"></script>
+    <g:javascript src="remar/monta_graficos.js"></g:javascript>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <!-- script para chamar os construtores dos gráficos -->
