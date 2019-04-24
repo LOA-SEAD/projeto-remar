@@ -2,6 +2,7 @@ package br.ufscar.sead.loa.remar
 
 import br.ufscar.sead.loa.propeller.Propeller
 import br.ufscar.sead.loa.propeller.domain.ProcessDefinition
+import groovy.json.JsonSlurper
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import org.mongodb.morphia.Datastore
 import grails.converters.JSON
@@ -159,6 +160,18 @@ class ResourceController {
             ant.copy(file: tmp, todir: servletContext.getRealPath("/images"))
         }
 
+        // check if model allows to collect stats (groups)
+
+        tmp = new File("${expandedWarPath}/remar/group.json")
+        boolean group = tmp.exists()
+
+        if (group) {
+            def slurper = new JsonSlurper()
+            def jsonText = tmp.getText()
+            json = slurper.parseText(jsonText)
+            resourceInstance.fixedLevels = json.fixed
+        }
+
         tmp = new File("${expandedWarPath}/remar/source")
         if (!tmp.exists()) { // source folder exists?
             this.rejectWar(resourceInstance, "game's source folder not found")
@@ -193,7 +206,7 @@ class ResourceController {
                 int i;
                 int ten = 1;
 
-                while((i=is.read(data, 0, bufferSize)) >= 0) {
+                while ((i = is.read(data, 0, bufferSize)) >= 0) {
                     totalDataRead = totalDataRead + i;
                     out.write(data, 0, i);
                     float per = (totalDataRead * 100.0) / fileSize
@@ -237,6 +250,17 @@ class ResourceController {
 
             respond resourceInstance.errors, view: "create"
         } else {
+
+            if (group) {
+
+                // Create and save resource levels
+
+                json.levels.each {
+                    Level l = new Level (number: it.id, name: it.name, resource: resourceInstance)
+                    l.save()
+                }
+            }
+
             flash.message = message(code: 'default.created.message', args: [message(code: 'deploy.label', default: 'Deploy'), resourceInstance.id])
             render resourceInstance as JSON
         }
@@ -473,7 +497,7 @@ class ResourceController {
 
         log.debug("resourceList = " + model.resourceInstanceList)
 
-        int maxInstances =  query.count()
+        int maxInstances = query.count()
 
         log.debug("maxInstances = " + maxInstances)
 

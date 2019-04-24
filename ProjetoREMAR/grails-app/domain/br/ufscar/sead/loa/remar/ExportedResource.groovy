@@ -26,4 +26,18 @@ class ExportedResource {
     String license
     String contentArea
     String specificContent
+
+    // Método que retorna os níveis do jogo (fixos ou variáveis)
+
+    Set<Level> getLevels() {
+        if (resource.fixedLevels) {
+            return Level.findAllByResource(resource, [sort: 'id'])
+        } else {
+            Set<Level> levels = new HashSet<>()
+            for (LevelExportedResource ler: LevelExportedResource.findAllByExportedResource(this, [sort: 'id'])) {
+                levels.add(ler.level)
+            }
+            return levels
+        }
+    }
 }

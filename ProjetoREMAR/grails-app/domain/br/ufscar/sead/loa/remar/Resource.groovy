@@ -4,7 +4,7 @@ class Resource {
 
     static belongsTo = [owner: User, category: Category]
 
-    static hasMany = [ratings: Rating]
+    static hasMany = [ratings: Rating, levels: Level]
 
     static constraints = {
         submittedAt blank: false
@@ -26,7 +26,6 @@ class Resource {
         sumUser nullable: false
         license nullable: false
         customizableItems nullable: true
-
     }
 
     Resource() {
@@ -67,4 +66,6 @@ class Resource {
 
     float sumStars //total de estrelas
     int   sumUser  //total de usuários que comentaram o jogo
+
+    boolean fixedLevels // Flag para indicar se a quantidade de níveis do jogo é fixa
 }
