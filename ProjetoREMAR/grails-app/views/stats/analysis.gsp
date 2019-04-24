@@ -92,14 +92,12 @@
         <!-- container da seleção de nível para filtro -->
         <div class="container-fluid" style="justify-content: center; margin-top: 10px">
           <!-- inicio do formulário de níveis -->
-          <form class="input-field col s12">
-            <p class="center-align">
-              <label for="cmbSelectLevel" style="font-size: 12pt">Escolha um nível para obter informações detalhadas:</label>
-              <select id="cmbSelectLevel" style="display: inline; width: 300px" class="browser-default" required onchange="selectLevel()">
-                <option id="defaultSelectLevel" disabled selected>Selecione...</option>
-              </select>
-            </p>
-          </form>
+          <p class="center-align">
+            <label for="cmbSelectLevel" style="font-size: 12pt">Escolha um nível para obter informações detalhadas:</label>
+            <select id="cmbSelectLevel" style="display: inline; width: 300px" class="browser-default" required onchange="selectLevel()">
+              <option id="defaultSelectLevel" disabled selected>Selecione...</option>
+            </select>
+          </p>
         </div>
 
         <!-- container dos gráficos de número de erros, tentativas e tempo por desafio -->
@@ -129,14 +127,12 @@
         <!-- container da seleção de desafio para filtro -->
         <div class="container-fluid" style="justify-content: center; margin-top: 10px">
           <!-- inicio do formulário de desafios -->
-          <form class="input-field col s12 m12 l12">
-            <p class="center-align">
-              <label for="cmbSelectChallenge" style="font-size: 12pt">Escolha um desafio para obter informações detalhadas:</label>
-              <select id="cmbSelectChallenge" style="display: inline; width: 300px" class="browser-default" required onchange="selectChallenge()">
-                <option id="defaultSelectChallenge" disabled selected>Selecione...</option>
-              </select>
-            </p>
-          </form>
+          <p class="center-align">
+            <label for="cmbSelectChallenge" style="font-size: 12pt">Escolha um desafio para obter informações detalhadas:</label>
+            <select id="cmbSelectChallenge" style="display: inline; width: 300px" class="browser-default" required onchange="selectChallenge()">
+              <option id="defaultSelectChallenge" disabled selected>Selecione...</option>
+            </select>
+          </p>
         </div>
 
         <!-- container dos gráficos de frequencia de escolhas por desafio -->
@@ -190,14 +186,12 @@
         <!-- container da seleção de nível para filtro -->
         <div class="container-fluid" style="justify-content: center; margin-top: 10px">
           <!-- inicio do formulário de níveis -->
-          <form class="input-field col s12 m12 l12">
-            <p class="center-align">
-              <label for="defaultSelectLevelUser" style="font-size: 12pt">Escolha um nível para obter informações detalhadas:</label>
-              <select style="width: 300px; display: inline;" class="browser-default" id="cmbSelectLevelUser" required onchange="selectLevelUser()">
-                <option id="defaultSelectLevelUser" disabled selected>Selecione...</option>
-              </select>
-            </p>
-          </form>
+          <p class="center-align">
+            <label for="defaultSelectLevelUser" style="font-size: 12pt">Escolha um nível para obter informações detalhadas:</label>
+            <select style="width: 300px; display: inline;" class="browser-default" id="cmbSelectLevelUser" required onchange="selectLevelUser()">
+              <option id="defaultSelectLevelUser" disabled selected>Selecione...</option>
+            </select>
+          </p>
         </div>
 
         <div class="container-fluid">
