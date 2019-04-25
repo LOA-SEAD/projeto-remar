@@ -1,8 +1,8 @@
 package br.ufscar.sead.loa.remar.statistics
 
-abstract class Statistics {
+class TimeStats {
 
-    Object getData(params) {
+    Object getData(params){
 
         def data = [:]
 
@@ -13,15 +13,21 @@ abstract class Statistics {
             data.timestamp = new Date().toTimestamp()
 
         data.exportedResourceId = params.exportedResourceId as int
+
         data.gameName = params.gameName
-        data.levelId   = params.levelId as int
-        data.levelName = params.levelName
-        data.levelSize = params.levelSize as int
-        data.win       = params.win.toBoolean()
-        data.challengeId = params.challengeId as int
-        data.challengeType = params.challengeType
+
+        if (params.levelId) {
+            data.levelId   = params.levelId as int
+            data.levelName = params.levelName
+        }
+
+        if(params.challengeId)
+            data.challengeId = params.challengeId as int
+
+        data.time     = params.time
+        data.timeType = params.timeType
 
         return data
     }
-}
 
+}

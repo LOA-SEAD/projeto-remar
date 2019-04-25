@@ -193,10 +193,6 @@ class MongoHelper {
         db.getCollection(collectionName).deleteOne(Filters.in("uri", value))
     }
 
-    /*
-     * FUNCIONALIDADES DO RANKING
-     */
-
     def insertScoreToRanking(Object data) {
         /*
             A entrada no banco de dados para o ranking está estruturada da seguinte forma:
@@ -280,37 +276,6 @@ class MongoHelper {
         return ranking
     }
 
-    //NOMEIA LEVELS A PARTIR DO STATS COLLECTION
-    def nameLevels(int exportedResourceId, List<Long> users, Map map, String gameName) {
-
-        def statsCollection = getStats("stats", exportedResourceId, users)
-
-        for (Document doc : statsCollection) {
-            for (Object o : doc.stats) {
-                if (o.exportedResourceId == exportedResourceId) {
-
-                    if (map.containsKey(o.gameLevel)) {
-                        map.put(o.gameLevelName, map[o.gameLevel])
-                        map.remove(o.gameLevel)
-                    }
-                }
-            }
-        }
-
-        // TODO: Isso nem deveria ser preciso. Novamente é erro de como os dados estão sendo enviados
-        if (gameName == "SantoGrau") {
-            if (map.containsKey(5)) {
-                map.put("Fase Refeitório", map[5])
-                map.remove(5)
-            }
-
-            if (map.containsKey(1)) {
-                map.put("Fase Galeria", map[1])
-                map.remove(1)
-            }
-        }
-    }
-
     //INFOS DO JOGO: NÍVEIS, SEUS DESAFIOS E RESPOSTA CERTA
     def getGameInfo(int exportedResourceId) {
 
@@ -320,37 +285,34 @@ class MongoHelper {
         if(statsCollection.size() > 0) {
 
             def gameInfo = [:]
-            def question, answer
+            def level, levelName, challenge, question, answer, key, info
 
             for (Document doc : statsCollection) {
                 for (Object o : doc.stats) {
                     if(o.exportedResourceId == exportedResourceId) {
+                        level     = o.gameLevel
+                        levelName = o.gameLevelName
+                        challenge = o.challengeId
 
                         if(o.gameType == "multipleChoice") {
                             question = o.question
-                            answer = o.answer
+                            answer   = o.answer
                         } else {
                             question = o.word
-                            answer = o.correctAnswer
+                            answer   = o.correctAnswer
                         }
 
-                        if(gameInfo.containsKey(o.gameLevelName)) {
+                        key  = new Tuple(level, challenge)
+                        info = [levelName, question, answer]
 
-                            if( !(gameInfo[o.gameLevelName].containsKey(o.challengeId)) ) {
-                                gameInfo[o.gameLevelName].put( o.challengeId,  ["Desafio ${o.challengeId + 1}", question, answer])
-                            }
-
-                        } else {
-                            gameInfo.put(o.gameLevelName, [ (o.challengeId): ["Desafio ${o.challengeId + 1}", question, answer] ] )
+                        if( !(gameInfo.containsKey(key)) ) {
+                            gameInfo.put(key, info)
                         }
-
                     }
                 }
             }
 
-            gameInfo.each { level, desafios ->
-                gameInfo[level] = desafios.sort()
-            }
+            gameInfo = gameInfo.sort { it.key.get(0) }
 
             // Para DEBUG -> descomente a linha abaixo
             //println "gameInfo: " + gameInfo
@@ -1223,7 +1185,7 @@ class MongoHelper {
 
         // Para testar local: 172.18.0.X:27017 -> substituir X dando docker inspect no ip do mongo
         // Para testar com alguma instância do remar: basta por url (alfa.remar.online como ex)
-        MongoHelper.instance.init([dbHost  : '172.18.0.4:27017',
+        MongoHelper.instance.init([dbHost  : '172.18.0.3:27017',
                                    username: 'root',
                                    password: 'root'])
 
@@ -1243,7 +1205,7 @@ class MongoHelper {
         def exportedResourceId = 5
 
         // infos do jogo: níveis, seus desafios e resposta certa
-        //MongoHelper.instance.getGameInfo(exportedResourceId)
+        MongoHelper.instance.getGameInfo(exportedResourceId)
 
         // ranking dos jogadores que concluíram o jogo
         //MongoHelper.instance.getRanking(exportedResourceId)
@@ -1279,7 +1241,7 @@ class MongoHelper {
         //MongoHelper.instance.getChallMistakesRatio(exportedResourceId, grupolocal)
 
         // frequência de escolhas por desafio
-        MongoHelper.instance.getChoiceFrequency(exportedResourceId, grupolocal)
+        //MongoHelper.instance.getChoiceFrequency(exportedResourceId, grupolocal)
 
         // número de tentativas em cada nível por jogador
         //MongoHelper.instance.getPlayerLevelAttempt(exportedResourceId, grupolocal)

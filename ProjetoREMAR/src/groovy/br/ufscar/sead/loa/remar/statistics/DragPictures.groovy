@@ -6,14 +6,11 @@ class DragPictures extends Statistics{
 
         def data = super.getData(params)
 
-        data.numberDrag = params.numberDrag
+        data.numberMoves     = params.numberMoves
         data.initialSequence = params.initialSequence
-
-        if (params.numberPictures) {
-            data.numberPictures = params.numberPictures
-        } else {
-            data.numberPictures = params.initialSequence.split(',').length
-        }
+        data.numberPictures  = params.initialSequence.split(',').length
+        data.correctAnswer   = params.correctAnswer
+        data.answer          = params.answer
 
         return data
     }

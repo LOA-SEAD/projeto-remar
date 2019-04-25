@@ -1,17 +1,98 @@
 package br.ufscar.sead.loa.remar
 
+import br.ufscar.sead.loa.remar.statistics.RankingStats
+import br.ufscar.sead.loa.remar.statistics.StatisticFactory
+import br.ufscar.sead.loa.remar.statistics.Statistics
+import br.ufscar.sead.loa.remar.statistics.TimeStats
 import grails.converters.JSON
 
 class StatsController {
 
-     //MUDAR //def allUsersGroup = UserGroup.findAllByGroup(group).user
+    def index() {}
 
-    def index() {
+    def analysis() {}
 
+    // Checks if game was exported to a group
+    def exportedToGroup() {
+        return (GroupExportedResources.findAllByExportedResource(ExportedResource.get(params.exportedResourceId)).size != 0)
     }
 
-    def analysis() {
+    def saveChallengeStats() {
 
+        if (exportedToGroup()) {
+
+            StatisticFactory factory = StatisticFactory.instance
+            Statistics statistics    = factory.createStatistics(params.challengeType as String)
+
+            def data    = statistics.getData(params)
+            data.userId = session.user.id as long
+
+            try {
+
+                MongoHelper.instance.createCollection("stats")
+                MongoHelper.instance.insertStats("stats", data)
+
+            } catch (Exception e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
+
+            log.debug "Saving challenge stats..." + data
+        } else {
+            log.debug "Stats skipped. Game was not published to a group."
+        }
+
+        render status: 200
+    }
+
+    def saveTimeStats() {
+
+        if (exportedToGroup() && params.time) {
+
+            TimeStats timeStats = new TimeStats()
+
+            def data    = timeStats.getData()
+            data.userId = session.user.id as long
+
+            try {
+
+                MongoHelper.instance.createCollection("timeStats")
+                MongoHelper.instance.insertTimeStats("timeStats", data)
+
+            } catch (Exception e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage())
+            }
+
+            log.debug "Saving time stats..." + data
+        } else {
+            log.debug "Stats skipped. Game was not published to a group."
+        }
+
+        render status: 200
+    }
+
+    def saveRankingStats() {
+
+        if(exportedToGroup() && params.score) {
+
+            RankingStats rankingStats = new RankingStats()
+
+            def data = rankingStats.getData(params)
+            data.userId = session.user.id as long
+
+            try {
+                MongoHelper.instance.createCollection("ranking")
+                MongoHelper.instance.insertScoreToRanking(data)
+
+            } catch (Exception e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
+
+            log.debug "Saving ranking stats..." + data
+        } else {
+            log.debug "Stats skipped. Game was not published to a group."
+        }
+
+        render status: 200
     }
 
     def groupUsers() {
@@ -38,10 +119,21 @@ class StatsController {
             def info = MongoHelper.instance.getGameInfo(params.exportedResourceId as int)
             def infoJSON = [:]
 
-            if (info != null) {
+            if(info != null) {
 
-                info.each { level, desafios ->
-                    infoJSON[level] = desafios.collect { id, desafio -> desafio }
+                def lvlname, chall, question, answer
+
+                for (entry in info) {
+
+                    chall    = entry.key.get(1)
+                    lvlname  = entry.value.get(0)
+                    question = entry.value.get(1)
+                    answer   = entry.value.get(2)
+
+                    if (!infoJSON.containsKey(lvlname))
+                        infoJSON.put(lvlname, [])
+
+                    infoJSON[lvlname][chall] = [("Desafio " + (chall + 1)), question, answer]
                 }
             }
 

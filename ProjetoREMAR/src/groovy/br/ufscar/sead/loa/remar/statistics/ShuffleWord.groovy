@@ -7,9 +7,8 @@ class ShuffleWord extends Statistics{
         def data = super.getData(params)
 
         data.word = params.word
-        data.answer = params.answer
         data.correctAnswer = params.correctAnswer
-        data.numberTries = params.numberTries
+        data.answer = params.answer
 
         return data
     }

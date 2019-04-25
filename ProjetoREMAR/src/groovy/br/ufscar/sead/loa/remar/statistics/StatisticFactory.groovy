@@ -3,20 +3,28 @@ package br.ufscar.sead.loa.remar.statistics
 @Singleton
 class StatisticFactory {
 
-    Statistics createStatistics(String gameType) {
+    Statistics createStatistics(String challengeType) {
 
-        if (gameType == 'questionAndAnswer') {
-            return new QuestionAndAnswer()
-        } else if (gameType == 'multipleChoice') {
-            return new MultipleChoice()
-        } else if (gameType == 'puzzleWithTime') {
-            return new PuzzleWithTime()
-        } else if (gameType == 'shuffleWord') {
-            return new ShuffleWord()
-        } else if (gameType == 'dragPictures') {
-            return new DragPictures()
+        Statistics stats
+
+        switch (challengeType) {
+            case 'questionAndAnswer':
+                stats = new QuestionAndAnswer()
+                break
+            case 'multipleChoice':
+                stats = new MultipleChoice()
+                break
+            case 'puzzleWithTime':
+                stats = new PuzzleWithTime()
+                break
+            case 'shuffleWord':
+                stats = new ShuffleWord()
+                break
+            case 'dragPictures':
+                stats = new DragPictures()
+                break
         }
 
-        return null
+        return stats
     }
 }
