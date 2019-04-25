@@ -31,9 +31,9 @@ class ExportedResource {
 
     Set<Level> getLevels() {
         if (resource.fixedLevels) {
-            return Level.findAllByResource(resource, [sort: 'id'])
+            return Level.findAllByResource(resource, [sort: 'number'])
         } else {
-            Set<Level> levels = new HashSet<>()
+            Set<Level> levels = new TreeSet<>()
             for (LevelExportedResource ler: LevelExportedResource.findAllByExportedResource(this, [sort: 'id'])) {
                 levels.add(ler.level)
             }

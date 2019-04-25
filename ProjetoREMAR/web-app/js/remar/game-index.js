@@ -60,6 +60,8 @@ function submit(){
         contentType: false,
         success: function (data) {
 
+            console.log(data);
+
             $('#preloader-wrapper').hide();
             $('.send-icon').show('fast');
             $('#info-add').trigger('click');
@@ -70,6 +72,8 @@ function submit(){
                 .next().addClass("active");
 
             $("#description").val(data.description);
+
+            $("#shareable").prop("checked", data.shareable);
 
             //set hidden id
             $("#hidden").val(data.id);

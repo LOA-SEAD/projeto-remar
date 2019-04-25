@@ -61,8 +61,8 @@
 	<div class="row">
 		<div>
 			<p>
-				<input class="filled-in" type="checkbox" name="shareable" id="shareable" />
-				<label style="font-size: 1.2em" for="shareable">Deseja habilitar o compartilhamento e acompanhamento em grupos?</label>
+				<input class="filled-in" type="checkbox" name="shareable" id="shareable" checked="${resourceInstance?.shareable}" disabled/>
+				<label style="font-size: 1.2em" for="shareable">Compartilhamento e acompanhamento em grupos?</label>
 			</p>
 		</div>
 	</div>

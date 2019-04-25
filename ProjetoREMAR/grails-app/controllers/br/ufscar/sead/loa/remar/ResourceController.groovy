@@ -169,7 +169,8 @@ class ResourceController {
             def slurper = new JsonSlurper()
             def jsonText = tmp.getText()
             json = slurper.parseText(jsonText)
-            resourceInstance.fixedLevels = json.fixed
+            resourceInstance.fixedLevels = Boolean.parseBoolean(json.fixed)
+            resourceInstance.shareable = true
         }
 
         tmp = new File("${expandedWarPath}/remar/source")
@@ -239,7 +240,6 @@ class ResourceController {
         // set ratings variables
         resourceInstance.sumUser = 0
         resourceInstance.sumStars = 0
-        resourceInstance.shareable = false
         resourceInstance.repository = true
 
         resourceInstance.save flush: true
@@ -253,10 +253,10 @@ class ResourceController {
 
             if (group) {
 
-                // Create and save resource levels
+                // Create and save the description (number, name) of resource (game) levels
 
                 json.levels.each {
-                    Level l = new Level (number: it.id, name: it.name, resource: resourceInstance)
+                    Level l = new Level (number: it.number, name: it.name, resource: resourceInstance)
                     l.save()
                 }
             }

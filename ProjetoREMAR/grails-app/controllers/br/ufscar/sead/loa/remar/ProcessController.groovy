@@ -321,6 +321,27 @@ class ProcessController {
         ant.copy(file: pathImgPrev + "/banner.png",
                 tofile: "${instanceFolder}/banner.png", overwrite: true)
 
+        if (!resource.fixedLevels) {
+
+            // "Resource with optional levels"
+
+            def tasks = process.definition.tasks
+
+            process.completedTasks.each {
+                def number = tasks.indexOf(it.definition) + 1
+                def level = Level.findByResourceAndNumber(resource, number)
+                LevelExportedResource ler = new LevelExportedResource(level: level, exportedResource: exportedResourceInstance)
+                ler.save flush: true
+            }
+
+            /*
+             process.completedTasks.each {def level = Level.findByNameAndResource(it.definition.name, resource)
+             println level
+             LevelExportedResource ler = new LevelExportedResource(level: level, exportedResource: exportedResourceInstance)
+             ler.save flush: true}
+             */
+        }
+
         process.completedTasks.outputs.each { outputs ->
             outputs.each { output ->
                 println output.path

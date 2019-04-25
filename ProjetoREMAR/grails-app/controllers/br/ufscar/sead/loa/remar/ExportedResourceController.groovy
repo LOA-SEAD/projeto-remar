@@ -832,4 +832,11 @@ class ExportedResourceController {
         def group2 = UserGroup.findAllByUserAndAdmin(user, true).group
         render view: "_cardGamesModal", model: [instance: card, myGroups: group1, groupsIAdmin: group2]
     }
+
+    def levels(int id) {
+
+        ExportedResource instance = ExportedResource.findById(id)
+
+        render instance.levels
+    }
 }
