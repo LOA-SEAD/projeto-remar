@@ -293,10 +293,10 @@ function drawConclusionTime() {
         legend: { position: 'right' },
         height: 350,
         vAxis: { title: 'Tempo (min)' },
-        connectSteps: false,
+        //connectSteps: false,
         //colors: ['#3568c9', '#ff7f27'],
       };
-      var chart = new google.visualization.AreaChart(document.getElementById('conclusionTimeDiv'));
+      var chart = new google.visualization.ColumnChart(document.getElementById('conclusionTimeDiv'));
 
       chart.draw(data, options);
     }
@@ -610,7 +610,7 @@ function drawFrequenceChoice(nivel, desafio) {
       } else {
         var data2 = data[desafio];
 
-        data2.unshift(['Desafio', 'Quantidade de escolhas']);
+        data2.unshift(['Desafio', 'Quantidade']);
 
         var dados = google.visualization.arrayToDataTable(data2);
         var options = {
@@ -619,7 +619,7 @@ function drawFrequenceChoice(nivel, desafio) {
                             bold: true,
                             fontSize: 11
                           },
-          legend: { position: 'none' },
+          legend: { position: 'right' },
           height: 300,
           vAxis: {
             title: 'Quantidade de escolhas',

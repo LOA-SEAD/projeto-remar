@@ -11,7 +11,7 @@
                         <div class="col s6">
                             <div style="font-size: 1.6em;">
                                 <a href="#!" class="first-breadcrumb black-text"><g:message code='group.label.myGroups' default="Meus Grupos"/></a>
-                                <g:if test="${group.owner.id == session.user.id}">
+                                <g:if test="${userIsAdmin}">
                                     <a href="/group/admin" class="breadcrumb orange-text text-darken-2"><g:message code='menu.button.my.groups.admin.label' default="Sou Admin"/></a>
                                 </g:if>
                                 <g:else>
