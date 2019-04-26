@@ -224,7 +224,7 @@ function selectLevelUser() {
   drawLegendsUser(nivel);
 
   //mostrando gráficos de desafios
-  document.getElementById("challengersUserDiv").style.display = "flex";
+  document.getElementById("challengersUserDiv").style.display = "block";
   document.getElementById("legendUserDiv").style.display = "flex";
 
   //atualizando a div onde está o gráfico
@@ -243,7 +243,7 @@ function selectChallenge() {
   drawFrequenceChoice(nivel, desafio);
 
   //mostrando gráficos de desafios
-  document.getElementById("choicesChallengesDiv").style.display = "flex";
+  document.getElementById("choicesChallengesDiv").style.display = "block";
 
   //atualizando a div onde está o gráfico
   load('index.html #choicesChallengesDiv');
