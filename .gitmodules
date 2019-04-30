@@ -25,9 +25,9 @@
 	url = https://github.com/LOA-SEAD/quimolecula
 	branch = exported
 [submodule "MemoriaAcessivel/web-app/remar/source"]
-        path = MemoriaAcessivel/web-app/remar/source
-        url = https://github.com/LOA-SEAD/memoria_acessivel
-        branch = exported
+    path = MemoriaAcessivel/web-app/remar/source
+    url = https://github.com/LOA-SEAD/memoria_acessivel
+    branch = exported
 [submodule "SantoGrauAcessivel/web-app/remar/source"]
 	path = SantoGrauAcessivel/web-app/remar/source
 	url = https://github.com/LOA-SEAD/santo-grau
