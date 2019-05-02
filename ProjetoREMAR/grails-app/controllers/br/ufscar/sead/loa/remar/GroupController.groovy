@@ -80,7 +80,7 @@ class GroupController {
 
         if(group.owner.id == session.user.id || userGroup){
             def groupExportedResources = group.groupExportedResources.toList()
-            render(view: "show", model: [group: group, groupExportedResources: groupExportedResources, userIsAdmin: userGroup.admin])
+            render(view: "show", model: [group: group, groupExportedResources: groupExportedResources, userIsAdmin: (group.owner.id == session.user.id || userGroup?.admin)])
             response.status = 200
         }else
             render status: 401, view: "../401"
