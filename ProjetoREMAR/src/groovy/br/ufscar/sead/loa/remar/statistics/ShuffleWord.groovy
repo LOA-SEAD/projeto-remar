@@ -1,14 +1,15 @@
 package br.ufscar.sead.loa.remar.statistics
 
-class ShuffleWord extends Statistics{
+class ShuffleWord extends ChallengeStats{
 
-    Object getData(params){
+    LinkedHashMap getData(params){
 
         def data = super.getData(params)
 
-        data.word = params.word
+        data.word          = params.word
         data.correctAnswer = params.correctAnswer
-        data.answer = params.answer
+        data.answer        = params.answer
+        data.numberTries   = params.numberTries as int
 
         return data
     }

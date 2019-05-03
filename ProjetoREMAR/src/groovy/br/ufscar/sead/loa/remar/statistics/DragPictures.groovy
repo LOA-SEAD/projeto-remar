@@ -1,12 +1,12 @@
 package br.ufscar.sead.loa.remar.statistics
 
-class DragPictures extends Statistics{
+class DragPictures extends ChallengeStats{
 
-    Object getData(params){
+    LinkedHashMap getData(params){
 
         def data = super.getData(params)
 
-        data.numberMoves     = params.numberMoves
+        data.numberMoves     = params.numberMoves as int
         data.initialSequence = params.initialSequence
         data.numberPictures  = params.initialSequence.split(',').length
         data.correctAnswer   = params.correctAnswer

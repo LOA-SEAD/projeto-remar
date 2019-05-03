@@ -3,9 +3,9 @@ package br.ufscar.sead.loa.remar.statistics
 @Singleton
 class StatisticFactory {
 
-    Statistics createStatistics(String challengeType) {
+    ChallengeStats createStatistics(String challengeType) {
 
-        Statistics stats
+        ChallengeStats stats
 
         switch (challengeType) {
             case 'questionAndAnswer':

@@ -2,7 +2,7 @@ package br.ufscar.sead.loa.remar
 
 import br.ufscar.sead.loa.remar.statistics.RankingStats
 import br.ufscar.sead.loa.remar.statistics.StatisticFactory
-import br.ufscar.sead.loa.remar.statistics.Statistics
+import br.ufscar.sead.loa.remar.statistics.ChallengeStats
 import br.ufscar.sead.loa.remar.statistics.TimeStats
 import grails.converters.JSON
 
@@ -21,16 +21,17 @@ class StatsController {
 
         if (exportedToGroup()) {
 
-            StatisticFactory factory = StatisticFactory.instance
-            Statistics statistics    = factory.createStatistics(params.challengeType as String)
+            StatisticFactory factory      = StatisticFactory.instance
+            ChallengeStats challengeStats = factory.createStatistics(params.challengeType as String)
 
-            def data    = statistics.getData(params)
-            data.userId = session.user.id as long
+            def userId             = session.user.id as long
+            def exportedResourceId = params.exportedResourceId as int
+            def data               = challengeStats.getData(params)
 
             try {
 
-                MongoHelper.instance.createCollection("stats")
-                MongoHelper.instance.insertStats("stats", data)
+                MongoHelper.instance.createCollection("challengeStats")
+                MongoHelper.instance.insertStats("challengeStats", userId, exportedResourceId, data)
 
             } catch (Exception e) {
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -46,17 +47,18 @@ class StatsController {
 
     def saveTimeStats() {
 
-        if (exportedToGroup() && params.time) {
+        if (exportedToGroup()) {
 
             TimeStats timeStats = new TimeStats()
 
+            def userId             = session.user.id as long
+            def exportedResourceId = params.exportedResourceId as int
             def data    = timeStats.getData()
-            data.userId = session.user.id as long
-
+            
             try {
 
                 MongoHelper.instance.createCollection("timeStats")
-                MongoHelper.instance.insertTimeStats("timeStats", data)
+                MongoHelper.instance.insertStats("timeStats", userId, exportedResourceId, data)
 
             } catch (Exception e) {
                 System.err.println(e.getClass().getName() + ": " + e.getMessage())
@@ -72,7 +74,7 @@ class StatsController {
 
     def saveRankingStats() {
 
-        if(exportedToGroup() && params.score) {
+        if(exportedToGroup()) {
 
             RankingStats rankingStats = new RankingStats()
 
@@ -80,7 +82,7 @@ class StatsController {
             data.userId = session.user.id as long
 
             try {
-                MongoHelper.instance.createCollection("ranking")
+                MongoHelper.instance.createCollection("rankingStats")
                 MongoHelper.instance.insertScoreToRanking(data)
 
             } catch (Exception e) {
@@ -93,6 +95,46 @@ class StatsController {
         }
 
         render status: 200
+    }
+
+    def showDamageStats() {
+        def lista = MongoHelper.instance.getData("damageStats")
+        StringBuffer buffer = new StringBuffer();
+        for (Object o : lista) {
+            buffer.append(o.toString());
+            buffer.append("<br><br>");
+        }
+        render buffer
+    }
+
+    def showTimeStats() {
+        def lista = MongoHelper.instance.getData("timeStats")
+        StringBuffer buffer = new StringBuffer();
+        for (Object o : lista) {
+            buffer.append(o.toString());
+            buffer.append("<br><br>");
+        }
+        render buffer
+    }
+
+    def showChallengeStats() {
+        def lista = MongoHelper.instance.getData("challengeStats")
+        StringBuffer buffer = new StringBuffer();
+        for (Object o : lista) {
+            buffer.append(o.toString());
+            buffer.append("<br><br>");
+        }
+        render buffer
+    }
+
+    def showRankingStats() {
+        def lista = MongoHelper.instance.getData("ranking")
+        StringBuffer buffer = new StringBuffer();
+        for (Object o : lista) {
+            buffer.append(o.toString());
+            buffer.append("<br><br>");
+        }
+        render buffer
     }
 
     def groupUsers() {

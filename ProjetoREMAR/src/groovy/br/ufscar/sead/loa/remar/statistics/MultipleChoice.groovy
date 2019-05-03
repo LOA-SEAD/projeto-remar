@@ -1,8 +1,8 @@
 package br.ufscar.sead.loa.remar.statistics
 
-class MultipleChoice extends Statistics{
+class MultipleChoice extends ChallengeStats{
 
-    Object getData(params){
+    LinkedHashMap getData(params){
 
         def data = super.getData(params)
 

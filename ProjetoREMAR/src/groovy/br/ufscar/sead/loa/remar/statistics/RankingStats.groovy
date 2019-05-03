@@ -2,7 +2,7 @@ package br.ufscar.sead.loa.remar.statistics
 
 class RankingStats {
 
-    Object getData(params){
+    LinkedHashMap getData(params){
 
         def data = [:]
 

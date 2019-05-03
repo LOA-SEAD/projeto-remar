@@ -3,7 +3,7 @@ package br.ufscar.sead.loa.remar
 import br.ufscar.sead.loa.propeller.Propeller
 import grails.converters.JSON
 import br.ufscar.sead.loa.remar.statistics.StatisticFactory
-import br.ufscar.sead.loa.remar.statistics.Statistics
+import br.ufscar.sead.loa.remar.statistics.ChallengeStats
 import grails.plugin.springsecurity.annotation.Secured
 import grails.plugins.rest.client.RestBuilder
 import grails.transaction.Transactional
@@ -97,7 +97,7 @@ class ExportedResourceController {
         log.debug "params: " + params
 
         StatisticFactory factory = StatisticFactory.instance;
-        Statistics statistics = factory.createStatistics(params.gameType as String)
+        ChallengeStats statistics = factory.createStatistics(params.gameType as String)
 
         def data = statistics.getData(params)
         data.userId = session.user.id as long

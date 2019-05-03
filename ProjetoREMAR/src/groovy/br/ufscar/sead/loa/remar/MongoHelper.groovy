@@ -64,19 +64,20 @@ class MongoHelper {
         db.getCollection(collection).insertOne(doc)
     }
 
-    def insertStats(String collection, Object data) {
+    def insertStats(String collection, long userId, int exportedResourceId, LinkedHashMap data) {
 
-        println "insertStats: " + data
+        println "inserting " + collection + ": " + data
 
-        def selectedCollection = db.getCollection(collection);
+        def selectedCollection = db.getCollection(collection)
 
-        Document doc = new Document(data)
+        Document userExportedResource = new Document("userId", userId)
+                .append("exportedResourceId", exportedResourceId)
+        Document stats = new Document(data)
 
-        if (selectedCollection.find(new Document('userId', data.userId)).size() != 0) {
-            selectedCollection.updateOne(new Document("userId", data.userId), new Document('$push',
-                    new Document("stats", doc)))
+        if (selectedCollection.find(userExportedResource).size() != 0) {
+            selectedCollection.updateOne(userExportedResource, new Document('$push', new Document("stats", stats)))
         } else {
-            selectedCollection.insertOne(new Document("userId", data.userId).append("stats", asList(doc)))
+            selectedCollection.insertOne(userExportedResource.append("stats", asList(stats)))
         }
     }
 
@@ -92,20 +93,11 @@ class MongoHelper {
             selectedCollection.updateOne(new Document("userId", data.userId), new Document('$push',
                     new Document("damageStats", doc)))
         } else {
-            selectedCollection.insertOne(new Document("userId", data.userId).append("damageStats",
-                    asList(doc)))
+            selectedCollection.insertOne(new Document("userId", data.userId).append("damageStats", asList(doc)))
         }
     }
 
     def insertTimeStats(String collection, Object data) {
-        /*
-         *  A entrada no banco de dados para as stats de tempo está estruturada da seguinte forma:
-         *  {id, userId, timeStats:[{timestamp, userId, exportedResourceId, time, type, gameId, gameType}]}
-         *
-         *  type = 0 -> time é em relação ao jogo    (jogo    iniciado time = 0, jogo    finalizado time > 0)
-         *  type = 1 -> time é em relação ao nível   (nível   iniciado time = 0, nível   finalizado time > 0)
-         *  type = 2 -> time é em relação ao desafio (desafio iniciado time = 0, desafio finalizado time > 0)
-         */
 
         println "insertTimeStats: " + data
 
@@ -118,8 +110,7 @@ class MongoHelper {
             selectedCollection.updateOne(new Document("userId", data.userId), new Document('$push',
                     new Document("timeStats", doc)))
         } else {
-            selectedCollection.insertOne(new Document("userId", data.userId).append("timeStats",
-                    asList(doc)))
+            selectedCollection.insertOne(new Document("userId", data.userId).append("timeStats", asList(doc)))
         }
     }
 

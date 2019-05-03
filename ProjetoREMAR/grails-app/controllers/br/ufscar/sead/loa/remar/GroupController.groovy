@@ -2,17 +2,11 @@ package br.ufscar.sead.loa.remar
 
 import br.ufscar.sead.loa.propeller.Propeller
 import br.ufscar.sead.loa.remar.statistics.StatisticFactory
-import br.ufscar.sead.loa.remar.statistics.Statistics
+import br.ufscar.sead.loa.remar.statistics.ChallengeStats
 import com.mongodb.Block
 import grails.converters.JSON
 import org.apache.commons.lang.RandomStringUtils
 import org.bson.Document
-import java.util.concurrent.TimeUnit
-import org.bson.types.ObjectId
-import java.util.concurrent.TimeUnit;
-import org.grails.datastore.mapping.validation.ValidationException
-import org.springframework.transaction.annotation.Transactional
-import static java.util.Arrays.asList;
 
 import org.springframework.transaction.annotation.Transactional
 
@@ -279,7 +273,7 @@ class GroupController {
 
                                     // Estratégia utilizada para padronizar a população de dados e o respectivo retorno (economia de ifs e switches)
                                     StatisticFactory factory = StatisticFactory.instance;
-                                    Statistics statistics = factory.createStatistics(it.gameType as String)
+                                    ChallengeStats statistics = factory.createStatistics(it.gameType as String)
 
                                     def data = statistics.getData(it);
 
