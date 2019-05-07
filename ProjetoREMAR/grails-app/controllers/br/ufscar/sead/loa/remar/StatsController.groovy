@@ -53,8 +53,8 @@ class StatsController {
 
             def userId             = session.user.id as long
             def exportedResourceId = params.exportedResourceId as int
-            def data    = timeStats.getData()
-            
+            def data               = timeStats.getData(params)
+
             try {
 
                 MongoHelper.instance.createCollection("timeStats")
@@ -175,7 +175,7 @@ class StatsController {
                     if (!infoJSON.containsKey(lvlname))
                         infoJSON.put(lvlname, [])
 
-                    infoJSON[lvlname][chall] = [("Desafio " + (chall + 1)), question, answer]
+                    infoJSON[lvlname][chall] = [("Desafio " + chall), question, answer]
                 }
             }
 
