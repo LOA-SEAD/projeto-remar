@@ -28,8 +28,8 @@ realização de uma manutenção mais facilmente.
     <div class="required input-field col s8 offset-s2"> <!-- "required" apenas para campos obrigatórios -->
         <p><strong>Escolha a fase para obter os dados</strong></p>
         <select id="select-multiple" group-id="${group.id}" exp-id="${exportedResource.id}" class="validate material-select">
-            <g:each in="${gameLevel}" var="it">
-                <option value="${it.key}">${it.value["name"]}</option>
+            <g:each in="${exportedResource.getLevels()}" var="it">
+                <option value="${it.level.number}">${it.level.name}</option>
             </g:each>
         </select>
     </div>
