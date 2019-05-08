@@ -872,7 +872,7 @@ class MongoHelper {
             // Para DEBUG -> descomente a linha abaixo
             //println "challAttempts: " + challAttempts
 
-            return challAttempts
+            return challAttempts.sort { it.key.get(2) }
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
@@ -951,7 +951,7 @@ class MongoHelper {
             // Para DEBUG -> descomente a linha abaixo
             //println "challMistakes: " + challMistakes
 
-            return challMistakes
+            return challMistakes.sort { it.key.get(2) }
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
@@ -993,7 +993,7 @@ class MongoHelper {
             // Para DEBUG -> descomente a linha abaixo
             //println "timePerChallenge: " + timePerChallenge
 
-            return timePerChallenge
+            return timePerChallenge.sort { it.key.get(2) }
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
@@ -1078,6 +1078,6 @@ class MongoHelper {
         //MongoHelper.instance.getPlayerChallMistakes(exportedResourceId, grupolocal)
 
         // maior e menor tempo gastos para conclusão de cada desafio por jogador
-        MongoHelper.instance.getPlayerChallTime(exportedResourceId, grupolocal)
+        //MongoHelper.instance.getPlayerChallTime(exportedResourceId, grupolocal)
     }
 }
