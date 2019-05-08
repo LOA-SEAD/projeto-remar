@@ -36,7 +36,7 @@
         <div class="col s12 m2 l2">
           <p class="center-align">
             <a href="/group/stats/${groupId}?exp=${exportedResource.id}" alt="Versão em tabela">versão em tabela </a>
-            <a class="btn btn-floating pulse orange" href="/group/stats/${groupId}?exp=${exportedResource.id}"><img style="margin-top: 10px" src="./tabela.png" alt="versão em tabela" width=20 height=20 /></a>
+            <a class="btn btn-floating pulse orange" href="/group/stats/${groupId}?exp=${exportedResource.id}"><img style="margin-top: 10px" src="/images/tabela.png" alt="versão em tabela" width=20 height=20 /></a>
           </p>
         </div>
       </div>
