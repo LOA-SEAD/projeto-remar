@@ -116,7 +116,7 @@ class GroupController {
                 def allUsersGroup = UserGroup.findAllByGroup(group).user
                 def queryMongo
                 try {
-                    queryMongo = MongoHelper.instance.getStats("stats", exportedResource.id as Integer, allUsersGroup.id.toList())
+                    queryMongo = MongoHelper.instance.getStats("challengeStats", exportedResource.id as Integer, allUsersGroup.id.toList())
 
                     //Array que guardará os stats a serem enviados par a view
                     def allStats = []
@@ -130,19 +130,16 @@ class GroupController {
                         _stat = [[user: user]]
 
                         queryMongo.get(i).stats.each {
-                            //Para cada stats obtido, pega apenas o que o jogo para obter os stats for igual aos da consulta
-                            if (it.exportedResourceId == exportedResource.id) {
-                                //Popula um map gameLevel para enviar à view.
-                                //Keys: numeros das fases no propeller (apenas as personalizadas)
-                                //Values: respectivos nomes das fases no propeller (apenas as personalizadas)
+                            //Popula um map gameLevel para enviar à view.
+                            //Keys: numeros das fases no propeller (apenas as personalizadas)
+                            //Values: respectivos nomes das fases no propeller (apenas as personalizadas)
 
-                                if (it.containsKey("gameLevel")) {
-                                    gameLevel.put(it.gameLevel, [name: it.gameLevelName, size: it.gameSize])
-                                    //Se encontrar um gameLevel, então significa que o jogo é do tipo multiplo
-                                    isMultiple = true
-                                }
-                                _stat.push([challengeId: it.challengeId, win: it.win, gameSize: it.gameSize, gameLevel: it.gameLevel])
+                            if (it.containsKey("levelId")) {
+                                gameLevel.put(it.levelId, [name: it.levelName, size: it.levelSize])
+                                //Se encontrar um gameLevel, então significa que o jogo é do tipo multiplo
+                                isMultiple = true
                             }
+                            _stat.push([challengeId: it.challengeId, win: it.win, gameSize: it.levelSize, gameLevel: it.levelId])
                         }
                         // Ao fim de cada acumulo de estatistica de um respectivo usuario, dá-se o push dele e suas estatisticas no array allStats
                         allStats.push(_stat)
@@ -165,8 +162,8 @@ class GroupController {
                         def userStatsMap = new TreeMap(new Comparator() {
                             @Override
                             int compare(Object o1, Object o2) {
-                                User u1 = ((ArrayList) o1).get(0).user;
-                                User u2 = ((ArrayList) o2).get(0).user;
+                                User u1 = ((ArrayList) o1).get(0).user
+                                User u2 = ((ArrayList) o2).get(0).user
 
                                 return u1.firstName.compareToIgnoreCase(u2.firstName)
                             }
