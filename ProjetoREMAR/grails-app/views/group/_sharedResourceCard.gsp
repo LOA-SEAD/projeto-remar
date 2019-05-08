@@ -125,17 +125,6 @@
                                         <i class="fa fa-trophy remar-orange-text"></i>
                                     </a>
                                 </div>
-                                <%--div class="col s6 m4 l3">
-                                    <a class="show-stats tooltipped"
-                                       href="/published/analise/?groupId=${group.id}&exportedResourceId=${groupExportedResource.exportedResource.id}"
-                                       data-exported-resource-id="${groupExportedResource.exportedResource.id}"
-                                       style="cursor: pointer"
-                                       data-resource-id="${groupExportedResource.id}"
-                                       data-position="bottom" data-delay="50"
-                                       data-tooltip="Estatísticas">
-                                        <img src="/images/fred.jpg" style="width: 1.2em; height: 1.2em">
-                                    </a>
-                                </div--%>
                                 <g:if test="${group.owner.id == session.user.id}">
                                     <div class="col s6 m4 l3">
                                         <a class="modal-trigger tooltipped"
@@ -146,20 +135,9 @@
                                     </div>
                                 </g:if>
                                 <g:if test="${group.owner.id == session.user.id || UserGroup.findByUserAndAdmin(session.user, true)}">
-                                    <div class="col l4">
-                                        <a class="show-stats tooltipped"
-                                           href="/stats/analysis/?groupId=${group.id}&exportedResourceId=${groupExportedResource.exportedResource.id}"
-                                           data-exported-resource-id="${groupExportedResource.exportedResource.id}"
-                                           style="cursor: pointer"
-                                           data-resource-id="${groupExportedResource.id}"
-                                           data-position="bottom" data-delay="50"
-                                           data-tooltip="Estatísticas">
-                                            <img src="/images/fred.jpg" style="width: 2em; height: 2em">
-                                        </a>
-                                    </div>
                                     <div class="col s6 m4 l3">
                                         <a class="show-stats tooltipped"
-                                           href="/group/stats/${group.id}?exp=${groupExportedResource.exportedResource.id}"
+                                           href="/stats/analysis/?groupId=${group.id}&exportedResourceId=${groupExportedResource.exportedResource.id}"
                                            data-exported-resource-id="${groupExportedResource.exportedResource.id}"
                                            id="delete-resource-${groupExportedResource.id}"
                                            data-resource-id="${groupExportedResource.id}"
