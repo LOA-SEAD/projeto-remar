@@ -10,7 +10,11 @@ class StatsController {
 
     def index() {}
 
-    def analysis() {}
+    def analysis() {
+        def exportedResource = ExportedResource.findById(params.exportedResourceId)
+        render view: "analysis", model: [groupId: session.group.id, exportedResource: exportedResource]
+
+    }
 
     // Checks if game was exported to a group
     def exportedToGroup() {

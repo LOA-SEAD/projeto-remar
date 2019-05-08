@@ -35,7 +35,8 @@
         </div>
         <div class="col s12 m2 l2">
           <p class="center-align">
-            <a href="#" onclick="window.location.replace('http://alfa.remar.online/group/stats/' + grupo2 + '?exp=' + jogo2)" target="_self" alt="Versão em tabela">versão em tabela <img src="/images/tabela.png" alt="versão em tabela" width=11 height=11 /></a>
+            <a href="/group/stats/${groupId}?exp=${exportedResource.id}" alt="Versão em tabela">versão em tabela </a>
+            <a class="btn btn-floating pulse orange" href="/group/stats/${groupId}?exp=${exportedResource.id}"><img style="margin-top: 10px" src="./tabela.png" alt="versão em tabela" width=20 height=20 /></a>
           </p>
         </div>
       </div>
@@ -96,6 +97,9 @@
             <label for="cmbSelectLevel" style="font-size: 12pt">Escolha um nível para obter informações detalhadas:</label>
             <select id="cmbSelectLevel" style="display: inline; width: 300px" class="browser-default" required onchange="selectLevel()">
               <option id="defaultSelectLevel" selected>Selecione...</option>
+              <g:each in="${exportedResource.getLevels()}" var="it">
+                <option value="${it.number}">${it.name}</option>
+              </g:each>
             </select>
           </p>
         </div>
@@ -188,6 +192,9 @@
             <label for="defaultSelectLevelUser" style="font-size: 12pt">Escolha um nível para obter informações detalhadas:</label>
             <select style="width: 300px; display: inline;" class="browser-default" id="cmbSelectLevelUser" required onchange="selectLevelUser()">
               <option id="defaultSelectLevelUser" selected>Selecione...</option>
+              <g:each in="${exportedResource.getLevels()}" var="it">
+                <option value="${it.number}">${it.name}</option>
+              </g:each>
             </select>
           </p>
         </div>
