@@ -1,11 +1,11 @@
 {
   "fixed": "false",
   "levels": [
-    {"number": 1, "name": "Fase Tecnologia"},
-    {"number": 2, "name": "Fase Galeria"},
-    {"number": 3, "name": "Fase Campo Minado"},
-    {"number": 4, "name": "Fase Bloco de Gelo"},
-    {"number": 5, "name": "Fase TCC"}
+    {"number": 1, "name": "Tecnologia"},
+    {"number": 2, "name": "Galeria"},
+    {"number": 3, "name": "Campo Minado"},
+    {"number": 4, "name": "Blocos de Gelo"},
+    {"number": 5, "name": "Monstro do TCC"}
   ]
 }
 
