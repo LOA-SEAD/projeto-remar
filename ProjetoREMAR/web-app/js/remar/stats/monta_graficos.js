@@ -39,9 +39,6 @@ function pegaDados() {
   //chama função para montar combo de usuários
   montaComboUser();
 
-  //chama função para montar combo de níveis
-  montaComboLevel();
-
   //chama as funções para montar os gráficos que não precisam de filtro
   drawRanking();
   drawConclusionTime();
@@ -166,9 +163,6 @@ function selectUser() {
 
     //desbloqueia a primeira opção do combobox (Selecione...)
     document.getElementById('defaultSelectLevelUser').disabled = false;
-
-    //monta combo de níveis
-    montaComboLevelUser();
 
     //escondendo e mostrando div
     document.getElementById("estatisticasGeraisDiv").style.display = "none";
