@@ -58,7 +58,7 @@ function pegaDados() {
 //função para montar o combo de usuários
 ///////////////////////////
 function montaComboUser() {
-  $.getJSON("http://alfa.remar.online/stats/groupUsers?" + grupo, function(options) {
+  $.getJSON("/stats/groupUsers?" + grupo, function(options) {
     var select = document.getElementById("cmbSelectUser");
 
     for(var i = 0; i < options.length; i++) {
@@ -77,7 +77,7 @@ function montaComboUser() {
 ///////////////////////////
 function montaComboLevel() {
   //preenche o combo de níveis
-  $.getJSON("http://alfa.remar.online/stats/gameInfo?" + jogo, function(array) {
+  $.getJSON("/stats/gameInfo?" + jogo, function(array) {
     var options = Object.keys(array);
 
     var select = document.getElementById("cmbSelectLevel");
@@ -107,7 +107,7 @@ function montaComboLevelUser() {
   document.getElementById('cmbSelectLevelUser').options.length = 1;
 
   //preenche o combo de níveis
-  $.getJSON("http://alfa.remar.online/stats/gameInfo?" + jogo, function(array) {
+  $.getJSON("/stats/gameInfo?" + jogo, function(array) {
     var options = Object.keys(array);
 
     var select = document.getElementById("cmbSelectLevelUser");
@@ -134,7 +134,7 @@ function montaComboChallenge(nivel) {
   document.getElementById('cmbSelectChallenge').options.length = 1;
 
   //preenche o combo de desafios
-  $.getJSON("http://alfa.remar.online/stats/gameInfo?" + jogo, function(array) {
+  $.getJSON("/stats/gameInfo?" + jogo, function(array) {
     var options = array[nivel];
 
     var select = document.getElementById("cmbSelectChallenge");
@@ -253,7 +253,7 @@ function selectChallenge() {
 //função para criar a tabela de ranking
 ///////////////////////////
 function drawRanking() {
-  $.get("http://alfa.remar.online/stats/ranking?" + grupo + "&" + jogo, function(array) {
+  $.get("/stats/ranking?" + grupo + "&" + jogo, function(array) {
     if (array.length == 0) {
       var div = document.getElementById("rankingDiv");
 
@@ -276,7 +276,7 @@ function drawRanking() {
 //função para criar o gráfico de tempo de conclusão
 ///////////////////////////
 function drawConclusionTime() {
-  $.get("http://alfa.remar.online/stats/conclusionTime?" + grupo + "&" + jogo, function(array) {
+  $.get("/stats/conclusionTime?" + grupo + "&" + jogo, function(array) {
     if (array.length == 0) {
       var div = document.getElementById("conclusionTimeDiv");
 
@@ -307,7 +307,7 @@ function drawConclusionTime() {
 //função para criar o gráfico de usuários por nível
 ///////////////////////////
 function drawUsersInLevels() {
-  $.get("http://alfa.remar.online/stats/quantityLevel?" + grupo + "&" + jogo, function(array) {
+  $.get("/stats/quantityLevel?" + grupo + "&" + jogo, function(array) {
     if (array.length == 0) {
       var div = document.getElementById("usersLevelsDiv");
 
@@ -345,7 +345,7 @@ function drawUsersInLevels() {
 //função para criar o gráfico de tentativas por nível
 ///////////////////////////
 function drawLevelsAttempts() {
-  $.get("http://alfa.remar.online/stats/levelAttempt2?" + grupo + "&" + jogo, function(array) {
+  $.get("/stats/levelAttempt2?" + grupo + "&" + jogo, function(array) {
     if (array.length == 0) {
       var div = document.getElementById("levelsAttemptsDiv");
 
@@ -374,7 +374,7 @@ function drawLevelsAttempts() {
 //função para criar o gráfico de média de tempo por nível
 ///////////////////////////
 function drawAvarageLevels() {
-  $.get("http://alfa.remar.online/stats/avgLevelTime?" + grupo + "&" + jogo, function(array) {
+  $.get("/stats/avgLevelTime?" + grupo + "&" + jogo, function(array) {
     if (array.length == 0) {
       var div = document.getElementById("avarageLevelTimeDiv");
 
@@ -411,7 +411,7 @@ function drawAvarageLevels() {
 //função para criar o gráfico de detalhes do nível
 ///////////////////////////
 function drawLevelDetail(nivel) {
-  $.get("http://alfa.remar.online/stats/levelAttemptRatio?" + grupo + "&" + jogo, function(array) {
+  $.get("/stats/levelAttemptRatio?" + grupo + "&" + jogo, function(array) {
     if (!(nivel in array)) {
       var div = document.getElementById("levelDetailDiv");
 
@@ -446,7 +446,7 @@ function drawLevelDetail(nivel) {
 //função para criar o gráfico de desafios com maior taxa de erro
 ///////////////////////////
 function drawChallengesErrors(nivel) {
-  $.get("http://alfa.remar.online/stats/challMistake?" + grupo + "&" + jogo, function(array) {
+  $.get("/stats/challMistake?" + grupo + "&" + jogo, function(array) {
     if (!(nivel in array)) {
       var div = document.getElementById("challengesErrorsDiv");
 
@@ -483,7 +483,7 @@ function drawChallengesErrors(nivel) {
 //função para criar o gráfico de tentativas por desafio
 ///////////////////////////
 function drawChallengesAttempts(nivel) {
-  $.get("http://alfa.remar.online/stats/challAttempt?" + grupo + "&" + jogo, function(array) {
+  $.get("/stats/challAttempt?" + grupo + "&" + jogo, function(array) {
     if (!(nivel in array)) {
       var div = document.getElementById("challengesAttemptsDiv");
 
@@ -519,7 +519,7 @@ function drawChallengesAttempts(nivel) {
 //função para criar o gráfico de média de tempo por desafio
 ///////////////////////////
 function drawAvarageChallenges(nivel) {
-  $.get("http://alfa.remar.online/stats/avgChallTime?" + grupo + "&" + jogo, function(array) {
+  $.get("/stats/avgChallTime?" + grupo + "&" + jogo, function(array) {
     if (!(nivel in array)) {
       var div = document.getElementById("avarageChallengeTimeDiv");
 
@@ -557,7 +557,7 @@ function drawAvarageChallenges(nivel) {
 //função para criar o gráfico com detalhes do desafio
 ///////////////////////////
 function drawChallengeDetail(nivel, desafio) {
-  $.get("http://alfa.remar.online/stats/challMistakeRatio?" + grupo + "&" + jogo, function(array) {
+  $.get("/stats/challMistakeRatio?" + grupo + "&" + jogo, function(array) {
     if (nivel in array) {
       var data = array[nivel];
 
@@ -599,7 +599,7 @@ function drawChallengeDetail(nivel, desafio) {
 //função para criar o gráfico de frequência de escolhas por desafio
 ///////////////////////////
 function drawFrequenceChoice(nivel, desafio) {
-  $.get("http://alfa.remar.online/stats/choiceFrequency?" + grupo + "&" + jogo, function(array) {
+  $.get("/stats/choiceFrequency?" + grupo + "&" + jogo, function(array) {
     if (nivel in array) {
       var data = array[nivel];
 
@@ -646,7 +646,7 @@ function drawFrequenceChoice(nivel, desafio) {
 //função para criar o gráfico de tentativas por nível, filtrado por aluno
 ///////////////////////////
 function drawUserLevelsAttempts(usuario) {
-  $.get("http://alfa.remar.online/stats/playerAttemptRatio?" + grupo + "&" + jogo, function(array) {
+  $.get("/stats/playerAttemptRatio?" + grupo + "&" + jogo, function(array) {
     if (!(usuario in array)) {
       var div = document.getElementById("playerLevelAttemptDiv");
 
@@ -680,7 +680,7 @@ function drawUserLevelsAttempts(usuario) {
 //função para criar o gráfico de tempo gasto por nível, filtrado por aluno
 ///////////////////////////
 function drawUserTimeLevels2(usuario) {
-  $.get("http://alfa.remar.online/stats/playerLevelTime2?" + grupo + "&" + jogo, function(array) {
+  $.get("/stats/playerLevelTime2?" + grupo + "&" + jogo, function(array) {
     if (!(usuario in array)) {
       var div = document.getElementById("playerTimeLevelDiv");
 
@@ -716,7 +716,7 @@ function drawUserTimeLevels2(usuario) {
 //função para criar o gráfico de erros por desafio, filtrado por aluno
 ///////////////////////////
 function drawUserChallengesErrors(usuario, nivel) {
-  $.get("http://alfa.remar.online/stats/playerChallMistake?" + grupo + "&" + jogo, function(array) {
+  $.get("/stats/playerChallMistake?" + grupo + "&" + jogo, function(array) {
     if (usuario in array) {
       var data = array[usuario];
 
@@ -760,7 +760,7 @@ function drawUserChallengesErrors(usuario, nivel) {
 //função para criar o gráfico de tentativas por desafio, filtrado por aluno
 ///////////////////////////
 function drawUserChallengesAttempts(usuario, nivel) {
-  $.get("http://alfa.remar.online/stats/playerChallAttempt?" + grupo + "&" + jogo, function(array) {
+  $.get("/stats/playerChallAttempt?" + grupo + "&" + jogo, function(array) {
     if (usuario in array) {
       var data = array[usuario];
 
@@ -804,7 +804,7 @@ function drawUserChallengesAttempts(usuario, nivel) {
 //função para criar o gráfico de tempo gasto por desafio, filtrado por aluno
 ///////////////////////////
 function drawUserTimeChalls(usuario, nivel) {
-  $.get("http://alfa.remar.online/stats/playerChallTime?" + grupo + "&" + jogo, function(array) {
+  $.get("/stats/playerChallTime?" + grupo + "&" + jogo, function(array) {
     if (usuario in array) {
       var data = array[usuario];
 
@@ -848,7 +848,7 @@ function drawUserTimeChalls(usuario, nivel) {
 //função para criar a tabela de legendas
 ///////////////////////////
 function drawLegends(nivel) {
-  $.get("http://alfa.remar.online/stats/gameInfo?" + grupo + "&" + jogo, function(array) {
+  $.get("/stats/gameInfo?" + grupo + "&" + jogo, function(array) {
     if (!(nivel in array)) {
       var div = document.getElementById("legendDiv");
 
@@ -879,7 +879,7 @@ function drawLegends(nivel) {
 //função para criar a tabela de legendas nas estatísticas dos alunos
 ///////////////////////////
 function drawLegendsUser(nivel) {
-  $.get("http://alfa.remar.online/stats/gameInfo?" + grupo + "&" + jogo, function(array) {
+  $.get("/stats/gameInfo?" + grupo + "&" + jogo, function(array) {
     if (!(nivel in array)) {
       var div = document.getElementById("legendUserDiv");
 
@@ -908,7 +908,7 @@ function drawLegendsUser(nivel) {
 
 //função para criar o gráfico de tempo gasto por nível, filtrado por aluno
 /*function drawUserTimeLevels(usuario, nivel) {
-  $.get("http://alfa.remar.online/stats/playerLevelTime?" + grupo + "&" + jogo, function(array) {
+  $.get("/stats/playerLevelTime?" + grupo + "&" + jogo, function(array) {
     if (usuario in array) {
       var data = array[usuario];
 
@@ -949,7 +949,7 @@ function drawLegendsUser(nivel) {
 
 //EXEMPLO DE FUNÇÃO QUE MOSTRA RANKING USANDO A API DO AnyChart
 /*function drawTeste() {
-  $.get("http://alfa.remar.online/stats/ranking?groupId=" + grupo + "&exportedResourceId=" + jogo, function(array) {
+  $.get("/stats/ranking?groupId=" + grupo + "&exportedResourceId=" + jogo, function(array) {
     //array.unshift(['Alunos', 'Tempo']);
 
     var data = anychart.data.set(array);
@@ -984,13 +984,13 @@ function drawLegendsUser(nivel) {
 
 //EXEMPLO DE GRÁFICO DUPLO (UM GRÁFICO DE PIZZA DENTRO DO OUTRO - Doughnut) USANDO A API DO AnyChart
 /*function drawDoubleGraph() {
-  $.get("http://alfa.remar.online/stats/ranking?groupId=" + grupo + "&exportedResourceId=" + jogo, function(array) {
+  $.get("/stats/ranking?groupId=" + grupo + "&exportedResourceId=" + jogo, function(array) {
     //array.unshift(['Alunos', 'Tempo']);
 
     var data = anychart.data.set(array);
   });
 
-  $.get("http://alfa.remar.online/stats/ranking?groupId=" + grupo + "&exportedResourceId=" + jogo, function(array) {
+  $.get("/stats/ranking?groupId=" + grupo + "&exportedResourceId=" + jogo, function(array) {
     //array.unshift(['Alunos', 'Tempo']);
 
     var data2 = anychart.data.set(array);
@@ -1014,7 +1014,7 @@ function drawLegendsUser(nivel) {
 
 //função para criar o gráfico de tentativas por nível
 /*function drawAvarageLevels() {
-  $.get("http://alfa.remar.online/stats/levelTime?groupId=" + grupo + "&exportedResourceId=" + jogo, function(array) {
+  $.get("/stats/levelTime?groupId=" + grupo + "&exportedResourceId=" + jogo, function(array) {
     array.unshift(['Nível', 'Média de tempo (min)']);
 
     var data = google.visualization.arrayToDataTable(array);
