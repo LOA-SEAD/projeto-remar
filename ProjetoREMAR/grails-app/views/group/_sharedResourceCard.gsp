@@ -19,7 +19,7 @@
                         <div class="card-content">
                             <span class="card-title flow-text grey-text text-darken-4 activator valign-wrapper truncate no-padding"
                                   data-category="${groupExportedResource.exportedResource.resource.category.id}" title="${groupExportedResource.exportedResource.name}">
-                                <p class="no-margin">${groupExportedResource.exportedResource.name}</p>
+                                <p class="no-margin truncate">${groupExportedResource.exportedResource.name}</p>
                                 <i class="material-icons right remar-orange-text">more_vert</i>
                             </span>
 
