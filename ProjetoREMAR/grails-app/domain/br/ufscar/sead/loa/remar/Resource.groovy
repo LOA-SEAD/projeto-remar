@@ -61,7 +61,7 @@ class Resource {
     String description
     String info
     String videoLink
-    boolean pendinggast
+    boolean pending
     String license
     String documentation
     String customizableItems
