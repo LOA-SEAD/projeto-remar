@@ -29,7 +29,7 @@ realização de uma manutenção mais facilmente.
         <p><strong>Escolha a fase para obter os dados</strong></p>
         <select id="select-multiple" group-id="${group.id}" exp-id="${exportedResource.id}" class="validate material-select">
             <g:each in="${exportedResource.getLevels()}" var="it">
-                <option value="${it.level.number}">${it.level.name}</option>
+                <option value="${it.number}">${it.name}</option>
             </g:each>
         </select>
     </div>
