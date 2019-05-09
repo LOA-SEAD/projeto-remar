@@ -105,7 +105,7 @@
         </div>
 
         <!-- container dos gráficos de número de erros, tentativas e tempo por desafio -->
-        <div class="container-fluid" style="margin-bottom: -40px">
+        <div class="container-fluid" style="margin-bottom: -20px">
           <div class="row">
             <div id="levelDetailDiv" class="col s12 m5 l5" style="border-right-color: gray; border-right: 1px dotted">
             <!-- Número de alunos por nível, suas tentativas não concluídas e concluídas -->

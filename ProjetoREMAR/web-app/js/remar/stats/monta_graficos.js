@@ -38,6 +38,8 @@ function pegaDados() {
 
   //chama função para montar combo de usuários
   montaComboUser();
+  montaComboLevel();
+
 
   //chama as funções para montar os gráficos que não precisam de filtro
   drawRanking();
@@ -73,22 +75,6 @@ function montaComboUser() {
 //função para montar o combo de níveis
 ///////////////////////////
 function montaComboLevel() {
-  //preenche o combo de níveis
-  $.getJSON("/stats/gameInfo?" + jogo, function(array) {
-    var options = Object.keys(array);
-
-    var select = document.getElementById("cmbSelectLevel");
-
-    for(var i = 0; i < options.length; i++) {
-      var opt = options[i];
-      var el = document.createElement("option");
-      el.textContent = opt;
-      el.value = opt;
-
-      select.appendChild(el);
-    }
-  });
-
   //bloqueia a primeira opção do combobox (Selecione...)
   document.getElementById('defaultSelectLevel').disabled = true;
 
@@ -102,22 +88,6 @@ function montaComboLevel() {
 function montaComboLevelUser() {
   //limpa combobox
   document.getElementById('cmbSelectLevelUser').options.length = 1;
-
-  //preenche o combo de níveis
-  $.getJSON("/stats/gameInfo?" + jogo, function(array) {
-    var options = Object.keys(array);
-
-    var select = document.getElementById("cmbSelectLevelUser");
-
-    for(var i = 0; i < options.length; i++) {
-      var opt = options[i];
-      var el = document.createElement("option");
-      el.textContent = opt;
-      el.value = opt;
-
-      select.appendChild(el);
-    }
-  });
 
   //bloqueia a primeira opção do combobox (Selecione...)
   document.getElementById('defaultSelectLevelUser').disabled = true;
@@ -163,6 +133,8 @@ function selectUser() {
 
     //desbloqueia a primeira opção do combobox (Selecione...)
     document.getElementById('defaultSelectLevelUser').disabled = false;
+
+    montaComboLevelUser();
 
     //escondendo e mostrando div
     document.getElementById("estatisticasGeraisDiv").style.display = "none";
