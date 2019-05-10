@@ -41,8 +41,14 @@ class ExportedResourceController {
     }
 
     def delete(int id) {
-        //Deleta a instância do Exported Resource e o diretório criado também
+        // Remove a instância do Exported Resource e o diretório criado também
         ExportedResource instance = ExportedResource.findById(id)
+
+        // Remove os levels associados ao ExportedResource
+
+        def listOfLevels = LevelExportedResource.findAllByExportedResource(instance)
+        listOfLevels*.delete flush: true
+
         instance.delete flush: true
         def root = servletContext.getRealPath("/")
         def mainDir = new File(root + '/published/' + instance.processId)
