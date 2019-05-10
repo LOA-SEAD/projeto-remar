@@ -86,11 +86,10 @@ function montaComboLevel() {
 //função para montar o combo de níveis
 ///////////////////////////
 function montaComboLevelUser() {
-  //limpa combobox
-  document.getElementById('cmbSelectLevelUser').options.length = 1;
-
   //bloqueia a primeira opção do combobox (Selecione...)
   document.getElementById('defaultSelectLevelUser').disabled = true;
+
+  document.getElementById('cmbSelectLevelUser').selectedIndex = 0
 }
 
 ///////////////////////////
