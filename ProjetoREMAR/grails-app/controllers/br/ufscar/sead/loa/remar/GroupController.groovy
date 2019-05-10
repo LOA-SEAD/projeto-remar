@@ -247,6 +247,7 @@ class GroupController {
     }
 
     def userStats() {
+
         def user = User.findById(params.id)
         def exportedResource = ExportedResource.findById(params.exp)
 
@@ -255,29 +256,28 @@ class GroupController {
         def levelName = params.levelName; // Nome da fase
 
         if (user) {
-            def queryMongo = MongoHelper.instance.getStats('stats', params.exp as int, user.id)
+            def queryMongo = MongoHelper.instance.getStats('challengeStats', params.exp as int, user.id)
             def allStats = []
             queryMongo.forEach(new Block<Document>() {
                 @Override
                 void apply(Document document) {
                     document.stats.each {
-                        if (it.exportedResourceId == exportedResource.id) {
 
-                            //Verificação realizada para filtrar, tambem, pelo gameLevel quando o jogo é multiplo
+                        //Verificação realizada para filtrar, tambem, pelo gameLevel quando o jogo é multiplo
 
-                            if (gameLevel == null || it.gameLevel == gameLevel as int) {
-                                if (it.challengeId == params.challenge as int) {
+                        if (gameLevel == null || it.levelId == gameLevel as int) {
+                            if (it.challengeId == params.challenge as int) {
 
-                                    // Estratégia utilizada para padronizar a população de dados e o respectivo retorno (economia de ifs e switches)
-                                    StatisticFactory factory = StatisticFactory.instance;
-                                    ChallengeStats statistics = factory.createStatistics(it.gameType as String)
+                                // Estratégia utilizada para padronizar a população de dados e o respectivo retorno (economia de ifs e switches)
+                                StatisticFactory factory = StatisticFactory.instance;
+                                ChallengeStats statistics = factory.createStatistics(it.challengeType as String)
 
-                                    def data = statistics.getData(it);
+                                def data = statistics.getData(it);
 
-                                    allStats.push(data)
-                                }
+                                allStats.push(data)
                             }
                         }
+
                     }
                 }
             })

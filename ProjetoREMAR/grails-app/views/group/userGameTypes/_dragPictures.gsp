@@ -14,7 +14,7 @@
             <td><g:formatDate format="dd/MM/yy - HH:mm" date="${stats.timestamp}"/></td>
             <td>${stats.initialSequence}</td>
             <td>${stats.numberPictures}</td>
-            <td>${stats.numberDrag}</td>
+            <td>${stats.numberMoves}</td>
             <td>
                 <g:if test="${stats.win}"><i style="color: green" class="fa fa-check"></i></g:if>
                 <g:else><i style="color: red" class="fa fa-times"></i></g:else>

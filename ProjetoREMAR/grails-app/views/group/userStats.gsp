@@ -34,8 +34,7 @@
                     <div class="divider"></div><br>
                     <p></p>
                 </div>
-
-                <g:render template="userGameTypes/${allStats.get(0).gameType}" />
+                <g:render template="userGameTypes/${allStats.get(0).challengeType}" />
             </li>
         </ul>
     </div>
