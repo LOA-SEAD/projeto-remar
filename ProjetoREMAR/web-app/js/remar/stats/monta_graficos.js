@@ -700,16 +700,17 @@ function drawUserChallengesErrors(usuario, nivel) {
           titleTextStyle: { color: "orange",
                             bold: true
                           },
-          //pieHole: 0.5,
-          pieSliceText: 'value',
           height: 300,
-          legend: { position: 'bottom',
-                    maxLines: 3,
+          legend: { position: 'none',
+                    maxLines: 3
                   },
-          is3D: false,
-          //colors: ['#1E90FF', '#00BFFF', '#87CEFA', '#87CEEB', '#ADD8E6']
+          vAxis: { title: 'Número de erros',
+                   //minValue: 0
+                 },
+          connectSteps: true,
+          colors: ['red']
         };
-        var chart = new google.visualization.PieChart(document.getElementById('playerChallErrosDiv'));
+        var chart = new google.visualization.SteppedAreaChart(document.getElementById('playerChallErrosDiv'));
 
         chart.draw(dados, options);
       }
