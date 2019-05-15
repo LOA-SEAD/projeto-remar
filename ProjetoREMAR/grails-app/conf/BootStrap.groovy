@@ -75,7 +75,7 @@ class BootStrap {
             int created = 0;
             int exists = 0;
 
-            new File(servletContext.getRealPath("csv/users.csv")).splitEachLine(";") { fields ->
+            new File(servletContext.getRealPath("csv/users.csv")).getText("UTF-8").splitEachLine(";") { fields ->
 
                 lines++;
                 if (User.countByUsername(fields[0]) == 0) {
@@ -94,6 +94,13 @@ class BootStrap {
                     if (user.hasErrors()) {
                         println user.errors
                     } else {
+                        def root = servletContext.getRealPath("/")
+                        def f = new File("${root}data/users/${user.username}")
+                        if (!f.exists()) {
+                            f.mkdirs()
+                            def destination = new File(f, "profile-picture")
+                            new AntBuilder().copy(file: "${root}images/avatars/default.png", tofile: destination)
+                        }
                         created++;
                     }
                 } else {
