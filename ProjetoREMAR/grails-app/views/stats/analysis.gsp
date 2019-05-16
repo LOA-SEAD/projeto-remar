@@ -21,7 +21,7 @@
       google.charts.load('current', {'packages':['corechart', 'table', 'line']});
     </script>
 
-    <title>REMAR - Dashaboard</title>
+    <title>REMAR - Dashboard</title>
   </head>
   <body style="overflow-x: hidden">
     <!-- container do título e botão voltar -->
