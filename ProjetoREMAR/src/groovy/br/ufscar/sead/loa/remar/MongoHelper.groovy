@@ -285,7 +285,7 @@ class MongoHelper {
                 }
             }
 
-            gameInfo = gameInfo.sort { it.key.get(0) }
+            gameInfo = gameInfo.sort { it.key.get(1) }
 
             // Para DEBUG -> descomente a linha abaixo
             //println "gameInfo: " + gameInfo

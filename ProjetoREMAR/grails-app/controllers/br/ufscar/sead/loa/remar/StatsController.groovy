@@ -179,7 +179,7 @@ class StatsController {
                     if (!infoJSON.containsKey(lvlname))
                         infoJSON.put(lvlname, [])
 
-                    infoJSON[lvlname][chall-1] = [("Desafio " + chall), question, answer]
+                    infoJSON[lvlname].add([("Desafio " + chall), question, answer])
                 }
             }
 
