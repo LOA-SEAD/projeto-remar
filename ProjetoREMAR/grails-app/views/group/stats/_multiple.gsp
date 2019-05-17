@@ -69,7 +69,7 @@ realização de uma manutenção mais facilmente.
                         <g:each in="${userStatsMap.entrySet().iterator().getAt(nroUser)}" var="statsUser">
                             <g:each in="${statsUser.value}" var="statsgameLevel">
                                 <g:if test="${statsgameLevel.key == statsSingle.key}">
-                                    <g:each in="${0..gameLevel.get(statsSingle.key)["size"]-1}" var="i">
+                                    <g:each in="${1..gameLevel.get(statsSingle.key)["size"]}" var="i">
 
                                         <g:set var="levelWon" value="${statsgameLevel.value.find { it.challengeId == i && it.win == true}}"/>
                                         <g:set var="levelLose" value="${statsgameLevel.value.find { it.challengeId == i && it.win == false}}"/>
