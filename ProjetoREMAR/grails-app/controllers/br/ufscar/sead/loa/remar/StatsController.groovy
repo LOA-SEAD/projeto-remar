@@ -530,8 +530,9 @@ class StatsController {
 
     def levelTime() {
         /*
-         *  Retorna um JSON com os tempos gastos por nivel
-         *  [[nivel, tempo]]
+         *  Retorna um JSON com as seguintes infos de todos
+         *  os tempos de conclusão por nível em minutos:
+         *  [[nivel, menor tempo, maior tempo, soma, mediana]]
          *
          *  Parâmetros:
          *      groupId            -> identificador do grupo
@@ -547,15 +548,26 @@ class StatsController {
             }
 
             def groupTimeLevel = MongoHelper.instance.getLevelTime(params.exportedResourceId as int, users)
+            def menor, maior, total, meio, mediana
+            def soma = 0.0
             def timeLevel = []
 
             if (groupTimeLevel != null) {
 
                 for (level in groupTimeLevel) {
 
-                    for (time in level.value) {
-                        timeLevel.add([level.key, time[1]])
-                    }
+                    menor = level.value.first()
+                    maior = level.value.last()
+                    total = level.value.size()
+                    meio = (int)(total/2)
+                    mediana = (total % 2 != 0) ? level.value[meio] : (level.value[meio] + level.value[meio-1])/2
+
+                    for(time in level.value)
+                        soma += time
+
+                    timeLevel.add([level.key, menor/60, maior/60, soma/(total*60), mediana/60])
+
+                    soma = 0.0
                 }
             }
 
@@ -633,6 +645,61 @@ class StatsController {
             }
 
             render avgChall as JSON
+
+        } else {
+            // TODO: render erro nos parametros
+        }
+    }
+
+    def challTime() {
+        /*
+         *  Retorna um JSON com as seguintes infos de todos
+         *  os tempos de conclusão por desafio em minutos:
+         *  [[nivel, menor tempo, maior tempo, soma, mediana]]
+         *
+         *  Parâmetros:
+         *      groupId            -> identificador do grupo
+         *      exportedResourceId -> identificador do recurso exportado
+         */
+
+        if (params.groupId && params.exportedResourceId) {
+
+            def group = Group.findById(params.groupId)
+            def userGroups = UserGroup.findAllByGroup(group)
+            def users = userGroups.collect {
+                it.user.id
+            }
+
+            def groupTimeChall = MongoHelper.instance.getChallTime(params.exportedResourceId as int, users)
+            def level, challenge, menor, maior, total, meio, mediana
+            def soma = 0.0
+            def timeChall = [:]
+
+            if (groupTimeChall != null) {
+
+                for (entry in groupTimeChall) {
+
+                    level     = entry.key.get(0)
+                    challenge = entry.key.get(1)
+                    menor = entry.value.first()
+                    maior = entry.value.last()
+                    total = entry.value.size()
+                    meio = (int)(total/2)
+                    mediana = (total % 2 != 0) ? entry.value[meio] : (entry.value[meio] + entry.value[meio-1])/2
+
+                    for(time in entry.value)
+                        soma += time
+
+                    if(timeChall.containsKey(level))
+                        timeChall[level].add([challenge, menor/60, maior/60, soma/(total*60), mediana/60])
+                    else
+                        timeChall.put( level, [[challenge, menor/60, maior/60, soma/(total*60), mediana/60]] )
+
+                    soma = 0.0
+                }
+            }
+
+            render timeChall as JSON
 
         } else {
             // TODO: render erro nos parametros

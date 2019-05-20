@@ -563,12 +563,9 @@ class MongoHelper {
         if(timeCollection.size() > 0) {
 
             def timePerLevel = [:]
-            def user, timeType, time, levelName
+            def timeType, time, levelName
 
             for (Document doc : timeCollection) {
-
-                user = doc.userId
-
                 for (Object o : doc.stats) {
 
                     timeType = o.timeType
@@ -579,9 +576,9 @@ class MongoHelper {
                         levelName = o.levelName
 
                         if (timePerLevel.containsKey(levelName)) {
-                            timePerLevel[levelName].add( [user, time] )
+                            timePerLevel[levelName].add(time)
                         } else {
-                            timePerLevel.put( levelName, [ [user, time] ] )
+                            timePerLevel.put( levelName, [time] )
                         }
                     }
                 }
@@ -590,7 +587,7 @@ class MongoHelper {
             // Para DEBUG -> descomente a linha abaixo
             //println "timePerLevel: " + timePerLevel
 
-            return timePerLevel
+            return timePerLevel.each { it.value.sort() }
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
@@ -648,6 +645,46 @@ class MongoHelper {
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
             println "ERROR: Could not return average challenge time for resource " + exportedResourceId
+            return null
+        }
+    }
+
+    //TODOS OS TEMPOS GASTOS DE TODOS DO GRUPO EM CADA LEVEL
+    def getChallTime (int exportedResourceId, List<Long> users) {
+
+        def timeCollection = getStats("timeStats", exportedResourceId, users)
+
+        if(timeCollection.size() > 0) {
+
+            def timePerChall = [:]
+            def timeType, time, key
+
+            for (Document doc : timeCollection) {
+                for (Object o : doc.stats) {
+
+                    timeType = o.timeType
+                    time     = o.time
+
+                    if (timeType == 2 && time > 0.0) {
+
+                        key = new Tuple(o.levelName, "Desafio " + o.challengeId)
+
+                        if (timePerChall.containsKey(key))
+                            timePerChall[key].add(time)
+                        else
+                            timePerChall.put( key, [time] )
+                    }
+                }
+            }
+
+            // Para DEBUG -> descomente a linha abaixo
+            //println "timePerChall: " + timePerChall
+
+            return timePerChall.each { it.value.sort() }
+
+        } else {
+            // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
+            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
             return null
         }
     }
@@ -1052,6 +1089,9 @@ class MongoHelper {
 
         // tempo gasto para conclusão de cada desafio
         //MongoHelper.instance.getAvgChallTime(exportedResourceId, grupolocal)
+
+        // lista de tempos gasto para conclusão de cada desafio
+        MongoHelper.instance.getChallTime(exportedResourceId, grupolocal)
 
         // número de tentativas por desafio
         //MongoHelper.instance.getChallAttempt(exportedResourceId, grupolocal)
