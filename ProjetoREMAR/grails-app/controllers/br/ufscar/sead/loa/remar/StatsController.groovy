@@ -691,9 +691,9 @@ class StatsController {
                         soma += time
 
                     if(timeChall.containsKey(level))
-                        timeChall[level].add([challenge, menor/60, maior/60, soma/(total*60), mediana/60])
+                        timeChall[level].add([challenge, menor, maior, soma/total, mediana])
                     else
-                        timeChall.put( level, [[challenge, menor/60, maior/60, soma/(total*60), mediana/60]] )
+                        timeChall.put( level, [[challenge, menor, maior, soma/total, mediana]] )
 
                     soma = 0.0
                 }
