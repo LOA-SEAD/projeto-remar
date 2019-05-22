@@ -65,10 +65,10 @@
       <!-- container dos gráficos de ranking e tempo de conclusão -->
       <div class="container-fluid">
         <div class="row">
-          <div id="rankingDiv" class="col s12 m4 l4 center-align">
+          <div id="rankingDiv" class="col s12 m12 l4 center-align">
             <!-- Ranking de Pontuação -->
           </div>
-          <div id="conclusionTimeDiv" class="col s12 m8 l8 center-align">
+          <div id="conclusionTimeDiv" class="col s12 m12 l8 center-align">
             <!-- Tempo de conclusão do jogo -->
           </div>
         </div>
@@ -175,10 +175,10 @@
       <div class="container-fluid">
         <!-- div dos gráficos de número de tentativas e tempo por nível de cada aluno -->
         <div class="row">
-          <div id="playerLevelAttemptDiv" class="col s12 m6 l6 center-align">
+          <div id="playerLevelAttemptDiv" class="col s12 m12 l6 center-align">
             <!-- Número de tentativas por nível -->
           </div>
-          <div id="playerTimeLevelDiv" class="col s12 m6 l6 center-align">
+          <div id="playerTimeLevelDiv" class="col s12 m12 l6 center-align">
             <!-- tempo de conclusão por nível -->
           </div>
         </div>
