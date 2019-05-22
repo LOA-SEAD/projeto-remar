@@ -77,13 +77,13 @@
       <!-- container dos gráficos de número de alunos por nível e número de tentativas por nível -->
       <div class="container-fluid">
         <div class="row">
-          <div id="usersLevelsDiv" class="col s12 m4 l4 center-align">
+          <div id="usersLevelsDiv" class="col s12 m12 l4 center-align">
             <!-- Número de alunos por nível -->
           </div>
-          <div id="levelsAttemptsDiv" class="col s12 m4 l4 center-align">
+          <div id="levelsAttemptsDiv" class="col s12 m12 l4 center-align">
             <!-- Número de tentativas por nível -->
           </div>
-          <div id="avarageLevelTimeDiv" class="col s12 m4 l4 center-align">
+          <div id="avarageLevelTimeDiv" class="col s12 m12 l4 center-align">
             <!-- Tempo médio de conlusão por nível -->
           </div>
         </div>
@@ -107,15 +107,15 @@
         <!-- container dos gráficos de número de erros, tentativas e tempo por desafio -->
         <div class="container-fluid" style="margin-bottom: -20px">
           <div class="row">
-            <div id="levelDetailDiv" class="col s12 m5 l5" style="border-right-color: gray; border-right: 1px dotted">
+            <div id="levelDetailDiv" class="col s12 m12 l5" style="border-right-color: gray; border-right: 1px dotted">
             <!-- Número de alunos por nível, suas tentativas não concluídas e concluídas -->
             </div>
-            <div class="col s12 m7 l7">
+            <div class="col s12 m12 l7">
               <div class="row">
-                <div id="challengesErrorsDiv" class="col s12 m7 l7 center-align" style="margin-left: 25px; margin-right: -25px">
+                <div id="challengesErrorsDiv" class="col s12 m12 l7 center-align" style="margin-left: 25px; margin-right: -25px">
                 <!-- Número de erros por desafio -->
                 </div>
-                <div id="challengesAttemptsDiv" class="col s12 m5 l5 center-align">
+                <div id="challengesAttemptsDiv" class="col s12 m12 l5 center-align">
                   <!-- Número de tentativas por desafio -->
                 </div>
               </div>
@@ -142,10 +142,10 @@
         <!-- container dos gráficos de frequencia de escolhas por desafio -->
         <div class="container-fluid" id="choicesChallengesDiv" style="margin-top: 10px">
           <div class="row" style="margin-bottom: 10px">
-            <div id="challengeDetailDiv" class="col s12 m5 l5 center-align" style="border-right-color: gray; border-right: 1px dotted">
+            <div id="challengeDetailDiv" class="col s12 m12 l5 center-align" style="border-right-color: gray; border-right: 1px dotted">
               <!-- Número de alunos por desafio, quantos erros e acertos tiveram -->
             </div>
-            <div id="frequenceChoiceDiv" class="col s12 m7 l7 center-align">
+            <div id="frequenceChoiceDiv" class="col s12 m12 l7 center-align">
               <!-- Frequência de escolhas por desafio -->
             </div>
           </div>
@@ -202,13 +202,13 @@
         <div class="container-fluid">
           <!-- div dos gráficos de número de erros, tentativas e tempo por desafio de cada aluno -->
           <div class="row" id="challengersUserDiv">
-            <div id="playerChallAttemptDiv" class="col s12 m4 l4 center-align">
+            <div id="playerChallAttemptDiv" class="col s12 m12 l4 center-align">
               <!-- Número de tentativas por desafio -->
             </div>
-            <div id="playerChallErrosDiv" class="col s12 m4 l4 center-align">
+            <div id="playerChallErrosDiv" class="col s12 m12 l4 center-align">
               <!-- Número de erros por desafio -->
             </div>
-            <div id="playerChallTimeDiv" class="col s12 m4 l4 center-align">
+            <div id="playerChallTimeDiv" class="col s12 m12 l4 center-align">
               <!-- Tempo de conlusão por desafio -->
             </div>
           </div>
