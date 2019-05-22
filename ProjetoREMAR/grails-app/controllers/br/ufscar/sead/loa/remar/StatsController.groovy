@@ -697,6 +697,10 @@ class StatsController {
 
                     soma = 0.0
                 }
+
+                timeChall.each { desafio ->
+                    desafio.value.sort { it[0] }
+                }
             }
 
             render timeChall as JSON
