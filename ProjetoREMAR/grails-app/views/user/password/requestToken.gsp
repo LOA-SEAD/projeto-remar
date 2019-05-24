@@ -11,8 +11,6 @@
     <g:javascript src="libs/jquery/jquery.validate.js"/>
     <recaptcha:script/>
     <g:javascript src="remar/recaptcha.js"/>
-    <g:javascript src="../assets/js/jquery.min.js" />
-    <g:javascript src="../assets/js/jquery.validate.js" />
     <style>
         body {
             background-color: #F2F2F2;
