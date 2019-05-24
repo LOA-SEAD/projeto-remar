@@ -21,7 +21,7 @@
 
     <script>
         $(function() {
-
+            Materialize.updateTextFields();
             $('form').validate({
                 rules: {
                     email: {
