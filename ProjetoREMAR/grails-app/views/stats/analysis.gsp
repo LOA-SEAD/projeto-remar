@@ -10,6 +10,8 @@
     <meta name="layout" content="materialize-layout">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" href="/assets/favicon-3b33691d9fab5d6485becec8667d7307.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 
     <!-- Aponta onde estão as funções javascript -->
     <g:javascript src="remar/stats/monta_graficos.js"></g:javascript>
@@ -33,10 +35,14 @@
         <div class="col s12 m9 l9">
           <h3 class="center-align" style="margin:0; font-weight:bold">ESTATÍSTICAS</h3>
         </div>
-        <div class="col s12 m2 l2">
+        <div class="col s12 m2 l2" style="text-align: right;">
           <p class="center-align">
-            <a href="/group/stats/${groupId}?exp=${exportedResource.id}" alt="Versão em tabela">versão em tabela </a>
+            <a href="/group/stats/${groupId}?exp=${exportedResource.id}" alt="Versão em tabela">Versão em tabela </a>
+            <!--
             <a class="btn btn-floating pulse orange" href="/group/stats/${groupId}?exp=${exportedResource.id}"><img style="margin-top: 10px" src="/images/tabela.png" alt="versão em tabela" width=20 height=20 /></a>
+            -->
+            <a class="btn btn-floating pulse orange" href="/group/stats/${groupId}?exp=${exportedResource.id}"><i class="material-icons">grid_on</i></a>
+
           </p>
         </div>
       </div>

@@ -15,12 +15,28 @@ realização de uma manutenção mais facilmente.
 <%@ page import="br.ufscar.sead.loa.remar.User" contentType="text/html;charset=UTF-8" %>
 
 <div class="cluster-header">
-    <p class="text-teal text-darken-3 center-align margin-bottom" style="font-size: 24px;">
-        Estatísticas do Jogo
-    </p>
-    <p class="text-teal text-darken-3 center-align margin-bottom" style="font-size: 20px;">
-        <b>${exportedResource.name}</b>
-    </p>
+
+    <div class="col s10">
+        <p class="text-teal text-darken-3 center-align margin-bottom" style="font-size: 24px;">
+            Estatísticas do Jogo
+        </p>
+    </div>
+
+    <div class="col s2" style="text-align: right;">
+        <a href="/stats/analysis/?groupId=${group.id}&exportedResourceId=${exportedResource.id}"
+             alt="Versão em gráficos">Versão em gráficos</a>
+        <a class="btn btn-floating pulse orange" href="/stats/analysis/?groupId=${group.id}&exportedResourceId=${exportedResource.id}">
+            <i class="material-icons">timeline</i>
+        </a>
+    </div>
+
+
+    <div class="col s10">
+        <p class="text-teal text-darken-3 center-align margin-bottom" style="font-size: 20px;">
+            <b>${exportedResource.name}</b>
+        </p>
+    </div>
+
     <div class="divider"></div>
 </div>
 
@@ -107,7 +123,7 @@ realização de uma manutenção mais facilmente.
             <div class="card-panel hoverable remar-brown"> <!-- colocar no css o standardization -->
                 <div class="right-align"><i style="cursor: pointer; color: white" class="material-icons close">close</i></div>
                 <span class="white-text">
-                    Na tabela acima você encontra todas as tentativas (certas ou erradas) dos membros do grupo. Clique no icone embaixo do numero
+                    Na tabela acima você encontra todas as tentativas (certas ou erradas) dos membros do grupo. Clique no ícone embaixo do número
                     da questão para visualizar todas as tentativas do jogador.
                 </span>
             </div>
