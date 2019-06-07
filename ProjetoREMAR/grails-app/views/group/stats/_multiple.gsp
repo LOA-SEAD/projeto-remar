@@ -15,7 +15,7 @@ realização de uma manutenção mais facilmente.
 <%@ page import="br.ufscar.sead.loa.remar.User" contentType="text/html;charset=UTF-8" %>
 
 <div class="cluster-header">
-
+<!--
     <div class="col s10">
         <p class="text-teal text-darken-3 center-align margin-bottom" style="font-size: 24px;">
             Estatísticas do Jogo
@@ -25,7 +25,7 @@ realização de uma manutenção mais facilmente.
     <div class="col s2" style="text-align: right;">
         <a href="/stats/analysis/?groupId=${group.id}&exportedResourceId=${exportedResource.id}"
              alt="Versão em gráficos">Versão em gráficos</a>
-        <a class="btn btn-floating pulse orange" href="/stats/analysis/?groupId=${group.id}&exportedResourceId=${exportedResource.id}">
+        <a class="btn btn-floating pulse my-orange" href="/stats/analysis/?groupId=${group.id}&exportedResourceId=${exportedResource.id}">
             <i class="material-icons">timeline</i>
         </a>
     </div>
@@ -36,9 +36,42 @@ realização de uma manutenção mais facilmente.
             <b>${exportedResource.name}</b>
         </p>
     </div>
+-->
+    <div class="container-fluid" style="margin-top:10px;">
+        <div class="row">
+            <div class="col s12 m1 l1">
+                <p></p>
+            </div>
+
+            <div class="col s12 m9 l9">
+                <h3 class="center-align" style="margin:0; font-weight:bold">ESTATÍSTICAS</h3>
+                <p class="text-teal text-darken-3 center-align margin-bottom" style="font-size: 20px;">
+                    <b>${exportedResource.name}</b>
+                </p>
+            </div>
+
+            <div class="col s12 m2 l2" style="text-align: right;">
+                <p class="center-align">
+                    <a href="/stats/analysis/?groupId=${group.id}&exportedResourceId=${exportedResource.id}"
+                       alt="Versão em gráficos">Versão em gráficos</a>
+                    <a class="btn btn-floating pulse my-orange" href="/stats/analysis/?groupId=${group.id}&exportedResourceId=${exportedResource.id}">
+                        <i class="material-icons">timeline</i>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
 
     <div class="divider"></div>
 </div>
+
+<br><br>
+
+
+
+
+
+
 
 <div class="row">
     <div class="required input-field col s8 offset-s2"> <!-- "required" apenas para campos obrigatórios -->

@@ -16,6 +16,10 @@
     <!-- VERIFICAR USERSTATSMAP OU ALL STATS #CORRIGIR -->
     <g:if test="${hasContent}">
         <div class="col l12">
+
+            <!-- o cabeçalho da página poderia estar aqui!
+                 colocar depois para facilitar manutenção -->
+
             <g:if test="${isMultiple}">
                 <g:render template="stats/multiple" />
             </g:if>

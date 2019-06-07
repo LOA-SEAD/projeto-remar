@@ -34,6 +34,9 @@
         </div>
         <div class="col s12 m9 l9">
           <h3 class="center-align" style="margin:0; font-weight:bold">ESTATÍSTICAS</h3>
+          <p class="text-teal text-darken-3 center-align margin-bottom" style="font-size: 20px;">
+            <b>${exportedResource.name}</b>
+          </p>
         </div>
         <div class="col s12 m2 l2" style="text-align: right;">
           <p class="center-align">
@@ -41,7 +44,7 @@
             <!--
             <a class="btn btn-floating pulse orange" href="/group/stats/${groupId}?exp=${exportedResource.id}"><img style="margin-top: 10px" src="/images/tabela.png" alt="versão em tabela" width=20 height=20 /></a>
             -->
-            <a class="btn btn-floating pulse orange" href="/group/stats/${groupId}?exp=${exportedResource.id}"><i class="material-icons">grid_on</i></a>
+            <a class="btn btn-floating pulse my-orange" href="/group/stats/${groupId}?exp=${exportedResource.id}"><i class="material-icons">grid_on</i></a>
 
           </p>
         </div>
