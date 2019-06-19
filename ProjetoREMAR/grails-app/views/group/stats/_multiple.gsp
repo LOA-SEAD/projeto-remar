@@ -55,7 +55,7 @@ realização de uma manutenção mais facilmente.
                     <a href="/stats/analysis/?groupId=${group.id}&exportedResourceId=${exportedResource.id}"
                        alt="Versão em gráficos">Versão em gráficos</a>
                     <a class="btn btn-floating pulse my-orange" href="/stats/analysis/?groupId=${group.id}&exportedResourceId=${exportedResource.id}">
-                        <i class="material-icons">timeline</i>
+                        <i class="material-icons">equalizer</i>
                     </a>
                 </p>
             </div>
