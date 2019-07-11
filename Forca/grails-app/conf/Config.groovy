@@ -90,7 +90,7 @@ grails.hibernate.osiv.readonly = false
 environments {
     development {
         grails.app.context = "/forca"
-
+        /*
         // in development, we can use the same credential/api keys that REMAR uses
         def path = new File('.').absoluteFile.parentFile // app root folder
         def file = "${path.parent}/ProjetoREMAR/grails-app/conf/env.properties"
@@ -114,7 +114,7 @@ environments {
 
         properties.store(file, 'auto generated from REMAR\'s env.properties')
         file.close()
-
+    */
         grails.config.locations = ["classpath:env.properties"]
         grails.logging.jul.usebridge = true
     }

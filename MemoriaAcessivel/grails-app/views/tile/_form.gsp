@@ -14,9 +14,9 @@
             <div>
                 <h3><g:message code="tile.audioA.label"/></h3>
                 <div id="controlsA">
-                    <a class="btn waves-effect waves-light remar-orange" id="recordButtonA"><g:message code="tile.sound.record.button.label"/></a>
-                    <a class="btn waves-effect waves-light remar-orange" id="pauseButtonA" disabled=""><g:message code="tile.sound.pause.button.label"/></a>
-                    <a class="btn waves-effect waves-light remar-orange" id="stopButtonA" disabled=""><g:message code="tile.sound.stop.button.label"/></a>
+                    <a class="btn waves-effect waves-light remar-orange" id="recordButton"><g:message code="tile.sound.record.button.label"/></a>
+                    <a class="btn waves-effect waves-light remar-orange" id="pauseButton" disabled=""><g:message code="tile.sound.pause.button.label"/></a>
+                    <a class="btn waves-effect waves-light remar-orange" id="stopButton" disabled=""><g:message code="tile.sound.stop.button.label"/></a>
                 </div>
             </div>
             <div>
@@ -24,6 +24,7 @@
                 <div id="recordingsListA"></div>
             </div>
         </div>
+
         <div class="col s6">
             <div>
                 <h3><g:message code="tile.audioB.label"/></h3>
