@@ -258,7 +258,7 @@ function drawConclusionTime() {
                         },
         legend: { position: 'right' },
         height: 350,
-        vAxis: { title: 'Tempo (min)' },
+        vAxis: { title: 'Tempo (minutos)' },
         //connectSteps: false,
         //colors: ['#3568c9', '#ff7f27'],
       };
@@ -283,7 +283,7 @@ function drawUsersInLevels() {
 
       var data = google.visualization.arrayToDataTable(array);
       var options = {
-        title: 'Total de alunos por nível',
+        title: 'Número de alunos por nível',
         titleTextStyle: { color: "orange",
                           bold: true
                         },
@@ -297,7 +297,7 @@ function drawUsersInLevels() {
                 },*/
         height: 300,
         vAxis: { title: 'Número de alunos' },
-        //legend: { position: 'bottom' },
+        legend: { position: 'none' },
         //colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']
         //colors: ['#1E90FF', '#00BFFF', '#87CEFA', '#87CEEB', '#ADD8E6']
       };
@@ -327,7 +327,7 @@ function drawLevelsAttempts() {
                           bold: true
                         },
         height: 300,
-        vAxis: { title: 'Tentativas' },
+        vAxis: { title: 'Número de tentativas' },
         legend: { position: 'bottom' },
         colors: ['#3366cc', '#008000']
       };
@@ -358,7 +358,7 @@ function drawAvarageLevels() {
                         },
         height: 300,
         legend: { position: 'bottom' },
-        vAxis: { title: 'Tempo (min)'
+        vAxis: { title: 'Tempo (minutos)'
                },
         colors: ['#1d9623', '#f75858', '#3568c9', '#ff7f27'],
         curveType: 'function'
@@ -386,14 +386,14 @@ function drawLevelDetail(nivel) {
 
       var dados = google.visualization.arrayToDataTable(data);
       var options = {
-        title: 'Tentativas de conclusão do nível por aluno',
+        title: 'Número de tentativas no nível por aluno',
         titleTextStyle: { color: "orange",
                           bold: true
                         },
         height: 450,
         chartArea: {width: '50%'},
         legend: { position: 'right' },
-        vAxis: { title: 'Tentativas' },
+        vAxis: { title: 'Número de tentativas' },
         isStacked: true,
         colors: ['#008000', '#dc3912'],
         //colors: ['#f96969', '#12b21b'],
@@ -501,7 +501,7 @@ function drawAvarageChallenges(nivel) {
         height: 250,
         width: '100%',
         legend: { position: 'right' },
-        vAxis: { title: 'Tempo (seg)',
+        vAxis: { title: 'Tempo (segundos)',
                  //minValue: 0
                },
         //colors: ['#109619', '#dc3812'],
@@ -542,7 +542,7 @@ function drawChallengeDetail(nivel, desafio) {
           height: 300,
           chartArea: { width: '50%' },
           legend: { position: 'right' },
-          vAxis: { title: 'Tentativas' },
+          vAxis: { title: 'Número de tentativas' },
           isStacked: true,
           colors: ['#008000', '#dc3912'],
         };
@@ -585,7 +585,7 @@ function drawFrequenceChoice(nivel, desafio) {
           legend: { position: 'right' },
           height: 300,
           vAxis: {
-            title: 'Quantidade de escolhas',
+            title: 'Número de escolhas',
             //textPosition: 'in',
           },
           hAxis: {
@@ -621,14 +621,14 @@ function drawUserLevelsAttempts(usuario) {
 
     var dados = google.visualization.arrayToDataTable(data);
       var options = {
-        title: 'Número de tentativas por Nível',
+        title: 'Número de tentativas por nível',
         titleTextStyle: { color: "orange",
                           bold: true
                         },
         height: 300,
         chartArea: { width: '50%' },
         legend: { position: 'right' },
-        vAxis: { title: 'Tentativas' },
+        vAxis: { title: 'Número de tentativas' },
         //isStacked: true,
         colors: ['#109618', '#dc3912'],
       };
@@ -655,13 +655,13 @@ function drawUserTimeLevels2(usuario) {
 
       var dados = google.visualization.arrayToDataTable(data);
       var options = {
-        title: 'Tempo de conclusão do nível',
+        title: 'Tempo de conclusão por nível',
         titleTextStyle: { color: "orange",
                           bold: true
                         },
         height: 300,
         legend: { position: 'bottom' },
-        vAxis: { title: 'Tempo (min)',
+        vAxis: { title: 'Tempo (minutos)',
                  //minValue: 0
                },
         curveType: 'function',
@@ -739,7 +739,7 @@ function drawUserChallengesAttempts(usuario, nivel) {
 
         var dados = google.visualization.arrayToDataTable(data2);
         var options = {
-          title: 'Total de tentativas por desafio',
+          title: 'Tentativas por desafio',
           titleTextStyle: { color: "orange",
                             bold: true,
                           },
@@ -789,7 +789,7 @@ function drawUserTimeChalls(usuario, nivel) {
                           },
           height: 300,
           legend: { position: 'bottom' },
-          vAxis: { title: 'Tempo (seg)',
+          vAxis: { title: 'Tempo (segundos)',
                    //minValue: 0
                  },
           //curveType: 'function',
