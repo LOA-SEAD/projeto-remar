@@ -1,5 +1,6 @@
 /**
   Adaptado da API Google Charts, por Frederico Cardoso
+  Atualizado em: 07/08/2019
   **/
 
 window.onload = function() {
@@ -286,20 +287,21 @@ function drawUsersInLevels() {
         titleTextStyle: { color: "orange",
                           bold: true
                         },
-        pieHole: 0.5,
+        //pieHole: 0.5,
         //is3D: true,
-        pieSliceText: 'value',
+        //pieSliceText: 'value',
         /*slices: {  0: {offset: 0.1},
                    2: {offset: 0.2},
                    4: {offset: 0.1},
                    6: {offset: 0.2},
                 },*/
         height: 300,
-        legend: { position: 'bottom' },
+        vAxis: { title: 'Número de alunos' },
+        //legend: { position: 'bottom' },
         //colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']
         //colors: ['#1E90FF', '#00BFFF', '#87CEFA', '#87CEEB', '#ADD8E6']
       };
-      var chart = new google.visualization.PieChart(document.getElementById('usersLevelsDiv'));
+      var chart = new google.visualization.ColumnChart(document.getElementById('usersLevelsDiv'));
 
       chart.draw(data, options);
     }
@@ -325,6 +327,7 @@ function drawLevelsAttempts() {
                           bold: true
                         },
         height: 300,
+        vAxis: { title: 'Tentativas' },
         legend: { position: 'bottom' },
         colors: ['#3366cc', '#008000']
       };
@@ -339,18 +342,17 @@ function drawLevelsAttempts() {
 //função para criar o gráfico de média de tempo por nível
 ///////////////////////////
 function drawAvarageLevels() {
-  $.get("/stats/avgLevelTime?" + grupo + "&" + jogo, function(array) {
+  $.get("/stats/levelTime?" + grupo + "&" + jogo, function(array) {
     if (array.length == 0) {
       var div = document.getElementById("avarageLevelTimeDiv");
 
       div.innerHTML = "<p style='color: red; text-align: center'>Os alunos não concluíram nenhum nível, por isso não tem tempo de conclusão por nível.</p>";
     } else {
-      array.unshift(['Nível', 'Menor', "Maior"]);
+      array.unshift(['Nível', 'Menor', 'Maior', 'Média', 'Mediana']);
 
       var data = google.visualization.arrayToDataTable(array);
       var options = {
-        //title: 'Tempo médio de conclusão por nível (menor tempo de cada jogador)',
-        title: 'Média de tempo por nível',
+        title: 'Tempo de conclusão por nível',
         titleTextStyle: { color: "orange",
                           bold: true
                         },
@@ -358,16 +360,12 @@ function drawAvarageLevels() {
         legend: { position: 'bottom' },
         vAxis: { title: 'Tempo (min)'
                },
-        colors: ['#3568c9', '#ff7f27'],
-        //isStacked: 'true',
+        colors: ['#1d9623', '#f75858', '#3568c9', '#ff7f27'],
         curveType: 'function'
       };
       var chart = new google.visualization.LineChart(document.getElementById('avarageLevelTimeDiv'));
 
       chart.draw(data, options);
-
-      /*var chart = new google.charts.Line(document.getElementById('avarageLevelTimeDiv'));
-      chart.draw(data, google.charts.Line.convertOptions(options));*/
     }
   });
 }
@@ -423,7 +421,7 @@ function drawChallengesErrors(nivel) {
 
       var dados = google.visualization.arrayToDataTable(data);
       var options = {
-        title: 'Taxa de erros por desafio',
+        title: 'Taxa de erro por desafio',
         titleTextStyle: { color: "orange",
                           bold: true
                         },
@@ -460,7 +458,7 @@ function drawChallengesAttempts(nivel) {
 
       var dados = google.visualization.arrayToDataTable(data);
       var options = {
-        title: 'Total de tentativas por desafio',
+        title: 'Tentativas por desafio',
         titleTextStyle: { color: "orange",
                           bold: true
                         },
@@ -484,7 +482,7 @@ function drawChallengesAttempts(nivel) {
 //função para criar o gráfico de média de tempo por desafio
 ///////////////////////////
 function drawAvarageChallenges(nivel) {
-  $.get("/stats/avgChallTime?" + grupo + "&" + jogo, function(array) {
+  $.get("/stats/challTime?" + grupo + "&" + jogo, function(array) {
     if (!(nivel in array)) {
       var div = document.getElementById("avarageChallengeTimeDiv");
 
@@ -492,12 +490,11 @@ function drawAvarageChallenges(nivel) {
     } else {
       var data = array[nivel];
 
-      data.unshift(['Nível', 'Menor', 'Maior']);
+      data.unshift(['Nível', 'Menor', 'Maior', 'Média', 'Mediana']);
 
       var dados = google.visualization.arrayToDataTable(data);
       var options = {
-        //title: 'Tempo médio de conclusão por nível (menor tempo de cada jogador)',
-        title: 'Média de tempo por desafio',
+        title: 'Tempo de conclusão por desafio',
         titleTextStyle: { color: "orange",
                           bold: true
                         },
@@ -508,9 +505,10 @@ function drawAvarageChallenges(nivel) {
                  //minValue: 0
                },
         //colors: ['#109619', '#dc3812'],
-        colors: ['#3568c9', '#ff7f27'],
+        colors: ['#1d9623', '#f75858', '#3568c9', '#ff7f27'],
         isStacked: 'false'
       };
+
       var chart = new google.visualization.AreaChart(document.getElementById('avarageChallengeTimeDiv'));
 
       chart.draw(dados, options);
@@ -537,14 +535,14 @@ function drawChallengeDetail(nivel, desafio) {
 
         var dados = google.visualization.arrayToDataTable(data2);
         var options = {
-          title: 'Número de acertos e erros por aluno',
+          title: 'Número de tentativas no desafio por aluno',
           titleTextStyle: { color: "orange",
                             bold: true
                           },
           height: 300,
           chartArea: { width: '50%' },
           legend: { position: 'right' },
-          vAxis: { title: 'Quantidade' },
+          vAxis: { title: 'Tentativas' },
           isStacked: true,
           colors: ['#008000', '#dc3912'],
         };
@@ -579,7 +577,7 @@ function drawFrequenceChoice(nivel, desafio) {
 
         var dados = google.visualization.arrayToDataTable(data2);
         var options = {
-          title: 'Frequência de escolhas por desafio',
+          title: 'Frequência de respostas por desafio',
           titleTextStyle: { color: "orange",
                             bold: true,
                             fontSize: 11
@@ -590,8 +588,8 @@ function drawFrequenceChoice(nivel, desafio) {
             title: 'Quantidade de escolhas',
             //textPosition: 'in',
           },
-          hAxix: {
-            title: 'Repostas do aluno',
+          hAxis: {
+            title: 'Alternativas escolhidas',
           },
           //colors: ['#1E90FF']
         };
@@ -630,8 +628,8 @@ function drawUserLevelsAttempts(usuario) {
         height: 300,
         chartArea: { width: '50%' },
         legend: { position: 'right' },
-        vAxis: { title: 'Quantidade' },
-        isStacked: true,
+        vAxis: { title: 'Tentativas' },
+        //isStacked: true,
         colors: ['#109618', '#dc3912'],
       };
       var chart = new google.visualization.ColumnChart(document.getElementById('playerLevelAttemptDiv'));
