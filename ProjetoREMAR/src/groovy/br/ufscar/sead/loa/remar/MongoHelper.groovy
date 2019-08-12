@@ -1,11 +1,9 @@
 package br.ufscar.sead.loa.remar
 
-import com.mongodb.BasicDBObject
 import com.mongodb.MongoCredential
 import com.mongodb.ServerAddress
 import com.mongodb.client.MongoDatabase
 import com.mongodb.MongoClient
-import com.mongodb.client.MongoIterable
 import com.mongodb.client.model.Filters
 import org.bson.Document
 import org.bson.types.ObjectId
@@ -257,6 +255,7 @@ class MongoHelper {
 
             def gameInfo = [:]
             def level, levelName, challenge, challengeType, question, answer, key, info
+            def infoJSON = [:]
 
             for (Document doc : challCollection) {
                 for (Object o : doc.stats) {
@@ -266,31 +265,44 @@ class MongoHelper {
                     challenge = o.challengeId
                     challengeType = o.challengeType
 
-                    if(challengeType== "multipleChoice" || challengeType == "questionAndAnswer")
+                    if(challengeType == "multipleChoice" || challengeType == "questionAndAnswer")
                         question = o.question
                     else if(challengeType == "shuffleWord")
                         question = o.word
                     else if(challengeType == "dragPictures")
                         question = o.initialSequence
 
-                    answer   = o.correctAnswer
+                    answer = o.correctAnswer
 
                     key  = new Tuple(level, challenge)
                     info = [levelName, question, answer]
 
-                    if( !(gameInfo.containsKey(key)) ) {
+                    if( !(gameInfo.containsKey(key)) )
                         gameInfo.put(key, info)
-                    }
 
                 }
             }
 
             gameInfo = gameInfo.sort { it.key.get(1) }
 
+            for (entry in gameInfo) {
+
+                challenge = entry.key.get(1)
+                levelName = entry.value.get(0)
+                question  = entry.value.get(1)
+                answer    = entry.value.get(2)
+
+                if (!infoJSON.containsKey(levelName))
+                    infoJSON.put(levelName, [])
+
+                infoJSON[levelName].add([("Desafio " + challenge), question, answer])
+            }
+
             // Para DEBUG -> descomente a linha abaixo
             //println "gameInfo: " + gameInfo
+            //println "infoJSON: " + infoJSON
 
-            return gameInfo
+            return infoJSON
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
@@ -299,6 +311,7 @@ class MongoHelper {
         }
     }
 
+    //RANKING DOS JOGADORES DE UM JOGO
     def getRanking(Long exportedResourceId) {
         def rankingCollection = db.getCollection("ranking")
         def collectionEntry = rankingCollection.find(new Document('exportedResourceId', exportedResourceId))
@@ -455,7 +468,7 @@ class MongoHelper {
     }
 
     //TOTAL DE TENTATIVAS E TENTATIVAS CONCLUÍDAS EM CADA NÍVEL POR JOGADOR
-    def getLevelAttemptRatio (int exportedResourceId, List<Long> users) {
+    def getLevelAttemptRatio (int exportedResourceId, List<Long> users)     {
 
         def timeCollection = getStats("timeStats", exportedResourceId, users)
 
@@ -667,15 +680,19 @@ class MongoHelper {
 
                     if (timeType == 2 && time > 0.0) {
 
-                        key = new Tuple(o.levelName, "Desafio " + o.challengeId)
+                        key  = new Tuple(o.levelName, "Desafio " + o.challengeId)
 
-                        if (timePerChall.containsKey(key))
-                            timePerChall[key].add(time)
-                        else
-                            timePerChall.put( key, [time] )
+                        if (!timePerChall.containsKey(key))
+                            timePerChall.put(key, [])
+
+                        timePerChall[key].add(time)
                     }
                 }
             }
+
+            println timePerChall
+                    .sort { it.key.get(1) }
+                    .each { it.value.sort() }
 
             // Para DEBUG -> descomente a linha abaixo
             //println "timePerChall: " + timePerChall
@@ -798,6 +815,51 @@ class MongoHelper {
 
             // Para DEBUG -> descomente a linha abaixo
             //println "challMistakes: " + challMistakes
+
+            return challMistakes
+
+        } else {
+            // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
+            println "ERROR: Could not return challenge mistakes for resource " + exportedResourceId
+            return null
+        }
+
+    }
+
+    //TOTAL DE TENTATIVAS E TENTATIVAS CONCLUÍDAS EM CADA DESAFIO POR JOGADOR
+    def getChallMistakesRatio2 (int exportedResourceId, List<Long> users) {
+
+        def statsCollection = getStats("challengeStats", exportedResourceId, users)
+
+        if (statsCollection.size() > 0) {
+
+            def challMistakes = [:]
+            def tuple
+            def hitOrMiss, temp
+
+            for (Document doc : statsCollection) {
+                for (Object o : doc.stats) {
+
+                    tuple = new Tuple( o.levelName, o.challengeId )
+
+                    if(o.win) {
+                        hitOrMiss = 0
+                        temp = [1, 0]
+                    } else {
+                        hitOrMiss = 1
+                        temp = [0, 1]
+                    }
+
+                    if (challMistakes.containsKey(tuple)) {
+                        challMistakes[tuple][hitOrMiss] += 1
+                    } else {
+                        challMistakes.put(tuple, temp)
+                    }
+                }
+            }
+
+            // Para DEBUG -> descomente a linha abaixo
+            println "challMistakes: " + challMistakes
 
             return challMistakes
 
@@ -1091,7 +1153,7 @@ class MongoHelper {
         //MongoHelper.instance.getAvgChallTime(exportedResourceId, grupolocal)
 
         // lista de tempos gasto para conclusão de cada desafio
-        MongoHelper.instance.getChallTime(exportedResourceId, grupolocal)
+        //MongoHelper.instance.getChallTime(exportedResourceId, grupolocal)
 
         // número de tentativas por desafio
         //MongoHelper.instance.getChallAttempt(exportedResourceId, grupolocal)

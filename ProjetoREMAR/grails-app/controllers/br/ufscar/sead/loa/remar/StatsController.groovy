@@ -3,6 +3,7 @@ package br.ufscar.sead.loa.remar
 import br.ufscar.sead.loa.remar.statistics.RankingStats
 import br.ufscar.sead.loa.remar.statistics.StatisticFactory
 import br.ufscar.sead.loa.remar.statistics.ChallengeStats
+import br.ufscar.sead.loa.remar.statistics.StatsProcessor
 import br.ufscar.sead.loa.remar.statistics.TimeStats
 import grails.converters.JSON
 
@@ -161,30 +162,8 @@ class StatsController {
     def gameInfo() {
 
         if(params.exportedResourceId) {
-
-            def info = MongoHelper.instance.getGameInfo(params.exportedResourceId as int)
-            def infoJSON = [:]
-
-            if(info != null) {
-
-                def lvlname, chall, question, answer
-
-                for (entry in info) {
-
-                    chall    = entry.key.get(1)
-                    lvlname  = entry.value.get(0)
-                    question = entry.value.get(1)
-                    answer   = entry.value.get(2)
-
-                    if (!infoJSON.containsKey(lvlname))
-                        infoJSON.put(lvlname, [])
-
-                    infoJSON[lvlname].add([("Desafio " + chall), question, answer])
-                }
-            }
-
-            render infoJSON as JSON
-
+            def gameInfo = StatsProcessor.instance.getGameInfo(params.exportedResourceId as int)
+            render gameInfo as JSON
         } else {
             // TODO: render erro nos parametros
         }
@@ -377,6 +356,59 @@ class StatsController {
     }
 
     def levelAttemptRatio() {
+        /*
+         *  Retorna um JSON com total de tentativas e tentativas concluídas por desafio de cada aluno
+         *  [level:
+         *    [
+         *      desafio : [jogador, tentativas, tent. concluídas]
+         *    ]
+         *  ]
+         *
+         *
+         *  Parâmetros:
+         *      groupId            -> identificador do grupo
+         *      exportedResourceId -> identificador do recurso exportado
+         */
+
+        if (params.groupId && params.exportedResourceId) {
+
+            def group = Group.findById(params.groupId)
+            def userGroups = UserGroup.findAllByGroup(group)
+            def users = userGroups.collect {
+                it.user.id
+            }
+
+            def resourceAtt = MongoHelper.instance.getChallMistakesRatio2(params.exportedResourceId as int, users)
+            def playersMissRatio = [:]
+
+            if (resourceAtt != null) {
+
+                def level, challenge, challengeId, hits, mistakes
+
+                for (entry in resourceAtt) {
+
+                    level       = entry.key.get(0)
+                    challengeId = "D" + entry.key.get(1)
+                    challenge   = "Desafio " + entry.key.get(1)
+                    hits        = entry.value.get(0)
+                    mistakes    = entry.value.get(1)
+
+                    if(playersMissRatio.containsKey(level)) {
+                        playersMissRatio[level].add( [challengeId, hits, mistakes, challenge, hits + mistakes] )
+                    } else {
+                        playersMissRatio.put(level, [ [challengeId, hits, mistakes, challenge, hits + mistakes] ] )
+                    }
+                }
+            }
+
+            render playersMissRatio as JSON
+
+        } else {
+            // TODO: render erro nos parametros
+        }
+    }
+
+    def levelAttemptRatio2() {
         /*
          *  Retorna um JSON com total de tentativas e tentativas concluídas por nível de cada aluno
          *  [[jogador, tentativas, tent. concluídas]]
