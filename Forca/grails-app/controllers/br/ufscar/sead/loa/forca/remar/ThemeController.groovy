@@ -151,7 +151,6 @@ class ThemeController {
 
 
         if(originalUpload.toString().contains("icon")){
-
             int[] sizes = [36,48,72,96,144,192]
 
             for(int i=0; i<sizes.length; i++) {
@@ -160,12 +159,8 @@ class ThemeController {
                 name = "icon" + sizes[i] + ".png"
                 def newImgUploaded = new File("$storagePath/$name")
                 ImageIO.write(newImg, 'png', newImgUploaded)
-
             }
-
-
         }
-
 
         if((imageIn.getWidth() > 800)||imageIn.getHeight() > 600){
             BufferedImage newImg = Scalr.resize(imageIn, Scalr.Method.ULTRA_QUALITY, 600, 800, Scalr.OP_ANTIALIAS)

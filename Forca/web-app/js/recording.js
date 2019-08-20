@@ -84,9 +84,9 @@ var input; //MediaStreamAudioSourceNode we'll be recording
 var AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioContext = new AudioContext; //new audio context to help us record
 
-var recordButton = document.getElementById("recordButton");
-var stopButton = document.getElementById("stopButton");
-var pauseButton = document.getElementById("pauseButton");
+var recordButton = document.getElementById("recordButtonA");
+var stopButton = document.getElementById("stopButtonA");
+var pauseButton = document.getElementById("pauseButtonA");
 var recordButtonB = document.getElementById("recordButtonB");
 var stopButtonB = document.getElementById("stopButtonB");
 var pauseButtonB = document.getElementById("pauseButtonB");
@@ -104,15 +104,20 @@ function startRecording() {
     /*
     Disable the record button until we get a success or fail from getUserMedia()
     */
-
+    /*
+    recordButton.disabled = true;
+    stopButton.disabled = false;
+    pauseButton.disabled = false;
+*/
     if (this.id == "recordButtonA") {
-        currentRecordingCard = "A";
+        currentRecordingCard = "A"; // referente à pergunta
         $(recordButton).attr("disabled", "");
-        $(recordButton).attr("disabled", "");
+        $(recordButtonB).attr("disabled", "");
         $(pauseButton).removeAttr("disabled");
         $(stopButton).removeAttr("disabled");
+
     } else {
-        currentRecordingCard = "B";
+        currentRecordingCard = "B"; // referente à resposta
         $(recordButton).attr("disabled", "");
         $(recordButtonB).attr("disabled", "");
         $(pauseButtonB).removeAttr("disabled");

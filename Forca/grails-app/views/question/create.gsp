@@ -32,15 +32,14 @@
                         </g:eachError>
                     </ul>
                 </g:hasErrors>
-                <g:form url="[resource:questionInstance, action:'save']" >
+
+                <g:form url="[resource:questionInstance, action:'newQuestion']" enctype="multipart/form-data">
                     <fieldset class="form">
                         <g:render template="form"/>
                     </fieldset>
                     <br />
-                    <fieldset class="buttons">
-                        <g:submitButton name="create" class="btn btn-success" value="${message(code: 'default.button.create.label', default: 'Criar')}" />
-                    </fieldset>
                 </g:form>
+
             </div>
         </div>
     </div>
