@@ -162,7 +162,7 @@ class StatsController {
     def gameInfo() {
 
         if(params.exportedResourceId) {
-            def gameInfo = StatsProcessor.instance.getGameInfo(params.exportedResourceId as int)
+            def gameInfo = StatsProcessor.gameInfo(params.exportedResourceId as int)
             render gameInfo as JSON
         } else {
             // TODO: render erro nos parametros
