@@ -6,11 +6,11 @@ import org.bson.Document
 
 class StatsProcessor {
 
-    def gameInfo() {
+    def gameInfo(exportedResourceId) {
 
-        if(params.exportedResourceId) {
+        if(exportedResourceId) {
 
-            def info = MongoHelper.instance.getGameInfo(params.exportedResourceId as int)
+            def info = MongoHelper.instance.getGameInfo(exportedResourceId as int)
             def infoJSON = [:]
 
             if(info != null) {
