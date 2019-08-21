@@ -6,7 +6,7 @@ import org.bson.Document
 
 class StatsProcessor {
 
-    def gameInfo(int exportedResourceId) {
+    def gameInfo(Integer exportedResourceId) {
 
         if(exportedResourceId) {
 
