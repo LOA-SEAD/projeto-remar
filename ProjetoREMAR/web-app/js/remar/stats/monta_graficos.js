@@ -296,7 +296,7 @@ function drawUsersInLevels() {
                            6: {offset: 0.2},
                         },*/
                 height: 300,
-                vAxis: { title: 'Número de alunos' },
+                vAxis: { title: 'Número de alunos', minValue: 0 },
                 legend: { position: 'none' },
                 //colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']
                 //colors: ['#1E90FF', '#00BFFF', '#87CEFA', '#87CEEB', '#ADD8E6']
@@ -607,7 +607,7 @@ function drawFrequenceChoice(nivel, desafio) {
             } else {
                 var data2 = data[desafio];
 
-                data2.unshift(['Desafio', 'Quantidade']);
+                data2.unshift(['Desafio', 'Quantidade', { role: 'style' }]);
 
                 var dados = google.visualization.arrayToDataTable(data2);
                 var options = {
