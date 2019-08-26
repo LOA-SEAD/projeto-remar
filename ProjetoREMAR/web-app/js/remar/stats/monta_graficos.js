@@ -1,6 +1,6 @@
 /**
  Adaptado da API Google Charts, por Frederico Cardoso
- Atualizado em: 12/08/2019
+ Atualizado em: 20/08/2019
  **/
 
 window.onload = function() {
@@ -296,7 +296,7 @@ function drawUsersInLevels() {
                            6: {offset: 0.2},
                         },*/
                 height: 300,
-                vAxis: { title: 'Número de alunos' },
+                vAxis: { title: 'Número de alunos', minValue: 0 },
                 legend: { position: 'none' },
                 //colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']
                 //colors: ['#1E90FF', '#00BFFF', '#87CEFA', '#87CEEB', '#ADD8E6']
@@ -373,6 +373,39 @@ function drawAvarageLevels() {
 ///////////////////////////
 //função para criar o gráfico de detalhes do nível
 ///////////////////////////
+/*function drawLevelDetail(nivel) {
+    $.get("/stats/levelAttemptRatio?" + grupo + "&" + jogo, function(array) {
+        if (!(nivel in array)) {
+            var div = document.getElementById("levelDetailDiv");
+
+            div.innerHTML = "<p style='color: red; text-align: center'>Não houve alunos neste nível.</p>";
+        } else {
+            var data = array[nivel];
+
+            data.unshift(['ID', 'Erros', 'Acertos', 'Desafio', 'Tentativas']);
+
+            var dados = google.visualization.arrayToDataTable(data);
+            var options = {
+                title: 'Progresso da turma no nível',
+                titleTextStyle: { color: "orange",
+                    bold: true
+                },
+                height: 450,
+                //chartArea: {width: '50%'},
+                legend: { position: 'right' },
+                hAxis: { title: 'Número de erros',
+                         minValue: 0 },
+                vAxis: { title: 'Número de acertos',
+                         minValue: 0 },
+                bubble: { textStyle: {fontSize: 11 } },
+            };
+            var chart = new google.visualization.BubbleChart(document.getElementById('levelDetailDiv'));
+
+            chart.draw(dados, options);
+        }
+    });
+}*/
+
 function drawLevelDetail(nivel) {
     $.get("/stats/levelAttemptRatio?" + grupo + "&" + jogo, function(array) {
         if (!(nivel in array)) {
@@ -416,7 +449,7 @@ function drawLevelDetail(nivel) {
     } else {
       var data = array[nivel];
 
-      data.unshift(['Aluno', 'Concluída', 'Não concluída']);
+      data.unshift(['Aluno', 'Não concluída', 'Concluída']);
 
       var dados = google.visualization.arrayToDataTable(data);
       var options = {
@@ -429,7 +462,7 @@ function drawLevelDetail(nivel) {
         legend: { position: 'right' },
         vAxis: { title: 'Número de tentativas' },
         isStacked: true,
-        colors: ['#008000', '#dc3912'],
+        colors: ['#dc3912', '#008000'],
         //colors: ['#f96969', '#12b21b'],
       };
       var chart = new google.visualization.ColumnChart(document.getElementById('levelDetailDiv'));
@@ -458,14 +491,14 @@ function drawChallengesErrors(nivel) {
             var options = {
                 title: 'Taxa de erro por desafio',
                 titleTextStyle: { color: "orange",
-                    bold: true
+                                  bold: true
                 },
                 height: 200,
                 legend: { position: 'none',
                     maxLines: 3
                 },
                 vAxis: { title: 'Número de erros',
-                    minValue: 0
+                         minValue: 0
                 },
                 connectSteps: true,
                 colors: ['red']
@@ -566,7 +599,7 @@ function drawChallengeDetail(nivel, desafio) {
             } else {
                 var data2 = data[desafio];
 
-                data2.unshift(['Aluno', 'Acertos', 'Erros']);
+                data2.unshift(['Aluno', 'Erros', 'Acertos']);
 
                 var dados = google.visualization.arrayToDataTable(data2);
                 var options = {
@@ -579,7 +612,7 @@ function drawChallengeDetail(nivel, desafio) {
                     legend: { position: 'right' },
                     vAxis: { title: 'Número de tentativas' },
                     isStacked: true,
-                    colors: ['#008000', '#dc3912'],
+                    colors: [ '#dc3912', '#008000'],
                 };
                 var chart = new google.visualization.ColumnChart(document.getElementById('challengeDetailDiv'));
 
@@ -608,7 +641,7 @@ function drawFrequenceChoice(nivel, desafio) {
             } else {
                 var data2 = data[desafio];
 
-                data2.unshift(['Desafio', 'Quantidade']);
+                data2.unshift(['Desafio', 'Quantidade', { role: 'style' }]);
 
                 var dados = google.visualization.arrayToDataTable(data2);
                 var options = {

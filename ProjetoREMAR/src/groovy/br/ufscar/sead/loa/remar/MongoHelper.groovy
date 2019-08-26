@@ -884,7 +884,7 @@ class MongoHelper {
             for (Document doc : statsCollection) {
                 for (Object o : doc.stats) {
 
-                    tuple = new Tuple( o.levelName, ("Desafio ${o.challengeId}"),  o.answer.toLowerCase())
+                    tuple = new Tuple( o.levelName, ("Desafio ${o.challengeId}"),  o.answer.toLowerCase(), o.correctAnswer)
 
                     if (choiceFrequency.containsKey(tuple))
                         choiceFrequency[tuple] += 1

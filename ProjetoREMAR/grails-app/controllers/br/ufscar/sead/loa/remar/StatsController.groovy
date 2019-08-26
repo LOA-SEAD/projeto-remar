@@ -918,11 +918,15 @@ class StatsController {
             }
 
             def resourceFreq = MongoHelper.instance.getChoiceFrequency(params.exportedResourceId as int, users)
+            def info = MongoHelper.instance.getGameInfo(params.exportedResourceId as int)
             def groupChoiceFreq = [:]
 
             if (resourceFreq != null) {
+                
+                def CORRECT_ANSWER_COLOR = "green"
+                def WRONG_ANSWER_COLOR = "red"
 
-                def level, challenge, answer, freq
+                def level, challenge, answer, freq, correctAnswer
 
                 for (entry in resourceFreq) {
 
@@ -930,15 +934,28 @@ class StatsController {
                     challenge = entry.key.get(1)
                     answer    = entry.key.get(2)
                     freq      = entry.value
+                    correctAnswer = entry.key.get(3)
 
-                    if (groupChoiceFreq.containsKey(level)) {
-                        if (groupChoiceFreq[level].containsKey(challenge)) {
-                            groupChoiceFreq[level].get(challenge).add([answer, freq])
+                    if(groupChoiceFreq.containsKey(level)) {
+                        if(groupChoiceFreq[level].containsKey(challenge)) {
+                            if (correctAnswer == answer) {
+                                groupChoiceFreq[level].get(challenge).add( [answer, freq, CORRECT_ANSWER_COLOR] )
+                            } else {
+                                groupChoiceFreq[level].get(challenge).add( [answer, freq, WRONG_ANSWER_COLOR] )
+                            }
                         } else {
-                            groupChoiceFreq[level].put(challenge, [[answer, freq]])
+                            if (correctAnswer == answer) {
+                                groupChoiceFreq[level].put(challenge, [[answer, freq, CORRECT_ANSWER_COLOR]])
+                            } else {
+                                groupChoiceFreq[level].put(challenge, [[answer, freq, WRONG_ANSWER_COLOR]])
+                            }
                         }
                     } else {
-                        groupChoiceFreq.put(level, [(challenge): [[answer, freq]]])
+                        if (correctAnswer == answer) {
+                            groupChoiceFreq.put(level, [ (challenge): [[answer, freq, CORRECT_ANSWER_COLOR]] ] )
+                        } else {
+                            groupChoiceFreq.put(level, [ (challenge): [[answer, freq, WRONG_ANSWER_COLOR]] ] )
+                        }
                     }
                 }
             }
