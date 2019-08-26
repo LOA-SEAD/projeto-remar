@@ -441,9 +441,9 @@ class StatsController {
                     notConclAttempts = entry.value.get(0) - conclAttempts
 
                     if(playersLevelAtt.containsKey(level)) {
-                        playersLevelAtt[level].add( [user, conclAttempts, notConclAttempts] )
+                        playersLevelAtt[level].add( [user, notConclAttempts, conclAttempts] )
                     } else {
-                        playersLevelAtt.put(level, [[user, conclAttempts, notConclAttempts]])
+                        playersLevelAtt.put(level, [[user, notConclAttempts, conclAttempts]])
                     }
                 }
             }
@@ -882,12 +882,12 @@ class StatsController {
 
                     if(playersMissRatio.containsKey(level)) {
                         if(playersMissRatio[level].containsKey(challenge)) {
-                            playersMissRatio[level][challenge].add( [user, hits, mistakes] )
+                            playersMissRatio[level][challenge].add( [user, mistakes, hits] )
                         } else {
-                            playersMissRatio[level].put( challenge, [[user, hits, mistakes]] )
+                            playersMissRatio[level].put( challenge, [[user, mistakes, hits]] )
                         }
                     } else {
-                        playersMissRatio.put(level, [ (challenge): [[user, hits, mistakes]] ] )
+                        playersMissRatio.put(level, [ (challenge): [[user, mistakes, hits]] ] )
                     }
                 }
             }

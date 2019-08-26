@@ -650,7 +650,7 @@ function drawFrequenceChoice(nivel, desafio) {
                         bold: true,
                         fontSize: 11
                     },
-                    legend: { position: 'right' },
+                    legend: { position: 'none' },
                     height: 300,
                     vAxis: {
                         title: 'Número de escolhas',
