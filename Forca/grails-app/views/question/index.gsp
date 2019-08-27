@@ -112,7 +112,7 @@
 
 
 <!-- Botões da base da tabela -->
-<div class="row">
+<div class="row" style="margin-top:2em;">
     <!-- Botão de submissão; submete as perguntas selecionadas -->
     <div class="col s2">
         <button class="btn waves-effect waves-light my-orange" type="submit" name="save" id="save">Enviar
@@ -121,7 +121,7 @@
 
     <!-- Botão de criação de perguntas; chama o modal para edição da pergunta -->
     <div class="col s1 offset-s6">
-        <a data-target="createModal" name="create"
+    <a data-target="createModal" name="create"
            class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão">
             <i class="material-icons">add</i>
         </a>
@@ -157,7 +157,7 @@
 <!-- Modal Structure -->
 <!-- Modal de criação de perguntas -->
 <div id="createModal" class="modal remar-modal">
-    <g:form url="[resource: questionInstance, action: 'newQuestion']">
+    <g:uploadForm url="[resource: questionInstance, action: 'newQuestion']">
         <div class="modal-content">
             <h4>Criar Questão <i class="material-icons tooltipped" data-position="right" data-delay="30"
                                  data-tooltip="Respostas não devem possuir números nem caracteres especiais.">info</i>
@@ -168,11 +168,12 @@
         </div>
 
         <div class="modal-footer">
-            <a href="#!" class="save modal-action modal-close btn waves-effect waves-light remar-orange" action="create"
+            <a href="#!" id="upload" type="submit" class="save modal-action btn waves-effect waves-light remar-orange" action="create"
                onclick="$(this).closest('form').submit()" name="create">Criar</a>
-            <a href="#!" class="save modal-action modal-close btn waves-effect waves-light remar-orange">Cancelar</a>
+            <a href="#!" class="upload save modal-action modal-close btn waves-effect waves-light remar-orange">Cancelar</a>
         </div>
-    </g:form>
+
+    </g:uploadForm>
 </div>
 
 

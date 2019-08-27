@@ -33,12 +33,10 @@
                     </ul>
                 </g:hasErrors>
 
-                <g:form url="[resource:questionInstance, action:'newQuestion']" enctype="multipart/form-data">
                     <fieldset class="form">
                         <g:render template="form"/>
                     </fieldset>
                     <br />
-                </g:form>
 
             </div>
         </div>

@@ -177,6 +177,7 @@ class ThemeController {
 
     @Transactional
     def ImagesManager() { // TODO: fix var names + optimize
+
         def userId = springSecurityService.getCurrentUser().getId()
 
         def theme = new Theme(ownerId: userId).save flush: true

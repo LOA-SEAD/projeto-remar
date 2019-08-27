@@ -19,7 +19,7 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class QuestionController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", newQuestion:"POST"]
 
     def beforeInterceptor = [action: this.&check, only: ['index']]
 
@@ -83,15 +83,11 @@ class QuestionController {
 
         def userId = springSecurityService.getCurrentUser().getId()
         def dataPath = servletContext.getRealPath("/data")
-        def userPath = new File(dataPath, "/" + userId + "/audios/" + newQuest.getId())
+        def userPath = new File(dataPath, "/" + userId + "/audios/" + questionInstance.id)
         userPath.mkdirs()
 
         def audioUploaded = request.getFile('audio-1')
-        audioUploaded.transferTo(new File("$userPath/audioteste.png"))
-
-
-
-
+        audioUploaded.transferTo(new File("$userPath/audio.wav"))
 
 
         newQuest.save flush: true
@@ -107,6 +103,11 @@ class QuestionController {
 
         redirect(action: index())
 
+
+    }
+
+    @Transactional
+    def salvarAudio() {
 
     }
 
