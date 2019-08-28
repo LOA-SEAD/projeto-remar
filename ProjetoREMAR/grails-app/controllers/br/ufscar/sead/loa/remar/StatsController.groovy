@@ -162,7 +162,7 @@ class StatsController {
     def gameInfo() {
 
         if(params.exportedResourceId) {
-            def gameInfo = StatsProcessor.gameInfo(params.exportedResourceId as int)
+            def gameInfo = MongoHelper.instance.getGameInfo(params.exportedResourceId as int)
             render gameInfo as JSON
         } else {
             // TODO: render erro nos parametros
@@ -357,59 +357,6 @@ class StatsController {
 
     def levelAttemptRatio() {
         /*
-         *  Retorna um JSON com total de tentativas e tentativas concluídas por desafio de cada aluno
-         *  [level:
-         *    [
-         *      desafio : [jogador, tentativas, tent. concluídas]
-         *    ]
-         *  ]
-         *
-         *
-         *  Parâmetros:
-         *      groupId            -> identificador do grupo
-         *      exportedResourceId -> identificador do recurso exportado
-         */
-
-        if (params.groupId && params.exportedResourceId) {
-
-            def group = Group.findById(params.groupId)
-            def userGroups = UserGroup.findAllByGroup(group)
-            def users = userGroups.collect {
-                it.user.id
-            }
-
-            def resourceAtt = MongoHelper.instance.getChallMistakesRatio2(params.exportedResourceId as int, users)
-            def playersMissRatio = [:]
-
-            if (resourceAtt != null) {
-
-                def level, challenge, challengeId, hits, mistakes
-
-                for (entry in resourceAtt) {
-
-                    level       = entry.key.get(0)
-                    challengeId = "D" + entry.key.get(1)
-                    challenge   = "Desafio " + entry.key.get(1)
-                    hits        = entry.value.get(0)
-                    mistakes    = entry.value.get(1)
-
-                    if(playersMissRatio.containsKey(level)) {
-                        playersMissRatio[level].add( [challengeId, hits, mistakes, challenge, hits + mistakes] )
-                    } else {
-                        playersMissRatio.put(level, [ [challengeId, hits, mistakes, challenge, hits + mistakes] ] )
-                    }
-                }
-            }
-
-            render playersMissRatio as JSON
-
-        } else {
-            // TODO: render erro nos parametros
-        }
-    }
-
-    def levelAttemptRatio2() {
-        /*
          *  Retorna um JSON com total de tentativas e tentativas concluídas por nível de cada aluno
          *  [[jogador, tentativas, tent. concluídas]]
          *
@@ -488,9 +435,9 @@ class StatsController {
                     notConclAttempts = entry.value.get(0) - conclAttempts
 
                     if(playersLevelAtt.containsKey(user)) {
-                        playersLevelAtt[user].add( [level, conclAttempts, notConclAttempts] )
+                        playersLevelAtt[user].add( [level, notConclAttempts, conclAttempts] )
                     } else {
-                        playersLevelAtt.put(user, [[level, conclAttempts, notConclAttempts]])
+                        playersLevelAtt.put(user, [[level, notConclAttempts, conclAttempts]])
                     }
                 }
             }
@@ -899,7 +846,7 @@ class StatsController {
         }
     }
 
-    def choiceFrequency  () {
+    def choiceFrequency  ()     {
         /*
          *  Retorna um JSON com frequencia de escolhas por desafio
          *  [level:[desafio, tentivas]]
@@ -918,44 +865,116 @@ class StatsController {
             }
 
             def resourceFreq = MongoHelper.instance.getChoiceFrequency(params.exportedResourceId as int, users)
-            def info = MongoHelper.instance.getGameInfo(params.exportedResourceId as int)
             def groupChoiceFreq = [:]
 
             if (resourceFreq != null) {
-                
-                def CORRECT_ANSWER_COLOR = "green"
-                def WRONG_ANSWER_COLOR = "red"
 
-                def level, challenge, answer, freq, correctAnswer
+                def level, challenge, answer, correctAnswer, freq, answerColor
 
                 for (entry in resourceFreq) {
 
-                    level     = entry.key.get(0)
-                    challenge = entry.key.get(1)
-                    answer    = entry.key.get(2)
-                    freq      = entry.value
+                    level         = entry.key.get(0)
+                    challenge     = entry.key.get(1)
+                    answer        = entry.key.get(2)
                     correctAnswer = entry.key.get(3)
+                    freq          = entry.value
+
+                    if (answer == correctAnswer) {
+                        answerColor = "#108011"   // hex pro verde das colunas com resposta certa
+                        answer = correctAnswer
+                    } else {
+                        answerColor = "#da351e"  // hex pro vermelho das colunas com resposta errada
+                    }
 
                     if(groupChoiceFreq.containsKey(level)) {
-                        if(groupChoiceFreq[level].containsKey(challenge)) {
-                            if (correctAnswer == answer) {
-                                groupChoiceFreq[level].get(challenge).add( [answer, freq, CORRECT_ANSWER_COLOR] )
-                            } else {
-                                groupChoiceFreq[level].get(challenge).add( [answer, freq, WRONG_ANSWER_COLOR] )
-                            }
-                        } else {
-                            if (correctAnswer == answer) {
-                                groupChoiceFreq[level].put(challenge, [[answer, freq, CORRECT_ANSWER_COLOR]])
-                            } else {
-                                groupChoiceFreq[level].put(challenge, [[answer, freq, WRONG_ANSWER_COLOR]])
-                            }
-                        }
+
+                        if(groupChoiceFreq[level].containsKey(challenge))
+                            groupChoiceFreq[level].get(challenge).add( [answer, freq, answerColor] )
+                        else
+                            groupChoiceFreq[level].put(challenge, [[answer, freq, answerColor]])
+
                     } else {
-                        if (correctAnswer == answer) {
-                            groupChoiceFreq.put(level, [ (challenge): [[answer, freq, CORRECT_ANSWER_COLOR]] ] )
+                        groupChoiceFreq.put(level, [ (challenge): [[answer, freq, answerColor]] ] )
+                    }
+                }
+            }
+
+            render groupChoiceFreq as JSON
+
+        } else {
+            // TODO: render erro nos parametros
+        }
+    }
+
+    def playerChoiceFrequency  () {
+        /*
+         *  Retorna um JSON com frequencia de escolhas por desafio
+         *  [level:[desafio, tentivas]]
+         *
+         *  Parâmetros:
+         *      groupId            -> identificador do grupo
+         *      exportedResourceId -> identificador do recurso exportado
+         */
+
+        if (params.groupId && params.exportedResourceId) {
+
+            def group = Group.findById(params.groupId)
+            def userGroups = UserGroup.findAllByGroup(group)
+            def users = userGroups.collect {
+                it.user.id
+            }
+
+            def resourceFreq = MongoHelper.instance.getPlayerChoiceFrequency(params.exportedResourceId as int, users)
+            def groupChoiceFreq = [:]
+
+            if (resourceFreq != null) {
+
+                def user, level, challenge, answer, correctAnswer, freq, answerColor, answerArray
+
+                for (entry in resourceFreq) {
+
+                    user          = User.findById(entry.key.get(0)).name
+                    level         = entry.key.get(1)
+                    challenge     = entry.key.get(2)
+                    answer        = entry.key.get(3)
+                    correctAnswer = entry.key.get(4)
+                    freq          = entry.value
+
+                    if (answer == correctAnswer) {
+                        answerColor = "#108011"   // hex pro verde das colunas com resposta certa
+                        answer = correctAnswer
+                    } else {
+                        answerColor = "#da351e"  // hex pro vermelho das colunas com resposta errada
+                    }
+
+                    answerArray = [answer, freq, answerColor]
+
+                    def levelMap = [:], challMap = [:]
+
+                    try {
+                        if(groupChoiceFreq.containsKey(user)) {
+
+                            if(groupChoiceFreq[user].containsKey(level)) {
+
+                                if(groupChoiceFreq[user][level].containsKey(challenge)) {
+                                    groupChoiceFreq[user][level].get(challenge).add(answerArray)
+                                } else {
+                                    groupChoiceFreq[user][level].put(challenge, [answerArray])
+                                }
+
+                            } else {
+                                challMap.put(challenge, [answerArray])
+                                groupChoiceFreq[user].put(level, challMap)
+                            }
+
                         } else {
-                            groupChoiceFreq.put(level, [ (challenge): [[answer, freq, WRONG_ANSWER_COLOR]] ] )
+                            challMap.put(challenge, [answerArray])
+                            levelMap.put(level, challMap)
+                            groupChoiceFreq.put(user, levelMap)
                         }
+
+                    } catch (Exception e) {
+                        System.err.println(e.getClass().getName() + ": " + e.getMessage());
                     }
                 }
             }

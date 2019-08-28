@@ -510,7 +510,7 @@ class MongoHelper {
             // Para DEBUG -> descomente as linhas abaixo
             //println "levelAttemptRatio: " + levelAttempts
 
-            return levelAttempts
+            return levelAttempts.sort { it.value[0] }
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
@@ -690,10 +690,6 @@ class MongoHelper {
                 }
             }
 
-            println timePerChall
-                    .sort { it.key.get(1) }
-                    .each { it.value.sort() }
-
             // Para DEBUG -> descomente a linha abaixo
             //println "timePerChall: " + timePerChall
 
@@ -816,7 +812,7 @@ class MongoHelper {
             // Para DEBUG -> descomente a linha abaixo
             //println "challMistakes: " + challMistakes
 
-            return challMistakes
+            return challMistakes.sort { it.value[0] + it.value[1] }
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
@@ -826,52 +822,7 @@ class MongoHelper {
 
     }
 
-    //TOTAL DE TENTATIVAS E TENTATIVAS CONCLUÍDAS EM CADA DESAFIO POR JOGADOR
-    def getChallMistakesRatio2 (int exportedResourceId, List<Long> users) {
-
-        def statsCollection = getStats("challengeStats", exportedResourceId, users)
-
-        if (statsCollection.size() > 0) {
-
-            def challMistakes = [:]
-            def tuple
-            def hitOrMiss, temp
-
-            for (Document doc : statsCollection) {
-                for (Object o : doc.stats) {
-
-                    tuple = new Tuple( o.levelName, o.challengeId )
-
-                    if(o.win) {
-                        hitOrMiss = 0
-                        temp = [1, 0]
-                    } else {
-                        hitOrMiss = 1
-                        temp = [0, 1]
-                    }
-
-                    if (challMistakes.containsKey(tuple)) {
-                        challMistakes[tuple][hitOrMiss] += 1
-                    } else {
-                        challMistakes.put(tuple, temp)
-                    }
-                }
-            }
-
-            // Para DEBUG -> descomente a linha abaixo
-            println "challMistakes: " + challMistakes
-
-            return challMistakes
-
-        } else {
-            // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return challenge mistakes for resource " + exportedResourceId
-            return null
-        }
-
-    }
-
-    //FREQUÊNCIA DE ESCOLHAS POR DESAFIO
+    //FREQUÊNCIA DE ESCOLHAS DOS DESAFIOS
     def getChoiceFrequency (int exportedResourceId, List<Long> users) {
 
         def statsCollection = getStats("challengeStats", exportedResourceId, users)
@@ -884,7 +835,7 @@ class MongoHelper {
             for (Document doc : statsCollection) {
                 for (Object o : doc.stats) {
 
-                    tuple = new Tuple( o.levelName, ("Desafio ${o.challengeId}"),  o.answer.toLowerCase(), o.correctAnswer)
+                    tuple = new Tuple( o.levelName, ("Desafio ${o.challengeId}"),  o.answer.toLowerCase(), o.correctAnswer.toLowerCase())
 
                     if (choiceFrequency.containsKey(tuple))
                         choiceFrequency[tuple] += 1
@@ -896,7 +847,7 @@ class MongoHelper {
             // Para DEBUG -> descomente a linha abaixo
             //println "choiceFrequency: " + choiceFrequency
 
-            return choiceFrequency
+            return choiceFrequency.sort { -it.value }
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
@@ -904,6 +855,44 @@ class MongoHelper {
             return null
         }
 
+    }
+
+    //FREQUÊNCIA DE ESCOLHAS DOS DESAFIOS POR USUÀRIO
+    def getPlayerChoiceFrequency (int exportedResourceId, List<Long> users) {
+
+        def statsCollection = getStats("challengeStats", exportedResourceId, users)
+
+        if (statsCollection.size() > 0) {
+
+            def choiceFrequency = [:]
+            def user
+            def tuple
+
+            for (Document doc : statsCollection) {
+
+                user = doc.userId
+
+                for (Object o : doc.stats) {
+
+                    tuple = new Tuple( user, o.levelName, ("Desafio ${o.challengeId}"),  o.answer.toLowerCase(), o.correctAnswer.toLowerCase())
+
+                    if (choiceFrequency.containsKey(tuple))
+                        choiceFrequency[tuple] += 1
+                    else
+                        choiceFrequency.put(tuple, 1)
+                }
+            }
+
+            // Para DEBUG -> descomente a linha abaixo
+            //println "choiceFrequency: " + choiceFrequency
+
+            return choiceFrequency.sort { -it.value }
+
+        } else {
+            // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
+            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            return null
+        }
     }
 
     //NÚMERO DE TENTATIVAS EM CADA NÍVEL POR JOGADOR
@@ -1162,10 +1151,13 @@ class MongoHelper {
         //MongoHelper.instance.getChallMistakes(exportedResourceId, grupolocal)
 
         // total de tentativas e tentativas concluidas em cada desafio por jogador
-        //MongoHelper.instance.getChallMistakesRatio(exportedResourceId, grupolocal)
+        MongoHelper.instance.getChallMistakesRatio(exportedResourceId, grupolocal)
 
-        // frequência de escolhas por desafio
+        // frequência de escolhas dos desafios
         //MongoHelper.instance.getChoiceFrequency(exportedResourceId, grupolocal)
+
+        //frequência de escolhas dos desafios por usuário
+        //MongoHelper.instance.getPlayerChoiceFrequency (exportedResourceId, grupolocal)
 
         // número de tentativas em cada nível por jogador
         //MongoHelper.instance.getPlayerLevelAttempt(exportedResourceId, grupolocal)

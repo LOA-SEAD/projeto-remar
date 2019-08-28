@@ -1,6 +1,6 @@
 /**
  Adaptado da API Google Charts, por Frederico Cardoso
- Atualizado em: 20/08/2019
+ Atualizado em: 26/08/2019
  **/
 
 window.onload = function() {
@@ -84,7 +84,7 @@ function montaComboLevel() {
 }
 
 ///////////////////////////
-//função para montar o combo de níveis
+//função para montar o combo de níveis (por aluno)
 ///////////////////////////
 function montaComboLevelUser() {
     //bloqueia a primeira opção do combobox (Selecione...)
@@ -118,6 +118,33 @@ function montaComboChallenge(nivel) {
 
     //bloqueia a primeira opção do combobox (Selecione...)
     document.getElementById('defaultSelectChallenge').disabled = true;
+}
+
+///////////////////////////
+//função para montar o combo de desafios por aluno
+///////////////////////////
+function montaComboChallengeUser(nivel) {
+    //limpa combobox
+    document.getElementById('cmbSelectChallengeUser').options.length = 1;
+
+    //preenche o combo de desafios
+    $.getJSON("/stats/gameInfo?" + jogo, function(array) {
+        var options = array[nivel];
+
+        var select = document.getElementById("cmbSelectChallengeUser");
+
+        for(var i = 0; i < options.length; i++) {
+            var opt = options[i];
+            var el = document.createElement("option");
+            el.textContent = opt[0];
+            el.value = opt[0];
+
+            select.appendChild(el);
+        }
+    });
+
+    //bloqueia a primeira opção do combobox (Selecione...)
+    document.getElementById('defaultSelectChallengeUser').disabled = true;
 }
 
 ///////////////////////////
@@ -189,6 +216,15 @@ function selectLevelUser() {
     drawUserTimeChalls(usuario, nivel);
     drawLegendsUser(nivel);
 
+    //desbloqueia o combo de desafios
+    document.getElementById('cmbSelectChallengeUser').disabled = false;
+
+    //desbloqueia a primeira opção do combobox (Selecione...)
+    document.getElementById('defaultSelectChallengeUser').disabled = false;
+
+    //chama função para montar o combo de desafio
+    montaComboChallengeUser(nivel);
+
     //mostrando gráficos de desafios
     document.getElementById("challengersUserDiv").style.display = "block";
     document.getElementById("legendUserDiv").style.display = "flex";
@@ -213,6 +249,23 @@ function selectChallenge() {
 
     //atualizando a div onde está o gráfico
     load('index.html #choicesChallengesDiv');
+}
+
+///////////////////////////
+//função que pega o valor selecionado no comboBox de Desafios
+///////////////////////////
+function selectChallengeUser() {
+    //definindo o valor da variável nível de acordo com a opção do combo selecionada
+    desafio = $("#cmbSelectChallengeUser option:selected").text();
+
+    //chama as funções para montar os gráficos de desafios
+    drawUserFrequenceChoice(usuario, nivel, desafio);
+
+    //mostrando gráficos de desafios
+    document.getElementById("choicesChallengesUserDiv").style.display = "block";
+
+    //atualizando a div onde está o gráfico
+    load('index.html #choicesChallengesUserDiv');
 }
 
 ///////////////////////////
@@ -377,13 +430,10 @@ function drawAvarageLevels() {
     $.get("/stats/levelAttemptRatio?" + grupo + "&" + jogo, function(array) {
         if (!(nivel in array)) {
             var div = document.getElementById("levelDetailDiv");
-
             div.innerHTML = "<p style='color: red; text-align: center'>Não houve alunos neste nível.</p>";
         } else {
             var data = array[nivel];
-
             data.unshift(['ID', 'Erros', 'Acertos', 'Desafio', 'Tentativas']);
-
             var dados = google.visualization.arrayToDataTable(data);
             var options = {
                 title: 'Progresso da turma no nível',
@@ -400,7 +450,6 @@ function drawAvarageLevels() {
                 bubble: { textStyle: {fontSize: 11 } },
             };
             var chart = new google.visualization.BubbleChart(document.getElementById('levelDetailDiv'));
-
             chart.draw(dados, options);
         }
     });
@@ -415,62 +464,28 @@ function drawLevelDetail(nivel) {
         } else {
             var data = array[nivel];
 
-            data.unshift(['ID', 'Erros', 'Acertos', 'Desafio', 'Tentativas']);
+            data.unshift(['Aluno', 'Não concluída', 'Concluída']);
 
             var dados = google.visualization.arrayToDataTable(data);
             var options = {
-                title: 'Progresso da turma no nível',
+                title: 'Número de tentativas no nível por aluno',
                 titleTextStyle: { color: "orange",
                     bold: true
                 },
                 height: 450,
-                //chartArea: {width: '50%'},
+                chartArea: {width: '50%'},
                 legend: { position: 'right' },
-                hAxis: { title: 'Número de erros' },
-                vAxis: { title: 'Número de acertos' },
-                //isStacked: true,
-                //colors: ['#008000', '#dc3912'],
+                vAxis: { title: 'Número de tentativas' },
+                isStacked: true,
+                colors: ['#dc3912', '#008000'],
                 //colors: ['#f96969', '#12b21b'],
-                bubble: { textStyle: {fontSize: 11 } },
             };
-            var chart = new google.visualization.BubbleChart(document.getElementById('levelDetailDiv'));
+            var chart = new google.visualization.ColumnChart(document.getElementById('levelDetailDiv'));
 
             chart.draw(dados, options);
         }
     });
 }
-
-/*function drawLevelDetail(nivel) {
-  $.get("/stats/levelAttemptRatio?" + grupo + "&" + jogo, function(array) {
-    if (!(nivel in array)) {
-      var div = document.getElementById("levelDetailDiv");
-
-      div.innerHTML = "<p style='color: red; text-align: center'>Não houve alunos neste nível.</p>";
-    } else {
-      var data = array[nivel];
-
-      data.unshift(['Aluno', 'Não concluída', 'Concluída']);
-
-      var dados = google.visualization.arrayToDataTable(data);
-      var options = {
-        title: 'Número de tentativas no nível por aluno',
-        titleTextStyle: { color: "orange",
-                          bold: true
-                        },
-        height: 450,
-        chartArea: {width: '50%'},
-        legend: { position: 'right' },
-        vAxis: { title: 'Número de tentativas' },
-        isStacked: true,
-        colors: ['#dc3912', '#008000'],
-        //colors: ['#f96969', '#12b21b'],
-      };
-      var chart = new google.visualization.ColumnChart(document.getElementById('levelDetailDiv'));
-
-      chart.draw(dados, options);
-    }
-  });
-}*/
 
 
 ///////////////////////////
@@ -491,14 +506,14 @@ function drawChallengesErrors(nivel) {
             var options = {
                 title: 'Taxa de erro por desafio',
                 titleTextStyle: { color: "orange",
-                                  bold: true
+                    bold: true
                 },
                 height: 200,
                 legend: { position: 'none',
                     maxLines: 3
                 },
                 vAxis: { title: 'Número de erros',
-                         minValue: 0
+                    minValue: 0
                 },
                 connectSteps: true,
                 colors: ['red']
@@ -657,7 +672,7 @@ function drawFrequenceChoice(nivel, desafio) {
                         //textPosition: 'in',
                     },
                     hAxis: {
-                        title: 'Alternativas escolhidas',
+                        title: 'Resposta escolhida',
                     },
                     //colors: ['#1E90FF']
                 };
@@ -685,7 +700,7 @@ function drawUserLevelsAttempts(usuario) {
         } else {
             var data = array[usuario];
 
-            data.unshift(['Nível', 'Concluída', 'Não concluída']);
+            data.unshift(['Nível', 'Não concluída', 'Concluída']);
 
             var dados = google.visualization.arrayToDataTable(data);
             var options = {
@@ -697,7 +712,7 @@ function drawUserLevelsAttempts(usuario) {
                 chartArea: { width: '50%' },
                 legend: { position: 'right' },
                 vAxis: { title: 'Número de tentativas' },
-                //isStacked: true,
+                isStacked: true,
                 colors: ['#109618', '#dc3912'],
             };
             var chart = new google.visualization.ColumnChart(document.getElementById('playerLevelAttemptDiv'));
@@ -877,6 +892,61 @@ function drawUserTimeChalls(usuario, nivel) {
 }
 
 ///////////////////////////
+//função para criar o gráfico de frequência de escolhas por desafio de cada aluno
+///////////////////////////
+function drawUserFrequenceChoice(usuario, nivel, desafio) {
+    $.get("/stats/playerChoiceFrequency?" + grupo + "&" + jogo, function(array) {
+        if (usuario in array) {
+            var data = array[usuario];
+
+            if (nivel in data) {
+                var data2 = data[nivel];
+
+                if (!(desafio in data2)) {
+                    var div = document.getElementById("playerFrequenceChoiceDiv");
+
+                    div.innerHTML = "<p style='color: red; text-align: center'>O aluno não tentou responder esse desafio.</p>";
+                } else {
+                    var data3 = data2[desafio];
+
+                    data3.unshift(['Desafio', 'Quantidade', { role: 'style' }]);
+
+                    var dados = google.visualization.arrayToDataTable(data3);
+                    var options = {
+                        title: 'Frequência de respostas dada por desafio',
+                        titleTextStyle: { color: "orange",
+                            bold: true,
+                            fontSize: 11
+                        },
+                        legend: { position: 'none' },
+                        height: 300,
+                        vAxis: {
+                            title: 'Número de escolhas',
+                            //textPosition: 'in',
+                        },
+                        hAxis: {
+                            title: 'Resposta escolhida',
+                        },
+                        //colors: ['#1E90FF']
+                    };
+                    var chart = new google.visualization.ColumnChart(document.getElementById('playerFrequenceChoiceDiv'));
+
+                    chart.draw(dados, options);
+                }
+            } else {
+                var div = document.getElementById("playerFrequenceChoiceDiv");
+
+                div.innerHTML = "<p style='color: red; text-align: center'>O aluno não tentou responder esse desafio.</p>";
+            }
+        } else {
+            var div = document.getElementById("playerFrequenceChoiceDiv");
+
+            div.innerHTML = "<p style='color: red; text-align: center'>O aluno não tentou responder esse desafio.</p>";
+        }
+    });
+}
+
+///////////////////////////
 //função para criar a tabela de legendas
 ///////////////////////////
 function drawLegends(nivel) {
@@ -943,16 +1013,12 @@ function drawLegendsUser(nivel) {
   $.get("/stats/playerLevelTime?" + grupo + "&" + jogo, function(array) {
     if (usuario in array) {
       var data = array[usuario];
-
       if (!(nivel in data)) {
         var div = document.getElementById("playerTimeLevelDiv");
-
         div.innerHTML = "<p style='color: red; text-align: center'>O aluno não concluiu este desafio, por isso não tem tempo de conslusão.</p>";
       } else {
         var data2 = data[nivel];
-
         data2.unshift(['Tentativa', 'Tempo']);
-
         var dados = google.visualization.arrayToDataTable(data2);
         var options = {
           title: 'Tempo de conclusão do nível para cada tentativa',
@@ -968,12 +1034,10 @@ function drawLegendsUser(nivel) {
           //colors: ['green', 'red'],
         };
         var chart = new google.visualization.LineChart(document.getElementById('playerTimeLevelDiv'));
-
         chart.draw(dados, options);
       }
     } else {
       var div = document.getElementById("playerTimeLevelDiv");
-
       div.innerHTML = "<p style='color: red; text-align: center'>Este aluno não concluiu nenhum nível deste jogo, por isso não tem tempo de conclusão.</p>";
     }
   });
@@ -983,32 +1047,23 @@ function drawLegendsUser(nivel) {
 /*function drawTeste() {
   $.get("/stats/ranking?groupId=" + grupo + "&exportedResourceId=" + jogo, function(array) {
     //array.unshift(['Alunos', 'Tempo']);
-
     var data = anychart.data.set(array);
-
     // create a chart
     chart = anychart.column();
-
     // create a column series and set the data
     var series = chart.column(data);
-
     // configure tooltips on the chart
     chart.title("Ranking de Pontuação");
-
     // enable the legend
     chart.legend(false);
-
     // configure tooltips on the chart
     //chart.tooltip().title("Information");
     chart.tooltip().format("Pontos: {%value}");
-
     // set the titles of the axes
     //chart.xAxis().title("Usuários");
     chart.yAxis().title("Pontuação");
-
     // set the container id
     chart.container("timeConclusionDiv");
-
     // initiate drawing the chart
     chart.draw();
   });
@@ -1018,27 +1073,20 @@ function drawLegendsUser(nivel) {
 /*function drawDoubleGraph() {
   $.get("/stats/ranking?groupId=" + grupo + "&exportedResourceId=" + jogo, function(array) {
     //array.unshift(['Alunos', 'Tempo']);
-
     var data = anychart.data.set(array);
   });
-
   $.get("/stats/ranking?groupId=" + grupo + "&exportedResourceId=" + jogo, function(array) {
     //array.unshift(['Alunos', 'Tempo']);
-
     var data2 = anychart.data.set(array);
   });
-
   // create and configure a pie chart
   var chart1 = anychart.pie(data);
   chart1.innerRadius("75%");
-
   // create a bar chart
   var chart2 = anychart.pie(data2);
   chart2.legend(false);
-
   // set bar chart as the center content of a pie chart
   chart1.center().content(chart2);
-
   //chart1.title("Donut Chart: Chart in the center");
   chart1.container("timeConclusionDiv");
   chart1.draw();
@@ -1048,7 +1096,6 @@ function drawLegendsUser(nivel) {
 /*function drawAvarageLevels() {
   $.get("/stats/levelTime?groupId=" + grupo + "&exportedResourceId=" + jogo, function(array) {
     array.unshift(['Nível', 'Média de tempo (min)']);
-
     var data = google.visualization.arrayToDataTable(array);
     var options = {
       title: 'Tempo médio de conclusão por nível',
@@ -1064,7 +1111,6 @@ function drawLegendsUser(nivel) {
       colors: ['#1E90FF'],
     };
     var chart = new google.visualization.ScatterChart(document.getElementById('avarageLevelsDiv'));
-
     chart.draw(data, options);
   });
 }*/
