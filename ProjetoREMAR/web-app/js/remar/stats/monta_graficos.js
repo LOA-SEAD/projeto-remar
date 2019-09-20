@@ -89,8 +89,13 @@ function montaComboLevel() {
 function montaComboLevelUser() {
     //bloqueia a primeira opção do combobox (Selecione...)
     document.getElementById('defaultSelectLevelUser').disabled = true;
+    //seleciona a primeira opção do combobox (Selecione...)
+    document.getElementById('cmbSelectLevelUser').selectedIndex = 0;
 
-    document.getElementById('cmbSelectLevelUser').selectedIndex = 0
+    //bloqueia o combo de desafios
+    document.getElementById('cmbSelectChallengeUser').disabled = true;
+    //seleciona a primeira opção do combobox (Selecione...)
+    document.getElementById('cmbSelectChallengeUser').selectedIndex = 0
 }
 
 ///////////////////////////
@@ -167,6 +172,7 @@ function selectUser() {
         document.getElementById("estatisticasGeraisDiv").style.display = "none";
         document.getElementById("estatisticasAlunoDiv").style.display = "inline";
         document.getElementById("challengersUserDiv").style.display = "none";
+        document.getElementById("choicesChallengesUserDiv").style.display = "none";
         document.getElementById("legendUserDiv").style.display = "none";
     } else {
         document.getElementById("estatisticasGeraisDiv").style.display = "block";
@@ -208,6 +214,10 @@ function selectLevel() {
 //função que pega o valor selecionado no comboBox de Níveis na página de alunos
 ///////////////////////////
 function selectLevelUser() {
+    //escondendo gráficos de desafios
+    document.getElementById("choicesChallengesUserDiv").style.display = "none";
+
+    //definindo o valor da variável nível de acordo com a opção do combo selecionada
     nivel = $("#cmbSelectLevelUser option:selected").text();
 
     //chama as funções para montar os gráficos de desafios
@@ -713,7 +723,7 @@ function drawUserLevelsAttempts(usuario) {
                 legend: { position: 'right' },
                 vAxis: { title: 'Número de tentativas' },
                 isStacked: true,
-                colors: ['#109618', '#dc3912'],
+                colors: ['#dc3912', '#109618'],
             };
             var chart = new google.visualization.ColumnChart(document.getElementById('playerLevelAttemptDiv'));
 
