@@ -1,4 +1,4 @@
-package br.ufscar.sead.loa.memoria
+package br.ufscar.sead.loa.memoriaacessivel
 
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.util.Environment
@@ -54,7 +54,7 @@ class TileController {
 
     @Transactional
     def save(Tile tileInstance) {
-
+        println(params)
         if (tileInstance == null) {
             notFound()
             return
@@ -79,7 +79,6 @@ class TileController {
         def f1Uploaded = request.getFile("audioA")
         def f2Uploaded = request.getFile("audioB")
 
-
         def f1 = new File("$userPath/audio$id-a.wav")
         def f2 = new File("$userPath/audio$id-b.wav")
 
@@ -90,6 +89,13 @@ class TileController {
         if (Environment.current == Environment.DEVELOPMENT) {
             port = 8090
         }
+
+
+        def audioUploaded1 = request.getFile('audio-1')
+        def audioUploaded2 = request.getFile('audio-2')
+        audioUploaded1.transferTo(new File("$userPath/upload$id-a.wav"))
+        audioUploaded2.transferTo(new File("$userPath/upload$id-b.wav"))
+
 
         render(status: 200, text: "http://${request.serverName}:${port}/memoriaacessivel/tile/")
 

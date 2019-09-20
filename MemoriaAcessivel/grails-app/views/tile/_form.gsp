@@ -12,8 +12,8 @@
 <div id="image-preview-table" class="row">
     <div class="row no-margin">
         <div class="col s6">
-            <div>
-                <h3><g:message code="tile.audioA.label"/></h3>
+            <div  style="text-align: center">
+                <h5><g:message code="tile.audioA.label"/></h5>
                 <div id="controlsA">
                     <a class="btn waves-effect waves-light remar-orange" id="recordButtonA"><g:message code="tile.sound.record.button.label"/></a>
                     <a class="btn waves-effect waves-light remar-orange" id="pauseButtonA" disabled=""><g:message code="tile.sound.pause.button.label"/></a>
@@ -21,14 +21,14 @@
                 </div>
             </div>
             <div>
-                <h5><g:message code="tile.recordings.list.header"/></h5>
+                <h6><g:message code="tile.recordings.list.header"/></h6>
                 <div id="recordingsListA"></div>
             </div>
         </div>
 
         <div class="col s6">
-            <div>
-                <h3><g:message code="tile.audioB.label"/></h3>
+            <div  style="text-align: center">
+                <h5><g:message code="tile.audioB.label"/></h5>
                 <div id="controlsB">
                     <a class="btn waves-effect waves-light remar-orange" id="recordButtonB"><g:message code="tile.sound.record.button.label"/></a>
                     <a class="btn waves-effect waves-light remar-orange" id="pauseButtonB" disabled=""><g:message code="tile.sound.pause.button.label"/></a>
@@ -36,24 +36,81 @@
                 </div>
             </div>
             <div>
-                <h5><g:message code="tile.recordings.list.header"/></h5>
+                <h6><g:message code="tile.recordings.list.header"/></h6>
                 <div id="recordingsListB"></div>
             </div>
         </div>
     </div>
 </div>
 
+
+
+<br>
 <!-- Upload -->
 <!-- não tem upload ainda pq ainda nao fiz mas ele vai ficar aqui -->
-<div class="row">
+<div class="row"  style="text-align: center">
+    <!-- Upload de áudio primeira carta -->
     <div class="input-field col s6">
-        <input id="statement" name="statement" required="" value="${questionInstance?.statement}" type="text" class="validate remar-input" maxlength="75">
-        <label for="statement">Fazer upload de áudio (not working yet)</label>
+        <div class="form" style="">
+            <div class="cluster-header">
+                <h5>Upload de Áudio da Primeira Carta</h5>
+            </div>
+
+            <input type="hidden" id="orientacao" name="orientacao" value="${orientacao}">
+
+            <div class="row">
+                <div class="col s12">
+                    <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                            <div class="collapsible-header active"><i class="material-icons">file_upload</i>Selecione o arquivo referente ao áudio</div>
+                            <div class="collapsible-body">
+                                <div class="file-field input-field">
+                                    <div class="btn right remar-orange waves-effect waves-light">
+                                        <span>File</span>
+                                        <input data-image="true" type="file" name="audio-1" id="audio-1" class="audio-input" accept="audio/*">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" placeholder="Áudio (.wav, .mp3, etc.)">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- Upload de áudio segunda carta -->
     <div class="input-field col s6">
-        <input id="statement" name="statement" required="" value="${questionInstance?.statement}" type="text" class="validate remar-input" maxlength="75">
-        <label for="statement">Fazer upload de áudio (not working yet)</label>
+        <div class="form" style="">
+            <div class="cluster-header">
+                <h5>Upload de Áudio da Segunda Carta</h5>
+            </div>
+
+            <input type="hidden" id="orientacao" name="orientacao" value="${orientacao}">
+
+            <div class="row">
+                <div class="col s12">
+                    <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                            <div class="collapsible-header active"><i class="material-icons">file_upload</i>Selecione o arquivo referente ao áudio</div>
+                            <div class="collapsible-body">
+                                <div class="file-field input-field">
+                                    <div class="btn right remar-orange waves-effect waves-light">
+                                        <span>File</span>
+                                        <input data-image="true" type="file" name="audio-2" id="audio-2" class="audio-input" accept="audio/*">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" placeholder="Áudio (.wav, .mp3, etc.)">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

@@ -54,16 +54,18 @@ class QuestionController {
     }
 
     @Transactional
-    //def newQuestion(Question questionInstance) {
-    def newQuestion() {
-        println(params)
+    def newQuestion(Question questionInstance) {
+    //def newQuestion() {
+        // debug dos parâmetros vindos na chamada de ação
+        println("params: $params")
 
-        def questionInstance = new Question(params)
+        //def questionInstance = new Question(params)
         println(questionInstance.id)
         if (questionInstance.author == null) {
             questionInstance.author = session.user.username
         }
 
+        // cria um objeto chamado newQuest do domínio Question e coloca nele os valores vindos nos parâmetros
         Question newQuest = new Question();
         newQuest.id = questionInstance.id
         newQuest.statement = questionInstance.statement
@@ -73,35 +75,56 @@ class QuestionController {
         newQuest.taskId = session.taskId as String
         newQuest.ownerId = session.user.id
 
+        // checa o newQuest (e, consequentemente, os parâmetros)
         if (newQuest.hasErrors()) {
             respond newQuest.errors, view: 'create' //TODO
             render newQuest.errors;
             return
         }
 
-        newQuest.taskId = session.taskId as String
-
+        // pega o id do usuário corrente (será usado para nomear os diretórios de armazenamento de arquivos)
         def userId = springSecurityService.getCurrentUser().getId()
-        def dataPath = servletContext.getRealPath("/data")
-        def userPath = new File(dataPath, "/" + userId + "/audios/" + questionInstance.id)
-        userPath.mkdirs()
+        println("userId:  $userId")
 
-        def audioUploaded = request.getFile('audio-1')
-        audioUploaded.transferTo(new File("$userPath/audio.wav"))
+
+        //def id = tileInstance.getId()
+        // id = id do tileInstance = userId declarado acima = id do usuário da sessão >>> 4 itens armazenando a mesma coisa? pq?
+        // definição do diretório de áudios: criado com a id do usuário corrente!
+        def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/audios/")
+        def userFolder = new File(userPath)
+        userFolder.mkdirs()
+
+        // pega os arquivos do form; esses são os de UPLOAD!!
+        def f1Uploaded = request.getFile("audio-1")
+        def f2Uploaded = request.getFile("audio-2")
+
+        // coloca o áudio que foi pegado no diretório e transfere pra lá
+        def f1 = new File("$userPath/upload$userId-a.wav")
+        def f2 = new File("$userPath/upload$userId-b.wav")
+
+        f1Uploaded.transferTo(f1)
+        f2Uploaded.transferTo(f2)
+
+
+        // aqui em baixo é tudo da GRAVAÇÃO
+        // aparentemente o processo é o mesmo, então era pra funcionar pq "audioA" e "audioB" já são as identificações
+        def f1Uploaded2 = request.getFile("audioA")
+        def f2Uploaded2 = request.getFile("audioB")
+
+        def f12 = new File("$userPath/recording$userId-a.wav")
+        def f22 = new File("$userPath/recording$userId-b.wav")
+
+        f1Uploaded2.transferTo(f12)
+        f2Uploaded2.transferTo(f22)
 
 
         newQuest.save flush: true
 
         if (request.isXhr()) {
-            render(contentType: "application/json") {
-                JSON.parse("{\"id\":" + newQuest.getId() + "}")
-            }
+            render("http://localhost:8010/forca/question")
         } else {
             // TODO
         }
-
-
-        redirect(action: index())
 
 
     }

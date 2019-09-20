@@ -168,8 +168,8 @@
         </div>
 
         <div class="modal-footer">
-            <a href="#!" id="upload" type="submit" class="save modal-action btn waves-effect waves-light remar-orange" action="create"
-               onclick="$(this).closest('form').submit()" name="create">Criar</a>
+            <a href="#!" id="submit" type="submit" class="save modal-action btn waves-effect waves-light remar-orange" action="create"
+               name="create">Criar</a>
             <a href="#!" class="upload save modal-action modal-close btn waves-effect waves-light remar-orange">Cancelar</a>
         </div>
 
@@ -208,7 +208,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="save modal-action modal-close btn waves-effect waves-light remar-orange" action="update"
+            <a href="#!" id="submit" class="save modal-action modal-close btn waves-effect waves-light remar-orange" action="update"
                onclick="$(this).closest('form').submit()" name="create">Atualizar</a>
             <a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Cancelar</a>
         </div>

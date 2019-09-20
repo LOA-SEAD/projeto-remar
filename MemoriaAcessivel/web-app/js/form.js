@@ -16,7 +16,6 @@ $(document).ready(function() {
         var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
         window.location.href = baseUrl + "/tile/index";
-
     });
 
     // autoplay selected audio
@@ -56,6 +55,8 @@ function sendFormData(blobA, blobB) {
     var fd = new FormData();
     fd.append("audioA", blobA, new Date().toISOString());
     fd.append("audioB", blobB, new Date().toISOString());
+    fd.append("audio-1", $("#audio-1")[0].files[0]);
+    fd.append("audio-2", $("#audio-2")[0].files[0]);
     fd.append("textA", textA);
     fd.append("textB", textB);
 

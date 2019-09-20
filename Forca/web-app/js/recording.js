@@ -16,7 +16,6 @@ $(document).ready(function() {
         var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
         window.location.href = baseUrl + "/question/index";
-
     });
 
     // autoplay selected audio
@@ -27,7 +26,6 @@ $(document).ready(function() {
     // Submit form button click function
     $("#submit").click(function() {
         fd = new FormData();
-
 
         var audioAurl = $("input[name=audioA]:checked").parent().siblings("audio")[0].src;
 
@@ -52,16 +50,32 @@ function recoverBlobB(blobA) {
 function sendFormData(blobA, blobB) {
     var textA = $("input[name=textA]").val();
     var textB = $("input[name=textB]").val();
+    var statement = $("input[name=statement]").val();
+    var answer = $("input[name=answer]").val();
+    var category = $("input[name=category]").val();
+    var author = $("input[name=author]").val();
+    var orientacao = $("input[name=orientacao]").val();
 
     var fd = new FormData();
     fd.append("audioA", blobA, new Date().toISOString());
     fd.append("audioB", blobB, new Date().toISOString());
+    fd.append("audio-1", $("#audio-1")[0].files[0]);
+    fd.append("audio-2", $("#audio-2")[0].files[0]);
     fd.append("textA", textA);
     fd.append("textB", textB);
+    fd.append("statement", statement)
+    fd.append("answer", answer)
+    fd.append("category", category)
+    fd.append("author", author)
+    fd.append("orientacao", orientacao)
+
+
+
+
 
     $.ajax({
         method: "POST",
-        url: "/forca/question/save",
+        url: "/forca/question/newQuestion",
         contentType: false,
         processData: false,
         data: fd,

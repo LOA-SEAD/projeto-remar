@@ -32,9 +32,11 @@
     <label for="statement">Pergunta</label>
 
     <br>
+
     <!-- Gravação de áudio pergunta -->
     <div class="input-field col s6">
         <div style="text-align: left">
+            <input type="radio" name="pergunta-record" value="oioioi"/>
             <h5 style="text-align: center; margin-bottom: 0.8em"><g:message code="question.audioA.label"/></h5>
 
             <!-- Botões da gravação -->
@@ -94,10 +96,11 @@
     <label for="answer">Resposta</label>
 
     <br>
+
     <!-- Gravação de áudio resposta -->
     <div class="input-field col s6">
         <div style="text-align: left">
-            <h5 style="text-align: center;"><g:message code="question.audioB.label"/></h5>
+            <h5 style="text-align: center; margin-bottom: 0.8em"><g:message code="question.audioB.label"/></h5>
 
             <!-- Botões da gravação -->
             <div id="controlsA"  style="text-align: center">
