@@ -34,14 +34,21 @@
     <br>
 
     <!-- Gravação de áudio pergunta -->
-    <div class="input-field col s6">
-        <div style="text-align: left">
-            <input type="radio" name="pergunta-record" value="oioioi"/>
-            <h5 style="text-align: center; margin-bottom: 0.8em"><g:message code="question.audioA.label"/></h5>
+    <div class="input-field col s6" style="text-align: center;">
 
+            <span>
+                <input type="radio" id="audioPergunta1" name="audioPergunta" value="recording">
+                <label for="audioPergunta1" style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
+                    <g:message code="question.audioA.label"/>
+                </label>
+            </span>
+
+
+    <div style="text-align: left">
             <!-- Botões da gravação -->
             <div id="controlsA"  style="text-align: center">
-                <button class="btn waves-effect waves-light remar-orange" id="recordButtonA">
+
+            <button class="btn waves-effect waves-light remar-orange" id="recordButtonA">
                     <g:message code="question.record.button.label"/></button>
                 <button class="btn waves-effect waves-light remar-orange" id="pauseButtonA" disabled="true">
                     <g:message code="question.pause.button.label"/></button>
@@ -57,10 +64,15 @@
     </div>
 
     <!-- Upload de áudio pergunta -->
-    <div class="input-field col s6">
+    <div class="input-field col s6" style="margin-top: -0.2em">
         <div class="form" style="">
             <div class="cluster-header">
-                <h5>Upload de Áudio Pergunta</h5>
+                <span>
+                    <input type="radio" id="audioPergunta2" name="audioPergunta" value="upload">
+                    <label for="audioPergunta2" style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
+                        Upload de Áudio Pergunta
+                    </label>
+                </span>
             </div>
 
             <input type="hidden" id="orientacao" name="orientacao" value="${orientacao}">
@@ -100,7 +112,12 @@
     <!-- Gravação de áudio resposta -->
     <div class="input-field col s6">
         <div style="text-align: left">
-            <h5 style="text-align: center; margin-bottom: 0.8em"><g:message code="question.audioB.label"/></h5>
+            <span>
+                <input type="radio" id="audioResposta1" name="audioResposta" value="recording">
+                <label for="audioResposta1" style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
+                    <g:message code="question.audioB.label"/>
+                </label>
+            </span>
 
             <!-- Botões da gravação -->
             <div id="controlsA"  style="text-align: center">
@@ -123,7 +140,12 @@
     <div class="input-field col s6">
         <div class="form" style="">
             <div class="cluster-header">
-                <h5>Upload de Áudio Resposta</h5>
+                <span>
+                    <input type="radio" id="audioResposta1" name="audioResposta" value="upload">
+                    <label for="audioPergunta1" style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
+                        <g:message code="question.audioB.label"/>
+                    </label>
+                </span>
             </div>
 
             <input type="hidden" id="orientacao" name="orientacao" value="${orientacao}">

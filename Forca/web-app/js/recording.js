@@ -55,6 +55,9 @@ function sendFormData(blobA, blobB) {
     var category = $("input[name=category]").val();
     var author = $("input[name=author]").val();
     var orientacao = $("input[name=orientacao]").val();
+    var audioPergunta = $("input[name=audioPergunta]").val();
+    var audioResposta = $("input[name=audioResposta]").val();
+
 
     var fd = new FormData();
     fd.append("audioA", blobA, new Date().toISOString());
@@ -68,6 +71,8 @@ function sendFormData(blobA, blobB) {
     fd.append("category", category)
     fd.append("author", author)
     fd.append("orientacao", orientacao)
+    fd.append("audioPergunta", audioPergunta)
+    fd.append("audioResposta", audioResposta)
 
 
 
