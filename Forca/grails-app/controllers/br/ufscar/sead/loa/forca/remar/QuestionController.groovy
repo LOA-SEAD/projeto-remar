@@ -96,44 +96,53 @@ class QuestionController {
         userFolder.mkdirs()
 
 
+
+        // seletor da PERGUNTA; isso é, usuário seleciona se quer usar audio do upload ou de gravação para a pergunta
         if(("$params.audioPergunta") == "upload") {
             // pega os arquivos do form; esses são os de UPLOAD!!
             def f1Uploaded = request.getFile("audio-1")
-            def f2Uploaded = request.getFile("audio-2")
 
             // coloca o áudio que foi pegado no diretório e transfere pra lá
-            def f1 = new File("$userPath/upload$userId-a.wav")
-            def f2 = new File("$userPath/upload$userId-b.wav")
+            def f1 = new File("$userPath/audio$userId-a.wav")
 
             f1Uploaded.transferTo(f1)
-            f2Uploaded.transferTo(f2)
         }
         else if(("$params.audioPergunta") == "recording") {
             // aqui em baixo é tudo da GRAVAÇÃO
             // aparentemente o processo é o mesmo, então era pra funcionar pq "audioA" e "audioB" já são as identificações
             def f1Uploaded2 = request.getFile("audioA")
-            def f2Uploaded2 = request.getFile("audioB")
 
-            def f12 = new File("$userPath/recording$userId-a.wav")
-            def f22 = new File("$userPath/recording$userId-b.wav")
+            def f12 = new File("$userPath/audio$userId-a.wav")
 
             f1Uploaded2.transferTo(f12)
+        }
+
+        // seletor da RESPOSTA; isso é, usuário seleciona se quer usar audio do upload ou de gravação para a pergunta
+        if(("$params.audioResposta") == "upload") {
+            // pega os arquivos do form; esses são os de UPLOAD!!
+            def f2Uploaded = request.getFile("audio-2")
+
+            // coloca o áudio que foi pegado no diretório e transfere pra lá
+            def f2 = new File("$userPath/audio$userId-b.wav")
+
+            f2Uploaded.transferTo(f2)
+        }
+        else if(("$params.audioResposta") == "recording") {
+            // aqui em baixo é tudo da GRAVAÇÃO
+            // aparentemente o processo é o mesmo, então era pra funcionar pq "audioA" e "audioB" já são as identificações
+            def f2Uploaded2 = request.getFile("audioB")
+
+            def f22 = new File("$userPath/audio$userId-b.wav")
+
             f2Uploaded2.transferTo(f22)
         }
 
+        /*
+        Áudios sempre são salvos com o nome "audio$ID-a" para pergunta e "audio$ID-b" para resposta, independentemente de serem de upload ou gravação.
+        O seletor acima basicamente verifica qual dos dois o usuário gostaria de usar como áudio descritor da pergunta transcrita.
+        */
 
 
-
-
-
-
-
-
-
-
-
-
-        
         newQuest.save flush: true
 
         if (request.isXhr()) {

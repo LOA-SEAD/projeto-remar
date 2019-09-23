@@ -110,14 +110,14 @@
     <br>
 
     <!-- Gravação de áudio resposta -->
-    <div class="input-field col s6">
-        <div style="text-align: left">
+    <div class="input-field col s6" style="text-align: center">
             <span>
                 <input type="radio" id="audioResposta1" name="audioResposta" value="recording">
                 <label for="audioResposta1" style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
                     <g:message code="question.audioB.label"/>
                 </label>
             </span>
+    <div style="text-align: left">
 
             <!-- Botões da gravação -->
             <div id="controlsA"  style="text-align: center">
@@ -141,9 +141,9 @@
         <div class="form" style="">
             <div class="cluster-header">
                 <span>
-                    <input type="radio" id="audioResposta1" name="audioResposta" value="upload">
+                    <input type="radio" id="audioResposta2" name="audioResposta" value="upload">
                     <label for="audioPergunta1" style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
-                        <g:message code="question.audioB.label"/>
+                        Upload de Áudio Resposta
                     </label>
                 </span>
             </div>
