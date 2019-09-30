@@ -13,7 +13,13 @@
     <div class="row no-margin">
         <div class="col s6">
             <div  style="text-align: center">
-                <h5><g:message code="tile.audioA.label"/></h5>
+                <span>
+                    <input type="radio" id="audioPrimeiraCarta1" name="audioPrimeiraCarta" value="recording">
+                    <label for="audioPrimeiraCarta1" style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
+                        Gravação de Áudio Primeira Carta
+                    </label>
+                </span>
+
                 <div id="controlsA">
                     <a class="btn waves-effect waves-light remar-orange" id="recordButtonA"><g:message code="tile.sound.record.button.label"/></a>
                     <a class="btn waves-effect waves-light remar-orange" id="pauseButtonA" disabled=""><g:message code="tile.sound.pause.button.label"/></a>
@@ -28,7 +34,13 @@
 
         <div class="col s6">
             <div  style="text-align: center">
-                <h5><g:message code="tile.audioB.label"/></h5>
+                <span>
+                    <input type="radio" id="audioSegundaCarta1" name="audioSegundaCarta" value="recording">
+                    <label for="audioSegundaCarta1" style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
+                        Gravação de Áudio Segunda Carta
+                    </label>
+                </span>
+
                 <div id="controlsB">
                     <a class="btn waves-effect waves-light remar-orange" id="recordButtonB"><g:message code="tile.sound.record.button.label"/></a>
                     <a class="btn waves-effect waves-light remar-orange" id="pauseButtonB" disabled=""><g:message code="tile.sound.pause.button.label"/></a>
@@ -53,7 +65,12 @@
     <div class="input-field col s6">
         <div class="form" style="">
             <div class="cluster-header">
-                <h5>Upload de Áudio da Primeira Carta</h5>
+                <span>
+                    <input type="radio" id="audioPrimeiraCarta2" name="audioPrimeiraCarta" value="upload">
+                    <label for="audioPrimeiraCarta2" style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
+                        Upload de Áudio da Primeira Carta
+                    </label>
+                </span>
             </div>
 
             <input type="hidden" id="orientacao" name="orientacao" value="${orientacao}">
@@ -85,7 +102,12 @@
     <div class="input-field col s6">
         <div class="form" style="">
             <div class="cluster-header">
-                <h5>Upload de Áudio da Segunda Carta</h5>
+                <span>
+                    <input type="radio" id="audioSegundaCarta2" name="audioSegundaCarta" value="upload">
+                    <label for="audioSegundaCarta2" style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
+                        Upload de Áudio da Segunda Carta
+                    </label>
+                </span>
             </div>
 
             <input type="hidden" id="orientacao" name="orientacao" value="${orientacao}">
@@ -119,7 +141,7 @@
 <div class="row">
     <div class="input-field col s6 fieldcontain ${hasErrors(bean: tileInstance, field: 'content', 'error')} required">
         <g:textField id="textA" name="textA" class="remar-input" maxlength="50" required="" value="${tileInstance?.textA}"/>
-        <label for="content">
+        <label for="textA">
             <g:message code="tile.textA.label" default="Texto Primeira Carta" />
             <span class="required-indicator">*</span>
         </label>
@@ -127,7 +149,7 @@
 
     <div class="input-field col s6 fieldcontain ${hasErrors(bean: tileInstance, field: 'difficulty', 'error')} required">
         <g:textField id="textB" name="textB" class="remar-input" maxlength="50" required="" value="${tileInstance?.textB}"/>
-        <label for="difficulty">
+        <label for="textB">
             <g:message code="tile.textB.label" default="Texto Segunda Carta" />
             <span class="required-indicator">*</span>
         </label>

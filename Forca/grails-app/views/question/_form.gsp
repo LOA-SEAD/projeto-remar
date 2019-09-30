@@ -142,7 +142,7 @@
             <div class="cluster-header">
                 <span>
                     <input type="radio" id="audioResposta2" name="audioResposta" value="upload">
-                    <label for="audioPergunta1" style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
+                    <label for="audioResposta2" style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
                         Upload de Áudio Resposta
                     </label>
                 </span>

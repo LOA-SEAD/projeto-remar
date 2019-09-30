@@ -34,6 +34,7 @@
                 </g:hasErrors>
 
                     <fieldset class="form">
+                        <!-- Renderiza o formulário para criação de novo item -->
                         <g:render template="form"/>
                     </fieldset>
                     <br />

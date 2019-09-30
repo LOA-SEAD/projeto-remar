@@ -60,8 +60,7 @@ class QuestionController {
         println("params: $params")
 
 
-        //def questionInstance = new Question(params)
-        println(questionInstance.id)
+
         if (questionInstance.author == null) {
             questionInstance.author = session.user.username
         }
@@ -83,19 +82,22 @@ class QuestionController {
             return
         }
 
+        // salva no banco de dados
+        newQuest.save flush: true
+
+
         // pega o id do usuário corrente (será usado para nomear os diretórios de armazenamento de arquivos)
         def userId = springSecurityService.getCurrentUser().getId()
         println("userId:  $userId")
 
 
-        //def id = tileInstance.getId()
+        // def id = tileInstance.getId()
         // id = id do tileInstance = userId declarado acima = id do usuário da sessão >>> 4 itens armazenando a mesma coisa? pq?
         // definição do diretório de áudios: criado com a id do usuário corrente!
-        def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/audios/")
+        def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/audios/" + newQuest.id)
         def userFolder = new File(userPath)
         userFolder.mkdirs()
-
-
+to 
 
         // seletor da PERGUNTA; isso é, usuário seleciona se quer usar audio do upload ou de gravação para a pergunta
         if(("$params.audioPergunta") == "upload") {
@@ -103,7 +105,7 @@ class QuestionController {
             def f1Uploaded = request.getFile("audio-1")
 
             // coloca o áudio que foi pegado no diretório e transfere pra lá
-            def f1 = new File("$userPath/audio$userId-a.wav")
+            def f1 = new File("$userPath/pergunta.wav")
 
             f1Uploaded.transferTo(f1)
         }
@@ -112,7 +114,7 @@ class QuestionController {
             // aparentemente o processo é o mesmo, então era pra funcionar pq "audioA" e "audioB" já são as identificações
             def f1Uploaded2 = request.getFile("audioA")
 
-            def f12 = new File("$userPath/audio$userId-a.wav")
+            def f12 = new File("$userPath/pergunta.wav")
 
             f1Uploaded2.transferTo(f12)
         }
@@ -123,7 +125,7 @@ class QuestionController {
             def f2Uploaded = request.getFile("audio-2")
 
             // coloca o áudio que foi pegado no diretório e transfere pra lá
-            def f2 = new File("$userPath/audio$userId-b.wav")
+            def f2 = new File("$userPath/resposta.wav")
 
             f2Uploaded.transferTo(f2)
         }
@@ -132,7 +134,7 @@ class QuestionController {
             // aparentemente o processo é o mesmo, então era pra funcionar pq "audioA" e "audioB" já são as identificações
             def f2Uploaded2 = request.getFile("audioB")
 
-            def f22 = new File("$userPath/audio$userId-b.wav")
+            def f22 = new File("$userPath/resposta.wav")
 
             f2Uploaded2.transferTo(f22)
         }
@@ -142,8 +144,7 @@ class QuestionController {
         O seletor acima basicamente verifica qual dos dois o usuário gostaria de usar como áudio descritor da pergunta transcrita.
         */
 
-
-        newQuest.save flush: true
+        println("question id: $newQuest.id")
 
         if (request.isXhr()) {
             render("http://localhost:8010/forca/question")
