@@ -11,12 +11,10 @@
     <g:javascript src="scriptTheme.js"/>
 </head>
 <body>
-<div class="page-header">
-    <h1> Criar Questões</h1>
-</div>
 <g:if test="${flash.message}">
     <div class="message" role="status">${flash.message}</div>
 </g:if>
+
 <div class="main-content">
     <div class="widget">
         <h3 class="section-title first-title"><i class="icon-table"></i> Criar uma questão</h3>
@@ -37,6 +35,11 @@
                     <fieldset class="form">
                         <!-- Renderiza o formulário para criação de novo item -->
                         <g:render template="form"/>
+                        <div class="row right-align" style="margin-right: 1em">
+                            <a id="back" name="back" class="btn btn-success remar-orange">Voltar</a>
+
+                            <button id="submit" type="button" name="submit" class="btn btn-success remar-orange" value="Criar">Criar</button>
+                        </div>
                     </fieldset>
                     </g:uploadForm>
 

@@ -81,16 +81,11 @@
 
     <!-- Autor também é passado como informação mas pega o nome do usuário da sessão como autor -->
     <div class="input-field col s12" style="display: none;">
-        <input id="author" name="author" required="" readonly="readonly" value="${questionInstance?.author}" type="text" class="validate remar-input">
+        <input type="hidden" id="author" name="author" required="" readonly="readonly" value="${questionInstance?.author}" type="text" class="validate remar-input">
         <label for="author">Autor</label>
         <input type="hidden" id="orientacao" name="orientacao" value="${orientacao}">
-</div>
-
-    <div class="row right-align" style="margin-right: 1em">
-        <a id="back" name="back" class="btn btn-success remar-orange">Voltar</a>
-
-        <button id="submit" type="button" name="submit" class="btn btn-success remar-orange" value="Criar">Criar</button>
     </div>
+
 
 </div>
 
@@ -102,6 +97,7 @@
     <p id="exemplo1">Conteúdo que vai ser ocultado</p>
 
 -->
+
 
 
 <!-------------------------------------------------------------->

@@ -179,6 +179,7 @@ function _edit(tr){
             type: 'GET',
             data: data,
             url: url,
+            //url: "/forca-acessivel/question/edit",
             success: function (returndata) {
                 var questionInstance = returndata.split("%@!");
                 //questionInstance é um vetor com os atributos da classe Question na seguinte ordem:
@@ -198,9 +199,8 @@ function _edit(tr){
                 $("#questionID").attr("value",questionInstance[7]);
 
 
-                $("#editModal").openModal(
+                //$("#editModal").openModal();
 
-                );
 
 
 

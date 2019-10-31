@@ -92,11 +92,15 @@
             </td>
 
             <g:if test="${questionInstance.author == userName}">
-                <td><i onclick="_edit($(this.closest('tr')))" style="color: #7d8fff; margin-right:10px;"
-                       class="fa fa-pencil"></i></td>
+                <td>
+                    <a href="${createLink(action: "edit")}/${questionInstance.id}">
+                        <i style="color: #7d8fff; margin-right:10px;" class="fa fa-pencil"></i>
+                    </a>
+                </td>
             </g:if>
             <g:else>
-                <td><i style="color: gray; margin-right:10px;" class="fa fa-pencil"></i>
+                <td>
+                    <i style="color: gray; margin-right:10px;" class="fa fa-pencil"></i>
                 </td>
             </g:else>
         </tr>
@@ -106,10 +110,12 @@
 </table>
 
 
+
+
+
 <!-- edit question label? -->
 <!-- pra que serve? -->
 <input type="hidden" id="editQuestionLabel" value=""> <label for="editQuestionLabel"></label>
-
 
 <!-- Botões da base da tabela -->
 <div class="row" style="margin-top:2em;">

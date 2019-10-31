@@ -55,14 +55,17 @@ class QuestionController {
 
     @Transactional
     def newQuestion(Question questionInstance) {
-    //def newQuestion() {
         // debug dos parâmetros vindos na chamada de ação
         println("params: $params")
 
-
         if (questionInstance.author == null) {
             questionInstance.author = session.user.username
+            println("$questionInstance.author")
         }
+
+        questionInstance.author = session.user.username
+        println("author: $questionInstance.author")
+
 
         // cria um objeto chamado newQuest do domínio Question e coloca nele os valores vindos nos parâmetros
         Question newQuest = new Question();
@@ -90,59 +93,35 @@ class QuestionController {
         println("userId:  $userId")
 
 
-        // def id = tileInstance.getId()
-        // id = id do tileInstance = userId declarado acima = id do usuário da sessão >>> 4 itens armazenando a mesma coisa? pq?
         // definição do diretório de áudios: criado com a id do usuário corrente!
         def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/audios/" + newQuest.id)
         def userFolder = new File(userPath)
         userFolder.mkdirs()
 
 
-
-        // seletor da PERGUNTA; isso é, usuário seleciona se quer usar audio do upload ou de gravação para a pergunta
-        if(("$params.audioPergunta") == "upload") {
-            // pega os arquivos do form; esses são os de UPLOAD!!
-            def f1Uploaded = request.getFile("audio-1")
-
-            // coloca o áudio que foi pegado no diretório e transfere pra lá
-            def f1 = new File("$userPath/pergunta.wav")
-
-            f1Uploaded.transferTo(f1)
+        // audioA e audioB: gravações (pergunta e resposta, respectivamente)
+        if(params.audioA != null) {
+            def f1Recorded = request.getFile("audioA")
+            def f1File = new File("$userPath/pergunta.wav")
+            f1Recorded.transferTo(f1File)
         }
-        else if(("$params.audioPergunta") == "recording") {
-            // aqui em baixo é tudo da GRAVAÇÃO
-            // aparentemente o processo é o mesmo, então era pra funcionar pq "audioA" e "audioB" já são as identificações
-            def f1Uploaded2 = request.getFile("audioA")
-
-            def f12 = new File("$userPath/pergunta.wav")
-
-            f1Uploaded2.transferTo(f12)
+        if(params.audioB != null) {
+            def f1Recorded = request.getFile("audioB")
+            def f1File = new File("$userPath/resposta.wav")
+            f1Recorded.transferTo(f1File)
         }
 
-        // seletor da RESPOSTA; isso é, usuário seleciona se quer usar audio do upload ou de gravação para a pergunta
-        if(("$params.audioResposta") == "upload") {
-            // pega os arquivos do form; esses são os de UPLOAD!!
-            def f2Uploaded = request.getFile("audio-2")
-
-            // coloca o áudio que foi pegado no diretório e transfere pra lá
-            def f2 = new File("$userPath/resposta.wav")
-
-            f2Uploaded.transferTo(f2)
+        // audio-1 e audio-2: uploads (pergunta e resposta, respectivamente)
+        if(params["audio-1"] != null) {
+            def f1Recorded = request.getFile("audio-1")
+            def f1File = new File("$userPath/pergunta.wav")
+            f1Recorded.transferTo(f1File)
         }
-        else if(("$params.audioResposta") == "recording") {
-            // aqui em baixo é tudo da GRAVAÇÃO
-            // aparentemente o processo é o mesmo, então era pra funcionar pq "audioA" e "audioB" já são as identificações
-            def f2Uploaded2 = request.getFile("audioB")
-
-            def f22 = new File("$userPath/resposta.wav")
-
-            f2Uploaded2.transferTo(f22)
+        if(params["audio-2"] != null) {
+            def f1Recorded = request.getFile("audio-2")
+            def f1File = new File("$userPath/resposta.wav")
+            f1Recorded.transferTo(f1File)
         }
-
-        /*
-        Áudios sempre são salvos com o nome "audio$ID-a" para pergunta e "audio$ID-b" para resposta, independentemente de serem de upload ou gravação.
-        O seletor acima basicamente verifica qual dos dois o usuário gostaria de usar como áudio descritor da pergunta transcrita.
-        */
 
         println("question id: $newQuest.id")
 
@@ -150,8 +129,6 @@ class QuestionController {
             render("http://localhost:8010/forca-acessivel/question")
         } else {
             // TODO
-            // por algum motivo ele está entrando aqui no final do newQuestion e por isso não está voltando pra tela de questões
-
         }
 
 
