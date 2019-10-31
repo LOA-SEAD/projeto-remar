@@ -88,7 +88,7 @@ grails.hibernate.osiv.readonly = false
 environments {
     development {
         grails.config.locations = ["classpath:env.properties"]
-        grails.app.context = "/memoriaacessivel"
+        grails.app.context = "/memoria-acessivel"
         grails.logging.jul.usebridge = true
 
         // in development, we can use the same credential/api keys that REMAR uses

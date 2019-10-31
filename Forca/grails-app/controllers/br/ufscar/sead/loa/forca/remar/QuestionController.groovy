@@ -147,7 +147,7 @@ to
         println("question id: $newQuest.id")
 
         if (request.isXhr()) {
-            render("http://localhost:8010/forca/question")
+            render("http://localhost:8010/forca-acessivel/question")
         } else {
             // TODO
         }
@@ -372,7 +372,7 @@ to
             port = 8080
         }
 
-        render "/forca/samples/export/exportQuestions.csv"
+        render "/forca-acessivel/samples/export/exportQuestions.csv"
 
 
     }

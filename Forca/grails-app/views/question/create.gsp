@@ -43,5 +43,25 @@
         </div>
     </div>
 </div>
+
+<!-- Javascript -->
+<g:javascript src="editableTable.js"/>
+<g:javascript src="scriptTable.js"/>
+<g:javascript src="validate.js"/>
+<g:javascript src="question.js"/>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/forca-acessivel/js/materialize.min.js"></script>
+<script type="text/javascript">
+
+    function changeEditQuestion(variable) {
+        var editQuestion = document.getElementById("editQuestionLabel");
+        editQuestion.value = variable;
+
+        console.log(editQuestion.value);
+        //console.log(variable);
+    }
+</script>
+<g:javascript src="recording.js"/>
+<g:javascript src="recorder.js"/>
 </body>
 </html>

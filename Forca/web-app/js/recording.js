@@ -80,7 +80,7 @@ function sendFormData(blobA, blobB) {
 
     $.ajax({
         method: "POST",
-        url: "/forca/question/newQuestion",
+        url: "/forca-acessivel/question/newQuestion",
         contentType: false,
         processData: false,
         data: fd,
