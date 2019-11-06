@@ -19,7 +19,7 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class QuestionController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE", newQuestion:"POST"]
+    static allowedMethods = [save: "POST", delete: "DELETE", newQuestion:"POST"]
 
     def beforeInterceptor = [action: this.&check, only: ['index']]
 
@@ -141,6 +141,7 @@ class QuestionController {
 
     @Transactional
     def save(Question questionInstance) {
+        println("params save: $params")
         if (questionInstance == null) {
             notFound()
             return
@@ -185,7 +186,7 @@ class QuestionController {
 
     @Transactional
     def update() {
-
+        println("params edit: $params")
         Question questionInstance = Question.findById(Integer.parseInt(params.questionID))
 
         questionInstance.statement = params.statement
@@ -193,7 +194,50 @@ class QuestionController {
         questionInstance.category = params.category
         questionInstance.save flush: true
 
-        redirect action: "index"
+        // edição dos áudios:
+
+        // pega o id do usuário corrente (será usado para nomear os diretórios de armazenamento de arquivos)
+        def userId = springSecurityService.getCurrentUser().getId()
+        println("userId:  $userId")
+
+
+        // definição do diretório de áudios: criado com a id do usuário corrente!
+        def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/audios/" + params.questionID)
+        def userFolder = new File(userPath)
+        userFolder.mkdirs()
+
+
+        // audioA e audioB: gravações (pergunta e resposta, respectivamente)
+        if(params["audioA"] != null) {
+            def f1Recorded = request.getFile("audioA")
+            def f1File = new File("$userPath/pergunta.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params["audioB"] != null) {
+            def f1Recorded = request.getFile("audioB")
+            def f1File = new File("$userPath/resposta.wav")
+            f1Recorded.transferTo(f1File)
+        }
+
+        // audio-1 e audio-2: uploads (pergunta e resposta, respectivamente)
+        if(params["audio-1"] != null) {
+            def f1Recorded = request.getFile("audio-1")
+            def f1File = new File("$userPath/pergunta.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params["audio-2"] != null) {
+            def f1Recorded = request.getFile("audio-2")
+            def f1File = new File("$userPath/resposta.wav")
+            f1Recorded.transferTo(f1File)
+        }
+
+        if (request.isXhr()) {
+            render("http://localhost:8010/forca-acessivel/question")
+        } else {
+            // TODO
+        }
+
+        //redirect action: "index"
     }
 
     @Transactional
@@ -251,7 +295,7 @@ class QuestionController {
 
         def port = request.serverPort
         if (Environment.current == Environment.DEVELOPMENT) {
-            port = 8080
+            port = 8010
         }
 
         redirect uri: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}", params: [files: id]
@@ -314,15 +358,8 @@ class QuestionController {
 
     }
 
+    // A versão acessível do forca não tem exportação de csv
     def exportCSV() {
-        /* Função que exporta as questões selecionadas para um arquivo .csv genérico.
-           O arquivo .csv gerado será compatível com os modelos Escola Mágica, Forca e Responda Se Puder.
-           O arquivo gerado possui os seguintes campos na ordem correspondente:
-           Nível, Pergunta, Alternativa1, Alternativa2, Alternativa3, Alternativa4, Alternativa Correta, Dica, Tema.
-           O campo Dica é correspondente ao modelo Responda Se Puder e o campo Tema ao modelo Forca.
-           O separador do arquivo .csv gerado é o ";" (ponto e vírgula)
-        */
-
         ArrayList<Integer> list_questionId = new ArrayList<Integer>();
         ArrayList<Question> questionList = new ArrayList<Question>();
         list_questionId.addAll(params.list_id);
@@ -348,73 +385,11 @@ class QuestionController {
 
         def port = request.serverPort
         if (Environment.current == Environment.DEVELOPMENT) {
-            port = 8080
+            port = 8010
         }
 
         render "/forca-acessivel/samples/export/exportQuestions.csv"
 
 
     }
-
-
-    def VerifyAndUpload(originalUpload,storagePath){
-
-        def imageIn = ImageIO.read(originalUpload)
-        def name = originalUpload.getName()
-
-
-        if(originalUpload.toString().contains("icon")){
-
-            int[] sizes = [36,48,72,96,144,192]
-
-            for(int i=0; i<sizes.length; i++) {
-
-                BufferedImage newImg = Scalr.resize(imageIn, Scalr.Method.ULTRA_QUALITY, sizes[i], sizes[i], Scalr.OP_ANTIALIAS)
-                name = "icon" + sizes[i] + ".png"
-                def newImgUploaded = new File("$storagePath/$name")
-                ImageIO.write(newImg, 'png', newImgUploaded)
-
-            }
-
-
-        }
-
-
-        if((imageIn.getWidth() > 800)||imageIn.getHeight() > 600){
-            BufferedImage newImg = Scalr.resize(imageIn, Scalr.Method.ULTRA_QUALITY, 600, 800, Scalr.OP_ANTIALIAS)
-            def newImgUploaded = new File("$storagePath/$name")
-            ImageIO.write(newImg, 'png', newImgUploaded)
-            return false
-        }
-        else{
-            return true
-        }
-
-    }
-
-    @Transactional
-    def AudioManager() { // TODO: fix var names + optimize
-        def userId = springSecurityService.getCurrentUser().getId()
-
-        def theme = new Theme(ownerId: userId).save flush: true
-
-        def dataPath = servletContext.getRealPath("/data")
-        def userPath = new File(dataPath, "/" + userId + "/themes/" + theme.getId())
-        userPath.mkdirs()
-
-        def iconUploaded = request.getFile('audio-1')
-
-        //if(!iconUploaded.isEmpty()) {
-
-            def originalIconUploaded = new File("$userPath/audio.png")
-
-            iconUploaded.transferTo(originalIconUploaded)
-
-            VerifyAndUpload(originalIconUploaded, userPath)
-        //}
-
-        redirect(controller: "Question", action:"index")
-
-    }
-
 }

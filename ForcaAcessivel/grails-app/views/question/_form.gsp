@@ -38,6 +38,7 @@
         <div class="input-field col s3">
              <div class="custom-select remar-orange" >
                 <select style="display: block;" id="selectPergunta">
+                    <g:if test="${questionInstance.id}"><option value="naoeditar">Não editar o áudio</option></g:if>
                     <option value="gerar">Gerar áudio automaticamente</option>
                     <option value="gravarA">Gravar áudio (microfone)</option>
                     <option value="carregarA">Carregar arquivo (.wav, etc)</option>
@@ -52,7 +53,7 @@
     <!-- Resposta -->
     <div class="row">
         <div class="input-field col s9">
-            <input id="answer" name="answer" required value="${questionInstance?.statement}" type="text" class="validate remar-input" maxlength="150"/>
+            <input id="answer" name="answer" required value="${questionInstance?.answer}" type="text" class="validate remar-input" maxlength="150"/>
             <label for="answer">Resposta</label>
             <br>
         </div>
@@ -61,6 +62,7 @@
         <div class="input-field col s3">
             <div class="custom-select remar-orange" >
                 <select style="display: block;" id="selectResposta">
+                    <g:if test="${questionInstance.id}"><option value="naoeditar">Não editar o áudio</option></g:if>
                     <option value="gerar">Gerar áudio automaticamente</option>
                     <option value="gravarB">Gravar áudio (microfone)</option>
                     <option value="carregarB">Carregar arquivo (.wav, etc)</option>
@@ -84,6 +86,7 @@
         <input type="hidden" id="author" name="author" required="" readonly="readonly" value="${questionInstance?.author}" type="text" class="validate remar-input">
         <label for="author">Autor</label>
         <input type="hidden" id="orientacao" name="orientacao" value="${orientacao}">
+        <input type="hidden" id="questionID" name="questionID" required="" readonly="readonly" value="${questionInstance?.id}" type="text" class="validate remar-input">
     </div>
 
 

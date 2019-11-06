@@ -32,18 +32,12 @@
                         <g:render template="form"/>
 
                         <div class="row right-align" style="margin-right: 1em">
-                        <a id="back" name="back" class="btn btn-success remar-orange">Voltar</a>
+                            <a id="back" name="back" class="btn btn-success remar-orange">Voltar</a>
 
-                        <g:actionSubmit class="save btn remar-orange btn-success btn-lg" action="update"
-                                        value="${message(code: 'default.button.update.laasdbel', default: 'Salvar')}"/>
+                            <button id="submitEdit" type="button" name="submitEdit" class="btn btn-success remar-orange" value="Salvar">Salvar</button>
                         </div>
                     </fieldset>
                 </g:form>
-
-
-
-
-
             </div>
         </div>
     </div>

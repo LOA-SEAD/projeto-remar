@@ -31,20 +31,24 @@ $(document).ready(function() {
 
 
         if (selectPerg == "gravarA") {
-            var audioAurl = $("input[name=audioA]:checked").parent().siblings("audio")[0].src;
+            if ($("input[name=audioA]:checked").parent().siblings("audio")[0] != null) {
+                var audioAurl = $("input[name=audioA]:checked").parent().siblings("audio")[0].src;
 
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', audioAurl);
-            xhr.responseType = 'blob';
-            xhr.onload = function (e) {
-                if(selectResp == "gravarB") {
-                    recoverBlobB(xhr.response)
-                }
-                else {
-                    sendFormData(xhr.response, null)
-                }
-            };
-            xhr.send();
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', audioAurl);
+                xhr.responseType = 'blob';
+                xhr.onload = function (e) {
+                    if (selectResp == "gravarB") {
+                        recoverBlobB(xhr.response)
+                    } else {
+                        sendFormData(xhr.response, null)
+                    }
+                };
+                xhr.send();
+            }
+            else {
+                Materialize.toast("Grave o áudio da pergunta para prosseguir");
+            }
         }
         else {
             if(selectResp == "gravarB") {
@@ -56,10 +60,52 @@ $(document).ready(function() {
         }
     });
 
+
+
+    // Submit form button click function
+    $("#submitEdit").click(function() {
+        fd = new FormData();
+        var selectPerg = $("#selectPergunta :selected").val();
+        var selectResp = $("#selectResposta :selected").val();
+
+
+        if (selectPerg == "gravarA") {
+            if ($("input[name=audioA]:checked").parent().siblings("audio")[0] != null) {
+                var audioAurl = $("input[name=audioA]:checked").parent().siblings("audio")[0].src;
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', audioAurl);
+                xhr.responseType = 'blob';
+                xhr.onload = function (e) {
+                    if (selectResp == "gravarB") {
+                        recoverBlobBEdit(xhr.response)
+                    } else {
+                        sendFormDataEdit(xhr.response, null)
+                    }
+                };
+                xhr.send();
+            }
+            else {
+                Materialize.toast("Grave o áudio da pergunta para prosseguir");
+            }
+        }
+        else {
+            if(selectResp == "gravarB") {
+                recoverBlobBEdit(null)
+            }
+            else {
+                sendFormDataEdit(null, null)
+            }
+        }
+    });
+
+
+
 });
 
 function recoverBlobB(blobA) {
-
+    if(audioBurl = $("input[name=audioB]:checked").parent().siblings("audio")[0] != null)
+    {
         var audioBurl = $("input[name=audioB]:checked").parent().siblings("audio")[0].src;
         var xhr = new XMLHttpRequest();
         xhr.open('GET', audioBurl);
@@ -68,6 +114,27 @@ function recoverBlobB(blobA) {
             sendFormData(blobA, xhr.response)
         };
         xhr.send();
+    }
+    else {
+        Materialize.toast("Grave o áudio da resposta para prosseguir");
+    }
+}
+
+function recoverBlobBEdit(blobA) {
+    if(audioBurl = $("input[name=audioB]:checked").parent().siblings("audio")[0] != null)
+    {
+        var audioBurl = $("input[name=audioB]:checked").parent().siblings("audio")[0].src;
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', audioBurl);
+        xhr.responseType = 'blob';
+        xhr.onload = function (e) {
+            sendFormDataEdit(blobA, xhr.response)
+        };
+        xhr.send();
+    }
+    else {
+        Materialize.toast("Grave o áudio da resposta para prosseguir");
+    }
 }
 
 function sendFormData(blobA, blobB) {
@@ -115,7 +182,62 @@ function sendFormData(blobA, blobB) {
         success: function(response) {
             window.location.href = response;
         }
+    });
+}
 
+
+function sendFormDataEdit(blobA, blobB) {
+    var statement = $("input[name=statement]").val();
+    var answer = $("input[name=answer]").val();
+    var category = $("input[name=category]").val();
+    var author = $("input[name=author]").val();
+    var orientacao = $("input[name=orientacao]").val();
+    var questionID = $("input[name=questionID]").val();
+
+
+    var fd = new FormData();
+    var selectPerg = $("#selectPergunta :selected").val();
+    var selectResp = $("#selectResposta :selected").val();
+
+
+    if(selectPerg != "naoeditar") {
+        if ((blobA != null) && (selectPerg == "gravarA")) {
+            fd.append("audioA", blobA, new Date().toISOString());
+        }
+        if (selectPerg == "carregarA") {
+            fd.append("audio-1", $("#audio-1")[0].files[0]);
+        }
+    }
+
+    if(selectResp != "naoeditar") {
+        if ((blobB != null) && (selectResp == "gravarB")) {
+            fd.append("audioB", blobB, new Date().toISOString());
+        }
+        if (selectResp == "carregarB") {
+            fd.append("audio-2", $("#audio-2")[0].files[0]);
+        }
+    }
+
+    //falta os áudios gerados
+
+
+    fd.append("statement", statement)
+    fd.append("answer", answer)
+    fd.append("category", category)
+    fd.append("author", author)
+    fd.append("orientacao", orientacao)
+    fd.append("questionID", questionID)
+
+
+    $.ajax({
+        method: "POST",
+        url: "/forca-acessivel/question/update",
+        contentType: false,
+        processData: false,
+        data: fd,
+        success: function(response) {
+            window.location.href = response;
+        }
     });
 }
 

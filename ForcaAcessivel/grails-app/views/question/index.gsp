@@ -121,25 +121,18 @@
 <div class="row" style="margin-top:2em;">
     <!-- Botão de submissão; submete as perguntas selecionadas -->
     <div class="col s2">
-        <button class="btn waves-effect waves-light my-orange" type="submit" name="save" id="save">Enviar
-        </button>
+        <button class="btn waves-effect waves-light my-orange" type="submit" name="save" id="save">Enviar</button>
     </div>
+
 
     <!-- Botão de criação de perguntas; chama NOVA PÁGINA para criação da pergunta -->
-    <div class="col s1 offset-s6">
-    <a href="${createLink(action: "create", controller: "question")}"
-       class="btn-floating btn-success btn-large waves-effect waves-light remar-orange tooltipped" action="create" data-tooltip="Criar novo par">
-        <i class="material-icons">add</i>
-    </a>
-
-
-    <!-- Botão de criação de perguntas; chama o modal para edição da pergunta -->
-    <!--
-    <a data-target="createModal" name="create"
-           class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão">
+    <div class="col s1 offset-s8">
+        <a href="${createLink(action: "create", controller: "question")}"
+           class="btn-floating btn-success btn-large waves-effect waves-light remar-orange tooltipped" action="create" data-tooltip="Criar novo par">
             <i class="material-icons">add</i>
-        </a> -->
+        </a>
     </div>
+
 
     <!-- Botão de deleção; deleta as perguntas selecionadas -->
     <div class="col s1 m1 l1">
@@ -149,7 +142,8 @@
           </a>
     </div>
 
-    <!-- Botão para importação de perguntas (arquivo .csv); envia um arquivo para submeter perguntas -->
+    <!-- A versão acessível não contem importação e exportação
+    // Botão para importação de perguntas (arquivo .csv); envia um arquivo para submeter perguntas
     <div class="col s1">
         <a data-target="uploadModal" class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped"
            data-tooltip="Upload de arquivo .csv">
@@ -157,13 +151,14 @@
         </a>
     </div>
 
-    <!-- Botão para exportação de perguntas (arquivo .csv) -->
+    // Botão para exportação de perguntas (arquivo .csv)
     <div class="col s1">
         <a class="btn-floating btn-large waves-effect waves-light my-orange tooltipped"
            data-tooltip="Exportar questões para .csv">
             <i class="material-icons" onclick="exportQuestions()">file_download</i>
         </a>
     </div>
+    -->
 </div>
 
 

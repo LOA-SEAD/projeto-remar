@@ -35,6 +35,7 @@
                     <fieldset class="form">
                         <!-- Renderiza o formulário para criação de novo item -->
                         <g:render template="form"/>
+
                         <div class="row right-align" style="margin-right: 1em">
                             <a id="back" name="back" class="btn btn-success remar-orange">Voltar</a>
 
@@ -42,9 +43,7 @@
                         </div>
                     </fieldset>
                     </g:uploadForm>
-
                 <br />
-
             </div>
         </div>
     </div>

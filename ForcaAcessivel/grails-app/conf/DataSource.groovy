@@ -18,7 +18,7 @@ environments {
 
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mysql://localhost/forca-acessivel"
+            url = "jdbc:mysql://localhost/forcaacessivel"
         }
         dataSource_remar {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
@@ -28,7 +28,7 @@ environments {
     test {
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mysql://localhost/forca-acessivel"
+            url = "jdbc:mysql://localhost/forcaacessivel"
         }
         dataSource_remar {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
@@ -38,7 +38,7 @@ environments {
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:mysql://localhost/forca-acessivel"
+            url = "jdbc:mysql://localhost/forcaacessivel"
             properties {
                 // See http://grails.org/doc/latest/guide/conf.html#dataSource for documentation
                 jmxEnabled = true
