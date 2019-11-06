@@ -38,7 +38,7 @@ window.onload = function(){
             alert("Você deve selecionar um tema antes de enviar.");
         }
         else{
-            window.top.location.href = "/forca-acessivel/theme/choose/" + id;
+            window.top.location.href = "/forca_acessivel/theme/choose/" + id;
         }
     });
 
@@ -53,7 +53,7 @@ window.onload = function(){
         $.ajax({
             type:'POST',
             data: data,
-            url: "/forca-acessivel/theme/delete/" + id,
+            url: "/forca_acessivel/theme/delete/" + id,
             success:function(data){
                 console.log(data);
                 $(tr).hide();

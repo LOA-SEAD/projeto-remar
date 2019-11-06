@@ -56,7 +56,7 @@ class QuestionController {
     @Transactional
     def newQuestion(Question questionInstance) {
         // debug dos parâmetros vindos na chamada de ação
-        println("params: $params")
+        println("newQuestion params: $params")
 
         if (questionInstance.author == null) {
             questionInstance.author = session.user.username
@@ -77,16 +77,15 @@ class QuestionController {
         newQuest.taskId = session.taskId as String
         newQuest.ownerId = session.user.id
 
+        // salva no banco de dados
+        newQuest.save flush: true
+
         // checa o newQuest (e, consequentemente, os parâmetros)
         if (newQuest.hasErrors()) {
             respond newQuest.errors, view: 'create' //TODO
             render newQuest.errors;
             return
         }
-
-        // salva no banco de dados
-        newQuest.save flush: true
-
 
         // pega o id do usuário corrente (será usado para nomear os diretórios de armazenamento de arquivos)
         def userId = springSecurityService.getCurrentUser().getId()
@@ -97,7 +96,6 @@ class QuestionController {
         def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/audios/" + newQuest.id)
         def userFolder = new File(userPath)
         userFolder.mkdirs()
-
 
         // audioA e audioB: gravações (pergunta e resposta, respectivamente)
         if(params.audioA != null) {
@@ -126,12 +124,15 @@ class QuestionController {
         println("question id: $newQuest.id")
 
         if (request.isXhr()) {
-            render("http://localhost:8010/forca-acessivel/question")
+            def port = request.serverPort
+            if (Environment.current == Environment.DEVELOPMENT) {
+               port = 8010
+            }   
+
+            render("http://localhost:${port}/forca_acessivel/question")
         } else {
             // TODO
         }
-
-
     }
 
     @Transactional
@@ -232,7 +233,12 @@ class QuestionController {
         }
 
         if (request.isXhr()) {
-            render("http://localhost:8010/forca-acessivel/question")
+            def port = request.serverPort
+            if (Environment.current == Environment.DEVELOPMENT) {
+               port = 8010
+            }   
+
+            render("http://localhost:${port}/forca_acessivel/question")
         } else {
             // TODO
         }
@@ -388,7 +394,7 @@ class QuestionController {
             port = 8010
         }
 
-        render "/forca-acessivel/samples/export/exportQuestions.csv"
+        render "/forca_acessivel/samples/export/exportQuestions.csv"
 
 
     }

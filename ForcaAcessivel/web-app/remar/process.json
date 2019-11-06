@@ -1,6 +1,6 @@
 {
-  "name": "Forca",
-  "uri": "forca",
+  "name": "Forca Acessivel",
+  "uri": "forca_acessivel",
   "version": 1,
   "tasks": [
     {
@@ -44,9 +44,7 @@
     }
   ],
   "outputs": [
-    "web",
-    "android",
-    "desktop"
+    "web"
   ],
 
   "vars": {

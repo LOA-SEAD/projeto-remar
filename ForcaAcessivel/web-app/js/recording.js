@@ -179,7 +179,7 @@ function sendFormData(blobA, blobB) {
 
     $.ajax({
         method: "POST",
-        url: "/forca-acessivel/question/newQuestion",
+        url: "/forca_acessivel/question/newQuestion",
         contentType: false,
         processData: false,
         data: fd,
@@ -237,7 +237,7 @@ function sendFormDataEdit(blobA, blobB) {
 
     $.ajax({
         method: "POST",
-        url: "/forca-acessivel/question/update",
+        url: "/forca_acessivel/question/update",
         contentType: false,
         processData: false,
         data: fd,

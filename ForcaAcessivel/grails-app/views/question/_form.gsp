@@ -4,7 +4,7 @@
     GMS.RECORDINGS_RESUME_BUTTON_LABEL = "${message(code: 'question.resume.button.label')}";
     GMS.RECORDINGS_PAUSE_BUTTON_LABEL = "${message(code: 'question.pause.button.label')}";
 </g:javascript>
-<link rel="stylesheet" type="text/css" href="/forca-acessivel/css/question.css">
+<link rel="stylesheet" type="text/css" href="/forca_acessivel/css/question.css">
 
 <!-- Formulário de criação e edição -->
 <div class="input-field col s12">

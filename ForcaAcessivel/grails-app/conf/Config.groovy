@@ -89,7 +89,7 @@ grails.hibernate.osiv.readonly = false
 
 environments {
     development {
-        grails.app.context = "/forca-acessivel"
+        grails.app.context = "/forca_acessivel"
         /*
         // in development, we can use the same credential/api keys that REMAR uses
         def path = new File('.').absoluteFile.parentFile // app root folder
@@ -121,7 +121,7 @@ environments {
     production {
         grails.config.locations = ["classpath:env.properties"]
         grails.logging.jul.usebridge = false
-        grails.app.context = "/forca-acessivel"
+        grails.app.context = "/forca_acessivel"
     }
 }
 
