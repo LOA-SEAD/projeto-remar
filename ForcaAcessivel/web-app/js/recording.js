@@ -145,9 +145,12 @@ function sendFormData(blobA, blobB) {
     var orientacao = $("input[name=orientacao]").val();
 
 
+
     var fd = new FormData();
     var selectPerg = $("#selectPergunta :selected").val();
     var selectResp = $("#selectResposta :selected").val();
+
+
     if ((blobA != null) && (selectPerg == "gravarA")){
         fd.append("audioA", blobA, new Date().toISOString());
     }
@@ -170,7 +173,8 @@ function sendFormData(blobA, blobB) {
     fd.append("category", category)
     fd.append("author", author)
     fd.append("orientacao", orientacao)
-
+    fd.append("selectPerg", selectPerg)
+    fd.append("selectResp", selectResp)
 
 
     $.ajax({
@@ -227,6 +231,8 @@ function sendFormDataEdit(blobA, blobB) {
     fd.append("author", author)
     fd.append("orientacao", orientacao)
     fd.append("questionID", questionID)
+    fd.append("selectPerg", selectPerg)
+    fd.append("selectResp", selectResp)
 
 
     $.ajax({
