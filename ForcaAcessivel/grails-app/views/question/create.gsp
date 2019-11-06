@@ -17,7 +17,7 @@
 
 <div class="main-content">
     <div class="widget">
-        <h3 class="section-title first-title"><i class="icon-table"></i> Criar uma questão</h3>
+        <h3 class="section-title first-title"><i class="icon-table"></i>Criar uma questão</h3>
         <div class="widget-content-white glossed">
             <div class="padded">
                 <g:if test="${flash.message}">
