@@ -15,7 +15,7 @@
                 <div class="collapsible-body">
                     <p class="justify-text">
                         As transcrições de texto tanto da pergunta quanto da resposta podem ser gravadas durante a customização ou feito o upload (carregamento) de um áudio.
-                        Caso contrário, os áudios podem também serem sintetizados automaticamente.
+                        Caso contrário, os áudios podem também serem gerados automaticamente.
                     <br>Deve ser escolhida uma dessas opções para cada texto.
                     </p>
                 </div>
@@ -29,7 +29,10 @@
     <div class="row" style="margin-top:5em;">
         <div class="input-field col s9">
             <input id="statement" name="statement" required value="${questionInstance?.statement}" type="text" class="validate remar-input" maxlength="150"/>
-            <label for="statement">Pergunta</label>
+            <label for="statement">
+                <span class="required-indicator">*</span>
+                Pergunta
+            </label>
             <br>
         </div>
 
@@ -54,7 +57,10 @@
     <div class="row">
         <div class="input-field col s9">
             <input id="answer" name="answer" required value="${questionInstance?.answer}" type="text" class="validate remar-input" maxlength="150"/>
-            <label for="answer">Resposta</label>
+            <label for="answer">
+                <span class="required-indicator">*</span>
+                Resposta
+            </label>
             <br>
         </div>
 
@@ -74,9 +80,14 @@
 
 
     <!-- Tema -->
-    <div class="input-field col s12">
-        <input id="category" name="category" required="" value="${questionInstance?.category}" type="text" class="validate remar-input">
-        <label for="category">Tema</label>
+    <div class="row">
+        <div class="input-field col s12">
+            <input id="category" name="category" required="" value="${questionInstance?.category}" type="text" class="validate remar-input">
+            <label for="category">
+                <span class="required-indicator">*</span>
+                Tema
+            </label>
+        </div>
     </div>
 
 
