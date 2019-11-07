@@ -202,7 +202,7 @@
                                     <div class="file-field input-field">
                                         <div class="btn right remar-orange waves-effect waves-light">
                                             <span>File</span>
-                                            <input data-image="true" type="file" name="audio-1" id="audio-1" class="audio-input" accept="audio/*">
+                                            <input data-image="true" type="file" name="audio-1" id="audio-1" class="audio-input" accept="audio/mpeg">
                                         </div>
                                         <div class="file-path-wrapper">
                                             <input class="file-path validate" type="text" placeholder="Áudio (.wav, .mp3, etc.)">

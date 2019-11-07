@@ -106,24 +106,24 @@ class QuestionController {
         // audioA e audioB: gravações (pergunta e resposta, respectivamente)
         if(params.audioA != null) {
             def f1Recorded = request.getFile("audioA")
-            def f1File = new File("$userPath/pergunta.wav")
+            def f1File = new File("$userPath/statement.mp3")
             f1Recorded.transferTo(f1File)
         }
         if(params.audioB != null) {
             def f1Recorded = request.getFile("audioB")
-            def f1File = new File("$userPath/resposta.wav")
+            def f1File = new File("$userPath/answer.mp3")
             f1Recorded.transferTo(f1File)
         }
 
         // audio-1 e audio-2: uploads (pergunta e resposta, respectivamente)
         if(params["audio-1"] != null) {
             def f1Recorded = request.getFile("audio-1")
-            def f1File = new File("$userPath/pergunta.wav")
+            def f1File = new File("$userPath/statement.mp3")
             f1Recorded.transferTo(f1File)
         }
         if(params["audio-2"] != null) {
             def f1Recorded = request.getFile("audio-2")
-            def f1File = new File("$userPath/resposta.wav")
+            def f1File = new File("$userPath/answer.mp3")
             f1Recorded.transferTo(f1File)
         }
 
@@ -134,7 +134,7 @@ class QuestionController {
                 chmod(perm: "+x", file: scriptTexttoSpeech)
                 exec(executable: scriptTexttoSpeech) {
                     arg(value: "$questionInstance.statement")
-                    arg(value: "$userPath/pergunta.wav")
+                    arg(value: "$userPath/statement.mp3")
                 }
             }
         }
@@ -146,7 +146,7 @@ class QuestionController {
                 chmod(perm: "+x", file: scriptTexttoSpeech)
                 exec(executable: scriptTexttoSpeech) {
                     arg(value: "$questionInstance.answer")
-                    arg(value: "$userPath/resposta.wav")
+                    arg(value: "$userPath/answer.mp3")
                 }
             }
         }
@@ -217,6 +217,11 @@ class QuestionController {
 
     @Transactional
     def update() {
+
+        def ant = new AntBuilder()
+        def rootPath = servletContext.getRealPath('/')
+        def scriptTexttoSpeech = "${rootPath}/scripts/gtts.py"
+
         println("params edit: $params")
         Question questionInstance = Question.findById(Integer.parseInt(params.questionID))
 
@@ -240,13 +245,13 @@ class QuestionController {
 
         if(params["audioA"] != null) {
             def f1Recorded = request.getFile("audioA")
-            def f1File = new File("$userPath/pergunta.wav")
+            def f1File = new File("$userPath/statement.mp3")
             f1Recorded.transferTo(f1File)
         }
 
         if(params["audioB"] != null) {
             def f1Recorded = request.getFile("audioB")
-            def f1File = new File("$userPath/resposta.wav")
+            def f1File = new File("$userPath/answer.mp3")
             f1Recorded.transferTo(f1File)
         }
 
@@ -254,14 +259,38 @@ class QuestionController {
 
         if(params["audio-1"] != null) {
             def f1Recorded = request.getFile("audio-1")
-            def f1File = new File("$userPath/pergunta.wav")
+            def f1File = new File("$userPath/statement.mp3")
             f1Recorded.transferTo(f1File)
         }
 
         if(params["audio-2"] != null) {
             def f1Recorded = request.getFile("audio-2")
-            def f1File = new File("$userPath/resposta.wav")
+            def f1File = new File("$userPath/answer.mp3")
             f1Recorded.transferTo(f1File)
+        }
+
+        if (params["selectPerg"] == "gerar") {
+            println "Text-to-Speech (Pergunta)"
+            log.debug "Running Script for Text-to-Speech (Pergunta)"
+            ant.sequential {
+                chmod(perm: "+x", file: scriptTexttoSpeech)
+                exec(executable: scriptTexttoSpeech) {
+                    arg(value: "$questionInstance.statement")
+                    arg(value: "$userPath/statement.mp3")
+                }
+            }
+        }
+
+        if (params["selectResp"] == "gerar") {
+            println "Text-to-Speech (Resposta)"
+            log.debug "Running Script for Text-to-Speech (Resposta)"
+            ant.sequential {
+                chmod(perm: "+x", file: scriptTexttoSpeech)
+                exec(executable: scriptTexttoSpeech) {
+                    arg(value: "$questionInstance.answer")
+                    arg(value: "$userPath/answer.mp3")
+                }
+            }
         }
 
         if (request.isXhr()) {
@@ -347,8 +376,8 @@ class QuestionController {
         for (int i = 0; i < list.size(); i++) {
             Question question = list.get(i);
 
-            def currFile = new File("$audioPath/$question.id/pergunta.wav")
-            def destFile = new File("$userPath/S${i}.wav")
+            def currFile = new File("$audioPath/$question.id/statement.mp3")
+            def destFile = new File("$userPath/S${i}.mp3")
             Files.copy(currFile.toPath(), destFile.toPath())
 
             id = MongoHelper.putFile(destFile.absolutePath)
@@ -357,8 +386,8 @@ class QuestionController {
             // def destFile = new File("$audioFolder/S${i}.wav")
             // Files.copy(currFile.toPath(), destFile.toPath())
 
-            currFile = new File("$audioPath/$question.id/resposta.wav")
-            destFile = new File("$userPath/A${i}.wav")
+            currFile = new File("$audioPath/$question.id/answer.mp3")
+            destFile = new File("$userPath/A${i}.mp3")
             Files.copy(currFile.toPath(), destFile.toPath())
 
             id = MongoHelper.putFile(destFile.absolutePath)
