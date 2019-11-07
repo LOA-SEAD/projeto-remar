@@ -82,10 +82,20 @@
             <td class="_not_editable"><input class="filled-in" type="checkbox"> <label></label>
             </td>
 
-            <td name="question_label">${fieldValue(bean: questionInstance, field: "statement")}
+            <td name="question_label">
+                ${fieldValue(bean: questionInstance, field: "statement")}
+                <audio controls>
+                    <source src="data/${questionInstance.ownerId}/audios/${questionInstance.id}/pergunta.wav" type="audio/mpeg">
+                    Your browser does not support the audio tag.
+                </audio>
             </td>
 
+
             <td>${fieldValue(bean: questionInstance, field: "answer")}
+                <audio controls>
+                    <source src="data/${questionInstance.ownerId}/audios/${questionInstance.id}/resposta.wav" type="audio/mpeg">
+                    Your browser does not support the audio tag.
+                </audio>
             </td>
 
             <td name="theme" id="theme">${fieldValue(bean: questionInstance, field: "category")}

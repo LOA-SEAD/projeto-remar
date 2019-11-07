@@ -54,6 +54,8 @@ grails.project.dependency.resolution = {
         // test "org.grails:grails-datastore-test-support:1.0.2-grails-2.4"
         compile 'org.mongodb:mongodb-driver:3.2.1'
         compile 'org.mongodb:bson:3.0.4'
+        compile "org.apache.ant:ant:1.9.6"
+        compile "org.apache.ant:ant-launcher:1.9.6"
     }
 
     plugins {

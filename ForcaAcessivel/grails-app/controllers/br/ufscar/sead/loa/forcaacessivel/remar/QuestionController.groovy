@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import java.nio.file.Files
 
 @Secured(["isAuthenticated()"])
 @Transactional(readOnly = true)
@@ -55,6 +56,11 @@ class QuestionController {
 
     @Transactional
     def newQuestion(Question questionInstance) {
+
+        def ant = new AntBuilder()
+        def rootPath = servletContext.getRealPath('/')
+        def scriptTexttoSpeech = "${rootPath}/scripts/gtts.py"
+
         // debug dos parâmetros vindos na chamada de ação
         println("newQuestion params: $params")
 
@@ -119,6 +125,30 @@ class QuestionController {
             def f1Recorded = request.getFile("audio-2")
             def f1File = new File("$userPath/resposta.wav")
             f1Recorded.transferTo(f1File)
+        }
+
+        if (params["selectPerg"] == "gerar") {
+            println "Text-to-Speech (Pergunta)"
+            log.debug "Running Script for Text-to-Speech (Pergunta)"
+            ant.sequential {
+                chmod(perm: "+x", file: scriptTexttoSpeech)
+                exec(executable: scriptTexttoSpeech) {
+                    arg(value: "$questionInstance.statement")
+                    arg(value: "$userPath/pergunta.wav")
+                }
+            }
+        }
+
+        if (params["selectResp"] == "gerar") {
+            println "Text-to-Speech (Resposta)"
+            log.debug "Running Script for Text-to-Speech (Resposta)"
+            ant.sequential {
+                chmod(perm: "+x", file: scriptTexttoSpeech)
+                exec(executable: scriptTexttoSpeech) {
+                    arg(value: "$questionInstance.answer")
+                    arg(value: "$userPath/resposta.wav")
+                }
+            }
         }
 
         println("question id: $newQuest.id")
@@ -201,19 +231,19 @@ class QuestionController {
         def userId = springSecurityService.getCurrentUser().getId()
         println("userId:  $userId")
 
-
         // definição do diretório de áudios: criado com a id do usuário corrente!
         def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/audios/" + params.questionID)
         def userFolder = new File(userPath)
         userFolder.mkdirs()
 
-
         // audioA e audioB: gravações (pergunta e resposta, respectivamente)
+
         if(params["audioA"] != null) {
             def f1Recorded = request.getFile("audioA")
             def f1File = new File("$userPath/pergunta.wav")
             f1Recorded.transferTo(f1File)
         }
+
         if(params["audioB"] != null) {
             def f1Recorded = request.getFile("audioB")
             def f1File = new File("$userPath/resposta.wav")
@@ -221,11 +251,13 @@ class QuestionController {
         }
 
         // audio-1 e audio-2: uploads (pergunta e resposta, respectivamente)
+
         if(params["audio-1"] != null) {
             def f1Recorded = request.getFile("audio-1")
             def f1File = new File("$userPath/pergunta.wav")
             f1Recorded.transferTo(f1File)
         }
+
         if(params["audio-2"] != null) {
             def f1Recorded = request.getFile("audio-2")
             def f1File = new File("$userPath/resposta.wav")
@@ -291,6 +323,8 @@ class QuestionController {
         def userPath = new File(dataPath, "/" + springSecurityService.getCurrentUser().getId() + "/" + session.taskId)
         userPath.mkdirs()
 
+        def files = "?"
+
         def fileName = "palavras.json"
         File file = new File("$userPath/$fileName");
         PrintWriter pw = new PrintWriter(file);
@@ -298,13 +332,50 @@ class QuestionController {
         pw.close();
 
         String id = MongoHelper.putFile(file.absolutePath)
+        files += "files=${id}"
+
+        println list
+
+        def audioPath = new File(dataPath, "/" + springSecurityService.getCurrentUser().getId() + "/audios/")
+
+//        def audioFolder = new File("$userPath/audio")
+//        audioFolder.mkdirs()
+//
+//        id = MongoHelper.putFile(audioFolder.absolutePath)
+//        files += "&files=${id}"
+
+        for (int i = 0; i < list.size(); i++) {
+            Question question = list.get(i);
+
+            def currFile = new File("$audioPath/$question.id/pergunta.wav")
+            def destFile = new File("$userPath/S${i}.wav")
+            Files.copy(currFile.toPath(), destFile.toPath())
+
+            id = MongoHelper.putFile(destFile.absolutePath)
+            files += "&files=${id}"
+
+            // def destFile = new File("$audioFolder/S${i}.wav")
+            // Files.copy(currFile.toPath(), destFile.toPath())
+
+            currFile = new File("$audioPath/$question.id/resposta.wav")
+            destFile = new File("$userPath/A${i}.wav")
+            Files.copy(currFile.toPath(), destFile.toPath())
+
+            id = MongoHelper.putFile(destFile.absolutePath)
+            files += "&files=${id}"
+
+            // destFile = new File("$audioFolder/A${i}.wav")
+            // Files.copy(currFile.toPath(), destFile.toPath())
+        }
 
         def port = request.serverPort
         if (Environment.current == Environment.DEVELOPMENT) {
             port = 8010
         }
 
-        redirect uri: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}", params: [files: id]
+        def url = "http://${request.serverName}:${port}/process/task/complete/${session.taskId}${files}"
+        println url
+        redirect uri: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}${files}"
     }
 
     def returnInstance(Question questionInstance) {
@@ -364,7 +435,7 @@ class QuestionController {
 
     }
 
-    // A versão acessível do forca não tem exportação de csv
+    // A versão forca acessível do forca não tem exportação de csv
     def exportCSV() {
         ArrayList<Integer> list_questionId = new ArrayList<Integer>();
         ArrayList<Question> questionList = new ArrayList<Question>();

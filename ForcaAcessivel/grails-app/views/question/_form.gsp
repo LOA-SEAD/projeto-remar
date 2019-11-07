@@ -261,7 +261,7 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn waves-effect waves-light modal-close my-orange">Selecionar</button>
+        <button type="button" class="btn waves-effect waves-light modal-close my-orange">Fechar</button>
     </div>
 </div>
 

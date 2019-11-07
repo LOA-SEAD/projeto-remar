@@ -14,6 +14,364 @@
           "name": "palavras.json",
           "type": "json",
           "path": "json"
+        },
+        {
+          "name": "S0.wav",
+          "type": "wav",
+          "path": "audio"
+        },
+        {
+          "name": "A0.wav",
+          "type": "wav",
+          "path": "audio"
+        },
+        {
+          "name": "S1.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A1.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S2.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A2.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S3.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A3.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S4.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A4.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S5.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A5.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S6.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A6.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S7.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A7.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S8.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A8.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S9.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A9.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S10.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A10.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S11.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A11.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S12.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A12.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S13.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A13.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S14.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A14.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S15.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A15.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S16.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A16.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S17.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A17.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S18.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A18.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S19.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A19.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S20.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A20.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S21.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A21.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S22.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A22.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S23.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A23.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S24.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A24.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S25.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A25.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S26.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A26.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S27.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A27.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S28.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A28.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "S29.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
+        },
+        {
+          "name": "A29.wav",
+          "type": "wav",
+          "path": "audio",
+          "optional": true
         }
       ]
     },
