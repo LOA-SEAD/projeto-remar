@@ -12,6 +12,7 @@
 	<title><g:layoutTitle default="Jogo da Memória"/></title>
 
 	<link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons" >
+	<link rel="shortcut icon" href="${assetPath(src: 'favicon.png')}" type="image/x-icon">
 	<g:external dir="css" file="font-awesome.min.css"/>
 	<g:external dir="css" file="materialize.min.css"/>
 	<g:external dir="css" file="tiles.css"/>
@@ -19,6 +20,10 @@
 	<g:javascript src="jquery-3.2.1.min.js"/>
 	<g:javascript src="iframeResizer.contentWindow.min.js"/>
 	<g:javascript src="materialize.min.js"/>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
 
 	<g:layoutHead/>
 

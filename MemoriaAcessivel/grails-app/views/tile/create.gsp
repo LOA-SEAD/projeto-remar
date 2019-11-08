@@ -33,5 +33,13 @@
 			<g:render template="form"/>
 		</g:form>
 	</div>
+
+
+
+<g:javascript src="recording.js"/>
+<g:javascript src="tile.js"/>
+<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+
+
 </body>
 </html>
