@@ -97,7 +97,7 @@ class TileController {
         audioUploaded2.transferTo(new File("$userPath/upload$id-b.wav"))
 
 
-        render(status: 200, text: "http://${request.serverName}:${port}/memoriaacessivel/tile/")
+        render(status: 200, text: "http://${request.serverName}:${port}/memoria_acessivel/tile/")
 
     }
 
