@@ -12,7 +12,6 @@ import java.nio.file.Files
 
 @Secured(['isAuthenticated()'])
 class TileController {
-
     def beforeInterceptor = [action: this.&check, only: ['index']]
 
     def springSecurityService
@@ -80,6 +79,80 @@ class TileController {
         // audioA e audioB: gravações (pergunta e resposta, respectivamente)
         if(params.audioA != null) {
             def f1Recorded = request.getFile("audioA")
+            def f1File = new File("$userPath/carta1.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params.audioB != null) {
+            def f1Recorded = request.getFile("audioB")
+            def f1File = new File("$userPath/carta2.wav")
+            f1Recorded.transferTo(f1File)
+        }
+
+        // audio-1 e audio-2: uploads (pergunta e resposta, respectivamente)
+        if(params["audio-1"] != null) {
+            def f1Recorded = request.getFile("audio-1")
+            def f1File = new File("$userPath/carta1.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params["audio-2"] != null) {
+            def f1Recorded = request.getFile("audio-2")
+            def f1File = new File("$userPath/carta2.wav")
+            f1Recorded.transferTo(f1File)
+        }
+
+        if (params["selectPerg"] == "gerar") {
+            println "Text-to-Speech (Texto Primeira Carta)"
+            println "Running Script for Text-to-Speech (Texto Primeira Carta)"
+            textToSpeech("$tileInstance.textA", "$userPath/carta1.mp3")
+        }
+
+        if (params["selectResp"] == "gerar") {
+            println "Text-to-Speech (Texto Segunda Carta)"
+            println "Running Script for Text-to-Speech (Texto Segunda Carta)"
+            textToSpeech("$tileInstance.textA", "$userPath/carta2.mp3")
+        }
+
+        def port = request.serverPort
+        if (Environment.current == Environment.DEVELOPMENT) {
+            port = 8090
+        }
+
+        render(status: 200, text: "http://${request.serverName}:${port}/memoria_acessivel/tile/")
+
+    }
+
+    def edit() {
+        def tileInstance = Tile.findById(params.id)
+
+        render view: "edit",
+                model: [
+                        tileInstance: tileInstance,
+                        edit        : true
+                ]
+    }
+
+    @Transactional
+    def update() {
+        println("params edit: $params")
+
+        Tile tileInstance = Tile.findById(Integer.parseInt(params.tileID))
+
+        tileInstance.textA = params.textA
+        tileInstance.textB = params.textB
+        def userId = session.user.id
+        tileInstance.ownerId = userId
+        tileInstance.save flush: true
+
+        def tileID = params.tileID
+
+        // definição do diretório de áudios: criado com a id do usuário corrente!
+        def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/audios/" + tileID)
+        def userFolder = new File(userPath)
+        userFolder.mkdirs()
+
+        // audioA e audioB: gravações (pergunta e resposta, respectivamente)
+        if(params.audioA != null) {
+            def f1Recorded = request.getFile("audioA")
             def f1File = new File("$userPath/pergunta.wav")
             f1Recorded.transferTo(f1File)
         }
@@ -101,94 +174,29 @@ class TileController {
             f1Recorded.transferTo(f1File)
         }
 
-
-
-        def port = request.serverPort
-        if (Environment.current == Environment.DEVELOPMENT) {
-            port = 8090
+        if (params["selectPerg"] == "gerar") {
+            println "Text-to-Speech (Texto Primeira Carta)"
+            println "Running Script for Text-to-Speech (Texto Primeira Carta)"
+            textToSpeech("$tileInstance.textA", "$userPath/carta1.mp3")
         }
 
-        render(status: 200, text: "http://${request.serverName}:${port}/memoria-acessivel/tile/")
-
-    }
-
-    def edit() {
-        def tileInstance = Tile.findById(params.id)
-
-        render view: "edit",
-                model: [
-                        tileInstance: tileInstance,
-                        edit        : true
-                ]
-    }
-
-    @Transactional
-    def update() {
-        println("params edit: $params")
-
-        def tileInstance = Tile.get(params.id)
-        tileInstance.textA = params.textA
-        tileInstance.textB = params.textB
-
-        tileInstance.save flush: true
-
-        if (tileInstance.hasErrors()) {
-            println tileInstance.errors
+        if (params["selectResp"] == "gerar") {
+            println "Text-to-Speech (Texto Segunda Carta)"
+            println "Running Script for Text-to-Speech (Texto Segunda Carta)"
+            textToSpeech("$tileInstance.textA", "$userPath/carta2.mp3")
         }
 
-        def userId = session.user.id
-        def id = tileInstance.getId()
-        def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/" + tileInstance.taskId.toString() + "/tiles")
 
-
-        // edição dos áudios:
-
-        // pega o id do usuário corrente (será usado para nomear os diretórios de armazenamento de arquivos)
-        def userId = springSecurityService.getCurrentUser().getId()
-        println("userId:  $userId")
-
-        // definição do diretório de áudios: criado com a id do usuário corrente!
-        def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/audios/" + params.questionID)
-        def userFolder = new File(userPath)
-        userFolder.mkdirs()
-
-        // audioA e audioB: gravações (pergunta e resposta, respectivamente)
-
-        if(params["audioA"] != null) {
-            def f1Recorded = request.getFile("audioA")
-            def f1File = new File("$userPath/pergunta.wav")
-            f1Recorded.transferTo(f1File)
-        }
-
-        if(params["audioB"] != null) {
-            def f1Recorded = request.getFile("audioB")
-            def f1File = new File("$userPath/resposta.wav")
-            f1Recorded.transferTo(f1File)
-        }
-
-        // audio-1 e audio-2: uploads (pergunta e resposta, respectivamente)
-
-        if(params["audio-1"] != null) {
-            def f1Recorded = request.getFile("audio-1")
-            def f1File = new File("$userPath/pergunta.wav")
-            f1Recorded.transferTo(f1File)
-        }
-
-        if(params["audio-2"] != null) {
-            def f1Recorded = request.getFile("audio-2")
-            def f1File = new File("$userPath/resposta.wav")
-            f1Recorded.transferTo(f1File)
-        }
 
         if (request.isXhr()) {
             def port = request.serverPort
-           /* if (Environment.current == Environment.DEVELOPMENT) {
-                port = 8010
-            }*/
+            if (Environment.current == Environment.DEVELOPMENT) {
+                port = 8090
+            }
 
-            redirect(controller: "Tile", action: "index")
+            //redirect(controller: "Tile", action: "index")
 
-            //render("http://localhost:${port}/forca_acessivel/question")
+            render("http://localhost:${port}/memoria_acessivel/tile")
         } else {
             // TODO
         }
@@ -216,6 +224,20 @@ class TileController {
 
         redirect(controller: "Tile", action: "index")
     }
+
+    void textToSpeech(String text, String file) {
+        def ant = new AntBuilder()
+        def rootPath = servletContext.getRealPath('/')
+        def script = "${rootPath}/scripts/gtts.py"
+        ant.sequential {
+            chmod(perm: "+x", file: script)
+            exec(executable: script) {
+                arg(value: "$text")
+                arg(value: "$file")
+            }
+        }
+    }
+
 
     protected void notFound() {
         request.withFormat {

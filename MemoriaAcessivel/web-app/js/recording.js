@@ -163,6 +163,10 @@ function sendFormData(blobA, blobB) {
         fd.append("audio-2", $("#audio-2")[0].files[0]);
     }
 
+    if (selectResp == "gerar" || selectPerg == "gerar") {
+        Materialize.toast("Aguarde um momento que o áudio do texto está sendo gerado");
+    }
+
     //falta os áudios gerados
 
 
@@ -175,7 +179,7 @@ function sendFormData(blobA, blobB) {
 
     $.ajax({
         method: "POST",
-        url: "/memoria-acessivel/tile/save",
+        url: "/memoria_acessivel/tile/save",
         contentType: false,
         processData: false,
         data: fd,
@@ -187,12 +191,9 @@ function sendFormData(blobA, blobB) {
 
 
 function sendFormDataEdit(blobA, blobB) {
-    var statement = $("input[name=statement]").val();
-    var answer = $("input[name=answer]").val();
-    var category = $("input[name=category]").val();
-    var author = $("input[name=author]").val();
-    var orientacao = $("input[name=orientacao]").val();
-    var questionID = $("input[name=questionID]").val();
+    var textA = $("input[name=textA]").val();
+    var textB = $("input[name=textB]").val();
+    var tileID = $("input[name=tileID]").val();
 
 
     var fd = new FormData();
@@ -218,22 +219,22 @@ function sendFormDataEdit(blobA, blobB) {
         }
     }
 
+    if (selectResp == "gerar" || selectPerg == "gerar") {
+        Materialize.toast("Aguarde um momento que o áudio do texto está sendo gerado");
+    }
+
+
     //falta os áudios gerados
 
-
-    fd.append("statement", statement)
-    fd.append("answer", answer)
-    fd.append("category", category)
-    fd.append("author", author)
-    fd.append("orientacao", orientacao)
-    fd.append("questionID", questionID)
+    fd.append("textA", textA)
+    fd.append("textB", textB)
+    fd.append("tileID", tileID)
     fd.append("selectPerg", selectPerg)
     fd.append("selectResp", selectResp)
 
-
     $.ajax({
         method: "POST",
-        url: "/forca_acessivel/question/update",
+        url: "/memoria_acessivel/tile/update",
         contentType: false,
         processData: false,
         data: fd,
