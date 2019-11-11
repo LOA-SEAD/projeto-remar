@@ -2,22 +2,26 @@ $(document).on('change','#selectPergunta, #selectResposta',function(){
     console.log("Um dos SELECT mudou!");
     var selectedOption = $(this).val();
     if(selectedOption == "gravarA") {
-        $('#gravarModalA').openModal();
+        $('#gravarModalA').modal();
+        $('#gravarModalA').modal('open');
     }
     if(selectedOption == "gravarB") {
-        $('#gravarModalB').openModal();
+        $('#gravarModalB').modal();
+        $('#gravarModalB').modal('open');
     }
-
 
     if(selectedOption == "carregarA") {
-        $('#carregarModalA').openModal();
+        $('#carregarModalA').modal();
+        $('#carregarModalA').modal('open');
     }
     if(selectedOption == "carregarB") {
-        $('#carregarModalB').openModal();
+        $('#carregarModalB').modal();
+        $('#carregarModalB').modal('open');
     }
-
 
     if(selectedOption == "gerar") {
-        $('#gerarModal').openModal();
+        $('#gerarModal').modal();
+        $('#gerarModal').modal('open');
     }
 });
+

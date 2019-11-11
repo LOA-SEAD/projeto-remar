@@ -16,6 +16,8 @@
 			<g:form class="col s12" controller="tile" action="update" enctype="multipart/form-data" method="PUT">
 				<g:hiddenField name="version" value="${tileInstance?.version}" />
 				<g:render template="form"/>
+
+
 			</g:form>
 		</div>
 	</body>

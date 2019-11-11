@@ -11,32 +11,24 @@
 		<div class="divider"></div>
 	</div>
 
-    <div class="row show">
-        <g:if test="${flash.error?.not_image_file_a}">
-            <div class="error-box">
-                <i class="material-icons tiny">error</i>
-                O arquivo escolhido para a peça A não é uma imagem. Por favor, escolha um arquivo de imagem.
-            </div>
-        </g:if>
-
-        <g:if test="${flash.error?.not_image_file_b}">
-            <div class="error-box">
-                <i class="material-icons tiny">error</i>
-                O arquivo escolhido para a peça B não é uma imagem. Por favor, escolha um arquivo de imagem.
-            </div>
-        </g:if>
-
-    </div>
 
 	<div class="row">
 		<g:form class="col s12 sendForm" controller="tile" action="save" enctype="multipart/form-data">
 			<g:render template="form"/>
+
+			<div class="row right-align" style="right-margin: 15em;">
+				<a id="back" name="back" class="btn btn-success remar-orange">${message(code:'tile.create.backButton')}</a>
+				<button id="submit" type="button" name="submit" class="btn btn-success remar-orange" value="Criar">Criar</button>
+			</div>
 		</g:form>
 	</div>
 
 
 
+
+
 <g:javascript src="recording.js"/>
+<g:javascript src="recorder.js"/>
 <g:javascript src="tile.js"/>
 <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
 

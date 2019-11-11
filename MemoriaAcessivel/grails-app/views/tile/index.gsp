@@ -46,7 +46,9 @@
                                     <td>${tile.textA}</td>
                                     <td>${tile.textB}</td>
                                     <td>
-                                        <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil edit" data-id="${tile.id}"></i>
+                                        <a href="${createLink(action: "edit")}/${tile.id}">
+                                            <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil edit" data-id="${tile.id}"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             </g:each>
@@ -63,7 +65,7 @@
                 <div class="col s2">
                     <a href="#!" id="send" class="btn btn-success btn-lg remar-orange">Enviar</a>
                 </div>
-                <div class="col offset-s6">
+                <div class="col offset-s8">
                     <a href="${createLink(action: "create", controller: "tile")}"
                        class="btn-floating btn-success btn-large waves-effect waves-light remar-orange tooltipped" action="create" data-tooltip="Criar novo par"><i class="material-icons">add</i></a>
                 </div>

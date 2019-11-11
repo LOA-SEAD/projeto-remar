@@ -26,12 +26,14 @@
     </div>
 
 
+
+
+
     <!-- Primeira Carta -->
     <div class="row" style="margin-top:5em;">
 
         <!-- texto da primeira carta -->
         <div class="input-field col s9 fieldcontain ${hasErrors(bean: tileInstance, field: 'content', 'error')} required">
-            <!-- <g:textField id="textA" name="textA" class="remar-input" maxlength="50" required="" value="${tileInstance?.textA}"/> -->
             <input id="textA" name="textA" required value="${tileInstance?.textA}" type="text" class="validate remar-input" maxlength="150"/>
             <label for="textA"><g:message code="tile.textA.label" default="Texto Primeira Carta"/>
                 <span class="required-indicator">*</span>
@@ -56,9 +58,8 @@
     <!-- Segunda Carta -->
     <div class="row">
 
-        <!-- texto da primeira carta -->
+        <!-- texto da segunda carta -->
         <div class="input-field col s9 fieldcontain ${hasErrors(bean: tileInstance, field: 'content', 'error')} required">
-            <!-- <g:textField id="textB" name="textB" class="remar-input" maxlength="50" required="" value="${tileInstance?.textB}"/> -->
             <input id="textB" name="textB" required value="${tileInstance?.textB}" type="text" class="validate remar-input" maxlength="150"/>
             <label for="textB"><g:message code="tile.textB.label" default="Texto Segunda Carta"/>
                 <span class="required-indicator">*</span>
@@ -66,27 +67,24 @@
             <br>
         </div>
 
-        <!-- select box dos audios da primeira carta -->
+        <!-- select box dos audios da segunda carta -->
         <div class="input-field col s3">
             <div class="custom-select remar-orange" >
                 <select style="display: block;" id="selectResposta">
                     <g:if test="${tileInstance.id}"><option value="naoeditar">Não editar o áudio</option></g:if>
                     <option value="gerar">Gerar áudio automaticamente</option>
-                    <option value="gravarA">Gravar áudio (microfone)</option>
-                    <option value="carregarA">Carregar arquivo (.mp3)</option>
+                    <option value="gravarB">Gravar áudio (microfone)</option>
+                    <option value="carregarB">Carregar arquivo (.mp3)</option>
                 </select>
             </div>
         </div>
 
     </div>
+
+    <input type="hidden" id="questionID" name="questionID" required="" readonly="readonly" value="${tileInstance?.id}" type="text" class="validate remar-input">
 </div>
 
 
-<div class="row right-align" style="right-margin: 3em;">
-    <a id="back" name="back" class="btn btn-success remar-orange">${message(code:'tile.create.backButton')}</a>
-
-    <input id="submit" type="button" name="submit" class="btn btn-success remar-orange" value="${message(code:'tile.create.sendButton')}"/>
-</div>
 
 
 
@@ -100,148 +98,138 @@
 <!--                     Modal Structures                     -->
 <div id="gravarModalA" class="modal remar-modal">
     <div class="modal-content">
-        <div class="input-field col s6" style="text-align: center">
+        <div style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
+            <g:message code="tile.audioA.label"/>
+        </div>
+        <div style="text-align: left">
 
-            <div style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
-                <g:message code="tile.audioA.label"/>
+            <!-- Botões da gravação -->
+            <div id="controlsA"  style="text-align: center">
+                <button type="button" class="btn waves-effect waves-light remar-orange" id="recordButtonA">
+                    <g:message code="tile.record.button.label"/></button>
+                <button type="button" class="btn waves-effect waves-light remar-orange" id="pauseButtonA" disabled="true">
+                    <g:message code="tile.pause.button.label"/></button>
+                <button type="button" class="btn waves-effect waves-light remar-orange" id="stopButtonA" disabled="true">
+                    <g:message code="tile.stop.button.label"/></button>
             </div>
-            <div style="text-align: left">
 
-                <!-- Botões da gravação -->
-                <div id="controlsA"  style="text-align: center">
-                    <button type="button" class="btn waves-effect waves-light remar-orange" id="recordButtonA">
-                        <g:message code="tile.record.button.label"/></button>
-                    <button type="button" class="btn waves-effect waves-light remar-orange" id="pauseButtonA" disabled="true">
-                        <g:message code="tile.pause.button.label"/></button>
-                    <button type="button" class="btn waves-effect waves-light remar-orange" id="stopButtonA" disabled="true">
-                        <g:message code="tile.stop.button.label"/></button>
-                </div>
-
-                <!-- Listagem das gravações feitas -->
-                <br>
-                <h6 style="font-weight: bold"><g:message code="tile.recordings.list.header"/></h6>
-                <div id="recordingsListA" style="margin-bottom: 3em"></div>
-            </div>
+            <!-- Listagem das gravações feitas -->
+            <br>
+            <h6 style="font-weight: bold"><g:message code="tile.recordings.list.header"/></h6>
+            <div id="recordingsListA" style="margin-bottom: 3em"></div>
         </div>
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn waves-effect waves-light modal-close my-orange">Selecionar</button>
+        <button type="button" class="btn waves-effect waves-light modal-close remar-orange">Selecionar</button>
     </div>
 </div>
 
 
 <div id="gravarModalB" class="modal remar-modal">
     <div class="modal-content">
-        <div class="input-field col s6" style="text-align: center">
+        <div style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
+            <g:message code="tile.audioB.label"/>
+        </div>
+        <div style="text-align: left">
 
-            <div style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
-                <g:message code="tile.audioB.label"/>
+            <!-- Botões da gravação -->
+            <div id="controlsB"  style="text-align: center">
+                <button type="button" class="btn waves-effect waves-light remar-orange" id="recordButtonB">
+                    <g:message code="tile.record.button.label"/></button>
+                <button type="button" class="btn waves-effect waves-light remar-orange" id="pauseButtonB" disabled="true">
+                    <g:message code="tile.pause.button.label"/></button>
+                <button type="button" class="btn waves-effect waves-light remar-orange" id="stopButtonB" disabled="true">
+                    <g:message code="tile.stop.button.label"/></button>
             </div>
-            <div style="text-align: left">
 
-                <!-- Botões da gravação -->
-                <div id="controlsB"  style="text-align: center">
-                    <button type="button" class="btn waves-effect waves-light remar-orange" id="recordButtonB">
-                        <g:message code="tile.record.button.label"/></button>
-                    <button type="button" class="btn waves-effect waves-light remar-orange" id="pauseButtonB" disabled="true">
-                        <g:message code="tile.pause.button.label"/></button>
-                    <button type="button" class="btn waves-effect waves-light remar-orange" id="stopButtonB" disabled="true">
-                        <g:message code="tile.stop.button.label"/></button>
-                </div>
-
-                <!-- Listagem das gravações feitas -->
-                <br>
-                <h6 style="font-weight: bold"><g:message code="tile.recordings.list.header"/></h6>
-                <div id="recordingsListB" style="margin-bottom: 3em"></div>
-            </div>
+            <!-- Listagem das gravações feitas -->
+            <br>
+            <h6 style="font-weight: bold"><g:message code="tile.recordings.list.header"/></h6>
+            <div id="recordingsListB" style="margin-bottom: 3em"></div>
         </div>
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn waves-effect waves-light modal-close my-orange">Selecionar</button>
+        <button type="button" class="btn waves-effect waves-light modal-close remar-orange">Selecionar</button>
     </div>
 </div>
 
 
 <div id="carregarModalA" class="modal remar-modal">
     <div class="modal-content">
-        <div class="input-field col s6">
-            <div class="form" style="">
-                <div class="cluster-header">
-                    <div style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
-                        Upload de Áudio Primeira Carta
-                    </div>
+        <div class="form" style="">
+            <div class="cluster-header">
+                <div style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
+                    Upload de Áudio Primeira Carta
                 </div>
+            </div>
 
 
-                <div class="row">
-                    <div class="col s12">
-                        <ul class="collapsible" data-collapsible="accordion">
-                            <li>
-                                <div class="collapsible-header active"><i class="material-icons">file_upload</i>Selecione o arquivo referente ao áudio</div>
-                                <div class="collapsible-body">
-                                    <div class="file-field input-field">
-                                        <div class="btn right remar-orange waves-effect waves-light">
-                                            <span>Arquivo</span>
-                                            <input data-image="true" type="file" name="audio-1" id="audio-1" class="audio-input" accept="audio/*">
-                                        </div>
-                                        <div class="file-path-wrapper">
-                                            <input class="file-path validate" type="text" placeholder="Áudio (.wav, .mp3, etc.)">
-                                        </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                            <div class="collapsible-header active"><i class="material-icons">file_upload</i>Selecione o arquivo referente ao áudio</div>
+                            <div class="collapsible-body">
+                                <div class="file-field input-field">
+                                    <div class="btn right remar-orange waves-effect waves-light">
+                                        <span>Arquivo</span>
+                                        <input data-image="true" type="file" name="audio-1" id="audio-1" class="audio-input" accept="audio/*">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" placeholder="Áudio (.wav, .mp3, etc.)">
                                     </div>
                                 </div>
-                            </li>
-                        </ul>
-                    </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn waves-effect waves-light modal-close my-orange">Enviar</button>
+        <button type="button" class="btn waves-effect waves-light modal-close remar-orange">Enviar</button>
     </div>
 </div>
 
 
 <div id="carregarModalB" class="modal remar-modal">
     <div class="modal-content">
-        <div class="input-field col s6">
-            <div class="form" style="">
-                <div class="cluster-header">
-                    <div style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
-                        Upload de Áudio Segunda Carta
-                    </div>
+        <div class="form" style="">
+            <div class="cluster-header">
+                <div style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
+                    Upload de Áudio Segunda Carta
                 </div>
+            </div>
 
 
-                <div class="row">
-                    <div class="col s12">
-                        <ul class="collapsible" data-collapsible="accordion">
-                            <li>
-                                <div class="collapsible-header active"><i class="material-icons">file_upload</i>Selecione o arquivo referente ao áudio</div>
-                                <div class="collapsible-body">
-                                    <div class="file-field input-field">
-                                        <div class="btn right remar-orange waves-effect waves-light">
-                                            <span>Arquivo</span>
-                                            <input data-image="true" type="file" name="audio-2" id="audio-2" class="audio-input" accept="audio/*">
-                                        </div>
-                                        <div class="file-path-wrapper">
-                                            <input class="file-path validate" type="text" placeholder="Áudio (.wav, .mp3, etc.)">
-                                        </div>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                            <div class="collapsible-header active"><i class="material-icons">file_upload</i>Selecione o arquivo referente ao áudio</div>
+                            <div class="collapsible-body">
+                                <div class="file-field input-field">
+                                    <div class="btn right remar-orange waves-effect waves-light">
+                                        <span>Arquivo</span>
+                                        <input data-image="true" type="file" name="audio-2" id="audio-2" class="audio-input" accept="audio/*">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" placeholder="Áudio (.wav, .mp3, etc.)">
                                     </div>
                                 </div>
-                            </li>
-                        </ul>
-                    </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn waves-effect waves-light modal-close my-orange">Enviar</button>
+        <button type="button" class="btn waves-effect waves-light modal-close remar-orange">Enviar</button>
     </div>
 </div>
 
@@ -254,6 +242,7 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn waves-effect waves-light modal-close my-orange">Ok</button>
+        <button type="button" class="btn waves-effect waves-light modal-close remar-orange">Ok</button>
     </div>
 </div>
+

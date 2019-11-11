@@ -15,7 +15,7 @@ $(document).ready(function() {
         var getUrl = window.location;
         var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
-        window.location.href = baseUrl + "/question/index";
+        window.location.href = baseUrl + "/tile/index";
     });
 
     // autoplay selected audio
@@ -138,11 +138,9 @@ function recoverBlobBEdit(blobA) {
 }
 
 function sendFormData(blobA, blobB) {
-    var statement = $("input[name=statement]").val();
-    var answer = $("input[name=answer]").val();
-    var category = $("input[name=category]").val();
-    var author = $("input[name=author]").val();
-    var orientacao = $("input[name=orientacao]").val();
+    var textA = $("input[name=textA]").val();
+    var textB = $("input[name=textB]").val();
+    var tileID = $("input[name=tileID]").val();
 
 
 
@@ -168,18 +166,16 @@ function sendFormData(blobA, blobB) {
     //falta os áudios gerados
 
 
-    fd.append("statement", statement)
-    fd.append("answer", answer)
-    fd.append("category", category)
-    fd.append("author", author)
-    fd.append("orientacao", orientacao)
+    fd.append("textA", textA)
+    fd.append("textB", textB)
+    fd.append("tileID", tileID)
     fd.append("selectPerg", selectPerg)
     fd.append("selectResp", selectResp)
 
 
     $.ajax({
         method: "POST",
-        url: "/forca_acessivel/question/newQuestion",
+        url: "/memoria-acessivel/tile/save",
         contentType: false,
         processData: false,
         data: fd,
