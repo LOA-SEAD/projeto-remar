@@ -1,8 +1,10 @@
 <%@ page import="br.ufscar.sead.loa.memoriaacessivel.Tile" %>
 <g:javascript>
     GMS = {};
-    GMS.RECORDINGS_RESUME_BUTTON_LABEL = "${message(code: 'tile.resume.button.label')}";
-    GMS.RECORDINGS_PAUSE_BUTTON_LABEL = "${message(code: 'tile.pause.button.label')}";
+    GMS.RECORDINGS_RESUME_BUTTON_LABEL = "${message(code: 'tile.resume.button.label', default:'Continuar gravando')}";
+    GMS.RECORDINGS_PAUSE_BUTTON_LABEL = "${message(code: 'tile.pause.button.label', default:'Pausar gravação')}";
+    GMS.RECORDINGS_RECORD_BUTTON_LABEL = "${message(code: 'tile.record.button.label', default:'Gravar')}";
+    GMS.RECORDINGS_RECORDING_BUTTON_LABEL = "${message(code: 'tile.recording.button.label', default:'Gravando...')}";
 </g:javascript>
 <g:if test="${edit}">
     <g:hiddenField name="id" value="${tileInstance.id}"/>
@@ -99,23 +101,23 @@
 <div id="gravarModalA" class="modal remar-modal">
     <div class="modal-content">
         <div style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
-            <g:message code="tile.audioA.label"/>
+            ${message(code: 'tile.audioA.label', default: 'Gravação de Áudio da Primeira Carta')}
         </div>
         <div style="text-align: left">
 
             <!-- Botões da gravação -->
             <div id="controlsA"  style="text-align: center">
                 <button type="button" class="btn waves-effect waves-light remar-orange" id="recordButtonA">
-                    <g:message code="tile.record.button.label"/></button>
+                    ${message(code: 'tile.record.button.label', default: 'Gravar')}</button>
                 <button type="button" class="btn waves-effect waves-light remar-orange" id="pauseButtonA" disabled="true">
-                    <g:message code="tile.pause.button.label"/></button>
+                    ${message(code: 'tile.pause.button.label', default: 'Pausar gravação')}</button>
                 <button type="button" class="btn waves-effect waves-light remar-orange" id="stopButtonA" disabled="true">
-                    <g:message code="tile.stop.button.label"/></button>
+                    ${message(code: 'tile.stop.button.label', default: 'Encerrar gravação')}</button>
             </div>
 
             <!-- Listagem das gravações feitas -->
             <br>
-            <h6 style="font-weight: bold"><g:message code="tile.recordings.list.header"/></h6>
+            <h6 style="font-weight: bold">${message(code: 'tile.recordings.list.header', default: 'Gravações')}</h6>
             <div id="recordingsListA" style="margin-bottom: 3em"></div>
         </div>
     </div>
@@ -129,23 +131,22 @@
 <div id="gravarModalB" class="modal remar-modal">
     <div class="modal-content">
         <div style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
-            <g:message code="tile.audioB.label"/>
-        </div>
+            ${message(code: 'tile.audioB.label', default: 'Gravação de Áudio da Segunda Carta')}</div>
         <div style="text-align: left">
 
             <!-- Botões da gravação -->
             <div id="controlsB"  style="text-align: center">
                 <button type="button" class="btn waves-effect waves-light remar-orange" id="recordButtonB">
-                    <g:message code="tile.record.button.label"/></button>
-                <button type="button" class="btn waves-effect waves-light remar-orange" id="pauseButtonB" disabled="true">
-                    <g:message code="tile.pause.button.label"/></button>
-                <button type="button" class="btn waves-effect waves-light remar-orange" id="stopButtonB" disabled="true">
-                    <g:message code="tile.stop.button.label"/></button>
-            </div>
+                    ${message(code: 'tile.record.button.label', default: 'Gravar')}</button>
+            <button type="button" class="btn waves-effect waves-light remar-orange" id="pauseButtonB" disabled="true">
+                ${message(code: 'tile.pause.button.label', default: 'Pausar gravação')}</button>
+            <button type="button" class="btn waves-effect waves-light remar-orange" id="stopButtonB" disabled="true">
+                ${message(code: 'tile.stop.button.label', default: 'Encerrar gravação')}</button>
+        </div>
 
             <!-- Listagem das gravações feitas -->
             <br>
-            <h6 style="font-weight: bold"><g:message code="tile.recordings.list.header"/></h6>
+            <h6 style="font-weight: bold">${message(code: 'tile.recordings.list.header', default: 'Gravações')}</h6>
             <div id="recordingsListB" style="margin-bottom: 3em"></div>
         </div>
     </div>

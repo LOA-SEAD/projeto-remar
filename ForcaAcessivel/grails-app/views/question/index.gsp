@@ -189,9 +189,6 @@
         //console.log(variable);
     }
 </script>
-<g:javascript src="recording.js"/>
-<g:javascript src="recorder.js"/>
-<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
 </body>
 </html>
 

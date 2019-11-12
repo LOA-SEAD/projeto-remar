@@ -19,7 +19,7 @@
 					<g:render template="form"/>
 
 					<div class="row right-align" style="right-margin: 15em;">
-						<a id="back" name="back" class="btn btn-success remar-orange">${message(code:'tile.create.backButton')}</a>
+						<a id="back" name="back" class="btn btn-success remar-orange">Voltar</a>
 						<button id="submitEdit" type="button" name="submitEdit" class="btn btn-success remar-orange" value="Salvar">Salvar</button>
 					</div>
 				</fieldset>

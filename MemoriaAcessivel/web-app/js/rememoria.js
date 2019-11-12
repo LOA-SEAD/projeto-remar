@@ -65,15 +65,15 @@ $(document).ready(function() {
         });
 
 
-        var count = 3;
-        /*
+        var count = 0;
+
         switch(level){
             case 1: count = 3; break;
             case 2: count = 4; break;
             case 3: count = 6; break;
             default: count = 3;
         }
-        */
+
 
         if (ids.length == count) {
             // Proceed to task submission

@@ -1,8 +1,10 @@
 <%@ page import="br.ufscar.sead.loa.forcaacessivel.remar.Question" %>
 <g:javascript>
     GMS = {};
-    GMS.RECORDINGS_RESUME_BUTTON_LABEL = "${message(code: 'question.resume.button.label')}";
-    GMS.RECORDINGS_PAUSE_BUTTON_LABEL = "${message(code: 'question.pause.button.label')}";
+    GMS.RECORDINGS_RESUME_BUTTON_LABEL = "${message(code: 'question.resume.button.label', default:'Continuar gravando')}";
+    GMS.RECORDINGS_PAUSE_BUTTON_LABEL = "${message(code: 'question.pause.button.label', default:'Pausar gravação')}";
+    GMS.RECORDINGS_RECORD_BUTTON_LABEL = "${message(code: 'question.record.button.label', default:'Gravar')}";
+    GMS.RECORDINGS_RECORDING_BUTTON_LABEL = "${message(code: 'question.recording.button.label', default:'Gravando...')}";
 </g:javascript>
 <link rel="stylesheet" type="text/css" href="/forca_acessivel/css/question.css">
 
@@ -121,23 +123,23 @@
         <div class="input-field col s6" style="text-align: center">
 
             <div style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
-                <g:message code="question.audioA.label"/>
+                ${message(code: 'question.audioA.label', default: 'Gravação de Áudio da Pergunta')}
             </div>
             <div style="text-align: left">
 
                 <!-- Botões da gravação -->
                 <div id="controlsA"  style="text-align: center">
                     <button type="button" class="btn waves-effect waves-light remar-orange" id="recordButtonA">
-                        <g:message code="question.record.button.label"/></button>
+                        ${message(code: 'question.record.button.label', default: 'Gravar')}</button>
                     <button type="button" class="btn waves-effect waves-light remar-orange" id="pauseButtonA" disabled="true">
-                        <g:message code="question.pause.button.label"/></button>
+                        ${message(code: 'question.pause.button.label', default: 'Pausar gravação')}</button>
                     <button type="button" class="btn waves-effect waves-light remar-orange" id="stopButtonA" disabled="true">
-                        <g:message code="question.stop.button.label"/></button>
+                        ${message(code: 'question.stop.button.label', default: 'Encerrar gravação')}</button>
                 </div>
 
                 <!-- Listagem das gravações feitas -->
                 <br>
-                <h6 style="font-weight: bold"><g:message code="question.recordings.list.header"/></h6>
+                <h6 style="font-weight: bold">${message(code: 'question.recordings.list.header', default: 'Gravações')}</h6>
                 <div id="recordingsListA" style="margin-bottom: 3em"></div>
             </div>
         </div>
@@ -154,23 +156,23 @@
         <div class="input-field col s6" style="text-align: center">
 
             <div style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
-                <g:message code="question.audioB.label"/>
+                ${message(code: 'question.audioB.label', default: 'Gravação de Áudio da Resposta')}
             </div>
             <div style="text-align: left">
 
                 <!-- Botões da gravação -->
                 <div id="controlsB"  style="text-align: center">
                     <button type="button" class="btn waves-effect waves-light remar-orange" id="recordButtonB">
-                        <g:message code="question.record.button.label"/></button>
+                        ${message(code: 'question.record.button.label', default: 'Gravar')}</button>
                     <button type="button" class="btn waves-effect waves-light remar-orange" id="pauseButtonB" disabled="true">
-                        <g:message code="question.pause.button.label"/></button>
+                        ${message(code: 'question.pause.button.label', default: 'Pausar gravação')}</button>
                     <button type="button" class="btn waves-effect waves-light remar-orange" id="stopButtonB" disabled="true">
-                        <g:message code="question.stop.button.label"/></button>
+                        ${message(code: 'question.stop.button.label', default: 'Encerrar gravação')}</button>
                 </div>
 
                 <!-- Listagem das gravações feitas -->
                 <br>
-                <h6 style="font-weight: bold"><g:message code="question.recordings.list.header"/></h6>
+                <h6 style="font-weight: bold">${message(code: 'question.recordings.list.header', default: 'Gravações')}</h6>
                 <div id="recordingsListB" style="margin-bottom: 3em"></div>
             </div>
         </div>
@@ -201,7 +203,7 @@
                                 <div class="collapsible-body">
                                     <div class="file-field input-field">
                                         <div class="btn right remar-orange waves-effect waves-light">
-                                            <span>File</span>
+                                            <span>Arquivo</span>
                                             <input data-image="true" type="file" name="audio-1" id="audio-1" class="audio-input" accept="audio/mpeg">
                                         </div>
                                         <div class="file-path-wrapper">
@@ -218,7 +220,7 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn waves-effect waves-light modal-close my-orange">Selecionar</button>
+        <button type="button" class="btn waves-effect waves-light modal-close my-orange">Enviar</button>
     </div>
 </div>
 
@@ -242,7 +244,7 @@
                                 <div class="collapsible-body">
                                     <div class="file-field input-field">
                                         <div class="btn right remar-orange waves-effect waves-light">
-                                            <span>File</span>
+                                            <span>Arquivo</span>
                                             <input data-image="true" type="file" name="audio-2" id="audio-2" class="audio-input" accept="audio/*">
                                         </div>
                                         <div class="file-path-wrapper">
@@ -259,7 +261,7 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn waves-effect waves-light modal-close my-orange">Selecionar</button>
+        <button type="button" class="btn waves-effect waves-light modal-close my-orange">Enviar</button>
     </div>
 </div>
 
@@ -272,7 +274,7 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn waves-effect waves-light modal-close my-orange">Fechar</button>
+        <button type="button" class="btn waves-effect waves-light modal-close my-orange">Ok</button>
     </div>
 </div>
 

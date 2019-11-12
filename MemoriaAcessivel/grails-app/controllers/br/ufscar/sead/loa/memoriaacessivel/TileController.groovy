@@ -109,7 +109,7 @@ class TileController {
         if (params["selectResp"] == "gerar") {
             println "Text-to-Speech (Texto Segunda Carta)"
             println "Running Script for Text-to-Speech (Texto Segunda Carta)"
-            textToSpeech("$tileInstance.textA", "$userPath/carta2.mp3")
+            textToSpeech("$tileInstance.textB", "$userPath/carta2.mp3")
         }
 
         def port = request.serverPort
@@ -153,24 +153,24 @@ class TileController {
         // audioA e audioB: gravações (pergunta e resposta, respectivamente)
         if(params.audioA != null) {
             def f1Recorded = request.getFile("audioA")
-            def f1File = new File("$userPath/pergunta.wav")
+            def f1File = new File("$userPath/carta1.wav")
             f1Recorded.transferTo(f1File)
         }
         if(params.audioB != null) {
             def f1Recorded = request.getFile("audioB")
-            def f1File = new File("$userPath/resposta.wav")
+            def f1File = new File("$userPath/carta2.wav")
             f1Recorded.transferTo(f1File)
         }
 
         // audio-1 e audio-2: uploads (pergunta e resposta, respectivamente)
         if(params["audio-1"] != null) {
             def f1Recorded = request.getFile("audio-1")
-            def f1File = new File("$userPath/pergunta.wav")
+            def f1File = new File("$userPath/carta1.wav")
             f1Recorded.transferTo(f1File)
         }
         if(params["audio-2"] != null) {
             def f1Recorded = request.getFile("audio-2")
-            def f1File = new File("$userPath/resposta.wav")
+            def f1File = new File("$userPath/carta2.wav")
             f1Recorded.transferTo(f1File)
         }
 
@@ -183,7 +183,8 @@ class TileController {
         if (params["selectResp"] == "gerar") {
             println "Text-to-Speech (Texto Segunda Carta)"
             println "Running Script for Text-to-Speech (Texto Segunda Carta)"
-            textToSpeech("$tileInstance.textA", "$userPath/carta2.mp3")
+            textToSpeech("$tileInstance.textB", "$userPath/carta2.mp3")
+
         }
 
 
@@ -258,8 +259,8 @@ class TileController {
         def message = new StringBuilder()
 
         // encontra o endereço do arquivo criado
-        //def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
-        def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/")
+        def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
+        //def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/")
         def newPath = new File(folder)
         newPath.mkdirs()
 
