@@ -165,7 +165,9 @@ function sendFormData(blobA, blobB) {
         fd.append("audio-2", $("#audio-2")[0].files[0]);
     }
 
-    //falta os áudios gerados
+    if (selectResp == "gerar" || selectPerg == "gerar") {
+        Materialize.toast("Aguarde um momento que o áudio do texto está sendo gerado");
+    }
 
 
     fd.append("statement", statement)
@@ -222,7 +224,9 @@ function sendFormDataEdit(blobA, blobB) {
         }
     }
 
-    //falta os áudios gerados
+    if (selectResp == "gerar" || selectPerg == "gerar") {
+        Materialize.toast("Aguarde um momento que o áudio do texto está sendo gerado");
+    }
 
 
     fd.append("statement", statement)

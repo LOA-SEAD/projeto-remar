@@ -250,6 +250,7 @@ class TileController {
     }
 
     def validate() {
+        println("params: $params")
         def owner = springSecurityService.currentUser.getId()
 
         // Getting all the selected tiles
@@ -257,7 +258,8 @@ class TileController {
         def message = new StringBuilder()
 
         // encontra o endereço do arquivo criado
-        def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
+        //def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
+        def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/")
         def newPath = new File(folder)
         newPath.mkdirs()
 
@@ -283,6 +285,7 @@ class TileController {
 
             def currFile = new File(getTilesAudios(tileList[i]).a)
             def destFile = new File("$folder/L${session.level}A${cardCounter}.wav")
+            print("session level: $session.level")
             Files.copy(currFile.toPath(), destFile.toPath())
 
 
@@ -325,8 +328,8 @@ class TileController {
         def userPath = servletContext.getRealPath("/data/${tileInstance.ownerId.toString()}")
         def id = tileInstance.id
         def images = [
-                "a": "$userPath/audio$id-a.wav".toString(),
-                "b": "$userPath/audio$id-b.wav".toString()
+                "a": "$userPath/audios/$id/carta1.mp3".toString(),
+                "b": "$userPath/audios/$id/carta2.mp3".toString()
         ]
 
         return images

@@ -99,7 +99,7 @@
     </div>
 
     <g:javascript>
-        <!-- level = ${level};-->
+        level = ${level};
     </g:javascript>
     <g:javascript src="rememoria.js"/>
 </body>
