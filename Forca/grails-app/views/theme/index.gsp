@@ -24,7 +24,7 @@
     <div class="row">
         <div>
             %{--<p> Download tema ESR</p>--}%
-            <p style="margin-left: 10px;">Download do tema modelo <a class="btn-floating waves-effect waves-light my-orange" href="/forca-acessivel/samples/tema-forca.zip">  </a>
+            <p style="margin-left: 10px;">Download do tema modelo <a class="btn-floating waves-effect waves-light my-orange" href="/forca/samples/tema-forca.zip">  </a>
         </p>
         </div>
     </div>
@@ -56,9 +56,9 @@
                                         <td class="simpleTable myTheme" align="center"><input class="with-gap" name="radio" type="radio" id="myTheme${i}"
                                                                                       value="${fieldValue(bean: themeInstance, field: "id")}" ${i == 0 ? "checked" : ""}> <label for="myTheme${i}"></label>
                                         </td>
-                                        <td align="center"><img src="/forca-acessivel/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/icon.png" class="" width="200"/></td>
-                                        <td align="center"><img src="/forca-acessivel/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/inicio.png" class="" width="200"/></td>
-                                        <td align="center"><img src="/forca-acessivel/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/papel.png" class="" width="200"/></td>
+                                        <td align="center"><img src="/forca/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/icon.png" class="" width="200"/></td>
+                                        <td align="center"><img src="/forca/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/inicio.png" class="" width="200"/></td>
+                                        <td align="center"><img src="/forca/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/papel.png" class="" width="200"/></td>
                                         <td align="center"><i id="deleteIcon${i}" style="color: #7d8fff" class="material-icons delete">delete</i></td>
                                     </tr>
                                 </g:each>
@@ -87,9 +87,9 @@
                                     <td class="simpleTable" align="center"><input class="with-gap" name="radio" type="radio" id="publicTheme${i}"
                                                               value="${fieldValue(bean: themeInstance, field: "id")}" ${i == 0 ? "checked" : ""}> <label for="publicTheme${i}"></label>
                                     </td>
-                                    <td align="center"><img src="/forca-acessivel/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/icon.png" class="" width="200"/></td>
-                                    <td align="center"><img src="/forca-acessivel/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/inicio.png" class="" width="200"/></td>
-                                    <td align="center"><img src="/forca-acessivel/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/papel.png" class="" width="200"/></td>
+                                    <td align="center"><img src="/forca/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/icon.png" class="" width="200"/></td>
+                                    <td align="center"><img src="/forca/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/inicio.png" class="" width="200"/></td>
+                                    <td align="center"><img src="/forca/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/papel.png" class="" width="200"/></td>
                                 </tr>
                             </g:each>
                             </tbody>

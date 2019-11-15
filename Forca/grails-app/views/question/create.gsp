@@ -32,36 +32,18 @@
                         </g:eachError>
                     </ul>
                 </g:hasErrors>
-
+                <g:form url="[resource:questionInstance, action:'save']" >
                     <fieldset class="form">
-                        <!-- Renderiza o formulário para criação de novo item -->
                         <g:render template="form"/>
                     </fieldset>
                     <br />
-
+                    <fieldset class="buttons">
+                        <g:submitButton name="create" class="btn btn-success" value="${message(code: 'default.button.create.label', default: 'Criar')}" />
+                    </fieldset>
+                </g:form>
             </div>
         </div>
     </div>
 </div>
-
-<!-- Javascript -->
-<g:javascript src="editableTable.js"/>
-<g:javascript src="scriptTable.js"/>
-<g:javascript src="validate.js"/>
-<g:javascript src="question.js"/>
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="/forca-acessivel/js/materialize.min.js"></script>
-<script type="text/javascript">
-
-    function changeEditQuestion(variable) {
-        var editQuestion = document.getElementById("editQuestionLabel");
-        editQuestion.value = variable;
-
-        console.log(editQuestion.value);
-        //console.log(variable);
-    }
-</script>
-<g:javascript src="recording.js"/>
-<g:javascript src="recorder.js"/>
 </body>
 </html>
