@@ -103,13 +103,13 @@ class TileController {
         if (params["selectPerg"] == "gerar") {
             println "Text-to-Speech (Texto Primeira Carta)"
             println "Running Script for Text-to-Speech (Texto Primeira Carta)"
-            textToSpeech("$tileInstance.textA", "$userPath/carta1.mp3")
+            textToSpeech("$tileInstance.textA", "$userPath/carta1.wav")
         }
 
         if (params["selectResp"] == "gerar") {
             println "Text-to-Speech (Texto Segunda Carta)"
             println "Running Script for Text-to-Speech (Texto Segunda Carta)"
-            textToSpeech("$tileInstance.textB", "$userPath/carta2.mp3")
+            textToSpeech("$tileInstance.textB", "$userPath/carta2.wav")
         }
 
         def port = request.serverPort
@@ -177,13 +177,13 @@ class TileController {
         if (params["selectPerg"] == "gerar") {
             println "Text-to-Speech (Texto Primeira Carta)"
             println "Running Script for Text-to-Speech (Texto Primeira Carta)"
-            textToSpeech("$tileInstance.textA", "$userPath/carta1.mp3")
+            textToSpeech("$tileInstance.textA", "$userPath/carta1.wav")
         }
 
         if (params["selectResp"] == "gerar") {
             println "Text-to-Speech (Texto Segunda Carta)"
             println "Running Script for Text-to-Speech (Texto Segunda Carta)"
-            textToSpeech("$tileInstance.textB", "$userPath/carta2.mp3")
+            textToSpeech("$tileInstance.textB", "$userPath/carta2.wav")
 
         }
 

@@ -46,14 +46,14 @@
                                     <td>
                                         ${tile.textA}
                                         <audio controls>
-                                            <source src="data/${tile.ownerId}/audios/${tile.id}/carta1.mp3" type="audio/mpeg">
+                                            <source src="${request.contextPath}/data/${tile.ownerId}/audios/${tile.id}/carta1.wav" type="audio/wav">
                                             Your browser does not support the audio tag.
                                         </audio>
                                     </td>
                                     <td>
                                         ${tile.textB}
                                         <audio controls>
-                                            <source src="data/${tile.ownerId}/audios/${tile.id}/carta2.mp3" type="audio/mpeg">
+                                            <source src="${request.contextPath}/data/${tile.ownerId}/audios/${tile.id}/carta2.wav" type="audio/wav">
                                             Your browser does not support the audio tag.
                                         </audio>
                                     </td>

@@ -192,7 +192,7 @@ function sendFormData(blobA, blobB) {
 
 
     // O formulário só continua se algum áudio estiver sendo enviado tanto para pergunta quanto resposta
-    if(((blobA != null) || ($("#audio-1")[0].files[0] != null) || (selectPerg == "gerar")) && ((blobB != null) || ($("#audio-2")[0].files[0] != null) || (selectResp == gerar))) {
+    if(((blobA != null) || ($("#audio-1")[0].files[0] != null) || (selectPerg == "gerar")) && ((blobB != null) || ($("#audio-2")[0].files[0] != null) || (selectResp == "gerar"))) {
 
         if (selectPerg == "gerar" || selectResp == "gerar") {
             Materialize.toast("Aguarde um momento que o áudio do texto está sendo gerado...");

@@ -13,7 +13,6 @@ import sys
 
 command = 'gtts-cli \'{0}\' --lang pt-br --output {1}'
 params = sys.argv
-print params
 command = command.format(params[1], params[2])
 print command
 subprocess.call(command, shell=True)
