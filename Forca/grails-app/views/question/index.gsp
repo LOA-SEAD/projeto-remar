@@ -5,19 +5,14 @@
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="/forca/css/materialize.css" media="screen,projection"/>
-    <link rel="stylesheet" type="text/css" href="/forca/css/question.css">
+    <link type="text/css" rel="stylesheet" href="/forca-acessivel/css/materialize.css" media="screen,projection"/>
+    <link rel="stylesheet" type="text/css" href="/forca-acessivel/css/question.css">
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="layout" content="main">
     <meta charset="utf-8">
-    <g:javascript src="editableTable.js"/>
-    <g:javascript src="scriptTable.js"/>
-    <g:javascript src="validate.js"/>
-    <g:javascript src="question.js"/>
 
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
     <meta property="user-name" content="${userName}"/>
     <meta property="user-id" content="${userId}"/>
@@ -29,23 +24,27 @@
 </head>
 
 <body>
+<!-- Cabeçalho da página -->
 <div class="cluster-header">
     <p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
         Forca - Tabela de Questões
     </p>
 </div>
 
-
+<!-- Caixa de busca -->
 <div class="row">
     <div class="col s3 offset-s9">
         <input type="text" id="SearchLabel" class="remar-input" placeholder="Buscar"/>
     </div>
 </div>
 
+<!-- Tabela de questões com a opção de editar de acordo com o usuário -->
 <table class="highlight" id="table" style="margin-top: -30px;">
+    <!-- Cabeçalho da tabela com os índices de cada coluna-->
     <thead>
     <tr>
         <th>Selecionar
+            <!-- Definição dos botões de "check all" e "uncheck all" da lista de seleção (coluna "Selecionar") -->
             <div class="row" style="margin-bottom: -10px;">
 
                 <button style="margin-left: 3px; background-color: #795548;" class="btn-floating" id="BtnCheckAll"
@@ -61,104 +60,134 @@
                                                                             style="visibility: hidden"></button></div>
         </th>
         <th>Tema <div class="row" style="margin-bottom: -10px;"><button class="btn-floating"
-                                                                        style="visibility: hidden"></button></div></th>
-
+                                                                        style="visibility: hidden"></button></div>
+        </th>
         <th>Ação <div class="row" style="margin-bottom: -10px;"><button class="btn-floating"
-                                                                        style="visibility: hidden"></button></div></th>
+                                                                        style="visibility: hidden"></button></div>
+        </th>
     </tr>
     </thead>
 
+    <!-- Corpo da tabela com as questões (as questões que não são do usuário da sessão não são editáveis) -->
     <tbody>
-    <g:each in="${questionInstanceList}" status="i" var="questionInstance">
+        <!-- Preenchimento das linhas da tabela -->
+        <!-- Para cada item da lista de questões, cria uma linha na tabela -->
+        <g:each in="${questionInstanceList}" status="i" var="questionInstance">
+
         <tr id="tr${questionInstance.id}" class="selectable_tr ${(i % 2) == 0 ? 'even' : 'odd'} " style="cursor: pointer;"
             data-id="${fieldValue(bean: questionInstance, field: "id")}"
             data-owner-id="${fieldValue(bean: questionInstance, field: "ownerId")}"
             data-checked="false">
+
+            <td class="_not_editable"><input class="filled-in" type="checkbox"> <label></label>
+            </td>
+
+            <td name="question_label">${fieldValue(bean: questionInstance, field: "statement")}
+            </td>
+
+            <td>${fieldValue(bean: questionInstance, field: "answer")}
+            </td>
+
+            <td name="theme" id="theme">${fieldValue(bean: questionInstance, field: "category")}
+            </td>
+
             <g:if test="${questionInstance.author == userName}">
-
-                <td class="_not_editable"><input class="filled-in" type="checkbox"> <label></label></td>
-
-                <td name="question_label">${fieldValue(bean: questionInstance, field: "statement")}</td>
-
-                <td>${fieldValue(bean: questionInstance, field: "answer")}</td>
-
-                <td name="theme" id="theme">${fieldValue(bean: questionInstance, field: "category")}</td>
-
-
                 <td><i onclick="_edit($(this.closest('tr')))" style="color: #7d8fff; margin-right:10px;"
-                       class="fa fa-pencil"
-                       ></i></td>
-
-
+                       class="fa fa-pencil"></i></td>
             </g:if>
             <g:else>
-                <td class="_not_editable"><input class="filled-in" type="checkbox"> <label></label></td>
-
-                <td name="question_label"
-                    data-questionId="${questionInstance.id}">${fieldValue(bean: questionInstance, field: "statement")}</td>
-
-                <td>${fieldValue(bean: questionInstance, field: "answer")}</td>
-
-                <td name="theme" id="theme">${fieldValue(bean: questionInstance, field: "category")}</td>
-
                 <td><i style="color: gray; margin-right:10px;" class="fa fa-pencil"></i>
                 </td>
             </g:else>
         </tr>
-    </g:each>
+
+        </g:each>
     </tbody>
 </table>
 
+
+<!-- edit question label? -->
+<!-- pra que serve? -->
 <input type="hidden" id="editQuestionLabel" value=""> <label for="editQuestionLabel"></label>
 
-<div class="row">
+
+<!-- Botões da base da tabela -->
+<div class="row" style="margin-top:2em;">
+    <!-- Botão de submissão; submete as perguntas selecionadas -->
     <div class="col s2">
         <button class="btn waves-effect waves-light my-orange" type="submit" name="save" id="save">Enviar
         </button>
     </div>
 
+    <!-- Botão de criação de perguntas; chama NOVA PÁGINA para criação da pergunta -->
     <div class="col s1 offset-s6">
-        <a data-target="createModal" name="create"
-           -           class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"><i
-                -                class="material-icons">add</i></a>
+    <a href="${createLink(action: "create", controller: "question")}"
+       class="btn-floating btn-success btn-large waves-effect waves-light remar-orange tooltipped" action="create" data-tooltip="Criar novo par">
+        <i class="material-icons">add</i>
+    </a>
+
+
+    <!-- Botão de criação de perguntas; chama o modal para edição da pergunta -->
+    <!--
+    <a data-target="createModal" name="create"
+           class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão">
+            <i class="material-icons">add</i>
+        </a> -->
     </div>
 
+    <!-- Botão de deleção; deleta as perguntas selecionadas -->
     <div class="col s1 m1 l1">
-              <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exluir questão" ><i class="material-icons">delete</i></a>
+          <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light my-orange tooltipped"
+             data-tooltip="Exluir questão" >
+              <i class="material-icons">delete</i>
+          </a>
     </div>
 
+    <!-- Botão para importação de perguntas (arquivo .csv); envia um arquivo para submeter perguntas -->
     <div class="col s1">
-        <a data-target="uploadModal"  class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped" data-tooltip="Upload de arquivo .csv"><i
-                              class="material-icons">file_upload</i></a>
+        <a data-target="uploadModal" class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped"
+           data-tooltip="Upload de arquivo .csv">
+            <i class="material-icons">file_upload</i>
+        </a>
     </div>
+
+    <!-- Botão para exportação de perguntas (arquivo .csv) -->
     <div class="col s1">
-        <a class="btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exportar questões para .csv"><i
-                class="material-icons" onclick="exportQuestions()">file_download</i></a>
+        <a class="btn-floating btn-large waves-effect waves-light my-orange tooltipped"
+           data-tooltip="Exportar questões para .csv">
+            <i class="material-icons" onclick="exportQuestions()">file_download</i>
+        </a>
     </div>
 </div>
 
 
 
 <!-- Modal Structure -->
+<!-- Modal de criação de perguntas -->
 <div id="createModal" class="modal remar-modal">
-    <g:form url="[resource: questionInstance, action: 'newQuestion']">
+    <g:uploadForm url="[resource: questionInstance, action: 'newQuestion']">
         <div class="modal-content">
-            <h4>Criar Questão <i class="material-icons tooltipped" data-position="right" data-delay="30" data-tooltip="Respostas não devem possuir números nem caracteres especiais.">info</i> </h4>
+            <h4>Criar Questão <i class="material-icons tooltipped" data-position="right" data-delay="30"
+                                 data-tooltip="Respostas não devem possuir números nem caracteres especiais.">info</i>
+            </h4>
             <div class="row">
                 <g:render template="form"/>
             </div>
         </div>
+
         <div class="modal-footer">
-            <a href="#!" class="save modal-action modal-close btn waves-effect waves-light remar-orange" action="create"
-               onclick="$(this).closest('form').submit()" name="create">Criar</a>
-            <a href="#!" class="save modal-action modal-close btn waves-effect waves-light remar-orange">Cancelar</a>
+            <a href="#!" id="submit" type="submit" class="save modal-action btn waves-effect waves-light remar-orange" action="create"
+               name="create">Criar</a>
+            <a href="#!" class="upload save modal-action modal-close btn waves-effect waves-light remar-orange">Cancelar</a>
         </div>
-    </g:form>
+
+    </g:uploadForm>
 </div>
 
 
 
 <!-- Modal -->
+<!-- Modal de edição de perguntas -->
 <div id="editModal" class="modal remar-modal">
     <g:form url="[resource: questionInstance, action: 'update']" method="PUT">
         <div class="modal-content">
@@ -185,21 +214,23 @@
                 <input id="editAuthor" name="author" required="" readonly="readonly" value="" type="text" class="validate remar-input">
                 <label id="authorLabel" for="editAuthor">Autor</label>
             </div>
-
         </div>
         <div class="modal-footer">
-            <a href="#!" class="save modal-action modal-close btn waves-effect waves-light remar-orange" action="update"
+            <a href="#!" id="submit" class="save modal-action modal-close btn waves-effect waves-light remar-orange" action="update"
                onclick="$(this).closest('form').submit()" name="create">Atualizar</a>
             <a href="#!" class="modal-action modal-close btn waves-effect waves-light remar-orange">Cancelar</a>
         </div>
     </g:form>
 </div>
 
-            <!-- Modal Structure -->
+
+
+<!-- Modal Structure -->
+<!-- Modal para quando tenta "Enviar" sem selecionar perguntas -->
+<!-- " Selecione ao menos uma palavra antes de enviar. " -->
 <div id="infoModal" class="modal">
     <div class="modal-content">
         <div id="totalQuestion">
-
         </div>
     </div>
 
@@ -208,6 +239,9 @@
     </div>
 </div>
 
+
+<!-- Modal Structure -->
+<!-- Modal para upload (importar) perguntas -->
 <div id="uploadModal" class="modal">
     <div class="modal-content">
         <h4>Enviar arquivo .csv</h4>
@@ -242,7 +276,7 @@
                     <li>O arquivo deve representar a estrutura da tabela ao lado</li>
                 </ol>
                 <ul>
-                    <li><a href="/forca/samples/exemploForca.csv" >Download do arquivo exemplo</a></li>
+                    <li><a href="/forca-acessivel/samples/exemploForca.csv" >Download do arquivo exemplo</a></li>
                 </ul>
             </div>
             <div class="col s6">
@@ -280,9 +314,13 @@
 
 
 
-
-
-<script type="text/javascript" src="/forca/js/materialize.min.js"></script>
+<!-- Javascript -->
+<g:javascript src="editableTable.js"/>
+<g:javascript src="scriptTable.js"/>
+<g:javascript src="validate.js"/>
+<g:javascript src="question.js"/>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/forca-acessivel/js/materialize.min.js"></script>
 <script type="text/javascript">
 
     function changeEditQuestion(variable) {
@@ -292,8 +330,9 @@
         console.log(editQuestion.value);
         //console.log(variable);
     }
-
 </script>
-
+<g:javascript src="recording.js"/>
+<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
 </body>
 </html>
+

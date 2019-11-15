@@ -15,19 +15,17 @@ $(document).ready(function() {
         var getUrl = window.location;
         var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
-        window.location.href = baseUrl + "/tile/index";
-
+        window.location.href = baseUrl + "/question/index";
     });
 
     // autoplay selected audio
     $("#recordingsListA, #recordingsListB").delegate("input[type=radio]", "change", function (){
-       $(this).parent().siblings("audio")[0].play();
+        $(this).parent().siblings("audio")[0].play();
     });
 
     // Submit form button click function
     $("#submit").click(function() {
         fd = new FormData();
-
 
         var audioAurl = $("input[name=audioA]:checked").parent().siblings("audio")[0].src;
 
@@ -52,22 +50,43 @@ function recoverBlobB(blobA) {
 function sendFormData(blobA, blobB) {
     var textA = $("input[name=textA]").val();
     var textB = $("input[name=textB]").val();
+    var statement = $("input[name=statement]").val();
+    var answer = $("input[name=answer]").val();
+    var category = $("input[name=category]").val();
+    var author = $("input[name=author]").val();
+    var orientacao = $("input[name=orientacao]").val();
+    var audioPergunta = $("input[name=audioPergunta]").val();
+    var audioResposta = $("input[name=audioResposta]").val();
+
 
     var fd = new FormData();
     fd.append("audioA", blobA, new Date().toISOString());
     fd.append("audioB", blobB, new Date().toISOString());
+    fd.append("audio-1", $("#audio-1")[0].files[0]);
+    fd.append("audio-2", $("#audio-2")[0].files[0]);
     fd.append("textA", textA);
     fd.append("textB", textB);
+    fd.append("statement", statement)
+    fd.append("answer", answer)
+    fd.append("category", category)
+    fd.append("author", author)
+    fd.append("orientacao", orientacao)
+    fd.append("audioPergunta", audioPergunta)
+    fd.append("audioResposta", audioResposta)
+
+
+
+
 
     $.ajax({
         method: "POST",
-        url: "/memoriaacessivel/tile/save",
-       contentType: false,
-       processData: false,
-       data: fd,
-       success: function(response) {
-           window.location.href = response;
-       }
+        url: "/forca-acessivel/question/newQuestion",
+        contentType: false,
+        processData: false,
+        data: fd,
+        success: function(response) {
+            window.location.href = response;
+        }
 
     });
 }
@@ -99,20 +118,25 @@ function startRecording() {
     <div class="video-container"><blockquote class="wp-embedded-content" data-secret="cVHlrYJoGD"><a href="https://addpipe.com/blog/audio-constraints-getusermedia/">Supported Audio Constraints in getUserMedia()</a></blockquote><iframe class="wp-embedded-content" sandbox="allow-scripts" security="restricted" style="position: absolute; clip: rect(1px, 1px, 1px, 1px);" src="https://addpipe.com/blog/audio-constraints-getusermedia/embed/#?secret=cVHlrYJoGD" data-secret="cVHlrYJoGD" width="600" height="338" title="“Supported Audio Constraints in getUserMedia()” — Pipe Blog" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></div>
     */
 
-    var constraints = { audio: true, video:false }
+    var constraints = { audio: true, video: false }
 
     /*
     Disable the record button until we get a success or fail from getUserMedia()
     */
-
+    /*
+    recordButton.disabled = true;
+    stopButton.disabled = false;
+    pauseButton.disabled = false;
+*/
     if (this.id == "recordButtonA") {
-        currentRecordingCard = "A";
+        currentRecordingCard = "A"; // referente à pergunta
         $(recordButton).attr("disabled", "");
         $(recordButtonB).attr("disabled", "");
         $(pauseButton).removeAttr("disabled");
         $(stopButton).removeAttr("disabled");
+
     } else {
-        currentRecordingCard = "B";
+        currentRecordingCard = "B"; // referente à resposta
         $(recordButton).attr("disabled", "");
         $(recordButtonB).attr("disabled", "");
         $(pauseButtonB).removeAttr("disabled");

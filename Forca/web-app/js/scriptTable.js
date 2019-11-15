@@ -51,7 +51,7 @@ window.onload = function(){
         }
         if(params.length) {
             params = params.substr(0, params.length -1);
-            window.top.location.href = "/forca/question/toJson/" + params;
+            window.top.location.href = "/forca-acessivel/question/toJson/" + params;
         }
         else{
             $('#totalQuestion').empty();
@@ -128,7 +128,7 @@ function getUserId() {
 function save(tr) {
     var tds = $(tr).find("td");
 
-    var url = location.origin + '/forca/question/save/';
+    var url = location.origin + '/forca-acessivel/question/save/';
     var data = { statement: $(tds)[1].textContent,
                  answer: $(tds)[2].textContent,
                  category: $(tds)[3].textContent,
@@ -151,7 +151,7 @@ function save(tr) {
 function update(tr) {
     var tds = $(tr).find("td");
 
-    var url = location.origin + '/forca/question/update/' + $(tr).attr('data-id');
+    var url = location.origin + '/forca-acessivel/question/update/' + $(tr).attr('data-id');
     var data = { statement: $(tds)[1].textContent,
                  answer: $(tds)[2].textContent,
                  category: $(tds)[3].textContent,
@@ -172,7 +172,7 @@ function update(tr) {
 
 
 function _edit(tr){
-    var url = location.origin + '/forca/question/returnInstance/' + $(tr).attr('data-id');
+    var url = location.origin + '/forca-acessivel/question/returnInstance/' + $(tr).attr('data-id');
     var data = {_method: 'GET'};
 
     $.ajax({
@@ -230,7 +230,7 @@ function _delete() {
     else{
         if(list_id.length==1){
             if(confirm("Você tem certeza que deseja deletar essa questão?")){
-                url = location.origin + '/forca/question/delete/' + list_id[0];
+                url = location.origin + '/forca-acessivel/question/delete/' + list_id[0];
                 data = {_method: 'DELETE'};
                 trID = "#tr"+list_id[0];
                 $.ajax({
@@ -249,7 +249,7 @@ function _delete() {
         else{
             if(confirm("Você tem certeza que deseja deletar essas questões?")){
                 for(var i=0;i<list_id.length;i++){
-                    url = location.origin + '/forca/question/delete/' + list_id[i];
+                    url = location.origin + '/forca-acessivel/question/delete/' + list_id[i];
                     data = {_method: 'DELETE'};
                     trID = "#tr"+list_id[i];
                     $(trID).remove();
@@ -366,7 +366,7 @@ function exportQuestions(){
         $.ajax({
             type: "POST",
             traditional: true,
-            url: "/forca/question/exportCSV",
+            url: "/forca-acessivel/question/exportCSV",
             data: { list_id: list_id },
             success: function(returndata) {
                 console.log(returndata);

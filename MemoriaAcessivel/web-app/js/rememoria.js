@@ -37,7 +37,7 @@ $(document).ready(function() {
                 async: false,
                 type:"DELETE",
                 data: {_method: "DELETE"},
-                url: "/memoriaacessivel/tile/delete/" + ids[i],
+                url: "/memoria_acessivel/tile/delete/" + ids[i],
                 success: function (resp, status, xhr) {
                     if (xhr.status == 200) {
                         $("#tile-"+ids[i]).parent().parent().remove();
@@ -64,6 +64,7 @@ $(document).ready(function() {
             ids.push($(el).attr('data-id'));
         });
 
+
         var count = 0;
 
         switch(level){
@@ -73,13 +74,14 @@ $(document).ready(function() {
             default: count = 3;
         }
 
+
         if (ids.length == count) {
             // Proceed to task submission
             $.ajax({
                 type: "POST",
                 traditional: true,
                 data: {id: ids},
-                url: "/memoriaacessivel/tile/validate",
+                url: "/memoria_acessivel/tile/validate",
                 success: function (resp, status, xhr) {
                     if (xhr.status == 200) {
                         window.top.location.href = resp;

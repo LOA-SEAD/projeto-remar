@@ -21,7 +21,7 @@ window.addEventListener("beforeunload", function() {
     $.ajax({
         type:'GET',
         //async: false,
-        url: location.origin + "/forca/process/complete/RefactorTask",
+        url: location.origin + "/forca-acessivel/process/complete/RefactorTask",
         success:function(data){
             console.log("ok");
         },

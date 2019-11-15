@@ -1,0 +1,412 @@
+{
+  "name": "Forca Acessivel",
+  "uri": "forca_acessivel",
+  "version": 1,
+  "tasks": [
+    {
+      "name": "Banco de Questões",
+      "uri": "question",
+      "description": "Criar/editar/selecionar um banco de questões para o jogo.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "palavras.json",
+          "type": "json",
+          "path": "json"
+        },
+        {
+          "name": "S0.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes"
+        },
+        {
+          "name": "A0.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes"
+        },
+        {
+          "name": "S1.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A1.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S2.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A2.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S3.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A3.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S4.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A4.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S5.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A5.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S6.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A6.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S7.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A7.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S8.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A8.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S9.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A9.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S10.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A10.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S11.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A11.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S12.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A12.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S13.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A13.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S14.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A14.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S15.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A15.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S16.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A16.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S17.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A17.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S18.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A18.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S19.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A19.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S20.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A20.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S21.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A21.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S22.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A22.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S23.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A23.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S24.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A24.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S25.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A25.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S26.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A26.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S27.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A27.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S28.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A28.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "S29.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        },
+        {
+          "name": "A29.mp3",
+          "type": "mp3",
+          "path": "audio/audioQuestoes",
+          "optional": true
+        }
+      ]
+    },
+    {
+      "name": "Tema",
+      "uri": "theme",
+      "optional": true,
+      "description": "Criar/editar/selecionar um tema para o jogo.",
+      "type": "image_collection",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "inicio.png",
+          "type": "image",
+          "path": "imgs"
+        },
+        {
+          "name": "papel.png",
+          "type": "image",
+          "path": "imgs"
+        },
+        {
+          "name": "icon.png",
+          "type": "image",
+          "path": "imgs"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    "web"
+  ],
+
+  "vars": {
+    "width": 800,
+    "height": 600
+  }
+}

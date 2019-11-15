@@ -15,8 +15,20 @@
 		<div class="row">
 			<g:form class="col s12" controller="tile" action="update" enctype="multipart/form-data" method="PUT">
 				<g:hiddenField name="version" value="${tileInstance?.version}" />
-				<g:render template="form"/>
+				<fieldset class="form">
+					<g:render template="form"/>
+
+					<div class="row right-align" style="right-margin: 15em;">
+						<a id="back" name="back" class="btn btn-success remar-orange">Voltar</a>
+						<button id="submitEdit" type="button" name="submitEdit" class="btn btn-success remar-orange" value="Salvar">Salvar</button>
+					</div>
+				</fieldset>
 			</g:form>
 		</div>
+
+	<g:javascript src="tile.js"/>
+	<g:javascript src="recording.js"/>
+	<g:javascript src="recorder.js"/>
 	</body>
 </html>
+

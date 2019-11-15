@@ -26,7 +26,7 @@ class Resource {
         sumUser nullable: false
         license nullable: false
         customizableItems nullable: true
-
+        authorship nullable: true
     }
 
     Resource() {
@@ -39,6 +39,7 @@ class Resource {
     int version
     String uri
     String type
+    String authorship
 
     boolean shareable
     boolean repository

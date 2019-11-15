@@ -15,7 +15,7 @@
 
     <div class="row cluster">
         <div class="cluster-header">
-            <h4>Memória - Fase 3x2</h4>
+            <h4>Memória - Tabela de Questões</h4>
             <div class="divider"></div>
         </div>
 
@@ -30,9 +30,9 @@
                                 <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnCheckAll" onclick="check_all()"><i  class="material-icons">check_box_outline_blank</i></button>
                                 <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnUnCheckAll" onclick="uncheck_all()"><i  class="material-icons">done</i></button>
                             </div></th>
-                        <th><g:message code="tile.table.textA.header"/></th>
-                        <th><g:message code="tile.table.textB.header"/></th>
-                        <th><g:message code="tile.table.actions.header"/></th>
+                        <th>${message(code: 'tile.table.textA.header', default: 'Texto da Primeira Carta')}</th>
+                        <th>${message(code: 'tile.table.textB.header', default: 'Texto da Segunda Carta')}</th>
+                        <th>${message(code: 'tile.table.actions.header', default: 'Ações')}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -43,10 +43,24 @@
                                         <input type="checkbox" id="tile-${tile.id}" name="id" class="filled-in" data-id="${tile.id}"/>
                                         <label for="tile-${tile.id}"></label>
                                     </td>
-                                    <td>${tile.textA}</td>
-                                    <td>${tile.textB}</td>
                                     <td>
-                                        <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil edit" data-id="${tile.id}"></i>
+                                        ${tile.textA}
+                                        <audio controls>
+                                            <source src="${request.contextPath}/data/${tile.ownerId}/audios/${tile.id}/carta1.wav" type="audio/wav">
+                                            Your browser does not support the audio tag.
+                                        </audio>
+                                    </td>
+                                    <td>
+                                        ${tile.textB}
+                                        <audio controls>
+                                            <source src="${request.contextPath}/data/${tile.ownerId}/audios/${tile.id}/carta2.wav" type="audio/wav">
+                                            Your browser does not support the audio tag.
+                                        </audio>
+                                    </td>
+                                    <td>
+                                        <a href="${createLink(action: "edit")}/${tile.id}">
+                                            <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil edit" data-id="${tile.id}"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             </g:each>
@@ -63,7 +77,7 @@
                 <div class="col s2">
                     <a href="#!" id="send" class="btn btn-success btn-lg remar-orange">Enviar</a>
                 </div>
-                <div class="col offset-s6">
+                <div class="col offset-s8">
                     <a href="${createLink(action: "create", controller: "tile")}"
                        class="btn-floating btn-success btn-large waves-effect waves-light remar-orange tooltipped" action="create" data-tooltip="Criar novo par"><i class="material-icons">add</i></a>
                 </div>

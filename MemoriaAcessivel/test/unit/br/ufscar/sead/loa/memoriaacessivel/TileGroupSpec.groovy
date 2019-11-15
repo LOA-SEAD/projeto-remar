@@ -1,4 +1,12 @@
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 package br.ufscar.sead.loa.memoriaacessivel
+=======
+package br.ufscar.sead.loa.memoria
+>>>>>>> Stashed changes
+=======
+package br.ufscar.sead.loa.memoria
+>>>>>>> Stashed changes
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification

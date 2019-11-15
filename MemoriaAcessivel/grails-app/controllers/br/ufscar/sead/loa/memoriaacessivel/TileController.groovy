@@ -3,6 +3,8 @@ package br.ufscar.sead.loa.memoriaacessivel
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.util.Environment
 
+import java.nio.file.Path
+
 import static org.springframework.http.HttpStatus.*
 import org.springframework.security.access.annotation.Secured
 import grails.transaction.Transactional
@@ -10,7 +12,6 @@ import java.nio.file.Files
 
 @Secured(['isAuthenticated()'])
 class TileController {
-
     def beforeInterceptor = [action: this.&check, only: ['index']]
 
     def springSecurityService
@@ -52,7 +53,7 @@ class TileController {
 
     @Transactional
     def save(Tile tileInstance) {
-
+        println(params)
         if (tileInstance == null) {
             notFound()
             return
@@ -68,28 +69,55 @@ class TileController {
         tileInstance.ownerId = userId
         tileInstance.save flush: true
 
-        def id = tileInstance.getId()
-        // id = id do tileInstance = userId declarado acima = id do usuário da sessão >>> 4 itens armazenando a mesma coisa? pq?
-        def userPath = servletContext.getRealPath("/data/" + userId.toString())
+        def tileID = tileInstance.getId()
+
+        // definição do diretório de áudios: criado com a id do usuário corrente!
+        def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/audios/" + tileID)
         def userFolder = new File(userPath)
         userFolder.mkdirs()
 
-        def f1Uploaded = request.getFile("audioA")
-        def f2Uploaded = request.getFile("audioB")
+        // audioA e audioB: gravações (pergunta e resposta, respectivamente)
+        if(params.audioA != null) {
+            def f1Recorded = request.getFile("audioA")
+            def f1File = new File("$userPath/carta1.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params.audioB != null) {
+            def f1Recorded = request.getFile("audioB")
+            def f1File = new File("$userPath/carta2.wav")
+            f1Recorded.transferTo(f1File)
+        }
 
+        // audio-1 e audio-2: uploads (pergunta e resposta, respectivamente)
+        if(params["audio-1"] != null) {
+            def f1Recorded = request.getFile("audio-1")
+            def f1File = new File("$userPath/carta1.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params["audio-2"] != null) {
+            def f1Recorded = request.getFile("audio-2")
+            def f1File = new File("$userPath/carta2.wav")
+            f1Recorded.transferTo(f1File)
+        }
 
-        def f1 = new File("$userPath/audio$id-a.wav")
-        def f2 = new File("$userPath/audio$id-b.wav")
+        if (params["selectPerg"] == "gerar") {
+            println "Text-to-Speech (Texto Primeira Carta)"
+            println "Running Script for Text-to-Speech (Texto Primeira Carta)"
+            textToSpeech("$tileInstance.textA", "$userPath/carta1.wav")
+        }
 
-        f1Uploaded.transferTo(f1)
-        f2Uploaded.transferTo(f2)
+        if (params["selectResp"] == "gerar") {
+            println "Text-to-Speech (Texto Segunda Carta)"
+            println "Running Script for Text-to-Speech (Texto Segunda Carta)"
+            textToSpeech("$tileInstance.textB", "$userPath/carta2.wav")
+        }
 
         def port = request.serverPort
         if (Environment.current == Environment.DEVELOPMENT) {
             port = 8090
         }
 
-        render(status: 200, text: "http://${request.serverName}:${port}/memoriaacessivel/tile/")
+        render(status: 200, text: "http://${request.serverName}:${port}/memoria_acessivel/tile/")
 
     }
 
@@ -105,83 +133,73 @@ class TileController {
 
     @Transactional
     def update() {
-        def tileInstance = Tile.get(params.id)
-        tileInstance.content = params.content
-        tileInstance.description = params.description
-        tileInstance.difficulty = params.difficulty.toInteger()
+        println("params edit: $params")
 
+        Tile tileInstance = Tile.findById(Integer.parseInt(params.tileID))
+
+        tileInstance.textA = params.textA
+        tileInstance.textB = params.textB
+        def userId = session.user.id
+        tileInstance.ownerId = userId
         tileInstance.save flush: true
 
-        if (tileInstance.hasErrors()) {
-            println tileInstance.errors
+        def tileID = params.tileID
+
+        // definição do diretório de áudios: criado com a id do usuário corrente!
+        def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/audios/" + tileID)
+        def userFolder = new File(userPath)
+        userFolder.mkdirs()
+
+        // audioA e audioB: gravações (pergunta e resposta, respectivamente)
+        if(params.audioA != null) {
+            def f1Recorded = request.getFile("audioA")
+            def f1File = new File("$userPath/carta1.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params.audioB != null) {
+            def f1Recorded = request.getFile("audioB")
+            def f1File = new File("$userPath/carta2.wav")
+            f1Recorded.transferTo(f1File)
         }
 
-        def userId = session.user.id
-        def id = tileInstance.getId()
-        def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/" + tileInstance.taskId.toString() + "/tiles")
-        def script_convert_png = servletContext.getRealPath("/scripts/convert.sh")
-
-
-        def f1Uploaded = request.getFile("tile-a")
-
-        def f2Uploaded = request.getFile("tile-b")
-
-
-        def errors = [
-                not_image_file_a: false,
-                not_image_file_b: false
-        ]
-
-        if (! f1Uploaded.isEmpty()){
-            if (!f1Uploaded.fileItem.contentType.startsWith("image/")) {
-                errors.not_image_file_a = true
-            }
+        // audio-1 e audio-2: uploads (pergunta e resposta, respectivamente)
+        if(params["audio-1"] != null) {
+            def f1Recorded = request.getFile("audio-1")
+            def f1File = new File("$userPath/carta1.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params["audio-2"] != null) {
+            def f1Recorded = request.getFile("audio-2")
+            def f1File = new File("$userPath/carta2.wav")
+            f1Recorded.transferTo(f1File)
         }
 
-        if (! f2Uploaded.isEmpty()){
-            if (!f2Uploaded.fileItem.contentType.startsWith("image/")) {
-                errors.not_image_file_b = true
-            }
+        if (params["selectPerg"] == "gerar") {
+            println "Text-to-Speech (Texto Primeira Carta)"
+            println "Running Script for Text-to-Speech (Texto Primeira Carta)"
+            textToSpeech("$tileInstance.textA", "$userPath/carta1.wav")
         }
 
-        // if any of those files aren't images, we can't convert
-        if (!(errors.not_image_file_a || errors.not_image_file_b)) {
+        if (params["selectResp"] == "gerar") {
+            println "Text-to-Speech (Texto Segunda Carta)"
+            println "Running Script for Text-to-Speech (Texto Segunda Carta)"
+            textToSpeech("$tileInstance.textB", "$userPath/carta2.wav")
 
-            // Change tile first image if it was uploaded
-            if (!f1Uploaded.isEmpty()) {
-                def f1 = new File("$userPath/tile$id-a.png")
-                f1Uploaded.transferTo(f1)
+        }
 
-                // convert to png
-                executarShell(
-                        script_convert_png,
-                        [
-                                f1.absolutePath,
-                                f1.absolutePath
-                        ]
-                )
+
+
+        if (request.isXhr()) {
+            def port = request.serverPort
+            if (Environment.current == Environment.DEVELOPMENT) {
+                port = 8090
             }
 
-            // Change tile second image if it was uploaded
-            if (!f2Uploaded.isEmpty()) {
-                def f2 = new File("$userPath/tile$id-b.png")
-                f2Uploaded.transferTo(f2)
+            //redirect(controller: "Tile", action: "index")
 
-                // convert to png
-                executarShell(
-                        script_convert_png,
-                        [
-                                f2.absolutePath,
-                                f2.absolutePath
-                        ]
-                )
-            }
-
-            redirect(controller: "Tile", action: "index")
+            render("http://localhost:${port}/memoria_acessivel/tile")
         } else {
-            flash.error = errors
-            tileInstance.delete(flush:true)
-            redirect(controller: "Tile", action: "create")
+            // TODO
         }
 
     }
@@ -208,6 +226,20 @@ class TileController {
         redirect(controller: "Tile", action: "index")
     }
 
+    void textToSpeech(String text, String file) {
+        def ant = new AntBuilder()
+        def rootPath = servletContext.getRealPath('/')
+        def script = "${rootPath}/scripts/gtts.py"
+        ant.sequential {
+            chmod(perm: "+x", file: script)
+            exec(executable: script) {
+                arg(value: "$text")
+                arg(value: "$file")
+            }
+        }
+    }
+
+
     protected void notFound() {
         request.withFormat {
             form multipartForm {
@@ -219,6 +251,7 @@ class TileController {
     }
 
     def validate() {
+        println("params: $params")
         def owner = springSecurityService.currentUser.getId()
 
         // Getting all the selected tiles
@@ -227,6 +260,7 @@ class TileController {
 
         // encontra o endereço do arquivo criado
         def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/${session.taskId}")
+        //def folder = servletContext.getRealPath("/data/${springSecurityService.currentUser.id}/")
         def newPath = new File(folder)
         newPath.mkdirs()
 
@@ -252,6 +286,7 @@ class TileController {
 
             def currFile = new File(getTilesAudios(tileList[i]).a)
             def destFile = new File("$folder/L${session.level}A${cardCounter}.wav")
+            print("session level: $session.level")
             Files.copy(currFile.toPath(), destFile.toPath())
 
 
@@ -294,8 +329,8 @@ class TileController {
         def userPath = servletContext.getRealPath("/data/${tileInstance.ownerId.toString()}")
         def id = tileInstance.id
         def images = [
-                "a": "$userPath/audio$id-a.wav".toString(),
-                "b": "$userPath/audio$id-b.wav".toString()
+                "a": "$userPath/audios/$id/carta1.mp3".toString(),
+                "b": "$userPath/audios/$id/carta2.mp3".toString()
         ]
 
         return images
