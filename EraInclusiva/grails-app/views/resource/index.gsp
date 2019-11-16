@@ -80,9 +80,9 @@
 
                 <td class="_not_editable"><input class="filled-in" type="checkbox"> <label></label></td>
 
-                <td name="resource_label">${fieldValue(bean: resourceInstance, field: "statement")}</td>
+                <td name="resource_label">${fieldValue(bean: resourceInstance, field: "name")}</td>
 
-                <td>${fieldValue(bean: resourceInstance, field: "answer")}</td>
+                <td>${fieldValue(bean: resourceInstance, field: "source")}</td>
 
                 <td name="theme" id="theme">${fieldValue(bean: resourceInstance, field: "category")}</td>
 
@@ -95,9 +95,9 @@
                 <td class="_not_editable"><input class="filled-in" type="checkbox"> <label></label></td>
 
                 <td name="resource_label"
-                    data-resourceId="${resourceInstance.id}">${fieldValue(bean: resourceInstance, field: "statement")}</td>
+                    data-resourceId="${resourceInstance.id}">${fieldValue(bean: resourceInstance, field: "name")}</td>
 
-                <td>${fieldValue(bean: resourceInstance, field: "answer")}</td>
+                <td>${fieldValue(bean: resourceInstance, field: "source")}</td>
 
                 <td name="theme" id="theme">${fieldValue(bean: resourceInstance, field: "category")}</td>
 
@@ -166,15 +166,15 @@
 
 
             <div class="input-field col s12">
-                <input id="editStatement" name="statement" required="" value="" type="text" class="validate remar-input"
+                <input id="editName" name="name" required="" value="" type="text" class="validate remar-input"
                        maxlength="150">
-                <label id="statementLabel" for="editStatement">Nome</label>
+                <label id="nameLabel" for="editName">Nome</label>
             </div>
 
             <div class="input-field col s12">
-                <input id="editAnswer" name="answer" required="" value="" type="text" class="validate remar-input"
+                <input id="editSource" name="source" required="" value="" type="text" class="validate remar-input"
                        maxlength="48">
-                <label id="answerLabel" for="editAnswer">Link</label>
+                <label id="sourceLabel" for="editSource">Link</label>
             </div>
 
             <div class="input-field col s12">

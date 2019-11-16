@@ -2,8 +2,8 @@ package br.ufscar.sead.loa.erainclusiva.remar
 
 class Resource {
 
-    String statement
-    String answer
+    String name
+    String source
     String category
     String author
 
@@ -11,8 +11,8 @@ class Resource {
     String taskId
 
     static constraints = {
-        statement blank: false, maxSize: 150
-        answer blank: false, maxSize: 48
+        name blank: false, maxSize: 150
+        source blank: false, maxSize: 48
         category blank: true, inList: ['Leituras', 'Videos', 'Recursos', 'Audios']
         author blank: false
         ownerId blank: false, nullable: false

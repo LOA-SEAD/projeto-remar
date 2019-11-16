@@ -128,8 +128,8 @@ function save(tr) {
     var tds = $(tr).find("td");
 
     var url = location.origin + '/erainclusiva/resource/save/';
-    var data = { statement: $(tds)[1].textContent,
-                 answer: $(tds)[2].textContent,
+    var data = { name: $(tds)[1].textContent,
+                 source: $(tds)[2].textContent,
                  category: $(tds)[3].textContent,
                  author: $(tds)[4].textContent,
                  ownerId: $(tr).attr('data-owner-id')};
@@ -151,8 +151,8 @@ function update(tr) {
     var tds = $(tr).find("td");
 
     var url = location.origin + '/erainclusiva/resource/update/' + $(tr).attr('data-id');
-    var data = { statement: $(tds)[1].textContent,
-                 answer: $(tds)[2].textContent,
+    var data = { name: $(tds)[1].textContent,
+                 source: $(tds)[2].textContent,
                  category: $(tds)[3].textContent,
                  author: $(tds)[4].textContent,
                  ownerId: $(tr).attr('data-owner-id'),
@@ -181,14 +181,14 @@ function _edit(tr){
             success: function (returndata) {
                 var resourceInstance = returndata.split("%@!");
                 //resourceInstance é um vetor com os atributos da classe Resource na seguinte ordem:
-                // Statement - Answer - author - Category - Version - ownerId - taskId - ID
-                $("#editStatement").attr("value",resourceInstance[0]);
-                $("#statementLabel").attr("class","active");
-                $("#answerLabel").attr("class","active");
+                // Name - Source - author - Category - Version - ownerId - taskId - ID
+                $("#editName").attr("value",resourceInstance[0]);
+                $("#nameLabel").attr("class","active");
+                $("#sourceLabel").attr("class","active");
                 $("#authorLabel").attr("class","active");
                 $("#categoryLabel").attr("class","active");
 
-                $("#editAnswer").attr("value",resourceInstance[1]);
+                $("#editSource").attr("value",resourceInstance[1]);
                 $("#editAuthor").attr("value",resourceInstance[2]);
                 $("#editCategory").attr("value",resourceInstance[3]);
                 $("#editVersion").attr("value",resourceInstance[4]);

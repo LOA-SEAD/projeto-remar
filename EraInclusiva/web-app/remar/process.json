@@ -1,5 +1,5 @@
 {
-  "name": "A Era Inclusiva",
+  "name": "AEraInclusiva",
   "uri": "erainclusiva",
   "type": "unity",
   "version": 1,
@@ -20,7 +20,6 @@
     }
   ],
   "outputs": [
-    "web",
     "android",
     "desktop"
   ],

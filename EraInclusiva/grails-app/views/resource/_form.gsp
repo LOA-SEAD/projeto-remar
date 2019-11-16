@@ -3,15 +3,15 @@
 
 
 <div class="input-field col s12">
-    <input id="statement" name="statement" required="" value="${resourceInstance?.statement}" type="text"
+    <input id="name" name="name" required="" value="${resourceInstance?.name}" type="text"
            class="validate remar-input" maxlength="150">
-    <label for="statement">Nome</label>
+    <label for="name">Nome</label>
 </div>
 
 <div class="input-field col s12">
-    <input id="answer" name="answer" required="" value="${resourceInstance?.answer}" type="text"
+    <input id="source" name="source" required="" value="${resourceInstance?.source}" type="text"
            class="validate remar-input" maxlength="48">
-    <label for="answer">Link</label>
+    <label for="source">Link</label>
 </div>
 
 <div class="input-field col s12">

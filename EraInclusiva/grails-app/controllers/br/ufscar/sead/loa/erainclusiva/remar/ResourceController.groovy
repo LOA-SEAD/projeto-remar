@@ -58,8 +58,8 @@ class ResourceController {
 
         Resource newQuest = new Resource();
         newQuest.id = resourceInstance.id
-        newQuest.statement = resourceInstance.statement
-        newQuest.answer = resourceInstance.answer
+        newQuest.name = resourceInstance.name
+        newQuest.source = resourceInstance.source
         newQuest.author = resourceInstance.author
         newQuest.category = resourceInstance.category
         newQuest.taskId = session.taskId as String
@@ -125,8 +125,8 @@ class ResourceController {
 
         Resource resourceInstance = Resource.findById(Integer.parseInt(params.resourceID))
 
-        resourceInstance.statement = params.statement
-        resourceInstance.answer = params.answer
+        resourceInstance.name = params.name
+        resourceInstance.source = params.source
         resourceInstance.category = params.category
         resourceInstance.save flush: true
 
@@ -162,7 +162,6 @@ class ResourceController {
     }
 
     def toJson() {
-        List<Resource> list = Resource.getAll(params.id ? params.id.split(',').toList() : null)
 
         if (resources == null) {
             File csvDir = new File(servletContext.getRealPath("csv"))
@@ -180,8 +179,8 @@ class ResourceController {
                 reader.splitEachLine(";") { fields ->
 
                     def resource = new Resource(
-                            statement: fields[0],
-                            answer: fields[1],
+                            name: fields[0],
+                            source: fields[1],
                             category: fields[2]
                     )
 
@@ -190,22 +189,20 @@ class ResourceController {
             }
         }
 
-        list.addAll(resources)
+        List<Resource> list = Resource.getAll(params.id ? params.id.split(',').toList() : null)
 
-        list.collect { p ->
-            println p.getStatement()
-        }
+        resources.addAll(list)
 
         StringBuffer sb = new StringBuffer();
 
-        for (int i = 0; i < list.size(); i++) {
-            Resource r = list.get(i)
+        for (int i = 0; i < resources.size(); i++) {
+            Resource r = resources.get(i)
             sb.append("{\n");
-            sb.append("\"name\": \"" + r.getStatement() + "\",\n")
-            sb.append("\"src\": \"" + r.getAnswer() + "\",\n")
+            sb.append("\"name\": \"" + r.getName() + "\",\n")
+            sb.append("\"src\": \"" + r.getSource() + "\",\n")
             sb.append("\"type\": \"url\",\n")
             sb.append("\"category\": \"" + r.getCategory() + "\"\n")
-            if (i != list.size() - 1) {
+            if (i != resources.size() - 1) {
                 sb.append("},\n")
             } else {
                 sb.append("}\n")
@@ -222,7 +219,7 @@ class ResourceController {
         def bw = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(file), "UTF-8"))
 
-        bw.write('{\n\"Recursos\" : [\n' + sb.toString() + '] \n }');
+        bw.write('{\n\"Recursos\" : [\n' + sb.toString() + '] \n}');
         bw.close();
 
         String id = MongoHelper.putFile(file.absolutePath)
@@ -240,8 +237,8 @@ class ResourceController {
         if (resourceInstance == null) {
             notFound()
         } else {
-            render resourceInstance.statement + "%@!" +
-                    resourceInstance.answer + "%@!" +
+            render resourceInstance.name + "%@!" +
+                    resourceInstance.source + "%@!" +
                     resourceInstance.author + "%@!" +
                     resourceInstance.category + "%@!" +
                     resourceInstance.version + "%@!" +
