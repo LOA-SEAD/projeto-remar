@@ -16,6 +16,8 @@ class ResourceController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    static List<Resource> resources
+
     def beforeInterceptor = [action: this.&check, only: ['index']]
 
     def springSecurityService
@@ -40,7 +42,7 @@ class ResourceController {
         def list = Resource.findAllByAuthor(session.user.username)
 
         render view: "index", model: [resourceInstanceList: list, resourceInstanceCount: list.size(),
-                                      userName: session.user.username, userId: session.user.id]
+                                      userName            : session.user.username, userId: session.user.id]
 
     }
 
@@ -60,16 +62,17 @@ class ResourceController {
         newQuest.answer = resourceInstance.answer
         newQuest.author = resourceInstance.author
         newQuest.category = resourceInstance.category
-        newQuest.taskId    = session.taskId as String
+        newQuest.taskId = session.taskId as String
         newQuest.ownerId = session.user.id
 
+        newQuest.save flush: true
+
         if (newQuest.hasErrors()) {
+            println newQuest.errors
             respond newQuest.errors, view: 'create' //TODO
             render newQuest.errors;
             return
         }
-
-        newQuest.save flush: true
 
         if (request.isXhr()) {
             render(contentType: "application/json") {
@@ -91,18 +94,16 @@ class ResourceController {
             return
         }
 
+        resourceInstance.taskId = session.taskId as String
 
-
+        resourceInstance.save flush: true
 
         if (resourceInstance.hasErrors()) {
+            println resourceInstance.errors
             respond resourceInstance.errors, view: 'create' //TODO
             render resourceInstance.errors;
             return
         }
-
-        resourceInstance.taskId = session.taskId as String
-
-        resourceInstance.save flush: true
 
         if (request.isXhr()) {
             render(contentType: "application/json") {
@@ -127,7 +128,7 @@ class ResourceController {
         resourceInstance.statement = params.statement
         resourceInstance.answer = params.answer
         resourceInstance.category = params.category
-        resourceInstance.save flush:true
+        resourceInstance.save flush: true
 
         redirect action: "index"
     }
@@ -161,17 +162,55 @@ class ResourceController {
     }
 
     def toJson() {
-        def list = Resource.getAll(params.id ? params.id.split(',').toList() : null)
-        def builder = new JsonBuilder()
-        def json = builder(
-                list.collect { p ->
-                    ["palavra"     : p.getAnswer().toUpperCase(),
-                     "dica"        : p.getStatement(),
-                     "contribuicao": p.getAuthor()]
-                }
-        )
+        List<Resource> list = Resource.getAll(params.id ? params.id.split(',').toList() : null)
 
-        log.debug builder.toString()
+        if (resources == null) {
+            File csvDir = new File(servletContext.getRealPath("csv"))
+
+            BufferedReader
+            if (csvDir.exists()) {
+
+                resources = new ArrayList<Resource>()
+
+                File csvFile = new File(servletContext.getRealPath("csv/resources.csv"))
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(
+                        new FileInputStream(csvFile), "UTF-8"))
+
+                reader.splitEachLine(";") { fields ->
+
+                    def resource = new Resource(
+                            statement: fields[0],
+                            answer: fields[1],
+                            category: fields[2]
+                    )
+
+                    resources.add(resource)
+                }
+            }
+        }
+
+        list.addAll(resources)
+
+        list.collect { p ->
+            println p.getStatement()
+        }
+
+        StringBuffer sb = new StringBuffer();
+
+        for (int i = 0; i < list.size(); i++) {
+            Resource r = list.get(i)
+            sb.append("{\n");
+            sb.append("\"name\": \"" + r.getStatement() + "\",\n")
+            sb.append("\"src\": \"" + r.getAnswer() + "\",\n")
+            sb.append("\"type\": \"url\",\n")
+            sb.append("\"category\": \"" + r.getCategory() + "\"\n")
+            if (i != list.size() - 1) {
+                sb.append("},\n")
+            } else {
+                sb.append("}\n")
+            }
+        }
 
         def dataPath = servletContext.getRealPath("/data")
         def userPath = new File(dataPath, "/" + springSecurityService.getCurrentUser().getId() + "/" + session.taskId)
@@ -179,9 +218,12 @@ class ResourceController {
 
         def fileName = "recursos_biblioteca.json"
         File file = new File("$userPath/$fileName");
-        PrintWriter pw = new PrintWriter(file);
-        pw.write('{ "nome" : "A Era Inclusiva","materiais":' + builder.toString() + '}');
-        pw.close();
+
+        def bw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(file), "UTF-8"))
+
+        bw.write('{\n\"Recursos\" : [\n' + sb.toString() + '] \n }');
+        bw.close();
 
         String id = MongoHelper.putFile(file.absolutePath)
 
@@ -193,12 +235,11 @@ class ResourceController {
         redirect uri: "http://${request.serverName}:${port}/process/task/complete/${session.taskId}", params: [files: id]
     }
 
-    def returnInstance(Resource resourceInstance){
+    def returnInstance(Resource resourceInstance) {
 
         if (resourceInstance == null) {
             notFound()
-        }
-        else{
+        } else {
             render resourceInstance.statement + "%@!" +
                     resourceInstance.answer + "%@!" +
                     resourceInstance.author + "%@!" +
@@ -208,47 +249,5 @@ class ResourceController {
                     resourceInstance.taskId + "%@!" +
                     resourceInstance.id
         }
-    }
-
-    @Transactional
-    def generateResources() {
-        MultipartFile csv = params.csv
-        def user = springSecurityService.getCurrentUser()
-        def userId = user.toString().split(':').toList()
-        String username = User.findById(userId[1].toInteger()).username
-
-        csv.inputStream.toCsvReader(['separatorChar': ';', 'charset':'UTF-8']).eachLine { row ->
-
-            Resource resourceInstance = new Resource()
-
-            try{
-                String correct = row[6] ?: "NA";
-                int correctAnswer = (correct.toInteger() -1)
-                resourceInstance.statement = row[1] ?: "NA";
-                resourceInstance.answer = row[(2 + correctAnswer)] ?: "NA";
-                resourceInstance.category = row[8] ?: "NA";
-            }
-            catch (ArrayIndexOutOfBoundsException exception){
-                //println("Not default .csv - Model: Title-Answer-Category")
-                resourceInstance.statement = row[0] ?: "NA";
-                resourceInstance.answer = row[1] ?: "NA";
-                resourceInstance.category = row[2] ?: "NA";
-            }
-
-            resourceInstance.author = username
-            resourceInstance.taskId = session.taskId as String
-            resourceInstance.ownerId = session.user.id
-
-            if (resourceInstance.hasErrors()) {
-
-            }
-            else{
-                resourceInstance.save flush: true
-            }
-
-        }
-
-        redirect(action: index())
-
     }
 }

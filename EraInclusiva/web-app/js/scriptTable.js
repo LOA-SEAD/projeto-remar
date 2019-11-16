@@ -2,8 +2,7 @@
  * Created by loa on 19/03/15.
  */
 $(document).ready(function () {
-
-
+    $('select').material_select();
 });
 
 window.onload = function(){

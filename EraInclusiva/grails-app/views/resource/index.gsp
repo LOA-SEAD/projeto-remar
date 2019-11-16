@@ -54,14 +54,15 @@
                         onclick="uncheck_all()"><i class="material-icons">done</i></button>
             </div>
         </th>
-        <th>Pergunta <div class="row" style="margin-bottom: -10px;"><button class="btn-floating"
-                                                                            style="visibility: hidden"></button></div>
+        <th>Nome<div class="row" style="margin-bottom: -10px;"><button class="btn-floating"
+                                                                       style="visibility: hidden"></button></div>
         </th>
-        <th>Resposta <div class="row" style="margin-bottom: -10px;"><button class="btn-floating"
-                                                                            style="visibility: hidden"></button></div>
+        <th>Link <div class="row" style="margin-bottom: -10px;"><button class="btn-floating"
+                                                                        style="visibility: hidden"></button></div>
         </th>
-        <th>Tema <div class="row" style="margin-bottom: -10px;"><button class="btn-floating"
-                                                                        style="visibility: hidden"></button></div></th>
+        <th>Categoria <div class="row" style="margin-bottom: -10px;"><button class="btn-floating"
+                                                                             style="visibility: hidden"></button></div>
+        </th>
 
         <th>Ação <div class="row" style="margin-bottom: -10px;"><button class="btn-floating"
                                                                         style="visibility: hidden"></button></div></th>
@@ -70,7 +71,8 @@
 
     <tbody>
     <g:each in="${resourceInstanceList}" status="i" var="resourceInstance">
-        <tr id="tr${resourceInstance.id}" class="selectable_tr ${(i % 2) == 0 ? 'even' : 'odd'} " style="cursor: pointer;"
+        <tr id="tr${resourceInstance.id}" class="selectable_tr ${(i % 2) == 0 ? 'even' : 'odd'} "
+            style="cursor: pointer;"
             data-id="${fieldValue(bean: resourceInstance, field: "id")}"
             data-owner-id="${fieldValue(bean: resourceInstance, field: "ownerId")}"
             data-checked="false">
@@ -86,9 +88,7 @@
 
 
                 <td><i onclick="_edit($(this.closest('tr')))" style="color: #7d8fff; margin-right:10px;"
-                       class="fa fa-pencil"
-                       ></i></td>
-
+                       class="fa fa-pencil"></i></td>
 
             </g:if>
             <g:else>
@@ -119,21 +119,14 @@
 
     <div class="col s1 offset-s6">
         <a data-target="createModal" name="create"
-           -           class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"><i
-                -                class="material-icons">add</i></a>
+           - class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped"
+           data-tooltip="Criar questão"><i
+                - class="material-icons">add</i></a>
     </div>
 
     <div class="col s1 m1 l1">
-              <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exluir questão" ><i class="material-icons">delete</i></a>
-    </div>
-
-    <div class="col s1">
-        <a data-target="uploadModal"  class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped" data-tooltip="Upload de arquivo .csv"><i
-                              class="material-icons">file_upload</i></a>
-    </div>
-    <div class="col s1">
-        <a class="btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exportar questões para .csv"><i
-                class="material-icons" onclick="exportResources()">file_download</i></a>
+        <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light my-orange tooltipped"
+           data-tooltip="Excluir questão"><i class="material-icons">delete</i></a>
     </div>
 </div>
 
@@ -143,11 +136,15 @@
 <div id="createModal" class="modal remar-modal">
     <g:form url="[resource: resourceInstance, action: 'newResource']">
         <div class="modal-content">
-            <h4>Criar Questão <i class="material-icons tooltipped" data-position="right" data-delay="30" data-tooltip="Respostas não devem possuir números nem caracteres especiais.">info</i> </h4>
+            <h4>Criar Recurso<i class="material-icons tooltipped" data-position="right" data-delay="30"
+                                data-tooltip="Criação de recursos (nome, link, categoria)">info</i>
+            </h4>
+
             <div class="row">
                 <g:render template="form"/>
             </div>
         </div>
+
         <div class="modal-footer">
             <a href="#!" class="save modal-action modal-close btn waves-effect waves-light remar-orange" action="create"
                onclick="$(this).closest('form').submit()" name="create">Criar</a>
@@ -162,31 +159,43 @@
 <div id="editModal" class="modal remar-modal">
     <g:form url="[resource: resourceInstance, action: 'update']" method="PUT">
         <div class="modal-content">
-            <h4>Editar Questão</h4>
+            <h4>Editar Recurso</h4>
 
             <input id="editVersion" name="version" required="" value="" type="hidden">
             <input type="hidden" id="resourceID" name="resourceID">
 
 
             <div class="input-field col s12">
-                <input id="editStatement" name="statement" required="" value="" type="text" class="validate remar-input" maxlength="150">
-                <label id="statementLabel" for="editStatement">Pergunta</label>
-            </div>
-            <div class="input-field col s12">
-                <input id="editAnswer" name="answer" required="" value="" type="text" class="validate remar-input"  onkeypress="validate(event)" maxlength="48">
-                <label id="answerLabel" for="editAnswer">Resposta</label>
-            </div>
-            <div class="input-field col s12">
-                <input id="editCategory" name="category" required="" value="" type="text" class="validate remar-input">
-                <label id="categoryLabel" for="editCategory">Tema</label>
+                <input id="editStatement" name="statement" required="" value="" type="text" class="validate remar-input"
+                       maxlength="150">
+                <label id="statementLabel" for="editStatement">Nome</label>
             </div>
 
+            <div class="input-field col s12">
+                <input id="editAnswer" name="answer" required="" value="" type="text" class="validate remar-input"
+                       maxlength="48">
+                <label id="answerLabel" for="editAnswer">Link</label>
+            </div>
+
+            <div class="input-field col s12">
+                <g:select id="category" name="category" from="${Resource.categorias}"
+                          value="${resourceInstance?.category}"/>
+                <label for="category">Categoria</label>
+            </div>
+
+            <!-- div class="input-field col s12">
+                <input id="editCategory" name="category" required="" value="" type="text" class="validate remar-input">
+                <label id="categoryLabel" for="editCategory">Tema</label>
+            </div-->
+
             <div class="input-field col s12" style="display: none;">
-                <input id="editAuthor" name="author" required="" readonly="readonly" value="" type="text" class="validate remar-input">
+                <input id="editAuthor" name="author" required="" readonly="readonly" value="" type="text"
+                       class="validate remar-input">
                 <label id="authorLabel" for="editAuthor">Autor</label>
             </div>
 
         </div>
+
         <div class="modal-footer">
             <a href="#!" class="save modal-action modal-close btn waves-effect waves-light remar-orange" action="update"
                onclick="$(this).closest('form').submit()" name="create">Atualizar</a>
@@ -195,7 +204,7 @@
     </g:form>
 </div>
 
-            <!-- Modal Structure -->
+<!-- Modal Structure -->
 <div id="infoModal" class="modal">
     <div class="modal-content">
         <div id="totalResource">
@@ -207,80 +216,6 @@
         <button class="btn waves-effect waves-light modal-close my-orange">Entendi</button>
     </div>
 </div>
-
-<div id="uploadModal" class="modal">
-    <div class="modal-content">
-        <h4>Enviar arquivo .csv</h4>
-        <br>
-        <div class="row">
-            <g:uploadForm action="generateResources">
-
-                <div class="file-field input-field">
-                    <div class="btn my-orange">
-                        <span>Arquivo</span>
-                        <input type="file" accept="text/csv" id="csv" name="csv">
-                    </div>
-
-                    <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s1 offset-s10">
-                        <g:submitButton class="btn my-orange" name="csv" value="Enviar"/>
-                    </div>
-                </div>
-            </g:uploadForm>
-        </div>
-
-        <blockquote>Formatação do arquivo .csv</blockquote>
-        <div class="row">
-            <div class="col s6">
-                <ol>
-                    <li>O separador do arquivo .csv deve ser <b> ';' (ponto e vírgula)</b>  </li>
-                    <li>O arquivo deve ser composto apenas por <b>dados</b></li>
-                    <li>O arquivo deve representar a estrutura da tabela ao lado</li>
-                </ol>
-                <ul>
-                    <li><a href="/erainclusiva/samples/exemploEraInclusiva.csv" >Download do arquivo exemplo</a></li>
-                </ul>
-            </div>
-            <div class="col s6">
-                <table class="center">
-                    <thead>
-                    <tr>
-                        <th>Pergunta</th>
-                        <th>Resposta</th>
-                        <th>Tema</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Pergunta 1</td>
-                        <td>Resposta 1</td>
-                        <td>Tema 1</td>
-                    </tr>
-                    <tr>
-                        <td>Pergunta 2</td>
-                        <td>Resposta 2</td>
-                        <td>Tema 2</td>
-                    </tr>
-                    <tr>
-                        <td>Pergunta 3</td>
-                        <td>Resposta 3</td>
-                        <td>Tema 3</td>
-                    </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
 
 <script type="text/javascript" src="/erainclusiva/js/materialize.min.js"></script>
 <script type="text/javascript">

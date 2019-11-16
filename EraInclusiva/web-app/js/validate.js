@@ -15,11 +15,10 @@ function validate(evt) {
 }
 
 $(document).ready(function() {
-    $('#editAnswer').bind('cut copy paste', function(event) {
-        event.preventDefault();
-    });
-    $('#answer').bind('cut copy paste', function(event) {
-        event.preventDefault();
-    });
-
+    //$('#editAnswer').bind('cut copy paste', function(event) {
+    //    event.preventDefault();
+    //});
+    //$('#answer').bind('cut copy paste', function(event) {
+    //    event.preventDefault();
+    //});
 });
