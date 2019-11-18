@@ -1,12 +1,10 @@
 package br.ufscar.sead.loa.erainclusiva.remar
 
-import br.ufscar.sead.loa.remar.User
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.util.Environment
-import groovy.json.JsonBuilder
-import org.springframework.web.multipart.MultipartFile
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -16,7 +14,7 @@ class ResourceController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    static List<Resource> resources
+    static List<Resource> fixedResources
 
     def beforeInterceptor = [action: this.&check, only: ['index']]
 
@@ -163,13 +161,13 @@ class ResourceController {
 
     def toJson() {
 
-        if (resources == null) {
+        if (fixedResources == null) {
             File csvDir = new File(servletContext.getRealPath("csv"))
 
-            BufferedReader
+
             if (csvDir.exists()) {
 
-                resources = new ArrayList<Resource>()
+                fixedResources = new ArrayList<Resource>()
 
                 File csvFile = new File(servletContext.getRealPath("csv/resources.csv"))
 
@@ -184,14 +182,14 @@ class ResourceController {
                             category: fields[2]
                     )
 
-                    resources.add(resource)
+                    fixedResources.add(resource)
                 }
             }
         }
 
-        List<Resource> list = Resource.getAll(params.id ? params.id.split(',').toList() : null)
+        List<Resource> resources = Resource.getAll(params.id ? params.id.split(',').toList() : null)
 
-        resources.addAll(list)
+        resources.addAll(0, fixedResources)
 
         StringBuffer sb = new StringBuffer();
 
