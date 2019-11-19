@@ -1,0 +1,41 @@
+{
+  "name": "Responda Se Puder",
+  "uri": "respondasepuder",
+  "version": 1,
+  "tasks": [
+    {
+      "name": "Banco de Questões",
+      "uri": "question",
+      "description": "Criar/editar/selecionar um banco de questões para o jogo.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "pergfacil.json",
+          "type": "json",
+          "path": ""
+        },
+        {
+          "name": "pergmedio.json",
+          "type": "json",
+          "path": ""
+        },
+        {
+          "name": "pergdificil.json",
+          "type": "json",
+          "path": ""
+        }
+      ]
+    }
+
+  ],
+  "outputs": [
+    "web",
+    "desktop",
+    "android"
+  ],
+  "vars": {
+    "width": 800,
+    "height": 600
+  }
+}
