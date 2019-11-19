@@ -265,9 +265,9 @@ class TileController {
         newPath.mkdirs()
 
         switch (session.level) {
-            case 1: if (tileList.size() != 3) render(500); break;
-            case 2: if (tileList.size() != 4) render(500); break;
-            case 3: if (tileList.size() != 6) render(500); break;
+            case 1: if (tileList.size() != Tile.FACIL) render(500); break;
+            case 2: if (tileList.size() != Tile.MEDIO) render(500); break;
+            case 3: if (tileList.size() != Tile.DIFICIL) render(500); break;
         }
 
         def fileName = "level${session.level}.json"
@@ -288,7 +288,6 @@ class TileController {
             def destFile = new File("$folder/L${session.level}A${cardCounter}.wav")
             print("session level: $session.level")
             Files.copy(currFile.toPath(), destFile.toPath())
-
 
             fw.write("{")
             fw.write("\"cardNumber\": " + cardCounter + ", ")
@@ -329,8 +328,8 @@ class TileController {
         def userPath = servletContext.getRealPath("/data/${tileInstance.ownerId.toString()}")
         def id = tileInstance.id
         def images = [
-                "a": "$userPath/audios/$id/carta1.mp3".toString(),
-                "b": "$userPath/audios/$id/carta2.mp3".toString()
+                "a": "$userPath/audios/$id/carta1.wav".toString(),
+                "b": "$userPath/audios/$id/carta2.wav".toString()
         ]
 
         return images

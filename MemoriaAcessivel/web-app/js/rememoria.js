@@ -4,6 +4,11 @@
 
 var difficultyList = ['', 'Fácil', 'Médio', 'Difícil'];
 
+const niveis = {
+    FACIL  : 4,
+    MEDIO  : 6,
+    DIFICIL: 8
+}
 
 
 $(document).ready(function() {
@@ -68,12 +73,13 @@ $(document).ready(function() {
         var count = 0;
 
         switch(level){
-            case 1: count = 3; break;
-            case 2: count = 4; break;
-            case 3: count = 6; break;
-            default: count = 3;
+            case 2: count = niveis.MEDIO; break;
+            case 3: count = niveis.DIFICIL; break;
+            default: count = niveis.FACIL;
         }
 
+        console.log('level = ' + level);
+        console.log('count = ' + count);
 
         if (ids.length == count) {
             // Proceed to task submission
