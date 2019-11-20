@@ -12,6 +12,7 @@
 
 <!-- Formulário de criação e edição de peças -->
 <div class="input-field col s12">
+    <!-- Mensagem para o usuário -->
     <div class="col s12">
         <ul class="collapsible" data-collapsible="accordion">
             <li>
@@ -28,11 +29,35 @@
     </div>
 
 
+    <!-- Descrição -->
+    <div class="row" style="margin-top:5em;">
 
+        <!-- texto da segunda carta -->
+        <div class="input-field col s9 fieldcontain ${hasErrors(bean: tileInstance, field: 'content', 'error')} required">
+            <input id="description" name="description" required value="${tileInstance?.description}" type="text" class="validate remar-input" maxlength="150"/>
+            <label for="description">Descrição
+                <span class="required-indicator">*</span>
+            </label>
+            <br>
+        </div>
+
+        <!-- select box dos audios da segunda carta -->
+        <div class="input-field col s3">
+            <div class="custom-select remar-orange" >
+                <select style="display: block;" id="selectDescription">
+                    <g:if test="${tileInstance.id}"><option value="naoeditar">Não editar o áudio</option></g:if>
+                    <option value="gerar">Gerar áudio automaticamente</option>
+                    <option value="gravarDescription">Gravar áudio (microfone)</option>
+                    <option value="carregarDescription">Carregar arquivo (.wav)</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
 
 
     <!-- Primeira Carta -->
-    <div class="row" style="margin-top:5em;">
+    <div class="row">
 
         <!-- texto da primeira carta -->
         <div class="input-field col s9 fieldcontain ${hasErrors(bean: tileInstance, field: 'content', 'error')} required">
@@ -56,6 +81,7 @@
         </div>
 
     </div>
+
 
     <!-- Segunda Carta -->
     <div class="row">
@@ -82,6 +108,8 @@
         </div>
 
     </div>
+
+
 
     <input type="hidden" id="tileID" name="tileID" required="" readonly="readonly" value="${tileInstance?.id}" type="text" class="validate remar-input">
 </div>
@@ -138,6 +166,35 @@
             <br>
             <h6 style="font-weight: bold">${message(code: 'tile.recordings.list.header', default: 'Gravações')}</h6>
             <div id="recordingsListB" style="margin-bottom: 3em"></div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn waves-effect waves-light modal-close remar-orange">Selecionar</button>
+    </div>
+</div>
+
+
+<div id="gravarModalDescription" class="modal remar-modal">
+    <div class="modal-content">
+        <div style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
+            Gravação de Áudio da Descrição</div>
+        <div style="text-align: left">
+
+            <!-- Botões da gravação -->
+            <div id="controlsDescription"  style="text-align: center">
+                <button type="button" class="btn waves-effect waves-light remar-orange" id="recordButtonDescription">
+                    ${message(code: 'tile.record.button.label', default: 'Gravar')}</button>
+                <button type="button" class="btn waves-effect waves-light remar-orange" id="pauseButtonDescription" disabled="true">
+                    ${message(code: 'tile.pause.button.label', default: 'Pausar gravação')}</button>
+                <button type="button" class="btn waves-effect waves-light remar-orange" id="stopButtonDescription" disabled="true">
+                    ${message(code: 'tile.stop.button.label', default: 'Encerrar gravação')}</button>
+            </div>
+
+            <!-- Listagem das gravações feitas -->
+            <br>
+            <h6 style="font-weight: bold">${message(code: 'tile.recordings.list.header', default: 'Gravações')}</h6>
+            <div id="recordingsListDescription" style="margin-bottom: 3em"></div>
         </div>
     </div>
 
@@ -206,6 +263,45 @@
                                     <div class="btn right remar-orange waves-effect waves-light">
                                         <span>Arquivo</span>
                                         <input data-image="true" type="file" name="audio-2" id="audio-2" class="audio-input" accept="audio/*">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" placeholder="Áudio (.wav)">
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn waves-effect waves-light modal-close remar-orange">Enviar</button>
+    </div>
+</div>
+
+
+<div id="carregarModalDescription" class="modal remar-modal">
+    <div class="modal-content">
+        <div class="form" style="">
+            <div class="cluster-header">
+                <div style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
+                    Upload de Áudio da Descrição
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col s12">
+                    <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                            <div class="collapsible-header active"><i class="material-icons">file_upload</i>Selecione o arquivo referente ao áudio</div>
+                            <div class="collapsible-body">
+                                <div class="file-field input-field">
+                                    <div class="btn right remar-orange waves-effect waves-light">
+                                        <span>Arquivo</span>
+                                        <input data-image="true" type="file" name="audio-3" id="audio-3" class="audio-input" accept="audio/*">
                                     </div>
                                     <div class="file-path-wrapper">
                                         <input class="file-path validate" type="text" placeholder="Áudio (.wav)">

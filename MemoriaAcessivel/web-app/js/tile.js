@@ -1,4 +1,4 @@
-$(document).on('change','#selectCartaA, #selectCartaB',function(){
+$(document).on('change','#selectCartaA, #selectCartaB, #selectDescription',function(){
     console.log("Um dos SELECT mudou!");
     var selectedOption = $(this).val();
     if(selectedOption == "gravarA") {
@@ -9,6 +9,10 @@ $(document).on('change','#selectCartaA, #selectCartaB',function(){
         $('#gravarModalB').modal();
         $('#gravarModalB').modal('open');
     }
+    if(selectedOption == "gravarDescription") {
+        $('#gravarModalDescription').modal();
+        $('#gravarModalDescription').modal('open');
+    }
 
     if(selectedOption == "carregarA") {
         $('#carregarModalA').modal();
@@ -17,6 +21,10 @@ $(document).on('change','#selectCartaA, #selectCartaB',function(){
     if(selectedOption == "carregarB") {
         $('#carregarModalB').modal();
         $('#carregarModalB').modal('open');
+    }
+    if(selectedOption == "carregarDescription") {
+        $('#carregarModalDescription').modal();
+        $('#carregarModalDescription').modal('open');
     }
 
     if(selectedOption == "gerar") {

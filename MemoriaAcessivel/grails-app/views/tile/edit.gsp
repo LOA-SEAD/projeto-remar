@@ -20,7 +20,7 @@
 
 					<div class="row right-align" style="right-margin: 15em;">
 						<a id="back" name="back" class="btn btn-success remar-orange">Voltar</a>
-						<button id="submitEdit" type="button" name="submitEdit" class="btn btn-success remar-orange" value="Salvar">Salvar</button>
+						<button id="submit" type="button" name="submit" class="btn btn-success remar-orange" value="Salvar">Salvar</button>
 					</div>
 				</fieldset>
 			</g:form>

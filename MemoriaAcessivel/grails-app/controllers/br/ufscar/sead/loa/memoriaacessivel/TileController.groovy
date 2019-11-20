@@ -67,6 +67,7 @@ class TileController {
 
         def userId = session.user.id
         tileInstance.ownerId = userId
+        tileInstance.description = params["description"]
         tileInstance.save flush: true
 
         def tileID = tileInstance.getId()
@@ -87,6 +88,11 @@ class TileController {
             def f1File = new File("$userPath/carta2.wav")
             f1Recorded.transferTo(f1File)
         }
+        if(params.audioDescription!= null) {
+            def f1Recorded = request.getFile("audioDescription")
+            def f1File = new File("$userPath/description.wav")
+            f1Recorded.transferTo(f1File)
+        }
 
         // audio-1 e audio-2: uploads (pergunta e resposta, respectivamente)
         if(params["audio-1"] != null) {
@@ -99,17 +105,26 @@ class TileController {
             def f1File = new File("$userPath/carta2.wav")
             f1Recorded.transferTo(f1File)
         }
+        if(params["audio-3"] != null) {
+            def f1Recorded = request.getFile("audio-3")
+            def f1File = new File("$userPath/description.wav")
+            f1Recorded.transferTo(f1File)
+        }
 
         if (params["selectCartaA"] == "gerar") {
             println "Text-to-Speech (Texto Primeira Carta)"
             println "Running Script for Text-to-Speech (Texto Primeira Carta)"
             textToSpeech("$tileInstance.textA", "$userPath/carta1.wav")
         }
-
         if (params["selectCartaB"] == "gerar") {
             println "Text-to-Speech (Texto Segunda Carta)"
             println "Running Script for Text-to-Speech (Texto Segunda Carta)"
             textToSpeech("$tileInstance.textB", "$userPath/carta2.wav")
+        }
+        if (params["selectDescription"] == "gerar") {
+            println "Text-to-Speech (Texto da Descrição)"
+            println "Running Script for Text-to-Speech (Texto da Descrição)"
+            textToSpeech("$tileInstance.description", "$userPath/description.wav")
         }
 
         def port = request.serverPort
@@ -161,6 +176,11 @@ class TileController {
             def f1File = new File("$userPath/carta2.wav")
             f1Recorded.transferTo(f1File)
         }
+        if(params.audioDescription != null) {
+            def f1Recorded = request.getFile("audioDescription")
+            def f1File = new File("$userPath/description.wav")
+            f1Recorded.transferTo(f1File)
+        }
 
         // audio-1 e audio-2: uploads (pergunta e resposta, respectivamente)
         if(params["audio-1"] != null) {
@@ -173,6 +193,11 @@ class TileController {
             def f1File = new File("$userPath/carta2.wav")
             f1Recorded.transferTo(f1File)
         }
+        if(params["audio-3"] != null) {
+            def f1Recorded = request.getFile("audio-3")
+            def f1File = new File("$userPath/description.wav")
+            f1Recorded.transferTo(f1File)
+        }
 
         if (params["selectCartaA"] == "gerar") {
             println "Text-to-Speech (Texto Primeira Carta)"
@@ -183,7 +208,12 @@ class TileController {
         if (params["selectCartaB"] == "gerar") {
             println "Text-to-Speech (Texto Segunda Carta)"
             println "Running Script for Text-to-Speech (Texto Segunda Carta)"
-            textToSpeech("$tileInstance.textB", "$userPath/carta2.wav")
+            textToSpeech("$tileInstance.textB", "$userPath/description.wav")
+        }
+        if (params["selectDescription"] == "gerar") {
+            println "Text-to-Speech (Texto da Descrição)"
+            println "Running Script for Text-to-Speech (Texto da Descrição)"
+            textToSpeech("$tileInstance.description", "$userPath/description.wav")
         }
 
         if (request.isXhr()) {
@@ -215,8 +245,11 @@ class TileController {
 
         def f1 = new File(tiles.a)
         def f2 = new File(tiles.b)
+        def f3 = new File(tiles.c)
         f1.delete()
         f2.delete()
+        f3.delete()
+
 
         tileInstance.delete flush: true
 
@@ -294,6 +327,15 @@ class TileController {
 
             fullUrl += "files=${MongoHelper.putFile(fileName)}&"
 
+
+            // DESCRIÇÃO!!! // DESCRIPTION
+            currFile = new File(getTilesAudios(tileList[i]).c)
+            fileName = "$folder/L${session.level}-${i+1}C.wav"
+            destFile = new File(fileName)
+            Files.copy(currFile.toPath(), destFile.toPath())
+
+            fullUrl += "files=${MongoHelper.putFile(fileName)}&"
+
             // TODO
 
             currFile = new File(getTilesAudios(tileList[i]).a)
@@ -307,7 +349,7 @@ class TileController {
             fw.write("\"pairNumber\": " + (i+1) + ", ")
             fw.write("\"textA\": " + "\"" + tileList[i].textA + "\", ")
             fw.write("\"textB\": " + "\"" + tileList[i].textB + "\", ")
-            fw.write("\"description\": " + "\"" + tileList[i].textA + "\", ") // TODO
+            fw.write("\"description\": " + "\"" + tileList[i].description + "\", ") // TODO
             fw.write("\"audioA\": " + "\"L" + session.level + "-" + (i+1) +"A.wav\"" + ", ")
             fw.write("\"audioB\": " + "\"L" + session.level + "-" + (i+1) +"B.wav\"" + ", ")
             fw.write("\"descriptionAudio\": " + "\"L" + session.level + "-" + (i+1) +"C.wav\"")
@@ -331,7 +373,8 @@ class TileController {
         def id = tileInstance.id
         def images = [
                 "a": "$userPath/audios/$id/carta1.wav".toString(),
-                "b": "$userPath/audios/$id/carta2.wav".toString()
+                "b": "$userPath/audios/$id/carta2.wav".toString(),
+                "c": "$userPath/audios/$id/description.wav".toString()
         ]
 
         return images

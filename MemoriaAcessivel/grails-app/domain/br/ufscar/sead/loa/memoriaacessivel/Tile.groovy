@@ -5,6 +5,7 @@ class Tile {
     long ownerId
     String textA
     String textB
+    String description
 
     static constraints = {
         ownerId     blank: false, nullable: false
