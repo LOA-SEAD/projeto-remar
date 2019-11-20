@@ -61,7 +61,10 @@
                             <td>${fieldValue(bean: questionInstance, field: "answers")}</td>
                             <td>${questionInstance.answers[questionInstance.correctAnswer]}</td>
                             <td>${questionInstance.hint}</td>
-                            <td> <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil " onclick="_edit($(this.closest('tr')))" ></i>
+                            <td>
+                                <a href="${createLink(action: "edit")}/${questionInstance.id}">
+                                    <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil edit" data-id="${questionInstance.id}"></i>
+                                </a>
                             </td>
                         </tr>
                     </g:each>
@@ -86,22 +89,22 @@
             </div>
             <div class="col s1 m1 l1 offset-s8">
                 <a href="${createLink(action: "create", controller: "question")}"
-                   class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" action="create" data-tooltip="Criar nova questão">
+                   class="btn-floating btn-large waves-effect waves-light modal-trigger remar-orange tooltipped" action="create" data-tooltip="Criar nova questão">
                     <i class="material-icons">add</i>
                 </a>
             </div>
 
             <div class="col s1 offset-s1 m1 l1">
-                <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exluir questão" ><i class="material-icons">delete</i></a>
+                <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light remar-orange tooltipped" data-tooltip="Exluir questão" ><i class="material-icons">delete</i></a>
             </div>
 
             <!-- Não tem import e export
             <div class="col s1 offset-s1 m1 l1">
-                <a data-target="uploadModal" class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped" data-tooltip="Upload arquivo .csv"><i
+                <a data-target="uploadModal" class="btn-floating btn-large waves-effect waves-light remar-orange modal-trigger tooltipped" data-tooltip="Upload arquivo .csv"><i
                         class="material-icons">file_upload</i></a>
             </div>
             <div class="col s1 offset-s1 m1 l1">
-                <a class="btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exportar questões para .csv"><i
+                <a class="btn-floating btn-large waves-effect waves-light remar-orange tooltipped" data-tooltip="Exportar questões para .csv"><i
                         class="material-icons" onclick="exportQuestions()">file_download</i></a>
             </div>
             -->
@@ -113,7 +116,7 @@
 
 <div class="row">
     <div class="col s2">
-        <button class="btn waves-effect waves-light my-orange" type="submit" name="save" id="submitButton" onclick="submit()">Enviar
+        <button class="btn waves-effect waves-light remar-orange" type="submit" name="save" id="submitButton" onclick="submit()">Enviar
             <i class="material-icons">send</i>
         </button>
     </div>
@@ -205,7 +208,7 @@
                     </div>
                 </div>
 
-                <g:submitButton name="update" class="btn btn-success btn-lg my-orange" value="Salvar" />
+                <g:submitButton name="update" class="btn btn-success btn-lg remar-orange" value="Salvar" />
             </g:form>
         </div>
     </div>
@@ -294,7 +297,7 @@
                     </div>
                 </div>
 
-                <g:submitButton name="create" class="btn btn-success btn-lg my-orange" value="Criar" />
+                <g:submitButton name="create" class="btn btn-success btn-lg remar-orange" value="Criar" />
             </g:form>
         </div>
     </div>
@@ -309,7 +312,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button class="btn waves-effect waves-light modal-close my-orange">Entendi</button>
+        <button class="btn waves-effect waves-light modal-close remar-orange">Entendi</button>
     </div>
 </div>
 
@@ -319,7 +322,7 @@
         <div class="row">
             <g:uploadForm action="generateQuestions">
                 <div class="file-field input-field">
-                    <div class="btn my-orange">
+                    <div class="btn remar-orange">
                         <span>File</span>
                         <input type="file" accept="text/csv" id="csv" name="csv">
                     </div>
@@ -329,7 +332,7 @@
                 </div>
                 <div class="row">
                     <div class="col s1 offset-s10">
-                        <g:submitButton class="btn my-orange" name="csv" value="Enviar"/>
+                        <g:submitButton class="btn remar-orange" name="csv" value="Enviar"/>
                     </div>
                 </div>
             </g:uploadForm>

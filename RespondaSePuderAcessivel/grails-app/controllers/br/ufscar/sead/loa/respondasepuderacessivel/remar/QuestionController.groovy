@@ -64,7 +64,6 @@ class QuestionController {
         respond questionInstance
     }
     def create() {
-        print("entrei aqui")
         respond new Question(params)
     }
     @Transactional

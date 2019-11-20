@@ -11,19 +11,24 @@
 	    <!--Import Google Icon Font-->
 	    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	    <!--Import materialize.css-->
-	    <link type="text/css" rel="stylesheet" href="/respondasepuderacessivel/css/materialize.css"  media="screen,projection"/>
+		<g:external dir="css" file="font-awesome.min.css"/>
+		<g:external dir="css" file="materialize.min.css"/>
+		<g:external dir="css" file="tiles.css"/>
 
-	    <!--Let browser know website is optimized for mobile-->
+
+		<!--Let browser know website is optimized for mobile-->
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
+		<!--Import jQuery before materialize.js-->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="/respondasepuderacessivel/js/materialize.min.js"></script>
 		<g:layoutHead/>
 	</head>
 	<body>
 	    <div class="container">
 			<g:layoutBody/>
 		</div>
-		<!--Import jQuery before materialize.js-->
-	    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	    <script type="text/javascript" src="/respondasepuderacessivel/js/materialize.min.js"></script>
+
 	</body>
 </html>
