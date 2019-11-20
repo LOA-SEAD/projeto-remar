@@ -166,7 +166,7 @@
                                 <div class="file-field input-field">
                                     <div class="btn right remar-orange waves-effect waves-light">
                                         <span>Arquivo</span>
-                                        <input data-image="true" type="file" name="audio-1" id="audio-1" class="audio-input" accept="audio/wav">
+                                        <input data-image="true" type="file" name="audio-1" id="audio-1" class="audio-input" accept="audio/*">
                                     </div>
                                     <div class="file-path-wrapper">
                                         <input class="file-path validate" type="text" placeholder="Áudio (.wav)">
@@ -205,7 +205,7 @@
                                 <div class="file-field input-field">
                                     <div class="btn right remar-orange waves-effect waves-light">
                                         <span>Arquivo</span>
-                                        <input data-image="true" type="file" name="audio-2" id="audio-2" class="audio-input" accept="audio/wav">
+                                        <input data-image="true" type="file" name="audio-2" id="audio-2" class="audio-input" accept="audio/*">
                                     </div>
                                     <div class="file-path-wrapper">
                                         <input class="file-path validate" type="text" placeholder="Áudio (.wav)">
