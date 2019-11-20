@@ -90,7 +90,7 @@ class TileController {
         }
         if(params.audioDescription!= null) {
             def f1Recorded = request.getFile("audioDescription")
-            def f1File = new File("$userPath/description.wav")
+            def f1File = new File("$userPath/descricao.wav")
             f1Recorded.transferTo(f1File)
         }
 
@@ -107,7 +107,7 @@ class TileController {
         }
         if(params["audio-3"] != null) {
             def f1Recorded = request.getFile("audio-3")
-            def f1File = new File("$userPath/description.wav")
+            def f1File = new File("$userPath/descricao.wav")
             f1Recorded.transferTo(f1File)
         }
 
@@ -124,7 +124,7 @@ class TileController {
         if (params["selectDescription"] == "gerar") {
             println "Text-to-Speech (Texto da Descrição)"
             println "Running Script for Text-to-Speech (Texto da Descrição)"
-            textToSpeech("$tileInstance.description", "$userPath/description.wav")
+            textToSpeech("$tileInstance.description", "$userPath/descricao.wav")
         }
 
         def port = request.serverPort
@@ -154,6 +154,7 @@ class TileController {
 
         tileInstance.textA = params.textA
         tileInstance.textB = params.textB
+        tileInstance.description = params.description
         def userId = session.user.id
         tileInstance.ownerId = userId
         tileInstance.save flush: true
@@ -178,7 +179,7 @@ class TileController {
         }
         if(params.audioDescription != null) {
             def f1Recorded = request.getFile("audioDescription")
-            def f1File = new File("$userPath/description.wav")
+            def f1File = new File("$userPath/descricao.wav")
             f1Recorded.transferTo(f1File)
         }
 
@@ -195,7 +196,7 @@ class TileController {
         }
         if(params["audio-3"] != null) {
             def f1Recorded = request.getFile("audio-3")
-            def f1File = new File("$userPath/description.wav")
+            def f1File = new File("$userPath/descricao.wav")
             f1Recorded.transferTo(f1File)
         }
 
@@ -208,12 +209,12 @@ class TileController {
         if (params["selectCartaB"] == "gerar") {
             println "Text-to-Speech (Texto Segunda Carta)"
             println "Running Script for Text-to-Speech (Texto Segunda Carta)"
-            textToSpeech("$tileInstance.textB", "$userPath/description.wav")
+            textToSpeech("$tileInstance.textB", "$userPath/carta2.wav")
         }
         if (params["selectDescription"] == "gerar") {
             println "Text-to-Speech (Texto da Descrição)"
             println "Running Script for Text-to-Speech (Texto da Descrição)"
-            textToSpeech("$tileInstance.description", "$userPath/description.wav")
+            textToSpeech("$tileInstance.description", "$userPath/descricao.wav")
         }
 
         if (request.isXhr()) {
@@ -327,18 +328,7 @@ class TileController {
 
             fullUrl += "files=${MongoHelper.putFile(fileName)}&"
 
-
-            // DESCRIÇÃO!!! // DESCRIPTION
             currFile = new File(getTilesAudios(tileList[i]).c)
-            fileName = "$folder/L${session.level}-${i+1}C.wav"
-            destFile = new File(fileName)
-            Files.copy(currFile.toPath(), destFile.toPath())
-
-            fullUrl += "files=${MongoHelper.putFile(fileName)}&"
-
-            // TODO
-
-            currFile = new File(getTilesAudios(tileList[i]).a)
             fileName = "$folder/L${session.level}-${i+1}C.wav"
             destFile = new File(fileName)
             Files.copy(currFile.toPath(), destFile.toPath())
@@ -349,7 +339,7 @@ class TileController {
             fw.write("\"pairNumber\": " + (i+1) + ", ")
             fw.write("\"textA\": " + "\"" + tileList[i].textA + "\", ")
             fw.write("\"textB\": " + "\"" + tileList[i].textB + "\", ")
-            fw.write("\"description\": " + "\"" + tileList[i].description + "\", ") // TODO
+            fw.write("\"description\": " + "\"" + tileList[i].description + "\", ")
             fw.write("\"audioA\": " + "\"L" + session.level + "-" + (i+1) +"A.wav\"" + ", ")
             fw.write("\"audioB\": " + "\"L" + session.level + "-" + (i+1) +"B.wav\"" + ", ")
             fw.write("\"descriptionAudio\": " + "\"L" + session.level + "-" + (i+1) +"C.wav\"")
@@ -374,10 +364,28 @@ class TileController {
         def images = [
                 "a": "$userPath/audios/$id/carta1.wav".toString(),
                 "b": "$userPath/audios/$id/carta2.wav".toString(),
-                "c": "$userPath/audios/$id/description.wav".toString()
+                "c": "$userPath/audios/$id/descricao.wav".toString()
         ]
 
         return images
+    }
+
+    def WAVFile(params) {
+
+        InputStream contentStream
+
+        def userId = springSecurityService.getCurrentUser().getId()
+
+        def dir = new File(servletContext.getRealPath("/data/" + userId.toString() + "/audios/" + params.id))
+
+        File file = new File(dir, params.file + ".wav")
+
+        response.setHeader("Content-disposition", "attachment; filename="+file.getName())
+        response.setHeader("Content-Length", file.size().toString())
+        response.setContentType("file-mime-type")
+        contentStream = file.newInputStream()
+        response.outputStream << contentStream
+        webRequest.renderView = false
     }
 }
 

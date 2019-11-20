@@ -47,7 +47,7 @@
                                         ${tile.textA}
                                         <br>
                                         <audio controls>
-                                            <source src="${request.contextPath}/data/${tile.ownerId}/audios/${tile.id}/carta1.wav" type="audio/wav">
+                                            <source src="${request.contextPath}/carta1/${tile.id}/${new Date().time}" type="audio/wav">
                                             Your browser does not support the audio tag.
                                         </audio>
                                     </td>
@@ -55,7 +55,7 @@
                                         ${tile.textB}
                                         <br>
                                         <audio controls>
-                                            <source src="${request.contextPath}/data/${tile.ownerId}/audios/${tile.id}/carta2.wav" type="audio/wav">
+                                            <source src="${request.contextPath}/carta2/${tile.id}/${new Date().time}" type="audio/wav">
                                             Your browser does not support the audio tag.
                                         </audio>
                                     </td>

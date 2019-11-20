@@ -503,4 +503,22 @@ class QuestionController {
 
 
     }
+
+    def MP3File(params) {
+
+        InputStream contentStream
+
+        def userId = springSecurityService.getCurrentUser().getId()
+
+        def dir = new File(servletContext.getRealPath("/data/" + userId.toString() + "/audios/" + params.id))
+
+        File file = new File(dir, params.file + ".mp3")
+
+        response.setHeader("Content-disposition", "attachment; filename=" + file.getName())
+        response.setHeader("Content-Length", file.size().toString())
+        response.setContentType("file-mime-type")
+        contentStream = file.newInputStream()
+        response.outputStream << contentStream
+        webRequest.renderView = false
+    }
 }

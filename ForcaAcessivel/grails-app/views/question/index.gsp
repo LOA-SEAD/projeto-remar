@@ -85,17 +85,19 @@
             <td name="question_label">
                 ${fieldValue(bean: questionInstance, field: "statement")}
                 <audio controls>
-                    <source src="data/${questionInstance.ownerId}/audios/${questionInstance.id}/statement.mp3" type="audio/mpeg">
+                    <source src="statement/${questionInstance.id}/${new Date().time}" type="audio/mpeg">
                     Your browser does not support the audio tag.
                 </audio>
             </td>
 
 
             <td>${fieldValue(bean: questionInstance, field: "answer")}
+
                 <audio controls>
-                    <source src="data/${questionInstance.ownerId}/audios/${questionInstance.id}/answer.mp3" type="audio/mpeg">
+                    <source src="answer/${questionInstance.id}/${new Date().time}" type="audio/mpeg">
                     Your browser does not support the audio tag.
                 </audio>
+
             </td>
 
             <td name="theme" id="theme">${fieldValue(bean: questionInstance, field: "category")}

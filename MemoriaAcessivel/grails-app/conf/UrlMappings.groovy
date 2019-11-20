@@ -10,5 +10,17 @@ class UrlMappings {
         "/"(view:"/index")
         "500"(view:'/error')
         "/tile/level/$level?"(controller:"tile", action: "index")
+
+        "/carta1/$id/$timestamp"( controller:"tile", action:"WAVFile") {
+            file = "carta1"
+        }
+
+        "/carta2/$id/$timestamp"( controller:"tile", action:"WAVFile") {
+            file = "carta2"
+        }
+
+        "/descricao/$id/$timestamp"( controller:"tile", action:"WAVFile") {
+            file = "descricao"
+        }
 	}
 }
