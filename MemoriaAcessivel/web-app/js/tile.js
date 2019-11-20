@@ -1,4 +1,4 @@
-$(document).on('change','#selectPergunta, #selectResposta',function(){
+$(document).on('change','#selectCartaA, #selectCartaB',function(){
     console.log("Um dos SELECT mudou!");
     var selectedOption = $(this).val();
     if(selectedOption == "gravarA") {

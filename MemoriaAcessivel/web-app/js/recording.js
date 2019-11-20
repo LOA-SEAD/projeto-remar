@@ -26,11 +26,11 @@ $(document).ready(function() {
     // Submit form button click function
     $("#submit").click(function() {
         fd = new FormData();
-        var selectPerg = $("#selectPergunta :selected").val();
-        var selectResp = $("#selectResposta :selected").val();
+        var selectCartaA = $("#selectCartaA :selected").val();
+        var selectCartaB = $("#selectCartaB :selected").val();
 
 
-        if (selectPerg == "gravarA") {
+        if (selectCartaA == "gravarA") {
             if ($("input[name=audioA]:checked").parent().siblings("audio")[0] != null) {
                 var audioAurl = $("input[name=audioA]:checked").parent().siblings("audio")[0].src;
 
@@ -38,7 +38,7 @@ $(document).ready(function() {
                 xhr.open('GET', audioAurl);
                 xhr.responseType = 'blob';
                 xhr.onload = function (e) {
-                    if (selectResp == "gravarB") {
+                    if (selectCartaB == "gravarB") {
                         recoverBlobB(xhr.response)
                     } else {
                         sendFormData(xhr.response, null)
@@ -53,7 +53,7 @@ $(document).ready(function() {
             }
         }
         else {
-            if(selectResp == "gravarB") {
+            if(selectCartaB == "gravarB") {
                 recoverBlobB(null)
             }
             else {
@@ -67,11 +67,11 @@ $(document).ready(function() {
     // Submit form button click function
     $("#submitEdit").click(function() {
         fd = new FormData();
-        var selectPerg = $("#selectPergunta :selected").val();
-        var selectResp = $("#selectResposta :selected").val();
+        var selectCartaA = $("#selectCartaA :selected").val();
+        var selectCartaB = $("#selectCartaB :selected").val();
 
 
-        if (selectPerg == "gravarA") {
+        if (selectCartaA == "gravarA") {
             if ($("input[name=audioA]:checked").parent().siblings("audio")[0] != null) {
                 var audioAurl = $("input[name=audioA]:checked").parent().siblings("audio")[0].src;
 
@@ -79,7 +79,7 @@ $(document).ready(function() {
                 xhr.open('GET', audioAurl);
                 xhr.responseType = 'blob';
                 xhr.onload = function (e) {
-                    if (selectResp == "gravarB") {
+                    if (selectCartaB == "gravarB") {
                         recoverBlobBEdit(xhr.response)
                     } else {
                         sendFormDataEdit(xhr.response, null)
@@ -94,7 +94,7 @@ $(document).ready(function() {
             }
         }
         else {
-            if(selectResp == "gravarB") {
+            if(selectCartaB == "gravarB") {
                 recoverBlobBEdit(null)
             }
             else {
@@ -145,21 +145,21 @@ function sendFormData(blobA, blobB) {
     var textA = $("input[name=textA]").val();
     var textB = $("input[name=textB]").val();
     var tileID = $("input[name=tileID]").val();
-    var selectPerg = $("#selectPergunta :selected").val();
-    var selectResp = $("#selectResposta :selected").val();
+    var selectCartaA = $("#selectCartaA :selected").val();
+    var selectCartaB = $("#selectCartaB :selected").val();
     var fd = new FormData();
 
 
     // Carregamento e checagem dos áudios
-    if ((blobA != null) && (selectPerg == "gravarA")){
+    if ((blobA != null) && (selectCartaA == "gravarA")){
         fd.append("audioA", blobA, new Date().toISOString());
     }
 
-    if ((blobB != null) && (selectResp == "gravarB")){
+    if ((blobB != null) && (selectCartaB == "gravarB")){
         fd.append("audioB", blobB, new Date().toISOString());
     }
 
-    if (selectPerg == "carregarA"){
+    if (selectCartaA == "carregarA"){
         if ($("#audio-1")[0].files[0] != null) {
             fd.append("audio-1", $("#audio-1")[0].files[0])
         }
@@ -170,7 +170,7 @@ function sendFormData(blobA, blobB) {
         }
     }
 
-    if (selectResp == "carregarB"){
+    if (selectCartaB == "carregarB"){
         if ($("#audio-2")[0].files[0] != null) {
             fd.append("audio-2", $("#audio-2")[0].files[0]);
         }
@@ -187,14 +187,14 @@ function sendFormData(blobA, blobB) {
     fd.append("textA", textA)
     fd.append("textB", textB)
     fd.append("tileID", tileID)
-    fd.append("selectPerg", selectPerg)
-    fd.append("selectResp", selectResp)
+    fd.append("selectCartaA", selectCartaA)
+    fd.append("selectCartaB", selectCartaB)
 
 
     // O formulário só continua se algum áudio estiver sendo enviado tanto para pergunta quanto resposta
-    if(((blobA != null) || ($("#audio-1")[0].files[0] != null) || (selectPerg == "gerar")) && ((blobB != null) || ($("#audio-2")[0].files[0] != null) || (selectResp == "gerar"))) {
+    if(((blobA != null) || ($("#audio-1")[0].files[0] != null) || (selectCartaA == "gerar")) && ((blobB != null) || ($("#audio-2")[0].files[0] != null) || (selectCartaB == "gerar"))) {
 
-        if (selectPerg == "gerar" || selectResp == "gerar") {
+        if (selectCartaA == "gerar" || selectCartaB == "gerar") {
             Materialize.toast("Aguarde um momento que o áudio do texto está sendo gerado...");
         }
 
@@ -216,21 +216,21 @@ function sendFormDataEdit(blobA, blobB) {
     var textA = $("input[name=textA]").val();
     var textB = $("input[name=textB]").val();
     var tileID = $("input[name=tileID]").val();
-    var selectPerg = $("#selectPergunta :selected").val();
-    var selectResp = $("#selectResposta :selected").val();
+    var selectCartaA = $("#selectCartaA :selected").val();
+    var selectCartaB = $("#selectCartaB :selected").val();
     var fd = new FormData();
 
 
     // Carregamento e checagem dos áudios
-    if ((blobA != null) && (selectPerg == "gravarA")){
+    if ((blobA != null) && (selectCartaA == "gravarA")){
         fd.append("audioA", blobA, new Date().toISOString());
     }
 
-    if ((blobB != null) && (selectResp == "gravarB")){
+    if ((blobB != null) && (selectCartaB == "gravarB")){
         fd.append("audioB", blobB, new Date().toISOString());
     }
 
-    if (selectPerg == "carregarA"){
+    if (selectCartaA == "carregarA"){
         if ($("#audio-1")[0].files[0] != null) {
             fd.append("audio-1", $("#audio-1")[0].files[0])
         }
@@ -241,7 +241,7 @@ function sendFormDataEdit(blobA, blobB) {
         }
     }
 
-    if (selectResp == "carregarB"){
+    if (selectCartaB == "carregarB"){
         if ($("#audio-2")[0].files[0] != null) {
             fd.append("audio-2", $("#audio-2")[0].files[0]);
         }
@@ -257,15 +257,15 @@ function sendFormDataEdit(blobA, blobB) {
     fd.append("textA", textA)
     fd.append("textB", textB)
     fd.append("tileID", tileID)
-    fd.append("selectPerg", selectPerg)
-    fd.append("selectResp", selectResp)
+    fd.append("selectCartaA", selectCartaA)
+    fd.append("selectCartaB", selectCartaB)
 
 
     // O formulário só continua se ao menos um áudio estiver sendo enviado tanto para pergunta quanto resposta
-    if(((blobA != null) || ($("#audio-1")[0].files[0] != null) || (selectPerg == "gerar") || selectPerg == "naoeditar")
-                && ((blobB != null) || ($("#audio-2")[0].files[0] != null) || (selectResp == "gerar") || selectPerg == "naoeditar")) {
+    if(((blobA != null) || ($("#audio-1")[0].files[0] != null) || (selectCartaA == "gerar") || selectCartaA == "naoeditar")
+                && ((blobB != null) || ($("#audio-2")[0].files[0] != null) || (selectCartaB == "gerar") || selectCartaA == "naoeditar")) {
 
-        if (selectPerg == "gerar" || selectResp == "gerar") {
+        if (selectCartaA == "gerar" || selectCartaB == "gerar") {
             Materialize.toast("Aguarde um momento que o áudio do texto está sendo gerado...");
         }
 

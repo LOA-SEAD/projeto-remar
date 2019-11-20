@@ -46,11 +46,11 @@
         <!-- select box dos audios da primeira carta -->
         <div class="input-field col s3">
             <div class="custom-select remar-orange" >
-                <select style="display: block;" id="selectPergunta">
+                <select style="display: block;" id="selectCartaA">
                     <g:if test="${tileInstance.id}"><option value="naoeditar">Não editar o áudio</option></g:if>
                     <option value="gerar">Gerar áudio automaticamente</option>
                     <option value="gravarA">Gravar áudio (microfone)</option>
-                    <option value="carregarA">Carregar arquivo (.mp3)</option>
+                    <option value="carregarA">Carregar arquivo (.wav)</option>
                 </select>
             </div>
         </div>
@@ -72,11 +72,11 @@
         <!-- select box dos audios da segunda carta -->
         <div class="input-field col s3">
             <div class="custom-select remar-orange" >
-                <select style="display: block;" id="selectResposta">
+                <select style="display: block;" id="selectCartaB">
                     <g:if test="${tileInstance.id}"><option value="naoeditar">Não editar o áudio</option></g:if>
                     <option value="gerar">Gerar áudio automaticamente</option>
                     <option value="gravarB">Gravar áudio (microfone)</option>
-                    <option value="carregarB">Carregar arquivo (.mp3)</option>
+                    <option value="carregarB">Carregar arquivo (.wav)</option>
                 </select>
             </div>
         </div>
@@ -85,16 +85,6 @@
 
     <input type="hidden" id="tileID" name="tileID" required="" readonly="readonly" value="${tileInstance?.id}" type="text" class="validate remar-input">
 </div>
-
-
-
-
-
-
-
-
-
-
 
 <!-------------------------------------------------------------->
 <!--                     Modal Structures                     -->
@@ -176,10 +166,10 @@
                                 <div class="file-field input-field">
                                     <div class="btn right remar-orange waves-effect waves-light">
                                         <span>Arquivo</span>
-                                        <input data-image="true" type="file" name="audio-1" id="audio-1" class="audio-input" accept="audio/*">
+                                        <input data-image="true" type="file" name="audio-1" id="audio-1" class="audio-input" accept="audio/wav">
                                     </div>
                                     <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" placeholder="Áudio (.wav, .mp3, etc.)">
+                                        <input class="file-path validate" type="text" placeholder="Áudio (.wav)">
                                     </div>
                                 </div>
                             </div>
@@ -215,10 +205,10 @@
                                 <div class="file-field input-field">
                                     <div class="btn right remar-orange waves-effect waves-light">
                                         <span>Arquivo</span>
-                                        <input data-image="true" type="file" name="audio-2" id="audio-2" class="audio-input" accept="audio/*">
+                                        <input data-image="true" type="file" name="audio-2" id="audio-2" class="audio-input" accept="audio/wav">
                                     </div>
                                     <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" placeholder="Áudio (.wav, .mp3, etc.)">
+                                        <input class="file-path validate" type="text" placeholder="Áudio (.wav)">
                                     </div>
                                 </div>
                             </div>

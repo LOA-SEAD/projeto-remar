@@ -100,13 +100,13 @@ class TileController {
             f1Recorded.transferTo(f1File)
         }
 
-        if (params["selectPerg"] == "gerar") {
+        if (params["selectCartaA"] == "gerar") {
             println "Text-to-Speech (Texto Primeira Carta)"
             println "Running Script for Text-to-Speech (Texto Primeira Carta)"
             textToSpeech("$tileInstance.textA", "$userPath/carta1.wav")
         }
 
-        if (params["selectResp"] == "gerar") {
+        if (params["selectCartaB"] == "gerar") {
             println "Text-to-Speech (Texto Segunda Carta)"
             println "Running Script for Text-to-Speech (Texto Segunda Carta)"
             textToSpeech("$tileInstance.textB", "$userPath/carta2.wav")
@@ -174,20 +174,17 @@ class TileController {
             f1Recorded.transferTo(f1File)
         }
 
-        if (params["selectPerg"] == "gerar") {
+        if (params["selectCartaA"] == "gerar") {
             println "Text-to-Speech (Texto Primeira Carta)"
             println "Running Script for Text-to-Speech (Texto Primeira Carta)"
             textToSpeech("$tileInstance.textA", "$userPath/carta1.wav")
         }
 
-        if (params["selectResp"] == "gerar") {
+        if (params["selectCartaB"] == "gerar") {
             println "Text-to-Speech (Texto Segunda Carta)"
             println "Running Script for Text-to-Speech (Texto Segunda Carta)"
             textToSpeech("$tileInstance.textB", "$userPath/carta2.wav")
-
         }
-
-
 
         if (request.isXhr()) {
             def port = request.serverPort
