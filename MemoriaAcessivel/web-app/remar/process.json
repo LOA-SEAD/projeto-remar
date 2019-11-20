@@ -15,32 +15,62 @@
           "path": ""
         },
         {
-          "name": "L1A1.wav",
+          "name": "L1-1A.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L1A2.wav",
+          "name": "L1-1B.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L1A3.wav",
+          "name": "L1-1C.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L1A4.wav",
+          "name": "L1-2A.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L1A5.wav",
+          "name": "L1-2B.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L1A6.wav",
+          "name": "L1-2C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L1-3A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L1-3B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L1-3C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L1-4A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L1-4B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L1-4C.wav",
           "type": "audio/wav",
           "path": ""
         }
@@ -58,42 +88,92 @@
           "path": ""
         },
         {
-          "name": "L2A1.wav",
+          "name": "L2-1A.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L2A2.wav",
+          "name": "L2-1B.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L2A3.wav",
+          "name": "L2-1C.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L2A4.wav",
+          "name": "L2-2A.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L2A5.wav",
+          "name": "L2-2B.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L2A6.wav",
+          "name": "L2-2C.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L2A7.wav",
+          "name": "L2-3A.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L2A8.wav",
+          "name": "L2-3B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-3C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-4A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-4B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-4C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-5A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-5B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-5C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-6A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-6B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-6C.wav",
           "type": "audio/wav",
           "path": ""
         }
@@ -111,62 +191,122 @@
           "path": ""
         },
         {
-          "name": "L3A1.wav",
+          "name": "L3-1A.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L3A2.wav",
+          "name": "L3-1B.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L3A3.wav",
+          "name": "L3-1C.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L3A4.wav",
+          "name": "L3-2A.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L3A5.wav",
+          "name": "L3-2B.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L3A6.wav",
+          "name": "L3-2C.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L3A7.wav",
+          "name": "L3-3A.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L3A8.wav",
+          "name": "L3-3B.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L3A9.wav",
+          "name": "L3-3C.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L3A10.wav",
+          "name": "L3-4A.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L3A11.wav",
+          "name": "L3-4B.wav",
           "type": "audio/wav",
           "path": ""
         },
         {
-          "name": "L3A12.wav",
+          "name": "L3-4C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-5A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-5B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-5C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-6A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-6B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-6C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-7A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-7B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-7C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-8A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-8B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-8C.wav",
           "type": "audio/wav",
           "path": ""
         }

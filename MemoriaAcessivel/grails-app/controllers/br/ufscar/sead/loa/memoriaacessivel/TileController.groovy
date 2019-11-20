@@ -281,43 +281,48 @@ class TileController {
         }
         def fullUrl ="http://${request.serverName}:${port}/process/task/complete/${session.taskId}?"
 
-        def cardCounter = 1
         for (def i = 0; i < tileList.size(); i++) {
 
             def currFile = new File(getTilesAudios(tileList[i]).a)
-            def destFile = new File("$folder/L${session.level}A${cardCounter}.wav")
-            print("session level: $session.level")
+            fileName = "$folder/L${session.level}-${i+1}A.wav"
+            def destFile = new File(fileName)
             Files.copy(currFile.toPath(), destFile.toPath())
 
-            fw.write("{")
-            fw.write("\"cardNumber\": " + cardCounter + ", ")
-            fw.write("\"cardText\": \"" + tileList[i].textA + "\", ")
-            fw.write("\"audioName\": " + "\"L" + session.level + "A" + cardCounter +".wav\"")
-            fw.write("}\n")
-
-            fullUrl += "files=${MongoHelper.putFile("${folder}/L${session.level}A${cardCounter}.wav")}&"
-
-            cardCounter++;
+            fullUrl += "files=${MongoHelper.putFile(fileName)}&"
 
             currFile = new File(getTilesAudios(tileList[i]).b)
-            destFile = new File("$folder/L${session.level}A${cardCounter}.wav")
+            fileName = "$folder/L${session.level}-${i+1}B.wav"
+            destFile = new File(fileName)
             Files.copy(currFile.toPath(), destFile.toPath())
 
+            fullUrl += "files=${MongoHelper.putFile(fileName)}&"
+
+            // TODO
+
+            currFile = new File(getTilesAudios(tileList[i]).a)
+            fileName = "$folder/L${session.level}-${i+1}C.wav"
+            destFile = new File(fileName)
+            Files.copy(currFile.toPath(), destFile.toPath())
+
+            fullUrl += "files=${MongoHelper.putFile(fileName)}&"
+
             fw.write("{")
-            fw.write("\"cardNumber\": " + (cardCounter-1) + ", ")
-            fw.write("\"cardText\": \"" + tileList[i].textB + "\", ")
-            fw.write("\"audioName\": " + "\"L" + session.level + "A" + cardCounter +".wav\"")
+            fw.write("\"pairNumber\": " + (i+1) + ", ")
+            fw.write("\"textA\": " + "\"" + tileList[i].textA + "\", ")
+            fw.write("\"textB\": " + "\"" + tileList[i].textB + "\", ")
+            fw.write("\"description\": " + "\"" + tileList[i].textA + "\", ") // TODO
+            fw.write("\"audioA\": " + "\"L" + session.level + "-" + (i+1) +"A.wav\"" + ", ")
+            fw.write("\"audioB\": " + "\"L" + session.level + "-" + (i+1) +"B.wav\"" + ", ")
+            fw.write("\"descriptionAudio\": " + "\"L" + session.level + "-" + (i+1) +"C.wav\"")
             fw.write("}\n")
-
-            fullUrl += "files=${MongoHelper.putFile("${folder}/L${session.level}A${cardCounter}.wav")}&"
-
-            cardCounter++;
         }
 
         fw.close();
 
         log.debug folder
-        fullUrl += "files=${MongoHelper.putFile("${folder}/level${session.level}.json")}"
+        fileName = "${folder}/level${session.level}.json"
+        println fileName
+        fullUrl += "files=${MongoHelper.putFile(fileName)}"
 
         // atualiza a tarefa corrente para o status de "completo"
         render(status: 200, text: fullUrl)
