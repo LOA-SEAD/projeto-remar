@@ -1,4 +1,4 @@
-import br.ufscar.sead.loa.respondasepuder.remar.Question
+import br.ufscar.sead.loa.respondasepuderacessivel.remar.Question
 
 class UrlMappings {
 

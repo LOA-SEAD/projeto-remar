@@ -53,7 +53,7 @@ function submit(){
             $.ajax({
                 type: "POST",
                 traditional: true,
-                url: "/respondasepuder/question/exportQuestions",
+                url: "/respondasepuderacessivel/question/exportQuestions",
                 data: { list_id_level1: list_id_level1, list_id_level2: list_id_level2, list_id_level3: list_id_level3, randomQuestion: randomQuestion },
                 success: function(returndata) {
                     window.top.location.href = returndata;
@@ -117,7 +117,7 @@ function submit(){
 }
 
 function _edit(tr){
-    var url = location.origin + '/respondasepuder/question/returnInstance/' + $(tr).attr('data-id');
+    var url = location.origin + '/respondasepuderacessivel/question/returnInstance/' + $(tr).attr('data-id');
     var data = {_method: 'GET'};
 
     $.ajax({
@@ -199,7 +199,7 @@ function _delete() {
     else{
         if(list_id.length==1){
             if(confirm("Você tem certeza que deseja deletar essa questão?")){
-                url = location.origin + '/respondasepuder/question/delete/' + list_id[0];
+                url = location.origin + '/respondasepuderacessivel/question/delete/' + list_id[0];
                 data = {_method: 'DELETE'};
                 trID = "#tr"+list_id[0];
                 $.ajax({
@@ -218,7 +218,7 @@ function _delete() {
         else{
             if(confirm("Você tem certeza que deseja deletar essas questões?")){
             for(var i=0;i<list_id.length;i++){
-                    url = location.origin + '/respondasepuder/question/delete/' + list_id[i];
+                    url = location.origin + '/respondasepuderacessivel/question/delete/' + list_id[i];
                     data = {_method: 'DELETE'};
                     trID = "#tr"+list_id[i];
                     $(trID).remove();
@@ -293,7 +293,7 @@ function exportQuestions(){
         $.ajax({
             type: "POST",
             traditional: true,
-            url: "/respondasepuder/question/exportCSV",
+            url: "/respondasepuderacessivel/question/exportCSV",
             data: { list_id: list_id },
             success: function(returndata) {
                 console.log(returndata);

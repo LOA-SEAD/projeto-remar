@@ -1,4 +1,4 @@
-<%@ page import="br.ufscar.sead.loa.respondasepuder.remar.Question" %>
+<%@ page import="br.ufscar.sead.loa.respondasepuderacessivel.remar.Question" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,17 +7,17 @@
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <g:javascript src="iframeResizer.contentWindow.min.js"/>
-
-
 </head>
 <body>
 
+<!-- Cabeçalho -->
 <div class="cluster-header">
     <p class="text-teal text-darken-3 left-align margin-bottom" style="font-size: 28px;">
         <i class="small material-icons left">grid_on</i>Responda se Puder - Banco de Questões
     </p>
 </div>
 
+<!-- Tabela de questões -->
 <div class="row">
     <div id="chooseQuestion" class="col s12 m12 l12">
         <br>
@@ -84,12 +84,18 @@
                     </div>
                 </div>
             </div>
-            <div class="col s1 m1 l1 offset-s4">
-                <a data-target="createModal" name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"><i class="material-icons">add</i></a>
+            <div class="col s1 m1 l1 offset-s8">
+                <a href="${createLink(action: "create", controller: "question")}"
+                   class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" action="create" data-tooltip="Criar nova questão">
+                    <i class="material-icons">add</i>
+                </a>
             </div>
+
             <div class="col s1 offset-s1 m1 l1">
                 <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exluir questão" ><i class="material-icons">delete</i></a>
             </div>
+
+            <!-- Não tem import e export
             <div class="col s1 offset-s1 m1 l1">
                 <a data-target="uploadModal" class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped" data-tooltip="Upload arquivo .csv"><i
                         class="material-icons">file_upload</i></a>
@@ -98,11 +104,10 @@
                 <a class="btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exportar questões para .csv"><i
                         class="material-icons" onclick="exportQuestions()">file_download</i></a>
             </div>
+            -->
         </div>
     </div>
 </div>
-
-
 
 
 
@@ -114,6 +119,8 @@
     </div>
 
 </div>
+
+
 
 
 <div id="editModal" class="modal">
@@ -337,7 +344,7 @@
                     <li>O arquivo deve representar a estrutura da tabela de exemplo</li>
                 </ol>
                 <ul>
-                    <li><a href="/respondasepuder/samples/exemploRespondaSePuder.csv">Download do arquivo exemplo</a></li>
+                    <li><a href="/respondasepuderacessivel/samples/exemploRespondaSePuder.csv">Download do arquivo exemplo</a></li>
                 </ul>
             </div>
         </div>
@@ -401,7 +408,7 @@
         $("#hint").characterCounter();
     });
 </script>
-<script type="text/javascript" src="/respondasepuder/js/questions.js"></script>
+<script type="text/javascript" src="/respondasepuderacessivel/js/questions.js"></script>
 </body>
 </html>
 

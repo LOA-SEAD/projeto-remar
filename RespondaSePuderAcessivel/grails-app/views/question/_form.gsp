@@ -1,61 +1,350 @@
-<%@ page import="br.ufscar.sead.loa.respondasepuder.remar.Question" %>
+<%@ page import="br.ufscar.sead.loa.respondasepuderacessivel.remar.Question" %>
+<g:javascript>
+    GMS = {};
+    GMS.RECORDINGS_RESUME_BUTTON_LABEL = "${message(code: 'question.resume.button.label', default:'Continuar gravando')}";
+    GMS.RECORDINGS_PAUSE_BUTTON_LABEL = "${message(code: 'question.pause.button.label', default:'Pausar gravação')}";
+    GMS.RECORDINGS_RECORD_BUTTON_LABEL = "${message(code: 'question.record.button.label', default:'Gravar')}";
+    GMS.RECORDINGS_RECORDING_BUTTON_LABEL = "${message(code: 'question.recording.button.label', default:'Gravando...')}";
+</g:javascript>
+<link rel="stylesheet" type="text/css" href="/respondasepuderacessivel/css/question.css">
+
+<!-- Formulário de criação e edição -->
+<div class="input-field col s12">
+    <div class="col s12">
+        <ul class="collapsible" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header active"><i class="material-icons">info</i>Informação sobre as transcrições do texto</div>
+                <div class="collapsible-body">
+                    <p class="justify-text">
+                        As transcrições de texto tanto da pergunta quanto da resposta podem ser gravadas durante a customização ou feito o upload (carregamento) de um áudio.
+                        Caso contrário, os áudios podem também serem gerados automaticamente.
+                        <br>Deve ser escolhida uma dessas opções para cada texto.
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
 
 
 
-<div class="fieldcontain ${hasErrors(bean: questionInstance, field: 'answer', 'error')} required">
-    <label for="answer">
-        <g:message code="question.answer.label" default="Answer"/>
-        <span class="required-indicator">*</span>
-    </label>
-    <g:field name="answers1" type="text" value="${questionInstance.answers[0]}" required=""/>
-    <g:field name="answers2" type="text" value="${questionInstance.answers[1]}" required=""/>
-    <g:field name="answers3" type="text" value="${questionInstance.answers[2]}" required=""/>
-    <g:field name="answers4" type="text" value="${questionInstance.answers[3]}" required=""/>
+    <!-- Pergunta -->
+    <div class="row" style="margin-top:5em;">
+        <div class="input-field col s9">
+            <input id="statement" name="statement" required value="${questionInstance?.title}" type="text" class="validate remar-input" maxlength="150"/>
+            <label for="statement">
+                <span class="required-indicator">*</span>
+                Pergunta
+            </label>
+            <br>
+        </div>
 
+
+        <!-- select box dos audios -->
+        <div class="input-field col s3">
+            <div class="custom-select remar-orange" >
+                <select style="display: block;" id="selectPergunta">
+                    <g:if test="${questionInstance.id}"><option value="naoeditar">Não editar o áudio</option></g:if>
+                    <option value="gerar">Gerar áudio automaticamente</option>
+                    <option value="gravarA">Gravar áudio (microfone)</option>
+                    <option value="carregarA">Carregar arquivo (.wav, etc)</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Alternativa 1 -->
+    <div class="row">
+        <div class="input-field col s9">
+            <input id="answer1" name="answer1" required value="${questionInstance?.answers[0]}" type="text" class="validate remar-input" maxlength="150"/>
+            <label for="answer1">
+                <span class="required-indicator">*</span>
+                Alternativa 1
+            </label>
+            <br>
+        </div>
+
+        <!-- select box dos audios -->
+        <div class="input-field col s3">
+            <div class="custom-select remar-orange" >
+                <select style="display: block;" id="selectResposta">
+                    <g:if test="${questionInstance.id}"><option value="naoeditar">Não editar o áudio</option></g:if>
+                    <option value="gerar">Gerar áudio automaticamente</option>
+                    <option value="gravarB">Gravar áudio (microfone)</option>
+                    <option value="carregarB">Carregar arquivo (.wav, etc)</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alternativa 2 -->
+    <div class="row">
+        <div class="input-field col s9">
+            <input id="answer2" name="answer2" required value="${questionInstance?.answers[1]}" type="text" class="validate remar-input" maxlength="150"/>
+            <label for="answer2">
+                <span class="required-indicator">*</span>
+                Alternativa 2
+            </label>
+            <br>
+        </div>
+
+        <!-- select box dos audios -->
+        <div class="input-field col s3">
+            <div class="custom-select remar-orange" >
+                <select style="display: block;" id="selectResposta">
+                    <g:if test="${questionInstance.id}"><option value="naoeditar">Não editar o áudio</option></g:if>
+                    <option value="gerar">Gerar áudio automaticamente</option>
+                    <option value="gravarB">Gravar áudio (microfone)</option>
+                    <option value="carregarB">Carregar arquivo (.wav, etc)</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alternativa 3 -->
+    <div class="row">
+        <div class="input-field col s9">
+            <input id="answer3" name="answer3" required value="${questionInstance?.answers[2]}" type="text" class="validate remar-input" maxlength="150"/>
+            <label for="answer3">
+                <span class="required-indicator">*</span>
+                Alternativa 3
+            </label>
+            <br>
+        </div>
+
+        <!-- select box dos audios -->
+        <div class="input-field col s3">
+            <div class="custom-select remar-orange" >
+                <select style="display: block;" id="selectResposta">
+                    <g:if test="${questionInstance.id}"><option value="naoeditar">Não editar o áudio</option></g:if>
+                    <option value="gerar">Gerar áudio automaticamente</option>
+                    <option value="gravarB">Gravar áudio (microfone)</option>
+                    <option value="carregarB">Carregar arquivo (.wav, etc)</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alternativa 4 -->
+    <div class="row">
+        <div class="input-field col s9">
+            <input id="answer4" name="answer4" required value="${questionInstance?.answers[3]}" type="text" class="validate remar-input" maxlength="150"/>
+            <label for="answer4">
+                <span class="required-indicator">*</span>
+                Alternativa 4
+            </label>
+            <br>
+        </div>
+
+        <!-- select box dos audios -->
+        <div class="input-field col s3">
+            <div class="custom-select remar-orange" >
+                <select style="display: block;" id="selectResposta">
+                    <g:if test="${questionInstance.id}"><option value="naoeditar">Não editar o áudio</option></g:if>
+                    <option value="gerar">Gerar áudio automaticamente</option>
+                    <option value="gravarB">Gravar áudio (microfone)</option>
+                    <option value="carregarB">Carregar arquivo (.wav, etc)</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Dica (hint) -->
+    <div class="row">
+        <div class="input-field col s12">
+            <input id="hint" name="hint" required="" value="${questionInstance?.hint}" type="text" class="validate remar-input">
+            <label for="hint">
+                <span class="required-indicator">*</span>
+                Dica
+            </label>
+        </div>
+    </div>
+
+
+    <!-- ownerId e taskId -->
+    <div class="input-field col s12" style="display: none;">
+        <input type="hidden" id="ownerId" name="ownerId" required="" readonly="readonly" value="${questionInstance?.ownerId}" type="text" class="validate remar-input">
+        <input type="hidden" id="taskId" name="taskId" required="" readonly="readonly" value="${questionInstance?.taskId}" type="text" class="validate remar-input">
+        <input type="hidden" id="questionID" name="questionID" required="" readonly="readonly" value="${questionInstance?.id}" type="text" class="validate remar-input">
+    </div>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: questionInstance, field: 'correctAnswer', 'error')} required">
-    <label for="correctAnswer">
-        <g:message code="question.correctAnswer.label" default="Correct Answer"/>
-        <span class="required-indicator">*</span>
-    </label>
-    <g:field name="correctAnswer" type="number" value="${questionInstance.correctAnswer}" required=""/>
 
+
+
+<!--
+    <button id="ocultar">Ocultar o conteúdo</button>
+    <p id="exemplo1">Conteúdo que vai ser ocultado</p>
+
+-->
+
+
+
+<!-------------------------------------------------------------->
+<!--                     Modal Structures                     -->
+<div id="gravarModalA" class="modal remar-modal">
+    <div class="modal-content">
+        <div class="input-field col s6" style="text-align: center">
+
+            <div style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
+                ${message(code: 'question.audioA.label', default: 'Gravação de Áudio da Pergunta')}
+            </div>
+            <div style="text-align: left">
+
+                <!-- Botões da gravação -->
+                <div id="controlsA"  style="text-align: center">
+                    <button type="button" class="btn waves-effect waves-light remar-orange" id="recordButtonA">
+                        ${message(code: 'question.record.button.label', default: 'Gravar')}</button>
+                    <button type="button" class="btn waves-effect waves-light remar-orange" id="pauseButtonA" disabled="true">
+                        ${message(code: 'question.pause.button.label', default: 'Pausar gravação')}</button>
+                    <button type="button" class="btn waves-effect waves-light remar-orange" id="stopButtonA" disabled="true">
+                        ${message(code: 'question.stop.button.label', default: 'Encerrar gravação')}</button>
+                </div>
+
+                <!-- Listagem das gravações feitas -->
+                <br>
+                <h6 style="font-weight: bold">${message(code: 'question.recordings.list.header', default: 'Gravações')}</h6>
+                <div id="recordingsListA" style="margin-bottom: 3em"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn waves-effect waves-light modal-close my-orange">Selecionar</button>
+    </div>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: questionInstance, field: 'ownerId', 'error')} required">
-    <label for="ownerId">
-        <g:message code="question.ownerId.label" default="Owner Id"/>
-        <span class="required-indicator">*</span>
-    </label>
-    <g:field name="ownerId" type="number" value="${questionInstance.ownerId}" required=""/>
 
+<div id="gravarModalB" class="modal remar-modal">
+    <div class="modal-content">
+        <div class="input-field col s6" style="text-align: center">
+
+            <div style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
+                ${message(code: 'question.audioB.label', default: 'Gravação de Áudio da Resposta')}
+            </div>
+            <div style="text-align: left">
+
+                <!-- Botões da gravação -->
+                <div id="controlsB"  style="text-align: center">
+                    <button type="button" class="btn waves-effect waves-light remar-orange" id="recordButtonB">
+                        ${message(code: 'question.record.button.label', default: 'Gravar')}</button>
+                    <button type="button" class="btn waves-effect waves-light remar-orange" id="pauseButtonB" disabled="true">
+                        ${message(code: 'question.pause.button.label', default: 'Pausar gravação')}</button>
+                    <button type="button" class="btn waves-effect waves-light remar-orange" id="stopButtonB" disabled="true">
+                        ${message(code: 'question.stop.button.label', default: 'Encerrar gravação')}</button>
+                </div>
+
+                <!-- Listagem das gravações feitas -->
+                <br>
+                <h6 style="font-weight: bold">${message(code: 'question.recordings.list.header', default: 'Gravações')}</h6>
+                <div id="recordingsListB" style="margin-bottom: 3em"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn waves-effect waves-light modal-close my-orange">Selecionar</button>
+    </div>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: questionInstance, field: 'taskId', 'error')} required">
-    <label for="taskId">
-        <g:message code="question.taskId.label" default="Task Id"/>
-        <span class="required-indicator">*</span>
-    </label>
-    <g:textField name="taskId" required="" value="${questionInstance?.taskId}"/>
 
+<div id="carregarModalA" class="modal remar-modal">
+    <div class="modal-content">
+        <div class="input-field col s6">
+            <div class="form" style="">
+                <div class="cluster-header">
+                    <div style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
+                        Upload de Áudio Pergunta
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col s12">
+                        <ul class="collapsible" data-collapsible="accordion">
+                            <li>
+                                <div class="collapsible-header active"><i class="material-icons">file_upload</i>Selecione o arquivo referente ao áudio</div>
+                                <div class="collapsible-body">
+                                    <div class="file-field input-field">
+                                        <div class="btn right remar-orange waves-effect waves-light">
+                                            <span>Arquivo</span>
+                                            <input data-image="true" type="file" name="audio-1" id="audio-1" class="audio-input" accept="audio/mpeg">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text" placeholder="Áudio (.wav, .mp3, etc.)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn waves-effect waves-light modal-close my-orange">Enviar</button>
+    </div>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: questionInstance, field: 'tip', 'error')} required">
-    <label for="tip">
-        <g:message code="question.tip.label" default="Tip"/>
-        <span class="required-indicator">*</span>
-    </label>
-    <g:textField name="tip" required="" value="${questionInstance?.tip}"/>
 
+<div id="carregarModalB" class="modal remar-modal">
+    <div class="modal-content">
+        <div class="input-field col s6">
+            <div class="form" style="">
+                <div class="cluster-header">
+                    <div style="text-align: center; font-weight: bold; font-size: large; color: black; margin-bottom: 1.2em">
+                        Upload de Áudio Resposta
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col s12">
+                        <ul class="collapsible" data-collapsible="accordion">
+                            <li>
+                                <div class="collapsible-header active"><i class="material-icons">file_upload</i>Selecione o arquivo referente ao áudio</div>
+                                <div class="collapsible-body">
+                                    <div class="file-field input-field">
+                                        <div class="btn right remar-orange waves-effect waves-light">
+                                            <span>Arquivo</span>
+                                            <input data-image="true" type="file" name="audio-2" id="audio-2" class="audio-input" accept="audio/*">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text" placeholder="Áudio (.wav, .mp3, etc.)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn waves-effect waves-light modal-close my-orange">Enviar</button>
+    </div>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: questionInstance, field: 'title', 'error')} required">
-    <label for="title">
-        <g:message code="question.title.label" default="Title"/>
-        <span class="required-indicator">*</span>
-    </label>
-    <g:textField name="title" required="" value="${questionInstance?.title}"/>
 
+<div id="gerarModal" class="modal remar-modal">
+    <div class="modal-content">
+        O áudio referente ao texto será gerado automaticamente após a submissão do formulário.
+        <br>
+        O resultado poderá ser checado na tela de Questões.
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn waves-effect waves-light modal-close my-orange">Ok</button>
+    </div>
 </div>
+
+
 

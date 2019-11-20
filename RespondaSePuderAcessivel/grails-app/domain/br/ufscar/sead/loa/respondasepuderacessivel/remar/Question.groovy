@@ -1,4 +1,4 @@
-package br.ufscar.sead.loa.respondasepuder.remar
+package br.ufscar.sead.loa.respondasepuderacessivel.remar
 
 class Question {
 

@@ -2,43 +2,50 @@
 <html>
 <head>
     <meta name="layout" content="main">
-    <g:set var="entityName" value="${message(code: 'question.label', default: 'Question')}"/>
-    <title><g:message code="default.create.label" args="[entityName]"/></title>
+    <g:javascript src="scriptTheme.js"/>
 </head>
-
 <body>
-<a href="#create-question" class="skip" tabindex="-1"><g:message code="default.link.skip.label"
-                                                                 default="Skip to content&hellip;"/></a>
+<g:if test="${flash.message}">
+    <div class="message" role="status">${flash.message}</div>
+</g:if>
 
-<div class="nav" role="navigation">
-    <ul>
-        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-        <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]"/></g:link></li>
-    </ul>
+<div class="main-content">
+    <div class="widget">
+        <h3 class="section-title first-title"><i class="icon-table"></i>Criar uma questão</h3>
+        <div class="widget-content-white glossed">
+            <div class="padded">
+                <g:if test="${flash.message}">
+                    <div class="message" role="status">${flash.message}</div>
+                </g:if>
+                <g:hasErrors bean="${questionInstance}">
+                    <ul class="errors" role="alert">
+                        <g:eachError bean="${questionInstance}" var="error">
+                            <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+                        </g:eachError>
+                    </ul>
+                </g:hasErrors>
+
+                <g:uploadForm url="[resource: questionInstance, action: 'save']">
+                    <fieldset class="form">
+                        <!-- Renderiza o formulário para criação de novo item -->
+                        <g:render template="form"/>
+
+                        <div class="row right-align" style="margin-right: 1em">
+                            <a id="back" name="back" class="btn btn-success remar-orange">Voltar</a>
+
+                            <button id="submit" type="button" name="submit" class="btn btn-success remar-orange" value="Criar">Criar</button>
+                        </div>
+                    </fieldset>
+                </g:uploadForm>
+                <br />
+            </div>
+        </div>
+    </div>
 </div>
 
-<div id="create-question" class="content scaffold-create" role="main">
-    <h1><g:message code="default.create.label" args="[entityName]"/></h1>
-    <g:if test="${flash.message}">
-        <div class="message" role="status">${flash.message}</div>
-    </g:if>
-    <g:hasErrors bean="${questionInstance}">
-        <ul class="errors" role="alert">
-            <g:eachError bean="${questionInstance}" var="error">
-                <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message
-                        error="${error}"/></li>
-            </g:eachError>
-        </ul>
-    </g:hasErrors>
-    <g:form url="[resource: questionInstance, action: 'save']">
-        <fieldset class="form">
-            <g:render template="form"/>
-        </fieldset>
-        <fieldset class="buttons">
-            <g:submitButton name="create" class="save"
-                            value="${message(code: 'default.button.create.label', default: 'Create')}"/>
-        </fieldset>
-    </g:form>
-</div>
+<!-- Javascript
+<g:javascript src="question.js"/>
+<g:javascript src="recording.js"/>
+<g:javascript src="recorder.js"/>
 </body>
 </html>

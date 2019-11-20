@@ -1,4 +1,4 @@
-<%@ page import="br.ufscar.sead.loa.respondasepuder.remar.Question" %>
+<%@ page import="br.ufscar.sead.loa.respondasepuderacessivel.remar.Question" %>
 <!DOCTYPE html>
 <html>
 <head>

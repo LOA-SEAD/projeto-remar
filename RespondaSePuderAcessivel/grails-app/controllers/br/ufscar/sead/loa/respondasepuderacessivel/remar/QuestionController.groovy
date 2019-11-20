@@ -1,10 +1,9 @@
-package br.ufscar.sead.loa.respondasepuder.remar
-import br.ufscar.sead.loa.remar.User
+package br.ufscar.sead.loa.respondasepuderacessivel.remar
+
+
 import br.ufscar.sead.loa.remar.api.MongoHelper
 import grails.util.Environment
 import grails.plugin.springsecurity.annotation.Secured
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.multipart.MultipartFile
 
 import static org.springframework.http.HttpStatus.*
@@ -65,6 +64,7 @@ class QuestionController {
         respond questionInstance
     }
     def create() {
+        print("entrei aqui")
         respond new Question(params)
     }
     @Transactional
@@ -304,6 +304,6 @@ class QuestionController {
             port = 8080
         }
 
-        render "/respondasepuder/samples/export/exportQuestions.csv"
+        render "/respondasepuderacessivel/samples/export/exportQuestions.csv"
     }
 }
