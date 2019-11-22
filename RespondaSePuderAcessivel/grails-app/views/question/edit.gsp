@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
-    <g:set var="entityName" value="${message(code: 'tile.label', default: 'Question')}" />
+    <g:set var="entityName" value="${message(code: 'question.label', default: 'Question')}" />
     <title><g:message code="default.edit.label" args="[entityName]" /></title>
 </head>
 <body>
@@ -11,7 +11,6 @@
     <div class="divider"></div>
 </div>
 
-<div class="row">
     <g:form class="col s12" controller="question" action="update" enctype="multipart/form-data" method="PUT">
         <g:hiddenField name="version" value="${questionInstance?.version}" />
         <fieldset class="form">
@@ -23,7 +22,6 @@
             </div>
         </fieldset>
     </g:form>
-</div>
 
 <g:javascript src="question.js"/>
 <g:javascript src="recording.js"/>

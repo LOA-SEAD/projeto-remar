@@ -30,9 +30,9 @@
                         <g:render template="form"/>
 
                         <div class="row right-align" style="margin-right: 1em">
-                            <a id="back" name="back" class="btn btn-success my-orange">Voltar</a>
+                            <a id="back" name="back" class="btn btn-success remar-orange">Voltar</a>
 
-                            <button id="submit" type="button" name="submit" class="btn btn-success my-orange" value="Criar">Criar</button>
+                            <button id="submit" type="button" name="submit" class="btn btn-success remar-orange" value="Criar">Criar</button>
                         </div>
                     </fieldset>
                 </g:uploadForm>

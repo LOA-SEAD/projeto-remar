@@ -76,13 +76,120 @@ class QuestionController {
             respond questionInstance.errors, view:'create'
             return
         }
+        questionInstance.title= params.title
         questionInstance.answers[0]= params.answers1
         questionInstance.answers[1]= params.answers2
         questionInstance.answers[2]= params.answers3
         questionInstance.answers[3]= params.answers4
+        questionInstance.correctAnswer = Integer.parseInt(params.correctAnswer)
+        questionInstance.hint= params.hint
         questionInstance.ownerId = session.user.id as long
         questionInstance.taskId = session.taskId as String
         questionInstance.save flush:true
+
+        def questionID = questionInstance.getId()
+
+        // definição do diretório de áudios: criado com a id do usuário corrente!
+        def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/audios/" + questionID)
+        def userFolder = new File(userPath)
+        userFolder.mkdirs()
+
+        // audioA e audioB: gravações (pergunta e resposta, respectivamente)
+        if(params.audioA != null) {
+            def f1Recorded = request.getFile("audioA")
+            def f1File = new File("$userPath/title.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params.audioB != null) {
+            def f1Recorded = request.getFile("audioB")
+            def f1File = new File("$userPath/answer1.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params.audioC != null) {
+            def f1Recorded = request.getFile("audioC")
+            def f1File = new File("$userPath/answer2.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params.audioD != null) {
+            def f1Recorded = request.getFile("audioD")
+            def f1File = new File("$userPath/answer3.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params.audioE != null) {
+            def f1Recorded = request.getFile("audioE")
+            def f1File = new File("$userPath/answer4.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params.audioF != null) {
+            def f1Recorded = request.getFile("audioF")
+            def f1File = new File("$userPath/hint.wav")
+            f1Recorded.transferTo(f1File)
+        }
+
+        // audio-1 e audio-2: uploads (pergunta e resposta, respectivamente)
+        if(params["audio-1"] != null) {
+            def f1Recorded = request.getFile("audio-1")
+            def f1File = new File("$userPath/title.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params["audio-2"] != null) {
+            def f1Recorded = request.getFile("audio-2")
+            def f1File = new File("$userPath/answer1.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params["audio-3"] != null) {
+            def f1Recorded = request.getFile("audio-3")
+            def f1File = new File("$userPath/answer2.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params["audio-4"] != null) {
+            def f1Recorded = request.getFile("audio-4")
+            def f1File = new File("$userPath/answer3.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params["audio-5"] != null) {
+            def f1Recorded = request.getFile("audio-5")
+            def f1File = new File("$userPath/answer4.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params["audio-6"] != null) {
+            def f1Recorded = request.getFile("audio-6")
+            def f1File = new File("$userPath/hint.wav")
+            f1Recorded.transferTo(f1File)
+        }
+
+        if (params["selectTitle"] == "gerar") {
+            println "Text-to-Speech (Title)"
+            println "Running Script for Text-to-Speech (Title)"
+            textToSpeech("$questionInstance.title", "$userPath/title.wav")
+        }
+        if (params["selectAlt1"] == "gerar") {
+            println "Text-to-Speech (Alt1)"
+            println "Running Script for Text-to-Speech (Alt1)"
+            textToSpeech("$questionInstance.answers[0]", "$userPath/answer1.wav")
+        }
+        if (params["selectAlt2"] == "gerar") {
+            println "Text-to-Speech (Alt1)"
+            println "Running Script for Text-to-Speech (Alt1)"
+            textToSpeech("$questionInstance.answers[1]", "$userPath/answer2.wav")
+        }
+        if (params["selectAlt3"] == "gerar") {
+            println "Text-to-Speech (Alt1)"
+            println "Running Script for Text-to-Speech (Alt1)"
+            textToSpeech("$questionInstance.answers[2]", "$userPath/answer3.wav")
+        }
+        if (params["selectAlt4"] == "gerar") {
+            println "Text-to-Speech (Alt4)"
+            println "Running Script for Text-to-Speech (Alt4)"
+            textToSpeech("$questionInstance.answers[3]", "$userPath/answer4.wav")
+        }
+        if (params["selectHint"] == "gerar") {
+            println "Text-to-Speech (Hint)"
+            println "Running Script for Text-to-Speech (Hint)"
+            textToSpeech("$questionInstance.description", "$userPath/hint.wav")
+        }
+
+
         redirect(action: "index")
     }
 
@@ -105,6 +212,109 @@ class QuestionController {
         questionInstance.taskId = session.taskId as String
         questionInstance.save flush:true
         redirect action: "index"
+
+        def questionID = questionInstance.getId()
+
+        // definição do diretório de áudios: criado com a id do usuário corrente!
+        def userPath = servletContext.getRealPath("/data/" + userId.toString() + "/audios/" + questionID)
+        def userFolder = new File(userPath)
+        userFolder.mkdirs()
+
+        // audioA e audioB: gravações (pergunta e resposta, respectivamente)
+        if(params.audioA != null) {
+            def f1Recorded = request.getFile("audioA")
+            def f1File = new File("$userPath/title.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params.audioB != null) {
+            def f1Recorded = request.getFile("audioB")
+            def f1File = new File("$userPath/answer1.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params.audioC != null) {
+            def f1Recorded = request.getFile("audioC")
+            def f1File = new File("$userPath/answer2.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params.audioD != null) {
+            def f1Recorded = request.getFile("audioD")
+            def f1File = new File("$userPath/answer3.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params.audioE != null) {
+            def f1Recorded = request.getFile("audioE")
+            def f1File = new File("$userPath/answer4.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params.audioF != null) {
+            def f1Recorded = request.getFile("audioF")
+            def f1File = new File("$userPath/hint.wav")
+            f1Recorded.transferTo(f1File)
+        }
+
+        // audio-1 e audio-2: uploads (pergunta e resposta, respectivamente)
+        if(params["audio-1"] != null) {
+            def f1Recorded = request.getFile("audio-1")
+            def f1File = new File("$userPath/title.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params["audio-2"] != null) {
+            def f1Recorded = request.getFile("audio-2")
+            def f1File = new File("$userPath/answer1.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params["audio-3"] != null) {
+            def f1Recorded = request.getFile("audio-3")
+            def f1File = new File("$userPath/answer2.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params["audio-4"] != null) {
+            def f1Recorded = request.getFile("audio-4")
+            def f1File = new File("$userPath/answer3.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params["audio-5"] != null) {
+            def f1Recorded = request.getFile("audio-5")
+            def f1File = new File("$userPath/answer4.wav")
+            f1Recorded.transferTo(f1File)
+        }
+        if(params["audio-6"] != null) {
+            def f1Recorded = request.getFile("audio-6")
+            def f1File = new File("$userPath/hint.wav")
+            f1Recorded.transferTo(f1File)
+        }
+
+        if (params["selectTitle"] == "gerar") {
+            println "Text-to-Speech (Title)"
+            println "Running Script for Text-to-Speech (Title)"
+            textToSpeech("$questionInstance.title", "$userPath/title.wav")
+        }
+        if (params["selectAlt1"] == "gerar") {
+            println "Text-to-Speech (Alt1)"
+            println "Running Script for Text-to-Speech (Alt1)"
+            textToSpeech("$questionInstance.answers[0]", "$userPath/answer1.wav")
+        }
+        if (params["selectAlt2"] == "gerar") {
+            println "Text-to-Speech (Alt1)"
+            println "Running Script for Text-to-Speech (Alt1)"
+            textToSpeech("$questionInstance.answers[1]", "$userPath/answer2.wav")
+        }
+        if (params["selectAlt3"] == "gerar") {
+            println "Text-to-Speech (Alt1)"
+            println "Running Script for Text-to-Speech (Alt1)"
+            textToSpeech("$questionInstance.answers[2]", "$userPath/answer3.wav")
+        }
+        if (params["selectAlt4"] == "gerar") {
+            println "Text-to-Speech (Alt4)"
+            println "Running Script for Text-to-Speech (Alt4)"
+            textToSpeech("$questionInstance.answers[3]", "$userPath/answer4.wav")
+        }
+        if (params["selectHint"] == "gerar") {
+            println "Text-to-Speech (Hint)"
+            println "Running Script for Text-to-Speech (Hint)"
+            textToSpeech("$questionInstance.description", "$userPath/hint.wav")
+        }
+
     }
 
     @Transactional
@@ -141,6 +351,19 @@ class QuestionController {
                     questionInstance.correctAnswer + "%@!" +
                     questionInstance.hint + "%@!" +
                     questionInstance.id
+        }
+    }
+
+    void textToSpeech(String text, String file) {
+        def ant = new AntBuilder()
+        def rootPath = servletContext.getRealPath('/')
+        def script = "${rootPath}/scripts/gtts.py"
+        ant.sequential {
+            chmod(perm: "+x", file: script)
+            exec(executable: script) {
+                arg(value: "$text")
+                arg(value: "$file")
+            }
         }
     }
 

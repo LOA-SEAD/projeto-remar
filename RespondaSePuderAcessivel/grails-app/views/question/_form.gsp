@@ -52,20 +52,13 @@
 
     <!-- Alternativa 1 -->
     <div class="row">
-        <div class="input-field col s7">
+        <div class="input-field col s9">
             <input id="answer1" name="answer1" required value="${questionInstance?.answers[0]}" type="text" class="validate remar-input" maxlength="150"/>
             <label for="answer1">
                 <span class="required-indicator">*</span>
                 Texto da Alternativa 1
             </label>
             <br>
-        </div>
-
-        <!-- radio box das alternativas -->
-        <div class="input-field col s2">
-            <input type="radio" id="radio1" name="alt" value="alt1" class="with-gap">
-                <label for="radio1">Alternativa 1 correta</label>
-            </input>
         </div>
 
         <!-- select box dos audios -->
@@ -83,7 +76,7 @@
 
     <!-- Alternativa 2 -->
     <div class="row">
-        <div class="input-field col s7">
+        <div class="input-field col s9">
             <input id="answer2" name="answer2" required value="${questionInstance?.answers[1]}" type="text" class="validate remar-input" maxlength="150"/>
             <label for="answer2">
                 <span class="required-indicator">*</span>
@@ -92,12 +85,6 @@
             <br>
         </div>
 
-        <!-- radio box das alternativas -->
-        <div class="input-field col s2">
-            <input type="radio" id="radio2" name="alt" value="alt2" class="with-gap">
-                <label for="radio2">Alternativa 2 Correta</label>
-            </input>
-        </div>
 
         <!-- select box dos audios -->
         <div class="input-field col s3">
@@ -114,7 +101,7 @@
 
     <!-- Alternativa 3 -->
     <div class="row">
-        <div class="input-field col s7">
+        <div class="input-field col s9">
             <input id="answer3" name="answer3" required value="${questionInstance?.answers[2]}" type="text" class="validate remar-input" maxlength="150"/>
             <label for="answer3">
                 <span class="required-indicator">*</span>
@@ -123,12 +110,6 @@
             <br>
         </div>
 
-        <!-- radio box das alternativas -->
-        <div class="input-field col s2">
-            <input type="radio" id="radio3" name="alt" value="alt3" class="with-gap">
-                <label for="radio3">Alternativa 3 Correta</label>
-            </input>
-        </div>
 
         <!-- select box dos audios -->
         <div class="input-field col s3">
@@ -145,20 +126,13 @@
 
     <!-- Alternativa 4 -->
     <div class="row">
-        <div class="input-field col s7">
+        <div class="input-field col s9">
             <input id="answer4" name="answer4" required value="${questionInstance?.answers[3]}" type="text" class="validate remar-input" maxlength="150"/>
             <label for="answer4">
                 <span class="required-indicator">*</span>
                 Texto da Alternativa 4
             </label>
             <br>
-        </div>
-
-        <!-- radio box das alternativas -->
-        <div class="input-field col s2">
-            <input type="radio" id="radio4" name="alt" value="alt4" class="with-gap">
-                <label for="radio4">Alternativa 4 Correta</label>
-            </input>
         </div>
 
         <!-- select box dos audios -->
@@ -173,6 +147,29 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Alternativa Correta -->
+    <div class="row" style="vertical-align: middle;">
+        <div class="input-field col s3" style="text-align: right;">
+            Selecione a alternativa correta:
+        </div>
+        <div class="input-field col s3">
+            <div class="custom-select remar-orange" >
+                <select style="display: block;" id="selectRespCorreta">
+                    <option value="selecione">Clique para a alterar a alternativa</option>
+                    <option value="1">Alternativa 1</option>
+                    <option value="2">Alternativa 2</option>
+                    <option value="3">Alternativa 3</option>
+                    <option value="4">Alternativa 4</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+
+
 
     <!-- Dica (hint) -->
     <div class="row">
@@ -210,6 +207,7 @@
 
 <!-------------------------------------------------------------->
 <!--                     Modal Structures                     -->
+<div>
 <div id="gravarModalTitle" class="modal remar-modal">
     <div class="modal-content">
         <div class="input-field col s6" style="text-align: center">
@@ -424,7 +422,7 @@
                                     <div class="file-field input-field">
                                         <div class="btn right remar-orange waves-effect waves-light">
                                             <span>Arquivo</span>
-                                            <input data-image="true" type="file" name="audio-0" id="audio-0" class="audio-input" accept="audio/mpeg">
+                                            <input data-image="true" type="file" name="audio-1" id="audio-1" class="audio-input" accept="audio/mpeg">
                                         </div>
                                         <div class="file-path-wrapper">
                                             <input class="file-path validate" type="text" placeholder="Áudio (.wav, .mp3, etc.)">
@@ -464,7 +462,7 @@
                                     <div class="file-field input-field">
                                         <div class="btn right remar-orange waves-effect waves-light">
                                             <span>Arquivo</span>
-                                            <input data-image="true" type="file" name="audio-1" id="audio-1" class="audio-input" accept="audio/*">
+                                            <input data-image="true" type="file" name="audio-2" id="audio-2" class="audio-input" accept="audio/*">
                                         </div>
                                         <div class="file-path-wrapper">
                                             <input class="file-path validate" type="text" placeholder="Áudio (.wav, .mp3, etc.)">
@@ -504,7 +502,7 @@
                                     <div class="file-field input-field">
                                         <div class="btn right remar-orange waves-effect waves-light">
                                             <span>Arquivo</span>
-                                            <input data-image="true" type="file" name="audio-2" id="audio-2" class="audio-input" accept="audio/*">
+                                            <input data-image="true" type="file" name="audio-3" id="audio-3" class="audio-input" accept="audio/*">
                                         </div>
                                         <div class="file-path-wrapper">
                                             <input class="file-path validate" type="text" placeholder="Áudio (.wav, .mp3, etc.)">
@@ -544,7 +542,7 @@
                                     <div class="file-field input-field">
                                         <div class="btn right remar-orange waves-effect waves-light">
                                             <span>Arquivo</span>
-                                            <input data-image="true" type="file" name="audio-3" id="audio-3" class="audio-input" accept="audio/*">
+                                            <input data-image="true" type="file" name="audio-4" id="audio-4" class="audio-input" accept="audio/*">
                                         </div>
                                         <div class="file-path-wrapper">
                                             <input class="file-path validate" type="text" placeholder="Áudio (.wav, .mp3, etc.)">
@@ -584,7 +582,7 @@
                                     <div class="file-field input-field">
                                         <div class="btn right remar-orange waves-effect waves-light">
                                             <span>Arquivo</span>
-                                            <input data-image="true" type="file" name="audio-4" id="audio-4" class="audio-input" accept="audio/*">
+                                            <input data-image="true" type="file" name="audio-5" id="audio-5" class="audio-input" accept="audio/*">
                                         </div>
                                         <div class="file-path-wrapper">
                                             <input class="file-path validate" type="text" placeholder="Áudio (.wav, .mp3, etc.)">
@@ -624,7 +622,7 @@
                                     <div class="file-field input-field">
                                         <div class="btn right remar-orange waves-effect waves-light">
                                             <span>Arquivo</span>
-                                            <input data-image="true" type="file" name="audio-5" id="audio-5" class="audio-input" accept="audio/*">
+                                            <input data-image="true" type="file" name="audio-6" id="audio-6" class="audio-input" accept="audio/*">
                                         </div>
                                         <div class="file-path-wrapper">
                                             <input class="file-path validate" type="text" placeholder="Áudio (.wav, .mp3, etc.)">
@@ -656,6 +654,6 @@
         <button type="button" class="btn waves-effect waves-light modal-close remar-orange">Ok</button>
     </div>
 </div>
-
+</div>
 
 
