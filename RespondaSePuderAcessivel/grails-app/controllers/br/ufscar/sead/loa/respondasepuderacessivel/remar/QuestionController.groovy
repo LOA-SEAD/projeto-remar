@@ -72,20 +72,25 @@ class QuestionController {
             notFound()
             return
         }
+
+        def userId = session.user.id
+        questionInstance.title = params.title
+        questionInstance.level = Integer.parseInt(params.level)
+        questionInstance.answers[0] = params.answer1
+        questionInstance.answers[1] = params.answer2
+        questionInstance.answers[2] = params.answer3
+        questionInstance.answers[3] = params.answer4
+        questionInstance.correctAnswer = Integer.parseInt(params.correctAnswer) - 1
+        questionInstance.hint = params.hint
+        questionInstance.ownerId = session.user.id as long
+        questionInstance.taskId = session.taskId as String
+
+        questionInstance.save flush:true
+
         if (questionInstance.hasErrors()) {
             respond questionInstance.errors, view:'create'
             return
         }
-        questionInstance.title= params.title
-        questionInstance.answers[0]= params.answers1
-        questionInstance.answers[1]= params.answers2
-        questionInstance.answers[2]= params.answers3
-        questionInstance.answers[3]= params.answers4
-        questionInstance.correctAnswer = Integer.parseInt(params.correctAnswer)
-        questionInstance.hint= params.hint
-        questionInstance.ownerId = session.user.id as long
-        questionInstance.taskId = session.taskId as String
-        questionInstance.save flush:true
 
         def questionID = questionInstance.getId()
 
@@ -166,27 +171,27 @@ class QuestionController {
         if (params["selectAlt1"] == "gerar") {
             println "Text-to-Speech (Alt1)"
             println "Running Script for Text-to-Speech (Alt1)"
-            textToSpeech("$questionInstance.answers[0]", "$userPath/answer1.wav")
+            textToSpeech("${questionInstance.answers[0]}", "$userPath/answer1.wav")
         }
         if (params["selectAlt2"] == "gerar") {
             println "Text-to-Speech (Alt1)"
             println "Running Script for Text-to-Speech (Alt1)"
-            textToSpeech("$questionInstance.answers[1]", "$userPath/answer2.wav")
+            textToSpeech("${questionInstance.answers[1]}", "$userPath/answer2.wav")
         }
         if (params["selectAlt3"] == "gerar") {
             println "Text-to-Speech (Alt1)"
             println "Running Script for Text-to-Speech (Alt1)"
-            textToSpeech("$questionInstance.answers[2]", "$userPath/answer3.wav")
+            textToSpeech("${questionInstance.answers[2]}", "$userPath/answer3.wav")
         }
         if (params["selectAlt4"] == "gerar") {
             println "Text-to-Speech (Alt4)"
             println "Running Script for Text-to-Speech (Alt4)"
-            textToSpeech("$questionInstance.answers[3]", "$userPath/answer4.wav")
+            textToSpeech("${questionInstance.answers[3]}", "$userPath/answer4.wav")
         }
         if (params["selectHint"] == "gerar") {
             println "Text-to-Speech (Hint)"
             println "Running Script for Text-to-Speech (Hint)"
-            textToSpeech("$questionInstance.description", "$userPath/hint.wav")
+            textToSpeech("$questionInstance.hint", "$userPath/hint.wav")
         }
 
 
@@ -199,19 +204,26 @@ class QuestionController {
 
     @Transactional
     def update() {
+
+        def userId = session.user.id
+
         Question questionInstance = Question.findById(Integer.parseInt(params.questionID))
-        questionInstance.level = Integer.parseInt(params.level)
         questionInstance.title = params.title
-        questionInstance.answers[0] = params.answers1
-        questionInstance.answers[1] = params.answers2
-        questionInstance.answers[2] = params.answers3
-        questionInstance.answers[3] = params.answers4
-        questionInstance.correctAnswer = Integer.parseInt(params.correctAnswer)
+        questionInstance.level = Integer.parseInt(params.level)
+        questionInstance.answers[0] = params.answer1
+        questionInstance.answers[1] = params.answer2
+        questionInstance.answers[2] = params.answer3
+        questionInstance.answers[3] = params.answer4
+        questionInstance.correctAnswer = Integer.parseInt(params.correctAnswer) - 1
         questionInstance.hint = params.hint
         questionInstance.ownerId = session.user.id as long
         questionInstance.taskId = session.taskId as String
         questionInstance.save flush:true
-        redirect action: "index"
+
+        if (questionInstance.hasErrors()) {
+            respond questionInstance.errors, view:'create'
+            return
+        }
 
         def questionID = questionInstance.getId()
 
@@ -292,22 +304,22 @@ class QuestionController {
         if (params["selectAlt1"] == "gerar") {
             println "Text-to-Speech (Alt1)"
             println "Running Script for Text-to-Speech (Alt1)"
-            textToSpeech("$questionInstance.answers[0]", "$userPath/answer1.wav")
+            textToSpeech(${questionInstance.answers[0]}, "$userPath/answer1.wav")
         }
         if (params["selectAlt2"] == "gerar") {
             println "Text-to-Speech (Alt1)"
             println "Running Script for Text-to-Speech (Alt1)"
-            textToSpeech("$questionInstance.answers[1]", "$userPath/answer2.wav")
+            textToSpeech(${questionInstance.answers[1]}, "$userPath/answer2.wav")
         }
         if (params["selectAlt3"] == "gerar") {
             println "Text-to-Speech (Alt1)"
             println "Running Script for Text-to-Speech (Alt1)"
-            textToSpeech("$questionInstance.answers[2]", "$userPath/answer3.wav")
+            textToSpeech(${questionInstance.answers[2]}, "$userPath/answer3.wav")
         }
         if (params["selectAlt4"] == "gerar") {
             println "Text-to-Speech (Alt4)"
             println "Running Script for Text-to-Speech (Alt4)"
-            textToSpeech("$questionInstance.answers[3]", "$userPath/answer4.wav")
+            textToSpeech(${questionInstance.answers[3]}, "$userPath/answer4.wav")
         }
         if (params["selectHint"] == "gerar") {
             println "Text-to-Speech (Hint)"
@@ -315,6 +327,7 @@ class QuestionController {
             textToSpeech("$questionInstance.description", "$userPath/hint.wav")
         }
 
+        redirect action: "index"
     }
 
     @Transactional

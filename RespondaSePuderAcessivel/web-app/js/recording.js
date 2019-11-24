@@ -154,7 +154,7 @@ function recoverBlobE(blobA, blobB, blobC, blobD) { // blob da description
     }
 }
 
-function recoverBlobF(blobA, blobB, blobC, blobD) { // blob da description
+function recoverBlobF(blobA, blobB, blobC, blobD, blobE) { // blob da description
     var selectHint = $("#selectHint :selected").val();
 
     if(selectHint == "gravarHint") {
@@ -179,19 +179,21 @@ function recoverBlobF(blobA, blobB, blobC, blobD) { // blob da description
 
 
 function sendFormData(blobA, blobB, blobC, blobD, blobE, blobF) {
+
     var title = $("input[name=title]").val();
     var answer1 = $("input[name=answer1]").val();
     var answer2 = $("input[name=answer2]").val();
     var answer3 = $("input[name=answer3]").val();
     var answer4 = $("input[name=answer4]").val();
     var hint = $("input[name=hint]").val();
-    var questionID = $("input[name=tileID]").val();
-    var selectTitle = $("#selectTitle:selected").val();
+    var questionID = $("input[name=questionID]").val();
+    var level = $("#selectLevel :selected").val();
+    var selectTitle = $("#selectTitle :selected").val();
     var selectAlt1 = $("#selectAlt1 :selected").val();
     var selectAlt2 = $("#selectAlt2 :selected").val();
     var selectAlt3 = $("#selectAlt3 :selected").val();
     var selectAlt4 = $("#selectAlt4 :selected").val();
-    var RespCorreta = $("#selectRespCorreta :selected").val();
+    var correctAnswer = $("#selectRespCorreta :selected").val();
     var selectHint = $("#selectHint :selected").val();
     var fd = new FormData();
 
@@ -210,10 +212,10 @@ function sendFormData(blobA, blobB, blobC, blobD, blobE, blobF) {
         fd.append("audioAlt3", blobD, new Date().toISOString());
     }
     if ((blobE != null) && (selectAlt4 == "gravarAlt4")){
-        fd.append("audioAlt4", blobC, new Date().toISOString());
+        fd.append("audioAlt4", blobE, new Date().toISOString());
     }
     if ((blobF != null) && (selectHint == "gravarHint")){
-        fd.append("audioHint", blobC, new Date().toISOString());
+        fd.append("audioHint", blobF, new Date().toISOString());
     }
 
 
@@ -283,18 +285,21 @@ function sendFormData(blobA, blobB, blobC, blobD, blobE, blobF) {
         }
     }
 
-    if (RespCorreta == "selecione"){
+    if (correctAnswer == "selecione"){
         Materialize.toast("Selecione qual é a alternativa correta para poder prosseguir", displayLength='3000');
     }
 
 
     // Carregamento dos itens restantes (como parâmetros para o controlador)
+
+    fd.append("level", level)
     fd.append("title", title)
     fd.append("answer1", answer1)
     fd.append("answer2", answer2)
     fd.append("answer3", answer3)
     fd.append("answer4", answer4)
     fd.append("hint", hint)
+    fd.append("correctAnswer", correctAnswer)
     fd.append("questionID", questionID)
     fd.append("selectTitle", selectTitle)
     fd.append("selectAlt1", selectAlt1)
@@ -308,8 +313,9 @@ function sendFormData(blobA, blobB, blobC, blobD, blobE, blobF) {
         Materialize.toast("Aguarde um momento que o áudio do texto está sendo gerado...");
     }
 
+    if (questionID) {
 
-    if (tileID) {
+        console.log("update")
         // O formulário só continua se todos os campos de áudio estiverem devidamente designados (vazios ou preenchidos)
         if (((blobA != null) || ($("#audio-1")[0].files[0] != null) || (selectTitle == "gerar")) || (selectTitle == "naoeditar") &&
             ((blobB != null) || ($("#audio-2")[0].files[0] != null) || (selectAlt1 == "gerar")) || (selectAlt1 == "naoeditar") &&
@@ -321,17 +327,18 @@ function sendFormData(blobA, blobB, blobC, blobD, blobE, blobF) {
             // significa que tem uma ID, e isso significa que está na tela de edição, então chama o controlador de edição (update)
             $.ajax({
                 method: "POST",
-                url: "/memoria_acessivel/tile/update",
+                url: "/respondasepuderacessivel/question/update",
                 contentType: false,
                 processData: false,
                 data: fd,
                 success: function (response) {
-                    window.location.href = response;
+                    window.location.href = '../index';
                 }
             });
         }
     }
     else {
+
         if (((blobA != null) || ($("#audio-1")[0].files[0] != null) || (selectTitle == "gerar")) &&
             ((blobB != null) || ($("#audio-2")[0].files[0] != null) || (selectAlt1 == "gerar")) &&
             ((blobC != null) || ($("#audio-3")[0].files[0] != null) || (selectAlt2 == "gerar")) &&
@@ -347,15 +354,15 @@ function sendFormData(blobA, blobB, blobC, blobD, blobE, blobF) {
                 processData: false,
                 data: fd,
                 success: function (response) {
-                    window.location.href = response;
+                    window.location.href = 'index';
+                },
+                error: function (response) {
+                    console.log(response)
                 }
             });
         }
     }
 }
-
-
-
 
 // Trecho do código responsável pela captura de áudio e funcionamento dos botões dos áudios
 //webkitURL is deprecated but nevertheless
