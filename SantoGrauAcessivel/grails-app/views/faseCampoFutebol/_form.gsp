@@ -1,4 +1,4 @@
-<%@ page import="br.ufscar.sead.loa.santograu.remar.QuestionFaseCampoFutebol" %>
+<%@ page import="br.ufscar.sead.loa.santograuacessivel.remar.QuestionFaseCampoFutebol" %>
 
 
 <div class="fieldcontain ${hasErrors(bean: questionFaseCampoFutebolInstance, field: 'title', 'error')} required">

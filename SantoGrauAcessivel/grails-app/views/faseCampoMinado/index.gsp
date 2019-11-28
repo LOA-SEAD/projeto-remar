@@ -1,4 +1,4 @@
-<%@ page import="br.ufscar.sead.loa.santograu.remar.QuestionFaseCampoMinado" %>
+<%@ page import="br.ufscar.sead.loa.santograuacessivel.remar.QuestionFaseCampoMinado" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<g:javascript src="iframeResizer.contentWindow.min.js"/>
 		<g:external dir="css" file="faseCampoMinado.css"/>
-		<script type="text/javascript" src="/santograu/js/faseCampoMinado.js"></script>
+		<script type="text/javascript" src="/santograuacessivel/js/faseCampoMinado.js"></script>
 	</head>
 	<body>
 		<div class="cluster-header">
@@ -321,7 +321,7 @@
 									<li>O arquivo deve representar a estrutura da tabela de exemplo</li>
 								</ol>
 								<ul>
-                                    <li><a href="/santograu/samples/exemploSantoGrau.csv">Download do arquivo exemplo</a></li>
+                                    <li><a href="/santograuacessivel/samples/exemploSantoGrau.csv">Download do arquivo exemplo</a></li>
 								</ul>
 							</div>
 						</div>

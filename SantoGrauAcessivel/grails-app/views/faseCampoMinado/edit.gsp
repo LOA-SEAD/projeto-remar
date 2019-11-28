@@ -1,4 +1,4 @@
-<%@ page import="br.ufscar.sead.loa.santograu.remar.QuestionFaseCampoMinado" %>
+<%@ page import="br.ufscar.sead.loa.santograuacessivel.remar.QuestionFaseCampoMinado" %>
 <!DOCTYPE html>
 <html>
 	<head>

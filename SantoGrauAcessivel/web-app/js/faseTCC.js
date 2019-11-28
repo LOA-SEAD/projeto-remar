@@ -53,7 +53,7 @@ function uncheck_all(){
 }
 
 function _modal_edit(tr){
-    var url = location.origin + '/santograu/faseTCC/returnInstance/' + $(tr).attr('data-id');
+    var url = location.origin + '/santograuacessivel/faseTCC/returnInstance/' + $(tr).attr('data-id');
     var data = {_method: 'GET'};
 
     $.ajax({
@@ -144,7 +144,7 @@ function _delete() {
     var trID;
 
     if(list_id_delete.length==1){
-        url = location.origin + '/santograu/faseTCC/delete/' + list_id_delete[0];
+        url = location.origin + '/santograuacessivel/faseTCC/delete/' + list_id_delete[0];
         data = {_method: 'DELETE'};
         trID = "#tr"+list_id_delete[0];
         $.ajax({
@@ -168,7 +168,7 @@ function _delete() {
 
     } else{
         for(var i=0;i<list_id_delete.length;i++){
-            url = location.origin + '/santograu/faseTCC/delete/' + list_id_delete[i];
+            url = location.origin + '/santograuacessivel/faseTCC/delete/' + list_id_delete[i];
             data = {_method: 'DELETE'};
             trID = "#tr"+list_id_delete[i];
             $(trID).remove();
@@ -212,7 +212,7 @@ function _submit() {
         $.ajax({
             type: "POST",
             traditional: true,
-            url: "/santograu/faseTCC/exportQuestions",
+            url: "/santograuacessivel/faseTCC/exportQuestions",
             data: { list_id: list_id},
             success: function(returndata) {
                 window.top.location.href = returndata;
@@ -245,7 +245,7 @@ function exportQuestions(){
         $.ajax({
             type: "POST",
             traditional: true,
-            url: "/santograu/faseTCC/exportCSV",
+            url: "/santograuacessivel/faseTCC/exportCSV",
             data: { list_id: list_id },
             success: function(returndata) {
                 console.log(returndata);

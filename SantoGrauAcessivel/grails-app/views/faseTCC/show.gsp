@@ -1,5 +1,5 @@
 
-<%@ page import="br.ufscar.sead.loa.santograu.remar.QuestionFaseTCC" %>
+<%@ page import="br.ufscar.sead.loa.santograuacessivel.remar.QuestionFaseTCC" %>
 <!DOCTYPE html>
 <html>
 	<head>

@@ -52,7 +52,7 @@ function uncheck_all(){
 }
 
 function _modal_edit(tr){
-    var url = location.origin + '/santograu/faseCampoFutebol/returnInstance/' + $(tr).attr('data-id');
+    var url = location.origin + '/santograuacessivel/faseCampoFutebol/returnInstance/' + $(tr).attr('data-id');
     var data = {_method: 'GET'};
 
     $.ajax({
@@ -117,7 +117,7 @@ function _delete() {
     var trID;
 
     if(list_id_delete.length==1){
-        url = location.origin + '/santograu/faseCampoFutebol/delete/' + list_id_delete[0];
+        url = location.origin + '/santograuacessivel/faseCampoFutebol/delete/' + list_id_delete[0];
         data = {_method: 'DELETE'};
         trID = "#tr"+list_id_delete[0];
         $.ajax({
@@ -147,7 +147,7 @@ function _delete() {
 
     } else{
         for(var i=0;i<list_id_delete.length;i++){
-            url = location.origin + '/santograu/faseCampoFutebol/delete/' + list_id_delete[i];
+            url = location.origin + '/santograuacessivel/faseCampoFutebol/delete/' + list_id_delete[i];
             data = {_method: 'DELETE'};
             trID = "#tr"+list_id_delete[i];
             $(trID).remove();
@@ -194,7 +194,7 @@ function exportQuestions(){
         $.ajax({
             type: "POST",
             traditional: true,
-            url: "/santograu/faseCampoFutebol/exportCSV",
+            url: "/santograuacessivel/faseCampoFutebol/exportCSV",
             data: { list_id: list_id },
             success: function(returndata) {
                 console.log(returndata);
@@ -237,7 +237,7 @@ function _submit() {
         $.ajax({
             type: "POST",
             traditional: true,
-            url: "/santograu/faseCampoFutebol/exportQuestions",
+            url: "/santograuacessivel/faseCampoFutebol/exportQuestions",
             data: { list_id: list_id},
             success: function(returndata) {
                 window.top.location.href = returndata;

@@ -1,4 +1,4 @@
-<%@ page import="br.ufscar.sead.loa.santograu.remar.FaseTecnologia" %>
+<%@ page import="br.ufscar.sead.loa.santograuacessivel.remar.FaseTecnologia" %>
 <!DOCTYPE html>
 <html>
 	<head>
