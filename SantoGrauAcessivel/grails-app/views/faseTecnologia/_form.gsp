@@ -1,4 +1,4 @@
-<%@ page import="br.ufscar.sead.loa.santograu.remar.FaseTecnologia" %>
+<%@ page import="br.ufscar.sead.loa.santograuacessivel.remar.FaseTecnologia" %>
 
 	<div style="margin-top:-20px; margin-bottom: 30px; color:#333333">
 		Nesta fase é possível utilizar um conteúdo multimídia (vídeo do Youtube) para auxiliar o jogador a realizar a tarefa de descobrir

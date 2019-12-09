@@ -1,5 +1,5 @@
 
-<%@ page import="br.ufscar.sead.loa.santograu.remar.FaseGaleria" %>
+<%@ page import="br.ufscar.sead.loa.santograuacessivel.remar.FaseGaleria" %>
 <!DOCTYPE html>
 <html>
 	<head>

@@ -1,5 +1,5 @@
 
-<%@ page import="br.ufscar.sead.loa.santograu.remar.QuestionFaseBlocoGelo" %>
+<%@ page import="br.ufscar.sead.loa.santograuacessivel.remar.QuestionFaseBlocoGelo" %>
 <!DOCTYPE html>
 <html>
 	<head>

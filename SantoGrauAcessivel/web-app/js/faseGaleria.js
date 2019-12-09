@@ -22,7 +22,7 @@ window.onload = function() {
         if (selectedTheme) {
             if (orientation) {
                 var data = {_method: 'POST', orientacao: orientation, themeId: selectedTheme};
-                var url = "/santograu/faseGaleria/exportLevel";
+                var url = "/santograuacessivel/faseGaleria/exportLevel";
                 $.ajax({
                     traditional: true,
                     type: 'POST',

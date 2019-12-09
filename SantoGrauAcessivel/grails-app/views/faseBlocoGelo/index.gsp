@@ -1,5 +1,5 @@
 
-<%@ page import="br.ufscar.sead.loa.santograu.remar.QuestionFaseBlocoGelo" %>
+<%@ page import="br.ufscar.sead.loa.santograuacessivel.remar.QuestionFaseBlocoGelo" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,11 +8,11 @@
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript" src="/santograu/js/faseBlocoGelo.js"></script>
+        <script type="text/javascript" src="/santograuacessivel/js/faseBlocoGelo.js"></script>
         <g:external dir="css" file="faseBlocoGelo.css"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<g:javascript src="iframeResizer.contentWindow.min.js"/>
-		<script type="text/javascript" src="/santograu/js/faseBlocoGelo.js"></script>
+		<script type="text/javascript" src="/santograuacessivel/js/faseBlocoGelo.js"></script>
 	</head>
 	<body>
 		<div class="cluster-header">
@@ -284,7 +284,7 @@
 									<li>O arquivo deve representar a estrutura da tabela de exemplo</li>
 								</ol>
 								<ul>
-									<li><a href="/santograu/samples/exemploSantoGrauBlocoGelo.csv">Download do arquivo exemplo</a></li>
+									<li><a href="/santograuacessivel/samples/exemploSantoGrauBlocoGelo.csv">Download do arquivo exemplo</a></li>
 								</ul>
 							</div>
 						</div>

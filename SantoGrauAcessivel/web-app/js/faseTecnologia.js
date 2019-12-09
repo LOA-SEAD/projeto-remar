@@ -27,7 +27,7 @@ window.onload = function() {
                 $.ajax({
                     type: "POST",
                     traditional: true,
-                    url: "/santograu/faseTecnologia/exportLevel",
+                    url: "/santograuacessivel/faseTecnologia/exportLevel",
                     data: {palavras1:palavras1, palavras2: palavras2, palavras3:palavras3, link: link, tipoLink: tipoLink},
                     success: function (returndata) {
                         window.top.location.href = returndata;

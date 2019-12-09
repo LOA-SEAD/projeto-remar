@@ -1,4 +1,4 @@
-<%@ page import="br.ufscar.sead.loa.santograu.remar.QuestionFaseCampoMinado" %>
+<%@ page import="br.ufscar.sead.loa.santograuacessivel.remar.QuestionFaseCampoMinado" %>
 <div class="fieldcontain ${hasErrors(bean: faseCampoMinadoInstance, field: 'title', 'error')} required">
 	<label for="title">
 		<g:message code="faseCampoMinado.title.label" default="Pergunta: " />

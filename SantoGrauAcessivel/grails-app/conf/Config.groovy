@@ -91,13 +91,13 @@ logout.afterLogoutUrl = "/"
 environments {
     development {
         grails.config.locations = ["classpath:env.properties"]
-        grails.app.context = "/santograu"
+        grails.app.context = "/santograuacessivel"
         grails.logging.jul.usebridge = true
     }
     production {
         grails.config.locations = ["classpath:env.properties"]
         grails.logging.jul.usebridge = false
-        grails.app.context = "/santograu"
+        grails.app.context = "/santograuacessivel"
     }
 }
 

@@ -1,5 +1,5 @@
 
-<%@ page import="br.ufscar.sead.loa.santograu.remar.QuestionFaseCampoFutebol" %>
+<%@ page import="br.ufscar.sead.loa.santograuacessivel.remar.QuestionFaseCampoFutebol" %>
 <!DOCTYPE html>
 <html>
 <head>
