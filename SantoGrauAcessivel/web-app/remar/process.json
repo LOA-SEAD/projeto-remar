@@ -4,33 +4,6 @@
   "version": 1,
   "tasks": [
     {
-      "name": "Fase Tecnologia",
-      "uri": "faseTecnologia",
-      "optional": true,
-      "description": "Configurar um conteúdo multimídia com 3 palavras-chaves relacionadas ao conteúdo, que serão embaralhadas em anagramas.",
-      "type": "media_list",
-      "dependencies": null,
-      "outputs": [
-        {
-          "name": "telao.html",
-          "type": "html",
-          "path": ""
-        },
-        {
-          "name": "fases.json",
-          "type": "json",
-          "path": "",
-          "shareable": false
-        },
-        {
-          "name": "computadores.json",
-          "type": "json",
-          "path": ""
-        }
-      ]
-    },
-
-    {
       "name": "Fase Campo Futebol",
       "uri": "faseCampoFutebol",
       "description": "Criar/editar/selecionar um banco de questões para o nivel Campo Futebol.",
