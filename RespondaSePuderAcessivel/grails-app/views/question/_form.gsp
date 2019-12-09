@@ -72,7 +72,7 @@
                    class="validate remar-input" maxlength="150"/>
             <label for="answer1">
                 <span class="required-indicator">*</span>
-                Texto da Alternativa 1
+                Texto da Alternativa 1 (Alternativa correta)
             </label>
             <br>
         </div>
@@ -169,7 +169,7 @@
 
 
     <!-- Alternativa Correta -->
-    <div class="row" style="vertical-align: middle;">
+    <%--div class="row" style="vertical-align: middle;">
         <div class="input-field col s3" style="text-align: right;">
             Selecione a alternativa correta:
         </div>
@@ -180,7 +180,7 @@
                           value="${questionInstance.correctAnswer+1}"/>
             </div>
         </div>
-    </div>
+    </div--%>
 
 
 

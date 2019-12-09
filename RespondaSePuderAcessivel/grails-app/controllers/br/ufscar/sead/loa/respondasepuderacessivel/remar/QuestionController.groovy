@@ -8,11 +8,12 @@ import org.springframework.web.multipart.MultipartFile
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import java.nio.file.Files
 
 @Secured(["isAuthenticated()"])
 class QuestionController {
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", returnInstance: ["GET","POST"]]
+    static allowedMethods = [save: "POST", update: "POST", delete: "DELETE", returnInstance: ["GET", "POST"]]
 
     def beforeInterceptor = [action: this.&check, only: ['index']]
 
@@ -38,34 +39,37 @@ class QuestionController {
 
         def list = Question.findAllByOwnerId(session.user.id)
 
-        if(list.size()==0){
+        if (list.size() == 0) {
 
-            new Question(title: "Questão 1 - Nível 1", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 1, ownerId:  session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 2 - Nível 1", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 1, ownerId:  session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 3 - Nível 1", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 1, ownerId:  session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 4 - Nível 1", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 1, ownerId:  session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 5 - Nível 1", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 1, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 1 - Nível 1", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 1, ownerId: session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 2 - Nível 1", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 1, ownerId: session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 3 - Nível 1", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 1, ownerId: session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 4 - Nível 1", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 1, ownerId: session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 5 - Nível 1", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 1, ownerId: session.user.id, taskId: session.taskId).save flush: true
 
-            new Question(title: "Questão 1 - Nível 2", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 2, ownerId:  session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 2 - Nível 2", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 2, ownerId:  session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 3 - Nível 2", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 2, ownerId:  session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 4 - Nível 2", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 2, ownerId:  session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 5 - Nível 2", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 2, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 1 - Nível 2", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 2, ownerId: session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 2 - Nível 2", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 2, ownerId: session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 3 - Nível 2", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 2, ownerId: session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 4 - Nível 2", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 2, ownerId: session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 5 - Nível 2", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 2, ownerId: session.user.id, taskId: session.taskId).save flush: true
 
-            new Question(title: "Questão 1 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId:  session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 2 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId:  session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 3 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId:  session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 4 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId:  session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 5 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId:  session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 1 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId: session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 2 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId: session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 3 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId: session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 4 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId: session.user.id, taskId: session.taskId).save flush: true
+            new Question(title: "Questão 5 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId: session.user.id, taskId: session.taskId).save flush: true
         }
         respond Question.findAllByOwnerId(session.user.id), model: [questionInstanceCount: Question.count()]
     }
+
     def show(Question questionInstance) {
         respond questionInstance
     }
+
     def create() {
         respond new Question(params)
     }
+
     @Transactional
     def save(Question questionInstance) {
         if (questionInstance == null) {
@@ -80,15 +84,16 @@ class QuestionController {
         questionInstance.answers[1] = params.answer2
         questionInstance.answers[2] = params.answer3
         questionInstance.answers[3] = params.answer4
-        questionInstance.correctAnswer = Integer.parseInt(params.correctAnswer) - 1
+        //questionInstance.correctAnswer = Integer.parseInt(params.correctAnswer) - 1
+        questionInstance.correctAnswer = 0
         questionInstance.hint = params.hint
         questionInstance.ownerId = session.user.id as long
         questionInstance.taskId = session.taskId as String
 
-        questionInstance.save flush:true
+        questionInstance.save flush: true
 
         if (questionInstance.hasErrors()) {
-            respond questionInstance.errors, view:'create'
+            respond questionInstance.errors, view: 'create'
             return
         }
 
@@ -100,64 +105,64 @@ class QuestionController {
         userFolder.mkdirs()
 
         // audioA e audioB: gravações (pergunta e resposta, respectivamente)
-        if(params.audioA != null) {
+        if (params.audioA != null) {
             def f1Recorded = request.getFile("audioA")
             def f1File = new File("$userPath/title.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params.audioB != null) {
+        if (params.audioB != null) {
             def f1Recorded = request.getFile("audioB")
             def f1File = new File("$userPath/answer1.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params.audioC != null) {
+        if (params.audioC != null) {
             def f1Recorded = request.getFile("audioC")
             def f1File = new File("$userPath/answer2.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params.audioD != null) {
+        if (params.audioD != null) {
             def f1Recorded = request.getFile("audioD")
             def f1File = new File("$userPath/answer3.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params.audioE != null) {
+        if (params.audioE != null) {
             def f1Recorded = request.getFile("audioE")
             def f1File = new File("$userPath/answer4.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params.audioF != null) {
+        if (params.audioF != null) {
             def f1Recorded = request.getFile("audioF")
             def f1File = new File("$userPath/hint.wav")
             f1Recorded.transferTo(f1File)
         }
 
         // audio-1 e audio-2: uploads (pergunta e resposta, respectivamente)
-        if(params["audio-1"] != null) {
+        if (params["audio-1"] != null) {
             def f1Recorded = request.getFile("audio-1")
             def f1File = new File("$userPath/title.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params["audio-2"] != null) {
+        if (params["audio-2"] != null) {
             def f1Recorded = request.getFile("audio-2")
             def f1File = new File("$userPath/answer1.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params["audio-3"] != null) {
+        if (params["audio-3"] != null) {
             def f1Recorded = request.getFile("audio-3")
             def f1File = new File("$userPath/answer2.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params["audio-4"] != null) {
+        if (params["audio-4"] != null) {
             def f1Recorded = request.getFile("audio-4")
             def f1File = new File("$userPath/answer3.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params["audio-5"] != null) {
+        if (params["audio-5"] != null) {
             def f1Recorded = request.getFile("audio-5")
             def f1File = new File("$userPath/answer4.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params["audio-6"] != null) {
+        if (params["audio-6"] != null) {
             def f1Recorded = request.getFile("audio-6")
             def f1File = new File("$userPath/hint.wav")
             f1Recorded.transferTo(f1File)
@@ -174,13 +179,13 @@ class QuestionController {
             textToSpeech("${questionInstance.answers[0]}", "$userPath/answer1.wav")
         }
         if (params["selectAlt2"] == "gerar") {
-            println "Text-to-Speech (Alt1)"
-            println "Running Script for Text-to-Speech (Alt1)"
+            println "Text-to-Speech (Alt2)"
+            println "Running Script for Text-to-Speech (Alt2)"
             textToSpeech("${questionInstance.answers[1]}", "$userPath/answer2.wav")
         }
         if (params["selectAlt3"] == "gerar") {
-            println "Text-to-Speech (Alt1)"
-            println "Running Script for Text-to-Speech (Alt1)"
+            println "Text-to-Speech (Alt3)"
+            println "Running Script for Text-to-Speech (Alt3)"
             textToSpeech("${questionInstance.answers[2]}", "$userPath/answer3.wav")
         }
         if (params["selectAlt4"] == "gerar") {
@@ -214,14 +219,15 @@ class QuestionController {
         questionInstance.answers[1] = params.answer2
         questionInstance.answers[2] = params.answer3
         questionInstance.answers[3] = params.answer4
-        questionInstance.correctAnswer = Integer.parseInt(params.correctAnswer) - 1
+        //questionInstance.correctAnswer = Integer.parseInt(params.correctAnswer) - 1
+        questionInstance.correctAnswer = 0
         questionInstance.hint = params.hint
         questionInstance.ownerId = session.user.id as long
         questionInstance.taskId = session.taskId as String
-        questionInstance.save flush:true
+        questionInstance.save flush: true
 
         if (questionInstance.hasErrors()) {
-            respond questionInstance.errors, view:'create'
+            respond questionInstance.errors, view: 'create'
             return
         }
 
@@ -233,64 +239,64 @@ class QuestionController {
         userFolder.mkdirs()
 
         // audioA e audioB: gravações (pergunta e resposta, respectivamente)
-        if(params.audioA != null) {
+        if (params.audioA != null) {
             def f1Recorded = request.getFile("audioA")
             def f1File = new File("$userPath/title.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params.audioB != null) {
+        if (params.audioB != null) {
             def f1Recorded = request.getFile("audioB")
             def f1File = new File("$userPath/answer1.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params.audioC != null) {
+        if (params.audioC != null) {
             def f1Recorded = request.getFile("audioC")
             def f1File = new File("$userPath/answer2.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params.audioD != null) {
+        if (params.audioD != null) {
             def f1Recorded = request.getFile("audioD")
             def f1File = new File("$userPath/answer3.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params.audioE != null) {
+        if (params.audioE != null) {
             def f1Recorded = request.getFile("audioE")
             def f1File = new File("$userPath/answer4.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params.audioF != null) {
+        if (params.audioF != null) {
             def f1Recorded = request.getFile("audioF")
             def f1File = new File("$userPath/hint.wav")
             f1Recorded.transferTo(f1File)
         }
 
         // audio-1 e audio-2: uploads (pergunta e resposta, respectivamente)
-        if(params["audio-1"] != null) {
+        if (params["audio-1"] != null) {
             def f1Recorded = request.getFile("audio-1")
             def f1File = new File("$userPath/title.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params["audio-2"] != null) {
+        if (params["audio-2"] != null) {
             def f1Recorded = request.getFile("audio-2")
             def f1File = new File("$userPath/answer1.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params["audio-3"] != null) {
+        if (params["audio-3"] != null) {
             def f1Recorded = request.getFile("audio-3")
             def f1File = new File("$userPath/answer2.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params["audio-4"] != null) {
+        if (params["audio-4"] != null) {
             def f1Recorded = request.getFile("audio-4")
             def f1File = new File("$userPath/answer3.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params["audio-5"] != null) {
+        if (params["audio-5"] != null) {
             def f1Recorded = request.getFile("audio-5")
             def f1File = new File("$userPath/answer4.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params["audio-6"] != null) {
+        if (params["audio-6"] != null) {
             def f1Recorded = request.getFile("audio-6")
             def f1File = new File("$userPath/hint.wav")
             f1Recorded.transferTo(f1File)
@@ -304,22 +310,22 @@ class QuestionController {
         if (params["selectAlt1"] == "gerar") {
             println "Text-to-Speech (Alt1)"
             println "Running Script for Text-to-Speech (Alt1)"
-            textToSpeech(${questionInstance.answers[0]}, "$userPath/answer1.wav")
+            textToSpeech($ { questionInstance.answers[0] }, "$userPath/answer1.wav")
         }
         if (params["selectAlt2"] == "gerar") {
-            println "Text-to-Speech (Alt1)"
-            println "Running Script for Text-to-Speech (Alt1)"
-            textToSpeech(${questionInstance.answers[1]}, "$userPath/answer2.wav")
+            println "Text-to-Speech (Alt2)"
+            println "Running Script for Text-to-Speech (Alt2)"
+            textToSpeech($ { questionInstance.answers[1] }, "$userPath/answer2.wav")
         }
         if (params["selectAlt3"] == "gerar") {
-            println "Text-to-Speech (Alt1)"
-            println "Running Script for Text-to-Speech (Alt1)"
-            textToSpeech(${questionInstance.answers[2]}, "$userPath/answer3.wav")
+            println "Text-to-Speech (Alt3)"
+            println "Running Script for Text-to-Speech (Alt3)"
+            textToSpeech($ { questionInstance.answers[2] }, "$userPath/answer3.wav")
         }
         if (params["selectAlt4"] == "gerar") {
             println "Text-to-Speech (Alt4)"
             println "Running Script for Text-to-Speech (Alt4)"
-            textToSpeech(${questionInstance.answers[3]}, "$userPath/answer4.wav")
+            textToSpeech($ { questionInstance.answers[3] }, "$userPath/answer4.wav")
         }
         if (params["selectHint"] == "gerar") {
             println "Text-to-Speech (Hint)"
@@ -346,15 +352,14 @@ class QuestionController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'question.label', default: 'Question'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 
-    def returnInstance(Question questionInstance){
+    def returnInstance(Question questionInstance) {
         if (questionInstance == null) {
             notFound()
-        }
-        else{
+        } else {
             render questionInstance.level + "%@!" +
                     questionInstance.title + "%@!" +
                     questionInstance.answers[0] + "%@!" +
@@ -380,110 +385,199 @@ class QuestionController {
         }
     }
 
+    def bla() {
+        def questionList_level1 = Question.findByLevel(1);
+        createJsonFile("pergfacil.json", questionList_level1, randomQuestion)
+    }
+
     @Transactional
-    def exportQuestions(){
-        int randomQuestion = Integer.parseInt(params.randomQuestion)
+    def exportQuestions() {
+
+        int randomQuestion = Integer.parseInt(params.randomQuestion) + 1
+
+        ArrayList<Question> questionList = new ArrayList<Question>();
+
         //Criando lista de questões do level 1
-        ArrayList<Integer> list_questionId_level1 = new ArrayList<Integer>() ;
-        ArrayList<Question> questionList_level1 = new ArrayList<Question>();
+
+        ArrayList<Integer> list_questionId_level1 = new ArrayList<Integer>();
         list_questionId_level1.addAll(params.list_id_level1);
-        for (int i=0; i<list_questionId_level1.size();i++){
-            questionList_level1.add(Question.findById(list_questionId_level1[i]));
+        for (int i = 0; i < list_questionId_level1.size(); i++) {
+            questionList.add(Question.findById(list_questionId_level1[i]));
         }
+
         //Criando lista de questões do level 2
-        ArrayList<Integer> list_questionId_level2 = new ArrayList<Integer>() ;
-        ArrayList<Question> questionList_level2 = new ArrayList<Question>();
+
+        ArrayList<Integer> list_questionId_level2 = new ArrayList<Integer>();
         list_questionId_level2.addAll(params.list_id_level2);
-        for (int i=0; i<list_questionId_level2.size();i++){
-            questionList_level2.add(Question.findById(list_questionId_level2[i]));
+        for (int i = 0; i < list_questionId_level2.size(); i++) {
+            questionList.add(Question.findById(list_questionId_level2[i]));
 
         }
+
         //Criando lista de questões do level 3
-        ArrayList<Integer> list_questionId_level3 = new ArrayList<Integer>() ;
-        ArrayList<Question> questionList_level3 = new ArrayList<Question>();
+
+        ArrayList<Integer> list_questionId_level3 = new ArrayList<Integer>();
         list_questionId_level3.addAll(params.list_id_level3);
-        for (int i=0; i<list_questionId_level3.size();i++){
-            questionList_level3.add(Question.findById(list_questionId_level3[i]));
+        for (int i = 0; i < list_questionId_level3.size(); i++) {
+            questionList.add(Question.findById(list_questionId_level3[i]));
         }
 
-        createJsonFile("pergfacil.json",questionList_level1, randomQuestion)
-        createJsonFile("pergmedio.json",questionList_level2, randomQuestion)
-        createJsonFile("pergdificil.json",questionList_level3, randomQuestion)
+        String files = "?"
 
-        def ids = []
-        def folder = servletContext.getRealPath("/data/${session.user.id}/${session.taskId}")
+        // Criação do arquivo JSON
 
-        ids << MongoHelper.putFile(folder + '/pergfacil.json')
-        ids << MongoHelper.putFile(folder + '/pergmedio.json')
-        ids << MongoHelper.putFile(folder + '/pergdificil.json')
+        def userId = session.user.id
+        def dataPath = servletContext.getRealPath("/data/")
+        def instancePath = new File("${dataPath}/${userId}/${session.taskId}")
+        instancePath.mkdirs()
+
+        File jsonFile = new File("$instancePath/" + "DadosResponda.json");
+        def bw = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(jsonFile), "UTF-8"))
+
+        for (int i = 0; i < questionList.size(); i++) {
+            bw.write("{ ")
+            Question question = questionList.getAt(i)
+            bw.write("\"pergunta\":\"" + question.title.replace("\"", "\\\"") + "\", ")
+            bw.write("\"resposta\":\"" + question.answers[0].replace("\"", "\\\"") + "\", ")
+            for (int j = 1; j <= 3; j++) {
+                bw.write("\"r" + (j + 1) + "\":\"" + question.answers[j].replace("\"", "\\\"") + "\"," )
+            }
+            bw.write("\"dica\":\"" + question.hint.replace("\"", "\\\"") + "\", ")
+            bw.write("\"nivel\":")
+            switch (question.level) {
+                case 1: bw.write("\"facil\""); break
+                case 2: bw.write("\"medio\""); break
+                case 3: bw.write("\"dificil\""); break
+            }
+            bw.write(" }\n")
+        }
+        bw.close();
+
+        def id
+        id = MongoHelper.putFile(jsonFile.getAbsolutePath())
+        files += "files=${id}"
+
+        // Cópia dos arquivos Wav
+
+        def userPath = servletContext.getRealPath("/data/" + userId.toString())
+        def destFolder = new File(userPath, "${session.taskId}")
+        def srcFolder = new File(userPath, "audios")
+
+        String levels = "fmd";
+
+        for (int i = 0; i < questionList.size(); i++) {
+            int contador = i % randomQuestion;
+            Question q = questionList.getAt(i);
+            int level = q.level;
+
+            def srcFile = new File(srcFolder,"${q.id}/title.wav")
+            def fileName = "p" + levels.charAt(level-1) + contador + ".wav"
+            def destFile = new File (destFolder, fileName)
+            Files.copy(srcFile.toPath(), destFile.toPath())
+            id = MongoHelper.putFile(destFile.absolutePath)
+            files += "&files=${id}"
+
+            for (int j = 0; j < 4; j++) {
+                srcFile = new File(srcFolder,"${q.id}/answer${j+1}.wav")
+                fileName = "r" + levels.charAt(level-1) + contador + "_" + j + ".wav"
+                destFile = new File (destFolder, fileName)
+                Files.copy(srcFile.toPath(), destFile.toPath())
+                id = MongoHelper.putFile(destFile.absolutePath)
+                files += "&files=${id}"
+            }
+
+            srcFile = new File(srcFolder,"${q.id}/hint.wav")
+            fileName = "d" + levels.charAt(level-1) + contador + ".wav"
+            destFile = new File (destFolder, fileName)
+            Files.copy(srcFile.toPath(), destFile.toPath())
+            id = MongoHelper.putFile(destFile.absolutePath)
+            files += "&files=${id}"
+        }
 
         def port = request.serverPort
         if (Environment.current == Environment.DEVELOPMENT) {
             port = 8080
         }
 
-        render  "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" +
-                "?files=${ids[0]}&files=${ids[1]}&files=${ids[2]}"
+        println "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" + files
+        render "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" + files
     }
 
-    void createJsonFile(String fileName, ArrayList<Question> questionList, int randomQuestion ){
+    void createWavFiles(ArrayList<Question> questionList, int randomQuestion) {
+
+        def userId = session.user.id
+        def userPath = servletContext.getRealPath("/data/" + userId.toString())
+        def destFolder = new File(userPath, "${session.taskId}")
+        def srcFolder = new File(userPath, "audios")
+
+        String levels = "fmd";
+
+        for (int i = 0; i < questionList.size(); i++) {
+            int contador = i % randomQuestion;
+            Question q = questionList.getAt(i);
+            int level = q.level;
+
+            def srcFile = new File(srcFolder,"${q.id}/title.wav")
+            def fileName = "p" + levels.charAt(level-1) + contador + ".wav"
+            def destFile = new File (destFolder, fileName)
+            println srcFile
+            println destFile
+
+            //Files.copy(srcFile.toPath(), destFile.toPath())
+
+            for (int j = 0; j < 4; j++) {
+                srcFile = new File(srcFolder,"${q.id}/answer${j+1}.wav")
+                fileName = "r" + levels.charAt(level-1) + contador + "_" + j + ".wav"
+                destFile = new File (destFolder, fileName)
+                println srcFile
+                println destFile
+                //Files.copy(srcFile.toPath(), destFile.toPath())
+            }
+
+            srcFile = new File(srcFolder,"${q.id}/hint.wav")
+            fileName = "d" + levels.charAt(level-1) + contador + ".wav"
+            destFile = new File (destFolder, fileName)
+            println srcFile
+            println destFile
+            //Files.copy(srcFile.toPath(), destFile.toPath())
+        }
+    }
+
+    void createJsonFile(String fileName, ArrayList<Question> questionList, int randomQuestion) {
         int i = 0
         def dataPath = servletContext.getRealPath("/data")
         def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
         instancePath.mkdirs()
 
-        File file = new File("$instancePath/"+fileName);
+        File file = new File("$instancePath/" + fileName);
         def bw = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream(file), "UTF-8"))
-        bw.write("{\n ")
-        bw.write("\"numero\":[\"" + questionList.size()+ "\",\""+ randomQuestion +"\"],\n")
-        for(i=0; i<(questionList.size()-1);i++){
-            bw.write("\"" + (i+1) + "\": [\"" + questionList.getAt(i).title.replace("\"","\\\"") + "\", ")
-            switch(questionList.getAt(i).correctAnswer){
-                case 0:
-                    bw.write("\""+ questionList.getAt(i).answers[0].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[1].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[2].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[3].replace("\"","\\\"") +"\", " )
-                    break;
-                case 1:
-                    bw.write("\""+ questionList.getAt(i).answers[1].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[0].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[2].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[3].replace("\"","\\\"") +"\", " )
-                    break;
-                case 2:
-                    bw.write("\""+ questionList.getAt(i).answers[2].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[1].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[0].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[3].replace("\"","\\\"") +"\", " )
-                    break;
-                case 3:
-                    bw.write("\""+ questionList.getAt(i).answers[3].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[1].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[2].replace("\"","\\\"") +"\", " + "\""+ questionList.getAt(i).answers[0].replace("\"","\\\"") +"\", " )
-                    break;
-                default:
-                    println("Erro! Alternativa correta inválida")
-            }
-            bw.write("\""+ questionList.getAt(i).hint.replace("\"","\\\"") +"\"],\n")
-        }
 
-        bw.write("\"" + (i+1) + "\": [\"" + questionList.getAt(i).title + "\", ")
-        switch(questionList.getAt(i).correctAnswer){
-            case 0:
-                bw.write("\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
-                break;
-            case 1:
-                bw.write("\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
-                break;
-            case 2:
-                bw.write("\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " + "\""+ questionList.getAt(i).answers[3] +"\", " )
-                break;
-            case 3:
-                bw.write("\""+ questionList.getAt(i).answers[3] +"\", " + "\""+ questionList.getAt(i).answers[1] +"\", " + "\""+ questionList.getAt(i).answers[2] +"\", " + "\""+ questionList.getAt(i).answers[0] +"\", " )
-                break;
-            default:
-                println("Erro! Alternativa correta inválida")
+        for (i = 0; i < questionList.size(); i++) {
+            bw.write("{ ")
+            Question question = questionList.getAt(i)
+            bw.write("\"pergunta\":\"" + question.title.replace("\"", "\\\"") + "\", ")
+            bw.write("\"resposta\":\"" + question.answers[0].replace("\"", "\\\"") + "\", ")
+            for (int j = 1; j <= 3; j++) {
+                bw.write("\"r" + (j + 1) + "\":\"" + question.answers[j].replace("\"", "\\\"") + "\"," )
+            }
+            bw.write("\"dica\":\"" + question.hint.replace("\"", "\\\"") + "\", ")
+            bw.write("\"nivel\":")
+            switch (question.level) {
+                case 1: bw.write("\"facil\""); break
+                case 2: bw.write("\"medio\""); break
+                case 3: bw.write("\"dificil\""); break
+            }
+            bw.write(" }\n")
         }
-        bw.write("\""+ questionList.getAt(i).hint +"\"]\n")
-        bw.write("}");
         bw.close();
     }
 
     @Transactional
-    def generateQuestions(){
+    def generateQuestions() {
         MultipartFile csv = params.csv
-        csv.inputStream.toCsvReader(['separatorChar': ';', 'charset':'UTF-8']).eachLine { row ->
+        csv.inputStream.toCsvReader(['separatorChar': ';', 'charset': 'UTF-8']).eachLine { row ->
             Question questionInstance = new Question()
             String levelQuestion = row[0] ?: "NA";
             questionInstance.level = levelQuestion.toInteger()
@@ -493,7 +587,7 @@ class QuestionController {
             questionInstance.answers[2] = row[4] ?: "NA";
             questionInstance.answers[3] = row[5] ?: "NA";
             String correct = row[6] ?: "NA";
-            questionInstance.correctAnswer =  (correct.toInteger() -1)
+            questionInstance.correctAnswer = (correct.toInteger() - 1)
             questionInstance.hint = row[7] ?: "NA";
             questionInstance.taskId = session.taskId as String
             questionInstance.ownerId = session.user.id as long
@@ -503,7 +597,7 @@ class QuestionController {
         redirect action: "index"
     }
 
-    def exportCSV(){
+    def exportCSV() {
         /* Função que exporta as questões selecionadas para um arquivo .csv genérico.
            O arquivo .csv gerado será compatível com os modelos Escola Mágica, Forca e Responda Se Puder.
            O arquivo gerado possui os seguintes campos na ordem correspondente:
@@ -512,10 +606,10 @@ class QuestionController {
            O separador do arquivo .csv gerado é o ";" (ponto e vírgula)
         */
 
-        ArrayList<Integer> list_questionId = new ArrayList<Integer>() ;
+        ArrayList<Integer> list_questionId = new ArrayList<Integer>();
         ArrayList<Question> questionList = new ArrayList<Question>();
         list_questionId.addAll(params.list_id);
-        for (int i=0; i<list_questionId.size();i++){
+        for (int i = 0; i < list_questionId.size(); i++) {
             questionList.add(Question.findById(list_questionId[i]));
 
         }
@@ -528,9 +622,9 @@ class QuestionController {
         def fw = new BufferedWriter(new OutputStreamWriter(
                 new FileOutputStream("$instancePath/exportQuestions.csv"), "UTF-8"))
 
-        for(int i=0; i<questionList.size();i++){
+        for (int i = 0; i < questionList.size(); i++) {
             fw.write(questionList.getAt(i).level + ";" + questionList.getAt(i).title + ";" + questionList.getAt(i).answers[0] + ";" + questionList.getAt(i).answers[1] + ";" +
-                    questionList.getAt(i).answers[2] + ";" + questionList.getAt(i).answers[3] + ";" + (questionList.getAt(i).correctAnswer +1) + ";" + questionList.getAt(i).hint + ";tema" +";\n" )
+                    questionList.getAt(i).answers[2] + ";" + questionList.getAt(i).answers[3] + ";" + (questionList.getAt(i).correctAnswer + 1) + ";" + questionList.getAt(i).hint + ";tema" + ";\n")
         }
         fw.close()
 

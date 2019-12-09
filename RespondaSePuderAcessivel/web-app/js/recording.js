@@ -193,7 +193,7 @@ function sendFormData(blobA, blobB, blobC, blobD, blobE, blobF) {
     var selectAlt2 = $("#selectAlt2 :selected").val();
     var selectAlt3 = $("#selectAlt3 :selected").val();
     var selectAlt4 = $("#selectAlt4 :selected").val();
-    var correctAnswer = $("#selectRespCorreta :selected").val();
+    //var correctAnswer = $("#selectRespCorreta :selected").val();
     var selectHint = $("#selectHint :selected").val();
     var fd = new FormData();
 
@@ -285,9 +285,9 @@ function sendFormData(blobA, blobB, blobC, blobD, blobE, blobF) {
         }
     }
 
-    if (correctAnswer == "selecione"){
+    /* if (correctAnswer == "selecione"){
         Materialize.toast("Selecione qual é a alternativa correta para poder prosseguir", displayLength='3000');
-    }
+    } */
 
 
     // Carregamento dos itens restantes (como parâmetros para o controlador)
@@ -299,7 +299,7 @@ function sendFormData(blobA, blobB, blobC, blobD, blobE, blobF) {
     fd.append("answer3", answer3)
     fd.append("answer4", answer4)
     fd.append("hint", hint)
-    fd.append("correctAnswer", correctAnswer)
+    //fd.append("correctAnswer", correctAnswer)
     fd.append("questionID", questionID)
     fd.append("selectTitle", selectTitle)
     fd.append("selectAlt1", selectAlt1)
