@@ -12,7 +12,7 @@
       "outputs": [{
           "name": "level1.json",
           "type": "text/json",
-          "path": ""
+          "path": "Json"
         },
         {
           "name": "L1-1A.wav",
@@ -85,7 +85,7 @@
       "outputs": [{
           "name": "level2.json",
           "type": "text/json",
-          "path": ""
+          "path": "Json"
         },
         {
           "name": "L2-1A.wav",
@@ -188,7 +188,7 @@
       "outputs": [{
           "name": "level3.json",
           "type": "text/json",
-          "path": ""
+          "path": "Json"
         },
         {
           "name": "L3-1A.wav",
@@ -314,7 +314,8 @@
     }
   ],
   "outputs": [
-    "desktop"
+    "desktop",
+    "android"
   ],
   "vars": {
     "width": 816,

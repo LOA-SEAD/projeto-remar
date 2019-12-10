@@ -39,26 +39,6 @@ class QuestionController {
 
         def list = Question.findAllByOwnerId(session.user.id)
 
-        if (list.size() == 0) {
-
-            new Question(title: "Questão 1 - Nível 1", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 1, ownerId: session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 2 - Nível 1", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 1, ownerId: session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 3 - Nível 1", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 1, ownerId: session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 4 - Nível 1", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 1, ownerId: session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 5 - Nível 1", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 1, ownerId: session.user.id, taskId: session.taskId).save flush: true
-
-            new Question(title: "Questão 1 - Nível 2", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 2, ownerId: session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 2 - Nível 2", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 2, ownerId: session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 3 - Nível 2", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 2, ownerId: session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 4 - Nível 2", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 2, ownerId: session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 5 - Nível 2", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 2, ownerId: session.user.id, taskId: session.taskId).save flush: true
-
-            new Question(title: "Questão 1 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId: session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 2 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId: session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 3 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId: session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 4 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId: session.user.id, taskId: session.taskId).save flush: true
-            new Question(title: "Questão 5 - Nível 3", answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"], correctAnswer: 0, hint: "Dica", level: 3, ownerId: session.user.id, taskId: session.taskId).save flush: true
-        }
         respond Question.findAllByOwnerId(session.user.id), model: [questionInstanceCount: Question.count()]
     }
 
@@ -385,11 +365,6 @@ class QuestionController {
         }
     }
 
-    def bla() {
-        def questionList_level1 = Question.findByLevel(1);
-        createJsonFile("pergfacil.json", questionList_level1, randomQuestion)
-    }
-
     @Transactional
     def exportQuestions() {
 
@@ -500,78 +475,7 @@ class QuestionController {
             port = 8080
         }
 
-        println "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" + files
         render "http://${request.serverName}:${port}/process/task/complete/${session.taskId}" + files
-    }
-
-    void createWavFiles(ArrayList<Question> questionList, int randomQuestion) {
-
-        def userId = session.user.id
-        def userPath = servletContext.getRealPath("/data/" + userId.toString())
-        def destFolder = new File(userPath, "${session.taskId}")
-        def srcFolder = new File(userPath, "audios")
-
-        String levels = "fmd";
-
-        for (int i = 0; i < questionList.size(); i++) {
-            int contador = i % randomQuestion;
-            Question q = questionList.getAt(i);
-            int level = q.level;
-
-            def srcFile = new File(srcFolder,"${q.id}/title.wav")
-            def fileName = "p" + levels.charAt(level-1) + contador + ".wav"
-            def destFile = new File (destFolder, fileName)
-            println srcFile
-            println destFile
-
-            //Files.copy(srcFile.toPath(), destFile.toPath())
-
-            for (int j = 0; j < 4; j++) {
-                srcFile = new File(srcFolder,"${q.id}/answer${j+1}.wav")
-                fileName = "r" + levels.charAt(level-1) + contador + "_" + j + ".wav"
-                destFile = new File (destFolder, fileName)
-                println srcFile
-                println destFile
-                //Files.copy(srcFile.toPath(), destFile.toPath())
-            }
-
-            srcFile = new File(srcFolder,"${q.id}/hint.wav")
-            fileName = "d" + levels.charAt(level-1) + contador + ".wav"
-            destFile = new File (destFolder, fileName)
-            println srcFile
-            println destFile
-            //Files.copy(srcFile.toPath(), destFile.toPath())
-        }
-    }
-
-    void createJsonFile(String fileName, ArrayList<Question> questionList, int randomQuestion) {
-        int i = 0
-        def dataPath = servletContext.getRealPath("/data")
-        def instancePath = new File("${dataPath}/${springSecurityService.currentUser.id}/${session.taskId}")
-        instancePath.mkdirs()
-
-        File file = new File("$instancePath/" + fileName);
-        def bw = new BufferedWriter(new OutputStreamWriter(
-                new FileOutputStream(file), "UTF-8"))
-
-        for (i = 0; i < questionList.size(); i++) {
-            bw.write("{ ")
-            Question question = questionList.getAt(i)
-            bw.write("\"pergunta\":\"" + question.title.replace("\"", "\\\"") + "\", ")
-            bw.write("\"resposta\":\"" + question.answers[0].replace("\"", "\\\"") + "\", ")
-            for (int j = 1; j <= 3; j++) {
-                bw.write("\"r" + (j + 1) + "\":\"" + question.answers[j].replace("\"", "\\\"") + "\"," )
-            }
-            bw.write("\"dica\":\"" + question.hint.replace("\"", "\\\"") + "\", ")
-            bw.write("\"nivel\":")
-            switch (question.level) {
-                case 1: bw.write("\"facil\""); break
-                case 2: bw.write("\"medio\""); break
-                case 3: bw.write("\"dificil\""); break
-            }
-            bw.write(" }\n")
-        }
-        bw.close();
     }
 
     @Transactional
