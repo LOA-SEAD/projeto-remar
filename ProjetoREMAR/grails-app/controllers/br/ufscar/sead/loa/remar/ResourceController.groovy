@@ -182,6 +182,7 @@ class ResourceController {
                 def file = new File("${expandedWarPath}/remar/source.zip")
                 int fileSize = url.openConnection().getContentLength()
 
+                int mega = 1048576 // 1 MB
                 int bufferSize = 2097152 // 2 MB
 
                 def is = url.openStream()
@@ -191,19 +192,20 @@ class ResourceController {
 
                 int totalDataRead = 0;
                 int i;
-                int ten = 1;
+                int five = 1;
 
                 while((i=is.read(data, 0, bufferSize)) >= 0) {
                     totalDataRead = totalDataRead + i;
                     out.write(data, 0, i);
                     float per = (totalDataRead * 100.0) / fileSize
-                    if (((int) per) > 10 * ten) {
-                        println "Download Progress " + (10 * ten) + "% "
-                        ten = ((int) per) / 10 + 1
+                    if (((int) per) > 5 * five) {
+                        print "Download Progress " + (5 * five) + "% "
+                        println "("+ ((int)totalDataRead/mega) + "MB/" + ((int)fileSize/mega) + "MB)"
+                        five = ((int) per) / 5 + 1
                     }
                 }
 
-                println "Download Progress " + (10 * ten) + "% "
+                println "Download Progress " + (10 * five) + "% "
                 out.close()
 
                 ant.unzip(src: file.path, dest: tmp, overwrite: true)
