@@ -4,7 +4,7 @@
 
 window.onload = function(){
     $('#BtnUnCheckAll').hide();
-    $('.modal-trigger').leanModal();
+    $('.modal-trigger').modal();
     $("#SearchLabel").keyup(function(){
         _this = this;
         $.each($("#table tbody ").find("tr"), function() {
@@ -12,7 +12,7 @@ window.onload = function(){
             if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) == -1)
                 $(this).hide();
             else
-                $(this).show();
+                $(this).show()
         });
     });
 
@@ -102,7 +102,8 @@ function submit(){
                 $("#totalQuestion").append("<div> <p> Questões nível 3: " + questions_level3 + " selecionadas. </p> </div>");
             }
 
-            $('#infoModal').openModal();
+            $('#infoModal').modal();
+            $('#infoModal').modal('open');
 
         }
     }
