@@ -39,6 +39,48 @@ class QuestionController {
 
         def list = Question.findAllByOwnerId(session.user.id)
 
+        if (list.size() == 0) {
+
+
+            for (int i = 1; i <= 3; i++) {
+                for (int j = 1; j <= 4; j++) {
+                    Question question = new Question(title: "Questão ${j} - Nível ${i}",
+                            answers: ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"],
+                            correctAnswer: 0, hint: "Dica ${j} - Nível ${i}", level: i,
+                            ownerId: session.user.id, taskId: session.taskId);
+                    question.save flush: true
+
+                    def samplesPath = servletContext.getRealPath("/samples")
+                    File samplesFolder = new File(samplesPath)
+
+                    def userPath = servletContext.getRealPath("/data/" + session.user.id.toString() + "/audios/" + question.id)
+                    def userFolder = new File(userPath)
+                    userFolder.mkdirs()
+
+                    if (samplesFolder.exists()) {
+                        String[] fileNames = ["title.wav", "hint.wav", "answer1.wav",
+                            "answer2.wav", "answer3.wav", "answer4.wav"]
+
+                        File srcFolder = new File(samplesPath+"/${(i-1)*4+j}")
+                        for (String fileName: fileNames) {
+                            def srcFile = new File(srcFolder, fileName)
+                            def destFile = new File(userFolder, fileName)
+                            println srcFile.getAbsolutePath() + " => " + destFile.getAbsolutePath()
+                            Files.copy(srcFile.toPath(), destFile.toPath())
+                        }
+                    }
+                    else {
+                        textToSpeech("${question.title}", "$userPath/title.wav")
+                        textToSpeech("${question.answers[0]}", "$userPath/answer1.wav")
+                        textToSpeech("${question.answers[1]}", "$userPath/answer2.wav")
+                        textToSpeech("${question.answers[2]}", "$userPath/answer3.wav")
+                        textToSpeech("${question.answers[3]}", "$userPath/answer4.wav")
+                        textToSpeech("${question.hint}", "$userPath/hint.wav")
+                    }
+                }
+            }
+
+        }
         respond Question.findAllByOwnerId(session.user.id), model: [questionInstanceCount: Question.count()]
     }
 
@@ -151,7 +193,7 @@ class QuestionController {
         if (params["selectTitle"] == "gerar") {
             println "Text-to-Speech (Title)"
             println "Running Script for Text-to-Speech (Title)"
-            textToSpeech("$questionInstance.title", "$userPath/title.wav")
+            textToSpeech("${questionInstance.title}", "$userPath/title.wav")
         }
         if (params["selectAlt1"] == "gerar") {
             println "Text-to-Speech (Alt1)"
@@ -176,7 +218,7 @@ class QuestionController {
         if (params["selectHint"] == "gerar") {
             println "Text-to-Speech (Hint)"
             println "Running Script for Text-to-Speech (Hint)"
-            textToSpeech("$questionInstance.hint", "$userPath/hint.wav")
+            textToSpeech("${questionInstance.hint}", "$userPath/hint.wav")
         }
 
 
@@ -285,32 +327,32 @@ class QuestionController {
         if (params["selectTitle"] == "gerar") {
             println "Text-to-Speech (Title)"
             println "Running Script for Text-to-Speech (Title)"
-            textToSpeech("$questionInstance.title", "$userPath/title.wav")
+            textToSpeech("${questionInstance.title}", "$userPath/title.wav")
         }
         if (params["selectAlt1"] == "gerar") {
             println "Text-to-Speech (Alt1)"
             println "Running Script for Text-to-Speech (Alt1)"
-            textToSpeech($ { questionInstance.answers[0] }, "$userPath/answer1.wav")
+            textToSpeech("${questionInstance.answers[0]}", "$userPath/answer1.wav")
         }
         if (params["selectAlt2"] == "gerar") {
             println "Text-to-Speech (Alt2)"
             println "Running Script for Text-to-Speech (Alt2)"
-            textToSpeech($ { questionInstance.answers[1] }, "$userPath/answer2.wav")
+            textToSpeech("${questionInstance.answers[1]}", "$userPath/answer2.wav")
         }
         if (params["selectAlt3"] == "gerar") {
             println "Text-to-Speech (Alt3)"
             println "Running Script for Text-to-Speech (Alt3)"
-            textToSpeech($ { questionInstance.answers[2] }, "$userPath/answer3.wav")
+            textToSpeech("${questionInstance.answers[2]}", "$userPath/answer3.wav")
         }
         if (params["selectAlt4"] == "gerar") {
             println "Text-to-Speech (Alt4)"
             println "Running Script for Text-to-Speech (Alt4)"
-            textToSpeech($ { questionInstance.answers[3] }, "$userPath/answer4.wav")
+            textToSpeech("${questionInstance.answers[3]}", "$userPath/answer4.wav")
         }
         if (params["selectHint"] == "gerar") {
             println "Text-to-Speech (Hint)"
             println "Running Script for Text-to-Speech (Hint)"
-            textToSpeech("$questionInstance.description", "$userPath/hint.wav")
+            textToSpeech("${questionInstance.hint}", "$userPath/hint.wav")
         }
 
         redirect action: "index"
@@ -416,7 +458,7 @@ class QuestionController {
             bw.write("\"pergunta\":\"" + question.title.replace("\"", "\\\"") + "\", ")
             bw.write("\"resposta\":\"" + question.answers[0].replace("\"", "\\\"") + "\", ")
             for (int j = 1; j <= 3; j++) {
-                bw.write("\"r" + (j + 1) + "\":\"" + question.answers[j].replace("\"", "\\\"") + "\"," )
+                bw.write("\"r" + (j + 1) + "\":\"" + question.answers[j].replace("\"", "\\\"") + "\",")
             }
             bw.write("\"dica\":\"" + question.hint.replace("\"", "\\\"") + "\", ")
             bw.write("\"nivel\":")
@@ -446,25 +488,25 @@ class QuestionController {
             Question q = questionList.getAt(i);
             int level = q.level;
 
-            def srcFile = new File(srcFolder,"${q.id}/title.wav")
-            def fileName = "p" + levels.charAt(level-1) + contador + ".wav"
-            def destFile = new File (destFolder, fileName)
+            def srcFile = new File(srcFolder, "${q.id}/title.wav")
+            def fileName = "p" + levels.charAt(level - 1) + contador + ".wav"
+            def destFile = new File(destFolder, fileName)
             Files.copy(srcFile.toPath(), destFile.toPath())
             id = MongoHelper.putFile(destFile.absolutePath)
             files += "&files=${id}"
 
             for (int j = 0; j < 4; j++) {
-                srcFile = new File(srcFolder,"${q.id}/answer${j+1}.wav")
-                fileName = "r" + levels.charAt(level-1) + contador + "_" + j + ".wav"
-                destFile = new File (destFolder, fileName)
+                srcFile = new File(srcFolder, "${q.id}/answer${j + 1}.wav")
+                fileName = "r" + levels.charAt(level - 1) + contador + "_" + j + ".wav"
+                destFile = new File(destFolder, fileName)
                 Files.copy(srcFile.toPath(), destFile.toPath())
                 id = MongoHelper.putFile(destFile.absolutePath)
                 files += "&files=${id}"
             }
 
-            srcFile = new File(srcFolder,"${q.id}/hint.wav")
-            fileName = "d" + levels.charAt(level-1) + contador + ".wav"
-            destFile = new File (destFolder, fileName)
+            srcFile = new File(srcFolder, "${q.id}/hint.wav")
+            fileName = "d" + levels.charAt(level - 1) + contador + ".wav"
+            destFile = new File(destFolder, fileName)
             Files.copy(srcFile.toPath(), destFile.toPath())
             id = MongoHelper.putFile(destFile.absolutePath)
             files += "&files=${id}"
