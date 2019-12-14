@@ -29,8 +29,6 @@ services:
           - './conf/server.xml:/usr/local/tomcat/conf/server.xml'
           - '~/volume_docker_remar:/usr/local/tomcat/webapps'
           - '~/electron_docker:/root/.electron'
-          - '~/.aws:/root/.aws'
-          - './install.sh:/install.sh'
       links:
         - mongodb
         - mysql
