@@ -42,9 +42,8 @@ class TileController {
         render view: "index", model: [tilesList: tilesList, tilesCount: tilesList.count, level: session.level]
     }
 
-    def show() {
-        render template: "tile",
-                model: [tileInstance: Tile.findById(params.id)]
+    def show(Tile tileInstance) {
+        respond tileInstance
     }
 
     def create() {
@@ -78,34 +77,34 @@ class TileController {
         userFolder.mkdirs()
 
         // audioA e audioB: gravações (pergunta e resposta, respectivamente)
-        if(params.audioA != null) {
+        if (params.audioA != null) {
             def f1Recorded = request.getFile("audioA")
             def f1File = new File("$userPath/carta1.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params.audioB != null) {
+        if (params.audioB != null) {
             def f1Recorded = request.getFile("audioB")
             def f1File = new File("$userPath/carta2.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params.audioDescription!= null) {
+        if (params.audioDescription != null) {
             def f1Recorded = request.getFile("audioDescription")
             def f1File = new File("$userPath/descricao.wav")
             f1Recorded.transferTo(f1File)
         }
 
         // audio-1 e audio-2: uploads (pergunta e resposta, respectivamente)
-        if(params["audio-1"] != null) {
+        if (params["audio-1"] != null) {
             def f1Recorded = request.getFile("audio-1")
             def f1File = new File("$userPath/carta1.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params["audio-2"] != null) {
+        if (params["audio-2"] != null) {
             def f1Recorded = request.getFile("audio-2")
             def f1File = new File("$userPath/carta2.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params["audio-3"] != null) {
+        if (params["audio-3"] != null) {
             def f1Recorded = request.getFile("audio-3")
             def f1File = new File("$userPath/descricao.wav")
             f1Recorded.transferTo(f1File)
@@ -167,34 +166,34 @@ class TileController {
         userFolder.mkdirs()
 
         // audioA e audioB: gravações (pergunta e resposta, respectivamente)
-        if(params.audioA != null) {
+        if (params.audioA != null) {
             def f1Recorded = request.getFile("audioA")
             def f1File = new File("$userPath/carta1.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params.audioB != null) {
+        if (params.audioB != null) {
             def f1Recorded = request.getFile("audioB")
             def f1File = new File("$userPath/carta2.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params.audioDescription != null) {
+        if (params.audioDescription != null) {
             def f1Recorded = request.getFile("audioDescription")
             def f1File = new File("$userPath/descricao.wav")
             f1Recorded.transferTo(f1File)
         }
 
         // audio-1 e audio-2: uploads (pergunta e resposta, respectivamente)
-        if(params["audio-1"] != null) {
+        if (params["audio-1"] != null) {
             def f1Recorded = request.getFile("audio-1")
             def f1File = new File("$userPath/carta1.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params["audio-2"] != null) {
+        if (params["audio-2"] != null) {
             def f1Recorded = request.getFile("audio-2")
             def f1File = new File("$userPath/carta2.wav")
             f1Recorded.transferTo(f1File)
         }
-        if(params["audio-3"] != null) {
+        if (params["audio-3"] != null) {
             def f1Recorded = request.getFile("audio-3")
             def f1File = new File("$userPath/descricao.wav")
             f1Recorded.transferTo(f1File)
@@ -310,39 +309,39 @@ class TileController {
         if (Environment.current == Environment.DEVELOPMENT) {
             port = 8090
         }
-        def fullUrl ="http://${request.serverName}:${port}/process/task/complete/${session.taskId}?"
+        def fullUrl = "http://${request.serverName}:${port}/process/task/complete/${session.taskId}?"
 
         for (def i = 0; i < tileList.size(); i++) {
 
             def currFile = new File(getTilesAudios(tileList[i]).a)
-            fileName = "$folder/L${session.level}-${i+1}A.wav"
+            fileName = "$folder/L${session.level}-${i + 1}A.wav"
             def destFile = new File(fileName)
             Files.copy(currFile.toPath(), destFile.toPath())
 
             fullUrl += "files=${MongoHelper.putFile(fileName)}&"
 
             currFile = new File(getTilesAudios(tileList[i]).b)
-            fileName = "$folder/L${session.level}-${i+1}B.wav"
+            fileName = "$folder/L${session.level}-${i + 1}B.wav"
             destFile = new File(fileName)
             Files.copy(currFile.toPath(), destFile.toPath())
 
             fullUrl += "files=${MongoHelper.putFile(fileName)}&"
 
             currFile = new File(getTilesAudios(tileList[i]).c)
-            fileName = "$folder/L${session.level}-${i+1}C.wav"
+            fileName = "$folder/L${session.level}-${i + 1}C.wav"
             destFile = new File(fileName)
             Files.copy(currFile.toPath(), destFile.toPath())
 
             fullUrl += "files=${MongoHelper.putFile(fileName)}&"
 
             fw.write("{")
-            fw.write("\"pairNumber\": " + (i+1) + ", ")
+            fw.write("\"pairNumber\": " + (i + 1) + ", ")
             fw.write("\"textA\": " + "\"" + tileList[i].textA + "\", ")
             fw.write("\"textB\": " + "\"" + tileList[i].textB + "\", ")
             fw.write("\"description\": " + "\"" + tileList[i].description + "\", ")
-            fw.write("\"audioA\": " + "\"L" + session.level + "-" + (i+1) +"A.wav\"" + ", ")
-            fw.write("\"audioB\": " + "\"L" + session.level + "-" + (i+1) +"B.wav\"" + ", ")
-            fw.write("\"descriptionAudio\": " + "\"L" + session.level + "-" + (i+1) +"C.wav\"")
+            fw.write("\"audioA\": " + "\"L" + session.level + "-" + (i + 1) + "A.wav\"" + ", ")
+            fw.write("\"audioB\": " + "\"L" + session.level + "-" + (i + 1) + "B.wav\"" + ", ")
+            fw.write("\"descriptionAudio\": " + "\"L" + session.level + "-" + (i + 1) + "C.wav\"")
             fw.write("}\n")
         }
 
@@ -357,7 +356,7 @@ class TileController {
         render(status: 200, text: fullUrl)
     }
 
-    // return list with filenames for images related to a tile pair
+// return list with filenames for images related to a tile pair
     def getTilesAudios(tileInstance) {
         def userPath = servletContext.getRealPath("/data/${tileInstance.ownerId.toString()}")
         def id = tileInstance.id
@@ -380,12 +379,13 @@ class TileController {
 
         File file = new File(dir, params.file + ".wav")
 
-        response.setHeader("Content-disposition", "attachment; filename="+file.getName())
+        response.setHeader("Content-disposition", "attachment; filename=" + file.getName())
         response.setHeader("Content-Length", file.size().toString())
         response.setContentType("file-mime-type")
         contentStream = file.newInputStream()
         response.outputStream << contentStream
         webRequest.renderView = false
     }
+
 }
 

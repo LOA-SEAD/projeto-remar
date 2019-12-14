@@ -5,6 +5,7 @@
 </head>
 
 <body>
+
 <g:if test="${flash.message}">
     <div class="message" role="status">${flash.message}</div>
 </g:if>
@@ -23,7 +24,7 @@
                 </g:if>
                 <g:hasErrors bean="${tileInstance}">
                     <ul class="errors" role="alert">
-                        <g:eachError bean="${tileInstance}" var="error">
+                        <g:eachError bean="${questionInstance}" var="error">
                             <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message
                                     error="${error}"/></li>
                         </g:eachError>
@@ -45,15 +46,14 @@
 
                             <tr>
                                 <td>
-                                ${message(code: 'tile.table.textA.header', default: 'Texto da Primeira Carta')}
+                                Pergunta
                                 </td>
                                 <td>
-                                    ${tileInstance.textA}
+                                    ${questionInstance.statement}
                                 </td>
                                 <td>
-                                    <br>
                                     <audio controls>
-                                        <source src="${request.contextPath}/carta1/${tileInstance.id}/${new Date().time}" type="audio/wav">
+                                        <source src="${request.contextPath}/statement/${questionInstance.id}/${new Date().time}" type="audio/mpeg">
                                         Your browser does not support the audio tag.
                                     </audio>
                                 </td>
@@ -61,47 +61,28 @@
 
                             <tr>
                                 <td>
-                                    ${message(code: 'tile.table.textB.header', default: 'Texto da Segunda Carta')}
+                                    Resposta
                                 </td>
                                 <td>
-                                    ${tileInstance.textB}
+                                    ${questionInstance.answer}
                                 </td>
                                 <td>
-                                    <br>
                                     <audio controls>
-                                        <source src="${request.contextPath}/carta2/${tileInstance.id}/${new Date().time}" type="audio/wav">
+                                        <source src="${request.contextPath}/answer/${questionInstance.id}/${new Date().time}" type="audio/mpeg">
                                         Your browser does not support the audio tag.
                                     </audio>
                                 </td>
                             </tr>
-
-                            <tr>
-                                <td>
-                                    ${message(code: 'tile.description.label', default: 'Descrição')}
-                                </td>
-                                <td>
-                                    ${tileInstance.description}
-                                </td>
-                                <td>
-                                    <br>
-                                    <audio controls>
-                                        <source src="${request.contextPath}/descricao/${tileInstance.id}/${new Date().time}" type="audio/wav">
-                                        Your browser does not support the audio tag.
-                                    </audio>
-                                </td>
-                            </tr>
-
-
                             </tbody>
                         </table>
 
                         <br/>
                         <br/>
                         <div class="row right-align" style="right-margin: 15em;">
-                            <a class="btn btn-success remar-orange" href="${createLink(action: "edit")}/${tileInstance.id}">Editar</a>
+                            <a class="btn btn-success remar-orange" href="${createLink(action: "edit")}/${questionInstance.id}">Editar</a>
                             <a id="back" name="back" class="btn btn-success remar-orange">Voltar</a>
                         </div>
-                    </div>
+                    </div--%>
                 </div>
             </div>
         </div>
@@ -113,7 +94,7 @@
             var getUrl = window.location;
             var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
-            window.location.href = baseUrl + "/tile/index";
+            window.location.href = baseUrl + "/question/index";
         });
     });
 </script>

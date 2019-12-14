@@ -62,6 +62,9 @@
                             <td>${questionInstance.answers[questionInstance.correctAnswer]}</td>
                             <td>${questionInstance.hint}</td>
                             <td>
+                                <a href="${createLink(action: "show")}/${questionInstance.id}">
+                                    <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-info-circle" data-id="${questionInstance.id}"></i>
+                                </a>
                                 <a href="${createLink(action: "edit")}/${questionInstance.id}">
                                     <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil edit" data-id="${questionInstance.id}"></i>
                                 </a>

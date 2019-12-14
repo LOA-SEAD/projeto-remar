@@ -30,8 +30,8 @@
                                 <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnCheckAll" onclick="check_all()"><i  class="material-icons">check_box_outline_blank</i></button>
                                 <button style="margin-left: 3px; background-color: #795548" class="btn-floating " id="BtnUnCheckAll" onclick="uncheck_all()"><i  class="material-icons">done</i></button>
                             </div></th>
-                        <th>${message(code: 'tile.table.textA.header', default: 'Texto da Primeira Carta')}</th>
-                        <th>${message(code: 'tile.table.textB.header', default: 'Texto da Segunda Carta')}</th>
+                        <th>${message(code: 'tile.table.textA.header', default: 'Primeira Carta')}</th>
+                        <th>${message(code: 'tile.table.textB.header', default: 'Segunda Carta')}</th>
                         <th>${message(code: 'tile.table.actions.header', default: 'Ações')}</th>
                     </tr>
                     </thead>
@@ -45,21 +45,14 @@
                                     </td>
                                     <td>
                                         ${tile.textA}
-                                        <br>
-                                        <audio controls>
-                                            <source src="${request.contextPath}/carta1/${tile.id}/${new Date().time}" type="audio/wav">
-                                            Your browser does not support the audio tag.
-                                        </audio>
                                     </td>
                                     <td>
                                         ${tile.textB}
-                                        <br>
-                                        <audio controls>
-                                            <source src="${request.contextPath}/carta2/${tile.id}/${new Date().time}" type="audio/wav">
-                                            Your browser does not support the audio tag.
-                                        </audio>
                                     </td>
                                     <td>
+                                        <a href="${createLink(action: "show")}/${tile.id}">
+                                            <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-info-circle" data-id="${tile.id}"></i>
+                                        </a>
                                         <a href="${createLink(action: "edit")}/${tile.id}">
                                             <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil edit" data-id="${tile.id}"></i>
                                         </a>

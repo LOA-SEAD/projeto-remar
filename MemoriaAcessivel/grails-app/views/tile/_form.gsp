@@ -28,36 +28,8 @@
         </ul>
     </div>
 
-
-    <!-- Descrição -->
-    <div class="row" style="margin-top:5em;">
-
-        <!-- texto da segunda carta -->
-        <div class="input-field col s9 fieldcontain ${hasErrors(bean: tileInstance, field: 'content', 'error')} required">
-            <input id="description" name="description" required value="${tileInstance?.description}" type="text" class="validate remar-input" maxlength="150"/>
-            <label for="description">Descrição
-                <span class="required-indicator">*</span>
-            </label>
-            <br>
-        </div>
-
-        <!-- select box dos audios da segunda carta -->
-        <div class="input-field col s3">
-            <div class="custom-select remar-orange" >
-                <select style="display: block;" id="selectDescription">
-                    <g:if test="${tileInstance.id}"><option value="naoeditar">Não editar o áudio</option></g:if>
-                    <option value="gerar">Gerar áudio automaticamente</option>
-                    <option value="gravarDescription">Gravar áudio (microfone)</option>
-                    <option value="carregarDescription">Carregar arquivo (.wav)</option>
-                </select>
-            </div>
-        </div>
-
-    </div>
-
-
     <!-- Primeira Carta -->
-    <div class="row">
+    <div class="row" style="margin-top:5em;">
 
         <!-- texto da primeira carta -->
         <div class="input-field col s9 fieldcontain ${hasErrors(bean: tileInstance, field: 'content', 'error')} required">
@@ -109,7 +81,31 @@
 
     </div>
 
+    <!-- Descrição -->
+    <div class="row">
 
+        <!-- texto da segunda carta -->
+        <div class="input-field col s9 fieldcontain ${hasErrors(bean: tileInstance, field: 'content', 'error')} required">
+            <input id="description" name="description" required value="${tileInstance?.description}" type="text" class="validate remar-input" maxlength="150"/>
+            <label for="description">Descrição
+                <span class="required-indicator">*</span>
+            </label>
+            <br>
+        </div>
+
+        <!-- select box dos audios da segunda carta -->
+        <div class="input-field col s3">
+            <div class="custom-select remar-orange" >
+                <select style="display: block;" id="selectDescription">
+                    <g:if test="${tileInstance.id}"><option value="naoeditar">Não editar o áudio</option></g:if>
+                    <option value="gerar">Gerar áudio automaticamente</option>
+                    <option value="gravarDescription">Gravar áudio (microfone)</option>
+                    <option value="carregarDescription">Carregar arquivo (.wav)</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
 
     <input type="hidden" id="tileID" name="tileID" required="" readonly="readonly" value="${tileInstance?.id}" type="text" class="validate remar-input">
 </div>

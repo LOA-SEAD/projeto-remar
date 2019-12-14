@@ -84,20 +84,11 @@
 
             <td name="question_label">
                 ${fieldValue(bean: questionInstance, field: "statement")}
-                <audio controls>
-                    <source src="statement/${questionInstance.id}/${new Date().time}" type="audio/mpeg">
-                    Your browser does not support the audio tag.
-                </audio>
             </td>
 
 
-            <td>${fieldValue(bean: questionInstance, field: "answer")}
-
-                <audio controls>
-                    <source src="answer/${questionInstance.id}/${new Date().time}" type="audio/mpeg">
-                    Your browser does not support the audio tag.
-                </audio>
-
+            <td>
+                ${fieldValue(bean: questionInstance, field: "answer")}
             </td>
 
             <td name="theme" id="theme">${fieldValue(bean: questionInstance, field: "category")}
@@ -105,6 +96,9 @@
 
             <g:if test="${questionInstance.author == userName}">
                 <td>
+                    <a href="${createLink(action: "show")}/${questionInstance.id}">
+                        <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-info-circle" data-id="${questionInstance.id}"></i>
+                    </a>
                     <a href="${createLink(action: "edit")}/${questionInstance.id}">
                         <i style="color: #7d8fff; margin-right:10px;" class="fa fa-pencil"></i>
                     </a>

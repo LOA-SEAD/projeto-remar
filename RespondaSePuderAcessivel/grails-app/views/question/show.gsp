@@ -1,104 +1,169 @@
-<%@ page import="br.ufscar.sead.loa.respondasepuderacessivel.remar.Question" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="layout" content="main">
-    <g:set var="entityName" value="${message(code: 'question.label', default: 'Question')}"/>
-    <title><g:message code="default.show.label" args="[entityName]"/></title>
 </head>
 
 <body>
-<a href="#show-question" class="skip" tabindex="-1"><g:message code="default.link.skip.label"
-                                                               default="Skip to content&hellip;"/></a>
+<g:if test="${flash.message}">
+    <div class="message" role="status">${flash.message}</div>
+</g:if>
 
-<div class="nav" role="navigation">
-    <ul>
-        <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-        <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]"/></g:link></li>
-        <li><g:link class="create" action="create"><g:message code="default.new.label"
-                                                              args="[entityName]"/></g:link></li>
-    </ul>
+<div class="main-content">
+    <div class="widget">
+        <h3 class="section-title first-title"><i class="icon-table"></i>Detalhes da customização</h3>
+
+        <br/>
+        <br/>
+
+        <div class="widget-content-white glossed">
+            <div class="padded">
+                <g:if test="${flash.message}">
+                    <div class="message" role="status">${flash.message}</div>
+                </g:if>
+                <g:hasErrors bean="${questionInstance}">
+                    <ul class="errors" role="alert">
+                        <g:eachError bean="${questionInstance}" var="error">
+                            <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message
+                                    error="${error}"/></li>
+                        </g:eachError>
+                    </ul>
+                </g:hasErrors>
+
+
+
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <table class="striped centered" id="table" style="margin-top: -30px;">
+
+                            <thead>
+                            <tr>
+                                <th>Campo</th>
+                                <th>Conteúdo</th>
+                                <th>Áudio</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td>
+                                    Pergunta
+                                </td>
+                                <td>
+                                    ${questionInstance.title}
+                                </td>
+                                <td>
+                                    <audio controls>
+                                        <source src="${request.contextPath}/title/${questionInstance.id}/${new Date().time}"
+                                                type="audio/mpeg">
+                                        Your browser does not support the audio tag.
+                                    </audio>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    1<sup>a</sup> Alternativa (correta)
+                                </td>
+                                <td>
+                                    ${questionInstance.answers[0]}
+                                </td>
+                                <td>
+                                    <audio controls>
+                                        <source src="${request.contextPath}/answer1/${questionInstance.id}/${new Date().time}"
+                                                type="audio/mpeg">
+                                        Your browser does not support the audio tag.
+                                    </audio>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    2<sup>a</sup> Alternativa
+                                </td>
+                                <td>
+                                    ${questionInstance.answers[1]}
+                                </td>
+                                <td>
+                                    <audio controls>
+                                        <source src="${request.contextPath}/answer2/${questionInstance.id}/${new Date().time}"
+                                                type="audio/mpeg">
+                                        Your browser does not support the audio tag.
+                                    </audio>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    3<sup>a</sup> Alternativa
+                                </td>
+                                <td>
+                                    ${questionInstance.answers[2]}
+                                </td>
+                                <td>
+                                    <audio controls>
+                                        <source src="${request.contextPath}/answer3/${questionInstance.id}/${new Date().time}"
+                                                type="audio/mpeg">
+                                        Your browser does not support the audio tag.
+                                    </audio>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    4<sup>a</sup> Alternativa
+                                </td>
+                                <td>
+                                    ${questionInstance.answers[3]}
+                                </td>
+                                <td>
+                                    <audio controls>
+                                        <source src="${request.contextPath}/answer4/${questionInstance.id}/${new Date().time}"
+                                                type="audio/mpeg">
+                                        Your browser does not support the audio tag.
+                                    </audio>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    Dica
+                                </td>
+                                <td>
+                                    ${questionInstance.hint}
+                                </td>
+                                <td>
+                                    <audio controls>
+                                        <source src="${request.contextPath}/hint/${questionInstance.id}/${new Date().time}"
+                                                type="audio/mpeg">
+                                        Your browser does not support the audio tag.
+                                    </audio>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <br/>
+                        <br/>
+                        <div class="row right-align" style="right-margin: 15em;">
+                            <a class="btn btn-success remar-orange" href="${createLink(action: "edit")}/${questionInstance.id}">Editar</a>
+                            <a id="back" name="back" class="btn btn-success remar-orange">Voltar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#back').click(function() {
+            var getUrl = window.location;
+            var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
-<div id="show-question" class="content scaffold-show" role="main">
-    <h1><g:message code="default.show.label" args="[entityName]"/></h1>
-    <g:if test="${flash.message}">
-        <div class="message" role="status">${flash.message}</div>
-    </g:if>
-    <ol class="property-list question">
-
-        <g:if test="${questionInstance?.answers}">
-            <li class="fieldcontain">
-                <span id="answer-label" class="property-label"><g:message code="question.answers.label"
-                                                                          default="Answer"/></span>
-
-            </li>
-        </g:if>
-
-        <g:if test="${questionInstance?.correctAnswer}">
-            <li class="fieldcontain">
-                <span id="correctAnswer-label" class="property-label"><g:message code="question.correctAnswer.label"
-                                                                                 default="Correct Answer"/></span>
-
-                <span class="property-value" aria-labelledby="correctAnswer-label"><g:fieldValue
-                        bean="${questionInstance}" field="correctAnswer"/></span>
-
-            </li>
-        </g:if>
-
-        <g:if test="${questionInstance?.ownerId}">
-            <li class="fieldcontain">
-                <span id="ownerId-label" class="property-label"><g:message code="question.ownerId.label"
-                                                                           default="Owner Id"/></span>
-
-                <span class="property-value" aria-labelledby="ownerId-label"><g:fieldValue bean="${questionInstance}"
-                                                                                           field="ownerId"/></span>
-
-            </li>
-        </g:if>
-
-        <g:if test="${questionInstance?.taskId}">
-            <li class="fieldcontain">
-                <span id="taskId-label" class="property-label"><g:message code="question.taskId.label"
-                                                                          default="Task Id"/></span>
-
-                <span class="property-value" aria-labelledby="taskId-label"><g:fieldValue bean="${questionInstance}"
-                                                                                          field="taskId"/></span>
-
-            </li>
-        </g:if>
-
-        <g:if test="${questionInstance?.tip}">
-            <li class="fieldcontain">
-                <span id="tip-label" class="property-label"><g:message code="question.tip.label" default="Tip"/></span>
-
-                <span class="property-value" aria-labelledby="tip-label"><g:fieldValue bean="${questionInstance}"
-                                                                                       field="tip"/></span>
-
-            </li>
-        </g:if>
-
-        <g:if test="${questionInstance?.title}">
-            <li class="fieldcontain">
-                <span id="title-label" class="property-label"><g:message code="question.title.label"
-                                                                         default="Title"/></span>
-
-                <span class="property-value" aria-labelledby="title-label"><g:fieldValue bean="${questionInstance}"
-                                                                                         field="title"/></span>
-
-            </li>
-        </g:if>
-
-    </ol>
-    <g:form url="[resource: questionInstance, action: 'delete']" method="DELETE">
-        <fieldset class="buttons">
-            <g:link class="edit" action="edit" resource="${questionInstance}"><g:message
-                    code="default.button.edit.label" default="Edit"/></g:link>
-            <g:actionSubmit class="delete" action="delete"
-                            value="${message(code: 'default.button.delete.label', default: 'Delete')}"
-                            onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
-        </fieldset>
-    </g:form>
-</div>
+            window.location.href = baseUrl + "/question/index";
+        });
+    });
+</script>
 </body>
 </html>

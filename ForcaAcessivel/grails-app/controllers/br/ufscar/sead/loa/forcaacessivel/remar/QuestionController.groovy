@@ -157,11 +157,6 @@ class QuestionController {
     }
 
     @Transactional
-    def salvarAudio() {
-
-    }
-
-    @Transactional
     def save(Question questionInstance) {
         println("params save: $params")
         if (questionInstance == null) {
@@ -302,6 +297,11 @@ class QuestionController {
         } else {
             // TODO
         }
+    }
+
+    def show(Question questionInstance) {
+        println questionInstance
+        respond questionInstance
     }
 
     protected void notFound() {
