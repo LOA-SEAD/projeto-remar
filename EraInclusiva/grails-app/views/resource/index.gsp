@@ -173,7 +173,7 @@
 
             <div class="input-field col s12">
                 <input id="editSource" name="source" required="" value="" type="text" class="validate remar-input"
-                       maxlength="48">
+                       maxlength="500">
                 <label id="sourceLabel" for="editSource">Link</label>
             </div>
 

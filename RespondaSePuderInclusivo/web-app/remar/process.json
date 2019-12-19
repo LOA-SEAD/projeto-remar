@@ -1,0 +1,569 @@
+{
+  "name": "RespondaSePuderInclusivo",
+  "uri": "respondasepuderinclusivo",
+  "version": 1,
+  "type": "unity",
+  "tasks": [
+    {
+      "name": "Banco de Questões",
+      "uri": "question",
+      "description": "Criar/editar/selecionar um banco de questões para o jogo.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "DadosResponda.json",
+          "type": "json",
+          "path": ""
+        },
+        {
+          "name": "pf0.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rf0_0.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rf0_1.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rf0_2.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rf0_3.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "df0.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "pf1.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rf1_0.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rf1_1.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rf1_2.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rf1_3.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "df1.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "pf2.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rf2_0.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rf2_1.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rf2_2.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rf2_3.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "df2.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "pf3.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rf3_0.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rf3_1.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rf3_2.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rf3_3.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "df3.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "pf4.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rf4_0.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rf4_1.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rf4_2.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rf4_3.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "df4.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "pm0.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rm0_0.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rm0_1.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rm0_2.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rm0_3.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "dm0.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "pm1.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rm1_0.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rm1_1.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rm1_2.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rm1_3.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "dm1.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "pm2.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rm2_0.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rm2_1.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rm2_2.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rm2_3.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "dm2.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "pm3.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rm3_0.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rm3_1.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rm3_2.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rm3_3.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "dm3.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "pm4.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rm4_0.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rm4_1.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rm4_2.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rm4_3.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "dm4.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "pd0.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rd0_0.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rd0_1.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rd0_2.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rd0_3.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "dd0.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "pd1.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rd1_0.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rd1_1.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rd1_2.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rd1_3.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "dd1.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "pd2.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rd2_0.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rd2_1.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rd2_2.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rd2_3.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "dd2.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "pd3.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rd3_0.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rd3_1.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rd3_2.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rd3_3.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "dd3.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "pd4.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rd4_0.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rd4_1.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rd4_2.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "rd4_3.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        },
+        {
+          "name": "dd4.wav",
+          "type": "audios/wav",
+          "path": "audios",
+          "optional": true
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    "desktop"
+  ],
+  "vars": {
+    "width": 800,
+    "height": 600
+  }
+}

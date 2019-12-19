@@ -10,7 +10,7 @@
 
 <div class="input-field col s12">
     <input id="source" name="source" required="" value="${resourceInstance?.source}" type="text"
-           class="validate remar-input" maxlength="48">
+           class="validate remar-input" maxlength="500">
     <label for="source">Link</label>
 </div>
 

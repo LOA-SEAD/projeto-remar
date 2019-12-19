@@ -1,0 +1,323 @@
+{
+  "name": "MemoriaInclusiva",
+  "uri": "memoriainclusiva",
+  "version": 1,
+  "type": "unity",
+  "tasks": [{
+      "name": "Primeira Fase",
+      "uri": "tile/level/1",
+      "description": "Criar e/ou selecionar as cartas da primeira fase do jogo.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [{
+          "name": "level1.json",
+          "type": "text/json",
+          "path": "Json"
+        },
+        {
+          "name": "L1-1A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L1-1B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L1-1C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L1-2A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L1-2B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L1-2C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L1-3A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L1-3B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L1-3C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L1-4A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L1-4B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L1-4C.wav",
+          "type": "audio/wav",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "name": "Segunda Fase",
+      "uri": "tile/level/2",
+      "description": "Criar e/ou selecionar as cartas da segunda fase do jogo.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [{
+          "name": "level2.json",
+          "type": "text/json",
+          "path": "Json"
+        },
+        {
+          "name": "L2-1A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-1B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-1C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-2A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-2B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-2C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-3A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-3B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-3C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-4A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-4B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-4C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-5A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-5B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-5C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-6A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-6B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L2-6C.wav",
+          "type": "audio/wav",
+          "path": ""
+        }
+      ]
+    },
+    {
+      "name": "Terceira Fase",
+      "uri": "tile/level/3",
+      "description": "Criar e/ou selecionar as cartas da terceira fase do jogo.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [{
+          "name": "level3.json",
+          "type": "text/json",
+          "path": "Json"
+        },
+        {
+          "name": "L3-1A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-1B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-1C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-2A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-2B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-2C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-3A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-3B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-3C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-4A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-4B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-4C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-5A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-5B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-5C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-6A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-6B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-6C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-7A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-7B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-7C.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-8A.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-8B.wav",
+          "type": "audio/wav",
+          "path": ""
+        },
+        {
+          "name": "L3-8C.wav",
+          "type": "audio/wav",
+          "path": ""
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    "desktop"
+  ],
+  "vars": {
+    "width": 816,
+    "height": 616
+  }
+}
