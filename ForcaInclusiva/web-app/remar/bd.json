@@ -1,0 +1,12 @@
+{
+  "collection_name": "forcainclusiva",
+  "structure": [
+    "enunciado",
+    "alternativaa",
+    "alternativab",
+    "alternativac",
+    "alternativad",
+    "respostacerta",
+    "resposta"
+  ]
+}
