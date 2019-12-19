@@ -12,7 +12,7 @@ class Resource {
 
     static constraints = {
         name blank: false, maxSize: 150
-        source blank: false, maxSize: 48
+        source blank: false, maxSize: 500
         category blank: true, inList: ['Leituras', 'Videos', 'Recursos', 'Audios']
         author blank: false
         ownerId blank: false, nullable: false

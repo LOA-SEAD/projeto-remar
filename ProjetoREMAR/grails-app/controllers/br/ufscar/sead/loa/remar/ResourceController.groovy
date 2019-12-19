@@ -205,7 +205,7 @@ class ResourceController {
                     }
                 }
 
-                println "Download Progress " + (10 * five) + "% "
+                println "Download Progress " + (5 * five) + "% "
                 out.close()
 
                 ant.unzip(src: file.path, dest: tmp, overwrite: true)
