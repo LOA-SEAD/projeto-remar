@@ -20,7 +20,7 @@ class ExportedResourceController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "GET"]
     def springSecurityService
-    def beforeInterceptor = [action: this.&check, only: ['publish', 'myGames', 'publicGames']]
+    def beforeInterceptor = [action: this.&check, only: ['publish', 'myGames']]
 
     private check() {
         if (!session.user) {

@@ -95,33 +95,23 @@
 								</g:else>
 
 								<span id="users">(${resourceInstance.sumUser})</span>
-								<%-- i class="fa fa-users"></i--%>
+								<i class="fa fa-users"></i>
 							</div>
 						</div>
 					</div>
 
-
 					<div class="row no-margin">
-						<p class="gray-color no-margin" style="font-size: 16px;"><strong>Autoria</strong></p>
+						<p class="gray-color no-margin" style="font-size: 16px;"><strong> Autor</strong></p>
 					</div>
 					<div class="row">
-
 						<div class="col l12 no-padding">
 							<div class="row no-margin valign-wrapper">
-<%--
 								<div class="col l2 s3 no-padding">
 									<img class="responsive-img" src="/data/users/${resourceInstance.owner.username}/profile-picture" alt="Contact Person">
 								</div>
---%>
 								<div class="col l10 s9">
-<%--
 									<span style="color: dimgrey" class="left">${resourceInstance.owner.firstName} ${resourceInstance.owner.lastName}</span><br>
 									<span style="color: dimgrey" class="hide-on-small-only left"> ${resourceInstance.owner.email} </span>
-
---%>
-
-<span style="color: dimgrey" class="left">${resourceInstance.info} </span><br>
-
 								</div>
 							</div>
 						</div>

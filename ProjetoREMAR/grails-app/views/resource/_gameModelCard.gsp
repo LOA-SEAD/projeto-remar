@@ -24,13 +24,13 @@
 
                             <div class="divider"></div>
 
-                            <%-- span>${resourceInstance.category.name}</span>
+                            <span>${resourceInstance.category.name}</span>
                             <span class="truncate">
                                 Feito por:
                                 <a href="#userDetailsModal" class="user-profile" id="user-id-${resourceInstance.owner.id}">
                                     ${resourceInstance.owner.username}
                                 </a>
-                            </span--%>
+                            </span>
                             <span>
                                 <g:if test="${resourceInstance.web}">
                                     <i class="fa fa-globe tooltipped" data-tooltip="Web"></i>
