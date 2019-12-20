@@ -158,7 +158,7 @@ class BootStrap {
                 '/dashboard', '/process/**', '/developer/new', '/exported-resource/**', '/exportedResource/**', '/my-profile',
                 '/user/update', '/userProfile', '/userProfile/**', '/moodle/link/**', '/moodle/unlink/**', '/resource/saveRating/**',
                 '/resource/updateRating/**', '/resource/asyncSaveRating', '/resource/asyncUpdateRating', '/resource/deleteRating/**', '/group/**', '/group/user-stats/**', '/group/stats/**', '/user-group/**', '/group-exported-resources/**',
-                '/dspace/**', '/resource/customizableGames', '/resource/show/**', '/report/**'
+                '/dspace/**', '/resource/customizableGames', '/resource/show/**', '/report/**', 'exportedResource/publicGames'
         ]) {
             RequestMap.findOrSaveByUrlAndConfigAttribute(url, 'isAuthenticated()')
         }
@@ -168,7 +168,7 @@ class BootStrap {
         for (url in [
                 '/', '/index', '/index/introduction', '/index/architecture', '/index/team', '/index/publications',
                 '/index/contact', '/doc/**', '/assets/**',
-                '/exportedResource/publicGames', '/exported-resource/searchGameByCategoryAndName', '/**/js/**', '/**/css/**',
+                '/exported-resource/searchGameByCategoryAndName', '/**/js/**', '/**/css/**',
                 '/**/images/**', '/**/favicon.ico', '/data/**', '/**/scss/**', '/**/less/**', '/**/fonts/**',
                 '/**/font/**', '/password/**', '/moodle/**', '/exportedGame/**', '/static/**', '/login/**',
                 '/logout/**', '/signup/**', '/user/**', '/facebook/**', '/published/**', '/group/isLogged', '/shibboleth/**'
