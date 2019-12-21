@@ -85,7 +85,7 @@
                 </div>
                 <div class="row">
                     <div class="col s6">
-                        <input type="number" min="3" max="10" step="1" value="0" name="randomQuestion" id="randomQuestion" />
+                        <input type="number" min="3" max="10" step="1" value="3" name="randomQuestion" id="randomQuestion" />
                         <label for="randomQuestion">O valor mínimo deste campo é 3 (três).</label>
                     </div>
                 </div>

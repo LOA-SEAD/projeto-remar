@@ -560,7 +560,8 @@
     }
   ],
   "outputs": [
-    "desktop"
+    "desktop",
+    "android"
   ],
   "vars": {
     "width": 800,
