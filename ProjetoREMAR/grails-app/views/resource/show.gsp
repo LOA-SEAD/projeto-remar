@@ -101,7 +101,7 @@
 					</div>
 
 					<div class="row no-margin">
-						<p class="gray-color no-margin" style="font-size: 16px;"><strong> Autoria</strong></p>
+						<p class="gray-color no-margin" style="font-size: 16px;"><strong>Autoria</strong></p>
 
 					</div>
 
