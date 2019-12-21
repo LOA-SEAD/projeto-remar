@@ -5,26 +5,26 @@
 var countA = 1;
 var countB = 1;
 var currentRecordingCard = "A";
-$(document).ready(function() {
+$(document).ready(function () {
     // Disable send button after submit the form
-    $('form.sendForm').submit(function(){
+    $('form.sendForm').submit(function () {
         $(this).find(':input[type=submit]').prop('disabled', true);
     });
 
-    $('#back').click(function() {
+    $('#back').click(function () {
         var getUrl = window.location;
-        var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+        var baseUrl = getUrl.protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
         window.location.href = baseUrl + "/question/index";
     });
 
     // autoplay selected audio
-    $("#recordingsListA, #recordingsListB").delegate("input[type=radio]", "change", function (){
+    $("#recordingsListA, #recordingsListB").delegate("input[type=radio]", "change", function () {
         $(this).parent().siblings("audio")[0].play();
     });
 
     // Submit form button click function
-    $("#submit").click(function() {
+    $("#submit").click(function () {
         fd = new FormData();
         var selectPerg = $("#selectPergunta :selected").val();
         var selectResp = $("#selectResposta :selected").val();
@@ -48,11 +48,11 @@ $(document).ready(function() {
             }
             else {
                 $('#gravarModalA').openModal();
-                Materialize.toast("Grave e selecione o áudio da pergunta para prosseguir", displayLength='3000');
+                Materialize.toast("Grave e selecione o áudio da pergunta para prosseguir", displayLength = '3000');
             }
         }
         else {
-            if(selectResp == "gravarB") {
+            if (selectResp == "gravarB") {
                 recoverBlobB(null)
             }
             else {
@@ -62,9 +62,8 @@ $(document).ready(function() {
     });
 
 
-
     // Submit form button click function
-    $("#submitEdit").click(function() {
+    $("#submitEdit").click(function () {
         fd = new FormData();
         var selectPerg = $("#selectPergunta :selected").val();
         var selectResp = $("#selectResposta :selected").val();
@@ -88,11 +87,11 @@ $(document).ready(function() {
             }
             else {
                 $('#gravarModalB').openModal();
-                Materialize.toast("Grave e selecione o áudio da pergunta para prosseguir", displayLength='3000');
+                Materialize.toast("Grave e selecione o áudio da pergunta para prosseguir", displayLength = '3000');
             }
         }
         else {
-            if(selectResp == "gravarB") {
+            if (selectResp == "gravarB") {
                 recoverBlobBEdit(null)
             }
             else {
@@ -102,12 +101,10 @@ $(document).ready(function() {
     });
 
 
-
 });
 
 function recoverBlobB(blobA) {
-    if(audioBurl = $("input[name=audioB]:checked").parent().siblings("audio")[0] != null)
-    {
+    if (audioBurl = $("input[name=audioB]:checked").parent().siblings("audio")[0] != null) {
         var audioBurl = $("input[name=audioB]:checked").parent().siblings("audio")[0].src;
         var xhr = new XMLHttpRequest();
         xhr.open('GET', audioBurl);
@@ -123,8 +120,7 @@ function recoverBlobB(blobA) {
 }
 
 function recoverBlobBEdit(blobA) {
-    if(audioBurl = $("input[name=audioB]:checked").parent().siblings("audio")[0] != null)
-    {
+    if (audioBurl = $("input[name=audioB]:checked").parent().siblings("audio")[0] != null) {
         var audioBurl = $("input[name=audioB]:checked").parent().siblings("audio")[0].src;
         var xhr = new XMLHttpRequest();
         xhr.open('GET', audioBurl);
@@ -151,32 +147,32 @@ function sendFormData(blobA, blobB) {
 
 
     // Carregamento e checagem dos áudios
-    if ((blobA != null) && (selectPerg == "gravarA")){
+    if ((blobA != null) && (selectPerg == "gravarA")) {
         fd.append("audioA", blobA, new Date().toISOString());
     }
 
-    if ((blobB != null) && (selectResp == "gravarB")){
+    if ((blobB != null) && (selectResp == "gravarB")) {
         fd.append("audioB", blobB, new Date().toISOString());
     }
 
-    if (selectPerg == "carregarA"){
+    if (selectPerg == "carregarA") {
         if ($("#audio-1")[0].files[0] != null) {
             fd.append("audio-1", $("#audio-1")[0].files[0])
         }
         else {
 
             $('#carregarModalA').openModal();
-            Materialize.toast("Selecione de seu computador o áudio da pergunta para poder prosseguir", displayLength='3000');
+            Materialize.toast("Selecione de seu computador o áudio da pergunta para poder prosseguir", displayLength = '3000');
         }
     }
 
-    if (selectResp == "carregarB"){
+    if (selectResp == "carregarB") {
         if ($("#audio-2")[0].files[0] != null) {
             fd.append("audio-2", $("#audio-2")[0].files[0]);
         }
         else {
             $('#carregarModalB').openModal();
-            Materialize.toast("Selecione de seu computador o áudio da resposta para poder prosseguir", displayLength='3000');
+            Materialize.toast("Selecione de seu computador o áudio da resposta para poder prosseguir", displayLength = '3000');
         }
     }
 
@@ -192,7 +188,7 @@ function sendFormData(blobA, blobB) {
 
 
     // O formulário só continua se algum áudio estiver sendo enviado tanto para pergunta quanto resposta
-    if(((blobA != null) || ($("#audio-1")[0].files[0] != null) || (selectPerg == "gerar")) && ((blobB != null) || ($("#audio-2")[0].files[0] != null) || (selectResp == "gerar"))) {
+    if (((blobA != null) || ($("#audio-1")[0].files[0] != null) || (selectPerg == "gerar")) && ((blobB != null) || ($("#audio-2")[0].files[0] != null) || (selectResp == "gerar"))) {
 
         if (selectPerg == "gerar" || selectResp == "gerar") {
             Materialize.toast("Aguarde um momento que o áudio do texto está sendo gerado...");
@@ -224,33 +220,32 @@ function sendFormDataEdit(blobA, blobB) {
     var selectResp = $("#selectResposta :selected").val();
     var fd = new FormData();
 
-
     // Carregamento e checagem dos áudios
-    if ((blobA != null) && (selectPerg == "gravarA")){
+    if ((blobA != null) && (selectPerg == "gravarA")) {
         fd.append("audioA", blobA, new Date().toISOString());
     }
 
-    if ((blobB != null) && (selectResp == "gravarB")){
+    if ((blobB != null) && (selectResp == "gravarB")) {
         fd.append("audioB", blobB, new Date().toISOString());
     }
 
-    if (selectPerg == "carregarA"){
+    if (selectPerg == "carregarA") {
         if ($("#audio-1")[0].files[0] != null) {
             fd.append("audio-1", $("#audio-1")[0].files[0])
         }
         else {
             $('#carregarModalA').openModal();
-            Materialize.toast("Selecione de seu computador o áudio da pergunta para poder prosseguir", displayLength='3000');
+            Materialize.toast("Selecione de seu computador o áudio da pergunta para poder prosseguir", displayLength = '3000');
         }
     }
 
-    if (selectResp == "carregarB"){
+    if (selectResp == "carregarB") {
         if ($("#audio-2")[0].files[0] != null) {
             fd.append("audio-2", $("#audio-2")[0].files[0]);
         }
         else {
             $('#carregarModalA').openModal();
-            Materialize.toast("Selecione de seu computador o áudio da resposta para poder prosseguir", displayLength='3000');
+            Materialize.toast("Selecione de seu computador o áudio da resposta para poder prosseguir", displayLength = '3000');
         }
     }
 
@@ -270,12 +265,16 @@ function sendFormDataEdit(blobA, blobB) {
     fd.append("selectResp", selectResp)
 
     // O formulário só continua se ao menos um áudio estiver sendo enviado tanto para pergunta quanto resposta
-    if(((blobA != null) || ($("#audio-1")[0].files[0] != null) || (selectPerg == "gerar") || selectPerg == "naoeditar")
-        && ((blobB != null) || ($("#audio-2")[0].files[0] != null) || (selectResp == "gerar") || selectPerg == "naoeditar")) {
+
+    var cond1 = (blobA != null) || ($("#audio-1")[0].files[0] != null) || (selectPerg == "gerar") || (selectPerg == "naoeditar");
+    var cond2 = (blobB != null) || ($("#audio-2")[0].files[0] != null) || (selectResp == "gerar") || (selectResp == "naoeditar");
+
+    if (cond1 && cond2) {
 
         if (selectPerg == "gerar" || selectResp == "gerar") {
             Materialize.toast("Aguarde um momento que o áudio do texto está sendo gerado...");
         }
+        
         $.ajax({
             method: "POST",
             url: "/forcainclusiva/question/update",
@@ -313,22 +312,22 @@ function startRecording() {
     console.log("Recording requested.");
 
     /*
-    Simple constraints object, for more advanced audio features see
-    <div class="video-container"><blockquote class="wp-embedded-content" data-secret="cVHlrYJoGD"><a href="https://addpipe.com/blog/audio-constraints-getusermedia/">Supported Audio Constraints in getUserMedia()</a></blockquote><iframe class="wp-embedded-content" sandbox="allow-scripts" security="restricted" style="position: absolute; clip: rect(1px, 1px, 1px, 1px);" src="https://addpipe.com/blog/audio-constraints-getusermedia/embed/#?secret=cVHlrYJoGD" data-secret="cVHlrYJoGD" width="600" height="338" title="“Supported Audio Constraints in getUserMedia()” — Pipe Blog" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></div>
-    */
+     Simple constraints object, for more advanced audio features see
+     <div class="video-container"><blockquote class="wp-embedded-content" data-secret="cVHlrYJoGD"><a href="https://addpipe.com/blog/audio-constraints-getusermedia/">Supported Audio Constraints in getUserMedia()</a></blockquote><iframe class="wp-embedded-content" sandbox="allow-scripts" security="restricted" style="position: absolute; clip: rect(1px, 1px, 1px, 1px);" src="https://addpipe.com/blog/audio-constraints-getusermedia/embed/#?secret=cVHlrYJoGD" data-secret="cVHlrYJoGD" width="600" height="338" title="“Supported Audio Constraints in getUserMedia()” — Pipe Blog" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></div>
+     */
 
-    var constraints = { audio: true, video: false }
+    var constraints = {audio: true, video: false}
 
     /*
-    Disable the record button until we get a success or fail from getUserMedia()
-    */
+     Disable the record button until we get a success or fail from getUserMedia()
+     */
     /*
-    recordButton.disabled = true;
-    stopButton.disabled = false;
-    pauseButton.disabled = false;
-*/
+     recordButton.disabled = true;
+     stopButton.disabled = false;
+     pauseButton.disabled = false;
+     */
     if (this.id == "recordButtonA") {
-        recordButton.innerHTML=GMS.RECORDINGS_RECORDING_BUTTON_LABEL;
+        recordButton.innerHTML = GMS.RECORDINGS_RECORDING_BUTTON_LABEL;
         currentRecordingCard = "A"; // referente à pergunta
         $(recordButton).attr("disabled", "");
         $(recordButtonB).attr("disabled", "");
@@ -336,7 +335,7 @@ function startRecording() {
         $(stopButton).removeAttr("disabled");
 
     } else {
-        recordButtonB.innerHTML=GMS.RECORDINGS_RECORDING_BUTTON_LABEL;
+        recordButtonB.innerHTML = GMS.RECORDINGS_RECORDING_BUTTON_LABEL;
         currentRecordingCard = "B"; // referente à resposta
         $(recordButton).attr("disabled", "");
         $(recordButtonB).attr("disabled", "");
@@ -345,11 +344,11 @@ function startRecording() {
     }
 
     /*
-    We're using the standard promise based getUserMedia()
-    https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
-    */
+     We're using the standard promise based getUserMedia()
+     https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+     */
 
-    navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+    navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
         console.log("Starting recording stream...");
 
         /* assign to gumStream for later use */
@@ -359,45 +358,45 @@ function startRecording() {
         input = audioContext.createMediaStreamSource(stream);
 
         /*
-        Create the Recorder object and configure to record mono sound (1 channel)
-        Recording 2 channels  will double the file size
-        */
-        rec = new Recorder(input,{numChannels:1})
+         Create the Recorder object and configure to record mono sound (1 channel)
+         Recording 2 channels  will double the file size
+         */
+        rec = new Recorder(input, {numChannels: 1})
 
         //start the recording process
         rec.record()
 
         console.log("Recording started");
 
-    }).catch(function(err) {
+    }).catch(function (err) {
         Materialize.toast("Não foi possivel acessar seu microfone. Utilize o upload de arquivo para enviar seu som ou tente novamente.", 3000);
         //enable the record button if getUserMedia() fails
         $(recordButton).removeAttr("disabled");
-        $(pauseButton).attr("disabled","");
-        $(stopButton).attr("disabled","");
+        $(pauseButton).attr("disabled", "");
+        $(stopButton).attr("disabled", "");
     });
 }
 
 
-function pauseRecording(){
-    if (rec.recording){
+function pauseRecording() {
+    if (rec.recording) {
         //pause
         rec.stop();
         if (this.id == "pauseButtonA") {
-            recordButton.innerHTML=GMS.RECORDINGS_RECORD_BUTTON_LABEL;
-            pauseButton.innerHTML=GMS.RECORDINGS_RESUME_BUTTON_LABEL;
+            recordButton.innerHTML = GMS.RECORDINGS_RECORD_BUTTON_LABEL;
+            pauseButton.innerHTML = GMS.RECORDINGS_RESUME_BUTTON_LABEL;
         } else {
-            recordButtonB.innerHTML=GMS.RECORDINGS_RECORD_BUTTON_LABEL;
-            pauseButtonB.innerHTML=GMS.RECORDINGS_RESUME_BUTTON_LABEL;
+            recordButtonB.innerHTML = GMS.RECORDINGS_RECORD_BUTTON_LABEL;
+            pauseButtonB.innerHTML = GMS.RECORDINGS_RESUME_BUTTON_LABEL;
         }
-    }else{
+    } else {
         //resume
         rec.record()
         if (this.id == "pauseButtonA") {
-            recordButton.innerHTML=GMS.RECORDINGS_RECORD_BUTTON_LABEL;
+            recordButton.innerHTML = GMS.RECORDINGS_RECORD_BUTTON_LABEL;
             pauseButton.innerHTML = GMS.RECORDINGS_PAUSE_BUTTON_LABEL;
         } else {
-            recordButtonB.innerHTML=GMS.RECORDINGS_RECORD_BUTTON_LABEL;
+            recordButtonB.innerHTML = GMS.RECORDINGS_RECORD_BUTTON_LABEL;
             pauseButtonB.innerHTML = GMS.RECORDINGS_PAUSE_BUTTON_LABEL;
         }
     }
@@ -408,17 +407,16 @@ function stopRecording() {
     $(recordButton).removeAttr("disabled");
     $(recordButtonB).removeAttr("disabled");
     if (this.id == "stopButtonA") {
-        pauseButton.innerHTML= GMS.RECORDINGS_PAUSE_BUTTON_LABEL;
-        recordButton.innerHTML=GMS.RECORDINGS_RECORD_BUTTON_LABEL;
-        $(pauseButton).attr("disabled","");
-        $(stopButton).attr("disabled","");
+        pauseButton.innerHTML = GMS.RECORDINGS_PAUSE_BUTTON_LABEL;
+        recordButton.innerHTML = GMS.RECORDINGS_RECORD_BUTTON_LABEL;
+        $(pauseButton).attr("disabled", "");
+        $(stopButton).attr("disabled", "");
     } else {
-        pauseButtonB.innerHTML= GMS.RECORDINGS_PAUSE_BUTTON_LABEL;
-        recordButtonB.innerHTML=GMS.RECORDINGS_RECORD_BUTTON_LABEL;
-        $(pauseButtonB).attr("disabled","");
-        $(stopButtonB).attr("disabled","");
+        pauseButtonB.innerHTML = GMS.RECORDINGS_PAUSE_BUTTON_LABEL;
+        recordButtonB.innerHTML = GMS.RECORDINGS_RECORD_BUTTON_LABEL;
+        $(pauseButtonB).attr("disabled", "");
+        $(stopButtonB).attr("disabled", "");
     }
-
 
 
     //tell the recorder to stop the recording
@@ -448,7 +446,7 @@ function createDownloadLink(blob) {
     if (currentRecordingCard == "A") {
         uniqueID = "audioA" + countA;
         $(input).attr('type', 'radio').attr('id', uniqueID).attr('name', 'audioA');
-        $(label).attr("for",uniqueID).html("Audio " + countA);
+        $(label).attr("for", uniqueID).html("Audio " + countA);
 
         //add the p containing new audio and input elements to the recordings list
         $("#recordingsListA").append(div);
@@ -458,7 +456,7 @@ function createDownloadLink(blob) {
     } else {
         uniqueID = "audioB" + countB;
         $(input).attr('type', 'radio').attr('id', uniqueID).attr('name', 'audioB');
-        $(label).attr("for",uniqueID).html("Audio " + countB);
+        $(label).attr("for", uniqueID).html("Audio " + countB);
 
         //add the p containing new audio and input elements to the recordings list
         $("#recordingsListB").append(div);
@@ -466,7 +464,6 @@ function createDownloadLink(blob) {
         // Update the unique ID global counter;
         countB = countB + 1;
     }
-
 
 
     // Insert them into a set hierarchy
