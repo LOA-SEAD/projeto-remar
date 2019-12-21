@@ -26,7 +26,7 @@
 
                             <span>${resourceInstance.category.name}</span>
                             <span class="truncate">
-                                Feito por:
+                                Upload por:
                                 <a href="#userDetailsModal" class="user-profile" id="user-id-${resourceInstance.owner.id}">
                                     ${resourceInstance.owner.username}
                                 </a>

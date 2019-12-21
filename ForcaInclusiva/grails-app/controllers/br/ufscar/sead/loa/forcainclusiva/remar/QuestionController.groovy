@@ -147,7 +147,7 @@ class QuestionController {
                port = 8010
             }   
 
-            render("http://localhost:${port}/forcainclusiva/question")
+            render("http://${request.serverName}:${request.serverPort}/forcainclusiva/question")
         } else {
             // TODO
         }
@@ -269,8 +269,7 @@ class QuestionController {
             if (Environment.current == Environment.DEVELOPMENT) {
                port = 8010
             }   
-
-            render("http://localhost:${port}/forcainclusiva/question")
+            render("http://${request.serverName}:${request.serverPort}/forcainclusiva/question")
         } else {
             // TODO
         }
