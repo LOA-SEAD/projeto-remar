@@ -37,6 +37,41 @@ class TileController {
 
         def tilesList = Tile.findAllByOwnerId(session.user.id)
 
+        if (tilesList.size() == 0) {
+
+            for (int i = 1; i <= 8; i++) {
+                Tile tile = new Tile(textA: "${i}A", textB: "${i}B", description: "${i}",
+                        ownerId: session.user.id)
+
+                tile.save flush: true
+
+                def samplesPath = servletContext.getRealPath("/samples")
+                File samplesFolder = new File(samplesPath)
+
+                def userPath = servletContext.getRealPath("/data/" + session.user.id.toString() + "/audios/" + tile.id)
+                def userFolder = new File(userPath)
+                userFolder.mkdirs()
+
+                if (samplesFolder.exists()) {
+                    String[] fileNames = ["carta1.wav", "carta2.wav", "descricao.wav"]
+
+                    File srcFolder = new File(samplesPath + "/${i}")
+                    for (String fileName : fileNames) {
+                        def srcFile = new File(srcFolder, fileName)
+                        def destFile = new File(userFolder, fileName)
+                        println srcFile.getAbsolutePath() + " => " + destFile.getAbsolutePath()
+                        Files.copy(srcFile.toPath(), destFile.toPath())
+                    }
+                } else {
+                    textToSpeech("${tile.textA}", "$userPath/carta1.wav")
+                    textToSpeech("${tile.textB}", "$userPath/carta2.wav")
+                    textToSpeech("${tile.description}", "$userPath/descricao.wav")
+                }
+            }
+
+            tilesList = Tile.findAllByOwnerId(session.user.id)
+        }
+
         render view: "index", model: [tilesList: tilesList, tilesCount: tilesList.count, level: session.level]
     }
 
