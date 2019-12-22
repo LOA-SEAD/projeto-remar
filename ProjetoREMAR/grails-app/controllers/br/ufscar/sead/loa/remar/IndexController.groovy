@@ -9,16 +9,14 @@ class IndexController {
 
     def index() {
         if (springSecurityService.isLoggedIn()) {
-                def model = [:]
-
-                model.resourceInstanceList = Resource.findAllByStatus('approved', [max: 16, sort: "name", order: "asc"])
-                model.userName = session.user.firstName
-                //model.publicExportedResourcesList = ExportedResource.findAllByType('public', [max: 8, sort: "id", order: "desc"])
-                //model.myExportedResourcesList = ExportedResource.findAllByTypeAndOwner('public', User.get(session.user.id), [max: 8, sort: "id", order: "desc"])
-                render view: "dashboard", model: model
+                //def model = [:]
+                //model.resourceInstanceList = Resource.findAllByStatus('approved', [max: 12, sort: ["submittedAt" : "desc"]])
+                //model.userName = session.user.firstName
+                //render view: "dashboard", model: model
+                forward (controller:'resource', action:'customizableGames')
         } else {
             respond Announcement.list(max: 4, sort: "dateCreated")
-        }
+        } 
     }
 
     def introduction() {}

@@ -15,7 +15,7 @@
     <body>
         <div class="row cluster">
             <div class="cluster-header">
-                <h4>Confira os modelos disponíveis para customização!</h4>
+                <h4>Confira alguns dos modelos disponíveis para customização!</h4>
 
                 <div class="divider"></div>
             </div>

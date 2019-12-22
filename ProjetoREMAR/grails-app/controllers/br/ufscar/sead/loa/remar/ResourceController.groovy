@@ -26,7 +26,7 @@ class ResourceController {
     static allowedMethods = [save: "POST", update: "POST", delete: "DELETE"]
 
     def springSecurityService
-    def beforeInterceptor = [action: this.&check, only: ['index']]
+    def beforeInterceptor = [action: this.&check, only: ['index','customizableGames']]
 
     private check() {
         if (!session.user) {
@@ -445,8 +445,8 @@ class ResourceController {
         def model = [:]
         def threshold = 16
 
-        params.order = "asc"
-        params.sort = "name"
+        params.order = "desc"
+        params.sort = "submittedAt"
         params.max = params.max ? Integer.valueOf(params.max) : THRESHOLD
         params.offset = params.offset ? Integer.valueOf(params.offset) : 0
         params.text = params.text ? params.text : ''
