@@ -95,7 +95,7 @@
         </div>
 
         <!-- Modal Structures -->
-        <div id="modal-users" class="modal bottom-sheet">
+        <div id="modal-users" class="modal modal-fixed-footer bottom-sheet">
             <div class="modal-content">
                 <h4 class="left-align">Membros do grupo</h4>
                 <ul class="collection users-collection">

@@ -1,0 +1,30 @@
+{
+  "name": "AEraInclusiva",
+  "uri": "erainclusiva",
+  "type": "unity",
+  "version": 1,
+  "tasks": [
+    {
+      "name": "Banco de Recursos",
+      "uri": "resource",
+      "description": "Criar/editar/selecionar um banco de recursos para o jogo.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "recursos_biblioteca.json",
+          "type": "json",
+          "path": "Json"
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    "android",
+    "desktop"
+  ],
+  "vars": {
+    "width": 800,
+    "height": 600
+  }
+}

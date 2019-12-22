@@ -94,6 +94,8 @@ $(function(){
     var descErr = $("#desc-error");
     var custom = $("#customizableItems");
     var customizableErr = $("#customizableErr");
+    var authorshipErr = $("#authorshipErr");
+    
 
     $(name).prev().hide();
     $(nameErr).hide();

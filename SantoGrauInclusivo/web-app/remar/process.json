@@ -1,0 +1,43 @@
+{
+  "name": "Em Busca do Santo Grau Inclusivo",
+  "uri": "santograuinclusivo",
+  "version": 1,
+  "tasks": [
+    {
+      "name": "Fase Campo Futebol",
+      "uri": "faseCampoFutebol",
+      "description": "Criar/editar/selecionar um banco de questões para o nivel Campo Futebol.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "campo.json",
+          "type": "json",
+          "path": ""
+        }
+      ]
+    },
+
+    {
+      "name": "Fase Biblioteca",
+      "uri": "faseBiblioteca",
+      "description": "Criar/editar/selecionar um banco de questões para o nivel Biblioteca.",
+      "type": "text_database",
+      "dependencies": null,
+      "outputs": [
+        {
+          "name": "biblioteca.json",
+          "type": "json",
+          "path": ""
+        }
+      ]
+    }
+  ],
+  "outputs": [
+    "web"
+  ],
+  "vars": {
+    "width": 1280,
+    "height": 720
+  }
+}

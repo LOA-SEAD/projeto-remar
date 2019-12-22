@@ -20,7 +20,7 @@ class ExportedResourceController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "GET"]
     def springSecurityService
-    def beforeInterceptor = [action: this.&check, only: ['publish', 'myGames']]
+    def beforeInterceptor = [action: this.&check, only: ['publish', 'myGames', 'publicGames']]
 
     private check() {
         if (!session.user) {
@@ -383,10 +383,22 @@ class ExportedResourceController {
         def root = exp[1]
         def mobileFolder = exp[5]
         def scriptBuildCrosswalk = "${root}/scripts/crosswalk/build.sh"
+        def scriptApkTool = "${root}/scripts/apktool/buildapk.sh"
+
         switch (processType) {
             case "unity":
-                log.debug "Unity::Android not yet implemented"
+                log.debug "Started ApkTool Script"
+                ant.sequential {
+                    chmod(perm: "+x", file: scriptApkTool)
+                    exec(executable: scriptApkTool) {
+                        arg(value: root)
+                        arg(value: resource.uri)
+                        arg(value: instance.processId)
+                    }
+                }
+                log.debug "Finished exporting Unity Android project"
                 break
+
             default /* HTML */:
                 log.debug "Started Crosswalk Script"
                 ant.sequential {

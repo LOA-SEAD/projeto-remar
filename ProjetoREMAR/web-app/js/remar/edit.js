@@ -17,6 +17,8 @@ $(function(){
 
     var descErr = $("#desc-error");  // Era pra ter algum erro de descricao q simplesmente n existe
     var customizableErr = $("#customizableItems-error");  // Aparentemente, era pra ter erro de itens customizaveis tbm
+    var authorshipErr = $("#authorship-error");
+
 
     $.ajax({
         type: 'POST',  // Eh aqui q o formulario eh preenchido com os seus valores salvos

@@ -26,7 +26,7 @@ class Resource {
         sumUser nullable: false
         license nullable: false
         customizableItems nullable: true
-
+        authorship nullable: true
     }
 
     Resource() {
@@ -39,6 +39,7 @@ class Resource {
     int version
     String uri
     String type
+    String authorship
 
     boolean shareable
     boolean repository
@@ -67,4 +68,8 @@ class Resource {
 
     float sumStars //total de estrelas
     int   sumUser  //total de usuários que comentaram o jogo
+
+    boolean isMac() {
+        return type != 'unity'
+    }
 }

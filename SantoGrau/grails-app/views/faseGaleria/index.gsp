@@ -35,7 +35,7 @@
 						<g:message code="faseGaleria.orientacao.label" default="Questão (dica) " />
 						<span class="required-indicator">*</span>
 					</label>
-					<g:field name="orientacao" id="orientacao" type="text" required="" length="95" maxlength="95" class="validate" value="${orientacao}"/>
+					<g:field name="orientacao" id="orientacao" type="text" required="" length="270" maxlength="270" class="validate" value="${orientacao}"/>
 				</div>
 				<ul class="collapsible" data-collapsible="accordion">
 					<li>

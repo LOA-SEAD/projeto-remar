@@ -18,9 +18,11 @@
     <div class="row space">
         <g:if test="${params.toast}">
             <p>
-                <g:message code='exportedResource.message.publishedWithSuccess' default='O seu jogo foi publicado com sucesso! Agora ele já esta disponível no menu'/>
+                <g:message code='exportedResource.message.publishedWithSuccess'
+                           default='O seu jogo foi publicado com sucesso! Agora ele já esta disponível no menu'/>
                 <span class="chip">
-                    <a class="center" href="/exported-resource/publicGames"><g:message code='menu.button.game.database.label' default='Banco de jogos'/></a>
+                    <a class="center" href="/exported-resource/publicGames"><g:message
+                            code='menu.button.game.database.label' default='Banco de jogos'/></a>
                     <i class="medium material-icons">videogame_asset</i>
                 </span>
             </p>
@@ -34,29 +36,42 @@
             <ul data-instance_id="${exportedResourceInstance.id}" class="collapsible popout infos-exportedResource"
                 data-collapsible="expandable">
                 <li>
-                    <div class="collapsible-header active"><g:message code='exportedResource.label.info' default='Informações'/></div>
+                    <div class="collapsible-header active"><g:message code='exportedResource.label.info'
+                                                                      default='Informações'/></div>
 
                     <div id="info" class="collapsible-body">
                         <div class="row">
                             <img id="img1Preview" class="my-orange right" width="100" height="100"
                                  src="/published/${exportedResourceInstance.processId}/banner.png"/>
-                            <p><span class="bold"><g:message code='exportedResource.label.gameName' default='Nome do jogo'/>: </span>${exportedResourceInstance.name}</p>
 
-                            <p><span class="bold"><g:message code='exportedResource.label.category' default='Categoria'/>: </span>${exportedResourceInstance.resource.category.name}
+                            <p><span class="bold"><g:message code='exportedResource.label.gameName'
+                                                             default='Nome do jogo'/>:</span>${exportedResourceInstance.name}
                             </p>
 
-                            <p><span class="bold"><g:message code='exportedResource.label.author' default='Autor'/>: </span>${exportedResourceInstance.owner.username}</p>
+                            <p><span class="bold"><g:message code='exportedResource.label.category'
+                                                             default='Categoria'/>:</span>${exportedResourceInstance.resource.category.name}
+                            </p>
 
-                            <p><span class="bold"><g:message code='exportedResource.label.customizedIn' default='Customizado em'/>:</span>
+                            <p><span class="bold"><g:message code='exportedResource.label.author'
+                                                             default='Autor'/>:</span>${exportedResourceInstance.owner.username}
+                            </p>
+
+                            <p><span class="bold"><g:message code='exportedResource.label.customizedIn'
+                                                             default='Customizado em'/>:</span>
 
                                 <g:formatDate format="dd/MM/yyyy HH:mm"
                                               date="${createdAt}"/></p>
 
-                            <p><span class="bold"><g:message code='exportedResource.label.basedInModel' default='Baseado no modelo'/>: </span>${exportedResourceInstance.resource.name}</p>
+                            <p><span class="bold"><g:message code='exportedResource.label.basedInModel'
+                                                             default='Baseado no modelo'/>:</span>${exportedResourceInstance.resource.name}
+                            </p>
 
-                            <p><span class="bold"><g:message code='exportedResource.label.contentField' default='Área de conteúdo'/>: </span>${exportedResourceInstance.contentArea}</p>
+                            <p><span class="bold"><g:message code='exportedResource.label.contentField'
+                                                             default='Área de conteúdo'/>:</span>${exportedResourceInstance.contentArea}
+                            </p>
 
-                            <p><span class="bold"><g:message code='exportedResource.label.specificContent' default='Conteúdo específico'/>: </span>${exportedResourceInstance.specificContent}
+                            <p><span class="bold"><g:message code='exportedResource.label.specificContent'
+                                                             default='Conteúdo específico'/>:</span>${exportedResourceInstance.specificContent}
                             </p>
 
                             <div class="row"></div>
@@ -80,7 +95,8 @@
 
                         <div class="collapsible-body">
                             <div class="row">
-                                <blockquote><g:message code='exportedResource.message.artifactsBellow' default='Abaixo estão os artefatos customizados enviados para o repositório digital'/>.</blockquote>
+                                <blockquote><g:message code='exportedResource.message.artifactsBellow'
+                                                       default='Abaixo estão os artefatos customizados enviados para o repositório digital'/>.</blockquote>
                                 <g:each in="${handle}" var="h">
                                     <p><span class="bold">${h.key}:</span>
                                         <a href="${h.value}" target="_blank">${h.value}</a>
@@ -145,19 +161,21 @@
                                         </a>
                                     </div>
 
-                                    <div id="mac" class="platform-icon">
-                                        <a style="color: inherit">
-                                            <div class="platform" data-text="MacOS" data-name="mac">
-                                                <div class="row no-margin-bottom">
-                                                    <i class="fa fa-apple big-platform-logo"></i>
-                                                </div>
+                                    <g:if test="${exportedResourceInstance.resource.mac}">
+                                        <div id="mac" class="platform-icon">
+                                            <a style="color: inherit">
+                                                <div class="platform" data-text="MacOS" data-name="mac">
+                                                    <div class="row no-margin-bottom">
+                                                        <i class="fa fa-apple big-platform-logo"></i>
+                                                    </div>
 
-                                                <div class="platform-title row">
-                                                    macOS
+                                                    <div class="platform-title row">
+                                                        macOS
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </a>
-                                    </div>
+                                            </a>
+                                        </div>
+                                    </g:if>
                                 </g:if>
                                 <g:if test="${exportsTo.android}">
                                     <div id="android" class="platform-icon">
@@ -210,7 +228,8 @@
 
                 <g:if test="${exportedResourceInstance.resource.shareable}">
                     <li id="groups">
-                        <div class="collapsible-header active"><g:message code='exportedResource.label.shareWithGroups' default='Compartilhar para grupos'/></div>
+                        <div class="collapsible-header active"><g:message code='exportedResource.label.shareWithGroups'
+                                                                          default='Compartilhar para grupos'/></div>
 
                         <div class="collapsible-body">
                             <ul class="collection with-header">

@@ -11,8 +11,6 @@
     <g:javascript src="libs/jquery/jquery.validate.js"/>
     <recaptcha:script/>
     <g:javascript src="remar/recaptcha.js"/>
-    <g:javascript src="../assets/js/jquery.min.js" />
-    <g:javascript src="../assets/js/jquery.validate.js" />
     <style>
         body {
             background-color: #F2F2F2;
@@ -21,7 +19,7 @@
 
     <script>
         $(function() {
-
+            Materialize.updateTextFields();
             $('form').validate({
                 rules: {
                     email: {
@@ -67,7 +65,7 @@
                     <form method='POST' class='cssform' autocomplete='on'>
                         <div class="row" style="padding-top: 30px;">
                                 <g:if test='${flash.message}'>
-                                    <div id="form-errors" class="error hidden">
+                                    <div id="form-errors" class="error">
                                         <span>${flash.message}</span>
                                     </div>
                                 </g:if>
