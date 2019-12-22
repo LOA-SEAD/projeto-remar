@@ -331,6 +331,7 @@ function sendFormData(blobA, blobB, blobC, blobD, blobE, blobF) {
                 contentType: false,
                 processData: false,
                 data: fd,
+                async: false,
                 success: function (response) {
                     window.location.href = '../index';
                 }
@@ -353,6 +354,7 @@ function sendFormData(blobA, blobB, blobC, blobD, blobE, blobF) {
                 contentType: false,
                 processData: false,
                 data: fd,
+                async: false,
                 success: function (response) {
                     window.location.href = 'index';
                 },
