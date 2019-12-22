@@ -193,6 +193,7 @@ function sendFormData(blobA, blobB, blobC) {
                 contentType: false,
                 processData: false,
                 data: fd,
+                async: false,
                 success: function (response) {
                     window.location.href = response;
                 }
@@ -211,6 +212,7 @@ function sendFormData(blobA, blobB, blobC) {
                 contentType: false,
                 processData: false,
                 data: fd,
+                async: false,
                 success: function (response) {
                     window.location.href = response;
                 }

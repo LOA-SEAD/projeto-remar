@@ -255,9 +255,7 @@ class TileController {
                 port = 8090
             }
 
-            //redirect(controller: "Tile", action: "index")
-
-            render("http://localhost:${port}/memoriainclusiva/tile")
+            render ("http://${request.serverName}:${port}/memoriainclusiva/tile/")
         } else {
             // TODO
         }
