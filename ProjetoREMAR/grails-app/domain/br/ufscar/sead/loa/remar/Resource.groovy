@@ -68,4 +68,8 @@ class Resource {
 
     float sumStars //total de estrelas
     int   sumUser  //total de usuários que comentaram o jogo
+
+    boolean isMac() {
+        return type != 'unity'
+    }
 }

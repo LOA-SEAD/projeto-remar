@@ -40,7 +40,9 @@
                                 <g:if test="${instance.resource.desktop}">
                                     <i class="fa fa-windows tooltipped" data-tooltip="Windows"></i>
                                     <i class="fa fa-linux tooltipped" data-tooltip="Linux"></i>
-                                    <i class="fa fa-apple tooltipped" data-tooltip="Mac"></i>
+                                    <g:if test="${instance.resource.mac}">
+                                        <i class="fa fa-apple tooltipped" data-tooltip="Mac"></i>
+                                    </g:if>
                                 </g:if>
                                 <g:if test="${instance.resource.moodle}">
                                     <i class="fa fa-graduation-cap"></i>
@@ -92,14 +94,16 @@
                                         </a>
                                     </div>
 
-                                    <div class="col s6 m4 l3">
-                                        <a target="_blank"
-                                           href="/published/${instance.processId}/desktop/${instance.resource.uri}-mac.zip"
-                                           class="tooltipped"
-                                           data-position="bottom" data-delay="50" data-tooltip="Mac">
-                                            <i class="fa fa-apple"></i>
-                                        </a>
-                                    </div>
+                                    <g:if test="${instance.resource.mac}">
+                                        <div class="col s6 m4 l3">
+                                            <a target="_blank"
+                                               href="/published/${instance.processId}/desktop/${instance.resource.uri}-mac.zip"
+                                               class="tooltipped"
+                                               data-position="bottom" data-delay="50" data-tooltip="Mac">
+                                                <i class="fa fa-apple"></i>
+                                            </a>
+                                        </div>
+                                    </g:if>
                                 </g:if>
                                 <div class="col s6 m4 l3">
                                     <g:if test="${instance.resource.android}">

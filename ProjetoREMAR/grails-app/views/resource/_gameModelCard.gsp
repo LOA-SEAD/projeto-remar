@@ -7,7 +7,8 @@
     <article class="row">
         <g:if test="${resourceInstanceList.size() > 0}">
             <g:each in="${resourceInstanceList}" var="resourceInstance">
-                <div id="card${resourceInstance.id}" data-instance_id="${resourceInstance.id}" class="col l2 m4 s6 fullCard">
+                <div id="card${resourceInstance.id}" data-instance_id="${resourceInstance.id}"
+                     class="col l2 m4 s6 fullCard">
                     <div class="card hoverable">
 
                         <div class="card-image waves-effect waves-light">
@@ -27,7 +28,8 @@
                             <span>${resourceInstance.category.name}</span>
                             <span class="truncate">
                                 Upload por:
-                                <a href="#userDetailsModal" class="user-profile" id="user-id-${resourceInstance.owner.id}">
+                                <a href="#userDetailsModal" class="user-profile"
+                                   id="user-id-${resourceInstance.owner.id}">
                                     ${resourceInstance.owner.username}
                                 </a>
                             </span>
@@ -41,7 +43,9 @@
                                 <g:if test="${resourceInstance.desktop}">
                                     <i class="fa fa-windows tooltipped" data-tooltip="Windows"></i>
                                     <i class="fa fa-linux tooltipped" data-tooltip="Linux"></i>
-                                    <i class="fa fa-apple tooltipped" data-tooltip="Mac"></i>
+                                    <g:if test="${resourceInstance.mac}">
+                                        <i class="fa fa-apple tooltipped" data-tooltip="Mac"></i>
+                                    </g:if>
                                 </g:if>
                                 <g:if test="${resourceInstance.moodle}">
                                     <i class="fa fa-graduation-cap"></i>
@@ -51,11 +55,12 @@
                             <g:if test="${Rating.findByUserAndResource(session.user, resourceInstance)}">
                                 <div class="row no-margin">
                                     <div class="col s12 no-padding rating-field-wrapper">
-                                            <span>Sua avaliação:</span>
-                                            <div class="rating-field"
-                                                 data-user-id="${session.user.id}"
-                                                 data-resource-id="${resourceInstance.id}"
-                                                 data-user-rating="${Rating.findByUserAndResource(session.user, resourceInstance).stars / 10}"></div>
+                                        <span>Sua avaliação:</span>
+
+                                        <div class="rating-field"
+                                             data-user-id="${session.user.id}"
+                                             data-resource-id="${resourceInstance.id}"
+                                             data-user-rating="${Rating.findByUserAndResource(session.user, resourceInstance).stars / 10}"></div>
                                     </div>
                                 </div>
                             </g:if>
@@ -72,7 +77,6 @@
                                 </div>
                             </g:else>
 
-
                         </div>
                     </div>
                 </div>
@@ -86,8 +90,8 @@
 <g:javascript src="libs/jquery/jquery.ratingField.js"/>
 
 <g:javascript>
-    $(document).ready(function() {
-        $('.rating-field').each(function() {
+    $(document).ready(function () {
+        $('.rating-field').each(function () {
             $(this).ratingField('init');
         });
     });
