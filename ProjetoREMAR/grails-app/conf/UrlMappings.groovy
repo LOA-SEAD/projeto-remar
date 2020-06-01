@@ -65,6 +65,7 @@ class UrlMappings {
         "/resource/review/$id/$status?"                 (controller: "resource", action: "review")
         "/resource/customizableGames"                   (controller: "resource", action: "customizableGames")
         "/resource/show/$id"                            (controller: "resource", action: "show")
+        "/resource/uri/$uri"                            (controller: "resource", action: "showURI")
         "/resource/saveRating/$id"                      (controller: "resource", action: "saveRating")
         "/resource/deleteRating/$id"                    (controller: "resource", action: "deleteRating")
         "/resource/updateRating/$id"                    (controller: "resource", action: "updateRating")

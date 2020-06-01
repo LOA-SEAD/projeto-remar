@@ -438,7 +438,10 @@ class ResourceController {
 
     def showURI() {
         def instance = Resource.findByUri(params.uri)
-        render view: "show", model: [resourceInstance: instance, today: new Date()]
+        redirect (action: "show", id: instance.id)
+
+
+        // render view: "show", model: [resourceInstance: instance, today: new Date()]
     }
 
     def customizableGames() {
