@@ -75,8 +75,8 @@
         <g:each in="${questionInstanceList}" status="i" var="questionInstance">
 
         <tr id="tr${questionInstance.id}" class="selectable_tr ${(i % 2) == 0 ? 'even' : 'odd'} " style="cursor: pointer;"
-            data-id="${fieldValue(bean: questionInstance, field: "id")}"
-            data-owner-id="${fieldValue(bean: questionInstance, field: "ownerId")}"
+            data-id="${questionInstance.id}"
+            data-owner-id="${questionInstance.ownerId}"
             data-checked="false">
 
             <td class="_not_editable"><input class="filled-in" type="checkbox"> <label></label>
