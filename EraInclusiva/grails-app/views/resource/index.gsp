@@ -73,8 +73,8 @@
     <g:each in="${resourceInstanceList}" status="i" var="resourceInstance">
         <tr id="tr${resourceInstance.id}" class="selectable_tr ${(i % 2) == 0 ? 'even' : 'odd'} "
             style="cursor: pointer;"
-            data-id="${fieldValue(bean: resourceInstance, field: "id")}"
-            data-owner-id="${fieldValue(bean: resourceInstance, field: "ownerId")}"
+            data-id="${resourceInstance.id}"
+            data-owner-id="${resourceInstance.ownerId}"
             data-checked="false">
             <g:if test="${resourceInstance.author == userName}">
 
