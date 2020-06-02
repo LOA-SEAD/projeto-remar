@@ -30,20 +30,20 @@
                     </div>
 
                     <ul id="available-molecules" class="row molecule-list-box sortable" data-button="deleteMoleculeButton">
-                        <g:each in="${MoleculeInstanceList}" status="i" var="MoleculeInstance">
-                            <li class="row" data-molecule-id="${fieldValue(bean: MoleculeInstance, field: "id")}" data-owner-id="${fieldValue(bean: MoleculeInstance, field: "ownerId")}">
+                        <g:each in="${MoleculeInstanceList}" status="i" var="moleculeInstance">
+                            <li class="row" data-molecule-id="${moleculeInstance.id}" data-owner-id="${moleculeInstance.ownerId}">
                                 <div class="col s2">
                                     <i class="material-icons">drag_handle</i>
                                 </div>
                                 <div class="col s5">
-                                    <span>${fieldValue(bean: MoleculeInstance, field: "name")}</span>
+                                    <span>${fieldValue(bean: moleculeInstance, field: "name")}</span>
                                 </div>
                                 <div class="col s3">
-                                    <span class="molecule-structure">${fieldValue(bean: MoleculeInstance, field: "structure")}</span>
+                                    <span class="molecule-structure">${fieldValue(bean: moleculeInstance, field: "structure")}</span>
                                 </div>
                                 <div class="col s2">
                                     <i class="fa fa-info tooltipped"
-                                       data-position="bottom" data-delay="50" data-tooltip="${fieldValue(bean: MoleculeInstance, field: "tip")}"></i>
+                                       data-position="bottom" data-delay="50" data-tooltip="${fieldValue(bean: moleculeInstance, field: "tip")}"></i>
                                 </div>
                             </li>
                         </g:each>
