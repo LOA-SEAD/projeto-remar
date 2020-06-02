@@ -49,7 +49,7 @@
                     <tbody>
                     <g:each in="${questionInstanceList}" status="i" var="questionInstance">
                         <tr id="tr${questionInstance.id}" class="selectable_tr" style="cursor: pointer;"
-                            data-id="${fieldValue(bean: questionInstance, field: "id")}" data-owner-id="${fieldValue(bean: questionInstance, field: "ownerId")}" data-level="${fieldValue(bean: questionInstance, field: "level")}"
+                            data-id="${questionInstance.id}" data-owner-id="${questionInstance.ownerId}" data-level="${fieldValue(bean: questionInstance, field: "level")}"
                             data-checked="false">
 
                             <td class="_not_editable">
@@ -88,7 +88,7 @@
                 <a data-target="createModal" name="create" class="btn-floating btn-large waves-effect waves-light modal-trigger my-orange tooltipped" data-tooltip="Criar questão"><i class="material-icons">add</i></a>
             </div>
             <div class="col s1 offset-s1 m1 l1">
-                <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exluir questão" ><i class="material-icons">delete</i></a>
+                <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Excluir questão" ><i class="material-icons">delete</i></a>
             </div>
             <div class="col s1 offset-s1 m1 l1">
                 <a data-target="uploadModal" class="btn-floating btn-large waves-effect waves-light my-orange modal-trigger tooltipped" data-tooltip="Upload arquivo .csv"><i

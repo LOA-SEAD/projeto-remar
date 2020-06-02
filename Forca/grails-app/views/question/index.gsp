@@ -124,7 +124,7 @@
     </div>
 
     <div class="col s1 m1 l1">
-              <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Exluir questão" ><i class="material-icons">delete</i></a>
+              <a onclick="_delete()" class=" btn-floating btn-large waves-effect waves-light my-orange tooltipped" data-tooltip="Excluir questão" ><i class="material-icons">delete</i></a>
     </div>
 
     <div class="col s1">
