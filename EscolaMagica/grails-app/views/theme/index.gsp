@@ -48,18 +48,18 @@
                             </thead>
                             <tbody>
                             <g:each in="${themeInstanceListMy}" status="i" var="themeInstance">
-                                <tr data-id="${fieldValue(bean: themeInstance, field: "id")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
+                                <tr data-id="${themeInstance.id}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
                                     <td class="myTheme simpleTable" align="center "><input class="with-gap " name="radio" type="radio" id="myTheme${i}"
-                                                                               value="${fieldValue(bean: themeInstance, field: "id")}" > <label for="myTheme${i}"></label>
+                                                                               value="${themeInstance.id}" > <label for="myTheme${i}"></label>
                                     </td>
                                     <td align="center"><img width="142"
-                                            src="/escolamagica/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portaa-sheet1.png"
+                                            src="/escolamagica/data/${themeInstance.ownerId}/themes/${themeInstance.id}/portaa-sheet1.png"
                                             class="img-responsive max door"/></td>
                                     <td align="center"><img width="142"
-                                            src="/escolamagica/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portab-sheet1.png"
+                                            src="/escolamagica/data/${themeInstance.ownerId}/themes/${themeInstance.id}/portab-sheet1.png"
                                             class="img-responsive max door"/></td>
                                     <td align="center"><img width="142"
-                                            src="/escolamagica/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portac-sheet1.png"
+                                            src="/escolamagica/data/${themeInstance.ownerId}/themes/${themeInstance.id}/portac-sheet1.png"
                                             class="img-responsive max door"/></td>
                                 </tr>
                             </g:each>
@@ -82,18 +82,18 @@
                         </thead>
                         <tbody>
                         <g:each in="${themeInstanceListPublic}" status="i" var="themeInstance">
-                            <tr data-id="${fieldValue(bean: themeInstance, field: "id")}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
+                            <tr data-id="${themeInstance.id}" class="${(i % 2) == 0 ? 'even' : 'odd'}">
                                 <td class="simpleTable" align="center "><input class="with-gap " name="radio" type="radio" id="pTheme${i}"
-                                                                                       value="${fieldValue(bean: themeInstance, field: "id")}" > <label for="pTheme${i}"></label>
+                                                                                       value="${themeInstance.id}" > <label for="pTheme${i}"></label>
                                 </td>
                                 <td align="center"><img width="142"
-                                        src="/escolamagica/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portaa-sheet1.png"
+                                        src="/escolamagica/data/${themeInstance.ownerId}/themes/${themeInstance.id}/portaa-sheet1.png"
                                         class="img-responsive max door"/></td>
                                 <td align="center"><img width="142"
-                                        src="/escolamagica/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portab-sheet1.png"
+                                        src="/escolamagica/data/${themeInstance.ownerId}/themes/${themeInstance.id}/portab-sheet1.png"
                                         class="img-responsive max door"/></td>
                                 <td align="center"><img width="142"
-                                        src="/escolamagica/data/${fieldValue(bean: themeInstance, field: "ownerId")}/themes/${fieldValue(bean: themeInstance, field: "id")}/portac-sheet1.png"
+                                        src="/escolamagica/data/${themeInstance.ownerId}/themes/${themeInstance.id}/portac-sheet1.png"
                                         class="img-responsive max door"/></td>
                             </tr>
                         </g:each>
