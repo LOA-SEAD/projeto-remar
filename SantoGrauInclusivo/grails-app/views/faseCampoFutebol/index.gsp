@@ -70,8 +70,8 @@
                     <tbody>
                     <g:each in="${questionFaseCampoFutebolInstanceList}" status="i" var="faseCampoFutebolInstance">
                         <tr id="tr${faseCampoFutebolInstance.id}" class="selectable_tr" style="cursor: pointer;"
-                            data-id="${fieldValue(bean: faseCampoFutebolInstance, field: "id")}"
-                            data-owner-id="${fieldValue(bean: faseCampoFutebolInstance, field: "ownerId")}"
+                            data-id="${faseCampoFutebolInstance.id}"
+                            data-owner-id="${faseCampoFutebolInstance.ownerId}"
                             data-checked="false">
                             <td class="_not_editable">
                                 <input style="background-color: #727272" id="checkbox-${faseCampoFutebolInstance.id}"

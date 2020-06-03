@@ -35,8 +35,8 @@ class FaseCampoFutebolController {
 
         def list = QuestionFaseCampoFutebol.findAllByOwnerId(session.user.id)
         if(list.size()==0){
-            new QuestionFaseCampoFutebol(title: "Desafio 1", answer: "Resposta 1", ownerId: session.user.id, taskId: session.taskId).save flush: true
-            new QuestionFaseCampoFutebol(title: "Desafio 2", answer: "Resposta 2", ownerId: session.user.id, taskId: session.taskId).save flush: true
+            new QuestionFaseCampoFutebol(title: "Desafio 1", answer: "1", ownerId: session.user.id, taskId: session.taskId).save flush: true
+            new QuestionFaseCampoFutebol(title: "Desafio 2", answer: "2", ownerId: session.user.id, taskId: session.taskId).save flush: true
         }
 
         list = QuestionFaseCampoFutebol.findAllByOwnerId(session.user.id)
