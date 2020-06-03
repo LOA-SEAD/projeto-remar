@@ -44,7 +44,7 @@
                                     <div class="file-field input-field">
                                         <div class="btn right">
                                             <span>File</span>
-                                            <input data-image="true" type="file" name="a-1" id="a-1">
+                                            <input data-image="true" type="file" name="a-1" id="a-1" accept="image/png">
                                             </div>
                                         <div class="file-path-wrapper">
                                             <input class="file-path validate" type="text" placeholder="Fechada">
@@ -53,7 +53,7 @@
                                     <div class="file-field input-field">
                                         <div class="btn right">
                                             <span>File</span>
-                                        <input data-image="true" type="file" name="a-0" id="a-0">
+                                        <input data-image="true" type="file" name="a-0" id="a-0" accept="image/png">
                                         </div>
                                         <div class="file-path-wrapper">
                                             <input class="file-path validate" type="text" placeholder="Aberta">
@@ -72,7 +72,7 @@
                                     <div class="file-field input-field">
                                         <div class="btn right">
                                             <span>File</span>
-                                        <input data-image="true" type="file" name="b-1" id="b-1">
+                                        <input data-image="true" type="file" name="b-1" id="b-1" accept="image/png">
                                         </div>
                                         <div class="file-path-wrapper">
                                             <input class="file-path validate" type="text" placeholder="Fechada">
@@ -81,7 +81,7 @@
                                     <div class="file-field input-field">
                                         <div class="btn right">
                                             <span>File</span>
-                                        <input data-image="true" type="file" name="b-0" id="b-0">
+                                        <input data-image="true" type="file" name="b-0" id="b-0" accept="image/png">
                                             </div>
                                         <div class="file-path-wrapper">
                                             <input class="file-path validate" type="text" placeholder="Aberta">
@@ -100,7 +100,7 @@
                                     <div class="file-field input-field">
                                         <div class="btn right">
                                             <span>File</span>
-                                        <input data-image="true" type="file" name="c-1" id="c-1">
+                                        <input data-image="true" type="file" name="c-1" id="c-1" accept="image/png">
                                             </div>
                                         <div class="file-path-wrapper">
                                             <input class="file-path validate" type="text" placeholder="Fechada">
@@ -109,7 +109,7 @@
                                     <div class="file-field input-field">
                                         <div class="btn right">
                                             <span>File</span>
-                                        <input data-image="true" type="file" name="c-0" id="c-0">
+                                        <input data-image="true" type="file" name="c-0" id="c-0" accept="image/png">
                                             </div>
                                         <div class="file-path-wrapper">
                                             <input class="file-path validate" type="text" placeholder="Aberta">
