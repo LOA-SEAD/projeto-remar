@@ -62,7 +62,7 @@
 							<tbody>
 							<g:each in="${questionFaseBlocoGeloInstanceList}" status="i" var="faseBlocoGeloInstance">
 								<tr id="tr${faseBlocoGeloInstance.id}" class="selectable_tr" style="cursor: pointer;"
-									data-id="${fieldValue(bean: faseBlocoGeloInstance, field: "id")}" data-owner-id="${fieldValue(bean: faseBlocoGeloInstance, field: "ownerId")}"
+									data-id="${faseBlocoGeloInstance.id}" data-owner-id="${faseBlocoGeloInstance.ownerId}"
 									data-checked="false">
 									<td class="_not_editable">
 										<input style="background-color: #727272" id="checkbox-${faseBlocoGeloInstance.id}" class="filled-in" type="checkbox">
