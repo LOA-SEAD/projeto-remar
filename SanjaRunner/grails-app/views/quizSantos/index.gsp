@@ -52,7 +52,8 @@
 							<tbody>
 							<g:each in="${quizSantosInstanceList}" status="i" var="quizSantosInstance">
 								<tr id="tr${quizSantosInstance.id}" class="selectable_tr" style="cursor: pointer;"
-									data-id="${fieldValue(bean: quizSantosInstance, field: "id")}" data-owner-id="${fieldValue(bean: quizSantosInstance, field: "ownerId")}">
+									data-id="${quizSantosInstance.id}"
+									data-owner-id="${quizSantosInstance.ownerId}">
 									<td>${fieldValue(bean: quizSantosInstance, field: "question")}</td>
 									<td>${fieldValue(bean: quizSantosInstance, field: "answers")}</td>
 									<td>${quizSantosInstance.answers[quizSantosInstance.correctAnswer]}</td>

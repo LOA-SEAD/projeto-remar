@@ -50,7 +50,8 @@
 							<tbody>
 							<g:each in="${pergaminhoSantosInstanceList}" status="i" var="pergaminhoSantosInstance">
 								<tr id="tr${pergaminhoSantosInstance.id}" class="selectable_tr" style="cursor: pointer;"
-									data-id="${fieldValue(bean: pergaminhoSantosInstance, field: "id")}" data-owner-id="${fieldValue(bean: pergaminhoSantosInstance, field: "ownerId")}">
+									data-id="${pergaminhoSantosInstance.id}"
+									data-owner-id="${pergaminhoSantosInstance.ownerId}">
 									<td>${fieldValue(bean: pergaminhoSantosInstance, field: "information")}</td>
 									<td> <i style="color: #7d8fff !important; margin-right:10px;" class="fa fa-pencil " onclick="_modal_edit($(this.closest('tr')))" ></i>
 									</td>
