@@ -19,7 +19,7 @@
                 <div class="tile-image col no-padding s6">
                     <label><g:message code="tile.label"/> A</label>
                     <g:if test="${edit}">
-                        <img id="a-preview" class="materialboxed edit"  src="${resource(dir:"/data/${tileInstance.ownerId}/${tileInstance.taskId}/tiles", file:"tile${tileInstance.id}-a.png")}" alt="${tileInstance.content} - A">
+                        <img id="a-preview" class="materialboxed edit"  src="${resource(dir:"/data/${tileInstance.ownerId}/${tileInstance.taskId}/tiles", file:"tile${tileInstance.id}-a.png")}" alt="${tileInstance.content} - A" width="180">
                     </g:if>
                     <g:else>
                         <img id="a-preview" class="materialboxed hidden">
@@ -28,7 +28,7 @@
                 <div class="tile-image col no-padding s6">
                     <label><g:message code="tile.label"/> B</label>
                     <g:if test="${edit}">
-                        <img id="b-preview" class="materialboxed edit" src="${resource(dir:"/data/${tileInstance.ownerId}/${tileInstance.taskId}/tiles", file:"tile${tileInstance.id}-b.png")}"  alt="${tileInstance.content} - B">
+                        <img id="b-preview" class="materialboxed edit" src="${resource(dir:"/data/${tileInstance.ownerId}/${tileInstance.taskId}/tiles", file:"tile${tileInstance.id}-b.png")}"  alt="${tileInstance.content} - B" width="180">
                     </g:if>
                     <g:else>
                         <img id="b-preview" class="materialboxed hidden">
