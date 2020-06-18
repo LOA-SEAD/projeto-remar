@@ -45,7 +45,7 @@
                                         <div class="file-field input-field">
                                             <div class="btn right">
                                                 <span>File</span>
-                                                <input type="file" name="icone" id="icone" multiple>
+                                                <input type="file" name="icone" id="icone" accept="image/png" multiple>
                                             </div>
                                             <div class="file-path-wrapper">
                                                 <input class="file-path validate" type="text" placeholder="Selecione um ícone">
@@ -65,7 +65,7 @@
                                         <div class="file-field input-field">
                                             <div class="btn right">
                                                 <span>File</span>
-                                                <input type="file" name="opening" id="opening" multiple>
+                                                <input type="file" name="opening" id="opening" accept="image/png" multiple>
                                             </div>
                                             <div class="file-path-wrapper">
                                                 <input class="file-path validate" type="text" placeholder="Selecione um ícone">
@@ -85,7 +85,7 @@
                                         <div class="file-field input-field">
                                             <div class="btn right">
                                                 <span>File</span>
-                                                <input type="file" name="background" id="background" multiple>
+                                                <input type="file" name="background" id="background" accept="image/png" multiple>
                                             </div>
                                             <div class="file-path-wrapper">
                                                 <input class="file-path validate" type="text" placeholder="Selecione um ícone">
