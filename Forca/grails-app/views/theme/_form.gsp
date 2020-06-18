@@ -139,7 +139,7 @@
 
     </g:uploadForm>
 
-    <input id="upload" type="submit" name="upload" class="btn btn-success my-orange" value="Criar"/>
+    <input id="upload" type="submit" name="upload" class="btn btn-success my-orange" disabled="true" value="Criar"/>
 
     <g:javascript src="imagePreview.js"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
