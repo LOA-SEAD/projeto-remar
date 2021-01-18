@@ -14,6 +14,8 @@
                     </ul>
                 </div>
 
+            <sec:ifLoggedIn>
+
                 <div class="col s6 no-padding">
                     <ul class="user-thumbnail">
                         <li>
@@ -63,6 +65,7 @@
                         </li>
                     </ul>
                 </div>
+            </sec:ifLoggedIn>
             </div>
 
             <!-- Small and Medium Displays Navbar -->

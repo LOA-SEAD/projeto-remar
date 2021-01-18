@@ -126,44 +126,45 @@
                                 </div>
                             </div>
 
-                            <div class="divider"></div>
-                            <br/>
+                            <g:if test="${session.user}">
+                                <div class="divider"></div>
+                                <br/>
 
-                            <div class="row">
-                                <div class="col s6 m4 l3">
-                                    <a href="/exported-resource/info/${instance.id}" class="tooltipped"
-                                       data-position="bottom" data-delay="50" data-tooltip="Mais informações">
-                                        <i class="fa fa-info-circle"></i>
-                                    </a>
-                                </div>
-                                <g:if test="${instance.resource.shareable}">
+                                <div class="row">
                                     <div class="col s6 m4 l3">
-                                        <a href="#modal-group" class="tooltipped compartilhaModal"
-                                           data-position="bottom" data-delay="50"
-                                           data-tooltip="Compartilhar para grupos">
+                                        <a href="/exported-resource/info/${instance.id}" class="tooltipped"
+                                           data-position="bottom" data-delay="50" data-tooltip="Mais informações">
+                                            <i class="fa fa-info-circle"></i>
+                                        </a>
+                                    </div>
+                                    <g:if test="${instance.resource.shareable}">
+                                        <div class="col s6 m4 l3">
+                                            <a href="#modal-group" class="tooltipped compartilhaModal"
+                                               data-position="bottom" data-delay="50"
+                                               data-tooltip="Compartilhar para grupos">
+                                                <i class="fa fa-users"></i>
+                                            </a>
+                                        </div>
+                                    </g:if>
+                                <%-- g:else>
+                                    <div class="col s6 m4 l3">
+                                        <div class="tooltipped"
+                                             data-position="bottom" data-delay="50" data-tooltip="Sem compartilharmento para grupos">
                                             <i class="fa fa-users"></i>
-                                        </a>
+                                        </div>
                                     </div>
-                                </g:if>
-                            <%-- g:else>
-                                <div class="col s6 m4 l3">
-                                    <div class="tooltipped"
-                                         data-position="bottom" data-delay="50" data-tooltip="Sem compartilharmento para grupos">
-                                        <i class="fa fa-users"></i>
-                                    </div>
+                                </g:else --%>
+                                    <g:if test="${!(mode == 'public')}">
+                                        <div class="col s6 m4 l3 ">
+                                            <a href="#modal-delete-exported-resource"
+                                               class="tooltipped modal-trigger deleteExportedResource"
+                                               data-position="bottom" data-delay="50" data-tooltip="Excluir">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </g:if>
                                 </div>
-                            </g:else --%>
-                                <g:if test="${!(mode == 'public')}">
-                                    <div class="col s6 m4 l3 ">
-                                        <a href="#modal-delete-exported-resource"
-                                           class="tooltipped modal-trigger deleteExportedResource"
-                                           data-position="bottom" data-delay="50" data-tooltip="Excluir">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </div>
-                                </g:if>
-                            </div>
-
+                            </g:if>
                             <div class="divider"></div>
                             <br/>
 

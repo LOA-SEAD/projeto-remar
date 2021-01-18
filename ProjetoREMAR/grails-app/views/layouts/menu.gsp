@@ -5,7 +5,9 @@
   Time: 10:32
 --%>
 <ul id="side-nav" class="side-nav">
+    <sec:ifLoggedIn>
     <div class="hide-on-large-only">
+
         <div class="row no-margin-bottom valign-wrapper">
             <div class="col s4">
                 <img src="/data/users/${session.user.username}/profile-picture"
@@ -26,10 +28,14 @@
 
         <div class="divider"></div>
     </div>
+    </sec:ifLoggedIn>
 
     <li>
         <a class="waves-effect waves-block waves-light" href="/" class=""><i class="medium mdi-action-dashboard"></i>${message (code: 'default.home.label')}</a>
     </li>
+
+    <sec:ifLoggedIn>
+
     <li data-intro="${message(code:'tutorial.step.one')}" data-step="1">
         <a class="waves-effect waves-block waves-light" href="/exportedResource/publicGames" class=""><i class="medium material-icons">videogame_asset</i>${message (code: 'menu.button.game.database.label')}</a>
     </li>
@@ -40,6 +46,10 @@
 
     <div class="divider"></div>
 
+    </sec:ifLoggedIn>
+
+
+    <sec:ifLoggedIn>
     <li class="no-padding">
         <ul class="collapsible collapsible-accordion">
             <li class="no-margin" data-intro="${message(code:'tutorial.step.three')}"
@@ -72,6 +82,7 @@
             </li>
         </ul>
     </li>
+    </sec:ifLoggedIn>
     <g:if test="${grailsApplication.config.dspace.restUrl}">
         <li data-intro="${message(code:'tutorial.step.five')}"
             data-step="5">
@@ -115,6 +126,7 @@
         %{-- modal is in base.gsp --}%
     </li>
 
+    <sec:ifLoggedIn>
     <li data-intro="${message(code:'tutorial.step.ten')}"
         data-step="10">
         <a onclick="startWizard()" class="waves-effect waves-block waves-light">
@@ -122,11 +134,12 @@
             ${message (code: 'menu.button.help.label')}
         </a>
     </li>
-
+    </sec:ifLoggedIn>
 </ul>
 
+<sec:ifLoggedIn>
 <input id="userFirstAccessLabel" type="hidden" value="${session.user.firstAccess}" > <label for="userFirstAccessLabel"></label>
-
+</sec:ifLoggedIn>
 
 
 <g:javascript src="remar/layouts/menu.js"/>

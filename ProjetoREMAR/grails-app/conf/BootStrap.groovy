@@ -167,7 +167,7 @@ class BootStrap {
 
         for (url in [
                 '/', '/index', '/index/introduction', '/index/architecture', '/index/team', '/index/publications',
-                '/index/contact', '/doc/**', '/assets/**',
+                '/index/contact', '/index/publicGames', '/doc/**', '/assets/**',
                 '/exportedResource/publicGames', '/exported-resource/searchGameByCategoryAndName', '/**/js/**', '/**/css/**',
                 '/**/images/**', '/**/favicon.ico', '/data/**', '/**/scss/**', '/**/less/**', '/**/fonts/**',
                 '/**/font/**', '/password/**', '/moodle/**', '/exportedGame/**', '/static/**', '/login/**',

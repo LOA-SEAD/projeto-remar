@@ -13,6 +13,7 @@
                             </li>
                         </ul>
                         <ul class="right">
+                            <li class="left"><a href="/index/publicGames">Jogos Públicos</a></li>
                             <li class="left"><a href="/index/introduction">Apresentação</a></li>
                             <li class="left"><a href="/index/architecture">Arquitetura</a></li>
                             <li class="left"><a href="/index/team">Equipe</a></li>
@@ -44,12 +45,21 @@
     <div class="container remar-max-size center min-height-size margin-top">
 
         <ul id="slide-out" class="side-nav" style="text-align: left;">
+
             <li>
                 <a href="/index" class="waves-effect">
                     <i class="material-icons">info</i>
                     GT-REMAR
                 </a>
             </li>
+
+            <li>
+                <a href="/index/publicGames" class="waves-effect">
+                    <i class="material-icons">publicGames</i>
+                    Jogos Públicos
+                </a>
+            </li>
+
             <li>
                 <a href="/index/apresentacao" class="waves-effect">
                     <i class="material-icons">description</i>
@@ -82,7 +92,6 @@
                     Contato
                 </a>
             </li>
-
 
             <li>
                 <a href="/login" class="waves-effect">

@@ -2,6 +2,11 @@ package br.ufscar.sead.loa.remar
 
 import grails.util.Environment
 
+import static br.ufscar.sead.loa.remar.Util.THRESHOLD
+import static br.ufscar.sead.loa.remar.Util.THRESHOLD
+import static br.ufscar.sead.loa.remar.Util.THRESHOLD
+import static br.ufscar.sead.loa.remar.Util.THRESHOLD
+
 class IndexController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -28,6 +33,33 @@ class IndexController {
     def publications() {}
 
     def contact() {}
+
+    /* def publicGames() {
+        forward (controller:'exportedResource', action:'publicGames')
+    } */
+
+    @SuppressWarnings("GroovyAssignabilityCheck")
+    def publicGames() {
+        params.order = "desc"
+        params.sort = "id"
+        params.max = params.max ? Integer.valueOf(params.max) : THRESHOLD
+        params.offset = params.offset ? Integer.valueOf(params.offset) : 0
+        params.type = "public"
+        def pageCount = Math.ceil(ExportedResource.count / params.max) as int
+        def publicGamesList = ExportedResource.list(params)
+        def currentPage = (params.offset + THRESHOLD) / THRESHOLD
+
+        //Colocando todos os atributos necessários para fazer a paginação/aparecer os cards em "model"
+        def model = [:]
+        model.publicExportedResourcesList = publicGamesList
+        model.totalCount = publicGamesList.totalCount
+        model.categories = Category.list(sort:"name")
+        model.pageCount = pageCount
+        model.currentPage = currentPage
+        model.threshold = THRESHOLD
+
+        render view: "/exportedResource/publicGames", model: model
+    }
 
     def renderHTML(String fileName) {
         def dir = servletContext.getRealPath("/static")

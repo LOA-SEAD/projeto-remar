@@ -32,7 +32,7 @@
             </div>
 
             <div id="showCards" class="row">
-                <g:render template="customizedGameCard" model="[publicExportedResourcesList: publicExportedResourcesList, mode: 'public', page:'publicGames']" />
+                <g:render template="/exportedResource/customizedGameCard" model="[publicExportedResourcesList: publicExportedResourcesList, mode: 'public', page:'/exportedResource/publicGames']" />
             </div>
         </div>
 

@@ -493,7 +493,7 @@ class ExportedResourceController {
     }
 
     @SuppressWarnings("GroovyAssignabilityCheck")
-    publicGames() {
+    def publicGames() {
         params.order = "desc"
         params.sort = "id"
         params.max = params.max ? Integer.valueOf(params.max) : THRESHOLD
