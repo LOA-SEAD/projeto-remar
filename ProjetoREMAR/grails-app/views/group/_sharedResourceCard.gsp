@@ -42,7 +42,9 @@
                                 </g:if>
                                 <g:if test="${groupExportedResource.exportedResource.resource.desktop}">
                                     <i class="fa fa-windows tooltipped" data-tooltip="Windows"></i>
-                                    <i class="fa fa-linux tooltipped" data-tooltip="Linux"></i>
+                                    <g:if test="${groupExportedResource.exportedResource.resource.linux}">
+                                        <i class="fa fa-linux tooltipped" data-tooltip="Linux"></i>
+                                    </g:if>
                                     <g:if test="${groupExportedResource.exportedResource.resource.mac}">
                                         <i class="fa fa-apple tooltipped" data-tooltip="Mac"></i>
                                     </g:if>
@@ -77,12 +79,14 @@
                                             class="fa fa-globe"></i></a>
                                 </div>
                                 <g:if test="${groupExportedResource.exportedResource.resource.desktop}">
-                                    <div class="col s6 m4 l3">
-                                        <a target="_blank"
-                                           href="/published/${groupExportedResource.exportedResource.processId}/desktop/${groupExportedResource.exportedResource.resource.uri}-linux.zip"
-                                           class="tooltipped" data-position="right" data-delay="50"
-                                           data-tooltip="Linux"><i class="fa fa-linux"></i></a>
-                                    </div>
+                                    <g:if test="${groupExportedResource.exportedResource.resource.linux}">
+                                        <div class="col s6 m4 l3">
+                                            <a target="_blank"
+                                               href="/published/${groupExportedResource.exportedResource.processId}/desktop/${groupExportedResource.exportedResource.resource.uri}-linux.zip"
+                                               class="tooltipped" data-position="right" data-delay="50"
+                                               data-tooltip="Linux"><i class="fa fa-linux"></i></a>
+                                        </div>
+                                    </g:if>
 
                                     <div class="col s6 m4 l3">
                                         <a target="_blank"

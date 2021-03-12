@@ -32,32 +32,32 @@
                                  src="/published/${exportedResourceInstance.processId}/banner.png"/>
 
                             <p><span class="bold"><g:message code='exportedResource.label.gameName'
-                                                             default='Nome do jogo'/>:</span>${exportedResourceInstance.name}
+                                                             default='Nome do jogo'/>: </span>${exportedResourceInstance.name}
                             </p>
 
                             <p><span class="bold"><g:message code='exportedResource.label.category'
-                                                             default='Category'/>:</span>${exportedResourceInstance.resource.category.name}
+                                                             default='Category'/>: </span>${exportedResourceInstance.resource.category.name}
                             </p>
 
                             <p><span class="bold"><g:message code='exportedResource.label.author'
-                                                             default='Autor'/>:</span>${exportedResourceInstance.owner.username}
+                                                             default='Autor'/>: </span>${exportedResourceInstance.owner.username}
                             </p>
 
                             <p><span class="bold"><g:message code='exportedResource.label.customizedIn'
-                                                             default='Customizado em'/>:</span>
+                                                             default='Customizado em'/>: </span>
                                 <g:formatDate format="dd/MM/yyyy HH:mm"
                                               date="${createdAt}"/></p>
 
                             <p><span class="bold"><g:message code='exportedResource.label.basedInModel'
-                                                             default='Baseado no modelo'/>:</span>${exportedResourceInstance.resource.name}
+                                                             default='Baseado no modelo'/>: </span>${exportedResourceInstance.resource.name}
                             </p>
 
                             <p><span class="bold"><g:message code='exportedResource.label.contentFild'
-                                                             default='Área de conteúdo'/>:</span>${exportedResourceInstance.contentArea}
+                                                             default='Área de conteúdo'/>: </span>${exportedResourceInstance.contentArea}
                             </p>
 
                             <p><span class="bold"><g:message code='exportedResource.label.specificContent'
-                                                             default='Conteúdo específico'/>:</span>${exportedResourceInstance.specificContent}
+                                                             default='Conteúdo específico'/>: </span>${exportedResourceInstance.specificContent}
                             </p>
 
                             <input type="hidden" id="licenseValue" value="${exportedResourceInstance.license}">
@@ -107,7 +107,7 @@
                                                 <i class="fa fa-globe big-platform-logo" data-tooltip="Web"></i>
                                             </div>
 
-                                            <div class="row">
+                                            <div class="row center">
                                                 Web
                                             </div>
                                         </div>
@@ -122,23 +122,25 @@
                                                 <i class="fa fa-windows big-platform-logo" data-tooltip="Windows"></i>
                                             </div>
 
-                                            <div class="row">
+                                            <div class="row center">
                                                 Windows
                                             </div>
                                         </div>
                                     </a>
-                                    <a href="/published/${exportedResourceInstance.processId}/desktop/${exportedResourceInstance.resource.uri}-linux.zip"
-                                       style="color: inherit">
-                                        <div class="platform-icon" data-text="Linux (64 bits)" data-name="linux">
-                                            <div class="row no-margin-bottom">
-                                                <i class="fa fa-linux big-platform-logo" data-tooltip="Linux"></i>
-                                            </div>
+                                    <g:if test="${exportedResourceInstance.resource.linux}">
+                                        <a href="/published/${exportedResourceInstance.processId}/desktop/${exportedResourceInstance.resource.uri}-linux.zip"
+                                           style="color: inherit">
+                                            <div class="platform-icon" data-text="Linux (64 bits)" data-name="linux">
+                                                <div class="row no-margin-bottom">
+                                                    <i class="fa fa-linux big-platform-logo" data-tooltip="Linux"></i>
+                                                </div>
 
-                                            <div class="row">
-                                                Linux (64 bits)
+                                                <div class="row center">
+                                                    Linux (64 bits)
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
+                                        </a>
+                                    </g:if>
                                     <g:if test="${exportedResourceInstance.resource.mac}">
                                         <a href="/published/${exportedResourceInstance.processId}/desktop/${exportedResourceInstance.resource.uri}-mac.zip"
                                            style="color: inherit">
@@ -147,7 +149,7 @@
                                                     <i class="fa fa-apple big-platform-logo" data-tooltip="Mac"></i>
                                                 </div>
 
-                                                <div class="row">
+                                                <div class="row center">
                                                     macOS
                                                 </div>
                                             </div>
@@ -164,7 +166,7 @@
                                                 <i class="fa fa-android big-platform-logo" data-tooltip="Android"></i>
                                             </div>
 
-                                            <div class="row">
+                                            <div class="row center">
                                                 Android
                                             </div>
                                         </div>

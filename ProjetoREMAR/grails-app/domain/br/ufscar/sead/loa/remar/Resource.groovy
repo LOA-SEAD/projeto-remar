@@ -70,6 +70,11 @@ class Resource {
     int   sumUser  //total de usuários que comentaram o jogo
 
     boolean isMac() {
-        return type != 'unity'
+        // return type != 'unity'
+        return false // depois resolver (electron não está gerando mac)
+    }
+
+    boolean isLinux() {
+        return false // depois resolver (electron não está gerando linux)
     }
 }
