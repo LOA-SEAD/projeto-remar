@@ -448,8 +448,8 @@ class ResourceController {
         def model = [:]
         def threshold = 16
 
-        params.order = "desc"
-        params.sort = "submittedAt"
+        params.order = "asc"
+        params.sort = "name"
         params.max = params.max ? Integer.valueOf(params.max) : THRESHOLD
         params.offset = params.offset ? Integer.valueOf(params.offset) : 0
         params.text = params.text ? params.text : ''
