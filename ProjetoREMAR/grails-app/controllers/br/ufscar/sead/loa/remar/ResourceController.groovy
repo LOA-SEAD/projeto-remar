@@ -335,14 +335,15 @@ class ResourceController {
                 resourceInstance.comment = "Aprovado"
                 resourceInstance.save flush: true
 
-                if (resourceInstance.owner.username != 'admin') {
+                if (resourceInstance.owner.username != 'admin' && 
+                    resourceInstance.owner.username != 'loa') {
 
                     // noinspection GroovyAssignabilityCheck
                     Util.sendEmail(resourceInstance.owner.email,
                             "REMAR – O seu WAR \"${resourceInstance.name}\" foi aprovado!",
                             "<h3>O seu WAR \"${resourceInstance.name}\" foi aprovado! :)</h3> <br>"
                     )
-                }
+                } 
 
                 redirect controller: "process", action: "deploy", id: resourceInstance.uri
             } else {
