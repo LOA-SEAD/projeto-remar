@@ -147,19 +147,21 @@
                                         </a>
                                     </div>
 
-                                    <div id="linux" class="platform-icon">
-                                        <a style="color: inherit">
-                                            <div class="platform" data-text="Linux (64 bits)" data-name="linux">
-                                                <div class="row no-margin-bottom">
-                                                    <i class="fa fa-linux big-platform-logo"></i>
-                                                </div>
+                                    <g:if test="${exportedResourceInstance.resource.linux}">
+                                        <div id="linux" class="platform-icon">
+                                            <a style="color: inherit">
+                                                <div class="platform" data-text="Linux (64 bits)" data-name="linux">
+                                                    <div class="row no-margin-bottom">
+                                                        <i class="fa fa-linux big-platform-logo"></i>
+                                                    </div>
 
-                                                <div class="platform-title row">
-                                                    Linux (64 bits)
+                                                    <div class="platform-title row">
+                                                        Linux (64 bits)
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </a>
-                                    </div>
+                                            </a>
+                                        </div>
+                                    </g:if>
 
                                     <g:if test="${exportedResourceInstance.resource.mac}">
                                         <div id="mac" class="platform-icon">

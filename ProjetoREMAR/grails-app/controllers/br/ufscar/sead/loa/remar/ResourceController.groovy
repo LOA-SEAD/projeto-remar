@@ -335,14 +335,15 @@ class ResourceController {
                 resourceInstance.comment = "Aprovado"
                 resourceInstance.save flush: true
 
-                if (resourceInstance.owner.username != 'admin') {
+                if (resourceInstance.owner.username != 'admin' && 
+                    resourceInstance.owner.username != 'loa') {
 
                     // noinspection GroovyAssignabilityCheck
                     Util.sendEmail(resourceInstance.owner.email,
                             "REMAR – O seu WAR \"${resourceInstance.name}\" foi aprovado!",
                             "<h3>O seu WAR \"${resourceInstance.name}\" foi aprovado! :)</h3> <br>"
                     )
-                }
+                } 
 
                 redirect controller: "process", action: "deploy", id: resourceInstance.uri
             } else {
@@ -448,8 +449,8 @@ class ResourceController {
         def model = [:]
         def threshold = 16
 
-        params.order = "desc"
-        params.sort = "submittedAt"
+        params.order = "asc"
+        params.sort = "name"
         params.max = params.max ? Integer.valueOf(params.max) : THRESHOLD
         params.offset = params.offset ? Integer.valueOf(params.offset) : 0
         params.text = params.text ? params.text : ''

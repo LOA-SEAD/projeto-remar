@@ -76,14 +76,17 @@
                                     </div>
                                 </g:if>
                                 <g:if test="${instance.resource.desktop}">
-                                    <div class="col s6 m4 l3">
-                                        <a target="_blank"
-                                           href="/published/${instance.processId}/desktop/${instance.resource.uri}-linux.zip"
-                                           class="tooltipped"
-                                           data-position="bottom" data-delay="50" data-tooltip="Linux">
-                                            <i class="fa fa-linux"></i>
-                                        </a>
-                                    </div>
+
+                                    <g:if test="${instance.resource.linux}">
+                                        <div class="col s6 m4 l3">
+                                            <a target="_blank"
+                                               href="/published/${instance.processId}/desktop/${instance.resource.uri}-linux.zip"
+                                               class="tooltipped"
+                                               data-position="bottom" data-delay="50" data-tooltip="Linux">
+                                                <i class="fa fa-linux"></i>
+                                            </a>
+                                        </div>
+                                    </g:if>
 
                                     <div class="col s6 m4 l3">
                                         <a target="_blank"
