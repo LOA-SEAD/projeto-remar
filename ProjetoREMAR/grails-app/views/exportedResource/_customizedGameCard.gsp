@@ -39,7 +39,9 @@
                                 </g:if>
                                 <g:if test="${instance.resource.desktop}">
                                     <i class="fa fa-windows tooltipped" data-tooltip="Windows"></i>
-                                    <i class="fa fa-linux tooltipped" data-tooltip="Linux"></i>
+                                    <g:if test="${instance.resource.linux}">
+                                        <i class="fa fa-linux tooltipped" data-tooltip="Linux"></i>
+                                    </g:if>
                                     <g:if test="${instance.resource.mac}">
                                         <i class="fa fa-apple tooltipped" data-tooltip="Mac"></i>
                                     </g:if>
