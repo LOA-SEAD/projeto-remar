@@ -75,6 +75,6 @@ class Resource {
     }
 
     boolean isLinux() {
-        return false // depois resolver (electron não está gerando linux)
+        return type == 'unity' // depois resolver (electron não está gerando linux)
     }
 }

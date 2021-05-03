@@ -45,33 +45,33 @@
                                  src="/published/${exportedResourceInstance.processId}/banner.png"/>
 
                             <p><span class="bold"><g:message code='exportedResource.label.gameName'
-                                                             default='Nome do jogo'/>:</span>${exportedResourceInstance.name}
+                                                             default='Nome do jogo'/>: </span>${exportedResourceInstance.name}
                             </p>
 
                             <p><span class="bold"><g:message code='exportedResource.label.category'
-                                                             default='Categoria'/>:</span>${exportedResourceInstance.resource.category.name}
+                                                             default='Categoria'/>: </span>${exportedResourceInstance.resource.category.name}
                             </p>
 
                             <p><span class="bold"><g:message code='exportedResource.label.author'
-                                                             default='Autor'/>:</span>${exportedResourceInstance.owner.username}
+                                                             default='Autor'/>: </span>${exportedResourceInstance.owner.username}
                             </p>
 
                             <p><span class="bold"><g:message code='exportedResource.label.customizedIn'
-                                                             default='Customizado em'/>:</span>
+                                                             default='Customizado em'/>: </span>
 
                                 <g:formatDate format="dd/MM/yyyy HH:mm"
                                               date="${createdAt}"/></p>
 
                             <p><span class="bold"><g:message code='exportedResource.label.basedInModel'
-                                                             default='Baseado no modelo'/>:</span>${exportedResourceInstance.resource.name}
+                                                             default='Baseado no modelo'/>: </span>${exportedResourceInstance.resource.name}
                             </p>
 
                             <p><span class="bold"><g:message code='exportedResource.label.contentField'
-                                                             default='Área de conteúdo'/>:</span>${exportedResourceInstance.contentArea}
+                                                             default='Área de conteúdo'/>: </span>${exportedResourceInstance.contentArea}
                             </p>
 
                             <p><span class="bold"><g:message code='exportedResource.label.specificContent'
-                                                             default='Conteúdo específico'/>:</span>${exportedResourceInstance.specificContent}
+                                                             default='Conteúdo específico'/>: </span>${exportedResourceInstance.specificContent}
                             </p>
 
                             <div class="row"></div>
