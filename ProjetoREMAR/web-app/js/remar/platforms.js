@@ -292,6 +292,7 @@ function validatePublish(){
 }
 
 function finishGame() {
+    $("#submitButton").addClass("disabled");
     var formData = new FormData();
     var name = $("#name");
     var contentArea = $('#content-area').val();
