@@ -1,4 +1,4 @@
-FROM loaufscar/projeto-remar:v1
+FROM loaufscar/projeto-remar:1.0.0
 
 RUN curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py; python get-pip.py; python -m pip install --upgrade "pip < 21.0"
 
