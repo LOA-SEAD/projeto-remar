@@ -6,6 +6,8 @@ import br.ufscar.sead.loa.remar.statistics.ChallengeStats
 import br.ufscar.sead.loa.remar.statistics.StatsProcessor
 import br.ufscar.sead.loa.remar.statistics.TimeStats
 import grails.converters.JSON
+import grails.plugins.rest.client.RestBuilder
+import grails.plugins.rest.client.RestResponse
 
 class StatsController {
 
@@ -1306,4 +1308,34 @@ class StatsController {
         }
     }
 
+    def get() { 
+
+        def rest = new RestBuilder()
+        RestResponse response = rest.get('http://localhost:8081/estados') {
+            contentType "application/json"
+        }
+
+        def resultado = response.json
+
+        println resultado
+
+        for (int i = 0; i < resultado.size(); i++)
+            println resultado[i].sigla
+
+        render response.json
+    }
+
+    def post() {
+
+        def rest = new RestBuilder()
+        RestResponse response = rest.post('http://localhost:8081/estados'){
+            contentType "application/json"
+            json {
+                sigla = "TS"
+                nome = "Teste"
+            }
+        }
+
+        render response.json
+    }
 }
