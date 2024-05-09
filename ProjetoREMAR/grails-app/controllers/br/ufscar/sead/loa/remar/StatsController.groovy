@@ -1311,31 +1311,27 @@ class StatsController {
     def get() { 
 
         def rest = new RestBuilder()
-        RestResponse response = rest.get('http://localhost:8081/estados') {
+        RestResponse response = rest.get('http://jsonplaceholder.typicode.com/posts') {
             contentType "application/json"
         }
-
-        def resultado = response.json
-
-        println resultado
-
-        for (int i = 0; i < resultado.size(); i++)
-            println resultado[i].sigla
-
+        
         render response.json
     }
 
     def post() {
 
         def rest = new RestBuilder()
-        RestResponse response = rest.post('http://localhost:8081/estados'){
+        RestResponse response = rest.post('http://jsonplaceholder.typicode.com/posts'){
             contentType "application/json"
             json {
-                sigla = "TS"
-                nome = "Teste"
+                body = "Teste Body"
+                title = "Teste Title"
+                userId = 1
             }
         }
 
         render response.json
     }
+
+    
 }
