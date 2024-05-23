@@ -282,6 +282,7 @@ function selectChallengeUser() {
 //função para criar a tabela de ranking
 ///////////////////////////
 function drawRanking() {
+    console.log("opa meu patrão")
     $.get("/stats/ranking?" + grupo + "&" + jogo, function(array) {
         if (array.length == 0) {
             var div = document.getElementById("rankingDiv");

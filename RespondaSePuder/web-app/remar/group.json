@@ -1,0 +1,8 @@
+{
+  "fixed": "true",
+  "levels": [
+    {"number": 1, "name": "Nível Fácil"},
+    {"number": 2, "name": "Nível Médio"},
+    {"number": 3, "name": "Nível Difícil"}
+  ]
+}

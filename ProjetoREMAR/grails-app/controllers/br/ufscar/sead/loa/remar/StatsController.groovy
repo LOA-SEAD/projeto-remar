@@ -6,8 +6,8 @@ import br.ufscar.sead.loa.remar.statistics.ChallengeStats
 import br.ufscar.sead.loa.remar.statistics.StatsProcessor
 import br.ufscar.sead.loa.remar.statistics.TimeStats
 import grails.converters.JSON
-import grails.plugins.rest.client.RestBuilder
-import grails.plugins.rest.client.RestResponse
+
+
 
 class StatsController {
 
@@ -83,16 +83,16 @@ class StatsController {
 
         if(exportedToGroup()) {
 
+
             RankingStats rankingStats = new RankingStats()
 
             def data = rankingStats.getData(params)
             data.userId = session.user.id as long
 
             try {
-                MongoHelper.instance.createCollection("rankingStats")
-                MongoHelper.instance.insertScoreToRanking(data)
-
+                RestHelper.instance.put('http://host.docker.internal:3000/stats/saveRankingStats',data)
             } catch (Exception e) {
+                e.printStackTrace();
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
             }
 
@@ -134,6 +134,7 @@ class StatsController {
         render buffer
     }
 
+    //isso é um teste?
     def showRankingStats() {
         def lista = MongoHelper.instance.getData("ranking")
         StringBuffer buffer = new StringBuffer();
@@ -182,10 +183,14 @@ class StatsController {
          */
 
         if (params.groupId && params.exportedResourceId) {
+            println("cheguei aqui")
 
             def group = Group.findById(params.groupId)
             def userGroups = UserGroup.findAllByGroup(group)
-            def resourceRanking = MongoHelper.instance.getRanking(params.exportedResourceId as Long)
+            def resourceRanking = RestHelper.instance.get('http://host.docker.internal:3000/stats/getRanking/$params.exportedResurceId')
+
+            println(resourceRanking);
+            
             def groupRanking = []
 
             if (resourceRanking != null) {
@@ -1307,31 +1312,4 @@ class StatsController {
             // TODO: render erro nos parametros
         }
     }
-
-    def get() { 
-
-        def rest = new RestBuilder()
-        RestResponse response = rest.get('http://jsonplaceholder.typicode.com/posts') {
-            contentType "application/json"
-        }
-        
-        render response.json
-    }
-
-    def post() {
-
-        def rest = new RestBuilder()
-        RestResponse response = rest.post('http://jsonplaceholder.typicode.com/posts'){
-            contentType "application/json"
-            json {
-                body = "Teste Body"
-                title = "Teste Title"
-                userId = 1
-            }
-        }
-
-        render response.json
-    }
-
-    
 }
