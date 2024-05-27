@@ -83,11 +83,11 @@ class StatsController {
 
         if(exportedToGroup()) {
 
-
             RankingStats rankingStats = new RankingStats()
 
             def data = rankingStats.getData(params)
             data.userId = session.user.id as long
+
 
             try {
                 RestHelper.instance.put('http://host.docker.internal:3000/stats/saveRankingStats',data)

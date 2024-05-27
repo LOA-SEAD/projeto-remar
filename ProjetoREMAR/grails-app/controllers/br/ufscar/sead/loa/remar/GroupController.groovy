@@ -496,7 +496,8 @@ class GroupController {
         def group = Group.findById(params.groupId)
         def userGroups = UserGroup.findAllByGroup(group)
         def resourceName = ExportedResource.findById(params.exportedResourceId).name
-        def resourceRanking = MongoHelper.instance.getRanking(params.exportedResourceId as Long)
+        def resourceRanking = RestHelper.instance.get('http://host.docker.internal:3000/stats/getRanking/'+params.exportedResourceId)
+        //def resourceRanking = MongoHelper.instance.getRanking(params.exportedResourceId as Long)
         def groupRanking = []
         def rankingMax = 10
         def rankingPosition = 0
@@ -506,7 +507,10 @@ class GroupController {
                 def entry = [:]
                 entry.user = User.findById(o.userId)
                 entry.score = o.score
-                entry.timestamp = o.timestamp.format("dd/MM/yyyy HH:mm:ss")
+                def timestamp = Date.parse("yyyy-MM-dd'T'HH:mm:ss",o.timestamp)
+                def teste = timestamp.format("dd/MM/yyyy HH:mm:ss")
+                entry.timestamp = timestamp.format("dd/MM/yyyy HH:mm:ss")
+                
 
                 groupRanking.add(entry)
                 rankingPosition = rankingPosition + 1

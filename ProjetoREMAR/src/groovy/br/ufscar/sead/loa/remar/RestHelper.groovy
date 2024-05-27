@@ -12,8 +12,7 @@ class RestHelper{
         RestResponse getResponse = this.rest.get(url){
             contentType "application/json"
         }
-
-        render getResponse.json
+        return getResponse.json
     }
 
     def post(String url,Object dataJson){
