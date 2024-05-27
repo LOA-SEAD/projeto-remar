@@ -507,8 +507,7 @@ class GroupController {
                 def entry = [:]
                 entry.user = User.findById(o.userId)
                 entry.score = o.score
-                def timestamp = Date.parse("yyyy-MM-dd'T'HH:mm:ss",o.timestamp)
-                def teste = timestamp.format("dd/MM/yyyy HH:mm:ss")
+                def timestamp = Date.parse("yyyy-MM-dd' 'HH:mm:ss",o.timestamp)
                 entry.timestamp = timestamp.format("dd/MM/yyyy HH:mm:ss")
                 
 

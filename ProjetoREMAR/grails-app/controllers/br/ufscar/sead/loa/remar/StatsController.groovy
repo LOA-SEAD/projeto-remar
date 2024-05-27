@@ -87,8 +87,7 @@ class StatsController {
 
             def data = rankingStats.getData(params)
             data.userId = session.user.id as long
-
-
+            data.timestamp = data.timestamp as String
             try {
                 RestHelper.instance.put('http://host.docker.internal:3000/stats/saveRankingStats',data)
             } catch (Exception e) {
@@ -183,8 +182,6 @@ class StatsController {
          */
 
         if (params.groupId && params.exportedResourceId) {
-            println("cheguei aqui")
-
             def group = Group.findById(params.groupId)
             def userGroups = UserGroup.findAllByGroup(group)
             def resourceRanking = RestHelper.instance.get('http://host.docker.internal:3000/stats/getRanking/$params.exportedResurceId')

@@ -32,7 +32,5 @@ class RestHelper{
             contentType "application/json"
             json(dataJson)
         }
-
-        render postResponse.json
     }
 }

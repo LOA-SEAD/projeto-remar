@@ -183,65 +183,6 @@ class MongoHelper {
         db.getCollection(collectionName).deleteOne(Filters.in("uri", value))
     }
 
-    def insertScoreToRanking(Object data) {
-        /*
-            A entrada no banco de dados para o ranking está estruturada da seguinte forma:
-            {id, exportedResourceId, ranking:[{userId, score, timestamp}]}
-        */
-        def rankingCollection = db.getCollection("ranking")
-        def collectionEntry = rankingCollection.find(new Document('exportedResourceId', data.exportedResourceId))
-
-        if (collectionEntry.first() != null) {
-            // Verifica se o usuário já tem uma pontuação para o jogo
-            collectionEntry.collect {
-                def pos = -1
-
-                it.ranking.eachWithIndex { obj, idx ->
-                    if (obj.userId as int == data.userId as int) {
-                        pos = idx
-                        return true // break
-                    }
-                    return false // continua
-                }
-
-                if (pos != -1) {
-                    // Se tiver, atualiza sua pontuação caso seja maior
-                    if ((it.ranking[pos].score as int) < (data.score as int)) {
-                        println "Updating user " + data.userId + " score"
-                        def selector = "ranking." + pos
-
-                        rankingCollection.updateOne(new Document("exportedResourceId", data.exportedResourceId),
-                                new Document('$set', new Document(selector, new Document()
-                                        .append("userId", data.userId)
-                                        .append("score", data.score as double)
-                                        .append("timestamp", data.timestamp)
-                                )))
-                    } else
-                        println "no score to update for user " + data.userId
-
-                } else {
-                    println "creating user " + data.userId + " score"
-                    // Senão, cria a entrada para esse usuário
-                    rankingCollection.updateOne(new Document("exportedResourceId", data.exportedResourceId),
-                            new Document('$push', new Document("ranking", new Document()
-                                    .append("userId", data.userId)
-                                    .append("score", data.score as double)
-                                    .append("timestamp", data.timestamp)
-                            )))
-                }
-            }
-        } else {
-            println "creating resource " + data.exportedResourceId + " ranking entry"
-
-            rankingCollection.insertOne(new Document("exportedResourceId", data.exportedResourceId).append("ranking",
-                    asList(new Document()
-                            .append("userId", data.userId)
-                            .append("score", data.score as double)
-                            .append("timestamp", data.timestamp)
-                    )))
-        }
-    }
-
     /**
     ==========================================
     **/
