@@ -26,6 +26,7 @@ class StatsController {
 
     def saveChallengeStats() {
 
+
         if (exportedToGroup()) {
 
             StatisticFactory factory      = StatisticFactory.instance
@@ -34,12 +35,14 @@ class StatsController {
             def userId             = session.user.id as long
             def exportedResourceId = params.exportedResourceId as int
             def data               = challengeStats.getData(params)
+            def parameters = [:] //os parametros enviados para a API em forma de mapa {userId,exportedResourceID,data}
+            parameters.userId = userId
+            parameters.exportedResourceId = exportedResourceId
+            parameters.data = data
+            parameters.data.timestamp = data.timestamp as String //para impedir mudança de formatação na conversão para JSON
 
             try {
-
-                MongoHelper.instance.createCollection("challengeStats")
-                MongoHelper.instance.insertStats("challengeStats", userId, exportedResourceId, data)
-
+                RestHelper.instance.put('http://host.docker.internal:3000/stats/saveChallengeStats',parameters)//chamada para API
             } catch (Exception e) {
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
             }
@@ -62,11 +65,14 @@ class StatsController {
             def exportedResourceId = params.exportedResourceId as int
             def data               = timeStats.getData(params)
 
+            def parameters = [:] //os parametros enviados para a API em forma de mapa {userId,exportedResourceID,data}
+            parameters.userId = userId
+            parameters.exportedResourceId = exportedResourceId
+            parameters.data = data
+            parameters.data.timestamp = data.timestamp as String
+
             try {
-
-                MongoHelper.instance.createCollection("timeStats")
-                MongoHelper.instance.insertStats("timeStats", userId, exportedResourceId, data)
-
+                RestHelper.instance.put('http://host.docker.internal:3000/stats/saveTimeStats',parameters)//chamada para API
             } catch (Exception e) {
                 System.err.println(e.getClass().getName() + ": " + e.getMessage())
             }
@@ -82,14 +88,12 @@ class StatsController {
     def saveRankingStats() {
 
         if(exportedToGroup()) {
-
             RankingStats rankingStats = new RankingStats()
-
             def data = rankingStats.getData(params)
             data.userId = session.user.id as long
-            data.timestamp = data.timestamp as String
+            data.timestamp = data.timestamp as String //para impedir mudança de formatação na conversão para JSON
             try {
-                RestHelper.instance.put('http://host.docker.internal:3000/stats/saveRankingStats',data)
+                RestHelper.instance.put('http://host.docker.internal:3000/stats/saveRankingStats',data)//chamada para API
             } catch (Exception e) {
                 e.printStackTrace();
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -180,14 +184,10 @@ class StatsController {
          *      groupId            -> identificador do grupo
          *      exportedResourceId -> identificador do recurso exportado
          */
-
         if (params.groupId && params.exportedResourceId) {
             def group = Group.findById(params.groupId)
             def userGroups = UserGroup.findAllByGroup(group)
-            def resourceRanking = RestHelper.instance.get('http://host.docker.internal:3000/stats/getRanking/$params.exportedResurceId')
-
-            println(resourceRanking);
-            
+            def resourceRanking = RestHelper.instance.get('http://host.docker.internal:3000/stats/ranking/'+params.exportedResourceId,{})//chamada para API
             def groupRanking = []
 
             if (resourceRanking != null) {
@@ -224,7 +224,10 @@ class StatsController {
                 it.user.id
             }
 
-            def resourceTime = MongoHelper.instance.getGameConclusionTime(params.exportedResourceId as int, users)
+            println('\n\n\nUsers: '+users)
+
+            def resourceTime = RestHelper.instance.get('http://host.docker.internal:3000/stats/conclusionTime/'+params.exportedResourceId,users)//chamada para API
+            //MongoHelper.instance.getGameConclusionTime(params.exportedResourceId as int, users)
             def usersTime = []
 
             if (resourceTime != null) {

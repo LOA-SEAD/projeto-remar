@@ -252,27 +252,6 @@ class MongoHelper {
         }
     }
 
-    //RANKING DOS JOGADORES DE UM JOGO
-    def getRanking(Long exportedResourceId) {
-        def rankingCollection = db.getCollection("ranking")
-        def collectionEntry = rankingCollection.find(new Document('exportedResourceId', exportedResourceId))
-
-        def ranking = []
-        if (collectionEntry.first() != null) {
-            collectionEntry.collect {
-                ranking = it.ranking.sort({ a, b ->
-                    b.score <=> a.score ?: a.timestamp <=> b.timestamp
-                })
-            }
-        }
-
-        // Para DEBUG -> descomente a linha abaixo
-        //println "ranking: " + ranking
-
-        if (ranking.size() == 0) println "ERROR: Could not return ranking for resource " + exportedResourceId
-        return ranking
-    }
-
     //TEMPO DE CONCLUSÃO DE JOGO
     def getGameConclusionTime (int exportedResourceId, List<Long> users) {
 

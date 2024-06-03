@@ -8,9 +8,10 @@ import grails.plugins.rest.client.RestResponse
 class RestHelper{
     def rest = new RestBuilder()
 
-    def get(String url){
+    def get(String url,Object dataJson){
         RestResponse getResponse = this.rest.get(url){
             contentType "application/json"
+            json(dataJson)
         }
         return getResponse.json
     }
