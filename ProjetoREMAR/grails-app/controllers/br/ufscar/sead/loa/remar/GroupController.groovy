@@ -496,7 +496,7 @@ class GroupController {
         def group = Group.findById(params.groupId)
         def userGroups = UserGroup.findAllByGroup(group)
         def resourceName = ExportedResource.findById(params.exportedResourceId).name
-        def resourceRanking = RestHelper.instance.get('http://host.docker.internal:3000/stats/ranking/'+params.exportedResourceId,{})//chamada para API (devo deixara aqui????)
+        def resourceRanking = RestHelper.instance.get('http://host.docker.internal:3000/stats/ranking/'+params.exportedResourceId)//chamada para API (devo deixara aqui????)
         def groupRanking = []
         def rankingMax = 10
         def rankingPosition = 0

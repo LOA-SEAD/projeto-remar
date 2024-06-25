@@ -255,6 +255,8 @@ class MongoHelper {
     //TEMPO DE CONCLUSÃO DE JOGO
     def getGameConclusionTime (int exportedResourceId, List<Long> users) {
 
+        println("cheguei em getGameConclusionTime");
+
         def timeCollection = getStats("timeStats", exportedResourceId, users)
 
         if(timeCollection.size() > 0) {

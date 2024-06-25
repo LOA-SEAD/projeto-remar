@@ -187,7 +187,7 @@ class StatsController {
         if (params.groupId && params.exportedResourceId) {
             def group = Group.findById(params.groupId)
             def userGroups = UserGroup.findAllByGroup(group)
-            def resourceRanking = RestHelper.instance.get('http://host.docker.internal:3000/stats/ranking/'+params.exportedResourceId,{})//chamada para API
+            def resourceRanking = RestHelper.instance.get('http://host.docker.internal:3000/stats/ranking/'+params.exportedResourceId)//chamada para API
             def groupRanking = []
 
             if (resourceRanking != null) {
@@ -223,17 +223,19 @@ class StatsController {
             def users = userGroups.collect {
                 it.user.id
             }
+            println("params.exportedResourceId: "+params.exportedResourceId);
+            println("users: "+users);
 
-            println('\n\n\nUsers: '+users)
-
-            def resourceTime = RestHelper.instance.get('http://host.docker.internal:3000/stats/conclusionTime/'+params.exportedResourceId,users)//chamada para API
+            def resourceTime = RestHelper.instance.get('http://host.docker.internal:3000/stats/conclusionTime/'+params.exportedResourceId+'&'+users)//chamada para API
             //MongoHelper.instance.getGameConclusionTime(params.exportedResourceId as int, users)
+    
             def usersTime = []
 
-            if (resourceTime != null) {
+            println("resourceTime: "+resourceTime)
 
+            if (resourceTime != null) {
                 for(o in resourceTime) {
-                    usersTime.add([User.findById(o.key).name, o.value / 60])
+                    usersTime.add([User.findById(o[0]).name, o[1] / 60])
                 }
             }
 
