@@ -247,7 +247,7 @@ class MongoHelper {
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return game info for exportedResource " + exportedResourceId
+            println "ERROR: Could not return game info for exportedResource (getGameInfo) " + exportedResourceId
             return null
         }
     }
@@ -293,7 +293,7 @@ class MongoHelper {
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            println "ERROR: Could not return conclusion time for resource(getGameConclusionTime) " + exportedResourceId
             return null
         }
     }
@@ -384,7 +384,7 @@ class MongoHelper {
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return level attempts for resource " + exportedResourceId
+            println "ERROR: Could not return level attempts for resource (getLevelAttempt) " + exportedResourceId
             return null
         }
     }
@@ -430,13 +430,13 @@ class MongoHelper {
             }
 
             // Para DEBUG -> descomente as linhas abaixo
-            //println "levelAttemptRatio: " + levelAttempts
+            println "levelAttemptRatio: " + levelAttempts
 
             return levelAttempts.sort { it.value[0] }
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return level attempts for resource " + exportedResourceId
+            println "ERROR: Could not return level attempts for resource (getLevelAttemptRatio)" + exportedResourceId
             return null
         }
     }
@@ -526,7 +526,7 @@ class MongoHelper {
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            println "ERROR: Could not return conclusion time for resource (getLevelTime) " + exportedResourceId
             return null
         }
     }
@@ -619,7 +619,7 @@ class MongoHelper {
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            println "ERROR: Could not return conclusion time for resource (getChallTime) " + exportedResourceId
             return null
         }
     }
@@ -655,7 +655,7 @@ class MongoHelper {
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return challenge attempts for resource " + exportedResourceId
+            println "ERROR: Could not return challenge attempts for resource (getChallAttempt) " + exportedResourceId
             return null
         }
     }
@@ -693,7 +693,7 @@ class MongoHelper {
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return challenge mistakes for resource " + exportedResourceId
+            println "ERROR: Could not return challenge mistakes for resource (getChallMistakes) " + exportedResourceId
             return null
         }
 
@@ -738,7 +738,7 @@ class MongoHelper {
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return challenge mistakes for resource " + exportedResourceId
+            println "ERROR: Could not return challenge mistakes for resource (getChallMistakesRatio) " + exportedResourceId
             return null
         }
 
@@ -773,7 +773,7 @@ class MongoHelper {
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            println "ERROR: Could not return conclusion time for resource (getChoiceFrequency) " + exportedResourceId
             return null
         }
 
@@ -812,7 +812,7 @@ class MongoHelper {
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            println "ERROR: Could not return conclusion time for resource (getPlayerChoiceFrequency) " + exportedResourceId
             return null
         }
     }
@@ -850,7 +850,7 @@ class MongoHelper {
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return level attempts for resource " + exportedResourceId
+            println "ERROR: Could not return level attempts for resource (getPlayerLevelAttempt) " + exportedResourceId
             return null
         }
     }
@@ -886,7 +886,7 @@ class MongoHelper {
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return challenge attempts for resource " + exportedResourceId
+            println "ERROR: Could not return challenge attempts for resource (getPlayerChallAttempt) " + exportedResourceId
             return null
         }
     }
@@ -927,7 +927,7 @@ class MongoHelper {
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return conclusion time for resource " + exportedResourceId
+            println "ERROR: Could not return conclusion time for resource (getPlayerLevelTime) " + exportedResourceId
             return null
         }
     }
@@ -965,7 +965,7 @@ class MongoHelper {
 
         } else {
             // TODO: Deveria enviar erro - e ao invés de printar ser log.debug
-            println "ERROR: Could not return challenge mistakes for resource " + exportedResourceId
+            println "ERROR: getPlayerChallMistakes Could not return challenge mistakes for resource " + exportedResourceId
             return null
         }
     }

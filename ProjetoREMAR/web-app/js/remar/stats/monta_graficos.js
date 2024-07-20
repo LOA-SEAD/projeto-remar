@@ -43,9 +43,9 @@ function pegaDados() {
 
 
     //chama as funções para montar os gráficos que não precisam de filtro
-    drawRanking();
-    drawConclusionTime();
-    drawUsersInLevels();
+    drawRanking(); //OK
+    drawConclusionTime(); //OK
+    drawUsersInLevels(); //OK
     drawLevelsAttempts();
     drawAvarageLevels();
 

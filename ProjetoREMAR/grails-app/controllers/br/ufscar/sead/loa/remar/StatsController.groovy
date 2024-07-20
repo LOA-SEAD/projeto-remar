@@ -116,7 +116,7 @@ class StatsController {
         }
         render buffer
     }
-
+/*
     def showTimeStats() {
         def lista = MongoHelper.instance.getData("timeStats")
         StringBuffer buffer = new StringBuffer();
@@ -126,7 +126,7 @@ class StatsController {
         }
         render buffer
     }
-
+*/
     def showChallengeStats() {
         def lista = MongoHelper.instance.getData("challengeStats")
         StringBuffer buffer = new StringBuffer();
@@ -168,7 +168,8 @@ class StatsController {
     def gameInfo() {
 
         if(params.exportedResourceId) {
-            def gameInfo = MongoHelper.instance.getGameInfo(params.exportedResourceId as int)
+            def gameInfo = RestHelper.instance.get('http://host.docker.internal:3000/stats/gameInfo/'+params.exportedResourceId as int)
+            //def gameInfo = MongoHelper.instance.getGameInfo(params.exportedResourceId as int)
             render gameInfo as JSON
         } else {
             // TODO: render erro nos parametros
@@ -223,15 +224,13 @@ class StatsController {
             def users = userGroups.collect {
                 it.user.id
             }
-            println("params.exportedResourceId: "+params.exportedResourceId);
-            println("users: "+users);
 
             def resourceTime = RestHelper.instance.get('http://host.docker.internal:3000/stats/conclusionTime/'+params.exportedResourceId+'&'+users)//chamada para API
-            //MongoHelper.instance.getGameConclusionTime(params.exportedResourceId as int, users)
     
             def usersTime = []
 
-            println("resourceTime: "+resourceTime)
+            //DEBUG: descomente a linha abaixo
+            //println("resourceTime: "+resourceTime)
 
             if (resourceTime != null) {
                 for(o in resourceTime) {
@@ -263,9 +262,14 @@ class StatsController {
             def users = userGroups.collect {
                 it.user.id
             }
+            def resourceLevels = RestHelper.instance.get('http://host.docker.internal:3000/stats/qntInLevels/'+params.exportedResourceId+'&'+users);
+         
 
-            def resourceLevels = MongoHelper.instance.getQntInLevels(params.exportedResourceId as int, users)
             def usersLevel = []
+
+            //DEBUG: descomente a linha abaixo
+            //println("resourceLevels: "+resourceLevels)
+
 
             if (resourceLevels != null) {
 
@@ -332,19 +336,27 @@ class StatsController {
             def users = userGroups.collect {
                 it.user.id
             }
-            def resourceAtt = MongoHelper.instance.getLevelAttemptRatio(params.exportedResourceId as int, users)
+            def resourceAtt = RestHelper.instance.get('http://host.docker.internal:3000/stats/levelAttemptRatio/'+params.exportedResourceId+'&'+users)
+            
+            //def resourceAtt = MongoHelper.instance.getLevelAttemptRatio(params.exportedResourceId as int, users)
+
             def groupLevelAtt = []
 
-            if (resourceAtt != null) {
+            //DEBUG: descomente a linha abaixo
+            
 
+            if (resourceAtt != null) {
                 def level, attempts, conclAttempts
                 def index
+                
+
 
                 for (entry in resourceAtt) {
+                    def entryArray = entry[0].split(',')            
 
-                    level         = entry.key.get(1)
-                    attempts      = entry.value.get(0)
-                    conclAttempts = entry.value.get(1)
+                    level         = entryArray[1]//entry.key.get(1)
+                    attempts      = entry[1][0]//entry.value.get(0)
+                    conclAttempts = entry[1][1]//entry.value.get(1)
 
                     index = groupLevelAtt.findIndexOf { it[0] == level }
 
@@ -382,7 +394,7 @@ class StatsController {
                 it.user.id
             }
 
-            def resourceAtt = MongoHelper.instance.getLevelAttemptRatio(params.exportedResourceId as int, users)
+            def resourceAtt = RestHelper.instance.get('http://host.docker.internal:3000/stats/levelAttemptRatio/'+params.exportedResourceId+'&'+users)
             def playersLevelAtt = [:]
 
             if (resourceAtt != null) {
@@ -391,10 +403,10 @@ class StatsController {
 
                 for (entry in resourceAtt) {
 
-                    user             = User.findById(entry.key.get(0)).name
-                    level            = entry.key.get(1)
-                    conclAttempts    = entry.value.get(1)
-                    notConclAttempts = entry.value.get(0) - conclAttempts
+                    user             = User.findById(entry[1][0] /*entry.value.get(0)*/).name
+                    level            = entry[0] //entry.key.get(1)
+                    conclAttempts    = entry[1][1] //entry.value.get(1)
+                    notConclAttempts = entry[1][0] - conclAttempts //entry.value.get(0)
 
                     if(playersLevelAtt.containsKey(level)) {
                         playersLevelAtt[level].add( [user, notConclAttempts, conclAttempts] )
@@ -429,7 +441,7 @@ class StatsController {
                 it.user.id
             }
 
-            def resourceAtt = MongoHelper.instance.getLevelAttemptRatio(params.exportedResourceId as int, users)
+            def resourceAtt = RestHelper.instance.get('http://host.docker.internal:3000/stats/levelAttemptRatio/'+params.exportedResourceId+'&'+users)
             def playersLevelAtt = [:]
 
             if (resourceAtt != null) {
@@ -438,10 +450,10 @@ class StatsController {
 
                 for (entry in resourceAtt) {
 
-                    user             = User.findById(entry.key.get(0)).name
-                    level            = entry.key.get(1)
-                    conclAttempts    = entry.value.get(1)
-                    notConclAttempts = entry.value.get(0) - conclAttempts
+                    user             = User.findById(entry[1][0] /*entry.value.get(0)*/).name
+                    level            = entry[0] //entry.key.get(1)
+                    conclAttempts    = entry[1][1] //entry.value.get(1)
+                    notConclAttempts = entry[1][0] - conclAttempts //entry.value.get(0)
 
                     if(playersLevelAtt.containsKey(user)) {
                         playersLevelAtt[user].add( [level, notConclAttempts, conclAttempts] )
@@ -535,7 +547,7 @@ class StatsController {
                 it.user.id
             }
 
-            def groupTimeLevel = MongoHelper.instance.getLevelTime(params.exportedResourceId as int, users)
+            def groupTimeLevel = RestHelper.instance.get('http://host.docker.internal:3000/stats/levelTime/'+params.exportedResourceId+'&'+users)
             def menor, maior, total, meio, mediana
             def soma = 0.0
             def timeLevel = []
@@ -716,7 +728,11 @@ class StatsController {
                 it.user.id
             }
 
-            def resourceAtt = MongoHelper.instance.getChallAttempt(params.exportedResourceId as int, users)
+            def resourceAtt = RestHelper.instance.get('http://host.docker.internal:3000/stats/challAttempt/'+params.exportedResourceId+'&'+users)
+            //def resourceAtt = MongoHelper.instance.getChallAttempt(params.exportedResourceId as int, users)
+            println('resourceAtt: ')
+            println(resourceAtt)
+            
             def groupChallAtt = [:]
 
             if (resourceAtt != null) {
@@ -724,10 +740,10 @@ class StatsController {
                 def level, challenge, attempt
 
                 for (entry in resourceAtt) {
-
-                    level     = entry.key.get(0)
-                    challenge = entry.key.get(1)
-                    attempt   = entry.value
+                    def parts = entry[0].split(", ")
+                    level     = parts[0]//entry.key.get(0)
+                    challenge = parts[1]//entry.key.get(1)
+                    attempt   = entry[1]//entry.value
 
                     if(groupChallAtt.containsKey(level)) {
                         groupChallAtt[level].add( [challenge, attempt] )
@@ -766,7 +782,8 @@ class StatsController {
                 it.user.id
             }
 
-            def resourceMiss = MongoHelper.instance.getChallMistakes(params.exportedResourceId as int, users)
+            def resourceMiss = RestHelper.instance.get('http://host.docker.internal:3000/stats/challMistakes/'+params.exportedResourceId+'&'+users);
+            //def resourceMiss = MongoHelper.instance.getChallMistakes(params.exportedResourceId as int, users)
             def groupChallMiss = [:]
 
             if (resourceMiss != null) {
@@ -1012,7 +1029,7 @@ class StatsController {
             def users = userGroups.collect {
                 it.user.id
             }
-
+            //def resourceAtt = RestHelper.instance.get('http://host.docker.internal:3000/stats/playerLevelAttemp/'+params.exportedResourceID+'&')
             def resourceAtt = MongoHelper.instance.getPlayerLevelAttempt(params.exportedResourceId as int, users)
             def playersLevelAtt = [:]
 

@@ -3,7 +3,6 @@ package br.ufscar.sead.loa.remar
 import grails.plugins.rest.client.RestBuilder
 import grails.plugins.rest.client.RestResponse
 
-
 @Singleton
 class RestHelper{
     def rest = new RestBuilder()
@@ -13,6 +12,7 @@ class RestHelper{
             contentType "application/json"
         }
         return getResponse.json
+        
     }
 
     def post(String url,Object dataJson){
