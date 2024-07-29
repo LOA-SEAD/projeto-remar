@@ -670,7 +670,8 @@ class StatsController {
                 it.user.id
             }
 
-            def groupTimeChall = MongoHelper.instance.getChallTime(params.exportedResourceId as int, users)
+            def groupTimeChall = RestHelper.instance.get('http://host.docker.internal:3000/stats/challTime/'+params.exportedResourceId+'&'+users)
+            //def groupTimeChall = MongoHelper.instance.getChallTime(params.exportedResourceId as int, users)
             def level, challenge, menor, maior, total, meio, mediana
             def soma = 0.0
             def timeChall = [:]
@@ -678,16 +679,26 @@ class StatsController {
             if (groupTimeChall != null) {
 
                 for (entry in groupTimeChall) {
+                    println("entry: "+entry)
 
-                    level     = entry.key.get(0)
-                    challenge = entry.key.get(1)
-                    menor = entry.value.first()
-                    maior = entry.value.last()
-                    total = entry.value.size()
+                    //def parts = entry[0].split(", ")
+                    //level     = parts[0]//entry.key.get(0)
+                    //challenge = parts[1]//entry.key.get(1)
+                    //attempt   = entry[1]//entry.value
+
+                    def key = entry[0].split(", ")
+                    level     = key[0] //entry.key.get(0)
+                    challenge = key[1] //entry.key.get(1)
+                    def value = entry[1];
+                    menor = value.first() //entry.value.first()
+                    maior = value.last() //entry.value.last()
+                    total = value.size() //entry.value.size()
+
+
                     meio = (int)(total/2)
-                    mediana = (total % 2 != 0) ? entry.value[meio] : (entry.value[meio] + entry.value[meio-1])/2
+                    mediana = (total % 2 != 0) ? value[meio] : (value[meio] + value[meio-1])/2
 
-                    for(time in entry.value)
+                    for(time in value)
                         soma += time
 
                     if(timeChall.containsKey(level))
@@ -730,8 +741,7 @@ class StatsController {
 
             def resourceAtt = RestHelper.instance.get('http://host.docker.internal:3000/stats/challAttempt/'+params.exportedResourceId+'&'+users)
             //def resourceAtt = MongoHelper.instance.getChallAttempt(params.exportedResourceId as int, users)
-            println('resourceAtt: ')
-            println(resourceAtt)
+        
             
             def groupChallAtt = [:]
 
