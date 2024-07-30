@@ -24,7 +24,8 @@ class StatsController {
         return (GroupExportedResources.findAllByExportedResource(ExportedResource.get(params.exportedResourceId)).size != 0)
     }
 
-    def saveChallengeStats() {
+    
+    def saveChallengeStats() {//OK
 
 
         if (exportedToGroup()) {
@@ -55,7 +56,7 @@ class StatsController {
         render status: 200
     }
 
-    def saveTimeStats() {
+    def saveTimeStats() {//OK
 
         if (exportedToGroup()) {
 
@@ -85,7 +86,7 @@ class StatsController {
         render status: 200
     }
 
-    def saveRankingStats() {
+    def saveRankingStats() {//OK
 
         if(exportedToGroup()) {
             RankingStats rankingStats = new RankingStats()
@@ -107,7 +108,8 @@ class StatsController {
         render status: 200
     }
 
-    def showDamageStats() {
+/*
+    def showDamageStats() {//TESTE
         def lista = MongoHelper.instance.getData("damageStats")
         StringBuffer buffer = new StringBuffer();
         for (Object o : lista) {
@@ -116,8 +118,7 @@ class StatsController {
         }
         render buffer
     }
-/*
-    def showTimeStats() {
+    def showTimeStats() {//TESTE
         def lista = MongoHelper.instance.getData("timeStats")
         StringBuffer buffer = new StringBuffer();
         for (Object o : lista) {
@@ -126,8 +127,7 @@ class StatsController {
         }
         render buffer
     }
-*/
-    def showChallengeStats() {
+    def showChallengeStats() {//TESTE
         def lista = MongoHelper.instance.getData("challengeStats")
         StringBuffer buffer = new StringBuffer();
         for (Object o : lista) {
@@ -136,9 +136,7 @@ class StatsController {
         }
         render buffer
     }
-
-    //isso é um teste?
-    def showRankingStats() {
+    def showRankingStats() {//TESTE
         def lista = MongoHelper.instance.getData("ranking")
         StringBuffer buffer = new StringBuffer();
         for (Object o : lista) {
@@ -147,8 +145,9 @@ class StatsController {
         }
         render buffer
     }
+*/
 
-    def groupUsers() {
+    def groupUsers() {//OK
 
         if (params.groupId) {
 
@@ -165,18 +164,23 @@ class StatsController {
         }
     }
 
-    def gameInfo() {
+    def gameInfo() {//NÃO SEI SE ESTÁ FUNCIONANDO
+
+        println("ENTREI EM GAMEINFO")
+
 
         if(params.exportedResourceId) {
-            def gameInfo = RestHelper.instance.get('http://host.docker.internal:3000/stats/gameInfo/'+params.exportedResourceId as int)
-            //def gameInfo = MongoHelper.instance.getGameInfo(params.exportedResourceId as int)
+            println("entrei no if de (GAMEINFO)")
+            def gameInfo = RestHelper.instance.get('http://host.docker.internal:3000/stats/gameInfo/'+params.exportedResourceId)
+            println("gameInfo: ")
+            println(gameInfo)
             render gameInfo as JSON
         } else {
             // TODO: render erro nos parametros
         }
     }
 
-    def ranking() {
+    def ranking() {//OK
         /*
          *  Retorna um JSON com maior pontuação dos jogadores
          *  [[nome, maior pontuação]]
@@ -207,7 +211,7 @@ class StatsController {
         }
     }
 
-    def conclusionTime() {
+    def conclusionTime() {//OK
         /*
          *  Retorna um JSON com menor tempo dos jogadores
          *  [[nome, menor tempo]]
@@ -245,7 +249,7 @@ class StatsController {
         }
     }
 
-    def quantityLevel() {
+    def quantityLevel() {//OK
         /*
          *  Retorna um JSON com quantidade de jogadores por nivel
          *  [[nivel, quantidade]]
@@ -285,7 +289,7 @@ class StatsController {
         }
     }
 
-    def levelAttempt() {
+    def levelAttempt() {//FAZER
         /*
          *  Retorna um JSON com quantidade de tentativas por nivel
          *  [[nivel, tentativas]]
@@ -319,7 +323,7 @@ class StatsController {
         }
     }
 
-    def levelAttempt2() {
+    def levelAttempt2() {//OK
         /*
          *  Retorna um JSON com quantidade de tentativas por nivel
          *  [[nivel, tentativas]]
@@ -338,7 +342,6 @@ class StatsController {
             }
             def resourceAtt = RestHelper.instance.get('http://host.docker.internal:3000/stats/levelAttemptRatio/'+params.exportedResourceId+'&'+users)
             
-            //def resourceAtt = MongoHelper.instance.getLevelAttemptRatio(params.exportedResourceId as int, users)
 
             def groupLevelAtt = []
 
@@ -352,11 +355,12 @@ class StatsController {
 
 
                 for (entry in resourceAtt) {
-                    def entryArray = entry[0].split(',')            
+                    def key = entry[0].split(',');
+                    def value = entry[1];           
 
-                    level         = entryArray[1]//entry.key.get(1)
-                    attempts      = entry[1][0]//entry.value.get(0)
-                    conclAttempts = entry[1][1]//entry.value.get(1)
+                    level         = key[1]//entry.key.get(1)
+                    attempts      = value[0]//entry.value.get(0)
+                    conclAttempts = value[1]//entry.value.get(1)
 
                     index = groupLevelAtt.findIndexOf { it[0] == level }
 
@@ -376,7 +380,7 @@ class StatsController {
         }
     }
 
-    def levelAttemptRatio() {
+    def levelAttemptRatio() {//OK
         /*
          *  Retorna um JSON com total de tentativas e tentativas concluídas por nível de cada aluno
          *  [[jogador, tentativas, tent. concluídas]]
@@ -423,7 +427,7 @@ class StatsController {
         }
     }
 
-    def playerAttemptRatio() {
+    def playerAttemptRatio() {//OK
         /*
          *  Retorna um JSON com total de tentativas e tentativas concluídas por nível de cada aluno
          *  [[jogador, tentativas, tent. concluídas]]
@@ -470,7 +474,7 @@ class StatsController {
         }
     }
 
-    def avgLevelTime() {
+    def avgLevelTime() {//FAZER
         /*
          *  Retorna um JSON com tempo médio gasto por nivel
          *  [[nivel, tempo1, tempo2]]
@@ -528,7 +532,7 @@ class StatsController {
         }
     }
 
-    def levelTime() {
+    def levelTime() {//OK
         /*
          *  Retorna um JSON com as seguintes infos de todos
          *  os tempos de conclusão por nível em minutos:
@@ -578,7 +582,7 @@ class StatsController {
         }
     }
 
-    def avgChallTime() {
+    def avgChallTime() {//FAZER
         /*
          *  Retorna um JSON com tempo médio gasto por desafio
          *  [level:[desafio, tempo1, tempo2]]
@@ -651,7 +655,7 @@ class StatsController {
         }
     }
 
-    def challTime() {
+    def challTime() {//OK
         /*
          *  Retorna um JSON com as seguintes infos de todos
          *  os tempos de conclusão por desafio em minutos:
@@ -679,17 +683,10 @@ class StatsController {
             if (groupTimeChall != null) {
 
                 for (entry in groupTimeChall) {
-                    println("entry: "+entry)
-
-                    //def parts = entry[0].split(", ")
-                    //level     = parts[0]//entry.key.get(0)
-                    //challenge = parts[1]//entry.key.get(1)
-                    //attempt   = entry[1]//entry.value
-
                     def key = entry[0].split(", ")
+                    def value = entry[1];
                     level     = key[0] //entry.key.get(0)
                     challenge = key[1] //entry.key.get(1)
-                    def value = entry[1];
                     menor = value.first() //entry.value.first()
                     maior = value.last() //entry.value.last()
                     total = value.size() //entry.value.size()
@@ -721,7 +718,7 @@ class StatsController {
         }
     }
 
-    def challAttempt() {
+    def challAttempt() {//OK
         /*
          *  Retorna um JSON com total de tentativas por desafio
          *  [level:[desafio, tentivas]]
@@ -740,7 +737,6 @@ class StatsController {
             }
 
             def resourceAtt = RestHelper.instance.get('http://host.docker.internal:3000/stats/challAttempt/'+params.exportedResourceId+'&'+users)
-            //def resourceAtt = MongoHelper.instance.getChallAttempt(params.exportedResourceId as int, users)
         
             
             def groupChallAtt = [:]
@@ -774,7 +770,7 @@ class StatsController {
         }
     }
 
-    def challMistake  () {
+    def challMistake  () {//OK
         /*
          *  Retorna um JSON com total de erros por desafio
          *  [level:[desafio, erros]]
@@ -793,7 +789,6 @@ class StatsController {
             }
 
             def resourceMiss = RestHelper.instance.get('http://host.docker.internal:3000/stats/challMistakes/'+params.exportedResourceId+'&'+users);
-            //def resourceMiss = MongoHelper.instance.getChallMistakes(params.exportedResourceId as int, users)
             def groupChallMiss = [:]
 
             if (resourceMiss != null) {
@@ -801,10 +796,12 @@ class StatsController {
                 def level, challenge, mistake
 
                 for (entry in resourceMiss) {
+                    def key = entry[0].split(", ");
+                    def value = entry[1];
 
-                    level     = entry.key.get(0)
-                    challenge = entry.key.get(1)
-                    mistake   = entry.value
+                    level     = key[0] //entry.key.get(0)
+                    challenge = key[1] //entry.key.get(1)
+                    mistake   = value  //entry.value
 
                     if(groupChallMiss.containsKey(level)) {
                         groupChallMiss[level].add( [challenge, mistake] )
@@ -825,7 +822,7 @@ class StatsController {
         }
     }
 
-    def challMistakeRatio() {
+    def challMistakeRatio() {//FAZER
         /*
          *  Retorna um JSON com total de tentativas e tentativas concluídas por desafio de cada aluno
          *  [level:
@@ -882,7 +879,7 @@ class StatsController {
         }
     }
 
-    def choiceFrequency  ()     {
+    def choiceFrequency  (){//FAZER
         /*
          *  Retorna um JSON com frequencia de escolhas por desafio
          *  [level:[desafio, tentivas]]
@@ -942,7 +939,10 @@ class StatsController {
         }
     }
 
-    def playerChoiceFrequency  () {
+
+
+//PLAYER INDIVIDUAL
+    def playerChoiceFrequency  () {//FAZER
         /*
          *  Retorna um JSON com frequencia de escolhas por desafio
          *  [level:[desafio, tentivas]]
@@ -1022,7 +1022,7 @@ class StatsController {
         }
     }
 
-    def playerLevelAttempt() {
+    def playerLevelAttempt() {//FAZER
         /*
          *  Retorna um JSON com quantidade de tentativas por nivel de cada aluno
          *  [[nivel, tentativas]]
@@ -1068,7 +1068,7 @@ class StatsController {
         }
     }
 
-    def playerChallAttempt() {
+    def playerChallAttempt() {//FAZER
         /*
          *  Retorna um JSON com total de tentativas por desafio de cada aluno
          *  [level:[desafio, tentivas]]
@@ -1120,7 +1120,7 @@ class StatsController {
         }
     }
 
-    def playerLevelTime() {
+    def playerLevelTime() {//FAZER
         /*
          *  Retorna um JSON com os tempos gastos de cada aluno por nivel
          *  [[nivel, tempo]]
@@ -1180,7 +1180,7 @@ class StatsController {
         }
     }
 
-    def playerLevelTime2() {
+    def playerLevelTime2() {//FAZER
         /*
          *  Retorna um JSON com os tempos gastos de cada aluno por nivel
          *  [[nivel, tempo]]
@@ -1231,7 +1231,7 @@ class StatsController {
         }
     }
 
-    def playerChallMistake  () {
+    def playerChallMistake  () {//FAZER
         /*
          *  Retorna um JSON com total de erros por desafio
          *  [level:[desafio, erros]]
@@ -1282,7 +1282,7 @@ class StatsController {
         }
     }
 
-    def playerChallTime() {
+    def playerChallTime() {//FAZER
         /*
          *  Retorna um JSON com maior e menor tempo gastos de cada desafio por aluno
          *  [level:[desafio, tempo1, tempo2]]
