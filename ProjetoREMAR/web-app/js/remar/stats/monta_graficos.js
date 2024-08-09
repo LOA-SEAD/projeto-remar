@@ -46,8 +46,8 @@ function pegaDados() {
     drawRanking(); //OK
     drawConclusionTime(); //OK
     drawUsersInLevels(); //OK
-    drawLevelsAttempts();
-    drawAvarageLevels();
+    drawLevelsAttempts();//OK
+    drawAvarageLevels();//OK
 
     //esconde a div de estatisticas por aluno
     document.getElementById("estatisticasAlunoDiv").style.display = "none";
@@ -86,7 +86,7 @@ function montaComboLevel() {
 ///////////////////////////
 //função para montar o combo de níveis (por aluno)
 ///////////////////////////
-function montaComboLevelUser() {
+function montaComboLevelUser() {//OK
     //bloqueia a primeira opção do combobox (Selecione...)
     document.getElementById('defaultSelectLevelUser').disabled = true;
     //seleciona a primeira opção do combobox (Selecione...)
@@ -101,7 +101,7 @@ function montaComboLevelUser() {
 ///////////////////////////
 //função para montar o combo de desafios
 ///////////////////////////
-function montaComboChallenge(nivel) {
+function montaComboChallenge(nivel) {//OK
     //limpa combobox
     document.getElementById('cmbSelectChallenge').options.length = 1;
 
@@ -128,7 +128,7 @@ function montaComboChallenge(nivel) {
 ///////////////////////////
 //função para montar o combo de desafios por aluno
 ///////////////////////////
-function montaComboChallengeUser(nivel) {
+function montaComboChallengeUser(nivel) {//OK
     //limpa combobox
     document.getElementById('cmbSelectChallengeUser').options.length = 1;
 
@@ -303,7 +303,7 @@ function drawRanking() {
 ///////////////////////////
 //função para criar o gráfico de tempo de conclusão
 ///////////////////////////
-function drawConclusionTime() {
+function drawConclusionTime() {//OK
     $.get("/stats/conclusionTime?" + grupo + "&" + jogo, function(array) {
         if (array.length == 0) {
             var div = document.getElementById("conclusionTimeDiv");
@@ -334,7 +334,7 @@ function drawConclusionTime() {
 ///////////////////////////
 //função para criar o gráfico de usuários por nível
 ///////////////////////////
-function drawUsersInLevels() {
+function drawUsersInLevels() {//OK
     $.get("/stats/quantityLevel?" + grupo + "&" + jogo, function(array) {
         if (array.length == 0) {
             var div = document.getElementById("usersLevelsDiv");
@@ -373,7 +373,7 @@ function drawUsersInLevels() {
 ///////////////////////////
 //função para criar o gráfico de tentativas por nível
 ///////////////////////////
-function drawLevelsAttempts() {
+function drawLevelsAttempts() {//OK
     $.get("/stats/levelAttempt2?" + grupo + "&" + jogo, function(array) {
         if (array.length == 0) {
             var div = document.getElementById("levelsAttemptsDiv");
@@ -403,7 +403,7 @@ function drawLevelsAttempts() {
 ///////////////////////////
 //função para criar o gráfico de média de tempo por nível
 ///////////////////////////
-function drawAvarageLevels() {
+function drawAvarageLevels() {//OK
     $.get("/stats/levelTime?" + grupo + "&" + jogo, function(array) {
         if (array.length == 0) {
             var div = document.getElementById("avarageLevelTimeDiv");
@@ -464,7 +464,7 @@ function drawAvarageLevels() {
     });
 }*/
 
-function drawLevelDetail(nivel) {
+function drawLevelDetail(nivel) {//OK
     $.get("/stats/levelAttemptRatio?" + grupo + "&" + jogo, function(array) {
         if (!(nivel in array)) {
             var div = document.getElementById("levelDetailDiv");
@@ -500,7 +500,7 @@ function drawLevelDetail(nivel) {
 ///////////////////////////
 //função para criar o gráfico de desafios com maior taxa de erro
 ///////////////////////////
-function drawChallengesErrors(nivel) {
+function drawChallengesErrors(nivel) {//OK
     $.get("/stats/challMistake?" + grupo + "&" + jogo, function(array) {
         if (!(nivel in array)) {
             var div = document.getElementById("challengesErrorsDiv");
@@ -537,7 +537,7 @@ function drawChallengesErrors(nivel) {
 ///////////////////////////
 //função para criar o gráfico de tentativas por desafio
 ///////////////////////////
-function drawChallengesAttempts(nivel) {
+function drawChallengesAttempts(nivel) {//OK
     $.get("/stats/challAttempt?" + grupo + "&" + jogo, function(array) {
         if (!(nivel in array)) {
             var div = document.getElementById("challengesAttemptsDiv");
