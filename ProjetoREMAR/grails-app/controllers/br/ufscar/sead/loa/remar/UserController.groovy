@@ -90,17 +90,18 @@ class UserController {
                 def resp = rest.get("https://www.google.com/recaptcha/api/siteverify?secret=${grailsApplication.config.recaptchaSecret}&response=${captcha}&remoteip=${userIP}")
                 if (resp.json.success == true) {
                     def userList = User.findAllByEmail(params.email)
+                    def user = userList.get(0)
+                    def name = "${user.firstName} ${user.lastName}"
                     if (userList.size() > 0) {
                         String message = "";
 
                         if (userList.size() == 1) {
-                            def user = userList.get(0)
                             def token = new Token(token: RandomStringUtils.random(50, true, true), owner: user, type: 'password_reset')
                             token.save flush: true
                             log.debug token.errors
                             def url = "http://${request.serverName}/user/password/reset?t=${token.token}"
 
-                            message += "<h3>Prezado(a) ${user.firstName} ${user.lastName},  </h3> <br>" +
+                            message += "<h3>Prezado(a) ${name},  </h3> <br>" +
                                     "<p>Voc&ecirc; encontra-se cadastrado(a) com o <i>Login:</i> <b>${user.username}</b> </p> <br>" +
                                     "<p>Para dar continuidade a sua solicita&ccedil;&atilde;o, acesse o <i>link</i>  abaixo. </p> <br>" +
                                     "<p> ${url} </p> <br>" +
@@ -128,14 +129,14 @@ class UserController {
                                     "<td align=\"center\"><i>Link</i></td>" +
                                     "</tr>"
 
-                            userList.each { user ->
-                                def token = new Token(token: RandomStringUtils.random(50, true, true), owner: user, type: 'password_reset')
+                            userList.each { u ->
+                                def token = new Token(token: RandomStringUtils.random(50, true, true), owner: u, type: 'password_reset')
                                 token.save flush: true
                                 log.debug token.errors
                                 def url = "http://${request.serverName}/user/password/reset?t=${token.token}"
                                 message += "<tr>" +
-                                        "<td align=\"center\">${user.username}</td>" +
-                                        "<td>${user.firstName} ${user.lastName}</td>" +
+                                        "<td align=\"center\">${u.username}</td>" +
+                                        "<td>${u.firstName} ${u.lastName}</td>" +
                                         "<td>${url}</td>" +
                                         "</tr>"
                             }
@@ -157,7 +158,7 @@ class UserController {
                                     "<hr>"
                         }
 
-                        Util.sendEmail(params.email, "Recuperar dados cadastrados", message)
+                        Util.sendEmail(name, params.email, "Recuperar dados cadastrados", message)
                         render view: "/user/password/emailSent", model: [email: params.email]
                     } else {
                         flash.message = message(code: "error.mail")
@@ -216,7 +217,24 @@ class UserController {
             def link = "http://${request.serverName}/user/account/confirm/${token.token}"
 
             // noinspection GroovyAssignabilityCheck
-            def message = "<h3>Prezado(a) ${instance.firstName} ${instance.lastName},  </h3> <br>" +
+            //def message = "<h3>Prezado(a) ${instance.firstName} ${instance.lastName},  </h3> <br>" +
+            //        "<p>Seu cadastro, <i>Login:</i> <b>${instance.username}</b>, foi realizado com sucesso.</p> <br>" +
+            //        "<p>Para confirmar seu cadastro, acesse o <i>link</i>  abaixo. </p> <br>" +
+            //        "${link} <br><br>" +
+            //        "Atenciosamente, <br>" +
+            //        "<br>" +
+            //        "Equipe REMAR <br>" +
+            //        "Recursos Educacionais Multiplataforma Abertos na Rede <br>" +
+            //        "<br>" +
+            //        "<hr>" +
+            //        "Este &eacute; um e-mail autom&aacute;tico. N&atilde;o &eacute; necess&aacute;rio respond&ecirc;-lo. <br>" +
+            //        "<br>" +
+            //        "Caso tenha recebido esta mensagem por engano, por favor, apague-a.  <br>" +
+            //        "<br>" +
+            //        "Agradecemos sua coopera&ccedil;&atilde;o. <br>" +
+            //        "<hr>"
+            def name = "${instance.firstName} ${instance.lastName}"
+            def message = "<h3>Prezado(a) ${name},  </h3> <br>" +
                     "<p>Seu cadastro, <i>Login:</i> <b>${instance.username}</b>, foi realizado com sucesso.</p> <br>" +
                     "<p>Para confirmar seu cadastro, acesse o <i>link</i>  abaixo. </p> <br>" +
                     "${link} <br><br>" +
@@ -226,14 +244,14 @@ class UserController {
                     "Recursos Educacionais Multiplataforma Abertos na Rede <br>" +
                     "<br>" +
                     "<hr>" +
-                    "Este &eacute; um e-mail autom&aacute;tico. N&atilde;o &eacute; necess&aacute;rio respond&ecirc;-lo. <br>" +
+                    "Este é um e-mail automático. Não é necessário respondê-lo. <br>" +
                     "<br>" +
                     "Caso tenha recebido esta mensagem por engano, por favor, apague-a.  <br>" +
                     "<br>" +
-                    "Agradecemos sua coopera&ccedil;&atilde;o. <br>" +
+                    "Agradecemos sua cooperação. <br>" +
                     "<hr>"
-
-            Util.sendEmail(instance.email, "Cadastro - REMAR", message)
+            
+            Util.sendEmail(name, instance.email, "Cadastro - REMAR", message)
             redirect uri: "/signup/success/$instance.id"
         } else {
             // TODO

@@ -43,6 +43,8 @@ grails.project.dependency.resolution = {
         mavenLocal()
         grailsCentral()
         mavenCentral()
+
+        mavenRepo "https://repo1.maven.org/maven2/"
     }
 
     dependencies {

@@ -513,7 +513,8 @@ class AdminController {
             log.debug(user.errors)
         } else {
             def url = "http://${request.serverName}"
-            def mensagem = "<h3>Prezado(a) ${user.firstName} ${user.lastName}, bem-vindo ao REMAR!</h3>\n" +
+            def name = "${user.firstName} ${user.lastName}"
+            def mensagem = "<h3>Prezado(a) ${name}, bem-vindo ao REMAR!</h3>\n" +
                     "<br/>\n" +
                     "<p>Voc&ecirc; foi cadastrado pelo administrador da plataforma com as seguintes credenciais:</p>\n" +
                     "<br/>\n" +
@@ -537,7 +538,7 @@ class AdminController {
                     "<br>" +
                     "Agradecemos sua coopera&ccedil;&atilde;o. <br>" +
                     "**********************************************************************"
-            Util.sendEmail(email, "Bem-vindo ao REMAR", mensagem)
+            Util.sendEmail(name, email, "Bem-vindo ao REMAR", mensagem)
         }
 
     }

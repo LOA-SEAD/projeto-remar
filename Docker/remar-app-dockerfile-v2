@@ -2,7 +2,13 @@ FROM loaufscar/projeto-remar:1.0.0
 
 RUN curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py; python get-pip.py; python -m pip install --upgrade "pip < 21.0"
 
-RUN apt update; apt install lame mpg123 zipalign python-pip; pip install setuptools --upgrade; pip install gTTS; 
+RUN apt-get update
+
+RUN apt-get -y install lame mpg123 zipalign python-pip
+
+RUN pip install setuptools --upgrade
+
+RUN pip install gTTS;
 
 ENTRYPOINT ["../entrypoint_remar.sh"]
 

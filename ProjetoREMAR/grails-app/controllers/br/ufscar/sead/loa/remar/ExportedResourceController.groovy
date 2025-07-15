@@ -801,6 +801,7 @@ class ExportedResourceController {
                 String text = params.text
                 def link = "http://${request.serverName}:${request.serverPort}/exported-resource/info/${params.exportedResourceId}"
                 Util.sendEmail(
+                        "REMAR - UFSCar",
                         "remar@sead.ufscar.br",
                         "Reportando abuso - Remar - ${exportedResource.name}",
                         "<h3>Reportado por: ${user.username} (${user.email}) </h3> <p> Mensagem: ${text} </p> <p> Link para o recurso reportado: ${link}</p>")

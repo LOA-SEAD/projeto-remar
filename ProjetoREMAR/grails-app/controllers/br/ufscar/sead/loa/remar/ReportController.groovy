@@ -68,7 +68,7 @@ class ReportController {
                            "<strong>Navegador</strong>: ${reportInstance.browser} <br />" +
                            "<strong>URL</strong>: ${reportInstance.url} <br />"
 
-        Util.sendEmail(emailRecipient, emailSubject, emailMessage)
+        Util.sendEmail("Administrador - REMAR", emailRecipient, emailSubject, emailMessage)
 
         render status:200
     }

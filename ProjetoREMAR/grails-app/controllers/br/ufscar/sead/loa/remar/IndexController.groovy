@@ -1,10 +1,5 @@
 package br.ufscar.sead.loa.remar
-
 import grails.util.Environment
-
-import static br.ufscar.sead.loa.remar.Util.THRESHOLD
-import static br.ufscar.sead.loa.remar.Util.THRESHOLD
-import static br.ufscar.sead.loa.remar.Util.THRESHOLD
 import static br.ufscar.sead.loa.remar.Util.THRESHOLD
 
 class IndexController {
@@ -18,6 +13,7 @@ class IndexController {
                 //model.resourceInstanceList = Resource.findAllByStatus('approved', [max: 12, sort: ["submittedAt" : "desc"]])
                 //model.userName = session.user.firstName
                 //render view: "dashboard", model: model
+
                 forward (controller:'resource', action:'customizableGames')
         } else {
             respond Announcement.list(max: 4, sort: "dateCreated")

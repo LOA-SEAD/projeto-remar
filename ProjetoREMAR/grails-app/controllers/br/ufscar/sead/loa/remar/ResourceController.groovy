@@ -256,7 +256,8 @@ class ResourceController {
         if (!status) {
             resourceInstance.comment = comment
             if (resourceInstance.status == "rejected") {
-                Util.sendEmail(resourceInstance.owner.email,
+                def name = "${resourceInstance.owner.firstName} ${resourceInstance.owner.lastName}"
+                Util.sendEmail(name, resourceInstance.owner.email,
                         "REMAR – O seu WAR \"${resourceInstance.name}\" foi rejeitado!",
                         "<h3>O seu WAR \"${resourceInstance.name}\" foi rejeitado pois ${comment}</h3> <br> "
                 )
@@ -339,7 +340,8 @@ class ResourceController {
                     resourceInstance.owner.username != 'loa') {
 
                     // noinspection GroovyAssignabilityCheck
-                    Util.sendEmail(resourceInstance.owner.email,
+                    def name = "${resourceInstance.owner.firstName} ${resourceInstance.owner.lastName}"
+                    Util.sendEmail(name, resourceInstance.owner.email,
                             "REMAR – O seu WAR \"${resourceInstance.name}\" foi aprovado!",
                             "<h3>O seu WAR \"${resourceInstance.name}\" foi aprovado! :)</h3> <br>"
                     )
